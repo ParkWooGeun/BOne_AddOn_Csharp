@@ -6,7 +6,7 @@ namespace PSH_BOne_AddOn
 	static class SubMain
     {
         /// <summary>
-        /// 최초실행 Method
+        /// 최초실행 Method(Merge Test용 주석)
         /// </summary>
         static void Main()
         {

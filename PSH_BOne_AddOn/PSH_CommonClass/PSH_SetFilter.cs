@@ -242,8 +242,9 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PY526"); //임금피크인원현황
             oFilter.AddEx("PH_PY999"); //사용자권한관리
 
-            //정산관리
-            oFilter.AddEx("PH_PY401"); //전근무지등록
+
+			//정산관리
+			oFilter.AddEx("PH_PY401"); //전근무지등록
 			oFilter.AddEx("PH_PY402"); //정산기초자료 등록
 			oFilter.AddEx("PH_PY405"); //의료비등록
 			oFilter.AddEx("PH_PY407"); //기부금등록
@@ -317,7 +318,11 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY034"); //공용분개처리
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
             oFilter.AddEx("PH_PY135"); //급상여분개처리
-        }
+
+            oFilter.AddEx("PS_MM400"); //재고이동처리
+			oFilter.AddEx("PS_DateChange"); //날짜 수정 등록
+			oFilter.AddEx("PS_DateCommit"); //날짜 승인
+		}
 
 		private static void KEY_DOWN(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
@@ -451,7 +456,10 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
             oFilter.AddEx("PH_PY135"); //급상여분개처리
             oFilter.AddEx("PH_PY136"); //급상여분개처리 배부규칙설정
-        }
+
+            oFilter.AddEx("PS_MM400"); //재고이동처리
+			oFilter.AddEx("PS_DateCommit"); //날짜 승인
+		}
 
 		private static void GOT_FOCUS(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
@@ -634,8 +642,9 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PY526"); //임금피크인원현황
             oFilter.AddEx("PH_PY999"); //사용자권한관리
 
-            //정산관리
-            oFilter.AddEx("PH_PY401"); //전근무지등록
+
+			//정산관리
+			oFilter.AddEx("PH_PY401"); //전근무지등록
 			oFilter.AddEx("PH_PY402"); //정산기초자료 등록
 			oFilter.AddEx("PH_PY405"); //의료비등록
 			oFilter.AddEx("PH_PY407"); //기부금등록
@@ -681,7 +690,9 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY034"); //공용분개처리
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
             oFilter.AddEx("PH_PY135"); //급상여분개처리
-        }
+			oFilter.AddEx("PS_DateChange"); //날짜 수정 등록
+			oFilter.AddEx("PS_DateCommit"); //날짜 승인
+		}
 
 		private static void LOST_FOCUS(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
@@ -885,8 +896,9 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PY526"); //임금피크인원현황
             oFilter.AddEx("PH_PY999"); //사용자권한관리
 
-            //정산관리
-            oFilter.AddEx("PH_PY402"); //정산기초자료등록
+
+			//정산관리
+			oFilter.AddEx("PH_PY402"); //정산기초자료등록
 			oFilter.AddEx("PH_PY405"); //의료비등록
 			oFilter.AddEx("PH_PY407"); //기부금등록
 			oFilter.AddEx("PH_PY409"); //기부금조정명세등록
@@ -922,7 +934,11 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY032"); //사용외출등록
 			oFilter.AddEx("PH_PY034"); //공용분개처리
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
-        }
+
+            oFilter.AddEx("PS_MM400"); //재고이동처리
+			oFilter.AddEx("PS_DateChange"); //날짜 수정 등록
+			oFilter.AddEx("PS_DateCommit"); //날짜 승인
+		}
 
 		private static void CLICK(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
@@ -1113,8 +1129,9 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PY526"); //임금피크인원현황
             oFilter.AddEx("PH_PY999"); //사용자권한관리
 
-            //정산관리
-            oFilter.AddEx("PH_PY401"); //전근무지등록
+
+			//정산관리
+			oFilter.AddEx("PH_PY401"); //전근무지등록
 			oFilter.AddEx("PH_PY402"); //정산기초자료 등록
 			oFilter.AddEx("PH_PY405"); //의료비등록
 			oFilter.AddEx("PH_PY407"); //기부금등록
@@ -1161,7 +1178,9 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY315"); //개인별대부금잔액현황
 			oFilter.AddEx("PH_PY034"); //공용분개처리
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
-        }
+			oFilter.AddEx("PS_DateChange"); //날짜 수정 등록
+			oFilter.AddEx("PS_DateCommit"); //날짜 승인
+		}
 
 		private static void DOUBLE_CLICK(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
@@ -1404,8 +1423,9 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PY526"); //임금피크인원현황
             oFilter.AddEx("PH_PY999"); //사용자권한관리
 
-            //정산관리
-            oFilter.AddEx("PH_PY401"); //전근무지등록
+
+			//정산관리
+			oFilter.AddEx("PH_PY401"); //전근무지등록
 			oFilter.AddEx("PH_PY402"); //정산기초자료 등록
 			oFilter.AddEx("PH_PY405"); //의료비등록
 			oFilter.AddEx("PH_PY407"); //기부금등록
@@ -1462,7 +1482,11 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY315"); //개인별대부금잔액현황
 			oFilter.AddEx("PH_PY034"); //공용분개처리
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
-        }
+
+            oFilter.AddEx("PS_MM400"); //재고이동처리
+			oFilter.AddEx("PS_DateChange"); //날짜 수정 등록
+			oFilter.AddEx("PS_DateCommit"); //날짜 승인
+		}
 
 		private static void MATRIX_LOAD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
@@ -1533,6 +1557,8 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY315"); //개인별대부금잔액현황
 			oFilter.AddEx("PH_PY034"); //공용분개처리
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
+
+            oFilter.AddEx("PS_MM400"); //재고이동처리
         }
 
 		private static void DATASOURCE_LOAD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1746,8 +1772,9 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PY526"); //임금피크인원현황
             oFilter.AddEx("PH_PY999"); //사용자권한관리
 
-            //정산관리
-            oFilter.AddEx("PH_PY401"); //전근무지등록
+
+			//정산관리
+			oFilter.AddEx("PH_PY401"); //전근무지등록
 			oFilter.AddEx("PH_PY402"); //정산기초자료 등록
 			oFilter.AddEx("PH_PY405"); //의료비등록
 			oFilter.AddEx("PH_PY407"); //기부금등록
@@ -1819,7 +1846,11 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY315"); //개인별대부금잔액현황
 			oFilter.AddEx("PH_PY034"); //공용분개처리
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
-        }
+
+            oFilter.AddEx("PS_MM400"); //재고이동처리
+			oFilter.AddEx("PS_DateChange"); //날짜 수정 등록
+			oFilter.AddEx("PS_DateCommit"); //날짜 승인
+		}
 
 		private static void FORM_UNLOAD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
@@ -2011,8 +2042,9 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PY526"); //임금피크인원현황
             oFilter.AddEx("PH_PY999"); //사용자권한관리
 
-            //정산관리
-            oFilter.AddEx("PH_PY401"); //전근무지등록
+
+			//정산관리
+			oFilter.AddEx("PH_PY401"); //전근무지등록
 			oFilter.AddEx("PH_PY402"); //정산기초자료 등록
 			oFilter.AddEx("PH_PY405"); //의료비등록
 			oFilter.AddEx("PH_PY407"); //기부금등록
@@ -2082,7 +2114,11 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY315"); //개인별대부금잔액현황
 			oFilter.AddEx("PH_PY034"); //공용분개처리
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
-        }
+
+            oFilter.AddEx("PS_MM400"); //재고이동처리
+			oFilter.AddEx("PS_DateChange"); //날짜 수정 등록
+			oFilter.AddEx("PS_DateCommit"); //날짜 승인
+		}
 
 		private static void FORM_ACTIVATE(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
@@ -2181,6 +2217,8 @@ namespace PSH_BOne_AddOn
 
 			//근태관리
 			oFilter.AddEx("PH_PY677"); //근태기찰이상자 수정
+
+            oFilter.AddEx("PS_MM400"); //재고이동처리
         }
 
 		private static void FORM_KEY_DOWN(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)

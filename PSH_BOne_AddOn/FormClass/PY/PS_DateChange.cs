@@ -908,7 +908,7 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                sQry = "EXEC PS_DateChange_03 '" + BPLId + "', '" + ObjectCode + "', '" + CreateUser + "', '";
+                sQry = "EXEC PS_DateChange_02 '" + BPLId + "', '" + ObjectCode + "', '" + CreateUser + "', '";
                 sQry = sQry + CreateUseV + "', '" + Grantor + "', '" + GrantorV + "', '" + CreateDate + "', '" + DocEntry + "', '" + LineId + "', '" + DocDate + "', '" + DueDate + "', '";
                 sQry = sQry + TaxDate + "', '" + Comments + "'";
                 //oDS_PS_DateChangeA.ExecuteQuery(sQry);

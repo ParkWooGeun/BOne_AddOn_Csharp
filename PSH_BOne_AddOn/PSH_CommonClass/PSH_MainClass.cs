@@ -1715,11 +1715,6 @@ namespace PSH_BOne_AddOn
                             pBaseClass.LoadForm("");
                             break;
 
-                        //case "PS_MM400": //창고이동처리
-                        //    pBaseClass = new PS_MM400();
-                        //    pBaseClass.LoadForm("");
-                        //    break;
-
                         case "PS_DateChange": //날짜변경처리
                             pBaseClass = new PS_DateChange();
                             pBaseClass.LoadForm("");

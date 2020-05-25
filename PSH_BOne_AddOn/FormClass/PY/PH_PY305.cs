@@ -124,6 +124,13 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Quarter").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
                 oForm.Items.Item("Quarter").DisplayDesc = true;
 
+                // 회차
+                oForm.Items.Item("Count").Specific.ValidValues.Add("%", "전체");
+                oForm.Items.Item("Count").Specific.ValidValues.Add("01", "1차");
+                oForm.Items.Item("Count").Specific.ValidValues.Add("02", "2차");
+                oForm.Items.Item("Count").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+                oForm.Items.Item("Count").DisplayDesc = true;
+
                 // 소속
                 oForm.DataSources.UserDataSources.Add("Team", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 50);
                 oForm.Items.Item("Team").Specific.DataBind.SetBound(true, "", "Team");
@@ -278,6 +285,7 @@ namespace PSH_BOne_AddOn
             string SCode = string.Empty;
             string StdYear = string.Empty;
             string Quarter = string.Empty;
+            string Count = string.Empty;
 
             SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet.RecordCount, false);
 
@@ -289,14 +297,14 @@ namespace PSH_BOne_AddOn
                 SCode = oForm.Items.Item("SCode").Specific.VALUE.Trim();
                 StdYear = oForm.Items.Item("StdYear").Specific.VALUE.Trim();
                 Quarter = oForm.Items.Item("Quarter").Specific.VALUE.Trim();
-
+                Count = oForm.Items.Item("Count").Specific.VALUE.Trim();
 
                 sQry = "            EXEC [PH_PY305_01] ";
                 sQry = sQry + "'" + CLTCOD + "',"; //사업장
                 sQry = sQry + "'" + SCode + "',";
-                sQry = sQry + "'" + StdYear + "',"; 
-                sQry = sQry + "'" + Quarter + "'";
-
+                sQry = sQry + "'" + StdYear + "',";
+                sQry = sQry + "'" + Quarter + "',";
+                sQry = sQry + "'" + Count + "'";
 
                 oRecordSet.DoQuery(sQry);
 
@@ -420,6 +428,7 @@ namespace PSH_BOne_AddOn
             string SCode = string.Empty;
             string StdYear = string.Empty;
             string Quarter = string.Empty;
+            string Count = string.Empty;
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
@@ -428,6 +437,7 @@ namespace PSH_BOne_AddOn
             SCode = oForm.Items.Item("SCode").Specific.VALUE.Trim();
             StdYear = oForm.Items.Item("StdYear").Specific.VALUE.Trim();
             Quarter = oForm.Items.Item("Quarter").Specific.VALUE.Trim();
+            Count = oForm.Items.Item("Count").Specific.VALUE.Trim();
 
             try
             {
@@ -445,6 +455,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@SCode", SCode));
                 dataPackParameter.Add(new PSH_DataPackClass("@StdYear", StdYear));
                 dataPackParameter.Add(new PSH_DataPackClass("@Quarter", Quarter));
+                dataPackParameter.Add(new PSH_DataPackClass("@Count", Count));
 
                 formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }

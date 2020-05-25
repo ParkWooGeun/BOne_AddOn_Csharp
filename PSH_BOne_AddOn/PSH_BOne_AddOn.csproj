@@ -115,6 +115,8 @@
     <Compile Include="FormClass\PY\PH_PY999.cs" />
     <Compile Include="FormClass\PY\PH_PYA80.cs" />
     <Compile Include="FormClass\PY\PH_PYA90.cs" />
+    <Compile Include="FormClass\PY\PS_DateChange.cs" />
+    <Compile Include="FormClass\PY\PS_DateCommit.cs" />
     <Compile Include="FormClass\PY\ZPY521.cs" />
     <Compile Include="PSH_CommonClass\AssemblyInfo.cs" />
     <Compile Include="FormClass\PY\ClassModuleSTD.cs">

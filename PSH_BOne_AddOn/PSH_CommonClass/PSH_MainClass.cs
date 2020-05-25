@@ -1714,6 +1714,16 @@ namespace PSH_BOne_AddOn
                             pBaseClass = new PH_PY136();
                             pBaseClass.LoadForm("");
                             break;
+
+                        case "PS_DateChange": //날짜변경처리
+                            pBaseClass = new PS_DateChange();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_DateCommit": //날짜변경승인
+                            pBaseClass = new PS_DateCommit();
+                            pBaseClass.LoadForm("");
+                            break;
                     }
                 }
             }

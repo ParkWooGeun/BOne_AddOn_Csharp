@@ -1,4 +1,4 @@
-ï»¿using Microsoft.VisualBasic;
+using Microsoft.VisualBasic;
 using System;
 using System.Windows.Forms;
 using SAPbouiCOM;
@@ -7,19 +7,19 @@ using Scripting;
 namespace PSH_BOne_AddOn
 {
     /// <summary>
-    /// MainClass : ê´‘ì—­ë³€ìˆ˜ ì´ˆê¸°í™”, ì–´í”Œë¦¬ì¼€ì´ì…˜ ì—°ê²°, DI API ì—°ê²°, íšŒì‚¬ DB ì—°ê²°, ODBC ì—°ê²°ìš© ë³€ìˆ˜ ì´ˆê¸°í™”, MainMenuìš© XML ë¡œë”©, ìœ íš¨í¼ ê²€ì‚¬, AddOn í¼ ìƒì„±, System í¼ ìƒì„±, ì´ë²¤íŠ¸ ì •ì˜, ì´ë²¤íŠ¸ í•„í„° ì‹¤í–‰
-    /// ZZMDC í´ë˜ìŠ¤ì™€ ë§¤ì¹­
+    /// MainClass : ±¤¿ªº¯¼ö ÃÊ±âÈ­, ¾îÇÃ¸®ÄÉÀÌ¼Ç ¿¬°á, DI API ¿¬°á, È¸»ç DB ¿¬°á, ODBC ¿¬°á¿ë º¯¼ö ÃÊ±âÈ­, MainMenu¿ë XML ·Îµù, À¯È¿Æû °Ë»ç, AddOn Æû »ı¼º, System Æû »ı¼º, ÀÌº¥Æ® Á¤ÀÇ, ÀÌº¥Æ® ÇÊÅÍ ½ÇÇà
+    /// ZZMDC Å¬·¡½º¿Í ¸ÅÄª
     /// </summary>
     internal class PSH_MainClass
     {
         /// <summary>
-        /// ìƒì„±ì
+        /// »ı¼ºÀÚ
         /// </summary>
         public PSH_MainClass() : base()
         {
-            this.Initialize_Calss(); //í´ë˜ìŠ¤ ì´ˆê¸°í™”
+            this.Initialize_Calss(); //Å¬·¡½º ÃÊ±âÈ­
 
-            //ì´ë²¤íŠ¸ ì •ì˜
+            //ÀÌº¥Æ® Á¤ÀÇ
             PSH_Globals.SBO_Application.AppEvent += new SAPbouiCOM._IApplicationEvents_AppEventEventHandler(SBO_Application_AppEvent);
             PSH_Globals.SBO_Application.ItemEvent += new SAPbouiCOM._IApplicationEvents_ItemEventEventHandler(SBO_Application_ItemEvent);
             PSH_Globals.SBO_Application.MenuEvent += new SAPbouiCOM._IApplicationEvents_MenuEventEventHandler(SBO_Application_MenuEvent);
@@ -28,7 +28,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// í´ë˜ìŠ¤ ì´ˆê¸°í™”
+        /// Å¬·¡½º ÃÊ±âÈ­
         /// </summary>
         private void Initialize_Calss()
         {
@@ -40,14 +40,14 @@ namespace PSH_BOne_AddOn
                 // Set The Connection Context
                 if (!(Connect_DIAPI() == 0))
                 {
-                    PSH_Globals.SBO_Application.MessageBox("DI API ì—°ê²°ì‹¤íŒ¨", 1, "Ok", "", "");
+                    PSH_Globals.SBO_Application.MessageBox("DI API ¿¬°á½ÇÆĞ", 1, "Ok", "", "");
                     System.Environment.Exit(0);
                 }
 
                 // Connect To The Company Data Base
                 if (!(Connect_CompanyDB() == 0))
                 {
-                    PSH_Globals.SBO_Application.MessageBox("íšŒì‚¬ DB ì—°ê²°ì‹¤íŒ¨", 1, "Ok", "", "");
+                    PSH_Globals.SBO_Application.MessageBox("È¸»ç DB ¿¬°á½ÇÆĞ", 1, "Ok", "", "");
                     System.Environment.Exit(0);
                 }
 
@@ -62,7 +62,7 @@ namespace PSH_BOne_AddOn
 
                 Initialize_ODBC_Variable();
 
-                PSH_Globals.SBO_Application.StatusBar.SetText("PSH_BOne_AddOn ì´ˆê¸°í™” ì™„ë£Œ", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
+                PSH_Globals.SBO_Application.StatusBar.SetText("PSH_BOne_AddOn ÃÊ±âÈ­ ¿Ï·á", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
             }
             catch (Exception ex)
             {
@@ -71,7 +71,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// ê´‘ì—­ë³€ìˆ˜ ì´ˆê¸°í™”
+        /// ±¤¿ªº¯¼ö ÃÊ±âÈ­
         /// </summary>
 		private void Initialize_GlobalVariable()
         {
@@ -86,7 +86,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// ì–´í”Œë¦¬ì¼€ì´ì…˜ ì—°ê²°
+        /// ¾îÇÃ¸®ÄÉÀÌ¼Ç ¿¬°á
         /// </summary>
         private void Connect_Application()
         {
@@ -105,18 +105,18 @@ namespace PSH_BOne_AddOn
 
                 SboGuiApi.Connect(ConnectionString);
                 PSH_Globals.SBO_Application = SboGuiApi.GetApplication(-1);
-                PSH_Globals.SBO_Application.StatusBar.SetText("PSH_BOne_AddOn ì‹œì‘ ì¤‘...", BoMessageTime.bmt_Long, BoStatusBarMessageType.smt_Warning);
+                PSH_Globals.SBO_Application.StatusBar.SetText("PSH_BOne_AddOn ½ÃÀÛ Áß...", BoMessageTime.bmt_Long, BoStatusBarMessageType.smt_Warning);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("PSH_BOne_AddOn ì ‘ì† ì‹¤íŒ¨ : " + ex.Message, "SAP Business One", MessageBoxButtons.YesNo);
+                MessageBox.Show("PSH_BOne_AddOn Á¢¼Ó ½ÇÆĞ : " + ex.Message, "SAP Business One", MessageBoxButtons.YesNo);
             }
         }
 
         /// <summary>
-        /// DI API ì—°ê²°
+        /// DI API ¿¬°á
         /// </summary>
-        /// <returns>0 : ì„±ê³µ</returns>
+        /// <returns>0 : ¼º°ø</returns>
         private int Connect_DIAPI()
         {
             int setConnectionContextReturn = 0;
@@ -143,9 +143,9 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// íšŒì‚¬ DB ì—°ê²°
+        /// È¸»ç DB ¿¬°á
         /// </summary>
-        /// <returns>0 : ì„±ê³µ</returns>
+        /// <returns>0 : ¼º°ø</returns>
         private int Connect_CompanyDB()
         {
             int connectToCompanyReturn = 0;
@@ -153,11 +153,11 @@ namespace PSH_BOne_AddOn
             // Establish the connection to the company database.
             connectToCompanyReturn = PSH_Globals.oCompany.Connect();
 
-            return connectToCompanyReturn; //36,000ms ~ 40,000ms ì†Œìš”
+            return connectToCompanyReturn; //36,000ms ~ 40,000ms ¼Ò¿ä
         }
 
         /// <summary>
-        /// ODBC ì—°ê²°ìš© ë³€ìˆ˜ ì´ˆê¸°í™”
+        /// ODBC ¿¬°á¿ë º¯¼ö ÃÊ±âÈ­
         /// </summary>
         public void Initialize_ODBC_Variable()
         {
@@ -190,11 +190,11 @@ namespace PSH_BOne_AddOn
                 PSH_Globals.SP_ODBC_PW = oRecordSet.Fields.Item("PARAM08").Value.ToString().Trim();
             }
 
-            System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //ë©”ëª¨ë¦¬ í•´ì œ
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //¸Ş¸ğ¸® ÇØÁ¦
         }
 
         /// <summary>
-        /// ë©”ì¸ ë©”ë‰´ìš© XML ë¡œë”©
+        /// ¸ŞÀÎ ¸Ş´º¿ë XML ·Îµù
         /// </summary>
         private void XmlCreateYN()
         {
@@ -214,40 +214,40 @@ namespace PSH_BOne_AddOn
                 Query01 = "select UniqueID from [Authority_Screen] where Gubun ='H' and updateYN ='Y'and UserID ='" + PSH_Globals.oCompany.UserName + "'";
                 oRecordSet01.DoQuery(Query01);
 
-                //íŒŒì¼ í´ë” ìƒì„±
+                //ÆÄÀÏ Æú´õ »ı¼º
                 if (FSO.FolderExists(PSH_Globals.SP_XMLPath + "\\xml_temp") == false)
                 {
                     FSO.CreateFolder(PSH_Globals.SP_XMLPath + "\\xml_temp");
                 }
-                //íŒŒì¼ ì´ë™
+                //ÆÄÀÏ ÀÌµ¿
 
                 if (FSO.FileExists(PSH_Globals.SP_XMLPath + "\\" + PSH_Globals.oCompany.UserName + "_Menu_KOR.xml") == true)
                 {
                     FSO.MoveFile(PSH_Globals.SP_XMLPath + "\\*.xml", PSH_Globals.SP_XMLPath + "\\xml_temp\\");
                 }
 
-                //ì ‘ì†ì íŒŒì¼ ì •ìƒí´ë”ë¡œ ì´ê´€
+                //Á¢¼ÓÀÚ ÆÄÀÏ Á¤»óÆú´õ·Î ÀÌ°ü
                 if (FSO.FileExists(PSH_Globals.SP_XMLPath + "\\xml_temp\\" + PSH_Globals.oCompany.UserName + "_Menu_KOR.xml") == true)
                 {
                     FSO.MoveFile(PSH_Globals.SP_XMLPath + "\\xml_temp\\" + PSH_Globals.oCompany.UserName + "_Menu_KOR.xml", PSH_Globals.SP_XMLPath + "\\");
                 }
 
-                //ì´ê´€í´ë” ë‚´ íŒŒì¼ ì‚­ì œ
+                //ÀÌ°üÆú´õ ³» ÆÄÀÏ »èÁ¦
                 FSO.DeleteFile(PSH_Globals.SP_XMLPath + "\\xml_temp\\*.*");
 
                 if (FSO.FileExists(PSH_Globals.SP_XMLPath + "\\" + PSH_Globals.oCompany.UserName + "_Menu_KOR.xml") == false)
                 {
                     SaveMenuXml();
-                    //XML ìƒì„±
+                    //XML »ı¼º
                 }
 
                 if ((oRecordSet01.RecordCount) != 0)
                 {
                     FSO.DeleteFile(PSH_Globals.SP_XMLPath + "\\" + PSH_Globals.oCompany.UserName + "_Menu_KOR.xml");
                     SaveMenuXml();
-                    //XML ìƒì„±
+                    //XML »ı¼º
                 }
-                //XML No ìƒì„±
+                //XML No »ı¼º
             }
             catch(Exception ex)
             {
@@ -260,7 +260,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// ë©”ì¸ ë©”ë‰´ìš© XML Client PCì— ìƒì„±
+        /// ¸ŞÀÎ ¸Ş´º¿ë XML Client PC¿¡ »ı¼º
         /// </summary>
         private void SaveMenuXml()
         {
@@ -360,7 +360,7 @@ namespace PSH_BOne_AddOn
                         XmlString = XmlString + "/>";
                     }
 
-                    // ë§ˆì§€ë§‰ì— ë‹«ëŠ” ë¶€ë¶„
+                    // ¸¶Áö¸·¿¡ ´İ´Â ºÎºĞ
                     if ((i == oRecordSet01.RecordCount - 1))
                     {
 
@@ -510,7 +510,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// ë©”ì¸ ë©”ë‰´ìš© XML ë¡œë”©
+        /// ¸ŞÀÎ ¸Ş´º¿ë XML ·Îµù
         /// </summary>
         private void Load_MenuXml()
         {
@@ -529,7 +529,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// ìœ íš¨í•œ í¼ì¸ì§€ ê²€ì‚¬
+        /// À¯È¿ÇÑ ÆûÀÎÁö °Ë»ç
         /// </summary>
         /// <param name="FormType"></param>
         /// <returns></returns>
@@ -557,7 +557,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// AddOn ì¶”ê°€ í¼ ìƒì„±
+        /// AddOn Ãß°¡ Æû »ı¼º
         /// </summary>
         /// <param name="pVal"></param>
         /// <param name="pBaseClass"></param>
@@ -569,1149 +569,1159 @@ namespace PSH_BOne_AddOn
                 {
                     switch (pVal.MenuUID)
                     {
-                        case "PH_PY001": //ì‚¬ì›ë§ˆìŠ¤í„°ë“±ë¡
+                        case "PH_PY001": //»ç¿ø¸¶½ºÅÍµî·Ï
 
                             pBaseClass = new PH_PY001();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY005": //ì‚¬ì—…ì¥ì •ë³´ë“±ë¡  
+                        case "PH_PY005": //»ç¾÷ÀåÁ¤º¸µî·Ï  
 
                             pBaseClass = new PH_PY005();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY006": //ìŠ¹í˜¸ì‘ì—…ë“±ë¡
+                        case "PH_PY006": //½ÂÈ£ÀÛ¾÷µî·Ï
 
                             pBaseClass = new PH_PY006();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY011": //ì „ë¬¸ì§í˜¸ì¹­ì¼ê´„ë³€ê²½
+                        case "PH_PY011": //Àü¹®Á÷È£ÄªÀÏ°ıº¯°æ
 
                             pBaseClass = new PH_PY011();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY017": //ì›”ê·¼íƒœì§‘ê³„
+                        case "PH_PY017": //¿ù±ÙÅÂÁı°è
 
                             pBaseClass = new PH_PY017();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY021": //ì‚¬ì›ë¹„ìƒì—°ë½ì²˜ê´€ë¦¬
+                        case "PH_PY021": //»ç¿øºñ»ó¿¬¶ôÃ³°ü¸®
 
                             pBaseClass = new PH_PY021();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY201": //ì •ë…„ì„ë°•ì íœ´ê°€ê²½ë¹„ ë“±ë¡
+                        case "PH_PY201": //Á¤³âÀÓ¹ÚÀÚ ÈŞ°¡°æºñ µî·Ï
 
                             pBaseClass = new PH_PY201();
                             pBaseClass.LoadForm("");
                             break;
 
 
-                        case "PH_PY204": //êµìœ¡ê³„íšë“±ë¡
+                        case "PH_PY204": //±³À°°èÈ¹µî·Ï
 
                             pBaseClass = new PH_PY204();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY203": //êµìœ¡ì‹¤ì ë“±ë¡
+                        case "PH_PY203": //±³À°½ÇÀûµî·Ï
 
                             pBaseClass = new PH_PY203();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY205": //êµìœ¡ê³„íšVSì‹¤ì ì¡°íšŒ
+                        case "PH_PY205": //±³À°°èÈ¹VS½ÇÀûÁ¶È¸
 
                             pBaseClass = new PH_PY205();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY009": //ê¸°ì°°ê¸°íŒŒì¼UPLOAD
+                        case "PH_PY009": //±âÂû±âÆÄÀÏUPLOAD
 
                             pBaseClass = new PH_PY009();
                             pBaseClass.LoadForm("");
                             break;
 						
-						case "PH_PY202": //ì •ë…„ì„ë°•ì íœ´ê°€ê²½ë¹„ ë“±ë¡ í˜„í™©
+						case "PH_PY202": //Á¤³âÀÓ¹ÚÀÚ ÈŞ°¡°æºñ µî·Ï ÇöÈ²
 
                             pBaseClass = new PH_PY202();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY510": //ì‚¬ì›ëª…ë¶€
+                        case "PH_PY510": //»ç¿ø¸íºÎ
 
                             pBaseClass = new PH_PY510();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY522": //ì„ê¸ˆí”¼í¬ ëŒ€ìƒì í˜„í™©
+                        case "PH_PY522": //ÀÓ±İÇÇÅ© ´ë»óÀÚ ÇöÈ²
 
                             pBaseClass = new PH_PY522();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY523": //ì„ê¸ˆí”¼í¬ ëŒ€ìƒìì›”ë³„ ì°¨ìˆ˜í˜„í™©
+                        case "PH_PY523": //ÀÓ±İÇÇÅ© ´ë»óÀÚ¿ùº° Â÷¼öÇöÈ²
 
                             pBaseClass = new PH_PY523();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY524": //í‡´ì§ê¸ˆ ì¤‘ê°„ì •ì‚°ë‚´ì—­
+                        case "PH_PY524": //ÅğÁ÷±İ Áß°£Á¤»ê³»¿ª
 
                             pBaseClass = new PH_PY524();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY419": //í‘œì¤€ì„¸ì•¡ì ìš©ëŒ€ìƒìë“±ë¡
+                        case "PH_PY419": //Ç¥ÁØ¼¼¾×Àû¿ë´ë»óÀÚµî·Ï
 
                             pBaseClass = new PH_PY419();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY016": //ê¸°ë³¸ì—…ë¬´ë“±ë¡
+                        case "PH_PY016": //±âº»¾÷¹«µî·Ï
 
                             pBaseClass = new PH_PY016();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY775": //ê°œì¸ë³„ ì—°ì°¨í˜„í™©
+                        case "PH_PY775": //°³ÀÎº° ¿¬Â÷ÇöÈ²
 
                             pBaseClass = new PH_PY775();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY776": //ì”ì—¬ì—°ì°¨í˜„í™©(í‡´ì§ìš©)
+                        case "PH_PY776": //ÀÜ¿©¿¬Â÷ÇöÈ²(ÅğÁ÷¿ë)
 
                             pBaseClass = new PH_PY776();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PYA65": //ì—°ì°¨í˜„í™©(ì§‘ê³„)
+                        case "PH_PYA65": //¿¬Â÷ÇöÈ²(Áı°è)
 
                             pBaseClass = new PH_PYA65();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY570": //ì—°ì¥/íœ´ì¼ê·¼ë¬´í˜„í™©
+                        case "PH_PY570": //¿¬Àå/ÈŞÀÏ±Ù¹«ÇöÈ²
 
                             pBaseClass = new PH_PY570();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY585": //ì¼ì¼ì¶œê·¼ê¸°ë¡ë¶€
+                        case "PH_PY585": //ÀÏÀÏÃâ±Ù±â·ÏºÎ
 
                             pBaseClass = new PH_PY585();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY610": //ì¼ì¼ì¶œê·¼ê¸°ë¡ë¶€
+                        case "PH_PY610": //ÀÏÀÏÃâ±Ù±â·ÏºÎ
 
                             pBaseClass = new PH_PY610();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY615": //ë‹¹ì§ê·¼ë¬´í˜„í™©
+                        case "PH_PY615": //´çÁ÷±Ù¹«ÇöÈ²
                             pBaseClass = new PH_PY615();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY620": //ì—°ë´‰ì œíœ´ì¼ê·¼ë¬´ìí˜„í™©
+                        case "PH_PY620": //¿¬ºÀÁ¦ÈŞÀÏ±Ù¹«ÀÚÇöÈ²
 
                             pBaseClass = new PH_PY620();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY675": //ê·¼ë¬´í¸ì„±í˜„í™©
+                        case "PH_PY675": //±Ù¹«Æí¼ºÇöÈ²
 
                             pBaseClass = new PH_PY675();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PYA60": //í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ì§‘ê³„)
+                        case "PH_PYA60": //ÇĞÀÚ±İ½ÅÃ»³»¿ª(Áı°è)
 
                             pBaseClass = new PH_PYA60();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY625": //ì„¸íƒìëª…ë¶€
+                        case "PH_PY625": //¼¼Å¹ÀÚ¸íºÎ
 
                             pBaseClass = new PH_PY625();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY630": //ì„¸íƒìëª…ë¶€
+                        case "PH_PY630": //¼¼Å¹ÀÚ¸íºÎ
 
                             pBaseClass = new PH_PY630();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY700": //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥
+                        case "PH_PY700": //±Ş¿©Áö±Ş´ëÀå
 
                             pBaseClass = new PH_PY700();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY301": //í•™ìê¸ˆì‹ ì²­ë“±ë¡
+                        case "PH_PY301": //ÇĞÀÚ±İ½ÅÃ»µî·Ï
 
                             pBaseClass = new PH_PY301();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY701": //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥(ë…¸ì¡°ìš©)
+                        case "PH_PY701": //±Ş¿©Áö±Ş´ëÀå(³ëÁ¶¿ë)
 
                             pBaseClass = new PH_PY701();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PYA20": //ê¸‰ì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥(ë¶€ì„œ)
+                        case "PH_PYA20": //±Ş¿©ºÎ¼­º°Áı°è´ëÀå(ºÎ¼­)
 
                             pBaseClass = new PH_PYA20();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PYA40": //ìƒì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥(ë¶€ì„œ)
+                        case "PH_PYA40": //»ó¿©ºÎ¼­º°Áı°è´ëÀå(ºÎ¼­)
 
                             pBaseClass = new PH_PYA40();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PYA50": //DCì „í™˜ìë¶€ë‹´ê¸ˆì§€ê¸‰ë‚´ì—­
+                        case "PH_PYA50": //DCÀüÈ¯ÀÚºÎ´ã±İÁö±Ş³»¿ª
 
                             pBaseClass = new PH_PYA50();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PYA75": //êµí†µë¹„ì™¸ìˆ˜ë‹¹ì§€ê¸‰ëŒ€ì¥
+                        case "PH_PYA75": //±³Åëºñ¿Ü¼ö´çÁö±Ş´ëÀå
 
                             pBaseClass = new PH_PYA75();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY765": //ê¸‰ì—¬ì¦ê°ë‚´ì—­ì„œ
+                        case "PH_PY765": //±Ş¿©Áõ°¨³»¿ª¼­
 
                             pBaseClass = new PH_PY765();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY680": //ìƒë²Œí˜„í™©
+                        case "PH_PY680": //»ó¹úÇöÈ²
 
                             pBaseClass = new PH_PY680();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY860": //í˜¸ë´‰í‘œì¡°íšŒ
+                        case "PH_PY860": //È£ºÀÇ¥Á¶È¸
 
                             pBaseClass = new PH_PY860();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY508": //ì¬ì§ì¦ëª… ë“±ë¡ ë° ë°œê¸‰
+                        case "PH_PY508": //ÀçÁ÷Áõ¸í µî·Ï ¹× ¹ß±Ş
 
                             pBaseClass = new PH_PY508();
                             pBaseClass.LoadForm("");
                             break;
                             
-                        case "PH_PY770": //í‡´ì§ì†Œë“ì›ì²œì§•ìˆ˜ì˜ìˆ˜ì¦ì¶œë ¥
+                        case "PH_PY770": //ÅğÁ÷¼Òµæ¿øÃµÂ¡¼ö¿µ¼öÁõÃâ·Â
 
                             pBaseClass = new PH_PY770();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY780": //ì›”ê³ ìš©ë³´í—˜ë‚´ì—­
+                        case "PH_PY780": //¿ù°í¿ëº¸Çè³»¿ª
 
                             pBaseClass = new PH_PY780();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY785": //ì›”êµ­ë¯¼ì—°ê¸ˆë‚´ì—­
+                        case "PH_PY785": //¿ù±¹¹Î¿¬±İ³»¿ª
 
                             pBaseClass = new PH_PY785();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY790": //ì›”ê±´ê°•ë³´í—˜ë‚´ì—­
+                        case "PH_PY790": //¿ù°Ç°­º¸Çè³»¿ª
 
                             pBaseClass = new PH_PY790();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY795": //ì—°ê°„ë¶€ì„œë³„ê¸‰ì—¬í˜„í™©  
+                        case "PH_PY795": //¿¬°£ºÎ¼­º°±Ş¿©ÇöÈ²  
 
                             pBaseClass = new PH_PY795();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY805": //ê¸‰ì—¬ìˆ˜ë‹¹ë³€ë™ë‚´ì—­
+                        case "PH_PY805": //±Ş¿©¼ö´çº¯µ¿³»¿ª
 
                             pBaseClass = new PH_PY805();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY810": //ì§ê¸‰ë³„í†µìƒì„ê¸ˆë‚´ì—­
+                        case "PH_PY810": //Á÷±Şº°Åë»óÀÓ±İ³»¿ª
 
                             pBaseClass = new PH_PY810();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY815": //ì „ì²´í‰ê· ì„ê¸ˆë‚´ì—­ 
+                        case "PH_PY815": //ÀüÃ¼Æò±ÕÀÓ±İ³»¿ª 
 
                             pBaseClass = new PH_PY815();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY820": //í†µìƒì„ê¸ˆë‚´ì—­
+                        case "PH_PY820": //Åë»óÀÓ±İ³»¿ª
 
                             pBaseClass = new PH_PY820();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY825": // ì „ë¬¸ì§O/Tí˜„í™©
+                        case "PH_PY825": // Àü¹®Á÷O/TÇöÈ²
 
                             pBaseClass = new PH_PY825();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY830": // ë¶€ì„œë³„ì¸ê±´ë¹„í˜„í™©(ê¸°íš)
+                        case "PH_PY830": // ºÎ¼­º°ÀÎ°ÇºñÇöÈ²(±âÈ¹)
 
                             pBaseClass = new PH_PY830();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY835": // ì§ê¸‰ë³„O/Të°ìˆ˜ë‹¹í˜„í™©
+                        case "PH_PY835": // Á÷±Şº°O/T¹×¼ö´çÇöÈ²
 
                             pBaseClass = new PH_PY835();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY840": // í’ì‚°ì „ìê³µì‹œìë£Œ
+                        case "PH_PY840": // Ç³»êÀüÀÚ°ø½ÃÀÚ·á
 
                             pBaseClass = new PH_PY840();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY845": // ê¸°ê°„ë³„ê¸‰ì—¬ì§€ê¸‰ë‚´ì—­
+                        case "PH_PY845": // ±â°£º°±Ş¿©Áö±Ş³»¿ª
 
                             pBaseClass = new PH_PY845();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY850": // ì†Œê¸‰ë¶„ì§€ê¸‰ëª…ì„¸ì„œ
+                        case "PH_PY850": // ¼Ò±ŞºĞÁö±Ş¸í¼¼¼­
 
                             pBaseClass = new PH_PY850();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY855": // ê°œì¸ë³„ì„ê¸ˆì§€ê¸‰ëŒ€ì¥
+                        case "PH_PY855": // °³ÀÎº°ÀÓ±İÁö±Ş´ëÀå
 
                             pBaseClass = new PH_PY855();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY865": // ê³ ìš©ë³´í—˜í˜„í™©(ê³„ì‚°ìš©)
+                        case "PH_PY865": // °í¿ëº¸ÇèÇöÈ²(°è»ê¿ë)
                             pBaseClass = new PH_PY865();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY870": // ë‹´ë‹¹ë³„ì›”O/Të°ìˆ˜ë‹¹í˜„í™©   
+                        case "PH_PY870": // ´ã´çº°¿ùO/T¹×¼ö´çÇöÈ²   
                             pBaseClass = new PH_PY870();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY875": // ì§ê¸‰ë³„ìˆ˜ë‹¹ì§‘ê³„ëŒ€ì¥  
+                        case "PH_PY875": // Á÷±Şº°¼ö´çÁı°è´ëÀå  
                             pBaseClass = new PH_PY875();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY716": // ê¸°ê°„ë³„ê¸‰ì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
+                        case "PH_PY716": // ±â°£º°±Ş¿©ºÎ¼­º°Áı°è´ëÀå
                             pBaseClass = new PH_PY716();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY721": // ê¸°ê°„ë³„ìƒì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
+                        case "PH_PY721": // ±â°£º°»ó¿©ºÎ¼­º°Áı°è´ëÀå
                             pBaseClass = new PH_PY721();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY717": // ê¸‰ì—¬ë°˜ë³„ì§‘ê³„ëŒ€ì¥(ê¸°íšìš©)
+                        case "PH_PY717": // ±Ş¿©¹İº°Áı°è´ëÀå(±âÈ¹¿ë)
                             pBaseClass = new PH_PY717();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY715": // ê¸‰ì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
+                        case "PH_PY715": // ±Ş¿©ºÎ¼­º°Áı°è´ëÀå
                             pBaseClass = new PH_PY715();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY720": // ìƒì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
+                        case "PH_PY720": // »ó¿©ºÎ¼­º°Áı°è´ëÀå
                             pBaseClass = new PH_PY720();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY725": // ê¸‰ì—¬ì§ê¸‰ë³„ì§‘ê³„ëŒ€ì¥ 
+                        case "PH_PY725": // ±Ş¿©Á÷±Şº°Áı°è´ëÀå 
                             pBaseClass = new PH_PY725();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY740": // ìƒì—¬ì§ê¸‰ë³„ì§‘ê³„ëŒ€ì¥
+                        case "PH_PY740": // »ó¿©Á÷±Şº°Áı°è´ëÀå
                             pBaseClass = new PH_PY740();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY745": // ì—°ê°„ì§€ê¸‰ëŒ€ì¥   
+                        case "PH_PY745": // ¿¬°£Áö±Ş´ëÀå   
                             pBaseClass = new PH_PY745();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY750": // ê·¼ë¡œì†Œë“ì§•ìˆ˜í˜„í™©
+                        case "PH_PY750": // ±Ù·Î¼ÒµæÂ¡¼öÇöÈ²
                             pBaseClass = new PH_PY750();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY755": // ë™í˜¸íšŒê°€ì…í˜„í™©
+                        case "PH_PY755": // µ¿È£È¸°¡ÀÔÇöÈ²
                             pBaseClass = new PH_PY755();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY760": // í‰ê· ì„ê¸ˆë°í‡´ì§ê¸ˆì‚°ì¶œë‚´ì—­ì„œ
+                        case "PH_PY760": // Æò±ÕÀÓ±İ¹×ÅğÁ÷±İ»êÃâ³»¿ª¼­
                             pBaseClass = new PH_PY760();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY019": // ë°˜ë³€ê²½ë“±ë¡
+                        case "PH_PY019": // ¹İº¯°æµî·Ï
 
                             pBaseClass = new PH_PY019();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY018": // ì—°ë´‰ì œíœ´ì¼êµí†µë¹„ì²´í¬
+                        case "PH_PY018": // ¿¬ºÀÁ¦ÈŞÀÏ±³ÅëºñÃ¼Å©
 
                             pBaseClass = new PH_PY018();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY117": // ê¸‰ìƒì—¬ë§ˆê°ì‘ì—…
+                        case "PH_PY117": // ±Ş»ó¿©¸¶°¨ÀÛ¾÷
 
                             pBaseClass = new PH_PY117();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY123": // ê°€ì••ë¥˜ë“±ë¡
+                        case "PH_PY123": // °¡¾Ğ·ùµî·Ï
 
                             pBaseClass = new PH_PY123();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY409": // ê¸°ë¶€ê¸ˆì¡°ì •ëª…ì„¸ìë£Œë“±ë¡
+                        case "PH_PY409": // ±âºÎ±İÁ¶Á¤¸í¼¼ÀÚ·áµî·Ï
 
                             pBaseClass = new PH_PY409();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY555": // ì¼ì¼ê·¼ë¬´ìí˜„í™©
+                        case "PH_PY555": // ÀÏÀÏ±Ù¹«ÀÚÇöÈ²
 
                             pBaseClass = new PH_PY555();
                             pBaseClass.LoadForm("");
                             break;
 
-						case "PH_PY010": //ì¼ì¼ê·¼íƒœì²˜ë¦¬
+						case "PH_PY010": //ÀÏÀÏ±ÙÅÂÃ³¸®
 
                             pBaseClass = new PH_PY010();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY013": //ìœ„í•´ì½”ë“œë“±ë¡(ê¸°ê³„)
+                        case "PH_PY013": //À§ÇØÄÚµåµî·Ï(±â°è)
 
                             pBaseClass = new PH_PY013();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY014": //ìœ„í•´ì¼ìˆ˜ìˆ˜ì •
+                        case "PH_PY014": //À§ÇØÀÏ¼ö¼öÁ¤
 
                             pBaseClass = new PH_PY014();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY583": //ê·¼íƒœë§ˆê°ì²´í¬
+                        case "PH_PY583": //±ÙÅÂ¸¶°¨Ã¼Å©
 
                             pBaseClass = new PH_PY583();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY120": //ì†Œê¸‰ë¶„ê¸‰ì—¬ìƒì„±
+                        case "PH_PY120": //¼Ò±ŞºĞ±Ş¿©»ı¼º
 
                             pBaseClass = new PH_PY120();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY133": //ì—°ë´‰ì œ íšŸì°¨ ê´€ë¦¬
+                        case "PH_PY133": //¿¬ºÀÁ¦ È½Â÷ °ü¸®
 
                             pBaseClass = new PH_PY133();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY119": //ê¸‰ìƒì—¬ì€í–‰íŒŒì¼ìƒì„±
+                        case "PH_PY119": //±Ş»ó¿©ÀºÇàÆÄÀÏ»ı¼º
 
                             pBaseClass = new PH_PY119();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY002": //ê·¼íƒœì‹œê°„êµ¬ë¶„ë“±ë¡
+                        case "PH_PY002": //±ÙÅÂ½Ã°£±¸ºĞµî·Ï
 
                             pBaseClass = new PH_PY002();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY101": //ë³´í—˜ë¥  ë“±ë¡
+                        case "PH_PY101": //º¸Çè·ü µî·Ï
 
                             pBaseClass = new PH_PY101();
                             pBaseClass.LoadForm("");
                             break;
                             
-                         case "PH_PY134": //ì†Œë“ì„¸ / ì£¼ë¯¼ì„¸ ì¡°ì •
+                         case "PH_PY134": //¼Òµæ¼¼ / ÁÖ¹Î¼¼ Á¶Á¤
 
                             pBaseClass = new PH_PY134();
                             pBaseClass.LoadForm("");
                             break;
                             
-                        case "PH_PY100": //ê¸°ì¤€ì„¸ì•¡ì„¤ì •
+                        case "PH_PY100": //±âÁØ¼¼¾×¼³Á¤
 
                             pBaseClass = new PH_PY100();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY109_1": //ê¸‰ìƒì—¬ë³€ë™ìë£Œí•­ëª©ìˆ˜ì •
+                        case "PH_PY109_1": //±Ş»ó¿©º¯µ¿ÀÚ·áÇ×¸ñ¼öÁ¤
 
                             pBaseClass = new PH_PY109_1();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY131": //ê¸‰ìƒì—¬ë³€ë™ìë£Œí•­ëª©ìˆ˜ì •
+                        case "PH_PY131": //±Ş»ó¿©º¯µ¿ÀÚ·áÇ×¸ñ¼öÁ¤
 
                             pBaseClass = new PH_PY131();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY129": //ê°œì¸ë³„ í‡´ì§ì—°ê¸ˆ(DCí˜•) ê³„ì‚°
+                        case "PH_PY129": //°³ÀÎº° ÅğÁ÷¿¬±İ(DCÇü) °è»ê
 
                             pBaseClass = new PH_PY129();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY314": //ëŒ€ë¶€ê¸ˆê³„ì‚° ë‚´ì—­ ì¡°íšŒ(ê¸‰ì—¬ë³€ë™ìë£Œìš©)
+                        case "PH_PY314": //´ëºÎ±İ°è»ê ³»¿ª Á¶È¸(±Ş¿©º¯µ¿ÀÚ·á¿ë)
 
                             pBaseClass = new PH_PY314();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY695": //ì¸ì‚¬ê¸°ë¡ì¹´ë“œ
+                        case "PH_PY695": //ÀÎ»ç±â·ÏÄ«µå
 
                             pBaseClass = new PH_PY695();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY605": //ê·¼ì†ë³´ì „íœ´ê°€ë°œìƒë°ì‚¬ìš©ë‚´ì—­
+                        case "PH_PY605": //±Ù¼Óº¸ÀüÈŞ°¡¹ß»ı¹×»ç¿ë³»¿ª
 
                             pBaseClass = new PH_PY605();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY560": //ì¼ì¶œê·¼í˜„í™©
+                        case "PH_PY560": //ÀÏÃâ±ÙÇöÈ²
 
                             pBaseClass = new PH_PY560();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY565": //ì—°ì¥ê·¼ë¬´ìí˜„í™©
+                        case "PH_PY565": //¿¬Àå±Ù¹«ÀÚÇöÈ²
 
                             pBaseClass = new PH_PY565();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY575": //ê·¼íƒœê¸°ì°°í˜„í™©
+                        case "PH_PY575": //±ÙÅÂ±âÂûÇöÈ²
 
                             pBaseClass = new PH_PY575();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY580": //ê°œì¸ë³„ê·¼íƒœì›”ë³´
+                        case "PH_PY580": //°³ÀÎº°±ÙÅÂ¿ùº¸
 
                             pBaseClass = new PH_PY580();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY985": //ëŒ€ë¶€ê¸ˆê³„ì‚° ë‚´ì—­ ì¡°íšŒ(ê¸‰ì—¬ë³€ë™ìë£Œìš©)
+                        case "PH_PY985": //´ëºÎ±İ°è»ê ³»¿ª Á¶È¸(±Ş¿©º¯µ¿ÀÚ·á¿ë)
 
                             pBaseClass = new PH_PY985();
                             pBaseClass.LoadForm();
                             break;
 
 
-                        case "PH_PY590": //ê¸°ê°„ë³„ê·¼íƒœì§‘ê³„í‘œ
+                        case "PH_PY590": //±â°£º°±ÙÅÂÁı°èÇ¥
 
                             pBaseClass = new PH_PY590();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY600": //ì¼ìë³„ì—°ì¥ê·¼ë¬´í˜„í™©
+                        case "PH_PY600": //ÀÏÀÚº°¿¬Àå±Ù¹«ÇöÈ²
 
                             pBaseClass = new PH_PY600();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY705": //êµí†µë¹„ì§€ê¸‰ê·¼íƒœí™•ì¸
+                        case "PH_PY705": //±³ÅëºñÁö±Ş±ÙÅÂÈ®ÀÎ
                             pBaseClass = new PH_PY705();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY676": //ê·¼íƒœì‹œê°„ë‚´ì—­ì¡°íšŒ
+                        case "PH_PY676": //±ÙÅÂ½Ã°£³»¿ªÁ¶È¸
                             pBaseClass = new PH_PY676();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY679": //ê°œì¸ë³„ê·¼íƒœìë£Œì§‘ê³„
+                        case "PH_PY679": //°³ÀÎº°±ÙÅÂÀÚ·áÁı°è
                             pBaseClass = new PH_PY679();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY681": //ë¹„ê·¼ë¬´ì¼ìˆ˜í˜„í™©
+                        case "PH_PY681": //ºñ±Ù¹«ÀÏ¼öÇöÈ²
                             pBaseClass = new PH_PY681();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY645": //ìê²©ìˆ˜ë‹¹ì§€ê¸‰í˜„í™©
+                        case "PH_PY645": //ÀÚ°İ¼ö´çÁö±ŞÇöÈ²
                             pBaseClass = new PH_PY645();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PYA55": //ì •ì‚°ì§•ìˆ˜ë°í™˜ê¸‰ëŒ€ì¥(ì§‘ê³„)
+                        case "PH_PYA55": //Á¤»êÂ¡¼ö¹×È¯±Ş´ëÀå(Áı°è)
                             pBaseClass = new PH_PYA55();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY550": //ì „ì²´ì¸ì›í˜„í™©
+                        case "PH_PY550": //ÀüÃ¼ÀÎ¿øÇöÈ²
                             pBaseClass = new PH_PY550();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY650": //ë…¸ë™ì¡°í•©ê°„ë¶€í˜„í™©
+                        case "PH_PY650": //³ëµ¿Á¶ÇÕ°£ºÎÇöÈ²
                             pBaseClass = new PH_PY650();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY685": //í¬ìƒê°€ê¸‰í˜„í™©
+                        case "PH_PY685": //Æ÷»ó°¡±ŞÇöÈ²
                             pBaseClass = new PH_PY685();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY690": //ìƒì¼ìí˜„í™©
+                        case "PH_PY690": //»ıÀÏÀÚÇöÈ²
                             pBaseClass = new PH_PY690();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PYA70": //ì†Œë“ì„¸ì›ì²œì§•ìˆ˜ì„¸ì•¡ì¡°ì •ì‹ ì²­ì„œì¶œë ¥
+                        case "PH_PYA70": //¼Òµæ¼¼¿øÃµÂ¡¼ö¼¼¾×Á¶Á¤½ÅÃ»¼­Ãâ·Â
                             pBaseClass = new PH_PYA70();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY501": //ì—¬ê¶Œë°œê¸‰í˜„í™©
+                        case "PH_PY501": //¿©±Ç¹ß±ŞÇöÈ²
                             pBaseClass = new PH_PY501();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY525": //í•™ë ¥ë³„ì¸ì›í˜„í™©
+                        case "PH_PY525": //ÇĞ·Âº°ÀÎ¿øÇöÈ²
                             pBaseClass = new PH_PY525();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY935": //ì •ê¸°ìŠ¹í˜¸í˜„í™©
+                        case "PH_PY935": //Á¤±â½ÂÈ£ÇöÈ²
                             pBaseClass = new PH_PY935();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY530": //ì—°ë ¹ë³„ì¸ì›í˜„í™©
+                        case "PH_PY530": //¿¬·Éº°ÀÎ¿øÇöÈ²
                             pBaseClass = new PH_PY530();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY505": //ì…ì‚¬ìëŒ€ì¥
+                        case "PH_PY505": //ÀÔ»çÀÚ´ëÀå
                             pBaseClass = new PH_PY505();
                             pBaseClass.LoadForm(""); 
                             break;
 
-                        case "PH_PY520": //í‡´ì§ë°í‡´ì§ì˜ˆì •ìëŒ€ì¥
+                        case "PH_PY520": //ÅğÁ÷¹×ÅğÁ÷¿¹Á¤ÀÚ´ëÀå
                             pBaseClass = new PH_PY520(); 
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY640": //êµ­ë¯¼ì—°ê¸ˆí‡´ì§ì „í™˜ê¸ˆí˜„í™©
+                        case "PH_PY640": //±¹¹Î¿¬±İÅğÁ÷ÀüÈ¯±İÇöÈ²
                             pBaseClass = new PH_PY640();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY545": //ì¸ì›í˜„í™©(ëŒ€ë‚´ìš©)
+                        case "PH_PY545": //ÀÎ¿øÇöÈ²(´ë³»¿ë)
                             pBaseClass = new PH_PY545();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY655": //ë³´í›ˆëŒ€ìƒìí˜„í™©
+                        case "PH_PY655": //º¸ÈÆ´ë»óÀÚÇöÈ²
                             pBaseClass = new PH_PY655();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY660": //ì¥ì• ê·¼ë¡œìí˜„í™©
+                        case "PH_PY660": //Àå¾Ö±Ù·ÎÀÚÇöÈ²
                             pBaseClass = new PH_PY660(); 
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY540": //ì¸ì›í˜„í™©(ëŒ€ì™¸ìš©)
+                        case "PH_PY540": //ÀÎ¿øÇöÈ²(´ë¿Ü¿ë)
                             pBaseClass = new PH_PY540();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY551": //í‰ê· ì¸ì›ì¡°íšŒ
+                        case "PH_PY551": //Æò±ÕÀÎ¿øÁ¶È¸
                             pBaseClass = new PH_PY551();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY535": //ê·¼ì†ë…„ìˆ˜ë³„ì¸ì›í˜„í™©
+                        case "PH_PY535": //±Ù¼Ó³â¼öº°ÀÎ¿øÇöÈ²
                             pBaseClass = new PH_PY535();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY665": //ì‚¬ì›ìë…€í˜„í™©
+                        case "PH_PY665": //»ç¿øÀÚ³àÇöÈ²
                             pBaseClass = new PH_PY665();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY670": //ê°œì¸ë³„ì°¨ëŸ‰í˜„í™©
+                        case "PH_PY670": //°³ÀÎº°Â÷·®ÇöÈ²
                             pBaseClass = new PH_PY670();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY503": //ìŠ¹ì§„ëŒ€ìƒìëª…ë¶€
+                        case "PH_PY503": //½ÂÁø´ë»óÀÚ¸íºÎ
                             pBaseClass = new PH_PY503();
                             pBaseClass.LoadForm(""); 
                             break;
 
-                        case "PH_PY507": //íœ´ì§ìí˜„í™©
+                        case "PH_PY507": //ÈŞÁ÷ÀÚÇöÈ²
                             pBaseClass = new PH_PY507(); 
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY635": //ì—¬í–‰,êµìœ¡ìí˜„í™©
+                        case "PH_PY635": //¿©Çà,±³À°ÀÚÇöÈ²
                             pBaseClass = new PH_PY635();
                             pBaseClass.LoadForm(""); 
                             break;
 
-                        case "PH_PY515": //ì¬ì§ìì‚¬ì›ëª…ë¶€
+                        case "PH_PY515": //ÀçÁ÷ÀÚ»ç¿ø¸íºÎ
                             pBaseClass = new PH_PY515();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY003": //ê·¼íƒœì›”ë ¥ë“±ë¡
+                        case "PH_PY003": //±ÙÅÂ¿ù·Âµî·Ï
 
                             pBaseClass = new PH_PY003();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY595": //ê·¼ì†ë…„ìˆ˜í˜„í™©
+                        case "PH_PY595": //±Ù¼Ó³â¼öÇöÈ²
                             pBaseClass = new PH_PY595();
                             pBaseClass.LoadForm(""); 
                             break;
 
-                        case "PH_PY931": //í‘œì¤€ì„¸ì•¡ì ìš©ëŒ€ìƒìì¡°íšŒ
+                        case "PH_PY931": //Ç¥ÁØ¼¼¾×Àû¿ë´ë»óÀÚÁ¶È¸
                             pBaseClass = new PH_PY931();
                             pBaseClass.LoadForm(""); 
                             break;
 
-                        case "PH_PY932": //ì „ê·¼ë¬´ì§€ë“±ë¡í˜„í™©
+                        case "PH_PY932": //Àü±Ù¹«Áöµî·ÏÇöÈ²
                             pBaseClass = new PH_PY932();
                             pBaseClass.LoadForm(""); 
                             break;
 
-                        case "PH_PY933": //ë³´ìˆ˜ì´ì•¡ì‹ ê³ ê¸°ì´ˆìë£Œ
+                        case "PH_PY933": //º¸¼öÃÑ¾×½Å°í±âÃÊÀÚ·á
                             pBaseClass = new PH_PY933();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY800": //ì¸ê±´ë¹„ì§€ê¸‰ìë£Œ
+                        case "PH_PY800": //ÀÎ°ÇºñÁö±ŞÀÚ·á
                             pBaseClass = new PH_PY800();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY004": //ê·¼ë¬´ì¡°í¸ì„±ë“±ë¡
+                        case "PH_PY004": //±Ù¹«Á¶Æí¼ºµî·Ï
 
                             pBaseClass = new PH_PY004();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PYA30": //ìƒì—¬ì§€ê¸‰ëŒ€ì¥(ë¶€ì„œ)
+                        case "PH_PYA30": //»ó¿©Áö±Ş´ëÀå(ºÎ¼­)
                             pBaseClass = new PH_PYA30();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PYA10": //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥(ë¶€ì„œ)
+                        case "PH_PYA10": //±Ş¿©Áö±Ş´ëÀå(ºÎ¼­)
                             pBaseClass = new PH_PYA10();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY915": //ê·¼ë¡œì†Œë“ì›ì²œì§•ìˆ˜ë¶€ì¶œë ¥
+                        case "PH_PY915": //±Ù·Î¼Òµæ¿øÃµÂ¡¼öºÎÃâ·Â
                             pBaseClass = new PH_PY915();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY735": //ìƒì—¬ë´‰íˆ¬ì¶œë ¥
+                        case "PH_PY735": //»ó¿©ºÀÅõÃâ·Â
                             pBaseClass = new PH_PY735();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY730": //ê¸‰ì—¬ë´‰íˆ¬ì¶œë ¥
+                        case "PH_PY730": //±Ş¿©ºÀÅõÃâ·Â
                             pBaseClass = new PH_PY730();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY710": //ìƒì—¬ì§€ê¸‰ëŒ€ì¥
+                        case "PH_PY710": //»ó¿©Áö±Ş´ëÀå
                             pBaseClass = new PH_PY710();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY930": //ì •ì‚°ì§•ìˆ˜ë°í™˜ê¸‰ëŒ€ì¥
+                        case "PH_PY930": //Á¤»êÂ¡¼ö¹×È¯±Ş´ëÀå
                             pBaseClass = new PH_PY930();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY925": //ê¸°ë¶€ê¸ˆëª…ì„¸ì„œì¶œë ¥
+                        case "PH_PY925": //±âºÎ±İ¸í¼¼¼­Ãâ·Â
                             pBaseClass = new PH_PY925();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY718": //ìƒì‚°ì™„ë£Œê¸ˆì•¡ëŒ€ë¹„O/Tí˜„í™©
+                        case "PH_PY718": //»ı»ê¿Ï·á±İ¾×´ëºñO/TÇöÈ²
                             pBaseClass = new PH_PY718();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY920": //ì›ì²œì§•ìˆ˜ì˜ìˆ˜ì¦ì¶œë ¥
+                        case "PH_PY920": //¿øÃµÂ¡¼ö¿µ¼öÁõÃâ·Â
                             pBaseClass = new PH_PY920();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY311": //í†µê·¼ë²„ìŠ¤ìš´í–‰ë“±ë¡
+                        case "PH_PY311": //Åë±Ù¹ö½º¿îÇàµî·Ï
 
                             pBaseClass = new PH_PY311();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY910": //ì†Œë“ê³µì œì‹ ê³ ì„œì¶œë ¥
+                        case "PH_PY910": //¼Òµæ°øÁ¦½Å°í¼­Ãâ·Â
                             pBaseClass = new PH_PY910();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY401": //ì „ê·¼ë¬´ì§€ë“±ë¡
+                        case "PH_PY401": //Àü±Ù¹«Áöµî·Ï
                             pBaseClass = new PH_PY401();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY402": //ì •ì‚°ê¸°ì´ˆë“±ë¡
+                        case "PH_PY402": //Á¤»ê±âÃÊµî·Ï
                             pBaseClass = new PH_PY402();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY405": //ì˜ë£Œë¹„ìë£Œë“±ë¡
+                        case "PH_PY405": //ÀÇ·áºñÀÚ·áµî·Ï
                             pBaseClass = new PH_PY405();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY407": //ì •ì‚°ê¸°ë¶€ê¸ˆë“±ë¡
+                        case "PH_PY407": //Á¤»ê±âºÎ±İµî·Ï
                             pBaseClass = new PH_PY407();
                             pBaseClass.LoadForm(""); 
                             break;
 
-                        case "PH_PY411": //ì—°ê¸ˆì €ì¶•ë“±ì†Œë“ê³µì œë“±ë¡
+                        case "PH_PY411": //¿¬±İÀúÃàµî¼Òµæ°øÁ¦µî·Ï
                             pBaseClass = new PH_PY411();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY413": //ì›”ì„¸ì•¡.ì£¼íƒì„ì°¨ì°¨ì…ê¸ˆìë£Œ ë“±ë¡
+                        case "PH_PY413": //¿ù¼¼¾×.ÁÖÅÃÀÓÂ÷Â÷ÀÔ±İÀÚ·á µî·Ï
                             pBaseClass = new PH_PY413();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY113": //ê¸‰(ìƒ)ì—¬ ë¶„ê°œì¥ ìƒì„±
+                        case "PH_PY113": //±Ş(»ó)¿© ºĞ°³Àå »ı¼º
                             pBaseClass = new PH_PY113();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY980": //ê·¼ë¡œì†Œë“ì§€ê¸‰ëª…ì„¸ì„œìë£Œ ì „ì‚°ë§¤ì²´ìˆ˜ë¡
+                        case "PH_PY980": //±Ù·Î¼ÒµæÁö±Ş¸í¼¼¼­ÀÚ·á Àü»ê¸ÅÃ¼¼ö·Ï
                             pBaseClass = new PH_PY980();
                             pBaseClass.LoadForm();
                             break;
 
-                        case "PH_PY995": //í‡´ì§ì†Œë“ì§€ê¸‰ëª…ì„¸ì„œìë£Œ ì „ì‚°ë§¤ì²´ìˆ˜ë¡
+                        case "PH_PY995": //ÅğÁ÷¼ÒµæÁö±Ş¸í¼¼¼­ÀÚ·á Àü»ê¸ÅÃ¼¼ö·Ï
                             pBaseClass = new PH_PY995();
                             pBaseClass.LoadForm();
                             break;
 
-                        case "PH_PY677": //ì¼ì¼ê·¼íƒœì´ìƒìì¡°íšŒ
+                        case "PH_PY677": //ÀÏÀÏ±ÙÅÂÀÌ»óÀÚÁ¶È¸
                             pBaseClass = new PH_PY677();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY678": //ë‹¹ì§ê·¼ë¬´ìì¼ê´„ë“±ë¡
+                        case "PH_PY678": //´çÁ÷±Ù¹«ÀÚÀÏ°ıµî·Ï
                             pBaseClass = new PH_PY678();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY683": //êµëŒ€ê·¼ë¬´ì¸ì •í˜„í™©
+                        case "PH_PY683": //±³´ë±Ù¹«ÀÎÁ¤ÇöÈ²
                             pBaseClass = new PH_PY683();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY307": //í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ë¶„ê¸°ë³„)
+                        case "PH_PY307": //ÇĞÀÚ±İ½ÅÃ»³»¿ª(ºĞ±âº°)
                             pBaseClass = new PH_PY307();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY306": //í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ê°œì¸ë³„)
+                        case "PH_PY306": //ÇĞÀÚ±İ½ÅÃ»³»¿ª(°³ÀÎº°)
                             pBaseClass = new PH_PY306();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY305": //í•™ìê¸ˆì‹ ì²­ì„œ
+                        case "PH_PY305": //ÇĞÀÚ±İ½ÅÃ»¼­
                             pBaseClass = new PH_PY305();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY315": //ê°œì¸ë³„ ëŒ€ë¶€ê¸ˆ ì”ì•¡í˜„í™©
+                        case "PH_PY315": //°³ÀÎº° ´ëºÎ±İ ÀÜ¾×ÇöÈ²
                             pBaseClass = new PH_PY315();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY313": //ëŒ€ë¶€ê¸ˆê³„ì‚°
+                        case "PH_PY313": //´ëºÎ±İ°è»ê
                             pBaseClass = new PH_PY313();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY107": //ê¸‰ìƒì—¬ê¸°ì¤€ì¼ì„¤ì •
+                        case "PH_PY107": //±Ş»ó¿©±âÁØÀÏ¼³Á¤
                             pBaseClass = new PH_PY107();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY122": //ê¸‰ìƒì—¬ì¶œë ¥_ê°œì¸ë¶€ì„œì„¤ì •ë“±ë¡
+                        case "PH_PY122": //±Ş»ó¿©Ãâ·Â_°³ÀÎºÎ¼­¼³Á¤µî·Ï
                             pBaseClass = new PH_PY122();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY015": //ì—°ì°¨ì´ì›”ë“±ë¡
+                        case "PH_PY015": //¿¬Â÷ÀÌ¿ùµî·Ï
                             pBaseClass = new PH_PY015();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY111": //ê¸‰ìƒì—¬ê³„ì‚°
+                        case "PH_PY111": //±Ş»ó¿©°è»ê
                             pBaseClass = new PH_PY111();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY103": //ê³µì œí•­ëª©ì„¤ì •
+                        case "PH_PY103": //°øÁ¦Ç×¸ñ¼³Á¤
                             pBaseClass = new PH_PY103();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY312": //ê°œì¸ë³„ë²„ìŠ¤ìš”ê¸ˆë“±ë¡(ì°½ì›)
+                        case "PH_PY312": //°³ÀÎº°¹ö½º¿ä±İµî·Ï(Ã¢¿ø)
                             pBaseClass = new PH_PY312();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY121": //ê°œì¸ë³„ í‰ê°€ê°€ê¸‰ì•¡ ë“±ë¡
+                        case "PH_PY121": //°³ÀÎº° Æò°¡°¡±Ş¾× µî·Ï
                             pBaseClass = new PH_PY121();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY415": //ì†Œë“ì •ì‚°ê³„ì‚°
+                        case "PH_PY415": //¼ÒµæÁ¤»ê°è»ê
                             pBaseClass = new PH_PY415();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY302": //í•™ìê¸ˆì§€ê¸‰ì™„ë£Œì²˜ë¦¬
+                        case "PH_PY302": //ÇĞÀÚ±İÁö±Ş¿Ï·áÃ³¸®
                             pBaseClass = new PH_PY302();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY303": //í•™ìê¸ˆì€í–‰íŒŒì¼ìƒì„±
+                        case "PH_PY303": //ÇĞÀÚ±İÀºÇàÆÄÀÏ»ı¼º
                             pBaseClass = new PH_PY303();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY417": //í•™ìê¸ˆì€í–‰íŒŒì¼ìƒì„±
+                        case "PH_PY417": //ÇĞÀÚ±İÀºÇàÆÄÀÏ»ı¼º
                             pBaseClass = new PH_PY417();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY007": //ìœ ë¥˜ë‹¨ê°€ë“±ë¡
+                        case "PH_PY007": //À¯·ù´Ü°¡µî·Ï
                             pBaseClass = new PH_PY007();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY109": //ê¸‰ìƒì—¬ë³€ë™ìë£Œë“±ë¡
+                        case "PH_PY109": //±Ş»ó¿©º¯µ¿ÀÚ·áµî·Ï
                             pBaseClass = new PH_PY109();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY000": //ì‚¬ì›ë§ˆìŠ¤í„°ë“±ë¡
+                        case "PH_PY000": //»ç¿ø¸¶½ºÅÍµî·Ï
                             pBaseClass = new PH_PY000();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY008": //ì¼ê·¼íƒœë“±ë¡
+                        case "PH_PY008": //ÀÏ±ÙÅÂµî·Ï
                             pBaseClass = new PH_PY008();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY030": //ê³µìš©ë“±ë¡
+                        case "PH_PY030": //°ø¿ëµî·Ï
                             pBaseClass = new PH_PY030();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY031": //ì¶œì¥ë“±ë¡
+                        case "PH_PY031": //ÃâÀåµî·Ï
                             pBaseClass = new PH_PY031();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY020": // ê·¼íƒœê¸°ë³¸ì—…ë¬´ ë³€ê²½ë“±ë¡(N.G.Y)_ê¸°ê³„ì‚¬ì—…ë¶€
+                        case "PH_PY020": // ±ÙÅÂ±âº»¾÷¹« º¯°æµî·Ï(N.G.Y)_±â°è»ç¾÷ºÎ
                             pBaseClass = new PH_PY020();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY104": // ê³ ì •ìˆ˜ë‹¹ê³µì œê¸ˆì•¡ì¼ê´„ë“±ë¡
+                        case "PH_PY104": // °íÁ¤¼ö´ç°øÁ¦±İ¾×ÀÏ°ıµî·Ï
                             pBaseClass = new PH_PY104();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY132": // ì„±ê³¼ê¸‰ ì°¨ë“± ê°œì¸ë³„ ê³„ì‚°
+                        case "PH_PY132": // ¼º°ú±Ş Â÷µî °³ÀÎº° °è»ê
                             pBaseClass = new PH_PY132();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY116": // í‡´ì§ê¸ˆë¶„ê°œìƒ
+                        case "PH_PY116": // ÅğÁ÷±İºĞ°³»ı
                             pBaseClass = new PH_PY116();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY105": // í˜¸ë´‰í‘œë“±ë¡
+                        case "PH_PY105": // È£ºÀÇ¥µî·Ï
                             pBaseClass = new PH_PY105();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY108": //ìƒì—¬ì§€ê¸‰ë¥ ì„¤ì •
+                        case "PH_PY108": //»ó¿©Áö±Ş·ü¼³Á¤
                             pBaseClass = new PH_PY108();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY125": //ê°œì¸ë³„ í‡´ì§ì—°ê¸ˆ ì„¤ì •ë“±ë¡(ì—‘ì…€ Upload)
+                        case "PH_PY125": //°³ÀÎº° ÅğÁ÷¿¬±İ ¼³Á¤µî·Ï(¿¢¼¿ Upload)
                             pBaseClass = new PH_PY125();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY102": //ìˆ˜ë‹¹í•­ëª©ì„¤ì •
+                        case "PH_PY102": //¼ö´çÇ×¸ñ¼³Á¤
                             pBaseClass = new PH_PY102();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY130": //íŒ€ë³„ ì„±ê³¼ê¸‰ì°¨ë“± ë“±ê¸‰ë“±ë¡
+                        case "PH_PY130": //ÆÀº° ¼º°ú±ŞÂ÷µî µî±Şµî·Ï
                             pBaseClass = new PH_PY130();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY032": //ì‚¬ìš©ì™¸ì¶œë“±ë¡
+                        case "PH_PY032": //»ç¿ë¿ÜÃâµî·Ï
                             pBaseClass = new PH_PY032();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY110": //ê°œì¸ë³„ìƒì—¬ìœ¨ë“±ë¡
+                        case "PH_PY110": //°³ÀÎº°»ó¿©À²µî·Ï
                             pBaseClass = new PH_PY110();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY106": //ìˆ˜ë‹¹ê³„ì‚°ì‹ì„¤ì •
+                        case "PH_PY106": //¼ö´ç°è»ê½Ä¼³Á¤
                             pBaseClass = new PH_PY106();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY114": //ìˆ˜ë‹¹ê³„ì‚°ì‹ì„¤ì •
+                        case "PH_PY114": //¼ö´ç°è»ê½Ä¼³Á¤
                             pBaseClass = new PH_PY114();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY112": //ìˆ˜ë‹¹ê³„ì‚°ì‹ì„¤ì •
+                        case "PH_PY112": //¼ö´ç°è»ê½Ä¼³Á¤
                             pBaseClass = new PH_PY112();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY309": //ëŒ€ë¶€ê¸ˆë“±ë¡
+                        case "PH_PY309": //´ëºÎ±İµî·Ï
                             pBaseClass = new PH_PY309();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY034": //ê³µìš©ë¶„ê°œì²˜ë¦¬
+                        case "PH_PY034": //°ø¿ëºĞ°³Ã³¸®
                             pBaseClass = new PH_PY034();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY124": //ë² ë„¤í”¼ì•„ ê¸ˆì•¡ë“±ë¡
+                        case "PH_PY124": //º£³×ÇÇ¾Æ ±İ¾×µî·Ï
                             pBaseClass = new PH_PY124();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY999": //ë©”ë‰´ê¶Œí•œê´€ë¦¬
+                        case "PH_PY999": //¸Ş´º±ÇÇÑ°ü¸®
                             pBaseClass = new PH_PY999();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PYA80": //ê·¼ë¬´ì‹œê°„í‘œì¶œë ¥
+                        case "PH_PYA80": //±Ù¹«½Ã°£Ç¥Ãâ·Â
                             pBaseClass = new PH_PYA80();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PYA90": //ê·¼ë¡œì†Œë“ê°„ì´ì§€ê¸‰ëª…ì„¸ì„œ(ì„¸ë¬´ì„œì‹ ê³ íŒŒì¼ìƒì„±)
+                        case "PH_PYA90": //±Ù·Î¼Òµæ°£ÀÌÁö±Ş¸í¼¼¼­(¼¼¹«¼­½Å°íÆÄÀÏ»ı¼º)
                             pBaseClass = new PH_PYA90();
                             pBaseClass.LoadForm();
                             break;
 
-                        case "PH_PY526": //ì„ê¸ˆí”¼í¬ì¸ì›í˜„í™©
+                        case "PH_PY526": //ÀÓ±İÇÇÅ©ÀÎ¿øÇöÈ²
                             pBaseClass = new PH_PY526();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY127": //ê°œì¸ë³„ 4ëŒ€ë³´í—˜ ë³´ìˆ˜ì›”ì•¡ ë° ì •ì‚°ê¸ˆì•¡ ë“±ë¡(ì—‘ì…€ Upload)
+                        case "PH_PY127": //°³ÀÎº° 4´ëº¸Çè º¸¼ö¿ù¾× ¹× Á¤»ê±İ¾× µî·Ï(¿¢¼¿ Upload)
                             pBaseClass = new PH_PY127();
                             pBaseClass.LoadForm("");
                             break;
                             
-                        case "PH_PY310": //ëŒ€ë¶€ê¸ˆê°œë³„ìƒí™˜(2019.11.21 ì†¡ëª…ê·œ)
+                        case "PH_PY310": //´ëºÎ±İ°³º°»óÈ¯(2019.11.21 ¼Û¸í±Ô)
     						pBaseClass = new PH_PY310();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY115": //í‡´ì§ê¸ˆê³„ì‚°(2019.11.22 ì†¡ëª…ê·œ)
+                        case "PH_PY115": //ÅğÁ÷±İ°è»ê(2019.11.22 ¼Û¸í±Ô)
 							pBaseClass = new PH_PY115();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY118": //ê¸‰ìƒì—¬ E-Mail ë°œì†¡(2019.12.16 ì†¡ëª…ê·œ)
+                        case "PH_PY118": //±Ş»ó¿© E-Mail ¹ß¼Û(2019.12.16 ¼Û¸í±Ô)
 							pBaseClass = new PH_PY118();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY135": //ê¸‰ìƒì—¬ë¶„ê°œì²˜ë¦¬(2019.12.30 ì†¡ëª…ê·œ)
+                        case "PH_PY135": //±Ş»ó¿©ºĞ°³Ã³¸®(2019.12.30 ¼Û¸í±Ô)
                             pBaseClass = new PH_PY135();
                             pBaseClass.LoadForm("");
                             break;
 
-                        case "PH_PY136": //ê¸‰ìƒì—¬ë¶„ê°œì²˜ë¦¬ ë°°ë¶€ê·œì¹™ì„¤ì •(2020.02.06 ì†¡ëª…ê·œ)
+                        case "PH_PY136": //±Ş»ó¿©ºĞ°³Ã³¸® ¹èºÎ±ÔÄ¢¼³Á¤(2020.02.06 ¼Û¸í±Ô)
                             pBaseClass = new PH_PY136();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_DateChange": //³¯Â¥º¯°æÃ³¸®
+                            pBaseClass = new PS_DateChange();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_DateCommit": //³¯Â¥º¯°æ½ÂÀÎ
+                            pBaseClass = new PS_DateCommit();
                             pBaseClass.LoadForm("");
                             break;
                     }
@@ -1724,7 +1734,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// ì‹œìŠ¤í…œí¼ ìƒì„±
+        /// ½Ã½ºÅÛÆû »ı¼º
         /// </summary>
         /// <param name="pval"></param>
         private void Create_SYSTEMForm(SAPbouiCOM.ItemEvent pval)
@@ -1738,7 +1748,7 @@ namespace PSH_BOne_AddOn
                         //switch (pval.FormTypeEx)
                         //{
 
-                            //Case "-60100"       '//ì¸ì‚¬ê´€ë¦¬>ì‚¬ì›ë§ˆìŠ¤í„°ë°ì´í„° (ì‚¬ìš©ì ì •ì˜ í•„ë“œ)
+                            //Case "-60100"       '//ÀÎ»ç°ü¸®>»ç¿ø¸¶½ºÅÍµ¥ÀÌÅÍ (»ç¿ëÀÚ Á¤ÀÇ ÇÊµå)
                             //  Set oTempClass = New SM60100: oTempClass.LoadForm (pval.FormUID): AddForms oTempClass, pval.FormUID, pval.FormTypeEx
                         //}
                     }
@@ -1752,7 +1762,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// ìƒì„±ëœ í¼ í´ë˜ìŠ¤ í•´ì œ(ì‚¬ìš©ì•ˆí•¨:exe ë©”ëª¨ë¦¬ í•´ì œ ì•ˆë¨, 2018.12.03 ì†¡ëª…ê·œ)
+        /// »ı¼ºµÈ Æû Å¬·¡½º ÇØÁ¦(»ç¿ë¾ÈÇÔ:exe ¸Ş¸ğ¸® ÇØÁ¦ ¾ÈµÊ, 2018.12.03 ¼Û¸í±Ô)
         /// </summary>
         private void TerminateApplication()
         {
@@ -1771,7 +1781,7 @@ namespace PSH_BOne_AddOn
             PSH_Globals.oCompany.Disconnect();
         }
 
-        #region ì´ë²¤íŠ¸
+        #region ÀÌº¥Æ®
 
         private void SBO_Application_AppEvent(SAPbouiCOM.BoAppEventTypes EventType)
         {
@@ -1862,7 +1872,7 @@ namespace PSH_BOne_AddOn
                             {
                                 oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
                             }
-                            else if (pVal.Before_Action == false) //FORM_UNLOAD ì´ë²¤íŠ¸ê°€ Before_Action == false ì¼ ë•ŒëŠ” PSH_Globals.ClassList[FormUID] ì— index ì˜¤ë¥˜ ë°œìƒí•˜ë¯€ë¡œ ê°•ì œ return
+                            else if (pVal.Before_Action == false) //FORM_UNLOAD ÀÌº¥Æ®°¡ Before_Action == false ÀÏ ¶§´Â PSH_Globals.ClassList[FormUID] ¿¡ index ¿À·ù ¹ß»ıÇÏ¹Ç·Î °­Á¦ return
                             {
                                 return;
                             }

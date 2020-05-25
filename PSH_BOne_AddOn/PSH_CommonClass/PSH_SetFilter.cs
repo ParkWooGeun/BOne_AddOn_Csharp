@@ -1,7 +1,7 @@
 namespace PSH_BOne_AddOn
 {
     /// <summary>
-    /// ì´ë²¤íŠ¸ í•„í„°
+    /// ÀÌº¥Æ® ÇÊÅÍ
     /// </summary>
     internal static class PSH_SetFilter
     {
@@ -54,269 +54,271 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED);
 			//System Form Type
 
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
 
-			//ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 
 			//AddOn Form Type
-			//ìš´ì˜ê´€ë¦¬
-			oFilter.AddEx("PH_PY000"); //ì‚¬ìš©ìê¶Œí•œê´€ë¦¬
+			//¿î¿µ°ü¸®
+			oFilter.AddEx("PH_PY000"); //»ç¿ëÀÚ±ÇÇÑ°ü¸®
 
-            //ì¸ì‚¬ê´€ë¦¬
-            oFilter.AddEx("PH_PY001"); //ì¸ì‚¬ë§ˆìŠ¤í„° ë“±ë¡
-            oFilter.AddEx("PH_PY002"); //ê·¼íƒœì‹œê°„êµ¬ë¶„ ë“±ë¡
-            oFilter.AddEx("PH_PY003"); //ê·¼íƒœì›”ë ¥ì„¤ì •
-            oFilter.AddEx("PH_PY004"); //ê·¼ë¬´ì¡°í¸ì„±ë“±ë¡
-			oFilter.AddEx("PH_PY005"); //ì‚¬ì—…ì¥ì •ë³´ë“±ë¡
-			oFilter.AddEx("PH_PY006"); //ìŠ¹í˜¸ì‘ì—…ë“±ë¡
-			oFilter.AddEx("PH_PY007"); //ìœ ë¥˜ë‹¨ê°€ë“±ë¡
-			oFilter.AddEx("PH_PY008"); //ì¼ê·¼íƒœë“±ë¡
-			oFilter.AddEx("PH_PY009"); //ê¸°ì°°ìë£ŒUPLOAD
-			oFilter.AddEx("PH_PY010"); //ì¼ì¼ê·¼íƒœì²˜ë¦¬
-			oFilter.AddEx("PH_PY011"); //ì „ë¬¸ì§ í˜¸ì¹­ ì¼ê´„ ë³€ê²½(2013.07.05 ì†¡ëª…ê·œ ì¶”ê°€)
-			oFilter.AddEx("PH_PY012"); //ì¶œì¥ë“±ë¡
-			oFilter.AddEx("PH_PY013"); //ìœ„í•´ì¼ìˆ˜ê³„ì‚°
-			oFilter.AddEx("PH_PY014"); //ìœ„í•´ì¼ìˆ˜ìˆ˜ì •
-			oFilter.AddEx("PH_PY015"); //ì—°ì°¨ì ì¹˜ë“±ë¡
-			oFilter.AddEx("PH_PY016"); //ê¸°ë³¸ì—…ë¬´ë“±ë¡
-			oFilter.AddEx("PH_PY017"); //ì›”ê·¼íƒœì§‘ê³„
-			oFilter.AddEx("PH_PY018"); //íœ´ì¼ê·¼ë¬´ì²´í¬(ì—°ë´‰ì œ)
-			oFilter.AddEx("PH_PY019"); //ë°˜ë³€ê²½ë“±ë¡
-			oFilter.AddEx("PH_PY020"); //ì¼ê·¼íƒœ ì—…ë¬´ë³€ê²½ë“±ë¡
-			oFilter.AddEx("PH_PY021"); //ì‚¬ì›ë¹„ìƒì—°ë½ì²˜ê´€ë¦¬
-			oFilter.AddEx("PH_PY201"); //ì •ë…„ì„ë°•ì íœ´ê°€ê²½ë¹„ ë“±ë¡
-			oFilter.AddEx("PH_PY202"); //ì •ë…„ì„ë°•ì íœ´ê°€ê²½ë¹„ ì¡°íšŒ
-			oFilter.AddEx("PH_PY203"); //êµìœ¡ì‹¤ì ë“±ë¡
-			oFilter.AddEx("PH_PY204"); //êµìœ¡ê³„íšë“±ë¡
-			oFilter.AddEx("PH_PY205"); //êµìœ¡ê³„íšVSì‹¤ì ì¡°íšŒ
+            //ÀÎ»ç°ü¸®
+            oFilter.AddEx("PH_PY001"); //ÀÎ»ç¸¶½ºÅÍ µî·Ï
+            oFilter.AddEx("PH_PY002"); //±ÙÅÂ½Ã°£±¸ºĞ µî·Ï
+            oFilter.AddEx("PH_PY003"); //±ÙÅÂ¿ù·Â¼³Á¤
+            oFilter.AddEx("PH_PY004"); //±Ù¹«Á¶Æí¼ºµî·Ï
+			oFilter.AddEx("PH_PY005"); //»ç¾÷ÀåÁ¤º¸µî·Ï
+			oFilter.AddEx("PH_PY006"); //½ÂÈ£ÀÛ¾÷µî·Ï
+			oFilter.AddEx("PH_PY007"); //À¯·ù´Ü°¡µî·Ï
+			oFilter.AddEx("PH_PY008"); //ÀÏ±ÙÅÂµî·Ï
+			oFilter.AddEx("PH_PY009"); //±âÂûÀÚ·áUPLOAD
+			oFilter.AddEx("PH_PY010"); //ÀÏÀÏ±ÙÅÂÃ³¸®
+			oFilter.AddEx("PH_PY011"); //Àü¹®Á÷ È£Äª ÀÏ°ı º¯°æ(2013.07.05 ¼Û¸í±Ô Ãß°¡)
+			oFilter.AddEx("PH_PY012"); //ÃâÀåµî·Ï
+			oFilter.AddEx("PH_PY013"); //À§ÇØÀÏ¼ö°è»ê
+			oFilter.AddEx("PH_PY014"); //À§ÇØÀÏ¼ö¼öÁ¤
+			oFilter.AddEx("PH_PY015"); //¿¬Â÷ÀûÄ¡µî·Ï
+			oFilter.AddEx("PH_PY016"); //±âº»¾÷¹«µî·Ï
+			oFilter.AddEx("PH_PY017"); //¿ù±ÙÅÂÁı°è
+			oFilter.AddEx("PH_PY018"); //ÈŞÀÏ±Ù¹«Ã¼Å©(¿¬ºÀÁ¦)
+			oFilter.AddEx("PH_PY019"); //¹İº¯°æµî·Ï
+			oFilter.AddEx("PH_PY020"); //ÀÏ±ÙÅÂ ¾÷¹«º¯°æµî·Ï
+			oFilter.AddEx("PH_PY021"); //»ç¿øºñ»ó¿¬¶ôÃ³°ü¸®
+			oFilter.AddEx("PH_PY201"); //Á¤³âÀÓ¹ÚÀÚ ÈŞ°¡°æºñ µî·Ï
+			oFilter.AddEx("PH_PY202"); //Á¤³âÀÓ¹ÚÀÚ ÈŞ°¡°æºñ Á¶È¸
+			oFilter.AddEx("PH_PY203"); //±³À°½ÇÀûµî·Ï
+			oFilter.AddEx("PH_PY204"); //±³À°°èÈ¹µî·Ï
+			oFilter.AddEx("PH_PY205"); //±³À°°èÈ¹VS½ÇÀûÁ¶È¸
 
-			//ì¸ì‚¬ - ë¦¬í¬íŠ¸
-			oFilter.AddEx("PH_PY501"); //ì—¬ê¶Œë°œê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY505"); //ì…ì‚¬ìëŒ€ì¥
-			oFilter.AddEx("PH_PY510"); //ì‚¬ì›ëª…ë¶€
-			oFilter.AddEx("PH_PY515"); //ì¬ì§ìì‚¬ì›ëª…ë¶€
-			oFilter.AddEx("PH_PY520"); //í‡´ì§ë°í‡´ì§ì˜ˆì •ìëŒ€ì¥
-			oFilter.AddEx("PH_PY525"); //í•™ë ¥ë³„ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY530"); //ì—°ë ¹ë³„ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY535"); //ê·¼ì†ë…„ìˆ˜ë³„ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY540"); //ì¸ì›í˜„í™©(ëŒ€ì™¸ìš©)
-			oFilter.AddEx("PH_PY545"); //ì¸ì›í˜„í™©(ëŒ€ë‚´ìš©)
-			oFilter.AddEx("PH_PY550"); //ì „ì²´ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY555"); //ì¼ì¼ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY560"); //ì¼ì¶œê·¼í˜„í™©
-			oFilter.AddEx("PH_PY565"); //ì—°ì¥ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY570"); //ì—°ì¥/íœ´ì¼ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY575"); //ê·¼íƒœê¸°ì°°í˜„í™©
-			oFilter.AddEx("PH_PY580"); //ê°œì¸ë³„ê·¼íƒœì›”ë³´
-			oFilter.AddEx("PH_PY585"); //ì¼ì¼ì¶œê·¼ê¸°ë¡ë¶€
-			oFilter.AddEx("PH_PY590"); //ê¸°ê°„ë³„ê·¼íƒœì§‘ê³„í‘œ
-			oFilter.AddEx("PH_PY595"); //ê·¼ì†ë…„ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY600"); //ì¼ìë³„ì—°ì¥ê·¼ë¬´í˜„í™©
-			oFilter.AddEx("PH_PY605"); //ê·¼ì†ë³´ì „íœ´ê°€ë°œìƒë°ì‚¬ìš©ë‚´ì—­
-			oFilter.AddEx("PH_PY610"); //ê·¼íƒœêµ¬ë¶„ë³„ì‚¬ìš©ë‚´ì—­
-			oFilter.AddEx("PH_PY615"); //ë‹¹ì§ê·¼ë¬´í˜„í™©
-			oFilter.AddEx("PH_PY620"); //ì—°ë´‰ì œíœ´ì¼ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY635"); //ì—¬í–‰,êµìœ¡ìí˜„í™©
-			oFilter.AddEx("PH_PY640"); //êµ­ë¯¼ì—°ê¸ˆí‡´ì§ì „í™˜ê¸ˆí˜„í™©
-			oFilter.AddEx("PH_PY645"); //ìê²©ìˆ˜ë‹¹ì§€ê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY650"); //ë…¸ë™ì¡°í•©ê°„ë¶€í˜„í™©
-			oFilter.AddEx("PH_PY655"); //ë³´í›ˆëŒ€ìƒìí˜„í™©
-			oFilter.AddEx("PH_PY660"); //ì¥ì• ê·¼ë¡œìí˜„í™©
-			oFilter.AddEx("PH_PY665"); //ì‚¬ì›ìë…€í˜„í™©
-			oFilter.AddEx("PH_PY670"); //ê°œì¸ë³„ì°¨ëŸ‰í˜„í™©
-			oFilter.AddEx("PH_PY675"); //ê·¼ë¬´í¸ì„±í˜„í™©
-			oFilter.AddEx("PH_PY676"); //ê·¼íƒœì‹œê°„ë‚´ì—­ì¡°íšŒ
-			oFilter.AddEx("PH_PY677"); //ì¼ì¼ê·¼íƒœì´ìƒìì¡°íšŒ
-			oFilter.AddEx("PH_PY679"); //ê°œì¸ë³„ ê·¼íƒœì§‘ê³„ ì¡°íšŒ
-			oFilter.AddEx("PH_PY680"); //ìƒë²Œí˜„í™©
-			oFilter.AddEx("PH_PY685"); //í¬ìƒê°€ê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY690"); //ìƒì¼ìí˜„í™©
-			oFilter.AddEx("PH_PY695"); //ì¸ì‚¬ê¸°ë¡ì¹´ë“œ
-			oFilter.AddEx("PH_PY705"); //êµí†µë¹„ì§€ê¸‰ê·¼íƒœí™•ì¸
-			oFilter.AddEx("PH_PY860"); //í˜¸ë´‰í‘œì¡°íšŒ
-			oFilter.AddEx("PH_PY503"); //ìŠ¹ì§„ëŒ€ìƒìëª…ë¶€
-			oFilter.AddEx("PH_PY678"); //ë‹¹ì§ê·¼ë¬´ì ì¼ê´„ ë“±ë¡
-			oFilter.AddEx("PH_PY507"); //íœ´ì§ìí˜„í™©
-			oFilter.AddEx("PH_PY681"); //ë¹„ê·¼ë¬´ì¼ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY935"); //ì •ê¸°ìŠ¹í˜¸í˜„í™©
-			oFilter.AddEx("PH_PY551"); //í‰ê· ì¸ì›ì¡°íšŒ
-			oFilter.AddEx("PH_PY508"); //ì¬ì§ì¦ëª… ë“±ë¡ ë° ë°œê¸‰
-			oFilter.AddEx("PH_PY522"); //ì„ê¸ˆí”¼í¬ëŒ€ìƒìí˜„í™©
-			oFilter.AddEx("PH_PY523"); //ì„ê¸ˆí”¼í¬ëŒ€ìƒìì›”ë³„ì°¨ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY524"); //í‡´ì§ê¸ˆ ì¤‘ê°„ ì •ì‚°ë‚´ì—­
-			oFilter.AddEx("PH_PY683"); //êµëŒ€ê·¼ë¬´ì¸ì •í˜„í™©
-			oFilter.AddEx("PH_PYA65"); //ë…„ì°¨í˜„í™© (ì§‘ê³„)
-			oFilter.AddEx("PH_PY583"); //ê°œì¸ë³„ ê·¼íƒœì§‘ê³„ ì¡°íšŒ
+			//ÀÎ»ç - ¸®Æ÷Æ®
+			oFilter.AddEx("PH_PY501"); //¿©±Ç¹ß±ŞÇöÈ²
+			oFilter.AddEx("PH_PY505"); //ÀÔ»çÀÚ´ëÀå
+			oFilter.AddEx("PH_PY510"); //»ç¿ø¸íºÎ
+			oFilter.AddEx("PH_PY515"); //ÀçÁ÷ÀÚ»ç¿ø¸íºÎ
+			oFilter.AddEx("PH_PY520"); //ÅğÁ÷¹×ÅğÁ÷¿¹Á¤ÀÚ´ëÀå
+			oFilter.AddEx("PH_PY525"); //ÇĞ·Âº°ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY530"); //¿¬·Éº°ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY535"); //±Ù¼Ó³â¼öº°ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY540"); //ÀÎ¿øÇöÈ²(´ë¿Ü¿ë)
+			oFilter.AddEx("PH_PY545"); //ÀÎ¿øÇöÈ²(´ë³»¿ë)
+			oFilter.AddEx("PH_PY550"); //ÀüÃ¼ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY555"); //ÀÏÀÏ±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY560"); //ÀÏÃâ±ÙÇöÈ²
+			oFilter.AddEx("PH_PY565"); //¿¬Àå±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY570"); //¿¬Àå/ÈŞÀÏ±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY575"); //±ÙÅÂ±âÂûÇöÈ²
+			oFilter.AddEx("PH_PY580"); //°³ÀÎº°±ÙÅÂ¿ùº¸
+			oFilter.AddEx("PH_PY585"); //ÀÏÀÏÃâ±Ù±â·ÏºÎ
+			oFilter.AddEx("PH_PY590"); //±â°£º°±ÙÅÂÁı°èÇ¥
+			oFilter.AddEx("PH_PY595"); //±Ù¼Ó³â¼öÇöÈ²
+			oFilter.AddEx("PH_PY600"); //ÀÏÀÚº°¿¬Àå±Ù¹«ÇöÈ²
+			oFilter.AddEx("PH_PY605"); //±Ù¼Óº¸ÀüÈŞ°¡¹ß»ı¹×»ç¿ë³»¿ª
+			oFilter.AddEx("PH_PY610"); //±ÙÅÂ±¸ºĞº°»ç¿ë³»¿ª
+			oFilter.AddEx("PH_PY615"); //´çÁ÷±Ù¹«ÇöÈ²
+			oFilter.AddEx("PH_PY620"); //¿¬ºÀÁ¦ÈŞÀÏ±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY635"); //¿©Çà,±³À°ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY640"); //±¹¹Î¿¬±İÅğÁ÷ÀüÈ¯±İÇöÈ²
+			oFilter.AddEx("PH_PY645"); //ÀÚ°İ¼ö´çÁö±ŞÇöÈ²
+			oFilter.AddEx("PH_PY650"); //³ëµ¿Á¶ÇÕ°£ºÎÇöÈ²
+			oFilter.AddEx("PH_PY655"); //º¸ÈÆ´ë»óÀÚÇöÈ²
+			oFilter.AddEx("PH_PY660"); //Àå¾Ö±Ù·ÎÀÚÇöÈ²
+			oFilter.AddEx("PH_PY665"); //»ç¿øÀÚ³àÇöÈ²
+			oFilter.AddEx("PH_PY670"); //°³ÀÎº°Â÷·®ÇöÈ²
+			oFilter.AddEx("PH_PY675"); //±Ù¹«Æí¼ºÇöÈ²
+			oFilter.AddEx("PH_PY676"); //±ÙÅÂ½Ã°£³»¿ªÁ¶È¸
+			oFilter.AddEx("PH_PY677"); //ÀÏÀÏ±ÙÅÂÀÌ»óÀÚÁ¶È¸
+			oFilter.AddEx("PH_PY679"); //°³ÀÎº° ±ÙÅÂÁı°è Á¶È¸
+			oFilter.AddEx("PH_PY680"); //»ó¹úÇöÈ²
+			oFilter.AddEx("PH_PY685"); //Æ÷»ó°¡±ŞÇöÈ²
+			oFilter.AddEx("PH_PY690"); //»ıÀÏÀÚÇöÈ²
+			oFilter.AddEx("PH_PY695"); //ÀÎ»ç±â·ÏÄ«µå
+			oFilter.AddEx("PH_PY705"); //±³ÅëºñÁö±Ş±ÙÅÂÈ®ÀÎ
+			oFilter.AddEx("PH_PY860"); //È£ºÀÇ¥Á¶È¸
+			oFilter.AddEx("PH_PY503"); //½ÂÁø´ë»óÀÚ¸íºÎ
+			oFilter.AddEx("PH_PY678"); //´çÁ÷±Ù¹«ÀÚ ÀÏ°ı µî·Ï
+			oFilter.AddEx("PH_PY507"); //ÈŞÁ÷ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY681"); //ºñ±Ù¹«ÀÏ¼öÇöÈ²
+			oFilter.AddEx("PH_PY935"); //Á¤±â½ÂÈ£ÇöÈ²
+			oFilter.AddEx("PH_PY551"); //Æò±ÕÀÎ¿øÁ¶È¸
+			oFilter.AddEx("PH_PY508"); //ÀçÁ÷Áõ¸í µî·Ï ¹× ¹ß±Ş
+			oFilter.AddEx("PH_PY522"); //ÀÓ±İÇÇÅ©´ë»óÀÚÇöÈ²
+			oFilter.AddEx("PH_PY523"); //ÀÓ±İÇÇÅ©´ë»óÀÚ¿ùº°Â÷¼öÇöÈ²
+			oFilter.AddEx("PH_PY524"); //ÅğÁ÷±İ Áß°£ Á¤»ê³»¿ª
+			oFilter.AddEx("PH_PY683"); //±³´ë±Ù¹«ÀÎÁ¤ÇöÈ²
+			oFilter.AddEx("PH_PYA65"); //³âÂ÷ÇöÈ² (Áı°è)
+			oFilter.AddEx("PH_PY583"); //°³ÀÎº° ±ÙÅÂÁı°è Á¶È¸
 
-			//ê¸‰ì—¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY100"); //ê¸°ì¤€ì„¸ì•¡ì„¤ì •
-			oFilter.AddEx("PH_PY101"); //ë³´í—˜ë¥ ë“±ë¡
-			oFilter.AddEx("PH_PY102"); //ìˆ˜ë‹¹í•­ëª©ì„¤ì •
-			oFilter.AddEx("PH_PY103"); //ê³µì œí•­ëª©ì„¤ì •
-			oFilter.AddEx("PH_PY104"); //ê³ ì •ìˆ˜ë‹¹ê³µì œê¸ˆì•¡ì¼ê´„ë“±ë¡
-			oFilter.AddEx("PH_PY105"); //í˜¸ë´‰í‘œë“±ë¡
-			oFilter.AddEx("PH_PY106"); //ìˆ˜ë‹¹ê³„ì‚°ì‹ì„¤ì •
-			oFilter.AddEx("PH_PY107"); //ê¸‰ìƒì—¬ê¸°ì¤€ì¼ì„¤ì •
-			oFilter.AddEx("PH_PY108"); //ìƒì—¬ìœ¨ì§€ê¸‰ì„¤ì •
-			oFilter.AddEx("PH_PY109"); //ê¸‰ìƒì—¬ë³€ë™ìë£Œë“±ë¡
-			oFilter.AddEx("PH_PY109_1"); //ê¸‰ìƒì—¬ë³€ë™ìë£Œ í•­ëª©ìˆ˜ì •
-			oFilter.AddEx("PH_PY110"); //ê°œì¸ìƒì—¬ìœ¨ë“±ë¡
-			oFilter.AddEx("PH_PY111"); //ê¸‰ìƒì—¬ê³„ì‚°
-			oFilter.AddEx("PH_PY112"); //ê¸‰ìƒì—¬ìë£Œê´€ë¦¬
-			oFilter.AddEx("PH_PY113"); //ê¸‰ìƒì—¬ë¶„ê°œìë£Œìƒì„±
-			oFilter.AddEx("PH_PY114"); //í‡´ì§ê¸ˆê¸°ì¤€ì„¤ì •
-			oFilter.AddEx("PH_PY115"); //í‡´ì§ê¸ˆê³„ì‚°
-			oFilter.AddEx("PH_PY116"); //í‡´ì§ê¸ˆë¶„ê°œìë£Œìƒì„±
-			oFilter.AddEx("PH_PY117"); //ê¸‰ìƒì—¬ë§ˆê°ì‘ì—…
-			oFilter.AddEx("PH_PY118"); //ê¸‰ìƒì—¬Emailë°œì†¡
-			oFilter.AddEx("PH_PY119"); //ê¸‰ìƒì—¬ì€í–‰íŒŒì¼ìƒì„±
-			oFilter.AddEx("PH_PY120"); //ê¸‰ìƒì—¬ì†Œê¸‰ì§‘ê³„ì²˜ë¦¬
-			oFilter.AddEx("PH_PY121"); //í‰ê°€ê°€ê¸‰ì•¡ ë“±ë¡
-			oFilter.AddEx("PH_PY122"); //ê¸‰ìƒì—¬ì¶œë ¥ ê°œì¸ë¶€ì„œì„¤ì •ë“±ë¡
-			oFilter.AddEx("PH_PY123"); //ê°€ì••ë¥˜ë“±ë¡
-			oFilter.AddEx("PH_PY124"); //ë² ë„¤í”¼ì•„ ê¸ˆì•¡ ë“±ë¡
-			oFilter.AddEx("PH_PY125"); //í‡´ì§ì—°ê¸ˆ ì„¤ì •
-			oFilter.AddEx("PH_PY127"); //ê°œì¸ë³„ 4ëŒ€ë³´í—˜ ë³´ìˆ˜ì›”ì•¡ ë° ì •ì‚°ê¸ˆì•¡ì…ë ¥
-			oFilter.AddEx("PH_PY130"); //íŒ€ë³„ ì„±ê³¼ê¸‰ì°¨ë“± ë“±ê¸‰ë“±ë¡
-			oFilter.AddEx("PH_PY131"); //ì„±ê³¼ê¸‰ì°¨ë“± ê³„ìˆ˜ë“±ë¡
-			oFilter.AddEx("PH_PY132"); //ì„±ê³¼ê¸‰ì°¨ ê°œì¸ë³„ ê³„ì‚°
-			oFilter.AddEx("PH_PY133"); //ì—°ë´‰ì œ íšŸì°¨ ê´€ë¦¬
-			oFilter.AddEx("PH_PY134"); //ì†Œë“ì„¸/ì£¼ë¯¼ì„¸ ì¡°ì •ê´€ë¦¬
-			oFilter.AddEx("PH_PY129"); //ê°œì¸ë³„í‡´ì§ì—°ê¸ˆ(DCí˜•) ê³„ì‚°
-            oFilter.AddEx("PH_PY136"); //ê¸‰ìƒì—¬ë¶„ê°œì²˜ë¦¬ ë°°ë¶€ê·œì¹™ì„¤ì •
+			//±Ş¿©°ü¸®
+			oFilter.AddEx("PH_PY100"); //±âÁØ¼¼¾×¼³Á¤
+			oFilter.AddEx("PH_PY101"); //º¸Çè·üµî·Ï
+			oFilter.AddEx("PH_PY102"); //¼ö´çÇ×¸ñ¼³Á¤
+			oFilter.AddEx("PH_PY103"); //°øÁ¦Ç×¸ñ¼³Á¤
+			oFilter.AddEx("PH_PY104"); //°íÁ¤¼ö´ç°øÁ¦±İ¾×ÀÏ°ıµî·Ï
+			oFilter.AddEx("PH_PY105"); //È£ºÀÇ¥µî·Ï
+			oFilter.AddEx("PH_PY106"); //¼ö´ç°è»ê½Ä¼³Á¤
+			oFilter.AddEx("PH_PY107"); //±Ş»ó¿©±âÁØÀÏ¼³Á¤
+			oFilter.AddEx("PH_PY108"); //»ó¿©À²Áö±Ş¼³Á¤
+			oFilter.AddEx("PH_PY109"); //±Ş»ó¿©º¯µ¿ÀÚ·áµî·Ï
+			oFilter.AddEx("PH_PY109_1"); //±Ş»ó¿©º¯µ¿ÀÚ·á Ç×¸ñ¼öÁ¤
+			oFilter.AddEx("PH_PY110"); //°³ÀÎ»ó¿©À²µî·Ï
+			oFilter.AddEx("PH_PY111"); //±Ş»ó¿©°è»ê
+			oFilter.AddEx("PH_PY112"); //±Ş»ó¿©ÀÚ·á°ü¸®
+			oFilter.AddEx("PH_PY113"); //±Ş»ó¿©ºĞ°³ÀÚ·á»ı¼º
+			oFilter.AddEx("PH_PY114"); //ÅğÁ÷±İ±âÁØ¼³Á¤
+			oFilter.AddEx("PH_PY115"); //ÅğÁ÷±İ°è»ê
+			oFilter.AddEx("PH_PY116"); //ÅğÁ÷±İºĞ°³ÀÚ·á»ı¼º
+			oFilter.AddEx("PH_PY117"); //±Ş»ó¿©¸¶°¨ÀÛ¾÷
+			oFilter.AddEx("PH_PY118"); //±Ş»ó¿©Email¹ß¼Û
+			oFilter.AddEx("PH_PY119"); //±Ş»ó¿©ÀºÇàÆÄÀÏ»ı¼º
+			oFilter.AddEx("PH_PY120"); //±Ş»ó¿©¼Ò±ŞÁı°èÃ³¸®
+			oFilter.AddEx("PH_PY121"); //Æò°¡°¡±Ş¾× µî·Ï
+			oFilter.AddEx("PH_PY122"); //±Ş»ó¿©Ãâ·Â °³ÀÎºÎ¼­¼³Á¤µî·Ï
+			oFilter.AddEx("PH_PY123"); //°¡¾Ğ·ùµî·Ï
+			oFilter.AddEx("PH_PY124"); //º£³×ÇÇ¾Æ ±İ¾× µî·Ï
+			oFilter.AddEx("PH_PY125"); //ÅğÁ÷¿¬±İ ¼³Á¤
+			oFilter.AddEx("PH_PY127"); //°³ÀÎº° 4´ëº¸Çè º¸¼ö¿ù¾× ¹× Á¤»ê±İ¾×ÀÔ·Â
+			oFilter.AddEx("PH_PY130"); //ÆÀº° ¼º°ú±ŞÂ÷µî µî±Şµî·Ï
+			oFilter.AddEx("PH_PY131"); //¼º°ú±ŞÂ÷µî °è¼öµî·Ï
+			oFilter.AddEx("PH_PY132"); //¼º°ú±ŞÂ÷ °³ÀÎº° °è»ê
+			oFilter.AddEx("PH_PY133"); //¿¬ºÀÁ¦ È½Â÷ °ü¸®
+			oFilter.AddEx("PH_PY134"); //¼Òµæ¼¼/ÁÖ¹Î¼¼ Á¶Á¤°ü¸®
+			oFilter.AddEx("PH_PY129"); //°³ÀÎº°ÅğÁ÷¿¬±İ(DCÇü) °è»ê
+            oFilter.AddEx("PH_PY136"); //±Ş»ó¿©ºĞ°³Ã³¸® ¹èºÎ±ÔÄ¢¼³Á¤
 
-			//ê¸‰ì—¬ê´€ë¦¬ - ë¦¬í¬íŠ¸
-			oFilter.AddEx("PH_PY625"); //ì„¸íƒìëª…ë¶€
-			oFilter.AddEx("PH_PY630"); //ì‚¬ì›ë³„ë…¸ì¡°ë¹„ê³µì œí˜„í™©
-			oFilter.AddEx("PH_PY700"); //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY710"); //ìƒì—¬ì§€ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY715"); //ê¸‰ì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY720"); //ìƒì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY725"); //ê¸‰ì—¬ì§ê¸‰ë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY740"); //ìƒì—¬ì§ê¸‰ë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY730"); //ê¸‰ì—¬ë´‰íˆ¬ì¶œë ¥
-			oFilter.AddEx("PH_PY735"); //ìƒì—¬ë´‰íˆ¬ì¶œë ¥
-			oFilter.AddEx("PH_PY745"); //ì—°ê°„ì§€ê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY750"); //ê·¼ë¡œì†Œë“ì§•ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY755"); //ë™í˜¸íšŒê°€ì…í˜„í™©
-			oFilter.AddEx("PH_PY760"); //í‰ê· ì„ê¸ˆë°í‡´ì§ê¸ˆì‚°ì¶œë‚´ì—­ì„œ
-			oFilter.AddEx("PH_PY765"); //ê¸‰ì—¬ì¦ê°ë‚´ì—­ì„œ
-			oFilter.AddEx("PH_PY770"); //í‡´ì§ì†Œë“ì›ì²œì§•ìˆ˜ì˜ìˆ˜ì¦ì¶œë ¥
-			oFilter.AddEx("PH_PY775"); //ê°œì¸ë³„ë…„ì°¨í˜„í™©
-			oFilter.AddEx("PH_PY776"); //ì”ì—¬ë…„ì°¨í˜„í™©
-			oFilter.AddEx("PH_PY780"); //ì›”ê³ ìš©ë³´í—˜ë‚´ì—­
-			oFilter.AddEx("PH_PY785"); //ì›”êµ­ë¯¼ì—°ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY790"); //ì›”ê±´ê°•ë³´í—˜ë‚´ì—­
-			oFilter.AddEx("PH_PY795"); //ì—°ê°„ë¶€ì„œë³„ê¸‰ì—¬ë‚´ì—­
-			oFilter.AddEx("PH_PY800"); //ì¸ê±´ë¹„ì§€ê¸‰ìë£Œ
-			oFilter.AddEx("PH_PY805"); //ê¸‰ì—¬ìˆ˜ë‹¹ë³€ë™ë‚´ì—­
-			oFilter.AddEx("PH_PY810"); //ì§ê¸‰ë³„í†µìƒì„ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY815"); //í‰ê· ì„ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY820"); //í†µìƒì„ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY825"); //ì „ë¬¸ì§O/Tí˜„í™©
-			oFilter.AddEx("PH_PY830"); //ë¶€ì„œë³„ì¸ê±´ë¹„í˜„í™© (ê¸°íš)
-			oFilter.AddEx("PH_PY835"); //ì§ê¸‰ë³„O/Të°ìˆ˜ë‹¹í˜„í™©
-			oFilter.AddEx("PH_PY840"); //í’ì‚°ì „ìê³µì‹œìë£Œ
-			oFilter.AddEx("PH_PY845"); //ê¸°ê°„ë³„ê¸‰ì—¬ì§€ê¸‰ë‚´ì—­
-			oFilter.AddEx("PH_PY850"); //ì†Œê¸‰ë¶„ì§€ê¸‰ëª…ì„¸ì„œ
-			oFilter.AddEx("PH_PY855"); //ê°œì¸ë³„ì„ê¸ˆì§€ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY865"); //ê³ ìš©ë³´í—˜í˜„í™© (ê³„ì‚°ìš©)
-			oFilter.AddEx("PH_PY870"); //ë‹´ë‹¹ë³„ì›”O/Të°ìˆ˜ë‹¹í˜„í™©
-			oFilter.AddEx("PH_PY875"); //ì§ê¸‰ë³„ìˆ˜ë‹¹ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY716"); //ê¸°ê°„ë³„ê¸‰ì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY721"); //ê¸°ê°„ë³„ìƒì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY717"); //ê¸°ê°„ë³„ê¸‰ì—¬ë°˜ë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY718"); //ìƒì‚°ì™„ë£Œê¸ˆì•¡ëŒ€ë¹„O/Tí˜„í™©
-			oFilter.AddEx("PH_PY701");//ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥ (ë…¸ì¡°ìš©)
+			//±Ş¿©°ü¸® - ¸®Æ÷Æ®
+			oFilter.AddEx("PH_PY625"); //¼¼Å¹ÀÚ¸íºÎ
+			oFilter.AddEx("PH_PY630"); //»ç¿øº°³ëÁ¶ºñ°øÁ¦ÇöÈ²
+			oFilter.AddEx("PH_PY700"); //±Ş¿©Áö±Ş´ëÀå
+			oFilter.AddEx("PH_PY710"); //»ó¿©Áö±Ş´ëÀå
+			oFilter.AddEx("PH_PY715"); //±Ş¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY720"); //»ó¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY725"); //±Ş¿©Á÷±Şº°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY740"); //»ó¿©Á÷±Şº°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY730"); //±Ş¿©ºÀÅõÃâ·Â
+			oFilter.AddEx("PH_PY735"); //»ó¿©ºÀÅõÃâ·Â
+			oFilter.AddEx("PH_PY745"); //¿¬°£Áö±ŞÇöÈ²
+			oFilter.AddEx("PH_PY750"); //±Ù·Î¼ÒµæÂ¡¼öÇöÈ²
+			oFilter.AddEx("PH_PY755"); //µ¿È£È¸°¡ÀÔÇöÈ²
+			oFilter.AddEx("PH_PY760"); //Æò±ÕÀÓ±İ¹×ÅğÁ÷±İ»êÃâ³»¿ª¼­
+			oFilter.AddEx("PH_PY765"); //±Ş¿©Áõ°¨³»¿ª¼­
+			oFilter.AddEx("PH_PY770"); //ÅğÁ÷¼Òµæ¿øÃµÂ¡¼ö¿µ¼öÁõÃâ·Â
+			oFilter.AddEx("PH_PY775"); //°³ÀÎº°³âÂ÷ÇöÈ²
+			oFilter.AddEx("PH_PY776"); //ÀÜ¿©³âÂ÷ÇöÈ²
+			oFilter.AddEx("PH_PY780"); //¿ù°í¿ëº¸Çè³»¿ª
+			oFilter.AddEx("PH_PY785"); //¿ù±¹¹Î¿¬±İ³»¿ª
+			oFilter.AddEx("PH_PY790"); //¿ù°Ç°­º¸Çè³»¿ª
+			oFilter.AddEx("PH_PY795"); //¿¬°£ºÎ¼­º°±Ş¿©³»¿ª
+			oFilter.AddEx("PH_PY800"); //ÀÎ°ÇºñÁö±ŞÀÚ·á
+			oFilter.AddEx("PH_PY805"); //±Ş¿©¼ö´çº¯µ¿³»¿ª
+			oFilter.AddEx("PH_PY810"); //Á÷±Şº°Åë»óÀÓ±İ³»¿ª
+			oFilter.AddEx("PH_PY815"); //Æò±ÕÀÓ±İ³»¿ª
+			oFilter.AddEx("PH_PY820"); //Åë»óÀÓ±İ³»¿ª
+			oFilter.AddEx("PH_PY825"); //Àü¹®Á÷O/TÇöÈ²
+			oFilter.AddEx("PH_PY830"); //ºÎ¼­º°ÀÎ°ÇºñÇöÈ² (±âÈ¹)
+			oFilter.AddEx("PH_PY835"); //Á÷±Şº°O/T¹×¼ö´çÇöÈ²
+			oFilter.AddEx("PH_PY840"); //Ç³»êÀüÀÚ°ø½ÃÀÚ·á
+			oFilter.AddEx("PH_PY845"); //±â°£º°±Ş¿©Áö±Ş³»¿ª
+			oFilter.AddEx("PH_PY850"); //¼Ò±ŞºĞÁö±Ş¸í¼¼¼­
+			oFilter.AddEx("PH_PY855"); //°³ÀÎº°ÀÓ±İÁö±Ş´ëÀå
+			oFilter.AddEx("PH_PY865"); //°í¿ëº¸ÇèÇöÈ² (°è»ê¿ë)
+			oFilter.AddEx("PH_PY870"); //´ã´çº°¿ùO/T¹×¼ö´çÇöÈ²
+			oFilter.AddEx("PH_PY875"); //Á÷±Şº°¼ö´çÁı°è´ëÀå
+			oFilter.AddEx("PH_PY716"); //±â°£º°±Ş¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY721"); //±â°£º°»ó¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY717"); //±â°£º°±Ş¿©¹İº°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY718"); //»ı»ê¿Ï·á±İ¾×´ëºñO/TÇöÈ²
+			oFilter.AddEx("PH_PY701");//±Ş¿©Áö±Ş´ëÀå (³ëÁ¶¿ë)
 
-			oFilter.AddEx("PH_PYA10"); //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA20"); //ê¸‰ì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA30"); //ìƒì—¬ì§€ê¸‰ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA40"); //ìƒì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA50"); //DCì „í™˜ìë¶€ë‹´ê¸ˆì§€ê¸‰ë‚´ì—­
-			oFilter.AddEx("PH_PYA75"); //êµí†µë¹„ì™¸ìˆ˜ë‹¹ì§€ê¸‰ëŒ€ì¥
-            oFilter.AddEx("PH_PYA80"); //ê·¼ë¬´ì‹œê°„í‘œì¶œë ¥
-            oFilter.AddEx("PH_PYA90"); //ê·¼ë¡œì†Œë“ê°„ì´ì§€ê¸‰ëª…ì„¸ì„œ(ì„¸ë¬´ì„œì‹ ê³ íŒŒì¼ìƒì„±)
-            oFilter.AddEx("PH_PY526"); //ì„ê¸ˆí”¼í¬ì¸ì›í˜„í™©
-            oFilter.AddEx("PH_PY999"); //ì‚¬ìš©ìê¶Œí•œê´€ë¦¬
+			oFilter.AddEx("PH_PYA10"); //±Ş¿©Áö±Ş´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA20"); //±Ş¿©ºÎ¼­º°Áı°è´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA30"); //»ó¿©Áö±Ş´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA40"); //»ó¿©ºÎ¼­º°Áı°è´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA50"); //DCÀüÈ¯ÀÚºÎ´ã±İÁö±Ş³»¿ª
+			oFilter.AddEx("PH_PYA75"); //±³Åëºñ¿Ü¼ö´çÁö±Ş´ëÀå
+            oFilter.AddEx("PH_PYA80"); //±Ù¹«½Ã°£Ç¥Ãâ·Â
+            oFilter.AddEx("PH_PYA90"); //±Ù·Î¼Òµæ°£ÀÌÁö±Ş¸í¼¼¼­(¼¼¹«¼­½Å°íÆÄÀÏ»ı¼º)
+            oFilter.AddEx("PH_PY526"); //ÀÓ±İÇÇÅ©ÀÎ¿øÇöÈ²
+            oFilter.AddEx("PH_PY999"); //»ç¿ëÀÚ±ÇÇÑ°ü¸®
 
-            //ì •ì‚°ê´€ë¦¬
-            oFilter.AddEx("PH_PY401"); //ì „ê·¼ë¬´ì§€ë“±ë¡
-			oFilter.AddEx("PH_PY402"); //ì •ì‚°ê¸°ì´ˆìë£Œ ë“±ë¡
-			oFilter.AddEx("PH_PY405"); //ì˜ë£Œë¹„ë“±ë¡
-			oFilter.AddEx("PH_PY407"); //ê¸°ë¶€ê¸ˆë“±ë¡
-			oFilter.AddEx("PH_PY409"); //ê¸°ë¶€ê¸ˆì¡°ì •ëª…ì„¸ë“±ë¡
-			oFilter.AddEx("PH_PY411"); //ì—°ê¸ˆ.ì €ì¶•ë“±ì†Œë“ê³µì œë“±ë¡
-			oFilter.AddEx("PH_PY413"); //ì›”ì„¸ì•¡.ì£¼íƒì„ì°¨ì°¨ì…ê¸ˆìë£Œ ë“±ë¡
-			oFilter.AddEx("PH_PY415"); //ì •ì‚°ê³„ì‚°
-			oFilter.AddEx("PH_PY417"); //ì •ì‚° ì€í–‰íŒŒì¼ìƒì„±
-			oFilter.AddEx("PH_PY980"); //ì‹ ê³ _ê·¼ë¡œì†Œë“ì§€ê¸‰ëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY985"); //ì‹ ê³ _ì˜ë£Œë¹„ì§€ê¸‰ëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY990"); //ì‹ ê³ _ê¸°ë¶€ê¸ˆëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY995"); //ì‹ ê³ _í‡´ì§ì†Œë“ì§€ê¸‰ëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY419"); //í‘œì¤€ì„¸ì•¡ì ìš©ëŒ€ìƒìë“±ë¡
+            //Á¤»ê°ü¸®
+            oFilter.AddEx("PH_PY401"); //Àü±Ù¹«Áöµî·Ï
+			oFilter.AddEx("PH_PY402"); //Á¤»ê±âÃÊÀÚ·á µî·Ï
+			oFilter.AddEx("PH_PY405"); //ÀÇ·áºñµî·Ï
+			oFilter.AddEx("PH_PY407"); //±âºÎ±İµî·Ï
+			oFilter.AddEx("PH_PY409"); //±âºÎ±İÁ¶Á¤¸í¼¼µî·Ï
+			oFilter.AddEx("PH_PY411"); //¿¬±İ.ÀúÃàµî¼Òµæ°øÁ¦µî·Ï
+			oFilter.AddEx("PH_PY413"); //¿ù¼¼¾×.ÁÖÅÃÀÓÂ÷Â÷ÀÔ±İÀÚ·á µî·Ï
+			oFilter.AddEx("PH_PY415"); //Á¤»ê°è»ê
+			oFilter.AddEx("PH_PY417"); //Á¤»ê ÀºÇàÆÄÀÏ»ı¼º
+			oFilter.AddEx("PH_PY980"); //½Å°í_±Ù·Î¼ÒµæÁö±Ş¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY985"); //½Å°í_ÀÇ·áºñÁö±Ş¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY990"); //½Å°í_±âºÎ±İ¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY995"); //½Å°í_ÅğÁ÷¼ÒµæÁö±Ş¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY419"); //Ç¥ÁØ¼¼¾×Àû¿ë´ë»óÀÚµî·Ï
 
-			oFilter.AddEx("PH_PY910"); //ì†Œë“ê³µì œì‹ ê³ ì„œì¶œë ¥
-			oFilter.AddEx("PH_PY915"); //ê·¼ë¡œì†Œë“ì›ì²œì§•ìˆ˜ë¶€ì¶œë ¥
-			oFilter.AddEx("PH_PY920"); //ì›ì²œì§•ìˆ˜ì˜ìˆ˜ì¦ì¶œë ¥
-			oFilter.AddEx("PH_PY925"); //ê¸°ë¶€ê¸ˆëª…ì„¸ì„œì¶œë ¥
-			oFilter.AddEx("PH_PY930"); //ì •ì‚°ì§•ìˆ˜ë°í™˜ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY931"); //í‘œì¤€ì„¸ì•¡ì ìš©ëŒ€ìƒìì¡°íšŒ
-			oFilter.AddEx("PH_PY932"); //ì „ê·¼ë¬´ì§€ë“±ë¡í˜„í™©
-			oFilter.AddEx("PH_PY933"); //ë³´ìˆ˜ì´ì•¡ì‹ ê³ ê¸°ì´ˆìë£Œ
-			oFilter.AddEx("PH_PYA55"); //ì •ì‚°ì§•ìˆ˜ë°í™˜ê¸‰ëŒ€ì¥(ì§‘ê³„)
-			oFilter.AddEx("PH_PYA70"); //ì†Œë“ì„¸ì›ì²œì§•ìˆ˜ì„¸ì•¡ì¡°ì •ì‹ ì²­ì„œì¶œë ¥
+			oFilter.AddEx("PH_PY910"); //¼Òµæ°øÁ¦½Å°í¼­Ãâ·Â
+			oFilter.AddEx("PH_PY915"); //±Ù·Î¼Òµæ¿øÃµÂ¡¼öºÎÃâ·Â
+			oFilter.AddEx("PH_PY920"); //¿øÃµÂ¡¼ö¿µ¼öÁõÃâ·Â
+			oFilter.AddEx("PH_PY925"); //±âºÎ±İ¸í¼¼¼­Ãâ·Â
+			oFilter.AddEx("PH_PY930"); //Á¤»êÂ¡¼ö¹×È¯±Ş´ëÀå
+			oFilter.AddEx("PH_PY931"); //Ç¥ÁØ¼¼¾×Àû¿ë´ë»óÀÚÁ¶È¸
+			oFilter.AddEx("PH_PY932"); //Àü±Ù¹«Áöµî·ÏÇöÈ²
+			oFilter.AddEx("PH_PY933"); //º¸¼öÃÑ¾×½Å°í±âÃÊÀÚ·á
+			oFilter.AddEx("PH_PYA55"); //Á¤»êÂ¡¼ö¹×È¯±Ş´ëÀå(Áı°è)
+			oFilter.AddEx("PH_PYA70"); //¼Òµæ¼¼¿øÃµÂ¡¼ö¼¼¾×Á¶Á¤½ÅÃ»¼­Ãâ·Â
 
-			oFilter.AddEx("ZPY341"); //ì›”ë³„ ì •ì‚°ìë£Œ ìƒì„±
-			oFilter.AddEx("ZPY343"); //ì›”ë³„ ìë£Œ ê´€ë¦¬
-			oFilter.AddEx("ZPY421"); //í‡´ì§ì†Œë“ì „ì‚°ë§¤ì²´ìˆ˜ë¡
-			oFilter.AddEx("ZPY501"); //ì†Œë“ê³µì œí•­ëª© ë“±ë¡
-			oFilter.AddEx("ZPY502"); //ì¢…(ì „) ê·¼ë¬´ì§€ ë“±ë¡
-			oFilter.AddEx("ZPY503"); //ì •ì‚°ì„¸ì•¡ê³„ì‚°
-			oFilter.AddEx("ZPY504"); //ì •ì‚°ê²°ê³¼ì¡°íšŒ
-			oFilter.AddEx("ZPY505"); //ê¸°ë¶€ê¸ˆëª…ì„¸ë“±ë¡
-			oFilter.AddEx("ZPY506"); //ì˜ë£Œë¹„ëª…ì„¸ë“±ë¡
-			oFilter.AddEx("ZPY507"); //ì •ì‚°ê²°ê³¼ì¡°íšŒ(ì „ì²´)
-			oFilter.AddEx("ZPY508"); //ì—°ê¸ˆì €ì¶• ì†Œë“ê³µì œ ëª…ì„¸ ë“±ë¡
-			oFilter.AddEx("ZPY509"); //ì •ì‚°ìë£Œ ë§ˆê°ì‘ì—…
-			oFilter.AddEx("ZPY510"); //ì¢…ì „ê·¼ë¬´ì§€ ì¼ê´„ìƒì„±
-			oFilter.AddEx("ZPY521"); //ê·¼ë¡œì†Œë“ì „ì‚°ë§¤ì²´ìˆ˜ë¡
-			oFilter.AddEx("ZPY522"); //ì˜ë£Œë¹„ ê¸°ë¶€ê¸ˆ ì „ì‚°ë§¤ì²´ìˆ˜ë¡
+			oFilter.AddEx("ZPY341"); //¿ùº° Á¤»êÀÚ·á »ı¼º
+			oFilter.AddEx("ZPY343"); //¿ùº° ÀÚ·á °ü¸®
+			oFilter.AddEx("ZPY421"); //ÅğÁ÷¼ÒµæÀü»ê¸ÅÃ¼¼ö·Ï
+			oFilter.AddEx("ZPY501"); //¼Òµæ°øÁ¦Ç×¸ñ µî·Ï
+			oFilter.AddEx("ZPY502"); //Á¾(Àü) ±Ù¹«Áö µî·Ï
+			oFilter.AddEx("ZPY503"); //Á¤»ê¼¼¾×°è»ê
+			oFilter.AddEx("ZPY504"); //Á¤»ê°á°úÁ¶È¸
+			oFilter.AddEx("ZPY505"); //±âºÎ±İ¸í¼¼µî·Ï
+			oFilter.AddEx("ZPY506"); //ÀÇ·áºñ¸í¼¼µî·Ï
+			oFilter.AddEx("ZPY507"); //Á¤»ê°á°úÁ¶È¸(ÀüÃ¼)
+			oFilter.AddEx("ZPY508"); //¿¬±İÀúÃà ¼Òµæ°øÁ¦ ¸í¼¼ µî·Ï
+			oFilter.AddEx("ZPY509"); //Á¤»êÀÚ·á ¸¶°¨ÀÛ¾÷
+			oFilter.AddEx("ZPY510"); //Á¾Àü±Ù¹«Áö ÀÏ°ı»ı¼º
+			oFilter.AddEx("ZPY521"); //±Ù·Î¼ÒµæÀü»ê¸ÅÃ¼¼ö·Ï
+			oFilter.AddEx("ZPY522"); //ÀÇ·áºñ ±âºÎ±İ Àü»ê¸ÅÃ¼¼ö·Ï
 
-			oFilter.AddEx("RPY401"); //í‡´ì§ì›ì²œì§•ìˆ˜ ì˜ìˆ˜ì¦
-			oFilter.AddEx("RPY501"); //ì›”ë³„ìë£Œí˜„í™©
-			oFilter.AddEx("RPY502"); //ì¢…ì „ê·¼ë¬´ì§€í˜„í™©
-			oFilter.AddEx("RPY503"); //ê·¼ë¡œì†Œë“ ì›ì²œì§•ìˆ˜ë¶€
-			oFilter.AddEx("RPY504"); //ê·¼ë¡œì†Œë“ ì›ì²œì˜ìˆ˜ì¦
-			oFilter.AddEx("RPY505"); //ì†Œë“ìë£Œì§‘ê³„í‘œ
-			oFilter.AddEx("RPY506"); //ì •ì‚°ì§•ìˆ˜í™˜ê¸‰ëŒ€ì¥
-			oFilter.AddEx("RPY508"); //ì—°ë§ì •ì‚°ì§‘ê³„í‘œ
-			oFilter.AddEx("RPY509"); //ê°‘ê·¼ì„¸ì‹ ê³ ê²€í† í‘œ
-			oFilter.AddEx("RPY510"); //ë¹„ê³¼ì„¸ê·¼ë¡œì†Œë“ëª…ì„¸ì„œ
-			oFilter.AddEx("RPY511");//ê¸°ë¶€ê¸ˆëª…ì„¸ì„œ
+			oFilter.AddEx("RPY401"); //ÅğÁ÷¿øÃµÂ¡¼ö ¿µ¼öÁõ
+			oFilter.AddEx("RPY501"); //¿ùº°ÀÚ·áÇöÈ²
+			oFilter.AddEx("RPY502"); //Á¾Àü±Ù¹«ÁöÇöÈ²
+			oFilter.AddEx("RPY503"); //±Ù·Î¼Òµæ ¿øÃµÂ¡¼öºÎ
+			oFilter.AddEx("RPY504"); //±Ù·Î¼Òµæ ¿øÃµ¿µ¼öÁõ
+			oFilter.AddEx("RPY505"); //¼ÒµæÀÚ·áÁı°èÇ¥
+			oFilter.AddEx("RPY506"); //Á¤»êÂ¡¼öÈ¯±Ş´ëÀå
+			oFilter.AddEx("RPY508"); //¿¬¸»Á¤»êÁı°èÇ¥
+			oFilter.AddEx("RPY509"); //°©±Ù¼¼½Å°í°ËÅäÇ¥
+			oFilter.AddEx("RPY510"); //ºñ°ú¼¼±Ù·Î¼Òµæ¸í¼¼¼­
+			oFilter.AddEx("RPY511");//±âºÎ±İ¸í¼¼¼­
 
-			//ê¸°íƒ€ê´€ë¦¬
-			oFilter.AddEx("PH_PY301"); //í•™ìê¸ˆì‹ ì²­ë“±ë¡
-			oFilter.AddEx("PH_PY302"); //í•™ìê¸ˆì§€ê¸‰ì™„ë£Œì²˜ë¦¬
-			oFilter.AddEx("PH_PY303"); //í•™ìê¸ˆì€í–‰íŒŒì¼ìƒì„±
-			oFilter.AddEx("PH_PY305"); //í•™ìê¸ˆì‹ ì²­ì„œ
-			oFilter.AddEx("PH_PY306"); //í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ê°œì¸ë³„)
-			oFilter.AddEx("PH_PY307"); //í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ë¶„ê¸°ë³„)
-			oFilter.AddEx("PH_PY309"); //ëŒ€ë¶€ê¸ˆë“±ë¡
-			oFilter.AddEx("PH_PY310"); //ëŒ€ë¶€ê¸ˆê°œë³„ìƒí™˜
-			oFilter.AddEx("PH_PY311"); //í†µê·¼ë²„ìŠ¤ìš´í–‰ë“±ë¡
-			oFilter.AddEx("PH_PY312"); //ë²„ìŠ¤ìš”ê¸ˆ ê°œì¸ë³„ë“±ë¡
-			oFilter.AddEx("PH_PY313"); //ëŒ€ë¶€ê¸ˆê³„ì‚°
-			oFilter.AddEx("PH_PY314"); //ëŒ€ë¶€ê¸ˆê³„ì‚° ë‚´ì—­ ì¡°íšŒ(ê¸‰ì—¬ë³€ë™ìë£Œìš©)
-			oFilter.AddEx("PH_PY030"); //ê³µìš©ë“±ë¡
-			oFilter.AddEx("PH_PY031"); //ì¶œì¥ë“±ë¡
-			oFilter.AddEx("PH_PY032"); //ì‚¬ìš©ì™¸ì¶œë“±ë¡
-			oFilter.AddEx("PH_PY315"); //ê°œì¸ë³„ëŒ€ë¶€ê¸ˆì”ì•¡í˜„í™©
-			oFilter.AddEx("PH_PY034"); //ê³µìš©ë¶„ê°œì²˜ë¦¬
-			oFilter.AddEx("PH_PYA60"); //í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ì§‘ê³„)
-            oFilter.AddEx("PH_PY135"); //ê¸‰ìƒì—¬ë¶„ê°œì²˜ë¦¬
+			//±âÅ¸°ü¸®
+			oFilter.AddEx("PH_PY301"); //ÇĞÀÚ±İ½ÅÃ»µî·Ï
+			oFilter.AddEx("PH_PY302"); //ÇĞÀÚ±İÁö±Ş¿Ï·áÃ³¸®
+			oFilter.AddEx("PH_PY303"); //ÇĞÀÚ±İÀºÇàÆÄÀÏ»ı¼º
+			oFilter.AddEx("PH_PY305"); //ÇĞÀÚ±İ½ÅÃ»¼­
+			oFilter.AddEx("PH_PY306"); //ÇĞÀÚ±İ½ÅÃ»³»¿ª(°³ÀÎº°)
+			oFilter.AddEx("PH_PY307"); //ÇĞÀÚ±İ½ÅÃ»³»¿ª(ºĞ±âº°)
+			oFilter.AddEx("PH_PY309"); //´ëºÎ±İµî·Ï
+			oFilter.AddEx("PH_PY310"); //´ëºÎ±İ°³º°»óÈ¯
+			oFilter.AddEx("PH_PY311"); //Åë±Ù¹ö½º¿îÇàµî·Ï
+			oFilter.AddEx("PH_PY312"); //¹ö½º¿ä±İ °³ÀÎº°µî·Ï
+			oFilter.AddEx("PH_PY313"); //´ëºÎ±İ°è»ê
+			oFilter.AddEx("PH_PY314"); //´ëºÎ±İ°è»ê ³»¿ª Á¶È¸(±Ş¿©º¯µ¿ÀÚ·á¿ë)
+			oFilter.AddEx("PH_PY030"); //°ø¿ëµî·Ï
+			oFilter.AddEx("PH_PY031"); //ÃâÀåµî·Ï
+			oFilter.AddEx("PH_PY032"); //»ç¿ë¿ÜÃâµî·Ï
+			oFilter.AddEx("PH_PY315"); //°³ÀÎº°´ëºÎ±İÀÜ¾×ÇöÈ²
+			oFilter.AddEx("PH_PY034"); //°ø¿ëºĞ°³Ã³¸®
+			oFilter.AddEx("PH_PYA60"); //ÇĞÀÚ±İ½ÅÃ»³»¿ª(Áı°è)
+            oFilter.AddEx("PH_PY135"); //±Ş»ó¿©ºĞ°³Ã³¸®
+			oFilter.AddEx("PS_DateChange"); //³¯Â¥ ¼öÁ¤ µî·Ï
+			oFilter.AddEx("PS_DateCommit"); //³¯Â¥ ½ÂÀÎ
         }
 
 		private static void KEY_DOWN(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -324,133 +326,134 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_KEY_DOWN);
 
             //System Form Type
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
 
-			//ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 
 			//AddOn Form Type
-			//ì¸ì‚¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY005"); //ì‚¬ì—…ì¥ì •ë³´ë“±ë¡
-			oFilter.AddEx("PH_PY008"); //ì¼ê·¼íƒœë“±ë¡
-			oFilter.AddEx("PH_PY011"); //ì „ë¬¸ì§ í˜¸ì¹­ ì¼ê´„ ë³€ê²½(2013.07.05 ì†¡ëª…ê·œ ì¶”ê°€)
-			oFilter.AddEx("PH_PY012"); //ì¶œì¥ë“±ë¡
-			oFilter.AddEx("PH_PY014"); //ìœ„í•´ì¼ìˆ˜ìˆ˜ì •
-			oFilter.AddEx("PH_PY015"); //ì—°ì°¨ì ì¹˜ë“±ë¡
-			oFilter.AddEx("PH_PY018"); //íœ´ì¼ê·¼ë¬´ì²´í¬(ì—°ë´‰ì œ)
-			oFilter.AddEx("PH_PY508"); //ì¬ì§ì¦ëª… ë“±ë¡ ë° ë°œê¸‰(2015.05.18 ì†¡ëª…ê·œ ì¶”ê°€)
-			oFilter.AddEx("PH_PY021"); //ì‚¬ì›ë¹„ìƒì—°ë½ì²˜ê´€ë¦¬
+			//ÀÎ»ç°ü¸®
+			oFilter.AddEx("PH_PY005"); //»ç¾÷ÀåÁ¤º¸µî·Ï
+			oFilter.AddEx("PH_PY008"); //ÀÏ±ÙÅÂµî·Ï
+			oFilter.AddEx("PH_PY011"); //Àü¹®Á÷ È£Äª ÀÏ°ı º¯°æ(2013.07.05 ¼Û¸í±Ô Ãß°¡)
+			oFilter.AddEx("PH_PY012"); //ÃâÀåµî·Ï
+			oFilter.AddEx("PH_PY014"); //À§ÇØÀÏ¼ö¼öÁ¤
+			oFilter.AddEx("PH_PY015"); //¿¬Â÷ÀûÄ¡µî·Ï
+			oFilter.AddEx("PH_PY018"); //ÈŞÀÏ±Ù¹«Ã¼Å©(¿¬ºÀÁ¦)
+			oFilter.AddEx("PH_PY508"); //ÀçÁ÷Áõ¸í µî·Ï ¹× ¹ß±Ş(2015.05.18 ¼Û¸í±Ô Ãß°¡)
+			oFilter.AddEx("PH_PY021"); //»ç¿øºñ»ó¿¬¶ôÃ³°ü¸®
 
-			oFilter.AddEx("PH_PY201"); //ì •ë…„ì„ë°•ì íœ´ê°€ê²½ë¹„ ë“±ë¡
-			oFilter.AddEx("PH_PY203"); //êµìœ¡ì‹¤ì ë“±ë¡
-			oFilter.AddEx("PH_PY204"); //êµìœ¡ê³„íšë“±ë¡
-			oFilter.AddEx("PH_PY205"); //êµìœ¡ê³„íšVSì‹¤ì ì¡°íšŒ
-			oFilter.AddEx("PH_PY695"); //ì¸ì‚¬ê¸°ë¡ì¹´ë“œ
+			oFilter.AddEx("PH_PY201"); //Á¤³âÀÓ¹ÚÀÚ ÈŞ°¡°æºñ µî·Ï
+			oFilter.AddEx("PH_PY203"); //±³À°½ÇÀûµî·Ï
+			oFilter.AddEx("PH_PY204"); //±³À°°èÈ¹µî·Ï
+			oFilter.AddEx("PH_PY205"); //±³À°°èÈ¹VS½ÇÀûÁ¶È¸
+			oFilter.AddEx("PH_PY695"); //ÀÎ»ç±â·ÏÄ«µå
 
-			//ê·¼íƒœê´€ë¦¬ - ë¦¬í¬íŠ¸
-			oFilter.AddEx("PH_PY580"); //ê°œì¸ê·¼íƒœì›”ë³´
-			oFilter.AddEx("PH_PY575"); //ìƒë²Œí˜„í™©
-            oFilter.AddEx("PH_PY680"); //ê·¼íƒœê¸°ì°°í˜„í™©
-            oFilter.AddEx("PH_PY681"); //ë¹„ê·¼ë¬´ì¼ìˆ˜í˜„í™©
+			//±ÙÅÂ°ü¸® - ¸®Æ÷Æ®
+			oFilter.AddEx("PH_PY580"); //°³ÀÎ±ÙÅÂ¿ùº¸
+			oFilter.AddEx("PH_PY575"); //»ó¹úÇöÈ²
+            oFilter.AddEx("PH_PY680"); //±ÙÅÂ±âÂûÇöÈ²
+            oFilter.AddEx("PH_PY681"); //ºñ±Ù¹«ÀÏ¼öÇöÈ²
 
-			//ê¸‰ì—¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY102"); //ìˆ˜ë‹¹í•­ëª©ì„¤ì •
-			oFilter.AddEx("PH_PY104"); //ê³ ì •ìˆ˜ë‹¹ê³µì œê¸ˆì•¡ì¼ê´„ë“±ë¡
-			oFilter.AddEx("PH_PY109"); //ê¸‰ìƒì—¬ë³€ë™ìë£Œë“±ë¡
-			oFilter.AddEx("PH_PY109_1"); //ê¸‰ìƒì—¬ë³€ë™ìë£Œ í•­ëª©ìˆ˜ì •
-			oFilter.AddEx("PH_PY110"); //ê°œì¸ë³„ìƒì—¬ìœ¨ë“±ë¡
-			oFilter.AddEx("PH_PY111"); //ê¸‰ìƒì—¬ê³„ì‚°
-			oFilter.AddEx("PH_PY113"); //ê¸‰ìƒì—¬ë¶„ê°œìë£Œìƒì„±
-			oFilter.AddEx("PH_PY114"); //í‡´ì§ê¸ˆê¸°ì¤€ì„¤ì •
-			oFilter.AddEx("PH_PY115"); //í‡´ì§ê¸ˆê³„ì‚°
-			oFilter.AddEx("PH_PY116"); //í‡´ì§ê¸ˆë¶„ê°œìë£Œìƒì„±
-			oFilter.AddEx("PH_PY121"); //í‰ê°€ê°€ê¸‰ì•¡ ë“±ë¡
-			oFilter.AddEx("PH_PY676"); //ê·¼íƒœì‹œê°„ë‚´ì—­ì¡°íšŒ
-			oFilter.AddEx("PH_PY677"); //ì¼ì¼ê·¼íƒœì´ìƒìì¡°íšŒ
-			oFilter.AddEx("PH_PY700"); //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY710"); //ìƒì—¬ì§€ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY715"); //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥(ë¶€ì„œì§‘ê³„)
-			oFilter.AddEx("PH_PY720"); //ìƒì—¬ì§€ê¸‰ëŒ€ì¥(ë¶€ì„œì§‘ê³„)
-            oFilter.AddEx("PH_PY730"); //ê¸‰ì—¬ë´‰íˆ¬
-            oFilter.AddEx("PH_PY735"); //ìƒì—¬ë´‰íˆ¬
-            oFilter.AddEx("PH_PY122"); //ê¸‰ìƒì—¬ì¶œë ¥ ê°œì¸ë¶€ì„œì„¤ì •ë“±ë¡
-			oFilter.AddEx("PH_PY123"); //ê°€ì••ë¥˜ë“±ë¡
-			oFilter.AddEx("PH_PY678"); //ë‹¹ì§ê·¼ë¬´ì ì¼ê´„ ë“±ë¡
+			//±Ş¿©°ü¸®
+			oFilter.AddEx("PH_PY102"); //¼ö´çÇ×¸ñ¼³Á¤
+			oFilter.AddEx("PH_PY104"); //°íÁ¤¼ö´ç°øÁ¦±İ¾×ÀÏ°ıµî·Ï
+			oFilter.AddEx("PH_PY109"); //±Ş»ó¿©º¯µ¿ÀÚ·áµî·Ï
+			oFilter.AddEx("PH_PY109_1"); //±Ş»ó¿©º¯µ¿ÀÚ·á Ç×¸ñ¼öÁ¤
+			oFilter.AddEx("PH_PY110"); //°³ÀÎº°»ó¿©À²µî·Ï
+			oFilter.AddEx("PH_PY111"); //±Ş»ó¿©°è»ê
+			oFilter.AddEx("PH_PY113"); //±Ş»ó¿©ºĞ°³ÀÚ·á»ı¼º
+			oFilter.AddEx("PH_PY114"); //ÅğÁ÷±İ±âÁØ¼³Á¤
+			oFilter.AddEx("PH_PY115"); //ÅğÁ÷±İ°è»ê
+			oFilter.AddEx("PH_PY116"); //ÅğÁ÷±İºĞ°³ÀÚ·á»ı¼º
+			oFilter.AddEx("PH_PY121"); //Æò°¡°¡±Ş¾× µî·Ï
+			oFilter.AddEx("PH_PY676"); //±ÙÅÂ½Ã°£³»¿ªÁ¶È¸
+			oFilter.AddEx("PH_PY677"); //ÀÏÀÏ±ÙÅÂÀÌ»óÀÚÁ¶È¸
+			oFilter.AddEx("PH_PY700"); //±Ş¿©Áö±Ş´ëÀå
+			oFilter.AddEx("PH_PY710"); //»ó¿©Áö±Ş´ëÀå
+			oFilter.AddEx("PH_PY715"); //±Ş¿©Áö±Ş´ëÀå(ºÎ¼­Áı°è)
+			oFilter.AddEx("PH_PY720"); //»ó¿©Áö±Ş´ëÀå(ºÎ¼­Áı°è)
+            oFilter.AddEx("PH_PY730"); //±Ş¿©ºÀÅõ
+            oFilter.AddEx("PH_PY735"); //»ó¿©ºÀÅõ
+            oFilter.AddEx("PH_PY122"); //±Ş»ó¿©Ãâ·Â °³ÀÎºÎ¼­¼³Á¤µî·Ï
+			oFilter.AddEx("PH_PY123"); //°¡¾Ğ·ùµî·Ï
+			oFilter.AddEx("PH_PY678"); //´çÁ÷±Ù¹«ÀÚ ÀÏ°ı µî·Ï
 
-            //ê¸‰ì—¬ê´€ë¦¬-ë¦¬í¬íŠ¸
-            oFilter.AddEx("PH_PY718"); //ìƒì‚°ì™„ë£Œê¸ˆì•¡ëŒ€ë¹„O/Tí˜„í™©
-            oFilter.AddEx("PH_PY701"); //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥ (ë…¸ì¡°ìš©)
+            //±Ş¿©°ü¸®-¸®Æ÷Æ®
+            oFilter.AddEx("PH_PY718"); //»ı»ê¿Ï·á±İ¾×´ëºñO/TÇöÈ²
+            oFilter.AddEx("PH_PY701"); //±Ş¿©Áö±Ş´ëÀå (³ëÁ¶¿ë)
 
-            //ì •ì‚°ê´€ë¦¬
-            oFilter.AddEx("PH_PY401"); //ì „ê·¼ë¬´ì§€ë“±ë¡
-			oFilter.AddEx("PH_PY402"); //ì •ì‚°ê¸°ì´ˆìë£Œ ë“±ë¡
-			oFilter.AddEx("PH_PY405"); //ì˜ë£Œë¹„ë“±ë¡
-			oFilter.AddEx("PH_PY407"); //ê¸°ë¶€ê¸ˆë“±ë¡
-			oFilter.AddEx("PH_PY409"); //ê¸°ë¶€ê¸ˆì¡°ì •ëª…ì„¸ë“±ë¡
-			oFilter.AddEx("PH_PY411"); //ì—°ê¸ˆ.ì €ì¶•ë“±ì†Œë“ê³µì œë“±ë¡
-			oFilter.AddEx("PH_PY413"); //ì›”ì„¸ì•¡.ì£¼íƒì„ì°¨ì°¨ì…ê¸ˆìë£Œ ë“±ë¡
-			oFilter.AddEx("PH_PY415"); //ì •ì‚°ê³„ì‚°
-			oFilter.AddEx("PH_PY980"); //ì‹ ê³ _ê·¼ë¡œì†Œë“ì§€ê¸‰ëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY985"); //ì‹ ê³ _ì˜ë£Œë¹„ì§€ê¸‰ëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY990"); //ì‹ ê³ _ê¸°ë¶€ê¸ˆëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY995"); //ì‹ ê³ _í‡´ì§ì†Œë“ì§€ê¸‰ëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY419"); //í‘œì¤€ì„¸ì•¡ì ìš©ëŒ€ìƒìë“±ë¡
+            //Á¤»ê°ü¸®
+            oFilter.AddEx("PH_PY401"); //Àü±Ù¹«Áöµî·Ï
+			oFilter.AddEx("PH_PY402"); //Á¤»ê±âÃÊÀÚ·á µî·Ï
+			oFilter.AddEx("PH_PY405"); //ÀÇ·áºñµî·Ï
+			oFilter.AddEx("PH_PY407"); //±âºÎ±İµî·Ï
+			oFilter.AddEx("PH_PY409"); //±âºÎ±İÁ¶Á¤¸í¼¼µî·Ï
+			oFilter.AddEx("PH_PY411"); //¿¬±İ.ÀúÃàµî¼Òµæ°øÁ¦µî·Ï
+			oFilter.AddEx("PH_PY413"); //¿ù¼¼¾×.ÁÖÅÃÀÓÂ÷Â÷ÀÔ±İÀÚ·á µî·Ï
+			oFilter.AddEx("PH_PY415"); //Á¤»ê°è»ê
+			oFilter.AddEx("PH_PY980"); //½Å°í_±Ù·Î¼ÒµæÁö±Ş¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY985"); //½Å°í_ÀÇ·áºñÁö±Ş¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY990"); //½Å°í_±âºÎ±İ¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY995"); //½Å°í_ÅğÁ÷¼ÒµæÁö±Ş¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY419"); //Ç¥ÁØ¼¼¾×Àû¿ë´ë»óÀÚµî·Ï
 
-			oFilter.AddEx("PH_PY910"); //ì†Œë“ê³µì œì‹ ê³ ì„œì¶œë ¥
-			oFilter.AddEx("PH_PY915"); //ê·¼ë¡œì†Œë“ì›ì²œì§•ìˆ˜ë¶€ì¶œë ¥
-			oFilter.AddEx("PH_PY920"); //ì›ì²œì§•ìˆ˜ì˜ìˆ˜ì¦ì¶œë ¥
-			oFilter.AddEx("PH_PY925"); //ê¸°ë¶€ê¸ˆëª…ì„¸ì„œì¶œë ¥
-			oFilter.AddEx("PH_PY930"); //ì •ì‚°ì§•ìˆ˜ë°í™˜ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY931"); //í‘œì¤€ì„¸ì•¡ì ìš©ëŒ€ìƒìì¡°íšŒ
-			oFilter.AddEx("PH_PY932"); //ì „ê·¼ë¬´ì§€ë“±ë¡í˜„í™©
-			oFilter.AddEx("PH_PY933"); //ë³´ìˆ˜ì´ì•¡ì‹ ê³ ê¸°ì´ˆìë£Œ
-			oFilter.AddEx("PH_PYA55"); //ì •ì‚°ì§•ìˆ˜ë°í™˜ê¸‰ëŒ€ì¥(ì§‘ê³„)
-			oFilter.AddEx("PH_PYA70"); //ì†Œë“ì„¸ì›ì²œì§•ìˆ˜ì„¸ì•¡ì¡°ì •ì‹ ì²­ì„œì¶œë ¥
+			oFilter.AddEx("PH_PY910"); //¼Òµæ°øÁ¦½Å°í¼­Ãâ·Â
+			oFilter.AddEx("PH_PY915"); //±Ù·Î¼Òµæ¿øÃµÂ¡¼öºÎÃâ·Â
+			oFilter.AddEx("PH_PY920"); //¿øÃµÂ¡¼ö¿µ¼öÁõÃâ·Â
+			oFilter.AddEx("PH_PY925"); //±âºÎ±İ¸í¼¼¼­Ãâ·Â
+			oFilter.AddEx("PH_PY930"); //Á¤»êÂ¡¼ö¹×È¯±Ş´ëÀå
+			oFilter.AddEx("PH_PY931"); //Ç¥ÁØ¼¼¾×Àû¿ë´ë»óÀÚÁ¶È¸
+			oFilter.AddEx("PH_PY932"); //Àü±Ù¹«Áöµî·ÏÇöÈ²
+			oFilter.AddEx("PH_PY933"); //º¸¼öÃÑ¾×½Å°í±âÃÊÀÚ·á
+			oFilter.AddEx("PH_PYA55"); //Á¤»êÂ¡¼ö¹×È¯±Ş´ëÀå(Áı°è)
+			oFilter.AddEx("PH_PYA70"); //¼Òµæ¼¼¿øÃµÂ¡¼ö¼¼¾×Á¶Á¤½ÅÃ»¼­Ãâ·Â
 
-			oFilter.AddEx("ZPY341"); //ì›”ë³„ ì •ì‚°ìë£Œ ìƒì„±
-			oFilter.AddEx("ZPY343"); //ì›”ë³„ ìë£Œ ê´€ë¦¬
-			oFilter.AddEx("ZPY421"); //í‡´ì§ì†Œë“ì „ì‚°ë§¤ì²´ìˆ˜ë¡
-			oFilter.AddEx("ZPY501"); //ì†Œë“ê³µì œí•­ëª© ë“±ë¡
-			oFilter.AddEx("ZPY502"); //ì¢…(ì „) ê·¼ë¬´ì§€ ë“±ë¡
-			oFilter.AddEx("ZPY503"); //ì •ì‚°ì„¸ì•¡ê³„ì‚°
-			oFilter.AddEx("ZPY504"); //ì •ì‚°ê²°ê³¼ì¡°íšŒ
-			oFilter.AddEx("ZPY505"); //ê¸°ë¶€ê¸ˆëª…ì„¸ë“±ë¡
-			oFilter.AddEx("ZPY506"); //ì˜ë£Œë¹„ëª…ì„¸ë“±ë¡
-			oFilter.AddEx("ZPY508"); //ì—°ê¸ˆì €ì¶• ì†Œë“ê³µì œ ëª…ì„¸ ë“±ë¡
-			oFilter.AddEx("ZPY509"); //ì •ì‚°ìë£Œ ë§ˆê°ì‘ì—…
-			oFilter.AddEx("ZPY510"); //ì¢…ì „ê·¼ë¬´ì§€ ì¼ê´„ìƒì„±
-			oFilter.AddEx("ZPY521"); //ê·¼ë¡œì†Œë“ì „ì‚°ë§¤ì²´ìˆ˜ë¡
-			oFilter.AddEx("ZPY522"); //ì˜ë£Œë¹„ ê¸°ë¶€ê¸ˆ ì „ì‚°ë§¤ì²´ìˆ˜ë¡
+			oFilter.AddEx("ZPY341"); //¿ùº° Á¤»êÀÚ·á »ı¼º
+			oFilter.AddEx("ZPY343"); //¿ùº° ÀÚ·á °ü¸®
+			oFilter.AddEx("ZPY421"); //ÅğÁ÷¼ÒµæÀü»ê¸ÅÃ¼¼ö·Ï
+			oFilter.AddEx("ZPY501"); //¼Òµæ°øÁ¦Ç×¸ñ µî·Ï
+			oFilter.AddEx("ZPY502"); //Á¾(Àü) ±Ù¹«Áö µî·Ï
+			oFilter.AddEx("ZPY503"); //Á¤»ê¼¼¾×°è»ê
+			oFilter.AddEx("ZPY504"); //Á¤»ê°á°úÁ¶È¸
+			oFilter.AddEx("ZPY505"); //±âºÎ±İ¸í¼¼µî·Ï
+			oFilter.AddEx("ZPY506"); //ÀÇ·áºñ¸í¼¼µî·Ï
+			oFilter.AddEx("ZPY508"); //¿¬±İÀúÃà ¼Òµæ°øÁ¦ ¸í¼¼ µî·Ï
+			oFilter.AddEx("ZPY509"); //Á¤»êÀÚ·á ¸¶°¨ÀÛ¾÷
+			oFilter.AddEx("ZPY510"); //Á¾Àü±Ù¹«Áö ÀÏ°ı»ı¼º
+			oFilter.AddEx("ZPY521"); //±Ù·Î¼ÒµæÀü»ê¸ÅÃ¼¼ö·Ï
+			oFilter.AddEx("ZPY522"); //ÀÇ·áºñ ±âºÎ±İ Àü»ê¸ÅÃ¼¼ö·Ï
 
-			oFilter.AddEx("RPY401"); //í‡´ì§ì›ì²œì§•ìˆ˜ ì˜ìˆ˜ì¦
-			oFilter.AddEx("RPY501"); //ì›”ë³„ìë£Œí˜„í™©
-			oFilter.AddEx("RPY502"); //ì¢…ì „ê·¼ë¬´ì§€í˜„í™©
-			oFilter.AddEx("RPY503"); //ê·¼ë¡œì†Œë“ ì›ì²œì§•ìˆ˜ë¶€
-			oFilter.AddEx("RPY504"); //ê·¼ë¡œì†Œë“ ì›ì²œì˜ìˆ˜ì¦
-			oFilter.AddEx("RPY505"); //ì†Œë“ìë£Œì§‘ê³„í‘œ
-			oFilter.AddEx("RPY506"); //ì •ì‚°ì§•ìˆ˜í™˜ê¸‰ëŒ€ì¥
-			oFilter.AddEx("RPY508"); //ì—°ë§ì •ì‚°ì§‘ê³„í‘œ
-			oFilter.AddEx("RPY509"); //ê°‘ê·¼ì„¸ì‹ ê³ ê²€í† í‘œ
-			oFilter.AddEx("RPY510"); //ë¹„ê³¼ì„¸ê·¼ë¡œì†Œë“ëª…ì„¸ì„œ
-			oFilter.AddEx("RPY511"); //ê¸°ë¶€ê¸ˆëª…ì„¸ì„œ
+			oFilter.AddEx("RPY401"); //ÅğÁ÷¿øÃµÂ¡¼ö ¿µ¼öÁõ
+			oFilter.AddEx("RPY501"); //¿ùº°ÀÚ·áÇöÈ²
+			oFilter.AddEx("RPY502"); //Á¾Àü±Ù¹«ÁöÇöÈ²
+			oFilter.AddEx("RPY503"); //±Ù·Î¼Òµæ ¿øÃµÂ¡¼öºÎ
+			oFilter.AddEx("RPY504"); //±Ù·Î¼Òµæ ¿øÃµ¿µ¼öÁõ
+			oFilter.AddEx("RPY505"); //¼ÒµæÀÚ·áÁı°èÇ¥
+			oFilter.AddEx("RPY506"); //Á¤»êÂ¡¼öÈ¯±Ş´ëÀå
+			oFilter.AddEx("RPY508"); //¿¬¸»Á¤»êÁı°èÇ¥
+			oFilter.AddEx("RPY509"); //°©±Ù¼¼½Å°í°ËÅäÇ¥
+			oFilter.AddEx("RPY510"); //ºñ°ú¼¼±Ù·Î¼Òµæ¸í¼¼¼­
+			oFilter.AddEx("RPY511"); //±âºÎ±İ¸í¼¼¼­
 
-			//ê¸°íƒ€ê´€ë¦¬
-			oFilter.AddEx("PH_PY301"); //í•™ìê¸ˆì‹ ì²­ë“±ë¡
-			oFilter.AddEx("PH_PY305"); //í•™ìê¸ˆì‹ ì²­ì„œ
-			oFilter.AddEx("PH_PY306"); //í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ê°œì¸ë³„)
-			oFilter.AddEx("PH_PY309"); //ëŒ€ë¶€ê¸ˆë“±ë¡
-			oFilter.AddEx("PH_PY310"); //ëŒ€ë¶€ê¸ˆê°œë³„ìƒí™˜
-			oFilter.AddEx("PH_PY313"); //ëŒ€ë¶€ê¸ˆê³„ì‚°
-			oFilter.AddEx("PH_PY314"); //ëŒ€ë¶€ê¸ˆê³„ì‚° ë‚´ì—­ ì¡°íšŒ(ê¸‰ì—¬ë³€ë™ìë£Œìš©)
-			oFilter.AddEx("PH_PY030"); //ê³µìš©ë“±ë¡
-			oFilter.AddEx("PH_PY031"); //ì¶œì¥ë“±ë¡
-			oFilter.AddEx("PH_PY032"); //ì‚¬ìš©ì™¸ì¶œë“±ë¡
-			oFilter.AddEx("PH_PY315"); //ê°œì¸ë³„ëŒ€ë¶€ê¸ˆì”ì•¡í˜„í™©
-			oFilter.AddEx("PH_PY034"); //ê³µìš©ë¶„ê°œì²˜ë¦¬
-			oFilter.AddEx("PH_PYA60"); //í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ì§‘ê³„)
-            oFilter.AddEx("PH_PY135"); //ê¸‰ìƒì—¬ë¶„ê°œì²˜ë¦¬
-            oFilter.AddEx("PH_PY136"); //ê¸‰ìƒì—¬ë¶„ê°œì²˜ë¦¬ ë°°ë¶€ê·œì¹™ì„¤ì •
+			//±âÅ¸°ü¸®
+			oFilter.AddEx("PH_PY301"); //ÇĞÀÚ±İ½ÅÃ»µî·Ï
+			oFilter.AddEx("PH_PY305"); //ÇĞÀÚ±İ½ÅÃ»¼­
+			oFilter.AddEx("PH_PY306"); //ÇĞÀÚ±İ½ÅÃ»³»¿ª(°³ÀÎº°)
+			oFilter.AddEx("PH_PY309"); //´ëºÎ±İµî·Ï
+			oFilter.AddEx("PH_PY310"); //´ëºÎ±İ°³º°»óÈ¯
+			oFilter.AddEx("PH_PY313"); //´ëºÎ±İ°è»ê
+			oFilter.AddEx("PH_PY314"); //´ëºÎ±İ°è»ê ³»¿ª Á¶È¸(±Ş¿©º¯µ¿ÀÚ·á¿ë)
+			oFilter.AddEx("PH_PY030"); //°ø¿ëµî·Ï
+			oFilter.AddEx("PH_PY031"); //ÃâÀåµî·Ï
+			oFilter.AddEx("PH_PY032"); //»ç¿ë¿ÜÃâµî·Ï
+			oFilter.AddEx("PH_PY315"); //°³ÀÎº°´ëºÎ±İÀÜ¾×ÇöÈ²
+			oFilter.AddEx("PH_PY034"); //°ø¿ëºĞ°³Ã³¸®
+			oFilter.AddEx("PH_PYA60"); //ÇĞÀÚ±İ½ÅÃ»³»¿ª(Áı°è)
+            oFilter.AddEx("PH_PY135"); //±Ş»ó¿©ºĞ°³Ã³¸®
+            oFilter.AddEx("PH_PY136"); //±Ş»ó¿©ºĞ°³Ã³¸® ¹èºÎ±ÔÄ¢¼³Á¤
+			oFilter.AddEx("PS_DateCommit"); //³¯Â¥ ½ÂÀÎ
         }
 
 		private static void GOT_FOCUS(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -458,229 +461,231 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_GOT_FOCUS);
 
 			//System Form Type
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
 
-			//ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 
 			//AddOn Form Type
-			//ìš´ì˜ê´€ë¦¬
-			oFilter.AddEx("PH_PY000"); //ì‚¬ìš©ìê¶Œí•œê´€ë¦¬
+			//¿î¿µ°ü¸®
+			oFilter.AddEx("PH_PY000"); //»ç¿ëÀÚ±ÇÇÑ°ü¸®
 
-			//ì¸ì‚¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY001"); //ì¸ì‚¬ë§ˆìŠ¤í„° ë“±ë¡
-			oFilter.AddEx("PH_PY002"); //ê·¼íƒœì‹œê°„êµ¬ë¶„ ë“±ë¡
-			oFilter.AddEx("PH_PY003"); //ê·¼íƒœì›”ë ¥ì„¤ì •
-			oFilter.AddEx("PH_PY004"); //ê·¼ë¬´ì¡°í¸ì„±ë“±ë¡
-			oFilter.AddEx("PH_PY005"); //ì‚¬ì—…ì¥ì •ë³´ë“±ë¡
-			oFilter.AddEx("PH_PY006"); //ìŠ¹í˜¸ì‘ì—…ë“±ë¡
-			oFilter.AddEx("PH_PY007"); //ìœ ë¥˜ë‹¨ê°€ë“±ë¡
-			oFilter.AddEx("PH_PY008"); //ì¼ê·¼íƒœë“±ë¡
-			oFilter.AddEx("PH_PY009"); //ê¸°ì°°ìë£ŒUPLOAD
-			oFilter.AddEx("PH_PY011"); //ì „ë¬¸ì§ í˜¸ì¹­ ì¼ê´„ ë³€ê²½(2013.07.05 ì†¡ëª…ê·œ ì¶”ê°€)
-			oFilter.AddEx("PH_PY013"); //ìœ„í•´ì¼ìˆ˜ê³„ì‚°
-			oFilter.AddEx("PH_PY014"); //ìœ„í•´ì¼ìˆ˜ìˆ˜ì •
-			oFilter.AddEx("PH_PY015"); //ì—°ì°¨ì ì¹˜ë“±ë¡
-			oFilter.AddEx("PH_PY016"); //ê¸°ë³¸ì—…ë¬´ë“±ë¡
-			oFilter.AddEx("PH_PY017"); //ì›”ê·¼íƒœì§‘ê³„
-			oFilter.AddEx("PH_PY018"); //íœ´ì¼ê·¼ë¬´ì²´í¬(ì—°ë´‰ì œ)
-			oFilter.AddEx("PH_PY019"); //ë°˜ë³€ê²½ë“±ë¡
-			oFilter.AddEx("PH_PY020"); //ì¼ê·¼íƒœ ì—…ë¬´ë³€ê²½ë“±ë¡
+			//ÀÎ»ç°ü¸®
+			oFilter.AddEx("PH_PY001"); //ÀÎ»ç¸¶½ºÅÍ µî·Ï
+			oFilter.AddEx("PH_PY002"); //±ÙÅÂ½Ã°£±¸ºĞ µî·Ï
+			oFilter.AddEx("PH_PY003"); //±ÙÅÂ¿ù·Â¼³Á¤
+			oFilter.AddEx("PH_PY004"); //±Ù¹«Á¶Æí¼ºµî·Ï
+			oFilter.AddEx("PH_PY005"); //»ç¾÷ÀåÁ¤º¸µî·Ï
+			oFilter.AddEx("PH_PY006"); //½ÂÈ£ÀÛ¾÷µî·Ï
+			oFilter.AddEx("PH_PY007"); //À¯·ù´Ü°¡µî·Ï
+			oFilter.AddEx("PH_PY008"); //ÀÏ±ÙÅÂµî·Ï
+			oFilter.AddEx("PH_PY009"); //±âÂûÀÚ·áUPLOAD
+			oFilter.AddEx("PH_PY011"); //Àü¹®Á÷ È£Äª ÀÏ°ı º¯°æ(2013.07.05 ¼Û¸í±Ô Ãß°¡)
+			oFilter.AddEx("PH_PY013"); //À§ÇØÀÏ¼ö°è»ê
+			oFilter.AddEx("PH_PY014"); //À§ÇØÀÏ¼ö¼öÁ¤
+			oFilter.AddEx("PH_PY015"); //¿¬Â÷ÀûÄ¡µî·Ï
+			oFilter.AddEx("PH_PY016"); //±âº»¾÷¹«µî·Ï
+			oFilter.AddEx("PH_PY017"); //¿ù±ÙÅÂÁı°è
+			oFilter.AddEx("PH_PY018"); //ÈŞÀÏ±Ù¹«Ã¼Å©(¿¬ºÀÁ¦)
+			oFilter.AddEx("PH_PY019"); //¹İº¯°æµî·Ï
+			oFilter.AddEx("PH_PY020"); //ÀÏ±ÙÅÂ ¾÷¹«º¯°æµî·Ï
 
-			oFilter.AddEx("PH_PY201"); //ì •ë…„ì„ë°•ì íœ´ê°€ê²½ë¹„ ë“±ë¡
-			oFilter.AddEx("PH_PY203"); //êµìœ¡ì‹¤ì ë“±ë¡
-			oFilter.AddEx("PH_PY204"); //êµìœ¡ê³„íšë“±ë¡
-			oFilter.AddEx("PH_PY205"); //êµìœ¡ê³„íšVSì‹¤ì ì¡°íšŒ
+			oFilter.AddEx("PH_PY201"); //Á¤³âÀÓ¹ÚÀÚ ÈŞ°¡°æºñ µî·Ï
+			oFilter.AddEx("PH_PY203"); //±³À°½ÇÀûµî·Ï
+			oFilter.AddEx("PH_PY204"); //±³À°°èÈ¹µî·Ï
+			oFilter.AddEx("PH_PY205"); //±³À°°èÈ¹VS½ÇÀûÁ¶È¸
 
-			//ì¸ì‚¬ - ë¦¬í¬íŠ¸
-			oFilter.AddEx("PH_PY501"); //ì—¬ê¶Œë°œê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY505"); //ì…ì‚¬ìëŒ€ì¥
-			oFilter.AddEx("PH_PY510"); //ì‚¬ì›ëª…ë¶€
-			oFilter.AddEx("PH_PY515"); //ì¬ì§ìì‚¬ì›ëª…ë¶€
-			oFilter.AddEx("PH_PY520"); //í‡´ì§ë°í‡´ì§ì˜ˆì •ìëŒ€ì¥
-			oFilter.AddEx("PH_PY525"); //í•™ë ¥ë³„ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY530"); //ì—°ë ¹ë³„ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY535"); //ê·¼ì†ë…„ìˆ˜ë³„ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY540"); //ì¸ì›í˜„í™©(ëŒ€ì™¸ìš©)
-			oFilter.AddEx("PH_PY545"); //ì¸ì›í˜„í™©(ëŒ€ë‚´ìš©)
-			oFilter.AddEx("PH_PY550"); //ì „ì²´ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY555"); //ì¼ì¼ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY560"); //ì¼ì¶œê·¼í˜„í™©
-			oFilter.AddEx("PH_PY565"); //ì—°ì¥ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY570"); //ì—°ì¥/íœ´ì¼ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY575"); //ê·¼íƒœê¸°ì°°í˜„í™©
-			oFilter.AddEx("PH_PY580"); //ê°œì¸ë³„ê·¼íƒœì›”ë³´
-			oFilter.AddEx("PH_PY585"); //ì¼ì¼ì¶œê·¼ê¸°ë¡ë¶€
-			oFilter.AddEx("PH_PY590"); //ê¸°ê°„ë³„ê·¼íƒœì§‘ê³„í‘œ
-			oFilter.AddEx("PH_PY595"); //ê·¼ì†ë…„ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY600"); //ì¼ìë³„ì—°ì¥ê·¼ë¬´í˜„í™©
-			oFilter.AddEx("PH_PY605"); //ê·¼ì†ë³´ì „íœ´ê°€ë°œìƒë°ì‚¬ìš©ë‚´ì—­
-			oFilter.AddEx("PH_PY610"); //ê·¼íƒœêµ¬ë¶„ë³„ì‚¬ìš©ë‚´ì—­
-			oFilter.AddEx("PH_PY615"); //ë‹¹ì§ê·¼ë¬´í˜„í™©
-			oFilter.AddEx("PH_PY620"); //ì—°ë´‰ì œíœ´ì¼ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY635"); //ì—¬í–‰,êµìœ¡ìí˜„í™©
-			oFilter.AddEx("PH_PY640"); //êµ­ë¯¼ì—°ê¸ˆí‡´ì§ì „í™˜ê¸ˆí˜„í™©
-			oFilter.AddEx("PH_PY645"); //ìê²©ìˆ˜ë‹¹ì§€ê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY650"); //ë…¸ë™ì¡°í•©ê°„ë¶€í˜„í™©
-			oFilter.AddEx("PH_PY655"); //ë³´í›ˆëŒ€ìƒìí˜„í™©
-			oFilter.AddEx("PH_PY660"); //ì¥ì• ê·¼ë¡œìí˜„í™©
-			oFilter.AddEx("PH_PY665"); //ì‚¬ì›ìë…€í˜„í™©
-			oFilter.AddEx("PH_PY670"); //ê°œì¸ë³„ì°¨ëŸ‰í˜„í™©
-			oFilter.AddEx("PH_PY675"); //ê·¼ë¬´í¸ì„±í˜„í™©
-			oFilter.AddEx("PH_PY679"); //ê°œì¸ë³„ ê·¼íƒœì§‘ê³„ ì¡°íšŒ
-			oFilter.AddEx("PH_PY680"); //ìƒë²Œí˜„í™©
-			oFilter.AddEx("PH_PY685"); //í¬ìƒê°€ê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY690"); //ìƒì¼ìí˜„í™©
-			oFilter.AddEx("PH_PY695"); //ì¸ì‚¬ê¸°ë¡ì¹´ë“œ
-			oFilter.AddEx("PH_PY705"); //êµí†µë¹„ì§€ê¸‰ê·¼íƒœí™•ì¸
-			oFilter.AddEx("PH_PY860"); //í˜¸ë´‰í‘œì¡°íšŒ
-			oFilter.AddEx("PH_PY503"); //ìŠ¹ì§„ëŒ€ìƒìëª…ë¶€
-			oFilter.AddEx("PH_PY678"); //ë‹¹ì§ê·¼ë¬´ì ì¼ê´„ ë“±ë¡
-			oFilter.AddEx("PH_PY507"); //íœ´ì§ìí˜„í™©
-			oFilter.AddEx("PH_PY681"); //ë¹„ê·¼ë¬´ì¼ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY935"); //ì •ê¸°ìŠ¹í˜¸í˜„í™©
-			oFilter.AddEx("PH_PY551"); //í‰ê· ì¸ì›ì¡°íšŒ
-			oFilter.AddEx("PH_PY508"); //ì¬ì§ì¦ëª… ë“±ë¡ ë° ë°œê¸‰
-			oFilter.AddEx("PH_PY522"); //ì„ê¸ˆí”¼í¬ëŒ€ìƒìí˜„í™©
-			oFilter.AddEx("PH_PY523"); //ì„ê¸ˆí”¼í¬ëŒ€ìƒìì›”ë³„ì°¨ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY524"); //í‡´ì§ê¸ˆ ì¤‘ê°„ ì •ì‚°ë‚´ì—­
-			oFilter.AddEx("PH_PY683"); //êµëŒ€ê·¼ë¬´ì¸ì •í˜„í™©
-			oFilter.AddEx("PH_PYA65"); //ë…„ì°¨í˜„í™© (ì§‘ê³„)
-			oFilter.AddEx("PH_PY583"); //ê°œì¸ë³„ ê·¼íƒœì§‘ê³„ ì¡°íšŒ
+			//ÀÎ»ç - ¸®Æ÷Æ®
+			oFilter.AddEx("PH_PY501"); //¿©±Ç¹ß±ŞÇöÈ²
+			oFilter.AddEx("PH_PY505"); //ÀÔ»çÀÚ´ëÀå
+			oFilter.AddEx("PH_PY510"); //»ç¿ø¸íºÎ
+			oFilter.AddEx("PH_PY515"); //ÀçÁ÷ÀÚ»ç¿ø¸íºÎ
+			oFilter.AddEx("PH_PY520"); //ÅğÁ÷¹×ÅğÁ÷¿¹Á¤ÀÚ´ëÀå
+			oFilter.AddEx("PH_PY525"); //ÇĞ·Âº°ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY530"); //¿¬·Éº°ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY535"); //±Ù¼Ó³â¼öº°ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY540"); //ÀÎ¿øÇöÈ²(´ë¿Ü¿ë)
+			oFilter.AddEx("PH_PY545"); //ÀÎ¿øÇöÈ²(´ë³»¿ë)
+			oFilter.AddEx("PH_PY550"); //ÀüÃ¼ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY555"); //ÀÏÀÏ±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY560"); //ÀÏÃâ±ÙÇöÈ²
+			oFilter.AddEx("PH_PY565"); //¿¬Àå±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY570"); //¿¬Àå/ÈŞÀÏ±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY575"); //±ÙÅÂ±âÂûÇöÈ²
+			oFilter.AddEx("PH_PY580"); //°³ÀÎº°±ÙÅÂ¿ùº¸
+			oFilter.AddEx("PH_PY585"); //ÀÏÀÏÃâ±Ù±â·ÏºÎ
+			oFilter.AddEx("PH_PY590"); //±â°£º°±ÙÅÂÁı°èÇ¥
+			oFilter.AddEx("PH_PY595"); //±Ù¼Ó³â¼öÇöÈ²
+			oFilter.AddEx("PH_PY600"); //ÀÏÀÚº°¿¬Àå±Ù¹«ÇöÈ²
+			oFilter.AddEx("PH_PY605"); //±Ù¼Óº¸ÀüÈŞ°¡¹ß»ı¹×»ç¿ë³»¿ª
+			oFilter.AddEx("PH_PY610"); //±ÙÅÂ±¸ºĞº°»ç¿ë³»¿ª
+			oFilter.AddEx("PH_PY615"); //´çÁ÷±Ù¹«ÇöÈ²
+			oFilter.AddEx("PH_PY620"); //¿¬ºÀÁ¦ÈŞÀÏ±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY635"); //¿©Çà,±³À°ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY640"); //±¹¹Î¿¬±İÅğÁ÷ÀüÈ¯±İÇöÈ²
+			oFilter.AddEx("PH_PY645"); //ÀÚ°İ¼ö´çÁö±ŞÇöÈ²
+			oFilter.AddEx("PH_PY650"); //³ëµ¿Á¶ÇÕ°£ºÎÇöÈ²
+			oFilter.AddEx("PH_PY655"); //º¸ÈÆ´ë»óÀÚÇöÈ²
+			oFilter.AddEx("PH_PY660"); //Àå¾Ö±Ù·ÎÀÚÇöÈ²
+			oFilter.AddEx("PH_PY665"); //»ç¿øÀÚ³àÇöÈ²
+			oFilter.AddEx("PH_PY670"); //°³ÀÎº°Â÷·®ÇöÈ²
+			oFilter.AddEx("PH_PY675"); //±Ù¹«Æí¼ºÇöÈ²
+			oFilter.AddEx("PH_PY679"); //°³ÀÎº° ±ÙÅÂÁı°è Á¶È¸
+			oFilter.AddEx("PH_PY680"); //»ó¹úÇöÈ²
+			oFilter.AddEx("PH_PY685"); //Æ÷»ó°¡±ŞÇöÈ²
+			oFilter.AddEx("PH_PY690"); //»ıÀÏÀÚÇöÈ²
+			oFilter.AddEx("PH_PY695"); //ÀÎ»ç±â·ÏÄ«µå
+			oFilter.AddEx("PH_PY705"); //±³ÅëºñÁö±Ş±ÙÅÂÈ®ÀÎ
+			oFilter.AddEx("PH_PY860"); //È£ºÀÇ¥Á¶È¸
+			oFilter.AddEx("PH_PY503"); //½ÂÁø´ë»óÀÚ¸íºÎ
+			oFilter.AddEx("PH_PY678"); //´çÁ÷±Ù¹«ÀÚ ÀÏ°ı µî·Ï
+			oFilter.AddEx("PH_PY507"); //ÈŞÁ÷ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY681"); //ºñ±Ù¹«ÀÏ¼öÇöÈ²
+			oFilter.AddEx("PH_PY935"); //Á¤±â½ÂÈ£ÇöÈ²
+			oFilter.AddEx("PH_PY551"); //Æò±ÕÀÎ¿øÁ¶È¸
+			oFilter.AddEx("PH_PY508"); //ÀçÁ÷Áõ¸í µî·Ï ¹× ¹ß±Ş
+			oFilter.AddEx("PH_PY522"); //ÀÓ±İÇÇÅ©´ë»óÀÚÇöÈ²
+			oFilter.AddEx("PH_PY523"); //ÀÓ±İÇÇÅ©´ë»óÀÚ¿ùº°Â÷¼öÇöÈ²
+			oFilter.AddEx("PH_PY524"); //ÅğÁ÷±İ Áß°£ Á¤»ê³»¿ª
+			oFilter.AddEx("PH_PY683"); //±³´ë±Ù¹«ÀÎÁ¤ÇöÈ²
+			oFilter.AddEx("PH_PYA65"); //³âÂ÷ÇöÈ² (Áı°è)
+			oFilter.AddEx("PH_PY583"); //°³ÀÎº° ±ÙÅÂÁı°è Á¶È¸
 
-			//ê¸‰ì—¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY100"); //ê¸°ì¤€ì„¸ì•¡ì„¤ì •
-			oFilter.AddEx("PH_PY101"); //ë³´í—˜ë¥ ë“±ë¡
-			oFilter.AddEx("PH_PY102"); //ìˆ˜ë‹¹í•­ëª©ì„¤ì •
-			oFilter.AddEx("PH_PY103"); //ê³µì œí•­ëª©ì„¤ì •
-			oFilter.AddEx("PH_PY104"); //ê³ ì •ìˆ˜ë‹¹ê³µì œê¸ˆì•¡ì¼ê´„ë“±ë¡
-			oFilter.AddEx("PH_PY105"); //í˜¸ë´‰í‘œë“±ë¡
-			oFilter.AddEx("PH_PY106"); //ìˆ˜ë‹¹ê³„ì‚°ì‹ì„¤ì •
-			oFilter.AddEx("PH_PY107"); //ê¸‰ìƒì—¬ê¸°ì¤€ì¼ì„¤ì •
-			oFilter.AddEx("PH_PY108"); //ìƒì—¬ìœ¨ì§€ê¸‰ì„¤ì •
-			oFilter.AddEx("PH_PY109"); //ê¸‰ìƒì—¬ë³€ë™ìë£Œë“±ë¡
-			oFilter.AddEx("PH_PY109_1"); //ê¸‰ìƒì—¬ë³€ë™ìë£Œ í•­ëª©ìˆ˜ì •
-			oFilter.AddEx("PH_PY110"); //ê°œì¸ìƒì—¬ìœ¨ë“±ë¡
-			oFilter.AddEx("PH_PY111"); //ê¸‰ìƒì—¬ê³„ì‚°
-			oFilter.AddEx("PH_PY112"); //ê¸‰ìƒì—¬ìë£Œê´€ë¦¬
-			oFilter.AddEx("PH_PY113"); //ê¸‰ìƒì—¬ë¶„ê°œìë£Œìƒì„±
-			oFilter.AddEx("PH_PY114"); //í‡´ì§ê¸ˆê¸°ì¤€ì„¤ì •
-			oFilter.AddEx("PH_PY115"); //í‡´ì§ê¸ˆê³„ì‚°
-			oFilter.AddEx("PH_PY116"); //í‡´ì§ê¸ˆë¶„ê°œìë£Œìƒì„±
-			oFilter.AddEx("PH_PY117"); //ê¸‰ìƒì—¬ë§ˆê°ì‘ì—…
-			oFilter.AddEx("PH_PY118"); //ê¸‰ìƒì—¬Emailë°œì†¡
-			oFilter.AddEx("PH_PY120"); //ê¸‰ìƒì—¬ì†Œê¸‰ì§‘ê³„ì²˜ë¦¬
-			oFilter.AddEx("PH_PY121"); //í‰ê°€ê°€ê¸‰ì•¡ ë“±ë¡
-			oFilter.AddEx("PH_PY122"); //ê¸‰ìƒì—¬ì¶œë ¥ ê°œì¸ë¶€ì„œì„¤ì •ë“±ë¡
-			oFilter.AddEx("PH_PY123"); //ê°€ì••ë¥˜ë“±ë¡
-			oFilter.AddEx("PH_PY124"); //ë² ë„¤í”¼ì•„ ê¸ˆì•¡ ë“±ë¡
-			oFilter.AddEx("PH_PY125"); //í‡´ì§ì—°ê¸ˆ ì„¤ì •
-			oFilter.AddEx("PH_PY127"); //ê°œì¸ë³„ 4ëŒ€ë³´í—˜ ë³´ìˆ˜ì›”ì•¡ ë° ì •ì‚°ê¸ˆì•¡ì…ë ¥
-			oFilter.AddEx("PH_PY129"); //ê°œì¸ë³„í‡´ì§ì—°ê¸ˆ(DCí˜•) ê³„ì‚°
+			//±Ş¿©°ü¸®
+			oFilter.AddEx("PH_PY100"); //±âÁØ¼¼¾×¼³Á¤
+			oFilter.AddEx("PH_PY101"); //º¸Çè·üµî·Ï
+			oFilter.AddEx("PH_PY102"); //¼ö´çÇ×¸ñ¼³Á¤
+			oFilter.AddEx("PH_PY103"); //°øÁ¦Ç×¸ñ¼³Á¤
+			oFilter.AddEx("PH_PY104"); //°íÁ¤¼ö´ç°øÁ¦±İ¾×ÀÏ°ıµî·Ï
+			oFilter.AddEx("PH_PY105"); //È£ºÀÇ¥µî·Ï
+			oFilter.AddEx("PH_PY106"); //¼ö´ç°è»ê½Ä¼³Á¤
+			oFilter.AddEx("PH_PY107"); //±Ş»ó¿©±âÁØÀÏ¼³Á¤
+			oFilter.AddEx("PH_PY108"); //»ó¿©À²Áö±Ş¼³Á¤
+			oFilter.AddEx("PH_PY109"); //±Ş»ó¿©º¯µ¿ÀÚ·áµî·Ï
+			oFilter.AddEx("PH_PY109_1"); //±Ş»ó¿©º¯µ¿ÀÚ·á Ç×¸ñ¼öÁ¤
+			oFilter.AddEx("PH_PY110"); //°³ÀÎ»ó¿©À²µî·Ï
+			oFilter.AddEx("PH_PY111"); //±Ş»ó¿©°è»ê
+			oFilter.AddEx("PH_PY112"); //±Ş»ó¿©ÀÚ·á°ü¸®
+			oFilter.AddEx("PH_PY113"); //±Ş»ó¿©ºĞ°³ÀÚ·á»ı¼º
+			oFilter.AddEx("PH_PY114"); //ÅğÁ÷±İ±âÁØ¼³Á¤
+			oFilter.AddEx("PH_PY115"); //ÅğÁ÷±İ°è»ê
+			oFilter.AddEx("PH_PY116"); //ÅğÁ÷±İºĞ°³ÀÚ·á»ı¼º
+			oFilter.AddEx("PH_PY117"); //±Ş»ó¿©¸¶°¨ÀÛ¾÷
+			oFilter.AddEx("PH_PY118"); //±Ş»ó¿©Email¹ß¼Û
+			oFilter.AddEx("PH_PY120"); //±Ş»ó¿©¼Ò±ŞÁı°èÃ³¸®
+			oFilter.AddEx("PH_PY121"); //Æò°¡°¡±Ş¾× µî·Ï
+			oFilter.AddEx("PH_PY122"); //±Ş»ó¿©Ãâ·Â °³ÀÎºÎ¼­¼³Á¤µî·Ï
+			oFilter.AddEx("PH_PY123"); //°¡¾Ğ·ùµî·Ï
+			oFilter.AddEx("PH_PY124"); //º£³×ÇÇ¾Æ ±İ¾× µî·Ï
+			oFilter.AddEx("PH_PY125"); //ÅğÁ÷¿¬±İ ¼³Á¤
+			oFilter.AddEx("PH_PY127"); //°³ÀÎº° 4´ëº¸Çè º¸¼ö¿ù¾× ¹× Á¤»ê±İ¾×ÀÔ·Â
+			oFilter.AddEx("PH_PY129"); //°³ÀÎº°ÅğÁ÷¿¬±İ(DCÇü) °è»ê
 
-			//ê¸‰ì—¬ê´€ë¦¬ - ë¦¬í¬íŠ¸
-			oFilter.AddEx("PH_PY625"); //ì„¸íƒìëª…ë¶€
-			oFilter.AddEx("PH_PY630"); //ì‚¬ì›ë³„ë…¸ì¡°ë¹„ê³µì œí˜„í™©
-			oFilter.AddEx("PH_PY700"); //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY710"); //ìƒì—¬ì§€ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY715"); //ê¸‰ì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY720"); //ìƒì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY725"); //ê¸‰ì—¬ì§ê¸‰ë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY740"); //ìƒì—¬ì§ê¸‰ë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY730"); //ê¸‰ì—¬ë´‰íˆ¬ì¶œë ¥
-			oFilter.AddEx("PH_PY735"); //ìƒì—¬ë´‰íˆ¬ì¶œë ¥
-			oFilter.AddEx("PH_PY745"); //ì—°ê°„ì§€ê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY750"); //ê·¼ë¡œì†Œë“ì§•ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY755"); //ë™í˜¸íšŒê°€ì…í˜„í™©
-			oFilter.AddEx("PH_PY760"); //í‰ê· ì„ê¸ˆë°í‡´ì§ê¸ˆì‚°ì¶œë‚´ì—­ì„œ
-			oFilter.AddEx("PH_PY765"); //ê¸‰ì—¬ì¦ê°ë‚´ì—­ì„œ
-			oFilter.AddEx("PH_PY770"); //í‡´ì§ì†Œë“ì›ì²œì§•ìˆ˜ì˜ìˆ˜ì¦ì¶œë ¥
-			oFilter.AddEx("PH_PY775"); //ê°œì¸ë³„ë…„ì°¨í˜„í™©
-			oFilter.AddEx("PH_PY776"); //ì”ì—¬ë…„ì°¨í˜„í™©
-			oFilter.AddEx("PH_PY780"); //ì›”ê³ ìš©ë³´í—˜ë‚´ì—­
-			oFilter.AddEx("PH_PY785"); //ì›”êµ­ë¯¼ì—°ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY790"); //ì›”ê±´ê°•ë³´í—˜ë‚´ì—­
-			oFilter.AddEx("PH_PY795"); //ì—°ê°„ë¶€ì„œë³„ê¸‰ì—¬ë‚´ì—­
-			oFilter.AddEx("PH_PY800"); //ì¸ê±´ë¹„ì§€ê¸‰ìë£Œ
-			oFilter.AddEx("PH_PY805"); //ê¸‰ì—¬ìˆ˜ë‹¹ë³€ë™ë‚´ì—­
-			oFilter.AddEx("PH_PY810"); //ì§ê¸‰ë³„í†µìƒì„ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY815"); //í‰ê· ì„ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY820"); //í†µìƒì„ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY825"); //ì „ë¬¸ì§O/Tí˜„í™©
-			oFilter.AddEx("PH_PY830"); //ë¶€ì„œë³„ì¸ê±´ë¹„í˜„í™© (ê¸°íš)
-			oFilter.AddEx("PH_PY835"); //ì§ê¸‰ë³„O/Të°ìˆ˜ë‹¹í˜„í™©
-			oFilter.AddEx("PH_PY840"); //í’ì‚°ì „ìê³µì‹œìë£Œ
-			oFilter.AddEx("PH_PY845"); //ê¸°ê°„ë³„ê¸‰ì—¬ì§€ê¸‰ë‚´ì—­
-			oFilter.AddEx("PH_PY850"); //ì†Œê¸‰ë¶„ì§€ê¸‰ëª…ì„¸ì„œ
-			oFilter.AddEx("PH_PY855"); //ê°œì¸ë³„ì„ê¸ˆì§€ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY865"); //ê³ ìš©ë³´í—˜í˜„í™© (ê³„ì‚°ìš©)
-			oFilter.AddEx("PH_PY870"); //ë‹´ë‹¹ë³„ì›”O/Të°ìˆ˜ë‹¹í˜„í™©
-			oFilter.AddEx("PH_PY875"); //ì§ê¸‰ë³„ìˆ˜ë‹¹ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY716"); //ê¸°ê°„ë³„ê¸‰ì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY721"); //ê¸°ê°„ë³„ìƒì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY717"); //ê¸°ê°„ë³„ê¸‰ì—¬ë°˜ë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY718"); //ìƒì‚°ì™„ë£Œê¸ˆì•¡ëŒ€ë¹„O/Tí˜„í™©
-			oFilter.AddEx("PH_PY701"); //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥ (ë…¸ì¡°ìš©)
+			//±Ş¿©°ü¸® - ¸®Æ÷Æ®
+			oFilter.AddEx("PH_PY625"); //¼¼Å¹ÀÚ¸íºÎ
+			oFilter.AddEx("PH_PY630"); //»ç¿øº°³ëÁ¶ºñ°øÁ¦ÇöÈ²
+			oFilter.AddEx("PH_PY700"); //±Ş¿©Áö±Ş´ëÀå
+			oFilter.AddEx("PH_PY710"); //»ó¿©Áö±Ş´ëÀå
+			oFilter.AddEx("PH_PY715"); //±Ş¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY720"); //»ó¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY725"); //±Ş¿©Á÷±Şº°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY740"); //»ó¿©Á÷±Şº°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY730"); //±Ş¿©ºÀÅõÃâ·Â
+			oFilter.AddEx("PH_PY735"); //»ó¿©ºÀÅõÃâ·Â
+			oFilter.AddEx("PH_PY745"); //¿¬°£Áö±ŞÇöÈ²
+			oFilter.AddEx("PH_PY750"); //±Ù·Î¼ÒµæÂ¡¼öÇöÈ²
+			oFilter.AddEx("PH_PY755"); //µ¿È£È¸°¡ÀÔÇöÈ²
+			oFilter.AddEx("PH_PY760"); //Æò±ÕÀÓ±İ¹×ÅğÁ÷±İ»êÃâ³»¿ª¼­
+			oFilter.AddEx("PH_PY765"); //±Ş¿©Áõ°¨³»¿ª¼­
+			oFilter.AddEx("PH_PY770"); //ÅğÁ÷¼Òµæ¿øÃµÂ¡¼ö¿µ¼öÁõÃâ·Â
+			oFilter.AddEx("PH_PY775"); //°³ÀÎº°³âÂ÷ÇöÈ²
+			oFilter.AddEx("PH_PY776"); //ÀÜ¿©³âÂ÷ÇöÈ²
+			oFilter.AddEx("PH_PY780"); //¿ù°í¿ëº¸Çè³»¿ª
+			oFilter.AddEx("PH_PY785"); //¿ù±¹¹Î¿¬±İ³»¿ª
+			oFilter.AddEx("PH_PY790"); //¿ù°Ç°­º¸Çè³»¿ª
+			oFilter.AddEx("PH_PY795"); //¿¬°£ºÎ¼­º°±Ş¿©³»¿ª
+			oFilter.AddEx("PH_PY800"); //ÀÎ°ÇºñÁö±ŞÀÚ·á
+			oFilter.AddEx("PH_PY805"); //±Ş¿©¼ö´çº¯µ¿³»¿ª
+			oFilter.AddEx("PH_PY810"); //Á÷±Şº°Åë»óÀÓ±İ³»¿ª
+			oFilter.AddEx("PH_PY815"); //Æò±ÕÀÓ±İ³»¿ª
+			oFilter.AddEx("PH_PY820"); //Åë»óÀÓ±İ³»¿ª
+			oFilter.AddEx("PH_PY825"); //Àü¹®Á÷O/TÇöÈ²
+			oFilter.AddEx("PH_PY830"); //ºÎ¼­º°ÀÎ°ÇºñÇöÈ² (±âÈ¹)
+			oFilter.AddEx("PH_PY835"); //Á÷±Şº°O/T¹×¼ö´çÇöÈ²
+			oFilter.AddEx("PH_PY840"); //Ç³»êÀüÀÚ°ø½ÃÀÚ·á
+			oFilter.AddEx("PH_PY845"); //±â°£º°±Ş¿©Áö±Ş³»¿ª
+			oFilter.AddEx("PH_PY850"); //¼Ò±ŞºĞÁö±Ş¸í¼¼¼­
+			oFilter.AddEx("PH_PY855"); //°³ÀÎº°ÀÓ±İÁö±Ş´ëÀå
+			oFilter.AddEx("PH_PY865"); //°í¿ëº¸ÇèÇöÈ² (°è»ê¿ë)
+			oFilter.AddEx("PH_PY870"); //´ã´çº°¿ùO/T¹×¼ö´çÇöÈ²
+			oFilter.AddEx("PH_PY875"); //Á÷±Şº°¼ö´çÁı°è´ëÀå
+			oFilter.AddEx("PH_PY716"); //±â°£º°±Ş¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY721"); //±â°£º°»ó¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY717"); //±â°£º°±Ş¿©¹İº°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY718"); //»ı»ê¿Ï·á±İ¾×´ëºñO/TÇöÈ²
+			oFilter.AddEx("PH_PY701"); //±Ş¿©Áö±Ş´ëÀå (³ëÁ¶¿ë)
 
-			oFilter.AddEx("PH_PYA10"); //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA20"); //ê¸‰ì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA30"); //ìƒì—¬ì§€ê¸‰ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA40"); //ìƒì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA50"); //DCì „í™˜ìë¶€ë‹´ê¸ˆì§€ê¸‰ë‚´ì—­
-			oFilter.AddEx("PH_PYA75"); //êµí†µë¹„ì™¸ìˆ˜ë‹¹ì§€ê¸‰ëŒ€ì¥
-            oFilter.AddEx("PH_PYA80"); //ê·¼ë¬´ì‹œê°„í‘œì¶œë ¥
-            oFilter.AddEx("PH_PYA90"); //ê·¼ë¡œì†Œë“ê°„ì´ì§€ê¸‰ëª…ì„¸ì„œ(ì„¸ë¬´ì„œì‹ ê³ íŒŒì¼ìƒì„±)
-            oFilter.AddEx("PH_PY526"); //ì„ê¸ˆí”¼í¬ì¸ì›í˜„í™©
-            oFilter.AddEx("PH_PY999"); //ì‚¬ìš©ìê¶Œí•œê´€ë¦¬
+			oFilter.AddEx("PH_PYA10"); //±Ş¿©Áö±Ş´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA20"); //±Ş¿©ºÎ¼­º°Áı°è´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA30"); //»ó¿©Áö±Ş´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA40"); //»ó¿©ºÎ¼­º°Áı°è´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA50"); //DCÀüÈ¯ÀÚºÎ´ã±İÁö±Ş³»¿ª
+			oFilter.AddEx("PH_PYA75"); //±³Åëºñ¿Ü¼ö´çÁö±Ş´ëÀå
+            oFilter.AddEx("PH_PYA80"); //±Ù¹«½Ã°£Ç¥Ãâ·Â
+            oFilter.AddEx("PH_PYA90"); //±Ù·Î¼Òµæ°£ÀÌÁö±Ş¸í¼¼¼­(¼¼¹«¼­½Å°íÆÄÀÏ»ı¼º)
+            oFilter.AddEx("PH_PY526"); //ÀÓ±İÇÇÅ©ÀÎ¿øÇöÈ²
+            oFilter.AddEx("PH_PY999"); //»ç¿ëÀÚ±ÇÇÑ°ü¸®
 
-            //ì •ì‚°ê´€ë¦¬
-            oFilter.AddEx("PH_PY401"); //ì „ê·¼ë¬´ì§€ë“±ë¡
-			oFilter.AddEx("PH_PY402"); //ì •ì‚°ê¸°ì´ˆìë£Œ ë“±ë¡
-			oFilter.AddEx("PH_PY405"); //ì˜ë£Œë¹„ë“±ë¡
-			oFilter.AddEx("PH_PY407"); //ê¸°ë¶€ê¸ˆë“±ë¡
-			oFilter.AddEx("PH_PY409"); //ê¸°ë¶€ê¸ˆì¡°ì •ëª…ì„¸ë“±ë¡
-			oFilter.AddEx("PH_PY411"); //ì—°ê¸ˆ.ì €ì¶•ë“±ì†Œë“ê³µì œë“±ë¡
-			oFilter.AddEx("PH_PY413"); //ì›”ì„¸ì•¡.ì£¼íƒì„ì°¨ì°¨ì…ê¸ˆìë£Œ ë“±ë¡
-			oFilter.AddEx("PH_PY415"); //ì •ì‚°ê³„ì‚°
-			oFilter.AddEx("PH_PY980"); //ì‹ ê³ _ê·¼ë¡œì†Œë“ì§€ê¸‰ëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY985"); //ì‹ ê³ _ì˜ë£Œë¹„ì§€ê¸‰ëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY990"); //ì‹ ê³ _ê¸°ë¶€ê¸ˆëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY995"); //ì‹ ê³ _í‡´ì§ì†Œë“ì§€ê¸‰ëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY419"); //í‘œì¤€ì„¸ì•¡ì ìš©ëŒ€ìƒìë“±ë¡
+            //Á¤»ê°ü¸®
+            oFilter.AddEx("PH_PY401"); //Àü±Ù¹«Áöµî·Ï
+			oFilter.AddEx("PH_PY402"); //Á¤»ê±âÃÊÀÚ·á µî·Ï
+			oFilter.AddEx("PH_PY405"); //ÀÇ·áºñµî·Ï
+			oFilter.AddEx("PH_PY407"); //±âºÎ±İµî·Ï
+			oFilter.AddEx("PH_PY409"); //±âºÎ±İÁ¶Á¤¸í¼¼µî·Ï
+			oFilter.AddEx("PH_PY411"); //¿¬±İ.ÀúÃàµî¼Òµæ°øÁ¦µî·Ï
+			oFilter.AddEx("PH_PY413"); //¿ù¼¼¾×.ÁÖÅÃÀÓÂ÷Â÷ÀÔ±İÀÚ·á µî·Ï
+			oFilter.AddEx("PH_PY415"); //Á¤»ê°è»ê
+			oFilter.AddEx("PH_PY980"); //½Å°í_±Ù·Î¼ÒµæÁö±Ş¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY985"); //½Å°í_ÀÇ·áºñÁö±Ş¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY990"); //½Å°í_±âºÎ±İ¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY995"); //½Å°í_ÅğÁ÷¼ÒµæÁö±Ş¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY419"); //Ç¥ÁØ¼¼¾×Àû¿ë´ë»óÀÚµî·Ï
 
-			oFilter.AddEx("PH_PY910"); //ì†Œë“ê³µì œì‹ ê³ ì„œì¶œë ¥
-			oFilter.AddEx("PH_PY915"); //ê·¼ë¡œì†Œë“ì›ì²œì§•ìˆ˜ë¶€ì¶œë ¥
-			oFilter.AddEx("PH_PY920"); //ì›ì²œì§•ìˆ˜ì˜ìˆ˜ì¦ì¶œë ¥
-			oFilter.AddEx("PH_PY925"); //ê¸°ë¶€ê¸ˆëª…ì„¸ì„œì¶œë ¥
-			oFilter.AddEx("PH_PY930"); //ì •ì‚°ì§•ìˆ˜ë°í™˜ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY931"); //í‘œì¤€ì„¸ì•¡ì ìš©ëŒ€ìƒìì¡°íšŒ
-			oFilter.AddEx("PH_PY932"); //ì „ê·¼ë¬´ì§€ë“±ë¡í˜„í™©
-			oFilter.AddEx("PH_PY933"); //ë³´ìˆ˜ì´ì•¡ì‹ ê³ ê¸°ì´ˆìë£Œ
-			oFilter.AddEx("PH_PYA55"); //ì •ì‚°ì§•ìˆ˜ë°í™˜ê¸‰ëŒ€ì¥(ì§‘ê³„)
-			oFilter.AddEx("PH_PYA70"); //ì†Œë“ì„¸ì›ì²œì§•ìˆ˜ì„¸ì•¡ì¡°ì •ì‹ ì²­ì„œì¶œë ¥
+			oFilter.AddEx("PH_PY910"); //¼Òµæ°øÁ¦½Å°í¼­Ãâ·Â
+			oFilter.AddEx("PH_PY915"); //±Ù·Î¼Òµæ¿øÃµÂ¡¼öºÎÃâ·Â
+			oFilter.AddEx("PH_PY920"); //¿øÃµÂ¡¼ö¿µ¼öÁõÃâ·Â
+			oFilter.AddEx("PH_PY925"); //±âºÎ±İ¸í¼¼¼­Ãâ·Â
+			oFilter.AddEx("PH_PY930"); //Á¤»êÂ¡¼ö¹×È¯±Ş´ëÀå
+			oFilter.AddEx("PH_PY931"); //Ç¥ÁØ¼¼¾×Àû¿ë´ë»óÀÚÁ¶È¸
+			oFilter.AddEx("PH_PY932"); //Àü±Ù¹«Áöµî·ÏÇöÈ²
+			oFilter.AddEx("PH_PY933"); //º¸¼öÃÑ¾×½Å°í±âÃÊÀÚ·á
+			oFilter.AddEx("PH_PYA55"); //Á¤»êÂ¡¼ö¹×È¯±Ş´ëÀå(Áı°è)
+			oFilter.AddEx("PH_PYA70"); //¼Òµæ¼¼¿øÃµÂ¡¼ö¼¼¾×Á¶Á¤½ÅÃ»¼­Ãâ·Â
 
-			oFilter.AddEx("ZPY341"); //ì›”ë³„ ì •ì‚°ìë£Œ ìƒì„±
-			oFilter.AddEx("ZPY343"); //ì›”ë³„ ìë£Œ ê´€ë¦¬
-			oFilter.AddEx("ZPY421"); //í‡´ì§ì†Œë“ì „ì‚°ë§¤ì²´ìˆ˜ë¡
-			oFilter.AddEx("ZPY501"); //ì†Œë“ê³µì œí•­ëª© ë“±ë¡
-			oFilter.AddEx("ZPY502"); //ì¢…(ì „) ê·¼ë¬´ì§€ ë“±ë¡
-			oFilter.AddEx("ZPY503"); //ì •ì‚°ì„¸ì•¡ê³„ì‚°
-			oFilter.AddEx("ZPY504"); //ì •ì‚°ê²°ê³¼ì¡°íšŒ
-			oFilter.AddEx("ZPY505"); //ê¸°ë¶€ê¸ˆëª…ì„¸ë“±ë¡
-			oFilter.AddEx("ZPY506"); //ì˜ë£Œë¹„ëª…ì„¸ë“±ë¡
-			oFilter.AddEx("ZPY508"); //ì—°ê¸ˆì €ì¶• ì†Œë“ê³µì œ ëª…ì„¸ ë“±ë¡
-			oFilter.AddEx("ZPY509"); //ì •ì‚°ìë£Œ ë§ˆê°ì‘ì—…
-			oFilter.AddEx("ZPY521"); //ê·¼ë¡œì†Œë“ì „ì‚°ë§¤ì²´ìˆ˜ë¡
-			oFilter.AddEx("ZPY522"); //ì˜ë£Œë¹„ ê¸°ë¶€ê¸ˆ ì „ì‚°ë§¤ì²´ìˆ˜ë¡
+			oFilter.AddEx("ZPY341"); //¿ùº° Á¤»êÀÚ·á »ı¼º
+			oFilter.AddEx("ZPY343"); //¿ùº° ÀÚ·á °ü¸®
+			oFilter.AddEx("ZPY421"); //ÅğÁ÷¼ÒµæÀü»ê¸ÅÃ¼¼ö·Ï
+			oFilter.AddEx("ZPY501"); //¼Òµæ°øÁ¦Ç×¸ñ µî·Ï
+			oFilter.AddEx("ZPY502"); //Á¾(Àü) ±Ù¹«Áö µî·Ï
+			oFilter.AddEx("ZPY503"); //Á¤»ê¼¼¾×°è»ê
+			oFilter.AddEx("ZPY504"); //Á¤»ê°á°úÁ¶È¸
+			oFilter.AddEx("ZPY505"); //±âºÎ±İ¸í¼¼µî·Ï
+			oFilter.AddEx("ZPY506"); //ÀÇ·áºñ¸í¼¼µî·Ï
+			oFilter.AddEx("ZPY508"); //¿¬±İÀúÃà ¼Òµæ°øÁ¦ ¸í¼¼ µî·Ï
+			oFilter.AddEx("ZPY509"); //Á¤»êÀÚ·á ¸¶°¨ÀÛ¾÷
+			oFilter.AddEx("ZPY521"); //±Ù·Î¼ÒµæÀü»ê¸ÅÃ¼¼ö·Ï
+			oFilter.AddEx("ZPY522"); //ÀÇ·áºñ ±âºÎ±İ Àü»ê¸ÅÃ¼¼ö·Ï
 
-			//ê¸°íƒ€ê´€ë¦¬
-			oFilter.AddEx("PH_PY311"); //í†µê·¼ë²„ìŠ¤ìš´í–‰ë“±ë¡
-			oFilter.AddEx("PH_PY312"); //ë²„ìŠ¤ìš”ê¸ˆ ê°œì¸ë³„ë“±ë¡
-			oFilter.AddEx("PH_PY309"); //ëŒ€ë¶€ê¸ˆë“±ë¡
-			oFilter.AddEx("PH_PY034"); //ê³µìš©ë¶„ê°œì²˜ë¦¬
-			oFilter.AddEx("PH_PYA60"); //í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ì§‘ê³„)
-            oFilter.AddEx("PH_PY135"); //ê¸‰ìƒì—¬ë¶„ê°œì²˜ë¦¬
+			//±âÅ¸°ü¸®
+			oFilter.AddEx("PH_PY311"); //Åë±Ù¹ö½º¿îÇàµî·Ï
+			oFilter.AddEx("PH_PY312"); //¹ö½º¿ä±İ °³ÀÎº°µî·Ï
+			oFilter.AddEx("PH_PY309"); //´ëºÎ±İµî·Ï
+			oFilter.AddEx("PH_PY034"); //°ø¿ëºĞ°³Ã³¸®
+			oFilter.AddEx("PH_PYA60"); //ÇĞÀÚ±İ½ÅÃ»³»¿ª(Áı°è)
+            oFilter.AddEx("PH_PY135"); //±Ş»ó¿©ºĞ°³Ã³¸®
+			oFilter.AddEx("PS_DateChange"); //³¯Â¥ ¼öÁ¤ µî·Ï
+			oFilter.AddEx("PS_DateCommit"); //³¯Â¥ ½ÂÀÎ
         }
 
 		private static void LOST_FOCUS(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -688,16 +693,16 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_LOST_FOCUS);
 
 			//System Form Type
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-			//ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+			//Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 
 			//AddOn Form Type
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-			//ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+			//Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 		}
 
 		private static void COMBO_SELECT(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -705,223 +710,226 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_COMBO_SELECT);
 
 			//System Form Type
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-			//ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+			//Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 
 			//AddOn Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY001"); //ì¸ì‚¬ë§ˆìŠ¤í„° ë“±ë¡
-			oFilter.AddEx("PH_PY002"); //ê·¼íƒœì‹œê°„êµ¬ë¶„ ë“±ë¡
-			oFilter.AddEx("PH_PY003"); //ê·¼íƒœì›”ë ¥ì„¤ì •
-			oFilter.AddEx("PH_PY004"); //ê·¼ë¬´ì¡°í¸ì„±ë“±ë¡
-			oFilter.AddEx("PH_PY005"); //ì‚¬ì—…ì¥ì •ë³´ë“±ë¡
-			oFilter.AddEx("PH_PY006"); //ìŠ¹í˜¸ì‘ì—…ë“±ë¡
-			oFilter.AddEx("PH_PY007"); //ìœ ë¥˜ë‹¨ê°€ë“±ë¡
-			oFilter.AddEx("PH_PY008"); //ì¼ê·¼íƒœë“±ë¡
-			oFilter.AddEx("PH_PY009"); //ê¸°ì°°ìë£ŒUPLOAD
-			oFilter.AddEx("PH_PY012"); //ì¶œì¥ë“±ë¡
-			oFilter.AddEx("PH_PY013"); //ìœ„í•´ì¼ìˆ˜ê³„ì‚°
-			oFilter.AddEx("PH_PY014"); //ìœ„í•´ì¼ìˆ˜ìˆ˜ì •
-			oFilter.AddEx("PH_PY016"); //ê¸°ë³¸ì—…ë¬´ë“±ë¡
-			oFilter.AddEx("PH_PY017"); //ì›”ê·¼íƒœì§‘ê³„
-			oFilter.AddEx("PH_PY018"); //íœ´ì¼ê·¼ë¬´ìì²´í¬(ì—°ë´‰ì œ)
-			oFilter.AddEx("PH_PY019"); //ë°˜ë³€ê²½ë“±ë¡
-			oFilter.AddEx("PH_PY020"); //ì¼ê·¼íƒœ ì—…ë¬´ë³€ê²½ë“±ë¡
-			oFilter.AddEx("PH_PY021"); //ì‚¬ì›ë¹„ìƒì—°ë½ì²˜ê´€ë¦¬
-			oFilter.AddEx("PH_PY201"); //ì •ë…„ì„ë°•ì íœ´ê°€ê²½ë¹„ ë“±ë¡
-			oFilter.AddEx("PH_PY203"); //êµìœ¡ì‹¤ì ë“±ë¡
-			oFilter.AddEx("PH_PY204"); //êµìœ¡ê³„íšë“±ë¡
-			oFilter.AddEx("PH_PY205"); //êµìœ¡ê³„íšVSì‹¤ì ì¡°íšŒ
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			oFilter.AddEx("PH_PY001"); //ÀÎ»ç¸¶½ºÅÍ µî·Ï
+			oFilter.AddEx("PH_PY002"); //±ÙÅÂ½Ã°£±¸ºĞ µî·Ï
+			oFilter.AddEx("PH_PY003"); //±ÙÅÂ¿ù·Â¼³Á¤
+			oFilter.AddEx("PH_PY004"); //±Ù¹«Á¶Æí¼ºµî·Ï
+			oFilter.AddEx("PH_PY005"); //»ç¾÷ÀåÁ¤º¸µî·Ï
+			oFilter.AddEx("PH_PY006"); //½ÂÈ£ÀÛ¾÷µî·Ï
+			oFilter.AddEx("PH_PY007"); //À¯·ù´Ü°¡µî·Ï
+			oFilter.AddEx("PH_PY008"); //ÀÏ±ÙÅÂµî·Ï
+			oFilter.AddEx("PH_PY009"); //±âÂûÀÚ·áUPLOAD
+			oFilter.AddEx("PH_PY012"); //ÃâÀåµî·Ï
+			oFilter.AddEx("PH_PY013"); //À§ÇØÀÏ¼ö°è»ê
+			oFilter.AddEx("PH_PY014"); //À§ÇØÀÏ¼ö¼öÁ¤
+			oFilter.AddEx("PH_PY016"); //±âº»¾÷¹«µî·Ï
+			oFilter.AddEx("PH_PY017"); //¿ù±ÙÅÂÁı°è
+			oFilter.AddEx("PH_PY018"); //ÈŞÀÏ±Ù¹«ÀÚÃ¼Å©(¿¬ºÀÁ¦)
+			oFilter.AddEx("PH_PY019"); //¹İº¯°æµî·Ï
+			oFilter.AddEx("PH_PY020"); //ÀÏ±ÙÅÂ ¾÷¹«º¯°æµî·Ï
+			oFilter.AddEx("PH_PY021"); //»ç¿øºñ»ó¿¬¶ôÃ³°ü¸®
+			oFilter.AddEx("PH_PY201"); //Á¤³âÀÓ¹ÚÀÚ ÈŞ°¡°æºñ µî·Ï
+			oFilter.AddEx("PH_PY203"); //±³À°½ÇÀûµî·Ï
+			oFilter.AddEx("PH_PY204"); //±³À°°èÈ¹µî·Ï
+			oFilter.AddEx("PH_PY205"); //±³À°°èÈ¹VS½ÇÀûÁ¶È¸
 
-			//ì¸ì‚¬ - ë¦¬í¬íŠ¸
-			oFilter.AddEx("PH_PY501"); //ì—¬ê¶Œë°œê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY505"); //ì…ì‚¬ìëŒ€ì¥
-			oFilter.AddEx("PH_PY510"); //ì‚¬ì›ëª…ë¶€
-			oFilter.AddEx("PH_PY515"); //ì¬ì§ìì‚¬ì›ëª…ë¶€
-			oFilter.AddEx("PH_PY520"); //í‡´ì§ë°í‡´ì§ì˜ˆì •ìëŒ€ì¥
-			oFilter.AddEx("PH_PY525"); //í•™ë ¥ë³„ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY530"); //ì—°ë ¹ë³„ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY535"); //ê·¼ì†ë…„ìˆ˜ë³„ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY540"); //ì¸ì›í˜„í™©(ëŒ€ì™¸ìš©)
-			oFilter.AddEx("PH_PY545"); //ì¸ì›í˜„í™©(ëŒ€ë‚´ìš©)
-			oFilter.AddEx("PH_PY550"); //ì „ì²´ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY555"); //ì¼ì¼ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY560"); //ì¼ì¶œê·¼í˜„í™©
-			oFilter.AddEx("PH_PY565"); //ì—°ì¥ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY570"); //ì—°ì¥/íœ´ì¼ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY575"); //ê·¼íƒœê¸°ì°°í˜„í™©
-			oFilter.AddEx("PH_PY580"); //ê°œì¸ë³„ê·¼íƒœì›”ë³´
-			oFilter.AddEx("PH_PY585"); //ì¼ì¼ì¶œê·¼ê¸°ë¡ë¶€
-			oFilter.AddEx("PH_PY590"); //ê¸°ê°„ë³„ê·¼íƒœì§‘ê³„í‘œ
-			oFilter.AddEx("PH_PY595"); //ê·¼ì†ë…„ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY600"); //ì¼ìë³„ì—°ì¥ê·¼ë¬´í˜„í™©
-			oFilter.AddEx("PH_PY605"); //ê·¼ì†ë³´ì „íœ´ê°€ë°œìƒë°ì‚¬ìš©ë‚´ì—­
-			oFilter.AddEx("PH_PY610"); //ê·¼íƒœêµ¬ë¶„ë³„ì‚¬ìš©ë‚´ì—­
-			oFilter.AddEx("PH_PY615"); //ë‹¹ì§ê·¼ë¬´í˜„í™©
-			oFilter.AddEx("PH_PY620"); //ì—°ë´‰ì œíœ´ì¼ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY635"); //ì—¬í–‰,êµìœ¡ìí˜„í™©
-			oFilter.AddEx("PH_PY640"); //êµ­ë¯¼ì—°ê¸ˆí‡´ì§ì „í™˜ê¸ˆí˜„í™©
-			oFilter.AddEx("PH_PY645"); //ìê²©ìˆ˜ë‹¹ì§€ê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY650"); //ë…¸ë™ì¡°í•©ê°„ë¶€í˜„í™©
-			oFilter.AddEx("PH_PY655"); //ë³´í›ˆëŒ€ìƒìí˜„í™©
-			oFilter.AddEx("PH_PY660"); //ì¥ì• ê·¼ë¡œìí˜„í™©
-			oFilter.AddEx("PH_PY665"); //ì‚¬ì›ìë…€í˜„í™©
-			oFilter.AddEx("PH_PY670"); //ê°œì¸ë³„ì°¨ëŸ‰í˜„í™©
-			oFilter.AddEx("PH_PY675"); //ê·¼ë¬´í¸ì„±í˜„í™©
-			oFilter.AddEx("PH_PY676"); //ê·¼íƒœì‹œê°„ë‚´ì—­ì¡°íšŒ
-			oFilter.AddEx("PH_PY677"); //ì¼ì¼ê·¼íƒœì´ìƒìì¡°íšŒ
-			oFilter.AddEx("PH_PY679"); //ê°œì¸ë³„ ê·¼íƒœì§‘ê³„ ì¡°íšŒ
-			oFilter.AddEx("PH_PY680"); //ìƒë²Œí˜„í™©
-			oFilter.AddEx("PH_PY685"); //í¬ìƒê°€ê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY690"); //ìƒì¼ìí˜„í™©
-			oFilter.AddEx("PH_PY695"); //ì¸ì‚¬ê¸°ë¡ì¹´ë“œ
-			oFilter.AddEx("PH_PY705"); //êµí†µë¹„ì§€ê¸‰ê·¼íƒœí™•ì¸
-			oFilter.AddEx("PH_PY860"); //í˜¸ë´‰í‘œì¡°íšŒ
-			oFilter.AddEx("PH_PY503"); //ìŠ¹ì§„ëŒ€ìƒìëª…ë¶€
-			oFilter.AddEx("PH_PY678"); //ë‹¹ì§ê·¼ë¬´ì ì¼ê´„ ë“±ë¡
-			oFilter.AddEx("PH_PY507"); //íœ´ì§ìí˜„í™©
-			oFilter.AddEx("PH_PY681"); //ë¹„ê·¼ë¬´ì¼ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY935"); //ì •ê¸°ìŠ¹í˜¸í˜„í™©
-			oFilter.AddEx("PH_PY551"); //í‰ê· ì¸ì›ì¡°íšŒ
-			oFilter.AddEx("PH_PY508"); //ì¬ì§ì¦ëª… ë“±ë¡ ë° ë°œê¸‰
-			oFilter.AddEx("PH_PY522"); //ì„ê¸ˆí”¼í¬ëŒ€ìƒìí˜„í™©
-			oFilter.AddEx("PH_PY523"); //ì„ê¸ˆí”¼í¬ëŒ€ìƒìì›”ë³„ì°¨ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY524"); //í‡´ì§ê¸ˆ ì¤‘ê°„ ì •ì‚°ë‚´ì—­
-			oFilter.AddEx("PH_PY683"); //êµëŒ€ê·¼ë¬´ì¸ì •í˜„í™©
-			oFilter.AddEx("PH_PYA65"); //ë…„ì°¨í˜„í™© (ì§‘ê³„)
-			oFilter.AddEx("PH_PY583"); //ê°œì¸ë³„ ê·¼íƒœì§‘ê³„ ì¡°íšŒ
+			//ÀÎ»ç - ¸®Æ÷Æ®
+			oFilter.AddEx("PH_PY501"); //¿©±Ç¹ß±ŞÇöÈ²
+			oFilter.AddEx("PH_PY505"); //ÀÔ»çÀÚ´ëÀå
+			oFilter.AddEx("PH_PY510"); //»ç¿ø¸íºÎ
+			oFilter.AddEx("PH_PY515"); //ÀçÁ÷ÀÚ»ç¿ø¸íºÎ
+			oFilter.AddEx("PH_PY520"); //ÅğÁ÷¹×ÅğÁ÷¿¹Á¤ÀÚ´ëÀå
+			oFilter.AddEx("PH_PY525"); //ÇĞ·Âº°ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY530"); //¿¬·Éº°ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY535"); //±Ù¼Ó³â¼öº°ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY540"); //ÀÎ¿øÇöÈ²(´ë¿Ü¿ë)
+			oFilter.AddEx("PH_PY545"); //ÀÎ¿øÇöÈ²(´ë³»¿ë)
+			oFilter.AddEx("PH_PY550"); //ÀüÃ¼ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY555"); //ÀÏÀÏ±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY560"); //ÀÏÃâ±ÙÇöÈ²
+			oFilter.AddEx("PH_PY565"); //¿¬Àå±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY570"); //¿¬Àå/ÈŞÀÏ±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY575"); //±ÙÅÂ±âÂûÇöÈ²
+			oFilter.AddEx("PH_PY580"); //°³ÀÎº°±ÙÅÂ¿ùº¸
+			oFilter.AddEx("PH_PY585"); //ÀÏÀÏÃâ±Ù±â·ÏºÎ
+			oFilter.AddEx("PH_PY590"); //±â°£º°±ÙÅÂÁı°èÇ¥
+			oFilter.AddEx("PH_PY595"); //±Ù¼Ó³â¼öÇöÈ²
+			oFilter.AddEx("PH_PY600"); //ÀÏÀÚº°¿¬Àå±Ù¹«ÇöÈ²
+			oFilter.AddEx("PH_PY605"); //±Ù¼Óº¸ÀüÈŞ°¡¹ß»ı¹×»ç¿ë³»¿ª
+			oFilter.AddEx("PH_PY610"); //±ÙÅÂ±¸ºĞº°»ç¿ë³»¿ª
+			oFilter.AddEx("PH_PY615"); //´çÁ÷±Ù¹«ÇöÈ²
+			oFilter.AddEx("PH_PY620"); //¿¬ºÀÁ¦ÈŞÀÏ±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY635"); //¿©Çà,±³À°ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY640"); //±¹¹Î¿¬±İÅğÁ÷ÀüÈ¯±İÇöÈ²
+			oFilter.AddEx("PH_PY645"); //ÀÚ°İ¼ö´çÁö±ŞÇöÈ²
+			oFilter.AddEx("PH_PY650"); //³ëµ¿Á¶ÇÕ°£ºÎÇöÈ²
+			oFilter.AddEx("PH_PY655"); //º¸ÈÆ´ë»óÀÚÇöÈ²
+			oFilter.AddEx("PH_PY660"); //Àå¾Ö±Ù·ÎÀÚÇöÈ²
+			oFilter.AddEx("PH_PY665"); //»ç¿øÀÚ³àÇöÈ²
+			oFilter.AddEx("PH_PY670"); //°³ÀÎº°Â÷·®ÇöÈ²
+			oFilter.AddEx("PH_PY675"); //±Ù¹«Æí¼ºÇöÈ²
+			oFilter.AddEx("PH_PY676"); //±ÙÅÂ½Ã°£³»¿ªÁ¶È¸
+			oFilter.AddEx("PH_PY677"); //ÀÏÀÏ±ÙÅÂÀÌ»óÀÚÁ¶È¸
+			oFilter.AddEx("PH_PY679"); //°³ÀÎº° ±ÙÅÂÁı°è Á¶È¸
+			oFilter.AddEx("PH_PY680"); //»ó¹úÇöÈ²
+			oFilter.AddEx("PH_PY685"); //Æ÷»ó°¡±ŞÇöÈ²
+			oFilter.AddEx("PH_PY690"); //»ıÀÏÀÚÇöÈ²
+			oFilter.AddEx("PH_PY695"); //ÀÎ»ç±â·ÏÄ«µå
+			oFilter.AddEx("PH_PY705"); //±³ÅëºñÁö±Ş±ÙÅÂÈ®ÀÎ
+			oFilter.AddEx("PH_PY860"); //È£ºÀÇ¥Á¶È¸
+			oFilter.AddEx("PH_PY503"); //½ÂÁø´ë»óÀÚ¸íºÎ
+			oFilter.AddEx("PH_PY678"); //´çÁ÷±Ù¹«ÀÚ ÀÏ°ı µî·Ï
+			oFilter.AddEx("PH_PY507"); //ÈŞÁ÷ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY681"); //ºñ±Ù¹«ÀÏ¼öÇöÈ²
+			oFilter.AddEx("PH_PY935"); //Á¤±â½ÂÈ£ÇöÈ²
+			oFilter.AddEx("PH_PY551"); //Æò±ÕÀÎ¿øÁ¶È¸
+			oFilter.AddEx("PH_PY508"); //ÀçÁ÷Áõ¸í µî·Ï ¹× ¹ß±Ş
+			oFilter.AddEx("PH_PY522"); //ÀÓ±İÇÇÅ©´ë»óÀÚÇöÈ²
+			oFilter.AddEx("PH_PY523"); //ÀÓ±İÇÇÅ©´ë»óÀÚ¿ùº°Â÷¼öÇöÈ²
+			oFilter.AddEx("PH_PY524"); //ÅğÁ÷±İ Áß°£ Á¤»ê³»¿ª
+			oFilter.AddEx("PH_PY683"); //±³´ë±Ù¹«ÀÎÁ¤ÇöÈ²
+			oFilter.AddEx("PH_PYA65"); //³âÂ÷ÇöÈ² (Áı°è)
+			oFilter.AddEx("PH_PY583"); //°³ÀÎº° ±ÙÅÂÁı°è Á¶È¸
 
-			//ê¸‰ì—¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY100"); //ê¸°ì¤€ì„¸ì•¡ì„¤ì •
-			oFilter.AddEx("PH_PY101"); //ë³´í—˜ë¥ ë“±ë¡
-			oFilter.AddEx("PH_PY102"); //ìˆ˜ë‹¹í•­ëª©ì„¤ì •
-			oFilter.AddEx("PH_PY103"); //ê³µì œí•­ëª©ì„¤ì •
-			oFilter.AddEx("PH_PY104"); //ê³ ì •ìˆ˜ë‹¹ê³µì œê¸ˆì•¡ì¼ê´„ë“±ë¡
-			oFilter.AddEx("PH_PY105"); //í˜¸ë´‰í‘œë“±ë¡
-			oFilter.AddEx("PH_PY106"); //ìˆ˜ë‹¹ê³„ì‚°ì‹ì„¤ì •
-			oFilter.AddEx("PH_PY107"); //ê¸‰ìƒì—¬ê¸°ì¤€ì¼ì„¤ì •
-			oFilter.AddEx("PH_PY108"); //ìƒì—¬ìœ¨ì§€ê¸‰ì„¤ì •
-			oFilter.AddEx("PH_PY109"); //ê¸‰ìƒì—¬ë³€ë™ìë£Œë“±ë¡
-			oFilter.AddEx("PH_PY109_1"); //ê¸‰ìƒì—¬ë³€ë™ìë£Œ í•­ëª©ìˆ˜ì •
-			oFilter.AddEx("PH_PY110"); //ê°œì¸ìƒì—¬ìœ¨ë“±ë¡
-			oFilter.AddEx("PH_PY111"); //ê¸‰ìƒì—¬ê³„ì‚°
-			oFilter.AddEx("PH_PY112"); //ê¸‰ìƒì—¬ìë£Œê´€ë¦¬
-			oFilter.AddEx("PH_PY113"); //ê¸‰ìƒì—¬ë¶„ê°œìë£Œìƒì„±
-			oFilter.AddEx("PH_PY114"); //í‡´ì§ê¸ˆê¸°ì¤€ì„¤ì •
-			oFilter.AddEx("PH_PY115"); //í‡´ì§ê¸ˆê³„ì‚°
-			oFilter.AddEx("PH_PY116"); //í‡´ì§ê¸ˆë¶„ê°œìë£Œìƒì„±
-			oFilter.AddEx("PH_PY117"); //ê¸‰ìƒì—¬ë§ˆê°ì‘ì—…
-			oFilter.AddEx("PH_PY118"); //ê¸‰ìƒì—¬Emailë°œì†¡
-			oFilter.AddEx("PH_PY119"); //ê¸‰ìƒì—¬ì€í–‰íŒŒì¼ìƒì„±
-			oFilter.AddEx("PH_PY120"); //ê¸‰ìƒì—¬ì†Œê¸‰ì§‘ê³„ì²˜ë¦¬
-			oFilter.AddEx("PH_PY121"); //í‰ê°€ê°€ê¸‰ì•¡ ë“±ë¡
-			oFilter.AddEx("PH_PY122"); //ê¸‰ìƒì—¬ì¶œë ¥ ê°œì¸ë¶€ì„œì„¤ì •ë“±ë¡
-			oFilter.AddEx("PH_PY123"); //ê°€ì••ë¥˜ë“±ë¡
-			oFilter.AddEx("PH_PY124"); //ë² ë„¤í”¼ì•„ ê¸ˆì•¡ ë“±ë¡
-			oFilter.AddEx("PH_PY127"); ////ê°œì¸ë³„ 4ëŒ€ë³´í—˜ ë³´ìˆ˜ì›”ì•¡ ë° ì •ì‚°ê¸ˆì•¡ì…ë ¥
-			oFilter.AddEx("PH_PY130"); //íŒ€ë³„ ì„±ê³¼ê¸‰ì°¨ë“± ë“±ê¸‰ë“±ë¡
-			oFilter.AddEx("PH_PY131"); //ì„±ê³¼ê¸‰ì°¨ë“± ê³„ìˆ˜ë“±ë¡
-			oFilter.AddEx("PH_PY132"); //ì„±ê³¼ê¸‰ì°¨ ê°œì¸ë³„ ê³„ì‚°
-			oFilter.AddEx("PH_PY133"); //ì—°ë´‰ì œ íšŸì°¨ ê´€ë¦¬
-			oFilter.AddEx("PH_PY134"); //ì†Œë“ì„¸/ì£¼ë¯¼ì„¸ ì¡°ì •ê´€ë¦¬
-			oFilter.AddEx("PH_PY129"); //ê°œì¸ë³„í‡´ì§ì—°ê¸ˆ(DCí˜•) ê³„ì‚°
-            oFilter.AddEx("PH_PY135"); //ê¸‰ìƒì—¬ë¶„ê°œì²˜ë¦¬
-            oFilter.AddEx("PH_PY136"); //ê¸‰ìƒì—¬ë¶„ê°œì²˜ë¦¬ ë°°ë¶€ê·œì¹™ì„¤ì •
+			//±Ş¿©°ü¸®
+			oFilter.AddEx("PH_PY100"); //±âÁØ¼¼¾×¼³Á¤
+			oFilter.AddEx("PH_PY101"); //º¸Çè·üµî·Ï
+			oFilter.AddEx("PH_PY102"); //¼ö´çÇ×¸ñ¼³Á¤
+			oFilter.AddEx("PH_PY103"); //°øÁ¦Ç×¸ñ¼³Á¤
+			oFilter.AddEx("PH_PY104"); //°íÁ¤¼ö´ç°øÁ¦±İ¾×ÀÏ°ıµî·Ï
+			oFilter.AddEx("PH_PY105"); //È£ºÀÇ¥µî·Ï
+			oFilter.AddEx("PH_PY106"); //¼ö´ç°è»ê½Ä¼³Á¤
+			oFilter.AddEx("PH_PY107"); //±Ş»ó¿©±âÁØÀÏ¼³Á¤
+			oFilter.AddEx("PH_PY108"); //»ó¿©À²Áö±Ş¼³Á¤
+			oFilter.AddEx("PH_PY109"); //±Ş»ó¿©º¯µ¿ÀÚ·áµî·Ï
+			oFilter.AddEx("PH_PY109_1"); //±Ş»ó¿©º¯µ¿ÀÚ·á Ç×¸ñ¼öÁ¤
+			oFilter.AddEx("PH_PY110"); //°³ÀÎ»ó¿©À²µî·Ï
+			oFilter.AddEx("PH_PY111"); //±Ş»ó¿©°è»ê
+			oFilter.AddEx("PH_PY112"); //±Ş»ó¿©ÀÚ·á°ü¸®
+			oFilter.AddEx("PH_PY113"); //±Ş»ó¿©ºĞ°³ÀÚ·á»ı¼º
+			oFilter.AddEx("PH_PY114"); //ÅğÁ÷±İ±âÁØ¼³Á¤
+			oFilter.AddEx("PH_PY115"); //ÅğÁ÷±İ°è»ê
+			oFilter.AddEx("PH_PY116"); //ÅğÁ÷±İºĞ°³ÀÚ·á»ı¼º
+			oFilter.AddEx("PH_PY117"); //±Ş»ó¿©¸¶°¨ÀÛ¾÷
+			oFilter.AddEx("PH_PY118"); //±Ş»ó¿©Email¹ß¼Û
+			oFilter.AddEx("PH_PY119"); //±Ş»ó¿©ÀºÇàÆÄÀÏ»ı¼º
+			oFilter.AddEx("PH_PY120"); //±Ş»ó¿©¼Ò±ŞÁı°èÃ³¸®
+			oFilter.AddEx("PH_PY121"); //Æò°¡°¡±Ş¾× µî·Ï
+			oFilter.AddEx("PH_PY122"); //±Ş»ó¿©Ãâ·Â °³ÀÎºÎ¼­¼³Á¤µî·Ï
+			oFilter.AddEx("PH_PY123"); //°¡¾Ğ·ùµî·Ï
+			oFilter.AddEx("PH_PY124"); //º£³×ÇÇ¾Æ ±İ¾× µî·Ï
+			oFilter.AddEx("PH_PY127"); ////°³ÀÎº° 4´ëº¸Çè º¸¼ö¿ù¾× ¹× Á¤»ê±İ¾×ÀÔ·Â
+			oFilter.AddEx("PH_PY130"); //ÆÀº° ¼º°ú±ŞÂ÷µî µî±Şµî·Ï
+			oFilter.AddEx("PH_PY131"); //¼º°ú±ŞÂ÷µî °è¼öµî·Ï
+			oFilter.AddEx("PH_PY132"); //¼º°ú±ŞÂ÷ °³ÀÎº° °è»ê
+			oFilter.AddEx("PH_PY133"); //¿¬ºÀÁ¦ È½Â÷ °ü¸®
+			oFilter.AddEx("PH_PY134"); //¼Òµæ¼¼/ÁÖ¹Î¼¼ Á¶Á¤°ü¸®
+			oFilter.AddEx("PH_PY129"); //°³ÀÎº°ÅğÁ÷¿¬±İ(DCÇü) °è»ê
+            oFilter.AddEx("PH_PY135"); //±Ş»ó¿©ºĞ°³Ã³¸®
+            oFilter.AddEx("PH_PY136"); //±Ş»ó¿©ºĞ°³Ã³¸® ¹èºÎ±ÔÄ¢¼³Á¤
 
-            //ê¸‰ì—¬ê´€ë¦¬ - ë¦¬í¬íŠ¸
-            oFilter.AddEx("PH_PY625"); //ì„¸íƒìëª…ë¶€
-			oFilter.AddEx("PH_PY630"); //ì‚¬ì›ë³„ë…¸ì¡°ë¹„ê³µì œí˜„í™©
-			oFilter.AddEx("PH_PY700"); //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY710"); //ìƒì—¬ì§€ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY715"); //ê¸‰ì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY720"); //ìƒì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY725"); //ê¸‰ì—¬ì§ê¸‰ë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY740"); //ìƒì—¬ì§ê¸‰ë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY730"); //ê¸‰ì—¬ë´‰íˆ¬ì¶œë ¥
-			oFilter.AddEx("PH_PY735"); //ìƒì—¬ë´‰íˆ¬ì¶œë ¥
-			oFilter.AddEx("PH_PY745"); //ì—°ê°„ì§€ê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY750"); //ê·¼ë¡œì†Œë“ì§•ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY755"); //ë™í˜¸íšŒê°€ì…í˜„í™©
-			oFilter.AddEx("PH_PY760"); //í‰ê· ì„ê¸ˆë°í‡´ì§ê¸ˆì‚°ì¶œë‚´ì—­ì„œ
-			oFilter.AddEx("PH_PY765"); //ê¸‰ì—¬ì¦ê°ë‚´ì—­ì„œ
-			oFilter.AddEx("PH_PY770"); //í‡´ì§ì†Œë“ì›ì²œì§•ìˆ˜ì˜ìˆ˜ì¦ì¶œë ¥
-			oFilter.AddEx("PH_PY775"); //ê°œì¸ë³„ë…„ì°¨í˜„í™©
-			oFilter.AddEx("PH_PY776"); //ì”ì—¬ë…„ì°¨í˜„í™©
-			oFilter.AddEx("PH_PY780"); //ì›”ê³ ìš©ë³´í—˜ë‚´ì—­
-			oFilter.AddEx("PH_PY785"); //ì›”êµ­ë¯¼ì—°ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY790"); //ì›”ê±´ê°•ë³´í—˜ë‚´ì—­
-			oFilter.AddEx("PH_PY795"); //ì—°ê°„ë¶€ì„œë³„ê¸‰ì—¬ë‚´ì—­
-			oFilter.AddEx("PH_PY800"); //ì¸ê±´ë¹„ì§€ê¸‰ìë£Œ
-			oFilter.AddEx("PH_PY805"); //ê¸‰ì—¬ìˆ˜ë‹¹ë³€ë™ë‚´ì—­
-			oFilter.AddEx("PH_PY810"); //ì§ê¸‰ë³„í†µìƒì„ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY815"); //í‰ê· ì„ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY820"); //í†µìƒì„ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY825"); //ì „ë¬¸ì§O/Tí˜„í™©
-			oFilter.AddEx("PH_PY830"); //ë¶€ì„œë³„ì¸ê±´ë¹„í˜„í™© (ê¸°íš)
-			oFilter.AddEx("PH_PY835"); //ì§ê¸‰ë³„O/Të°ìˆ˜ë‹¹í˜„í™©
-			oFilter.AddEx("PH_PY840"); //í’ì‚°ì „ìê³µì‹œìë£Œ
-			oFilter.AddEx("PH_PY845"); //ê¸°ê°„ë³„ê¸‰ì—¬ì§€ê¸‰ë‚´ì—­
-			oFilter.AddEx("PH_PY850"); //ì†Œê¸‰ë¶„ì§€ê¸‰ëª…ì„¸ì„œ
-			oFilter.AddEx("PH_PY855"); //ê°œì¸ë³„ì„ê¸ˆì§€ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY865"); //ê³ ìš©ë³´í—˜í˜„í™© (ê³„ì‚°ìš©)
-			oFilter.AddEx("PH_PY870"); //ë‹´ë‹¹ë³„ì›”O/Të°ìˆ˜ë‹¹í˜„í™©
-			oFilter.AddEx("PH_PY875"); //ì§ê¸‰ë³„ìˆ˜ë‹¹ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY716"); //ê¸°ê°„ë³„ê¸‰ì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY721"); //ê¸°ê°„ë³„ìƒì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY717"); //ê¸°ê°„ë³„ê¸‰ì—¬ë°˜ë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY718"); //ìƒì‚°ì™„ë£Œê¸ˆì•¡ëŒ€ë¹„O/Tí˜„í™©
-			oFilter.AddEx("PH_PY701"); //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥ (ë…¸ì¡°ìš©)
-			oFilter.AddEx("PH_PYA10"); //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA20"); //ê¸‰ì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA30"); //ìƒì—¬ì§€ê¸‰ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA40"); //ìƒì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA50"); //DCì „í™˜ìë¶€ë‹´ê¸ˆì§€ê¸‰ë‚´ì—­
-			oFilter.AddEx("PH_PYA75"); //êµí†µë¹„ì™¸ìˆ˜ë‹¹ì§€ê¸‰ëŒ€ì¥
-            oFilter.AddEx("PH_PYA80"); //ê·¼ë¬´ì‹œê°„í‘œì¶œë ¥
-            oFilter.AddEx("PH_PYA90"); //ê·¼ë¡œì†Œë“ê°„ì´ì§€ê¸‰ëª…ì„¸ì„œ(ì„¸ë¬´ì„œì‹ ê³ íŒŒì¼ìƒì„±)
-            oFilter.AddEx("PH_PY526"); //ì„ê¸ˆí”¼í¬ì¸ì›í˜„í™©
-            oFilter.AddEx("PH_PY999"); //ì‚¬ìš©ìê¶Œí•œê´€ë¦¬
+            //±Ş¿©°ü¸® - ¸®Æ÷Æ®
+            oFilter.AddEx("PH_PY625"); //¼¼Å¹ÀÚ¸íºÎ
+			oFilter.AddEx("PH_PY630"); //»ç¿øº°³ëÁ¶ºñ°øÁ¦ÇöÈ²
+			oFilter.AddEx("PH_PY700"); //±Ş¿©Áö±Ş´ëÀå
+			oFilter.AddEx("PH_PY710"); //»ó¿©Áö±Ş´ëÀå
+			oFilter.AddEx("PH_PY715"); //±Ş¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY720"); //»ó¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY725"); //±Ş¿©Á÷±Şº°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY740"); //»ó¿©Á÷±Şº°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY730"); //±Ş¿©ºÀÅõÃâ·Â
+			oFilter.AddEx("PH_PY735"); //»ó¿©ºÀÅõÃâ·Â
+			oFilter.AddEx("PH_PY745"); //¿¬°£Áö±ŞÇöÈ²
+			oFilter.AddEx("PH_PY750"); //±Ù·Î¼ÒµæÂ¡¼öÇöÈ²
+			oFilter.AddEx("PH_PY755"); //µ¿È£È¸°¡ÀÔÇöÈ²
+			oFilter.AddEx("PH_PY760"); //Æò±ÕÀÓ±İ¹×ÅğÁ÷±İ»êÃâ³»¿ª¼­
+			oFilter.AddEx("PH_PY765"); //±Ş¿©Áõ°¨³»¿ª¼­
+			oFilter.AddEx("PH_PY770"); //ÅğÁ÷¼Òµæ¿øÃµÂ¡¼ö¿µ¼öÁõÃâ·Â
+			oFilter.AddEx("PH_PY775"); //°³ÀÎº°³âÂ÷ÇöÈ²
+			oFilter.AddEx("PH_PY776"); //ÀÜ¿©³âÂ÷ÇöÈ²
+			oFilter.AddEx("PH_PY780"); //¿ù°í¿ëº¸Çè³»¿ª
+			oFilter.AddEx("PH_PY785"); //¿ù±¹¹Î¿¬±İ³»¿ª
+			oFilter.AddEx("PH_PY790"); //¿ù°Ç°­º¸Çè³»¿ª
+			oFilter.AddEx("PH_PY795"); //¿¬°£ºÎ¼­º°±Ş¿©³»¿ª
+			oFilter.AddEx("PH_PY800"); //ÀÎ°ÇºñÁö±ŞÀÚ·á
+			oFilter.AddEx("PH_PY805"); //±Ş¿©¼ö´çº¯µ¿³»¿ª
+			oFilter.AddEx("PH_PY810"); //Á÷±Şº°Åë»óÀÓ±İ³»¿ª
+			oFilter.AddEx("PH_PY815"); //Æò±ÕÀÓ±İ³»¿ª
+			oFilter.AddEx("PH_PY820"); //Åë»óÀÓ±İ³»¿ª
+			oFilter.AddEx("PH_PY825"); //Àü¹®Á÷O/TÇöÈ²
+			oFilter.AddEx("PH_PY830"); //ºÎ¼­º°ÀÎ°ÇºñÇöÈ² (±âÈ¹)
+			oFilter.AddEx("PH_PY835"); //Á÷±Şº°O/T¹×¼ö´çÇöÈ²
+			oFilter.AddEx("PH_PY840"); //Ç³»êÀüÀÚ°ø½ÃÀÚ·á
+			oFilter.AddEx("PH_PY845"); //±â°£º°±Ş¿©Áö±Ş³»¿ª
+			oFilter.AddEx("PH_PY850"); //¼Ò±ŞºĞÁö±Ş¸í¼¼¼­
+			oFilter.AddEx("PH_PY855"); //°³ÀÎº°ÀÓ±İÁö±Ş´ëÀå
+			oFilter.AddEx("PH_PY865"); //°í¿ëº¸ÇèÇöÈ² (°è»ê¿ë)
+			oFilter.AddEx("PH_PY870"); //´ã´çº°¿ùO/T¹×¼ö´çÇöÈ²
+			oFilter.AddEx("PH_PY875"); //Á÷±Şº°¼ö´çÁı°è´ëÀå
+			oFilter.AddEx("PH_PY716"); //±â°£º°±Ş¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY721"); //±â°£º°»ó¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY717"); //±â°£º°±Ş¿©¹İº°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY718"); //»ı»ê¿Ï·á±İ¾×´ëºñO/TÇöÈ²
+			oFilter.AddEx("PH_PY701"); //±Ş¿©Áö±Ş´ëÀå (³ëÁ¶¿ë)
+			oFilter.AddEx("PH_PYA10"); //±Ş¿©Áö±Ş´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA20"); //±Ş¿©ºÎ¼­º°Áı°è´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA30"); //»ó¿©Áö±Ş´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA40"); //»ó¿©ºÎ¼­º°Áı°è´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA50"); //DCÀüÈ¯ÀÚºÎ´ã±İÁö±Ş³»¿ª
+			oFilter.AddEx("PH_PYA75"); //±³Åëºñ¿Ü¼ö´çÁö±Ş´ëÀå
+            oFilter.AddEx("PH_PYA80"); //±Ù¹«½Ã°£Ç¥Ãâ·Â
+            oFilter.AddEx("PH_PYA90"); //±Ù·Î¼Òµæ°£ÀÌÁö±Ş¸í¼¼¼­(¼¼¹«¼­½Å°íÆÄÀÏ»ı¼º)
+            oFilter.AddEx("PH_PY526"); //ÀÓ±İÇÇÅ©ÀÎ¿øÇöÈ²
+            oFilter.AddEx("PH_PY999"); //»ç¿ëÀÚ±ÇÇÑ°ü¸®
 
-            //ì •ì‚°ê´€ë¦¬
-            oFilter.AddEx("PH_PY402"); //ì •ì‚°ê¸°ì´ˆìë£Œë“±ë¡
-			oFilter.AddEx("PH_PY405"); //ì˜ë£Œë¹„ë“±ë¡
-			oFilter.AddEx("PH_PY407"); //ê¸°ë¶€ê¸ˆë“±ë¡
-			oFilter.AddEx("PH_PY409"); //ê¸°ë¶€ê¸ˆì¡°ì •ëª…ì„¸ë“±ë¡
-			oFilter.AddEx("PH_PY411"); //ì—°ê¸ˆ.ì €ì¶•ë“±ì†Œë“ê³µì œë“±ë¡
-			oFilter.AddEx("PH_PY413"); //ì›”ì„¸ì•¡.ì£¼íƒì„ì°¨ì°¨ì…ê¸ˆìë£Œ ë“±ë¡
 
-			oFilter.AddEx("PH_PY910"); //ì†Œë“ê³µì œì‹ ê³ ì„œì¶œë ¥
-			oFilter.AddEx("PH_PY915"); //ê·¼ë¡œì†Œë“ì›ì²œì§•ìˆ˜ë¶€ì¶œë ¥
-			oFilter.AddEx("PH_PY920"); //ì›ì²œì§•ìˆ˜ì˜ìˆ˜ì¦ì¶œë ¥
-			oFilter.AddEx("PH_PY925"); //ê¸°ë¶€ê¸ˆëª…ì„¸ì„œì¶œë ¥
-			oFilter.AddEx("PH_PY930"); //ì •ì‚°ì§•ìˆ˜ë°í™˜ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY931"); //í‘œì¤€ì„¸ì•¡ì ìš©ëŒ€ìƒìì¡°íšŒ
-			oFilter.AddEx("PH_PY932"); //ì „ê·¼ë¬´ì§€ë“±ë¡í˜„í™©
-			oFilter.AddEx("PH_PY933"); //ë³´ìˆ˜ì´ì•¡ì‹ ê³ ê¸°ì´ˆìë£Œ
-			oFilter.AddEx("PH_PYA55"); //ì •ì‚°ì§•ìˆ˜ë°í™˜ê¸‰ëŒ€ì¥(ì§‘ê³„)
-			oFilter.AddEx("PH_PYA70"); //ì†Œë“ì„¸ì›ì²œì§•ìˆ˜ì„¸ì•¡ì¡°ì •ì‹ ì²­ì„œì¶œë ¥
-			oFilter.AddEx("PH_PY980"); //ê·¼ë¡œì†Œë“ì§€ê¸‰ëª…ì„¸ì„œ_ì „ì‚°ë§¤ì²´ìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY985"); //ì˜ë£Œë¹„ì§€ê¸‰ëª…ì„¸ì„œ_ì „ì‚°ë§¤ì²´ìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY990"); //ê¸°ë¶€ê¸ˆì§€ê¸‰ëª…ì„¸ì„œ_ì „ì‚°ë§¤ì²´ìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY995"); //í‡´ì§ì†Œë“ì§€ê¸‰ëª…ì„¸ì„œ_ì „ì‚°ë§¤ì²´ìë£Œì‘ì„±
+			//Á¤»ê°ü¸®
+			oFilter.AddEx("PH_PY402"); //Á¤»ê±âÃÊÀÚ·áµî·Ï
+			oFilter.AddEx("PH_PY405"); //ÀÇ·áºñµî·Ï
+			oFilter.AddEx("PH_PY407"); //±âºÎ±İµî·Ï
+			oFilter.AddEx("PH_PY409"); //±âºÎ±İÁ¶Á¤¸í¼¼µî·Ï
+			oFilter.AddEx("PH_PY411"); //¿¬±İ.ÀúÃàµî¼Òµæ°øÁ¦µî·Ï
+			oFilter.AddEx("PH_PY413"); //¿ù¼¼¾×.ÁÖÅÃÀÓÂ÷Â÷ÀÔ±İÀÚ·á µî·Ï
 
-			oFilter.AddEx("ZPY341"); //ì›”ë³„ ì •ì‚°ìë£Œ ìƒì„±
-			oFilter.AddEx("ZPY343"); //ì›”ë³„ ìë£Œ ê´€ë¦¬
-			oFilter.AddEx("ZPY421"); //í‡´ì§ì†Œë“ì „ì‚°ë§¤ì²´ìˆ˜ë¡
-			oFilter.AddEx("ZPY501"); //ì†Œë“ê³µì œí•­ëª© ë“±ë¡
-			oFilter.AddEx("ZPY503"); //ì •ì‚°ì„¸ì•¡ê³„ì‚°
+			oFilter.AddEx("PH_PY910"); //¼Òµæ°øÁ¦½Å°í¼­Ãâ·Â
+			oFilter.AddEx("PH_PY915"); //±Ù·Î¼Òµæ¿øÃµÂ¡¼öºÎÃâ·Â
+			oFilter.AddEx("PH_PY920"); //¿øÃµÂ¡¼ö¿µ¼öÁõÃâ·Â
+			oFilter.AddEx("PH_PY925"); //±âºÎ±İ¸í¼¼¼­Ãâ·Â
+			oFilter.AddEx("PH_PY930"); //Á¤»êÂ¡¼ö¹×È¯±Ş´ëÀå
+			oFilter.AddEx("PH_PY931"); //Ç¥ÁØ¼¼¾×Àû¿ë´ë»óÀÚÁ¶È¸
+			oFilter.AddEx("PH_PY932"); //Àü±Ù¹«Áöµî·ÏÇöÈ²
+			oFilter.AddEx("PH_PY933"); //º¸¼öÃÑ¾×½Å°í±âÃÊÀÚ·á
+			oFilter.AddEx("PH_PYA55"); //Á¤»êÂ¡¼ö¹×È¯±Ş´ëÀå(Áı°è)
+			oFilter.AddEx("PH_PYA70"); //¼Òµæ¼¼¿øÃµÂ¡¼ö¼¼¾×Á¶Á¤½ÅÃ»¼­Ãâ·Â
+			oFilter.AddEx("PH_PY980"); //±Ù·Î¼ÒµæÁö±Ş¸í¼¼¼­_Àü»ê¸ÅÃ¼ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY985"); //ÀÇ·áºñÁö±Ş¸í¼¼¼­_Àü»ê¸ÅÃ¼ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY990"); //±âºÎ±İÁö±Ş¸í¼¼¼­_Àü»ê¸ÅÃ¼ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY995"); //ÅğÁ÷¼ÒµæÁö±Ş¸í¼¼¼­_Àü»ê¸ÅÃ¼ÀÚ·áÀÛ¼º
 
-			//ê¸°íƒ€ê´€ë¦¬
-			oFilter.AddEx("PH_PY301"); //í•™ìê¸ˆì‹ ì²­ë“±ë¡
-			oFilter.AddEx("PH_PY307"); //í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ë¶„ê¸°ë³„)
-			oFilter.AddEx("PH_PY030"); //ê³µìš©ë“±ë¡
-			oFilter.AddEx("PH_PY031"); //ì¶œì¥ë“±ë¡
-			oFilter.AddEx("PH_PY032"); //ì‚¬ìš©ì™¸ì¶œë“±ë¡
-			oFilter.AddEx("PH_PY034"); //ê³µìš©ë¶„ê°œì²˜ë¦¬
-			oFilter.AddEx("PH_PYA60"); //í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ì§‘ê³„)
+			oFilter.AddEx("ZPY341"); //¿ùº° Á¤»êÀÚ·á »ı¼º
+			oFilter.AddEx("ZPY343"); //¿ùº° ÀÚ·á °ü¸®
+			oFilter.AddEx("ZPY421"); //ÅğÁ÷¼ÒµæÀü»ê¸ÅÃ¼¼ö·Ï
+			oFilter.AddEx("ZPY501"); //¼Òµæ°øÁ¦Ç×¸ñ µî·Ï
+			oFilter.AddEx("ZPY503"); //Á¤»ê¼¼¾×°è»ê
+
+			//±âÅ¸°ü¸®
+			oFilter.AddEx("PH_PY301"); //ÇĞÀÚ±İ½ÅÃ»µî·Ï
+			oFilter.AddEx("PH_PY307"); //ÇĞÀÚ±İ½ÅÃ»³»¿ª(ºĞ±âº°)
+			oFilter.AddEx("PH_PY030"); //°ø¿ëµî·Ï
+			oFilter.AddEx("PH_PY031"); //ÃâÀåµî·Ï
+			oFilter.AddEx("PH_PY032"); //»ç¿ë¿ÜÃâµî·Ï
+			oFilter.AddEx("PH_PY034"); //°ø¿ëºĞ°³Ã³¸®
+			oFilter.AddEx("PH_PYA60"); //ÇĞÀÚ±İ½ÅÃ»³»¿ª(Áı°è)
+			oFilter.AddEx("PS_DateChange"); //³¯Â¥ ¼öÁ¤ µî·Ï
+			oFilter.AddEx("PS_DateCommit"); //³¯Â¥ ½ÂÀÎ
         }
 
 		private static void CLICK(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -929,238 +937,241 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_CLICK);
 
 			//System Form Type
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-			//ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+			//Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 
 			//AddOn Form Type
-			//ìš´ì˜ê´€ë¦¬
-			oFilter.AddEx("PH_PY000"); //ì‚¬ìš©ìê¶Œí•œê´€ë¦¬
+			//¿î¿µ°ü¸®
+			oFilter.AddEx("PH_PY000"); //»ç¿ëÀÚ±ÇÇÑ°ü¸®
 
-			//ì¸ì‚¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY001"); //ì¸ì‚¬ë§ˆìŠ¤í„° ë“±ë¡
-			oFilter.AddEx("PH_PY002"); //ê·¼íƒœì‹œê°„êµ¬ë¶„ ë“±ë¡
-			oFilter.AddEx("PH_PY003"); //ê·¼íƒœì›”ë ¥ì„¤ì •
-			oFilter.AddEx("PH_PY004"); //ê·¼ë¬´ì¡°í¸ì„±ë“±ë¡
-			oFilter.AddEx("PH_PY005"); //ì‚¬ì—…ì¥ì •ë³´ë“±ë¡
-			oFilter.AddEx("PH_PY006"); //ìŠ¹í˜¸ì‘ì—…ë“±ë¡
-			oFilter.AddEx("PH_PY007"); //ìœ ë¥˜ë‹¨ê°€ë“±ë¡
-			oFilter.AddEx("PH_PY008"); //ì¼ê·¼íƒœë“±ë¡
-			oFilter.AddEx("PH_PY009"); //ê¸°ì°°ìë£ŒUPLOAD
-			oFilter.AddEx("PH_PY011"); //ì „ë¬¸ì§ í˜¸ì¹­ ì¼ê´„ ë³€ê²½(2013.07.05 ì†¡ëª…ê·œ ì¶”ê°€)
-			oFilter.AddEx("PH_PY013"); //ìœ„í•´ì¼ìˆ˜ê³„ì‚°
-			oFilter.AddEx("PH_PY014"); //ìœ„í•´ì¼ìˆ˜ìˆ˜ì •
-			oFilter.AddEx("PH_PY015"); //ì—°ì°¨ì ì¹˜ë“±ë¡
-			oFilter.AddEx("PH_PY016"); //ê¸°ë³¸ì—…ë¬´ë“±ë¡
-			oFilter.AddEx("PH_PY017"); //ì›”ê·¼íƒœì§‘ê³„
-			oFilter.AddEx("PH_PY018"); //íœ´ì¼ê·¼ë¬´ì²´í¬(ì—°ë´‰ì œ)
-			oFilter.AddEx("PH_PY019"); //ë°˜ë³€ê²½ë“±ë¡
-			oFilter.AddEx("PH_PY020"); //ì¼ê·¼íƒœ ì—…ë¬´ë³€ê²½ë“±ë¡
-			oFilter.AddEx("PH_PY021"); //ì‚¬ì›ë¹„ìƒì—°ë½ì²˜ê´€ë¦¬
-			oFilter.AddEx("PH_PY202"); //ì •ë…„ì„ë°•ì íœ´ê°€ê²½ë¹„ ë“±ë¡ ì¡°íšŒ
-			oFilter.AddEx("PH_PY203"); //êµìœ¡ì‹¤ì ë“±ë¡
-			oFilter.AddEx("PH_PY204"); //êµìœ¡ê³„íšë“±ë¡
-			oFilter.AddEx("PH_PY205"); //êµìœ¡ê³„íšVSì‹¤ì ì¡°íšŒ
+			//ÀÎ»ç°ü¸®
+			oFilter.AddEx("PH_PY001"); //ÀÎ»ç¸¶½ºÅÍ µî·Ï
+			oFilter.AddEx("PH_PY002"); //±ÙÅÂ½Ã°£±¸ºĞ µî·Ï
+			oFilter.AddEx("PH_PY003"); //±ÙÅÂ¿ù·Â¼³Á¤
+			oFilter.AddEx("PH_PY004"); //±Ù¹«Á¶Æí¼ºµî·Ï
+			oFilter.AddEx("PH_PY005"); //»ç¾÷ÀåÁ¤º¸µî·Ï
+			oFilter.AddEx("PH_PY006"); //½ÂÈ£ÀÛ¾÷µî·Ï
+			oFilter.AddEx("PH_PY007"); //À¯·ù´Ü°¡µî·Ï
+			oFilter.AddEx("PH_PY008"); //ÀÏ±ÙÅÂµî·Ï
+			oFilter.AddEx("PH_PY009"); //±âÂûÀÚ·áUPLOAD
+			oFilter.AddEx("PH_PY011"); //Àü¹®Á÷ È£Äª ÀÏ°ı º¯°æ(2013.07.05 ¼Û¸í±Ô Ãß°¡)
+			oFilter.AddEx("PH_PY013"); //À§ÇØÀÏ¼ö°è»ê
+			oFilter.AddEx("PH_PY014"); //À§ÇØÀÏ¼ö¼öÁ¤
+			oFilter.AddEx("PH_PY015"); //¿¬Â÷ÀûÄ¡µî·Ï
+			oFilter.AddEx("PH_PY016"); //±âº»¾÷¹«µî·Ï
+			oFilter.AddEx("PH_PY017"); //¿ù±ÙÅÂÁı°è
+			oFilter.AddEx("PH_PY018"); //ÈŞÀÏ±Ù¹«Ã¼Å©(¿¬ºÀÁ¦)
+			oFilter.AddEx("PH_PY019"); //¹İº¯°æµî·Ï
+			oFilter.AddEx("PH_PY020"); //ÀÏ±ÙÅÂ ¾÷¹«º¯°æµî·Ï
+			oFilter.AddEx("PH_PY021"); //»ç¿øºñ»ó¿¬¶ôÃ³°ü¸®
+			oFilter.AddEx("PH_PY202"); //Á¤³âÀÓ¹ÚÀÚ ÈŞ°¡°æºñ µî·Ï Á¶È¸
+			oFilter.AddEx("PH_PY203"); //±³À°½ÇÀûµî·Ï
+			oFilter.AddEx("PH_PY204"); //±³À°°èÈ¹µî·Ï
+			oFilter.AddEx("PH_PY205"); //±³À°°èÈ¹VS½ÇÀûÁ¶È¸
 
-			//ì¸ì‚¬ - ë¦¬í¬íŠ¸
-			oFilter.AddEx("PH_PY501"); //ì—¬ê¶Œë°œê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY505"); //ì…ì‚¬ìëŒ€ì¥
-			oFilter.AddEx("PH_PY510"); //ì‚¬ì›ëª…ë¶€
-			oFilter.AddEx("PH_PY515"); //ì¬ì§ìì‚¬ì›ëª…ë¶€
-			oFilter.AddEx("PH_PY520"); //í‡´ì§ë°í‡´ì§ì˜ˆì •ìëŒ€ì¥
-			oFilter.AddEx("PH_PY525"); //í•™ë ¥ë³„ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY530"); //ì—°ë ¹ë³„ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY535"); //ê·¼ì†ë…„ìˆ˜ë³„ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY540"); //ì¸ì›í˜„í™©(ëŒ€ì™¸ìš©)
-			oFilter.AddEx("PH_PY545"); //ì¸ì›í˜„í™©(ëŒ€ë‚´ìš©)
-			oFilter.AddEx("PH_PY550"); //ì „ì²´ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY555"); //ì¼ì¼ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY560"); //ì¼ì¶œê·¼í˜„í™©
-			oFilter.AddEx("PH_PY565"); //ì—°ì¥ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY570"); //ì—°ì¥/íœ´ì¼ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY575"); //ê·¼íƒœê¸°ì°°í˜„í™©
-			oFilter.AddEx("PH_PY580"); //ê°œì¸ë³„ê·¼íƒœì›”ë³´
-			oFilter.AddEx("PH_PY585"); //ì¼ì¼ì¶œê·¼ê¸°ë¡ë¶€
-			oFilter.AddEx("PH_PY590"); //ê¸°ê°„ë³„ê·¼íƒœì§‘ê³„í‘œ
-			oFilter.AddEx("PH_PY595"); //ê·¼ì†ë…„ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY600"); //ì¼ìë³„ì—°ì¥ê·¼ë¬´í˜„í™©
-			oFilter.AddEx("PH_PY605"); //ê·¼ì†ë³´ì „íœ´ê°€ë°œìƒë°ì‚¬ìš©ë‚´ì—­
-			oFilter.AddEx("PH_PY610"); //ê·¼íƒœêµ¬ë¶„ë³„ì‚¬ìš©ë‚´ì—­
-			oFilter.AddEx("PH_PY615"); //ë‹¹ì§ê·¼ë¬´í˜„í™©
-			oFilter.AddEx("PH_PY620"); //ì—°ë´‰ì œíœ´ì¼ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY635"); //ì—¬í–‰,êµìœ¡ìí˜„í™©
-			oFilter.AddEx("PH_PY640"); //êµ­ë¯¼ì—°ê¸ˆí‡´ì§ì „í™˜ê¸ˆí˜„í™©
-			oFilter.AddEx("PH_PY645"); //ìê²©ìˆ˜ë‹¹ì§€ê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY650"); //ë…¸ë™ì¡°í•©ê°„ë¶€í˜„í™©
-			oFilter.AddEx("PH_PY655"); //ë³´í›ˆëŒ€ìƒìí˜„í™©
-			oFilter.AddEx("PH_PY660"); //ì¥ì• ê·¼ë¡œìí˜„í™©
-			oFilter.AddEx("PH_PY665"); //ì‚¬ì›ìë…€í˜„í™©
-			oFilter.AddEx("PH_PY670"); //ê°œì¸ë³„ì°¨ëŸ‰í˜„í™©
-			oFilter.AddEx("PH_PY675"); //ê·¼ë¬´í¸ì„±í˜„í™©
-			oFilter.AddEx("PH_PY676"); //ê·¼íƒœì‹œê°„ë‚´ì—­ì¡°íšŒ
-			oFilter.AddEx("PH_PY677"); //ì¼ì¼ê·¼íƒœì´ìƒìì¡°íšŒ
-			oFilter.AddEx("PH_PY679"); //ê°œì¸ë³„ ê·¼íƒœì§‘ê³„ ì¡°íšŒ
-			oFilter.AddEx("PH_PY680"); //ìƒë²Œí˜„í™©
-			oFilter.AddEx("PH_PY685"); //í¬ìƒê°€ê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY690"); //ìƒì¼ìí˜„í™©
-			oFilter.AddEx("PH_PY695"); //ì¸ì‚¬ê¸°ë¡ì¹´ë“œ
-			oFilter.AddEx("PH_PY705"); //êµí†µë¹„ì§€ê¸‰ê·¼íƒœí™•ì¸
-			oFilter.AddEx("PH_PY860"); //í˜¸ë´‰í‘œì¡°íšŒ
-			oFilter.AddEx("PH_PY503"); //ìŠ¹ì§„ëŒ€ìƒìëª…ë¶€
-			oFilter.AddEx("PH_PY678"); //ë‹¹ì§ê·¼ë¬´ì ì¼ê´„ ë“±ë¡
-			oFilter.AddEx("PH_PY507"); //íœ´ì§ìí˜„í™©
-			oFilter.AddEx("PH_PY681"); //ë¹„ê·¼ë¬´ì¼ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY935"); //ì •ê¸°ìŠ¹í˜¸í˜„í™©
-			oFilter.AddEx("PH_PY551"); //í‰ê· ì¸ì›ì¡°íšŒ
-			oFilter.AddEx("PH_PY508"); //ì¬ì§ì¦ëª… ë“±ë¡ ë° ë°œê¸‰
-			oFilter.AddEx("PH_PY522"); //ì„ê¸ˆí”¼í¬ëŒ€ìƒìí˜„í™©
-			oFilter.AddEx("PH_PY523"); //ì„ê¸ˆí”¼í¬ëŒ€ìƒìì›”ë³„ì°¨ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY524"); //í‡´ì§ê¸ˆ ì¤‘ê°„ ì •ì‚°ë‚´ì—­
-			oFilter.AddEx("PH_PY683"); //êµëŒ€ê·¼ë¬´ì¸ì •í˜„í™©
-			oFilter.AddEx("PH_PYA65"); //ë…„ì°¨í˜„í™© (ì§‘ê³„)
-			oFilter.AddEx("PH_PY583"); //ê°œì¸ë³„ ê·¼íƒœì§‘ê³„ ì¡°íšŒ
+			//ÀÎ»ç - ¸®Æ÷Æ®
+			oFilter.AddEx("PH_PY501"); //¿©±Ç¹ß±ŞÇöÈ²
+			oFilter.AddEx("PH_PY505"); //ÀÔ»çÀÚ´ëÀå
+			oFilter.AddEx("PH_PY510"); //»ç¿ø¸íºÎ
+			oFilter.AddEx("PH_PY515"); //ÀçÁ÷ÀÚ»ç¿ø¸íºÎ
+			oFilter.AddEx("PH_PY520"); //ÅğÁ÷¹×ÅğÁ÷¿¹Á¤ÀÚ´ëÀå
+			oFilter.AddEx("PH_PY525"); //ÇĞ·Âº°ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY530"); //¿¬·Éº°ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY535"); //±Ù¼Ó³â¼öº°ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY540"); //ÀÎ¿øÇöÈ²(´ë¿Ü¿ë)
+			oFilter.AddEx("PH_PY545"); //ÀÎ¿øÇöÈ²(´ë³»¿ë)
+			oFilter.AddEx("PH_PY550"); //ÀüÃ¼ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY555"); //ÀÏÀÏ±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY560"); //ÀÏÃâ±ÙÇöÈ²
+			oFilter.AddEx("PH_PY565"); //¿¬Àå±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY570"); //¿¬Àå/ÈŞÀÏ±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY575"); //±ÙÅÂ±âÂûÇöÈ²
+			oFilter.AddEx("PH_PY580"); //°³ÀÎº°±ÙÅÂ¿ùº¸
+			oFilter.AddEx("PH_PY585"); //ÀÏÀÏÃâ±Ù±â·ÏºÎ
+			oFilter.AddEx("PH_PY590"); //±â°£º°±ÙÅÂÁı°èÇ¥
+			oFilter.AddEx("PH_PY595"); //±Ù¼Ó³â¼öÇöÈ²
+			oFilter.AddEx("PH_PY600"); //ÀÏÀÚº°¿¬Àå±Ù¹«ÇöÈ²
+			oFilter.AddEx("PH_PY605"); //±Ù¼Óº¸ÀüÈŞ°¡¹ß»ı¹×»ç¿ë³»¿ª
+			oFilter.AddEx("PH_PY610"); //±ÙÅÂ±¸ºĞº°»ç¿ë³»¿ª
+			oFilter.AddEx("PH_PY615"); //´çÁ÷±Ù¹«ÇöÈ²
+			oFilter.AddEx("PH_PY620"); //¿¬ºÀÁ¦ÈŞÀÏ±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY635"); //¿©Çà,±³À°ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY640"); //±¹¹Î¿¬±İÅğÁ÷ÀüÈ¯±İÇöÈ²
+			oFilter.AddEx("PH_PY645"); //ÀÚ°İ¼ö´çÁö±ŞÇöÈ²
+			oFilter.AddEx("PH_PY650"); //³ëµ¿Á¶ÇÕ°£ºÎÇöÈ²
+			oFilter.AddEx("PH_PY655"); //º¸ÈÆ´ë»óÀÚÇöÈ²
+			oFilter.AddEx("PH_PY660"); //Àå¾Ö±Ù·ÎÀÚÇöÈ²
+			oFilter.AddEx("PH_PY665"); //»ç¿øÀÚ³àÇöÈ²
+			oFilter.AddEx("PH_PY670"); //°³ÀÎº°Â÷·®ÇöÈ²
+			oFilter.AddEx("PH_PY675"); //±Ù¹«Æí¼ºÇöÈ²
+			oFilter.AddEx("PH_PY676"); //±ÙÅÂ½Ã°£³»¿ªÁ¶È¸
+			oFilter.AddEx("PH_PY677"); //ÀÏÀÏ±ÙÅÂÀÌ»óÀÚÁ¶È¸
+			oFilter.AddEx("PH_PY679"); //°³ÀÎº° ±ÙÅÂÁı°è Á¶È¸
+			oFilter.AddEx("PH_PY680"); //»ó¹úÇöÈ²
+			oFilter.AddEx("PH_PY685"); //Æ÷»ó°¡±ŞÇöÈ²
+			oFilter.AddEx("PH_PY690"); //»ıÀÏÀÚÇöÈ²
+			oFilter.AddEx("PH_PY695"); //ÀÎ»ç±â·ÏÄ«µå
+			oFilter.AddEx("PH_PY705"); //±³ÅëºñÁö±Ş±ÙÅÂÈ®ÀÎ
+			oFilter.AddEx("PH_PY860"); //È£ºÀÇ¥Á¶È¸
+			oFilter.AddEx("PH_PY503"); //½ÂÁø´ë»óÀÚ¸íºÎ
+			oFilter.AddEx("PH_PY678"); //´çÁ÷±Ù¹«ÀÚ ÀÏ°ı µî·Ï
+			oFilter.AddEx("PH_PY507"); //ÈŞÁ÷ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY681"); //ºñ±Ù¹«ÀÏ¼öÇöÈ²
+			oFilter.AddEx("PH_PY935"); //Á¤±â½ÂÈ£ÇöÈ²
+			oFilter.AddEx("PH_PY551"); //Æò±ÕÀÎ¿øÁ¶È¸
+			oFilter.AddEx("PH_PY508"); //ÀçÁ÷Áõ¸í µî·Ï ¹× ¹ß±Ş
+			oFilter.AddEx("PH_PY522"); //ÀÓ±İÇÇÅ©´ë»óÀÚÇöÈ²
+			oFilter.AddEx("PH_PY523"); //ÀÓ±İÇÇÅ©´ë»óÀÚ¿ùº°Â÷¼öÇöÈ²
+			oFilter.AddEx("PH_PY524"); //ÅğÁ÷±İ Áß°£ Á¤»ê³»¿ª
+			oFilter.AddEx("PH_PY683"); //±³´ë±Ù¹«ÀÎÁ¤ÇöÈ²
+			oFilter.AddEx("PH_PYA65"); //³âÂ÷ÇöÈ² (Áı°è)
+			oFilter.AddEx("PH_PY583"); //°³ÀÎº° ±ÙÅÂÁı°è Á¶È¸
 
-			//ê¸‰ì—¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY100"); //ê¸°ì¤€ì„¸ì•¡ì„¤ì •
-			oFilter.AddEx("PH_PY101"); //ë³´í—˜ë¥ ë“±ë¡
-			oFilter.AddEx("PH_PY102"); //ìˆ˜ë‹¹í•­ëª©ì„¤ì •
-			oFilter.AddEx("PH_PY103"); //ê³µì œí•­ëª©ì„¤ì •
-			oFilter.AddEx("PH_PY104"); //ê³ ì •ìˆ˜ë‹¹ê³µì œê¸ˆì•¡ì¼ê´„ë“±ë¡
-			oFilter.AddEx("PH_PY105"); //í˜¸ë´‰í‘œë“±ë¡
-			oFilter.AddEx("PH_PY106"); //ìˆ˜ë‹¹ê³„ì‚°ì‹ì„¤ì •
-			oFilter.AddEx("PH_PY107"); //ê¸‰ìƒì—¬ê¸°ì¤€ì¼ì„¤ì •
-			oFilter.AddEx("PH_PY108"); //ìƒì—¬ìœ¨ì§€ê¸‰ì„¤ì •
-			oFilter.AddEx("PH_PY109"); //ê¸‰ìƒì—¬ë³€ë™ìë£Œë“±ë¡
-			oFilter.AddEx("PH_PY109_1"); //ê¸‰ìƒì—¬ë³€ë™ìë£Œ í•­ëª©ìˆ˜ì •
-			oFilter.AddEx("PH_PY110"); //ê°œì¸ìƒì—¬ìœ¨ë“±ë¡
-			oFilter.AddEx("PH_PY111"); //ê¸‰ìƒì—¬ê³„ì‚°
-			oFilter.AddEx("PH_PY112"); //ê¸‰ìƒì—¬ìë£Œê´€ë¦¬
-			oFilter.AddEx("PH_PY113"); //ê¸‰ìƒì—¬ë¶„ê°œìë£Œìƒì„±
-			oFilter.AddEx("PH_PY114"); //í‡´ì§ê¸ˆê¸°ì¤€ì„¤ì •
-			oFilter.AddEx("PH_PY115"); //í‡´ì§ê¸ˆê³„ì‚°
-			oFilter.AddEx("PH_PY116"); //í‡´ì§ê¸ˆë¶„ê°œìë£Œìƒì„±
-			oFilter.AddEx("PH_PY117"); //ê¸‰ìƒì—¬ë§ˆê°ì‘ì—…
-			oFilter.AddEx("PH_PY118"); //ê¸‰ìƒì—¬Emailë°œì†¡
-			oFilter.AddEx("PH_PY119"); //ê¸‰ìƒì—¬ì€í–‰íŒŒì¼ìƒì„±
-			oFilter.AddEx("PH_PY120"); //ê¸‰ìƒì—¬ì†Œê¸‰ì§‘ê³„ì²˜ë¦¬
-			oFilter.AddEx("PH_PY121"); //í‰ê°€ê°€ê¸‰ì•¡ ë“±ë¡
-			oFilter.AddEx("PH_PY122"); //ê¸‰ìƒì—¬ì¶œë ¥ ê°œì¸ë¶€ì„œì„¤ì •ë“±ë¡
-			oFilter.AddEx("PH_PY123"); //ê°€ì••ë¥˜ë“±ë¡
-			oFilter.AddEx("PH_PY124"); //ë² ë„¤í”¼ì•„ ê¸ˆì•¡ ë“±ë¡
-			oFilter.AddEx("PH_PY125"); //í‡´ì§ì—°ê¸ˆ ì„¤ì •
-			oFilter.AddEx("PH_PY127"); //ê°œì¸ë³„ 4ëŒ€ë³´í—˜ ë³´ìˆ˜ì›”ì•¡ ë° ì •ì‚°ê¸ˆì•¡ì…ë ¥
-			oFilter.AddEx("PH_PY130"); //íŒ€ë³„ ì„±ê³¼ê¸‰ì°¨ë“± ë“±ê¸‰ë“±ë¡
-			oFilter.AddEx("PH_PY131"); //ì„±ê³¼ê¸‰ì°¨ë“± ê³„ìˆ˜ë“±ë¡
-			oFilter.AddEx("PH_PY132"); //ì„±ê³¼ê¸‰ì°¨ ê°œì¸ë³„ ê³„ì‚°
-			oFilter.AddEx("PH_PY133"); //ì—°ë´‰ì œ íšŸì°¨ ê´€ë¦¬
-			oFilter.AddEx("PH_PY134"); //ì†Œë“ì„¸/ì£¼ë¯¼ì„¸ ì¡°ì •ê´€ë¦¬
-			oFilter.AddEx("PH_PY129"); //ê°œì¸ë³„í‡´ì§ì—°ê¸ˆ(DCí˜•) ê³„ì‚°
-            oFilter.AddEx("PH_PY135"); //ê¸‰ìƒì—¬ë¶„ê°œì²˜ë¦¬
-            oFilter.AddEx("PH_PY136"); //ê¸‰ìƒì—¬ë¶„ê°œì²˜ë¦¬ ë°°ë¶€ê·œì¹™ì„¤ì •
+			//±Ş¿©°ü¸®
+			oFilter.AddEx("PH_PY100"); //±âÁØ¼¼¾×¼³Á¤
+			oFilter.AddEx("PH_PY101"); //º¸Çè·üµî·Ï
+			oFilter.AddEx("PH_PY102"); //¼ö´çÇ×¸ñ¼³Á¤
+			oFilter.AddEx("PH_PY103"); //°øÁ¦Ç×¸ñ¼³Á¤
+			oFilter.AddEx("PH_PY104"); //°íÁ¤¼ö´ç°øÁ¦±İ¾×ÀÏ°ıµî·Ï
+			oFilter.AddEx("PH_PY105"); //È£ºÀÇ¥µî·Ï
+			oFilter.AddEx("PH_PY106"); //¼ö´ç°è»ê½Ä¼³Á¤
+			oFilter.AddEx("PH_PY107"); //±Ş»ó¿©±âÁØÀÏ¼³Á¤
+			oFilter.AddEx("PH_PY108"); //»ó¿©À²Áö±Ş¼³Á¤
+			oFilter.AddEx("PH_PY109"); //±Ş»ó¿©º¯µ¿ÀÚ·áµî·Ï
+			oFilter.AddEx("PH_PY109_1"); //±Ş»ó¿©º¯µ¿ÀÚ·á Ç×¸ñ¼öÁ¤
+			oFilter.AddEx("PH_PY110"); //°³ÀÎ»ó¿©À²µî·Ï
+			oFilter.AddEx("PH_PY111"); //±Ş»ó¿©°è»ê
+			oFilter.AddEx("PH_PY112"); //±Ş»ó¿©ÀÚ·á°ü¸®
+			oFilter.AddEx("PH_PY113"); //±Ş»ó¿©ºĞ°³ÀÚ·á»ı¼º
+			oFilter.AddEx("PH_PY114"); //ÅğÁ÷±İ±âÁØ¼³Á¤
+			oFilter.AddEx("PH_PY115"); //ÅğÁ÷±İ°è»ê
+			oFilter.AddEx("PH_PY116"); //ÅğÁ÷±İºĞ°³ÀÚ·á»ı¼º
+			oFilter.AddEx("PH_PY117"); //±Ş»ó¿©¸¶°¨ÀÛ¾÷
+			oFilter.AddEx("PH_PY118"); //±Ş»ó¿©Email¹ß¼Û
+			oFilter.AddEx("PH_PY119"); //±Ş»ó¿©ÀºÇàÆÄÀÏ»ı¼º
+			oFilter.AddEx("PH_PY120"); //±Ş»ó¿©¼Ò±ŞÁı°èÃ³¸®
+			oFilter.AddEx("PH_PY121"); //Æò°¡°¡±Ş¾× µî·Ï
+			oFilter.AddEx("PH_PY122"); //±Ş»ó¿©Ãâ·Â °³ÀÎºÎ¼­¼³Á¤µî·Ï
+			oFilter.AddEx("PH_PY123"); //°¡¾Ğ·ùµî·Ï
+			oFilter.AddEx("PH_PY124"); //º£³×ÇÇ¾Æ ±İ¾× µî·Ï
+			oFilter.AddEx("PH_PY125"); //ÅğÁ÷¿¬±İ ¼³Á¤
+			oFilter.AddEx("PH_PY127"); //°³ÀÎº° 4´ëº¸Çè º¸¼ö¿ù¾× ¹× Á¤»ê±İ¾×ÀÔ·Â
+			oFilter.AddEx("PH_PY130"); //ÆÀº° ¼º°ú±ŞÂ÷µî µî±Şµî·Ï
+			oFilter.AddEx("PH_PY131"); //¼º°ú±ŞÂ÷µî °è¼öµî·Ï
+			oFilter.AddEx("PH_PY132"); //¼º°ú±ŞÂ÷ °³ÀÎº° °è»ê
+			oFilter.AddEx("PH_PY133"); //¿¬ºÀÁ¦ È½Â÷ °ü¸®
+			oFilter.AddEx("PH_PY134"); //¼Òµæ¼¼/ÁÖ¹Î¼¼ Á¶Á¤°ü¸®
+			oFilter.AddEx("PH_PY129"); //°³ÀÎº°ÅğÁ÷¿¬±İ(DCÇü) °è»ê
+            oFilter.AddEx("PH_PY135"); //±Ş»ó¿©ºĞ°³Ã³¸®
+            oFilter.AddEx("PH_PY136"); //±Ş»ó¿©ºĞ°³Ã³¸® ¹èºÎ±ÔÄ¢¼³Á¤
 
-            //ê¸‰ì—¬ê´€ë¦¬ - ë¦¬í¬íŠ¸
-            oFilter.AddEx("PH_PY625"); //ì„¸íƒìëª…ë¶€
-			oFilter.AddEx("PH_PY630"); //ì‚¬ì›ë³„ë…¸ì¡°ë¹„ê³µì œí˜„í™©
-			oFilter.AddEx("PH_PY700"); //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY710"); //ìƒì—¬ì§€ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY715"); //ê¸‰ì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY720"); //ìƒì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY725"); //ê¸‰ì—¬ì§ê¸‰ë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY740"); //ìƒì—¬ì§ê¸‰ë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY730"); //ê¸‰ì—¬ë´‰íˆ¬ì¶œë ¥
-			oFilter.AddEx("PH_PY735"); //ìƒì—¬ë´‰íˆ¬ì¶œë ¥
-			oFilter.AddEx("PH_PY745"); //ì—°ê°„ì§€ê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY750"); //ê·¼ë¡œì†Œë“ì§•ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY755"); //ë™í˜¸íšŒê°€ì…í˜„í™©
-			oFilter.AddEx("PH_PY760"); //í‰ê· ì„ê¸ˆë°í‡´ì§ê¸ˆì‚°ì¶œë‚´ì—­ì„œ
-			oFilter.AddEx("PH_PY765"); //ê¸‰ì—¬ì¦ê°ë‚´ì—­ì„œ
-			oFilter.AddEx("PH_PY770"); //í‡´ì§ì†Œë“ì›ì²œì§•ìˆ˜ì˜ìˆ˜ì¦ì¶œë ¥
-			oFilter.AddEx("PH_PY775"); //ê°œì¸ë³„ë…„ì°¨í˜„í™©
-			oFilter.AddEx("PH_PY776"); //ì”ì—¬ë…„ì°¨í˜„í™©
-			oFilter.AddEx("PH_PY780"); //ì›”ê³ ìš©ë³´í—˜ë‚´ì—­
-			oFilter.AddEx("PH_PY785"); //ì›”êµ­ë¯¼ì—°ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY790"); //ì›”ê±´ê°•ë³´í—˜ë‚´ì—­
-			oFilter.AddEx("PH_PY795"); //ì—°ê°„ë¶€ì„œë³„ê¸‰ì—¬ë‚´ì—­
-			oFilter.AddEx("PH_PY800"); //ì¸ê±´ë¹„ì§€ê¸‰ìë£Œ
-			oFilter.AddEx("PH_PY805"); //ê¸‰ì—¬ìˆ˜ë‹¹ë³€ë™ë‚´ì—­
-			oFilter.AddEx("PH_PY810"); //ì§ê¸‰ë³„í†µìƒì„ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY815"); //í‰ê· ì„ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY820"); //í†µìƒì„ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY825"); //ì „ë¬¸ì§O/Tí˜„í™©
-			oFilter.AddEx("PH_PY830"); //ë¶€ì„œë³„ì¸ê±´ë¹„í˜„í™© (ê¸°íš)
-			oFilter.AddEx("PH_PY835"); //ì§ê¸‰ë³„O/Të°ìˆ˜ë‹¹í˜„í™©
-			oFilter.AddEx("PH_PY840"); //í’ì‚°ì „ìê³µì‹œìë£Œ
-			oFilter.AddEx("PH_PY845"); //ê¸°ê°„ë³„ê¸‰ì—¬ì§€ê¸‰ë‚´ì—­
-			oFilter.AddEx("PH_PY850"); //ì†Œê¸‰ë¶„ì§€ê¸‰ëª…ì„¸ì„œ
-			oFilter.AddEx("PH_PY855"); //ê°œì¸ë³„ì„ê¸ˆì§€ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY865"); //ê³ ìš©ë³´í—˜í˜„í™© (ê³„ì‚°ìš©)
-			oFilter.AddEx("PH_PY870"); //ë‹´ë‹¹ë³„ì›”O/Të°ìˆ˜ë‹¹í˜„í™©
-			oFilter.AddEx("PH_PY875"); //ì§ê¸‰ë³„ìˆ˜ë‹¹ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY716"); //ê¸°ê°„ë³„ê¸‰ì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY721"); //ê¸°ê°„ë³„ìƒì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY717"); //ê¸°ê°„ë³„ê¸‰ì—¬ë°˜ë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY718"); //ìƒì‚°ì™„ë£Œê¸ˆì•¡ëŒ€ë¹„O/Tí˜„í™©
-			oFilter.AddEx("PH_PY701"); //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥ (ë…¸ì¡°ìš©)
-			oFilter.AddEx("PH_PYA10"); //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA20"); //ê¸‰ì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA30"); //ìƒì—¬ì§€ê¸‰ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA40"); //ìƒì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA50"); //DCì „í™˜ìë¶€ë‹´ê¸ˆì§€ê¸‰ë‚´ì—­
-			oFilter.AddEx("PH_PYA75"); //êµí†µë¹„ì™¸ìˆ˜ë‹¹ì§€ê¸‰ëŒ€ì¥
-            oFilter.AddEx("PH_PYA80"); //ê·¼ë¬´ì‹œê°„í‘œì¶œë ¥
-            oFilter.AddEx("PH_PYA90"); //ê·¼ë¡œì†Œë“ê°„ì´ì§€ê¸‰ëª…ì„¸ì„œ(ì„¸ë¬´ì„œì‹ ê³ íŒŒì¼ìƒì„±)
-            oFilter.AddEx("PH_PY526"); //ì„ê¸ˆí”¼í¬ì¸ì›í˜„í™©
-            oFilter.AddEx("PH_PY999"); //ì‚¬ìš©ìê¶Œí•œê´€ë¦¬
+            //±Ş¿©°ü¸® - ¸®Æ÷Æ®
+            oFilter.AddEx("PH_PY625"); //¼¼Å¹ÀÚ¸íºÎ
+			oFilter.AddEx("PH_PY630"); //»ç¿øº°³ëÁ¶ºñ°øÁ¦ÇöÈ²
+			oFilter.AddEx("PH_PY700"); //±Ş¿©Áö±Ş´ëÀå
+			oFilter.AddEx("PH_PY710"); //»ó¿©Áö±Ş´ëÀå
+			oFilter.AddEx("PH_PY715"); //±Ş¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY720"); //»ó¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY725"); //±Ş¿©Á÷±Şº°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY740"); //»ó¿©Á÷±Şº°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY730"); //±Ş¿©ºÀÅõÃâ·Â
+			oFilter.AddEx("PH_PY735"); //»ó¿©ºÀÅõÃâ·Â
+			oFilter.AddEx("PH_PY745"); //¿¬°£Áö±ŞÇöÈ²
+			oFilter.AddEx("PH_PY750"); //±Ù·Î¼ÒµæÂ¡¼öÇöÈ²
+			oFilter.AddEx("PH_PY755"); //µ¿È£È¸°¡ÀÔÇöÈ²
+			oFilter.AddEx("PH_PY760"); //Æò±ÕÀÓ±İ¹×ÅğÁ÷±İ»êÃâ³»¿ª¼­
+			oFilter.AddEx("PH_PY765"); //±Ş¿©Áõ°¨³»¿ª¼­
+			oFilter.AddEx("PH_PY770"); //ÅğÁ÷¼Òµæ¿øÃµÂ¡¼ö¿µ¼öÁõÃâ·Â
+			oFilter.AddEx("PH_PY775"); //°³ÀÎº°³âÂ÷ÇöÈ²
+			oFilter.AddEx("PH_PY776"); //ÀÜ¿©³âÂ÷ÇöÈ²
+			oFilter.AddEx("PH_PY780"); //¿ù°í¿ëº¸Çè³»¿ª
+			oFilter.AddEx("PH_PY785"); //¿ù±¹¹Î¿¬±İ³»¿ª
+			oFilter.AddEx("PH_PY790"); //¿ù°Ç°­º¸Çè³»¿ª
+			oFilter.AddEx("PH_PY795"); //¿¬°£ºÎ¼­º°±Ş¿©³»¿ª
+			oFilter.AddEx("PH_PY800"); //ÀÎ°ÇºñÁö±ŞÀÚ·á
+			oFilter.AddEx("PH_PY805"); //±Ş¿©¼ö´çº¯µ¿³»¿ª
+			oFilter.AddEx("PH_PY810"); //Á÷±Şº°Åë»óÀÓ±İ³»¿ª
+			oFilter.AddEx("PH_PY815"); //Æò±ÕÀÓ±İ³»¿ª
+			oFilter.AddEx("PH_PY820"); //Åë»óÀÓ±İ³»¿ª
+			oFilter.AddEx("PH_PY825"); //Àü¹®Á÷O/TÇöÈ²
+			oFilter.AddEx("PH_PY830"); //ºÎ¼­º°ÀÎ°ÇºñÇöÈ² (±âÈ¹)
+			oFilter.AddEx("PH_PY835"); //Á÷±Şº°O/T¹×¼ö´çÇöÈ²
+			oFilter.AddEx("PH_PY840"); //Ç³»êÀüÀÚ°ø½ÃÀÚ·á
+			oFilter.AddEx("PH_PY845"); //±â°£º°±Ş¿©Áö±Ş³»¿ª
+			oFilter.AddEx("PH_PY850"); //¼Ò±ŞºĞÁö±Ş¸í¼¼¼­
+			oFilter.AddEx("PH_PY855"); //°³ÀÎº°ÀÓ±İÁö±Ş´ëÀå
+			oFilter.AddEx("PH_PY865"); //°í¿ëº¸ÇèÇöÈ² (°è»ê¿ë)
+			oFilter.AddEx("PH_PY870"); //´ã´çº°¿ùO/T¹×¼ö´çÇöÈ²
+			oFilter.AddEx("PH_PY875"); //Á÷±Şº°¼ö´çÁı°è´ëÀå
+			oFilter.AddEx("PH_PY716"); //±â°£º°±Ş¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY721"); //±â°£º°»ó¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY717"); //±â°£º°±Ş¿©¹İº°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY718"); //»ı»ê¿Ï·á±İ¾×´ëºñO/TÇöÈ²
+			oFilter.AddEx("PH_PY701"); //±Ş¿©Áö±Ş´ëÀå (³ëÁ¶¿ë)
+			oFilter.AddEx("PH_PYA10"); //±Ş¿©Áö±Ş´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA20"); //±Ş¿©ºÎ¼­º°Áı°è´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA30"); //»ó¿©Áö±Ş´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA40"); //»ó¿©ºÎ¼­º°Áı°è´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA50"); //DCÀüÈ¯ÀÚºÎ´ã±İÁö±Ş³»¿ª
+			oFilter.AddEx("PH_PYA75"); //±³Åëºñ¿Ü¼ö´çÁö±Ş´ëÀå
+            oFilter.AddEx("PH_PYA80"); //±Ù¹«½Ã°£Ç¥Ãâ·Â
+            oFilter.AddEx("PH_PYA90"); //±Ù·Î¼Òµæ°£ÀÌÁö±Ş¸í¼¼¼­(¼¼¹«¼­½Å°íÆÄÀÏ»ı¼º)
+            oFilter.AddEx("PH_PY526"); //ÀÓ±İÇÇÅ©ÀÎ¿øÇöÈ²
+            oFilter.AddEx("PH_PY999"); //»ç¿ëÀÚ±ÇÇÑ°ü¸®
 
-            //ì •ì‚°ê´€ë¦¬
-            oFilter.AddEx("PH_PY401"); //ì „ê·¼ë¬´ì§€ë“±ë¡
-			oFilter.AddEx("PH_PY402"); //ì •ì‚°ê¸°ì´ˆìë£Œ ë“±ë¡
-			oFilter.AddEx("PH_PY405"); //ì˜ë£Œë¹„ë“±ë¡
-			oFilter.AddEx("PH_PY407"); //ê¸°ë¶€ê¸ˆë“±ë¡
-			oFilter.AddEx("PH_PY409"); //ê¸°ë¶€ê¸ˆì¡°ì •ëª…ì„¸ë“±ë¡
-			oFilter.AddEx("PH_PY411"); //ì—°ê¸ˆ.ì €ì¶•ë“±ì†Œë“ê³µì œë“±ë¡
-			oFilter.AddEx("PH_PY413"); //ì›”ì„¸ì•¡.ì£¼íƒì„ì°¨ì°¨ì…ê¸ˆìë£Œ ë“±ë¡
-			oFilter.AddEx("PH_PY980"); //ì‹ ê³ _ê·¼ë¡œì†Œë“ì§€ê¸‰ëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY985"); //ì‹ ê³ _ì˜ë£Œë¹„ì§€ê¸‰ëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY990"); //ì‹ ê³ _ê¸°ë¶€ê¸ˆëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY995"); //ì‹ ê³ _í‡´ì§ì†Œë“ì§€ê¸‰ëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY419"); //í‘œì¤€ì„¸ì•¡ì ìš©ëŒ€ìƒìë“±ë¡
-			oFilter.AddEx("PH_PY910"); //ì†Œë“ê³µì œì‹ ê³ ì„œì¶œë ¥
-			oFilter.AddEx("PH_PY915"); //ê·¼ë¡œì†Œë“ì›ì²œì§•ìˆ˜ë¶€ì¶œë ¥
-			oFilter.AddEx("PH_PY920"); //ì›ì²œì§•ìˆ˜ì˜ìˆ˜ì¦ì¶œë ¥
-			oFilter.AddEx("PH_PY925"); //ê¸°ë¶€ê¸ˆëª…ì„¸ì„œì¶œë ¥
-			oFilter.AddEx("PH_PY930"); //ì •ì‚°ì§•ìˆ˜ë°í™˜ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY931"); //í‘œì¤€ì„¸ì•¡ì ìš©ëŒ€ìƒìì¡°íšŒ
-			oFilter.AddEx("PH_PY932"); //ì „ê·¼ë¬´ì§€ë“±ë¡í˜„í™©
-			oFilter.AddEx("PH_PY933"); //ë³´ìˆ˜ì´ì•¡ì‹ ê³ ê¸°ì´ˆìë£Œ
-			oFilter.AddEx("PH_PYA55"); //ì •ì‚°ì§•ìˆ˜ë°í™˜ê¸‰ëŒ€ì¥(ì§‘ê³„)
-			oFilter.AddEx("PH_PYA70"); //ì†Œë“ì„¸ì›ì²œì§•ìˆ˜ì„¸ì•¡ì¡°ì •ì‹ ì²­ì„œì¶œë ¥
 
-			oFilter.AddEx("ZPY341"); //ì›”ë³„ ì •ì‚°ìë£Œ ìƒì„±
-			oFilter.AddEx("ZPY421"); //í‡´ì§ì†Œë“ì „ì‚°ë§¤ì²´ìˆ˜ë¡
-			oFilter.AddEx("ZPY501"); //ì†Œë“ê³µì œí•­ëª© ë“±ë¡
-			oFilter.AddEx("ZPY502"); //ì¢…(ì „) ê·¼ë¬´ì§€ ë“±ë¡
-			oFilter.AddEx("ZPY503"); //ì •ì‚°ì„¸ì•¡ê³„ì‚°
-			oFilter.AddEx("ZPY504"); //ì •ì‚°ê²°ê³¼ì¡°íšŒ
-			oFilter.AddEx("ZPY505"); //ê¸°ë¶€ê¸ˆëª…ì„¸ë“±ë¡
-			oFilter.AddEx("ZPY506"); //ì˜ë£Œë¹„ëª…ì„¸ë“±ë¡
-			oFilter.AddEx("ZPY508"); //ì—°ê¸ˆì €ì¶• ì†Œë“ê³µì œ ëª…ì„¸ ë“±ë¡
-			oFilter.AddEx("ZPY509"); //ì •ì‚°ìë£Œ ë§ˆê°ì‘ì—…
-			oFilter.AddEx("ZPY521"); //ê·¼ë¡œì†Œë“ì „ì‚°ë§¤ì²´ìˆ˜ë¡
-			oFilter.AddEx("ZPY522"); //ì˜ë£Œë¹„ ê¸°ë¶€ê¸ˆ ì „ì‚°ë§¤ì²´ìˆ˜ë¡
+			//Á¤»ê°ü¸®
+			oFilter.AddEx("PH_PY401"); //Àü±Ù¹«Áöµî·Ï
+			oFilter.AddEx("PH_PY402"); //Á¤»ê±âÃÊÀÚ·á µî·Ï
+			oFilter.AddEx("PH_PY405"); //ÀÇ·áºñµî·Ï
+			oFilter.AddEx("PH_PY407"); //±âºÎ±İµî·Ï
+			oFilter.AddEx("PH_PY409"); //±âºÎ±İÁ¶Á¤¸í¼¼µî·Ï
+			oFilter.AddEx("PH_PY411"); //¿¬±İ.ÀúÃàµî¼Òµæ°øÁ¦µî·Ï
+			oFilter.AddEx("PH_PY413"); //¿ù¼¼¾×.ÁÖÅÃÀÓÂ÷Â÷ÀÔ±İÀÚ·á µî·Ï
+			oFilter.AddEx("PH_PY980"); //½Å°í_±Ù·Î¼ÒµæÁö±Ş¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY985"); //½Å°í_ÀÇ·áºñÁö±Ş¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY990"); //½Å°í_±âºÎ±İ¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY995"); //½Å°í_ÅğÁ÷¼ÒµæÁö±Ş¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY419"); //Ç¥ÁØ¼¼¾×Àû¿ë´ë»óÀÚµî·Ï
+			oFilter.AddEx("PH_PY910"); //¼Òµæ°øÁ¦½Å°í¼­Ãâ·Â
+			oFilter.AddEx("PH_PY915"); //±Ù·Î¼Òµæ¿øÃµÂ¡¼öºÎÃâ·Â
+			oFilter.AddEx("PH_PY920"); //¿øÃµÂ¡¼ö¿µ¼öÁõÃâ·Â
+			oFilter.AddEx("PH_PY925"); //±âºÎ±İ¸í¼¼¼­Ãâ·Â
+			oFilter.AddEx("PH_PY930"); //Á¤»êÂ¡¼ö¹×È¯±Ş´ëÀå
+			oFilter.AddEx("PH_PY931"); //Ç¥ÁØ¼¼¾×Àû¿ë´ë»óÀÚÁ¶È¸
+			oFilter.AddEx("PH_PY932"); //Àü±Ù¹«Áöµî·ÏÇöÈ²
+			oFilter.AddEx("PH_PY933"); //º¸¼öÃÑ¾×½Å°í±âÃÊÀÚ·á
+			oFilter.AddEx("PH_PYA55"); //Á¤»êÂ¡¼ö¹×È¯±Ş´ëÀå(Áı°è)
+			oFilter.AddEx("PH_PYA70"); //¼Òµæ¼¼¿øÃµÂ¡¼ö¼¼¾×Á¶Á¤½ÅÃ»¼­Ãâ·Â
 
-			//ê¸°íƒ€ê´€ë¦¬
-			oFilter.AddEx("PH_PY307"); //í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ë¶„ê¸°ë³„)
-			oFilter.AddEx("PH_PY309"); //ëŒ€ë¶€ê¸ˆë“±ë¡
-			oFilter.AddEx("PH_PY311"); //í†µê·¼ë²„ìŠ¤ìš´í–‰ë“±ë¡
-			oFilter.AddEx("PH_PY312"); //ë²„ìŠ¤ìš”ê¸ˆ ê°œì¸ë³„ë“±ë¡
-			oFilter.AddEx("PH_PY030"); //ê³µìš©ë“±ë¡
-			oFilter.AddEx("PH_PY031"); //ì¶œì¥ë“±ë¡
-			oFilter.AddEx("PH_PY032"); //ì‚¬ìš©ì™¸ì¶œë“±ë¡
-			oFilter.AddEx("PH_PY315"); //ê°œì¸ë³„ëŒ€ë¶€ê¸ˆì”ì•¡í˜„í™©
-			oFilter.AddEx("PH_PY034"); //ê³µìš©ë¶„ê°œì²˜ë¦¬
-			oFilter.AddEx("PH_PYA60"); //í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ì§‘ê³„)
+			oFilter.AddEx("ZPY341"); //¿ùº° Á¤»êÀÚ·á »ı¼º
+			oFilter.AddEx("ZPY421"); //ÅğÁ÷¼ÒµæÀü»ê¸ÅÃ¼¼ö·Ï
+			oFilter.AddEx("ZPY501"); //¼Òµæ°øÁ¦Ç×¸ñ µî·Ï
+			oFilter.AddEx("ZPY502"); //Á¾(Àü) ±Ù¹«Áö µî·Ï
+			oFilter.AddEx("ZPY503"); //Á¤»ê¼¼¾×°è»ê
+			oFilter.AddEx("ZPY504"); //Á¤»ê°á°úÁ¶È¸
+			oFilter.AddEx("ZPY505"); //±âºÎ±İ¸í¼¼µî·Ï
+			oFilter.AddEx("ZPY506"); //ÀÇ·áºñ¸í¼¼µî·Ï
+			oFilter.AddEx("ZPY508"); //¿¬±İÀúÃà ¼Òµæ°øÁ¦ ¸í¼¼ µî·Ï
+			oFilter.AddEx("ZPY509"); //Á¤»êÀÚ·á ¸¶°¨ÀÛ¾÷
+			oFilter.AddEx("ZPY521"); //±Ù·Î¼ÒµæÀü»ê¸ÅÃ¼¼ö·Ï
+			oFilter.AddEx("ZPY522"); //ÀÇ·áºñ ±âºÎ±İ Àü»ê¸ÅÃ¼¼ö·Ï
+
+			//±âÅ¸°ü¸®
+			oFilter.AddEx("PH_PY307"); //ÇĞÀÚ±İ½ÅÃ»³»¿ª(ºĞ±âº°)
+			oFilter.AddEx("PH_PY309"); //´ëºÎ±İµî·Ï
+			oFilter.AddEx("PH_PY311"); //Åë±Ù¹ö½º¿îÇàµî·Ï
+			oFilter.AddEx("PH_PY312"); //¹ö½º¿ä±İ °³ÀÎº°µî·Ï
+			oFilter.AddEx("PH_PY030"); //°ø¿ëµî·Ï
+			oFilter.AddEx("PH_PY031"); //ÃâÀåµî·Ï
+			oFilter.AddEx("PH_PY032"); //»ç¿ë¿ÜÃâµî·Ï
+			oFilter.AddEx("PH_PY315"); //°³ÀÎº°´ëºÎ±İÀÜ¾×ÇöÈ²
+			oFilter.AddEx("PH_PY034"); //°ø¿ëºĞ°³Ã³¸®
+			oFilter.AddEx("PH_PYA60"); //ÇĞÀÚ±İ½ÅÃ»³»¿ª(Áı°è)
+			oFilter.AddEx("PS_DateChange"); //³¯Â¥ ¼öÁ¤ µî·Ï
+			oFilter.AddEx("PS_DateCommit"); //³¯Â¥ ½ÂÀÎ
         }
 
 		private static void DOUBLE_CLICK(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1168,27 +1179,27 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK);
 
 			//System Form Type
-            //ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-			//ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+            //¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+			//Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 
 			//AddOn Form Type
-			//ìš´ì˜ê´€ë¦¬
-			oFilter.AddEx("PH_PY000"); //ì‚¬ìš©ìê¶Œí•œê´€ë¦¬
+			//¿î¿µ°ü¸®
+			oFilter.AddEx("PH_PY000"); //»ç¿ëÀÚ±ÇÇÑ°ü¸®
 
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY104"); //ê³ ì •ìˆ˜ë‹¹ê³µì œê¸ˆì•¡ ì¼ê´„ë“±ë¡
-			oFilter.AddEx("PH_PY118"); //ê¸‰ìƒì—¬Emailë°œì†¡
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+			oFilter.AddEx("PH_PY104"); //°íÁ¤¼ö´ç°øÁ¦±İ¾× ÀÏ°ıµî·Ï
+			oFilter.AddEx("PH_PY118"); //±Ş»ó¿©Email¹ß¼Û
 
-			//ì •ì‚°ê´€ë¦¬
-			oFilter.AddEx("PH_PY402"); //ì •ì‚°ê¸°ì´ˆìë£Œë“±ë¡
-            oFilter.AddEx("PH_PY407"); //ì •ì‚°ê¸°ë¶€ìë£Œë“±ë¡
-            oFilter.AddEx("PH_PY405"); //ì •ì‚°ì˜ë£Œë¹„ìë£Œë“±ë¡
+			//Á¤»ê°ü¸®
+			oFilter.AddEx("PH_PY402"); //Á¤»ê±âÃÊÀÚ·áµî·Ï
+            oFilter.AddEx("PH_PY407"); //Á¤»ê±âºÎÀÚ·áµî·Ï
+            oFilter.AddEx("PH_PY405"); //Á¤»êÀÇ·áºñÀÚ·áµî·Ï
 
-            //ê¸°íƒ€ê´€ë¦¬
+            //±âÅ¸°ü¸®
         }
 
 		private static void MATRIX_LINK_PRESSED(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1196,20 +1207,20 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED);
 
 			//System Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-			//ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+			//Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 
 			//AddOn Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-            //ì •ì‚°ê´€ë¦¬
-			oFilter.AddEx("ZPY507"); //ì •ì‚°ê²°ê³¼ì¡°íšŒ(ì „ì²´)
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+            //Á¤»ê°ü¸®
+			oFilter.AddEx("ZPY507"); //Á¤»ê°á°úÁ¶È¸(ÀüÃ¼)
 
-			//ê¸°íƒ€ê´€ë¦¬
+			//±âÅ¸°ü¸®
 		}
 
         private static void MATRIX_COLLAPSE_PRESSED(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1222,246 +1233,249 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_VALIDATE);
 
 			//System Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-			//ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+			//Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 
 			//AddOn Form Type
-			//ìš´ì˜ê´€ë¦¬
-			oFilter.AddEx("PH_PY000"); //ì‚¬ìš©ìê¶Œí•œê´€ë¦¬
+			//¿î¿µ°ü¸®
+			oFilter.AddEx("PH_PY000"); //»ç¿ëÀÚ±ÇÇÑ°ü¸®
 
-			//ì¸ì‚¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY001"); //ì¸ì‚¬ë§ˆìŠ¤í„° ë“±ë¡
-			oFilter.AddEx("PH_PY002"); //ê·¼íƒœì‹œê°„êµ¬ë¶„ ë“±ë¡
-			oFilter.AddEx("PH_PY003"); //ê·¼íƒœì›”ë ¥ì„¤ì •
-			oFilter.AddEx("PH_PY005"); //ì‚¬ì—…ì¥ì •ë³´ë“±ë¡
-			oFilter.AddEx("PH_PY007"); //ìœ ë¥˜ë‹¨ê°€ë“±ë¡
-			oFilter.AddEx("PH_PY008"); //ì¼ê·¼íƒœë“±ë¡
-			oFilter.AddEx("PH_PY012"); //ì¶œì¥ë“±ë¡
-			oFilter.AddEx("PH_PY013"); //ìœ„í•´ì¼ìˆ˜ê³„ì‚°
-			oFilter.AddEx("PH_PY014"); //ìœ„í•´ì¼ìˆ˜ìˆ˜ì •
-			oFilter.AddEx("PH_PY015"); //ì—°ì°¨ì ì¹˜ë“±ë¡
-			oFilter.AddEx("PH_PY016"); //ê¸°ë³¸ì—…ë¬´ë“±ë¡
-			oFilter.AddEx("PH_PY017"); //ì›”ê·¼íƒœì§‘ê³„
-			oFilter.AddEx("PH_PY018"); //íœ´ì¼ê·¼ë¬´ì²´í¬(ì—°ë´‰ì œ)
-			oFilter.AddEx("PH_PY019"); //ë°˜ë³€ê²½ë“±ë¡
-			oFilter.AddEx("PH_PY020"); //ì¼ê·¼íƒœ ì—…ë¬´ë³€ê²½ë“±ë¡
-			oFilter.AddEx("PH_PY021"); //ì‚¬ì›ë¹„ìƒì—°ë½ì²˜ê´€ë¦¬
+			//ÀÎ»ç°ü¸®
+			oFilter.AddEx("PH_PY001"); //ÀÎ»ç¸¶½ºÅÍ µî·Ï
+			oFilter.AddEx("PH_PY002"); //±ÙÅÂ½Ã°£±¸ºĞ µî·Ï
+			oFilter.AddEx("PH_PY003"); //±ÙÅÂ¿ù·Â¼³Á¤
+			oFilter.AddEx("PH_PY005"); //»ç¾÷ÀåÁ¤º¸µî·Ï
+			oFilter.AddEx("PH_PY007"); //À¯·ù´Ü°¡µî·Ï
+			oFilter.AddEx("PH_PY008"); //ÀÏ±ÙÅÂµî·Ï
+			oFilter.AddEx("PH_PY012"); //ÃâÀåµî·Ï
+			oFilter.AddEx("PH_PY013"); //À§ÇØÀÏ¼ö°è»ê
+			oFilter.AddEx("PH_PY014"); //À§ÇØÀÏ¼ö¼öÁ¤
+			oFilter.AddEx("PH_PY015"); //¿¬Â÷ÀûÄ¡µî·Ï
+			oFilter.AddEx("PH_PY016"); //±âº»¾÷¹«µî·Ï
+			oFilter.AddEx("PH_PY017"); //¿ù±ÙÅÂÁı°è
+			oFilter.AddEx("PH_PY018"); //ÈŞÀÏ±Ù¹«Ã¼Å©(¿¬ºÀÁ¦)
+			oFilter.AddEx("PH_PY019"); //¹İº¯°æµî·Ï
+			oFilter.AddEx("PH_PY020"); //ÀÏ±ÙÅÂ ¾÷¹«º¯°æµî·Ï
+			oFilter.AddEx("PH_PY021"); //»ç¿øºñ»ó¿¬¶ôÃ³°ü¸®
 
-			oFilter.AddEx("PH_PY201"); //ì •ë…„ì„ë°•ì íœ´ê°€ê²½ë¹„ ë“±ë¡
-			oFilter.AddEx("PH_PY202"); //ì •ë…„ì„ë°•ì íœ´ê°€ê²½ë¹„ ì¡°íšŒ
-			oFilter.AddEx("PH_PY203"); //êµìœ¡ì‹¤ì ë“±ë¡
-			oFilter.AddEx("PH_PY204"); //êµìœ¡ê³„íšë“±ë¡
-			oFilter.AddEx("PH_PY205"); //êµìœ¡ê³„íšVSì‹¤ì ì¡°íšŒ
+			oFilter.AddEx("PH_PY201"); //Á¤³âÀÓ¹ÚÀÚ ÈŞ°¡°æºñ µî·Ï
+			oFilter.AddEx("PH_PY202"); //Á¤³âÀÓ¹ÚÀÚ ÈŞ°¡°æºñ Á¶È¸
+			oFilter.AddEx("PH_PY203"); //±³À°½ÇÀûµî·Ï
+			oFilter.AddEx("PH_PY204"); //±³À°°èÈ¹µî·Ï
+			oFilter.AddEx("PH_PY205"); //±³À°°èÈ¹VS½ÇÀûÁ¶È¸
 
-			//ì¸ì‚¬ - ë¦¬í¬íŠ¸
-			oFilter.AddEx("PH_PY501"); //ì—¬ê¶Œë°œê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY505"); //ì…ì‚¬ìëŒ€ì¥
-			oFilter.AddEx("PH_PY510"); //ì‚¬ì›ëª…ë¶€
-			oFilter.AddEx("PH_PY515"); //ì¬ì§ìì‚¬ì›ëª…ë¶€
-			oFilter.AddEx("PH_PY520"); //í‡´ì§ë°í‡´ì§ì˜ˆì •ìëŒ€ì¥
-			oFilter.AddEx("PH_PY525"); //í•™ë ¥ë³„ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY530"); //ì—°ë ¹ë³„ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY535"); //ê·¼ì†ë…„ìˆ˜ë³„ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY540"); //ì¸ì›í˜„í™©(ëŒ€ì™¸ìš©)
-			oFilter.AddEx("PH_PY545"); //ì¸ì›í˜„í™©(ëŒ€ë‚´ìš©)
-			oFilter.AddEx("PH_PY550"); //ì „ì²´ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY555"); //ì¼ì¼ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY560"); //ì¼ì¶œê·¼í˜„í™©
-			oFilter.AddEx("PH_PY565"); //ì—°ì¥ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY570"); //ì—°ì¥/íœ´ì¼ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY575"); //ê·¼íƒœê¸°ì°°í˜„í™©
-			oFilter.AddEx("PH_PY580"); //ê°œì¸ë³„ê·¼íƒœì›”ë³´
-			oFilter.AddEx("PH_PY585"); //ì¼ì¼ì¶œê·¼ê¸°ë¡ë¶€
-			oFilter.AddEx("PH_PY590"); //ê¸°ê°„ë³„ê·¼íƒœì§‘ê³„í‘œ
-			oFilter.AddEx("PH_PY595"); //ê·¼ì†ë…„ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY600"); //ì¼ìë³„ì—°ì¥ê·¼ë¬´í˜„í™©
-			oFilter.AddEx("PH_PY605"); //ê·¼ì†ë³´ì „íœ´ê°€ë°œìƒë°ì‚¬ìš©ë‚´ì—­
-			oFilter.AddEx("PH_PY610"); //ê·¼íƒœêµ¬ë¶„ë³„ì‚¬ìš©ë‚´ì—­
-			oFilter.AddEx("PH_PY615"); //ë‹¹ì§ê·¼ë¬´í˜„í™©
-			oFilter.AddEx("PH_PY620"); //ì—°ë´‰ì œíœ´ì¼ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY635"); //ì—¬í–‰,êµìœ¡ìí˜„í™©
-			oFilter.AddEx("PH_PY640"); //êµ­ë¯¼ì—°ê¸ˆí‡´ì§ì „í™˜ê¸ˆí˜„í™©
-			oFilter.AddEx("PH_PY645"); //ìê²©ìˆ˜ë‹¹ì§€ê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY650"); //ë…¸ë™ì¡°í•©ê°„ë¶€í˜„í™©
-			oFilter.AddEx("PH_PY655"); //ë³´í›ˆëŒ€ìƒìí˜„í™©
-			oFilter.AddEx("PH_PY660"); //ì¥ì• ê·¼ë¡œìí˜„í™©
-			oFilter.AddEx("PH_PY665"); //ì‚¬ì›ìë…€í˜„í™©
-			oFilter.AddEx("PH_PY670"); //ê°œì¸ë³„ì°¨ëŸ‰í˜„í™©
-			oFilter.AddEx("PH_PY675"); //ê·¼ë¬´í¸ì„±í˜„í™©
-			oFilter.AddEx("PH_PY676"); //ê·¼íƒœì‹œê°„ë‚´ì—­ì¡°íšŒ
-			oFilter.AddEx("PH_PY677"); //ì¼ì¼ê·¼íƒœì´ìƒìì¡°íšŒ
-			oFilter.AddEx("PH_PY679"); //ê°œì¸ë³„ ê·¼íƒœì§‘ê³„ ì¡°íšŒ
-			oFilter.AddEx("PH_PY680"); //ìƒë²Œí˜„í™©
-			oFilter.AddEx("PH_PY685"); //í¬ìƒê°€ê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY690"); //ìƒì¼ìí˜„í™©
-			oFilter.AddEx("PH_PY695"); //ì¸ì‚¬ê¸°ë¡ì¹´ë“œ
-			oFilter.AddEx("PH_PY705"); //êµí†µë¹„ì§€ê¸‰ê·¼íƒœí™•ì¸
-			oFilter.AddEx("PH_PY860"); //í˜¸ë´‰í‘œì¡°íšŒ
-			oFilter.AddEx("PH_PY503"); //ìŠ¹ì§„ëŒ€ìƒìëª…ë¶€
-			oFilter.AddEx("PH_PY678"); //ë‹¹ì§ê·¼ë¬´ì ì¼ê´„ ë“±ë¡
-			oFilter.AddEx("PH_PY507"); //íœ´ì§ìí˜„í™©
-			oFilter.AddEx("PH_PY681"); //ë¹„ê·¼ë¬´ì¼ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY935"); //ì •ê¸°ìŠ¹í˜¸í˜„í™©
-			oFilter.AddEx("PH_PY551"); //í‰ê· ì¸ì›ì¡°íšŒ
-			oFilter.AddEx("PH_PY508"); //ì¬ì§ì¦ëª… ë“±ë¡ ë° ë°œê¸‰
-			oFilter.AddEx("PH_PY522"); //ì„ê¸ˆí”¼í¬ëŒ€ìƒìí˜„í™©
-			oFilter.AddEx("PH_PY523"); //ì„ê¸ˆí”¼í¬ëŒ€ìƒìì›”ë³„ì°¨ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY524"); //í‡´ì§ê¸ˆ ì¤‘ê°„ ì •ì‚°ë‚´ì—­
-			oFilter.AddEx("PH_PY683"); //êµëŒ€ê·¼ë¬´ì¸ì •í˜„í™©
-			oFilter.AddEx("PH_PYA65"); //ë…„ì°¨í˜„í™© (ì§‘ê³„)
-			oFilter.AddEx("PH_PY583"); //ê°œì¸ë³„ ê·¼íƒœì§‘ê³„ ì¡°íšŒ
+			//ÀÎ»ç - ¸®Æ÷Æ®
+			oFilter.AddEx("PH_PY501"); //¿©±Ç¹ß±ŞÇöÈ²
+			oFilter.AddEx("PH_PY505"); //ÀÔ»çÀÚ´ëÀå
+			oFilter.AddEx("PH_PY510"); //»ç¿ø¸íºÎ
+			oFilter.AddEx("PH_PY515"); //ÀçÁ÷ÀÚ»ç¿ø¸íºÎ
+			oFilter.AddEx("PH_PY520"); //ÅğÁ÷¹×ÅğÁ÷¿¹Á¤ÀÚ´ëÀå
+			oFilter.AddEx("PH_PY525"); //ÇĞ·Âº°ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY530"); //¿¬·Éº°ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY535"); //±Ù¼Ó³â¼öº°ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY540"); //ÀÎ¿øÇöÈ²(´ë¿Ü¿ë)
+			oFilter.AddEx("PH_PY545"); //ÀÎ¿øÇöÈ²(´ë³»¿ë)
+			oFilter.AddEx("PH_PY550"); //ÀüÃ¼ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY555"); //ÀÏÀÏ±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY560"); //ÀÏÃâ±ÙÇöÈ²
+			oFilter.AddEx("PH_PY565"); //¿¬Àå±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY570"); //¿¬Àå/ÈŞÀÏ±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY575"); //±ÙÅÂ±âÂûÇöÈ²
+			oFilter.AddEx("PH_PY580"); //°³ÀÎº°±ÙÅÂ¿ùº¸
+			oFilter.AddEx("PH_PY585"); //ÀÏÀÏÃâ±Ù±â·ÏºÎ
+			oFilter.AddEx("PH_PY590"); //±â°£º°±ÙÅÂÁı°èÇ¥
+			oFilter.AddEx("PH_PY595"); //±Ù¼Ó³â¼öÇöÈ²
+			oFilter.AddEx("PH_PY600"); //ÀÏÀÚº°¿¬Àå±Ù¹«ÇöÈ²
+			oFilter.AddEx("PH_PY605"); //±Ù¼Óº¸ÀüÈŞ°¡¹ß»ı¹×»ç¿ë³»¿ª
+			oFilter.AddEx("PH_PY610"); //±ÙÅÂ±¸ºĞº°»ç¿ë³»¿ª
+			oFilter.AddEx("PH_PY615"); //´çÁ÷±Ù¹«ÇöÈ²
+			oFilter.AddEx("PH_PY620"); //¿¬ºÀÁ¦ÈŞÀÏ±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY635"); //¿©Çà,±³À°ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY640"); //±¹¹Î¿¬±İÅğÁ÷ÀüÈ¯±İÇöÈ²
+			oFilter.AddEx("PH_PY645"); //ÀÚ°İ¼ö´çÁö±ŞÇöÈ²
+			oFilter.AddEx("PH_PY650"); //³ëµ¿Á¶ÇÕ°£ºÎÇöÈ²
+			oFilter.AddEx("PH_PY655"); //º¸ÈÆ´ë»óÀÚÇöÈ²
+			oFilter.AddEx("PH_PY660"); //Àå¾Ö±Ù·ÎÀÚÇöÈ²
+			oFilter.AddEx("PH_PY665"); //»ç¿øÀÚ³àÇöÈ²
+			oFilter.AddEx("PH_PY670"); //°³ÀÎº°Â÷·®ÇöÈ²
+			oFilter.AddEx("PH_PY675"); //±Ù¹«Æí¼ºÇöÈ²
+			oFilter.AddEx("PH_PY676"); //±ÙÅÂ½Ã°£³»¿ªÁ¶È¸
+			oFilter.AddEx("PH_PY677"); //ÀÏÀÏ±ÙÅÂÀÌ»óÀÚÁ¶È¸
+			oFilter.AddEx("PH_PY679"); //°³ÀÎº° ±ÙÅÂÁı°è Á¶È¸
+			oFilter.AddEx("PH_PY680"); //»ó¹úÇöÈ²
+			oFilter.AddEx("PH_PY685"); //Æ÷»ó°¡±ŞÇöÈ²
+			oFilter.AddEx("PH_PY690"); //»ıÀÏÀÚÇöÈ²
+			oFilter.AddEx("PH_PY695"); //ÀÎ»ç±â·ÏÄ«µå
+			oFilter.AddEx("PH_PY705"); //±³ÅëºñÁö±Ş±ÙÅÂÈ®ÀÎ
+			oFilter.AddEx("PH_PY860"); //È£ºÀÇ¥Á¶È¸
+			oFilter.AddEx("PH_PY503"); //½ÂÁø´ë»óÀÚ¸íºÎ
+			oFilter.AddEx("PH_PY678"); //´çÁ÷±Ù¹«ÀÚ ÀÏ°ı µî·Ï
+			oFilter.AddEx("PH_PY507"); //ÈŞÁ÷ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY681"); //ºñ±Ù¹«ÀÏ¼öÇöÈ²
+			oFilter.AddEx("PH_PY935"); //Á¤±â½ÂÈ£ÇöÈ²
+			oFilter.AddEx("PH_PY551"); //Æò±ÕÀÎ¿øÁ¶È¸
+			oFilter.AddEx("PH_PY508"); //ÀçÁ÷Áõ¸í µî·Ï ¹× ¹ß±Ş
+			oFilter.AddEx("PH_PY522"); //ÀÓ±İÇÇÅ©´ë»óÀÚÇöÈ²
+			oFilter.AddEx("PH_PY523"); //ÀÓ±İÇÇÅ©´ë»óÀÚ¿ùº°Â÷¼öÇöÈ²
+			oFilter.AddEx("PH_PY524"); //ÅğÁ÷±İ Áß°£ Á¤»ê³»¿ª
+			oFilter.AddEx("PH_PY683"); //±³´ë±Ù¹«ÀÎÁ¤ÇöÈ²
+			oFilter.AddEx("PH_PYA65"); //³âÂ÷ÇöÈ² (Áı°è)
+			oFilter.AddEx("PH_PY583"); //°³ÀÎº° ±ÙÅÂÁı°è Á¶È¸
 
-			//ê¸‰ì—¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY100"); //ê¸°ì¤€ì„¸ì•¡ì„¤ì •
-			oFilter.AddEx("PH_PY101"); //ë³´í—˜ë¥ ë“±ë¡
-			oFilter.AddEx("PH_PY102"); //ìˆ˜ë‹¹í•­ëª©ì„¤ì •
-			oFilter.AddEx("PH_PY103"); //ê³µì œí•­ëª©ì„¤ì •
-			oFilter.AddEx("PH_PY104"); //ê³ ì •ìˆ˜ë‹¹ê³µì œê¸ˆì•¡ì¼ê´„ë“±ë¡
-			oFilter.AddEx("PH_PY105"); //í˜¸ë´‰í‘œë“±ë¡
-			oFilter.AddEx("PH_PY106"); //ìˆ˜ë‹¹ê³„ì‚°ì‹ì„¤ì •
-			oFilter.AddEx("PH_PY107"); //ê¸‰ìƒì—¬ê¸°ì¤€ì¼ì„¤ì •
-			oFilter.AddEx("PH_PY108"); //ìƒì—¬ìœ¨ì§€ê¸‰ì„¤ì •
-			oFilter.AddEx("PH_PY109"); //ê¸‰ìƒì—¬ë³€ë™ìë£Œë“±ë¡
-			oFilter.AddEx("PH_PY109_1"); //ê¸‰ìƒì—¬ë³€ë™ìë£Œ í•­ëª©ìˆ˜ì •
-			oFilter.AddEx("PH_PY110"); //ê°œì¸ìƒì—¬ìœ¨ë“±ë¡
-			oFilter.AddEx("PH_PY111"); //ê¸‰ìƒì—¬ê³„ì‚°
-			oFilter.AddEx("PH_PY112"); //ê¸‰ìƒì—¬ìë£Œê´€ë¦¬
-			oFilter.AddEx("PH_PY113"); //ê¸‰ìƒì—¬ë¶„ê°œìë£Œìƒì„±
-			oFilter.AddEx("PH_PY114"); //í‡´ì§ê¸ˆê¸°ì¤€ì„¤ì •
-			oFilter.AddEx("PH_PY115"); //í‡´ì§ê¸ˆê³„ì‚°
-			oFilter.AddEx("PH_PY116"); //í‡´ì§ê¸ˆë¶„ê°œìë£Œìƒì„±
-			oFilter.AddEx("PH_PY117"); //ê¸‰ìƒì—¬ë§ˆê°ì‘ì—…
-			oFilter.AddEx("PH_PY118"); //ê¸‰ìƒì—¬Emailë°œì†¡
-			oFilter.AddEx("PH_PY120"); //ê¸‰ìƒì—¬ì†Œê¸‰ì§‘ê³„ì²˜ë¦¬
-			oFilter.AddEx("PH_PY121"); //í‰ê°€ê°€ê¸‰ì•¡ ë“±ë¡
-			oFilter.AddEx("PH_PY122"); //ê¸‰ìƒì—¬ì¶œë ¥ ê°œì¸ë¶€ì„œì„¤ì •ë“±ë¡
-			oFilter.AddEx("PH_PY123"); //ê°€ì••ë¥˜ë“±ë¡
-			oFilter.AddEx("PH_PY124"); //ë² ë„¤í”¼ì•„ ê¸ˆì•¡ ë“±ë¡
-			oFilter.AddEx("PH_PY130"); //íŒ€ë³„ ì„±ê³¼ê¸‰ì°¨ë“± ë“±ê¸‰ë“±ë¡
-			oFilter.AddEx("PH_PY131"); //ì„±ê³¼ê¸‰ì°¨ë“± ê³„ìˆ˜ë“±ë¡
-			oFilter.AddEx("PH_PY132"); //ì„±ê³¼ê¸‰ì°¨ ê°œì¸ë³„ ê³„ì‚°
-			oFilter.AddEx("PH_PY133"); //ì—°ë´‰ì œ íšŸì°¨ ê´€ë¦¬
-			oFilter.AddEx("PH_PY134"); //ì†Œë“ì„¸/ì£¼ë¯¼ì„¸ ì¡°ì •ê´€ë¦¬
-			oFilter.AddEx("PH_PY129"); //ê°œì¸ë³„í‡´ì§ì—°ê¸ˆ(DCí˜•) ê³„ì‚°
-            oFilter.AddEx("PH_PY135"); //ê¸‰ìƒì—¬ë¶„ê°œì²˜ë¦¬
-            oFilter.AddEx("PH_PY136"); //ê¸‰ìƒì—¬ë¶„ê°œì²˜ë¦¬ ë°°ë¶€ê·œì¹™ì„¤ì •
+			//±Ş¿©°ü¸®
+			oFilter.AddEx("PH_PY100"); //±âÁØ¼¼¾×¼³Á¤
+			oFilter.AddEx("PH_PY101"); //º¸Çè·üµî·Ï
+			oFilter.AddEx("PH_PY102"); //¼ö´çÇ×¸ñ¼³Á¤
+			oFilter.AddEx("PH_PY103"); //°øÁ¦Ç×¸ñ¼³Á¤
+			oFilter.AddEx("PH_PY104"); //°íÁ¤¼ö´ç°øÁ¦±İ¾×ÀÏ°ıµî·Ï
+			oFilter.AddEx("PH_PY105"); //È£ºÀÇ¥µî·Ï
+			oFilter.AddEx("PH_PY106"); //¼ö´ç°è»ê½Ä¼³Á¤
+			oFilter.AddEx("PH_PY107"); //±Ş»ó¿©±âÁØÀÏ¼³Á¤
+			oFilter.AddEx("PH_PY108"); //»ó¿©À²Áö±Ş¼³Á¤
+			oFilter.AddEx("PH_PY109"); //±Ş»ó¿©º¯µ¿ÀÚ·áµî·Ï
+			oFilter.AddEx("PH_PY109_1"); //±Ş»ó¿©º¯µ¿ÀÚ·á Ç×¸ñ¼öÁ¤
+			oFilter.AddEx("PH_PY110"); //°³ÀÎ»ó¿©À²µî·Ï
+			oFilter.AddEx("PH_PY111"); //±Ş»ó¿©°è»ê
+			oFilter.AddEx("PH_PY112"); //±Ş»ó¿©ÀÚ·á°ü¸®
+			oFilter.AddEx("PH_PY113"); //±Ş»ó¿©ºĞ°³ÀÚ·á»ı¼º
+			oFilter.AddEx("PH_PY114"); //ÅğÁ÷±İ±âÁØ¼³Á¤
+			oFilter.AddEx("PH_PY115"); //ÅğÁ÷±İ°è»ê
+			oFilter.AddEx("PH_PY116"); //ÅğÁ÷±İºĞ°³ÀÚ·á»ı¼º
+			oFilter.AddEx("PH_PY117"); //±Ş»ó¿©¸¶°¨ÀÛ¾÷
+			oFilter.AddEx("PH_PY118"); //±Ş»ó¿©Email¹ß¼Û
+			oFilter.AddEx("PH_PY120"); //±Ş»ó¿©¼Ò±ŞÁı°èÃ³¸®
+			oFilter.AddEx("PH_PY121"); //Æò°¡°¡±Ş¾× µî·Ï
+			oFilter.AddEx("PH_PY122"); //±Ş»ó¿©Ãâ·Â °³ÀÎºÎ¼­¼³Á¤µî·Ï
+			oFilter.AddEx("PH_PY123"); //°¡¾Ğ·ùµî·Ï
+			oFilter.AddEx("PH_PY124"); //º£³×ÇÇ¾Æ ±İ¾× µî·Ï
+			oFilter.AddEx("PH_PY130"); //ÆÀº° ¼º°ú±ŞÂ÷µî µî±Şµî·Ï
+			oFilter.AddEx("PH_PY131"); //¼º°ú±ŞÂ÷µî °è¼öµî·Ï
+			oFilter.AddEx("PH_PY132"); //¼º°ú±ŞÂ÷ °³ÀÎº° °è»ê
+			oFilter.AddEx("PH_PY133"); //¿¬ºÀÁ¦ È½Â÷ °ü¸®
+			oFilter.AddEx("PH_PY134"); //¼Òµæ¼¼/ÁÖ¹Î¼¼ Á¶Á¤°ü¸®
+			oFilter.AddEx("PH_PY129"); //°³ÀÎº°ÅğÁ÷¿¬±İ(DCÇü) °è»ê
+            oFilter.AddEx("PH_PY135"); //±Ş»ó¿©ºĞ°³Ã³¸®
+            oFilter.AddEx("PH_PY136"); //±Ş»ó¿©ºĞ°³Ã³¸® ¹èºÎ±ÔÄ¢¼³Á¤
 
-            //ê¸‰ì—¬ê´€ë¦¬ - ë¦¬í¬íŠ¸
-            oFilter.AddEx("PH_PY625"); //ì„¸íƒìëª…ë¶€
-			oFilter.AddEx("PH_PY630"); //ì‚¬ì›ë³„ë…¸ì¡°ë¹„ê³µì œí˜„í™©
-			oFilter.AddEx("PH_PY700"); //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY710"); //ìƒì—¬ì§€ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY715"); //ê¸‰ì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY720"); //ìƒì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY725"); //ê¸‰ì—¬ì§ê¸‰ë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY740"); //ìƒì—¬ì§ê¸‰ë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY730"); //ê¸‰ì—¬ë´‰íˆ¬ì¶œë ¥
-			oFilter.AddEx("PH_PY735"); //ìƒì—¬ë´‰íˆ¬ì¶œë ¥
-			oFilter.AddEx("PH_PY745"); //ì—°ê°„ì§€ê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY750"); //ê·¼ë¡œì†Œë“ì§•ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY755"); //ë™í˜¸íšŒê°€ì…í˜„í™©
-			oFilter.AddEx("PH_PY760"); //í‰ê· ì„ê¸ˆë°í‡´ì§ê¸ˆì‚°ì¶œë‚´ì—­ì„œ
-			oFilter.AddEx("PH_PY765"); //ê¸‰ì—¬ì¦ê°ë‚´ì—­ì„œ
-			oFilter.AddEx("PH_PY770"); //í‡´ì§ì†Œë“ì›ì²œì§•ìˆ˜ì˜ìˆ˜ì¦ì¶œë ¥
-			oFilter.AddEx("PH_PY775"); //ê°œì¸ë³„ë…„ì°¨í˜„í™©
-			oFilter.AddEx("PH_PY776"); //ì”ì—¬ë…„ì°¨í˜„í™©
-			oFilter.AddEx("PH_PY780"); //ì›”ê³ ìš©ë³´í—˜ë‚´ì—­
-			oFilter.AddEx("PH_PY785"); //ì›”êµ­ë¯¼ì—°ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY790"); //ì›”ê±´ê°•ë³´í—˜ë‚´ì—­
-			oFilter.AddEx("PH_PY795"); //ì—°ê°„ë¶€ì„œë³„ê¸‰ì—¬ë‚´ì—­
-			oFilter.AddEx("PH_PY800"); //ì¸ê±´ë¹„ì§€ê¸‰ìë£Œ
-			oFilter.AddEx("PH_PY805"); //ê¸‰ì—¬ìˆ˜ë‹¹ë³€ë™ë‚´ì—­
-			oFilter.AddEx("PH_PY810"); //ì§ê¸‰ë³„í†µìƒì„ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY815"); //í‰ê· ì„ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY820"); //í†µìƒì„ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY825"); //ì „ë¬¸ì§O/Tí˜„í™©
-			oFilter.AddEx("PH_PY830"); //ë¶€ì„œë³„ì¸ê±´ë¹„í˜„í™© (ê¸°íš)
-			oFilter.AddEx("PH_PY835"); //ì§ê¸‰ë³„O/Të°ìˆ˜ë‹¹í˜„í™©
-			oFilter.AddEx("PH_PY840"); //í’ì‚°ì „ìê³µì‹œìë£Œ
-			oFilter.AddEx("PH_PY845"); //ê¸°ê°„ë³„ê¸‰ì—¬ì§€ê¸‰ë‚´ì—­
-			oFilter.AddEx("PH_PY850"); //ì†Œê¸‰ë¶„ì§€ê¸‰ëª…ì„¸ì„œ
-			oFilter.AddEx("PH_PY855"); //ê°œì¸ë³„ì„ê¸ˆì§€ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY865"); //ê³ ìš©ë³´í—˜í˜„í™© (ê³„ì‚°ìš©)
-			oFilter.AddEx("PH_PY870"); //ë‹´ë‹¹ë³„ì›”O/Të°ìˆ˜ë‹¹í˜„í™©
-			oFilter.AddEx("PH_PY875"); //ì§ê¸‰ë³„ìˆ˜ë‹¹ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY716"); //ê¸°ê°„ë³„ê¸‰ì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY721"); //ê¸°ê°„ë³„ìƒì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY717"); //ê¸°ê°„ë³„ê¸‰ì—¬ë°˜ë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY718"); //ìƒì‚°ì™„ë£Œê¸ˆì•¡ëŒ€ë¹„O/Tí˜„í™©
-			oFilter.AddEx("PH_PY701"); //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥ (ë…¸ì¡°ìš©)
+            //±Ş¿©°ü¸® - ¸®Æ÷Æ®
+            oFilter.AddEx("PH_PY625"); //¼¼Å¹ÀÚ¸íºÎ
+			oFilter.AddEx("PH_PY630"); //»ç¿øº°³ëÁ¶ºñ°øÁ¦ÇöÈ²
+			oFilter.AddEx("PH_PY700"); //±Ş¿©Áö±Ş´ëÀå
+			oFilter.AddEx("PH_PY710"); //»ó¿©Áö±Ş´ëÀå
+			oFilter.AddEx("PH_PY715"); //±Ş¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY720"); //»ó¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY725"); //±Ş¿©Á÷±Şº°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY740"); //»ó¿©Á÷±Şº°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY730"); //±Ş¿©ºÀÅõÃâ·Â
+			oFilter.AddEx("PH_PY735"); //»ó¿©ºÀÅõÃâ·Â
+			oFilter.AddEx("PH_PY745"); //¿¬°£Áö±ŞÇöÈ²
+			oFilter.AddEx("PH_PY750"); //±Ù·Î¼ÒµæÂ¡¼öÇöÈ²
+			oFilter.AddEx("PH_PY755"); //µ¿È£È¸°¡ÀÔÇöÈ²
+			oFilter.AddEx("PH_PY760"); //Æò±ÕÀÓ±İ¹×ÅğÁ÷±İ»êÃâ³»¿ª¼­
+			oFilter.AddEx("PH_PY765"); //±Ş¿©Áõ°¨³»¿ª¼­
+			oFilter.AddEx("PH_PY770"); //ÅğÁ÷¼Òµæ¿øÃµÂ¡¼ö¿µ¼öÁõÃâ·Â
+			oFilter.AddEx("PH_PY775"); //°³ÀÎº°³âÂ÷ÇöÈ²
+			oFilter.AddEx("PH_PY776"); //ÀÜ¿©³âÂ÷ÇöÈ²
+			oFilter.AddEx("PH_PY780"); //¿ù°í¿ëº¸Çè³»¿ª
+			oFilter.AddEx("PH_PY785"); //¿ù±¹¹Î¿¬±İ³»¿ª
+			oFilter.AddEx("PH_PY790"); //¿ù°Ç°­º¸Çè³»¿ª
+			oFilter.AddEx("PH_PY795"); //¿¬°£ºÎ¼­º°±Ş¿©³»¿ª
+			oFilter.AddEx("PH_PY800"); //ÀÎ°ÇºñÁö±ŞÀÚ·á
+			oFilter.AddEx("PH_PY805"); //±Ş¿©¼ö´çº¯µ¿³»¿ª
+			oFilter.AddEx("PH_PY810"); //Á÷±Şº°Åë»óÀÓ±İ³»¿ª
+			oFilter.AddEx("PH_PY815"); //Æò±ÕÀÓ±İ³»¿ª
+			oFilter.AddEx("PH_PY820"); //Åë»óÀÓ±İ³»¿ª
+			oFilter.AddEx("PH_PY825"); //Àü¹®Á÷O/TÇöÈ²
+			oFilter.AddEx("PH_PY830"); //ºÎ¼­º°ÀÎ°ÇºñÇöÈ² (±âÈ¹)
+			oFilter.AddEx("PH_PY835"); //Á÷±Şº°O/T¹×¼ö´çÇöÈ²
+			oFilter.AddEx("PH_PY840"); //Ç³»êÀüÀÚ°ø½ÃÀÚ·á
+			oFilter.AddEx("PH_PY845"); //±â°£º°±Ş¿©Áö±Ş³»¿ª
+			oFilter.AddEx("PH_PY850"); //¼Ò±ŞºĞÁö±Ş¸í¼¼¼­
+			oFilter.AddEx("PH_PY855"); //°³ÀÎº°ÀÓ±İÁö±Ş´ëÀå
+			oFilter.AddEx("PH_PY865"); //°í¿ëº¸ÇèÇöÈ² (°è»ê¿ë)
+			oFilter.AddEx("PH_PY870"); //´ã´çº°¿ùO/T¹×¼ö´çÇöÈ²
+			oFilter.AddEx("PH_PY875"); //Á÷±Şº°¼ö´çÁı°è´ëÀå
+			oFilter.AddEx("PH_PY716"); //±â°£º°±Ş¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY721"); //±â°£º°»ó¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY717"); //±â°£º°±Ş¿©¹İº°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY718"); //»ı»ê¿Ï·á±İ¾×´ëºñO/TÇöÈ²
+			oFilter.AddEx("PH_PY701"); //±Ş¿©Áö±Ş´ëÀå (³ëÁ¶¿ë)
 
-			oFilter.AddEx("PH_PYA10"); //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA20"); //ê¸‰ì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA30"); //ìƒì—¬ì§€ê¸‰ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA40"); //ìƒì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA50"); //DCì „í™˜ìë¶€ë‹´ê¸ˆì§€ê¸‰ë‚´ì—­
-			oFilter.AddEx("PH_PYA75"); //êµí†µë¹„ì™¸ìˆ˜ë‹¹ì§€ê¸‰ëŒ€ì¥
-            oFilter.AddEx("PH_PYA80"); //ê·¼ë¬´ì‹œê°„í‘œì¶œë ¥
-            oFilter.AddEx("PH_PYA90"); //ê·¼ë¡œì†Œë“ê°„ì´ì§€ê¸‰ëª…ì„¸ì„œ(ì„¸ë¬´ì„œì‹ ê³ íŒŒì¼ìƒì„±)
-            oFilter.AddEx("PH_PY526"); //ì„ê¸ˆí”¼í¬ì¸ì›í˜„í™©
-            oFilter.AddEx("PH_PY999"); //ì‚¬ìš©ìê¶Œí•œê´€ë¦¬
+			oFilter.AddEx("PH_PYA10"); //±Ş¿©Áö±Ş´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA20"); //±Ş¿©ºÎ¼­º°Áı°è´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA30"); //»ó¿©Áö±Ş´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA40"); //»ó¿©ºÎ¼­º°Áı°è´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA50"); //DCÀüÈ¯ÀÚºÎ´ã±İÁö±Ş³»¿ª
+			oFilter.AddEx("PH_PYA75"); //±³Åëºñ¿Ü¼ö´çÁö±Ş´ëÀå
+            oFilter.AddEx("PH_PYA80"); //±Ù¹«½Ã°£Ç¥Ãâ·Â
+            oFilter.AddEx("PH_PYA90"); //±Ù·Î¼Òµæ°£ÀÌÁö±Ş¸í¼¼¼­(¼¼¹«¼­½Å°íÆÄÀÏ»ı¼º)
+            oFilter.AddEx("PH_PY526"); //ÀÓ±İÇÇÅ©ÀÎ¿øÇöÈ²
+            oFilter.AddEx("PH_PY999"); //»ç¿ëÀÚ±ÇÇÑ°ü¸®
 
-            //ì •ì‚°ê´€ë¦¬
-            oFilter.AddEx("PH_PY401"); //ì „ê·¼ë¬´ì§€ë“±ë¡
-			oFilter.AddEx("PH_PY402"); //ì •ì‚°ê¸°ì´ˆìë£Œ ë“±ë¡
-			oFilter.AddEx("PH_PY405"); //ì˜ë£Œë¹„ë“±ë¡
-			oFilter.AddEx("PH_PY407"); //ê¸°ë¶€ê¸ˆë“±ë¡
-			oFilter.AddEx("PH_PY409"); //ê¸°ë¶€ê¸ˆì¡°ì •ëª…ì„¸ë“±ë¡
-			oFilter.AddEx("PH_PY411"); //ì—°ê¸ˆ.ì €ì¶•ë“±ì†Œë“ê³µì œë“±ë¡
-			oFilter.AddEx("PH_PY413"); //ì›”ì„¸ì•¡.ì£¼íƒì„ì°¨ì°¨ì…ê¸ˆìë£Œ ë“±ë¡
-			oFilter.AddEx("PH_PY415"); //ì •ì‚°ê³„ì‚°
-			oFilter.AddEx("PH_PY417"); //ì •ì‚° ì€í–‰íŒŒì¼ìƒì„±
-			oFilter.AddEx("PH_PY980"); //ì‹ ê³ _ê·¼ë¡œì†Œë“ì§€ê¸‰ëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY985"); //ì‹ ê³ _ì˜ë£Œë¹„ì§€ê¸‰ëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY990"); //ì‹ ê³ _ê¸°ë¶€ê¸ˆëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY995"); //ì‹ ê³ _í‡´ì§ì†Œë“ì§€ê¸‰ëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY419"); //í‘œì¤€ì„¸ì•¡ì ìš©ëŒ€ìƒìë“±ë¡
 
-			oFilter.AddEx("PH_PY910"); //ì†Œë“ê³µì œì‹ ê³ ì„œì¶œë ¥
-			oFilter.AddEx("PH_PY915"); //ê·¼ë¡œì†Œë“ì›ì²œì§•ìˆ˜ë¶€ì¶œë ¥
-			oFilter.AddEx("PH_PY920"); //ì›ì²œì§•ìˆ˜ì˜ìˆ˜ì¦ì¶œë ¥
-			oFilter.AddEx("PH_PY925"); //ê¸°ë¶€ê¸ˆëª…ì„¸ì„œì¶œë ¥
-			oFilter.AddEx("PH_PY930"); //ì •ì‚°ì§•ìˆ˜ë°í™˜ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY931"); //í‘œì¤€ì„¸ì•¡ì ìš©ëŒ€ìƒìì¡°íšŒ
-			oFilter.AddEx("PH_PY932"); //ì „ê·¼ë¬´ì§€ë“±ë¡í˜„í™©
-			oFilter.AddEx("PH_PY933"); //ë³´ìˆ˜ì´ì•¡ì‹ ê³ ê¸°ì´ˆìë£Œ
-			oFilter.AddEx("PH_PYA55"); //ì •ì‚°ì§•ìˆ˜ë°í™˜ê¸‰ëŒ€ì¥(ì§‘ê³„)
-			oFilter.AddEx("PH_PYA70"); //ì†Œë“ì„¸ì›ì²œì§•ìˆ˜ì„¸ì•¡ì¡°ì •ì‹ ì²­ì„œì¶œë ¥
+			//Á¤»ê°ü¸®
+			oFilter.AddEx("PH_PY401"); //Àü±Ù¹«Áöµî·Ï
+			oFilter.AddEx("PH_PY402"); //Á¤»ê±âÃÊÀÚ·á µî·Ï
+			oFilter.AddEx("PH_PY405"); //ÀÇ·áºñµî·Ï
+			oFilter.AddEx("PH_PY407"); //±âºÎ±İµî·Ï
+			oFilter.AddEx("PH_PY409"); //±âºÎ±İÁ¶Á¤¸í¼¼µî·Ï
+			oFilter.AddEx("PH_PY411"); //¿¬±İ.ÀúÃàµî¼Òµæ°øÁ¦µî·Ï
+			oFilter.AddEx("PH_PY413"); //¿ù¼¼¾×.ÁÖÅÃÀÓÂ÷Â÷ÀÔ±İÀÚ·á µî·Ï
+			oFilter.AddEx("PH_PY415"); //Á¤»ê°è»ê
+			oFilter.AddEx("PH_PY417"); //Á¤»ê ÀºÇàÆÄÀÏ»ı¼º
+			oFilter.AddEx("PH_PY980"); //½Å°í_±Ù·Î¼ÒµæÁö±Ş¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY985"); //½Å°í_ÀÇ·áºñÁö±Ş¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY990"); //½Å°í_±âºÎ±İ¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY995"); //½Å°í_ÅğÁ÷¼ÒµæÁö±Ş¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY419"); //Ç¥ÁØ¼¼¾×Àû¿ë´ë»óÀÚµî·Ï
 
-			oFilter.AddEx("ZPY341"); //ì›”ë³„ ì •ì‚°ìë£Œ ìƒì„±
-			oFilter.AddEx("ZPY343"); //ì›”ë³„ ìë£Œ ê´€ë¦¬
-			oFilter.AddEx("ZPY421"); //í‡´ì§ì†Œë“ì „ì‚°ë§¤ì²´ìˆ˜ë¡
-			oFilter.AddEx("ZPY501"); //ì†Œë“ê³µì œí•­ëª© ë“±ë¡
-			oFilter.AddEx("ZPY502"); //ì¢…(ì „) ê·¼ë¬´ì§€ ë“±ë¡
-			oFilter.AddEx("ZPY503"); //ì •ì‚°ì„¸ì•¡ê³„ì‚°
-			oFilter.AddEx("ZPY504"); //ì •ì‚°ê²°ê³¼ì¡°íšŒ
-			oFilter.AddEx("ZPY505"); //ê¸°ë¶€ê¸ˆëª…ì„¸ë“±ë¡
-			oFilter.AddEx("ZPY506"); //ì˜ë£Œë¹„ëª…ì„¸ë“±ë¡
-			oFilter.AddEx("ZPY507"); //ì •ì‚°ê²°ê³¼ì¡°íšŒ(ì „ì²´)
-			oFilter.AddEx("ZPY508"); //ì—°ê¸ˆì €ì¶• ì†Œë“ê³µì œ ëª…ì„¸ ë“±ë¡
-			oFilter.AddEx("ZPY509"); //ì •ì‚°ìë£Œ ë§ˆê°ì‘ì—…
-			oFilter.AddEx("ZPY510"); //ì¢…ì „ê·¼ë¬´ì§€ ì¼ê´„ìƒì„±
-			oFilter.AddEx("ZPY521"); //ê·¼ë¡œì†Œë“ì „ì‚°ë§¤ì²´ìˆ˜ë¡
-			oFilter.AddEx("ZPY522"); //ì˜ë£Œë¹„ ê¸°ë¶€ê¸ˆ ì „ì‚°ë§¤ì²´ìˆ˜ë¡
+			oFilter.AddEx("PH_PY910"); //¼Òµæ°øÁ¦½Å°í¼­Ãâ·Â
+			oFilter.AddEx("PH_PY915"); //±Ù·Î¼Òµæ¿øÃµÂ¡¼öºÎÃâ·Â
+			oFilter.AddEx("PH_PY920"); //¿øÃµÂ¡¼ö¿µ¼öÁõÃâ·Â
+			oFilter.AddEx("PH_PY925"); //±âºÎ±İ¸í¼¼¼­Ãâ·Â
+			oFilter.AddEx("PH_PY930"); //Á¤»êÂ¡¼ö¹×È¯±Ş´ëÀå
+			oFilter.AddEx("PH_PY931"); //Ç¥ÁØ¼¼¾×Àû¿ë´ë»óÀÚÁ¶È¸
+			oFilter.AddEx("PH_PY932"); //Àü±Ù¹«Áöµî·ÏÇöÈ²
+			oFilter.AddEx("PH_PY933"); //º¸¼öÃÑ¾×½Å°í±âÃÊÀÚ·á
+			oFilter.AddEx("PH_PYA55"); //Á¤»êÂ¡¼ö¹×È¯±Ş´ëÀå(Áı°è)
+			oFilter.AddEx("PH_PYA70"); //¼Òµæ¼¼¿øÃµÂ¡¼ö¼¼¾×Á¶Á¤½ÅÃ»¼­Ãâ·Â
 
-			//ê¸°íƒ€ê´€ë¦¬
-			oFilter.AddEx("PH_PY301"); //í•™ìê¸ˆì‹ ì²­ë“±ë¡
-			oFilter.AddEx("PH_PY305"); //í•™ìê¸ˆì‹ ì²­ì„œ
-			oFilter.AddEx("PH_PY306"); //í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ê°œì¸ë³„)
-			oFilter.AddEx("PH_PY309"); //ëŒ€ë¶€ê¸ˆë“±ë¡
-			oFilter.AddEx("PH_PY310"); //ëŒ€ë¶€ê¸ˆê°œë³„ìƒí™˜
-			oFilter.AddEx("PH_PY311"); //í†µê·¼ë²„ìŠ¤ìš´í–‰ë“±ë¡
-			oFilter.AddEx("PH_PY313"); //ëŒ€ë¶€ê¸ˆê³„ì‚°
-			oFilter.AddEx("PH_PY314"); //ëŒ€ë¶€ê¸ˆê³„ì‚° ë‚´ì—­ ì¡°íšŒ(ê¸‰ì—¬ë³€ë™ìë£Œìš©)
-			oFilter.AddEx("PH_PY030"); //ê³µìš©ë“±ë¡
-			oFilter.AddEx("PH_PY031"); //ì¶œì¥ë“±ë¡
-			oFilter.AddEx("PH_PY032"); //ì‚¬ìš©ì™¸ì¶œë“±ë¡
-			oFilter.AddEx("PH_PY315"); //ê°œì¸ë³„ëŒ€ë¶€ê¸ˆì”ì•¡í˜„í™©
-			oFilter.AddEx("PH_PY034"); //ê³µìš©ë¶„ê°œì²˜ë¦¬
-			oFilter.AddEx("PH_PYA60"); //í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ì§‘ê³„)
+			oFilter.AddEx("ZPY341"); //¿ùº° Á¤»êÀÚ·á »ı¼º
+			oFilter.AddEx("ZPY343"); //¿ùº° ÀÚ·á °ü¸®
+			oFilter.AddEx("ZPY421"); //ÅğÁ÷¼ÒµæÀü»ê¸ÅÃ¼¼ö·Ï
+			oFilter.AddEx("ZPY501"); //¼Òµæ°øÁ¦Ç×¸ñ µî·Ï
+			oFilter.AddEx("ZPY502"); //Á¾(Àü) ±Ù¹«Áö µî·Ï
+			oFilter.AddEx("ZPY503"); //Á¤»ê¼¼¾×°è»ê
+			oFilter.AddEx("ZPY504"); //Á¤»ê°á°úÁ¶È¸
+			oFilter.AddEx("ZPY505"); //±âºÎ±İ¸í¼¼µî·Ï
+			oFilter.AddEx("ZPY506"); //ÀÇ·áºñ¸í¼¼µî·Ï
+			oFilter.AddEx("ZPY507"); //Á¤»ê°á°úÁ¶È¸(ÀüÃ¼)
+			oFilter.AddEx("ZPY508"); //¿¬±İÀúÃà ¼Òµæ°øÁ¦ ¸í¼¼ µî·Ï
+			oFilter.AddEx("ZPY509"); //Á¤»êÀÚ·á ¸¶°¨ÀÛ¾÷
+			oFilter.AddEx("ZPY510"); //Á¾Àü±Ù¹«Áö ÀÏ°ı»ı¼º
+			oFilter.AddEx("ZPY521"); //±Ù·Î¼ÒµæÀü»ê¸ÅÃ¼¼ö·Ï
+			oFilter.AddEx("ZPY522"); //ÀÇ·áºñ ±âºÎ±İ Àü»ê¸ÅÃ¼¼ö·Ï
+
+			//±âÅ¸°ü¸®
+			oFilter.AddEx("PH_PY301"); //ÇĞÀÚ±İ½ÅÃ»µî·Ï
+			oFilter.AddEx("PH_PY305"); //ÇĞÀÚ±İ½ÅÃ»¼­
+			oFilter.AddEx("PH_PY306"); //ÇĞÀÚ±İ½ÅÃ»³»¿ª(°³ÀÎº°)
+			oFilter.AddEx("PH_PY309"); //´ëºÎ±İµî·Ï
+			oFilter.AddEx("PH_PY310"); //´ëºÎ±İ°³º°»óÈ¯
+			oFilter.AddEx("PH_PY311"); //Åë±Ù¹ö½º¿îÇàµî·Ï
+			oFilter.AddEx("PH_PY313"); //´ëºÎ±İ°è»ê
+			oFilter.AddEx("PH_PY314"); //´ëºÎ±İ°è»ê ³»¿ª Á¶È¸(±Ş¿©º¯µ¿ÀÚ·á¿ë)
+			oFilter.AddEx("PH_PY030"); //°ø¿ëµî·Ï
+			oFilter.AddEx("PH_PY031"); //ÃâÀåµî·Ï
+			oFilter.AddEx("PH_PY032"); //»ç¿ë¿ÜÃâµî·Ï
+			oFilter.AddEx("PH_PY315"); //°³ÀÎº°´ëºÎ±İÀÜ¾×ÇöÈ²
+			oFilter.AddEx("PH_PY034"); //°ø¿ëºĞ°³Ã³¸®
+			oFilter.AddEx("PH_PYA60"); //ÇĞÀÚ±İ½ÅÃ»³»¿ª(Áı°è)
+			oFilter.AddEx("PS_DateChange"); //³¯Â¥ ¼öÁ¤ µî·Ï
+			oFilter.AddEx("PS_DateCommit"); //³¯Â¥ ½ÂÀÎ
         }
 
 		private static void MATRIX_LOAD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1469,70 +1483,70 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD);
 
 			//System Form Type
-            //ìš´ì˜ê´€ë¦¬
-			//íŒë§¤ê´€ë¦¬
-			//êµ¬ë§¤ê´€ë¦¬
-			//ì¬ê³ ê´€ë¦¬
-			//ìƒì‚°ê´€ë¦¬
+            //¿î¿µ°ü¸®
+			//ÆÇ¸Å°ü¸®
+			//±¸¸Å°ü¸®
+			//Àç°í°ü¸®
+			//»ı»ê°ü¸®
 
 			//AddOn Form Type
-			//ìš´ì˜ê´€ë¦¬
-			oFilter.AddEx("PH_PY000"); //ì‚¬ìš©ìê¶Œí•œê´€ë¦¬
+			//¿î¿µ°ü¸®
+			oFilter.AddEx("PH_PY000"); //»ç¿ëÀÚ±ÇÇÑ°ü¸®
 
-			//ì¸ì‚¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY001"); //ì¸ì‚¬ë§ˆìŠ¤í„° ë“±ë¡
-			oFilter.AddEx("PH_PY002"); //ê·¼íƒœì‹œê°„êµ¬ë¶„ ë“±ë¡
-			oFilter.AddEx("PH_PY003"); //ê·¼íƒœì›”ë ¥ì„¤ì •
-			oFilter.AddEx("PH_PY018"); //íœ´ì¼ê·¼ë¬´ì²´í¬(ì—°ë´‰ì œ)
+			//ÀÎ»ç°ü¸®
+			oFilter.AddEx("PH_PY001"); //ÀÎ»ç¸¶½ºÅÍ µî·Ï
+			oFilter.AddEx("PH_PY002"); //±ÙÅÂ½Ã°£±¸ºĞ µî·Ï
+			oFilter.AddEx("PH_PY003"); //±ÙÅÂ¿ù·Â¼³Á¤
+			oFilter.AddEx("PH_PY018"); //ÈŞÀÏ±Ù¹«Ã¼Å©(¿¬ºÀÁ¦)
 
-			oFilter.AddEx("PH_PY201"); //ì •ë…„ì„ë°•ì íœ´ê°€ê²½ë¹„ ë“±ë¡
-			oFilter.AddEx("PH_PY203"); //êµìœ¡ì‹¤ì ë“±ë¡
-			oFilter.AddEx("PH_PY204"); //êµìœ¡ê³„íšë“±ë¡
-			oFilter.AddEx("PH_PY205"); //êµìœ¡ê³„íšVSì‹¤ì ì¡°íšŒ
+			oFilter.AddEx("PH_PY201"); //Á¤³âÀÓ¹ÚÀÚ ÈŞ°¡°æºñ µî·Ï
+			oFilter.AddEx("PH_PY203"); //±³À°½ÇÀûµî·Ï
+			oFilter.AddEx("PH_PY204"); //±³À°°èÈ¹µî·Ï
+			oFilter.AddEx("PH_PY205"); //±³À°°èÈ¹VS½ÇÀûÁ¶È¸
 
-			//ê¸‰ì—¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY100"); //ê¸°ì¤€ì„¸ì•¡ì„¤ì •
-			oFilter.AddEx("PH_PY101"); //ë³´í—˜ë¥ ë“±ë¡
-			oFilter.AddEx("PH_PY102"); //ìˆ˜ë‹¹í•­ëª©ì„¤ì •
-			oFilter.AddEx("PH_PY103"); //ê³µì œí•­ëª©ì„¤ì •
-			oFilter.AddEx("PH_PY105"); //í˜¸ë´‰ë“±ë¡í‘œ
-			oFilter.AddEx("PH_PY106"); //ìˆ˜ë‹¹ê³„ì‚°ì‹ì„¤ì •
-			oFilter.AddEx("PH_PY107"); //ê¸‰ìƒì—¬ê¸°ì¤€ì¼ì„¤ì •
-			oFilter.AddEx("PH_PY109"); //ê¸‰ìƒì—¬ë³€ë™ìë£Œë“±ë¡
-			oFilter.AddEx("PH_PY109_1"); //ê¸‰ìƒì—¬ë³€ë™ìë£Œ í•­ëª©ìˆ˜ì •
-			oFilter.AddEx("PH_PY110"); //ê°œì¸ìƒì—¬ìœ¨ë“±ë¡
-			oFilter.AddEx("PH_PY114"); //í‡´ì§ê¸ˆê¸°ì¤€ì„¤ì •
-			oFilter.AddEx("PH_PY121"); //í‰ê°€ê°€ê¸‰ì•¡ ë“±ë¡
-			oFilter.AddEx("PH_PY122"); //ê¸‰ìƒì—¬ì¶œë ¥ ê°œì¸ë¶€ì„œì„¤ì •ë“±ë¡
-			oFilter.AddEx("PH_PY124"); //ë² ë„¤í”¼ì•„ ê¸ˆì•¡ ë“±ë¡
-			oFilter.AddEx("PH_PY130"); //íŒ€ë³„ ì„±ê³¼ê¸‰ì°¨ë“± ë“±ê¸‰ë“±ë¡
-			oFilter.AddEx("PH_PY131"); //ì„±ê³¼ê¸‰ì°¨ë“± ê³„ìˆ˜ë“±ë¡
-			oFilter.AddEx("PH_PY132"); //ì„±ê³¼ê¸‰ì°¨ ê°œì¸ë³„ ê³„ì‚°
-			oFilter.AddEx("PH_PY133"); //ì—°ë´‰ì œ íšŸì°¨ ê´€ë¦¬
-			oFilter.AddEx("PH_PY134"); //ì†Œë“ì„¸/ì£¼ë¯¼ì„¸ ì¡°ì •ê´€ë¦¬
-			oFilter.AddEx("PH_PY129"); //ê°œì¸ë³„í‡´ì§ì—°ê¸ˆ(DCí˜•) ê³„ì‚°
-            oFilter.AddEx("PH_PY135"); //ê¸‰ìƒì—¬ë¶„ê°œì²˜ë¦¬
-            oFilter.AddEx("PH_PY136"); //ê¸‰ìƒì—¬ë¶„ê°œì²˜ë¦¬ ë°°ë¶€ê·œì¹™ì„¤ì •
+			//±Ş¿©°ü¸®
+			oFilter.AddEx("PH_PY100"); //±âÁØ¼¼¾×¼³Á¤
+			oFilter.AddEx("PH_PY101"); //º¸Çè·üµî·Ï
+			oFilter.AddEx("PH_PY102"); //¼ö´çÇ×¸ñ¼³Á¤
+			oFilter.AddEx("PH_PY103"); //°øÁ¦Ç×¸ñ¼³Á¤
+			oFilter.AddEx("PH_PY105"); //È£ºÀµî·ÏÇ¥
+			oFilter.AddEx("PH_PY106"); //¼ö´ç°è»ê½Ä¼³Á¤
+			oFilter.AddEx("PH_PY107"); //±Ş»ó¿©±âÁØÀÏ¼³Á¤
+			oFilter.AddEx("PH_PY109"); //±Ş»ó¿©º¯µ¿ÀÚ·áµî·Ï
+			oFilter.AddEx("PH_PY109_1"); //±Ş»ó¿©º¯µ¿ÀÚ·á Ç×¸ñ¼öÁ¤
+			oFilter.AddEx("PH_PY110"); //°³ÀÎ»ó¿©À²µî·Ï
+			oFilter.AddEx("PH_PY114"); //ÅğÁ÷±İ±âÁØ¼³Á¤
+			oFilter.AddEx("PH_PY121"); //Æò°¡°¡±Ş¾× µî·Ï
+			oFilter.AddEx("PH_PY122"); //±Ş»ó¿©Ãâ·Â °³ÀÎºÎ¼­¼³Á¤µî·Ï
+			oFilter.AddEx("PH_PY124"); //º£³×ÇÇ¾Æ ±İ¾× µî·Ï
+			oFilter.AddEx("PH_PY130"); //ÆÀº° ¼º°ú±ŞÂ÷µî µî±Şµî·Ï
+			oFilter.AddEx("PH_PY131"); //¼º°ú±ŞÂ÷µî °è¼öµî·Ï
+			oFilter.AddEx("PH_PY132"); //¼º°ú±ŞÂ÷ °³ÀÎº° °è»ê
+			oFilter.AddEx("PH_PY133"); //¿¬ºÀÁ¦ È½Â÷ °ü¸®
+			oFilter.AddEx("PH_PY134"); //¼Òµæ¼¼/ÁÖ¹Î¼¼ Á¶Á¤°ü¸®
+			oFilter.AddEx("PH_PY129"); //°³ÀÎº°ÅğÁ÷¿¬±İ(DCÇü) °è»ê
+            oFilter.AddEx("PH_PY135"); //±Ş»ó¿©ºĞ°³Ã³¸®
+            oFilter.AddEx("PH_PY136"); //±Ş»ó¿©ºĞ°³Ã³¸® ¹èºÎ±ÔÄ¢¼³Á¤
 
-            //ì •ì‚°ê´€ë¦¬
-            oFilter.AddEx("ZPY343"); //ì›”ë³„ ìë£Œ ê´€ë¦¬
-			oFilter.AddEx("ZPY501"); //ì†Œë“ê³µì œí•­ëª© ë“±ë¡
-			oFilter.AddEx("ZPY502"); //ì¢…(ì „) ê·¼ë¬´ì§€ ë“±ë¡
-			oFilter.AddEx("ZPY505"); //ê¸°ë¶€ê¸ˆëª…ì„¸ë“±ë¡
-			oFilter.AddEx("ZPY506"); //ì˜ë£Œë¹„ëª…ì„¸ë“±ë¡
-			oFilter.AddEx("ZPY508"); //ì—°ê¸ˆì €ì¶• ì†Œë“ê³µì œ ëª…ì„¸ ë“±ë¡
-			oFilter.AddEx("ZPY509"); //ì •ì‚°ìë£Œ ë§ˆê°ì‘ì—…
+            //Á¤»ê°ü¸®
+            oFilter.AddEx("ZPY343"); //¿ùº° ÀÚ·á °ü¸®
+			oFilter.AddEx("ZPY501"); //¼Òµæ°øÁ¦Ç×¸ñ µî·Ï
+			oFilter.AddEx("ZPY502"); //Á¾(Àü) ±Ù¹«Áö µî·Ï
+			oFilter.AddEx("ZPY505"); //±âºÎ±İ¸í¼¼µî·Ï
+			oFilter.AddEx("ZPY506"); //ÀÇ·áºñ¸í¼¼µî·Ï
+			oFilter.AddEx("ZPY508"); //¿¬±İÀúÃà ¼Òµæ°øÁ¦ ¸í¼¼ µî·Ï
+			oFilter.AddEx("ZPY509"); //Á¤»êÀÚ·á ¸¶°¨ÀÛ¾÷
 
-			//ê¸°íƒ€ê´€ë¦¬
-			oFilter.AddEx("PH_PY301"); //í•™ìê¸ˆì‹ ì²­ë“±ë¡
-			oFilter.AddEx("PH_PY309"); //ëŒ€ë¶€ê¸ˆë“±ë¡
-			oFilter.AddEx("PH_PY310"); //ëŒ€ë¶€ê¸ˆê°œë³„ìƒí™˜
-			oFilter.AddEx("PH_PY311"); //í†µê·¼ë²„ìŠ¤ìš´í–‰ë“±ë¡
-			oFilter.AddEx("PH_PY313"); //ëŒ€ë¶€ê¸ˆê³„ì‚°
-			oFilter.AddEx("PH_PY012"); //ì¶œì¥ë“±ë¡
-			oFilter.AddEx("PH_PY315"); //ê°œì¸ë³„ëŒ€ë¶€ê¸ˆì”ì•¡í˜„í™©
-			oFilter.AddEx("PH_PY034"); //ê³µìš©ë¶„ê°œì²˜ë¦¬
-			oFilter.AddEx("PH_PYA60"); //í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ì§‘ê³„)
+			//±âÅ¸°ü¸®
+			oFilter.AddEx("PH_PY301"); //ÇĞÀÚ±İ½ÅÃ»µî·Ï
+			oFilter.AddEx("PH_PY309"); //´ëºÎ±İµî·Ï
+			oFilter.AddEx("PH_PY310"); //´ëºÎ±İ°³º°»óÈ¯
+			oFilter.AddEx("PH_PY311"); //Åë±Ù¹ö½º¿îÇàµî·Ï
+			oFilter.AddEx("PH_PY313"); //´ëºÎ±İ°è»ê
+			oFilter.AddEx("PH_PY012"); //ÃâÀåµî·Ï
+			oFilter.AddEx("PH_PY315"); //°³ÀÎº°´ëºÎ±İÀÜ¾×ÇöÈ²
+			oFilter.AddEx("PH_PY034"); //°ø¿ëºĞ°³Ã³¸®
+			oFilter.AddEx("PH_PYA60"); //ÇĞÀÚ±İ½ÅÃ»³»¿ª(Áı°è)
         }
 
 		private static void DATASOURCE_LOAD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1540,18 +1554,18 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD);
 
 			//System Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//íŒë§¤ê´€ë¦¬
-			//êµ¬ë§¤ê´€ë¦¬
-			//ì¬ê³ ê´€ë¦¬
-			//ìƒì‚°ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÆÇ¸Å°ü¸®
+			//±¸¸Å°ü¸®
+			//Àç°í°ü¸®
+			//»ı»ê°ü¸®
 
 			//AddOn Form Type
-            //ìš´ì˜ê´€ë¦¬
-			//íŒë§¤ê´€ë¦¬
-			//êµ¬ë§¤ê´€ë¦¬
-			//ì¬ê³ ê´€ë¦¬
-			//ìƒì‚°ê´€ë¦¬
+            //¿î¿µ°ü¸®
+			//ÆÇ¸Å°ü¸®
+			//±¸¸Å°ü¸®
+			//Àç°í°ü¸®
+			//»ı»ê°ü¸®
 		}
 
 		private static void Form_Load(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1559,266 +1573,269 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_LOAD);
 
 			//System Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-			//ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+			//Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 
 			//AddOn Form Type
-			//ìš´ì˜ê´€ë¦¬
-			oFilter.AddEx("PH_PY000"); //ì‚¬ìš©ìê¶Œí•œê´€ë¦¬
+			//¿î¿µ°ü¸®
+			oFilter.AddEx("PH_PY000"); //»ç¿ëÀÚ±ÇÇÑ°ü¸®
 
-			//ì¸ì‚¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY001"); //ì¸ì‚¬ë§ˆìŠ¤í„° ë“±ë¡
-			oFilter.AddEx("PH_PY002"); //ê·¼íƒœì‹œê°„êµ¬ë¶„ ë“±ë¡
-			oFilter.AddEx("PH_PY003"); //ê·¼íƒœì›”ë ¥ì„¤ì •
-			oFilter.AddEx("PH_PY004"); //ê·¼ë¬´ì¡°í¸ì„±ë“±ë¡
-			oFilter.AddEx("PH_PY005"); //ì‚¬ì—…ì¥ì •ë³´ë“±ë¡
-			oFilter.AddEx("PH_PY006"); //ìŠ¹í˜¸ì‘ì—…ë“±ë¡
-			oFilter.AddEx("PH_PY007"); //ìœ ë¥˜ë‹¨ê°€ë“±ë¡
-			oFilter.AddEx("PH_PY008"); //ì¼ê·¼íƒœë“±ë¡
-			oFilter.AddEx("PH_PY009"); //ê¸°ì°°ìë£ŒUPLOAD
-			oFilter.AddEx("PH_PY010"); //ì¼ì¼ê·¼íƒœì²˜ë¦¬
-			oFilter.AddEx("PH_PY011"); //ì „ë¬¸ì§ í˜¸ì¹­ ì¼ê´„ ë³€ê²½(2013.07.05 ì†¡ëª…ê·œ ì¶”ê°€)
-			oFilter.AddEx("PH_PY013"); //ìœ„í•´ì¼ìˆ˜ê³„ì‚°
-			oFilter.AddEx("PH_PY014"); //ìœ„í•´ì¼ìˆ˜ìˆ˜ì •
-			oFilter.AddEx("PH_PY015"); //ì—°ì°¨ì ì¹˜ë“±ë¡
-			oFilter.AddEx("PH_PY016"); //ê¸°ë³¸ì—…ë¬´ë“±ë¡
-			oFilter.AddEx("PH_PY017"); //ì›”ê·¼íƒœì§‘ê³„
-			oFilter.AddEx("PH_PY018"); //íœ´ì¼ê·¼ë¬´ì²´í¬(ì—°ë´‰ì œ)
-			oFilter.AddEx("PH_PY019"); //ë°˜ë³€ê²½ë“±ë¡
-			oFilter.AddEx("PH_PY020"); //ì¼ê·¼íƒœ ì—…ë¬´ë³€ê²½ë“±ë¡
-			oFilter.AddEx("PH_PY021"); //ì‚¬ì›ë¹„ìƒì—°ë½ì²˜ê´€ë¦¬
-			oFilter.AddEx("PH_PY201"); //ì •ë…„ì„ë°•ì íœ´ê°€ê²½ë¹„ ë“±ë¡
-			oFilter.AddEx("PH_PY203"); //êµìœ¡ì‹¤ì ë“±ë¡
-			oFilter.AddEx("PH_PY204"); //êµìœ¡ê³„íšë“±ë¡
-			oFilter.AddEx("PH_PY205"); //êµìœ¡ê³„íšVSì‹¤ì ì¡°íšŒ
+			//ÀÎ»ç°ü¸®
+			oFilter.AddEx("PH_PY001"); //ÀÎ»ç¸¶½ºÅÍ µî·Ï
+			oFilter.AddEx("PH_PY002"); //±ÙÅÂ½Ã°£±¸ºĞ µî·Ï
+			oFilter.AddEx("PH_PY003"); //±ÙÅÂ¿ù·Â¼³Á¤
+			oFilter.AddEx("PH_PY004"); //±Ù¹«Á¶Æí¼ºµî·Ï
+			oFilter.AddEx("PH_PY005"); //»ç¾÷ÀåÁ¤º¸µî·Ï
+			oFilter.AddEx("PH_PY006"); //½ÂÈ£ÀÛ¾÷µî·Ï
+			oFilter.AddEx("PH_PY007"); //À¯·ù´Ü°¡µî·Ï
+			oFilter.AddEx("PH_PY008"); //ÀÏ±ÙÅÂµî·Ï
+			oFilter.AddEx("PH_PY009"); //±âÂûÀÚ·áUPLOAD
+			oFilter.AddEx("PH_PY010"); //ÀÏÀÏ±ÙÅÂÃ³¸®
+			oFilter.AddEx("PH_PY011"); //Àü¹®Á÷ È£Äª ÀÏ°ı º¯°æ(2013.07.05 ¼Û¸í±Ô Ãß°¡)
+			oFilter.AddEx("PH_PY013"); //À§ÇØÀÏ¼ö°è»ê
+			oFilter.AddEx("PH_PY014"); //À§ÇØÀÏ¼ö¼öÁ¤
+			oFilter.AddEx("PH_PY015"); //¿¬Â÷ÀûÄ¡µî·Ï
+			oFilter.AddEx("PH_PY016"); //±âº»¾÷¹«µî·Ï
+			oFilter.AddEx("PH_PY017"); //¿ù±ÙÅÂÁı°è
+			oFilter.AddEx("PH_PY018"); //ÈŞÀÏ±Ù¹«Ã¼Å©(¿¬ºÀÁ¦)
+			oFilter.AddEx("PH_PY019"); //¹İº¯°æµî·Ï
+			oFilter.AddEx("PH_PY020"); //ÀÏ±ÙÅÂ ¾÷¹«º¯°æµî·Ï
+			oFilter.AddEx("PH_PY021"); //»ç¿øºñ»ó¿¬¶ôÃ³°ü¸®
+			oFilter.AddEx("PH_PY201"); //Á¤³âÀÓ¹ÚÀÚ ÈŞ°¡°æºñ µî·Ï
+			oFilter.AddEx("PH_PY203"); //±³À°½ÇÀûµî·Ï
+			oFilter.AddEx("PH_PY204"); //±³À°°èÈ¹µî·Ï
+			oFilter.AddEx("PH_PY205"); //±³À°°èÈ¹VS½ÇÀûÁ¶È¸
 
-			//ì¸ì‚¬ - ë¦¬í¬íŠ¸
-			oFilter.AddEx("PH_PY501"); //ì—¬ê¶Œë°œê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY505"); //ì…ì‚¬ìëŒ€ì¥
-			oFilter.AddEx("PH_PY510"); //ì‚¬ì›ëª…ë¶€
-			oFilter.AddEx("PH_PY515"); //ì¬ì§ìì‚¬ì›ëª…ë¶€
-			oFilter.AddEx("PH_PY520"); //í‡´ì§ë°í‡´ì§ì˜ˆì •ìëŒ€ì¥
-			oFilter.AddEx("PH_PY525"); //í•™ë ¥ë³„ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY530"); //ì—°ë ¹ë³„ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY535"); //ê·¼ì†ë…„ìˆ˜ë³„ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY540"); //ì¸ì›í˜„í™©(ëŒ€ì™¸ìš©)
-			oFilter.AddEx("PH_PY545"); //ì¸ì›í˜„í™©(ëŒ€ë‚´ìš©)
-			oFilter.AddEx("PH_PY550"); //ì „ì²´ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY555"); //ì¼ì¼ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY560"); //ì¼ì¶œê·¼í˜„í™©
-			oFilter.AddEx("PH_PY565"); //ì—°ì¥ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY570"); //ì—°ì¥/íœ´ì¼ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY575"); //ê·¼íƒœê¸°ì°°í˜„í™©
-			oFilter.AddEx("PH_PY580"); //ê°œì¸ë³„ê·¼íƒœì›”ë³´
-			oFilter.AddEx("PH_PY585"); //ì¼ì¼ì¶œê·¼ê¸°ë¡ë¶€
-			oFilter.AddEx("PH_PY590"); //ê¸°ê°„ë³„ê·¼íƒœì§‘ê³„í‘œ
-			oFilter.AddEx("PH_PY595"); //ê·¼ì†ë…„ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY600"); //ì¼ìë³„ì—°ì¥ê·¼ë¬´í˜„í™©
-			oFilter.AddEx("PH_PY605"); //ê·¼ì†ë³´ì „íœ´ê°€ë°œìƒë°ì‚¬ìš©ë‚´ì—­
-			oFilter.AddEx("PH_PY610"); //ê·¼íƒœêµ¬ë¶„ë³„ì‚¬ìš©ë‚´ì—­
-			oFilter.AddEx("PH_PY615"); //ë‹¹ì§ê·¼ë¬´í˜„í™©
-			oFilter.AddEx("PH_PY620"); //ì—°ë´‰ì œíœ´ì¼ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY635"); //ì—¬í–‰,êµìœ¡ìí˜„í™©
-			oFilter.AddEx("PH_PY640"); //êµ­ë¯¼ì—°ê¸ˆí‡´ì§ì „í™˜ê¸ˆí˜„í™©
-			oFilter.AddEx("PH_PY645"); //ìê²©ìˆ˜ë‹¹ì§€ê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY650"); //ë…¸ë™ì¡°í•©ê°„ë¶€í˜„í™©
-			oFilter.AddEx("PH_PY655"); //ë³´í›ˆëŒ€ìƒìí˜„í™©
-			oFilter.AddEx("PH_PY660"); //ì¥ì• ê·¼ë¡œìí˜„í™©
-			oFilter.AddEx("PH_PY665"); //ì‚¬ì›ìë…€í˜„í™©
-			oFilter.AddEx("PH_PY670"); //ê°œì¸ë³„ì°¨ëŸ‰í˜„í™©
-			oFilter.AddEx("PH_PY675"); //ê·¼ë¬´í¸ì„±í˜„í™©
-			oFilter.AddEx("PH_PY676"); //ê·¼íƒœì‹œê°„ë‚´ì—­ì¡°íšŒ
-			oFilter.AddEx("PH_PY677"); //ì¼ì¼ê·¼íƒœì´ìƒìì¡°íšŒ
-			oFilter.AddEx("PH_PY679"); //ê°œì¸ë³„ ê·¼íƒœì§‘ê³„ ì¡°íšŒ
-			oFilter.AddEx("PH_PY680"); //ìƒë²Œí˜„í™©
-			oFilter.AddEx("PH_PY685"); //í¬ìƒê°€ê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY690"); //ìƒì¼ìí˜„í™©
-			oFilter.AddEx("PH_PY695"); //ì¸ì‚¬ê¸°ë¡ì¹´ë“œ
-			oFilter.AddEx("PH_PY705"); //êµí†µë¹„ì§€ê¸‰ê·¼íƒœí™•ì¸
-			oFilter.AddEx("PH_PY860"); //í˜¸ë´‰í‘œì¡°íšŒ
-			oFilter.AddEx("PH_PY503"); //ìŠ¹ì§„ëŒ€ìƒìëª…ë¶€
-			oFilter.AddEx("PH_PY678"); //ë‹¹ì§ê·¼ë¬´ì ì¼ê´„ ë“±ë¡
-			oFilter.AddEx("PH_PY507"); //íœ´ì§ìí˜„í™©
-			oFilter.AddEx("PH_PY681"); //ë¹„ê·¼ë¬´ì¼ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY935"); //ì •ê¸°ìŠ¹í˜¸í˜„í™©
-			oFilter.AddEx("PH_PY551"); //í‰ê· ì¸ì›ì¡°íšŒ
-			oFilter.AddEx("PH_PY508"); //ì¬ì§ì¦ëª… ë“±ë¡ ë° ë°œê¸‰
-			oFilter.AddEx("PH_PY522"); //ì„ê¸ˆí”¼í¬ëŒ€ìƒìí˜„í™©
-			oFilter.AddEx("PH_PY523"); //ì„ê¸ˆí”¼í¬ëŒ€ìƒìì›”ë³„ì°¨ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY524"); //í‡´ì§ê¸ˆ ì¤‘ê°„ ì •ì‚° ë‚´ì—­
-			oFilter.AddEx("PH_PY683"); //êµëŒ€ê·¼ë¬´ì¸ì •í˜„í™©
-			oFilter.AddEx("PH_PYA65"); //ë…„ì°¨í˜„í™© (ì§‘ê³„)
-			oFilter.AddEx("PH_PY583"); //ê°œì¸ë³„ ê·¼íƒœì§‘ê³„ ì¡°íšŒ
+			//ÀÎ»ç - ¸®Æ÷Æ®
+			oFilter.AddEx("PH_PY501"); //¿©±Ç¹ß±ŞÇöÈ²
+			oFilter.AddEx("PH_PY505"); //ÀÔ»çÀÚ´ëÀå
+			oFilter.AddEx("PH_PY510"); //»ç¿ø¸íºÎ
+			oFilter.AddEx("PH_PY515"); //ÀçÁ÷ÀÚ»ç¿ø¸íºÎ
+			oFilter.AddEx("PH_PY520"); //ÅğÁ÷¹×ÅğÁ÷¿¹Á¤ÀÚ´ëÀå
+			oFilter.AddEx("PH_PY525"); //ÇĞ·Âº°ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY530"); //¿¬·Éº°ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY535"); //±Ù¼Ó³â¼öº°ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY540"); //ÀÎ¿øÇöÈ²(´ë¿Ü¿ë)
+			oFilter.AddEx("PH_PY545"); //ÀÎ¿øÇöÈ²(´ë³»¿ë)
+			oFilter.AddEx("PH_PY550"); //ÀüÃ¼ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY555"); //ÀÏÀÏ±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY560"); //ÀÏÃâ±ÙÇöÈ²
+			oFilter.AddEx("PH_PY565"); //¿¬Àå±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY570"); //¿¬Àå/ÈŞÀÏ±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY575"); //±ÙÅÂ±âÂûÇöÈ²
+			oFilter.AddEx("PH_PY580"); //°³ÀÎº°±ÙÅÂ¿ùº¸
+			oFilter.AddEx("PH_PY585"); //ÀÏÀÏÃâ±Ù±â·ÏºÎ
+			oFilter.AddEx("PH_PY590"); //±â°£º°±ÙÅÂÁı°èÇ¥
+			oFilter.AddEx("PH_PY595"); //±Ù¼Ó³â¼öÇöÈ²
+			oFilter.AddEx("PH_PY600"); //ÀÏÀÚº°¿¬Àå±Ù¹«ÇöÈ²
+			oFilter.AddEx("PH_PY605"); //±Ù¼Óº¸ÀüÈŞ°¡¹ß»ı¹×»ç¿ë³»¿ª
+			oFilter.AddEx("PH_PY610"); //±ÙÅÂ±¸ºĞº°»ç¿ë³»¿ª
+			oFilter.AddEx("PH_PY615"); //´çÁ÷±Ù¹«ÇöÈ²
+			oFilter.AddEx("PH_PY620"); //¿¬ºÀÁ¦ÈŞÀÏ±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY635"); //¿©Çà,±³À°ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY640"); //±¹¹Î¿¬±İÅğÁ÷ÀüÈ¯±İÇöÈ²
+			oFilter.AddEx("PH_PY645"); //ÀÚ°İ¼ö´çÁö±ŞÇöÈ²
+			oFilter.AddEx("PH_PY650"); //³ëµ¿Á¶ÇÕ°£ºÎÇöÈ²
+			oFilter.AddEx("PH_PY655"); //º¸ÈÆ´ë»óÀÚÇöÈ²
+			oFilter.AddEx("PH_PY660"); //Àå¾Ö±Ù·ÎÀÚÇöÈ²
+			oFilter.AddEx("PH_PY665"); //»ç¿øÀÚ³àÇöÈ²
+			oFilter.AddEx("PH_PY670"); //°³ÀÎº°Â÷·®ÇöÈ²
+			oFilter.AddEx("PH_PY675"); //±Ù¹«Æí¼ºÇöÈ²
+			oFilter.AddEx("PH_PY676"); //±ÙÅÂ½Ã°£³»¿ªÁ¶È¸
+			oFilter.AddEx("PH_PY677"); //ÀÏÀÏ±ÙÅÂÀÌ»óÀÚÁ¶È¸
+			oFilter.AddEx("PH_PY679"); //°³ÀÎº° ±ÙÅÂÁı°è Á¶È¸
+			oFilter.AddEx("PH_PY680"); //»ó¹úÇöÈ²
+			oFilter.AddEx("PH_PY685"); //Æ÷»ó°¡±ŞÇöÈ²
+			oFilter.AddEx("PH_PY690"); //»ıÀÏÀÚÇöÈ²
+			oFilter.AddEx("PH_PY695"); //ÀÎ»ç±â·ÏÄ«µå
+			oFilter.AddEx("PH_PY705"); //±³ÅëºñÁö±Ş±ÙÅÂÈ®ÀÎ
+			oFilter.AddEx("PH_PY860"); //È£ºÀÇ¥Á¶È¸
+			oFilter.AddEx("PH_PY503"); //½ÂÁø´ë»óÀÚ¸íºÎ
+			oFilter.AddEx("PH_PY678"); //´çÁ÷±Ù¹«ÀÚ ÀÏ°ı µî·Ï
+			oFilter.AddEx("PH_PY507"); //ÈŞÁ÷ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY681"); //ºñ±Ù¹«ÀÏ¼öÇöÈ²
+			oFilter.AddEx("PH_PY935"); //Á¤±â½ÂÈ£ÇöÈ²
+			oFilter.AddEx("PH_PY551"); //Æò±ÕÀÎ¿øÁ¶È¸
+			oFilter.AddEx("PH_PY508"); //ÀçÁ÷Áõ¸í µî·Ï ¹× ¹ß±Ş
+			oFilter.AddEx("PH_PY522"); //ÀÓ±İÇÇÅ©´ë»óÀÚÇöÈ²
+			oFilter.AddEx("PH_PY523"); //ÀÓ±İÇÇÅ©´ë»óÀÚ¿ùº°Â÷¼öÇöÈ²
+			oFilter.AddEx("PH_PY524"); //ÅğÁ÷±İ Áß°£ Á¤»ê ³»¿ª
+			oFilter.AddEx("PH_PY683"); //±³´ë±Ù¹«ÀÎÁ¤ÇöÈ²
+			oFilter.AddEx("PH_PYA65"); //³âÂ÷ÇöÈ² (Áı°è)
+			oFilter.AddEx("PH_PY583"); //°³ÀÎº° ±ÙÅÂÁı°è Á¶È¸
 
-			//ê¸‰ì—¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY100"); //ê¸°ì¤€ì„¸ì•¡ì„¤ì •
-			oFilter.AddEx("PH_PY101"); //ë³´í—˜ë¥ ë“±ë¡
-			oFilter.AddEx("PH_PY102"); //ìˆ˜ë‹¹í•­ëª©ì„¤ì •
-			oFilter.AddEx("PH_PY103"); //ê³µì œí•­ëª©ì„¤ì •
-			oFilter.AddEx("PH_PY104"); //ê³ ì •ìˆ˜ë‹¹ê³µì œê¸ˆì•¡ì¼ê´„ë“±ë¡
-			oFilter.AddEx("PH_PY105"); //í˜¸ë´‰í‘œë“±ë¡
-			oFilter.AddEx("PH_PY106"); //ìˆ˜ë‹¹ê³„ì‚°ì‹ì„¤ì •
-			oFilter.AddEx("PH_PY107"); //ê¸‰ìƒì—¬ê¸°ì¤€ì¼ì„¤ì •
-			oFilter.AddEx("PH_PY108"); //ìƒì—¬ìœ¨ì§€ê¸‰ì„¤ì •
-			oFilter.AddEx("PH_PY109"); //ê¸‰ìƒì—¬ë³€ë™ìë£Œë“±ë¡
-			oFilter.AddEx("PH_PY109_1"); //ê¸‰ìƒì—¬ë³€ë™ìë£Œ í•­ëª©ìˆ˜ì •
-			oFilter.AddEx("PH_PY110"); //ê°œì¸ìƒì—¬ìœ¨ë“±ë¡
-			oFilter.AddEx("PH_PY111"); //ê¸‰ìƒì—¬ê³„ì‚°
-			oFilter.AddEx("PH_PY112"); //ê¸‰ìƒì—¬ìë£Œê´€ë¦¬
-			oFilter.AddEx("PH_PY113"); //ê¸‰ìƒì—¬ë¶„ê°œìë£Œìƒì„±
-			oFilter.AddEx("PH_PY114"); //í‡´ì§ê¸ˆê¸°ì¤€ì„¤ì •
-			oFilter.AddEx("PH_PY115"); //í‡´ì§ê¸ˆê³„ì‚°
-			oFilter.AddEx("PH_PY116"); //í‡´ì§ê¸ˆë¶„ê°œìë£Œìƒì„±
-			oFilter.AddEx("PH_PY117"); //ê¸‰ìƒì—¬ë§ˆê°ì‘ì—…
-			oFilter.AddEx("PH_PY118"); //ê¸‰ìƒì—¬Emailë°œì†¡
-			oFilter.AddEx("PH_PY119"); //ê¸‰ìƒì—¬ì€í–‰íŒŒì¼ìƒì„±
-			oFilter.AddEx("PH_PY120"); //ê¸‰ìƒì—¬ì†Œê¸‰ì§‘ê³„ì²˜ë¦¬
-			oFilter.AddEx("PH_PY121"); //í‰ê°€ê°€ê¸‰ì•¡ ë“±ë¡
-			oFilter.AddEx("PH_PY122"); //ê¸‰ìƒì—¬ì¶œë ¥ ê°œì¸ë¶€ì„œì„¤ì •ë“±ë¡
-			oFilter.AddEx("PH_PY123"); //ê°€ì••ë¥˜ë“±ë¡
-			oFilter.AddEx("PH_PY124"); //ë² ë„¤í”¼ì•„ ê¸ˆì•¡ ë“±ë¡
-			oFilter.AddEx("PH_PY125"); //í‡´ì§ì—°ê¸ˆ ì„¤ì •
-			oFilter.AddEx("PH_PY127"); //ê°œì¸ë³„ 4ëŒ€ë³´í—˜ ë³´ìˆ˜ì›”ì•¡ ë° ì •ì‚°ê¸ˆì•¡ì…ë ¥
-			oFilter.AddEx("PH_PY130"); //íŒ€ë³„ ì„±ê³¼ê¸‰ì°¨ë“± ë“±ê¸‰ë“±ë¡
-			oFilter.AddEx("PH_PY131"); //ì„±ê³¼ê¸‰ì°¨ë“± ê³„ìˆ˜ë“±ë¡
-			oFilter.AddEx("PH_PY132"); //ì„±ê³¼ê¸‰ì°¨ ê°œì¸ë³„ ê³„ì‚°
-			oFilter.AddEx("PH_PY133"); //ì—°ë´‰ì œ íšŸì°¨ ê´€ë¦¬
-			oFilter.AddEx("PH_PY134"); //ì†Œë“ì„¸/ì£¼ë¯¼ì„¸ ì¡°ì •ê´€ë¦¬
-			oFilter.AddEx("PH_PY129"); //ê°œì¸ë³„í‡´ì§ì—°ê¸ˆ(DCí˜•) ê³„ì‚°
-            oFilter.AddEx("PH_PY135"); //ê¸‰ìƒì—¬ë¶„ê°œì²˜ë¦¬
-            oFilter.AddEx("PH_PY136"); //ê¸‰ìƒì—¬ë¶„ê°œì²˜ë¦¬ ë°°ë¶€ê·œì¹™ì„¤ì •
+			//±Ş¿©°ü¸®
+			oFilter.AddEx("PH_PY100"); //±âÁØ¼¼¾×¼³Á¤
+			oFilter.AddEx("PH_PY101"); //º¸Çè·üµî·Ï
+			oFilter.AddEx("PH_PY102"); //¼ö´çÇ×¸ñ¼³Á¤
+			oFilter.AddEx("PH_PY103"); //°øÁ¦Ç×¸ñ¼³Á¤
+			oFilter.AddEx("PH_PY104"); //°íÁ¤¼ö´ç°øÁ¦±İ¾×ÀÏ°ıµî·Ï
+			oFilter.AddEx("PH_PY105"); //È£ºÀÇ¥µî·Ï
+			oFilter.AddEx("PH_PY106"); //¼ö´ç°è»ê½Ä¼³Á¤
+			oFilter.AddEx("PH_PY107"); //±Ş»ó¿©±âÁØÀÏ¼³Á¤
+			oFilter.AddEx("PH_PY108"); //»ó¿©À²Áö±Ş¼³Á¤
+			oFilter.AddEx("PH_PY109"); //±Ş»ó¿©º¯µ¿ÀÚ·áµî·Ï
+			oFilter.AddEx("PH_PY109_1"); //±Ş»ó¿©º¯µ¿ÀÚ·á Ç×¸ñ¼öÁ¤
+			oFilter.AddEx("PH_PY110"); //°³ÀÎ»ó¿©À²µî·Ï
+			oFilter.AddEx("PH_PY111"); //±Ş»ó¿©°è»ê
+			oFilter.AddEx("PH_PY112"); //±Ş»ó¿©ÀÚ·á°ü¸®
+			oFilter.AddEx("PH_PY113"); //±Ş»ó¿©ºĞ°³ÀÚ·á»ı¼º
+			oFilter.AddEx("PH_PY114"); //ÅğÁ÷±İ±âÁØ¼³Á¤
+			oFilter.AddEx("PH_PY115"); //ÅğÁ÷±İ°è»ê
+			oFilter.AddEx("PH_PY116"); //ÅğÁ÷±İºĞ°³ÀÚ·á»ı¼º
+			oFilter.AddEx("PH_PY117"); //±Ş»ó¿©¸¶°¨ÀÛ¾÷
+			oFilter.AddEx("PH_PY118"); //±Ş»ó¿©Email¹ß¼Û
+			oFilter.AddEx("PH_PY119"); //±Ş»ó¿©ÀºÇàÆÄÀÏ»ı¼º
+			oFilter.AddEx("PH_PY120"); //±Ş»ó¿©¼Ò±ŞÁı°èÃ³¸®
+			oFilter.AddEx("PH_PY121"); //Æò°¡°¡±Ş¾× µî·Ï
+			oFilter.AddEx("PH_PY122"); //±Ş»ó¿©Ãâ·Â °³ÀÎºÎ¼­¼³Á¤µî·Ï
+			oFilter.AddEx("PH_PY123"); //°¡¾Ğ·ùµî·Ï
+			oFilter.AddEx("PH_PY124"); //º£³×ÇÇ¾Æ ±İ¾× µî·Ï
+			oFilter.AddEx("PH_PY125"); //ÅğÁ÷¿¬±İ ¼³Á¤
+			oFilter.AddEx("PH_PY127"); //°³ÀÎº° 4´ëº¸Çè º¸¼ö¿ù¾× ¹× Á¤»ê±İ¾×ÀÔ·Â
+			oFilter.AddEx("PH_PY130"); //ÆÀº° ¼º°ú±ŞÂ÷µî µî±Şµî·Ï
+			oFilter.AddEx("PH_PY131"); //¼º°ú±ŞÂ÷µî °è¼öµî·Ï
+			oFilter.AddEx("PH_PY132"); //¼º°ú±ŞÂ÷ °³ÀÎº° °è»ê
+			oFilter.AddEx("PH_PY133"); //¿¬ºÀÁ¦ È½Â÷ °ü¸®
+			oFilter.AddEx("PH_PY134"); //¼Òµæ¼¼/ÁÖ¹Î¼¼ Á¶Á¤°ü¸®
+			oFilter.AddEx("PH_PY129"); //°³ÀÎº°ÅğÁ÷¿¬±İ(DCÇü) °è»ê
+            oFilter.AddEx("PH_PY135"); //±Ş»ó¿©ºĞ°³Ã³¸®
+            oFilter.AddEx("PH_PY136"); //±Ş»ó¿©ºĞ°³Ã³¸® ¹èºÎ±ÔÄ¢¼³Á¤
 
-            //ê¸‰ì—¬ê´€ë¦¬ - ë¦¬í¬íŠ¸
-            oFilter.AddEx("PH_PY625"); //ì„¸íƒìëª…ë¶€
-			oFilter.AddEx("PH_PY630"); //ì‚¬ì›ë³„ë…¸ì¡°ë¹„ê³µì œí˜„í™©
-			oFilter.AddEx("PH_PY700"); //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY710"); //ìƒì—¬ì§€ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY715"); //ê¸‰ì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY720"); //ìƒì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY725"); //ê¸‰ì—¬ì§ê¸‰ë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY740"); //ìƒì—¬ì§ê¸‰ë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY730"); //ê¸‰ì—¬ë´‰íˆ¬ì¶œë ¥
-			oFilter.AddEx("PH_PY735"); //ìƒì—¬ë´‰íˆ¬ì¶œë ¥
-			oFilter.AddEx("PH_PY745"); //ì—°ê°„ì§€ê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY750"); //ê·¼ë¡œì†Œë“ì§•ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY755"); //ë™í˜¸íšŒê°€ì…í˜„í™©
-			oFilter.AddEx("PH_PY760"); //í‰ê· ì„ê¸ˆë°í‡´ì§ê¸ˆì‚°ì¶œë‚´ì—­ì„œ
-			oFilter.AddEx("PH_PY765"); //ê¸‰ì—¬ì¦ê°ë‚´ì—­ì„œ
-			oFilter.AddEx("PH_PY770"); //í‡´ì§ì†Œë“ì›ì²œì§•ìˆ˜ì˜ìˆ˜ì¦ì¶œë ¥
-			oFilter.AddEx("PH_PY775"); //ê°œì¸ë³„ë…„ì°¨í˜„í™©
-			oFilter.AddEx("PH_PY776"); //ì”ì—¬ë…„ì°¨í˜„í™©
-			oFilter.AddEx("PH_PY780"); //ì›”ê³ ìš©ë³´í—˜ë‚´ì—­
-			oFilter.AddEx("PH_PY785"); //ì›”êµ­ë¯¼ì—°ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY790"); //ì›”ê±´ê°•ë³´í—˜ë‚´ì—­
-			oFilter.AddEx("PH_PY795"); //ì—°ê°„ë¶€ì„œë³„ê¸‰ì—¬ë‚´ì—­
-			oFilter.AddEx("PH_PY800"); //ì¸ê±´ë¹„ì§€ê¸‰ìë£Œ
-			oFilter.AddEx("PH_PY805"); //ê¸‰ì—¬ìˆ˜ë‹¹ë³€ë™ë‚´ì—­
-			oFilter.AddEx("PH_PY810"); //ì§ê¸‰ë³„í†µìƒì„ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY815"); //í‰ê· ì„ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY820"); //í†µìƒì„ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY825"); //ì „ë¬¸ì§O/Tí˜„í™©
-			oFilter.AddEx("PH_PY830"); //ë¶€ì„œë³„ì¸ê±´ë¹„í˜„í™© (ê¸°íš)
-			oFilter.AddEx("PH_PY835"); //ì§ê¸‰ë³„O/Të°ìˆ˜ë‹¹í˜„í™©
-			oFilter.AddEx("PH_PY840"); //í’ì‚°ì „ìê³µì‹œìë£Œ
-			oFilter.AddEx("PH_PY845"); //ê¸°ê°„ë³„ê¸‰ì—¬ì§€ê¸‰ë‚´ì—­
-			oFilter.AddEx("PH_PY850"); //ì†Œê¸‰ë¶„ì§€ê¸‰ëª…ì„¸ì„œ
-			oFilter.AddEx("PH_PY855"); //ê°œì¸ë³„ì„ê¸ˆì§€ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY865"); //ê³ ìš©ë³´í—˜í˜„í™© (ê³„ì‚°ìš©)
-			oFilter.AddEx("PH_PY870"); //ë‹´ë‹¹ë³„ì›”O/Të°ìˆ˜ë‹¹í˜„í™©
-			oFilter.AddEx("PH_PY875"); //ì§ê¸‰ë³„ìˆ˜ë‹¹ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY716"); //ê¸°ê°„ë³„ê¸‰ì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY721"); //ê¸°ê°„ë³„ìƒì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY717"); //ê¸°ê°„ë³„ê¸‰ì—¬ë°˜ë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY718"); //ìƒì‚°ì™„ë£Œê¸ˆì•¡ëŒ€ë¹„O/Tí˜„í™©
-			oFilter.AddEx("PH_PY701"); //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥ (ë…¸ì¡°ìš©)
+            //±Ş¿©°ü¸® - ¸®Æ÷Æ®
+            oFilter.AddEx("PH_PY625"); //¼¼Å¹ÀÚ¸íºÎ
+			oFilter.AddEx("PH_PY630"); //»ç¿øº°³ëÁ¶ºñ°øÁ¦ÇöÈ²
+			oFilter.AddEx("PH_PY700"); //±Ş¿©Áö±Ş´ëÀå
+			oFilter.AddEx("PH_PY710"); //»ó¿©Áö±Ş´ëÀå
+			oFilter.AddEx("PH_PY715"); //±Ş¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY720"); //»ó¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY725"); //±Ş¿©Á÷±Şº°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY740"); //»ó¿©Á÷±Şº°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY730"); //±Ş¿©ºÀÅõÃâ·Â
+			oFilter.AddEx("PH_PY735"); //»ó¿©ºÀÅõÃâ·Â
+			oFilter.AddEx("PH_PY745"); //¿¬°£Áö±ŞÇöÈ²
+			oFilter.AddEx("PH_PY750"); //±Ù·Î¼ÒµæÂ¡¼öÇöÈ²
+			oFilter.AddEx("PH_PY755"); //µ¿È£È¸°¡ÀÔÇöÈ²
+			oFilter.AddEx("PH_PY760"); //Æò±ÕÀÓ±İ¹×ÅğÁ÷±İ»êÃâ³»¿ª¼­
+			oFilter.AddEx("PH_PY765"); //±Ş¿©Áõ°¨³»¿ª¼­
+			oFilter.AddEx("PH_PY770"); //ÅğÁ÷¼Òµæ¿øÃµÂ¡¼ö¿µ¼öÁõÃâ·Â
+			oFilter.AddEx("PH_PY775"); //°³ÀÎº°³âÂ÷ÇöÈ²
+			oFilter.AddEx("PH_PY776"); //ÀÜ¿©³âÂ÷ÇöÈ²
+			oFilter.AddEx("PH_PY780"); //¿ù°í¿ëº¸Çè³»¿ª
+			oFilter.AddEx("PH_PY785"); //¿ù±¹¹Î¿¬±İ³»¿ª
+			oFilter.AddEx("PH_PY790"); //¿ù°Ç°­º¸Çè³»¿ª
+			oFilter.AddEx("PH_PY795"); //¿¬°£ºÎ¼­º°±Ş¿©³»¿ª
+			oFilter.AddEx("PH_PY800"); //ÀÎ°ÇºñÁö±ŞÀÚ·á
+			oFilter.AddEx("PH_PY805"); //±Ş¿©¼ö´çº¯µ¿³»¿ª
+			oFilter.AddEx("PH_PY810"); //Á÷±Şº°Åë»óÀÓ±İ³»¿ª
+			oFilter.AddEx("PH_PY815"); //Æò±ÕÀÓ±İ³»¿ª
+			oFilter.AddEx("PH_PY820"); //Åë»óÀÓ±İ³»¿ª
+			oFilter.AddEx("PH_PY825"); //Àü¹®Á÷O/TÇöÈ²
+			oFilter.AddEx("PH_PY830"); //ºÎ¼­º°ÀÎ°ÇºñÇöÈ² (±âÈ¹)
+			oFilter.AddEx("PH_PY835"); //Á÷±Şº°O/T¹×¼ö´çÇöÈ²
+			oFilter.AddEx("PH_PY840"); //Ç³»êÀüÀÚ°ø½ÃÀÚ·á
+			oFilter.AddEx("PH_PY845"); //±â°£º°±Ş¿©Áö±Ş³»¿ª
+			oFilter.AddEx("PH_PY850"); //¼Ò±ŞºĞÁö±Ş¸í¼¼¼­
+			oFilter.AddEx("PH_PY855"); //°³ÀÎº°ÀÓ±İÁö±Ş´ëÀå
+			oFilter.AddEx("PH_PY865"); //°í¿ëº¸ÇèÇöÈ² (°è»ê¿ë)
+			oFilter.AddEx("PH_PY870"); //´ã´çº°¿ùO/T¹×¼ö´çÇöÈ²
+			oFilter.AddEx("PH_PY875"); //Á÷±Şº°¼ö´çÁı°è´ëÀå
+			oFilter.AddEx("PH_PY716"); //±â°£º°±Ş¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY721"); //±â°£º°»ó¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY717"); //±â°£º°±Ş¿©¹İº°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY718"); //»ı»ê¿Ï·á±İ¾×´ëºñO/TÇöÈ²
+			oFilter.AddEx("PH_PY701"); //±Ş¿©Áö±Ş´ëÀå (³ëÁ¶¿ë)
 
-			oFilter.AddEx("PH_PYA10"); //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA20"); //ê¸‰ì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA30"); //ìƒì—¬ì§€ê¸‰ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA40"); //ìƒì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA50"); //DCì „í™˜ìë¶€ë‹´ê¸ˆì§€ê¸‰ë‚´ì—­
-			oFilter.AddEx("PH_PYA75"); //êµí†µë¹„ì™¸ìˆ˜ë‹¹ì§€ê¸‰ëŒ€ì¥
-            oFilter.AddEx("PH_PYA80"); //ê·¼ë¬´ì‹œê°„í‘œì¶œë ¥
-            oFilter.AddEx("PH_PYA90"); //ê·¼ë¡œì†Œë“ê°„ì´ì§€ê¸‰ëª…ì„¸ì„œ(ì„¸ë¬´ì„œì‹ ê³ íŒŒì¼ìƒì„±)
-            oFilter.AddEx("PH_PY526"); //ì„ê¸ˆí”¼í¬ì¸ì›í˜„í™©
-            oFilter.AddEx("PH_PY999"); //ì‚¬ìš©ìê¶Œí•œê´€ë¦¬
+			oFilter.AddEx("PH_PYA10"); //±Ş¿©Áö±Ş´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA20"); //±Ş¿©ºÎ¼­º°Áı°è´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA30"); //»ó¿©Áö±Ş´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA40"); //»ó¿©ºÎ¼­º°Áı°è´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA50"); //DCÀüÈ¯ÀÚºÎ´ã±İÁö±Ş³»¿ª
+			oFilter.AddEx("PH_PYA75"); //±³Åëºñ¿Ü¼ö´çÁö±Ş´ëÀå
+            oFilter.AddEx("PH_PYA80"); //±Ù¹«½Ã°£Ç¥Ãâ·Â
+            oFilter.AddEx("PH_PYA90"); //±Ù·Î¼Òµæ°£ÀÌÁö±Ş¸í¼¼¼­(¼¼¹«¼­½Å°íÆÄÀÏ»ı¼º)
+            oFilter.AddEx("PH_PY526"); //ÀÓ±İÇÇÅ©ÀÎ¿øÇöÈ²
+            oFilter.AddEx("PH_PY999"); //»ç¿ëÀÚ±ÇÇÑ°ü¸®
 
-            //ì •ì‚°ê´€ë¦¬
-            oFilter.AddEx("PH_PY401"); //ì „ê·¼ë¬´ì§€ë“±ë¡
-			oFilter.AddEx("PH_PY402"); //ì •ì‚°ê¸°ì´ˆìë£Œ ë“±ë¡
-			oFilter.AddEx("PH_PY405"); //ì˜ë£Œë¹„ë“±ë¡
-			oFilter.AddEx("PH_PY407"); //ê¸°ë¶€ê¸ˆë“±ë¡
-			oFilter.AddEx("PH_PY409"); //ê¸°ë¶€ê¸ˆì¡°ì •ëª…ì„¸ë“±ë¡
-			oFilter.AddEx("PH_PY411"); //ì—°ê¸ˆ.ì €ì¶•ë“±ì†Œë“ê³µì œë“±ë¡
-			oFilter.AddEx("PH_PY413"); //ì›”ì„¸ì•¡.ì£¼íƒì„ì°¨ì°¨ì…ê¸ˆìë£Œ ë“±ë¡
-			oFilter.AddEx("PH_PY415"); //ì •ì‚°ê³„ì‚°
-			oFilter.AddEx("PH_PY417"); //ì •ì‚° ì€í–‰íŒŒì¼ìƒì„±
-			oFilter.AddEx("PH_PY980"); //ì‹ ê³ _ê·¼ë¡œì†Œë“ì§€ê¸‰ëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY985"); //ì‹ ê³ _ì˜ë£Œë¹„ì§€ê¸‰ëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY990"); //ì‹ ê³ _ê¸°ë¶€ê¸ˆëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY995"); //ì‹ ê³ _í‡´ì§ì†Œë“ì§€ê¸‰ëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY419"); //í‘œì¤€ì„¸ì•¡ì ìš©ëŒ€ìƒìë“±ë¡
 
-			oFilter.AddEx("PH_PY910"); //ì†Œë“ê³µì œì‹ ê³ ì„œì¶œë ¥
-			oFilter.AddEx("PH_PY915"); //ê·¼ë¡œì†Œë“ì›ì²œì§•ìˆ˜ë¶€ì¶œë ¥
-			oFilter.AddEx("PH_PY920"); //ì›ì²œì§•ìˆ˜ì˜ìˆ˜ì¦ì¶œë ¥
-			oFilter.AddEx("PH_PY925"); //ê¸°ë¶€ê¸ˆëª…ì„¸ì„œì¶œë ¥
-			oFilter.AddEx("PH_PY930"); //ì •ì‚°ì§•ìˆ˜ë°í™˜ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY931"); //í‘œì¤€ì„¸ì•¡ì ìš©ëŒ€ìƒìì¡°íšŒ
-			oFilter.AddEx("PH_PY932"); //ì „ê·¼ë¬´ì§€ë“±ë¡í˜„í™©
-			oFilter.AddEx("PH_PY933"); //ë³´ìˆ˜ì´ì•¡ì‹ ê³ ê¸°ì´ˆìë£Œ
-			oFilter.AddEx("PH_PYA55"); //ì •ì‚°ì§•ìˆ˜ë°í™˜ê¸‰ëŒ€ì¥(ì§‘ê³„)
-			oFilter.AddEx("PH_PYA70"); //ì†Œë“ì„¸ì›ì²œì§•ìˆ˜ì„¸ì•¡ì¡°ì •ì‹ ì²­ì„œì¶œë ¥
+			//Á¤»ê°ü¸®
+			oFilter.AddEx("PH_PY401"); //Àü±Ù¹«Áöµî·Ï
+			oFilter.AddEx("PH_PY402"); //Á¤»ê±âÃÊÀÚ·á µî·Ï
+			oFilter.AddEx("PH_PY405"); //ÀÇ·áºñµî·Ï
+			oFilter.AddEx("PH_PY407"); //±âºÎ±İµî·Ï
+			oFilter.AddEx("PH_PY409"); //±âºÎ±İÁ¶Á¤¸í¼¼µî·Ï
+			oFilter.AddEx("PH_PY411"); //¿¬±İ.ÀúÃàµî¼Òµæ°øÁ¦µî·Ï
+			oFilter.AddEx("PH_PY413"); //¿ù¼¼¾×.ÁÖÅÃÀÓÂ÷Â÷ÀÔ±İÀÚ·á µî·Ï
+			oFilter.AddEx("PH_PY415"); //Á¤»ê°è»ê
+			oFilter.AddEx("PH_PY417"); //Á¤»ê ÀºÇàÆÄÀÏ»ı¼º
+			oFilter.AddEx("PH_PY980"); //½Å°í_±Ù·Î¼ÒµæÁö±Ş¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY985"); //½Å°í_ÀÇ·áºñÁö±Ş¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY990"); //½Å°í_±âºÎ±İ¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY995"); //½Å°í_ÅğÁ÷¼ÒµæÁö±Ş¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY419"); //Ç¥ÁØ¼¼¾×Àû¿ë´ë»óÀÚµî·Ï
 
-			oFilter.AddEx("ZPY341"); //ì›”ë³„ ì •ì‚°ìë£Œ ìƒì„±
-			oFilter.AddEx("ZPY343"); //ì›”ë³„ ìë£Œ ê´€ë¦¬
-			oFilter.AddEx("ZPY421"); //í‡´ì§ì†Œë“ì „ì‚°ë§¤ì²´ìˆ˜ë¡
-			oFilter.AddEx("ZPY501"); //ì†Œë“ê³µì œí•­ëª© ë“±ë¡
-			oFilter.AddEx("ZPY502"); //ì¢…(ì „) ê·¼ë¬´ì§€ ë“±ë¡
-			oFilter.AddEx("ZPY503"); //ì •ì‚°ì„¸ì•¡ê³„ì‚°
-			oFilter.AddEx("ZPY504"); //ì •ì‚°ê²°ê³¼ì¡°íšŒ
-			oFilter.AddEx("ZPY505"); //ê¸°ë¶€ê¸ˆëª…ì„¸ë“±ë¡
-			oFilter.AddEx("ZPY506"); //ì˜ë£Œë¹„ëª…ì„¸ë“±ë¡
-			oFilter.AddEx("ZPY507"); //ì •ì‚°ê²°ê³¼ì¡°íšŒ(ì „ì²´)
-			oFilter.AddEx("ZPY508"); //ì—°ê¸ˆì €ì¶• ì†Œë“ê³µì œ ëª…ì„¸ ë“±ë¡
-			oFilter.AddEx("ZPY509"); //ì •ì‚°ìë£Œ ë§ˆê°ì‘ì—…
-			oFilter.AddEx("ZPY510"); //ì¢…ì „ê·¼ë¬´ì§€ ì¼ê´„ìƒì„±
-			oFilter.AddEx("ZPY521"); //ê·¼ë¡œì†Œë“ì „ì‚°ë§¤ì²´ìˆ˜ë¡
-			oFilter.AddEx("ZPY522"); //ì˜ë£Œë¹„ ê¸°ë¶€ê¸ˆ ì „ì‚°ë§¤ì²´ìˆ˜ë¡
+			oFilter.AddEx("PH_PY910"); //¼Òµæ°øÁ¦½Å°í¼­Ãâ·Â
+			oFilter.AddEx("PH_PY915"); //±Ù·Î¼Òµæ¿øÃµÂ¡¼öºÎÃâ·Â
+			oFilter.AddEx("PH_PY920"); //¿øÃµÂ¡¼ö¿µ¼öÁõÃâ·Â
+			oFilter.AddEx("PH_PY925"); //±âºÎ±İ¸í¼¼¼­Ãâ·Â
+			oFilter.AddEx("PH_PY930"); //Á¤»êÂ¡¼ö¹×È¯±Ş´ëÀå
+			oFilter.AddEx("PH_PY931"); //Ç¥ÁØ¼¼¾×Àû¿ë´ë»óÀÚÁ¶È¸
+			oFilter.AddEx("PH_PY932"); //Àü±Ù¹«Áöµî·ÏÇöÈ²
+			oFilter.AddEx("PH_PY933"); //º¸¼öÃÑ¾×½Å°í±âÃÊÀÚ·á
+			oFilter.AddEx("PH_PYA55"); //Á¤»êÂ¡¼ö¹×È¯±Ş´ëÀå(Áı°è)
+			oFilter.AddEx("PH_PYA70"); //¼Òµæ¼¼¿øÃµÂ¡¼ö¼¼¾×Á¶Á¤½ÅÃ»¼­Ãâ·Â
 
-			oFilter.AddEx("RPY401"); //í‡´ì§ì›ì²œì§•ìˆ˜ ì˜ìˆ˜ì¦
-			oFilter.AddEx("RPY501"); //ì›”ë³„ìë£Œí˜„í™©
-			oFilter.AddEx("RPY502"); //ì¢…ì „ê·¼ë¬´ì§€í˜„í™©
-			oFilter.AddEx("RPY503"); //ê·¼ë¡œì†Œë“ ì›ì²œì§•ìˆ˜ë¶€
-			oFilter.AddEx("RPY504"); //ê·¼ë¡œì†Œë“ ì›ì²œì˜ìˆ˜ì¦
-			oFilter.AddEx("RPY505"); //ì†Œë“ìë£Œì§‘ê³„í‘œ
-			oFilter.AddEx("RPY506"); //ì •ì‚°ì§•ìˆ˜í™˜ê¸‰ëŒ€ì¥
-			oFilter.AddEx("RPY508"); //ì—°ë§ì •ì‚°ì§‘ê³„í‘œ
-			oFilter.AddEx("RPY509"); //ê°‘ê·¼ì„¸ì‹ ê³ ê²€í† í‘œ
-			oFilter.AddEx("RPY510"); //ë¹„ê³¼ì„¸ê·¼ë¡œì†Œë“ëª…ì„¸ì„œ
-			oFilter.AddEx("RPY511"); //ê¸°ë¶€ê¸ˆëª…ì„¸ì„œ
+			oFilter.AddEx("ZPY341"); //¿ùº° Á¤»êÀÚ·á »ı¼º
+			oFilter.AddEx("ZPY343"); //¿ùº° ÀÚ·á °ü¸®
+			oFilter.AddEx("ZPY421"); //ÅğÁ÷¼ÒµæÀü»ê¸ÅÃ¼¼ö·Ï
+			oFilter.AddEx("ZPY501"); //¼Òµæ°øÁ¦Ç×¸ñ µî·Ï
+			oFilter.AddEx("ZPY502"); //Á¾(Àü) ±Ù¹«Áö µî·Ï
+			oFilter.AddEx("ZPY503"); //Á¤»ê¼¼¾×°è»ê
+			oFilter.AddEx("ZPY504"); //Á¤»ê°á°úÁ¶È¸
+			oFilter.AddEx("ZPY505"); //±âºÎ±İ¸í¼¼µî·Ï
+			oFilter.AddEx("ZPY506"); //ÀÇ·áºñ¸í¼¼µî·Ï
+			oFilter.AddEx("ZPY507"); //Á¤»ê°á°úÁ¶È¸(ÀüÃ¼)
+			oFilter.AddEx("ZPY508"); //¿¬±İÀúÃà ¼Òµæ°øÁ¦ ¸í¼¼ µî·Ï
+			oFilter.AddEx("ZPY509"); //Á¤»êÀÚ·á ¸¶°¨ÀÛ¾÷
+			oFilter.AddEx("ZPY510"); //Á¾Àü±Ù¹«Áö ÀÏ°ı»ı¼º
+			oFilter.AddEx("ZPY521"); //±Ù·Î¼ÒµæÀü»ê¸ÅÃ¼¼ö·Ï
+			oFilter.AddEx("ZPY522"); //ÀÇ·áºñ ±âºÎ±İ Àü»ê¸ÅÃ¼¼ö·Ï
 
-			//ê¸°íƒ€ê´€ë¦¬
-			oFilter.AddEx("PH_PY301"); //í•™ìê¸ˆì‹ ì²­ë“±ë¡
-			oFilter.AddEx("PH_PY302"); //í•™ìê¸ˆì§€ê¸‰ì™„ë£Œì²˜ë¦¬
-			oFilter.AddEx("PH_PY303"); //í•™ìê¸ˆì€í–‰íŒŒì¼ìƒì„±
-			oFilter.AddEx("PH_PY305"); //í•™ìê¸ˆì‹ ì²­ì„œ
-			oFilter.AddEx("PH_PY306"); //í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ê°œì¸ë³„)
-			oFilter.AddEx("PH_PY307"); //í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ë¶„ê¸°ë³„)
-			oFilter.AddEx("PH_PY309"); //ëŒ€ë¶€ê¸ˆë“±ë¡
-			oFilter.AddEx("PH_PY310"); //ëŒ€ë¶€ê¸ˆê°œë³„ìƒí™˜
-			oFilter.AddEx("PH_PY311"); //í†µê·¼ë²„ìŠ¤ìš´í–‰ë“±ë¡
-			oFilter.AddEx("PH_PY312"); //ë²„ìŠ¤ìš”ê¸ˆ ê°œì¸ë³„ë“±ë¡
-			oFilter.AddEx("PH_PY313"); //ëŒ€ë¶€ê¸ˆê³„ì‚°
-			oFilter.AddEx("PH_PY030"); //ê³µìš©ë“±ë¡
-			oFilter.AddEx("PH_PY031"); //ì¶œì¥ë“±ë¡
-			oFilter.AddEx("PH_PY032"); //ì‚¬ìš©ì™¸ì¶œë“±ë¡
-			oFilter.AddEx("PH_PY315"); //ê°œì¸ë³„ëŒ€ë¶€ê¸ˆì”ì•¡í˜„í™©
-			oFilter.AddEx("PH_PY034"); //ê³µìš©ë¶„ê°œì²˜ë¦¬
-			oFilter.AddEx("PH_PYA60"); //í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ì§‘ê³„)
+			oFilter.AddEx("RPY401"); //ÅğÁ÷¿øÃµÂ¡¼ö ¿µ¼öÁõ
+			oFilter.AddEx("RPY501"); //¿ùº°ÀÚ·áÇöÈ²
+			oFilter.AddEx("RPY502"); //Á¾Àü±Ù¹«ÁöÇöÈ²
+			oFilter.AddEx("RPY503"); //±Ù·Î¼Òµæ ¿øÃµÂ¡¼öºÎ
+			oFilter.AddEx("RPY504"); //±Ù·Î¼Òµæ ¿øÃµ¿µ¼öÁõ
+			oFilter.AddEx("RPY505"); //¼ÒµæÀÚ·áÁı°èÇ¥
+			oFilter.AddEx("RPY506"); //Á¤»êÂ¡¼öÈ¯±Ş´ëÀå
+			oFilter.AddEx("RPY508"); //¿¬¸»Á¤»êÁı°èÇ¥
+			oFilter.AddEx("RPY509"); //°©±Ù¼¼½Å°í°ËÅäÇ¥
+			oFilter.AddEx("RPY510"); //ºñ°ú¼¼±Ù·Î¼Òµæ¸í¼¼¼­
+			oFilter.AddEx("RPY511"); //±âºÎ±İ¸í¼¼¼­
+
+			//±âÅ¸°ü¸®
+			oFilter.AddEx("PH_PY301"); //ÇĞÀÚ±İ½ÅÃ»µî·Ï
+			oFilter.AddEx("PH_PY302"); //ÇĞÀÚ±İÁö±Ş¿Ï·áÃ³¸®
+			oFilter.AddEx("PH_PY303"); //ÇĞÀÚ±İÀºÇàÆÄÀÏ»ı¼º
+			oFilter.AddEx("PH_PY305"); //ÇĞÀÚ±İ½ÅÃ»¼­
+			oFilter.AddEx("PH_PY306"); //ÇĞÀÚ±İ½ÅÃ»³»¿ª(°³ÀÎº°)
+			oFilter.AddEx("PH_PY307"); //ÇĞÀÚ±İ½ÅÃ»³»¿ª(ºĞ±âº°)
+			oFilter.AddEx("PH_PY309"); //´ëºÎ±İµî·Ï
+			oFilter.AddEx("PH_PY310"); //´ëºÎ±İ°³º°»óÈ¯
+			oFilter.AddEx("PH_PY311"); //Åë±Ù¹ö½º¿îÇàµî·Ï
+			oFilter.AddEx("PH_PY312"); //¹ö½º¿ä±İ °³ÀÎº°µî·Ï
+			oFilter.AddEx("PH_PY313"); //´ëºÎ±İ°è»ê
+			oFilter.AddEx("PH_PY030"); //°ø¿ëµî·Ï
+			oFilter.AddEx("PH_PY031"); //ÃâÀåµî·Ï
+			oFilter.AddEx("PH_PY032"); //»ç¿ë¿ÜÃâµî·Ï
+			oFilter.AddEx("PH_PY315"); //°³ÀÎº°´ëºÎ±İÀÜ¾×ÇöÈ²
+			oFilter.AddEx("PH_PY034"); //°ø¿ëºĞ°³Ã³¸®
+			oFilter.AddEx("PH_PYA60"); //ÇĞÀÚ±İ½ÅÃ»³»¿ª(Áı°è)
+			oFilter.AddEx("PS_DateChange"); //³¯Â¥ ¼öÁ¤ µî·Ï
+			oFilter.AddEx("PS_DateCommit"); //³¯Â¥ ½ÂÀÎ
         }
 
 		private static void FORM_UNLOAD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1826,262 +1843,265 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD);
 
 			//System Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-			//ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+			//Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 
 			//AddOn Form Type
-			//ìš´ì˜ê´€ë¦¬
-			oFilter.AddEx("PH_PY000"); //ì‚¬ìš©ìê¶Œí•œê´€ë¦¬
+			//¿î¿µ°ü¸®
+			oFilter.AddEx("PH_PY000"); //»ç¿ëÀÚ±ÇÇÑ°ü¸®
 
-			//ì¸ì‚¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY001"); //ì¸ì‚¬ë§ˆìŠ¤í„° ë“±ë¡
-			oFilter.AddEx("PH_PY002"); //ê·¼íƒœì‹œê°„êµ¬ë¶„ ë“±ë¡
-			oFilter.AddEx("PH_PY003"); //ê·¼íƒœì›”ë ¥ì„¤ì •
-			oFilter.AddEx("PH_PY004"); //ê·¼ë¬´ì¡°í¸ì„±ë“±ë¡
-			oFilter.AddEx("PH_PY005"); //ì‚¬ì—…ì¥ì •ë³´ë“±ë¡
-			oFilter.AddEx("PH_PY006"); //ìŠ¹í˜¸ì‘ì—…ë“±ë¡
-			oFilter.AddEx("PH_PY007"); //ìœ ë¥˜ë‹¨ê°€ë“±ë¡
-			oFilter.AddEx("PH_PY008"); //ì¼ê·¼íƒœë“±ë¡
-			oFilter.AddEx("PH_PY011"); //ì „ë¬¸ì§ í˜¸ì¹­ ì¼ê´„ ë³€ê²½(2013.07.05 ì†¡ëª…ê·œ ì¶”ê°€)
-			oFilter.AddEx("PH_PY013"); //ìœ„í•´ì¼ìˆ˜ê³„ì‚°
-			oFilter.AddEx("PH_PY014"); //ìœ„í•´ì¼ìˆ˜ìˆ˜ì •
-			oFilter.AddEx("PH_PY015"); //ì—°ì°¨ì ì¹˜ë“±ë¡
-			oFilter.AddEx("PH_PY016"); //ê¸°ë³¸ì—…ë¬´ë“±ë¡
-			oFilter.AddEx("PH_PY017"); //ì›”ê·¼íƒœì§‘ê³„
-			oFilter.AddEx("PH_PY018"); //íœ´ì¼ê·¼ë¬´ì²´í¬(ì—°ë´‰ì œ)
-			oFilter.AddEx("PH_PY019"); //ë°˜ë³€ê²½ë“±ë¡
-			oFilter.AddEx("PH_PY020"); //ì¼ê·¼íƒœ ì—…ë¬´ë³€ê²½ë“±ë¡
-			oFilter.AddEx("PH_PY021"); //ì‚¬ì›ë¹„ìƒì—°ë½ì²˜ê´€ë¦¬
-			oFilter.AddEx("PH_PY201"); //ì •ë…„ì„ë°•ì íœ´ê°€ê²½ë¹„ ë“±ë¡
-			oFilter.AddEx("PH_PY203"); //êµìœ¡ì‹¤ì ë“±ë¡
-			oFilter.AddEx("PH_PY204"); //êµìœ¡ê³„íšë“±ë¡
-			oFilter.AddEx("PH_PY205"); //êµìœ¡ê³„íšVSì‹¤ì ì¡°íšŒ
+			//ÀÎ»ç°ü¸®
+			oFilter.AddEx("PH_PY001"); //ÀÎ»ç¸¶½ºÅÍ µî·Ï
+			oFilter.AddEx("PH_PY002"); //±ÙÅÂ½Ã°£±¸ºĞ µî·Ï
+			oFilter.AddEx("PH_PY003"); //±ÙÅÂ¿ù·Â¼³Á¤
+			oFilter.AddEx("PH_PY004"); //±Ù¹«Á¶Æí¼ºµî·Ï
+			oFilter.AddEx("PH_PY005"); //»ç¾÷ÀåÁ¤º¸µî·Ï
+			oFilter.AddEx("PH_PY006"); //½ÂÈ£ÀÛ¾÷µî·Ï
+			oFilter.AddEx("PH_PY007"); //À¯·ù´Ü°¡µî·Ï
+			oFilter.AddEx("PH_PY008"); //ÀÏ±ÙÅÂµî·Ï
+			oFilter.AddEx("PH_PY011"); //Àü¹®Á÷ È£Äª ÀÏ°ı º¯°æ(2013.07.05 ¼Û¸í±Ô Ãß°¡)
+			oFilter.AddEx("PH_PY013"); //À§ÇØÀÏ¼ö°è»ê
+			oFilter.AddEx("PH_PY014"); //À§ÇØÀÏ¼ö¼öÁ¤
+			oFilter.AddEx("PH_PY015"); //¿¬Â÷ÀûÄ¡µî·Ï
+			oFilter.AddEx("PH_PY016"); //±âº»¾÷¹«µî·Ï
+			oFilter.AddEx("PH_PY017"); //¿ù±ÙÅÂÁı°è
+			oFilter.AddEx("PH_PY018"); //ÈŞÀÏ±Ù¹«Ã¼Å©(¿¬ºÀÁ¦)
+			oFilter.AddEx("PH_PY019"); //¹İº¯°æµî·Ï
+			oFilter.AddEx("PH_PY020"); //ÀÏ±ÙÅÂ ¾÷¹«º¯°æµî·Ï
+			oFilter.AddEx("PH_PY021"); //»ç¿øºñ»ó¿¬¶ôÃ³°ü¸®
+			oFilter.AddEx("PH_PY201"); //Á¤³âÀÓ¹ÚÀÚ ÈŞ°¡°æºñ µî·Ï
+			oFilter.AddEx("PH_PY203"); //±³À°½ÇÀûµî·Ï
+			oFilter.AddEx("PH_PY204"); //±³À°°èÈ¹µî·Ï
+			oFilter.AddEx("PH_PY205"); //±³À°°èÈ¹VS½ÇÀûÁ¶È¸
 
-			//ì¸ì‚¬ - ë¦¬í¬íŠ¸
-			oFilter.AddEx("PH_PY501"); //ì—¬ê¶Œë°œê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY505"); //ì…ì‚¬ìëŒ€ì¥
-			oFilter.AddEx("PH_PY510"); //ì‚¬ì›ëª…ë¶€
-			oFilter.AddEx("PH_PY515"); //ì¬ì§ìì‚¬ì›ëª…ë¶€
-			oFilter.AddEx("PH_PY520"); //í‡´ì§ë°í‡´ì§ì˜ˆì •ìëŒ€ì¥
-			oFilter.AddEx("PH_PY525"); //í•™ë ¥ë³„ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY530"); //ì—°ë ¹ë³„ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY535"); //ê·¼ì†ë…„ìˆ˜ë³„ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY540"); //ì¸ì›í˜„í™©(ëŒ€ì™¸ìš©)
-			oFilter.AddEx("PH_PY545"); //ì¸ì›í˜„í™©(ëŒ€ë‚´ìš©)
-			oFilter.AddEx("PH_PY550"); //ì „ì²´ì¸ì›í˜„í™©
-			oFilter.AddEx("PH_PY555"); //ì¼ì¼ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY560"); //ì¼ì¶œê·¼í˜„í™©
-			oFilter.AddEx("PH_PY565"); //ì—°ì¥ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY570"); //ì—°ì¥/íœ´ì¼ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY575"); //ê·¼íƒœê¸°ì°°í˜„í™©
-			oFilter.AddEx("PH_PY580"); //ê°œì¸ë³„ê·¼íƒœì›”ë³´
-			oFilter.AddEx("PH_PY585"); //ì¼ì¼ì¶œê·¼ê¸°ë¡ë¶€
-			oFilter.AddEx("PH_PY590"); //ê¸°ê°„ë³„ê·¼íƒœì§‘ê³„í‘œ
-			oFilter.AddEx("PH_PY595"); //ê·¼ì†ë…„ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY600"); //ì¼ìë³„ì—°ì¥ê·¼ë¬´í˜„í™©
-			oFilter.AddEx("PH_PY605"); //ê·¼ì†ë³´ì „íœ´ê°€ë°œìƒë°ì‚¬ìš©ë‚´ì—­
-			oFilter.AddEx("PH_PY610"); //ê·¼íƒœêµ¬ë¶„ë³„ì‚¬ìš©ë‚´ì—­
-			oFilter.AddEx("PH_PY615"); //ë‹¹ì§ê·¼ë¬´í˜„í™©
-			oFilter.AddEx("PH_PY620"); //ì—°ë´‰ì œíœ´ì¼ê·¼ë¬´ìí˜„í™©
-			oFilter.AddEx("PH_PY635"); //ì—¬í–‰,êµìœ¡ìí˜„í™©
-			oFilter.AddEx("PH_PY640"); //êµ­ë¯¼ì—°ê¸ˆí‡´ì§ì „í™˜ê¸ˆí˜„í™©
-			oFilter.AddEx("PH_PY645"); //ìê²©ìˆ˜ë‹¹ì§€ê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY650"); //ë…¸ë™ì¡°í•©ê°„ë¶€í˜„í™©
-			oFilter.AddEx("PH_PY655"); //ë³´í›ˆëŒ€ìƒìí˜„í™©
-			oFilter.AddEx("PH_PY660"); //ì¥ì• ê·¼ë¡œìí˜„í™©
-			oFilter.AddEx("PH_PY665"); //ì‚¬ì›ìë…€í˜„í™©
-			oFilter.AddEx("PH_PY670"); //ê°œì¸ë³„ì°¨ëŸ‰í˜„í™©
-			oFilter.AddEx("PH_PY675"); //ê·¼ë¬´í¸ì„±í˜„í™©
-			oFilter.AddEx("PH_PY676"); //ê·¼íƒœì‹œê°„ë‚´ì—­ì¡°íšŒ
-			oFilter.AddEx("PH_PY677"); //ì¼ì¼ê·¼íƒœì´ìƒìì¡°íšŒ
-			oFilter.AddEx("PH_PY679"); //ê°œì¸ë³„ ê·¼íƒœì§‘ê³„ ì¡°íšŒ
-			oFilter.AddEx("PH_PY680"); //ìƒë²Œí˜„í™©
-			oFilter.AddEx("PH_PY685"); //í¬ìƒê°€ê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY690"); //ìƒì¼ìí˜„í™©
-			oFilter.AddEx("PH_PY695"); //ì¸ì‚¬ê¸°ë¡ì¹´ë“œ
-			oFilter.AddEx("PH_PY705"); //êµí†µë¹„ì§€ê¸‰ê·¼íƒœí™•ì¸
-			oFilter.AddEx("PH_PY860"); //í˜¸ë´‰í‘œì¡°íšŒ
-			oFilter.AddEx("PH_PY503"); //ìŠ¹ì§„ëŒ€ìƒìëª…ë¶€
-			oFilter.AddEx("PH_PY678"); //ë‹¹ì§ê·¼ë¬´ì ì¼ê´„ ë“±ë¡
-			oFilter.AddEx("PH_PY507"); //íœ´ì§ìí˜„í™©
-			oFilter.AddEx("PH_PY681"); //ë¹„ê·¼ë¬´ì¼ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY935"); //ì •ê¸°ìŠ¹í˜¸í˜„í™©
-			oFilter.AddEx("PH_PY551"); //í‰ê· ì¸ì›ì¡°íšŒ
-			oFilter.AddEx("PH_PY508"); //ì¬ì§ì¦ëª… ë“±ë¡ ë° ë°œê¸‰
-			oFilter.AddEx("PH_PY522"); //ì„ê¸ˆí”¼í¬ëŒ€ìƒìí˜„í™©
-			oFilter.AddEx("PH_PY523"); //ì„ê¸ˆí”¼í¬ëŒ€ìƒìì›”ë³„ì°¨ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY524"); //í‡´ì§ê¸ˆ ì¤‘ê°„ ì •ì‚°ë‚´ì—­
-			oFilter.AddEx("PH_PY683"); //êµëŒ€ê·¼ë¬´ì¸ì •í˜„í™©
-			oFilter.AddEx("PH_PYA65"); //ë…„ì°¨í˜„í™© (ì§‘ê³„)
-			oFilter.AddEx("PH_PY583"); //ê°œì¸ë³„ ê·¼íƒœì§‘ê³„ ì¡°íšŒ
+			//ÀÎ»ç - ¸®Æ÷Æ®
+			oFilter.AddEx("PH_PY501"); //¿©±Ç¹ß±ŞÇöÈ²
+			oFilter.AddEx("PH_PY505"); //ÀÔ»çÀÚ´ëÀå
+			oFilter.AddEx("PH_PY510"); //»ç¿ø¸íºÎ
+			oFilter.AddEx("PH_PY515"); //ÀçÁ÷ÀÚ»ç¿ø¸íºÎ
+			oFilter.AddEx("PH_PY520"); //ÅğÁ÷¹×ÅğÁ÷¿¹Á¤ÀÚ´ëÀå
+			oFilter.AddEx("PH_PY525"); //ÇĞ·Âº°ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY530"); //¿¬·Éº°ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY535"); //±Ù¼Ó³â¼öº°ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY540"); //ÀÎ¿øÇöÈ²(´ë¿Ü¿ë)
+			oFilter.AddEx("PH_PY545"); //ÀÎ¿øÇöÈ²(´ë³»¿ë)
+			oFilter.AddEx("PH_PY550"); //ÀüÃ¼ÀÎ¿øÇöÈ²
+			oFilter.AddEx("PH_PY555"); //ÀÏÀÏ±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY560"); //ÀÏÃâ±ÙÇöÈ²
+			oFilter.AddEx("PH_PY565"); //¿¬Àå±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY570"); //¿¬Àå/ÈŞÀÏ±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY575"); //±ÙÅÂ±âÂûÇöÈ²
+			oFilter.AddEx("PH_PY580"); //°³ÀÎº°±ÙÅÂ¿ùº¸
+			oFilter.AddEx("PH_PY585"); //ÀÏÀÏÃâ±Ù±â·ÏºÎ
+			oFilter.AddEx("PH_PY590"); //±â°£º°±ÙÅÂÁı°èÇ¥
+			oFilter.AddEx("PH_PY595"); //±Ù¼Ó³â¼öÇöÈ²
+			oFilter.AddEx("PH_PY600"); //ÀÏÀÚº°¿¬Àå±Ù¹«ÇöÈ²
+			oFilter.AddEx("PH_PY605"); //±Ù¼Óº¸ÀüÈŞ°¡¹ß»ı¹×»ç¿ë³»¿ª
+			oFilter.AddEx("PH_PY610"); //±ÙÅÂ±¸ºĞº°»ç¿ë³»¿ª
+			oFilter.AddEx("PH_PY615"); //´çÁ÷±Ù¹«ÇöÈ²
+			oFilter.AddEx("PH_PY620"); //¿¬ºÀÁ¦ÈŞÀÏ±Ù¹«ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY635"); //¿©Çà,±³À°ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY640"); //±¹¹Î¿¬±İÅğÁ÷ÀüÈ¯±İÇöÈ²
+			oFilter.AddEx("PH_PY645"); //ÀÚ°İ¼ö´çÁö±ŞÇöÈ²
+			oFilter.AddEx("PH_PY650"); //³ëµ¿Á¶ÇÕ°£ºÎÇöÈ²
+			oFilter.AddEx("PH_PY655"); //º¸ÈÆ´ë»óÀÚÇöÈ²
+			oFilter.AddEx("PH_PY660"); //Àå¾Ö±Ù·ÎÀÚÇöÈ²
+			oFilter.AddEx("PH_PY665"); //»ç¿øÀÚ³àÇöÈ²
+			oFilter.AddEx("PH_PY670"); //°³ÀÎº°Â÷·®ÇöÈ²
+			oFilter.AddEx("PH_PY675"); //±Ù¹«Æí¼ºÇöÈ²
+			oFilter.AddEx("PH_PY676"); //±ÙÅÂ½Ã°£³»¿ªÁ¶È¸
+			oFilter.AddEx("PH_PY677"); //ÀÏÀÏ±ÙÅÂÀÌ»óÀÚÁ¶È¸
+			oFilter.AddEx("PH_PY679"); //°³ÀÎº° ±ÙÅÂÁı°è Á¶È¸
+			oFilter.AddEx("PH_PY680"); //»ó¹úÇöÈ²
+			oFilter.AddEx("PH_PY685"); //Æ÷»ó°¡±ŞÇöÈ²
+			oFilter.AddEx("PH_PY690"); //»ıÀÏÀÚÇöÈ²
+			oFilter.AddEx("PH_PY695"); //ÀÎ»ç±â·ÏÄ«µå
+			oFilter.AddEx("PH_PY705"); //±³ÅëºñÁö±Ş±ÙÅÂÈ®ÀÎ
+			oFilter.AddEx("PH_PY860"); //È£ºÀÇ¥Á¶È¸
+			oFilter.AddEx("PH_PY503"); //½ÂÁø´ë»óÀÚ¸íºÎ
+			oFilter.AddEx("PH_PY678"); //´çÁ÷±Ù¹«ÀÚ ÀÏ°ı µî·Ï
+			oFilter.AddEx("PH_PY507"); //ÈŞÁ÷ÀÚÇöÈ²
+			oFilter.AddEx("PH_PY681"); //ºñ±Ù¹«ÀÏ¼öÇöÈ²
+			oFilter.AddEx("PH_PY935"); //Á¤±â½ÂÈ£ÇöÈ²
+			oFilter.AddEx("PH_PY551"); //Æò±ÕÀÎ¿øÁ¶È¸
+			oFilter.AddEx("PH_PY508"); //ÀçÁ÷Áõ¸í µî·Ï ¹× ¹ß±Ş
+			oFilter.AddEx("PH_PY522"); //ÀÓ±İÇÇÅ©´ë»óÀÚÇöÈ²
+			oFilter.AddEx("PH_PY523"); //ÀÓ±İÇÇÅ©´ë»óÀÚ¿ùº°Â÷¼öÇöÈ²
+			oFilter.AddEx("PH_PY524"); //ÅğÁ÷±İ Áß°£ Á¤»ê³»¿ª
+			oFilter.AddEx("PH_PY683"); //±³´ë±Ù¹«ÀÎÁ¤ÇöÈ²
+			oFilter.AddEx("PH_PYA65"); //³âÂ÷ÇöÈ² (Áı°è)
+			oFilter.AddEx("PH_PY583"); //°³ÀÎº° ±ÙÅÂÁı°è Á¶È¸
 
-			//ê¸‰ì—¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY100"); //ê¸°ì¤€ì„¸ì•¡ì„¤ì •
-			oFilter.AddEx("PH_PY101"); //ë³´í—˜ë¥ ë“±ë¡
-			oFilter.AddEx("PH_PY102"); //ìˆ˜ë‹¹í•­ëª©ì„¤ì •
-			oFilter.AddEx("PH_PY103"); //ê³µì œí•­ëª©ì„¤ì •
-			oFilter.AddEx("PH_PY104"); //ê³ ì •ìˆ˜ë‹¹ê³µì œê¸ˆì•¡ì¼ê´„ë“±ë¡
-			oFilter.AddEx("PH_PY105"); //í˜¸ë´‰í‘œë“±ë¡
-			oFilter.AddEx("PH_PY106"); //ìˆ˜ë‹¹ê³„ì‚°ì‹ì„¤ì •
-			oFilter.AddEx("PH_PY107"); //ê¸‰ìƒì—¬ê¸°ì¤€ì¼ì„¤ì •
-			oFilter.AddEx("PH_PY108"); //ìƒì—¬ìœ¨ì§€ê¸‰ì„¤ì •
-			oFilter.AddEx("PH_PY109"); //ê¸‰ìƒì—¬ë³€ë™ìë£Œë“±ë¡
-			oFilter.AddEx("PH_PY109_1"); //ê¸‰ìƒì—¬ë³€ë™ìë£Œ í•­ëª©ìˆ˜ì •
-			oFilter.AddEx("PH_PY110"); //ê°œì¸ìƒì—¬ìœ¨ë“±ë¡
-			oFilter.AddEx("PH_PY111"); //ê¸‰ìƒì—¬ê³„ì‚°
-			oFilter.AddEx("PH_PY112"); //ê¸‰ìƒì—¬ìë£Œê´€ë¦¬
-			oFilter.AddEx("PH_PY113"); //ê¸‰ìƒì—¬ë¶„ê°œìë£Œìƒì„±
-			oFilter.AddEx("PH_PY114"); //í‡´ì§ê¸ˆê¸°ì¤€ì„¤ì •
-			oFilter.AddEx("PH_PY115"); //í‡´ì§ê¸ˆê³„ì‚°
-			oFilter.AddEx("PH_PY116"); //í‡´ì§ê¸ˆë¶„ê°œìë£Œìƒì„±
-			oFilter.AddEx("PH_PY117"); //ê¸‰ìƒì—¬ë§ˆê°ì‘ì—…
-			oFilter.AddEx("PH_PY118"); //ê¸‰ìƒì—¬Emailë°œì†¡
-			oFilter.AddEx("PH_PY119"); //ê¸‰ìƒì—¬ì€í–‰íŒŒì¼ìƒì„±
-			oFilter.AddEx("PH_PY120"); //ê¸‰ìƒì—¬ì†Œê¸‰ì§‘ê³„ì²˜ë¦¬
-			oFilter.AddEx("PH_PY121"); //í‰ê°€ê°€ê¸‰ì•¡ ë“±ë¡
-			oFilter.AddEx("PH_PY122"); //ê¸‰ìƒì—¬ì¶œë ¥ ê°œì¸ë¶€ì„œì„¤ì •ë“±ë¡
-			oFilter.AddEx("PH_PY123"); //ê°€ì••ë¥˜ë“±ë¡
-			oFilter.AddEx("PH_PY124"); //ë² ë„¤í”¼ì•„ ê¸ˆì•¡ ë“±ë¡
-			oFilter.AddEx("PH_PY125"); //í‡´ì§ì—°ê¸ˆ ì„¤ì •
-			oFilter.AddEx("PH_PY127"); //ê°œì¸ë³„ 4ëŒ€ë³´í—˜ ë³´ìˆ˜ì›”ì•¡ ë° ì •ì‚°ê¸ˆì•¡ì…ë ¥
-			oFilter.AddEx("PH_PY130"); //íŒ€ë³„ ì„±ê³¼ê¸‰ì°¨ë“± ë“±ê¸‰ë“±ë¡
-			oFilter.AddEx("PH_PY131"); //ì„±ê³¼ê¸‰ì°¨ë“± ê³„ìˆ˜ë“±ë¡
-			oFilter.AddEx("PH_PY132"); //ì„±ê³¼ê¸‰ì°¨ ê°œì¸ë³„ ê³„ì‚°
-			oFilter.AddEx("PH_PY133"); //ì—°ë´‰ì œ íšŸì°¨ ê´€ë¦¬
-			oFilter.AddEx("PH_PY134"); //ì†Œë“ì„¸/ì£¼ë¯¼ì„¸ ì¡°ì •ê´€ë¦¬
-			oFilter.AddEx("PH_PY129"); //ê°œì¸ë³„í‡´ì§ì—°ê¸ˆ(DCí˜•) ê³„ì‚°
-            oFilter.AddEx("PH_PY135"); //ê¸‰ìƒì—¬ë¶„ê°œì²˜ë¦¬
-            oFilter.AddEx("PH_PY136"); //ê¸‰ìƒì—¬ë¶„ê°œì²˜ë¦¬ ë°°ë¶€ê·œì¹™ì„¤ì •
+			//±Ş¿©°ü¸®
+			oFilter.AddEx("PH_PY100"); //±âÁØ¼¼¾×¼³Á¤
+			oFilter.AddEx("PH_PY101"); //º¸Çè·üµî·Ï
+			oFilter.AddEx("PH_PY102"); //¼ö´çÇ×¸ñ¼³Á¤
+			oFilter.AddEx("PH_PY103"); //°øÁ¦Ç×¸ñ¼³Á¤
+			oFilter.AddEx("PH_PY104"); //°íÁ¤¼ö´ç°øÁ¦±İ¾×ÀÏ°ıµî·Ï
+			oFilter.AddEx("PH_PY105"); //È£ºÀÇ¥µî·Ï
+			oFilter.AddEx("PH_PY106"); //¼ö´ç°è»ê½Ä¼³Á¤
+			oFilter.AddEx("PH_PY107"); //±Ş»ó¿©±âÁØÀÏ¼³Á¤
+			oFilter.AddEx("PH_PY108"); //»ó¿©À²Áö±Ş¼³Á¤
+			oFilter.AddEx("PH_PY109"); //±Ş»ó¿©º¯µ¿ÀÚ·áµî·Ï
+			oFilter.AddEx("PH_PY109_1"); //±Ş»ó¿©º¯µ¿ÀÚ·á Ç×¸ñ¼öÁ¤
+			oFilter.AddEx("PH_PY110"); //°³ÀÎ»ó¿©À²µî·Ï
+			oFilter.AddEx("PH_PY111"); //±Ş»ó¿©°è»ê
+			oFilter.AddEx("PH_PY112"); //±Ş»ó¿©ÀÚ·á°ü¸®
+			oFilter.AddEx("PH_PY113"); //±Ş»ó¿©ºĞ°³ÀÚ·á»ı¼º
+			oFilter.AddEx("PH_PY114"); //ÅğÁ÷±İ±âÁØ¼³Á¤
+			oFilter.AddEx("PH_PY115"); //ÅğÁ÷±İ°è»ê
+			oFilter.AddEx("PH_PY116"); //ÅğÁ÷±İºĞ°³ÀÚ·á»ı¼º
+			oFilter.AddEx("PH_PY117"); //±Ş»ó¿©¸¶°¨ÀÛ¾÷
+			oFilter.AddEx("PH_PY118"); //±Ş»ó¿©Email¹ß¼Û
+			oFilter.AddEx("PH_PY119"); //±Ş»ó¿©ÀºÇàÆÄÀÏ»ı¼º
+			oFilter.AddEx("PH_PY120"); //±Ş»ó¿©¼Ò±ŞÁı°èÃ³¸®
+			oFilter.AddEx("PH_PY121"); //Æò°¡°¡±Ş¾× µî·Ï
+			oFilter.AddEx("PH_PY122"); //±Ş»ó¿©Ãâ·Â °³ÀÎºÎ¼­¼³Á¤µî·Ï
+			oFilter.AddEx("PH_PY123"); //°¡¾Ğ·ùµî·Ï
+			oFilter.AddEx("PH_PY124"); //º£³×ÇÇ¾Æ ±İ¾× µî·Ï
+			oFilter.AddEx("PH_PY125"); //ÅğÁ÷¿¬±İ ¼³Á¤
+			oFilter.AddEx("PH_PY127"); //°³ÀÎº° 4´ëº¸Çè º¸¼ö¿ù¾× ¹× Á¤»ê±İ¾×ÀÔ·Â
+			oFilter.AddEx("PH_PY130"); //ÆÀº° ¼º°ú±ŞÂ÷µî µî±Şµî·Ï
+			oFilter.AddEx("PH_PY131"); //¼º°ú±ŞÂ÷µî °è¼öµî·Ï
+			oFilter.AddEx("PH_PY132"); //¼º°ú±ŞÂ÷ °³ÀÎº° °è»ê
+			oFilter.AddEx("PH_PY133"); //¿¬ºÀÁ¦ È½Â÷ °ü¸®
+			oFilter.AddEx("PH_PY134"); //¼Òµæ¼¼/ÁÖ¹Î¼¼ Á¶Á¤°ü¸®
+			oFilter.AddEx("PH_PY129"); //°³ÀÎº°ÅğÁ÷¿¬±İ(DCÇü) °è»ê
+            oFilter.AddEx("PH_PY135"); //±Ş»ó¿©ºĞ°³Ã³¸®
+            oFilter.AddEx("PH_PY136"); //±Ş»ó¿©ºĞ°³Ã³¸® ¹èºÎ±ÔÄ¢¼³Á¤
 
-            //ê¸‰ì—¬ê´€ë¦¬ - ë¦¬í¬íŠ¸
-            oFilter.AddEx("PH_PY625"); //ì„¸íƒìëª…ë¶€
-			oFilter.AddEx("PH_PY630"); //ì‚¬ì›ë³„ë…¸ì¡°ë¹„ê³µì œí˜„í™©
-			oFilter.AddEx("PH_PY700"); //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY710"); //ìƒì—¬ì§€ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY715"); //ê¸‰ì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY720"); //ìƒì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY725"); //ê¸‰ì—¬ì§ê¸‰ë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY740"); //ìƒì—¬ì§ê¸‰ë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY730"); //ê¸‰ì—¬ë´‰íˆ¬ì¶œë ¥
-			oFilter.AddEx("PH_PY735"); //ìƒì—¬ë´‰íˆ¬ì¶œë ¥
-			oFilter.AddEx("PH_PY745"); //ì—°ê°„ì§€ê¸‰í˜„í™©
-			oFilter.AddEx("PH_PY750"); //ê·¼ë¡œì†Œë“ì§•ìˆ˜í˜„í™©
-			oFilter.AddEx("PH_PY755"); //ë™í˜¸íšŒê°€ì…í˜„í™©
-			oFilter.AddEx("PH_PY760"); //í‰ê· ì„ê¸ˆë°í‡´ì§ê¸ˆì‚°ì¶œë‚´ì—­ì„œ
-			oFilter.AddEx("PH_PY765"); //ê¸‰ì—¬ì¦ê°ë‚´ì—­ì„œ
-			oFilter.AddEx("PH_PY770"); //í‡´ì§ì†Œë“ì›ì²œì§•ìˆ˜ì˜ìˆ˜ì¦ì¶œë ¥
-			oFilter.AddEx("PH_PY775"); //ê°œì¸ë³„ë…„ì°¨í˜„í™©
-			oFilter.AddEx("PH_PY776"); //ì”ì—¬ë…„ì°¨í˜„í™©
-			oFilter.AddEx("PH_PY780"); //ì›”ê³ ìš©ë³´í—˜ë‚´ì—­
-			oFilter.AddEx("PH_PY785"); //ì›”êµ­ë¯¼ì—°ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY790"); //ì›”ê±´ê°•ë³´í—˜ë‚´ì—­
-			oFilter.AddEx("PH_PY795"); //ì—°ê°„ë¶€ì„œë³„ê¸‰ì—¬ë‚´ì—­
-			oFilter.AddEx("PH_PY800"); //ì¸ê±´ë¹„ì§€ê¸‰ìë£Œ
-			oFilter.AddEx("PH_PY805"); //ê¸‰ì—¬ìˆ˜ë‹¹ë³€ë™ë‚´ì—­
-			oFilter.AddEx("PH_PY810"); //ì§ê¸‰ë³„í†µìƒì„ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY815"); //í‰ê· ì„ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY820"); //í†µìƒì„ê¸ˆë‚´ì—­
-			oFilter.AddEx("PH_PY825"); //ì „ë¬¸ì§O/Tí˜„í™©
-			oFilter.AddEx("PH_PY830"); //ë¶€ì„œë³„ì¸ê±´ë¹„í˜„í™© (ê¸°íš)
-			oFilter.AddEx("PH_PY835"); //ì§ê¸‰ë³„O/Të°ìˆ˜ë‹¹í˜„í™©
-			oFilter.AddEx("PH_PY840"); //í’ì‚°ì „ìê³µì‹œìë£Œ
-			oFilter.AddEx("PH_PY845"); //ê¸°ê°„ë³„ê¸‰ì—¬ì§€ê¸‰ë‚´ì—­
-			oFilter.AddEx("PH_PY850"); //ì†Œê¸‰ë¶„ì§€ê¸‰ëª…ì„¸ì„œ
-			oFilter.AddEx("PH_PY855"); //ê°œì¸ë³„ì„ê¸ˆì§€ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY865"); //ê³ ìš©ë³´í—˜í˜„í™© (ê³„ì‚°ìš©)
-			oFilter.AddEx("PH_PY870"); //ë‹´ë‹¹ë³„ì›”O/Të°ìˆ˜ë‹¹í˜„í™©
-			oFilter.AddEx("PH_PY875"); //ì§ê¸‰ë³„ìˆ˜ë‹¹ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY716"); //ê¸°ê°„ë³„ê¸‰ì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY721"); //ê¸°ê°„ë³„ìƒì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY717"); //ê¸°ê°„ë³„ê¸‰ì—¬ë°˜ë³„ì§‘ê³„ëŒ€ì¥
-			oFilter.AddEx("PH_PY718"); //ìƒì‚°ì™„ë£Œê¸ˆì•¡ëŒ€ë¹„O/Tí˜„í™©
-			oFilter.AddEx("PH_PY701"); //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥ (ë…¸ì¡°ìš©)
+            //±Ş¿©°ü¸® - ¸®Æ÷Æ®
+            oFilter.AddEx("PH_PY625"); //¼¼Å¹ÀÚ¸íºÎ
+			oFilter.AddEx("PH_PY630"); //»ç¿øº°³ëÁ¶ºñ°øÁ¦ÇöÈ²
+			oFilter.AddEx("PH_PY700"); //±Ş¿©Áö±Ş´ëÀå
+			oFilter.AddEx("PH_PY710"); //»ó¿©Áö±Ş´ëÀå
+			oFilter.AddEx("PH_PY715"); //±Ş¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY720"); //»ó¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY725"); //±Ş¿©Á÷±Şº°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY740"); //»ó¿©Á÷±Şº°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY730"); //±Ş¿©ºÀÅõÃâ·Â
+			oFilter.AddEx("PH_PY735"); //»ó¿©ºÀÅõÃâ·Â
+			oFilter.AddEx("PH_PY745"); //¿¬°£Áö±ŞÇöÈ²
+			oFilter.AddEx("PH_PY750"); //±Ù·Î¼ÒµæÂ¡¼öÇöÈ²
+			oFilter.AddEx("PH_PY755"); //µ¿È£È¸°¡ÀÔÇöÈ²
+			oFilter.AddEx("PH_PY760"); //Æò±ÕÀÓ±İ¹×ÅğÁ÷±İ»êÃâ³»¿ª¼­
+			oFilter.AddEx("PH_PY765"); //±Ş¿©Áõ°¨³»¿ª¼­
+			oFilter.AddEx("PH_PY770"); //ÅğÁ÷¼Òµæ¿øÃµÂ¡¼ö¿µ¼öÁõÃâ·Â
+			oFilter.AddEx("PH_PY775"); //°³ÀÎº°³âÂ÷ÇöÈ²
+			oFilter.AddEx("PH_PY776"); //ÀÜ¿©³âÂ÷ÇöÈ²
+			oFilter.AddEx("PH_PY780"); //¿ù°í¿ëº¸Çè³»¿ª
+			oFilter.AddEx("PH_PY785"); //¿ù±¹¹Î¿¬±İ³»¿ª
+			oFilter.AddEx("PH_PY790"); //¿ù°Ç°­º¸Çè³»¿ª
+			oFilter.AddEx("PH_PY795"); //¿¬°£ºÎ¼­º°±Ş¿©³»¿ª
+			oFilter.AddEx("PH_PY800"); //ÀÎ°ÇºñÁö±ŞÀÚ·á
+			oFilter.AddEx("PH_PY805"); //±Ş¿©¼ö´çº¯µ¿³»¿ª
+			oFilter.AddEx("PH_PY810"); //Á÷±Şº°Åë»óÀÓ±İ³»¿ª
+			oFilter.AddEx("PH_PY815"); //Æò±ÕÀÓ±İ³»¿ª
+			oFilter.AddEx("PH_PY820"); //Åë»óÀÓ±İ³»¿ª
+			oFilter.AddEx("PH_PY825"); //Àü¹®Á÷O/TÇöÈ²
+			oFilter.AddEx("PH_PY830"); //ºÎ¼­º°ÀÎ°ÇºñÇöÈ² (±âÈ¹)
+			oFilter.AddEx("PH_PY835"); //Á÷±Şº°O/T¹×¼ö´çÇöÈ²
+			oFilter.AddEx("PH_PY840"); //Ç³»êÀüÀÚ°ø½ÃÀÚ·á
+			oFilter.AddEx("PH_PY845"); //±â°£º°±Ş¿©Áö±Ş³»¿ª
+			oFilter.AddEx("PH_PY850"); //¼Ò±ŞºĞÁö±Ş¸í¼¼¼­
+			oFilter.AddEx("PH_PY855"); //°³ÀÎº°ÀÓ±İÁö±Ş´ëÀå
+			oFilter.AddEx("PH_PY865"); //°í¿ëº¸ÇèÇöÈ² (°è»ê¿ë)
+			oFilter.AddEx("PH_PY870"); //´ã´çº°¿ùO/T¹×¼ö´çÇöÈ²
+			oFilter.AddEx("PH_PY875"); //Á÷±Şº°¼ö´çÁı°è´ëÀå
+			oFilter.AddEx("PH_PY716"); //±â°£º°±Ş¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY721"); //±â°£º°»ó¿©ºÎ¼­º°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY717"); //±â°£º°±Ş¿©¹İº°Áı°è´ëÀå
+			oFilter.AddEx("PH_PY718"); //»ı»ê¿Ï·á±İ¾×´ëºñO/TÇöÈ²
+			oFilter.AddEx("PH_PY701"); //±Ş¿©Áö±Ş´ëÀå (³ëÁ¶¿ë)
 
-			oFilter.AddEx("PH_PYA10"); //ê¸‰ì—¬ì§€ê¸‰ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA20"); //ê¸‰ì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA30"); //ìƒì—¬ì§€ê¸‰ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA40"); //ìƒì—¬ë¶€ì„œë³„ì§‘ê³„ëŒ€ì¥(ë¶€ì„œ)
-			oFilter.AddEx("PH_PYA50"); //DCì „í™˜ìë¶€ë‹´ê¸ˆì§€ê¸‰ë‚´ì—­
-			oFilter.AddEx("PH_PYA75"); //êµí†µë¹„ì™¸ìˆ˜ë‹¹ì§€ê¸‰ëŒ€ì¥
-            oFilter.AddEx("PH_PYA80"); //ê·¼ë¬´ì‹œê°„í‘œì¶œë ¥
-            oFilter.AddEx("PH_PYA90"); //ê·¼ë¡œì†Œë“ê°„ì´ì§€ê¸‰ëª…ì„¸ì„œ(ì„¸ë¬´ì„œì‹ ê³ íŒŒì¼ìƒì„±)
-            oFilter.AddEx("PH_PY526"); //ì„ê¸ˆí”¼í¬ì¸ì›í˜„í™©
-            oFilter.AddEx("PH_PY999"); //ì‚¬ìš©ìê¶Œí•œê´€ë¦¬
+			oFilter.AddEx("PH_PYA10"); //±Ş¿©Áö±Ş´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA20"); //±Ş¿©ºÎ¼­º°Áı°è´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA30"); //»ó¿©Áö±Ş´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA40"); //»ó¿©ºÎ¼­º°Áı°è´ëÀå(ºÎ¼­)
+			oFilter.AddEx("PH_PYA50"); //DCÀüÈ¯ÀÚºÎ´ã±İÁö±Ş³»¿ª
+			oFilter.AddEx("PH_PYA75"); //±³Åëºñ¿Ü¼ö´çÁö±Ş´ëÀå
+            oFilter.AddEx("PH_PYA80"); //±Ù¹«½Ã°£Ç¥Ãâ·Â
+            oFilter.AddEx("PH_PYA90"); //±Ù·Î¼Òµæ°£ÀÌÁö±Ş¸í¼¼¼­(¼¼¹«¼­½Å°íÆÄÀÏ»ı¼º)
+            oFilter.AddEx("PH_PY526"); //ÀÓ±İÇÇÅ©ÀÎ¿øÇöÈ²
+            oFilter.AddEx("PH_PY999"); //»ç¿ëÀÚ±ÇÇÑ°ü¸®
 
-            //ì •ì‚°ê´€ë¦¬
-            oFilter.AddEx("PH_PY401"); //ì „ê·¼ë¬´ì§€ë“±ë¡
-			oFilter.AddEx("PH_PY402"); //ì •ì‚°ê¸°ì´ˆìë£Œ ë“±ë¡
-			oFilter.AddEx("PH_PY405"); //ì˜ë£Œë¹„ë“±ë¡
-			oFilter.AddEx("PH_PY407"); //ê¸°ë¶€ê¸ˆë“±ë¡
-			oFilter.AddEx("PH_PY409"); //ê¸°ë¶€ê¸ˆì¡°ì •ëª…ì„¸ë“±ë¡
-			oFilter.AddEx("PH_PY411"); //ì—°ê¸ˆ.ì €ì¶•ë“±ì†Œë“ê³µì œë“±ë¡
-			oFilter.AddEx("PH_PY413"); //ì›”ì„¸ì•¡.ì£¼íƒì„ì°¨ì°¨ì…ê¸ˆìë£Œ ë“±ë¡
-			oFilter.AddEx("PH_PY415"); //ì •ì‚°ê³„ì‚°
-			oFilter.AddEx("PH_PY417"); //ì •ì‚° ì€í–‰íŒŒì¼ìƒì„±
-			oFilter.AddEx("PH_PY980"); //ì‹ ê³ _ê·¼ë¡œì†Œë“ì§€ê¸‰ëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY985"); //ì‹ ê³ _ì˜ë£Œë¹„ì§€ê¸‰ëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY990"); //ì‹ ê³ _ê¸°ë¶€ê¸ˆëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY995"); //ì‹ ê³ _í‡´ì§ì†Œë“ì§€ê¸‰ëª…ì„¸ì„œìë£Œì‘ì„±
-			oFilter.AddEx("PH_PY419"); //í‘œì¤€ì„¸ì•¡ì ìš©ëŒ€ìƒìë“±ë¡
 
-			oFilter.AddEx("PH_PY910"); //ì†Œë“ê³µì œì‹ ê³ ì„œì¶œë ¥
-			oFilter.AddEx("PH_PY915"); //ê·¼ë¡œì†Œë“ì›ì²œì§•ìˆ˜ë¶€ì¶œë ¥
-			oFilter.AddEx("PH_PY920"); //ì›ì²œì§•ìˆ˜ì˜ìˆ˜ì¦ì¶œë ¥
-			oFilter.AddEx("PH_PY925"); //ê¸°ë¶€ê¸ˆëª…ì„¸ì„œì¶œë ¥
-			oFilter.AddEx("PH_PY930"); //ì •ì‚°ì§•ìˆ˜ë°í™˜ê¸‰ëŒ€ì¥
-			oFilter.AddEx("PH_PY931"); //í‘œì¤€ì„¸ì•¡ì ìš©ëŒ€ìƒìì¡°íšŒ
-			oFilter.AddEx("PH_PY932"); //ì „ê·¼ë¬´ì§€ë“±ë¡í˜„í™©
-			oFilter.AddEx("PH_PY933"); //ë³´ìˆ˜ì´ì•¡ì‹ ê³ ê¸°ì´ˆìë£Œ
-			oFilter.AddEx("PH_PYA55"); //ì •ì‚°ì§•ìˆ˜ë°í™˜ê¸‰ëŒ€ì¥(ì§‘ê³„)
-			oFilter.AddEx("PH_PYA70"); //ì†Œë“ì„¸ì›ì²œì§•ìˆ˜ì„¸ì•¡ì¡°ì •ì‹ ì²­ì„œì¶œë ¥
+			//Á¤»ê°ü¸®
+			oFilter.AddEx("PH_PY401"); //Àü±Ù¹«Áöµî·Ï
+			oFilter.AddEx("PH_PY402"); //Á¤»ê±âÃÊÀÚ·á µî·Ï
+			oFilter.AddEx("PH_PY405"); //ÀÇ·áºñµî·Ï
+			oFilter.AddEx("PH_PY407"); //±âºÎ±İµî·Ï
+			oFilter.AddEx("PH_PY409"); //±âºÎ±İÁ¶Á¤¸í¼¼µî·Ï
+			oFilter.AddEx("PH_PY411"); //¿¬±İ.ÀúÃàµî¼Òµæ°øÁ¦µî·Ï
+			oFilter.AddEx("PH_PY413"); //¿ù¼¼¾×.ÁÖÅÃÀÓÂ÷Â÷ÀÔ±İÀÚ·á µî·Ï
+			oFilter.AddEx("PH_PY415"); //Á¤»ê°è»ê
+			oFilter.AddEx("PH_PY417"); //Á¤»ê ÀºÇàÆÄÀÏ»ı¼º
+			oFilter.AddEx("PH_PY980"); //½Å°í_±Ù·Î¼ÒµæÁö±Ş¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY985"); //½Å°í_ÀÇ·áºñÁö±Ş¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY990"); //½Å°í_±âºÎ±İ¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY995"); //½Å°í_ÅğÁ÷¼ÒµæÁö±Ş¸í¼¼¼­ÀÚ·áÀÛ¼º
+			oFilter.AddEx("PH_PY419"); //Ç¥ÁØ¼¼¾×Àû¿ë´ë»óÀÚµî·Ï
 
-			oFilter.AddEx("ZPY341"); //ì›”ë³„ ì •ì‚°ìë£Œ ìƒì„±
-			oFilter.AddEx("ZPY343"); //ì›”ë³„ ìë£Œ ê´€ë¦¬
-			oFilter.AddEx("ZPY421"); //í‡´ì§ì†Œë“ì „ì‚°ë§¤ì²´ìˆ˜ë¡
-			oFilter.AddEx("ZPY501"); //ì†Œë“ê³µì œí•­ëª© ë“±ë¡
-			oFilter.AddEx("ZPY502"); //ì¢…(ì „) ê·¼ë¬´ì§€ ë“±ë¡
-			oFilter.AddEx("ZPY503"); //ì •ì‚°ì„¸ì•¡ê³„ì‚°
-			oFilter.AddEx("ZPY504"); //ì •ì‚°ê²°ê³¼ì¡°íšŒ
-			oFilter.AddEx("ZPY505"); //ê¸°ë¶€ê¸ˆëª…ì„¸ë“±ë¡
-			oFilter.AddEx("ZPY506"); //ì˜ë£Œë¹„ëª…ì„¸ë“±ë¡
-			oFilter.AddEx("ZPY507"); //ì •ì‚°ê²°ê³¼ì¡°íšŒ(ì „ì²´)
-			oFilter.AddEx("ZPY508"); //ì—°ê¸ˆì €ì¶• ì†Œë“ê³µì œ ëª…ì„¸ ë“±ë¡
-			oFilter.AddEx("ZPY509"); //ì •ì‚°ìë£Œ ë§ˆê°ì‘ì—…
-			oFilter.AddEx("ZPY510"); //ì¢…ì „ê·¼ë¬´ì§€ ì¼ê´„ìƒì„±
-			oFilter.AddEx("ZPY521"); //ê·¼ë¡œì†Œë“ì „ì‚°ë§¤ì²´ìˆ˜ë¡
-			oFilter.AddEx("ZPY522"); //ì˜ë£Œë¹„ ê¸°ë¶€ê¸ˆ ì „ì‚°ë§¤ì²´ìˆ˜ë¡
+			oFilter.AddEx("PH_PY910"); //¼Òµæ°øÁ¦½Å°í¼­Ãâ·Â
+			oFilter.AddEx("PH_PY915"); //±Ù·Î¼Òµæ¿øÃµÂ¡¼öºÎÃâ·Â
+			oFilter.AddEx("PH_PY920"); //¿øÃµÂ¡¼ö¿µ¼öÁõÃâ·Â
+			oFilter.AddEx("PH_PY925"); //±âºÎ±İ¸í¼¼¼­Ãâ·Â
+			oFilter.AddEx("PH_PY930"); //Á¤»êÂ¡¼ö¹×È¯±Ş´ëÀå
+			oFilter.AddEx("PH_PY931"); //Ç¥ÁØ¼¼¾×Àû¿ë´ë»óÀÚÁ¶È¸
+			oFilter.AddEx("PH_PY932"); //Àü±Ù¹«Áöµî·ÏÇöÈ²
+			oFilter.AddEx("PH_PY933"); //º¸¼öÃÑ¾×½Å°í±âÃÊÀÚ·á
+			oFilter.AddEx("PH_PYA55"); //Á¤»êÂ¡¼ö¹×È¯±Ş´ëÀå(Áı°è)
+			oFilter.AddEx("PH_PYA70"); //¼Òµæ¼¼¿øÃµÂ¡¼ö¼¼¾×Á¶Á¤½ÅÃ»¼­Ãâ·Â
 
-			oFilter.AddEx("RPY401"); //í‡´ì§ì›ì²œì§•ìˆ˜ ì—°ìˆ˜ì¦
-			oFilter.AddEx("RPY501"); //ì›”ë³„ìë£Œí˜„í™©
-			oFilter.AddEx("RPY502"); //ì¢…ì „ê·¼ë¬´ì§€í˜„í™©
-			oFilter.AddEx("RPY503"); //ê·¼ë¡œì†Œë“ ì›ì²œì§•ìˆ˜ë¶€
-			oFilter.AddEx("RPY504"); //ê·¼ë¡œì†Œë“ ì›ì²œì˜ìˆ˜ì¦
-			oFilter.AddEx("RPY505"); //ì†Œë“ìë£Œì§‘ê³„í‘œ
-			oFilter.AddEx("RPY506"); //ì •ì‚°ì§•ìˆ˜í™˜ê¸‰ëŒ€ì¥
-			oFilter.AddEx("RPY508"); //ì—°ë§ì •ì‚°ì§‘ê³„í‘œ
-			oFilter.AddEx("RPY509"); //ê°‘ê·¼ì„¸ì‹ ê³ ê²€í† í‘œ
-			oFilter.AddEx("RPY510"); //ë¹„ê³¼ì„¸ê·¼ë¡œì†Œë“ëª…ì„¸ì„œ
-			oFilter.AddEx("RPY511"); //ê¸°ë¶€ê¸ˆëª…ì„¸ì„œ
+			oFilter.AddEx("ZPY341"); //¿ùº° Á¤»êÀÚ·á »ı¼º
+			oFilter.AddEx("ZPY343"); //¿ùº° ÀÚ·á °ü¸®
+			oFilter.AddEx("ZPY421"); //ÅğÁ÷¼ÒµæÀü»ê¸ÅÃ¼¼ö·Ï
+			oFilter.AddEx("ZPY501"); //¼Òµæ°øÁ¦Ç×¸ñ µî·Ï
+			oFilter.AddEx("ZPY502"); //Á¾(Àü) ±Ù¹«Áö µî·Ï
+			oFilter.AddEx("ZPY503"); //Á¤»ê¼¼¾×°è»ê
+			oFilter.AddEx("ZPY504"); //Á¤»ê°á°úÁ¶È¸
+			oFilter.AddEx("ZPY505"); //±âºÎ±İ¸í¼¼µî·Ï
+			oFilter.AddEx("ZPY506"); //ÀÇ·áºñ¸í¼¼µî·Ï
+			oFilter.AddEx("ZPY507"); //Á¤»ê°á°úÁ¶È¸(ÀüÃ¼)
+			oFilter.AddEx("ZPY508"); //¿¬±İÀúÃà ¼Òµæ°øÁ¦ ¸í¼¼ µî·Ï
+			oFilter.AddEx("ZPY509"); //Á¤»êÀÚ·á ¸¶°¨ÀÛ¾÷
+			oFilter.AddEx("ZPY510"); //Á¾Àü±Ù¹«Áö ÀÏ°ı»ı¼º
+			oFilter.AddEx("ZPY521"); //±Ù·Î¼ÒµæÀü»ê¸ÅÃ¼¼ö·Ï
+			oFilter.AddEx("ZPY522"); //ÀÇ·áºñ ±âºÎ±İ Àü»ê¸ÅÃ¼¼ö·Ï
 
-			//ê¸°íƒ€ê´€ë¦¬
-			oFilter.AddEx("PH_PY301"); //í•™ìê¸ˆì‹ ì²­ë“±ë¡
-			oFilter.AddEx("PH_PY302"); //í•™ìê¸ˆì§€ê¸‰ì™„ë£Œì²˜ë¦¬
-			oFilter.AddEx("PH_PY303"); //í•™ìê¸ˆì€í–‰íŒŒì¼ìƒì„±
-			oFilter.AddEx("PH_PY305"); //í•™ìê¸ˆì‹ ì²­ì„œ
-			oFilter.AddEx("PH_PY306"); //í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ê°œì¸ë³„)
-			oFilter.AddEx("PH_PY307"); //í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ë¶„ê¸°ë³„)
-			oFilter.AddEx("PH_PY311"); //í†µê·¼ë²„ìŠ¤ìš´í–‰ë“±ë¡
-			oFilter.AddEx("PH_PY312"); //ë²„ìŠ¤ìš”ê¸ˆ ê°œì¸ë³„ë“±ë¡
-			oFilter.AddEx("PH_PY313"); //ëŒ€ë¶€ê¸ˆê³„ì‚°
-			oFilter.AddEx("PH_PY030"); //ê³µìš©ë“±ë¡
-			oFilter.AddEx("PH_PY031"); //ì¶œì¥ë“±ë¡
-			oFilter.AddEx("PH_PY032"); //ì‚¬ìš©ì™¸ì¶œë“±ë¡
-			oFilter.AddEx("PH_PY315"); //ê°œì¸ë³„ëŒ€ë¶€ê¸ˆì”ì•¡í˜„í™©
-			oFilter.AddEx("PH_PY034"); //ê³µìš©ë¶„ê°œì²˜ë¦¬
-			oFilter.AddEx("PH_PYA60"); //í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ì§‘ê³„)
+			oFilter.AddEx("RPY401"); //ÅğÁ÷¿øÃµÂ¡¼ö ¿¬¼öÁõ
+			oFilter.AddEx("RPY501"); //¿ùº°ÀÚ·áÇöÈ²
+			oFilter.AddEx("RPY502"); //Á¾Àü±Ù¹«ÁöÇöÈ²
+			oFilter.AddEx("RPY503"); //±Ù·Î¼Òµæ ¿øÃµÂ¡¼öºÎ
+			oFilter.AddEx("RPY504"); //±Ù·Î¼Òµæ ¿øÃµ¿µ¼öÁõ
+			oFilter.AddEx("RPY505"); //¼ÒµæÀÚ·áÁı°èÇ¥
+			oFilter.AddEx("RPY506"); //Á¤»êÂ¡¼öÈ¯±Ş´ëÀå
+			oFilter.AddEx("RPY508"); //¿¬¸»Á¤»êÁı°èÇ¥
+			oFilter.AddEx("RPY509"); //°©±Ù¼¼½Å°í°ËÅäÇ¥
+			oFilter.AddEx("RPY510"); //ºñ°ú¼¼±Ù·Î¼Òµæ¸í¼¼¼­
+			oFilter.AddEx("RPY511"); //±âºÎ±İ¸í¼¼¼­
+
+			//±âÅ¸°ü¸®
+			oFilter.AddEx("PH_PY301"); //ÇĞÀÚ±İ½ÅÃ»µî·Ï
+			oFilter.AddEx("PH_PY302"); //ÇĞÀÚ±İÁö±Ş¿Ï·áÃ³¸®
+			oFilter.AddEx("PH_PY303"); //ÇĞÀÚ±İÀºÇàÆÄÀÏ»ı¼º
+			oFilter.AddEx("PH_PY305"); //ÇĞÀÚ±İ½ÅÃ»¼­
+			oFilter.AddEx("PH_PY306"); //ÇĞÀÚ±İ½ÅÃ»³»¿ª(°³ÀÎº°)
+			oFilter.AddEx("PH_PY307"); //ÇĞÀÚ±İ½ÅÃ»³»¿ª(ºĞ±âº°)
+			oFilter.AddEx("PH_PY311"); //Åë±Ù¹ö½º¿îÇàµî·Ï
+			oFilter.AddEx("PH_PY312"); //¹ö½º¿ä±İ °³ÀÎº°µî·Ï
+			oFilter.AddEx("PH_PY313"); //´ëºÎ±İ°è»ê
+			oFilter.AddEx("PH_PY030"); //°ø¿ëµî·Ï
+			oFilter.AddEx("PH_PY031"); //ÃâÀåµî·Ï
+			oFilter.AddEx("PH_PY032"); //»ç¿ë¿ÜÃâµî·Ï
+			oFilter.AddEx("PH_PY315"); //°³ÀÎº°´ëºÎ±İÀÜ¾×ÇöÈ²
+			oFilter.AddEx("PH_PY034"); //°ø¿ëºĞ°³Ã³¸®
+			oFilter.AddEx("PH_PYA60"); //ÇĞÀÚ±İ½ÅÃ»³»¿ª(Áı°è)
+			oFilter.AddEx("PS_DateChange"); //³¯Â¥ ¼öÁ¤ µî·Ï
+			oFilter.AddEx("PS_DateCommit"); //³¯Â¥ ½ÂÀÎ
         }
 
 		private static void FORM_ACTIVATE(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2089,18 +2109,18 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE);
 
 			//System Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-			//ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+			//Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 
 			//AddOn Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-			//ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+			//Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 		}
 
 		private static void FORM_DEACTIVATE(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2108,18 +2128,18 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE);
 
 			//System Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-            //ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+            //Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 
 			//AddOn Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-            //ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+            //Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 		}
 		
 		private static void FORM_CLOSE(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2132,55 +2152,55 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_RESIZE);
 
 			//System Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-			//ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+			//Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 
 			//AddOn Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY001"); //ì¸ì‚¬ë§ˆìŠ¤í„°ë“±ë¡
-			oFilter.AddEx("PH_PY002"); //ê·¼íƒœì‹œê°„êµ¬ë¶„ ë“±ë¡
-			oFilter.AddEx("PH_PY003"); //ê·¼íƒœì›”ë ¥ì„¤ì •
-			oFilter.AddEx("PH_PY007"); //ìœ ë¥˜ë‹¨ê°€ë“±ë¡
-			oFilter.AddEx("PH_PY508"); //ì¬ì§ì¦ëª… ë“±ë¡ ë° ë°œê¸‰
-			oFilter.AddEx("PH_PY021"); //ì‚¬ì›ë¹„ìƒì—°ë½ì²˜ê´€ë¦¬
-			oFilter.AddEx("PH_PY201"); //ì •ë…„ì„ë°•ì íœ´ê°€ê²½ë¹„ ë“±ë¡
-			oFilter.AddEx("PH_PY203"); //êµìœ¡ì‹¤ì ë“±ë¡
-			oFilter.AddEx("PH_PY204"); //êµìœ¡ê³„íšë“±ë¡
-			oFilter.AddEx("PH_PY205"); //êµìœ¡ê³„íšVSì‹¤ì ì¡°íšŒ
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			oFilter.AddEx("PH_PY001"); //ÀÎ»ç¸¶½ºÅÍµî·Ï
+			oFilter.AddEx("PH_PY002"); //±ÙÅÂ½Ã°£±¸ºĞ µî·Ï
+			oFilter.AddEx("PH_PY003"); //±ÙÅÂ¿ù·Â¼³Á¤
+			oFilter.AddEx("PH_PY007"); //À¯·ù´Ü°¡µî·Ï
+			oFilter.AddEx("PH_PY508"); //ÀçÁ÷Áõ¸í µî·Ï ¹× ¹ß±Ş
+			oFilter.AddEx("PH_PY021"); //»ç¿øºñ»ó¿¬¶ôÃ³°ü¸®
+			oFilter.AddEx("PH_PY201"); //Á¤³âÀÓ¹ÚÀÚ ÈŞ°¡°æºñ µî·Ï
+			oFilter.AddEx("PH_PY203"); //±³À°½ÇÀûµî·Ï
+			oFilter.AddEx("PH_PY204"); //±³À°°èÈ¹µî·Ï
+			oFilter.AddEx("PH_PY205"); //±³À°°èÈ¹VS½ÇÀûÁ¶È¸
 
-			//ê¸‰ì—¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY100"); //ê¸°ì¤€ì„¸ì•¡ì„¤ì •
-			oFilter.AddEx("PH_PY101"); //ë³´í—˜ë¥ ë“±ë¡
-			oFilter.AddEx("PH_PY106"); //ìˆ˜ë‹¹ê³„ì‚°ì‹ì„¤ì •
-			oFilter.AddEx("PH_PY114"); //í‡´ì§ê¸ˆê¸°ì¤€ì„¤ì •
-			oFilter.AddEx("PH_PY130"); //íŒ€ë³„ ì„±ê³¼ê¸‰ì°¨ë“± ë“±ê¸‰ë“±ë¡
-			oFilter.AddEx("PH_PY131"); //ì„±ê³¼ê¸‰ì°¨ë“± ê³„ìˆ˜ë“±ë¡
-			oFilter.AddEx("PH_PY132"); //ì„±ê³¼ê¸‰ì°¨ ê°œì¸ë³„ ê³„ì‚°
-			oFilter.AddEx("PH_PY133"); //ì—°ë´‰ì œ íšŸì°¨ ê´€ë¦¬
-			oFilter.AddEx("PH_PY134"); //ì†Œë“ì„¸/ì£¼ë¯¼ì„¸ ì¡°ì •ê´€ë¦¬
-			oFilter.AddEx("PH_PY129"); //ê°œì¸ë³„í‡´ì§ì—°ê¸ˆ(DCí˜•) ê³„ì‚°
-            oFilter.AddEx("PH_PY135"); //ê¸‰ìƒì—¬ë¶„ê°œì²˜ë¦¬
-            oFilter.AddEx("PH_PY136"); //ê¸‰ìƒì—¬ë¶„ê°œì²˜ë¦¬ ë°°ë¶€ê·œì¹™ì„¤ì •
+			//±Ş¿©°ü¸®
+			oFilter.AddEx("PH_PY100"); //±âÁØ¼¼¾×¼³Á¤
+			oFilter.AddEx("PH_PY101"); //º¸Çè·üµî·Ï
+			oFilter.AddEx("PH_PY106"); //¼ö´ç°è»ê½Ä¼³Á¤
+			oFilter.AddEx("PH_PY114"); //ÅğÁ÷±İ±âÁØ¼³Á¤
+			oFilter.AddEx("PH_PY130"); //ÆÀº° ¼º°ú±ŞÂ÷µî µî±Şµî·Ï
+			oFilter.AddEx("PH_PY131"); //¼º°ú±ŞÂ÷µî °è¼öµî·Ï
+			oFilter.AddEx("PH_PY132"); //¼º°ú±ŞÂ÷ °³ÀÎº° °è»ê
+			oFilter.AddEx("PH_PY133"); //¿¬ºÀÁ¦ È½Â÷ °ü¸®
+			oFilter.AddEx("PH_PY134"); //¼Òµæ¼¼/ÁÖ¹Î¼¼ Á¶Á¤°ü¸®
+			oFilter.AddEx("PH_PY129"); //°³ÀÎº°ÅğÁ÷¿¬±İ(DCÇü) °è»ê
+            oFilter.AddEx("PH_PY135"); //±Ş»ó¿©ºĞ°³Ã³¸®
+            oFilter.AddEx("PH_PY136"); //±Ş»ó¿©ºĞ°³Ã³¸® ¹èºÎ±ÔÄ¢¼³Á¤
 
-            //ì •ì‚°ê´€ë¦¬
-            oFilter.AddEx("ZPY501"); //ì†Œë“ê³µì œí•­ëª© ë“±ë¡
+            //Á¤»ê°ü¸®
+            oFilter.AddEx("ZPY501"); //¼Òµæ°øÁ¦Ç×¸ñ µî·Ï
 
-            //ê¸°íƒ€ê´€ë¦¬
-			oFilter.AddEx("PH_PY301"); //í•™ìê¸ˆì‹ ì²­ë“±ë¡
-			oFilter.AddEx("PH_PY302"); //í•™ìê¸ˆì§€ê¸‰ì™„ë£Œì²˜ë¦¬
-			oFilter.AddEx("PH_PY305"); //í•™ìê¸ˆì‹ ì²­ì„œ
-			oFilter.AddEx("PH_PY306"); //í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ê°œì¸ë³„)
-			oFilter.AddEx("PH_PY307"); //í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ë¶„ê¸°ë³„)
-			oFilter.AddEx("PH_PY032"); //ì‚¬ìš©ì™¸ì¶œë“±ë¡
-			oFilter.AddEx("PH_PY034"); //ê³µìš©ë¶„ê°œì²˜ë¦¬
-			oFilter.AddEx("PH_PYA60"); //í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ì§‘ê³„)
+            //±âÅ¸°ü¸®
+			oFilter.AddEx("PH_PY301"); //ÇĞÀÚ±İ½ÅÃ»µî·Ï
+			oFilter.AddEx("PH_PY302"); //ÇĞÀÚ±İÁö±Ş¿Ï·áÃ³¸®
+			oFilter.AddEx("PH_PY305"); //ÇĞÀÚ±İ½ÅÃ»¼­
+			oFilter.AddEx("PH_PY306"); //ÇĞÀÚ±İ½ÅÃ»³»¿ª(°³ÀÎº°)
+			oFilter.AddEx("PH_PY307"); //ÇĞÀÚ±İ½ÅÃ»³»¿ª(ºĞ±âº°)
+			oFilter.AddEx("PH_PY032"); //»ç¿ë¿ÜÃâµî·Ï
+			oFilter.AddEx("PH_PY034"); //°ø¿ëºĞ°³Ã³¸®
+			oFilter.AddEx("PH_PYA60"); //ÇĞÀÚ±İ½ÅÃ»³»¿ª(Áı°è)
 
-			//ê·¼íƒœê´€ë¦¬
-			oFilter.AddEx("PH_PY677"); //ê·¼íƒœê¸°ì°°ì´ìƒì ìˆ˜ì •
+			//±ÙÅÂ°ü¸®
+			oFilter.AddEx("PH_PY677"); //±ÙÅÂ±âÂûÀÌ»óÀÚ ¼öÁ¤
         }
 
 		private static void FORM_KEY_DOWN(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2188,18 +2208,18 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN);
 
 			//System Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-            //ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+            //Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 
 			//AddOn Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-            //ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+            //Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 		}
 
 		private static void FORM_MENU_HILIGHT(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2207,18 +2227,18 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT);
 
 			//System Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-            //ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+            //Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 
 			//AddOn Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-            //ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+            //Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 		}
 
 		private static void vPRINT(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2226,18 +2246,18 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_PRINT);
 
 			//System Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-            //ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+            //Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 
 			//AddOn Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-            //ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+            //Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 		}
 
 		private static void PRINT_DATA(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2245,18 +2265,18 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_PRINT_DATA);
 
 			//System Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-            //ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+            //Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 
             //AddOn Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-            //ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+            //Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 		}
 
 		private static void CHOOSE_FROM_LIST(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2264,23 +2284,23 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST);
 
 			//System Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-            //ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+            //Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 
 			//AddOn Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY001"); //ì¸ì‚¬ë§ˆìŠ¤í„°ë“±ë¡
-			oFilter.AddEx("PH_PY005"); //ì‚¬ì—…ì¥ì •ë³´ë“±ë¡
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			oFilter.AddEx("PH_PY001"); //ÀÎ»ç¸¶½ºÅÍµî·Ï
+			oFilter.AddEx("PH_PY005"); //»ç¾÷ÀåÁ¤º¸µî·Ï
 
-			//ê¸‰ì—¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY103"); //ê³µì œí•­ëª©ì„¤ì •
+			//±Ş¿©°ü¸®
+			oFilter.AddEx("PH_PY103"); //°øÁ¦Ç×¸ñ¼³Á¤
 
-			//ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 		}
 
 		private static void RIGHT_CLICK(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2288,24 +2308,24 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_RIGHT_CLICK);
 
 	        //System Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-            //ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+            //Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 
 			//AddOn Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY001"); //ì¸ì‚¬ë§ˆìŠ¤í„°ë“±ë¡
-			oFilter.AddEx("PH_PY002"); //ê·¼íƒœì‹œê°„êµ¬ë¶„ ë“±ë¡
-			oFilter.AddEx("PH_PY003"); //ê·¼íƒœì›”ë ¥ì„¤ì •
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			oFilter.AddEx("PH_PY001"); //ÀÎ»ç¸¶½ºÅÍµî·Ï
+			oFilter.AddEx("PH_PY002"); //±ÙÅÂ½Ã°£±¸ºĞ µî·Ï
+			oFilter.AddEx("PH_PY003"); //±ÙÅÂ¿ù·Â¼³Á¤
 
-			//ê¸‰ì—¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY109"); //ê¸‰ìƒì—¬ë³€ë™ìë£Œë“±ë¡
+			//±Ş¿©°ü¸®
+			oFilter.AddEx("PH_PY109"); //±Ş»ó¿©º¯µ¿ÀÚ·áµî·Ï
 
-			//ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 		}
 
 		private static void MENU_CLICK(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2313,18 +2333,18 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_MENU_CLICK);
 
 			//System Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-            //ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+            //Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 
 			//AddOn Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-            //ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+            //Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 		}
 
 		private static void FORM_DATA_ADD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2332,18 +2352,18 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD);
 
 			//System Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-            //ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+            //Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 
 			//AddOn Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-            //ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+            //Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 		}
 
 		private static void FORM_DATA_UPDATE(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2351,18 +2371,18 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE);
 
 		    //System Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-			//ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+			//Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 
 			//AddOn Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-            //ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+            //Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 		}
 
 		private static void FORM_DATA_DELETE(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2370,19 +2390,19 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE);
 
 			//System Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-			//ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+			//Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 
 
 			//AddOn Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
-            //ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
+            //Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 		}
 
 		private static void FORM_DATA_LOAD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2390,28 +2410,28 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD);
 
 			//System Form Type
-			//ìš´ì˜ê´€ë¦¬
-			//ì¸ì‚¬ê´€ë¦¬
-			//ê¸‰ì—¬ê´€ë¦¬
+			//¿î¿µ°ü¸®
+			//ÀÎ»ç°ü¸®
+			//±Ş¿©°ü¸®
 
-			//ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 
 			//AddOn Form Type
-			//ìš´ì˜ê´€ë¦¬
-			oFilter.AddEx("PH_PY000"); //ì‚¬ìš©ìê¶Œí•œê´€ë¦¬
+			//¿î¿µ°ü¸®
+			oFilter.AddEx("PH_PY000"); //»ç¿ëÀÚ±ÇÇÑ°ü¸®
 
-            //ì¸ì‚¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY001"); //ì¸ì‚¬ë§ˆìŠ¤í„°ë“±ë¡
-			oFilter.AddEx("PH_PY002"); //ê·¼íƒœì‹œê°„êµ¬ë¶„ ë“±ë¡
-			oFilter.AddEx("PH_PY105"); //í˜¸ë´‰í‘œë“±ë¡
-			oFilter.AddEx("PH_PY124"); //ë² ë„¤í”¼ì•„ ê¸ˆì•¡ ë“±ë¡
+            //ÀÎ»ç°ü¸®
+			oFilter.AddEx("PH_PY001"); //ÀÎ»ç¸¶½ºÅÍµî·Ï
+			oFilter.AddEx("PH_PY002"); //±ÙÅÂ½Ã°£±¸ºĞ µî·Ï
+			oFilter.AddEx("PH_PY105"); //È£ºÀÇ¥µî·Ï
+			oFilter.AddEx("PH_PY124"); //º£³×ÇÇ¾Æ ±İ¾× µî·Ï
 
-			//ê¸‰ì—¬ê´€ë¦¬
-			oFilter.AddEx("PH_PY112"); //ê¸‰ìƒì—¬ìë£Œê´€ë¦¬
+			//±Ş¿©°ü¸®
+			oFilter.AddEx("PH_PY112"); //±Ş»ó¿©ÀÚ·á°ü¸®
 
-			//ì •ì‚°ê´€ë¦¬
-			//ê¸°íƒ€ê´€ë¦¬
+			//Á¤»ê°ü¸®
+			//±âÅ¸°ü¸®
 		}
 	}
 }

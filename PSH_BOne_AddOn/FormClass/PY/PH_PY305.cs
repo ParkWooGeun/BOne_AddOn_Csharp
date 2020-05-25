@@ -9,7 +9,7 @@ using Microsoft.VisualBasic;
 namespace PSH_BOne_AddOn
 {
     /// <summary>
-    /// í•™ìê¸ˆì‹ ì²­ì„œ
+    /// ÇĞÀÚ±İ½ÅÃ»¼­
     /// </summary>
     internal class PH_PY305 : PSH_BaseClass
     {
@@ -18,15 +18,15 @@ namespace PSH_BOne_AddOn
 
         //public SAPbouiCOM.Form oForm;
 
-        //private SAPbouiCOM.DBDataSource oDS_PH_PY305A; //ë“±ë¡í—¤ë”
-        private SAPbouiCOM.DBDataSource oDS_PH_PY305B; //ë“±ë¡ë¼ì¸
+        //private SAPbouiCOM.DBDataSource oDS_PH_PY305A; //µî·ÏÇì´õ
+        private SAPbouiCOM.DBDataSource oDS_PH_PY305B; //µî·Ï¶óÀÎ
 
-        private string oLastItemUID01; //í´ë˜ìŠ¤ì—ì„œ ì„ íƒí•œ ë§ˆì§€ë§‰ ì•„ì´í…œ Uidê°’
-        private string oLastColUID01; //ë§ˆì§€ë§‰ì•„ì´í…œì´ ë©”íŠ¸ë¦­ìŠ¤ì¼ê²½ìš°ì— ë§ˆì§€ë§‰ ì„ íƒëœ Colì˜ Uidê°’
-        private int oLastColRow01; //ë§ˆì§€ë§‰ì•„ì´í…œì´ ë©”íŠ¸ë¦­ìŠ¤ì¼ê²½ìš°ì— ë§ˆì§€ë§‰ ì„ íƒëœ Rowê°’
+        private string oLastItemUID01; //Å¬·¡½º¿¡¼­ ¼±ÅÃÇÑ ¸¶Áö¸· ¾ÆÀÌÅÛ Uid°ª
+        private string oLastColUID01; //¸¶Áö¸·¾ÆÀÌÅÛÀÌ ¸ŞÆ®¸¯½ºÀÏ°æ¿ì¿¡ ¸¶Áö¸· ¼±ÅÃµÈ ColÀÇ Uid°ª
+        private int oLastColRow01; //¸¶Áö¸·¾ÆÀÌÅÛÀÌ ¸ŞÆ®¸¯½ºÀÏ°æ¿ì¿¡ ¸¶Áö¸· ¼±ÅÃµÈ Row°ª
 
         /// <summary>
-        /// Form í˜¸ì¶œ
+        /// Form È£Ãâ
         /// </summary>
         /// <param name="oFromDocEntry01"></param>
         public override void LoadForm(string oFromDocEntry01)
@@ -57,7 +57,7 @@ namespace PSH_BOne_AddOn
 
                 oForm.SupportedModes = -1;
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
-                //oForm.DataBrowser.BrowseBy="DocEntry" '//UDOë°©ì‹ì¼ë•Œ
+                //oForm.DataBrowser.BrowseBy="DocEntry" '//UDO¹æ½ÄÀÏ¶§
 
                 oForm.Freeze(true);
                 PH_PY305_CreateItems();
@@ -74,12 +74,12 @@ namespace PSH_BOne_AddOn
                 oForm.Update();
                 oForm.Freeze(false);
                 oForm.Visible = true;
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oXmlDoc); //ë©”ëª¨ë¦¬ í•´ì œ
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oXmlDoc); //¸Ş¸ğ¸® ÇØÁ¦
             }
         }
 
         /// <summary>
-        /// í™”ë©´ Item ìƒì„±
+        /// È­¸é Item »ı¼º
         /// </summary>
         private void PH_PY305_CreateItems()
         {
@@ -92,77 +92,84 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 oDS_PH_PY305B = oForm.DataSources.DBDataSources.Item("@PS_USERDS01");
 
-                // ë©”íŠ¸ë¦­ìŠ¤ ê°œì²´ í• ë‹¹
+                // ¸ŞÆ®¸¯½º °³Ã¼ ÇÒ´ç
                 oMat01 = oForm.Items.Item("Mat01").Specific;
                 oMat01.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_NotSupported;
                 oMat01.AutoResizeColumns();
 
-                // ì‚¬ì—…ì¥
+                // »ç¾÷Àå
                 oForm.DataSources.UserDataSources.Add("CLTCOD", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("CLTCOD").Specific.DataBind.SetBound(true, "", "CLTCOD");
                 oForm.Items.Item("CLTCOD").DisplayDesc = true;
 
-                // ì‚¬ì›ë²ˆí˜¸
+                // »ç¿ø¹øÈ£
                 oForm.DataSources.UserDataSources.Add("SCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
                 oForm.Items.Item("SCode").Specific.DataBind.SetBound(true, "", "SCode");
 
-                // ì‚¬ì›ì„±ëª…
+                // »ç¿ø¼º¸í
                 oForm.DataSources.UserDataSources.Add("SName", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 50);
                 oForm.Items.Item("SName").Specific.DataBind.SetBound(true, "", "SName");
 
-                // ë…„ë„
+                // ³âµµ
                 oForm.DataSources.UserDataSources.Add("StdYear", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 4);
                 oForm.Items.Item("StdYear").Specific.DataBind.SetBound(true, "", "StdYear");
                 oForm.Items.Item("StdYear").Specific.VALUE = DateTime.Now.ToString("yyyy");
 
-                // ë¶„ê¸°
+                // ºĞ±â
                 oForm.Items.Item("Quarter").Specific.ValidValues.Add("", "");
-                oForm.Items.Item("Quarter").Specific.ValidValues.Add("01", "1/4 í˜¹ì€ 1í•™ê¸°");
+                oForm.Items.Item("Quarter").Specific.ValidValues.Add("01", "1/4 È¤Àº 1ÇĞ±â");
                 oForm.Items.Item("Quarter").Specific.ValidValues.Add("02", "2/4");
-                oForm.Items.Item("Quarter").Specific.ValidValues.Add("03", "3/4 í˜¹ì€ 2í•™ê¸°");
+                oForm.Items.Item("Quarter").Specific.ValidValues.Add("03", "3/4 È¤Àº 2ÇĞ±â");
                 oForm.Items.Item("Quarter").Specific.ValidValues.Add("04", "4/4");
                 oForm.Items.Item("Quarter").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
                 oForm.Items.Item("Quarter").DisplayDesc = true;
 
-                // ì†Œì†
+                // È¸Â÷
+                oForm.Items.Item("Count").Specific.ValidValues.Add("%", "ÀüÃ¼");
+                oForm.Items.Item("Count").Specific.ValidValues.Add("01", "1Â÷");
+                oForm.Items.Item("Count").Specific.ValidValues.Add("02", "2Â÷");
+                oForm.Items.Item("Count").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+                oForm.Items.Item("Count").DisplayDesc = true;
+
+                // ¼Ò¼Ó
                 oForm.DataSources.UserDataSources.Add("Team", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 50);
                 oForm.Items.Item("Team").Specific.DataBind.SetBound(true, "", "Team");
 
-                // ì„±ëª…
+                // ¼º¸í
                 oForm.DataSources.UserDataSources.Add("CntcName", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 50);
                 oForm.Items.Item("CntcName").Specific.DataBind.SetBound(true, "", "CntcName");
 
-                // ì…ì‚¬ì¼ì
+                // ÀÔ»çÀÏÀÚ
                 oForm.DataSources.UserDataSources.Add("startDat", SAPbouiCOM.BoDataType.dt_DATE);
                 oForm.Items.Item("startDat").Specific.DataBind.SetBound(true, "", "startDat");
 
-                // ì…í•™ê¸ˆê³„
+                // ÀÔÇĞ±İ°è
                 oForm.DataSources.UserDataSources.Add("FeeTot", SAPbouiCOM.BoDataType.dt_SUM, 50);
                 oForm.Items.Item("FeeTot").Specific.DataBind.SetBound(true, "", "FeeTot");
 
-                // ë“±ë¡ê¸ˆê³„
+                // µî·Ï±İ°è
                 oForm.DataSources.UserDataSources.Add("TuiTot", SAPbouiCOM.BoDataType.dt_SUM, 50);
                 oForm.Items.Item("TuiTot").Specific.DataBind.SetBound(true, "", "TuiTot");
 
-                // ì´ê³„
+                // ÃÑ°è
                 oForm.DataSources.UserDataSources.Add("Total", SAPbouiCOM.BoDataType.dt_SUM, 50);
                 oForm.Items.Item("Total").Specific.DataBind.SetBound(true, "", "Total");
 
 
-                // ë©”íŠ¸ë¦­ìŠ¤ SET
-                // ì„±ë³„
+                // ¸ŞÆ®¸¯½º SET
+                // ¼ºº°
                 oMat01.Columns.Item("Sex").ValidValues.Add("", "");
-                oMat01.Columns.Item("Sex").ValidValues.Add("01", "ë‚¨ì");
-                oMat01.Columns.Item("Sex").ValidValues.Add("02", "ì—¬ì");
+                oMat01.Columns.Item("Sex").ValidValues.Add("01", "³²ÀÚ");
+                oMat01.Columns.Item("Sex").ValidValues.Add("02", "¿©ÀÚ");
                 oMat01.Columns.Item("Sex").DisplayDesc = true;
 
-                // í•™ë…„
+                // ÇĞ³â
                 oMat01.Columns.Item("Grade").ValidValues.Add("", "");
-                oMat01.Columns.Item("Grade").ValidValues.Add("01", "1í•™ë…„");
-                oMat01.Columns.Item("Grade").ValidValues.Add("02", "2í•™ë…„");
-                oMat01.Columns.Item("Grade").ValidValues.Add("03", "3í•™ë…„");
-                oMat01.Columns.Item("Grade").ValidValues.Add("04", "4í•™ë…„");
-                oMat01.Columns.Item("Grade").ValidValues.Add("05", "5í•™ë…„");
+                oMat01.Columns.Item("Grade").ValidValues.Add("01", "1ÇĞ³â");
+                oMat01.Columns.Item("Grade").ValidValues.Add("02", "2ÇĞ³â");
+                oMat01.Columns.Item("Grade").ValidValues.Add("03", "3ÇĞ³â");
+                oMat01.Columns.Item("Grade").ValidValues.Add("04", "4ÇĞ³â");
+                oMat01.Columns.Item("Grade").ValidValues.Add("05", "5ÇĞ³â");
                 oMat01.Columns.Item("Grade").DisplayDesc = true;
 
             }
@@ -173,23 +180,23 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //ë©”ëª¨ë¦¬ í•´ì œ
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //¸Ş¸ğ¸® ÇØÁ¦
             }
         }
 
         /// <summary>
-        /// ë©”ë‰´ ì•„ì´ì½˜ Enable
+        /// ¸Ş´º ¾ÆÀÌÄÜ Enable
         /// </summary>
         private void PH_PY305_EnableMenus()
         {
             try
             {
-                oForm.EnableMenu("1283", false); // ì‚­ì œ
-                oForm.EnableMenu("1286", false); // ë‹«ê¸°
-                oForm.EnableMenu("1287", false); // ë³µì œ
-                oForm.EnableMenu("1285", false); // ë³µì›
-                oForm.EnableMenu("1284", false); // ì·¨ì†Œ
-                oForm.EnableMenu("1293", false); // í–‰ì‚­ì œ
+                oForm.EnableMenu("1283", false); // »èÁ¦
+                oForm.EnableMenu("1286", false); // ´İ±â
+                oForm.EnableMenu("1287", false); // º¹Á¦
+                oForm.EnableMenu("1285", false); // º¹¿ø
+                oForm.EnableMenu("1284", false); // Ãë¼Ò
+                oForm.EnableMenu("1293", false); // Çà»èÁ¦
                 oForm.EnableMenu("1281", false);
                 oForm.EnableMenu("1282", true);
             }
@@ -203,7 +210,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// í™”ë©´ì„¸íŒ…
+        /// È­¸é¼¼ÆÃ
         /// </summary>
         /// <param name="oFromDocEntry01"></param>
         private void PH_PY305_SetDocument(string oFromDocEntry01)
@@ -213,7 +220,7 @@ namespace PSH_BOne_AddOn
                 if (string.IsNullOrEmpty(oFromDocEntry01))
                 {
                     PH_PY305_FormItemEnabled();
-                    //Call PH_PY305_AddMatrixRow(0, True) '//UDOë°©ì‹ì¼ë•Œ
+                    //Call PH_PY305_AddMatrixRow(0, True) '//UDO¹æ½ÄÀÏ¶§
                 }
                 else
                 {
@@ -233,7 +240,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// í™”ë©´ì˜ ì•„ì´í…œ Enable ì„¤ì •
+        /// È­¸éÀÇ ¾ÆÀÌÅÛ Enable ¼³Á¤
         /// </summary>
         private void PH_PY305_FormItemEnabled()
         {
@@ -243,15 +250,15 @@ namespace PSH_BOne_AddOn
             {
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
-                    dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true); // ì ‘ì†ìì— ë”°ë¥¸ ê¶Œí•œë³„ ì‚¬ì—…ì¥ ì½¤ë³´ë°•ìŠ¤ì„¸íŒ…
+                    dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true); // Á¢¼ÓÀÚ¿¡ µû¸¥ ±ÇÇÑº° »ç¾÷Àå ÄŞº¸¹Ú½º¼¼ÆÃ
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
-                    dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true); // ì ‘ì†ìì— ë”°ë¥¸ ê¶Œí•œë³„ ì‚¬ì—…ì¥ ì½¤ë³´ë°•ìŠ¤ì„¸íŒ…
+                    dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true); // Á¢¼ÓÀÚ¿¡ µû¸¥ ±ÇÇÑº° »ç¾÷Àå ÄŞº¸¹Ú½º¼¼ÆÃ
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
-                    dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true); // ì ‘ì†ìì— ë”°ë¥¸ ê¶Œí•œë³„ ì‚¬ì—…ì¥ ì½¤ë³´ë°•ìŠ¤ì„¸íŒ…
+                    dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true); // Á¢¼ÓÀÚ¿¡ µû¸¥ ±ÇÇÑº° »ç¾÷Àå ÄŞº¸¹Ú½º¼¼ÆÃ
                 }
             }
             catch (Exception ex)
@@ -261,42 +268,43 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// ë°ì´í„° ì¡°íšŒ
+        /// µ¥ÀÌÅÍ Á¶È¸
         /// </summary>
         private void PH_PY305_MTX01()
         {
             int i = 0;
             string sQry = null;
             short ErrNum = 0;
-            double FeeTot = 0;    // ì…í•™ê¸ˆê³„
-            double TuiTot = 0;    // ë“±ë¡ê¸ˆê³„
-            double Total = 0;     // ì´ê³„
+            double FeeTot = 0;    // ÀÔÇĞ±İ°è
+            double TuiTot = 0;    // µî·Ï±İ°è
+            double Total = 0;     // ÃÑ°è
             SAPbobsCOM.Recordset oRecordSet = null;
             oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
-            string CLTCOD = string.Empty; //ì‚¬ì—…ì¥
+            string CLTCOD = string.Empty; //»ç¾÷Àå
             string SCode = string.Empty;
             string StdYear = string.Empty;
             string Quarter = string.Empty;
+            string Count = string.Empty;
 
-            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("ì¡°íšŒì‹œì‘!", oRecordSet.RecordCount, false);
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("Á¶È¸½ÃÀÛ!", oRecordSet.RecordCount, false);
 
             try
             {
                 oForm.Freeze(true);
 
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();   // ì‚¬ì—…ì¥
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();   // »ç¾÷Àå
                 SCode = oForm.Items.Item("SCode").Specific.VALUE.Trim();
                 StdYear = oForm.Items.Item("StdYear").Specific.VALUE.Trim();
                 Quarter = oForm.Items.Item("Quarter").Specific.VALUE.Trim();
-
+                Count = oForm.Items.Item("Count").Specific.VALUE.Trim();
 
                 sQry = "            EXEC [PH_PY305_01] ";
-                sQry = sQry + "'" + CLTCOD + "',"; //ì‚¬ì—…ì¥
+                sQry = sQry + "'" + CLTCOD + "',"; //»ç¾÷Àå
                 sQry = sQry + "'" + SCode + "',";
-                sQry = sQry + "'" + StdYear + "',"; 
-                sQry = sQry + "'" + Quarter + "'";
-
+                sQry = sQry + "'" + StdYear + "',";
+                sQry = sQry + "'" + Quarter + "',";
+                sQry = sQry + "'" + Count + "'";
 
                 oRecordSet.DoQuery(sQry);
 
@@ -305,9 +313,9 @@ namespace PSH_BOne_AddOn
                 oMat01.FlushToDataSource();
                 oMat01.LoadFromDataSource();
 
-                oForm.Items.Item("Team").Specific.VALUE = oRecordSet.Fields.Item("TeamName").Value;        // ì‹ ì²­ì¸-ì†Œì†
-                oForm.Items.Item("CntcName").Specific.VALUE = oRecordSet.Fields.Item("CntcName").Value;    // ì‹ ì²­ì¸-ì„±ëª…
-                oForm.Items.Item("startDat").Specific.VALUE = oRecordSet.Fields.Item("startDat").Value;    // ì‹ ì²­ì¸-ì…ì‚¬ì¼ì
+                oForm.Items.Item("Team").Specific.VALUE = oRecordSet.Fields.Item("TeamName").Value;        // ½ÅÃ»ÀÎ-¼Ò¼Ó
+                oForm.Items.Item("CntcName").Specific.VALUE = oRecordSet.Fields.Item("CntcName").Value;    // ½ÅÃ»ÀÎ-¼º¸í
+                oForm.Items.Item("startDat").Specific.VALUE = oRecordSet.Fields.Item("startDat").Value;    // ½ÅÃ»ÀÎ-ÀÔ»çÀÏÀÚ
 
                 if (oRecordSet.RecordCount == 0)
                 {
@@ -341,7 +349,7 @@ namespace PSH_BOne_AddOn
 
                     oRecordSet.MoveNext();
                     ProgBar01.Value = ProgBar01.Value + 1;
-                    ProgBar01.Text = ProgBar01.Value + "/" + oRecordSet.RecordCount + "ê±´ ì¡°íšŒì¤‘...!";
+                    ProgBar01.Text = ProgBar01.Value + "/" + oRecordSet.RecordCount + "°Ç Á¶È¸Áß...!";
 
                 }
                 Total = FeeTot + TuiTot;
@@ -361,7 +369,7 @@ namespace PSH_BOne_AddOn
 
                 if (ErrNum == 1)
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("ì¡°íšŒ ê²°ê³¼ê°€ ì—†ìŠµë‹ˆë‹¤. í™•ì¸í•˜ì„¸ìš”.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("Á¶È¸ °á°ú°¡ ¾ø½À´Ï´Ù. È®ÀÎÇÏ¼¼¿ä.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
                 else
                 {
@@ -381,7 +389,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// FlushToItemValue(ì‚¬ìš©ìì˜ Eventì— ë”°ë¥¸ í™”ë©´ Itemì˜ ìœ ë™ì ì¸ ì„¸íŒ…)
+        /// FlushToItemValue(»ç¿ëÀÚÀÇ Event¿¡ µû¸¥ È­¸é ItemÀÇ À¯µ¿ÀûÀÎ ¼¼ÆÃ)
         /// </summary>
         /// <param name="oUID"></param>
         /// <param name="oRow"></param>
@@ -409,29 +417,31 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// ë¦¬í¬íŠ¸ ì¶œë ¥
+        /// ¸®Æ÷Æ® Ãâ·Â
         /// </summary>
         private void PH_PY305_Print_Report01()
         {
             string WinTitle = string.Empty;
             string ReportName = string.Empty;
 
-            string CLTCOD = string.Empty; //ì‚¬ì—…ì¥
+            string CLTCOD = string.Empty; //»ç¾÷Àå
             string SCode = string.Empty;
             string StdYear = string.Empty;
             string Quarter = string.Empty;
+            string Count = string.Empty;
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 
-            CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();   // ì‚¬ì—…ì¥
+            CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();   // »ç¾÷Àå
             SCode = oForm.Items.Item("SCode").Specific.VALUE.Trim();
             StdYear = oForm.Items.Item("StdYear").Specific.VALUE.Trim();
             Quarter = oForm.Items.Item("Quarter").Specific.VALUE.Trim();
+            Count = oForm.Items.Item("Count").Specific.VALUE.Trim();
 
             try
             {
-                WinTitle = "[PH_PY305] í•™ìê¸ˆì‹ ì²­ë‚´ì—­(ê°œì¸ë³„)";
+                WinTitle = "[PH_PY305] ÇĞÀÚ±İ½ÅÃ»³»¿ª(°³ÀÎº°)";
                 ReportName = "PH_PY305_01.rpt";
 
                 List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();//Parameter List
@@ -441,10 +451,11 @@ namespace PSH_BOne_AddOn
                 //dataPackFormula.Add(new PSH_DataPackClass("@CLTCOD", dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", CLTCOD, "and Code = 'P144' AND U_UseYN= 'Y'")));
 
                 // Parameter
-                dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD)); //ì‚¬ì—…ì¥
+                dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD)); //»ç¾÷Àå
                 dataPackParameter.Add(new PSH_DataPackClass("@SCode", SCode));
                 dataPackParameter.Add(new PSH_DataPackClass("@StdYear", StdYear));
                 dataPackParameter.Add(new PSH_DataPackClass("@Quarter", Quarter));
+                dataPackParameter.Add(new PSH_DataPackClass("@Count", Count));
 
                 formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
@@ -560,10 +571,10 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// ITEM_PRESSED ì´ë²¤íŠ¸
+        /// ITEM_PRESSED ÀÌº¥Æ®
         /// </summary>
         /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent ê°ì²´</param>
+        /// <param name="pVal">ItemEvent °´Ã¼</param>
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
@@ -583,7 +594,7 @@ namespace PSH_BOne_AddOn
                         {
                         }
                     }
-                    else if (pVal.ItemUID == "BtnSearch") //ì¡°íšŒ ë²„íŠ¼
+                    else if (pVal.ItemUID == "BtnSearch") //Á¶È¸ ¹öÆ°
                     {
                         if (PH_PY305_DataValidCheck() == true)
                         {
@@ -626,10 +637,10 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// KEY_DOWN ì´ë²¤íŠ¸
+        /// KEY_DOWN ÀÌº¥Æ®
         /// </summary>
         /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent ê°ì²´</param>
+        /// <param name="pVal">ItemEvent °´Ã¼</param>
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_KEY_DOWN(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
@@ -639,9 +650,9 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.Before_Action == true)
                 {
-                    dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "MSTCOD", ""); //ì‚¬ë²ˆ
-                    dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "ShiftDatCd", ""); //ê·¼ë¬´í˜•íƒœ
-                    dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "GNMUJOCd", ""); //ê·¼ë¬´ì¡°
+                    dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "MSTCOD", ""); //»ç¹ø
+                    dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "ShiftDatCd", ""); //±Ù¹«ÇüÅÂ
+                    dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "GNMUJOCd", ""); //±Ù¹«Á¶
                 }
                 else if (pVal.Before_Action == false)
                 {
@@ -657,10 +668,10 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// GOT_FOCUS ì´ë²¤íŠ¸
+        /// GOT_FOCUS ÀÌº¥Æ®
         /// </summary>
         /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent ê°ì²´</param>
+        /// <param name="pVal">ItemEvent °´Ã¼</param>
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_GOT_FOCUS(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
@@ -709,23 +720,23 @@ namespace PSH_BOne_AddOn
             {
                 if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.VALUE))
                 {
-                    PSH_Globals.SBO_Application.SetStatusBarMessage("ì‚¬ì—…ì¥ì€ í•„ìˆ˜ì…ë‹ˆë‹¤.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                    PSH_Globals.SBO_Application.SetStatusBarMessage("»ç¾÷ÀåÀº ÇÊ¼öÀÔ´Ï´Ù.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     functionReturnValue = false;
                     return functionReturnValue;
                 }
-                // ë…„ë„
+                // ³âµµ
                 if (string.IsNullOrEmpty(oForm.Items.Item("StdYear").Specific.VALUE.Trim()))
                 {
-                    PSH_Globals.SBO_Application.SetStatusBarMessage("ë…„ë„ëŠ” í•„ìˆ˜ì…ë‹ˆë‹¤.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                    PSH_Globals.SBO_Application.SetStatusBarMessage("³âµµ´Â ÇÊ¼öÀÔ´Ï´Ù.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("StdYear").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     functionReturnValue = false;
                     return functionReturnValue;
                 }
-                // ë¶„ê¸°
+                // ºĞ±â
                 if (string.IsNullOrEmpty(oForm.Items.Item("Quarter").Specific.VALUE.Trim()))
                 {
-                    PSH_Globals.SBO_Application.SetStatusBarMessage("ë¶„ê¸°ëŠ” í•„ìˆ˜ì…ë‹ˆë‹¤.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                    PSH_Globals.SBO_Application.SetStatusBarMessage("ºĞ±â´Â ÇÊ¼öÀÔ´Ï´Ù.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("Quarter").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     functionReturnValue = false;
                     return functionReturnValue;
@@ -744,10 +755,10 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// COMBO_SELECT ì´ë²¤íŠ¸
+        /// COMBO_SELECT ÀÌº¥Æ®
         /// </summary>
         /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent ê°ì²´</param>
+        /// <param name="pVal">ItemEvent °´Ã¼</param>
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_COMBO_SELECT(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
@@ -773,10 +784,10 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// CLICK ì´ë²¤íŠ¸
+        /// CLICK ÀÌº¥Æ®
         /// </summary>
         /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent ê°ì²´</param>
+        /// <param name="pVal">ItemEvent °´Ã¼</param>
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_CLICK(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
@@ -806,10 +817,10 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// DOUBLE_CLICK ì´ë²¤íŠ¸
+        /// DOUBLE_CLICK ÀÌº¥Æ®
         /// </summary>
         /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent ê°ì²´</param>
+        /// <param name="pVal">ItemEvent °´Ã¼</param>
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_DOUBLE_CLICK(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
@@ -832,10 +843,10 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// MATRIX_LINK_PRESSED ì´ë²¤íŠ¸
+        /// MATRIX_LINK_PRESSED ÀÌº¥Æ®
         /// </summary>
         /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent ê°ì²´</param>
+        /// <param name="pVal">ItemEvent °´Ã¼</param>
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_MATRIX_LINK_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
@@ -858,10 +869,10 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// VALIDATE ì´ë²¤íŠ¸
+        /// VALIDATE ÀÌº¥Æ®
         /// </summary>
         /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent ê°ì²´</param>
+        /// <param name="pVal">ItemEvent °´Ã¼</param>
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
@@ -884,16 +895,16 @@ namespace PSH_BOne_AddOn
 
                             //if (pVal.ItemUID == "MSTCOD")
                             //{
-                            //    oForm.Items.Item("MSTNAM").Specific.VALUE = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("MSTCOD").Specific.VALUE + "'", ""); //ì„±ëª…
+                            //    oForm.Items.Item("MSTNAM").Specific.VALUE = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("MSTCOD").Specific.VALUE + "'", ""); //¼º¸í
                             //}
                             //else if (pVal.ItemUID == "ShiftDatCd")
                             //{
-                            //    oForm.Items.Item("ShiftDatNm").Specific.VALUE = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L] AS T0", "'" + oForm.Items.Item("ShiftDatCd").Specific.VALUE + "'", " AND T0.Code = 'P154' AND T0.U_UseYN = 'Y'"); //ê·¼ë¬´í˜•íƒœ
+                            //    oForm.Items.Item("ShiftDatNm").Specific.VALUE = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L] AS T0", "'" + oForm.Items.Item("ShiftDatCd").Specific.VALUE + "'", " AND T0.Code = 'P154' AND T0.U_UseYN = 'Y'"); //±Ù¹«ÇüÅÂ
 
                             //}
                             //else if (pVal.ItemUID == "GNMUJOCd")
                             //{
-                            //    oForm.Items.Item("GNMUJONm").Specific.VALUE = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L] AS T0", "'" + oForm.Items.Item("GNMUJOCd").Specific.VALUE + "'", " AND T0.Code = 'P155' AND T0.U_UseYN = 'Y'"); //ê·¼ë¬´ì¡°
+                            //    oForm.Items.Item("GNMUJONm").Specific.VALUE = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L] AS T0", "'" + oForm.Items.Item("GNMUJOCd").Specific.VALUE + "'", " AND T0.Code = 'P155' AND T0.U_UseYN = 'Y'"); //±Ù¹«Á¶
                             //}
                         }
                     }
@@ -914,10 +925,10 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// MATRIX_LOAD ì´ë²¤íŠ¸
+        /// MATRIX_LOAD ÀÌº¥Æ®
         /// </summary>
         /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent ê°ì²´</param>
+        /// <param name="pVal">ItemEvent °´Ã¼</param>
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_MATRIX_LOAD(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
@@ -944,10 +955,10 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// FORM_UNLOAD ì´ë²¤íŠ¸
+        /// FORM_UNLOAD ÀÌº¥Æ®
         /// </summary>
         /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent ê°ì²´</param>
+        /// <param name="pVal">ItemEvent °´Ã¼</param>
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_FORM_UNLOAD(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
@@ -974,10 +985,10 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// CHOOSE_FROM_LIST ì´ë²¤íŠ¸
+        /// CHOOSE_FROM_LIST ÀÌº¥Æ®
         /// </summary>
         /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent ê°ì²´</param>
+        /// <param name="pVal">ItemEvent °´Ã¼</param>
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_CHOOSE_FROM_LIST(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
@@ -990,7 +1001,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (pVal.Before_Action == false)
                 {
-                    //ì›ë³¸ ì†ŒìŠ¤(VB6.0 ì£¼ì„ì²˜ë¦¬ë˜ì–´ ìˆìŒ)
+                    //¿øº» ¼Ò½º(VB6.0 ÁÖ¼®Ã³¸®µÇ¾î ÀÖÀ½)
                     //If (pval.ItemUID = "ItemCode") Then
                     //  Dim oDataTable01 As SAPbouiCOM.DataTable
                     //  Set oDataTable01 = pval.SelectedObjects
@@ -1029,22 +1040,22 @@ namespace PSH_BOne_AddOn
                 {
                     switch (pVal.MenuUID)
                     {
-                        case "1284": //ì·¨ì†Œ
+                        case "1284": //Ãë¼Ò
                             break;
-                        case "1286": //ë‹«ê¸°
+                        case "1286": //´İ±â
                             break;
-                        case "1293": //í–‰ì‚­ì œ
+                        case "1293": //Çà»èÁ¦
                             break;
-                        case "1281": //ì°¾ê¸°
+                        case "1281": //Ã£±â
                             break;
-                        case "1282": //ì¶”ê°€
+                        case "1282": //Ãß°¡
                             break;
                         case "1288":
                         case "1289":
                         case "1290":
-                        case "1291": //ë ˆì½”ë“œì´ë™ë²„íŠ¼
+                        case "1291": //·¹ÄÚµåÀÌµ¿¹öÆ°
                             break;
-                        case "7169": //ì—‘ì…€ ë‚´ë³´ë‚´ê¸°
+                        case "7169": //¿¢¼¿ ³»º¸³»±â
                             break;
                     }
                 }
@@ -1052,29 +1063,29 @@ namespace PSH_BOne_AddOn
                 {
                     switch (pVal.MenuUID)
                     {
-                        case "1284": //ì·¨ì†Œ
+                        case "1284": //Ãë¼Ò
                             break;
-                        case "1286": //ë‹«ê¸°
+                        case "1286": //´İ±â
                             break;
-                        case "1293": //í–‰ì‚­ì œ
+                        case "1293": //Çà»èÁ¦
                             //Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
                             break;
-                        case "1281": //ì°¾ê¸°
+                        case "1281": //Ã£±â
                             break;
-                        case "1282": //ì¶”ê°€
+                        case "1282": //Ãß°¡
                             break;
                         case "1288":
                         case "1289":
                         case "1290":
                         case "1291":
                             break;
-                        case "7169": //ì—‘ì…€ ë‚´ë³´ë‚´ê¸°
-                            //ì—‘ì…€ ë‚´ë³´ë‚´ê¸° ì´í›„ ì²˜ë¦¬_S
+                        case "7169": //¿¢¼¿ ³»º¸³»±â
+                            //¿¢¼¿ ³»º¸³»±â ÀÌÈÄ Ã³¸®_S
                             oForm.Freeze(true);
                             oDS_PH_PY305B.RemoveRecord(oDS_PH_PY305B.Size - 1);
                             oMat01.LoadFromDataSource();
                             oForm.Freeze(false);
-                            //ì—‘ì…€ ë‚´ë³´ë‚´ê¸° ì´í›„ ì²˜ë¦¬_E
+                            //¿¢¼¿ ³»º¸³»±â ÀÌÈÄ Ã³¸®_E
                             break;
                     }
                 }
@@ -1193,7 +1204,7 @@ namespace PSH_BOne_AddOn
             }
         }
 
-        #region Raise_FormMenuEvent (ìµœì¢…í…ŒìŠ¤íŠ¸ í›„ ì£¼ì„ ì‚­ì œ í•„ìš”, 2019.05.17 ì†¡ëª…ê·œ)
+        #region Raise_FormMenuEvent (ÃÖÁ¾Å×½ºÆ® ÈÄ ÁÖ¼® »èÁ¦ ÇÊ¿ä, 2019.05.17 ¼Û¸í±Ô)
         //		public void Raise_FormMenuEvent(ref string FormUID, ref SAPbouiCOM.IMenuEvent pval, ref bool BubbleEvent)
         //		{
         //			 // ERROR: Not supported in C#: OnErrorStatement
@@ -1216,7 +1227,7 @@ namespace PSH_BOne_AddOn
         //		}
         #endregion
 
-        #region Raise_FormDataEvent (ìµœì¢…í…ŒìŠ¤íŠ¸ í›„ ì£¼ì„ ì‚­ì œ í•„ìš”, 2019.05.17 ì†¡ëª…ê·œ)
+        #region Raise_FormDataEvent (ÃÖÁ¾Å×½ºÆ® ÈÄ ÁÖ¼® »èÁ¦ ÇÊ¿ä, 2019.05.17 ¼Û¸í±Ô)
         //		public void Raise_FormDataEvent(ref string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
         //		{
         //			 // ERROR: Not supported in C#: OnErrorStatement
@@ -1233,7 +1244,7 @@ namespace PSH_BOne_AddOn
         //		}
         #endregion
 
-        #region Raise_RightClickEvent (ìµœì¢…í…ŒìŠ¤íŠ¸ í›„ ì£¼ì„ ì‚­ì œ í•„ìš”, 2019.05.17 ì†¡ëª…ê·œ)
+        #region Raise_RightClickEvent (ÃÖÁ¾Å×½ºÆ® ÈÄ ÁÖ¼® »èÁ¦ ÇÊ¿ä, 2019.05.17 ¼Û¸í±Ô)
         //		public void Raise_RightClickEvent(ref string FormUID, ref SAPbouiCOM.ContextMenuInfo pval, ref bool BubbleEvent)
         //		{
         //			 // ERROR: Not supported in C#: OnErrorStatement
@@ -1248,7 +1259,7 @@ namespace PSH_BOne_AddOn
         //		}
         #endregion
 
-        #region Raise_FormItemEvent (ìµœì¢…í…ŒìŠ¤íŠ¸ í›„ ì£¼ì„ ì‚­ì œ í•„ìš”, 2019.05.17 ì†¡ëª…ê·œ)
+        #region Raise_FormItemEvent (ÃÖÁ¾Å×½ºÆ® ÈÄ ÁÖ¼® »èÁ¦ ÇÊ¿ä, 2019.05.17 ¼Û¸í±Ô)
         //		private void Raise_EVENT_ITEM_PRESSED(ref object FormUID, ref SAPbouiCOM.ItemEvent pval, ref bool BubbleEvent)
         //		{
         //			 // ERROR: Not supported in C#: OnErrorStatement
@@ -1456,8 +1467,8 @@ namespace PSH_BOne_AddOn
 //	{
 //////********************************************************************************
 //////  File           : PH_PY305.cls
-//////  Module         : ì¸ì‚¬ê´€ë¦¬ > ê¸°íƒ€
-//////  Desc           : í•™ìê¸ˆì‹ ì²­ì„œ
+//////  Module         : ÀÎ»ç°ü¸® > ±âÅ¸
+//////  Desc           : ÇĞÀÚ±İ½ÅÃ»¼­
 //////********************************************************************************
 
 //		public string oFormUniqueID;
@@ -1508,16 +1519,16 @@ namespace PSH_BOne_AddOn
 //			oForm.Freeze(false);
 
 //			oForm.Visible = true;
-//			//UPGRADE_NOTE: oXmlDoc ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: oXmlDoc °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oXmlDoc = null;
 //			return;
 //			LoadForm_Error:
 
 //			oForm.Update();
 //			oForm.Freeze(false);
-//			//UPGRADE_NOTE: oXmlDoc ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: oXmlDoc °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oXmlDoc = null;
-//			//UPGRADE_NOTE: oForm ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: oForm °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oForm = null;
 //			MDC_Globals.Sbo_Application.SetStatusBarMessage("Form_Load Error:" + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
 //		}
@@ -1551,134 +1562,134 @@ namespace PSH_BOne_AddOn
 //			oMat1.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_Auto;
 //			oMat1.AutoResizeColumns();
 
-//			//----------ì¡°íšŒ ì¡°ê±´----------
-//			//ì‚¬ì—…ì¥_S
+//			//----------Á¶È¸ Á¶°Ç----------
+//			//»ç¾÷Àå_S
 //			oForm.DataSources.UserDataSources.Add("CLTCOD", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 5);
-//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			oForm.Items.Item("CLTCOD").Specific.DataBind.SetBound(true, "", "CLTCOD");
-//			//ì‚¬ì—…ì¥_E
+//			//»ç¾÷Àå_E
 
-//			//ì‚¬ì›ë²ˆí˜¸_S
+//			//»ç¿ø¹øÈ£_S
 //			oForm.DataSources.UserDataSources.Add("SCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
-//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			oForm.Items.Item("SCode").Specific.DataBind.SetBound(true, "", "SCode");
-//			//ì‚¬ì›ë²ˆí˜¸_E
+//			//»ç¿ø¹øÈ£_E
 
-//			//ì‚¬ì›ì„±ëª…_S
+//			//»ç¿ø¼º¸í_S
 //			oForm.DataSources.UserDataSources.Add("SName", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 50);
-//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			oForm.Items.Item("SName").Specific.DataBind.SetBound(true, "", "SName");
-//			//ì‚¬ì›ì„±ëª…_E
+//			//»ç¿ø¼º¸í_E
 
-//			//ë…„ë„_S
+//			//³âµµ_S
 //			oForm.DataSources.UserDataSources.Add("StdYear", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 4);
-//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			oForm.Items.Item("StdYear").Specific.DataBind.SetBound(true, "", "StdYear");
-//			//ë…„ë„_E
+//			//³âµµ_E
 
-//			//ë¶„ê¸°_S
+//			//ºĞ±â_S
 //			oForm.DataSources.UserDataSources.Add("Quarter", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 5);
-//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			oForm.Items.Item("Quarter").Specific.DataBind.SetBound(true, "", "Quarter");
-//			//ë¶„ê¸°_E
-//			//----------ì¡°íšŒ ì¡°ê±´----------
+//			//ºĞ±â_E
+//			//----------Á¶È¸ Á¶°Ç----------
 
-//			//ì†Œì†_S
+//			//¼Ò¼Ó_S
 //			oForm.DataSources.UserDataSources.Add("Team", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 50);
-//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			oForm.Items.Item("Team").Specific.DataBind.SetBound(true, "", "Team");
-//			//ì†Œì†_E
+//			//¼Ò¼Ó_E
 
-//			//ì„±ëª…_S
+//			//¼º¸í_S
 //			oForm.DataSources.UserDataSources.Add("CntcName", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 50);
-//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			oForm.Items.Item("CntcName").Specific.DataBind.SetBound(true, "", "CntcName");
-//			//ì„±ëª…_E
+//			//¼º¸í_E
 
-//			//ì…ì‚¬ì¼ì_S
+//			//ÀÔ»çÀÏÀÚ_S
 //			oForm.DataSources.UserDataSources.Add("startDat", SAPbouiCOM.BoDataType.dt_DATE);
-//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			oForm.Items.Item("startDat").Specific.DataBind.SetBound(true, "", "startDat");
-//			//ì…ì‚¬ì¼ì_E
+//			//ÀÔ»çÀÏÀÚ_E
 
-//			//ì…í•™ê¸ˆê³„_S
+//			//ÀÔÇĞ±İ°è_S
 //			oForm.DataSources.UserDataSources.Add("FeeTot", SAPbouiCOM.BoDataType.dt_SUM, 50);
-//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			oForm.Items.Item("FeeTot").Specific.DataBind.SetBound(true, "", "FeeTot");
-//			//ì…í•™ê¸ˆê³„_E
+//			//ÀÔÇĞ±İ°è_E
 
-//			//ë“±ë¡ê¸ˆê³„_S
+//			//µî·Ï±İ°è_S
 //			oForm.DataSources.UserDataSources.Add("TuiTot", SAPbouiCOM.BoDataType.dt_SUM, 50);
-//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			oForm.Items.Item("TuiTot").Specific.DataBind.SetBound(true, "", "TuiTot");
-//			//ë“±ë¡ê¸ˆê³„_E
+//			//µî·Ï±İ°è_E
 
-//			//ì´ê³„_S
+//			//ÃÑ°è_S
 //			oForm.DataSources.UserDataSources.Add("Total", SAPbouiCOM.BoDataType.dt_SUM, 50);
-//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			oForm.Items.Item("Total").Specific.DataBind.SetBound(true, "", "Total");
-//			//ì´ê³„_E
+//			//ÃÑ°è_E
 
 //			////----------------------------------------------------------------------------------------------
-//			//// ê¸°ë³¸ì‚¬í•­
+//			//// ±âº»»çÇ×
 //			////----------------------------------------------------------------------------------------------
 
-//			//ì‚¬ì—…ì¥
+//			//»ç¾÷Àå
 //			oCombo = oForm.Items.Item("CLTCOD").Specific;
 //			sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P144' AND U_UseYN= 'Y'";
 //			MDC_SetMod.SetReDataCombo(oForm, sQry, oCombo);
 //			oForm.Items.Item("CLTCOD").DisplayDesc = true;
 
-//			//ë¶„ê¸°
+//			//ºĞ±â
 //			oCombo = oForm.Items.Item("Quarter").Specific;
 //			oCombo.ValidValues.Add("", "");
-//			oCombo.ValidValues.Add("01", "1/4 í˜¹ì€ 1í•™ê¸°");
+//			oCombo.ValidValues.Add("01", "1/4 È¤Àº 1ÇĞ±â");
 //			oCombo.ValidValues.Add("02", "2/4");
-//			oCombo.ValidValues.Add("03", "3/4 í˜¹ì€ 2í•™ê¸°");
+//			oCombo.ValidValues.Add("03", "3/4 È¤Àº 2ÇĞ±â");
 //			oCombo.ValidValues.Add("04", "4/4");
 //			oCombo.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 //			oForm.Items.Item("Quarter").DisplayDesc = true;
 
-//			//ë§¤íŠ¸ë¦­ìŠ¤-ì„±ë³„
+//			//¸ÅÆ®¸¯½º-¼ºº°
 //			oColumn = oMat1.Columns.Item("Sex");
 //			oColumn.ValidValues.Add("", "");
-//			oColumn.ValidValues.Add("01", "ë‚¨ì");
-//			oColumn.ValidValues.Add("02", "ì—¬ì");
+//			oColumn.ValidValues.Add("01", "³²ÀÚ");
+//			oColumn.ValidValues.Add("02", "¿©ÀÚ");
 //			oColumn.DisplayDesc = true;
 
-//			//ë§¤íŠ¸ë¦­ìŠ¤-í•™ë…„
+//			//¸ÅÆ®¸¯½º-ÇĞ³â
 //			oColumn = oMat1.Columns.Item("Grade");
 //			oColumn.ValidValues.Add("", "");
-//			oColumn.ValidValues.Add("01", "1í•™ë…„");
-//			oColumn.ValidValues.Add("02", "2í•™ë…„");
-//			oColumn.ValidValues.Add("03", "3í•™ë…„");
-//			oColumn.ValidValues.Add("04", "4í•™ë…„");
+//			oColumn.ValidValues.Add("01", "1ÇĞ³â");
+//			oColumn.ValidValues.Add("02", "2ÇĞ³â");
+//			oColumn.ValidValues.Add("03", "3ÇĞ³â");
+//			oColumn.ValidValues.Add("04", "4ÇĞ³â");
 //			oColumn.DisplayDesc = true;
 
 
-//			//UPGRADE_NOTE: oEdit ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: oEdit °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oEdit = null;
-//			//UPGRADE_NOTE: oCombo ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: oCombo °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oCombo = null;
-//			//UPGRADE_NOTE: oColumn ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: oColumn °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oColumn = null;
-//			//UPGRADE_NOTE: oColumns ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: oColumns °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oColumns = null;
-//			//UPGRADE_NOTE: oRecordSet ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: oRecordSet °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oRecordSet = null;
 //			oForm.Freeze(false);
 //			return functionReturnValue;
 //			PH_PY305_CreateItems_Error:
 
-//			//UPGRADE_NOTE: oEdit ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: oEdit °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oEdit = null;
-//			//UPGRADE_NOTE: oCombo ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: oCombo °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oCombo = null;
-//			//UPGRADE_NOTE: oColumn ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: oColumn °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oColumn = null;
-//			//UPGRADE_NOTE: oColumns ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: oColumns °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oColumns = null;
-//			//UPGRADE_NOTE: oRecordSet ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: oRecordSet °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oRecordSet = null;
 //			oForm.Freeze(false);
 //			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY305_CreateItems_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
@@ -1691,11 +1702,11 @@ namespace PSH_BOne_AddOn
 //			 // ERROR: Not supported in C#: OnErrorStatement
 
 
-//			//    Call oForm.EnableMenu("1283", False)         '// ì‚­ì œ
-//			//    Call oForm.EnableMenu("1287", True)          '// ë³µì œ
-//			//'    Call oForm.EnableMenu("1286", True)         '// ë‹«ê¸°
-//			//    Call oForm.EnableMenu("1284", True)         '// ì·¨ì†Œ
-//			//    Call oForm.EnableMenu("1293", True)         '// í–‰ì‚­ì œ
+//			//    Call oForm.EnableMenu("1283", False)         '// »èÁ¦
+//			//    Call oForm.EnableMenu("1287", True)          '// º¹Á¦
+//			//'    Call oForm.EnableMenu("1286", True)         '// ´İ±â
+//			//    Call oForm.EnableMenu("1284", True)         '// Ãë¼Ò
+//			//    Call oForm.EnableMenu("1293", True)         '// Çà»èÁ¦
 
 //			return;
 //			PH_PY305_EnableMenus_Error:
@@ -1714,7 +1725,7 @@ namespace PSH_BOne_AddOn
 //			} else {
 //				oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
 //				PH_PY305_FormItemEnabled();
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //				oForm.Items.Item("DocEntry").Specific.VALUE = oFromDocEntry01;
 //				oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 //			}
@@ -1735,39 +1746,39 @@ namespace PSH_BOne_AddOn
 //			oForm.Freeze(true);
 //			if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)) {
 
-//				//í¼ DocEntry ì„¸íŒ…
+//				//Æû DocEntry ¼¼ÆÃ
 //				//        Call PH_PY305_FormClear
 
-//				//// ì ‘ì†ìì— ë”°ë¥¸ ê¶Œí•œë³„ ì‚¬ì—…ì¥ ì½¤ë³´ë°•ìŠ¤ì„¸íŒ…
+//				//// Á¢¼ÓÀÚ¿¡ µû¸¥ ±ÇÇÑº° »ç¾÷Àå ÄŞº¸¹Ú½º¼¼ÆÃ
 //				MDC_SetMod.CLTCOD_Select(oForm, "CLTCOD");
 
-//				//ë…„ë„ ì„¸íŒ…
+//				//³âµµ ¼¼ÆÃ
 //				//        Call oDS_PH_PY305A.setValue("U_StdYear", 0, Format(Date, "YYYY"))
-//				//UPGRADE_WARNING: oForm.Items(StdYear).Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//				//UPGRADE_WARNING: oForm.Items(StdYear).Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //				oForm.Items.Item("StdYear").Specific.VALUE = Microsoft.VisualBasic.Compatibility.VB6.Support.Format(DateAndTime.Today, "YYYY");
 
 //				oForm.EnableMenu("1281", true);
-//				////ë¬¸ì„œì°¾ê¸°
+//				////¹®¼­Ã£±â
 //				oForm.EnableMenu("1282", false);
-//				////ë¬¸ì„œì¶”ê°€
+//				////¹®¼­Ãß°¡
 
 //			} else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)) {
-//				//// ì ‘ì†ìì— ë”°ë¥¸ ê¶Œí•œë³„ ì‚¬ì—…ì¥ ì½¤ë³´ë°•ìŠ¤ì„¸íŒ…
+//				//// Á¢¼ÓÀÚ¿¡ µû¸¥ ±ÇÇÑº° »ç¾÷Àå ÄŞº¸¹Ú½º¼¼ÆÃ
 //				MDC_SetMod.CLTCOD_Select(oForm, "CLTCOD");
 
 //				oForm.EnableMenu("1281", false);
-//				////ë¬¸ì„œì°¾ê¸°
+//				////¹®¼­Ã£±â
 //				oForm.EnableMenu("1282", true);
-//				////ë¬¸ì„œì¶”ê°€
+//				////¹®¼­Ãß°¡
 
 //			} else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)) {
-//				//// ì ‘ì†ìì— ë”°ë¥¸ ê¶Œí•œë³„ ì‚¬ì—…ì¥ ì½¤ë³´ë°•ìŠ¤ì„¸íŒ…
+//				//// Á¢¼ÓÀÚ¿¡ µû¸¥ ±ÇÇÑº° »ç¾÷Àå ÄŞº¸¹Ú½º¼¼ÆÃ
 //				MDC_SetMod.CLTCOD_Select(ref oForm, ref "CLTCOD", ref false);
 
 //				oForm.EnableMenu("1281", true);
-//				////ë¬¸ì„œì°¾ê¸°
+//				////¹®¼­Ã£±â
 //				oForm.EnableMenu("1282", true);
-//				////ë¬¸ì„œì¶”ê°€
+//				////¹®¼­Ãß°¡
 
 //			}
 //			oForm.Freeze(false);
@@ -1789,23 +1800,23 @@ namespace PSH_BOne_AddOn
 //			SAPbobsCOM.Recordset oRecordSet = null;
 
 //			short loopCount = 0;
-//			//For Loop ìš© (VALIDATE Eventì—ì„œ ì‚¬ìš©)
+//			//For Loop ¿ë (VALIDATE Event¿¡¼­ »ç¿ë)
 //			string GovID1 = null;
-//			//ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸ ì•ìë¦¬(VALIDATE Eventì—ì„œ ì‚¬ìš©)
+//			//ÁÖ¹Îµî·Ï¹øÈ£ ¾ÕÀÚ¸®(VALIDATE Event¿¡¼­ »ç¿ë)
 //			string GovID2 = null;
-//			//ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸ ë’·ìë¦¬(VALIDATE Eventì—ì„œ ì‚¬ìš©)
+//			//ÁÖ¹Îµî·Ï¹øÈ£ µŞÀÚ¸®(VALIDATE Event¿¡¼­ »ç¿ë)
 //			string GovID = null;
-//			//ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸ ì „ì²´(VALIDATE Eventì—ì„œ ì‚¬ìš©)
+//			//ÁÖ¹Îµî·Ï¹øÈ£ ÀüÃ¼(VALIDATE Event¿¡¼­ »ç¿ë)
 //			string Sex = null;
-//			//ì„±ë³„(VALIDATE Eventì—ì„œ ì‚¬ìš©)
+//			//¼ºº°(VALIDATE Event¿¡¼­ »ç¿ë)
 //			short PayCnt = 0;
-//			//ì§€ê¸‰íšŸìˆ˜(VALIDATE Eventì—ì„œ ì‚¬ìš©)
+//			//Áö±ŞÈ½¼ö(VALIDATE Event¿¡¼­ »ç¿ë)
 //			double FeeTot = 0;
-//			//ì…í•™ê¸ˆê³„(VALIDATE Eventì—ì„œ ì‚¬ìš©)
+//			//ÀÔÇĞ±İ°è(VALIDATE Event¿¡¼­ »ç¿ë)
 //			double TuiTot = 0;
-//			//ë“±ë¡ê¸ˆê³„(VALIDATE Eventì—ì„œ ì‚¬ìš©)
+//			//µî·Ï±İ°è(VALIDATE Event¿¡¼­ »ç¿ë)
 //			double Total = 0;
-//			//ì´ê³„(VALIDATE Eventì—ì„œ ì‚¬ìš©)
+//			//ÃÑ°è(VALIDATE Event¿¡¼­ »ç¿ë)
 
 //			oRecordSet = MDC_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -1820,12 +1831,12 @@ namespace PSH_BOne_AddOn
 //						//                            BubbleEvent = False
 //						//                        End If
 //						//
-//						//                        '//í•´ì•¼í• ì¼ ì‘ì—…
+//						//                        '//ÇØ¾ßÇÒÀÏ ÀÛ¾÷
 //						//                    ElseIf oForm.Mode = fm_UPDATE_MODE Then
 //						//                        If PH_PY305_DataValidCheck = False Then
 //						//                            BubbleEvent = False
 //						//                        End If
-//						//                        '//í•´ì•¼í• ì¼ ì‘ì—…
+//						//                        '//ÇØ¾ßÇÒÀÏ ÀÛ¾÷
 //						//
 //						//                    ElseIf oForm.Mode = fm_OK_MODE Then
 //						//                    End If
@@ -1838,7 +1849,7 @@ namespace PSH_BOne_AddOn
 //									return;
 //								}
 //								//
-//								//                        '//í•´ì•¼í• ì¼ ì‘ì—…
+//								//                        '//ÇØ¾ßÇÒÀÏ ÀÛ¾÷
 //								PH_PY305_MTX01();
 
 //							}
@@ -1852,7 +1863,7 @@ namespace PSH_BOne_AddOn
 //									return;
 //								}
 //								//
-//								//                        '//í•´ì•¼í• ì¼ ì‘ì—…
+//								//                        '//ÇØ¾ßÇÒÀÏ ÀÛ¾÷
 //								PH_PY305_Print_Report01();
 
 //							}
@@ -1891,7 +1902,7 @@ namespace PSH_BOne_AddOn
 
 //							if (pval.ColUID == "Name" & pval.CharPressed == Convert.ToDouble("9")) {
 
-//								//UPGRADE_WARNING: oMat1.Columns.Item(Name).Cells(pval.Row).Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//								//UPGRADE_WARNING: oMat1.Columns.Item(Name).Cells(pval.Row).Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //								if (string.IsNullOrEmpty(oMat1.Columns.Item("Name").Cells.Item(pval.Row).Specific.VALUE)) {
 //									MDC_Globals.Sbo_Application.ActivateMenuItem("7425");
 //									BubbleEvent = false;
@@ -1901,7 +1912,7 @@ namespace PSH_BOne_AddOn
 
 //						} else if (pval.ItemUID == "SCode" & pval.CharPressed == Convert.ToDouble("9")) {
 
-//							//UPGRADE_WARNING: oForm.Items(SCode).Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//							//UPGRADE_WARNING: oForm.Items(SCode).Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //							if (string.IsNullOrEmpty(oForm.Items.Item("SCode").Specific.VALUE)) {
 //								MDC_Globals.Sbo_Application.ActivateMenuItem("7425");
 //								BubbleEvent = false;
@@ -2013,9 +2024,9 @@ namespace PSH_BOne_AddOn
 //								case "SCode":
 //									//Call oDS_PH_PY305A.setValue("U_CntcName", 0, MDC_GetData.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" & oForm.Items(pval.ItemUID).Specific.Value & "'"))
 
-//									//UPGRADE_WARNING: oForm.Items(SName).Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									//UPGRADE_WARNING: oForm.Items().Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									//UPGRADE_WARNING: MDC_GetData.Get_ReData() ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//									//UPGRADE_WARNING: oForm.Items(SName).Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//									//UPGRADE_WARNING: oForm.Items().Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//									//UPGRADE_WARNING: MDC_GetData.Get_ReData() °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //									oForm.Items.Item("SName").Specific.VALUE = MDC_GetData.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item(pval.ItemUID).Specific.VALUE + "'");
 //									break;
 
@@ -2055,14 +2066,14 @@ namespace PSH_BOne_AddOn
 //					if (pval.BeforeAction == true) {
 //					} else if (pval.BeforeAction == false) {
 //						SubMain.RemoveForms(oFormUniqueID);
-//						//UPGRADE_NOTE: oForm ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//						//UPGRADE_NOTE: oForm °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //						oForm = null;
-//						//UPGRADE_NOTE: oDS_PH_PY305A ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//						//UPGRADE_NOTE: oDS_PH_PY305A °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //						oDS_PH_PY305A = null;
-//						//UPGRADE_NOTE: oDS_PH_PY305B ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//						//UPGRADE_NOTE: oDS_PH_PY305B °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //						oDS_PH_PY305B = null;
 
-//						//UPGRADE_NOTE: oMat1 ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//						//UPGRADE_NOTE: oMat1 °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //						oMat1 = null;
 
 //					}
@@ -2132,18 +2143,18 @@ namespace PSH_BOne_AddOn
 
 //			}
 
-//			//UPGRADE_NOTE: oCombo ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: oCombo °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oCombo = null;
-//			//UPGRADE_NOTE: oRecordSet ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: oRecordSet °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oRecordSet = null;
 
 //			return;
 //			Raise_FormItemEvent_Error:
 //			///''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 //			oForm.Freeze((false));
-//			//UPGRADE_NOTE: oCombo ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: oCombo °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oCombo = null;
-//			//UPGRADE_NOTE: oRecordSet ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: oRecordSet °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oRecordSet = null;
 //			MDC_Globals.Sbo_Application.SetStatusBarMessage("Raise_ItemEvent_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
 //		}
@@ -2165,7 +2176,7 @@ namespace PSH_BOne_AddOn
 //			if ((pval.BeforeAction == true)) {
 //				switch (pval.MenuUID) {
 //					case "1283":
-//						if (MDC_Globals.Sbo_Application.MessageBox("í˜„ì¬ í™”ë©´ë‚´ìš©ì „ì²´ë¥¼ ì œê±° í•˜ì‹œê² ìŠµë‹ˆê¹Œ? ë³µêµ¬í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", 2, "Yes", "No") == 2) {
+//						if (MDC_Globals.Sbo_Application.MessageBox("ÇöÀç È­¸é³»¿ëÀüÃ¼¸¦ Á¦°Å ÇÏ½Ã°Ú½À´Ï±î? º¹±¸ÇÒ ¼ö ¾ø½À´Ï´Ù.", 2, "Yes", "No") == 2) {
 //							BubbleEvent = false;
 //							return;
 //						}
@@ -2200,13 +2211,13 @@ namespace PSH_BOne_AddOn
 //					//            Case "1293":
 //					//                Call Raise_EVENT_ROW_DELETE(FormUID, pval, BubbleEvent)
 //					case "1281":
-//						////ë¬¸ì„œì°¾ê¸°
+//						////¹®¼­Ã£±â
 //						PH_PY305_FormItemEnabled();
 //						PH_PY305_AddMatrixRow();
 //						oForm.Items.Item("DocEntry").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 //						break;
 //					case "1282":
-//						////ë¬¸ì„œì¶”ê°€
+//						////¹®¼­Ãß°¡
 //						PH_PY305_FormItemEnabled();
 //						PH_PY305_AddMatrixRow();
 //						break;
@@ -2217,7 +2228,7 @@ namespace PSH_BOne_AddOn
 //						PH_PY305_FormItemEnabled();
 //						break;
 //					case "1293":
-//						//// í–‰ì‚­ì œ
+//						//// Çà»èÁ¦
 
 //						if (oMat1.RowCount != oMat1.VisualRowCount) {
 //							oMat1.FlushToDataSource();
@@ -2388,13 +2399,13 @@ namespace PSH_BOne_AddOn
 //			 // ERROR: Not supported in C#: OnErrorStatement
 
 //			string DocEntry = null;
-//			//UPGRADE_WARNING: MDC_GetData.Get_ReData() ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: MDC_GetData.Get_ReData() °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			DocEntry = MDC_GetData.Get_ReData(ref "AutoKey", ref "ObjectCode", ref "ONNM", ref "'PH_PY305'", ref "");
 //			if (Convert.ToDouble(DocEntry) == 0) {
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //				oForm.Items.Item("DocEntry").Specific.VALUE = 1;
 //			} else {
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //				oForm.Items.Item("DocEntry").Specific.VALUE = DocEntry;
 //			}
 //			return;
@@ -2414,73 +2425,73 @@ namespace PSH_BOne_AddOn
 
 //			oRecordSet = MDC_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
-//			//ì‚¬ì—…ì¥
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//»ç¾÷Àå
+//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			if (string.IsNullOrEmpty(Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE))) {
-//				MDC_Globals.Sbo_Application.SetStatusBarMessage("ì‚¬ì—…ì¥ì€ í•„ìˆ˜ì…ë‹ˆë‹¤.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+//				MDC_Globals.Sbo_Application.SetStatusBarMessage("»ç¾÷ÀåÀº ÇÊ¼öÀÔ´Ï´Ù.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
 //				oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 //				functionReturnValue = false;
 //				return functionReturnValue;
 //			}
 
-//			//    'ì‚¬ì›ë²ˆí˜¸
+//			//    '»ç¿ø¹øÈ£
 //			//    If Trim(oForm.Items("SCode").Specific.VALUE) = "" Then
-//			//        Sbo_Application.SetStatusBarMessage "ì‚¬ì›ë²ˆí˜¸ëŠ” í•„ìˆ˜ì…ë‹ˆë‹¤.", bmt_Short, True
+//			//        Sbo_Application.SetStatusBarMessage "»ç¿ø¹øÈ£´Â ÇÊ¼öÀÔ´Ï´Ù.", bmt_Short, True
 //			//        oForm.Items("SCode").CLICK ct_Regular
 //			//        PH_PY305_DataValidCheck = False
 //			//        Exit Function
 //			//    End If
 
-//			//ë…„ë„
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//³âµµ
+//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			if (string.IsNullOrEmpty(Strings.Trim(oForm.Items.Item("StdYear").Specific.VALUE))) {
-//				MDC_Globals.Sbo_Application.SetStatusBarMessage("ë…„ë„ëŠ” í•„ìˆ˜ì…ë‹ˆë‹¤.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+//				MDC_Globals.Sbo_Application.SetStatusBarMessage("³âµµ´Â ÇÊ¼öÀÔ´Ï´Ù.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
 //				oForm.Items.Item("StdYear").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 //				functionReturnValue = false;
 //				return functionReturnValue;
 //			}
 
-//			//ë¶„ê¸°
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//ºĞ±â
+//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			if (string.IsNullOrEmpty(Strings.Trim(oForm.Items.Item("Quarter").Specific.VALUE))) {
-//				MDC_Globals.Sbo_Application.SetStatusBarMessage("ë¶„ê¸°ëŠ” í•„ìˆ˜ì…ë‹ˆë‹¤.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+//				MDC_Globals.Sbo_Application.SetStatusBarMessage("ºĞ±â´Â ÇÊ¼öÀÔ´Ï´Ù.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
 //				oForm.Items.Item("Quarter").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 //				functionReturnValue = false;
 //				return functionReturnValue;
 //			}
 
 
-//			//    'ë¼ì¸
+//			//    '¶óÀÎ
 //			//    If oMat1.VisualRowCount > 1 Then
 //			//        For i = 1 To oMat1.VisualRowCount - 1
 //			//
-//			//            'í•™êµ
+//			//            'ÇĞ±³
 //			//            If oMat1.Columns("SchCls").Cells(i).Specific.Value = "" Then
-//			//                Sbo_Application.SetStatusBarMessage "í•™êµëŠ” í•„ìˆ˜ì…ë‹ˆë‹¤.", bmt_Short, True
+//			//                Sbo_Application.SetStatusBarMessage "ÇĞ±³´Â ÇÊ¼öÀÔ´Ï´Ù.", bmt_Short, True
 //			//                oMat1.Columns("SchCls").Cells(i).CLICK ct_Regular
 //			//                PH_PY305_DataValidCheck = False
 //			//                Exit Function
 //			//            End If
 //			//
-//			//            'í•™êµëª…
+//			//            'ÇĞ±³¸í
 //			//            If oMat1.Columns("SchName").Cells(i).Specific.Value = "" Then
-//			//                Sbo_Application.SetStatusBarMessage "í•™êµëª…ì€ í•„ìˆ˜ì…ë‹ˆë‹¤.", bmt_Short, True
+//			//                Sbo_Application.SetStatusBarMessage "ÇĞ±³¸íÀº ÇÊ¼öÀÔ´Ï´Ù.", bmt_Short, True
 //			//                oMat1.Columns("SchName").Cells(i).CLICK ct_Regular
 //			//                PH_PY305_DataValidCheck = False
 //			//                Exit Function
 //			//            End If
 //			//
-//			//            'í•™ë…„
+//			//            'ÇĞ³â
 //			//            If oMat1.Columns("Grade").Cells(i).Specific.Value = "" Then
-//			//                Sbo_Application.SetStatusBarMessage "í•™ë…„ì€ í•„ìˆ˜ì…ë‹ˆë‹¤.", bmt_Short, True
+//			//                Sbo_Application.SetStatusBarMessage "ÇĞ³âÀº ÇÊ¼öÀÔ´Ï´Ù.", bmt_Short, True
 //			//                oMat1.Columns("Grade").Cells(i).CLICK ct_Regular
 //			//                PH_PY305_DataValidCheck = False
 //			//                Exit Function
 //			//            End If
 //			//
-//			//            'íšŒì°¨
+//			//            'È¸Â÷
 //			//            If oMat1.Columns("Count").Cells(i).Specific.Value = "" Then
-//			//                Sbo_Application.SetStatusBarMessage "íšŒì°¨ëŠ” í•„ìˆ˜ì…ë‹ˆë‹¤.", bmt_Short, True
+//			//                Sbo_Application.SetStatusBarMessage "È¸Â÷´Â ÇÊ¼öÀÔ´Ï´Ù.", bmt_Short, True
 //			//                oMat1.Columns("Count").Cells(i).CLICK ct_Regular
 //			//                PH_PY305_DataValidCheck = False
 //			//                Exit Function
@@ -2488,13 +2499,13 @@ namespace PSH_BOne_AddOn
 //			//
 //			//        Next
 //			//    Else
-//			//        Sbo_Application.SetStatusBarMessage "ë¼ì¸ ë°ì´í„°ê°€ ì—†ìŠµë‹ˆë‹¤.", bmt_Short, True
+//			//        Sbo_Application.SetStatusBarMessage "¶óÀÎ µ¥ÀÌÅÍ°¡ ¾ø½À´Ï´Ù.", bmt_Short, True
 //			//        PH_PY305_DataValidCheck = False
 //			//        Exit Function
 //			//    End If
 
 //			oMat1.FlushToDataSource();
-//			//// Matrix ë§ˆì§€ë§‰ í–‰ ì‚­ì œ(DB ì €ì¥ì‹œ)
+//			//// Matrix ¸¶Áö¸· Çà »èÁ¦(DB ÀúÀå½Ã)
 //			if (oDS_PH_PY305B.Size > 1)
 //				oDS_PH_PY305B.RemoveRecord((oDS_PH_PY305B.Size - 1));
 
@@ -2504,12 +2515,12 @@ namespace PSH_BOne_AddOn
 //			return functionReturnValue;
 
 
-//			//UPGRADE_NOTE: oRecordSet ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: oRecordSet °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oRecordSet = null;
 //			PH_PY305_DataValidCheck_Error:
 
 
-//			//UPGRADE_NOTE: oRecordSet ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: oRecordSet °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oRecordSet = null;
 //			functionReturnValue = false;
 //			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY305_DataValidCheck_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
@@ -2519,7 +2530,7 @@ namespace PSH_BOne_AddOn
 //		private void PH_PY305_MTX01()
 //		{
 
-//			////ë©”íŠ¸ë¦­ìŠ¤ì— ë°ì´í„° ë¡œë“œ
+//			////¸ŞÆ®¸¯½º¿¡ µ¥ÀÌÅÍ ·Îµå
 
 //			int i = 0;
 //			string sQry = null;
@@ -2530,11 +2541,11 @@ namespace PSH_BOne_AddOn
 //			string Param04 = null;
 
 //			double FeeTot = 0;
-//			//ì…í•™ê¸ˆê³„
+//			//ÀÔÇĞ±İ°è
 //			double TuiTot = 0;
-//			//ë“±ë¡ê¸ˆê³„
+//			//µî·Ï±İ°è
 //			double Total = 0;
-//			//ì´ê³„
+//			//ÃÑ°è
 
 //			SAPbobsCOM.Recordset oRecordSet = null;
 
@@ -2544,33 +2555,33 @@ namespace PSH_BOne_AddOn
 //			oForm.Freeze(true);
 //			oRecordSet = MDC_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			Param01 = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE);
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			Param02 = oForm.Items.Item("SCode").Specific.VALUE;
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			Param03 = oForm.Items.Item("StdYear").Specific.VALUE;
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			Param04 = oForm.Items.Item("Quarter").Specific.VALUE;
 
 //			SAPbouiCOM.ProgressBar ProgressBar01 = null;
-//			ProgressBar01 = MDC_Globals.Sbo_Application.StatusBar.CreateProgressBar("ì¡°íšŒì‹œì‘!", oRecordSet.RecordCount, false);
+//			ProgressBar01 = MDC_Globals.Sbo_Application.StatusBar.CreateProgressBar("Á¶È¸½ÃÀÛ!", oRecordSet.RecordCount, false);
 
 //			sQry = "EXEC PH_PY305_01 '" + Param01 + "','" + Param02 + "','" + Param03 + "','" + Param04 + "'";
 //			oRecordSet.DoQuery(sQry);
 
-//			//UPGRADE_WARNING: oForm.Items(Team).Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			//UPGRADE_WARNING: oRecordSet.Fields().VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oForm.Items(Team).Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oRecordSet.Fields().VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			oForm.Items.Item("Team").Specific.VALUE = oRecordSet.Fields.Item("TeamName").Value;
-//			//ì‹ ì²­ì¸-ì†Œì†
-//			//UPGRADE_WARNING: oForm.Items(CntcName).Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			//UPGRADE_WARNING: oRecordSet.Fields().VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//½ÅÃ»ÀÎ-¼Ò¼Ó
+//			//UPGRADE_WARNING: oForm.Items(CntcName).Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oRecordSet.Fields().VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			oForm.Items.Item("CntcName").Specific.VALUE = oRecordSet.Fields.Item("CntcName").Value;
-//			//ì‹ ì²­ì¸-ì„±ëª…
-//			//UPGRADE_WARNING: oForm.Items(startDat).Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			//UPGRADE_WARNING: oRecordSet.Fields().VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//½ÅÃ»ÀÎ-¼º¸í
+//			//UPGRADE_WARNING: oForm.Items(startDat).Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oRecordSet.Fields().VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			oForm.Items.Item("startDat").Specific.VALUE = oRecordSet.Fields.Item("startDat").Value;
-//			//ì‹ ì²­ì¸-ì…ì‚¬ì¼ì
+//			//½ÅÃ»ÀÎ-ÀÔ»çÀÏÀÚ
 
 //			oMat1.Clear();
 //			oMat1.FlushToDataSource();
@@ -2600,17 +2611,17 @@ namespace PSH_BOne_AddOn
 
 //				oRecordSet.MoveNext();
 //				ProgressBar01.Value = ProgressBar01.Value + 1;
-//				ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "ê±´ ì¡°íšŒì¤‘...!";
+//				ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "°Ç Á¶È¸Áß...!";
 
 //			}
 
 //			Total = FeeTot + TuiTot;
 
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			oForm.Items.Item("FeeTot").Specific.VALUE = FeeTot;
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			oForm.Items.Item("TuiTot").Specific.VALUE = TuiTot;
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			oForm.Items.Item("Total").Specific.VALUE = Total;
 
 //			oMat1.LoadFromDataSource();
@@ -2618,26 +2629,26 @@ namespace PSH_BOne_AddOn
 //			oForm.Update();
 
 //			ProgressBar01.Stop();
-//			//UPGRADE_NOTE: ProgressBar01 ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: ProgressBar01 °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			ProgressBar01 = null;
-//			//UPGRADE_NOTE: oRecordSet ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: oRecordSet °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oRecordSet = null;
 //			oForm.Freeze(false);
 //			return;
 //			PH_PY305_MTX01_Exit:
-//			//UPGRADE_NOTE: oRecordSet ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: oRecordSet °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oRecordSet = null;
 //			oForm.Freeze(false);
 //			if ((ProgressBar01 != null)) {
 //				ProgressBar01.Stop();
 //			}
-//			MDC_Com.MDC_GF_Message(ref "ê²°ê³¼ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.", ref "W");
+//			MDC_Com.MDC_GF_Message(ref "°á°ú°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.", ref "W");
 //			return;
 //			PH_PY305_MTX01_Error:
 //			ProgressBar01.Stop();
-//			//UPGRADE_NOTE: ProgressBar01 ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: ProgressBar01 °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			ProgressBar01 = null;
-//			//UPGRADE_NOTE: oRecordSet ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: oRecordSet °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oRecordSet = null;
 //			oForm.Freeze(false);
 //			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY305_MTX01_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
@@ -2655,26 +2666,26 @@ namespace PSH_BOne_AddOn
 //			SAPbobsCOM.Recordset oRecordSet = null;
 //			oRecordSet = MDC_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			//UPGRADE_WARNING: MDC_Company_Common.GetValue(SELECT Canceled FROM [PH_PY305A] WHERE DocEntry = ' & oForm.Items(DocEntry).Specific.VALUE & ', 0, 1) ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: MDC_Company_Common.GetValue(SELECT Canceled FROM [PH_PY305A] WHERE DocEntry = ' & oForm.Items(DocEntry).Specific.VALUE & ', 0, 1) °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			if (MDC_Company_Common.GetValue("SELECT Canceled FROM [@PH_PY305A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.VALUE + "'", 0, 1) == "Y") {
-//				MDC_Globals.Sbo_Application.SetStatusBarMessage("í•´ë‹¹ë¬¸ì„œëŠ” ë‹¤ë¥¸ì‚¬ìš©ìì— ì˜í•´ ì·¨ì†Œë˜ì—ˆìŠµë‹ˆë‹¤. ì‘ì—…ì„ ì§„í–‰í• ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+//				MDC_Globals.Sbo_Application.SetStatusBarMessage("ÇØ´ç¹®¼­´Â ´Ù¸¥»ç¿ëÀÚ¿¡ ÀÇÇØ Ãë¼ÒµÇ¾ú½À´Ï´Ù. ÀÛ¾÷À» ÁøÇàÇÒ¼ö ¾ø½À´Ï´Ù.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
 //				functionReturnValue = false;
 //				goto PH_PY305_Validate_Exit;
 //			}
 //			//
-//			if (ValidateType == "ìˆ˜ì •") {
+//			if (ValidateType == "¼öÁ¤") {
 
-//			} else if (ValidateType == "í–‰ì‚­ì œ") {
+//			} else if (ValidateType == "Çà»èÁ¦") {
 
-//			} else if (ValidateType == "ì·¨ì†Œ") {
+//			} else if (ValidateType == "Ãë¼Ò") {
 
 //			}
-//			//UPGRADE_NOTE: oRecordSet ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: oRecordSet °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oRecordSet = null;
 //			return functionReturnValue;
 //			PH_PY305_Validate_Exit:
-//			//UPGRADE_NOTE: oRecordSet ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: oRecordSet °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oRecordSet = null;
 //			return functionReturnValue;
 //			PH_PY305_Validate_Error:
@@ -2704,26 +2715,26 @@ namespace PSH_BOne_AddOn
 //			oRecordSet = MDC_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 
-//			/// ODBC ì—°ê²° ì²´í¬
+//			/// ODBC ¿¬°á Ã¼Å©
 //			if (ConnectODBC() == false) {
 //				goto PH_PY305_Print_Report01_Error;
 //			}
 
 
-//			////ì¸ì MOVE , Trim ì‹œí‚¤ê¸°..
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			////ÀÎÀÚ MOVE , Trim ½ÃÅ°±â..
+//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE);
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			sCode = oForm.Items.Item("SCode").Specific.VALUE;
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			StdYear = oForm.Items.Item("StdYear").Specific.VALUE;
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE ê°œì²´ì˜ ê¸°ë³¸ ì†ì„±ì„ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE °³Ã¼ÀÇ ±âº» ¼Ó¼ºÀ» È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			Quarter = oForm.Items.Item("Quarter").Specific.VALUE;
 
 
 //			/// Crystal /~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/
 
-//			WinTitle = "[PH_PY305] í•™ìê¸ˆì‹ ì²­ì„œ";
+//			WinTitle = "[PH_PY305] ÇĞÀÚ±İ½ÅÃ»¼­";
 //			ReportName = "PH_PY305_01.rpt";
 //			MDC_Globals.gRpt_Formula = new string[2];
 //			MDC_Globals.gRpt_Formula_Value = new string[2];
@@ -2732,7 +2743,7 @@ namespace PSH_BOne_AddOn
 //			MDC_Globals.gRpt_SFormula = new string[2, 2];
 //			MDC_Globals.gRpt_SFormula_Value = new string[2, 2];
 
-//			/// Formula ìˆ˜ì‹í•„ë“œ
+//			/// Formula ¼ö½ÄÇÊµå
 
 //			//    gRpt_Formula(1) = "CLTCOD"
 //			//    sQry = "SELECT U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P144' AND U_UseYN= 'Y' AND U_Code = '" & CLTCOD & "'"
@@ -2740,7 +2751,7 @@ namespace PSH_BOne_AddOn
 //			//    gRpt_Formula_Value(1) = oRecordSet.Fields(0).VALUE
 //			//
 //			//    gRpt_Formula(2) = "YM"
-//			//    gRpt_Formula_Value(2) = Format(YM, "####ë…„##ì›”")
+//			//    gRpt_Formula_Value(2) = Format(YM, "####³â##¿ù")
 //			//
 //			//    gRpt_Formula(3) = "DocDate"
 //			//    gRpt_Formula_Value(3) = Format(JIGBIL, "####-##-##")
@@ -2750,7 +2761,7 @@ namespace PSH_BOne_AddOn
 
 
 
-//			/// Procedure ì‹¤í–‰"
+//			/// Procedure ½ÇÇà"
 //			sQry = "EXEC [PH_PY305_02] '" + CLTCOD + "', '" + sCode + "',  '" + StdYear + "',  '" + Quarter + "'";
 
 //			oRecordSet.DoQuery(sQry);
@@ -2760,20 +2771,20 @@ namespace PSH_BOne_AddOn
 //			}
 
 //			if (MDC_SetMod.gCryReport_Action(WinTitle, ReportName, "N", sQry, "1", "Y", "V", , 1) == false) {
-//				MDC_Globals.Sbo_Application.SetStatusBarMessage("gCryReport_Action : ì‹¤íŒ¨!", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+//				MDC_Globals.Sbo_Application.SetStatusBarMessage("gCryReport_Action : ½ÇÆĞ!", SAPbouiCOM.BoMessageTime.bmt_Short, true);
 //			}
 
-//			//UPGRADE_NOTE: oRecordSet ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//			//UPGRADE_NOTE: oRecordSet °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oRecordSet = null;
 //			return;
 //			PH_PY305_Print_Report01_Error:
 
 //			if (ErrNum == 1) {
-//				//UPGRADE_NOTE: oRecordSet ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//				//UPGRADE_NOTE: oRecordSet °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //				oRecordSet = null;
-//				MDC_Com.MDC_GF_Message(ref "ì¶œë ¥í•  ë°ì´í„°ê°€ ì—†ìŠµë‹ˆë‹¤. í™•ì¸í•´ ì£¼ì„¸ìš”.", ref "E");
+//				MDC_Com.MDC_GF_Message(ref "Ãâ·ÂÇÒ µ¥ÀÌÅÍ°¡ ¾ø½À´Ï´Ù. È®ÀÎÇØ ÁÖ¼¼¿ä.", ref "E");
 //			} else {
-//				//UPGRADE_NOTE: oRecordSet ê°œì²´ëŠ” ê°€ë¹„ì§€ê°€ ìˆ˜ì§‘ë˜ì–´ì•¼ ì†Œë©¸ë©ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ ë‹¤ìŒì„ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
+//				//UPGRADE_NOTE: oRecordSet °³Ã¼´Â °¡ºñÁö°¡ ¼öÁıµÇ¾î¾ß ¼Ò¸êµË´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº ´ÙÀ½À» ÂüÁ¶ÇÏ½Ê½Ã¿À. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //				oRecordSet = null;
 //				MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY305_Print_Report01_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
 //			}

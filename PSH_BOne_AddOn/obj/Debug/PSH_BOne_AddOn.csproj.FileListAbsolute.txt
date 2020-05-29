@@ -132,3 +132,17 @@ C:\Users\SongMG\OneDrive\01.Work\01.Poongsan\01.SourceCode\03.PSH_BOne_AddOn_BY_
 \\191.1.1.221\0000.DevSourceCode\02. PSH_BOne_AddOn\bin\Interop.MSXML2.dll
 \\191.1.1.221\0000.DevSourceCode\02. PSH_BOne_AddOn\bin\Interop.Scripting.dll
 \\191.1.1.221\0000.DevSourceCode\02. PSH_BOne_AddOn\obj\Debug\PSH_BOne_AddOn.csproj.CopyComplete
+C:\Users\HwangYoungSu\Documents\0001. DEV\02.PSH_BOne_AddOn_B\PSH_BOne_AddOn\obj\Debug\PSH_BOne_AddOn.csprojAssemblyReference.cache
+C:\Users\HwangYoungSu\Documents\0001. DEV\02.PSH_BOne_AddOn_B\PSH_BOne_AddOn\obj\Debug\Interop.ADODB.dll
+C:\Users\HwangYoungSu\Documents\0001. DEV\02.PSH_BOne_AddOn_B\PSH_BOne_AddOn\obj\Debug\Interop.CDO.dll
+C:\Users\HwangYoungSu\Documents\0001. DEV\02.PSH_BOne_AddOn_B\PSH_BOne_AddOn\obj\Debug\Interop.CRDESIGNERLib.dll
+C:\Users\HwangYoungSu\Documents\0001. DEV\02.PSH_BOne_AddOn_B\PSH_BOne_AddOn\obj\Debug\Interop.MSXML2.dll
+C:\Users\HwangYoungSu\Documents\0001. DEV\02.PSH_BOne_AddOn_B\PSH_BOne_AddOn\obj\Debug\Interop.SAPbobsCOM.dll
+C:\Users\HwangYoungSu\Documents\0001. DEV\02.PSH_BOne_AddOn_B\PSH_BOne_AddOn\obj\Debug\Interop.SAPbouiCOM.dll
+C:\Users\HwangYoungSu\Documents\0001. DEV\02.PSH_BOne_AddOn_B\PSH_BOne_AddOn\obj\Debug\Interop.Scripting.dll
+C:\Users\HwangYoungSu\Documents\0001. DEV\02.PSH_BOne_AddOn_B\PSH_BOne_AddOn\obj\Debug\PSH_BOne_AddOn.csproj.ResolveComReference.cache
+C:\Users\HwangYoungSu\Documents\0001. DEV\02.PSH_BOne_AddOn_B\PSH_BOne_AddOn\obj\Debug\PSH_BOne_AddOn.FileListBoxForm.resources
+C:\Users\HwangYoungSu\Documents\0001. DEV\02.PSH_BOne_AddOn_B\PSH_BOne_AddOn\obj\Debug\PSH_BOne_AddOn.csproj.GenerateResource.cache
+C:\Users\HwangYoungSu\Documents\0001. DEV\02.PSH_BOne_AddOn_B\PSH_BOne_AddOn\obj\Debug\PSH_BOne_AddOn.csproj.CoreCompileInputs.cache
+C:\Users\HwangYoungSu\Documents\0001. DEV\02.PSH_BOne_AddOn_B\PSH_BOne_AddOn\obj\Debug\PSH_BOne_AddOn.exe
+C:\Users\HwangYoungSu\Documents\0001. DEV\02.PSH_BOne_AddOn_B\PSH_BOne_AddOn\obj\Debug\PSH_BOne_AddOn.pdb

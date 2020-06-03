@@ -1356,12 +1356,12 @@ namespace PSH_BOne_AddOn
             {
                 double FuelPrc = 0;                //유류단가
                 double Distance = 0;                //거리
-                double TransExp = 0;                //교통비
+                int TransExp = 0;                //교통비
 
                 FuelPrc = Convert.ToDouble(oForm.Items.Item("FuelPrc").Specific.VALUE.ToString().Trim());
                 Distance = Convert.ToDouble(oForm.Items.Item("Distance").Specific.VALUE.ToString().Trim());
 
-                TransExp = ((FuelPrc * Distance * 0.1) / 10) * 10;                //원단위 절사
+                TransExp = Convert.ToInt32((FuelPrc * Distance * 0.1) / 10) * 10;                //원단위 절사
 
                 oForm.Items.Item("TransExp").Specific.VALUE = TransExp;
             }

@@ -3,6 +3,7 @@ using System;
 using System.Windows.Forms;
 using SAPbouiCOM;
 using Scripting;
+using PSH_BOne_AddOn.Code;
 
 namespace PSH_BOne_AddOn
 {
@@ -162,9 +163,12 @@ namespace PSH_BOne_AddOn
         public void Initialize_ODBC_Variable()
         {
             string sQry = string.Empty;
+            string ServerName = string.Empty;
             SAPbobsCOM.Recordset oRecordSet = null;
-
+            PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             oRecordSet = (SAPbobsCOM.Recordset)PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            ServerName = PSH_Globals.SBO_Application.Company.ServerName;
 
             sQry = "        SELECT      PARAM01 AS PARAM01,";
             sQry = sQry + "             PARAM02 AS PARAM02,";
@@ -183,8 +187,16 @@ namespace PSH_BOne_AddOn
             {
                 //ODBC
                 //PSH_Globals.SP_ODBC_YN = Trim(oRecordset.Fields("Value01").Value)
-                PSH_Globals.SP_ODBC_Name = "MDCERP";
-                PSH_Globals.SP_ODBC_IP = oRecordSet.Fields.Item("PARAM01").Value.ToString().Replace("\\", "").Trim();
+                if (codeHelpClass.Right(ServerName, 3) == "223"){
+                    PSH_Globals.SP_ODBC_Name = "MDCERP";
+                }
+                else
+                {
+                    PSH_Globals.SP_ODBC_Name = "PSHCERP_TEST";
+                }
+                PSH_Globals.SP_ODBC_IP = ServerName;
+                //접속한 서버주소를 바로 가져올수 있게 기존 PARAM01에서 가져온 값을 PSH_Globals.SBO_Application.Company.ServerName
+                //PSH_Globals.SP_ODBC_IP = oRecordSet.Fields.Item("PARAM01").Value.ToString().Replace("\\", "").Trim();
                 PSH_Globals.SP_ODBC_DBName = PSH_Globals.oCompany.CompanyDB;
                 PSH_Globals.SP_ODBC_ID = oRecordSet.Fields.Item("PARAM07").Value.ToString().Trim();
                 PSH_Globals.SP_ODBC_PW = oRecordSet.Fields.Item("PARAM08").Value.ToString().Trim();

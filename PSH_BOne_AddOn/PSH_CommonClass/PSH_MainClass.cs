@@ -192,7 +192,6 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-
                     PSH_Globals.SP_ODBC_Name = "PSHERP_TEST";
                 }
                 PSH_Globals.SP_ODBC_IP = ServerName;

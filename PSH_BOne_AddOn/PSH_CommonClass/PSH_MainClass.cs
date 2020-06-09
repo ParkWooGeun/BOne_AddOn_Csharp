@@ -192,7 +192,7 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    PSH_Globals.SP_ODBC_Name = "PSHERP_TEST"; // 191.1.1.223으로 접속시 왼쪽 ODBC로 접속
+                    PSH_Globals.SP_ODBC_Name = "PSHERP_TEST"; // 191.1.1.223으로 접속시 왼쪽  ODBC로 접속
                 }
                 PSH_Globals.SP_ODBC_IP = ServerName;
                 //접속한 서버주소를 바로 가져올수 있게 기존 PARAM01에서 가져온 값을 PSH_Globals.SBO_Application.Company.ServerName

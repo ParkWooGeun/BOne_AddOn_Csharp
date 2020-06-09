@@ -1361,7 +1361,7 @@ namespace PSH_BOne_AddOn
                 FuelPrc = Convert.ToDouble(oForm.Items.Item("FuelPrc").Specific.VALUE.ToString().Trim());
                 Distance = Convert.ToDouble(oForm.Items.Item("Distance").Specific.VALUE.ToString().Trim());
 
-                TransExp = Convert.ToInt32((FuelPrc * Distance * 0.1) / 10) * 10;                //원단위 절사 2020.06.03 황영수
+                TransExp = Convert.ToInt32((FuelPrc * Distance * 0.1) / 10) * 10;                //원단위  절사 2020.06.03 황영수
 
                 oForm.Items.Item("TransExp").Specific.VALUE = TransExp;
             }

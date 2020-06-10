@@ -358,3 +358,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# UserAdd
+dev01_Menu_KOR.xml
+manager_Menu_KOR.xml

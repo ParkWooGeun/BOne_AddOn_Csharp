@@ -1054,6 +1054,7 @@ namespace PSH_BOne_AddOn
                         PSH_Globals.SBO_Application.StatusBar.SetText("Code" + "데이터가 일치합니다. 저장되지 않습니다. 확인하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     }
                 }
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
@@ -1061,7 +1062,6 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                functionReturnValue = true;
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
             return functionReturnValue;
@@ -1359,7 +1359,7 @@ namespace PSH_BOne_AddOn
                 //행을 삭제하였으니 DB데이터 소스를 다시 가져온다
                 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
                 oMat01.LoadFromDataSource();
-
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
@@ -1401,7 +1401,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                functionReturnValue = true;
+               
             }
             return functionReturnValue;
         }

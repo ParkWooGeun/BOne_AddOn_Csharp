@@ -3848,7 +3848,9 @@ namespace PSH_BOne_AddOn
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             int i = 0;
             int j = 0;
-            int[] PAYTOT = new int[3];
+            string temp = string.Empty;
+            Double test = 0;
+            int[] PAYTOT = new int[4];
 
             try
             {
@@ -3904,7 +3906,7 @@ namespace PSH_BOne_AddOn
                         else if (oForm.Mode != SAPbouiCOM.BoFormMode.fm_FIND_MODE && pVal.ItemUID == "Mat1" && codeHelpClass.Left(pVal.ColUID, 6) == "CSUAMT")
                         {
                             oMat1.FlushToDataSource();
-                            for (i = 0; i <= PAYTOT.Length; i++)
+                            for (i = 0; i < PAYTOT.Length; i++)
                             {
                                 PAYTOT[i] = 0;
                             }
@@ -3913,13 +3915,14 @@ namespace PSH_BOne_AddOn
                             {
                                 for (j = 0; j <= 3; j++)
                                 {
-                                    PAYTOT[j] = PAYTOT[j] + Convert.ToInt32(oDS_PH_PY115B.GetValue("U_CSUAMT" + j + 1, i).Trim());
+                                    PAYTOT[j] = PAYTOT[j] + Convert.ToInt32(Convert.ToDouble(oDS_PH_PY115B.GetValue("U_CSUAMT" + (j + 1).ToString().Trim(), i).Trim()));
+
                                 }
                             }
 
-                            for (i = 0; i <= PAYTOT.Length; i++)
+                            for (i = 0; i < PAYTOT.Length; i++)
                             {
-                                oDS_PH_PY115A.SetValue("U_PAYT0" + i + 1, 0, PAYTOT[i].ToString());
+                                oDS_PH_PY115A.SetValue("U_PAYT0" + (i + 1).ToString().Trim(), 0, PAYTOT[i].ToString());
                             }
 
                             oForm.Items.Item("PAYT01").Update();

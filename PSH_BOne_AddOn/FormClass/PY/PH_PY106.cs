@@ -126,7 +126,7 @@ namespace PSH_BOne_AddOn
 
                 //// 1.급여형태-계산식
                 sQry = " SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code='P132' AND U_UseYN= 'Y'";
-                dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("PAYTYP").Specific,"");
+                dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("PAYTYP").Specific, "");
                 oForm.Items.Item("PAYTYP").DisplayDesc = true;
 
                 //// 1.근속년수 계산기준
@@ -375,21 +375,21 @@ namespace PSH_BOne_AddOn
                     Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                //case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
-                //    Raise_EVENT_FORM_MENU_HILIGHT(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
+                    //    Raise_EVENT_FORM_MENU_HILIGHT(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
-                //    Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
+                    //    Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
-                //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
+                    //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_Drag: //39
-                //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_Drag: //39
+                    //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
             }
         }
 
@@ -990,37 +990,43 @@ namespace PSH_BOne_AddOn
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
-                if (string.IsNullOrEmpty(oDS_PH_PY106A.GetValue("U_CLTCOD", 0).ToString().Trim())){
+                if (string.IsNullOrEmpty(oDS_PH_PY106A.GetValue("U_CLTCOD", 0).ToString().Trim()))
+                {
                     PSH_Globals.SBO_Application.StatusBar.SetText("사업장은 필수입니다. 입력하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     functionReturnValue = false;
                     return functionReturnValue;
                 }
-                if (string.IsNullOrEmpty(oDS_PH_PY106A.GetValue("U_YM", 0).ToString().Trim())){
+                if (string.IsNullOrEmpty(oDS_PH_PY106A.GetValue("U_YM", 0).ToString().Trim()))
+                {
                     PSH_Globals.SBO_Application.StatusBar.SetText("작업연월은 필수입니다. 입력하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     oForm.Items.Item("YM").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     functionReturnValue = false;
                     return functionReturnValue;
                 }
-                if (string.IsNullOrEmpty(oDS_PH_PY106A.GetValue("U_PAYTYP", 0).ToString().Trim())){
+                if (string.IsNullOrEmpty(oDS_PH_PY106A.GetValue("U_PAYTYP", 0).ToString().Trim()))
+                {
                     PSH_Globals.SBO_Application.StatusBar.SetText("급여형태는 필수입니다. 입력하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     oForm.Items.Item("PAYTYP").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     functionReturnValue = false;
                     return functionReturnValue;
                 }
-                if (string.IsNullOrEmpty(oDS_PH_PY106A.GetValue("U_GNSGBN", 0).ToString().Trim())){
+                if (string.IsNullOrEmpty(oDS_PH_PY106A.GetValue("U_GNSGBN", 0).ToString().Trim()))
+                {
                     PSH_Globals.SBO_Application.StatusBar.SetText("근속일계산기준은 필수입니다. 입력하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     oForm.Items.Item("GNSGBN").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     functionReturnValue = false;
                     return functionReturnValue;
                 }
-                if (string.IsNullOrEmpty(oDS_PH_PY106A.GetValue("U_BNSLEN", 0).ToString().Trim())){
+                if (string.IsNullOrEmpty(oDS_PH_PY106A.GetValue("U_BNSLEN", 0).ToString().Trim()))
+                {
                     PSH_Globals.SBO_Application.StatusBar.SetText("상여 계산단위는 필수입니다. 입력하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     oForm.Items.Item("BNSLEN").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     functionReturnValue = false;
                     return functionReturnValue;
                 }
-                if (string.IsNullOrEmpty(oDS_PH_PY106A.GetValue("U_BNSRND", 0).ToString().Trim())){
+                if (string.IsNullOrEmpty(oDS_PH_PY106A.GetValue("U_BNSRND", 0).ToString().Trim()))
+                {
                     PSH_Globals.SBO_Application.StatusBar.SetText("상여 끝전처리는 필수입니다. 입력하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     oForm.Items.Item("BNSRND").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     functionReturnValue = false;
@@ -1118,7 +1124,7 @@ namespace PSH_BOne_AddOn
         public void PH_PY106_AddMatrixRow()
         {
             int oRow = 0;
-            
+
             try
             {
                 oForm.Freeze(true);
@@ -1245,7 +1251,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                DocEntry = dataHelpClass.Get_ReData( "AutoKey",  "ObjectCode",  "ONNM",  "'PH_PY106'",  "");
+                DocEntry = dataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PH_PY106'", "");
                 if (Convert.ToDouble(DocEntry) == 0)
                 {
                     oForm.Items.Item("DocEntry").Specific.VALUE = 1;
@@ -1333,7 +1339,7 @@ namespace PSH_BOne_AddOn
                         for (kRow = iRow + 1; kRow <= oMat01.VisualRowCount - 2; kRow++)
                         {
                             oDS_PH_PY106B.Offset = kRow;
-                            if (Chk_Data.ToString().Trim() ==oDS_PH_PY106B.GetValue("U_CSUCOD", kRow).ToString().Trim())
+                            if (Chk_Data.ToString().Trim() == oDS_PH_PY106B.GetValue("U_CSUCOD", kRow).ToString().Trim())
                             {
                                 ErrNum = 3;
                                 oMat01.Columns.Item("LINSEQ").Cells.Item(iRow + 1).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -1392,6 +1398,10 @@ namespace PSH_BOne_AddOn
 
                 functionReturnValue = false;
                 return functionReturnValue;
+            }
+            finally
+            {
+                functionReturnValue = true;
             }
             return functionReturnValue;
         }
@@ -1482,7 +1492,7 @@ namespace PSH_BOne_AddOn
                         SILTYP = dataHelpClass.Get_ReData("U_FIXGBN + isnull(U_INSLIN,'')", "U_CSUCOD", "[@PH_PY102B]", "'" + CSUCOD + "'", " AND Code = '" + oCLTCOD.ToString().Trim() + oJOBYMM.ToString().Trim() + "'");
                         if (codeHelpClass.Left(SILTYP, 1) == "Y")
                         {
-                            SILCUN = "T2.U_CSUD" + SILTYP.Replace("Y", "").PadLeft(2,'0');
+                            SILCUN = "T2.U_CSUD" + SILTYP.Replace("Y", "").PadLeft(2, '0');
                         }
                         else
                         {

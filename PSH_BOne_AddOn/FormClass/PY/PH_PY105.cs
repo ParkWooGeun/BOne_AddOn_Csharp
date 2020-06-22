@@ -20,9 +20,9 @@ namespace PSH_BOne_AddOn
         private string oLastColUID;
         private int oLastColRow;
 
-        private bool CheckDataApply;  // 적용버튼 실행여부
-        private string CLTCOD;        // 사업장
-        private string YM;            // 적용연월
+        private bool CheckDataApply; //적용버튼 실행여부
+        private string CLTCOD; //사업장
+        private string YM; //적용연월
 
         /// <summary>
         /// Form 호출

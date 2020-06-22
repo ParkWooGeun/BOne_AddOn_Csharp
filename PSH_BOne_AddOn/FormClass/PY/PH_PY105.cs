@@ -952,28 +952,367 @@ namespace PSH_BOne_AddOn
             }
         }
 
+        ///// <summary>
+        ///// PH_PY105_Excel_Upload 
+        ///// </summary>
+        //[STAThread]
+        //private void PH_PY105_Excel_Upload()
+        //{
+        //    int i = 0;
+        //    int ErrNum = 0;
+        //    int TOTCNT = 0;
+        //    int V_StatusCnt = 0;
+        //    int oProValue = 0;
+        //    int tRow = 0;
+        //    string sPrice = string.Empty;
+        //    string sFile = string.Empty;
+        //    string OneRec = string.Empty;
+        //    string sQry = string.Empty;
+
+        //    short columnCount  = 15;  // 엑셀 컬럼수
+        //    short columnCount2 = 15;  // 엑셀 컬럼수
+        //    int loopCount = 0;
+
+        //    PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
+
+        //    CommonOpenFileDialog commonOpenFileDialog = new CommonOpenFileDialog();
+
+        //    commonOpenFileDialog.Filters.Add(new CommonFileDialogFilter("Excel Files", "*.xls;*.xlsx"));
+        //    commonOpenFileDialog.Filters.Add(new CommonFileDialogFilter("모든 파일", "*.*"));
+
+        //    if (commonOpenFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
+        //    {
+        //        sFile = commonOpenFileDialog.FileName;
+        //    }
+        //    else //Cancel 버튼 클릭
+        //    {
+        //        return;
+        //    }
+
+        //    //엑셀 Object 연결
+        //    //암시적 객체참조 시 Excel.exe 메모리 반환이 안됨, 아래와 같이 명시적 참조로 선언
+        //    Microsoft.Office.Interop.Excel.ApplicationClass xlapp = new Microsoft.Office.Interop.Excel.ApplicationClass();
+        //    Microsoft.Office.Interop.Excel.Workbooks xlwbs = xlapp.Workbooks;
+        //    Microsoft.Office.Interop.Excel.Workbook xlwb = xlwbs.Open(sFile);  // sFile
+        //    Microsoft.Office.Interop.Excel.Sheets xlshs = xlwb.Worksheets;
+        //    Microsoft.Office.Interop.Excel.Worksheet xlsh = (Microsoft.Office.Interop.Excel.Worksheet)xlshs[1];
+        //    Microsoft.Office.Interop.Excel.Range xlCell = xlsh.Cells;
+        //    Microsoft.Office.Interop.Excel.Range xlRange = xlsh.UsedRange;
+        //    Microsoft.Office.Interop.Excel.Range xlRow = xlRange.Rows;
+
+        //    SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+        //    SAPbouiCOM.ProgressBar ProgressBar01 = null;
+
+        //    try
+        //    {
+        //        oForm = PSH_Globals.SBO_Application.Forms.ActiveForm;
+        //        if (string.IsNullOrEmpty(sFile))
+        //        {
+        //            ErrNum = 1;
+        //            throw new Exception();
+        //        }
+        //        else
+        //        {
+        //            if ( codeHelpClass.Right(sFile, 3) == "xls" | codeHelpClass.Right(sFile, 4) == "xlsx" )
+        //            {
+        //                oDS_PH_PY105A.SetValue("U_Comments", 0, sFile);
+        //            }
+        //            else
+        //            {
+        //                ErrNum = 2;
+        //                throw new Exception();
+        //            }
+        //        }
+
+        //        Microsoft.Office.Interop.Excel.Range[] t = new Microsoft.Office.Interop.Excel.Range[columnCount2 + 1];
+        //        for (loopCount = 1; loopCount <= columnCount2; loopCount++)
+        //        {
+        //            t[loopCount] = (Microsoft.Office.Interop.Excel.Range)xlCell[1, loopCount];
+        //        }
+
+        //        if (t[1].Value.ToString().Trim() != "직급")
+        //        {
+        //            ErrNum = 3;
+        //            throw new Exception();
+        //        }
+        //        if (t[2].Value.ToString().Trim() != "호봉코드")
+        //        {
+        //            ErrNum = 4;
+        //            throw new Exception();
+        //        }
+        //        if (t[3].Value.ToString().Trim() != "호봉명")
+        //        {
+        //            ErrNum = 5;
+        //            throw new Exception();
+        //        }
+        //        if (t[4].Value.ToString().Trim() != "급여기본")
+        //        {
+        //            ErrNum = 6;
+        //            throw new Exception();
+        //        }
+        //        if (t[5].Value.ToString().Trim() != "상여기본")
+        //        {
+        //            ErrNum = 7;
+        //            throw new Exception();
+        //        }
+        //        if (t[6].Value.ToString().Trim() != "제수당01")
+        //        {
+        //            ErrNum = 8;
+        //            throw new Exception();
+        //        }
+        //        if (t[7].Value.ToString().Trim() != "제수당02")
+        //        {
+        //            ErrNum = 9;
+        //            throw new Exception();
+        //        }
+        //        if (t[8].Value.ToString().Trim() != "제수당03")
+        //        {
+        //            ErrNum = 10;
+        //            throw new Exception();
+        //        }
+        //        if (t[9].Value.ToString().Trim() != "제수당04")
+        //        {
+        //            ErrNum = 11;
+        //            throw new Exception();
+        //        }
+        //        if (t[10].Value.ToString().Trim() != "제수당05")
+        //        {
+        //            ErrNum = 12;
+        //            throw new Exception();
+        //        }
+        //        if (t[11].Value.ToString().Trim() != "제수당06")
+        //        {
+        //            ErrNum = 13;
+        //            throw new Exception();
+        //        }
+        //        if (t[12].Value.ToString().Trim() != "제수당07")
+        //        {
+        //            ErrNum = 14;
+        //            throw new Exception();
+        //        }
+        //        if (t[13].Value.ToString().Trim() != "제수당08")
+        //        {
+        //            ErrNum = 15;
+        //            throw new Exception();
+        //        }
+        //        if (t[14].Value.ToString().Trim() != "제수당09")
+        //        {
+        //            ErrNum = 16;
+        //            throw new Exception();
+        //        }
+        //        if (t[15].Value.ToString().Trim() != "제수당10")
+        //        {
+        //            ErrNum = 17;
+        //            throw new Exception();
+        //        }
+
+        //        for (loopCount = 1; loopCount <= columnCount2; loopCount++)
+        //        {
+        //            System.Runtime.InteropServices.Marshal.ReleaseComObject(t[loopCount]); //메모리 해제
+        //        }
+
+        //        ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("데이터 읽는중...!", 50, false);
+        //        // 최대값 구하기
+        //        TOTCNT = xlsh.UsedRange.Rows.Count - 1;
+        //        V_StatusCnt = TOTCNT / 50;
+        //        oProValue = 1;
+        //        tRow = 1;
+
+        //        // 테이블 생성
+        //        sQry = "EXEC PH_PY105_TEMP_CHK";
+        //        oRecordSet.DoQuery(sQry);
+
+        //        for (i = 2; i <= xlsh.UsedRange.Rows.Count; i++)
+        //        {
+        //            Microsoft.Office.Interop.Excel.Range[] r = new Microsoft.Office.Interop.Excel.Range[columnCount + 1];
+
+        //            for (loopCount = 1; loopCount <= columnCount; loopCount++)
+        //            {
+        //                r[loopCount] = (Microsoft.Office.Interop.Excel.Range)xlCell[i, loopCount];
+        //            }
+
+        //            sQry = "EXEC PH_PY105 '" + r[1].Value.ToString().Trim() + "','" + r[2].Value.ToString().Trim() + "','" + r[3].Value.ToString().Trim() + "','" + r[4].Value.ToString().Trim() + "','" + r[5].Value.ToString().Trim() + "','";
+        //            sQry = sQry + r[6].Value.ToString().Trim() + "','" + r[7].Value.ToString().Trim() + "','" + r[8].Value.ToString().Trim() + "','" + r[9].Value.ToString().Trim() + "','" + r[10].Value.ToString().Trim() + "','";
+        //            sQry = sQry + r[11].Value.ToString().Trim() + "','" + r[12].Value.ToString().Trim() + "','" + r[13].Value.ToString().Trim() + "','" + r[14].Value.ToString().Trim() + "','" + r[15].Value.ToString().Trim() + "'";
+
+        //            oRecordSet.DoQuery(sQry);
+
+        //            if ((TOTCNT > 50 & tRow == oProValue * V_StatusCnt) | TOTCNT <= 50)
+        //            {
+        //                ProgressBar01.Text = tRow + "/ " + TOTCNT + " 건 처리중...!";
+        //                oProValue = oProValue + 1;
+        //                ProgressBar01.Value = oProValue;
+        //            }
+        //            tRow = tRow + 1;
+
+        //            for (loopCount = 1; loopCount <= columnCount; loopCount++)
+        //            {
+        //                System.Runtime.InteropServices.Marshal.ReleaseComObject(r[loopCount]); //메모리 해제
+        //            }
+        //        }
+
+        //        oMat1.Clear();
+        //        oMat1.FlushToDataSource();
+
+        //        // 임시데이터 데이타 검색
+        //        sQry = "SELECT JIGCOD, HOBCOD, HOBNAM, STDAMT, BNSAMT, EXTAMT01, EXTAMT02, EXTAMT03, EXTAMT04, EXTAMT05, ";
+        //        sQry = sQry + " EXTAMT06, EXTAMT07, EXTAMT08, EXTAMT09, EXTAMT10 FROM PH_PY105_TEMP ";
+        //        oRecordSet.DoQuery(sQry);
+
+        //        if (oRecordSet.RecordCount > 0)
+        //        {
+        //            for (i = 0; i <= oRecordSet.RecordCount - 1; i++)
+        //            {
+        //                oDS_PH_PY105B.InsertRecord((i));
+        //                oDS_PH_PY105B.Offset = i;
+        //                oDS_PH_PY105B.SetValue("U_LineNum", i, Convert.ToString(i + 1));
+        //                oDS_PH_PY105B.SetValue("U_JIGCOD", i, oRecordSet.Fields.Item(0).Value);
+        //                oDS_PH_PY105B.SetValue("U_HOBCOD", i, oRecordSet.Fields.Item(1).Value);
+        //                oDS_PH_PY105B.SetValue("U_HOBNAM", i, oRecordSet.Fields.Item(2).Value);
+        //                oDS_PH_PY105B.SetValue("U_STDAMT", i, oRecordSet.Fields.Item(3).Value);
+        //                oDS_PH_PY105B.SetValue("U_BNSAMT", i, oRecordSet.Fields.Item(4).Value);
+        //                oDS_PH_PY105B.SetValue("U_EXTAMT01", i, oRecordSet.Fields.Item(5).Value);
+        //                oDS_PH_PY105B.SetValue("U_EXTAMT02", i, oRecordSet.Fields.Item(6).Value);
+        //                oDS_PH_PY105B.SetValue("U_EXTAMT03", i, oRecordSet.Fields.Item(7).Value);
+        //                oDS_PH_PY105B.SetValue("U_EXTAMT04", i, oRecordSet.Fields.Item(8).Value);
+        //                oDS_PH_PY105B.SetValue("U_EXTAMT05", i, oRecordSet.Fields.Item(9).Value);
+        //                oDS_PH_PY105B.SetValue("U_EXTAMT06", i, oRecordSet.Fields.Item(10).Value);
+        //                oDS_PH_PY105B.SetValue("U_EXTAMT07", i, oRecordSet.Fields.Item(11).Value);
+        //                oDS_PH_PY105B.SetValue("U_EXTAMT08", i, oRecordSet.Fields.Item(12).Value);
+        //                oDS_PH_PY105B.SetValue("U_EXTAMT09", i, oRecordSet.Fields.Item(13).Value);
+        //                oDS_PH_PY105B.SetValue("U_EXTAMT10", i, oRecordSet.Fields.Item(14).Value);
+        //                oRecordSet.MoveNext();
+        //            }
+
+        //        }
+
+        //        oMat1.LoadFromDataSource();
+        //        PH_PY105_AddMatrixRow();
+
+        //        PSH_Globals.SBO_Application.StatusBar.SetText("엑셀을 불러왔습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Warning);
+
+        //        ProgressBar01.Stop();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        if ((ProgressBar01 != null))
+        //        {
+        //            ProgressBar01.Stop();
+        //            ProgressBar01 = null;
+        //        }
+
+        //        if (ErrNum == 1)
+        //        {
+        //            PSH_Globals.SBO_Application.StatusBar.SetText("파일을 선택해 주세요.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+        //        }
+        //        else if (ErrNum == 2)
+        //        {
+        //            PSH_Globals.SBO_Application.StatusBar.SetText("엑셀파일이 아닙니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+        //        }
+        //        else if (ErrNum == 3)
+        //        {
+        //            PSH_Globals.SBO_Application.StatusBar.SetText("A열 첫번째 행 타이틀은 직급", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+        //        }
+        //        else if (ErrNum == 4)
+        //        {
+        //            PSH_Globals.SBO_Application.StatusBar.SetText("B열 두번째 행 타이틀은 호봉코드", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+        //        }
+        //        else if (ErrNum == 5)
+        //        {
+        //            PSH_Globals.SBO_Application.StatusBar.SetText("C열 세번째 행 타이틀은 호봉명", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+        //        }
+        //        else if (ErrNum == 6)
+        //        {
+        //            PSH_Globals.SBO_Application.StatusBar.SetText("D열 세번째 행 타이틀은 급여기본", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+        //        }
+        //        else if (ErrNum == 7)
+        //        {
+        //            PSH_Globals.SBO_Application.StatusBar.SetText("E열 세번째 행 타이틀은 상여기본", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+        //        }
+        //        else if (ErrNum == 8)
+        //        {
+        //            PSH_Globals.SBO_Application.StatusBar.SetText("F열 세번째 행 타이틀은 제수당01", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+        //        }
+        //        else if (ErrNum == 9)
+        //        {
+        //            PSH_Globals.SBO_Application.StatusBar.SetText("G열 세번째 행 타이틀은 제수당02", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+        //        }
+        //        else if (ErrNum == 10)
+        //        {
+        //            PSH_Globals.SBO_Application.StatusBar.SetText("H열 세번째 행 타이틀은 제수당03", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+        //        }
+        //        else if (ErrNum == 11)
+        //        {
+        //            PSH_Globals.SBO_Application.StatusBar.SetText("I열 세번째 행 타이틀은 제수당04", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+        //        }
+        //        else if (ErrNum == 12)
+        //        {
+        //            PSH_Globals.SBO_Application.StatusBar.SetText("J열 세번째 행 타이틀은 제수당05", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+        //        }
+        //        else if (ErrNum == 13)
+        //        {
+        //            PSH_Globals.SBO_Application.StatusBar.SetText("K열 세번째 행 타이틀은 제수당06", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+        //        }
+        //        else if (ErrNum == 14)
+        //        {
+        //            PSH_Globals.SBO_Application.StatusBar.SetText("L열 세번째 행 타이틀은 제수당07", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+        //        }
+        //        else if (ErrNum == 15)
+        //        {
+        //            PSH_Globals.SBO_Application.StatusBar.SetText("M열 세번째 행 타이틀은 제수당08", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+        //        }
+        //        else if (ErrNum == 16)
+        //        {
+        //            PSH_Globals.SBO_Application.StatusBar.SetText("N열 세번째 행 타이틀은 제수당09", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+        //        }
+        //        else if (ErrNum == 17)
+        //        {
+        //            PSH_Globals.SBO_Application.StatusBar.SetText("O열 세번째 행 타이틀은 제수당10", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+        //        }
+        //        else
+        //        {
+        //            PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY105_Excel_Upload_ERROR" + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+        //        }
+
+        //        //xlapp.Quit();
+        //        //System.Runtime.InteropServices.Marshal.ReleaseComObject(xlRow);
+        //        //System.Runtime.InteropServices.Marshal.ReleaseComObject(xlRange);
+        //        //System.Runtime.InteropServices.Marshal.ReleaseComObject(xlCell);
+        //        //System.Runtime.InteropServices.Marshal.ReleaseComObject(xlsh);
+        //        //System.Runtime.InteropServices.Marshal.ReleaseComObject(xlshs);
+        //        //System.Runtime.InteropServices.Marshal.ReleaseComObject(xlwb);
+        //        //System.Runtime.InteropServices.Marshal.ReleaseComObject(xlwbs);
+        //        //System.Runtime.InteropServices.Marshal.ReleaseComObject(xlapp);
+
+        //    }
+        //    finally
+        //    {
+        //        xlapp.Quit();
+        //        System.Runtime.InteropServices.Marshal.ReleaseComObject(xlRow);
+        //        System.Runtime.InteropServices.Marshal.ReleaseComObject(xlRange);
+        //        System.Runtime.InteropServices.Marshal.ReleaseComObject(xlCell);
+        //        System.Runtime.InteropServices.Marshal.ReleaseComObject(xlsh);
+        //        System.Runtime.InteropServices.Marshal.ReleaseComObject(xlshs);
+        //        System.Runtime.InteropServices.Marshal.ReleaseComObject(xlwb);
+        //        System.Runtime.InteropServices.Marshal.ReleaseComObject(xlwbs);
+        //        System.Runtime.InteropServices.Marshal.ReleaseComObject(xlapp);
+
+        //        System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+        //    }
+        //}
+
         /// <summary>
-        /// PH_PY105_Excel_Upload 
+        /// 엑셀자료 업로드
         /// </summary>
         [STAThread]
         private void PH_PY105_Excel_Upload()
         {
-            int i = 0;
-            int ErrNum = 0;
-            int TOTCNT = 0;
-            int V_StatusCnt = 0;
-            int oProValue = 0;
-            int tRow = 0;
-            string sPrice = string.Empty;
-            string sFile = string.Empty;
-            string OneRec = string.Empty;
-            string sQry = string.Empty;
-
-            short columnCount  = 15;  // 엑셀 컬럼수
-            short columnCount2 = 15;  // 엑셀 컬럼수
+            int rowCount = 0;
             int loopCount = 0;
-
-            PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
+            string sFile = string.Empty;
+            
+            bool sucessFlag = false;
+            short columnCount = 15; //엑셀 컬럼수
 
             CommonOpenFileDialog commonOpenFileDialog = new CommonOpenFileDialog();
 
@@ -989,295 +1328,95 @@ namespace PSH_BOne_AddOn
                 return;
             }
 
+            if (string.IsNullOrEmpty(sFile))
+            {
+                //PSH_Globals.SBO_Application.StatusBar.SetText("파일을 선택해 주세요.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                return;
+            }
+            else
+            {
+                oForm.Items.Item("Comments").Specific.VALUE = sFile;
+            }
+
             //엑셀 Object 연결
             //암시적 객체참조 시 Excel.exe 메모리 반환이 안됨, 아래와 같이 명시적 참조로 선언
             Microsoft.Office.Interop.Excel.ApplicationClass xlapp = new Microsoft.Office.Interop.Excel.ApplicationClass();
             Microsoft.Office.Interop.Excel.Workbooks xlwbs = xlapp.Workbooks;
-            Microsoft.Office.Interop.Excel.Workbook xlwb = xlwbs.Open(sFile);  // sFile
+            Microsoft.Office.Interop.Excel.Workbook xlwb = xlwbs.Open(sFile);
             Microsoft.Office.Interop.Excel.Sheets xlshs = xlwb.Worksheets;
             Microsoft.Office.Interop.Excel.Worksheet xlsh = (Microsoft.Office.Interop.Excel.Worksheet)xlshs[1];
             Microsoft.Office.Interop.Excel.Range xlCell = xlsh.Cells;
             Microsoft.Office.Interop.Excel.Range xlRange = xlsh.UsedRange;
             Microsoft.Office.Interop.Excel.Range xlRow = xlRange.Rows;
 
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            SAPbouiCOM.ProgressBar ProgressBar01 = null;
+            SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("시작!", xlRow.Count, false);
+
+            oForm.Freeze(true);
+
+            oMat1.Clear();
+            oMat1.FlushToDataSource();
+            oMat1.LoadFromDataSource();
 
             try
             {
-                oForm = PSH_Globals.SBO_Application.Forms.ActiveForm;
-                if (string.IsNullOrEmpty(sFile))
+                for (rowCount = 2; rowCount <= xlRow.Count; rowCount++)
                 {
-                    ErrNum = 1;
-                    throw new Exception();
-                }
-                else
-                {
-                    if ( codeHelpClass.Right(sFile, 3) == "xls" | codeHelpClass.Right(sFile, 4) == "xlsx" )
+                    if (rowCount - 2 != 0)
                     {
-                        oDS_PH_PY105A.SetValue("U_Comments", 0, sFile);
+                        oDS_PH_PY105B.InsertRecord(rowCount - 2);
                     }
-                    else
-                    {
-                        ErrNum = 2;
-                        throw new Exception();
-                    }
-                }
 
-                Microsoft.Office.Interop.Excel.Range[] t = new Microsoft.Office.Interop.Excel.Range[columnCount2 + 1];
-                for (loopCount = 1; loopCount <= columnCount2; loopCount++)
-                {
-                    t[loopCount] = (Microsoft.Office.Interop.Excel.Range)xlCell[1, loopCount];
-                }
-
-                if (t[1].Value.ToString().Trim() != "직급")
-                {
-                    ErrNum = 3;
-                    throw new Exception();
-                }
-                if (t[2].Value.ToString().Trim() != "호봉코드")
-                {
-                    ErrNum = 4;
-                    throw new Exception();
-                }
-                if (t[3].Value.ToString().Trim() != "호봉명")
-                {
-                    ErrNum = 5;
-                    throw new Exception();
-                }
-                if (t[4].Value.ToString().Trim() != "급여기본")
-                {
-                    ErrNum = 6;
-                    throw new Exception();
-                }
-                if (t[5].Value.ToString().Trim() != "상여기본")
-                {
-                    ErrNum = 7;
-                    throw new Exception();
-                }
-                if (t[6].Value.ToString().Trim() != "제수당01")
-                {
-                    ErrNum = 8;
-                    throw new Exception();
-                }
-                if (t[7].Value.ToString().Trim() != "제수당02")
-                {
-                    ErrNum = 9;
-                    throw new Exception();
-                }
-                if (t[8].Value.ToString().Trim() != "제수당03")
-                {
-                    ErrNum = 10;
-                    throw new Exception();
-                }
-                if (t[9].Value.ToString().Trim() != "제수당04")
-                {
-                    ErrNum = 11;
-                    throw new Exception();
-                }
-                if (t[10].Value.ToString().Trim() != "제수당05")
-                {
-                    ErrNum = 12;
-                    throw new Exception();
-                }
-                if (t[11].Value.ToString().Trim() != "제수당06")
-                {
-                    ErrNum = 13;
-                    throw new Exception();
-                }
-                if (t[12].Value.ToString().Trim() != "제수당07")
-                {
-                    ErrNum = 14;
-                    throw new Exception();
-                }
-                if (t[13].Value.ToString().Trim() != "제수당08")
-                {
-                    ErrNum = 15;
-                    throw new Exception();
-                }
-                if (t[14].Value.ToString().Trim() != "제수당09")
-                {
-                    ErrNum = 16;
-                    throw new Exception();
-                }
-                if (t[15].Value.ToString().Trim() != "제수당10")
-                {
-                    ErrNum = 17;
-                    throw new Exception();
-                }
-
-                ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("데이터 읽는중...!", 50, false);
-                // 최대값 구하기
-                TOTCNT = xlsh.UsedRange.Rows.Count - 1;
-                V_StatusCnt = TOTCNT / 50;
-                oProValue = 1;
-                tRow = 1;
-
-                // 테이블 생성
-                sQry = "EXEC PH_PY105_TEMP_CHK";
-                oRecordSet.DoQuery(sQry);
-
-                for (i = 2; i <= xlsh.UsedRange.Rows.Count; i++)
-                {
                     Microsoft.Office.Interop.Excel.Range[] r = new Microsoft.Office.Interop.Excel.Range[columnCount + 1];
 
                     for (loopCount = 1; loopCount <= columnCount; loopCount++)
                     {
-                        r[loopCount] = (Microsoft.Office.Interop.Excel.Range)xlCell[i, loopCount];
+                        r[loopCount] = (Microsoft.Office.Interop.Excel.Range)xlCell[rowCount, loopCount];
                     }
 
-                    sQry = "EXEC PH_PY105 '" + r[1].Value.ToString().Trim() + "','" + r[2].Value.ToString().Trim() + "','" + r[3].Value.ToString().Trim() + "','" + r[4].Value.ToString().Trim() + "','" + r[5].Value.ToString().Trim() + "','";
-                    sQry = sQry + r[6].Value.ToString().Trim() + "','" + r[7].Value.ToString().Trim() + "','" + r[8].Value.ToString().Trim() + "','" + r[9].Value.ToString().Trim() + "','" + r[10].Value.ToString().Trim() + "','";
-                    sQry = sQry + r[11].Value.ToString().Trim() + "','" + r[12].Value.ToString().Trim() + "','" + r[13].Value.ToString().Trim() + "','" + r[14].Value.ToString().Trim() + "','" + r[15].Value.ToString().Trim() + "'";
+                    oDS_PH_PY105B.Offset = rowCount - 2;
+                    oDS_PH_PY105B.SetValue("U_LineNum", rowCount - 2, Convert.ToString(rowCount - 1));
+                    oDS_PH_PY105B.SetValue("U_JIGCOD", rowCount - 2, Convert.ToString(r[1].Value)); //직급
+                    oDS_PH_PY105B.SetValue("U_HOBCOD", rowCount - 2, Convert.ToString(r[2].Value)); //호봉코드
+                    oDS_PH_PY105B.SetValue("U_HOBNAM", rowCount - 2, Convert.ToString(r[3].Value)); //호봉명
+                    oDS_PH_PY105B.SetValue("U_STDAMT", rowCount - 2, Convert.ToString(r[4].Value)); //급여기본
+                    oDS_PH_PY105B.SetValue("U_BNSAMT", rowCount - 2, Convert.ToString(r[5].Value)); //상여기본
+                    oDS_PH_PY105B.SetValue("U_EXTAMT01", rowCount - 2, Convert.ToString(r[6].Value)); //제수당01
+                    oDS_PH_PY105B.SetValue("U_EXTAMT02", rowCount - 2, Convert.ToString(r[7].Value)); //제수당02
+                    oDS_PH_PY105B.SetValue("U_EXTAMT03", rowCount - 2, Convert.ToString(r[8].Value)); //제수당03
+                    oDS_PH_PY105B.SetValue("U_EXTAMT04", rowCount - 2, Convert.ToString(r[9].Value)); //제수당04
+                    oDS_PH_PY105B.SetValue("U_EXTAMT05", rowCount - 2, Convert.ToString(r[10].Value)); //제수당05
+                    oDS_PH_PY105B.SetValue("U_EXTAMT06", rowCount - 2, Convert.ToString(r[11].Value)); //제수당06
+                    oDS_PH_PY105B.SetValue("U_EXTAMT07", rowCount - 2, Convert.ToString(r[12].Value)); //제수당07
+                    oDS_PH_PY105B.SetValue("U_EXTAMT08", rowCount - 2, Convert.ToString(r[13].Value)); //제수당08
+                    oDS_PH_PY105B.SetValue("U_EXTAMT09", rowCount - 2, Convert.ToString(r[14].Value)); //제수당09
+                    oDS_PH_PY105B.SetValue("U_EXTAMT10", rowCount - 2, Convert.ToString(r[15].Value)); //제수당10
 
-                    oRecordSet.DoQuery(sQry);
+                    ProgressBar01.Value = ProgressBar01.Value + 1;
+                    ProgressBar01.Text = ProgressBar01.Value + "/" + (xlRow.Count - 1) + "건 Loding...!";
 
-                    if ((TOTCNT > 50 & tRow == oProValue * V_StatusCnt) | TOTCNT <= 50)
+                    for (loopCount = 1; loopCount <= columnCount; loopCount++)
                     {
-                        ProgressBar01.Text = tRow + "/ " + TOTCNT + " 건 처리중...!";
-                        oProValue = oProValue + 1;
-                        ProgressBar01.Value = oProValue;
+                        System.Runtime.InteropServices.Marshal.ReleaseComObject(r[loopCount]); //메모리 해제
                     }
-                    tRow = tRow + 1;
-                }
-
-                oMat1.Clear();
-                oMat1.FlushToDataSource();
-
-                // 임시데이터 데이타 검색
-                sQry = "SELECT JIGCOD, HOBCOD, HOBNAM, STDAMT, BNSAMT, EXTAMT01, EXTAMT02, EXTAMT03, EXTAMT04, EXTAMT05, ";
-                sQry = sQry + " EXTAMT06, EXTAMT07, EXTAMT08, EXTAMT09, EXTAMT10 FROM PH_PY105_TEMP ";
-                oRecordSet.DoQuery(sQry);
-
-                if (oRecordSet.RecordCount > 0)
-                {
-                    for (i = 0; i <= oRecordSet.RecordCount - 1; i++)
-                    {
-                        oDS_PH_PY105B.InsertRecord((i));
-                        oDS_PH_PY105B.Offset = i;
-                        oDS_PH_PY105B.SetValue("U_LineNum", i, Convert.ToString(i + 1));
-                        oDS_PH_PY105B.SetValue("U_JIGCOD", i, oRecordSet.Fields.Item(0).Value);
-                        oDS_PH_PY105B.SetValue("U_HOBCOD", i, oRecordSet.Fields.Item(1).Value);
-                        oDS_PH_PY105B.SetValue("U_HOBNAM", i, oRecordSet.Fields.Item(2).Value);
-                        oDS_PH_PY105B.SetValue("U_STDAMT", i, oRecordSet.Fields.Item(3).Value);
-                        oDS_PH_PY105B.SetValue("U_BNSAMT", i, oRecordSet.Fields.Item(4).Value);
-                        oDS_PH_PY105B.SetValue("U_EXTAMT01", i, oRecordSet.Fields.Item(5).Value);
-                        oDS_PH_PY105B.SetValue("U_EXTAMT02", i, oRecordSet.Fields.Item(6).Value);
-                        oDS_PH_PY105B.SetValue("U_EXTAMT03", i, oRecordSet.Fields.Item(7).Value);
-                        oDS_PH_PY105B.SetValue("U_EXTAMT04", i, oRecordSet.Fields.Item(8).Value);
-                        oDS_PH_PY105B.SetValue("U_EXTAMT05", i, oRecordSet.Fields.Item(9).Value);
-                        oDS_PH_PY105B.SetValue("U_EXTAMT06", i, oRecordSet.Fields.Item(10).Value);
-                        oDS_PH_PY105B.SetValue("U_EXTAMT07", i, oRecordSet.Fields.Item(11).Value);
-                        oDS_PH_PY105B.SetValue("U_EXTAMT08", i, oRecordSet.Fields.Item(12).Value);
-                        oDS_PH_PY105B.SetValue("U_EXTAMT09", i, oRecordSet.Fields.Item(13).Value);
-                        oDS_PH_PY105B.SetValue("U_EXTAMT10", i, oRecordSet.Fields.Item(14).Value);
-                        oRecordSet.MoveNext();
-                    }
-
                 }
 
                 oMat1.LoadFromDataSource();
+                oMat1.AutoResizeColumns();
+                oForm.Update();
+
                 PH_PY105_AddMatrixRow();
-
-                PSH_Globals.SBO_Application.StatusBar.SetText("엑셀을 불러왔습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Warning);
-
-                ProgressBar01.Stop();
+                sucessFlag = true;
             }
             catch (Exception ex)
             {
-                if ((ProgressBar01 != null))
-                {
-                    ProgressBar01.Stop();
-                    ProgressBar01 = null;
-                }
-
-                if (ErrNum == 1)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("파일을 선택해 주세요.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
-                }
-                else if (ErrNum == 2)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("엑셀파일이 아닙니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
-                }
-                else if (ErrNum == 3)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("A열 첫번째 행 타이틀은 직급", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
-                }
-                else if (ErrNum == 4)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("B열 두번째 행 타이틀은 호봉코드", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
-                }
-                else if (ErrNum == 5)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("C열 세번째 행 타이틀은 호봉명", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
-                }
-                else if (ErrNum == 6)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("D열 세번째 행 타이틀은 급여기본", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
-                }
-                else if (ErrNum == 7)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("E열 세번째 행 타이틀은 상여기본", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
-                }
-                else if (ErrNum == 8)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("F열 세번째 행 타이틀은 제수당01", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
-                }
-                else if (ErrNum == 9)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("G열 세번째 행 타이틀은 제수당02", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
-                }
-                else if (ErrNum == 10)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("H열 세번째 행 타이틀은 제수당03", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
-                }
-                else if (ErrNum == 11)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("I열 세번째 행 타이틀은 제수당04", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
-                }
-                else if (ErrNum == 12)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("J열 세번째 행 타이틀은 제수당05", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
-                }
-                else if (ErrNum == 13)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("K열 세번째 행 타이틀은 제수당06", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
-                }
-                else if (ErrNum == 14)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("L열 세번째 행 타이틀은 제수당07", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
-                }
-                else if (ErrNum == 15)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("M열 세번째 행 타이틀은 제수당08", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
-                }
-                else if (ErrNum == 16)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("N열 세번째 행 타이틀은 제수당09", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
-                }
-                else if (ErrNum == 17)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("O열 세번째 행 타이틀은 제수당10", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY105_Excel_Upload_ERROR" + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-
-                xlapp.Quit();
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(xlRow);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(xlRange);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(xlCell);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(xlsh);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(xlshs);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(xlwb);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(xlwbs);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(xlapp);
-
+                PSH_Globals.SBO_Application.MessageBox("[PH_PY105_Excel_Upload_Error]" + (char)13 + ex.Message);
+                sucessFlag = false;
             }
             finally
             {
+                //액셀개체 닫음
                 xlapp.Quit();
+
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(xlRow);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(xlRange);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(xlCell);
@@ -1287,7 +1426,15 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(xlwbs);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(xlapp);
 
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+                ProgressBar01.Stop();
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+
+                if (sucessFlag == true)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("엑셀 Loding 완료", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
+                }
+
+                oForm.Freeze(false);
             }
         }
 

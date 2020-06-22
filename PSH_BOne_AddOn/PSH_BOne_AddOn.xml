@@ -6850,7 +6850,7 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY105.PH_PY105_Excel_Upload">
             <summary>
-            PH_PY105_Excel_Upload 
+            엑셀자료 업로드
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY105.PH_PY105_DataApply(System.String,System.String)">

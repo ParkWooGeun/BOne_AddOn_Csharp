@@ -6842,12 +6842,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY105.PH_PY105_DataValidCheck(System.String)">
-            <summary>
-            DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY105.PH_PY105_Excel_Upload">
             <summary>
             엑셀자료 업로드

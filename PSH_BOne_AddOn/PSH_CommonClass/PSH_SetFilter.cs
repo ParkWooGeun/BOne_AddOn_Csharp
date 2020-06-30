@@ -319,7 +319,8 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PY135"); //급상여분개처리
 			oFilter.AddEx("PS_DateChange"); //날짜 수정 등록
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
-        }
+			oFilter.AddEx("PH_PY998"); //사용자 권한 조회
+		}
 
 		private static void KEY_DOWN(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{

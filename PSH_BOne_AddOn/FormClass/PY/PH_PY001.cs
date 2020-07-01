@@ -3868,6 +3868,10 @@ namespace PSH_BOne_AddOn
                     {
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {
+
+                            // 접속자 ID저장
+                            oDS_PH_PY001A.SetValue("U_UserSign2", 0, PSH_Globals.oCompany.UserSignature.ToString());
+
                             if (PH_PY001_DataValidCheck() == false)
                             {
                                 BubbleEvent = false;

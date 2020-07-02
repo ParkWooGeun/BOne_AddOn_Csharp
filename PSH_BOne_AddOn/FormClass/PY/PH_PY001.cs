@@ -3871,6 +3871,7 @@ namespace PSH_BOne_AddOn
 
                             // 접속자 ID저장
                             oDS_PH_PY001A.SetValue("U_UserSign2", 0, PSH_Globals.oCompany.UserSignature.ToString());
+                            oDS_PH_PY001A.SetValue("U_UpdtProg", 0, "PH_PY001_Y");
 
                             if (PH_PY001_DataValidCheck() == false)
                             {

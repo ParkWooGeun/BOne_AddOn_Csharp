@@ -463,7 +463,10 @@ namespace PSH_BOne_AddOn
 
                         sQry = "        UPDATE  [@PH_PY001A]";
                         sQry = sQry + " SET     U_GNMUJO = '" + oDS_PH_PY004.Columns.Item("GNMUJO").Cells.Item(i).Value + "'";
+                        sQry = sQry + ",        U_UpdtProg = 'PH_PY004_Y'";
+                        sQry = sQry + ",        U_UserSign2 = '" + PSH_Globals.oCompany.UserSignature.ToString() + "'";
                         sQry = sQry + " WHERE   Code = '" + oDS_PH_PY004.Columns.Item("Code").Cells.Item(i).Value + "'";
+
                         oRecordSet.DoQuery(sQry);
 
                         if (PH_PY004_OHEM_DI_UPDATE(i) == false)

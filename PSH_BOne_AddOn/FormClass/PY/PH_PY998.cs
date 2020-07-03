@@ -51,7 +51,6 @@ namespace PSH_BOne_AddOn
                 oForm.SupportedModes = -1;
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 
-
                 oForm.Freeze(true);
                 //PH_PY998_CreateItems();
                 //PH_PY998_FormItemEnabled();
@@ -768,6 +767,7 @@ namespace PSH_BOne_AddOn
                     4. 저장된 DataRow의 카운트만큼 루프
                         4-1. matrix의 각 필드에 매칭 데이터 출력
                 */
+
 
 
 

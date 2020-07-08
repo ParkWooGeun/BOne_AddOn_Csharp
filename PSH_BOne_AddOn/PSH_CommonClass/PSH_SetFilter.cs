@@ -891,7 +891,6 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PY526"); //임금피크인원현황
             oFilter.AddEx("PH_PY999"); //사용자권한관리
 
-
 			//정산관리
 			oFilter.AddEx("PH_PY402"); //정산기초자료등록
 			oFilter.AddEx("PH_PY405"); //의료비등록
@@ -1121,7 +1120,7 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PYA90"); //근로소득간이지급명세서(세무서신고파일생성)
             oFilter.AddEx("PH_PY526"); //임금피크인원현황
             oFilter.AddEx("PH_PY999"); //사용자권한관리
-
+			oFilter.AddEx("PH_PY998"); //사용자권한조회
 
 			//정산관리
 			oFilter.AddEx("PH_PY401"); //전근무지등록

@@ -120,6 +120,12 @@
             PH_PY998_MTX01
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY998.GetUserPermissionTable">
+            <summary>
+            사용자 권한 조회
+            </summary>
+            <returns>조회조건과 일치하는 사용자 권한을 저장한 DataRow</returns>
+        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY115">
             <summary>
             퇴직금 계산

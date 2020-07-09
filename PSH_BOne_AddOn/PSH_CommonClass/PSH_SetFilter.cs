@@ -241,9 +241,10 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PYA90"); //근로소득간이지급명세서(세무서신고파일생성)
             oFilter.AddEx("PH_PY526"); //임금피크인원현황
             oFilter.AddEx("PH_PY999"); //사용자권한관리
+			oFilter.AddEx("PH_PY998"); //사용자권한조회
 
-            //정산관리
-            oFilter.AddEx("PH_PY401"); //전근무지등록
+			//정산관리
+			oFilter.AddEx("PH_PY401"); //전근무지등록
 			oFilter.AddEx("PH_PY402"); //정산기초자료 등록
 			oFilter.AddEx("PH_PY405"); //의료비등록
 			oFilter.AddEx("PH_PY407"); //기부금등록
@@ -319,7 +320,6 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PY135"); //급상여분개처리
 			oFilter.AddEx("PS_DateChange"); //날짜 수정 등록
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
-			oFilter.AddEx("PH_PY998"); //사용자 권한 조회
 		}
 
 		private static void KEY_DOWN(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -455,7 +455,8 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PY135"); //급상여분개처리
             oFilter.AddEx("PH_PY136"); //급상여분개처리 배부규칙설정
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
-        }
+			oFilter.AddEx("PH_PY998"); //사용자권한조회
+		}
 
 		private static void GOT_FOCUS(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
@@ -637,9 +638,10 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PYA90"); //근로소득간이지급명세서(세무서신고파일생성)
             oFilter.AddEx("PH_PY526"); //임금피크인원현황
             oFilter.AddEx("PH_PY999"); //사용자권한관리
+			oFilter.AddEx("PH_PY998"); //사용자권한조회
 
-            //정산관리
-            oFilter.AddEx("PH_PY401"); //전근무지등록
+			//정산관리
+			oFilter.AddEx("PH_PY401"); //전근무지등록
 			oFilter.AddEx("PH_PY402"); //정산기초자료 등록
 			oFilter.AddEx("PH_PY405"); //의료비등록
 			oFilter.AddEx("PH_PY407"); //기부금등록
@@ -1414,7 +1416,7 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PYA90"); //근로소득간이지급명세서(세무서신고파일생성)
             oFilter.AddEx("PH_PY526"); //임금피크인원현황
             oFilter.AddEx("PH_PY999"); //사용자권한관리
-
+			oFilter.AddEx("PH_PY998"); //사용자권한조회
 
 			//정산관리
 			oFilter.AddEx("PH_PY401"); //전근무지등록
@@ -1760,7 +1762,6 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PY526"); //임금피크인원현황
             oFilter.AddEx("PH_PY999"); //사용자권한관리
 
-
 			//정산관리
 			oFilter.AddEx("PH_PY401"); //전근무지등록
 			oFilter.AddEx("PH_PY402"); //정산기초자료 등록
@@ -2027,7 +2028,7 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PYA90"); //근로소득간이지급명세서(세무서신고파일생성)
             oFilter.AddEx("PH_PY526"); //임금피크인원현황
             oFilter.AddEx("PH_PY999"); //사용자권한관리
-
+			oFilter.AddEx("PH_PY998"); //사용자권한조회
 
 			//정산관리
 			oFilter.AddEx("PH_PY401"); //전근무지등록

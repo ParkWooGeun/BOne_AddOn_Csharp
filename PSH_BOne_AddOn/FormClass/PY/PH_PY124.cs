@@ -3,6 +3,7 @@ using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.Code;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace PSH_BOne_AddOn
 {
@@ -1209,19 +1210,31 @@ namespace PSH_BOne_AddOn
             string temp1 = string.Empty;
 
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            FileListBoxForm fileListBoxForm = new FileListBoxForm();
+
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
-            sFile = fileListBoxForm.OpenDialog(fileListBoxForm, "*.xls|*.xls|*.xlsx|*.xlsx|", "파일선택", "C:\\");
+            CommonOpenFileDialog commonOpenFileDialog = new CommonOpenFileDialog();
+
+            commonOpenFileDialog.Filters.Add(new CommonFileDialogFilter("Excel Files", "*.xls;*.xlsx"));
+            commonOpenFileDialog.Filters.Add(new CommonFileDialogFilter("모든 파일", "*.*"));
+
+            if (commonOpenFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                sFile = commonOpenFileDialog.FileName;
+            }
+            else //Cancel 버튼 클릭
+            {
+                return;
+            }
             if (string.IsNullOrEmpty(sFile))
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("파일을 선택해 주세요.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                 return;
             }
-            else
-            {
-                oForm.Items.Item("Comments").Specific.VALUE = sFile;
-            }
+            //else
+            //{
+            //    oForm.Items.Item("Comments").Specific.VALUE = sFile;
+            //}
 
             //엑셀 Object 연결
             //암시적 객체참조 시 Excel.exe 메모리 반환이 안됨, 아래와 같이 명시적 참조로 선언
@@ -1235,7 +1248,6 @@ namespace PSH_BOne_AddOn
             Microsoft.Office.Interop.Excel.Range xlRow = xlRange.Rows;
 
             SAPbouiCOM.ProgressBar ProgressBar01 = null;
-            ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("시작!", xlRow.Count, false);
             oForm.Freeze(true);
 
             oMat1.Clear();
@@ -1243,6 +1255,7 @@ namespace PSH_BOne_AddOn
             oMat1.LoadFromDataSource();
             try
             {
+                ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("시작!", xlRow.Count, false);
                 Microsoft.Office.Interop.Excel.Range[] t = new Microsoft.Office.Interop.Excel.Range[columnCount2 + 1];
                 for (loopCount = 1; loopCount <= columnCount2; loopCount++)
                 {
@@ -1321,7 +1334,7 @@ namespace PSH_BOne_AddOn
                     {
                         oDS_PH_PY124B.RemoveRecord(oDS_PH_PY124B.Size - 1);
                     }
-                    
+
                     oDS_PH_PY124B.InsertRecord(oDS_PH_PY124B.Size);
                     oDS_PH_PY124B.Offset = oDS_PH_PY124B.Size - 1;
                     oDS_PH_PY124B.SetValue("U_LineNum", oDS_PH_PY124B.Size - 1, Convert.ToString(r[1].Value));
@@ -1332,7 +1345,7 @@ namespace PSH_BOne_AddOn
                     oDS_PH_PY124B.SetValue("U_BillAmt", oDS_PH_PY124B.Size - 1, Convert.ToString(r[5].Value));
                     oDS_PH_PY124B.SetValue("U_CardAmt", oDS_PH_PY124B.Size - 1, Convert.ToString(r[6].Value));
                     oDS_PH_PY124B.SetValue("U_TotAmt", oDS_PH_PY124B.Size - 1, Convert.ToString(r[7].Value));
-                   
+
 
                     //oDS_PH_PY124B.InsertRecord(oDS_PH_PY124B.Size - 1);
                     //oDS_PH_PY124B.Offset = oDS_PH_PY124B.Size - 1;

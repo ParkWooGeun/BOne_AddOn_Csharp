@@ -396,7 +396,8 @@ namespace PSH_BOne_AddOn
                     {
                         sQry = "            EXEC [PH_PY011_02] ";
                         sQry = sQry + "'" + oMat01.Columns.Item("MSTCOD").Cells.Item(i).Specific.VALUE + "',"; //사번
-                        sQry = sQry + "'" + oMat01.Columns.Item("ChCallName").Cells.Item(i).Specific.VALUE + "'"; //변경후호칭코드
+                        sQry = sQry + "'" + oMat01.Columns.Item("ChCallName").Cells.Item(i).Specific.VALUE + "',"; //변경후호칭코드
+                        sQry = sQry + "'" + PSH_Globals.oCompany.UserSignature.ToString() + "'"; 
 
                         oRecordSet01.DoQuery(sQry);
                     }

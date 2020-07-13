@@ -477,7 +477,9 @@ namespace PSH_BOne_AddOn
             string MSTCOD = string.Empty; //사번
             string P_EmRel = string.Empty; //비상연락 대상관계
             string P_EmTel = string.Empty; //비상연락 전화번호
+            string Usersign = string.Empty;
 
+            Usersign = PSH_Globals.oCompany.UserSignature.ToString();
             try
             {
                 oMat01.FlushToDataSource();
@@ -494,7 +496,8 @@ namespace PSH_BOne_AddOn
                         sQry = sQry + "'" + CLTCOD + "',"; //사업장
                         sQry = sQry + "'" + MSTCOD + "',"; //사번
                         sQry = sQry + "'" + P_EmRel + "',"; //비상연락 대상관계
-                        sQry = sQry + "'" + P_EmTel + "'"; //비상연락 전화번호
+                        sQry = sQry + "'" + P_EmTel + "',"; //비상연락 전화번호
+                        sQry = sQry + "'" + Usersign + "'"; //비상연락 전화번호
 
                         RecordSet01.DoQuery(sQry);
                     }

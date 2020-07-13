@@ -605,6 +605,7 @@ namespace PSH_BOne_AddOn
             string Code = string.Empty;
             string YM = string.Empty;
             string SIType = string.Empty;
+            string Usersign = string.Empty;
 
             SAPbobsCOM.Recordset oRecordSet = null;
             oRecordSet = (SAPbobsCOM.Recordset)PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -618,7 +619,7 @@ namespace PSH_BOne_AddOn
                     YM = oForm.Items.Item("YM").Specific.VALUE.ToString().Trim();
                     Code = oForm.Items.Item("Code").Specific.VALUE.ToString().Trim();
                     SIType = oForm.Items.Item("SIType").Specific.VALUE.ToString().Trim();
-
+                    Usersign = PSH_Globals.oCompany.UserSignature.ToString();
                     if (oMat01.VisualRowCount <= 1)
                     {
                         ErrNo = 1;
@@ -639,7 +640,8 @@ namespace PSH_BOne_AddOn
                         ErrNo = 3;
                         throw new Exception();
                     }
-                    sQry = "Exec PH_PY127_01 '" + CLTCOD + "', '" + Code + "'";
+
+                    sQry = "Exec PH_PY127_01 '" + CLTCOD + "', '" + Code + "', '" + Usersign + "'";
                     oRecordSet.DoQuery(sQry);
 
                     PSH_Globals.SBO_Application.ActivateMenuItem("1281");
@@ -684,6 +686,7 @@ namespace PSH_BOne_AddOn
             string sQry = string.Empty;
             string CLTCOD = string.Empty;
             string Code = string.Empty;
+            string Usersign = string.Empty;
 
             SAPbobsCOM.Recordset oRecordSet = null;
             oRecordSet = (SAPbobsCOM.Recordset)PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -704,8 +707,9 @@ namespace PSH_BOne_AddOn
                     }
                     CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
                     Code = oForm.Items.Item("Code").Specific.VALUE.ToString().Trim();
+                    Usersign = PSH_Globals.oCompany.UserSignature.ToString();
 
-                    sQry = "Exec PH_PY127_02 '" + CLTCOD + "', '" + Code + "'";
+                    sQry = "Exec PH_PY127_02 '" + CLTCOD + "', '" + Code + "', '" + Usersign + "'";
                     oRecordSet.DoQuery(sQry);
 
                     PSH_Globals.SBO_Application.ActivateMenuItem("1281");

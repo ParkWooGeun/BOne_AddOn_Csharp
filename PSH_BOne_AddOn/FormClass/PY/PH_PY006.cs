@@ -743,6 +743,7 @@ namespace PSH_BOne_AddOn
             string Param01 = string.Empty;
             string Param02 = string.Empty;
             string Param03 = string.Empty;
+            string Param04 = string.Empty;
 
             string CLTCOD = string.Empty;
             string DocDate = string.Empty;
@@ -761,6 +762,7 @@ namespace PSH_BOne_AddOn
                 Param01 = oForm.Items.Item("DocEntry").Specific.Value;
                 Param02 = oForm.Items.Item("appNum").Specific.Value;
                 Param03 = oForm.Items.Item("Canceled").Specific.Value;
+                Param04 = PSH_Globals.oCompany.UserSignature.ToString();
 
                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                 DocDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
@@ -779,10 +781,10 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                sQry = "EXEC [PH_PY006_02] '" + Param01 + "', '" + Param02 + "', '" + Param03 + "'";
+                sQry = "EXEC [PH_PY006_02] '" + Param01 + "', '" + Param02 + "', '" + Param03 + "', '" + Param04 + "'";
                 oRecordSet.DoQuery(sQry);
 
-                sQry = "EXEC [PH_PY006_03] '" + Param01 + "', '" + Param03 + "'";
+                sQry = "EXEC [PH_PY006_03] '" + Param01 + "', '" + Param03 + "', '" + Param04 + "'";
                 oRecordSet.DoQuery(sQry);
 
                 PSH_Globals.SBO_Application.StatusBar.SetText("승호작업을 정상 처리했습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);

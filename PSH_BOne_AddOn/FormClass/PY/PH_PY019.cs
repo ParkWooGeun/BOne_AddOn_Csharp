@@ -500,6 +500,8 @@ namespace PSH_BOne_AddOn
                     for (i = 0; i <= oForm.DataSources.DataTables.Item(0).Rows.Count - 1; i++)
                     {
                         sQry = " UPDATE [@PH_PY001A] SET U_ClsCode = '" + oDS_PH_PY019.Columns.Item("ClsCode").Cells.Item(i).Value + "'";
+                        sQry = sQry + ",                 U_UpdtProg = 'PH_PY019_Y'";
+                        sQry = sQry + ",                 U_UserSign2 = '" + PSH_Globals.oCompany.UserSignature.ToString() + "'";
                         sQry = sQry + " WHERE Code = '" + oDS_PH_PY019.Columns.Item("MSTCOD").Cells.Item(i).Value + "'";
                         oRecordSet.DoQuery(sQry);
                     }

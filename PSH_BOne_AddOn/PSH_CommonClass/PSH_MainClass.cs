@@ -1736,6 +1736,11 @@ namespace PSH_BOne_AddOn
                             pBaseClass = new PS_DateCommit();
                             pBaseClass.LoadForm("");
                             break;
+
+                        case "PH_PY998": //사용자 권한 조회
+                            pBaseClass = new PH_PY998();
+                            pBaseClass.LoadForm("");
+                            break;
                     }
                 }
             }

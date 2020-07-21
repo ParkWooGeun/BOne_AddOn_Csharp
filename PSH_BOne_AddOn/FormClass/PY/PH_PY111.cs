@@ -695,6 +695,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("JOBTYP").Specific.Select("1", SAPbouiCOM.BoSearchKey.psk_ByValue); //지급종류
                     oForm.Items.Item("JOBGBN").Specific.Select("1", SAPbouiCOM.BoSearchKey.psk_ByValue); //지급구분
                     oForm.Items.Item("JOBTRG").Specific.Select("1", SAPbouiCOM.BoSearchKey.psk_ByValue); //급여대상자구분
+                    oForm.Items.Item("Btn1").Enabled = false;
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
@@ -706,6 +707,7 @@ namespace PSH_BOne_AddOn
                     oCLTCOD = oDS_PH_PY111A.GetValue("U_CLTCOD", 0).ToString().Trim();
                     oForm.EnableMenu("1281", false); //문서찾기
                     oForm.EnableMenu("1282", true); //문서추가
+                    oForm.Items.Item("Btn1").Enabled = false;
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
@@ -718,6 +720,7 @@ namespace PSH_BOne_AddOn
                     oCLTCOD = oDS_PH_PY111A.GetValue("U_CLTCOD", 0).ToString().Trim();
                     oForm.EnableMenu("1281", true); //문서찾기
                     oForm.EnableMenu("1282", true); //문서추가
+                    oForm.Items.Item("Btn1").Enabled = true;
                 }
             }
             catch(Exception ex)

@@ -700,7 +700,7 @@ namespace PSH_BOne_AddOn
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
                     oForm.Items.Item("DocEntry").Enabled = true;
-                    oForm.Items.Item("Btn1").Visible = false;
+                    oForm.Items.Item("Btn1").Visible = true;
                     oForm.ActiveItem = "DocEntry";
 
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true); //접속자에 따른 권한별 사업장 콤보박스세팅
@@ -1535,8 +1535,7 @@ namespace PSH_BOne_AddOn
                 if (pVal.BeforeAction == true)
                 {
                     if (pVal.ItemUID == "1")
-                    {
-                        tDocEntry = oForm.Items.Item("DocEntry").Specific.Value;
+                    {                        tDocEntry = oForm.Items.Item("DocEntry").Specific.Value;
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {
                             if (PH_PY111_DataValidCheck() == false) //유효성 검사
@@ -1553,35 +1552,42 @@ namespace PSH_BOne_AddOn
                     }
                     else if (pVal.ItemUID == "Btn1") //급(상)여계산
                     {
-                        CalcYN = true;
-
-                        tDocEntry = oForm.Items.Item("DocEntry").Specific.Value;
-                        
-                        if (PH_PY111_DataValidCheck() == true && Pay_Calc() == true) //유효성 검사
+                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                         {
-                            if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-                            {
-                                oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            }
-                            else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-                            {
-                                PSH_Globals.SBO_Application.StatusBar.SetText("급상여계산이 진행중입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Warning);
-                                
-                                if (oForm.Items.Item("JOBGBN").Specific.Value.ToString().Trim() != "2")
-                                {
-                                    oRecordSet.DoQuery("EXEC PH_PY111 '" + tDocEntry + "'"); //정상계산
-                                }
-                                else
-                                {
-                                    oRecordSet.DoQuery("EXEC PH_PY111_SOGUB '" + tDocEntry + "'"); //소급계산
-                                }
-
-                                PSH_Globals.SBO_Application.StatusBar.SetText("급상여계산이 완료되었습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
-                            }
+                            PSH_Globals.SBO_Application.MessageBox("확인모드일 경우에만 급상여계산이 가능합니다.");
                         }
                         else
                         {
-                            BubbleEvent = false;
+                            CalcYN = true;
+
+                            tDocEntry = oForm.Items.Item("DocEntry").Specific.Value;
+
+                            if (PH_PY111_DataValidCheck() == true && Pay_Calc() == true) //유효성 검사
+                            {
+                                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
+                                {
+                                    oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                                }
+                                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
+                                {
+                                    PSH_Globals.SBO_Application.StatusBar.SetText("급상여계산이 진행중입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Warning);
+
+                                    if (oForm.Items.Item("JOBGBN").Specific.Value.ToString().Trim() != "2")
+                                    {
+                                        oRecordSet.DoQuery("EXEC PH_PY111 '" + tDocEntry + "'"); //정상계산
+                                    }
+                                    else
+                                    {
+                                        oRecordSet.DoQuery("EXEC PH_PY111_SOGUB '" + tDocEntry + "'"); //소급계산
+                                    }
+
+                                    PSH_Globals.SBO_Application.StatusBar.SetText("급상여계산이 완료되었습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
+                                }
+                            }
+                            else
+                            {
+                                BubbleEvent = false;
+                            }
                         }
                     }
                 }
@@ -1772,6 +1778,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
+               
                 if (pVal.Before_Action == true)
                 {
                 }
@@ -1830,6 +1837,7 @@ namespace PSH_BOne_AddOn
                             if (oForm.Items.Item("JOBGBN").Specific.Selected != null)
                             {
                                 oJOBGBN = oDS_PH_PY111A.GetValue("U_JOBGBN", 0).Trim();
+
                             }
                             else
                             {

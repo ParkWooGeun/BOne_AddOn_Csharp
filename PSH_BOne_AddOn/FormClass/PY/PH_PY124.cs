@@ -377,7 +377,9 @@ namespace PSH_BOne_AddOn
                     }
                     if (pVal.ItemUID == "Btn_UPLOAD")
                     {
-                        PH_PY124_Excel_Upload();
+                        System.Threading.Thread thread = new System.Threading.Thread(PH_PY124_Excel_Upload);
+                        thread.SetApartmentState(System.Threading.ApartmentState.STA);
+                        thread.Start(); 
                         PH_PY124_AddMatrixRow();
                     }
                     if (pVal.ItemUID == "Btn_Cancel")
@@ -1191,6 +1193,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 매트릭스 행 추가
         /// </summary>
+        [STAThread]
         public void PH_PY124_Excel_Upload()
         {
             int loopCount = 0;
@@ -1217,6 +1220,7 @@ namespace PSH_BOne_AddOn
 
             commonOpenFileDialog.Filters.Add(new CommonFileDialogFilter("Excel Files", "*.xls;*.xlsx"));
             commonOpenFileDialog.Filters.Add(new CommonFileDialogFilter("모든 파일", "*.*"));
+            commonOpenFileDialog.IsFolderPicker = false;
 
             if (commonOpenFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
@@ -1228,7 +1232,7 @@ namespace PSH_BOne_AddOn
             }
             if (string.IsNullOrEmpty(sFile))
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText("파일을 선택해 주세요.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                // PSH_Globals.SBO_Application.StatusBar.SetText("파일을 선택해 주세요.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                 return;
             }
             //else
@@ -1273,9 +1277,9 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.StatusBar.SetText("B열 두번째 행 타이틀은 사번", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     throw new Exception();
                 }
-                if (Convert.ToString(t[3].Value) != "성명")
+                if (Convert.ToString(t[3].Value) != "이름")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("C열 세번째 행 타이틀은 성명", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("C열 세번째 행 타이틀은 이름", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     throw new Exception();
                 }
                 if (Convert.ToString(t[4].Value) != "베네피아")
@@ -1392,7 +1396,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(xlwb);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(xlwbs);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(xlapp);
-                oForm.Freeze(false);
+
                 ProgressBar01.Stop();
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
 
@@ -1400,6 +1404,7 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("엑셀 Loding 완료", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
                 }
+                oForm.Freeze(false);
             }
         }
 

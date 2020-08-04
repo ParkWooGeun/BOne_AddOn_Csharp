@@ -102,6 +102,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Div").Specific.ValidValues.Add("6", "휴직자 교대구분 체크");
                 oForm.Items.Item("Div").Specific.ValidValues.Add("7", "휴직자 위해코드 체크");
                 oForm.Items.Item("Div").Specific.ValidValues.Add("8", "12시간 초과 체크");
+                oForm.Items.Item("Div").Specific.ValidValues.Add("9", "근태구분 및 시간이상자 누락확인");
                 oForm.Items.Item("Div").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
             }
             catch (Exception ex)

@@ -3877,9 +3877,25 @@ namespace PSH_BOne_AddOn
                 //안강사업장은 제외
                 if (oForm.Items.Item("SCLTCOD").Specific.Value != "3")
                 {
+
+                    if (oForm.Items.Item("WorkType").Specific.Value.Trim() == "") // 근태구분 등록체크
+                    {
+                        returnValue = "N";
+                        errNum = 3;
+                        throw new Exception();
+                    }
+                    if (oForm.Items.Item("WorkType").Specific.Value.Trim() == "A00" || oForm.Items.Item("WorkType").Specific.Value.Trim() == "D09" || oForm.Items.Item("WorkType").Specific.Value.Trim() == "D10") // 근태구분 등록체크
+                    {
+                        if (Convert.ToInt32(String.IsNullOrEmpty(oForm.Items.Item("GetTime").Specific.Value.Trim())) == 0 && Convert.ToInt32(String.IsNullOrEmpty(oForm.Items.Item("OffTime").Specific.Value.Trim())) == 0)
+                        {
+                            returnValue = "N";
+                            errNum = 4;
+                            throw new Exception();
+                        }
+                    }
+
                     today = DateTime.Now.ToString("yyyyMMdd");
                     todaytm = DateTime.Now.ToString("HHMM");
-
                     if (Convert.ToInt32(oForm.Items.Item("PosDate").Specific.Value) < Convert.ToInt32(today))
                     {
                         if (oRspCodeYN == "Y")
@@ -3911,10 +3927,12 @@ namespace PSH_BOne_AddOn
                             returnValue = "Y";
                         }
                     }
+
                     else
                     {
                         returnValue = "Y";
                     }
+                    
                 }
                 else
                 {
@@ -3930,6 +3948,16 @@ namespace PSH_BOne_AddOn
                 else if (errNum == 2)
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("15시 이후 추가/수정/삭제를 할 수 없습니다. 관리담당으로 확인바랍니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+                else if (errNum == 3)
+                {
+                    PSH_Globals.SBO_Application.MessageBox("근태구분을 선택하세요.");
+                    oForm.Items.Item("WorkType").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                }
+                else if (errNum == 4)
+                {
+                    PSH_Globals.SBO_Application.MessageBox("출/퇴근시간을 입력해주세요");
+                    oForm.Items.Item("GetTime").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
                 else
                 {

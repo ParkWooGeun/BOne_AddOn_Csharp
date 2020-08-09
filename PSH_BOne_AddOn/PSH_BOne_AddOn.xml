@@ -56,9 +56,14 @@
             화면의 아이템 Enable 설정
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY998.PH_PY998_MTX01">
+        <member name="M:PSH_BOne_AddOn.PH_PY998.PH_PY998_SelectSystemFormPermisson">
             <summary>
-            PH_PY998_MTX01
+            System Form 권한 조회
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY998.PH_PY998_SelectAddOnFormPermisson">
+            <summary>
+            AddOn Form 권한 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY998.PH_PY998_DataValidCheck">

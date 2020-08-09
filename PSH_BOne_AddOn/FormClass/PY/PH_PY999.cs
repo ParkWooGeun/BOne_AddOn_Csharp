@@ -1017,11 +1017,16 @@ namespace PSH_BOne_AddOn
 
                 if ((oForm.Items.Item("pFSGubun").Specific.VALUE == "F"))
                 {
-                    sQry = "delete from Authority_Folder where UniqueID ='" + oForm.Items.Item("UniqueID").Specific.VALUE + "'";
+                    sQry = "        delete";
+                    sQry = sQry + " from    Authority_Folder";
+                    sQry = sQry + " where   UniqueID = '" + oForm.Items.Item("UniqueID").Specific.VALUE + "'";
                 }
                 else
                 {
-                    sQry = "delete from Authority_Screen where UniqueID ='" + oForm.Items.Item("UniqueID").Specific.VALUE + "'";
+                    sQry = "        delete";
+                    sQry = sQry + " from    Authority_Screen";
+                    sQry = sQry + " where   UniqueID = '" + oForm.Items.Item("UniqueID").Specific.VALUE + "'";
+                    sQry = sQry + "         AND UserID = '" + oForm.Items.Item("pUserID").Specific.VALUE + "'";
                 }
                 oRecordSet.DoQuery(sQry);
                 PH_PY999_MTX01();

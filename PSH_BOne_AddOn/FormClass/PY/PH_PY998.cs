@@ -85,6 +85,10 @@ namespace PSH_BOne_AddOn
 
                 oDS_PH_PY998B = oForm.DataSources.DBDataSources.Item("@PS_USERDS01");
 
+                //화면구분
+                oForm.DataSources.UserDataSources.Add("PGClass", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
+                oForm.Items.Item("PGClass").Specific.DataBind.SetBound(true, "", "PGClass");
+
                 //화면권한ID
                 oForm.DataSources.UserDataSources.Add("PermID", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("PermID").Specific.DataBind.SetBound(true, "", "PermID");
@@ -123,6 +127,10 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
+
+                oForm.Items.Item("PGClass").Specific.ValidValues.Add("1", "System 화면");
+                oForm.Items.Item("PGClass").Specific.ValidValues.Add("2", "AddOn 화면");
+                oForm.Items.Item("PGClass").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
                 oForm.Items.Item("Perm").Specific.ValidValues.Add("%", "전체");
                 oForm.Items.Item("Perm").Specific.ValidValues.Add("1", "모든 권한");
@@ -198,9 +206,9 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// PH_PY998_MTX01
+        /// System Form 권한 조회
         /// </summary>
-        private void PH_PY998_MTX01()
+        private void PH_PY998_SelectSystemFormPermisson()
         {
             string sQry = string.Empty;
             string permName = string.Empty;
@@ -226,8 +234,8 @@ namespace PSH_BOne_AddOn
                 string perm = oForm.Items.Item("Perm").Specific.Selected.Value.ToString().Trim();
                 string userCode = oForm.Items.Item("UserCode").Specific.Value.ToString().Trim();
 
-                sQry = "            EXEC PH_PY998_01 ";
-                sQry = sQry + "'" + userCode + "'";
+                sQry = "      EXEC PH_PY998_01 '";
+                sQry = sQry + userCode + "'";
                 oRecordSet01.DoQuery(sQry);
 
                 oMat01.Clear();
@@ -331,6 +339,76 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oSBObob);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet02);
+                oForm.Freeze(false);
+            }
+        }
+
+        /// <summary>
+        /// AddOn Form 권한 조회
+        /// </summary>
+        private void PH_PY998_SelectAddOnFormPermisson()
+        {
+            string sQry = string.Empty;
+            string permName = string.Empty;
+
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset); //사용자ID 조회용
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet01.RecordCount, false);
+
+            try
+            {
+                oForm.Freeze(true);
+
+                string permID = oForm.Items.Item("PermID").Specific.Value.ToString().Trim();
+                string userCode = oForm.Items.Item("UserCode").Specific.Value.ToString().Trim();
+
+                sQry = "      EXEC PH_PY998_02 '";
+                sQry = sQry + permID + "','";
+                sQry = sQry + userCode + "'";
+                oRecordSet01.DoQuery(sQry);
+
+                oMat01.Clear();
+                oDS_PH_PY998B.Clear();
+                oMat01.FlushToDataSource();
+                oMat01.LoadFromDataSource();
+
+                //Matrix에 출력
+                for (int loopCount = 0; loopCount <= oRecordSet01.RecordCount - 1; loopCount++)
+                {
+                    if (loopCount + 1 > oDS_PH_PY998B.Size)
+                    {
+                        oDS_PH_PY998B.InsertRecord(loopCount);
+                    }
+
+                    oMat01.AddRow();
+                    oDS_PH_PY998B.Offset = loopCount;
+
+                    oDS_PH_PY998B.SetValue("U_LineNum", loopCount, Convert.ToString(loopCount + 1));
+                    oDS_PH_PY998B.SetValue("U_ColReg01", loopCount, oRecordSet01.Fields.Item("UserCode").Value.ToString().Trim()); //사용자ID
+                    oDS_PH_PY998B.SetValue("U_ColReg02", loopCount, oRecordSet01.Fields.Item("UserName").Value.ToString().Trim()); //성명
+                    oDS_PH_PY998B.SetValue("U_ColReg03", loopCount, oRecordSet01.Fields.Item("MSTCOD").Value.ToString().Trim()); //사번
+                    oDS_PH_PY998B.SetValue("U_ColReg04", loopCount, oRecordSet01.Fields.Item("BPLName").Value.ToString().Trim()); //소속사업장
+                    oDS_PH_PY998B.SetValue("U_ColReg05", loopCount, oRecordSet01.Fields.Item("TeamName").Value.ToString().Trim()); //소속부서
+                    oDS_PH_PY998B.SetValue("U_ColReg06", loopCount, oRecordSet01.Fields.Item("Perm").Value.ToString().Trim()); //권한
+
+                    ProgBar01.Value = ProgBar01.Value + 1;
+                    ProgBar01.Text = "조회중...!";
+
+                    oRecordSet01.MoveNext();
+                }
+
+                oMat01.LoadFromDataSource();
+                oMat01.AutoResizeColumns();
+                oForm.Update();
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                ProgBar01.Stop();
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
                 oForm.Freeze(false);
             }
         }
@@ -550,7 +628,14 @@ namespace PSH_BOne_AddOn
                             return;
                         }
 
-                        PH_PY998_MTX01();
+                        if (oForm.Items.Item("PGClass").Specific.Selected.Value == "1")
+                        {
+                            this.PH_PY998_SelectSystemFormPermisson();
+                        }
+                        else
+                        {
+                            this.PH_PY998_SelectAddOnFormPermisson();
+                        }
                     }
                 }
                 else if (pVal.BeforeAction == false)
@@ -726,7 +811,14 @@ namespace PSH_BOne_AddOn
                         {
                             if (pVal.ItemUID == "PermID")
                             {
-                                oForm.Items.Item("PermNM").Specific.Value = dataHelpClass.Get_ReData("U_KorName", "U_PermID", "[@PSH_PERMISSION_ID]", "'" + oForm.Items.Item("PermID").Specific.Value + "'", ""); //화면권한명
+                                if (oForm.Items.Item("PGClass").Specific.Selected.Value == "1") //System Form
+                                {
+                                    oForm.Items.Item("PermNM").Specific.Value = dataHelpClass.Get_ReData("U_KorName", "U_PermID", "[@PSH_PERMISSION_ID]", "'" + oForm.Items.Item("PermID").Specific.Value + "'", ""); //화면권한명
+                                }
+                                else //AddOn Form
+                                {
+                                    oForm.Items.Item("PermNM").Specific.Value = dataHelpClass.Get_ReData("String", "UniqueID", "[Authority_Screen]", "'" + oForm.Items.Item("PermID").Specific.Value + "'", ""); //화면권한명
+                                }
                             }
                             else if (pVal.ItemUID == "UserCode")
                             {

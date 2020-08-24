@@ -106,7 +106,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("CLTCOD").DisplayDesc = true;
 
                 // ObjectCode
-                sQry = "select Code, Name from [@PS_SY005H] where Left(Code ,1)  <>'S'";
+                sQry = "select Code, Name from [@PS_SY005H] where len(Code) in (2,3)";
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("ObjectCode").Specific, "Y");
                 oForm.Items.Item("ObjectCode").DisplayDesc = true;
                 oForm.Items.Item("ObjectCode").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);

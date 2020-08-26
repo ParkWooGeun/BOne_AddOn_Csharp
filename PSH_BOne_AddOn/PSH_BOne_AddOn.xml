@@ -64,11 +64,13 @@
         <member name="M:PSH_BOne_AddOn.PH_PY998.PH_PY998_ChangeSuperUser">
             <summary>
             접속한 User가 Superuser가 아닐 경우 Superuser권한 임시 부여 (GetSystemPermission 메소드 사용권한 확보)
+            사용안함
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY998.PH_PY998_GetSuperUser">
             <summary>
             화면이 호출되는 시점에 Superuser 여부를 클래스전역변수에 저장
+            사용안함
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY998.PH_PY998_SelectAddOnFormPermisson">

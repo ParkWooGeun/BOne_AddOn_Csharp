@@ -5,7 +5,7 @@ using PSH_BOne_AddOn.Data;
 namespace PSH_BOne_AddOn
 {
     /// <summary>
-    /// 사용자 권한 등록
+    /// 사용자 권한 조회(화면별)
     /// </summary>
     internal class PH_PY998 : PSH_BaseClass
     {
@@ -17,6 +17,8 @@ namespace PSH_BOne_AddOn
         private string oLastItemUID;
         private string oLastColUID;
         private int oLastColRow;
+
+        private string cSuperUserYN; //최초 화면이 실행 될때 Superuser 여부 저장
 
         /// <summary>
         /// 화면 호출
@@ -55,6 +57,7 @@ namespace PSH_BOne_AddOn
                 PH_PY998_ComboBox_Setting();
                 PH_PY998_FormItemEnabled();
                 PH_PY998_EnableMenus();
+                //PH_PY998_GetSuperUser(); //Superuser 여부 저장
             }
             catch (Exception ex)
             {
@@ -206,13 +209,13 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// System Form 권한 조회
+        /// System Form 권한 조회(원본)
         /// </summary>
         private void PH_PY998_SelectSystemFormPermisson()
         {
             string sQry = string.Empty;
             string permName = string.Empty;
-            
+
             SAPbobsCOM.SBObob oSBObob = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoBridge);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset); //사용자ID 조회용
             SAPbobsCOM.Recordset oRecordSet02 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset); //GetSystemPermission 저장용
@@ -330,7 +333,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, 1, "Ok", "", "");
             }
             finally
             {
@@ -340,6 +343,100 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet02);
                 oForm.Freeze(false);
+            }
+        }
+
+        /// <summary>
+        /// 접속한 User가 Superuser가 아닐 경우 Superuser권한 임시 부여 (GetSystemPermission 메소드 사용권한 확보)
+        /// 사용안함
+        /// </summary>
+        private void PH_PY998_ChangeSuperUser()
+        {
+            SAPbobsCOM.Users oUser = null;
+            string lSuperUserYN = string.Empty; //메소드가 호출되는 시점의 Superuser여부를 저장할 지역변수
+
+            int errCode = 0;
+            int errNum = 0;
+            string errMsg = string.Empty;
+
+            try
+            {
+                oUser = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oUsers);
+
+                if (oUser.GetByKey(PSH_Globals.oCompany.UserSignature))
+                //if (oUser.GetByKey(105))
+                {
+                    int userSign = PSH_Globals.oCompany.UserSignature;
+
+                    lSuperUserYN = oUser.Superuser.ToString();
+
+                    if (cSuperUserYN == "tNO" && lSuperUserYN == "tNO")
+                    {
+                        oUser.Superuser = SAPbobsCOM.BoYesNoEnum.tYES;
+                    }
+                    else if (cSuperUserYN == "tNO" && lSuperUserYN == "tYES")
+                    {
+                        oUser.Superuser = SAPbobsCOM.BoYesNoEnum.tNO;
+                    }
+
+                    int returnValue = oUser.Update();
+
+                    if (returnValue != 0)
+                    {
+                        PSH_Globals.oCompany.GetLastError(out errCode, out errMsg);
+                        errNum = 1;
+                        throw new Exception();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (errNum == 1)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("[" + errCode + "]" + errMsg, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+            }
+            finally
+            {
+                if (oUser != null)
+                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oUser);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 화면이 호출되는 시점에 Superuser 여부를 클래스전역변수에 저장
+        /// 사용안함
+        /// </summary>
+        private void PH_PY998_GetSuperUser()
+        {
+            SAPbobsCOM.Users oUser = null;
+            
+            try
+            {
+                oUser = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oUsers);
+
+                if (oUser.GetByKey(PSH_Globals.oCompany.UserSignature))
+                //if (oUser.GetByKey(105))
+                {
+                    cSuperUserYN = oUser.Superuser.ToString(); //최초 Superuser 여부를 클래스전역변수에 저장
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                if (oUser != null)
+                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oUser);
+                }
             }
         }
 
@@ -402,7 +499,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, 1, "Ok", "", "");
             }
             finally
             {
@@ -630,7 +727,9 @@ namespace PSH_BOne_AddOn
 
                         if (oForm.Items.Item("PGClass").Specific.Selected.Value == "1")
                         {
+                            //this.PH_PY998_ChangeSuperUser(); //Superuser 설정 변경
                             this.PH_PY998_SelectSystemFormPermisson();
+                            //this.PH_PY998_ChangeSuperUser(); //Superuser 설정 변경
                         }
                         else
                         {

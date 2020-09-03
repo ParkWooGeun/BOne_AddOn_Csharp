@@ -26,6 +26,33 @@
             the contents of this method with the code editor.
             </summary>
         </member>
+        <member name="T:PSH_BOne_AddOn.PS_CO658">
+            <summary>
+            통합재무제표용 계정 관리
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_CO658.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFromDocEntry01"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_CO658.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Form Item Event
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">pVal</param>
+            <param name="BubbleEvent">Bubble Event</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_CO658.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            ITEM_PRESSED 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY998">
             <summary>
             사용자 권한 조회(화면별)

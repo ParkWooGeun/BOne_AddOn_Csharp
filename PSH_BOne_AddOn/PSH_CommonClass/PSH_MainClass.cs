@@ -1741,6 +1741,11 @@ namespace PSH_BOne_AddOn
                             pBaseClass = new PH_PY998();
                             pBaseClass.LoadForm("");
                             break;
+
+                        case "PS_CO658": //통합재무제표 계정 관리
+                            pBaseClass = new PS_CO658();
+                            pBaseClass.LoadForm("");
+                            break;
                     }
                 }
             }

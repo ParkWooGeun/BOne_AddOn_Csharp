@@ -581,6 +581,7 @@ namespace PSH_BOne_AddOn
                 {
                     switch (pVal.MenuUID)
                     {
+                        #region 인사 관리
                         case "PH_PY001": //사원마스터등록
 
                             pBaseClass = new PH_PY001();
@@ -1726,7 +1727,9 @@ namespace PSH_BOne_AddOn
                             pBaseClass = new PH_PY136();
                             pBaseClass.LoadForm("");
                             break;
+                        #endregion 관리
 
+                        #region 운영 관리
                         case "PS_DateChange": //날짜변경처리
                             pBaseClass = new PS_DateChange();
                             pBaseClass.LoadForm("");
@@ -1741,11 +1744,15 @@ namespace PSH_BOne_AddOn
                             pBaseClass = new PH_PY998();
                             pBaseClass.LoadForm("");
                             break;
+                        #endregion
 
+                        #region 재무 관리
                         case "PS_CO658": //통합재무제표 계정 관리
                             pBaseClass = new PS_CO658();
                             pBaseClass.LoadForm("");
                             break;
+
+                        #endregion
                     }
                 }
             }

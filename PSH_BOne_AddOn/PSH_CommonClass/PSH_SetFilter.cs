@@ -24,12 +24,12 @@ namespace PSH_BOne_AddOn
 			VALIDATE(ref oFilter, ref oFilters); //10
 			MATRIX_LOAD(ref oFilter, ref oFilters); //11
 			//DATASOURCE_LOAD(oFilter, oFilters); //12
-			Form_Load(ref oFilter, ref oFilters); //16
+			FORM_LOAD(ref oFilter, ref oFilters); //16
 			FORM_UNLOAD(ref oFilter, ref oFilters); //17
 			//FORM_ACTIVATE(oFilter, oFilters); //18
 			//FORM_DEACTIVATE(oFilter, oFilters); //19
 			//FORM_CLOSE(oFilter, oFilters); //20
-			Form_Resize(ref oFilter, ref oFilters); //21
+			FORM_RESIZE(ref oFilter, ref oFilters); //21
 			//FORM_KEY_DOWN(oFilter, oFilters); //22
 			//FORM_MENU_HILIGHT(oFilter, oFilters); //23
 			//PRINT(oFilter, oFilters); //24
@@ -320,6 +320,9 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PY135"); //급상여분개처리
 			oFilter.AddEx("PS_DateChange"); //날짜 수정 등록
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
+
+			//재무관리
+			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
 		}
 
 		private static void KEY_DOWN(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -456,6 +459,9 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PY136"); //급상여분개처리 배부규칙설정
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 			oFilter.AddEx("PH_PY998"); //사용자권한조회
+
+			//재무관리
+			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
 		}
 
 		private static void GOT_FOCUS(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -689,7 +695,10 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PY135"); //급상여분개처리
 			oFilter.AddEx("PS_DateChange"); //날짜 수정 등록
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
-        }
+
+			//재무관리
+			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
+		}
 
 		private static void LOST_FOCUS(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
@@ -932,7 +941,10 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
 			oFilter.AddEx("PS_DateChange"); //날짜 수정 등록
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
-        }
+
+			//재무관리
+			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
+		}
 
 		private static void CLICK(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
@@ -1174,7 +1186,10 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
 			oFilter.AddEx("PS_DateChange"); //날짜 수정 등록
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
-        }
+
+			//재무관리
+			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
+		}
 
 		private static void DOUBLE_CLICK(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
@@ -1201,8 +1216,9 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PY407"); //정산기부자료등록
             oFilter.AddEx("PH_PY405"); //정산의료비자료등록
 
-            //기타관리
-        }
+			//기타관리
+
+		}
 
 		private static void MATRIX_LINK_PRESSED(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
@@ -1478,7 +1494,10 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
 			oFilter.AddEx("PS_DateChange"); //날짜 수정 등록
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
-        }
+
+			//재무관리
+			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
+		}
 
 		private static void MATRIX_LOAD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
@@ -1549,7 +1568,10 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY315"); //개인별대부금잔액현황
 			oFilter.AddEx("PH_PY034"); //공용분개처리
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
-        }
+
+			//재무관리
+			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
+		}
 
 		private static void DATASOURCE_LOAD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
@@ -1570,7 +1592,7 @@ namespace PSH_BOne_AddOn
 			//생산관리
 		}
 
-		private static void Form_Load(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
+		private static void FORM_LOAD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_LOAD);
 
@@ -2103,7 +2125,10 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
 			oFilter.AddEx("PS_DateChange"); //날짜 수정 등록
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
-        }
+
+			//재무관리
+			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
+		}
 
 		private static void FORM_ACTIVATE(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
@@ -2148,7 +2173,7 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_CLOSE);
 		}
 
-		private static void Form_Resize(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
+		private static void FORM_RESIZE(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_RESIZE);
 

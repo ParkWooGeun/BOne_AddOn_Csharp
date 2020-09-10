@@ -1752,7 +1752,12 @@ namespace PSH_BOne_AddOn
                             pBaseClass.LoadForm("");
                             break;
 
-                        #endregion
+                        case "PS_CO600": //통합재무제표
+                            pBaseClass = new PS_CO600();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                            #endregion
                     }
                 }
             }

@@ -26,6 +26,17 @@
             the contents of this method with the code editor.
             </summary>
         </member>
+        <member name="T:PSH_BOne_AddOn.PS_CO600">
+            <summary>
+            통합재무제표
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_CO600.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFromDocEntry01"></param>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_CO658">
             <summary>
             통합재무제표용 계정 관리

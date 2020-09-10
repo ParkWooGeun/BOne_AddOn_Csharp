@@ -6,7 +6,7 @@ using SAPbouiCOM;
 namespace PSH_BOne_AddOn.Data
 {
     /// <summary>
-    /// SAP B1 Data 관련 Helper Class(SetMod 모듈의 내용 구현)
+    /// SAP B1 Data 관련 Helper Class(SetMod, PS_Common 모듈의 내용 구현)
     /// </summary>
     public class PSH_DataHelpClass
     {
@@ -2292,6 +2292,143 @@ namespace PSH_BOne_AddOn.Data
             returnValue = pDate.Substring(0, 4) + pChar + pDate.Substring(4, 2) + pChar + pDate.Substring(6, 2);
 
             return returnValue;
+        }
+
+        /// <summary>
+        /// 콤보박스 Value Insert
+        /// </summary>
+        /// <param name="pFormUID">FormID</param>
+        /// <param name="pItemUID">ItemID</param>
+        /// <param name="pColumnUID">ColumnID</param>
+        /// <param name="pVALUE">Value</param>
+        /// <param name="pDescription">Description</param>
+        public void Combo_ValidValues_Insert(string pFormUID, string pItemUID, string pColumnUID, string pVALUE, string pDescription)
+        {
+            try
+            {
+                this.DoQuery("EXEC COMBO_VALIDVALUES_INSERT '" + pFormUID + "','" + pItemUID + "','" + pColumnUID + "','" + pVALUE + "','" + pDescription + "'");
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("PSH_DataHelpClass.Combo_ValidValues_Insert : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pColumn"></param>
+        /// <param name="pFormUID"></param>
+        /// <param name="pItemUID"></param>
+        /// <param name="pColumnUID"></param>
+        /// <param name="pEmptyValue"></param>
+        public void Combo_ValidValues_SetValueColumn(SAPbouiCOM.Column pColumn, string pFormUID, string pItemUID, string pColumnUID, bool pEmptyValue)
+        {
+            int loopCount;
+            string Query01;
+
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                Query01 = "SELECT VALUE, DESCRIPTION FROM COMBO_VALIDVALUES WHERE FORMUID = '" + pFormUID + "' AND ITEMUID = '" + pItemUID + "' AND COLUMNUID = '" + pColumnUID + "'";
+                oRecordSet.DoQuery(Query01);
+
+                if (oRecordSet.RecordCount > 0)
+                {
+                    for (loopCount = 1; loopCount <= pColumn.ValidValues.Count; loopCount++)
+                    {
+                        pColumn.ValidValues.Remove(0, SAPbouiCOM.BoSearchKey.psk_Index);
+                    }
+                    if (pEmptyValue == true)
+                    {
+                        pColumn.ValidValues.Add("", "");
+                    }
+                    for (loopCount = 1; loopCount <= oRecordSet.RecordCount; loopCount++)
+                    {
+                        pColumn.ValidValues.Add(oRecordSet.Fields.Item(0).Value, oRecordSet.Fields.Item(1).Value);
+                        oRecordSet.MoveNext();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("PSH_DataHelpClass.Combo_ValidValues_SetValueColumn : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+            }
+        }
+
+        /// <summary>
+        /// 쿼리 실행
+        /// </summary>
+        /// <param name="pQuery01">쿼리</param>
+        public void DoQuery(string pQuery01)
+        {
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                oRecordSet.DoQuery(pQuery01);
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("PSH_DataHelpClass.DoQuery : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+            }
+        }
+
+        //MDC_GP_EnableMenus
+        /// <summary>
+        /// EnableMenu 설정(VB6.0함수명:MDC_GP_EnableMenus)
+        /// </summary>
+        /// <param name="pForm">Form객체</param>
+        /// <param name="pPreview">인쇄[미리보기]</param>
+        /// <param name="pPrint">인쇄[출력]</param>
+        /// <param name="pDeleteRow">행삭제</param>
+        /// <param name="pFind">문서찾기</param>
+        /// <param name="pAdd">문서추가</param>
+        /// <param name="pNextRecord">다음</param>
+        /// <param name="pPreviousRecord">이전</param>
+        /// <param name="pFirstRecord">맨처음</param>
+        /// <param name="pLastRecord">맨끝</param>
+        /// <param name="pCancel">문서취소</param>
+        /// <param name="pRowAdd">행추가</param>
+        /// <param name="pDuplicate">문서복제</param>
+        /// <param name="pRemove">문서제거</param>
+        /// <param name="pRowClose">행닫기</param>
+        /// <param name="pClose">문서닫기</param>
+        /// <param name="pRestore">문서복원</param>
+        public void SetEnableMenus(SAPbouiCOM.Form pForm, bool pPreview, bool pPrint, bool pDeleteRow, bool pFind, bool pAdd, bool pNextRecord, bool pPreviousRecord, bool pFirstRecord, bool pLastRecord, bool pCancel, bool pRowAdd, bool pDuplicate, bool pRemove, bool pRowClose, bool pClose, bool pRestore)
+        {
+            try
+            {
+                pForm.EnableMenu("519", pPreview); // 인쇄[미리보기]
+                pForm.EnableMenu("520", pPrint); // 인쇄[출력]
+                pForm.EnableMenu("1281", pFind); //문서찾기
+                pForm.EnableMenu("1282", pAdd); //문서추가
+                pForm.EnableMenu("1283", pRemove); //문서제거(데이터 삭제시 사용)
+                pForm.EnableMenu("1284", pCancel); //문서취소
+                pForm.EnableMenu("1285", pRestore); //문서복원
+                pForm.EnableMenu("1286", pClose); //문서닫기
+                pForm.EnableMenu("1287", pDuplicate); //문서복제
+                pForm.EnableMenu("1288", pNextRecord); //다음
+                pForm.EnableMenu("1289", pPreviousRecord); //이전
+                pForm.EnableMenu("1290", pFirstRecord); //맨처음
+                pForm.EnableMenu("1291", pLastRecord); //맨끝
+                pForm.EnableMenu("1292", pRowAdd); //행추가
+                pForm.EnableMenu("1293", pDeleteRow); //행삭제
+                pForm.EnableMenu("1299", pRowClose); //행닫기
+            }
+            catch(Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("PSH_DataHelpClass.SetEnableMenus : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
         }
     }
 }

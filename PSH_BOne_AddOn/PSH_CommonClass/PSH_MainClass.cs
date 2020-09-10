@@ -1746,6 +1746,11 @@ namespace PSH_BOne_AddOn
                             pBaseClass = new PS_CO658();
                             pBaseClass.LoadForm("");
                             break;
+
+                        case "PS_CO120": //5.공정별 원가계산
+                            pBaseClass = new PS_CO120();
+                            pBaseClass.LoadForm("");
+                            break;
                     }
                 }
             }

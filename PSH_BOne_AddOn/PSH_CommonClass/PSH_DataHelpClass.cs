@@ -2383,7 +2383,6 @@ namespace PSH_BOne_AddOn.Data
             }
         }
 
-        //MDC_GP_EnableMenus
         /// <summary>
         /// EnableMenu 설정(VB6.0함수명:MDC_GP_EnableMenus)
         /// </summary>

@@ -130,6 +130,7 @@
     <Compile Include="FormClass\PY\ClassModuleSTD.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PSH_CommonClass\MDC_PS_Common.cs" />
     <Compile Include="PSH_CommonClass\PSH_BaseClass.cs" />
     <Compile Include="PSH_CommonClass\PSH_CodeHelpClass.cs" />
     <Compile Include="PSH_CommonClass\PSH_DataHelpClass.cs" />

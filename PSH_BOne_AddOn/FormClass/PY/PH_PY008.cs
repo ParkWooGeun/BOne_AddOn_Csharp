@@ -3862,21 +3862,20 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 추가 수정 삭제 가능 여부 조회
         /// </summary>
-        /// <returns></returns>
+        /// <returns></returns>`
         private string PH_PY008_ModifyYN()
         {
             string today = string.Empty;
             string todaytm = string.Empty;
             string returnValue = string.Empty;
-            short errNum = 0;
-
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
+            short errNum = 0;                                        
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);       
             try
             {
                 //안강사업장은 제외
                 if (oForm.Items.Item("SCLTCOD").Specific.Value != "3")
                 {
+
 
                     if (oForm.Items.Item("WorkType").Specific.Value.Trim() == "") // 근태구분 등록체크
                     {
@@ -3886,7 +3885,7 @@ namespace PSH_BOne_AddOn
                     }
                     if (oForm.Items.Item("WorkType").Specific.Value.Trim() == "A00" || oForm.Items.Item("WorkType").Specific.Value.Trim() == "D09" || oForm.Items.Item("WorkType").Specific.Value.Trim() == "D10") // 근태구분 등록체크
                     {
-                        if (Convert.ToInt32(String.IsNullOrEmpty(oForm.Items.Item("GetTime").Specific.Value.Trim())) == 0 && Convert.ToInt32(String.IsNullOrEmpty(oForm.Items.Item("OffTime").Specific.Value.Trim())) == 0)
+                        if (Convert.ToInt32(Convert.ToDouble(oForm.Items.Item("Base").Specific.Value.Substring(0,2))) == 0 ) // 기본+ 특근이 0 이면 등록 안됨.
                         {
                             returnValue = "N";
                             errNum = 4;

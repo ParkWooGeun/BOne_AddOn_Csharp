@@ -323,6 +323,7 @@ namespace PSH_BOne_AddOn
 
 			//재무관리
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
+			oFilter.AddEx("PS_CO600"); //통합재무제표
 		}
 
 		private static void KEY_DOWN(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -698,6 +699,7 @@ namespace PSH_BOne_AddOn
 
 			//재무관리
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
+			oFilter.AddEx("PS_CO600"); //통합재무제표
 		}
 
 		private static void LOST_FOCUS(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -944,6 +946,7 @@ namespace PSH_BOne_AddOn
 
 			//재무관리
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
+			oFilter.AddEx("PS_CO600"); //통합재무제표
 		}
 
 		private static void CLICK(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1189,6 +1192,7 @@ namespace PSH_BOne_AddOn
 
 			//재무관리
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
+			oFilter.AddEx("PS_CO600"); //통합재무제표
 		}
 
 		private static void DOUBLE_CLICK(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1497,6 +1501,7 @@ namespace PSH_BOne_AddOn
 
 			//재무관리
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
+			oFilter.AddEx("PS_CO600"); //통합재무제표
 		}
 
 		private static void MATRIX_LOAD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2128,6 +2133,7 @@ namespace PSH_BOne_AddOn
 
 			//재무관리
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
+			oFilter.AddEx("PS_CO600"); //통합재무제표
 		}
 
 		private static void FORM_ACTIVATE(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)

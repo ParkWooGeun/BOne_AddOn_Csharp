@@ -1965,6 +1965,11 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
+        <member name="T:PSH_BOne_AddOn.MDC_PS_Common">
+            <summary>
+            MDC_PS_Common(구 공통클래스)
+            </summary>
+        </member>
         <member name="T:PSH_BOne_AddOn.PSH_BaseClass">
             <summary>
             기초클래스 : 모든 화면 클래스가 상속 받아 사용, 화면클래스가 기본적으로 사용할 속성 및 메소드 정의
@@ -2394,7 +2399,7 @@
         </member>
         <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.Combo_ValidValues_SetValueColumn(SAPbouiCOM.Column,System.String,System.String,System.String,System.Boolean)">
             <summary>
-            
+            Combo_ValidValues_SetValueColumn
             </summary>
             <param name="pColumn"></param>
             <param name="pFormUID"></param>
@@ -2429,6 +2434,78 @@
             <param name="pRowClose">행닫기</param>
             <param name="pClose">문서닫기</param>
             <param name="pRestore">문서복원</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.Combo_ValidValues_SetValueItem(SAPbouiCOM.ComboBox,System.String,System.String,System.Boolean)">
+            <summary>
+            Combo_ValidValues_SetValueItem
+            </summary>
+            <param name="Combo"></param>
+            <param name="FormUID"></param>
+            <param name="ItemUID"></param>
+            <param name="EmptyValue"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.GetItem_UnWeight(System.String)">
+            <summary>
+            품목 단중 조회
+            </summary>
+            <param name="ItemCode">품목코드</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.GetItem_ItmBsort(System.String)">
+            <summary>
+            품목 대분류 조회
+            </summary>
+            <param name="ItemCode">품목코드</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.GetItem_SbasUnit(System.String)">
+            <summary>
+            품목 판매기준단위 조회
+            </summary>
+            <param name="ItemCode">품목코드</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.GetItem_ObasUnit(System.String)">
+            <summary>
+            품목 매입기준단위 조회
+            </summary>
+            <param name="ItemCode">품목코드</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.GetItem_Unit1(System.String)">
+            <summary>
+            품목 단위수량1 조회
+            </summary>
+            <param name="ItemCode">품목코드</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.GetItem_Spec1(System.String)">
+            <summary>
+            품목 규격1 조회
+            </summary>
+            <param name="ItemCode">품목코드</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.GetItem_Spec2(System.String)">
+            <summary>
+            품목 규격2 조회
+            </summary>
+            <param name="ItemCode">품목코드</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.GetItem_Spec3(System.String)">
+            <summary>
+            품목 규격3 조회
+            </summary>
+            <param name="ItemCode">품목코드</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.GetItem_ManBtchNum(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="ItemCode"></param>
+            <returns></returns>
         </member>
         <member name="T:PSH_BOne_AddOn.Form.PSH_FormHelpClass">
             <summary>

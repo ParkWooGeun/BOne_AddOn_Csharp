@@ -1773,7 +1773,7 @@
         </member>
         <member name="T:PSH_BOne_AddOn.PS_DateChange">
             <summary>
-            사용자 권한 등록
+            날짜 변경 요청
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_DateChange.LoadForm(System.String)">
@@ -1877,7 +1877,7 @@
         </member>
         <member name="T:PSH_BOne_AddOn.PS_DateCommit">
             <summary>
-            위해일수수정
+            날짜 변경 승인
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_DateCommit.LoadForm(System.String)">
@@ -22704,6 +22704,11 @@
             리포트 조회
             </summary>
         </member>
+        <member name="T:PSH_BOne_AddOn.PH_PY931">
+            <summary>
+            표준세액적용대상자조회
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY931.LoadForm(System.String)">
             <summary>
             표준세액적용대상자조회
@@ -22870,6 +22875,11 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
+        <member name="T:PSH_BOne_AddOn.PH_PY932">
+            <summary>
+            전근무지등록현황
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY932.LoadForm(System.String)">
             <summary>
             전근무지등록현황
@@ -23035,6 +23045,11 @@
             <param name="FormUID"></param>
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
+        </member>
+        <member name="T:PSH_BOne_AddOn.PH_PY933">
+            <summary>
+            보수총액신고기초자료
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY933.LoadForm(System.String)">
             <summary>
@@ -24122,6 +24137,11 @@
         <member name="M:PSH_BOne_AddOn.PH_PYA75.PH_PYA75_Print_Report01">
             <summary>
             리포트 조회
+            </summary>
+        </member>
+        <member name="T:PSH_BOne_AddOn.SM60100">
+            <summary>
+            OHEM AddOn
             </summary>
         </member>
         <member name="F:PSH_BOne_AddOn.PSH_Globals.M_Used">

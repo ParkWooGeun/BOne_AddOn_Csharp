@@ -6,7 +6,7 @@ using PSH_BOne_AddOn.Data;
 namespace PSH_BOne_AddOn
 {
     /// <summary>
-    /// 사용자 권한 등록
+    /// 날짜 변경 요청
     /// </summary>
     internal class PS_DateChange : PSH_BaseClass
     {

@@ -125,7 +125,6 @@
     <Compile Include="FormClass\PY\PH_PYA90.cs" />
     <Compile Include="FormClass\PY\PS_DateChange.cs" />
     <Compile Include="FormClass\PY\PS_DateCommit.cs" />
-    <Compile Include="FormClass\PY\ZPY521.cs" />
     <Compile Include="PSH_CommonClass\AssemblyInfo.cs" />
     <Compile Include="FormClass\PY\ClassModuleSTD.cs">
       <SubType>Code</SubType>
@@ -757,93 +756,12 @@
     <Compile Include="FormClass\PY\PH_PYA75.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FormClass\PY\RPY401.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\RPY501.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\RPY502.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\RPY503.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\RPY504.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\RPY505.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\RPY506.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\RPY507.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\RPY508.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\RPY509.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\RPY510.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\RPY511.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="FormClass\PY\SM60100.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PSH_CommonClass\PSH_Globals.cs" />
     <Compile Include="PSH_CommonClass\PSH_MainClass.cs" />
     <Compile Include="PSH_CommonClass\SubMain.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\UpgradeSupport.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY341.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY343.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY421.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY501.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY502.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY503.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY504.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY505.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY506.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY507.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY508.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY509.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY510.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY522.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

@@ -437,7 +437,7 @@ namespace PSH_BOne_AddOn
         //		}
         #endregion
 
-        #region Make_ItemName (구현필요)
+        #region Make_ItemName (구현필요, 완료 2020.09.15)
         //		// 아이템 네임에 작은 따옴표 추가	
         //		public static string Make_ItemName(string ItemName)
         //		{
@@ -494,7 +494,7 @@ namespace PSH_BOne_AddOn
         //		}
         #endregion
 
-        #region User_WhsCode (구현필요)
+        #region User_WhsCode (구현필요, 완료 2020.09.15)
         //		// 아이디별 창고 선택 [기본창고 1, 외주가공 8, 임가공 9]
         //		public static string User_WhsCode(string Gbn)
         //		{
@@ -554,7 +554,7 @@ namespace PSH_BOne_AddOn
         //		}
         #endregion
 
-        #region User_DeptCode (구현필요)
+        #region User_DeptCode (구현필요, 완료 2020.09.15)
         //		// 아이디별 부서 선택
         //		public static string User_DeptCode()
         //		{
@@ -583,7 +583,7 @@ namespace PSH_BOne_AddOn
         //		}
         #endregion
 
-        #region User_TeamCode (구현필요)
+        #region User_TeamCode (구현필요, 완료 2020.09.15)
         //		public static string User_TeamCode()
         //		{
         //			string functionReturnValue = null;
@@ -620,7 +620,7 @@ namespace PSH_BOne_AddOn
         //		}
         #endregion
 
-        #region User_RspCode (구현필요)
+        #region User_RspCode (구현필요, 완료 2020.09.15)
         //		public static string User_RspCode()
         //		{
         //			string functionReturnValue = null;
@@ -657,7 +657,7 @@ namespace PSH_BOne_AddOn
         //		}
         #endregion
 
-        #region User_ClsCode (구현필요)
+        #region User_ClsCode (구현필요, 완료 2020.09.15)
         //		public static string User_ClsCode()
         //		{
         //			string functionReturnValue = null;
@@ -694,7 +694,7 @@ namespace PSH_BOne_AddOn
         //		}
         #endregion
 
-        #region User_SuperUserYN (구현필요)
+        #region User_SuperUserYN (구현필요, 완료 2020.09.15)
         //		public static string User_SuperUserYN()
         //		{
         //			string functionReturnValue = null;
@@ -734,7 +734,7 @@ namespace PSH_BOne_AddOn
         //		}
         #endregion
 
-        #region Future_Date_Check (구현필요)
+        #region Future_Date_Check (구현필요, 완료 2020.09.15)
         //		public static string Future_Date_Check(string inputdate)
         //		{
         //			string functionReturnValue = null;
@@ -773,7 +773,7 @@ namespace PSH_BOne_AddOn
         //		}
         #endregion
 
-        #region User_MainJob (구현필요)
+        #region User_MainJob (구현필요, 완료 2020.09.15)
         //		public static string User_MainJob()
         //		{
         //			string functionReturnValue = null;
@@ -816,7 +816,7 @@ namespace PSH_BOne_AddOn
         //		}
         #endregion
 
-        #region Calculate_Weight (구현필요)
+        #region Calculate_Weight (구현필요, 완료 2020.09.15)
         //		public static double Calculate_Weight(string ItemCode, int Qty, string BPLId)
         //		{
         //			double functionReturnValue = 0;
@@ -863,7 +863,7 @@ namespace PSH_BOne_AddOn
         //		}
         #endregion
 
-        #region Calculate_Qty (구현필요)
+        #region Calculate_Qty (구현필요, 완료 2020.09.15)
         //		public static int Calculate_Qty(string ItemCode, int Weight)
         //		{
         //			int functionReturnValue = 0;
@@ -1057,7 +1057,7 @@ namespace PSH_BOne_AddOn
         //		}
         #endregion
 
-        #region Cal_KPI_Grade (구현필요)
+        #region Cal_KPI_Grade (구현필요, 완료 2020.09.15)
         //		public static string Cal_KPI_Grade(short prmBaseEntry, short prmBaseLine, string prmTableName, string prmResult, string prmMonth)
         //		{
         //			string functionReturnValue = null;
@@ -1101,7 +1101,7 @@ namespace PSH_BOne_AddOn
         //		}
         #endregion
 
-        #region Cal_KPI_Score (구현필요)
+        #region Cal_KPI_Score (구현필요, 완료 2020.09.15)
         //		public static double Cal_KPI_Score(string prmKPIGrade)
         //		{
         //			double functionReturnValue = 0;
@@ -1163,7 +1163,7 @@ namespace PSH_BOne_AddOn
         //		}
         #endregion
 
-        #region Cal_KPI_AchieveRate (구현필요)
+        #region Cal_KPI_AchieveRate (구현필요, 완료 2020.09.15)
         //		public static double Cal_KPI_AchieveRate(short prmBasEntry, short prmBasLine, string prmDocType, string prmRslt)
         //		{
         //			double functionReturnValue = 0;
@@ -1204,7 +1204,7 @@ namespace PSH_BOne_AddOn
         //		}
         #endregion
 
-        #region Check_Finish_Status (구현필요)
+        #region Check_Finish_Status (구현필요, 완료 2020.09.15)
         //		public static bool Check_Finish_Status(string prmBPLId, string prmDocDate, object prmFormTypeEx)
         //		{
         //			bool functionReturnValue = false;
@@ -1256,7 +1256,7 @@ namespace PSH_BOne_AddOn
         //		}
         #endregion
 
-        #region Split_String (구현필요)
+        #region Split_String (구현불필요, C#의 Split메소드 사용)
         //		public static string Split_String(string pSplitString, string pSeparateChar, short pIndex)
         //		{
         //			string functionReturnValue = null;

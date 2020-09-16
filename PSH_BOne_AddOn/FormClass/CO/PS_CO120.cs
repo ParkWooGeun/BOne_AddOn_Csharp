@@ -635,7 +635,29 @@ namespace PSH_BOne_AddOn
         {
             try
             {
-                oForm.Freeze(true);
+                SAPbouiCOM.ComboBox oCombo = null;
+                string sQry = String.Empty;
+
+                SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                //// 마감년월
+                //    Set oCombo = oForm01.Items("ClsPrd").Specific
+                //    sQry = "SELECT Code, Name From [OFPR]"
+                //    oRecordSet01.DoQuery sQry
+                //    Do Until oRecordSet01.EOF
+                //        oCombo.ValidValues.Add Trim(oRecordSet01.Fields(0).VALUE), Trim(oRecordSet01.Fields(1).VALUE)
+                //        oRecordSet01.MoveNext
+                //    Loop
+
+                //// 사업장
+                oCombo = oForm01.Items.Item("BPLId").Specific;
+                sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
+                oRecordSet01.DoQuery(sQry);
+                while (!(oRecordSet01.EoF))
+                {
+                    oCombo.ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
+                    oRecordSet01.MoveNext();
+                }
             }
             catch (Exception ex)
             {
@@ -643,9 +665,9 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                oForm.Freeze(false);
             }
         }
+
 
         /// <summary>
         /// ITEM_PRESSED 이벤트

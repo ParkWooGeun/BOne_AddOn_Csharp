@@ -976,9 +976,9 @@ namespace PSH_BOne_AddOn
 
                 oMat1.FlushToDataSource();
 
-                //// Matrix 마지막 행 삭제(DB 저장시)
-                if (oDS_PH_PY124B.Size > 1)
-                    oDS_PH_PY124B.RemoveRecord((oDS_PH_PY124B.Size - 1));
+                ////// Matrix 마지막 행 삭제(DB 저장시) 마지막행 삭제 되는 오류 해결 (2020.09.08 황영수)
+                //if (oDS_PH_PY124B.Size > 1)
+                //    oDS_PH_PY124B.RemoveRecord((oDS_PH_PY124B.Size - 1));
 
                 oMat1.LoadFromDataSource();
                 functionReturnValue = true;

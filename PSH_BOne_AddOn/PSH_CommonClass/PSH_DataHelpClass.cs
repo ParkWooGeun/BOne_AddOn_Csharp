@@ -1,8 +1,9 @@
 ﻿using System;
+
 using SAPbouiCOM;
+using SAP.Middleware.Connector;
 using PSH_BOne_AddOn.Code;
 
-using SAP.Middleware.Connector;
 
 namespace PSH_BOne_AddOn.Data
 {
@@ -3530,8 +3531,7 @@ namespace PSH_BOne_AddOn.Data
 
                 oFunction01.Invoke(rfcDest);
                 
-                IRfcStructure RETURNStructure = oFunction01.GetStructure("RETURN");
-                errMessage = RETURNStructure.GetString("E_MESSAGE").ToString();
+                errMessage = oFunction01.GetValue("E_MESSAGE").ToString();
 
                 if (string.IsNullOrEmpty(errMessage)) //에러메시지
                 {
@@ -3780,5 +3780,51 @@ namespace PSH_BOne_AddOn.Data
         }
 
         #endregion MDC_PS_Common 클래스 메소드 구현_E
+
+        //SAP R3 Connect
+        public bool SAPConnection(ref RfcDestination rfcDest, ref RfcRepository rfcRep, string pName, string pAppServerHost, string pClient, string pUser, string pPassword)
+        {
+            bool returnValue;
+            //RfcDestination rfcDest;
+            //RfcRepository rfcRep;
+
+            try
+            {
+                rfcDest = this.RfcDestination(pName, pAppServerHost, pClient, pUser, pPassword);
+                rfcRep = rfcDest.Repository;
+
+                returnValue = true;
+            }
+            catch
+            {
+                returnValue = false;
+            }
+
+            return returnValue;
+        }
+
+        /// <summary>
+        /// SAP R3 RFC Destination 구현
+        /// </summary>
+        /// <param name="pName">Server Name</param>
+        /// <param name="pAppServerHost">Server IP</param>
+        /// <param name="pClient">Client</param>
+        /// <param name="pUser">UserID</param>
+        /// <param name="pPassword">UserPassword</param>
+        /// <returns></returns>
+        public RfcDestination RfcDestination(string pName, string pAppServerHost, string pClient, string pUser, string pPassword)
+        {
+            RfcConfigParameters rfc = new RfcConfigParameters();
+
+            rfc.Add(RfcConfigParameters.Name, pName);
+            rfc.Add(RfcConfigParameters.AppServerHost, pAppServerHost);
+            rfc.Add(RfcConfigParameters.Client, pClient);
+            rfc.Add(RfcConfigParameters.User, pUser);
+            rfc.Add(RfcConfigParameters.Password, pPassword);
+
+            RfcDestination rfcDest = RfcDestinationManager.GetDestination(rfc);
+
+            return rfcDest;
+        }
     }
 }

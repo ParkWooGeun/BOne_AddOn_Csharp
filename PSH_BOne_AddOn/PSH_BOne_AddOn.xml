@@ -219,6 +219,22 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
+        <member name="T:PSH_BOne_AddOn.PS_CO606">
+            <summary>
+            통합재무제표 본사 전송
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_CO606.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFromDocEntry01"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_CO606.CreateItems">
+            <summary>
+            화면 Item 생성
+            </summary>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_CO658">
             <summary>
             통합재무제표용 계정 관리
@@ -2502,9 +2518,145 @@
         </member>
         <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.GetItem_ManBtchNum(System.String)">
             <summary>
+            품목 관리 기준 조회(배치관리품목)
+            </summary>
+            <param name="ItemCode">품목코드</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.GetItem_TradeType(System.String)">
+            <summary>
+            품목 거래형태 조회
+            </summary>
+            <param name="ItemCode">품목코드</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.SBO_SetBackOrderFunction(SAPbouiCOM.Form@)">
+            <summary>
+            선행작업의 총중량 - 현재 작업에서 생성된 중량을 제외한 값을 구함
+            </summary>
+            <param name="oForm01">Form</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.Make_ItemName(System.String)">
+            <summary>
+            ItemName에 작은 따옴표가 있을경우 하나 더 추가
+            </summary>
+            <param name="ItemName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.User_WhsCode(System.String)">
+            <summary>
+            아이디별 창고 선택 [기본창고 1, 외주가공 8, 임가공 9]
+            </summary>
+            <param name="Gbn"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.User_DeptCode">
+            <summary>
+            접속한 사용자의 부서코드 조회
+            </summary>
+            <returns>DeptCode</returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.User_RspCode">
+            <summary>
+            접속한 사용자의 담당코드 조회
+            </summary>
+            <returns>RspCode</returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.User_ClsCode">
+            <summary>
+            접속한 사용자의 반코드 조회
+            </summary>
+            <returns>ClsCode</returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.User_SuperUserYN">
+            <summary>
+            접속한 사용자의 SuperUser 여부
+            </summary>
+            <returns> Y:수퍼유저, N:일반유저</returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.Future_Date_Check(System.String)">
+            <summary>
+            입력일자가 현재 서버일자보다 미래가 될 수 없도록 제한
+            </summary>
+            <param name="inputdate">미래일자 여부</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.User_MainJob">
+            <summary>
+            접속한 사용자의 주요업무 조회
+            </summary>
+            <returns>주요업무(인사마스터(OHEM)의 Remark)</returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.Calculate_Weight(System.String,System.Int32,System.String)">
+            <summary>
+            중량계산
+            </summary>
+            <param name="ItemCode">품목코드</param>
+            <param name="Qty">수량</param>
+            <param name="BPLId">사업장</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.Calculate_Qty(System.String,System.Int32)">
+            <summary>
             
             </summary>
             <param name="ItemCode"></param>
+            <param name="Weight"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.RFC_Sender(System.String,System.String,System.String,System.String,System.Double,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            R3 통신(실제 구현 할때 테스트 및 보완 필요, 2020.09.15 송명규)
+            </summary>
+            <param name="BPLId"></param>
+            <param name="ItemCode"></param>
+            <param name="ItemName"></param>
+            <param name="Size"></param>
+            <param name="Qty"></param>
+            <param name="Unit"></param>
+            <param name="RequestDate"></param>
+            <param name="DueDate"></param>
+            <param name="ItemType"></param>
+            <param name="RequestNo"></param>
+            <param name="i"></param>
+            <param name="LastRow"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.Cal_KPI_Grade(System.Int16,System.Int16,System.String,System.String,System.String)">
+            <summary>
+            KPI 평가등급 계산
+            </summary>
+            <param name="prmBaseEntry">KPI목표문서번호</param>
+            <param name="prmBaseLine">KPI목표문서행번호</param>
+            <param name="prmTableName">KPI목표 테이블 명</param>
+            <param name="prmResult">실적</param>
+            <param name="prmMonth">실적등록월</param>
+            <returns>KPI평가등급</returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.Cal_KPI_Score(System.String)">
+            <summary>
+            KPI 평가점수 계산
+            </summary>
+            <param name="prmKPIGrade">KPI평가등급</param>
+            <returns>KPI평가점수</returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.Cal_KPI_AchieveRate(System.Int16,System.Int16,System.String,System.String)">
+            <summary>
+            KPI 진척률(달성률) 조회
+            </summary>
+            <param name="prmBasEntry">목표문서번호</param>
+            <param name="prmBasLine">목표행번호</param>
+            <param name="prmDocType">문서타입</param>
+            <param name="prmRslt">실적</param>
+            <returns>KPI 진척률</returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.Check_Finish_Status(System.String,System.String,System.Object)">
+            <summary>
+            마감상태 조회
+            </summary>
+            <param name="prmBPLId">사업장</param>
+            <param name="prmDocDate">등록일</param>
+            <param name="prmFormTypeEx">화면타입(UID)</param>
             <returns></returns>
         </member>
         <member name="T:PSH_BOne_AddOn.Form.PSH_FormHelpClass">

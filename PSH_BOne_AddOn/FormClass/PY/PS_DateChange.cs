@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
-using PSH_BOne_AddOn.DataPack;
-using PSH_BOne_AddOn.Form;
-using Microsoft.VisualBasic;
 
 namespace PSH_BOne_AddOn
 {
     /// <summary>
-    /// 사용자 권한 등록
+    /// 날짜 변경 요청
     /// </summary>
     internal class PS_DateChange : PSH_BaseClass
     {
@@ -216,26 +213,6 @@ namespace PSH_BOne_AddOn
             }
         }
 
-        ///// <summary>
-        ///// PS_DateChange_EnableMenus
-        ///// </summary>
-        //private void PS_DateChange_EnableMenus()
-        //{
-        //    try
-        //    {
-        //        // oForm.EnableMenu("1283", false);                // 제거
-        //        //oForm.EnableMenu("1284", false);                // 취소
-        //        oForm.EnableMenu("1293", false);                // 행삭제
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        PSH_Globals.SBO_Application.StatusBar.SetText("PS_DateChange_EnableMenus_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-        //    }
-        //    finally
-        //    {
-        //    }
-        //}
-
         /// <summary>
         /// 화면의 아이템 Enable 설정
         /// </summary>
@@ -308,6 +285,7 @@ namespace PSH_BOne_AddOn
             {
             }
         }
+
         /// <summary>
         /// Form Item Event
         /// </summary>
@@ -489,7 +467,6 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(false);
             }
         }
-
 
         /// <summary>
         /// ITEM_PRESSED 이벤트

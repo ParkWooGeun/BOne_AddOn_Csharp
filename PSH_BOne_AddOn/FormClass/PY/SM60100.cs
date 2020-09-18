@@ -1,12 +1,14 @@
 using System;
-using System.Collections.Generic;
+
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
-using PSH_BOne_AddOn.DataPack;
 using PSH_BOne_AddOn.Form;
 
 namespace PSH_BOne_AddOn
 {
+    /// <summary>
+    /// OHEM AddOn
+    /// </summary>
     internal class SM60100 : PSH_BaseClass
     {
         ////****************************************************************************

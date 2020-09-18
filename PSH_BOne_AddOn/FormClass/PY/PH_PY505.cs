@@ -217,7 +217,6 @@ namespace PSH_BOne_AddOn
             }
         }
 
-
         public override void Raise_FormItemEvent(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             try
@@ -483,7 +482,6 @@ namespace PSH_BOne_AddOn
             }
         }
 
-
         public void Raise_FormMenuEvent(ref string FormUID, ref SAPbouiCOM.IMenuEvent pVal, ref bool BubbleEvent)
         {
             try
@@ -692,7 +690,6 @@ namespace PSH_BOne_AddOn
             }
         }
 
-
         public bool PH_PY505_Validate(string ValidateType)
         {
             bool functionReturnValue = false;
@@ -776,104 +773,5 @@ namespace PSH_BOne_AddOn
             {
             }
         }
-
-        //        private void PH_PY505_Print_Report01()
-        //        {
-
-        //            short ErrNum = 0;
-        //            string WinTitle = null;
-        //            string ReportName = null;
-        //            string sQry = null;
-        //            SAPbobsCOM.Recordset oRecordSet = null;
-
-        //            // ERROR: Not supported in C#: OnErrorStatement
-
-
-        //            string CLTCOD = null;
-        //            string DocDateFr = null;
-        //            string DocDateTo = null;
-
-        //            oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-
-        //            /// ODBC 연결 체크
-        //            if (ConnectODBC() == false)
-        //            {
-        //                goto PH_PY505_Print_Report01_Error;
-        //            }
-
-
-        //            ////인자 MOVE , Trim 시키기..
-        //            //UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //            CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE);
-        //            //UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //            DocDateFr = oForm.Items.Item("DocDateFr").Specific.VALUE;
-        //            //UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //            DocDateTo = oForm.Items.Item("DocDateTo").Specific.VALUE;
-
-
-        //            /// Crystal /~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/
-
-        //            WinTitle = "[PH_PY505] 입사자대장";
-        //            ReportName = "PH_PY505_01.rpt";
-        //            PSH_Globals.gRpt_Formula = new string[4];
-        //            PSH_Globals.gRpt_Formula_Value = new string[4];
-
-        //            /// Formula 수식필드
-
-        //            PSH_Globals.gRpt_Formula[1] = "CLTCOD";
-        //            sQry = "SELECT U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P144' AND U_UseYN= 'Y' AND U_Code = '" + CLTCOD + "'";
-        //            oRecordSet.DoQuery(sQry);
-        //            //UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //            PSH_Globals.gRpt_Formula_Value[1] = oRecordSet.Fields.Item(0).Value;
-
-        //            PSH_Globals.gRpt_Formula[2] = "DocDateFr";
-        //            PSH_Globals.gRpt_Formula_Value[2] = Microsoft.VisualBasic.Compatibility.VB6.Support.Format(DocDateFr, "####-##-##");
-
-        //            PSH_Globals.gRpt_Formula[3] = "DocDateTo";
-        //            PSH_Globals.gRpt_Formula_Value[3] = Microsoft.VisualBasic.Compatibility.VB6.Support.Format(DocDateTo, "####-##-##");
-        //            PSH_Globals.gRpt_SRptSqry = new string[2];
-        //            PSH_Globals.gRpt_SRptName = new string[2];
-        //            PSH_Globals.gRpt_SFormula = new string[2, 2];
-        //            PSH_Globals.gRpt_SFormula_Value = new string[2, 2];
-
-
-        //            /// SubReport
-
-
-        //            /// Procedure 실행"
-        //            sQry = "EXEC [PH_PY505_01] '" + CLTCOD + "', '" + DocDateFr + "', '" + DocDateTo + "'";
-
-        //            oRecordSet.DoQuery(sQry);
-        //            if (oRecordSet.RecordCount == 0)
-        //            {
-        //                ErrNum = 1;
-        //                goto PH_PY505_Print_Report01_Error;
-        //            }
-
-        //            if (MDC_SetMod.gCryReport_Action(WinTitle, ReportName, "Y", sQry, "1", "Y", "V", , 2) == false)
-        //            {
-        //                PSH_Globals.SBO_Application.SetStatusBarMessage("gCryReport_Action : 실패!", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-        //            }
-
-        //            //UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        //            oRecordSet = null;
-        //            return;
-        //        PH_PY505_Print_Report01_Error:
-
-        //            if (ErrNum == 1)
-        //            {
-        //                //UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        //                oRecordSet = null;
-        //                MDC_Com.MDC_GF_Message(ref "출력할 데이터가 없습니다. 확인해 주세요.", ref "E");
-        //            }
-        //            else
-        //            {
-        //                //UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        //                oRecordSet = null;
-        //                PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY505_Print_Report01_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-        //            }
-
-        //        }
     }
 }

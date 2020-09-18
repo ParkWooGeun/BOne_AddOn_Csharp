@@ -1757,12 +1757,17 @@ namespace PSH_BOne_AddOn
 							pBaseClass.LoadForm("");
                             break;
 
-                        case "PS_CO120": //5.공정별 원가계산
-                            pBaseClass = new PS_CO120();
+                        case "PS_CO606": //통합재무제표 본사 전송
+                            pBaseClass = new PS_CO606();
                             pBaseClass.LoadForm("");
                             break;
 
-                        #endregion
+                        //case "PS_CO120": //5.공정별 원가계산
+                        //    pBaseClass = new PS_CO120();
+                        //    pBaseClass.LoadForm("");
+                        //    break;
+
+                            #endregion
                     }
                 }
             }

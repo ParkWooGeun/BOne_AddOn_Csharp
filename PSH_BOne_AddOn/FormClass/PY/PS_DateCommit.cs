@@ -1,21 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
+
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
-using PSH_BOne_AddOn.DataPack;
-using PSH_BOne_AddOn.Form;
-using Microsoft.VisualBasic;
 
 namespace PSH_BOne_AddOn
 {
     /// <summary>
-    /// 위해일수수정
+    /// 날짜 변경 승인
     /// </summary>
     internal class PS_DateCommit : PSH_BaseClass
     {
         public string oFormUniqueID01;
 
-        //'// 그리드 사용시
         public SAPbouiCOM.Grid oGrid1;
         public SAPbouiCOM.DataTable oDS_PS_DateCommit;
 
@@ -478,7 +474,7 @@ namespace PSH_BOne_AddOn
                 COLNAM[7] = "증빙일";
                 COLNAM[8] = "OKYN";
 
-                for (i = 0; i <= Information.UBound(COLNAM); i++)
+                for (i = 0; i <= (COLNAM.Length - 1); i++)
                 {
                     oGrid1.Columns.Item(i).TitleObject.Caption = COLNAM[i];
                     switch (COLNAM[i])
@@ -513,7 +509,6 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oComboCol);
             }
         }
-
 
         /// <summary>
         /// CLICK 이벤트
@@ -745,6 +740,5 @@ namespace PSH_BOne_AddOn
             {
             }
         }
-
     }
 }

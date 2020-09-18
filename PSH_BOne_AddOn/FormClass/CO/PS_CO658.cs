@@ -929,7 +929,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// CHOOSE_FROM_LIST 이벤트
+        /// EVENT_ROW_DELETE
         /// </summary>
         /// <param name="FormUID">Form UID</param>
         /// <param name="pVal">ItemEvent 객체</param>

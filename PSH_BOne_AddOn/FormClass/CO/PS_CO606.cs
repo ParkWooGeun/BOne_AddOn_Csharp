@@ -146,7 +146,6 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-
             }
 
             return returnValue;
@@ -170,7 +169,6 @@ namespace PSH_BOne_AddOn
             string StdDtF = string.Empty;
             string StdDtT = string.Empty;
             string StdDtS = string.Empty; //조회종료년월의 첫일자 저장
-            string StdDtN = string.Empty; //조회종료년월의 다음달 저장
 
             SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -187,13 +185,13 @@ namespace PSH_BOne_AddOn
             
             try
             {
-                ////Real
-                //Client = "210";
-                //ServerIP = "192.1.11.3";
+                //Real
+                Client = "210";
+                ServerIP = "192.1.11.3";
 
-                //test
-                Client = "810";
-                ServerIP = "192.1.11.7";
+                ////test
+                //Client = "810";
+                //ServerIP = "192.1.11.7";
 
                 //Plant = "9300"
 
@@ -205,18 +203,17 @@ namespace PSH_BOne_AddOn
                 }
 
                 //1. SAP R3 함수 호출(매개변수 전달)
-                IRfcFunction oFunction = null;
-                oFunction = rfcRep.CreateFunction("ZFI_STATEMENT_PSH");
+                IRfcFunction oFunction = rfcRep.CreateFunction("ZFI_STATEMENT_PSH");
                 oFunction.SetValue("I_FORM_ID", pForm_ID); //서식코드(F01:대차대조표)
                 oFunction.SetValue("I_SPMONF", StdYMF); //조회시작년월
                 oFunction.SetValue("I_SPMONT", StdYMT); //조회종료년월
 
                 //2. 테이블
                 IRfcTable oTable = oFunction.GetTable("IT_INF");
-
+                
                 //2-1. 조회
                 StdDtF = StdYMF + "01";
-                StdDtS = codeHelpClass.Left(StdYMT, 4) + "-" + codeHelpClass.Mid(StdYMT, 5, 2) + "-01"; //조회종료년월의 첫일자(type:yyyy-MM-dd), 말일을 계산하기 위한 첫일자
+                StdDtS = codeHelpClass.Left(StdYMT, 4) + "-" + codeHelpClass.Mid(StdYMT, 4, 2) + "-01"; //조회종료년월의 첫일자(type:yyyy-MM-dd), 말일을 계산하기 위한 첫일자
                 StdDtT = Convert.ToDateTime(StdDtS).AddMonths(1).AddDays(-1).ToString("yyyyMMdd"); //조회종료년월의 말일(type:yyyyMMdd)
 
                 if (pForm_ID == "F01") //대차대조표
@@ -245,15 +242,23 @@ namespace PSH_BOne_AddOn
 
                 for (loopCount = 0; loopCount <= RecordSet01.RecordCount - 1; loopCount++)
                 {
-                    oTable.Insert();
+                    //SetValue 매개변수용 변수(변수Type이 맞지 않으면 매개변수 전달시 SetValue 메소드 오류발생)
+                    string acctCode = RecordSet01.Fields.Item("AcctCode").Value.ToString().Trim();
+                    string cont1 = RecordSet01.Fields.Item("Cont1").Value.ToString().Trim();
+                    string cont2 = RecordSet01.Fields.Item("Cont2").Value.ToString().Trim();
+                    string bPLID_1 = RecordSet01.Fields.Item("BPLID_1").Value.ToString().Trim();
+                    string bPLID_2 = RecordSet01.Fields.Item("BPLID_2").Value.ToString().Trim();
+                    string bPLID_3 = RecordSet01.Fields.Item("BPLID_3").Value.ToString().Trim();
+                    int seq = Convert.ToInt16(Convert.ToDouble(RecordSet01.Fields.Item("Seq").Value));
 
-                    oTable.SetValue("NODE_KEY", RecordSet01.Fields.Item("AcctCode").Value); //NODE_KEY    '키필드. 계정관리상의 계정코드 (저희쪽 데이터랑 매핑하기 위해 필요합니다)
-                    oTable.SetValue("TITLE1", RecordSet01.Fields.Item("Cont1").Value); //TITLE1 '목차제목1
-                    oTable.SetValue("TITLE2", RecordSet01.Fields.Item("Cont2").Value); //TITLE2 '목차제목2
-                    oTable.SetValue("AMT_PLANT1", RecordSet01.Fields.Item("BPLID_1").Value); //AMT_PLANT1  '창원사업장 금액
-                    oTable.SetValue("AMT_PLANT2", RecordSet01.Fields.Item("BPLID_2").Value); //AMT_PLANT2  '안강(사상)사업장 금액
-                    oTable.SetValue("AMT_PLANT3", RecordSet01.Fields.Item("BPLID_3").Value);//AMT_PLANT3  '부산사업장 금액
-                    oTable.SetValue("Seq", RecordSet01.Fields.Item("Seq").Value);//Seq '목차순서(참고용)
+                    oTable.Insert();
+                    oTable.SetValue("NODE_KEY", acctCode); //NODE_KEY(키필드. 계정관리상의 계정코드)
+                    oTable.SetValue("TITLE1", cont1); //TITLE1(목차제목1)
+                    oTable.SetValue("TITLE2", cont2); //TITLE2(목차제목2)
+                    oTable.SetValue("AMT_PLANT1", bPLID_1); //AMT_PLANT1(창원사업장 금액)
+                    oTable.SetValue("AMT_PLANT2", bPLID_2); //AMT_PLANT2(안강(사상)사업장 금액)
+                    oTable.SetValue("AMT_PLANT3", bPLID_3); //AMT_PLANT3(부산사업장 금액)
+                    oTable.SetValue("Seq", seq); //Seq(목차순서(참고용))
 
                     RecordSet01.MoveNext();
                 }
@@ -261,7 +266,7 @@ namespace PSH_BOne_AddOn
                 errCode = "2"; //SAP Function 실행 오류가 발생했을 때 에러코드로 처리하기 위해 이 위치에서 "2"를 대입
                 oFunction.Invoke(rfcDest); //Function 실행
 
-                if (string.IsNullOrEmpty(oFunction.GetValue("EV_MSGE").ToString()))
+                if (oFunction.GetValue("EV_CODE").ToString() != "S") //리턴 메시지가 "S(성공)"이 아니면
                 {
                     errCode = "3";
                     errMessage = oFunction.GetValue("EV_MSGE").ToString();
@@ -274,19 +279,23 @@ namespace PSH_BOne_AddOn
             {
                 if (errCode == "1")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("풍산 SAP R3에 로그온 할 수 없습니다. 관리자에게 문의 하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox("풍산 SAP R3에 로그온 할 수 없습니다. 관리자에게 문의 하세요.");
+                    //PSH_Globals.SBO_Application.StatusBar.SetText("풍산 SAP R3에 로그온 할 수 없습니다. 관리자에게 문의 하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
                 else if (errCode == "2")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("RFC Function 호출 오류", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox("RFC Function 호출 오류");
+                    //PSH_Globals.SBO_Application.StatusBar.SetText("RFC Function 호출 오류", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
                 else if (errCode == "3")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(errMessage, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                    //PSH_Globals.SBO_Application.StatusBar.SetText(errMessage, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                    //PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
             }
             finally
@@ -415,6 +424,8 @@ namespace PSH_BOne_AddOn
         {
             string errCode = string.Empty;
 
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("전송 중...", 100, false);
+
             try
             {
                 if (pVal.BeforeAction == true)
@@ -428,8 +439,6 @@ namespace PSH_BOne_AddOn
                         }
                         else
                         {
-                            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("전송 중...", 100, false);
-
                             if (DataTransmission("F01") == false) //대차대조표
                             {
                                 errCode = "1";
@@ -448,15 +457,11 @@ namespace PSH_BOne_AddOn
                                 throw new Exception();
                             }
 
-                            ProgBar01.Value = 100;
-                            ProgBar01.Stop();
-                            System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
-
-                            PSH_Globals.SBO_Application.StatusBar.SetText("전송 완료", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
+                            PSH_Globals.SBO_Application.MessageBox("전송 완료");
                         }
                     }
                 }
-                    else if (pVal.BeforeAction == false)
+                else if (pVal.BeforeAction == false)
                 {
                 }
             }
@@ -464,23 +469,30 @@ namespace PSH_BOne_AddOn
             {
                 if (errCode == "1")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("대차대조표 전송중 오류발생.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox("대차대조표 전송중 오류발생.");
+                    //PSH_Globals.SBO_Application.StatusBar.SetText("대차대조표 전송중 오류발생.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
                 else if (errCode == "2")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("제조원가명세서 전송중 오류발생.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox("제조원가명세서 전송중 오류발생.");
+                    //PSH_Globals.SBO_Application.StatusBar.SetText("제조원가명세서 전송중 오류발생.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
                 else if (errCode == "3")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("손익계산서 전송중 오류발생.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox("손익계산서 전송중 오류발생.");
+                    //PSH_Globals.SBO_Application.StatusBar.SetText("손익계산서 전송중 오류발생.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
                 else 
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                    //PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
             }
             finally
             {
+                ProgBar01.Value = 100;
+                ProgBar01.Stop();
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
             }
         }
 

@@ -324,6 +324,7 @@ namespace PSH_BOne_AddOn
 			//재무관리
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
 			oFilter.AddEx("PS_CO600"); //통합재무제표
+			oFilter.AddEx("PS_CO606"); //통합재무제표 본사 전송
 		}
 
 		private static void KEY_DOWN(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2134,6 +2135,7 @@ namespace PSH_BOne_AddOn
 			//재무관리
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
 			oFilter.AddEx("PS_CO600"); //통합재무제표
+			oFilter.AddEx("PS_CO606"); //통합재무제표 본사 전송
 		}
 
 		private static void FORM_ACTIVATE(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)

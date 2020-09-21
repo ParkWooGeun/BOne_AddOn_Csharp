@@ -219,6 +219,27 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
+        <member name="T:PSH_BOne_AddOn.PS_CO605">
+            <summary>
+            통합수불부
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_CO605.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFromDocEntry01"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_CO605.PS_CO605_CreateItems">
+            <summary>
+            화면 Item 생성
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_CO605.PS_CO605_ComboBox_Setting">
+            <summary>
+            Combobox 설정
+            </summary>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_CO606">
             <summary>
             통합재무제표 본사 전송

@@ -10,9 +10,9 @@ namespace PSH_BOne_AddOn
 	/// </summary>
 	internal class PS_CO658 : PSH_BaseClass
 	{
-		private string oFormUniqueID;
+		public string oFormUniqueID;
 		//public SAPbouiCOM.Form oForm;
-		private SAPbouiCOM.Matrix oMat01;
+		public SAPbouiCOM.Matrix oMat01;
 		private SAPbouiCOM.DBDataSource oDS_PS_CO658H; //등록헤더
 		private SAPbouiCOM.DBDataSource oDS_PS_CO658L; //등록라인
 

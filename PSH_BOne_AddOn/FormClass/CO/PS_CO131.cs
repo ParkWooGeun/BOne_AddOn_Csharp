@@ -83,7 +83,7 @@ namespace PSH_BOne_AddOn
         {
             try
             {
-                oForm.Items.Item("YM").Specific.VALUE = DateTime.Now.ToString("YYYYMM").Trim();
+                oForm.Items.Item("YM").Specific.VALUE = DateTime.Now.ToString("yyyyMM").Trim();
             }
             catch (Exception ex)
             {

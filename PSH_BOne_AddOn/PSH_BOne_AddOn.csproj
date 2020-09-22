@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -119,6 +119,8 @@
     <Compile Include="EXT_Form\FrmRPT_Viewer1.designer.cs">
       <DependentUpon>FrmRPT_Viewer1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormClass\CO\PS_CO520.cs" />
+    <Compile Include="FormClass\CO\PS_CO510.cs" />
     <Compile Include="FormClass\CO\PS_CO131.cs" />
     <Compile Include="FormClass\CO\PS_CO130.cs" />
     <Compile Include="FormClass\CO\PS_CO120.cs" />
@@ -1135,6 +1137,8 @@
   <ItemGroup>
     <Content Include="PSH_BOne_AddOn\Menu_KOR.xml" />
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO131.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO520.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO510.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO130.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO120.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO605.srf" />

@@ -694,6 +694,17 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
+        <member name="T:PSH_BOne_AddOn.PS_CO610">
+            <summary>
+            고정자산 본계정 대체
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_CO610.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFromDocEntry01"></param>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_CO658">
             <summary>
             통합재무제표용 계정 관리

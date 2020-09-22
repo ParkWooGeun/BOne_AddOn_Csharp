@@ -329,6 +329,8 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO120"); //공정별 원가 계산
 			oFilter.AddEx("PS_CO130"); //제품별 원가 계산
 			oFilter.AddEx("PS_CO131"); //원가계산재공현황
+			oFilter.AddEx("PS_CO510"); //원가계산사전점검조회
+			oFilter.AddEx("PS_CO520"); //제품생산 원가항목별 조회
 		}
 
 		private static void KEY_DOWN(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -470,6 +472,8 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
 			oFilter.AddEx("PS_CO120"); //공정별 원가 계산
 			oFilter.AddEx("PS_CO131"); //7.원가계산재공현황
+			oFilter.AddEx("PS_CO510"); // 원가계산재공현황
+			oFilter.AddEx("PS_CO520"); //제품생산 원가항목별 조회
 		}
 
 		private static void GOT_FOCUS(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -955,6 +959,8 @@ namespace PSH_BOne_AddOn
 			//재무관리
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
 			oFilter.AddEx("PS_CO600"); //통합재무제표
+			oFilter.AddEx("PS_CO510"); //원가계산사전점검조회
+			oFilter.AddEx("PS_CO520"); //제품생산 원가항목별 조회
 		}
 
 		private static void CLICK(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1202,6 +1208,8 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
 			oFilter.AddEx("PS_CO600"); //통합재무제표
 			oFilter.AddEx("PS_CO120"); //공정별 원가 계산
+			oFilter.AddEx("PS_CO510"); //원가계산사전점검조회
+			oFilter.AddEx("PS_CO520"); //제품생산 원가항목별 조회
 		}
 
 		private static void DOUBLE_CLICK(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1587,6 +1595,8 @@ namespace PSH_BOne_AddOn
 
 			//재무관리
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
+			oFilter.AddEx("PS_CO510"); // 원가계산재공현황
+			oFilter.AddEx("PS_CO520"); //제품생산 원가항목별 조회
 		}
 
 		private static void DATASOURCE_LOAD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2147,7 +2157,11 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO600"); //통합재무제표
 			oFilter.AddEx("PS_CO605"); //통합수불부
 			oFilter.AddEx("PS_CO120"); //공정별 원가 계산
+			oFilter.AddEx("PS_CO130"); //제품별 원가 계산
+			oFilter.AddEx("PS_CO131"); //원가계산재공현황
 			oFilter.AddEx("PS_CO606"); //통합재무제표 본사 전송
+			oFilter.AddEx("PS_CO510"); //원가계산사전점검조회
+			oFilter.AddEx("PS_CO520"); //제품생산 원가항목별 조회
 		}
 
 		private static void FORM_ACTIVATE(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)

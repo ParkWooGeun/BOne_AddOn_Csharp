@@ -1782,6 +1782,15 @@ namespace PSH_BOne_AddOn
                             pBaseClass.LoadForm("");
                             break;
 
+                        case "PS_CO510": //원가계산사전점검조회
+                            pBaseClass = new PS_CO510();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO520": //제품생산 원가항목별 조회
+                            pBaseClass = new PS_CO520();
+                            pBaseClass.LoadForm("");
+                            break;
                             #endregion
                     }
                 }

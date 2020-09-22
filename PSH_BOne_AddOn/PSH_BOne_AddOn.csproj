@@ -1122,6 +1122,8 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO600_52.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO600_53.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO600_54.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO605_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO605_02.rpt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EXT_Form\FileListBoxForm.resX">

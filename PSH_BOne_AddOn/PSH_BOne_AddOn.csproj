@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -129,6 +129,7 @@
     <Compile Include="FormClass\CO\PS_CO606.cs" />
     <Compile Include="FormClass\CO\PS_CO610.cs" />
     <Compile Include="FormClass\CO\PS_CO658.cs" />
+    <Compile Include="FormClass\CO\PS_CO660.cs" />
     <Compile Include="FormClass\PY\PH_PY998.cs" />
     <Compile Include="FormClass\PY\PH_PY115.cs" />
     <Compile Include="FormClass\PY\PH_PY135.cs" />
@@ -1141,6 +1142,7 @@
   <ItemGroup>
     <Content Include="PSH_BOne_AddOn\Menu_KOR.xml" />
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO131.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO660.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO610.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO520.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO510.srf" />

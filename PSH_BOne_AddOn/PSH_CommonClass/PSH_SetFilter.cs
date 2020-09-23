@@ -327,6 +327,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO606"); //통합재무제표 본사 전송
 			oFilter.AddEx("PS_CO605"); //통합수불부
 			oFilter.AddEx("PS_CO610"); //고정자산 본계정 대체
+			oFilter.AddEx("PS_CO660"); //기간비용등록
 			oFilter.AddEx("PS_CO120"); //공정별 원가 계산
 			oFilter.AddEx("PS_CO130"); //제품별 원가 계산
 			oFilter.AddEx("PS_CO131"); //원가계산재공현황
@@ -472,6 +473,7 @@ namespace PSH_BOne_AddOn
 			//재무관리
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
 			oFilter.AddEx("PS_CO610"); //고정자산 본계정 대체
+			oFilter.AddEx("PS_CO660"); //기간비용등록
 			oFilter.AddEx("PS_CO120"); //공정별 원가 계산
 			oFilter.AddEx("PS_CO131"); //7.원가계산재공현황
 			oFilter.AddEx("PS_CO510"); // 원가계산재공현황
@@ -715,6 +717,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO600"); //통합재무제표
 			oFilter.AddEx("PS_CO605"); //통합수불부
 			oFilter.AddEx("PS_CO610"); //고정자산 본계정 대체
+			oFilter.AddEx("PS_CO660"); //기간비용등록
 		}
 
 		private static void LOST_FOCUS(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -962,6 +965,7 @@ namespace PSH_BOne_AddOn
 			//재무관리
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
 			oFilter.AddEx("PS_CO600"); //통합재무제표
+			oFilter.AddEx("PS_CO660"); //기간비용등록
 			oFilter.AddEx("PS_CO510"); //원가계산사전점검조회
 			oFilter.AddEx("PS_CO520"); //제품생산 원가항목별 조회
 		}
@@ -1211,6 +1215,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
 			oFilter.AddEx("PS_CO600"); //통합재무제표
 			oFilter.AddEx("PS_CO610"); //고정자산 본계정 대체
+			oFilter.AddEx("PS_CO660"); //기간비용등록
 			oFilter.AddEx("PS_CO120"); //공정별 원가 계산
 			oFilter.AddEx("PS_CO510"); //원가계산사전점검조회
 			oFilter.AddEx("PS_CO520"); //제품생산 원가항목별 조회
@@ -1525,6 +1530,7 @@ namespace PSH_BOne_AddOn
 			//재무관리
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
 			oFilter.AddEx("PS_CO600"); //통합재무제표
+			oFilter.AddEx("PS_CO660"); //기간비용등록
 			oFilter.AddEx("PS_CO120"); //공정별 원가 계산
 			oFilter.AddEx("PS_CO131"); //7.원가계산재공현황
 		}
@@ -1601,6 +1607,7 @@ namespace PSH_BOne_AddOn
 
 			//재무관리
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
+			oFilter.AddEx("PS_CO660"); //기간비용등록
 			oFilter.AddEx("PS_CO510"); // 원가계산재공현황
 			oFilter.AddEx("PS_CO520"); //제품생산 원가항목별 조회
 		}
@@ -2163,6 +2170,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO600"); //통합재무제표
 			oFilter.AddEx("PS_CO605"); //통합수불부
 			oFilter.AddEx("PS_CO610"); //고정자산 본계정 대체
+			oFilter.AddEx("PS_CO660"); //기간비용등록
 			oFilter.AddEx("PS_CO120"); //공정별 원가 계산
 			oFilter.AddEx("PS_CO130"); //제품별 원가 계산
 			oFilter.AddEx("PS_CO131"); //원가계산재공현황
@@ -2284,15 +2292,18 @@ namespace PSH_BOne_AddOn
 			//운영관리
 			//인사관리
 			//급여관리
-            //정산관리
+			//정산관리
 			//기타관리
 
 			//AddOn Form Type
 			//운영관리
 			//인사관리
 			//급여관리
-            //정산관리
+			//정산관리
 			//기타관리
+			
+			//재무관리
+			oFilter.AddEx("PS_CO660"); //기간비용등록
 		}
 
 		private static void FORM_MENU_HILIGHT(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)

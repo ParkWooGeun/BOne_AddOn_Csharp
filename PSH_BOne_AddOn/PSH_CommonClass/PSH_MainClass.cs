@@ -1786,6 +1786,16 @@ namespace PSH_BOne_AddOn
                             pBaseClass = new PS_CO520();
                             pBaseClass.LoadForm("");
                             break;
+
+                        case "PS_CO501": //품목별원가등록
+                            pBaseClass = new PS_CO501();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO502": //품목별평균원가항목등록
+                            pBaseClass = new PS_CO502();
+                            pBaseClass.LoadForm("");
+                            break;
                             #endregion
                     }
                 }

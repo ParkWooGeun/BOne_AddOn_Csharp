@@ -1,4 +1,4 @@
-ï»¿<?xml version="1.0" encoding="utf-8"?>
+ï»?<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -129,7 +129,11 @@
     <Compile Include="FormClass\CO\PS_CO600.cs" />
     <Compile Include="FormClass\CO\PS_CO605.cs" />
     <Compile Include="FormClass\CO\PS_CO606.cs" />
+    <Compile Include="FormClass\CO\PS_CO610.cs" />
     <Compile Include="FormClass\CO\PS_CO658.cs" />
+    <Compile Include="FormClass\CO\PS_CO660.cs" />
+    <Compile Include="FormClass\CO\PS_CO665.cs" />
+    <Compile Include="FormClass\CO\PS_CO670.cs" />
     <Compile Include="FormClass\PY\PH_PY998.cs" />
     <Compile Include="FormClass\PY\PH_PY115.cs" />
     <Compile Include="FormClass\PY\PH_PY135.cs" />
@@ -1132,6 +1136,7 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO605_02.rpt" />
     <None Include="PSH_BOne_AddOn\PathINI\Report\PS_CO131_01.rpt" />
     <None Include="PSH_BOne_AddOn\PathINI\Report\PS_CO131_02.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO610_01.rpt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EXT_Form\FileListBoxForm.resX">
@@ -1143,6 +1148,10 @@
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO131.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO501.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO502.srf" />
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO670.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO665.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO660.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO610.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO520.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO510.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO130.srf" />

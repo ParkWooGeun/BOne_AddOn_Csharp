@@ -2,7 +2,6 @@ using System;
 
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
-using System.CodeDom;
 
 namespace PSH_BOne_AddOn
 {
@@ -21,7 +20,6 @@ namespace PSH_BOne_AddOn
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
         private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
 
-        private string oDocType01;
         private string oDocEntry01;
         private SAPbouiCOM.BoFormMode oFormMode01;
 
@@ -617,7 +615,7 @@ namespace PSH_BOne_AddOn
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
-                    Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_FORM_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23

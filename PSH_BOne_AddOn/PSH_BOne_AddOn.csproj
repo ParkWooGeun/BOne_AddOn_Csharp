@@ -131,6 +131,7 @@
     <Compile Include="FormClass\CO\PS_CO658.cs" />
     <Compile Include="FormClass\CO\PS_CO660.cs" />
     <Compile Include="FormClass\CO\PS_CO665.cs" />
+    <Compile Include="FormClass\CO\PS_CO670.cs" />
     <Compile Include="FormClass\PY\PH_PY998.cs" />
     <Compile Include="FormClass\PY\PH_PY115.cs" />
     <Compile Include="FormClass\PY\PH_PY135.cs" />
@@ -1143,6 +1144,7 @@
   <ItemGroup>
     <Content Include="PSH_BOne_AddOn\Menu_KOR.xml" />
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO131.srf" />
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO670.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO665.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO660.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO610.srf" />

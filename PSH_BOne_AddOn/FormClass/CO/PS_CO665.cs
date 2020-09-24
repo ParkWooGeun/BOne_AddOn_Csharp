@@ -11,7 +11,6 @@ namespace PSH_BOne_AddOn
 	internal class PS_CO665 : PSH_BaseClass
 	{
 		private string oFormUniqueID;
-		//public SAPbouiCOM.Form oForm01;
 		private SAPbouiCOM.Grid oGrid01;
 
 		private SAPbouiCOM.DataTable oDS_PS_CO665A;

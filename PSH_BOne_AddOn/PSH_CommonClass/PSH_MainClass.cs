@@ -1777,6 +1777,11 @@ namespace PSH_BOne_AddOn
                             pBaseClass.LoadForm("");
                             break;
 
+                        case "PS_CO670": //기간비용분개등록
+                            pBaseClass = new PS_CO670();
+                            pBaseClass.LoadForm("");
+                            break;
+
                         case "PS_CO120": //공정별 원가계산
                             pBaseClass = new PS_CO120();
                             pBaseClass.LoadForm("");

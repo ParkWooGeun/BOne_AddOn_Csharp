@@ -1562,6 +1562,11 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
+        <member name="T:PSH_BOne_AddOn.PS_CO670">
+            <summary>
+            기간비용분개등록
+            </summary>
+        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY998">
             <summary>
             사용자 권한 조회(화면별)

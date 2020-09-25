@@ -1816,6 +1816,16 @@ namespace PSH_BOne_AddOn
                             pBaseClass = new PS_CO502();
                             pBaseClass.LoadForm("");
                             break;
+
+                        case "PS_CO503": //일일가득액및생산원가계산
+                            pBaseClass = new PS_CO503();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO504": //일일판매및생산집계
+                            pBaseClass = new PS_CO504();
+                            pBaseClass.LoadForm("");
+                            break;
                             #endregion
                     }
                 }

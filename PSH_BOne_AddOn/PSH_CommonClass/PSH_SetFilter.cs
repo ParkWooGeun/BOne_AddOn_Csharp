@@ -336,6 +336,8 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO520"); //제품생산 원가항목별 조회
 			oFilter.AddEx("PS_CO501"); //품목별원가등록
 			oFilter.AddEx("PS_CO502"); //품목별평균원가항목등록
+			oFilter.AddEx("PS_CO503"); //일일가득액및생산원가계산
+			oFilter.AddEx("PS_CO504"); //일일판매및생산집계
 		}
 
 		private static void KEY_DOWN(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -727,6 +729,8 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO610"); //고정자산 본계정 대체
 			oFilter.AddEx("PS_CO660"); //기간비용등록
 			oFilter.AddEx("PS_CO665"); //기간비용현황(연간)
+			oFilter.AddEx("PS_CO503"); //일일가득액및생산원가계산
+			oFilter.AddEx("PS_CO504"); //일일판매및생산집계
 		}
 
 		private static void LOST_FOCUS(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1623,6 +1627,8 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO520"); //제품생산 원가항목별 조회
 			oFilter.AddEx("PS_CO501"); //품목별원가등록
 			oFilter.AddEx("PS_CO502"); //품목별평균원가항목등록
+			oFilter.AddEx("PS_CO503"); //일일가득액및생산원가계산
+			oFilter.AddEx("PS_CO504"); //일일판매및생산집계
 		}
 
 		private static void DATASOURCE_LOAD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2193,6 +2199,8 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO520"); //제품생산 원가항목별 조회
 			oFilter.AddEx("PS_CO501"); //품목별원가등록
 			oFilter.AddEx("PS_CO502"); //품목별평균원가항목등록
+			oFilter.AddEx("PS_CO503"); //일일가득액및생산원가계산
+			oFilter.AddEx("PS_CO504"); //일일판매및생산집계
 		}
 
 		private static void FORM_ACTIVATE(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)

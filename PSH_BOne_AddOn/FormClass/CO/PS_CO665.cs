@@ -148,12 +148,12 @@ namespace PSH_BOne_AddOn
             
             try
             {
-                oForm.Freeze(true);
-
                 BPLID = oForm.Items.Item("BPLID").Specific.Value.ToString().Trim(); //사업장
                 StdYear = oForm.Items.Item("StdYear").Specific.Value.ToString().Trim(); //기준년도
                 
                 ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회 중...", 100, false);
+
+                oForm.Freeze(true);
 
                 Query01 = "EXEC PS_CO665_01 '";
                 Query01 += BPLID + "','";

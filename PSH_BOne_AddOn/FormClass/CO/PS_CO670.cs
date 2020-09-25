@@ -244,13 +244,13 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                oForm.Freeze(true);
-
                 BPLID = oForm.Items.Item("BPLID").Specific.Value.ToString().Trim();
                 StdDate = oForm.Items.Item("StdDate").Specific.Value.ToString().Trim();
                 CoAcctCD = oForm.Items.Item("CoAcctCD").Specific.Value.ToString().Trim();
 
                 ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet01.RecordCount, false);
+
+                oForm.Freeze(true);
 
                 sQry = "EXEC [PS_CO670_01] '";
                 sQry += BPLID + "','";

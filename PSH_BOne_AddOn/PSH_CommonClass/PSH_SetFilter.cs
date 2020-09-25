@@ -322,6 +322,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO670"); //기간비용분개등록
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
 			oFilter.AddEx("PS_CO600"); //통합재무제표
 			oFilter.AddEx("PS_CO606"); //통합재무제표 본사 전송
@@ -474,6 +475,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY998"); //사용자권한조회
 
 			//재무관리
+			oFilter.AddEx("PS_CO670"); //기간비용분개등록
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
 			oFilter.AddEx("PS_CO610"); //고정자산 본계정 대체
 			oFilter.AddEx("PS_CO660"); //기간비용등록
@@ -719,6 +721,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO670"); //기간비용분개등록
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
 			oFilter.AddEx("PS_CO600"); //통합재무제표
 			oFilter.AddEx("PS_CO605"); //통합수불부
@@ -1221,6 +1224,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO670"); //기간비용분개등록
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
 			oFilter.AddEx("PS_CO600"); //통합재무제표
 			oFilter.AddEx("PS_CO610"); //고정자산 본계정 대체
@@ -1537,6 +1541,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO670"); //기간비용분개등록
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
 			oFilter.AddEx("PS_CO600"); //통합재무제표
 			oFilter.AddEx("PS_CO660"); //기간비용등록
@@ -2179,6 +2184,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO670"); //기간비용분개등록
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
 			oFilter.AddEx("PS_CO600"); //통합재무제표
 			oFilter.AddEx("PS_CO605"); //통합수불부
@@ -2214,6 +2220,7 @@ namespace PSH_BOne_AddOn
 			//기타관리
 
 			//재무관리
+			oFilter.AddEx("PS_CO670"); //기간비용분개등록
 			oFilter.AddEx("PS_CO610"); //고정자산 본계정 대체
 		}
 

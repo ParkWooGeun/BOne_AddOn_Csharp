@@ -768,60 +768,6 @@ namespace PSH_BOne_AddOn
             }
         }
 
-        ///// <summary>
-        ///// RESIZE 이벤트
-        ///// </summary>
-        ///// <param name="FormUID">Form UID</param>
-        ///// <param name="pVal">ItemEvent 객체</param>
-        ///// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        //private void Raise_EVENT_RESIZE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        //{
-        //    try
-        //    {
-        //        if (pVal.Before_Action == true)
-        //        {
-        //        }
-        //        else if (pVal.Before_Action == false)
-        //        {
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-        //    }
-        //    finally
-        //    {
-        //    }
-        //}
-
-        ///// <summary>
-        ///// EVENT_ROW_DELETE
-        ///// </summary>
-        ///// <param name="FormUID">Form UID</param>
-        ///// <param name="pVal">ItemEvent 객체</param>
-        ///// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        //private void Raise_EVENT_ROW_DELETE(string FormUID, SAPbouiCOM.IMenuEvent pVal, bool BubbleEvent)
-        //{
-        //    int i = 0;
-
-        //    try
-        //    {
-        //        if (pVal.BeforeAction == true)
-        //        {
-        //        }
-        //        else if (pVal.BeforeAction == false)
-        //        {
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-        //    }
-        //    finally
-        //    {
-        //    }
-        //}
-
         /// <summary>
         /// FormMenuEvent
         /// </summary>

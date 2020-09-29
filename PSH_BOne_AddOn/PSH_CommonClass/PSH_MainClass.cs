@@ -1747,6 +1747,11 @@ namespace PSH_BOne_AddOn
                         #endregion
 
                         #region 재무 관리
+                        case "PS_CO001": //결산마감관리
+                            pBaseClass = new PS_CO001();
+                            pBaseClass.LoadForm("");
+                            break;
+
                         case "PS_CO658": //통합재무제표 계정 관리
                             pBaseClass = new PS_CO658();
                             pBaseClass.LoadForm("");
@@ -1824,6 +1829,11 @@ namespace PSH_BOne_AddOn
 
                         case "PS_CO504": //일일판매및생산집계
                             pBaseClass = new PS_CO504();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO210": //5.휘팅제품원가계산
+                            pBaseClass = new PS_CO210();
                             pBaseClass.LoadForm("");
                             break;
                             #endregion

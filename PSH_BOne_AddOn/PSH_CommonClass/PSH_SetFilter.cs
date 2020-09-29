@@ -322,6 +322,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO670"); //기간비용분개등록
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
 			oFilter.AddEx("PS_CO600"); //통합재무제표
 			oFilter.AddEx("PS_CO606"); //통합재무제표 본사 전송
@@ -338,6 +339,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO502"); //품목별평균원가항목등록
 			oFilter.AddEx("PS_CO503"); //일일가득액및생산원가계산
 			oFilter.AddEx("PS_CO504"); //일일판매및생산집계
+			oFilter.AddEx("PS_CO210"); //휘팅제품원가계산
 		}
 
 		private static void KEY_DOWN(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -476,6 +478,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY998"); //사용자권한조회
 
 			//재무관리
+			oFilter.AddEx("PS_CO670"); //기간비용분개등록
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
 			oFilter.AddEx("PS_CO610"); //고정자산 본계정 대체
 			oFilter.AddEx("PS_CO660"); //기간비용등록
@@ -721,6 +724,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO670"); //기간비용분개등록
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
 			oFilter.AddEx("PS_CO600"); //통합재무제표
 			oFilter.AddEx("PS_CO605"); //통합수불부
@@ -1225,6 +1229,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO670"); //기간비용분개등록
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
 			oFilter.AddEx("PS_CO600"); //통합재무제표
 			oFilter.AddEx("PS_CO610"); //고정자산 본계정 대체
@@ -1541,6 +1546,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO670"); //기간비용분개등록
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
 			oFilter.AddEx("PS_CO600"); //통합재무제표
 			oFilter.AddEx("PS_CO660"); //기간비용등록
@@ -1629,6 +1635,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO502"); //품목별평균원가항목등록
 			oFilter.AddEx("PS_CO503"); //일일가득액및생산원가계산
 			oFilter.AddEx("PS_CO504"); //일일판매및생산집계
+			oFilter.AddEx("PS_CO210"); //휘팅제품원가계산
 		}
 
 		private static void DATASOURCE_LOAD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2185,6 +2192,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO670"); //기간비용분개등록
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
 			oFilter.AddEx("PS_CO600"); //통합재무제표
 			oFilter.AddEx("PS_CO605"); //통합수불부
@@ -2201,6 +2209,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO502"); //품목별평균원가항목등록
 			oFilter.AddEx("PS_CO503"); //일일가득액및생산원가계산
 			oFilter.AddEx("PS_CO504"); //일일판매및생산집계
+			oFilter.AddEx("PS_CO210"); //휘팅제품원가계산
 		}
 
 		private static void FORM_ACTIVATE(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2222,6 +2231,7 @@ namespace PSH_BOne_AddOn
 			//기타관리
 
 			//재무관리
+			oFilter.AddEx("PS_CO670"); //기간비용분개등록
 			oFilter.AddEx("PS_CO610"); //고정자산 본계정 대체
 		}
 

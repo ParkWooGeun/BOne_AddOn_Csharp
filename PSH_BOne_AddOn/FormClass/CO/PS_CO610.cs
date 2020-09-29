@@ -367,12 +367,12 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                oForm.Freeze(true);
-
                 YM = oForm.Items.Item("YM").Specific.Value.ToString().Trim();
                 BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
                 
                 ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet01.RecordCount, false);
+
+                oForm.Freeze(true);
 
                 sQry = "EXEC [PS_CO610_01] '" + BPLId + "','" + YM + "'";
                 oRecordSet01.DoQuery(sQry);

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+?<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -119,8 +119,7 @@
     <Compile Include="EXT_Form\FrmRPT_Viewer1.designer.cs">
       <DependentUpon>FrmRPT_Viewer1.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormClass\CO\PS_CO210.cs" />
-    <Compile Include="FormClass\CO\PS_CO504.cs" />
+    <Compile Include="FormClass\CO\PSCO504.cs" />
     <Compile Include="FormClass\CO\PS_CO001.cs" />
     <Compile Include="FormClass\CO\PS_CO502.cs" />
     <Compile Include="FormClass\CO\PS_CO501.cs" />
@@ -1141,7 +1140,6 @@
     <None Include="PSH_BOne_AddOn\PathINI\Report\PS_CO131_01.rpt" />
     <None Include="PSH_BOne_AddOn\PathINI\Report\PS_CO131_02.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO610_01.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO210_02.rpt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EXT_Form\FileListBoxForm.resX">
@@ -1156,7 +1154,6 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO502.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO503.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO504.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO210.srf" />
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO670.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO665.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO660.srf" />

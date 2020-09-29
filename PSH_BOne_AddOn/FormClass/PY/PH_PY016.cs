@@ -250,7 +250,7 @@ namespace PSH_BOne_AddOn
                 //    break;
 
                 case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
-                    //Raise_EVENT_RESIZE(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 //case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22

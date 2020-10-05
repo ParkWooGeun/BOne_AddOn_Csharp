@@ -322,6 +322,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO020"); //원가요소그룹등록
 			oFilter.AddEx("PS_CO010"); //원가요소등록
 			oFilter.AddEx("PS_CO001"); //결산마감관리
 			oFilter.AddEx("PS_CO670"); //기간비용분개등록
@@ -480,6 +481,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY998"); //사용자권한조회
 
 			//재무관리
+			oFilter.AddEx("PS_CO020"); //원가요소그룹등록
 			oFilter.AddEx("PS_CO010"); //원가요소등록
 			oFilter.AddEx("PS_CO001"); //결산마감관리
 			oFilter.AddEx("PS_CO670"); //기간비용분개등록
@@ -1235,6 +1237,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO020"); //원가요소그룹등록
 			oFilter.AddEx("PS_CO010"); //원가요소등록
 			oFilter.AddEx("PS_CO001"); //결산마감관리
 			oFilter.AddEx("PS_CO670"); //기간비용분개등록
@@ -1554,6 +1557,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO020"); //원가요소그룹등록
 			oFilter.AddEx("PS_CO010"); //원가요소등록
 			oFilter.AddEx("PS_CO001"); //결산마감관리
 			oFilter.AddEx("PS_CO670"); //기간비용분개등록
@@ -1637,6 +1641,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
 
 			//재무관리
+			oFilter.AddEx("PS_CO020"); //원가요소그룹등록
 			oFilter.AddEx("PS_CO010"); //원가요소등록
 			oFilter.AddEx("PS_CO001"); //결산마감관리
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
@@ -2204,6 +2209,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO020"); //원가요소그룹등록
 			oFilter.AddEx("PS_CO010"); //원가요소등록
 			oFilter.AddEx("PS_CO001"); //결산마감관리
 			oFilter.AddEx("PS_CO670"); //기간비용분개등록

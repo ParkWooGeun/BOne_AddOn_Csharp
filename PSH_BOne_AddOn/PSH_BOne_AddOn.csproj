@@ -119,6 +119,10 @@
     <Compile Include="EXT_Form\FrmRPT_Viewer1.designer.cs">
       <DependentUpon>FrmRPT_Viewer1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormClass\CO\PS_CO530.cs" />
+    <Compile Include="FormClass\CO\PS_CO921.cs" />
+    <Compile Include="FormClass\CO\PS_CO920.cs" />
+    <Compile Include="FormClass\CO\PS_CO901.cs" />
     <Compile Include="FormClass\CO\PS_CO210.cs" />
     <Compile Include="FormClass\CO\PS_CO504.cs" />
     <Compile Include="FormClass\CO\PS_CO001.cs" />
@@ -1143,6 +1147,9 @@
     <None Include="PSH_BOne_AddOn\PathINI\Report\PS_CO131_02.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO610_01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO210_02.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO901_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO530_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO530_02.rpt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EXT_Form\FileListBoxForm.resX">
@@ -1151,6 +1158,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PSH_BOne_AddOn\Menu_KOR.xml" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO901.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO001.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO010.srf" />
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO131.srf" />

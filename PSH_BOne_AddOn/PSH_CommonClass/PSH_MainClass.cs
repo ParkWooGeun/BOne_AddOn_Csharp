@@ -1851,6 +1851,26 @@ namespace PSH_BOne_AddOn
                             pBaseClass = new PS_CO210();
                             pBaseClass.LoadForm("");
                             break;
+
+                        case "PS_CO901": //월별 이익률 분석(기계)
+                            pBaseClass = new PS_CO901();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO920": //월별 판매실적 대비 공수 조회(기계)
+                            pBaseClass = new PS_CO920();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO921": //월별 작번별 수주금액 대비 공수 현황(기계)
+                            pBaseClass = new PS_CO921();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO530": //분말부자재비용분석
+                            pBaseClass = new PS_CO530();
+                            pBaseClass.LoadForm("");
+                            break;
                             #endregion
                     }
                 }

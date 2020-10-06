@@ -322,6 +322,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO040"); //코스트센터그룹등록
 			oFilter.AddEx("PS_CO100"); //배부사이클생성
 			oFilter.AddEx("PS_CO020"); //원가요소그룹등록
 			oFilter.AddEx("PS_CO010"); //원가요소등록

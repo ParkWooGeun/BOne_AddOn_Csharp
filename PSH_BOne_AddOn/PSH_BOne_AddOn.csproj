@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -123,6 +123,7 @@
     <Compile Include="FormClass\CO\PS_CO921.cs" />
     <Compile Include="FormClass\CO\PS_CO920.cs" />
     <Compile Include="FormClass\CO\PS_CO901.cs" />
+    <Compile Include="FormClass\CO\PS_CO020.cs" />
     <Compile Include="FormClass\CO\PS_CO210.cs" />
     <Compile Include="FormClass\CO\PS_CO504.cs" />
     <Compile Include="FormClass\CO\PS_CO001.cs" />
@@ -1161,6 +1162,7 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO901.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO001.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO010.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO020.srf" />
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO131.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO501.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO502.srf" />

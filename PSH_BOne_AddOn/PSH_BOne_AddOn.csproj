@@ -120,6 +120,7 @@
       <DependentUpon>FrmRPT_Viewer1.cs</DependentUpon>
     </Compile>
     <Compile Include="FormClass\CO\PS_CO020.cs" />
+    <Compile Include="FormClass\CO\PS_CO100.cs" />
     <Compile Include="FormClass\CO\PS_CO210.cs" />
     <Compile Include="FormClass\CO\PS_CO504.cs" />
     <Compile Include="FormClass\CO\PS_CO001.cs" />
@@ -1155,6 +1156,7 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO001.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO010.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO020.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO100.srf" />
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO131.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO501.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO502.srf" />

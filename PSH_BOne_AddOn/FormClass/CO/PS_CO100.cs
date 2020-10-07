@@ -486,13 +486,13 @@ namespace PSH_BOne_AddOn
                         }
                     }
 
-                    //if (pVal.ItemUID == "36") //코스트센터그룹등록 화면 호출
-                    //{
-                    //    PS_CO040 oTempClass = new PS_CO040();
-                    //    oTempClass.LoadForm(oForm.Items.Item("SendCCGr").Specific.Value);
-                    //    BubbleEvent = false;
-                    //    return;
-                    //}
+                    if (pVal.ItemUID == "36") //코스트센터그룹등록 화면 호출
+                    {
+                        PS_CO040 oTempClass = new PS_CO040();
+                        oTempClass.LoadForm(oForm.Items.Item("SendCCGr").Specific.Value);
+                        BubbleEvent = false;
+                        return;
+                    }
 
                     if (pVal.ItemUID == "37") //원가요소그룹등록 화면 호출
                     {
@@ -502,13 +502,13 @@ namespace PSH_BOne_AddOn
                         return;
                     }
 
-                    //if (pVal.ItemUID == "38") //코스트센터그룹등록 화면 호출
-                    //{
-                    //    PS_CO040 oTempClass = new PS_CO040();
-                    //    oTempClass.LoadForm(oForm.Items.Item("RecvCCGr").Specific.Value);
-                    //    BubbleEvent = false;
-                    //    return;
-                    //}
+                    if (pVal.ItemUID == "38") //코스트센터그룹등록 화면 호출
+                    {
+                        PS_CO040 oTempClass = new PS_CO040();
+                        oTempClass.LoadForm(oForm.Items.Item("RecvCCGr").Specific.Value);
+                        BubbleEvent = false;
+                        return;
+                    }
 
                     //if (pVal.ItemUID == "39") //통계주요지표등록 화면 호출
                     //{

@@ -767,38 +767,25 @@ namespace PSH_BOne_AddOn
                             {
                                 oMat01.FlushToDataSource();
 
-                                //if (pVal.Row <= 1)
-                                //{
-                                //    oRowCount = 0;
-                                //}
-                                //else
-                                //{
-                                //    oRowCount = pVal.Row - 1;
-                                //}
-
-                                for (i = 0; i <= oDataTable01.Rows.Count - 1; i++)
+                                if (pVal.Row <= 1)
                                 {
-                                    oDS_PS_CO040L.SetValue("U_CCCode", pVal.Row + i, oDataTable01.Columns.Item("PrcCode").Cells.Item(i).Value);
-                                    oDS_PS_CO040L.SetValue("U_CCName", pVal.Row + i, oDataTable01.Columns.Item("PrcName").Cells.Item(i).Value);
-                                    oDS_PS_CO040L.SetValue("U_GrpCode", pVal.Row + i, oDataTable01.Columns.Item("GrpCode").Cells.Item(i).Value);
-
-                                    oMat01.AddRow();
-                                    oDS_PS_CO040L.Offset = pVal.Row + i - 1;
-
-                                    //if (oDataTable01.Rows.Count >= 1)
-                                    //{
-                                    //    if (oMat01.RowCount == pVal.Row)
-                                    //    {
-                                    //        PS_CO040_AddMatrixRow(oRowCount + 1, false);
-                                    //        oRowCount = pVal.Row + i;
-                                    //    }
-                                    //}
-
-                                    //PS_CO040_AddMatrixRow(oRowCount + 1, false);
-                                    //oRowCount = pVal.Row + i;
+                                    oRowCount = 0;
+                                }
+                                else
+                                {
+                                    oRowCount = pVal.Row - 1;
                                 }
 
-                                //oDS_PS_CO040L.RemoveRecord(oDS_PS_CO040L.Size - 1);
+                                for (i = 0; i <= oDataTable01.Rows.Count - 1; i++) //행 중간의 코드 변경시 마지막행 추가되는 버그 수정 필요(2020.10.08 송명규)
+                                {
+                                    oDS_PS_CO040L.SetValue("U_CCCode", oRowCount, oDataTable01.Columns.Item("PrcCode").Cells.Item(i).Value);
+                                    oDS_PS_CO040L.SetValue("U_CCName", oRowCount, oDataTable01.Columns.Item("PrcName").Cells.Item(i).Value);
+                                    oDS_PS_CO040L.SetValue("U_GrpCode", oRowCount, oDataTable01.Columns.Item("GrpCode").Cells.Item(i).Value);
+
+                                    PS_CO040_AddMatrixRow(oRowCount + 1, false);
+                                    oRowCount = pVal.Row + i;
+                                }
+
                                 oMat01.LoadFromDataSource();
 
                                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)

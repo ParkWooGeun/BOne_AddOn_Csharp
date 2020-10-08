@@ -1747,6 +1747,11 @@ namespace PSH_BOne_AddOn
                         #endregion
 
                         #region 재무 관리
+                        case "PS_CO050": //활동유형등록
+                            pBaseClass = new PS_CO050();
+                            pBaseClass.LoadForm("");
+                            break;
+
                         case "PS_CO060": //통계주요지표등록
                             pBaseClass = new PS_CO060();
                             pBaseClass.LoadForm("");

@@ -177,6 +177,59 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
+        <member name="T:PSH_BOne_AddOn.PS_CO050">
+            <summary>
+            활동유형등록
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_CO050.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFromDocEntry01"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_CO050.CreateItems">
+            <summary>
+            화면 Item 생성
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_CO050.AddMatrixRow(System.Int32,System.Boolean)">
+            <summary>
+            행추가
+            </summary>
+            <param name="oRow"></param>
+            <param name="RowIserted"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_CO050.ComboBox_Setting">
+            <summary>
+            콤보박스 세팅
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_CO050.FormItemEnabled">
+            <summary>
+            모드에 따른 아이템 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_CO050.HeaderSpaceLineDel">
+            <summary>
+            필수입력사항 체크(Header)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_CO050.MatrixSpaceLineDel">
+            <summary>
+            필수입력사항 체크(Line)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_CO050.FlushToItemValue(System.String,System.Int32,System.String)">
+            <summary>
+            FlushToItemValue(사용자의 Event에 따른 화면 Item의 유동적인 세팅)
+            </summary>
+            <param name="oUID"></param>
+            <param name="oRow"></param>
+            <param name="oCol"></param>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_CO060">
             <summary>
             통계주요지표등록

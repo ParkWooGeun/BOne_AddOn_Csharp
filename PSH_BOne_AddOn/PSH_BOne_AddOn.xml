@@ -461,6 +461,27 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
+        <member name="T:PSH_BOne_AddOn.PS_CO160">
+            <summary>
+            재공 원가 이동등록
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_CO160.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFromDocEntry01"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_CO160.PS_CO160_CreateItems">
+            <summary>
+            화면 Item 생성
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_CO160.PS_CO160_ComboBox_Setting">
+            <summary>
+            콤보박스 세팅
+            </summary>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_CO530">
             <summary>
             분말부자재비용분석

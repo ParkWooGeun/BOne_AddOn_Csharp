@@ -322,6 +322,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO050"); //활동유형등록
 			oFilter.AddEx("PS_CO060"); //통계주요지표등록
 			oFilter.AddEx("PS_CO040"); //코스트센터그룹등록
 			oFilter.AddEx("PS_CO100"); //배부사이클생성
@@ -1257,6 +1258,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO050"); //활동유형등록
 			oFilter.AddEx("PS_CO060"); //통계주요지표등록
 			oFilter.AddEx("PS_CO040"); //코스트센터그룹등록
 			oFilter.AddEx("PS_CO020"); //원가요소그룹등록
@@ -1582,6 +1584,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO050"); //활동유형등록
 			oFilter.AddEx("PS_CO060"); //통계주요지표등록
 			oFilter.AddEx("PS_CO040"); //코스트센터그룹등록
 			oFilter.AddEx("PS_CO100"); //배부사이클생성
@@ -1669,6 +1672,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
 
 			//재무관리
+			oFilter.AddEx("PS_CO050"); //활동유형등록
 			oFilter.AddEx("PS_CO060"); //통계주요지표등록
 			oFilter.AddEx("PS_CO040"); //코스트센터그룹등록
 			oFilter.AddEx("PS_CO020"); //원가요소그룹등록
@@ -2242,6 +2246,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO050"); //활동유형등록
 			oFilter.AddEx("PS_CO060"); //통계주요지표등록
 			oFilter.AddEx("PS_CO040"); //코스트센터그룹등록
 			oFilter.AddEx("PS_CO100"); //배부사이클생성
@@ -2509,6 +2514,8 @@ namespace PSH_BOne_AddOn
 
 			//정산관리
 			//기타관리
+
+			//재무관리
 		}
 
 		private static void MENU_CLICK(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)

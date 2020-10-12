@@ -770,9 +770,14 @@ namespace PSH_BOne_AddOn
             }
         }
 
+        /// <summary>
+        /// ROW_DELETE 이벤트
+        /// </summary>
+        /// <param name="FormUID"></param>
+        /// <param name="pval"></param>
+        /// <param name="BubbleEvent"></param>
         private void Raise_EVENT_ROW_DELETE(ref string FormUID, ref SAPbouiCOM.MenuEvent pval, ref bool BubbleEvent)
         {
-
             try
             {
                 if (oLastColRow01 > 0)

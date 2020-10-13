@@ -266,7 +266,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 필수 사항 check
         /// </summary>
-        /// <returns></returns>        
+        /// <returns></returns>
         private bool PS_CO060_DataValidCheck()
         {
             bool returnValue = false;
@@ -776,7 +776,7 @@ namespace PSH_BOne_AddOn
         /// <param name="FormUID"></param>
         /// <param name="pval"></param>
         /// <param name="BubbleEvent"></param>
-        private void Raise_EVENT_ROW_DELETE(ref string FormUID, ref SAPbouiCOM.MenuEvent pval, ref bool BubbleEvent)
+        private void Raise_EVENT_ROW_DELETE(string FormUID, ref SAPbouiCOM.MenuEvent pval, ref bool BubbleEvent)
         {
             try
             {
@@ -858,7 +858,7 @@ namespace PSH_BOne_AddOn
                         case "1286": //닫기
                             break;
                         case "1293": //행삭제
-                            Raise_EVENT_ROW_DELETE(ref FormUID, ref pVal, ref BubbleEvent);
+                            Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
                             break;
                         case "1281": //찾기
                             PS_CO060_FormItemEnabled();

@@ -759,29 +759,6 @@ namespace PSH_BOne_AddOn
                             break;
                         case "1293": //행삭제
                             Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
-                            //if (oMat01.RowCount != oMat01.VisualRowCount)
-                            //{
-                            //    for (int i = 1; i <= oMat01.VisualRowCount; i++)
-                            //    {
-                            //        oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value = i;
-                            //    }
-
-                            //    oMat01.FlushToDataSource();
-                            //    oDS_PS_CO050L.RemoveRecord(oDS_PS_CO050L.Size - 1);
-                            //    oMat01.LoadFromDataSource();
-
-                            //    if (oMat01.RowCount == 0)
-                            //    {
-                            //        AddMatrixRow(0, false);
-                            //    }
-                            //    else
-                            //    {
-                            //        if (!string.IsNullOrEmpty(oDS_PS_CO050L.GetValue("U_ActCode", oMat01.RowCount - 1).ToString().Trim()))
-                            //        {
-                            //            AddMatrixRow(oMat01.RowCount, false);
-                            //        }
-                            //    }
-                            //}
                             break;
                         case "1281": //찾기
                             AddMatrixRow(0, true);

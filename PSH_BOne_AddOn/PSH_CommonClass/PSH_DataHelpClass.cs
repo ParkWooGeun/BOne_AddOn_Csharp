@@ -114,7 +114,7 @@ namespace PSH_BOne_AddOn.Data
 
             PSH_sTemp01 = PSH_sUDS.Split(','); //리턴할 컬럼의 이름을 배열에 저장
 
-            if (!string.IsNullOrEmpty(PSH_pMatrix) & PSH_pRow > 0)
+            if (!string.IsNullOrEmpty(PSH_pMatrix) && PSH_pRow > 0)
             {
                 for (PSH_jLooper = 0; PSH_jLooper <= PSH_oDataTable.Rows.Count - 1; PSH_jLooper++)
                 {

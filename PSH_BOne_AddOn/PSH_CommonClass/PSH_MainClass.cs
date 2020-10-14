@@ -1747,6 +1747,36 @@ namespace PSH_BOne_AddOn
                         #endregion
 
                         #region 재무 관리
+                        case "PS_CO250": //개인별 퇴충계산
+                            pBaseClass = new PS_CO250();
+                            pBaseClass.LoadForm();
+                            break;
+
+                        case "PS_CO160": //재공 원가 이동등록
+                            pBaseClass = new PS_CO160();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO050": //활동유형등록
+                            pBaseClass = new PS_CO050();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO060": //통계주요지표등록
+                            pBaseClass = new PS_CO060();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO040": //코스트센터그룹등록
+                            pBaseClass = new PS_CO040();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO100": //배부사이클생성
+                            pBaseClass = new PS_CO100();
+                            pBaseClass.LoadForm("");
+                            break;
+
                         case "PS_CO020": //원가요소그룹등록
                             pBaseClass = new PS_CO020();
                             pBaseClass.LoadForm("");

@@ -1866,6 +1866,31 @@ namespace PSH_BOne_AddOn
                             pBaseClass = new PS_CO530();
                             pBaseClass.LoadForm("");
                             break;
+
+                        case "PS_CO540": //원가 분석 레포트(안강)
+                            pBaseClass = new PS_CO540();
+                            pBaseClass.LoadForm("") ;
+                            break;
+
+                        case "PS_MM921": //부자재불출대장(부서)
+                            pBaseClass = new PS_MM921();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FX241": //고정자산현황(부서)
+                            pBaseClass = new PS_FX241();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI030": //어음발행리스트
+                            pBaseClass = new PS_FI030();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI040": // 만기일자별 받을어음현황
+                             pBaseClass = new PS_FI040();
+                            pBaseClass.LoadForm("");
+                            break;
                             #endregion
                     }
                 }

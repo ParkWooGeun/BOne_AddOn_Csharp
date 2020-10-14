@@ -536,7 +536,8 @@ namespace PSH_BOne_AddOn
 
         //			oRecordset01 = SubMain.Sbo_Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
-        //			sQry = "Select U_MSTCOD From [OHEM] a Inner Join [OUSR] b On a.userId = b.USERID Where b.USER_CODE = '" + Strings.Trim(SubMain.Sbo_Company.UserName) + "'";
+        //			sQry = "Select U_MSTCOD From [OHEM] a Inner Join [OUSR] b On a.
+        //          Id = b.USERID Where b.USER_CODE = '" + Strings.Trim(SubMain.Sbo_Company.UserName) + "'";
         //			oRecordset01.DoQuery(sQry);
 
         //			functionReturnValue = Strings.Trim(oRecordset01.Fields.Item(0).Value);

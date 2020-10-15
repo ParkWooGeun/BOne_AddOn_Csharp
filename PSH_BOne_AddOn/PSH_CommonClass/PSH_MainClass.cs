@@ -1919,6 +1919,16 @@ namespace PSH_BOne_AddOn
 
                         case "PS_FI040": // 만기일자별 받을어음현황
                              pBaseClass = new PS_FI040();
+                             pBaseClass.LoadForm("");
+                             break;
+
+                        case "PS_FI050": //받을어음 추심의뢰서
+                            pBaseClass = new PS_FI050();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI060": //받을어음 수탁(발송)대장
+                            pBaseClass = new PS_FI060();
                             pBaseClass.LoadForm("");
                             break;
                             #endregion

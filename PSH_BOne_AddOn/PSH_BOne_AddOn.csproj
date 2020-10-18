@@ -1,4 +1,4 @@
-ï»¿<?xml version="1.0" encoding="utf-8"?>
+ï»?<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -120,10 +120,12 @@
       <DependentUpon>FrmRPT_Viewer1.cs</DependentUpon>
     </Compile>
     <Compile Include="FormClass\CO\PS_CO260.cs" />
-    <Compile Include="FormClass\CO\PS_FI040.cs" />
-    <Compile Include="FormClass\CO\PS_FOI030.cs" />
-    <Compile Include="FormClass\CO\PS_FX241.cs" />
-    <Compile Include="FormClass\CO\PS_MM921.cs" />
+    <Compile Include="FormClass\FI\PS_FI060.cs" />
+    <Compile Include="FormClass\FI\PS_FI050.cs" />
+    <Compile Include="FormClass\FI\PS_FI040.cs" />
+    <Compile Include="FormClass\FI\PS_FI030.cs" />
+    <Compile Include="FormClass\FX\PS_FX241.cs" />
+    <Compile Include="FormClass\MM\PS_MM921.cs" />
     <Compile Include="FormClass\CO\PS_CO540.cs" />
     <Compile Include="FormClass\CO\PS_CO040.cs" />
     <Compile Include="FormClass\CO\PS_CO050.cs" />
@@ -1163,8 +1165,14 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO901_01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO530_01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO530_02.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI030_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI030_02.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI040_01.rpt" />
+    <None Include="PSH_BOne_AddOn\PathINI\Report\PS_FI050_01.rpt" />
+    <None Include="PSH_BOne_AddOn\PathINI\Report\PS_FI060_01.rpt" />
     <None Include="PSH_BOne_AddOn\PathINI\Report\PS_MM921_01.rpt" />
     <None Include="PSH_BOne_AddOn\PathINI\Report\PS_MM921_02.rpt" />
+    <None Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI060_01.rpt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EXT_Form\FileListBoxForm.resX">
@@ -1173,6 +1181,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PSH_BOne_AddOn\Menu_KOR.xml" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI040.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI050.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI030.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FX241.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM921.srf" />
@@ -1443,8 +1453,6 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\ZPY521.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\ZPY522.srf" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="FormClass\FI\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

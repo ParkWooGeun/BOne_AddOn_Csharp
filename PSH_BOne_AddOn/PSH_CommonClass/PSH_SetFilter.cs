@@ -359,6 +359,8 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_FX241"); //고정자산현황(부서)
 			oFilter.AddEx("PS_FI030"); //어음발행리스트
 			oFilter.AddEx("PS_FI040"); //만기일자별 받을어음현황
+			oFilter.AddEx("PS_FI050"); //받을어음 추심의뢰서
+			oFilter.AddEx("PS_FI060"); //받을어음 수탁(발송)대장
 		}
 
 		private static void KEY_DOWN(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -519,6 +521,8 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO921"); //월별 작번별 수주금액 대비 공수 현황(기계)
 			oFilter.AddEx("PS_FI030"); //어음발행리스트
 			oFilter.AddEx("PS_FI040"); //만기일자별 받을어음현황
+			oFilter.AddEx("PS_FI050"); //받을어음 추심의뢰서
+			oFilter.AddEx("PS_FI060"); //받을어음 수탁(발송)대장
 		}
 
 		private static void GOT_FOCUS(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2301,6 +2305,8 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_FX241"); //고정자산현황(부서)
 			oFilter.AddEx("PS_FI030"); //어음발행리스트
 			oFilter.AddEx("PS_FI040"); //만기일자별 받을어음현황
+			oFilter.AddEx("PS_FI050"); //받을어음 추심의뢰서
+			oFilter.AddEx("PS_FI060"); //받을어음 수탁(발송)대장
 		}
 
 		private static void FORM_ACTIVATE(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)

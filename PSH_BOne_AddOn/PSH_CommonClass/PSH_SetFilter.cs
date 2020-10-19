@@ -322,6 +322,8 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO111"); //배부사이클실행결과조회
+			oFilter.AddEx("PS_CO110"); //배부사이클실행
 			oFilter.AddEx("PS_CO260"); //연차설정등록
 			oFilter.AddEx("PS_CO250"); //개인별 퇴충 계산
 			oFilter.AddEx("PS_CO160"); //재공 원가 이동등록
@@ -499,6 +501,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY998"); //사용자권한조회
 
 			//재무관리
+			oFilter.AddEx("PS_CO110"); //배부사이클실행
 			oFilter.AddEx("PS_CO160"); //재공 원가 이동등록
 			oFilter.AddEx("PS_CO060"); //통계주요지표등록
 			oFilter.AddEx("PS_CO100"); //배부사이클생성
@@ -1273,6 +1276,8 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO111"); //배부사이클실행결과조회
+			oFilter.AddEx("PS_CO110"); //배부사이클실행
 			oFilter.AddEx("PS_CO260"); //연차설정등록
 			oFilter.AddEx("PS_CO250"); //개인별 퇴충 계산
 			oFilter.AddEx("PS_CO160"); //재공 원가 이동등록
@@ -1323,6 +1328,8 @@ namespace PSH_BOne_AddOn
 			//기타관리
 
 			//재무관리
+			oFilter.AddEx("PS_CO111"); //배부사이클실행결과조회
+			oFilter.AddEx("PS_CO110"); //배부사이클실행
 			oFilter.AddEx("PS_CO610"); //고정자산 본계정 대체
 		}
 
@@ -1345,6 +1352,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("ZPY507"); //정산결과조회(전체)
 
 			//기타관리
+			oFilter.AddEx("PS_CO110"); //배부사이클실행
 		}
 
         private static void MATRIX_COLLAPSE_PRESSED(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1602,6 +1610,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO110"); //배부사이클실행
 			oFilter.AddEx("PS_CO160"); //재공 원가 이동등록
 			oFilter.AddEx("PS_CO050"); //활동유형등록
 			oFilter.AddEx("PS_CO060"); //통계주요지표등록
@@ -1691,6 +1700,8 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
 
 			//재무관리
+			oFilter.AddEx("PS_CO111"); //배부사이클실행결과조회
+			oFilter.AddEx("PS_CO110"); //배부사이클실행
 			oFilter.AddEx("PS_CO260"); //연차설정등록
 			oFilter.AddEx("PS_CO250"); //개인별 퇴충 계산
 			oFilter.AddEx("PS_CO160"); //재공 원가 이동등록
@@ -2268,6 +2279,8 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO111"); //배부사이클실행결과조회
+			oFilter.AddEx("PS_CO110"); //배부사이클실행
 			oFilter.AddEx("PS_CO260"); //연차설정등록
 			oFilter.AddEx("PS_CO250"); //개인별 퇴충 계산
 			oFilter.AddEx("PS_CO160"); //재공 원가 이동등록

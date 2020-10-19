@@ -92,8 +92,6 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PS_CO530_ComboBox_Setting()
         {
-            SAPbobsCOM.Recordset oRecordSet01 = null;
-            SAPbouiCOM.OptionBtn optBtn = null;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
@@ -124,9 +122,6 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(optBtn); //메모리 해제
-
             }
         }
 

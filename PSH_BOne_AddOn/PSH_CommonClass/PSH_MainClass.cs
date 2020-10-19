@@ -1747,6 +1747,191 @@ namespace PSH_BOne_AddOn
                         #endregion
 
                         #region 재무 관리
+                        case "PS_FI180": // 보조원장
+                            pBaseClass = new PS_FI180();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI190": // 보조원장조회(EXCEL다운)
+                            pBaseClass = new PS_FI190();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI110": // 보조재료비현황
+                            pBaseClass = new PS_FI110();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI120": // 노무비현황
+                            pBaseClass = new PS_FI120();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI130": // 제조경비현황
+                            pBaseClass = new PS_FI130();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI140": // 판관비현황
+                            pBaseClass = new PS_FI140();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI150": // 영업외손익.특별손익명세서
+                            pBaseClass = new PS_FI150();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI160": // 외상매입/미지급금 잔액현황
+                            pBaseClass = new PS_FI160();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI170": // 신용카드 사용내역
+                            pBaseClass = new PS_FI170();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI913": // 사원별 접대비 명세서
+                            pBaseClass = new PS_FI913();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI924": // 거래처별 회전일 현황
+                            pBaseClass = new PS_FI924();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI909": // 미수현황
+                            pBaseClass = new PS_FI909();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI910": // 매출채권 연령분석(받을어음)
+                            pBaseClass = new PS_FI910();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI931": // 부가세집계표
+                            pBaseClass = new PS_FI931();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI420": // 분개전표 연결발행
+                            pBaseClass = new PS_FI420();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI220": // 합계잔액시산표
+                            pBaseClass = new PS_FI220();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI904": // 고정자산현황-IFRS
+                            pBaseClass = new PS_FI904();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI918": // 대체출고대장
+                            pBaseClass = new PS_FI918();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI912": // 예산집행현황
+                            pBaseClass = new PS_FI912();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI210": //원가요소(배부담당)별비용집계대장
+                            pBaseClass = new PS_FI210();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI215": //지급현황
+                            pBaseClass = new PS_FI215();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI960": //입,퇴사자현황
+                            pBaseClass = new PS_FI960();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI961": //월별계정별비용현황
+                            pBaseClass = new PS_FI961();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI900": //IFRS - 시산표 추출
+                            pBaseClass = new PS_FI900();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI901": //IFRS - 매입매출채무채권추출
+                            pBaseClass = new PS_FI901();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI902": //IFRS - NRV 평가
+                            pBaseClass = new PS_FI902();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI929": //IFRS - 재무보고서
+                            pBaseClass = new PS_FI929();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI932": //차입금등록
+                            pBaseClass = new PS_FI932();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI933": //차입금대장
+                            pBaseClass = new PS_FI933();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI421": //입금표등록
+                            pBaseClass = new PS_FI421();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO090": //통계주요지표 값 입력
+                            pBaseClass = new PS_CO090();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO080": //코스트센터비용집계
+                            pBaseClass = new PS_CO080();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO070": //활동량계산
+                            pBaseClass = new PS_CO070();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO185": //담당별 판매/ 원재료 / rm단가등록
+                            pBaseClass = new PS_CO185();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO170": //재공완료품대체관리등록
+                            pBaseClass = new PS_CO170();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI100": //계정별보조원장
+                            pBaseClass = new PS_FI100();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI090": //월계표
+                            pBaseClass = new PS_FI090();
+                            pBaseClass.LoadForm("");
+                            break;
+
                         case "PS_CO110": //배부사이클실행
                             pBaseClass = new PS_CO110();
                             pBaseClass.LoadForm();
@@ -1814,6 +1999,11 @@ namespace PSH_BOne_AddOn
 
                         case "PS_CO605": //통합재무제표
                             pBaseClass = new PS_CO605();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO606": //통합재무제표 본사전송
+                            pBaseClass = new PS_CO606();
                             pBaseClass.LoadForm("");
                             break;
 

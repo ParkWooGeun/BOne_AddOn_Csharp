@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -121,6 +121,9 @@
     </Compile>
     <Compile Include="FormClass\CO\PS_CO110.cs" />
     <Compile Include="FormClass\CO\PS_CO111.cs" />
+    <Compile Include="FormClass\FI\PS_FI080.cs" />
+    <Compile Include="FormClass\FI\PS_FI907.cs" />
+    <Compile Include="FormClass\FI\PS_FI070.cs" />
     <Compile Include="FormClass\CO\PS_CO260.cs" />
     <Compile Include="FormClass\FI\PS_FI060.cs" />
     <Compile Include="FormClass\FI\PS_FI050.cs" />
@@ -1172,9 +1175,11 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI040_01.rpt" />
     <None Include="PSH_BOne_AddOn\PathINI\Report\PS_FI050_01.rpt" />
     <None Include="PSH_BOne_AddOn\PathINI\Report\PS_FI060_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI070_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI080_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI907_01.rpt" />
     <None Include="PSH_BOne_AddOn\PathINI\Report\PS_MM921_01.rpt" />
     <None Include="PSH_BOne_AddOn\PathINI\Report\PS_MM921_02.rpt" />
-    <None Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI060_01.rpt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EXT_Form\FileListBoxForm.resX">
@@ -1183,6 +1188,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PSH_BOne_AddOn\Menu_KOR.xml" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI070.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI080.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI907.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI040.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI050.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI030.srf" />

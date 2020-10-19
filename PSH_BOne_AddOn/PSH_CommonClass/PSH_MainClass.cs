@@ -1931,6 +1931,21 @@ namespace PSH_BOne_AddOn
                             pBaseClass = new PS_FI060();
                             pBaseClass.LoadForm("");
                             break;
+
+                        case "PS_FI070": //기간별 지급어음현황
+                            pBaseClass = new PS_FI070();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI907": //부도어음현황
+                            pBaseClass = new PS_FI907();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI080": //일계표
+                            pBaseClass = new PS_FI080();
+                            pBaseClass.LoadForm("");
+                            break;
                             #endregion
                     }
                 }

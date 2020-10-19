@@ -322,6 +322,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO260"); //연차설정등록
 			oFilter.AddEx("PS_CO250"); //개인별 퇴충 계산
 			oFilter.AddEx("PS_CO160"); //재공 원가 이동등록
 			oFilter.AddEx("PS_CO050"); //활동유형등록
@@ -1278,6 +1279,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO260"); //연차설정등록
 			oFilter.AddEx("PS_CO250"); //개인별 퇴충 계산
 			oFilter.AddEx("PS_CO160"); //재공 원가 이동등록
 			oFilter.AddEx("PS_CO050"); //활동유형등록
@@ -1695,6 +1697,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
 
 			//재무관리
+			oFilter.AddEx("PS_CO260"); //연차설정등록
 			oFilter.AddEx("PS_CO250"); //개인별 퇴충 계산
 			oFilter.AddEx("PS_CO160"); //재공 원가 이동등록
 			oFilter.AddEx("PS_CO050"); //활동유형등록
@@ -2271,6 +2274,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO260"); //연차설정등록
 			oFilter.AddEx("PS_CO250"); //개인별 퇴충 계산
 			oFilter.AddEx("PS_CO160"); //재공 원가 이동등록
 			oFilter.AddEx("PS_CO050"); //활동유형등록

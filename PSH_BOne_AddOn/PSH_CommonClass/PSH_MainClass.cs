@@ -1747,6 +1747,16 @@ namespace PSH_BOne_AddOn
                         #endregion
 
                         #region 재무 관리
+                        case "PS_CO685": //결산분개 등록
+                            pBaseClass = new PS_CO685();
+                            pBaseClass.LoadForm();
+                            break;
+
+                        case "PS_CO003": //결산분개 계정관리
+                            pBaseClass = new PS_CO003();
+                            pBaseClass.LoadForm("");
+                            break;
+
                         case "PS_FI180": // 보조원장
                             pBaseClass = new PS_FI180();
                             pBaseClass.LoadForm("");

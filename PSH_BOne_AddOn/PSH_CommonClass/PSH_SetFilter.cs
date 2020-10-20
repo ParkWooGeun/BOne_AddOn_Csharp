@@ -322,6 +322,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
 			oFilter.AddEx("PS_FI180"); // 분개장
 			oFilter.AddEx("PS_FI190"); // 보조원장조회(EXCEL다운)
 			oFilter.AddEx("PS_FI110"); // 보조재료비현황
@@ -825,6 +826,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
 			oFilter.AddEx("PS_CO160"); //재공 원가 이동등록
 			oFilter.AddEx("PS_CO060"); //통계주요지표등록
 			oFilter.AddEx("PS_CO040"); //코스트센터그룹등록
@@ -1343,6 +1345,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
 			oFilter.AddEx("PS_FI180"); // 분개장
 			oFilter.AddEx("PS_FI190"); // 보조원장조회(EXCEL다운)
 			oFilter.AddEx("PS_FI961"); // 월별계정별비용현황
@@ -1691,6 +1694,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
 			oFilter.AddEx("PS_FI180"); // 분개장
 			oFilter.AddEx("PS_FI190"); // 보조원장조회(EXCEL다운)
 			oFilter.AddEx("PS_FI215"); // 지급현황
@@ -1792,6 +1796,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
 
 			//재무관리
+			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
 			oFilter.AddEx("PS_FI421"); // 입금표등록
 			oFilter.AddEx("PS_CO090"); // 통계주요지표 값 입력
 			oFilter.AddEx("PS_CO080"); // 코스트센터비용집계
@@ -2379,6 +2384,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
 			oFilter.AddEx("PS_FI180"); // 분개장
 			oFilter.AddEx("PS_FI190"); // 보조원장조회(EXCEL다운)
 			oFilter.AddEx("PS_FI110"); // 보조재료비현황
@@ -2706,6 +2712,7 @@ namespace PSH_BOne_AddOn
 			//기타관리
 
 			//재무관리
+			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
 		}
 
 		private static void MENU_CLICK(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)

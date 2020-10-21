@@ -218,9 +218,15 @@
     <Compile Include="FormClass\PY\ClassModuleSTD.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PSH_CommonClass\DataPack\DataPack.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PSH_CommonClass\DataPack\DataPackPropertyDescriptor.cs" />
+    <Compile Include="PSH_CommonClass\DataPack\DataPackPropertyDescriptorTypeConverter.cs" />
     <Compile Include="PSH_CommonClass\MDC_PS_Common.cs" />
     <Compile Include="PSH_CommonClass\PSH_BaseClass.cs" />
     <Compile Include="PSH_CommonClass\PSH_CodeHelpClass.cs" />
+    <Compile Include="PSH_CommonClass\PSH_DatabaseHelpClass.cs" />
     <Compile Include="PSH_CommonClass\PSH_DataHelpClass.cs" />
     <Compile Include="PSH_CommonClass\PSH_DataPackClass.cs" />
     <Compile Include="PSH_CommonClass\PSH_FormHelpClass.cs" />

@@ -1057,11 +1057,6 @@
             <param name="ChkType"></param>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_CO685.PS_CO685_Print_Report01">
-            <summary>
-            리포트 출력
-            </summary>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_CO685.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event
@@ -10497,6 +10492,350 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
+        <member name="T:PSH_BOne_AddOn.Helper.Data.DataPack">
+            <remarks>
+            Tier, Biz 간에 DataParameter를 한번에 묶어서 보내기 위한 HelperClass.
+            이는 타시스템 연동을 위한 Serialize 지원
+            DataSet,DataTable,DataRow 와 DataPack 간에 자료 공유
+            DataPack 의 내용으로부터 DBParameter[] 생성등 다양한 Helper 메서드들이 존재한다.
+            </remarks>
+        </member>
+        <member name="F:PSH_BOne_AddOn.Helper.Data.DataPack.CATEGORY_CUSTOMPROPERTY">
+            <summary>
+            사용자속성
+            </summary>
+        </member>
+        <member name="F:PSH_BOne_AddOn.Helper.Data.DataPack.CATEGORY_REALPROPERTY">
+            <summary>
+            실제속성
+            </summary>
+        </member>
+        <member name="F:PSH_BOne_AddOn.Helper.Data.DataPack._customPropertyAttr">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.#cctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.#ctor(System.ComponentModel.IContainer)">
+            <summary>
+            
+            </summary>
+            <param name="container"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.#ctor">
+            <summary>
+            DataPack를 초기화 시키는 메서드를 호출하는 클래스 생성자
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Serialization 된 DataPack 으로부터 DataPack 재구성 
+            </summary>
+            <param name="info">데이터로 채워진 SerializationInfo</param>
+            <param name="context">이 serialization에 대한 대상</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.InitClass">
+            <summary>
+            DataPack를 초기화 시키는 메서드 
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            DataPack를 Serialize를 하기 위해서 구현된 메서드
+            </summary>
+            <param name="info">데이터로 채울 SerializationInfo</param>
+            <param name="context">이 serialization에 대한 대상</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.System#ComponentModel#ITypedList#GetItemProperties(System.ComponentModel.PropertyDescriptor[])">
+            <summary>
+            
+            </summary>
+            <param name="listAccessors"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.System#ComponentModel#ITypedList#GetListName(System.ComponentModel.PropertyDescriptor[])">
+            <summary>
+            
+            </summary>
+            <param name="listAccessors"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:PSH_BOne_AddOn.Helper.Data.DataPack.Properties">
+            <value>
+            DataPack 내에 있는 PropertyDescriptorCollection 객체를 직접 얻어낼수 있다.
+            </value>
+        </member>
+        <member name="P:PSH_BOne_AddOn.Helper.Data.DataPack.Item(System.String)">
+            <value>
+            DataPack 내에 지정된 이름을 통해서 프로퍼티 값을 얻어내거나 할당한다.
+            존재하지 않을때 ArgumentException가 발생한다.
+            </value>
+        </member>
+        <member name="P:PSH_BOne_AddOn.Helper.Data.DataPack.Keys">
+            <value>
+            DataPack에 있는 프로퍼티의 값들을 ICollection 인터페이스를 통해서 얻어낼수 있다.
+            </value>
+        </member>
+        <member name="P:PSH_BOne_AddOn.Helper.Data.DataPack.Values">
+            <value>
+            DataPack에 있는 프로퍼티들을 ICollection 인터페이스를 통해서 얻어낼수 있다.
+            </value>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.Contains(System.String)">
+            <summary>
+            DataPack 내에 프로퍼티가 있는지 조사하는 메서드
+            </summary>
+            <param name="propertyName">조회하고조 하는 프로퍼티 이름</param>
+            <returns>존재유무(true/false)</returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.AddProperty(System.String,System.Type,System.Object)">
+            <summary>
+            DataPack에 새로운 프로퍼티를 추가한다. (초기값 지정가능)
+            </summary>
+            <param name="name">추가할 프로퍼티 이름</param>
+            <param name="type">프로퍼티 타입</param>
+            <param name="initialValue">초기값</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.AddProperty(System.String,System.Type)">
+            <summary>
+            DataPack에 새로운 프로퍼티를 추가한다.
+            </summary>
+            <param name="name">추가할 프로퍼티 이름</param>
+            <param name="type">프로퍼티 타입</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.RemoveProperty(System.String)">
+            <summary>
+            DataPack에서 지정된 이름의 프로퍼티를 삭제한다.
+            </summary>
+            <param name="name">삭제할 프로퍼티 이름</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.ResetAllValues">
+            <summary>
+            DataPack에 있는 모든 프로퍼티들을 삭제시킨다.
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.FromDataRow(System.Data.DataRow)">
+            <summary>
+            DataRow 로부터 DataPack 내용을 새롭게 생성한다.
+            </summary>
+            <param name="dataRow">DataRow 객체</param>
+            <returns>DataPack 객체</returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.FromDataTable(System.Data.DataTable)">
+            <summary>
+            DataTable 에는 DataRow가 Array 형태로 들어 있다.
+            있을 DataPack[] 형태로 만들어낸다.
+            </summary>
+            <param name="table">DataTable 객체</param>
+            <returns>DataPack[] 객체</returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.FromDataSet(System.Data.DataSet)">
+            <summary>
+            DataSet 의 첫번째 DataTable 값을 DataPack[]로 만들어낸다.
+            </summary>
+            <param name="ds">DataSet 객체</param>
+            <returns>DataPack[] 객체</returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.ToDataRow(System.Data.DataRow)">
+            <summary>
+            DataPack 내용을 기존에 DataRow 로 추가한다.
+            </summary>
+            <param name="dataRow">DataRow 객체</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.ToDataRow">
+            <summary>
+            DataPack 내용으로 부터 새로운 DataRow 를 만들어낸다.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.ToXMLString">
+            <summary>
+            DataPack 내용으로 부터 XML 문자열을 생성
+            </summary>
+            <returns>xml 문자열</returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.ToSqlParameters(System.Boolean)">
+            <summary>
+            DataPack 을 통해서 SqlParameters[] 를 만들어 낸다.
+            </summary>
+            <param name="useAtSign">SP 에서 하는 '@' 문자열을 추가여부 지정</param>
+            <returns>SqlParameter[] 객체</returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.ToSqlParameters">
+            <summary>
+            DataPack 을 통해서 SqlParameters[] 를 만들어 낸다.
+            SP에서 사용되는 변수처럼 '@' 가 추가된SqlParameters 를 만든다.
+            </summary>
+            <returns>SqlParameter[] 객체</returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.ToSqlParameters(System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            기존에 이미 생성된 SqlParameter[]에 DataPack의 내용을 SqlParameter[]로
+            만들고 이를 추가시킨다.
+            </summary>
+            <param name="parameters">기존 SqlParameter[]</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.ToOleDbParameters(System.Boolean)">
+            <summary>
+            DataPack 을 통해서 OleDbParameter[] 를 만들어 낸다.
+            </summary>
+            <param name="useAtSign">SP 에서 하는 '?' 문자열을 추가여부 지정</param>
+            <returns>OleDbParameter[] 객체</returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.ToOleDbParameters">
+            <summary>
+            DataPack 을 통해서 SqlParameters[] 를 만들어 낸다.
+            SP에서 사용되는 변수처럼 '@' 가 추가된SqlParameters 를 만든다.
+            </summary>
+            <returns>SqlParameter[] 객체</returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.ToOleDbParameters(System.Data.OleDb.OleDbParameter[])">
+            <summary>
+            기존에 이미 생성된 OleDbParameter[]에 DataPack의 내용을 OleDbParameter[]로
+            만들고 이를 추가시킨다.
+            </summary>
+            <param name="parameters">기존 OleDbParameter[]</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.Merge(System.Data.DataRow)">
+            <summary>
+            이미 존재하는 DataPack 내용에 DataRow 값을 추가한다.
+            </summary>
+            <param name="dataRow">추가하고자 하는 DataRow</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.Merge(PSH_BOne_AddOn.Helper.Data.DataPack)">
+            <summary>
+            이미 존재하는 DataPack 내용에  또다른 DataPack를 추가한다.
+            </summary>
+            <param name="dataPack">새롭게 추가할 DataPack</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPack.Copy">
+            <summary>
+            이미 존재하는 DataPack으로부터 값을 복사해서 새로운 DataPack을 생성한다.
+            </summary>
+            <returns>기존값을 복사한 새로운 DataPack 객체</returns>
+        </member>
+        <member name="F:PSH_BOne_AddOn.Helper.Data.DataPackPropertyDescriptor._propertyType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:PSH_BOne_AddOn.Helper.Data.DataPackPropertyDescriptor._value">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:PSH_BOne_AddOn.Helper.Data.DataPackPropertyDescriptor._defaultAttr">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:PSH_BOne_AddOn.Helper.Data.DataPackPropertyDescriptor._attrs">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPackPropertyDescriptor.#cctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPackPropertyDescriptor.#ctor(System.String,System.Type)">
+            <summary>
+            DataPackPropertyDescriptor 생성자
+            </summary>
+            <param name="name"></param>
+            <param name="propertyType"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPackPropertyDescriptor.#ctor(System.String,System.Type,System.Attribute[])">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="propertyType"></param>
+            <param name="attributes"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPackPropertyDescriptor.SetValue(System.Object,System.Object)">
+            <summary>
+            PropertyDescriptor 의 SetValue 구현
+            </summary>
+            <param name="component"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPackPropertyDescriptor.GetValue(System.Object)">
+            <summary>
+            PropertyDescriptor 의 GetValue 구현
+            </summary>
+            <param name="component"></param>
+            <returns></returns>
+        </member>
+        <member name="P:PSH_BOne_AddOn.Helper.Data.DataPackPropertyDescriptor.IsReadOnly">
+            <value>
+            PropertyDescriptor 의 IsReadOnly 구현
+            </value>
+        </member>
+        <member name="P:PSH_BOne_AddOn.Helper.Data.DataPackPropertyDescriptor.ComponentType">
+            <value>
+            PropertyDescriptor 의 ComponentType 구현
+            </value>
+        </member>
+        <member name="P:PSH_BOne_AddOn.Helper.Data.DataPackPropertyDescriptor.PropertyType">
+            <value>
+            PropertyDescriptor 의 PropertyType 구현
+            </value>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPackPropertyDescriptor.CanResetValue(System.Object)">
+            <summary>
+            PropertyDescriptor 의 CanResetValue 구현
+            </summary>
+            <param name="component"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPackPropertyDescriptor.ResetValue(System.Object)">
+            <summary>
+            PropertyDescriptor 의 ResetValue 구현
+            </summary>
+            <param name="component"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPackPropertyDescriptor.ShouldSerializeValue(System.Object)">
+            <summary>
+            PropertyDescriptor 의 ShouldSerializeValue 구현
+            </summary>
+            <param name="component"></param>
+            <returns></returns>
+        </member>
+        <member name="P:PSH_BOne_AddOn.Helper.Data.DataPackPropertyDescriptor.Attributes">
+            <summary>
+            MemberDescriptor 의 Attributes 구현
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPackPropertyDescriptorTypeConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <summary>
+            TypeConverter 의 CanConvertTo 구현
+            </summary>
+            <param name="context"></param>
+            <param name="destinationType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Helper.Data.DataPackPropertyDescriptorTypeConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <summary>
+            TypeConverter 의 ConvertTo 구현
+            </summary>
+            <param name="context"></param>
+            <param name="culture"></param>
+            <param name="value"></param>
+            <param name="destinationType"></param>
+            <returns></returns>
+        </member>
         <member name="T:PSH_BOne_AddOn.MDC_PS_Common">
             <summary>
             MDC_PS_Common(구 공통클래스)
@@ -10588,6 +10927,237 @@
             <param name="pChar">빈칸을 채울 문자</param>
             <param name="pLength">길이</param>
             <returns>결과값</returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.#ctor">
+            <summary>
+            생성자(기본)
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            생성자(서버 정보를 동적 인자로 전달 받음)
+            </summary>
+            <param name="pSourceIPAddress">서버 IP</param>
+            <param name="pDatabaseName">서버 DB 이름</param>
+            <param name="pUserID">DB UserID</param>
+            <param name="pPassword">DB Password</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.CreateConnection(System.String)">
+            <summary>
+            CreateConnection
+            </summary>
+            <param name="connectString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.CreateInParam(System.String,System.Data.SqlDbType,System.Int32,System.Object)">
+            <summary>
+            CreateInParam
+            </summary>
+            <param name="paramName"></param>
+            <param name="type"></param>
+            <param name="size"></param>
+            <param name="paramValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.CreateOutParam(System.String,System.Data.SqlDbType,System.Int32)">
+            <summary>
+            CreateOutParam
+            </summary>
+            <param name="paramName"></param>
+            <param name="type"></param>
+            <param name="size"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.CreateReturnParam(System.String)">
+            <summary>
+            CreateReturnParam
+            </summary>
+            <param name="paramName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.CreateCommand(System.Data.SqlClient.SqlConnection,System.String,System.Data.CommandType)">
+            <summary>
+            CreateCommand
+            </summary>
+            <param name="connection"></param>
+            <param name="command"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.CreateCommand(System.Data.SqlClient.SqlConnection,System.String,System.Data.CommandType,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            CreateCommand
+            </summary>
+            <param name="connection"></param>
+            <param name="command"></param>
+            <param name="type"></param>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.Close">
+            <summary>
+            연결 종료
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.ExecuteReader(System.String,System.Data.CommandType)">
+            <summary>
+            ExecuteReader
+            </summary>
+            <param name="command"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.ExecuteReader(System.String,System.Data.CommandType,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            ExecuteReader
+            </summary>
+            <param name="command"></param>
+            <param name="type"></param>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.ExecuteDataTable(System.String,System.Data.CommandType)">
+            <summary>
+            ExecuteDataTable
+            </summary>
+            <param name="command"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.ExecuteDataTable(System.String,System.Data.CommandType,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            ExecuteDataTable
+            </summary>
+            <param name="command">SQL 구문</param>
+            <param name="type">SQL TYPE(Procedure, String)</param>
+            <param name="parameters">SQL 매개변수</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.ExecuteXmlReader(System.String,System.Data.CommandType)">
+            <summary>
+            ExecuteXmlReader
+            </summary>
+            <param name="command"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.ExecuteXmlReader(System.String,System.Data.CommandType,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            ExecuteXmlReader
+            </summary>
+            <param name="command"></param>
+            <param name="type"></param>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.ExecuteScalar(System.String,System.Data.CommandType)">
+            <summary>
+            ExecuteScalar
+            </summary>
+            <param name="command"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.ExecuteScalar(System.String,System.Data.CommandType,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            ExecuteScalar
+            </summary>
+            <param name="command"></param>
+            <param name="type"></param>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.ExecuteDataSet(System.String,System.String,System.Data.DataSet,System.Data.SqlClient.SqlParameter[],System.Data.CommandType,System.Data.Common.DataTableMapping[],System.Int32)">
+            <summary>
+            ExecuteDataSet
+            </summary>
+            <param name="strQuery"></param>
+            <param name="strAlias"></param>
+            <param name="dsDataSet"></param>
+            <param name="paramArray"></param>
+            <param name="cmdType"></param>
+            <param name="dataTableMappings"></param>
+            <param name="TimeOut">커멘드 타임아웃</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.ExecuteDataSet(System.String,System.String,System.Data.DataSet,System.Data.SqlClient.SqlParameter[],System.Data.CommandType)">
+            <summary>
+            ExecuteDataSet
+            </summary>
+            <param name="commandText"></param>
+            <param name="strAlias"></param>
+            <param name="dsDataSet"></param>
+            <param name="paramArray"></param>
+            <param name="cmdType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.ExecuteDataSet(System.String,System.String,System.Data.DataSet,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            ExecuteDataSet
+            </summary>
+            <param name="commandText"></param>
+            <param name="strAlias"></param>
+            <param name="dsDataSet"></param>
+            <param name="paramArray"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.ExecuteDataSet(System.String,System.String,System.Data.DataSet,System.Data.SqlClient.SqlParameter[],System.Int32)">
+            <summary>
+            ExecuteDataSet
+            </summary>
+            <param name="commandText"></param>
+            <param name="strAlias"></param>
+            <param name="dsDataSet"></param>
+            <param name="paramArray"></param>
+            <param name="TimeOut">커멘드 타임아웃</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.Fill(System.String,System.String,System.Data.DataSet,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            Fill
+            </summary>
+            <param name="commandText"></param>
+            <param name="strAlias"></param>
+            <param name="dsDataSet"></param>
+            <param name="paramArray"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.Fill(System.String,System.String,System.Data.DataSet,System.Data.SqlClient.SqlParameter[],System.Int32)">
+            <summary>
+            Fill
+            </summary>
+            <param name="commandText"></param>
+            <param name="strAlias"></param>
+            <param name="dsDataSet"></param>
+            <param name="paramArray"></param>
+            <param name="TimeOut">커맨드타임아웃</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.ExecuteDataSet(System.String,System.String,System.Data.DataSet)">
+            <summary>
+            ExecuteDataSet
+            </summary>
+            <param name="commandText"></param>
+            <param name="strAlias"></param>
+            <param name="dsDataSet"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.ExecuteNonQuery(System.String,System.Data.CommandType)">
+            <summary>
+            ExecuteNonQuery
+            </summary>
+            <param name="command"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Database.PSH_DatabaseHelpClass.ExecuteNonQuery(System.String,System.Data.CommandType,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            ExecuteNonQuery
+            </summary>
+            <param name="command"></param>
+            <param name="type"></param>
+            <param name="parameters"></param>
+            <returns></returns>
         </member>
         <member name="T:PSH_BOne_AddOn.Data.PSH_DataHelpClass">
             <summary>

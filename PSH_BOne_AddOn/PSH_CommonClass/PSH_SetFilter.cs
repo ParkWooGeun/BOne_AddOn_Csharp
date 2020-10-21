@@ -322,6 +322,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO685"); //결산분개등록
 			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
 			oFilter.AddEx("PS_FI180"); // 분개장
 			oFilter.AddEx("PS_FI190"); // 보조원장조회(EXCEL다운)
@@ -542,6 +543,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY998"); //사용자권한조회
 
 			//재무관리
+			oFilter.AddEx("PS_CO685"); //결산분개등록
 			oFilter.AddEx("PS_FI180"); // 분개장
 			oFilter.AddEx("PS_FI190"); // 보조원장조회(EXCEL다운)
 			oFilter.AddEx("PS_FI160"); // 외상매입/미지급금 잔액현황
@@ -826,6 +828,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO685"); //결산분개등록
 			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
 			oFilter.AddEx("PS_CO160"); //재공 원가 이동등록
 			oFilter.AddEx("PS_CO060"); //통계주요지표등록
@@ -1345,6 +1348,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO685"); //결산분개등록
 			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
 			oFilter.AddEx("PS_FI180"); // 분개장
 			oFilter.AddEx("PS_FI190"); // 보조원장조회(EXCEL다운)
@@ -1406,6 +1410,7 @@ namespace PSH_BOne_AddOn
 			//기타관리
 
 			//재무관리
+			oFilter.AddEx("PS_CO685"); //결산분개등록
 			oFilter.AddEx("PS_FI190"); // 보조원장조회(EXCEL다운)
 			oFilter.AddEx("PS_FI420"); // 분개전표 연결발행
 			oFilter.AddEx("PS_FI961"); // 월별계정별비용현황
@@ -2384,6 +2389,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO685"); //결산분개등록
 			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
 			oFilter.AddEx("PS_FI180"); // 분개장
 			oFilter.AddEx("PS_FI190"); // 보조원장조회(EXCEL다운)
@@ -2487,6 +2493,7 @@ namespace PSH_BOne_AddOn
 			//기타관리
 
 			//재무관리
+			oFilter.AddEx("PS_CO685"); //결산분개등록
 			oFilter.AddEx("PS_CO670"); //기간비용분개등록
 			oFilter.AddEx("PS_CO610"); //고정자산 본계정 대체
 		}

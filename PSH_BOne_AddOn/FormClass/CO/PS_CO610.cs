@@ -837,6 +837,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 리포트 출력
         /// </summary>
+        [STAThread]
         private void PS_CO610_Print_Report01()
         {
             string WinTitle;
@@ -1007,7 +1008,9 @@ namespace PSH_BOne_AddOn
                     }
                     else if (pVal.ItemUID == "Prt")
                     {
-                        PS_CO610_Print_Report01();
+                        System.Threading.Thread thread = new System.Threading.Thread(PS_CO610_Print_Report01);
+                        thread.SetApartmentState(System.Threading.ApartmentState.STA);
+                        thread.Start();
                     }
                     else if (pVal.ItemUID == "Btn01") //상각자료 불러오기
                     {
@@ -1241,22 +1244,34 @@ namespace PSH_BOne_AddOn
         {
             try
             {
+                oForm.Freeze(true);
+
                 if (pVal.Before_Action == true)
                 {
-                    if (pVal.ColUID == "Check")
+                    if(pVal.ItemUID == "Mat01")
                     {
-                        //string CheckYN = oMat01.Columns.Item("Check").Cells.Item(1).Specific.Checked;
-                        for (int i = 1; i <= oMat01.VisualRowCount; i++)
+                        oMat01.FlushToDataSource();
+
+                        if (pVal.ColUID == "Check")
                         {
-                            if (oMat01.Columns.Item("Check").Cells.Item(i).Specific.Checked == false)
+                            string checkYN;
+
+                            if (oDS_PS_CO610L.GetValue("U_Check", 0).ToString().Trim() == "" || oDS_PS_CO610L.GetValue("U_Check", 0).ToString().Trim() == "N")
                             {
-                                oMat01.Columns.Item("Check").Cells.Item(i).Specific.Checked = true;
+                                checkYN = "Y";
                             }
                             else
                             {
-                                oMat01.Columns.Item("Check").Cells.Item(i).Specific.Checked = false;
+                                checkYN = "N";
+                            }
+
+                            for (int i = 0; i <= oDS_PS_CO610L.Size - 1; i++)
+                            {
+                                oDS_PS_CO610L.SetValue("U_Check", i, checkYN);
                             }
                         }
+
+                        oMat01.LoadFromDataSource();
                     }
                 }
                 else if (pVal.Before_Action == false)
@@ -1269,6 +1284,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                oForm.Freeze(false);
             }
         }
 

@@ -170,7 +170,7 @@ namespace PSH_BOne_AddOn.Database
         }
         #endregion
 
-        #region 데이터베이스 조회(SELECT)와 관련된 메서드
+        #region 데이터베이스 조회(SELECT)와 관련 메서드
         /// <summary>
         /// ExecuteReader
         /// </summary>
@@ -566,7 +566,7 @@ namespace PSH_BOne_AddOn.Database
         }
         #endregion
 
-        #region 데이터베이스의 테이터 변경(UPDATE, INSERT, DELETE)과 관련된 메서드
+        #region 데이터베이스의 테이터 변경(UPDATE, INSERT, DELETE)과 관련 메서드
         /// <summary>
         /// ExecuteNonQuery
         /// </summary>

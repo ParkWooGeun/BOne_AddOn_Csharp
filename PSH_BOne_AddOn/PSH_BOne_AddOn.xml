@@ -7599,17 +7599,12 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_CO130.FindForm">
             <summary>
-            FindForm
+            제품별원가계산 결과 저장 후 문저 찾기
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_CO130.SaveData">
             <summary>
-            SaveData
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_CO130.PH_PY540_Print_Report01">
-            <summary>
-            리포트 조회
+            제품별원가계산 결과 저장
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_CO130.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -7644,7 +7639,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:PSH_BOne_AddOn.PS_CO130.Delay(System.Int32)" -->
         <member name="M:PSH_BOne_AddOn.PS_CO130.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_UNLOAD 이벤트

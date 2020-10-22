@@ -4,7 +4,7 @@ using System.Reflection;
 using System.ComponentModel;
 using System.ComponentModel.Design.Serialization;
 
-namespace PSH_BOne_AddOn.Helper.Data
+namespace PSH_BOne_AddOn.Database.Pack
 {
     public class DataPackPropertyDescriptorTypeConverter : TypeConverter
     {

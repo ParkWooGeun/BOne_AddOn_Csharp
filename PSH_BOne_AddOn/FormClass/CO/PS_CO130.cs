@@ -2,6 +2,8 @@
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.Database;
+using System.Diagnostics;
+using System.Threading;
 
 namespace PSH_BOne_AddOn
 {
@@ -165,7 +167,69 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// 제품별원가계산 결과 저장 후 문저 찾기
+        /// 제품별원가계산 결과 저장
+        /// </summary>
+        private void SaveData()
+        {
+            string sQry;
+            string YM;
+            string BPLID;
+            string UserSign;
+
+            PSH_DatabaseHelpClass databaseHelpClass;
+            System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+
+            try
+            {
+                databaseHelpClass = new PSH_DatabaseHelpClass(PSH_Globals.SBO_Application.Company.ServerName, PSH_Globals.oCompany.CompanyDB, PSH_Globals.SP_ODBC_ID, PSH_Globals.SP_ODBC_PW);
+
+                Process.Start(PSH_Globals.SP_Path + "\\ExtProgram\\WaitingForm.exe"); //"처리중" 외부 ALERT 창 실행
+
+                timer.Interval = 30000; //30초
+                timer.Tick += new EventHandler(KeepAddOnConnection);
+                timer.Start();
+
+                YM = oForm.Items.Item("YM").Specific.Value.ToString().Trim();
+                BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+                UserSign = Convert.ToString(PSH_Globals.oCompany.UserSignature);
+
+                sQry = "EXEC [PS_CO130_50] '";
+                sQry += YM + "','";
+                sQry += BPLID + "','";
+                sQry += UserSign + "'";
+
+                int excuteQueryReturn = databaseHelpClass.ExecuteNonQuery(sQry, System.Data.CommandType.Text); //ADO.NET 사용
+            }
+            catch(Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                timer.Stop();
+                
+                foreach (Process process in Process.GetProcesses()) //"처리중" 외부 ALERT 창 종료
+                {
+                    if (process.ProcessName.StartsWith("WaitingForm"))
+                    {
+                        process.Kill();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// AddOn 연결 유지용 Timer 이벤트
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void KeepAddOnConnection(object sender, EventArgs e)
+        {
+            PSH_Globals.SBO_Application.RemoveWindowsMessage(BoWindowsMessageType.bo_WM_TIMER, true);
+        }
+
+        /// <summary>
+        /// 제품별원가계산 결과 저장 후 문서 찾기
         /// </summary>
         private void FindForm()
         {
@@ -194,44 +258,6 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
-            }
-        }
-
-        /// <summary>
-        /// 제품별원가계산 결과 저장
-        /// </summary>
-        private void SaveData()
-        {
-            string sQry;
-            string YM;
-            string BPLID;
-            string UserSign;
-            
-            try
-            {
-                PSH_DatabaseHelpClass databaseHelpClass = new PSH_DatabaseHelpClass(PSH_Globals.SBO_Application.Company.ServerName, PSH_Globals.oCompany.CompanyDB, "sa", "password1!");
-                PSH_Globals.SBO_Application.StatusBar.SetText("처리 중...", BoMessageTime.bmt_Long, BoStatusBarMessageType.smt_Warning);
-                oForm.Freeze(true);
-
-                YM = oForm.Items.Item("YM").Specific.Value.ToString().Trim();
-                BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
-                UserSign = Convert.ToString(PSH_Globals.oCompany.UserSignature);
-
-                sQry = "      EXEC [PS_CO130_50] '";
-                sQry = sQry + YM + "','";
-                sQry = sQry + BPLID + "','";
-                sQry = sQry + UserSign + "'";
-
-                int excuteQueryReturn = databaseHelpClass.ExecuteNonQuery(sQry, System.Data.CommandType.Text);
-            }
-            catch(Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-                oForm.Freeze(false);
-                PSH_Globals.SBO_Application.StatusBar.SetText("처리 완료!", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
             }
         }
 

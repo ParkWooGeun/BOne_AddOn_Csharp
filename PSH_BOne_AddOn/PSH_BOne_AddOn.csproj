@@ -1320,6 +1320,7 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO040.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO060.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO003.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\ExtProgram\WaitingForm.exe" />
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO050.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO110.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO111.srf" />

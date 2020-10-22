@@ -3,10 +3,10 @@ using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.IO;
 
-namespace PSH_BOne_AddOn.Helper.Data
+namespace PSH_BOne_AddOn.Database.Pack
 {
     [
-        TypeConverter(typeof(PSH_BOne_AddOn.Helper.Data.DataPackPropertyDescriptorTypeConverter))
+        TypeConverter(typeof(PSH_BOne_AddOn.Database.Pack.DataPackPropertyDescriptorTypeConverter))
     ]
     public class DataPackPropertyDescriptor : PropertyDescriptor
     {

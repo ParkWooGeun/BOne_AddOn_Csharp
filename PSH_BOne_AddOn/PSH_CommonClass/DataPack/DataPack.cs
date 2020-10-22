@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.Collections;
 using System.Runtime.Serialization;
 
-namespace PSH_BOne_AddOn.Helper.Data
+namespace PSH_BOne_AddOn.Database.Pack
 {
     /// <remarks>
     /// Tier, Biz 간에 DataParameter를 한번에 묶어서 보내기 위한 HelperClass.

@@ -7597,22 +7597,34 @@
             콤보박스 Setting
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_CO130.SaveData">
-            <summary>
-            제품별원가계산 결과 저장
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_CO130.KeepAddOnConnection(System.Object,System.EventArgs)">
+        <member name="M:PSH_BOne_AddOn.PS_CO130.KeepAddOnConnection(System.Object,System.Timers.ElapsedEventArgs)">
             <summary>
             AddOn 연결 유지용 Timer 이벤트
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_CO130.SaveData">
+            <summary>
+            제품별원가계산 결과 저장
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_CO130.FindForm">
             <summary>
             제품별원가계산 결과 저장 후 문서 찾기
             </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_CO130.PS_CO130_HeaderSpaceLineDel">
+            <summary>
+            필수입력사항 체크
+            </summary>
+            <returns>True:필수입력사항을 모두 입력, Fasle:필수입력사항 중 하나라도 입력하지 않았음</returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_CO130.PS_CO130_MatrixSpaceLineDel">
+            <summary>
+            필수입력사항 체크
+            </summary>
+            <returns>True:필수입력사항을 모두 입력, Fasle:필수입력사항 중 하나라도 입력하지 않았음</returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_CO130.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -7653,18 +7665,6 @@
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_CO130.PS_CO130_HeaderSpaceLineDel">
-            <summary>
-            필수입력사항 체크
-            </summary>
-            <returns>True:필수입력사항을 모두 입력, Fasle:필수입력사항 중 하나라도 입력하지 않았음</returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_CO130.PS_CO130_MatrixSpaceLineDel">
-            <summary>
-            필수입력사항 체크
-            </summary>
-            <returns>True:필수입력사항을 모두 입력, Fasle:필수입력사항 중 하나라도 입력하지 않았음</returns>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_CO120">
             <summary>
@@ -17643,6 +17643,13 @@
             Create_Tiltle
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY111.KeepAddOnConnection(System.Object,System.Timers.ElapsedEventArgs)">
+            <summary>
+            AddOn 연결 유지용 Timer 이벤트
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY111.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>

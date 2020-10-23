@@ -1,4 +1,5 @@
 using System;
+using System.Timers;
 
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
@@ -1163,6 +1164,16 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
+        /// AddOn 연결 유지용 Timer 이벤트
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void KeepAddOnConnection(object sender, ElapsedEventArgs e)
+        {
+            PSH_Globals.SBO_Application.RemoveWindowsMessage(BoWindowsMessageType.bo_WM_TIMER, true);
+        }
+
+        /// <summary>
         /// Form Item Event
         /// </summary>
         /// <param name="FormUID">Form UID</param>
@@ -1272,7 +1283,7 @@ namespace PSH_BOne_AddOn
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            
+           
             try
             {
                 if (pVal.BeforeAction == true)
@@ -1313,6 +1324,13 @@ namespace PSH_BOne_AddOn
                                 }
                                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                                 {
+                                    Timer timer = new Timer();
+                                    SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 100, false);
+
+                                    timer.Interval = 30000; //30초
+                                    timer.Elapsed += KeepAddOnConnection;
+                                    timer.Start();
+
                                     PSH_Globals.SBO_Application.StatusBar.SetText("급상여계산이 진행중입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Warning);
 
                                     if (oForm.Items.Item("JOBGBN").Specific.Value.ToString().Trim() != "2")
@@ -1323,6 +1341,12 @@ namespace PSH_BOne_AddOn
                                     {
                                         oRecordSet.DoQuery("EXEC PH_PY111_SOGUB '" + tDocEntry + "'"); //소급계산
                                     }
+
+                                    timer.Stop();
+                                    timer.Dispose();
+
+                                    ProgBar01.Stop();
+                                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
 
                                     PSH_Globals.SBO_Application.StatusBar.SetText("급상여계산이 완료되었습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
                                 }
@@ -1345,6 +1369,13 @@ namespace PSH_BOne_AddOn
                                 CalcYN = false;
                                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                                 {
+                                    Timer timer = new Timer();
+                                    SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 100, false);
+
+                                    timer.Interval = 30000; //30초
+                                    timer.Elapsed += KeepAddOnConnection;
+                                    timer.Start();
+                                    
                                     PSH_Globals.SBO_Application.StatusBar.SetText("급상여계산이 진행중입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Warning);
 
                                     if (oForm.Items.Item("JOBGBN").Specific.Value.ToString().Trim() != "2")
@@ -1356,7 +1387,14 @@ namespace PSH_BOne_AddOn
                                         oRecordSet.DoQuery("EXEC PH_PY111_SOGUB '" + tDocEntry + "'"); //소급계산
                                     }
 
+                                    timer.Stop();
+                                    timer.Dispose();
+
+                                    ProgBar01.Stop();
+                                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+
                                     PSH_Globals.SBO_Application.StatusBar.SetText("급상여계산이 완료되었습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
+
                                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                                     PH_PY111_FormItemEnabled();
 
@@ -1405,7 +1443,7 @@ namespace PSH_BOne_AddOn
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
-            {
+            {   
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }

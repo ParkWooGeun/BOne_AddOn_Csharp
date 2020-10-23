@@ -1,9 +1,7 @@
 ﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
-using PSH_BOne_AddOn.Database;
-using System.Diagnostics;
-using System.Threading;
+using System.Timers;
 
 namespace PSH_BOne_AddOn
 {
@@ -167,6 +165,16 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
+        /// AddOn 연결 유지용 Timer 이벤트
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void KeepAddOnConnection(object sender, ElapsedEventArgs e)
+        {
+            PSH_Globals.SBO_Application.RemoveWindowsMessage(BoWindowsMessageType.bo_WM_TIMER, true);
+        }
+
+        /// <summary>
         /// 제품별원가계산 결과 저장
         /// </summary>
         private void SaveData()
@@ -176,18 +184,16 @@ namespace PSH_BOne_AddOn
             string BPLID;
             string UserSign;
 
-            PSH_DatabaseHelpClass databaseHelpClass;
-            System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbouiCOM.ProgressBar ProgBar01 = null;
+
+            Timer timer = new Timer();
 
             try
             {
-                databaseHelpClass = new PSH_DatabaseHelpClass(PSH_Globals.SBO_Application.Company.ServerName, PSH_Globals.oCompany.CompanyDB, PSH_Globals.SP_ODBC_ID, PSH_Globals.SP_ODBC_PW);
+                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("저장 중...", 100, false);
 
-                Process.Start(PSH_Globals.SP_Path + "\\ExtProgram\\WaitingForm.exe"); //"처리중" 외부 ALERT 창 실행
-
-                timer.Interval = 30000; //30초
-                timer.Tick += new EventHandler(KeepAddOnConnection);
-                timer.Start();
+                oForm.Freeze(true);
 
                 YM = oForm.Items.Item("YM").Specific.Value.ToString().Trim();
                 BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
@@ -198,34 +204,28 @@ namespace PSH_BOne_AddOn
                 sQry += BPLID + "','";
                 sQry += UserSign + "'";
 
-                int excuteQueryReturn = databaseHelpClass.ExecuteNonQuery(sQry, System.Data.CommandType.Text); //ADO.NET 사용
+                timer.Interval = 30000; //30초
+                timer.Elapsed += KeepAddOnConnection;
+                timer.Start();
+
+                oRecordSet01.DoQuery(sQry);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
             finally
             {
                 timer.Stop();
-                
-                foreach (Process process in Process.GetProcesses()) //"처리중" 외부 ALERT 창 종료
-                {
-                    if (process.ProcessName.StartsWith("WaitingForm"))
-                    {
-                        process.Kill();
-                    }
-                }
-            }
-        }
+                timer.Dispose();
 
-        /// <summary>
-        /// AddOn 연결 유지용 Timer 이벤트
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void KeepAddOnConnection(object sender, EventArgs e)
-        {
-            PSH_Globals.SBO_Application.RemoveWindowsMessage(BoWindowsMessageType.bo_WM_TIMER, true);
+                oForm.Update();
+                ProgBar01.Stop();
+                oForm.Freeze(false);
+
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+            }
         }
 
         /// <summary>
@@ -259,6 +259,150 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(false);
             }
+        }
+
+        #region SaveData 메소드 : 제품별원가계산 결과 저장(ADO.NET, 외부 프로그램 실행 테스트 참조) 절대 삭제 금지(2020.10.23 송명규)
+        ///// <summary>
+        ///// 제품별원가계산 결과 저장(ADO.NET, 외부 프로그램 실행 테스트 참조) 절대 삭제 금지(2020.10.23 송명규)
+        ///// </summary>
+        //private void SaveData()
+        //{
+        //    string sQry;
+        //    string YM;
+        //    string BPLID;
+        //    string UserSign;
+        //    string errCode = string.Empty;
+
+        //    PSH_DatabaseHelpClass databaseHelpClass;
+        //    Timer timer = new Timer();
+
+        //    try
+        //    {
+        //        databaseHelpClass = new PSH_DatabaseHelpClass(PSH_Globals.SBO_Application.Company.ServerName, PSH_Globals.oCompany.CompanyDB, PSH_Globals.SP_ODBC_ID, PSH_Globals.SP_ODBC_PW);
+
+        //        Process.Start(PSH_Globals.SP_Path + "\\ExtProgram\\WaitingForm.exe"); //"처리중" 외부 ALERT 창 실행
+
+        //        timer.Interval = 30000; //30초
+        //        timer.Elapsed += KeepAddOnConnection;
+        //        timer.Start();
+
+        //        YM = oForm.Items.Item("YM").Specific.Value.ToString().Trim();
+        //        BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+        //        UserSign = Convert.ToString(PSH_Globals.oCompany.UserSignature);
+
+        //        sQry = "EXEC [PS_CO130_50] '";
+        //        sQry += YM + "','";
+        //        sQry += BPLID + "','";
+        //        sQry += UserSign + "'";
+
+        //        int excuteQueryReturn = databaseHelpClass.ExecuteNonQuery(sQry, System.Data.CommandType.Text); //ADO.NET 사용
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+        //    }
+        //    finally
+        //    {
+        //        timer.Stop();
+        //        timer.Dispose();
+
+        //        foreach (Process process in Process.GetProcesses()) //"처리중" 외부 ALERT 창 종료
+        //        {
+        //            if (process.ProcessName.StartsWith("WaitingForm"))
+        //            {
+        //                process.Kill();
+        //            }
+        //        }
+        //    }
+        //}
+        #endregion
+
+        /// <summary>
+        /// 필수입력사항 체크
+        /// </summary>
+        /// <returns>True:필수입력사항을 모두 입력, Fasle:필수입력사항 중 하나라도 입력하지 않았음</returns>
+        private bool PS_CO130_HeaderSpaceLineDel()
+        {
+            bool functionReturnValue = false;
+            short ErrNum = 0;
+
+            try
+            {
+                if (string.IsNullOrEmpty(oDS_PS_CO130H.GetValue("U_YM", 0).ToString().Trim()))
+                {
+                    ErrNum = 1;
+                    throw new Exception();
+                }
+
+                if (string.IsNullOrEmpty(oDS_PS_CO130H.GetValue("U_BPLId", 0).ToString().Trim()))
+                {
+                    ErrNum = 2;
+                    throw new Exception();
+                }
+                functionReturnValue = true;
+            }
+            catch (Exception ex)
+            {
+                if (ErrNum == 1)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("마감년월은 필수입력사항입니다. 확인하세요.");
+                }
+                else if (ErrNum == 2)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("사업장은 필수입력사항입니다. 확인하세요.");
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+                functionReturnValue = false;
+            }
+            finally
+            {
+            }
+
+            return functionReturnValue;
+        }
+
+        /// <summary>
+        /// 필수입력사항 체크
+        /// </summary>
+        /// <returns>True:필수입력사항을 모두 입력, Fasle:필수입력사항 중 하나라도 입력하지 않았음</returns>
+        private bool PS_CO130_MatrixSpaceLineDel()
+        {
+            bool functionReturnValue = false;
+            short ErrNum = 0;
+
+            try
+            {
+                oMat01.FlushToDataSource();
+
+                //// 라인
+                if (oMat01.VisualRowCount == 0)
+                {
+                    ErrNum = 1;
+                    throw new Exception();
+                }
+                oMat01.LoadFromDataSource();
+                functionReturnValue = true;
+            }
+            catch (Exception ex)
+            {
+                if (ErrNum == 1)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("라인 데이터가 없습니다. 확인하세요.");
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+                functionReturnValue = false;
+            }
+            finally
+            {
+            }
+
+            return functionReturnValue;
         }
 
         /// <summary>
@@ -498,12 +642,6 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
         {
-            int i = 0;
-            string sQry = string.Empty;
-
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
             try
             {
                 if (BusinessObjectInfo.BeforeAction == true)
@@ -539,10 +677,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
-            finally
-            {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
-            }
         }
 
         /// <summary>
@@ -563,13 +697,14 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "1")
                     {
-                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE | oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
+                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {
                             if (PS_CO130_HeaderSpaceLineDel() == false)
                             {
                                 BubbleEvent = false;
                                 return;
                             }
+
                             if (PS_CO130_MatrixSpaceLineDel() == false)
                             {
                                 BubbleEvent = false;
@@ -588,16 +723,35 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "1")
                     {
-                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE & pVal.Action_Success == true)
+                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE && pVal.Action_Success == true)
                         {
                             oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
                             PSH_Globals.SBO_Application.ActivateMenuItem("1282");
                         }
                     }
-                    else if (pVal.ItemUID == "Btn01")
+
+                    if (pVal.ItemUID == "Btn01")
                     {
                         if (PS_CO130_HeaderSpaceLineDel() == false)
                         {
+                            BubbleEvent = false;
+                            return;
+                        }
+
+                        //전기기간 체크
+                        PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+                        
+                        if (dataHelpClass.Get_ReData("PeriodStat", "[NAME]", "OFPR", "'" + oDS_PS_CO130H.GetValue("U_YM", 0).ToString().Trim().Substring(0, 4) + "-" + oDS_PS_CO130H.GetValue("U_YM", 0).ToString().Trim().Substring(4, 2) + "'", "") == "Y") //전기기간 잠김
+                        {
+                            PSH_Globals.SBO_Application.StatusBar.SetText("해당월의 전기기간이 잠겼습니다. 확인하십시오.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                            BubbleEvent = false;
+                            return;
+                        }
+
+                        //당월 자료 존재 여부 체크
+                        if (Convert.ToInt32(dataHelpClass.Get_ReData("COUNT(*)", "Code", "[@PS_CO130H]", "'" + oDS_PS_CO130H.GetValue("U_YM", 0).ToString().Trim() + oDS_PS_CO130H.GetValue("U_BPLId", 0).ToString().Trim() + "'", "")) > 0)
+                        {
+                            PSH_Globals.SBO_Application.StatusBar.SetText("해당월의 자료가 존재합니다. 확인하십시오.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                             BubbleEvent = false;
                             return;
                         }
@@ -650,92 +804,5 @@ namespace PSH_BOne_AddOn
             }
         }
 
-        /// <summary>
-        /// 필수입력사항 체크
-        /// </summary>
-        /// <returns>True:필수입력사항을 모두 입력, Fasle:필수입력사항 중 하나라도 입력하지 않았음</returns>
-        private bool PS_CO130_HeaderSpaceLineDel()
-        {
-            bool functionReturnValue = false;
-            short ErrNum = 0;
-
-            try
-            {
-                if (string.IsNullOrEmpty(oDS_PS_CO130H.GetValue("U_YM", 0).ToString().Trim()))
-                {
-                    ErrNum = 1;
-                    throw new Exception();
-                }
-
-                if (string.IsNullOrEmpty(oDS_PS_CO130H.GetValue("U_BPLId", 0).ToString().Trim()))
-                {
-                    ErrNum = 2;
-                    throw new Exception();
-                }
-                functionReturnValue = true;
-            }
-            catch (Exception ex)
-            {
-                if (ErrNum == 1)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("마감년월은 필수입력사항입니다. 확인하세요.");
-                }
-                else if (ErrNum == 2)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("사업장은 필수입력사항입니다. 확인하세요.");
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                functionReturnValue = false;
-            }
-            finally
-            {
-            }
-
-            return functionReturnValue;
-        }
-
-        /// <summary>
-        /// 필수입력사항 체크
-        /// </summary>
-        /// <returns>True:필수입력사항을 모두 입력, Fasle:필수입력사항 중 하나라도 입력하지 않았음</returns>
-        private bool PS_CO130_MatrixSpaceLineDel()
-        {
-            bool functionReturnValue = false;
-            short ErrNum = 0;
-
-            try
-            {
-                oMat01.FlushToDataSource();
-
-                //// 라인
-                if (oMat01.VisualRowCount == 0)
-                {
-                    ErrNum = 1;
-                    throw new Exception();
-                }
-                oMat01.LoadFromDataSource();
-                functionReturnValue = true;
-            }
-            catch (Exception ex)
-            {
-                if (ErrNum == 1)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("라인 데이터가 없습니다. 확인하세요.");
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                functionReturnValue = false;
-            }
-            finally
-            {
-            }
-
-            return functionReturnValue;
-        }
     }
 }

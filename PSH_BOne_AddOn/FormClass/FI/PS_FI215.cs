@@ -23,8 +23,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFromDocEntry01"></param>
-		public override void LoadForm(string oFromDocEntry01)
+		/// <param name="oFormDocEntry01"></param>
+		public override void LoadForm(string oFormDocEntry01)
 		{
 			int i = 0;
 			MSXML2.DOMDocument oXmlDoc01 = new MSXML2.DOMDocument();
@@ -56,7 +56,7 @@ namespace PSH_BOne_AddOn
 				PS_FI215_Initial_Setting();
 				PS_FI215_CF_ChooseFromList();
 				PS_FI215_EnableMenus();
-				PS_FI215_SetDocument(oFromDocEntry01);
+				PS_FI215_SetDocument(oFormDocEntry01);
 				PS_FI215_FormResize();
 			}
 			catch (Exception ex)
@@ -983,12 +983,12 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// PS_FI215_SetDocument
 		/// </summary>
-		/// <param name="oFromDocEntry01"></param>
-		private void PS_FI215_SetDocument(string oFromDocEntry01)
+		/// <param name="oFormDocEntry01"></param>
+		private void PS_FI215_SetDocument(string oFormDocEntry01)
 		{
 			try
 			{
-				if ((string.IsNullOrEmpty(oFromDocEntry01)))
+				if ((string.IsNullOrEmpty(oFormDocEntry01)))
 				{
 					PS_FI215_FormItemEnabled();
 				}

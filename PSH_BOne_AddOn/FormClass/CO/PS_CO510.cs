@@ -21,9 +21,9 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFromDocEntry01"></param>
+        /// <param name="oFormDocEntry01"></param>
         ///  public void LoadForm(SAPbouiCOM.Form oForm02 = null, string oItemUID02 = "", string oColUID02 = "", int oColRow02 = 0, string oTradeType02 = "", string oItmBsort02 = "")
-        public override void LoadForm(string oFromDocEntry01)
+        public override void LoadForm(string oFormDocEntry01)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -200,8 +200,8 @@ namespace PSH_BOne_AddOn
         ///// <summary>
         ///// SetDocument
         ///// </summary>
-        ///// <param name="oFromDocEntry01">DocEntry</param>
-        //private void PS_CO510_SetDocument(string oFromDocEntry01)
+        ///// <param name="oFormDocEntry01">DocEntry</param>
+        //private void PS_CO510_SetDocument(string oFormDocEntry01)
         //{
         //    try
         //    {

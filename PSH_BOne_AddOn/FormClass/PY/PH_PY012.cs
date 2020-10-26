@@ -32,7 +32,7 @@
 //			//이전 출장구분 값 저장용(전역변수)
 //		string DestDivValue;
 
-//		public void LoadForm(string oFromDocEntry01 = "")
+//		public void LoadForm(string oFormDocEntry01 = "")
 //		{
 
 //			int i = 0;
@@ -61,7 +61,7 @@
 //			oForm.Freeze(true);
 //			PH_PY012_CreateItems();
 //			PH_PY012_EnableMenus();
-//			PH_PY012_SetDocument(oFromDocEntry01);
+//			PH_PY012_SetDocument(oFormDocEntry01);
 //			//    Call PH_PY012_FormResize
 
 //			oForm.Update();
@@ -233,19 +233,19 @@
 //			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY012_EnableMenus_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
 //		}
 
-//		private void PH_PY012_SetDocument(string oFromDocEntry01)
+//		private void PH_PY012_SetDocument(string oFormDocEntry01)
 //		{
 //			 // ERROR: Not supported in C#: OnErrorStatement
 
 
-//			if ((string.IsNullOrEmpty(oFromDocEntry01))) {
+//			if ((string.IsNullOrEmpty(oFormDocEntry01))) {
 //				PH_PY012_FormItemEnabled();
 //				PH_PY012_AddMatrixRow();
 //			} else {
 //				oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
 //				PH_PY012_FormItemEnabled();
 //				//UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("DocEntry").Specific.Value = oFromDocEntry01;
+//				oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry01;
 //				oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 //			}
 //			return;

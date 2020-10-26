@@ -26,7 +26,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면 호출
         /// </summary>
-        public override void LoadForm(string oFromDocEntry01)
+        public override void LoadForm(string oFormDocEntry01)
         {
             int i = 0;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -58,7 +58,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY020_CreateItems();
                 PH_PY020_EnableMenus();
-                PH_PY020_SetDocument(oFromDocEntry01);
+                PH_PY020_SetDocument(oFormDocEntry01);
             }
             catch (Exception ex)
             {
@@ -160,12 +160,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// PH_PY020_SetDocument
         /// </summary>
-        public void PH_PY020_SetDocument(string oFromDocEntry01)
+        public void PH_PY020_SetDocument(string oFormDocEntry01)
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
-                if ((string.IsNullOrEmpty(oFromDocEntry01)))
+                if ((string.IsNullOrEmpty(oFormDocEntry01)))
                 {
                     PH_PY020_FormItemEnabled();
                 }
@@ -173,7 +173,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY020_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFromDocEntry01;
+                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }

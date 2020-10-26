@@ -25,8 +25,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFromDocEntry01"></param>
-        public override void LoadForm(string oFromDocEntry01)
+        /// <param name="oFormDocEntry01"></param>
+        public override void LoadForm(string oFormDocEntry01)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
             try
@@ -57,7 +57,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY109_1_CreateItems();
                 PH_PY109_1_EnableMenus();
-                //PH_PY109_1_SetDocument(oFromDocEntry01);
+                //PH_PY109_1_SetDocument(oFormDocEntry01);
                 oForm.Update();
             }
             catch (Exception ex)

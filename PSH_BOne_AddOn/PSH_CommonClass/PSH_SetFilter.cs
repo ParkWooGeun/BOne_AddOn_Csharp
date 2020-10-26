@@ -828,6 +828,10 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO170"); //재공완료 대체관리등록
+			oFilter.AddEx("PS_CO090"); // 통계주요지표값입력
+			oFilter.AddEx("PS_CO080"); // 코스트센터비용집계
+			oFilter.AddEx("PS_CO070"); // 활동량계산
 			oFilter.AddEx("PS_CO685"); //결산분개등록
 			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
 			oFilter.AddEx("PS_CO160"); //재공 원가 이동등록
@@ -1348,6 +1352,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_CO170"); //재공완료 대체관리등록
 			oFilter.AddEx("PS_CO685"); //결산분개등록
 			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
 			oFilter.AddEx("PS_FI180"); // 분개장

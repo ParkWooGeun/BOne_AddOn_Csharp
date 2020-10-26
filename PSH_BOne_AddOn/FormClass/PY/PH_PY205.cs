@@ -31,8 +31,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFromDocEntry01"></param>
-        public override void LoadForm(string oFromDocEntry01)
+        /// <param name="oFormDocEntry01"></param>
+        public override void LoadForm(string oFormDocEntry01)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -66,7 +66,7 @@ namespace PSH_BOne_AddOn
                 PH_PY205_ComboBox_Setting();
                 PH_PY205_EnableMenus();
                 oForm.Items.Item("Folder01").Specific.Select(); //폼이 로드 될 때 Folder01이 선택됨
-                PH_PY205_SetDocument(oFromDocEntry01);
+                PH_PY205_SetDocument(oFormDocEntry01);
                 //Call PH_PY205_FormResize
 
                 oForm.DataSources.UserDataSources.Item("StdYear01").Value = DateTime.Now.ToString("yyyy"); //기준년도
@@ -405,12 +405,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFromDocEntry01"></param>
-        private void PH_PY205_SetDocument(string oFromDocEntry01)
+        /// <param name="oFormDocEntry01"></param>
+        private void PH_PY205_SetDocument(string oFormDocEntry01)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFromDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry01))
                 {
                     PH_PY205_FormItemEnabled();
                 }
@@ -418,7 +418,7 @@ namespace PSH_BOne_AddOn
                 {
                     //oForm.Mode = fm_FIND_MODE
                     PH_PY205_FormItemEnabled();
-                    //oForm.Items("Code").Specific.VALUE = oFromDocEntry01
+                    //oForm.Items("Code").Specific.VALUE = oFormDocEntry01
                     //oForm.Items("1").CLICK ct_Regular
                 }
             }

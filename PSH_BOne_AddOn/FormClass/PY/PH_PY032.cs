@@ -44,8 +44,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFromDocEntry01"></param>
-        public override void LoadForm(string oFromDocEntry01)
+        /// <param name="oFormDocEntry01"></param>
+        public override void LoadForm(string oFormDocEntry01)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
             try
@@ -82,7 +82,7 @@ namespace PSH_BOne_AddOn
                 PH_PY032_CreateItems();
                 PH_PY032_ComboBox_Setting();
                 PH_PY032_EnableMenus();
-                PH_PY032_SetDocument(oFromDocEntry01);
+                PH_PY032_SetDocument(oFormDocEntry01);
                 PH_PY032_FormResize();
 
                 PH_PY032_LoadCaption();
@@ -775,13 +775,13 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFromDocEntry01"></param>
-        private void PH_PY032_SetDocument(string oFromDocEntry01)
+        /// <param name="oFormDocEntry01"></param>
+        private void PH_PY032_SetDocument(string oFormDocEntry01)
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
-                if ((string.IsNullOrEmpty(oFromDocEntry01)))
+                if ((string.IsNullOrEmpty(oFormDocEntry01)))
                 {
                     PH_PY032_FormItemEnabled();
                 }

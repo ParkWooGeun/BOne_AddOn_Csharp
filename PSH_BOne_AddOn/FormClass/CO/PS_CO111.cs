@@ -1,5 +1,4 @@
 using System;
-
 using SAPbouiCOM;
 
 namespace PSH_BOne_AddOn
@@ -10,10 +9,8 @@ namespace PSH_BOne_AddOn
     internal class PS_CO111 : PSH_BaseClass
     {
         private string oFormUniqueID;
-
         private SAPbouiCOM.Matrix oMat01;
         private SAPbouiCOM.Matrix oMat02;
-        
         private SAPbouiCOM.DBDataSource oDS_PS_CO110M; //등록헤더
         private SAPbouiCOM.DBDataSource oDS_PS_CO110N; //등록라인
 

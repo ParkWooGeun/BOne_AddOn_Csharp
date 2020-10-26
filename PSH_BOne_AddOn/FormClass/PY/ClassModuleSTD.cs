@@ -34,7 +34,7 @@
 //		private string oLastColUID;
 //		private int oLastColRow;
 
-//		public void LoadForm(string oFromDocEntry01 = "")
+//		public void LoadForm(string oFormDocEntry01 = "")
 //		{
 
 //			int i = 0;
@@ -63,7 +63,7 @@
 //			oForm.Freeze(true);
 //			PH_PY000_CreateItems();
 //			PH_PY000_EnableMenus();
-//			PH_PY000_SetDocument(oFromDocEntry01);
+//			PH_PY000_SetDocument(oFormDocEntry01);
 //			//    Call PH_PY000_FormResize
 
 //			oForm.Update();
@@ -220,19 +220,19 @@
 //			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY000_EnableMenus_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
 //		}
 
-//		private void PH_PY000_SetDocument(string oFromDocEntry01)
+//		private void PH_PY000_SetDocument(string oFormDocEntry01)
 //		{
 //			 // ERROR: Not supported in C#: OnErrorStatement
 
 
-//			if ((string.IsNullOrEmpty(oFromDocEntry01))) {
+//			if ((string.IsNullOrEmpty(oFormDocEntry01))) {
 //				PH_PY000_FormItemEnabled();
 //				PH_PY000_AddMatrixRow();
 //			} else {
 //				oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
 //				PH_PY000_FormItemEnabled();
 //				//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("Code").Specific.VALUE = oFromDocEntry01;
+//				oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
 //				oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 //			}
 //			return;

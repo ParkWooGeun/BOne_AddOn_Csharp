@@ -22,8 +22,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFromDocEntry01"></param>
-		public override void LoadForm(string oFromDocEntry01)
+		/// <param name="oFormDocEntry01"></param>
+		public override void LoadForm(string oFormDocEntry01)
 		{
 			int i = 0;
 			MSXML2.DOMDocument oXmlDoc01 = new MSXML2.DOMDocument();
@@ -54,7 +54,7 @@ namespace PSH_BOne_AddOn
 				PS_FI961_Initial_Setting();
 				PS_FI961_CF_ChooseFromList();
 				PS_FI961_EnableMenus();
-				PS_FI961_SetDocument(oFromDocEntry01);
+				PS_FI961_SetDocument(oFormDocEntry01);
 				PS_FI961_FormResize();
 
 				oForm.Items.Item("Folder01").Specific.Select();				//폼이 로드 될 때 Folder01이 선택됨
@@ -1032,12 +1032,12 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// PS_FI961_SetDocument
 		/// </summary>
-		/// <param name="oFromDocEntry01"></param>
-		private void PS_FI961_SetDocument(string oFromDocEntry01)
+		/// <param name="oFormDocEntry01"></param>
+		private void PS_FI961_SetDocument(string oFormDocEntry01)
 		{
 			try
 			{
-				if ((string.IsNullOrEmpty(oFromDocEntry01)))
+				if ((string.IsNullOrEmpty(oFormDocEntry01)))
 				{
 					PS_FI961_FormItemEnabled();
 				}

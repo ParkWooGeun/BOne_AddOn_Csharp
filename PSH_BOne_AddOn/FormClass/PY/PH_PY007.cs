@@ -33,7 +33,7 @@ namespace PSH_BOne_AddOn
         private string oLastColUID;
         private int oLastColRow;
 
-        public override void LoadForm(string oFromDocEntry01 = "")
+        public override void LoadForm(string oFormDocEntry01 = "")
         {
 
             int i = 0;
@@ -69,7 +69,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY007_CreateItems();
                 PH_PY007_EnableMenus();
-                PH_PY007_SetDocument(oFromDocEntry01);
+                PH_PY007_SetDocument(oFormDocEntry01);
                 //    Call PH_PY007_FormResize
             }
             catch (Exception ex)
@@ -161,11 +161,11 @@ namespace PSH_BOne_AddOn
             }
         }
 
-        private void PH_PY007_SetDocument(string oFromDocEntry01)
+        private void PH_PY007_SetDocument(string oFormDocEntry01)
         {
             try
             {
-                if ((string.IsNullOrEmpty(oFromDocEntry01)))
+                if ((string.IsNullOrEmpty(oFormDocEntry01)))
                 {
                     PH_PY007_FormItemEnabled();
                     //        Call PH_PY007_AddMatrixRow
@@ -175,7 +175,7 @@ namespace PSH_BOne_AddOn
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY007_FormItemEnabled();
                     //UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    oForm.Items.Item("Code").Specific.VALUE = oFromDocEntry01;
+                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }

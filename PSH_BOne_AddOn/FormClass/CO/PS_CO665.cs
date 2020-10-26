@@ -18,7 +18,7 @@ namespace PSH_BOne_AddOn
 		private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
 		private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
 
-		public override void LoadForm(string oFromDocEntry01)
+		public override void LoadForm(string oFormDocEntry01)
 		{
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 

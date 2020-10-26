@@ -27,7 +27,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        public override void LoadForm(string oFromDocEntry01)
+        public override void LoadForm(string oFormDocEntry01)
         {
             string strXml = string.Empty;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -60,7 +60,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY312_CreateItems();
                 PH_PY312_EnableMenus();
-                PH_PY312_SetDocument(oFromDocEntry01);
+                PH_PY312_SetDocument(oFormDocEntry01);
             }
             catch (Exception ex)
             {
@@ -146,18 +146,18 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFromDocEntry01"></param>
-        private void PH_PY312_SetDocument(string oFromDocEntry01)
+        /// <param name="oFormDocEntry01"></param>
+        private void PH_PY312_SetDocument(string oFormDocEntry01)
         {
             try
             {
-                //    If (oFromDocEntry01 = "") Then
+                //    If (oFormDocEntry01 = "") Then
                 //        Call PH_PY312_FormItemEnabled
                 //'        Call PH_PY312_AddMatrixRow
                 //    Else
                 //        oForm.Mode = fm_FIND_MODE
                 //        Call PH_PY312_FormItemEnabled
-                //        oForm.Items("Code").Specific.Value = oFromDocEntry01
+                //        oForm.Items("Code").Specific.Value = oFormDocEntry01
                 //        oForm.Items("1").CLICK ct_Regular
                 //    End If
             }

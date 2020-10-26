@@ -12,14 +12,13 @@ namespace PSH_BOne_AddOn
     {
         public string oFormUniqueID01;
         public SAPbouiCOM.Matrix oMat01;
-
         private SAPbouiCOM.DBDataSource oDS_PS_CO130H;  //등록헤더
         private SAPbouiCOM.DBDataSource oDS_PS_CO130L;  //등록라인
 
         /// <summary>
         /// 화면 호출
         /// </summary>
-        public override void LoadForm(string oFromDocEntry01)
+        public override void LoadForm(string oFormDocEntry01)
         {
             int i = 0;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -191,7 +190,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("저장 중...", 100, false);
+                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 100, false);
 
                 oForm.Freeze(true);
 

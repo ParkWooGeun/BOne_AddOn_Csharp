@@ -147,11 +147,11 @@ namespace PSH_BOne_AddOn
             }
         }
 
-        private void PH_PY505_SetDocument(string oFromDocEntry01)
+        private void PH_PY505_SetDocument(string oFormDocEntry01)
         {
             try
             {
-                if ((string.IsNullOrEmpty(oFromDocEntry01)))
+                if ((string.IsNullOrEmpty(oFormDocEntry01)))
                 {
                     PH_PY505_FormItemEnabled();
                     //PH_PY505_AddMatrixRow();
@@ -160,7 +160,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY505_FormItemEnabled();                    
-                    oForm.Items.Item("Code").Specific.VALUE = oFromDocEntry01;
+                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }

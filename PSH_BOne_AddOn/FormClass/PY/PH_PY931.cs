@@ -26,8 +26,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 표준세액적용대상자조회
         /// </summary>
-        /// <param name="oFromDocEntry01"></param>
-        public override void LoadForm(string oFromDocEntry01)
+        /// <param name="oFormDocEntry01"></param>
+        public override void LoadForm(string oFormDocEntry01)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -59,7 +59,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY931_CreateItems();
                 PH_PY931_EnableMenus();
-                PH_PY931_SetDocument(oFromDocEntry01);
+                PH_PY931_SetDocument(oFormDocEntry01);
                 //PH_PY931_FormResize();
             }
             catch (Exception ex)
@@ -132,12 +132,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFromDocEntry01"></param>
-        private void PH_PY931_SetDocument(string oFromDocEntry01)
+        /// <param name="oFormDocEntry01"></param>
+        private void PH_PY931_SetDocument(string oFormDocEntry01)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFromDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry01))
                 {
                     PH_PY931_FormItemEnabled();
                 }
@@ -145,7 +145,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY931_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFromDocEntry01;
+                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }

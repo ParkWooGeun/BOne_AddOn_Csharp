@@ -1,5 +1,4 @@
 using System;
-
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 
@@ -11,12 +10,9 @@ namespace PSH_BOne_AddOn
 	internal class PS_CO020 : PSH_BaseClass
 	{
 		private string oFormUniqueID;
-		//public SAPbouiCOM.Form oForm01;
 		private SAPbouiCOM.Matrix oMat01;
-			
 		private SAPbouiCOM.DBDataSource oDS_PS_CO020H; //등록헤더
 		private SAPbouiCOM.DBDataSource oDS_PS_CO020L; //등록라인
-
 		private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
 		private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
 		private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
@@ -24,8 +20,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// Form 호출
 		/// </summary>
-		/// <param name="oFromDocEntry01"></param>
-		public override void LoadForm(string oFromDocEntry01)
+		/// <param name="oFormDocEntry01"></param>
+		public override void LoadForm(string oFormDocEntry01)
 		{
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -45,10 +41,7 @@ namespace PSH_BOne_AddOn
 				oFormUniqueID = "PS_CO020_" + SubMain.Get_TotalFormsCount();
 				SubMain.Add_Forms(this, oFormUniqueID, "PS_CO020");
 
-				string strXml = null;
-				strXml = oXmlDoc.xml.ToString();
-
-				PSH_Globals.SBO_Application.LoadBatchActions(strXml);
+				PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
 				oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
 				oForm.SupportedModes = -1;
@@ -58,7 +51,7 @@ namespace PSH_BOne_AddOn
 				oForm.Freeze(true);
                 CreateItems();
                 ComboBox_Setting();
-                SetDocument(oFromDocEntry01);
+                SetDocument(oFormDocEntry01);
 
                 oForm.EnableMenu("1293", true); //행삭제
 				oForm.EnableMenu("1287", false); //복제
@@ -129,12 +122,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// SetDocument
         /// </summary>
-        /// <param name="oFromDocEntry01"></param>
-        private void SetDocument(string oFromDocEntry01)
+        /// <param name="oFormDocEntry01"></param>
+        private void SetDocument(string oFormDocEntry01)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFromDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry01))
                 {
                     FormItemEnabled();
                     AddMatrixRow(0, true);
@@ -143,7 +136,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.Value = oFromDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -200,7 +193,7 @@ namespace PSH_BOne_AddOn
                 if (RowIserted == false) //행추가여부
                 {
                     oRow = oMat01.RowCount;
-                    oDS_PS_CO020L.InsertRecord((oRow));
+                    oDS_PS_CO020L.InsertRecord(oRow);
                 }
                 oMat01.AddRow();
                 oDS_PS_CO020L.Offset = oRow;
@@ -699,7 +692,6 @@ namespace PSH_BOne_AddOn
                 else if (pVal.Before_Action == false)
                 {
                     SubMain.Remove_Forms(oFormUniqueID);
-
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO020H);

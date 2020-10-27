@@ -174,8 +174,8 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY007_FormItemEnabled();
-                    //UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    //UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -803,11 +803,11 @@ namespace PSH_BOne_AddOn
                 DocEntry = DataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PH_PY007'", "");
                 if (Convert.ToDouble(DocEntry) == 0)
                 {                    
-                    oForm.Items.Item("DocEntry").Specific.VALUE = 1;
+                    oForm.Items.Item("DocEntry").Specific.Value = 1;
                 }
                 else
                 {
-                    oForm.Items.Item("DocEntry").Specific.VALUE = DocEntry;
+                    oForm.Items.Item("DocEntry").Specific.Value = DocEntry;
                 }
             }
             catch (Exception ex)
@@ -940,7 +940,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                if (DataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY007A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.VALUE + "'", 0, 1) == "Y")
+                if (DataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY007A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "Y")
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("해당문서는 다른사용자에 의해 취소되었습니다. 작업을 진행할수 없습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     functionReturnValue = false;

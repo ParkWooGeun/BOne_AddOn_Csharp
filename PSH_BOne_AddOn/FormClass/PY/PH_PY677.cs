@@ -502,18 +502,18 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                CLTCOD =   oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
-                FrDate =   oForm.Items.Item("FrDate").Specific.VALUE.ToString().Trim();
-                ToDate =   oForm.Items.Item("ToDate").Specific.VALUE.ToString().Trim();
-                TeamCode = oForm.Items.Item("TeamCode").Specific.VALUE.ToString().Trim();
-                RspCode =  oForm.Items.Item("RspCode").Specific.VALUE.ToString().Trim();
-                ClsCode =  oForm.Items.Item("ClsCode").Specific.VALUE.ToString().Trim();
-                ShiftDat = oForm.Items.Item("ShiftDatCd").Specific.VALUE.ToString().Trim();
-                GNMUJO =   oForm.Items.Item("GNMUJOCd").Specific.VALUE.ToString().Trim();
-                MSTCOD =   oForm.Items.Item("MSTCOD").Specific.VALUE.ToString().Trim();
-                Class_Renamed = oForm.Items.Item("Class").Specific.VALUE.ToString().Trim();
-                Confirm =  oForm.Items.Item("Confirm").Specific.VALUE.ToString().Trim();
-                WorkType = oForm.Items.Item("WorkType").Specific.VALUE.ToString().Trim();
+                CLTCOD =   oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                FrDate =   oForm.Items.Item("FrDate").Specific.Value.ToString().Trim();
+                ToDate =   oForm.Items.Item("ToDate").Specific.Value.ToString().Trim();
+                TeamCode = oForm.Items.Item("TeamCode").Specific.Value.ToString().Trim();
+                RspCode =  oForm.Items.Item("RspCode").Specific.Value.ToString().Trim();
+                ClsCode =  oForm.Items.Item("ClsCode").Specific.Value.ToString().Trim();
+                ShiftDat = oForm.Items.Item("ShiftDatCd").Specific.Value.ToString().Trim();
+                GNMUJO =   oForm.Items.Item("GNMUJOCd").Specific.Value.ToString().Trim();
+                MSTCOD =   oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
+                Class_Renamed = oForm.Items.Item("Class").Specific.Value.ToString().Trim();
+                Confirm =  oForm.Items.Item("Confirm").Specific.Value.ToString().Trim();
+                WorkType = oForm.Items.Item("WorkType").Specific.Value.ToString().Trim();
 
                 sQry = "            EXEC [PH_PY677_01] ";
                 sQry = sQry + "'" + CLTCOD + "',";                // 사업장
@@ -588,11 +588,11 @@ namespace PSH_BOne_AddOn
                     oDS_PH_PY677B.SetValue("U_ColReg19", i, oRecordSet01.Fields.Item("R_OffDt").Value);                      //퇴근일자(기찰)
                     oDS_PH_PY677B.SetValue("U_ColTm04",  i, oRecordSet01.Fields.Item("R_OffTime").Value);                    //퇴근시각(기찰)
 
-                    //        Call oDS_PH_PY677B.setValue("U_ColQty05", i, Trim(oRecordSet01.Fields("R_Base").VALUE)) '기본(기찰)
-                    //        Call oDS_PH_PY677B.setValue("U_ColQty06", i, Trim(oRecordSet01.Fields("R_Extend").VALUE)) '연장(기찰)
-                    //        Call oDS_PH_PY677B.setValue("U_ColQty07", i, Trim(oRecordSet01.Fields("R_Special").VALUE)) '특근(기찰)
-                    //        Call oDS_PH_PY677B.setValue("U_ColQty08", i, Trim(oRecordSet01.Fields("R_SpExtend").VALUE)) '특연(기찰)
-                    //        Call oDS_PH_PY677B.setValue("U_ColQty09", i, Trim(oRecordSet01.Fields("R_TotTime").VALUE)) '총근무시간(기찰)
+                    //        Call oDS_PH_PY677B.setValue("U_ColQty05", i, Trim(oRecordSet01.Fields("R_Base").Value)) '기본(기찰)
+                    //        Call oDS_PH_PY677B.setValue("U_ColQty06", i, Trim(oRecordSet01.Fields("R_Extend").Value)) '연장(기찰)
+                    //        Call oDS_PH_PY677B.setValue("U_ColQty07", i, Trim(oRecordSet01.Fields("R_Special").Value)) '특근(기찰)
+                    //        Call oDS_PH_PY677B.setValue("U_ColQty08", i, Trim(oRecordSet01.Fields("R_SpExtend").Value)) '특연(기찰)
+                    //        Call oDS_PH_PY677B.setValue("U_ColQty09", i, Trim(oRecordSet01.Fields("R_TotTime").Value)) '총근무시간(기찰)
 
                     oDS_PH_PY677B.SetValue("U_ColQty12", i, oRecordSet01.Fields.Item("Rotation").Value);                    //교대일수
                     oDS_PH_PY677B.SetValue("U_ColReg24", i, oRecordSet01.Fields.Item("R_YN").Value);                        //기찰완료여부
@@ -692,7 +692,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (oDS_PH_PY677B.GetValue("U_ColReg20", i).ToString().Trim() == "Y")
                     {
-                        CLTCOD     = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();                     // 사업장
+                        CLTCOD     = oForm.Items.Item("CLTCOD").Specific.Value.Trim();                     // 사업장
                         PosDate    = oDS_PH_PY677B.GetValue("U_ColDt05", i).Trim();                        // 일자
                         MSTCOD     = oDS_PH_PY677B.GetValue("U_ColReg05", i).Trim();                       // 사번
                         ShiftDat   = oDS_PH_PY677B.GetValue("U_ColReg07", i).Trim();                       // 근무형태
@@ -1007,7 +1007,7 @@ namespace PSH_BOne_AddOn
                                         }
 
                                         ymd = oDS_PH_PY677B.GetValue("U_ColDt05", oRow - 1).ToString().Trim();
-                                        CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
+                                        CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                                         MSTCOD = oDS_PH_PY677B.GetValue("U_ColReg05", oRow - 1).ToString().Trim();
 
                                         ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회중...", oRecordSet01.RecordCount, false);
@@ -1047,7 +1047,7 @@ namespace PSH_BOne_AddOn
                                         //근속보전휴가, 근속보전반차(기계사업부)
                                         //근속보전휴가 잔량 확인
                                         ymd = oDS_PH_PY677B.GetValue("U_ColDt05", oRow - 1).ToString().Trim();
-                                        CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
+                                        CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                                         MSTCOD = oDS_PH_PY677B.GetValue("U_ColReg05", oRow - 1).ToString().Trim();
 
                                         if (Convert.ToDateTime(dataHelpClass.ConvertDateType(oDS_PH_PY677B.GetValue("U_ColDt05", oRow - 1), "-")) >= Convert.ToDateTime(ymd.Substring(0, 4) + "-07-01") )
@@ -1135,15 +1135,15 @@ namespace PSH_BOne_AddOn
                         break;
 
                     case "MSTCOD":  //성명
-                        oForm.Items.Item("MSTNAM").Specific.VALUE = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("MSTCOD").Specific.VALUE + "'", "");
+                        oForm.Items.Item("MSTNAM").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("MSTCOD").Specific.Value + "'", "");
                         break;
 
                     case "ShiftDatCd": //근무형태
-                        oForm.Items.Item("ShiftDatNm").Specific.VALUE = dataHelpClass.Get_ReData("U_CodeNm", "U_Code",  "[@PS_HR200L] AS T0", "'" + oForm.Items.Item("ShiftDatCd").Specific.VALUE + "'", " AND T0.Code = 'P154' AND T0.U_UseYN = 'Y'");
+                        oForm.Items.Item("ShiftDatNm").Specific.Value = dataHelpClass.Get_ReData("U_CodeNm", "U_Code",  "[@PS_HR200L] AS T0", "'" + oForm.Items.Item("ShiftDatCd").Specific.Value + "'", " AND T0.Code = 'P154' AND T0.U_UseYN = 'Y'");
                         break;
 
                     case "GNMUJOCd": //근무조
-                        oForm.Items.Item("GNMUJONm").Specific.VALUE = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L] AS T0", "'" + oForm.Items.Item("GNMUJOCd").Specific.VALUE + "'", " AND T0.Code = 'P155' AND T0.U_UseYN = 'Y'");
+                        oForm.Items.Item("GNMUJONm").Specific.Value = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L] AS T0", "'" + oForm.Items.Item("GNMUJOCd").Specific.Value + "'", " AND T0.Code = 'P155' AND T0.U_UseYN = 'Y'");
                         break;
 
                     case "CLTCOD":
@@ -1321,7 +1321,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
                 ShiftDat = oDS_PH_PY677B.GetValue("U_ColReg07", pRow - 1).Trim();              // 근무형태
                 GNMUJO =   oDS_PH_PY677B.GetValue("U_ColReg08", pRow - 1).Trim();              // 근무조
 
@@ -3036,7 +3036,7 @@ namespace PSH_BOne_AddOn
                     {
                         for (i = 1; i <= oMat01.VisualRowCount; i++)
                         {
-                            oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.VALUE = i;
+                            oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value = i;
                         }
                         oMat01.FlushToDataSource();
                         oDS_PH_PY677B.RemoveRecord(oDS_PH_PY677B.Size - 1);

@@ -426,12 +426,12 @@ namespace PSH_BOne_AddOn
                         {
                             CLTCOD = "1";
 
-                            //            If oMat1.Columns("InForm02").Cells(pval.Row).Specific.VALUE = "N" Then
+                            //            If oMat1.Columns("InForm02").Cells(pval.Row).Specific.Value = "N" Then
                             //                '통근버스 사용 Y/N
                             //                Amt1 = 0
                             //            End If
                             //
-                            //            If oMat1.Columns("InForm03").Cells(pval.Row).Specific.VALUE = "N" Then
+                            //            If oMat1.Columns("InForm03").Cells(pval.Row).Specific.Value = "N" Then
                             //                '신마산 사용 Y/N
                             //                Amt2 = 0
                             //            End If

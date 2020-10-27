@@ -413,7 +413,7 @@ namespace PSH_BOne_AddOn
                             }
                             sQry = "SELECT '%' AS [Code], '전체' AS [Name], -1 AS [Seq] UNION ALL  ";
                             sQry = sQry + "SELECT U_Code AS [Code], U_CodeNm AS [Name],  U_Seq AS [Seq] FROM [@PS_HR200L] ";
-                            sQry = sQry + " WHERE Code = '1' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim() + "' And U_UseYN = 'Y'";
+                            sQry = sQry + " WHERE Code = '1' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "' And U_UseYN = 'Y'";
                             sQry = sQry + " ORDER BY Seq";
 
                             dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("TeamCode").Specific, "N");
@@ -433,7 +433,7 @@ namespace PSH_BOne_AddOn
                             //현재 부서로 다시 Qry
                             sQry = "SELECT '%' AS [Code], '전체' AS [Name], -1 AS [Seq] UNION ALL  ";
                             sQry = sQry + "SELECT U_Code AS [Code], U_CodeNm AS [Name], U_Seq AS [Seq]";
-                            sQry = sQry + " FROM [@PS_HR200L] WHERE Code = '2' AND U_UseYN= 'Y' AND U_Char1 = '" + oForm.Items.Item("TeamCode").Specific.VALUE + "' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.Trim() + "'";
+                            sQry = sQry + " FROM [@PS_HR200L] WHERE Code = '2' AND U_UseYN= 'Y' AND U_Char1 = '" + oForm.Items.Item("TeamCode").Specific.Value + "' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value.Trim() + "'";
                             sQry = sQry + " ORDER BY Seq";
                             dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("RspCode").Specific, "N");
                             oForm.Items.Item("RspCode").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
@@ -482,9 +482,9 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "MSTCOD":
-                                sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("MSTCOD").Specific.VALUE.ToString().Trim() + "'";
+                                sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "'";
                                 oRecordSet.DoQuery(sQry);
-                                oForm.Items.Item("MSTNAM").Specific.VALUE = oRecordSet.Fields.Item("U_FullName").Value.ToString().Trim();
+                                oForm.Items.Item("MSTNAM").Specific.Value = oRecordSet.Fields.Item("U_FullName").Value.ToString().Trim();
                                 break;
                         }
                     }

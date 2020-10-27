@@ -255,7 +255,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY115_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -490,11 +490,11 @@ namespace PSH_BOne_AddOn
 
                 if (System.Convert.ToDouble(DocEntry) == 0)
                 {
-                    oForm.Items.Item("Code").Specific.VALUE = "00000001";
+                    oForm.Items.Item("Code").Specific.Value = "00000001";
                 }
                 else
                 {
-                    oForm.Items.Item("Code").Specific.VALUE = DocEntry.PadLeft(8, '0'); //codeHelpClass.Right(Strings.Replace("0000000" + Conversion.Str((double)DocEntry), " ", ""), 8);
+                    oForm.Items.Item("Code").Specific.Value = DocEntry.PadLeft(8, '0'); //codeHelpClass.Right(Strings.Replace("0000000" + Conversion.Str((double)DocEntry), " ", ""), 8);
                 }
             }
             catch (Exception ex)
@@ -2206,7 +2206,7 @@ namespace PSH_BOne_AddOn
                 // Set oRecordSet = oCompany.GetBusinessObject(BoRecordset)
                 // 
                 // sQry = "UPDATE [@PH_PY001A] SET U_RETDAT = '" & Val(oDS_PH_PY115A.GetValue("U_ENDRET", 0)) & "'"
-                // sQry = sQry & "   WHERE Code = N'" & oForm.Items("MSTCOD").Specific.VALUE & "'"
+                // sQry = sQry & "   WHERE Code = N'" & oForm.Items("MSTCOD").Specific.Value & "'"
                 // oRecordSet.DoQuery sQry
             }
             catch (Exception ex)
@@ -3505,7 +3505,7 @@ namespace PSH_BOne_AddOn
                             //{
                             PSH_Globals.SBO_Application.Forms.ActiveForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                             PSH_Globals.SBO_Application.Forms.ActiveForm.Freeze(true);
-                            PSH_Globals.SBO_Application.Forms.ActiveForm.Items.Item("Code").Specific.VALUE = oDS_PH_PY115A.GetValue("U_MSTCOD", 0);
+                            PSH_Globals.SBO_Application.Forms.ActiveForm.Items.Item("Code").Specific.Value = oDS_PH_PY115A.GetValue("U_MSTCOD", 0);
                             PSH_Globals.SBO_Application.Forms.ActiveForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             PSH_Globals.SBO_Application.Forms.ActiveForm.Freeze(false);
 

@@ -253,9 +253,9 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "Club":   //동호회명
-                                sQry = "SELECT U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P156' AND U_Code =  '" + oForm.Items.Item("Club").Specific.VALUE.Trim() + "'";
+                                sQry = "SELECT U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P156' AND U_Code =  '" + oForm.Items.Item("Club").Specific.Value.Trim() + "'";
                                 oRecordSet.DoQuery(sQry);
-                                oForm.Items.Item("ClubName").Specific.VALUE = oRecordSet.Fields.Item("U_CodeNm").Value.ToString().Trim();
+                                oForm.Items.Item("ClubName").Specific.Value = oRecordSet.Fields.Item("U_CodeNm").Value.ToString().Trim();
                                 break;
                         }
                     }
@@ -348,7 +348,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 //사원번호 Check(필수)
-                //if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.VALUE.Trim()))
+                //if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.Value.Trim()))
                 //{
                 //    PSH_Globals.SBO_Application.SetStatusBarMessage("사원번호는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                 //    oForm.Items.Item("MSTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -383,7 +383,7 @@ namespace PSH_BOne_AddOn
             string Club = string.Empty;
 
             CLTCOD = oForm.Items.Item("CLTCOD").Specific.Selected.Value.ToString().Trim();
-            Club = oForm.Items.Item("Club").Specific.VALUE.Trim();
+            Club = oForm.Items.Item("Club").Specific.Value.Trim();
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();

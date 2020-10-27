@@ -270,7 +270,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
 
                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();   // 사업장
-                SCode = oForm.Items.Item("SCode").Specific.VALUE.Trim();
+                SCode = oForm.Items.Item("SCode").Specific.Value.Trim();
 
                 sQry = "            EXEC [PH_PY306_01] ";
                 sQry = sQry + "'" + CLTCOD + "',"; //사업장
@@ -283,9 +283,9 @@ namespace PSH_BOne_AddOn
                 oMat01.FlushToDataSource();
                 oMat01.LoadFromDataSource();
 
-                oForm.Items.Item("Team").Specific.VALUE = oRecordSet.Fields.Item("TeamName").Value;        // 신청인-소속
-                oForm.Items.Item("CntcName").Specific.VALUE = oRecordSet.Fields.Item("CntcName").Value;    // 신청인-성명
-                oForm.Items.Item("startDat").Specific.VALUE = oRecordSet.Fields.Item("StartDate").Value;   // 신청인-입사일자
+                oForm.Items.Item("Team").Specific.Value = oRecordSet.Fields.Item("TeamName").Value;        // 신청인-소속
+                oForm.Items.Item("CntcName").Specific.Value = oRecordSet.Fields.Item("CntcName").Value;    // 신청인-성명
+                oForm.Items.Item("startDat").Specific.Value = oRecordSet.Fields.Item("StartDate").Value;   // 신청인-입사일자
 
                 if (oRecordSet.RecordCount == 0)
                 {
@@ -367,7 +367,7 @@ namespace PSH_BOne_AddOn
                 switch (oUID)
                 {
                     case "SCode":
-                        oForm.Items.Item("SName").Specific.VALUE = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("SCode").Specific.VALUE + "'","");
+                        oForm.Items.Item("SName").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("SCode").Specific.Value + "'","");
                         break;
                 }
             }
@@ -396,7 +396,7 @@ namespace PSH_BOne_AddOn
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 
             CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();   // 사업장
-            SCode = oForm.Items.Item("SCode").Specific.VALUE.Trim();
+            SCode = oForm.Items.Item("SCode").Specific.Value.Trim();
 
             try
             {
@@ -674,7 +674,7 @@ namespace PSH_BOne_AddOn
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
-                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.VALUE))
+                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -683,7 +683,7 @@ namespace PSH_BOne_AddOn
                 }
 
                 // 사원번호
-                if (string.IsNullOrEmpty(oForm.Items.Item("SCode").Specific.VALUE.Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("SCode").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사번은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("SCode").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -844,16 +844,16 @@ namespace PSH_BOne_AddOn
 
                             //if (pVal.ItemUID == "MSTCOD")
                             //{
-                            //    oForm.Items.Item("MSTNAM").Specific.VALUE = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("MSTCOD").Specific.VALUE + "'", ""); //성명
+                            //    oForm.Items.Item("MSTNAM").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("MSTCOD").Specific.Value + "'", ""); //성명
                             //}
                             //else if (pVal.ItemUID == "ShiftDatCd")
                             //{
-                            //    oForm.Items.Item("ShiftDatNm").Specific.VALUE = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L] AS T0", "'" + oForm.Items.Item("ShiftDatCd").Specific.VALUE + "'", " AND T0.Code = 'P154' AND T0.U_UseYN = 'Y'"); //근무형태
+                            //    oForm.Items.Item("ShiftDatNm").Specific.Value = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L] AS T0", "'" + oForm.Items.Item("ShiftDatCd").Specific.Value + "'", " AND T0.Code = 'P154' AND T0.U_UseYN = 'Y'"); //근무형태
 
                             //}
                             //else if (pVal.ItemUID == "GNMUJOCd")
                             //{
-                            //    oForm.Items.Item("GNMUJONm").Specific.VALUE = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L] AS T0", "'" + oForm.Items.Item("GNMUJOCd").Specific.VALUE + "'", " AND T0.Code = 'P155' AND T0.U_UseYN = 'Y'"); //근무조
+                            //    oForm.Items.Item("GNMUJONm").Specific.Value = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L] AS T0", "'" + oForm.Items.Item("GNMUJOCd").Specific.Value + "'", " AND T0.Code = 'P155' AND T0.U_UseYN = 'Y'"); //근무조
                             //}
                         }
                     }

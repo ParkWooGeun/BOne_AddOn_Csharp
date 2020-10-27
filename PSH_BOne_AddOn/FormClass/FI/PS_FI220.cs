@@ -371,7 +371,7 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				// Check
-				if (string.IsNullOrEmpty(oForm.Items.Item("DocDateFr").Specific.VALUE.ToString().Trim()) || string.IsNullOrEmpty(oForm.Items.Item("DocDateTo").Specific.VALUE.ToString().Trim()))
+				if (string.IsNullOrEmpty(oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim()) || string.IsNullOrEmpty(oForm.Items.Item("DocDateTo").Specific.Value.ToString().Trim()))
 				{ 
 						ErrNum = 1;
 						throw new Exception();
@@ -418,9 +418,9 @@ namespace PSH_BOne_AddOn
 			try
 			{
 
-				BPLId     = oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim();
-				DocDateFr = oForm.Items.Item("DocDateFr").Specific.VALUE.ToString().Trim();
-				DocDateTo = oForm.Items.Item("DocDateTo").Specific.VALUE.ToString().Trim();
+				BPLId     = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+				DocDateFr = oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim();
+				DocDateTo = oForm.Items.Item("DocDateTo").Specific.Value.ToString().Trim();
 				Level5    = oForm.DataSources.UserDataSources.Item("Level5").Value.ToString().Trim();
 				Level6    = oForm.DataSources.UserDataSources.Item("Level6").Value.ToString().Trim();
 

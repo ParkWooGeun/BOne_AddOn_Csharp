@@ -159,7 +159,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY105_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -189,7 +189,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("Comments").Enabled = false;
 
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true); //접속자에 따른 권한별 사업장 콤보박스세팅
-                    oForm.Items.Item("YM").Specific.VALUE = DateTime.Now.ToString("yyyyMM"); //귀속년월
+                    oForm.Items.Item("YM").Specific.Value = DateTime.Now.ToString("yyyyMM"); //귀속년월
 
                     oForm.EnableMenu("1281", true); //문서찾기
                     oForm.EnableMenu("1282", false); //문서추가
@@ -870,7 +870,7 @@ namespace PSH_BOne_AddOn
             }
             else
             {
-                oForm.Items.Item("Comments").Specific.VALUE = sFile;
+                oForm.Items.Item("Comments").Specific.Value = sFile;
             }
 
             //엑셀 Object 연결
@@ -1086,7 +1086,7 @@ namespace PSH_BOne_AddOn
                     for (i = 1; i <= oMat1.VisualRowCount - 1; i++)
                     {
                         //호봉코드
-                        if (string.IsNullOrEmpty(oMat1.Columns.Item("HOBCOD").Cells.Item(i).Specific.VALUE))
+                        if (string.IsNullOrEmpty(oMat1.Columns.Item("HOBCOD").Cells.Item(i).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("호봉코드는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("HOBCOD").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -1094,7 +1094,7 @@ namespace PSH_BOne_AddOn
                             return functionReturnValue;
                         }
                         //호봉명
-                        if (string.IsNullOrEmpty(oMat1.Columns.Item("HOBNAM").Cells.Item(i).Specific.VALUE))
+                        if (string.IsNullOrEmpty(oMat1.Columns.Item("HOBNAM").Cells.Item(i).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("내역 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("HOBNAM").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);

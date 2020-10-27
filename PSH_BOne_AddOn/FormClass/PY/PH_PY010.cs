@@ -108,13 +108,13 @@ namespace PSH_BOne_AddOn
 
                 if (DocDateF == DocDateT)
                 {
-                    oForm.Items.Item("DocDateFr").Specific.VALUE = ImsiDate;
-                    oForm.Items.Item("DocDateTo").Specific.VALUE = DocDateT;
+                    oForm.Items.Item("DocDateFr").Specific.Value = ImsiDate;
+                    oForm.Items.Item("DocDateTo").Specific.Value = DocDateT;
                 }
                 else
                 {
-                    oForm.Items.Item("DocDateFr").Specific.VALUE = DocDateF;
-                    oForm.Items.Item("DocDateTo").Specific.VALUE = DocDateT;
+                    oForm.Items.Item("DocDateFr").Specific.Value = DocDateF;
+                    oForm.Items.Item("DocDateTo").Specific.Value = DocDateT;
                 }
              }
             catch (Exception ex)
@@ -363,9 +363,9 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
-                DocDateFr = oForm.Items.Item("DocDateFr").Specific.VALUE.Trim();
-                DocDateTo = oForm.Items.Item("DocDateTo").Specific.VALUE.Trim();
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
+                DocDateFr = oForm.Items.Item("DocDateFr").Specific.Value.Trim();
+                DocDateTo = oForm.Items.Item("DocDateTo").Specific.Value.Trim();
 
                 sQry = "PH_PY010_01 '" + CLTCOD + "','" + DocDateFr + "', '" + DocDateTo + "'";
                 oRecordSet.DoQuery(sQry);

@@ -854,11 +854,11 @@ namespace PSH_BOne_AddOn
                 DocEntry = DataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PH_PY110'", "");
                 if (Convert.ToDouble(DocEntry) == 0)
                 {
-                    oForm.Items.Item("DocEntry").Specific.VALUE = 1;
+                    oForm.Items.Item("DocEntry").Specific.Value = 1;
                 }
                 else
                 {
-                    oForm.Items.Item("DocEntry").Specific.VALUE = DocEntry;
+                    oForm.Items.Item("DocEntry").Specific.Value = DocEntry;
                 }
             }
             catch (Exception ex)

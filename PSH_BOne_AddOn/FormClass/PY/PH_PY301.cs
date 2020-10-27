@@ -203,7 +203,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY301_FormItemEnabled();
-                    oForm.Items.Item("DocEntry").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -460,7 +460,7 @@ namespace PSH_BOne_AddOn
                     {
 
                         //학교
-                        if (string.IsNullOrEmpty(oMat1.Columns.Item("SchCls").Cells.Item(i).Specific.VALUE))
+                        if (string.IsNullOrEmpty(oMat1.Columns.Item("SchCls").Cells.Item(i).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("학교는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("SchCls").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -468,7 +468,7 @@ namespace PSH_BOne_AddOn
                             return functionReturnValue;
                         }
                         //학교명
-                        if (string.IsNullOrEmpty(oMat1.Columns.Item("SchName").Cells.Item(i).Specific.VALUE))
+                        if (string.IsNullOrEmpty(oMat1.Columns.Item("SchName").Cells.Item(i).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("학교명은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("SchName").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -476,7 +476,7 @@ namespace PSH_BOne_AddOn
                             return functionReturnValue;
                         }
                         //학년
-                        if (string.IsNullOrEmpty(oMat1.Columns.Item("Grade").Cells.Item(i).Specific.VALUE))
+                        if (string.IsNullOrEmpty(oMat1.Columns.Item("Grade").Cells.Item(i).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("학년은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("Grade").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -484,14 +484,14 @@ namespace PSH_BOne_AddOn
                             return functionReturnValue;
                         }
                         //회차
-                        if (string.IsNullOrEmpty(oMat1.Columns.Item("Count").Cells.Item(i).Specific.VALUE))
+                        if (string.IsNullOrEmpty(oMat1.Columns.Item("Count").Cells.Item(i).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("회차는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("Count").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             functionReturnValue = false;
                             return functionReturnValue;
                         }
-                        Count = oMat1.Columns.Item("Count").Cells.Item(i).Specific.VALUE;
+                        Count = oMat1.Columns.Item("Count").Cells.Item(i).Specific.Value;
 
                         sQry = "Select Cnt = Count(*) From [@PH_PY301A] a Inner Join [@PH_PY301B] b On a.DocEntry = b.DocEntry and a.Canceled = 'N' ";
                         sQry = sQry + " Where a.U_CLTCOD = '" + CLTCOD + "' And a.U_StdYear = '" + StdYear + "' and a.U_Quarter = '" + Quarter + "' ";
@@ -573,7 +573,7 @@ namespace PSH_BOne_AddOn
         //        Param05 = Convert.ToDouble(oForm.Items.Item("UPAMT").Specific.Value);
         //        Param06 = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
 
-        //        YM = oForm.Items.Item("YM").Specific.VALUE;
+        //        YM = oForm.Items.Item("YM").Specific.Value;
         //        DocDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
 
         //        if (string.IsNullOrEmpty(Param03))
@@ -849,7 +849,7 @@ namespace PSH_BOne_AddOn
 
         //    try
         //    {
-        //        if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY301A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.VALUE + "'", 0, 1) == "Y")
+        //        if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY301A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "Y")
         //        {
         //            PSH_Globals.SBO_Application.StatusBar.SetText("해당문서는 다른사용자에 의해 취소되었습니다. 작업을 진행할수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
         //            return functionReturnValue;
@@ -1152,7 +1152,7 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "CntcCode":
-                                oDS_PH_PY301A.SetValue("U_CntcName", 0, dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item(pVal.ItemUID).Specific.VALUE + "'",""));
+                                oDS_PH_PY301A.SetValue("U_CntcName", 0, dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'",""));
                                 break;
 
                             case "Mat01":
@@ -1162,7 +1162,7 @@ namespace PSH_BOne_AddOn
 
                                     oMat1.FlushToDataSource();
 
-                                    GovID = dataHelpClass.Get_ReData( "U_FamPer",  "U_FamNam",  "[@PH_PY001D]",  "'" + oMat1.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.VALUE + "'",  " AND Code = '" + oDS_PH_PY301A.GetValue("U_CntcCode", 0) + "'");
+                                    GovID = dataHelpClass.Get_ReData( "U_FamPer",  "U_FamNam",  "[@PH_PY001D]",  "'" + oMat1.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value + "'",  " AND Code = '" + oDS_PH_PY301A.GetValue("U_CntcCode", 0) + "'");
 
                                     if (GovID.Substring(6,1) == "1" | GovID.Substring(6, 1) == "3" | GovID.Substring(6, 1) == "5")
                                     {
@@ -1177,7 +1177,7 @@ namespace PSH_BOne_AddOn
                                     GovID2 = GovID.Substring(6, 7);
                                     GovID = GovID1 + "-" + GovID2;
 
-                                    oDS_PH_PY301B.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat1.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.VALUE);
+                                    oDS_PH_PY301B.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat1.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
                                     oDS_PH_PY301B.SetValue("U_GovID", pVal.Row - 1, GovID);
                                     //주민등록번호
                                     oDS_PH_PY301B.SetValue("U_Sex", pVal.Row - 1, Sex);
@@ -1299,8 +1299,8 @@ namespace PSH_BOne_AddOn
                     {
                         if (pVal.ColUID == "Name" & pVal.CharPressed == Convert.ToDouble("9"))
                         {
-                            //UPGRADE_WARNING: oMat1.Columns.Item(Name).Cells(pVal.Row).Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                            if (string.IsNullOrEmpty(oMat1.Columns.Item("Name").Cells.Item(pVal.Row).Specific.VALUE))
+                            //UPGRADE_WARNING: oMat1.Columns.Item(Name).Cells(pVal.Row).Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                            if (string.IsNullOrEmpty(oMat1.Columns.Item("Name").Cells.Item(pVal.Row).Specific.Value))
                             {
                                 PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                                 BubbleEvent = false;
@@ -1310,8 +1310,8 @@ namespace PSH_BOne_AddOn
                     else if (pVal.ItemUID == "CntcCode" & pVal.CharPressed == Convert.ToDouble("9"))
                     {
 
-                        //UPGRADE_WARNING: oForm.Items(CntcCode).Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        if (string.IsNullOrEmpty(oForm.Items.Item("CntcCode").Specific.VALUE))
+                        //UPGRADE_WARNING: oForm.Items(CntcCode).Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        if (string.IsNullOrEmpty(oForm.Items.Item("CntcCode").Specific.Value))
                         {
                             PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                             BubbleEvent = false;
@@ -1563,7 +1563,7 @@ namespace PSH_BOne_AddOn
         //                {
 
         //                    case "CntcCode":
-        //                        oDS_PH_PY301A.SetValue("U_CntcName", 0, dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item(pVal.ItemUID).Specific.VALUE + "'", ""));
+        //                        oDS_PH_PY301A.SetValue("U_CntcName", 0, dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'", ""));
         //                        break;
 
         //                    case "Mat01":

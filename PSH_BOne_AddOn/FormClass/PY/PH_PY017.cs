@@ -153,7 +153,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY017_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -815,7 +815,7 @@ namespace PSH_BOne_AddOn
                 oMat1.FlushToDataSource();
                 oMat1.LoadFromDataSource();
 
-                tCode = Convert.ToString(Convert.ToDouble(oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim()) + oForm.Items.Item("YM").Specific.VALUE);
+                tCode = Convert.ToString(Convert.ToDouble(oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim()) + oForm.Items.Item("YM").Specific.Value);
                 oDS_PH_PY017A.SetValue("Code", 0, tCode);
                 oDS_PH_PY017A.SetValue("Name", 0, tCode);
             }
@@ -1025,7 +1025,7 @@ namespace PSH_BOne_AddOn
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
-                if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY017A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.VALUE + "'", 0, 1) == "Y")
+                if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY017A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "Y")
                 {
                     ErrNumm = 1;
                     functionReturnValue = false;
@@ -1130,8 +1130,8 @@ namespace PSH_BOne_AddOn
             {
                 oForm = PSH_Globals.SBO_Application.Forms.ActiveForm;
 
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
-                YM = oForm.Items.Item("YM").Specific.VALUE;
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                YM = oForm.Items.Item("YM").Specific.Value;
 
                 oForm.Freeze(true);
 

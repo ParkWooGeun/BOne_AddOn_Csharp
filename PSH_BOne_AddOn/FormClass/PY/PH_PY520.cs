@@ -310,7 +310,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 // 년월 Check (필수)
-                //if (string.IsNullOrEmpty(oForm.Items.Item("YM").Specific.VALUE.Trim()))
+                //if (string.IsNullOrEmpty(oForm.Items.Item("YM").Specific.Value.Trim()))
                 //{
                 //    PSH_Globals.SBO_Application.SetStatusBarMessage("년/월은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                 //    oForm.Items.Item("YM").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -344,9 +344,9 @@ namespace PSH_BOne_AddOn
             string DocDateFr = string.Empty;
             string DocDateTo = string.Empty;
             
-            CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
-            DocDateFr = oForm.Items.Item("DocDateFr").Specific.VALUE.Trim();
-            DocDateTo = oForm.Items.Item("DocDateTo").Specific.VALUE.Trim();
+            CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
+            DocDateFr = oForm.Items.Item("DocDateFr").Specific.Value.Trim();
+            DocDateTo = oForm.Items.Item("DocDateTo").Specific.Value.Trim();
             
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();

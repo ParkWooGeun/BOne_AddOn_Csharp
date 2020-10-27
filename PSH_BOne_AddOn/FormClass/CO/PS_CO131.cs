@@ -75,7 +75,7 @@ namespace PSH_BOne_AddOn
         {
             try
             {
-                oForm.Items.Item("YM").Specific.VALUE = DateTime.Now.ToString("yyyyMM").Trim();
+                oForm.Items.Item("YM").Specific.Value = DateTime.Now.ToString("yyyyMM").Trim();
             }
             catch (Exception ex)
             {
@@ -161,7 +161,7 @@ namespace PSH_BOne_AddOn
                 switch (oUID)
                 {
                     case "ItmBsort":
-                        sQry = "SELECT Name FROM [@PSH_ITMBSORT] WHERE Code =  '" +oForm.Items.Item("ItmBsort").Specific.VALUE.ToString().Trim() + "'";
+                        sQry = "SELECT Name FROM [@PSH_ITMBSORT] WHERE Code =  '" +oForm.Items.Item("ItmBsort").Specific.Value.ToString().Trim() + "'";
                         oRecordSet01.DoQuery(sQry);
 
                         oForm.Items.Item("CodeName").Specific.String = oRecordSet01.Fields.Item("Name").Value.ToString().Trim();
@@ -568,10 +568,10 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                BPLId = oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim();
-                YM = oForm.Items.Item("YM").Specific.VALUE.ToString().Trim();
-                ItmBSort = oForm.Items.Item("ItmBsort").Specific.VALUE.ToString().Trim();
-                Gbn01 = oForm.Items.Item("Gbn01").Specific.VALUE.ToString().Trim();
+                BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+                YM = oForm.Items.Item("YM").Specific.Value.ToString().Trim();
+                ItmBSort = oForm.Items.Item("ItmBsort").Specific.Value.ToString().Trim();
+                Gbn01 = oForm.Items.Item("Gbn01").Specific.Value.ToString().Trim();
 
                 WinTitle = "원가계산재공현황[PS_CO131]";
                 if (Gbn01 == "1")

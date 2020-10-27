@@ -147,7 +147,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY419_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -446,8 +446,8 @@ namespace PSH_BOne_AddOn
                         {
 
                             case "MSTCOD":
-                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE);
-                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.VALUE;
+                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
+                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value;
 
                                 sQry = "Select Code,";
                                 sQry = sQry + " FullName = U_FullName ";
@@ -456,7 +456,7 @@ namespace PSH_BOne_AddOn
                                 sQry = sQry + " and Code = '" + MSTCOD + "'";
 
                                 oRecordSet.DoQuery(sQry);
-                                oForm.Items.Item("FullName").Specific.VALUE = oRecordSet.Fields.Item("FullName").Value;
+                                oForm.Items.Item("FullName").Specific.Value = oRecordSet.Fields.Item("FullName").Value;
                                 break;
 
                         }
@@ -498,9 +498,9 @@ namespace PSH_BOne_AddOn
                                 {
                                     case "Grid01":
                                         //Call oMat1.SelectRow(pVal.Row, True, False)
-                                        oForm.Items.Item("Year").Specific.VALUE = oDS_PH_PY419.Columns.Item("Year").Cells.Item(pVal.Row).Value;
-                                        oForm.Items.Item("MSTCOD").Specific.VALUE = oDS_PH_PY419.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Value;
-                                        oForm.Items.Item("FullName").Specific.VALUE = oDS_PH_PY419.Columns.Item("FullName").Cells.Item(pVal.Row).Value;
+                                        oForm.Items.Item("Year").Specific.Value = oDS_PH_PY419.Columns.Item("Year").Cells.Item(pVal.Row).Value;
+                                        oForm.Items.Item("MSTCOD").Specific.Value = oDS_PH_PY419.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Value;
+                                        oForm.Items.Item("FullName").Specific.Value = oDS_PH_PY419.Columns.Item("FullName").Cells.Item(pVal.Row).Value;
 
                                         break;
                                 }
@@ -570,17 +570,17 @@ namespace PSH_BOne_AddOn
                 if (oRecordSet.Fields.Item(cnt).Value > 0)
                 {
 
-                    if (string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.VALUE))
+                    if (string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.Value))
                     {
                         ErrNum = 1;
                         throw new Exception();
                     }
-                    if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.VALUE))
+                    if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value))
                     {
                         ErrNum = 2;
                         throw new Exception();
                     }
-                    if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.VALUE))
+                    if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.Value))
                     {
                         ErrNum = 3;
                         throw new Exception();
@@ -683,17 +683,17 @@ namespace PSH_BOne_AddOn
                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
                 FullName = oForm.Items.Item("FullName").Specific.Value.ToString().Trim();
 
-                if (string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.VALUE))
+                if (string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.Value))
                 {
                     ErrNum = 1;
                     throw new Exception();
                 }
-                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.VALUE))
+                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value))
                 {
                     ErrNum = 2;
                     throw new Exception();
                 }
-                if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.VALUE))
+                if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.Value))
                 {
                     ErrNum = 3;
                     throw new Exception();

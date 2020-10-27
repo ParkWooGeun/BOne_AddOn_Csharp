@@ -606,7 +606,7 @@ namespace PSH_BOne_AddOn
                             case "Sub1":
                             case "Sub2":
                             case "ObjectCode":
-                                if (oForm.Items.Item("ObjectCode").Specific.VALUE.ToString().Trim() =="31")
+                                if (oForm.Items.Item("ObjectCode").Specific.Value.ToString().Trim() =="31")
                                 {
                                     oForm.Items.Item("DocDate").Enabled = false;
                                     oForm.Items.Item("DueDate").Enabled = false;
@@ -656,7 +656,7 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "Grantor":
-                                oForm.Items.Item("GrantorV").Specific.VALUE = dataHelpClass.Get_ReData("U_Name", "USER_CODE", "OUSR", "'" + oForm.Items.Item("Grantor").Specific.VALUE + "'", "");
+                                oForm.Items.Item("GrantorV").Specific.Value = dataHelpClass.Get_ReData("U_Name", "USER_CODE", "OUSR", "'" + oForm.Items.Item("Grantor").Specific.Value + "'", "");
                                 break;
                         }
                     }
@@ -745,21 +745,21 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                oForm.Items.Item("DocEntry").Specific.VALUE = "";
-                oForm.Items.Item("LineId").Specific.VALUE = "";
-                oForm.Items.Item("DocDate").Specific.VALUE = "";
-                oForm.Items.Item("DueDate").Specific.VALUE = "";
-                oForm.Items.Item("TaxDate").Specific.VALUE = "";
-                oForm.Items.Item("Comments").Specific.VALUE = "";
-                oForm.Items.Item("OKYN").Specific.VALUE = "";
+                oForm.Items.Item("DocEntry").Specific.Value = "";
+                oForm.Items.Item("LineId").Specific.Value = "";
+                oForm.Items.Item("DocDate").Specific.Value = "";
+                oForm.Items.Item("DueDate").Specific.Value = "";
+                oForm.Items.Item("TaxDate").Specific.Value = "";
+                oForm.Items.Item("Comments").Specific.Value = "";
+                oForm.Items.Item("OKYN").Specific.Value = "";
 
-                oForm.Items.Item("Grantor").Specific.VALUE = "";
-                oForm.Items.Item("GrantorV").Specific.VALUE = "";
+                oForm.Items.Item("Grantor").Specific.Value = "";
+                oForm.Items.Item("GrantorV").Specific.Value = "";
 
 
-                BPLId = oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim();
-                CreateUser = oForm.Items.Item("CreateUser").Specific.VALUE.ToString().Trim();
-                ObjectCode = oForm.Items.Item("ObjectCode").Specific.VALUE.ToString().Trim();
+                BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+                CreateUser = oForm.Items.Item("CreateUser").Specific.Value.ToString().Trim();
+                ObjectCode = oForm.Items.Item("ObjectCode").Specific.Value.ToString().Trim();
 
                 sQry = "EXEC PS_DateChange_01 '" + BPLId + "', '" + CreateUser + "', '" + ObjectCode + "'";
                 oDS_PS_DateChangeA.ExecuteQuery(sQry);
@@ -783,18 +783,18 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                oForm.Items.Item("CreateDate").Specific.VALUE = oDS_PS_DateChangeA.Columns.Item("등록일").Cells.Item(oRow).Value;
+                oForm.Items.Item("CreateDate").Specific.Value = oDS_PS_DateChangeA.Columns.Item("등록일").Cells.Item(oRow).Value;
 
-                oForm.Items.Item("DocEntry").Specific.VALUE = oDS_PS_DateChangeA.Columns.Item("문서번호").Cells.Item(oRow).Value;
-                oForm.Items.Item("LineId").Specific.VALUE = oDS_PS_DateChangeA.Columns.Item("행번호").Cells.Item(oRow).Value;
-                oForm.Items.Item("DocDate").Specific.VALUE = oDS_PS_DateChangeA.Columns.Item("전기일").Cells.Item(oRow).Value;
-                oForm.Items.Item("DueDate").Specific.VALUE = oDS_PS_DateChangeA.Columns.Item("만기일").Cells.Item(oRow).Value;
-                oForm.Items.Item("TaxDate").Specific.VALUE = oDS_PS_DateChangeA.Columns.Item("증빙일").Cells.Item(oRow).Value;
-                oForm.Items.Item("Comments").Specific.VALUE = oDS_PS_DateChangeA.Columns.Item("관련근거").Cells.Item(oRow).Value;
-                oForm.Items.Item("OKYN").Specific.VALUE = oDS_PS_DateChangeA.Columns.Item("처리상태").Cells.Item(oRow).Value;
+                oForm.Items.Item("DocEntry").Specific.Value = oDS_PS_DateChangeA.Columns.Item("문서번호").Cells.Item(oRow).Value;
+                oForm.Items.Item("LineId").Specific.Value = oDS_PS_DateChangeA.Columns.Item("행번호").Cells.Item(oRow).Value;
+                oForm.Items.Item("DocDate").Specific.Value = oDS_PS_DateChangeA.Columns.Item("전기일").Cells.Item(oRow).Value;
+                oForm.Items.Item("DueDate").Specific.Value = oDS_PS_DateChangeA.Columns.Item("만기일").Cells.Item(oRow).Value;
+                oForm.Items.Item("TaxDate").Specific.Value = oDS_PS_DateChangeA.Columns.Item("증빙일").Cells.Item(oRow).Value;
+                oForm.Items.Item("Comments").Specific.Value = oDS_PS_DateChangeA.Columns.Item("관련근거").Cells.Item(oRow).Value;
+                oForm.Items.Item("OKYN").Specific.Value = oDS_PS_DateChangeA.Columns.Item("처리상태").Cells.Item(oRow).Value;
 
-                oForm.Items.Item("Grantor").Specific.VALUE = oDS_PS_DateChangeA.Columns.Item("승인자").Cells.Item(oRow).Value;
-                oForm.Items.Item("GrantorV").Specific.VALUE = oDS_PS_DateChangeA.Columns.Item("승인자명").Cells.Item(oRow).Value;
+                oForm.Items.Item("Grantor").Specific.Value = oDS_PS_DateChangeA.Columns.Item("승인자").Cells.Item(oRow).Value;
+                oForm.Items.Item("GrantorV").Specific.Value = oDS_PS_DateChangeA.Columns.Item("승인자명").Cells.Item(oRow).Value;
             }
             catch (Exception ex)
             {
@@ -840,19 +840,19 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                BPLId = oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim();
-                ObjectCode = oForm.Items.Item("ObjectCode").Specific.VALUE.ToString().Trim();
-                CreateUser = oForm.Items.Item("CreateUser").Specific.VALUE.ToString().Trim();
-                CreateUseV = oForm.Items.Item("CreateUseV").Specific.VALUE.ToString().Trim();
-                Grantor = oForm.Items.Item("Grantor").Specific.VALUE.ToString().Trim();
-                GrantorV = oForm.Items.Item("GrantorV").Specific.VALUE.ToString().Trim();
-                CreateDate = oForm.Items.Item("CreateDate").Specific.VALUE.ToString().Trim();
-                DocEntry = oForm.Items.Item("DocEntry").Specific.VALUE.ToString().Trim();
-                LineId = oForm.Items.Item("LineId").Specific.VALUE.ToString().Trim();
-                DocDate = oForm.Items.Item("DocDate").Specific.VALUE.ToString().Trim();
-                DueDate = oForm.Items.Item("DueDate").Specific.VALUE.ToString().Trim();
-                TaxDate = oForm.Items.Item("TaxDate").Specific.VALUE.ToString().Trim();
-                Comments = oForm.Items.Item("Comments").Specific.VALUE.ToString().Trim();
+                BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+                ObjectCode = oForm.Items.Item("ObjectCode").Specific.Value.ToString().Trim();
+                CreateUser = oForm.Items.Item("CreateUser").Specific.Value.ToString().Trim();
+                CreateUseV = oForm.Items.Item("CreateUseV").Specific.Value.ToString().Trim();
+                Grantor = oForm.Items.Item("Grantor").Specific.Value.ToString().Trim();
+                GrantorV = oForm.Items.Item("GrantorV").Specific.Value.ToString().Trim();
+                CreateDate = oForm.Items.Item("CreateDate").Specific.Value.ToString().Trim();
+                DocEntry = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim();
+                LineId = oForm.Items.Item("LineId").Specific.Value.ToString().Trim();
+                DocDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
+                DueDate = oForm.Items.Item("DueDate").Specific.Value.ToString().Trim();
+                TaxDate = oForm.Items.Item("TaxDate").Specific.Value.ToString().Trim();
+                Comments = oForm.Items.Item("Comments").Specific.Value.ToString().Trim();
 
                 if (BPLId == "")
                 {
@@ -962,14 +962,14 @@ namespace PSH_BOne_AddOn
                     ErrNum = 1;
                     throw new Exception();
                 }
-                if (oForm.Items.Item("OKYN").Specific.VALUE.Trim() != "N")
+                if (oForm.Items.Item("OKYN").Specific.Value.Trim() != "N")
                 {
                     ErrNum = 2;
                     throw new Exception();
                 }
-                sQry = "delete from PSH_DateChange where ObjectCode = '" + oForm.Items.Item("ObjectCode").Specific.VALUE + "'";
-                sQry = sQry + " and DocEntry = '" + oForm.Items.Item("DocEntry").Specific.VALUE + "'";
-                sQry = sQry + " and LineId = '" + oForm.Items.Item("LineId").Specific.VALUE + "'";
+                sQry = "delete from PSH_DateChange where ObjectCode = '" + oForm.Items.Item("ObjectCode").Specific.Value + "'";
+                sQry = sQry + " and DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'";
+                sQry = sQry + " and LineId = '" + oForm.Items.Item("LineId").Specific.Value + "'";
                 sQry = sQry + " and OKYN = 'N'";
                 oRecordSet.DoQuery(sQry);
 

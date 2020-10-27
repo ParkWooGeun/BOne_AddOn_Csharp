@@ -278,7 +278,7 @@ namespace PSH_BOne_AddOn
                 List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();   
 
                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Selected.Value.ToString().Trim();
-                YY = oForm.Items.Item("YY").Specific.VALUE.Trim();
+                YY = oForm.Items.Item("YY").Specific.Value.Trim();
 
                 if (CLTCOD == "%")
                 {

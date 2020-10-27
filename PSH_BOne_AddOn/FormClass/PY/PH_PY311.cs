@@ -173,7 +173,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY311_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
 
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     oForm.Items.Item("Code").Enabled = false;
@@ -513,7 +513,7 @@ namespace PSH_BOne_AddOn
                         {
                             if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                             {
-                                oForm.Items.Item("DocDate").Specific.VALUE = DocDate;
+                                oForm.Items.Item("DocDate").Specific.Value = DocDate;
                             }
                             else
                             {
@@ -522,7 +522,7 @@ namespace PSH_BOne_AddOn
                     }
                 }
 
-                oDocDate = oForm.Items.Item("DocDate").Specific.VALUE;
+                oDocDate = oForm.Items.Item("DocDate").Specific.Value;
             }
             catch(Exception ex)
             {
@@ -1027,7 +1027,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (pVal.ItemUID == "DocDate")
                         {
-                            YM = codeHelpClass.Left(oForm.Items.Item("DocDate").Specific.VALUE, 6);
+                            YM = codeHelpClass.Left(oForm.Items.Item("DocDate").Specific.Value, 6);
                             if (oGrid01.Rows.Count > 1)
                             {
                                 YM1 = codeHelpClass.Left(oGrid01.DataTable.GetValue(0, 1).ToString("yyyyMMdd").Trim(), 6);

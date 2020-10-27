@@ -216,7 +216,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY129_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -355,7 +355,7 @@ namespace PSH_BOne_AddOn
                                 return;
                             }
                             ////세부내역 자료 삭제
-                            Code = oForm.Items.Item("Code").Specific.VALUE;
+                            Code = oForm.Items.Item("Code").Specific.Value;
                             sQry = "Delete From Z_PH_PY129 Where Code = '" + Code + "'";
                             oRecordSet.DoQuery(sQry);
                             break;
@@ -450,10 +450,10 @@ namespace PSH_BOne_AddOn
                                 BubbleEvent = false;
                             }
 
-                            CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
-                            YM = oForm.Items.Item("YM").Specific.VALUE.ToString().Trim();
-                            Code = oForm.Items.Item("Code").Specific.VALUE.ToString().Trim();
-                            MSTCOD = oForm.Items.Item("MSTCOD").Specific.VALUE.ToString().Trim();
+                            CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                            YM = oForm.Items.Item("YM").Specific.Value.ToString().Trim();
+                            Code = oForm.Items.Item("Code").Specific.Value.ToString().Trim();
+                            MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
                             sQry = "EXEC PH_PY129_01 '" + CLTCOD + "', '" + YM + "', '" + MSTCOD + "', '20','" + Code + "'";
                             oRecordSet.DoQuery(sQry);
 
@@ -481,7 +481,7 @@ namespace PSH_BOne_AddOn
                     }
                     if (pVal.ItemUID == "Btn_prt")
                     {
-                        Code = oForm.Items.Item("Code").Specific.VALUE;
+                        Code = oForm.Items.Item("Code").Specific.Value;
                         if (!string.IsNullOrEmpty(Code))
                         {
                             System.Threading.Thread thread = new System.Threading.Thread(PH_PY129_Print_Report01);
@@ -649,7 +649,7 @@ namespace PSH_BOne_AddOn
                         {
                             case "MSTCOD":
                                 ////사원명 찿아서 화면 표시 하기
-                                sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" +oForm.Items.Item("MSTCOD").Specific.VALUE.ToString().Trim() + "'";
+                                sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" +oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "'";
                                 oRecordSet.DoQuery(sQry);
                                 oForm.Items.Item("MSTNAM").Specific.String = oRecordSet.Fields.Item("U_FullName").Value.ToString().Trim();
                                 break;
@@ -974,7 +974,7 @@ namespace PSH_BOne_AddOn
         //    PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
         //    try
         //    {
-        //        if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY129A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.VALUE + "'", 0, 1) == "Y")
+        //        if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY129A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "Y")
         //        {
         //            PSH_Globals.SBO_Application.SetStatusBarMessage("해당문서는 다른사용자에 의해 취소되었습니다. 작업을 진행할수 없습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
         //        }
@@ -1015,9 +1015,9 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
-                YM = oForm.Items.Item("YM").Specific.VALUE;
-                MSTCOD = oForm.Items.Item("MSTCOD").Specific.VALUE;
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                YM = oForm.Items.Item("YM").Specific.Value;
+                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value;
 
                 sQry = "EXEC PH_PY129_01 '" + CLTCOD + "', '" + YM + "', '" + MSTCOD + "', '10', ''";
                 oRecordSet.DoQuery(sQry);

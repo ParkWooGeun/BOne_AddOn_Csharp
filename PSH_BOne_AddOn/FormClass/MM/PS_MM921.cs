@@ -65,8 +65,8 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(false);
                 oForm.Visible = true;
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oXmlDoc); //메모리 해제
-                oForm.Items.Item("U_ItmBsort").Specific.VALUE = "401";
-                oForm.Items.Item("ItmBname").Specific.VALUE = "부자재";
+                oForm.Items.Item("U_ItmBsort").Specific.Value = "401";
+                oForm.Items.Item("ItmBname").Specific.Value = "부자재";
             }
         }
 
@@ -668,13 +668,13 @@ namespace PSH_BOne_AddOn
                 List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
 
                 //// 조회조건문
-                BPLID = oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim();
-                DocDateFr = oForm.Items.Item("DocDateFr").Specific.VALUE.ToString().Trim();
-                DocDateTo = oForm.Items.Item("DocDateTo").Specific.VALUE.ToString().Trim();
-                ItmMsort = oForm.Items.Item("ItmMsort").Specific.VALUE.ToString().Trim();
-                ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
-                OcrCode = oForm.Items.Item("OcrCode").Specific.VALUE.ToString().Trim();
-                prtdiv = oForm.Items.Item("prtdiv").Specific.VALUE.ToString().Trim();
+                BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+                DocDateFr = oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim();
+                DocDateTo = oForm.Items.Item("DocDateTo").Specific.Value.ToString().Trim();
+                ItmMsort = oForm.Items.Item("ItmMsort").Specific.Value.ToString().Trim();
+                ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
+                OcrCode = oForm.Items.Item("OcrCode").Specific.Value.ToString().Trim();
+                prtdiv = oForm.Items.Item("prtdiv").Specific.Value.ToString().Trim();
 
                 if (string.IsNullOrEmpty(BPLID))
                     BPLID = "%";

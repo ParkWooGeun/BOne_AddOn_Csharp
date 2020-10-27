@@ -93,11 +93,11 @@ namespace PSH_BOne_AddOn
 									return;
 								}
 
-								Company = oForm.Items.Item("Company").Specific.VALUE.ToString().Trim();
-								DocType = oForm.Items.Item("DocType").Specific.Selected.VALUE.ToString().Trim();
-								AcctYear = oForm.Items.Item("AcctYear").Specific.VALUE.ToString().Trim();
-								AcctMon = oForm.Items.Item("AcctMon").Specific.VALUE.ToString().Trim();
-								BPLId = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
+								Company = oForm.Items.Item("Company").Specific.Value.ToString().Trim();
+								DocType = oForm.Items.Item("DocType").Specific.Selected.Value.ToString().Trim();
+								AcctYear = oForm.Items.Item("AcctYear").Specific.Value.ToString().Trim();
+								AcctMon = oForm.Items.Item("AcctMon").Specific.Value.ToString().Trim();
+								BPLId = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
 
 								if (string.IsNullOrEmpty(BPLId))
 								{
@@ -447,17 +447,17 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("DocType").Specific.ValidValues.Add("4", "채권");
 
 				// 회사
-				oForm.Items.Item("Company").Specific.VALUE = "PSH";
+				oForm.Items.Item("Company").Specific.Value = "PSH";
 
 				if (DateTime.Now.ToString("MM") == "01")
 				{
-					oForm.Items.Item("AcctYear").Specific.VALUE = Convert.ToString(Convert.ToDouble(DateTime.Now.ToString("yyyy")) - 1);
-					oForm.Items.Item("AcctMon").Specific.VALUE = "12";
+					oForm.Items.Item("AcctYear").Specific.Value = Convert.ToString(Convert.ToDouble(DateTime.Now.ToString("yyyy")) - 1);
+					oForm.Items.Item("AcctMon").Specific.Value = "12";
 				}
 				else
 				{
-					oForm.Items.Item("AcctYear").Specific.VALUE = DateTime.Now.ToString("yyyy");
-					oForm.Items.Item("AcctMon").Specific.VALUE = Convert.ToString(Convert.ToDouble(DateTime.Now.ToString("MM")) - 1).PadLeft(2, '0');  // 한달빼고 앞에 "0"붙이기..
+					oForm.Items.Item("AcctYear").Specific.Value = DateTime.Now.ToString("yyyy");
+					oForm.Items.Item("AcctMon").Specific.Value = Convert.ToString(Convert.ToDouble(DateTime.Now.ToString("MM")) - 1).PadLeft(2, '0');  // 한달빼고 앞에 "0"붙이기..
 				}
 			}
 			catch (Exception ex)

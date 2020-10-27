@@ -2226,7 +2226,7 @@ namespace PSH_BOne_AddOn.Data
                 {
                     if (pVal.CharPressed == Convert.ToInt16("9"))
                     {
-                        if (string.IsNullOrEmpty(oForm01.Items.Item(ItemUID).Specific.VALUE))
+                        if (string.IsNullOrEmpty(oForm01.Items.Item(ItemUID).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                             BubbleEvent = false;
@@ -2242,7 +2242,7 @@ namespace PSH_BOne_AddOn.Data
                     {
                         if (pVal.CharPressed == Convert.ToInt16("9"))
                         {
-                            if (string.IsNullOrEmpty(oForm01.Items.Item(ItemUID).Specific.Columns(ColumnUID).Cells(pVal.Row).Specific.VALUE))
+                            if (string.IsNullOrEmpty(oForm01.Items.Item(ItemUID).Specific.Columns(ColumnUID).Cells(pVal.Row).Specific.Value))
                             {
                                 PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                                 BubbleEvent = false;
@@ -2269,7 +2269,7 @@ namespace PSH_BOne_AddOn.Data
                 {
                     if (pVal.CharPressed == Convert.ToInt16("9"))
                     {
-                        if (string.IsNullOrEmpty(oForm01.Items.Item(ItemUID).Specific.VALUE))
+                        if (string.IsNullOrEmpty(oForm01.Items.Item(ItemUID).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                             BubbleEvent = false;
@@ -2290,7 +2290,7 @@ namespace PSH_BOne_AddOn.Data
                     {
                         if (pVal.CharPressed == Convert.ToDouble("9"))
                         {
-                            if (string.IsNullOrEmpty(oForm01.Items.Item(ItemUID).Specific.Columns(ColumnUID).Cells(pVal.Row).Specific.VALUE))
+                            if (string.IsNullOrEmpty(oForm01.Items.Item(ItemUID).Specific.Columns(ColumnUID).Cells(pVal.Row).Specific.Value))
                             {
                                 PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                                 BubbleEvent = false;
@@ -2979,8 +2979,8 @@ namespace PSH_BOne_AddOn.Data
                         Query01 = " PS_SBO_GETQUANTITY '" + BaseType + "','" + BaseTable + "','" + BaseEntry + "','" + BaseLine + "'";
                         oRecordset01.DoQuery(Query01);
 
-                        oMat01.Columns.Item("U_Qty").Cells.Item(i).Specific.VALUE = System.Math.Round(oRecordset01.Fields.Item(0).Value, 0);
-                        oMat01.Columns.Item("11").Cells.Item(i).Specific.VALUE = System.Math.Round(oRecordset01.Fields.Item(1).Value, 2);
+                        oMat01.Columns.Item("U_Qty").Cells.Item(i).Specific.Value = System.Math.Round(oRecordset01.Fields.Item(0).Value, 0);
+                        oMat01.Columns.Item("11").Cells.Item(i).Specific.Value = System.Math.Round(oRecordset01.Fields.Item(1).Value, 2);
                         oMat01.Columns.Item("1").Cells.Item(oMat01.VisualRowCount).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     }
                 }
@@ -3540,7 +3540,7 @@ namespace PSH_BOne_AddOn.Data
                 {
                     errCode = "1";
                     throw new Exception();
-                    //MDC_Com.MDC_GF_Message(ref oFunction01.Imports("E_MESSAGE").VALUE, ref "E");
+                    //MDC_Com.MDC_GF_Message(ref oFunction01.Imports("E_MESSAGE").Value, ref "E");
                     //goto RFC_Sender_Exit;
                 }
 
@@ -3564,15 +3564,15 @@ namespace PSH_BOne_AddOn.Data
                 //}
                 //else
                 //{
-                //    if ((string.IsNullOrEmpty(oFunction01.Imports("E_MESSAGE").VALUE))) //에러메시지
+                //    if ((string.IsNullOrEmpty(oFunction01.Imports("E_MESSAGE").Value))) //에러메시지
                 //    {
-                //        tempReturnValue = oFunction01.Imports("E_BANFN").VALUE + "/" + oFunction01.Imports("E_BNFPO").VALUE; ////통합구매요청번호 '//통합구매요청 품목번호
+                //        tempReturnValue = oFunction01.Imports("E_BANFN").Value + "/" + oFunction01.Imports("E_BNFPO").Value; ////통합구매요청번호 '//통합구매요청 품목번호
                 //    }
                 //    else
                 //    {
                 //        errCode = "3";
                 //        throw new Exception();
-                //        //MDC_Com.MDC_GF_Message(ref oFunction01.Imports("E_MESSAGE").VALUE, ref "E");
+                //        //MDC_Com.MDC_GF_Message(ref oFunction01.Imports("E_MESSAGE").Value, ref "E");
                 //        //goto RFC_Sender_Exit;
                 //    }
                 //}

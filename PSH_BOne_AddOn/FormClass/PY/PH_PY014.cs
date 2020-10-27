@@ -304,7 +304,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 functionReturnValue = false;
-                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.VALUE))
+                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -336,8 +336,8 @@ namespace PSH_BOne_AddOn
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
-                sQry = "Exec PH_PY014 '" + oForm.Items.Item("CLTCOD").Specific.VALUE + "','" + oForm.Items.Item("YM").Specific.VALUE + "',";
-                sQry = sQry + "'" + oForm.Items.Item("MSTCOD").Specific.VALUE + "'";
+                sQry = "Exec PH_PY014 '" + oForm.Items.Item("CLTCOD").Specific.Value + "','" + oForm.Items.Item("YM").Specific.Value + "',";
+                sQry = sQry + "'" + oForm.Items.Item("MSTCOD").Specific.Value + "'";
                 oDS_PH_PY014.ExecuteQuery(sQry);
 
                 iRow = oForm.DataSources.DataTables.Item(0).Rows.Count;
@@ -369,7 +369,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 functionReturnValue = false;
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
 
                 if (oForm.DataSources.DataTables.Item(0).Rows.Count > 0)
                 {
@@ -432,7 +432,7 @@ namespace PSH_BOne_AddOn
                 COLNAM[7] = "위해일수";
                 COLNAM[8] = "위해코드";
 
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
                 for (i = 0; i <= Information.UBound(COLNAM); i++)
                 {
                     oGrid1.Columns.Item(i).TitleObject.Caption = COLNAM[i];
@@ -523,17 +523,17 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "MSTCOD":
-                                sQry = "SELECT U_FullName from [@PH_PY001A] Where Code = '" + oForm.Items.Item("MSTCOD").Specific.VALUE + "'";
+                                sQry = "SELECT U_FullName from [@PH_PY001A] Where Code = '" + oForm.Items.Item("MSTCOD").Specific.Value + "'";
                                 oRecordSet.DoQuery(sQry);
                                 if (oRecordSet.RecordCount > 0)
                                 {
-                                    oForm.Items.Item("FullName").Specific.VALUE = oRecordSet.Fields.Item(0).Value;
+                                    oForm.Items.Item("FullName").Specific.Value = oRecordSet.Fields.Item(0).Value;
 
                                 }
                                 break;
 
                             case "Grid01":
-                                switch (oForm.Items.Item("CLTCOD").Specific.VALUE.Trim())
+                                switch (oForm.Items.Item("CLTCOD").Specific.Value.Trim())
                                 {
                                     case "1":
                                         if (Convert.ToDouble(oDS_PH_PY014.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) != 0 & Convert.ToDouble(oDS_PH_PY014.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) != 1)

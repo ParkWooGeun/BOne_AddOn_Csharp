@@ -12,7 +12,7 @@ namespace PSH_BOne_AddOn
 	/// </summary>
 	internal class PS_FI180 : PSH_BaseClass
 	{
-		public string oFormUniqueID01;
+		private string oFormUniqueID01;
 		
 		/// <summary>
 		/// LoadForm
@@ -47,11 +47,11 @@ namespace PSH_BOne_AddOn
                 CreateItems();
                 ComboBox_Setting();
 
-                oForm.EnableMenu(("1283"), false);            // 삭제
-				oForm.EnableMenu(("1286"), false);            // 닫기
-				oForm.EnableMenu(("1287"), false);            // 복제
-				oForm.EnableMenu(("1284"), false);            // 취소
-				oForm.EnableMenu(("1293"), false);            // 행삭제
+                oForm.EnableMenu("1283", false);            // 삭제
+				oForm.EnableMenu("1286", false);            // 닫기
+				oForm.EnableMenu("1287", false);            // 복제
+				oForm.EnableMenu("1284", false);            // 취소
+				oForm.EnableMenu("1293", false);            // 행삭제
 
 			}
 			catch (Exception ex)
@@ -111,7 +111,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// ComboBox_Setting
 		/// </summary>
-		public void ComboBox_Setting()
+		private void ComboBox_Setting()
 		{
 			string sQry = string.Empty;
 			SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -122,7 +122,7 @@ namespace PSH_BOne_AddOn
 				sQry = "SELECT BPLId, BPLName From [OBPL] order by BPLId";
 				oRecordSet01.DoQuery(sQry);
 				oForm.Items.Item("BPLId").Specific.ValidValues.Add("0", "전체 사업장");
-				while (!(oRecordSet01.EoF))
+				while (!oRecordSet01.EoF)
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet01.MoveNext();
@@ -158,363 +158,14 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// Raise_FormItemEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="pval"></param>
-		/// <param name="BubbleEvent"></param>
-		public override void Raise_FormItemEvent(string FormUID, ref SAPbouiCOM.ItemEvent pval, ref bool BubbleEvent)
-		{
-			try
-			{
-				// BeforeAction = True
-				if ((pval.BeforeAction == true))
-				{
-					switch (pval.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED:							// 1
-							if (pval.ItemUID == "1")
-							{
-								if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE | oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-								{
-								}
-							}
-							else if (pval.ItemUID == "Btn01")   // 출력버튼 클릭시
-							{
-								if (HeaderSpaceLineDel() == false)
-								{
-									BubbleEvent = false;
-									return;
-								}
-								else
-								{
-									Print_Query();
-								}
-							}
-							break;
-						case SAPbouiCOM.BoEventTypes.et_KEY_DOWN:							// 2
-							if (pval.CharPressed == 9)
-							{
-								// 헤더
-								if (pval.ItemUID == "SAcctCode")
-								{
-									if (string.IsNullOrEmpty(oForm.Items.Item("SAcctCode").Specific.VALUE))
-									{
-										PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
-										BubbleEvent = false;
-									}
-								}
-								if (pval.ItemUID == "EAcctCode")
-								{
-									if (string.IsNullOrEmpty(oForm.Items.Item("EAcctCode").Specific.VALUE))
-									{
-										PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
-										BubbleEvent = false;
-									}
-								}
-
-								if (pval.ItemUID == "StrRpt")
-								{
-									if (string.IsNullOrEmpty(oForm.Items.Item("StrRpt").Specific.VALUE))
-									{
-										PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
-										BubbleEvent = false;
-									}
-								}
-								if (pval.ItemUID == "EndRpt")
-								{
-									if (string.IsNullOrEmpty(oForm.Items.Item("EndRpt").Specific.VALUE))
-									{
-										PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
-										BubbleEvent = false;
-									}
-								}
-
-							}
-							break;
-						case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT:						// 5
-							break;
-						case SAPbouiCOM.BoEventTypes.et_CLICK:							    // 6
-							break;
-						case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK:						// 7
-							break;
-						case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED:				// 8
-							break;
-						case SAPbouiCOM.BoEventTypes.et_VALIDATE:							// 10
-							break;
-						case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD:						// 11
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE:						// 18
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE:					// 19
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE:						// 20
-							break;
-						case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST:					// 27
-							break;
-						case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS:							// 3
-							break;
-						case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS:							// 4
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD:						// 17
-							break;
-					}
-				}
-				// BeforeAction = False
-				else if ((pval.BeforeAction == false))
-				{
-					switch (pval.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED:						// 1
-							break;
-						case SAPbouiCOM.BoEventTypes.et_KEY_DOWN:							// 2
-							break;
-						case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT:						// 5
-							if (pval.ItemUID == "Rpt")
-							{
-								if (oForm.Items.Item("Rpt").Specific.Selected.VALUE.ToString().Trim() != "0")
-								{
-									if (string.IsNullOrEmpty(oForm.Items.Item("SAcctCode").Specific.VALUE.ToString().Trim()))
-									{
-										oForm.Freeze(true);
-										PSH_Globals.SBO_Application.MessageBox("계정과목(시작) 입력 후 항목선택을 하여 주시기 바랍니다.");
-										oForm.Items.Item("Rpt").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-										oForm.Items.Item("SAcctCode").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-										oForm.Freeze(false);
-										BubbleEvent = false;
-										return;
-									}
-									else if (!string.IsNullOrEmpty(oForm.Items.Item("SAcctCode").Specific.VALUE.ToString().Trim()))
-									{
-										oForm.Freeze(true);
-									    //FlushToItemValue(pval.ItemUID, ref pval.Row, ref pval.ColUID);
-										FlushToItemValue(pval.ItemUID);
-										oForm.Items.Item("StrRpt").Enabled = true;
-										oForm.Items.Item("EndRpt").Enabled = true;
-										oForm.Items.Item("EndRpt").Specific.VALUE = "";
-										oForm.Items.Item("StrRpt").Specific.VALUE = "";
-										oForm.Freeze(false);
-									}
-								}
-								else
-								{
-									oForm.Freeze(true);
-									oForm.Items.Item("Rpttxt").Specific.VALUE = "";
-									oForm.Items.Item("StrRpt").Specific.VALUE = "";
-									oForm.Items.Item("EndRpt").Specific.VALUE = "";
-									oForm.Items.Item("StrDate").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-									oForm.Items.Item("StrRpt").Enabled = false;
-									oForm.Items.Item("EndRpt").Enabled = false;
-									oForm.Freeze(false);
-								}
-							}
-							break;
-						case SAPbouiCOM.BoEventTypes.et_CLICK:							    // 6
-							break;
-						case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK:						// 7
-							break;
-						case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED:				// 8
-							break;
-						case SAPbouiCOM.BoEventTypes.et_VALIDATE:							// 10
-							if (pval.ItemChanged == true)
-							{
-								if (pval.ItemUID == "SAcctCode")
-								{
-									oForm.Items.Item("Rpt").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-									oForm.Items.Item("Rpttxt").Specific.VALUE = "";
-								}
-							}
-							break;
-						case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD:						// 11
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE:						// 18
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE:					// 9
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE:						// 20
-							break;
-						case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST:					// 27
-							break;
-						case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS:							// 3
-							break;
-						case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS:							// 4
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD:						// 17
-							SubMain.Remove_Forms(oFormUniqueID01);
-							System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm); //메모리 해제
-							break;
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-			}
-		
-		}
-		/// <summary>
-		/// Raise_MenuEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="pval"></param>
-		/// <param name="BubbleEvent"></param>
-		public void Raise_MenuEvent(ref string FormUID, ref SAPbouiCOM.IMenuEvent pval, ref bool BubbleEvent)
-		{
-			try
-			{
-				if ((pval.BeforeAction == true))
-				{
-					switch (pval.MenuUID)
-					{
-						case "1284":							//취소
-							break;
-						case "1286":							//닫기
-							break;
-						case "1293":							//행삭제
-							break;
-						case "1281":							//찾기
-							break;
-						case "1282":							//추가
-							break;
-						case "1285":							//복원
-							break;
-						case "1288":
-						case "1289":
-						case "1290":
-						case "1291":							//레코드이동버튼
-							break;
-					}
-			    // BeforeAction = False
-				}
-				else if ((pval.BeforeAction == false))
-				{
-					switch (pval.MenuUID)
-					{
-						case "1284":							//취소
-							break;
-						case "1286":							//닫기
-							break;
-						case "1285":							//복원
-							break;
-						case "1293":							//행삭제
-							break;
-						case "1281":							//찾기
-							break;
-						case "1282":							//추가
-							break;
-						case "1288":
-						case "1289":
-						case "1290":
-						case "1291":							//레코드이동버튼
-							break;
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-			}
-		}
-		/// <summary>
-		/// Raise_RightClickEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="eventInfo"></param>
-		/// <param name="BubbleEvent"></param>
-		public void Raise_RightClickEvent(ref string FormUID, ref SAPbouiCOM.ContextMenuInfo eventInfo, ref bool BubbleEvent)
-		{
-			// ERROR: Not supported in C#: OnErrorStatement
-			try
-			{
-				if ((eventInfo.BeforeAction == true))
-				{
-
-				}
-				else if ((eventInfo.BeforeAction == false))
-				{
-					// 작업
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-			}
-		}
-		/// <summary>
-		/// Raise_FormDataEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="BusinessObjectInfo"></param>
-		/// <param name="BubbleEvent"></param>
-		public void Raise_FormDataEvent(ref string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
-		{
-			try
-			{
-				// BeforeAction = True
-				if ((BusinessObjectInfo.BeforeAction == true))
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:
-							////33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:
-							////34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:
-							////35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:
-							////36
-							break;
-					}
-					// BeforeAction = False
-				}
-				else if ((BusinessObjectInfo.BeforeAction == false))
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:
-							////33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:
-							////34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:
-							////35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:
-							////36
-							break;
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-			}
-		}
-		/// <summary>
 		/// FlushToItemValue
 		/// </summary>
 		/// <param name="oUID"></param>
 		/// <param name="oRow"></param>
 		/// <param name="oCol"></param>
-		private void FlushToItemValue(string oUID, int oRow = 0, string oCol = "")
+		private void FlushToItemValue(string oUID, int oRow, string oCol)
 		{
-            string sQry = null;
+			string sQry = null;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			//Header
 			try
@@ -522,56 +173,56 @@ namespace PSH_BOne_AddOn
 				switch (oUID)
 				{
 					case "Rpt":
-						if (oForm.Items.Item("Rpt").Specific.Selected.VALUE.ToString().Trim() == "1")
+						if (oForm.Items.Item("Rpt").Specific.Selected.Value.ToString().Trim() == "1")
 						{
 							sQry = "        Select  TOP 1 ";
 							sQry = sQry + "         U_Rpttxt01 ";
 							sQry = sQry + " from    [ZMDC_JDT1]";
-							sQry = sQry + " where   AcctCode = '" + oForm.Items.Item("SAcctCode").Specific.VALUE.ToString().Trim() + "'";
+							sQry = sQry + " where   AcctCode = '" + oForm.Items.Item("SAcctCode").Specific.Value.ToString().Trim() + "'";
 							sQry = sQry + "         AND U_Rpttxt01 IS NOT NULL";
 						}
-						else if (oForm.Items.Item("Rpt").Specific.Selected.VALUE.ToString().Trim() == "2")
+						else if (oForm.Items.Item("Rpt").Specific.Selected.Value.ToString().Trim() == "2")
 						{
 							sQry = "        Select  TOP 1";
 							sQry = sQry + "         U_Rpttxt02";
 							sQry = sQry + " from    [ZMDC_JDT1]";
-							sQry = sQry + " where   AcctCode = '" + oForm.Items.Item("SAcctCode").Specific.VALUE.ToString().Trim() + "'";
+							sQry = sQry + " where   AcctCode = '" + oForm.Items.Item("SAcctCode").Specific.Value.ToString().Trim() + "'";
 							sQry = sQry + "         AND U_Rpttxt02 IS NOT NULL";
 						}
-						else if (oForm.Items.Item("Rpt").Specific.Selected.VALUE.ToString().Trim() == "3")
+						else if (oForm.Items.Item("Rpt").Specific.Selected.Value.ToString().Trim() == "3")
 						{
 							sQry = "        Select  TOP 1 ";
 							sQry = sQry + "         U_Rpttxt03 ";
 							sQry = sQry + " from    [ZMDC_JDT1]";
-							sQry = sQry + " where   AcctCode = '" + oForm.Items.Item("SAcctCode").Specific.VALUE.ToString().Trim() + "'";
+							sQry = sQry + " where   AcctCode = '" + oForm.Items.Item("SAcctCode").Specific.Value.ToString().Trim() + "'";
 							sQry = sQry + "         AND U_Rpttxt03 IS NOT NULL";
 						}
-						else if (oForm.Items.Item("Rpt").Specific.Selected.VALUE.ToString().Trim() == "4")
+						else if (oForm.Items.Item("Rpt").Specific.Selected.Value.ToString().Trim() == "4")
 						{
 							sQry = "        Select  TOP 1 ";
 							sQry = sQry + "         U_Rpttxt04 ";
 							sQry = sQry + " from    [ZMDC_JDT1]";
-							sQry = sQry + " where   AcctCode = '" + oForm.Items.Item("SAcctCode").Specific.VALUE.ToString().Trim() + "'";
+							sQry = sQry + " where   AcctCode = '" + oForm.Items.Item("SAcctCode").Specific.Value.ToString().Trim() + "'";
 							sQry = sQry + "         AND U_Rpttxt04 IS NOT NULL";
 						}
-						else if (oForm.Items.Item("Rpt").Specific.Selected.VALUE.ToString().Trim() == "5")
+						else if (oForm.Items.Item("Rpt").Specific.Selected.Value.ToString().Trim() == "5")
 						{
 							sQry = "        Select  TOP 1 ";
 							sQry = sQry + "         U_Rpttxt05 ";
 							sQry = sQry + " from    [ZMDC_JDT1]";
-							sQry = sQry + " where   AcctCode = '" + oForm.Items.Item("SAcctCode").Specific.VALUE.ToString().Trim() + "'";
+							sQry = sQry + " where   AcctCode = '" + oForm.Items.Item("SAcctCode").Specific.Value.ToString().Trim() + "'";
 							sQry = sQry + "         AND U_Rpttxt05 IS NOT NULL";
 						}
-						else if (oForm.Items.Item("Rpt").Specific.Selected.VALUE.ToString().Trim() == "6")
+						else if (oForm.Items.Item("Rpt").Specific.Selected.Value.ToString().Trim() == "6")
 						{
 							sQry = "        Select  TOP 1 ";
 							sQry = sQry + "         U_Rpttxt06 ";
 							sQry = sQry + " from    [ZMDC_JDT1]";
-							sQry = sQry + " where   AcctCode = '" + oForm.Items.Item("SAcctCode").Specific.VALUE.ToString().Trim() + "'";
+							sQry = sQry + " where   AcctCode = '" + oForm.Items.Item("SAcctCode").Specific.Value.ToString().Trim() + "'";
 							sQry = sQry + "         AND U_Rpttxt06 IS NOT NULL";
 						}
 						oRecordSet.DoQuery(sQry);
-						oForm.Items.Item("Rpttxt").Specific.VALUE = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+						oForm.Items.Item("Rpttxt").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 						break;
 				}
 
@@ -604,12 +255,12 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				// Check
-				if (string.IsNullOrEmpty(oForm.Items.Item("StrDate").Specific.VALUE.ToString().Trim()))
+				if (string.IsNullOrEmpty(oForm.Items.Item("StrDate").Specific.Value.ToString().Trim()))
 				{
 					ErrNum = 1;
 					throw new Exception();
 				}
-				if (string.IsNullOrEmpty(oForm.Items.Item("EndDate").Specific.VALUE.ToString().Trim()))
+				if (string.IsNullOrEmpty(oForm.Items.Item("EndDate").Specific.Value.ToString().Trim()))
 				{
 					ErrNum = 2;
 					throw new Exception();
@@ -634,12 +285,14 @@ namespace PSH_BOne_AddOn
 				functionReturnValue = false;
 			}
 
-		return functionReturnValue;
+			return functionReturnValue;
 
 		}
+
 		/// <summary>
 		/// Print_Query
 		/// </summary>
+		[STAThread]
 		private void Print_Query()
 		{
 			string WinTitle = string.Empty;
@@ -659,18 +312,18 @@ namespace PSH_BOne_AddOn
 			string Level5 = string.Empty;
 			string DateCls = string.Empty;
 
-			StrDate   = oForm.Items.Item("StrDate").Specific.VALUE.ToString().Trim();
-			EndDate   = oForm.Items.Item("EndDate").Specific.VALUE.ToString().Trim();
-			SAcctCode = oForm.Items.Item("SAcctCode").Specific.VALUE.ToString().Trim();
-			EAcctCode = oForm.Items.Item("EAcctCode").Specific.VALUE.ToString().Trim();
-			BPLID     = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
-			Rpt       = oForm.Items.Item("Rpt").Specific.Selected.VALUE.ToString().Trim();
-			Rpttxt    = oForm.Items.Item("Rpttxt").Specific.VALUE.ToString().Trim();
-			StrRpt    = oForm.Items.Item("StrRpt").Specific.VALUE.ToString().Trim();
-			EndRpt    = oForm.Items.Item("EndRpt").Specific.VALUE.ToString().Trim();
-			Summary   = oForm.DataSources.UserDataSources.Item("Check01").Value.ToString().Trim();
-			Level5    = oForm.DataSources.UserDataSources.Item("Check02").Value.ToString().Trim();
-			DateCls   = oForm.Items.Item("DateCls").Specific.Selected.VALUE.ToString().Trim();
+			StrDate = oForm.Items.Item("StrDate").Specific.Value.ToString().Trim();
+			EndDate = oForm.Items.Item("EndDate").Specific.Value.ToString().Trim();
+			SAcctCode = oForm.Items.Item("SAcctCode").Specific.Value.ToString().Trim();
+			EAcctCode = oForm.Items.Item("EAcctCode").Specific.Value.ToString().Trim();
+			BPLID = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
+			Rpt = oForm.Items.Item("Rpt").Specific.Selected.Value.ToString().Trim();
+			Rpttxt = oForm.Items.Item("Rpttxt").Specific.Value.ToString().Trim();
+			StrRpt = oForm.Items.Item("StrRpt").Specific.Value.ToString().Trim();
+			EndRpt = oForm.Items.Item("EndRpt").Specific.Value.ToString().Trim();
+			Summary = oForm.DataSources.UserDataSources.Item("Check01").Value.ToString().Trim();
+			Level5 = oForm.DataSources.UserDataSources.Item("Check02").Value.ToString().Trim();
+			DateCls = oForm.Items.Item("DateCls").Specific.Selected.Value.ToString().Trim();
 
 			if (string.IsNullOrEmpty(SAcctCode))
 			{
@@ -759,7 +412,359 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@DateCls", DateCls));
 
 				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
-				
+
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+			{
+			}
+		}
+
+		/// <summary>
+		/// Raise_FormItemEvent
+		/// </summary>
+		/// <param name="FormUID"></param>
+		/// <param name="pVal"></param>
+		/// <param name="BubbleEvent"></param>
+		public override void Raise_FormItemEvent(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+		{
+			try
+			{
+				// BeforeAction = True
+				if (pVal.BeforeAction == true)
+				{
+					switch (pVal.EventType)
+					{
+						case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED:							// 1
+							if (pVal.ItemUID == "1")
+							{
+								if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
+								{
+								}
+							}
+							else if (pVal.ItemUID == "Btn01")   // 출력버튼 클릭시
+							{
+								if (HeaderSpaceLineDel() == false)
+								{
+									BubbleEvent = false;
+									return;
+								}
+								else
+								{
+									System.Threading.Thread thread = new System.Threading.Thread(Print_Query);
+									thread.SetApartmentState(System.Threading.ApartmentState.STA);
+									thread.Start();
+								}
+							}
+							break;
+						case SAPbouiCOM.BoEventTypes.et_KEY_DOWN:							// 2
+							if (pVal.CharPressed == 9)
+							{
+								// 헤더
+								if (pVal.ItemUID == "SAcctCode")
+								{
+									if (string.IsNullOrEmpty(oForm.Items.Item("SAcctCode").Specific.Value))
+									{
+										PSH_Globals.SBO_Application.ActivateMenuItem("7425");
+										BubbleEvent = false;
+									}
+								}
+								if (pVal.ItemUID == "EAcctCode")
+								{
+									if (string.IsNullOrEmpty(oForm.Items.Item("EAcctCode").Specific.Value))
+									{
+										PSH_Globals.SBO_Application.ActivateMenuItem("7425");
+										BubbleEvent = false;
+									}
+								}
+
+								if (pVal.ItemUID == "StrRpt")
+								{
+									if (string.IsNullOrEmpty(oForm.Items.Item("StrRpt").Specific.Value))
+									{
+										PSH_Globals.SBO_Application.ActivateMenuItem("7425");
+										BubbleEvent = false;
+									}
+								}
+								if (pVal.ItemUID == "EndRpt")
+								{
+									if (string.IsNullOrEmpty(oForm.Items.Item("EndRpt").Specific.Value))
+									{
+										PSH_Globals.SBO_Application.ActivateMenuItem("7425");
+										BubbleEvent = false;
+									}
+								}
+							}
+							break;
+						case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS:                          // 3
+							break;
+						case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS:                         // 4
+							break;
+						case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT:						// 5
+							break;
+						case SAPbouiCOM.BoEventTypes.et_CLICK:							    // 6
+							break;
+						case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK:						// 7
+							break;
+						case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED:				// 8
+							break;
+						case SAPbouiCOM.BoEventTypes.et_VALIDATE:							// 10
+							break;
+						case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD:						// 11
+							break;
+						case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD:                        // 17
+							break;
+						case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE:						// 18
+							break;
+						case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE:					// 19
+							break;
+						case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE:						// 20
+							break;
+						case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST:					// 27
+							break;
+					}
+				}
+				else if (pVal.BeforeAction == false)
+				{
+					switch (pVal.EventType)
+					{
+						case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED:						// 1
+							break;
+						case SAPbouiCOM.BoEventTypes.et_KEY_DOWN:							// 2
+							break;
+						case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS:                          // 3
+							break;
+						case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS:                         // 4
+							break;
+						case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT:						// 5
+							if (pVal.ItemUID == "Rpt")
+							{
+								if (oForm.Items.Item("Rpt").Specific.Selected.Value.ToString().Trim() != "0")
+								{
+									if (string.IsNullOrEmpty(oForm.Items.Item("SAcctCode").Specific.Value.ToString().Trim()))
+									{
+										oForm.Freeze(true);
+										PSH_Globals.SBO_Application.MessageBox("계정과목(시작) 입력 후 항목선택을 하여 주시기 바랍니다.");
+										oForm.Items.Item("Rpt").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+										oForm.Items.Item("SAcctCode").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+										oForm.Freeze(false);
+										BubbleEvent = false;
+										return;
+									}
+									else if (!string.IsNullOrEmpty(oForm.Items.Item("SAcctCode").Specific.Value.ToString().Trim()))
+									{
+										oForm.Freeze(true);
+										FlushToItemValue(pVal.ItemUID, 0, "");
+										oForm.Items.Item("StrRpt").Enabled = true;
+										oForm.Items.Item("EndRpt").Enabled = true;
+										oForm.Items.Item("EndRpt").Specific.Value = "";
+										oForm.Items.Item("StrRpt").Specific.Value = "";
+										oForm.Freeze(false);
+									}
+								}
+								else
+								{
+									oForm.Freeze(true);
+									oForm.Items.Item("Rpttxt").Specific.Value = "";
+									oForm.Items.Item("StrRpt").Specific.Value = "";
+									oForm.Items.Item("EndRpt").Specific.Value = "";
+									oForm.Items.Item("StrDate").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+									oForm.Items.Item("StrRpt").Enabled = false;
+									oForm.Items.Item("EndRpt").Enabled = false;
+									oForm.Freeze(false);
+								}
+							}
+							break;
+						case SAPbouiCOM.BoEventTypes.et_CLICK:							    // 6
+							break;
+						case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK:						// 7
+							break;
+						case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED:				// 8
+							break;
+						case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE:                    // 9
+							break;
+						case SAPbouiCOM.BoEventTypes.et_VALIDATE:							// 10
+							if (pVal.ItemChanged == true)
+							{
+								if (pVal.ItemUID == "SAcctCode")
+								{
+									oForm.Items.Item("Rpt").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+									oForm.Items.Item("Rpttxt").Specific.Value = "";
+								}
+							}
+							break;
+						case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD:						// 11
+							break;
+						case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD:                        // 17
+							SubMain.Remove_Forms(oFormUniqueID01);
+							System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm); //메모리 해제
+							break;
+						case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE:						// 18
+							break;
+						case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE:						// 20
+							break;
+						case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST:					// 27
+							break;
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+			{
+			}
+		
+		}
+
+		/// <summary>
+		/// Raise_MenuEvent
+		/// </summary>
+		/// <param name="FormUID"></param>
+		/// <param name="pVal"></param>
+		/// <param name="BubbleEvent"></param>
+		public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
+		{
+			try
+			{
+				if ((pVal.BeforeAction == true))
+				{
+					switch (pVal.MenuUID)
+					{
+						case "1284":							//취소
+							break;
+						case "1286":							//닫기
+							break;
+						case "1293":							//행삭제
+							break;
+						case "1281":							//찾기
+							break;
+						case "1282":							//추가
+							break;
+						case "1285":							//복원
+							break;
+						case "1288":
+						case "1289":
+						case "1290":
+						case "1291":							//레코드이동버튼
+							break;
+					}
+			    // BeforeAction = False
+				}
+				else if ((pVal.BeforeAction == false))
+				{
+					switch (pVal.MenuUID)
+					{
+						case "1284":							//취소
+							break;
+						case "1286":							//닫기
+							break;
+						case "1285":							//복원
+							break;
+						case "1293":							//행삭제
+							break;
+						case "1281":							//찾기
+							break;
+						case "1282":							//추가
+							break;
+						case "1288":
+						case "1289":
+						case "1290":
+						case "1291":							//레코드이동버튼
+							break;
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+			{
+			}
+		}
+
+		/// <summary>
+		/// Raise_FormDataEvent
+		/// </summary>
+		/// <param name="FormUID"></param>
+		/// <param name="BusinessObjectInfo"></param>
+		/// <param name="BubbleEvent"></param>
+		public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
+		{
+			try
+			{
+				// BeforeAction = True
+				if ((BusinessObjectInfo.BeforeAction == true))
+				{
+					switch (BusinessObjectInfo.EventType)
+					{
+						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:
+							////33
+							break;
+						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:
+							////34
+							break;
+						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:
+							////35
+							break;
+						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:
+							////36
+							break;
+					}
+					// BeforeAction = False
+				}
+				else if ((BusinessObjectInfo.BeforeAction == false))
+				{
+					switch (BusinessObjectInfo.EventType)
+					{
+						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:
+							////33
+							break;
+						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:
+							////34
+							break;
+						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:
+							////35
+							break;
+						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:
+							////36
+							break;
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+			{
+			}
+		}
+
+		/// <summary>
+		/// Raise_RightClickEvent
+		/// </summary>
+		/// <param name="FormUID"></param>
+		/// <param name="eventInfo"></param>
+		/// <param name="BubbleEvent"></param>
+		public override void Raise_RightClickEvent(string FormUID, ref SAPbouiCOM.ContextMenuInfo eventInfo, ref bool BubbleEvent)
+		{
+			// ERROR: Not supported in C#: OnErrorStatement
+			try
+			{
+				if ((eventInfo.BeforeAction == true))
+				{
+
+				}
+				else if ((eventInfo.BeforeAction == false))
+				{
+					// 작업
+				}
 			}
 			catch (Exception ex)
 			{

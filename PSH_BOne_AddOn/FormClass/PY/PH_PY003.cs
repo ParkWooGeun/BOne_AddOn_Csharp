@@ -200,7 +200,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY003_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
                 
@@ -333,7 +333,7 @@ namespace PSH_BOne_AddOn
                     {
                         for (i = 1; i <= oMat1.VisualRowCount - 1; i++)
                         {
-                            if (string.IsNullOrEmpty(oMat1.Columns.Item("Date").Cells.Item(i).Specific.VALUE)) //일자
+                            if (string.IsNullOrEmpty(oMat1.Columns.Item("Date").Cells.Item(i).Specific.Value)) //일자
                             {
                                 errNum = 6;
                                 throw new Exception();

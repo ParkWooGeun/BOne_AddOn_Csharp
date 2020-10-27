@@ -351,7 +351,7 @@ namespace PSH_BOne_AddOn
                             }
 
                             sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
-                            sQry = sQry + " WHERE Code = '1' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim() + "' And U_UseYN = 'Y'";
+                            sQry = sQry + " WHERE Code = '1' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "' And U_UseYN = 'Y'";
                             sQry = sQry + " ORDER BY U_Seq";
 
                             dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("TeamCode").Specific, "N");
@@ -370,7 +370,7 @@ namespace PSH_BOne_AddOn
                             }
 
                             sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
-                            sQry = sQry + " WHERE Code = '2' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim() + "' And U_Char1 = '" + oForm.Items.Item("TeamCode").Specific.VALUE.ToString().Trim() + "' And U_UseYN = 'Y'";
+                            sQry = sQry + " WHERE Code = '2' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "' And U_Char1 = '" + oForm.Items.Item("TeamCode").Specific.Value.ToString().Trim() + "' And U_UseYN = 'Y'";
                             sQry = sQry + " Order By U_Seq";
                             dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("RspCode").Specific, "N");
                             oForm.Items.Item("RspCode").DisplayDesc = true;
@@ -388,9 +388,9 @@ namespace PSH_BOne_AddOn
 
                             sQry = " SELECT  U_Code AS [Code], U_CodeNm AS [Name],  U_Seq AS [Seq] FROM [@PS_HR200L] ";
                             sQry = sQry + " WHERE       Code = '9' ";
-                            sQry = sQry + "             AND U_Char3 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim() + "'";
-                            sQry = sQry + "             AND U_Char2 = '" + oForm.Items.Item("TeamCode").Specific.VALUE.ToString().Trim() + "'";
-                            sQry = sQry + "             AND U_Char1 = '" + oForm.Items.Item("RspCode").Specific.VALUE.ToString().Trim() + "'";
+                            sQry = sQry + "             AND U_Char3 = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "'";
+                            sQry = sQry + "             AND U_Char2 = '" + oForm.Items.Item("TeamCode").Specific.Value.ToString().Trim() + "'";
+                            sQry = sQry + "             AND U_Char1 = '" + oForm.Items.Item("RspCode").Specific.Value.ToString().Trim() + "'";
                             sQry = sQry + "             AND U_UseYN = 'Y'";
                             sQry = sQry + " ORDER BY    Seq";
                             dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("ClsCode").Specific, "N");
@@ -558,9 +558,9 @@ namespace PSH_BOne_AddOn
 
                         sQry = " SELECT  U_Code AS [Code], U_CodeNm AS [Name],  U_Seq AS [Seq] FROM [@PS_HR200L] ";
                         sQry = sQry + " WHERE       Code = '9' ";
-                        sQry = sQry + "             AND U_Char3 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim() + "'";
-                        sQry = sQry + "             AND U_Char2 = '" + oForm.Items.Item("TeamCode").Specific.VALUE.ToString().Trim() + "'";
-                        sQry = sQry + "             AND U_Char1 = '" + oForm.Items.Item("RspCode").Specific.VALUE.ToString().Trim() + "'";
+                        sQry = sQry + "             AND U_Char3 = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "'";
+                        sQry = sQry + "             AND U_Char2 = '" + oForm.Items.Item("TeamCode").Specific.Value.ToString().Trim() + "'";
+                        sQry = sQry + "             AND U_Char1 = '" + oForm.Items.Item("RspCode").Specific.Value.ToString().Trim() + "'";
                         sQry = sQry + " ORDER BY    Seq";
 
                         oRecordSet.DoQuery(sQry);

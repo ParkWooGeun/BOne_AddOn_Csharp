@@ -156,7 +156,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY127_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -193,7 +193,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("YM").Enabled = true;
                     oForm.Items.Item("CLTCOD").Enabled = true;
                     oForm.Items.Item("SIType").Enabled = true;
-                    oForm.Items.Item("Comments").Specific.VALUE = "";
+                    oForm.Items.Item("Comments").Specific.Value = "";
                 }
                 else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE))
                 {
@@ -208,7 +208,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("YM").Enabled = true;
                     oForm.Items.Item("CLTCOD").Enabled = true;
                     oForm.Items.Item("SIType").Enabled = true;
-                    oForm.Items.Item("Comments").Specific.VALUE = "";
+                    oForm.Items.Item("Comments").Specific.Value = "";
 
                 }
                 else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE))
@@ -224,7 +224,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("YM").Enabled = false;
                     oForm.Items.Item("CLTCOD").Enabled = false;
                     oForm.Items.Item("SIType").Enabled = false;
-                    oForm.Items.Item("Comments").Specific.VALUE = "";
+                    oForm.Items.Item("Comments").Specific.Value = "";
                 }
             }
             catch (Exception ex)
@@ -483,7 +483,7 @@ namespace PSH_BOne_AddOn
             }
             else
             {
-                oForm.Items.Item("Comments").Specific.VALUE = sFile;
+                oForm.Items.Item("Comments").Specific.Value = sFile;
             }
 
             //엑셀 Object 연결
@@ -543,20 +543,20 @@ namespace PSH_BOne_AddOn
 
                 for (rowCount = 1; rowCount <= oMat01.VisualRowCount -1; rowCount++)
                     {
-                    FullName = oMat01.Columns.Item("FullName").Cells.Item(rowCount).Specific.VALUE;
-                    GovID = codeHelpClass.Left(oMat01.Columns.Item("govID").Cells.Item(rowCount).Specific.VALUE, 6) + codeHelpClass.Right(oMat01.Columns.Item("govID").Cells.Item(rowCount).Specific.VALUE, 7);
+                    FullName = oMat01.Columns.Item("FullName").Cells.Item(rowCount).Specific.Value;
+                    GovID = codeHelpClass.Left(oMat01.Columns.Item("govID").Cells.Item(rowCount).Specific.Value, 6) + codeHelpClass.Right(oMat01.Columns.Item("govID").Cells.Item(rowCount).Specific.Value, 7);
 
 
                     sQry = "Select Code From [@PH_PY001A] wHERE U_status <> '5' and U_CLTCOD = '" + CLTCOD + "' and U_FullName = '" + FullName + "' And U_govID = '" + GovID + "'";
                     oRecordSet.DoQuery(sQry);
                     if (oRecordSet.RecordCount > 0)
                     {
-                        oMat01.Columns.Item("MSTCOD").Cells.Item(rowCount).Specific.VALUE = oRecordSet.Fields.Item(0).Value;
-                        oMat01.Columns.Item("govID").Cells.Item(rowCount).Specific.VALUE = codeHelpClass.Left(GovID, 6) + "-" + GovID.ToString().Substring(6,1) + "******";
+                        oMat01.Columns.Item("MSTCOD").Cells.Item(rowCount).Specific.Value = oRecordSet.Fields.Item(0).Value;
+                        oMat01.Columns.Item("govID").Cells.Item(rowCount).Specific.Value = codeHelpClass.Left(GovID, 6) + "-" + GovID.ToString().Substring(6,1) + "******";
                     }
                     else
                     {
-                        oMat01.Columns.Item("govID").Cells.Item(rowCount).Specific.VALUE = codeHelpClass.Left(GovID, 6) + "-" + GovID.ToString().Substring(6, 1) + "******";
+                        oMat01.Columns.Item("govID").Cells.Item(rowCount).Specific.Value = codeHelpClass.Left(GovID, 6) + "-" + GovID.ToString().Substring(6, 1) + "******";
                     }
                 }
                 oMat01.AutoResizeColumns();
@@ -615,10 +615,10 @@ namespace PSH_BOne_AddOn
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
 
-                    CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
-                    YM = oForm.Items.Item("YM").Specific.VALUE.ToString().Trim();
-                    Code = oForm.Items.Item("Code").Specific.VALUE.ToString().Trim();
-                    SIType = oForm.Items.Item("SIType").Specific.VALUE.ToString().Trim();
+                    CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                    YM = oForm.Items.Item("YM").Specific.Value.ToString().Trim();
+                    Code = oForm.Items.Item("Code").Specific.Value.ToString().Trim();
+                    SIType = oForm.Items.Item("SIType").Specific.Value.ToString().Trim();
                     Usersign = PSH_Globals.oCompany.UserSignature.ToString();
                     if (oMat01.VisualRowCount <= 1)
                     {
@@ -626,7 +626,7 @@ namespace PSH_BOne_AddOn
                         throw new Exception();
                     }
 
-                    if (Conversion.Val(oMat01.Columns.Item("BeforAmt").Cells.Item(1).Specific.VALUE) > 0)
+                    if (Conversion.Val(oMat01.Columns.Item("BeforAmt").Cells.Item(1).Specific.Value) > 0)
                     {
                         ErrNo = 2;
                         throw new Exception();
@@ -645,7 +645,7 @@ namespace PSH_BOne_AddOn
                     oRecordSet.DoQuery(sQry);
 
                     PSH_Globals.SBO_Application.ActivateMenuItem("1281");
-                    oForm.Items.Item("Code").Specific.VALUE = Code;
+                    oForm.Items.Item("Code").Specific.Value = Code;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 
                 }
@@ -700,20 +700,20 @@ namespace PSH_BOne_AddOn
                         ErrNo = 1;
                         throw new Exception();
                     }
-                    if (Conversion.Val(oMat01.Columns.Item("BeforAmt").Cells.Item(1).Specific.VALUE) == 0)
+                    if (Conversion.Val(oMat01.Columns.Item("BeforAmt").Cells.Item(1).Specific.Value) == 0)
                     {
                         ErrNo = 2;
                         throw new Exception();
                     }
-                    CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
-                    Code = oForm.Items.Item("Code").Specific.VALUE.ToString().Trim();
+                    CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                    Code = oForm.Items.Item("Code").Specific.Value.ToString().Trim();
                     Usersign = PSH_Globals.oCompany.UserSignature.ToString();
 
                     sQry = "Exec PH_PY127_02 '" + CLTCOD + "', '" + Code + "', '" + Usersign + "'";
                     oRecordSet.DoQuery(sQry);
 
                     PSH_Globals.SBO_Application.ActivateMenuItem("1281");
-                    oForm.Items.Item("Code").Specific.VALUE = Code;
+                    oForm.Items.Item("Code").Specific.Value = Code;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
                 else
@@ -1577,7 +1577,7 @@ namespace PSH_BOne_AddOn
                     {
                         case "1283":
                             //보수월액 적용을 하면 삭제를 못하도록, 적용취소후 삭제 가능
-                            if (Conversion.Val(oMat01.Columns.Item("BeforAmt").Cells.Item(1).Specific.VALUE) > 0)
+                            if (Conversion.Val(oMat01.Columns.Item("BeforAmt").Cells.Item(1).Specific.Value) > 0)
                             {
                                 PSH_Globals.SBO_Application.StatusBar.SetText("보수월액 갱신처리한 자료입니다. 삭제할 수 없습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                                 oForm.Freeze(false);

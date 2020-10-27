@@ -148,7 +148,7 @@ namespace PSH_BOne_AddOn
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY133_FormItemEnabled();
 
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -408,7 +408,7 @@ namespace PSH_BOne_AddOn
                     for (i = 1; i <= oMat1.VisualRowCount - 1; i++)
                     {
                         ////구분
-                        if (oMat1.Columns.Item("JobGBN").Cells.Item(i).Specific.VALUE == "G")
+                        if (oMat1.Columns.Item("JobGBN").Cells.Item(i).Specific.Value == "G")
                         {
                             G_data = G_data + 1;
                         }
@@ -418,8 +418,8 @@ namespace PSH_BOne_AddOn
                         }
                     }
                 }
-                oForm.Items.Item("G_Cnt").Specific.VALUE = G_data;
-                oForm.Items.Item("S_Cnt").Specific.VALUE = S_data;
+                oForm.Items.Item("G_Cnt").Specific.Value = G_data;
+                oForm.Items.Item("S_Cnt").Specific.Value = S_data;
             }
             catch (Exception ex)
             {
@@ -770,7 +770,7 @@ namespace PSH_BOne_AddOn
                     return functionReturnValue;
                 }
                 
-                if (string.IsNullOrEmpty(oForm.Items.Item("YYYY").Specific.VALUE.Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("YYYY").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("기준년도는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("YYYY").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -778,7 +778,7 @@ namespace PSH_BOne_AddOn
                     return functionReturnValue;
                 }
 
-                if (string.IsNullOrEmpty(oForm.Items.Item("YM").Specific.VALUE.Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("YM").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("기준일자는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("YM").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -788,15 +788,15 @@ namespace PSH_BOne_AddOn
                 // Code & Name 생성
                 //oDS_PH_PY133A.SetValue("Code", 0, oDS_PH_PY133A.GetValue("U_YM", 0).Trim() + oDS_PH_PY133A.GetValue("U_CLTCOD", 0).Trim());
                 //oDS_PH_PY133A.SetValue("NAME", 0, oDS_PH_PY133A.GetValue("U_YM", 0).Trim() + oDS_PH_PY133A.GetValue("U_CLTCOD", 0).Trim());
-                oDS_PH_PY133A.SetValue("Code", 0, oForm.Items.Item("YM").Specific.VALUE.Trim() + oDS_PH_PY133A.GetValue("U_CLTCOD", 0).Trim());
-                oDS_PH_PY133A.SetValue("NAME", 0, oForm.Items.Item("YM").Specific.VALUE.Trim() + oDS_PH_PY133A.GetValue("U_CLTCOD", 0).Trim());
+                oDS_PH_PY133A.SetValue("Code", 0, oForm.Items.Item("YM").Specific.Value.Trim() + oDS_PH_PY133A.GetValue("U_CLTCOD", 0).Trim());
+                oDS_PH_PY133A.SetValue("NAME", 0, oForm.Items.Item("YM").Specific.Value.Trim() + oDS_PH_PY133A.GetValue("U_CLTCOD", 0).Trim());
                 // 라인
                 if (oMat1.VisualRowCount > 1)
                 {
                     for (i = 1; i <= oMat1.VisualRowCount - 1; i++)
                     {
                         ////구분
-                        if (string.IsNullOrEmpty(oMat1.Columns.Item("JobGBN").Cells.Item(i).Specific.VALUE))
+                        if (string.IsNullOrEmpty(oMat1.Columns.Item("JobGBN").Cells.Item(i).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("상여 급여 구분을 필수입니다..", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("JobGBN").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);

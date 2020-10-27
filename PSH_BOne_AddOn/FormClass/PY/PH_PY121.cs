@@ -165,7 +165,7 @@ namespace PSH_BOne_AddOn
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY121_FormItemEnabled();
 
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -194,7 +194,7 @@ namespace PSH_BOne_AddOn
 
                     // 접속자에 따른 권한별 사업장 콤보박스세팅
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
-                    oForm.Items.Item("YEAR").Specific.VALUE = DateTime.Now.ToString("yyyy");
+                    oForm.Items.Item("YEAR").Specific.Value = DateTime.Now.ToString("yyyy");
 
                     oForm.EnableMenu("1281", true); ////문서찾기
                     oForm.EnableMenu("1282", false); ////문서추가
@@ -917,7 +917,7 @@ namespace PSH_BOne_AddOn
                     for (i = 1; i <= oMat1.VisualRowCount - 1; i++)
                     {
                         // 구분
-                        if (string.IsNullOrEmpty(oMat1.Columns.Item("MSTCOD").Cells.Item(i).Specific.VALUE))
+                        if (string.IsNullOrEmpty(oMat1.Columns.Item("MSTCOD").Cells.Item(i).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("사번은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("MSTCOD").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);

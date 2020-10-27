@@ -418,7 +418,7 @@ namespace PSH_BOne_AddOn
                 {
                     //oForm.Mode = fm_FIND_MODE
                     PH_PY205_FormItemEnabled();
-                    //oForm.Items("Code").Specific.VALUE = oFormDocEntry01
+                    //oForm.Items("Code").Specific.Value = oFormDocEntry01
                     //oForm.Items("1").CLICK ct_Regular
                 }
             }
@@ -570,7 +570,7 @@ namespace PSH_BOne_AddOn
 
                     case "MSTCOD01":
 
-                        oForm.Items.Item("MSTNAM01").Specific.VALUE = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("MSTCOD01").Specific.VALUE + "'", ""); //성명
+                        oForm.Items.Item("MSTNAM01").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("MSTCOD01").Specific.Value + "'", ""); //성명
                         break;
 
                     case "CLTCOD03":
@@ -600,7 +600,7 @@ namespace PSH_BOne_AddOn
 
                     case "MSTCOD03":
 
-                        oForm.Items.Item("MSTNAM03").Specific.VALUE = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("MSTCOD03").Specific.VALUE + "'", ""); //성명
+                        oForm.Items.Item("MSTNAM03").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("MSTCOD03").Specific.Value + "'", ""); //성명
                         break;
                 }
             }
@@ -629,11 +629,11 @@ namespace PSH_BOne_AddOn
 
                 if (Convert.ToDouble(DocEntry) == 0)
                 {
-                    oForm.Items.Item("DocEntry").Specific.VALUE = 1;
+                    oForm.Items.Item("DocEntry").Specific.Value = 1;
                 }
                 else
                 {
-                    oForm.Items.Item("DocEntry").Specific.VALUE = DocEntry;
+                    oForm.Items.Item("DocEntry").Specific.Value = DocEntry;
                 }
             }
             catch(Exception ex)
@@ -697,7 +697,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD01").Specific.VALUE))
+                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD01").Specific.Value))
                 {
                     ErrNum = 1;
                     throw new Exception();
@@ -738,7 +738,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY205A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.VALUE + "'", 0, 1) == "Y")
+                if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY205A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "Y")
                 {
                     ErrNumm = 1;
                     throw new Exception();

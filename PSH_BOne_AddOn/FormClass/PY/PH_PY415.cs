@@ -153,7 +153,7 @@ namespace PSH_BOne_AddOn
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY415_FormItemEnabled();
 
-                    oForm.Items.Item("DocEntry").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -177,7 +177,7 @@ namespace PSH_BOne_AddOn
                 {
                     // 접속자에 따른 권한별 사업장 콤보박스세팅
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
-                    oForm.Items.Item("Year").Specific.VALUE = Convert.ToString(DateTime.Now.Year - 1);
+                    oForm.Items.Item("Year").Specific.Value = Convert.ToString(DateTime.Now.Year - 1);
 
                     oForm.EnableMenu("1281", true); ////문서찾기
                     oForm.EnableMenu("1282", false); ////문서추가
@@ -686,7 +686,7 @@ namespace PSH_BOne_AddOn
                         {
                             case "MSTCOD":
                                 // 사원명 찿아서 화면 표시 하기
-                                sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("MSTCOD").Specific.VALUE.Trim() + "'";
+                                sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("MSTCOD").Specific.Value.Trim() + "'";
                                 oRecordSet.DoQuery(sQry);
                                 oForm.Items.Item("FullName").Specific.String = oRecordSet.Fields.Item("U_FullName").Value.Trim();
                                 break;
@@ -779,9 +779,9 @@ namespace PSH_BOne_AddOn
                                 return;
                             }
 
-                            yyyy = oForm.Items.Item("Year").Specific.VALUE.Trim();
-                            FullName = oForm.Items.Item("FullName").Specific.VALUE.Trim();
-                            if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.VALUE.Trim()))
+                            yyyy = oForm.Items.Item("Year").Specific.Value.Trim();
+                            FullName = oForm.Items.Item("FullName").Specific.Value.Trim();
+                            if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.Value.Trim()))
                             {
                                 if (PSH_Globals.SBO_Application.MessageBox(yyyy + "년 전사원 정산계산을 하시겠습니까?", 2, "Yes", "No") == 2)
                                 {
@@ -870,7 +870,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "MSTCOD")
                     {
-                        if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.VALUE.Trim()))
+                        if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.Value.Trim()))
                         {
                             PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
                             BubbleEvent = false;
@@ -903,7 +903,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 // 사업장
-                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.VALUE.Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -912,7 +912,7 @@ namespace PSH_BOne_AddOn
                 }
 
                 //년도
-                if (string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.VALUE.Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("년도는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("Year").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -954,9 +954,9 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
-                Year = oForm.Items.Item("Year").Specific.VALUE.Trim();
-                MSTCOD = oForm.Items.Item("MSTCOD").Specific.VALUE.Trim();
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
+                Year = oForm.Items.Item("Year").Specific.Value.Trim();
+                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
 
                 if (string.IsNullOrEmpty(MSTCOD))
                 {
@@ -1054,14 +1054,14 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
-                Year = oForm.Items.Item("Year").Specific.VALUE.Trim();
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
+                Year = oForm.Items.Item("Year").Specific.Value.Trim();
 
                 for (i = 1; i <= oMat1.VisualRowCount; i++)
                 {
-                    MSTCOD = oMat1.Columns.Item("MSTCOD").Cells.Item(i).Specific.VALUE.Trim();
+                    MSTCOD = oMat1.Columns.Item("MSTCOD").Cells.Item(i).Specific.Value.Trim();
 
-                    //        If Param02 = "2014" And (oMat1.Columns("FullName").Cells(i).Specific.VALUE = "박용철" Or oMat1.Columns("FullName").Cells(i).Specific.VALUE = "국요한") Then
+                    //        If Param02 = "2014" And (oMat1.Columns("FullName").Cells(i).Specific.Value = "박용철" Or oMat1.Columns("FullName").Cells(i).Specific.Value = "국요한") Then
                     //            '//2014년 재정산시 박용철, 국요한 제외
                     //        Else
                     //            If Param02 <= "2013" Then
@@ -1087,9 +1087,9 @@ namespace PSH_BOne_AddOn
 
                 for (i = 1; i <= oMat1.VisualRowCount; i++)
                 {
-                    MSTCOD = oMat1.Columns.Item("MSTCOD").Cells.Item(i).Specific.VALUE.Trim();
+                    MSTCOD = oMat1.Columns.Item("MSTCOD").Cells.Item(i).Specific.Value.Trim();
 
-                    //        If Param02 = "2014" And (oMat1.Columns("FullName").Cells(i).Specific.VALUE = "박용철" Or oMat1.Columns("FullName").Cells(i).Specific.VALUE = "국요한") Then
+                    //        If Param02 = "2014" And (oMat1.Columns("FullName").Cells(i).Specific.Value = "박용철" Or oMat1.Columns("FullName").Cells(i).Specific.Value = "국요한") Then
                     //            '//2014년 재정산시 박용철, 국요한 제외
                     //        Else
                     //            If Param02 <= "2013" Then

@@ -239,14 +239,14 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                BPLID = oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim();
-                StdYM = oForm.Items.Item("YM").Specific.VALUE;
+                BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+                StdYM = oForm.Items.Item("YM").Specific.Value;
 
                 //찾기모드 변경
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
 
                 oForm.Items.Item("BPLId").Specific.Select(BPLID);
-                oForm.Items.Item("YM").Specific.VALUE = StdYM;
+                oForm.Items.Item("YM").Specific.Value = StdYM;
 
                 oForm.Items.Item("1").Click();
             }
@@ -564,7 +564,7 @@ namespace PSH_BOne_AddOn
                             //{
                             //    for (i = 0; i <= oMat01.VisualRowCount - 1; i++)
                             //    {
-                            //        oMat01.Columns.Item("LineNum").Cells.Item(i + 1).Specific.VALUE = i + 1;
+                            //        oMat01.Columns.Item("LineNum").Cells.Item(i + 1).Specific.Value = i + 1;
                             //    }
 
                             //    oMat01.FlushToDataSource();
@@ -573,7 +573,7 @@ namespace PSH_BOne_AddOn
                             //    oMat01.Clear();
                             //    oMat01.LoadFromDataSource();
 
-                            //    if (!string.IsNullOrEmpty(oMat01.Columns.Item("OrdMgNum").Cells.Item(oMat01.RowCount).Specific.VALUE))
+                            //    if (!string.IsNullOrEmpty(oMat01.Columns.Item("OrdMgNum").Cells.Item(oMat01.RowCount).Specific.Value))
                             //    {
                             //        Add_MatrixRow(oMat01.RowCount, false);
                             //    }

@@ -99,7 +99,7 @@ namespace PSH_BOne_AddOn
                 // 근무조
                 oForm.DataSources.UserDataSources.Add("GNMUJO", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("GNMUJO").Specific.DataBind.SetBound(true, "", "GNMUJO");
-                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P155' AND U_UseYN= 'Y' AND U_Char1 = '" + oForm.Items.Item("ShiftDat").Specific.VALUE + "'";
+                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P155' AND U_UseYN= 'Y' AND U_Char1 = '" + oForm.Items.Item("ShiftDat").Specific.Value + "'";
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("GNMUJO").Specific, "N");
                 oForm.Items.Item("GNMUJO").Specific.ValidValues.Add("%", "전체");
                 oForm.Items.Item("GNMUJO").Specific.Select("%", SAPbouiCOM.BoSearchKey.psk_ByValue);
@@ -278,25 +278,25 @@ namespace PSH_BOne_AddOn
                         {
                             //근무형태가 바뀌면 근무조 재설정
                             case "ShiftDat":
-                                if ((oForm.Items.Item("ShiftDat").Specific.VALUE.Trim()) == "4")
+                                if ((oForm.Items.Item("ShiftDat").Specific.Value.Trim()) == "4")
                                 {
-                                    sQry = "select u_Team1 from [@PH_PY003B] where left(code,1) ='1' and u_date ='" + oForm.Items.Item("DocDate").Specific.VALUE.Trim() + "'";
+                                    sQry = "select u_Team1 from [@PH_PY003B] where left(code,1) ='1' and u_date ='" + oForm.Items.Item("DocDate").Specific.Value.Trim() + "'";
                                     oRecordSet.DoQuery(sQry);
-                                    oForm.Items.Item("Team1").Specific.VALUE = oRecordSet.Fields.Item(0).Value;
+                                    oForm.Items.Item("Team1").Specific.Value = oRecordSet.Fields.Item(0).Value;
 
-                                    sQry = "select u_Team2 from [@PH_PY003B] where left(code,1) ='1' and u_date ='" + oForm.Items.Item("DocDate").Specific.VALUE.Trim() + "'";
+                                    sQry = "select u_Team2 from [@PH_PY003B] where left(code,1) ='1' and u_date ='" + oForm.Items.Item("DocDate").Specific.Value.Trim() + "'";
                                     oRecordSet.DoQuery(sQry);
-                                    oForm.Items.Item("Team2").Specific.VALUE = oRecordSet.Fields.Item(0).Value;
+                                    oForm.Items.Item("Team2").Specific.Value = oRecordSet.Fields.Item(0).Value;
 
-                                    sQry = "select u_Team3 from [@PH_PY003B] where left(code,1) ='1' and u_date ='" + oForm.Items.Item("DocDate").Specific.VALUE.Trim() + "'";
+                                    sQry = "select u_Team3 from [@PH_PY003B] where left(code,1) ='1' and u_date ='" + oForm.Items.Item("DocDate").Specific.Value.Trim() + "'";
                                     oRecordSet.DoQuery(sQry);
-                                    oForm.Items.Item("Team3").Specific.VALUE = oRecordSet.Fields.Item(0).Value;
+                                    oForm.Items.Item("Team3").Specific.Value = oRecordSet.Fields.Item(0).Value;
                                 }
                                 else
                                 {
-                                    oForm.Items.Item("Team1").Specific.VALUE = "";
-                                    oForm.Items.Item("Team2").Specific.VALUE = "";
-                                    oForm.Items.Item("Team3").Specific.VALUE = "";
+                                    oForm.Items.Item("Team1").Specific.Value = "";
+                                    oForm.Items.Item("Team2").Specific.Value = "";
+                                    oForm.Items.Item("Team3").Specific.Value = "";
                                 }
 
                                 // 삭제
@@ -307,7 +307,7 @@ namespace PSH_BOne_AddOn
                                         oForm.Items.Item("GNMUJO").Specific.ValidValues.Remove(i, SAPbouiCOM.BoSearchKey.psk_Index);
                                     }
                                 }
-                                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P155' AND U_UseYN= 'Y' AND U_Char1 = '" + oForm.Items.Item("ShiftDat").Specific.VALUE + "'";
+                                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P155' AND U_UseYN= 'Y' AND U_Char1 = '" + oForm.Items.Item("ShiftDat").Specific.Value + "'";
                                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("GNMUJO").Specific, "N");
                                 oForm.Items.Item("GNMUJO").Specific.ValidValues.Add("%", "전체");
                                 oForm.Items.Item("GNMUJO").Specific.Select("%", SAPbouiCOM.BoSearchKey.psk_ByValue);

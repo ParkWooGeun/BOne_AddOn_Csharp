@@ -413,12 +413,12 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				if (string.IsNullOrEmpty(oForm.Items.Item("StrDate").Specific.VALUE.ToString().Trim()))
+				if (string.IsNullOrEmpty(oForm.Items.Item("StrDate").Specific.Value.ToString().Trim()))
 				{
 					ErrNum = 1;
 					throw new Exception();
 				}
-				if (string.IsNullOrEmpty(oForm.Items.Item("EndDate").Specific.VALUE.ToString().Trim()))
+				if (string.IsNullOrEmpty(oForm.Items.Item("EndDate").Specific.Value.ToString().Trim()))
 				{
 					ErrNum = 2;
 					throw new Exception();
@@ -464,9 +464,9 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				// 조회조건문
-				StrDate = oForm.Items.Item("StrDate").Specific.VALUE.ToString().Trim();
-				EndDate = oForm.Items.Item("EndDate").Specific.VALUE.ToString().Trim();
-				BPLId   = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
+				StrDate = oForm.Items.Item("StrDate").Specific.Value.ToString().Trim();
+				EndDate = oForm.Items.Item("EndDate").Specific.Value.ToString().Trim();
+				BPLId   = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
 
 				// Crystal /~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/
 				WinTitle = "[PS_FI933] 차입금대장";

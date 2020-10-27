@@ -67,7 +67,7 @@ namespace PSH_BOne_AddOn
                 //PH_PY011_Add_MatrixRow(0, true);
                 //PH_PY011_FormItemEnabled();
 
-                oForm.Items.Item("StdDate").Specific.VALUE = DateTime.Now.ToString("yyyyMM01"); //기준일자
+                oForm.Items.Item("StdDate").Specific.Value = DateTime.Now.ToString("yyyyMM01"); //기준일자
             }
             catch (Exception ex)
             {
@@ -392,11 +392,11 @@ namespace PSH_BOne_AddOn
             {
                 for (i = 1; i <= oMat01.RowCount; i++)
                 {
-                    if (oMat01.Columns.Item("ChYN").Cells.Item(i).Specific.VALUE == "Y")
+                    if (oMat01.Columns.Item("ChYN").Cells.Item(i).Specific.Value == "Y")
                     {
                         sQry = "            EXEC [PH_PY011_02] ";
-                        sQry = sQry + "'" + oMat01.Columns.Item("MSTCOD").Cells.Item(i).Specific.VALUE + "',"; //사번
-                        sQry = sQry + "'" + oMat01.Columns.Item("ChCallName").Cells.Item(i).Specific.VALUE + "',"; //변경후호칭코드
+                        sQry = sQry + "'" + oMat01.Columns.Item("MSTCOD").Cells.Item(i).Specific.Value + "',"; //사번
+                        sQry = sQry + "'" + oMat01.Columns.Item("ChCallName").Cells.Item(i).Specific.Value + "',"; //변경후호칭코드
                         sQry = sQry + "'" + PSH_Globals.oCompany.UserSignature.ToString() + "'"; 
 
                         oRecordSet01.DoQuery(sQry);
@@ -733,12 +733,12 @@ namespace PSH_BOne_AddOn
             //}
 
             //////인자 MOVE , Trim 시키기..
-            ////UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            //CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE);
-            ////UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            //DestNo1 = Strings.Trim(oForm.Items.Item("DestNo1").Specific.VALUE);
-            ////UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-            //DestNo2 = Strings.Trim(oForm.Items.Item("DestNo2").Specific.VALUE);
+            ////UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            //CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
+            ////UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            //DestNo1 = Strings.Trim(oForm.Items.Item("DestNo1").Specific.Value);
+            ////UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            //DestNo2 = Strings.Trim(oForm.Items.Item("DestNo2").Specific.Value);
 
             ///// Crystal /~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/
 
@@ -1203,16 +1203,16 @@ namespace PSH_BOne_AddOn
 
                             if (pVal.ItemUID == "MSTCOD")
                             {
-                                oForm.Items.Item("MSTNAM").Specific.VALUE = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("MSTCOD").Specific.VALUE + "'", ""); //성명
+                                oForm.Items.Item("MSTNAM").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("MSTCOD").Specific.Value + "'", ""); //성명
                             }
                             else if (pVal.ItemUID == "ShiftDatCd")
                             {
-                                oForm.Items.Item("ShiftDatNm").Specific.VALUE = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L] AS T0", "'" + oForm.Items.Item("ShiftDatCd").Specific.VALUE + "'", " AND T0.Code = 'P154' AND T0.U_UseYN = 'Y'"); //근무형태
+                                oForm.Items.Item("ShiftDatNm").Specific.Value = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L] AS T0", "'" + oForm.Items.Item("ShiftDatCd").Specific.Value + "'", " AND T0.Code = 'P154' AND T0.U_UseYN = 'Y'"); //근무형태
 
                             }
                             else if (pVal.ItemUID == "GNMUJOCd")
                             {
-                                oForm.Items.Item("GNMUJONm").Specific.VALUE = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L] AS T0", "'" + oForm.Items.Item("GNMUJOCd").Specific.VALUE + "'", " AND T0.Code = 'P155' AND T0.U_UseYN = 'Y'"); //근무조
+                                oForm.Items.Item("GNMUJONm").Specific.Value = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L] AS T0", "'" + oForm.Items.Item("GNMUJOCd").Specific.Value + "'", " AND T0.Code = 'P155' AND T0.U_UseYN = 'Y'"); //근무조
                             }
                         }
                     }
@@ -1463,7 +1463,7 @@ namespace PSH_BOne_AddOn
                     {
                         for (i = 1; i <= oMat01.VisualRowCount; i++)
                         {
-                            oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.VALUE = i;
+                            oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value = i;
                         }
                         oMat01.FlushToDataSource();
                         oDS_PH_PY011B.RemoveRecord(oDS_PH_PY011B.Size - 1);

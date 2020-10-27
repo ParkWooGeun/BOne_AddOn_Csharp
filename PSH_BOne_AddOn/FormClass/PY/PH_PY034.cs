@@ -172,7 +172,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY034_FormItemEnabled();
-                    oForm.Items.Item("DocEntry").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -196,11 +196,11 @@ namespace PSH_BOne_AddOn
 
                 if (Convert.ToDouble(DocEntry) == 0)
                 {
-                    oForm.Items.Item("DocEntry").Specific.VALUE = 1;
+                    oForm.Items.Item("DocEntry").Specific.Value = 1;
                 }
                 else
                 {
-                    oForm.Items.Item("DocEntry").Specific.VALUE = DocEntry;
+                    oForm.Items.Item("DocEntry").Specific.Value = DocEntry;
                 }
             }
             catch (Exception ex)
@@ -271,7 +271,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("ToDt").Enabled = false;
                     oForm.Items.Item("Btn03").Enabled = true;
 
-                    //        If oForm.Items("JdtDate").Specific.VALUE <> "" Then '분개일자가 등록이 되어 있는 경우
+                    //        If oForm.Items("JdtDate").Specific.Value <> "" Then '분개일자가 등록이 되어 있는 경우
                     oForm.Items.Item("JdtDate").Enabled = true;
                     //        Else
                     //            oForm.Items("JdtDate").Enabled = False
@@ -453,14 +453,14 @@ namespace PSH_BOne_AddOn
 
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                         {
-                            if (string.IsNullOrEmpty(oForm.Items.Item("JdtDate").Specific.VALUE))
+                            if (string.IsNullOrEmpty(oForm.Items.Item("JdtDate").Specific.Value))
                             {
                                 ErrNum = 1;
                                 PH_PY034_Item_Error_Message(ErrNum);
                                 BubbleEvent = false;
                                 return;
                             }
-                            else if (oForm.Items.Item("Status").Specific.VALUE == "C")
+                            else if (oForm.Items.Item("Status").Specific.Value == "C")
                             {
                                 ErrNum = 2;
                                 PH_PY034_Item_Error_Message(ErrNum);
@@ -491,21 +491,21 @@ namespace PSH_BOne_AddOn
 
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                         {
-                            if (string.IsNullOrEmpty(oForm.Items.Item("JdtDate").Specific.VALUE))
+                            if (string.IsNullOrEmpty(oForm.Items.Item("JdtDate").Specific.Value))
                             {
                                 ErrNum = 1;
                                 PH_PY034_Item_Error_Message(ErrNum);
                                 BubbleEvent = false;
                                 return;
                             }
-                            else if (oForm.Items.Item("JdtCC").Specific.VALUE != "Y")
+                            else if (oForm.Items.Item("JdtCC").Specific.Value != "Y")
                             {
                                 ErrNum = 3;
                                 PH_PY034_Item_Error_Message(ErrNum);
                                 BubbleEvent = false;
                                 return;
                             }
-                            else if (oForm.Items.Item("Status").Specific.VALUE == "C")
+                            else if (oForm.Items.Item("Status").Specific.Value == "C")
                             {
                                 ErrNum = 2;
                                 PH_PY034_Item_Error_Message(ErrNum);
@@ -886,7 +886,7 @@ namespace PSH_BOne_AddOn
                     {
                         for (i = 1; i <= oMat01.VisualRowCount; i++)
                         {
-                            oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.VALUE = i;
+                            oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value = i;
                         }
                         oMat01.FlushToDataSource();
                         oDS_PH_PY034B.RemoveRecord(oDS_PH_PY034B.Size - 1);
@@ -1158,7 +1158,7 @@ namespace PSH_BOne_AddOn
                         break;
 
                     case "TeamCode":
-                        oForm.Items.Item("TeamName").Specific.VALUE = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" + oForm.Items.Item("TeamCode").Specific.VALUE + "'", " AND Code = '1'");
+                        oForm.Items.Item("TeamName").Specific.Value = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" + oForm.Items.Item("TeamCode").Specific.Value + "'", " AND Code = '1'");
                         //팀명
                         break;
 
@@ -1228,7 +1228,7 @@ namespace PSH_BOne_AddOn
                     {
 
                         //배부규칙
-                        if (string.IsNullOrEmpty(oMat01.Columns.Item("ProfCode").Cells.Item(i).Specific.VALUE) & Convert.ToInt32(oMat01.Columns.Item("DocNo").Cells.Item(i).Specific.VALUE) != 0)
+                        if (string.IsNullOrEmpty(oMat01.Columns.Item("ProfCode").Cells.Item(i).Specific.Value) & Convert.ToInt32(oMat01.Columns.Item("DocNo").Cells.Item(i).Specific.Value) != 0)
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("배부규칙은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat01.Columns.Item("ProfCode").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -1237,7 +1237,7 @@ namespace PSH_BOne_AddOn
                         }
 
                         //적요
-                         if (string.IsNullOrEmpty(oMat01.Columns.Item("LineMemo").Cells.Item(i).Specific.VALUE) & Convert.ToInt32(oMat01.Columns.Item("DocNo").Cells.Item(i).Specific.VALUE) != 0)
+                         if (string.IsNullOrEmpty(oMat01.Columns.Item("LineMemo").Cells.Item(i).Specific.Value) & Convert.ToInt32(oMat01.Columns.Item("DocNo").Cells.Item(i).Specific.Value) != 0)
                          {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("적요는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat01.Columns.Item("LineMemo").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -1319,10 +1319,10 @@ namespace PSH_BOne_AddOn
             string FrDt = string.Empty;            //기간(시작)
             string ToDt = string.Empty;            //기간(종료)
 
-            CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim().ToString();                                //사업장
-            TeamCode = oForm.Items.Item("TeamCode").Specific.VALUE.Trim().ToString();                            //부서
-            FrDt = oForm.Items.Item("FrDt").Specific.VALUE.ToString().Trim().Replace(".", "");          //시작일자
-            ToDt = oForm.Items.Item("ToDt").Specific.VALUE.ToString().Trim().Replace(".", "");          //종료일자
+            CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim().ToString();                                //사업장
+            TeamCode = oForm.Items.Item("TeamCode").Specific.Value.Trim().ToString();                            //부서
+            FrDt = oForm.Items.Item("FrDt").Specific.Value.ToString().Trim().Replace(".", "");          //시작일자
+            ToDt = oForm.Items.Item("ToDt").Specific.Value.ToString().Trim().Replace(".", "");          //종료일자
 
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet01.RecordCount, false);
 
@@ -1482,13 +1482,13 @@ namespace PSH_BOne_AddOn
 
                 for (i = 1; i <= oMat01.VisualRowCount; i++)
                 {
-                    sAcctCode = oMat01.Columns.Item("AcctCode").Cells.Item(i).Specific.VALUE;    //G/L 계정
-                    sDebit = Convert.ToDouble(oMat01.Columns.Item("Debit").Cells.Item(i).Specific.VALUE);          //차변
-                    sCredit = Convert.ToDouble(oMat01.Columns.Item("Credit").Cells.Item(i).Specific.VALUE);        //대변
-                    sPrcCode = oMat01.Columns.Item("ProfCode").Cells.Item(i).Specific.VALUE;     //배부규칙
-                    sSpender = oMat01.Columns.Item("Spender").Cells.Item(i).Specific.VALUE;      //사용인
-                    sLineMemo = oMat01.Columns.Item("LineMemo").Cells.Item(i).Specific.VALUE;    //적요
-                    BPLid = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim().ToString();
+                    sAcctCode = oMat01.Columns.Item("AcctCode").Cells.Item(i).Specific.Value;    //G/L 계정
+                    sDebit = Convert.ToDouble(oMat01.Columns.Item("Debit").Cells.Item(i).Specific.Value);          //차변
+                    sCredit = Convert.ToDouble(oMat01.Columns.Item("Credit").Cells.Item(i).Specific.Value);        //대변
+                    sPrcCode = oMat01.Columns.Item("ProfCode").Cells.Item(i).Specific.Value;     //배부규칙
+                    sSpender = oMat01.Columns.Item("Spender").Cells.Item(i).Specific.Value;      //사용인
+                    sLineMemo = oMat01.Columns.Item("LineMemo").Cells.Item(i).Specific.Value;    //적요
+                    BPLid = oForm.Items.Item("CLTCOD").Specific.Value.Trim().ToString();
                     oJournal.Lines.Add();
 
                     if (!string.IsNullOrEmpty(sAcctCode))
@@ -1614,7 +1614,7 @@ namespace PSH_BOne_AddOn
                     sQry = "        UPDATE  [@PH_PY034A]";
                     sQry = sQry + " SET     U_JdtCanNo = '" + sTransId + "',";
                     sQry = sQry + "         U_JdtCC = '" + sCC + "'";
-                    sQry = sQry + " WHERE   DocNum = '" + oForm.Items.Item("DocEntry").Specific.VALUE + "'";
+                    sQry = sQry + " WHERE   DocNum = '" + oForm.Items.Item("DocEntry").Specific.Value + "'";
                     oRecordSet01.DoQuery(sQry);
 
                     if ((PSH_Globals.oCompany.InTransaction == true))

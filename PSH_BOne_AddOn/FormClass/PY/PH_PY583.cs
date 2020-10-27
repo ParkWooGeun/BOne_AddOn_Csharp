@@ -276,7 +276,7 @@ namespace PSH_BOne_AddOn
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
-                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.VALUE))
+                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -310,9 +310,9 @@ namespace PSH_BOne_AddOn
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
-                YM = oForm.Items.Item("YM").Specific.VALUE.Trim();
-                Div = oForm.Items.Item("Div").Specific.VALUE.Trim();
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
+                YM = oForm.Items.Item("YM").Specific.Value.Trim();
+                Div = oForm.Items.Item("Div").Specific.Value.Trim();
 
                 sQry = "Exec PH_PY583_01 '" + CLTCOD + "','" + YM + "','" + Div + "'";
 

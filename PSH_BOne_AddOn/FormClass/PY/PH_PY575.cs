@@ -94,14 +94,14 @@ namespace PSH_BOne_AddOn
                 // 부서
                 oForm.DataSources.UserDataSources.Add("TeamCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("TeamCode").Specific.DataBind.SetBound(true, "", "TeamCode");
-                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '1' AND U_UseYN= 'Y' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim() + "'";
+                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '1' AND U_UseYN= 'Y' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "'";
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("TeamCode").Specific, "Y");
                 oForm.Items.Item("TeamCode").DisplayDesc = true;
 
                 // 담당
                 oForm.DataSources.UserDataSources.Add("RspCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("RspCode").Specific.DataBind.SetBound(true, "", "RspCode");
-                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '2' AND U_UseYN= 'Y' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim() + "'";
+                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '2' AND U_UseYN= 'Y' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "'";
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("RspCode").Specific, "Y");
                 oForm.Items.Item("RspCode").DisplayDesc = true;
 
@@ -127,7 +127,7 @@ namespace PSH_BOne_AddOn
                 // 근무조
                 oForm.DataSources.UserDataSources.Add("GNMUJO", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("GNMUJO").Specific.DataBind.SetBound(true, "", "GNMUJO");
-                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P155' AND U_UseYN= 'Y' AND U_Char1 = '" + oForm.Items.Item("ShiftDat").Specific.VALUE.Trim() + "'";
+                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P155' AND U_UseYN= 'Y' AND U_Char1 = '" + oForm.Items.Item("ShiftDat").Specific.Value.Trim() + "'";
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("GNMUJO").Specific, "Y");
                 oForm.Items.Item("GNMUJO").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
@@ -328,7 +328,7 @@ namespace PSH_BOne_AddOn
                                     }
                                 }
                                 ////현재 사업장으로 다시 Qry
-                                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '1' AND U_UseYN= 'Y' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.Trim() + "'";
+                                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '1' AND U_UseYN= 'Y' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value.Trim() + "'";
                                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("TeamCode").Specific, "Y");
 
                                 ////담당
@@ -341,7 +341,7 @@ namespace PSH_BOne_AddOn
                                     }
                                 }
                                 ////현재 사업장으로 다시 Qry
-                                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '2' AND U_UseYN= 'Y' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.Trim() + "'";
+                                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '2' AND U_UseYN= 'Y' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value.Trim() + "'";
                                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("RspCode").Specific, "Y");
 
                                 ////반
@@ -355,8 +355,8 @@ namespace PSH_BOne_AddOn
                                 }
                                 ////현재 사업장으로 다시 Qry
                                 sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '9' AND U_UseYN= 'Y'";
-                                sQry = sQry + " AND U_Char3 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.Trim() + "'";
-                                sQry = sQry + " AND U_Char1 = '" + oForm.Items.Item("RspCode").Specific.VALUE + "'";
+                                sQry = sQry + " AND U_Char3 = '" + oForm.Items.Item("CLTCOD").Specific.Value.Trim() + "'";
+                                sQry = sQry + " AND U_Char1 = '" + oForm.Items.Item("RspCode").Specific.Value + "'";
                                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("ClsCode").Specific, "Y");
                                 break;
 
@@ -372,7 +372,7 @@ namespace PSH_BOne_AddOn
                                     }
                                 }
                                 ////현재 사업장으로 다시 Qry
-                                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '2' AND U_UseYN= 'Y' AND U_Char1 = '" + oForm.Items.Item("TeamCode").Specific.VALUE + "' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.Trim() + "'";
+                                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '2' AND U_UseYN= 'Y' AND U_Char1 = '" + oForm.Items.Item("TeamCode").Specific.Value + "' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value.Trim() + "'";
                                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("RspCode").Specific, "Y");
 
                                 ////반
@@ -386,8 +386,8 @@ namespace PSH_BOne_AddOn
                                 }
                                 ////현재 사업장으로 다시 Qry
                                 sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '9' AND U_UseYN= 'Y'";
-                                sQry = sQry + " AND U_Char3 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.Trim() + "'";
-                                sQry = sQry + " AND U_Char1 = '" + oForm.Items.Item("RspCode").Specific.VALUE + "'";
+                                sQry = sQry + " AND U_Char3 = '" + oForm.Items.Item("CLTCOD").Specific.Value.Trim() + "'";
+                                sQry = sQry + " AND U_Char1 = '" + oForm.Items.Item("RspCode").Specific.Value + "'";
                                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("ClsCode").Specific, "Y");
                                 break;
 
@@ -404,8 +404,8 @@ namespace PSH_BOne_AddOn
                                 }
                                 ////현재 사업장으로 다시 Qry
                                 sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '9' AND U_UseYN= 'Y'";
-                                sQry = sQry + " AND U_Char3 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.Trim() + "'";
-                                sQry = sQry + " AND U_Char1 = '" + oForm.Items.Item("RspCode").Specific.VALUE + "'";
+                                sQry = sQry + " AND U_Char3 = '" + oForm.Items.Item("CLTCOD").Specific.Value.Trim() + "'";
+                                sQry = sQry + " AND U_Char1 = '" + oForm.Items.Item("RspCode").Specific.Value + "'";
                                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("ClsCode").Specific, "Y");
                                 break;
                             //근무형태가 바뀌면 근무조 재설정
@@ -418,7 +418,7 @@ namespace PSH_BOne_AddOn
                                         oForm.Items.Item("GNMUJO").Specific.ValidValues.Remove(i, SAPbouiCOM.BoSearchKey.psk_Index);
                                     }
                                 }
-                                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P155' AND U_UseYN= 'Y' AND U_Char1 = '" + oForm.Items.Item("ShiftDat").Specific.VALUE + "'";
+                                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P155' AND U_UseYN= 'Y' AND U_Char1 = '" + oForm.Items.Item("ShiftDat").Specific.Value + "'";
                                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("GNMUJO").Specific, "Y");
                                 
                                 break;
@@ -461,9 +461,9 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "MSTCOD":
-                                sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("MSTCOD").Specific.VALUE.ToString().Trim() + "'";
+                                sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "'";
                                 oRecordSet.DoQuery(sQry);
-                                oForm.Items.Item("FullName").Specific.VALUE = oRecordSet.Fields.Item("U_FullName").Value.ToString().Trim();
+                                oForm.Items.Item("FullName").Specific.Value = oRecordSet.Fields.Item("U_FullName").Value.ToString().Trim();
                                 break;
                         }
                     }

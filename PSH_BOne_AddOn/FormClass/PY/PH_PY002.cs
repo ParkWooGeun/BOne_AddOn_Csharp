@@ -187,7 +187,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY002_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -375,25 +375,25 @@ namespace PSH_BOne_AddOn
                 {
                     for (i = 1; i <= oMat1.VisualRowCount - 1; i++)
                     {
-                        if (string.IsNullOrEmpty(oMat1.Columns.Item("DayType").Cells.Item(i).Specific.VALUE)) //일구분
+                        if (string.IsNullOrEmpty(oMat1.Columns.Item("DayType").Cells.Item(i).Specific.Value)) //일구분
                         {
                             errNum = 5;
                             throw new Exception();
                         }
 
-                        if (string.IsNullOrEmpty(oMat1.Columns.Item("TimeType").Cells.Item(i).Specific.VALUE)) //시간구분
+                        if (string.IsNullOrEmpty(oMat1.Columns.Item("TimeType").Cells.Item(i).Specific.Value)) //시간구분
                         {
                             errNum = 6;
                             throw new Exception();
                         }
 
-                        if (string.IsNullOrEmpty(oMat1.Columns.Item("FromTime").Cells.Item(i).Specific.VALUE)) //시작시간
+                        if (string.IsNullOrEmpty(oMat1.Columns.Item("FromTime").Cells.Item(i).Specific.Value)) //시작시간
                         {
                             errNum = 7;
                             throw new Exception();
                         }
 
-                        if (string.IsNullOrEmpty(oMat1.Columns.Item("ToTime").Cells.Item(i).Specific.VALUE)) //종료시간
+                        if (string.IsNullOrEmpty(oMat1.Columns.Item("ToTime").Cells.Item(i).Specific.Value)) //종료시간
                         {
                             errNum = 8;
                             throw new Exception();
@@ -732,7 +732,7 @@ namespace PSH_BOne_AddOn
                             }
 
                             sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
-                            sQry = sQry + " WHERE Code = 'P155' AND U_Char1 = '" + oForm.Items.Item("SType").Specific.VALUE + "'";
+                            sQry = sQry + " WHERE Code = 'P155' AND U_Char1 = '" + oForm.Items.Item("SType").Specific.Value + "'";
                             sQry = sQry + " ORDER BY U_Code";
                             dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("Shift").Specific, "");
 

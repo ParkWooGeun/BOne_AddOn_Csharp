@@ -495,7 +495,7 @@ namespace PSH_BOne_AddOn
                     oDS_PH_PY203B.SetValue("U_ColReg10", i, oRecordSet01.Fields.Item("PlnIDX").Value.ToString().Trim()); //교육계획번호
                     oDS_PH_PY203B.SetValue("U_ColReg12", i, oRecordSet01.Fields.Item("LineID").Value.ToString().Trim()); //LineID
 
-                    //Call oDS_PH_PY203B.setValue("U_ColSum06", i, Trim(oRecordSet01.Fields("TotalExp").VALUE)) '합계
+                    //Call oDS_PH_PY203B.setValue("U_ColSum06", i, Trim(oRecordSet01.Fields("TotalExp").Value)) '합계
 
                     oRecordSet01.MoveNext();
                     ProgBar01.Value = ProgBar01.Value + 1;
@@ -853,8 +853,8 @@ namespace PSH_BOne_AddOn
 
                         if (oCol == "MSTCOD")
                         {
-                            oDS_PH_PY203B.SetValue("U_ColReg02", oRow - 1, oMat01.Columns.Item(oCol).Cells.Item(oRow).Specific.VALUE);
-                            oDS_PH_PY203B.SetValue("U_ColReg03", oRow - 1, dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oMat01.Columns.Item(oCol).Cells.Item(oRow).Specific.VALUE + "'", ""));
+                            oDS_PH_PY203B.SetValue("U_ColReg02", oRow - 1, oMat01.Columns.Item(oCol).Cells.Item(oRow).Specific.Value);
+                            oDS_PH_PY203B.SetValue("U_ColReg03", oRow - 1, dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oMat01.Columns.Item(oCol).Cells.Item(oRow).Specific.Value + "'", ""));
                             if (oMat01.RowCount == oRow && !string.IsNullOrEmpty(oDS_PH_PY203B.GetValue("U_ColReg02", oRow - 1).ToString().Trim()))
                             {
                                 PH_PY203_Add_MatrixRow(oRow, false);
@@ -876,7 +876,7 @@ namespace PSH_BOne_AddOn
                             sQry = sQry + "         0 AS [EduAmount2], "; //출장비
                             sQry = sQry + "         '' AS [Comment] "; //비고
                             sQry = sQry + " FROM    Z_PH_PY204 AS T0 ";
-                            sQry = sQry + " WHERE   T0.IDX = '" + oMat01.Columns.Item(oCol).Cells.Item(oRow).Specific.VALUE + "'";
+                            sQry = sQry + " WHERE   T0.IDX = '" + oMat01.Columns.Item(oCol).Cells.Item(oRow).Specific.Value + "'";
 
                             oRecordSet01.DoQuery(sQry);
 
@@ -946,7 +946,7 @@ namespace PSH_BOne_AddOn
 
                     case "MSTCOD":
 
-                        oForm.Items.Item("MSTNAM").Specific.VALUE = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("MSTCOD").Specific.VALUE + "'", ""); //성명
+                        oForm.Items.Item("MSTNAM").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("MSTCOD").Specific.Value + "'", ""); //성명
                         break;
                 }
             }

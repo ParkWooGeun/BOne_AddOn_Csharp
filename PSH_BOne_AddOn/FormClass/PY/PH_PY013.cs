@@ -242,7 +242,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "Btn_Save")
                     {
-                        if (oForm.Items.Item("CLTCOD").Specific.VALUE.Trim() == "2")
+                        if (oForm.Items.Item("CLTCOD").Specific.Value.Trim() == "2")
                         {
                             if (PH_PY013_DataSave() == false)
                             {
@@ -307,7 +307,7 @@ namespace PSH_BOne_AddOn
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
-                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.VALUE))
+                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -341,9 +341,9 @@ namespace PSH_BOne_AddOn
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
-                DocDateFr = oForm.Items.Item("DocDateFr").Specific.VALUE;
-                DocDateTo = oForm.Items.Item("DocDateTo").Specific.VALUE;
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
+                DocDateFr = oForm.Items.Item("DocDateFr").Specific.Value;
+                DocDateTo = oForm.Items.Item("DocDateTo").Specific.Value;
 
                 sQry = "EXEC PS_Z_DangerCodeAdd '"  + CLTCOD + "','"  + DocDateFr + "','"  + DocDateTo + "'";
                 oRecordSet.DoQuery(sQry);

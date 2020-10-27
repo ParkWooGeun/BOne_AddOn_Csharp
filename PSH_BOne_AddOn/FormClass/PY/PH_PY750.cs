@@ -282,9 +282,9 @@ namespace PSH_BOne_AddOn
                         //switch (pVal.ItemUID)
                         //{
                         //    case "MSTCOD":
-                        //        sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("MSTCOD").Specific.VALUE.ToString().Trim() + "'";
+                        //        sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "'";
                         //        oRecordSet.DoQuery(sQry);
-                        //        oForm.Items.Item("MSTNAME").Specific.VALUE = oRecordSet.Fields.Item("U_FullName").Value.ToString().Trim();
+                        //        oForm.Items.Item("MSTNAME").Specific.Value = oRecordSet.Fields.Item("U_FullName").Value.ToString().Trim();
                         //        break;
                         //}
                     }
@@ -378,8 +378,8 @@ namespace PSH_BOne_AddOn
             string OptBtnValue1 = string.Empty;
 
             CLTCOD = oForm.Items.Item("CLTCOD").Specific.Selected.Value.ToString().Trim();
-            FYM = oForm.Items.Item("FYM").Specific.VALUE.Trim();
-            TYM = oForm.Items.Item("TYM").Specific.VALUE.Trim();
+            FYM = oForm.Items.Item("FYM").Specific.Value.Trim();
+            TYM = oForm.Items.Item("TYM").Specific.Value.Trim();
             OptBtnValue = oForm.DataSources.UserDataSources.Item("OptionDS").Value.Trim();
             OptBtnValue1 = oForm.DataSources.UserDataSources.Item("OptionDS1").Value.Trim();
 

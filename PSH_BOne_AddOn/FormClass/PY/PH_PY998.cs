@@ -522,7 +522,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                if (string.IsNullOrEmpty(oForm.Items.Item("PermID").Specific.VALUE.ToString().Trim())) //화면권한ID
+                if (string.IsNullOrEmpty(oForm.Items.Item("PermID").Specific.Value.ToString().Trim())) //화면권한ID
                 {
                     errNum = 1;
                     throw new Exception();

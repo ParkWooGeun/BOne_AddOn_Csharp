@@ -270,9 +270,9 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             //case "Code":    //사번
-                            //    sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("Code").Specific.VALUE.ToString().Trim() + "'";
+                            //    sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("Code").Specific.Value.ToString().Trim() + "'";
                             //    oRecordSet.DoQuery(sQry);
-                            //    oForm.Items.Item("CodeName").Specific.VALUE = oRecordSet.Fields.Item("U_FullName").Value.ToString().Trim();
+                            //    oForm.Items.Item("CodeName").Specific.Value = oRecordSet.Fields.Item("U_FullName").Value.ToString().Trim();
                             //    break;
                         }
                     }
@@ -365,7 +365,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 ////사원번호 Check(필수)
-                //if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.VALUE.Trim()))
+                //if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.Value.Trim()))
                 //{
                 //    PSH_Globals.SBO_Application.SetStatusBarMessage("사원번호는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                 //    oForm.Items.Item("MSTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -403,10 +403,10 @@ namespace PSH_BOne_AddOn
             string Gubun = string.Empty;
 
             CLTCOD = oForm.Items.Item("CLTCOD").Specific.Selected.Value.ToString().Trim();
-            YM = oForm.Items.Item("YM").Specific.VALUE.Trim();
-            DocDateFr = oForm.Items.Item("DocDateFr").Specific.VALUE.Trim();
-            DocDateTo = oForm.Items.Item("DocDateTo").Specific.VALUE.Trim();
-            Gubun = oForm.Items.Item("Gubun").Specific.VALUE.Trim();
+            YM = oForm.Items.Item("YM").Specific.Value.Trim();
+            DocDateFr = oForm.Items.Item("DocDateFr").Specific.Value.Trim();
+            DocDateTo = oForm.Items.Item("DocDateTo").Specific.Value.Trim();
+            Gubun = oForm.Items.Item("Gubun").Specific.Value.Trim();
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();

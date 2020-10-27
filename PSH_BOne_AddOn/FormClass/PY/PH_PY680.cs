@@ -221,7 +221,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY680_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -341,7 +341,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY680A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.VALUE + "'", 0, 1) == "Y")
+                if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY680A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "Y")
                 {
                     errNum = 1;
                     functionReturnValue = false;
@@ -955,7 +955,7 @@ namespace PSH_BOne_AddOn
                         {
                             case "Code":
                                 //사원명 표시
-                                oForm.Items.Item("CodeName").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item(pVal.ItemUID).Specific.VALUE + "'", "");
+                                oForm.Items.Item("CodeName").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'", "");
                                 break;
                         }
                     }

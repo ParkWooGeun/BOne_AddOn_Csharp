@@ -167,7 +167,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY004_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -239,7 +239,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.VALUE))
+                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value))
                 {
                     errNum = 1;
                     throw new Exception();
@@ -283,11 +283,11 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                sQry = "      EXEC PH_PY004 '" + oForm.Items.Item("CLTCOD").Specific.VALUE + "','";
-                sQry = sQry + oForm.Items.Item("TeamCode").Specific.VALUE + "','";
-                sQry = sQry + oForm.Items.Item("RspCode").Specific.VALUE + "','";
-                sQry = sQry + oForm.Items.Item("ClsCode").Specific.VALUE + "','";
-                sQry = sQry + oForm.Items.Item("ShiftDat").Specific.VALUE + "'";
+                sQry = "      EXEC PH_PY004 '" + oForm.Items.Item("CLTCOD").Specific.Value + "','";
+                sQry = sQry + oForm.Items.Item("TeamCode").Specific.Value + "','";
+                sQry = sQry + oForm.Items.Item("RspCode").Specific.Value + "','";
+                sQry = sQry + oForm.Items.Item("ClsCode").Specific.Value + "','";
+                sQry = sQry + oForm.Items.Item("ShiftDat").Specific.Value + "'";
 
                 oDS_PH_PY004.ExecuteQuery(sQry);
 

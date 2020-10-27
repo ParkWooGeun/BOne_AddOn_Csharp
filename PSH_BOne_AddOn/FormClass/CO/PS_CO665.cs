@@ -1,5 +1,4 @@
 using System;
-
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 
@@ -12,12 +11,15 @@ namespace PSH_BOne_AddOn
 	{
 		private string oFormUniqueID;
 		private SAPbouiCOM.Grid oGrid01;
-
 		private SAPbouiCOM.DataTable oDS_PS_CO665A;
 		private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
 		private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
 		private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
 
+        /// <summary>
+        /// Form 호출
+        /// </summary>
+        /// <param name="oFormDocEntry01"></param>
 		public override void LoadForm(string oFormDocEntry01)
 		{
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -38,10 +40,7 @@ namespace PSH_BOne_AddOn
 				oFormUniqueID = "PS_CO665_" + SubMain.Get_TotalFormsCount();
 				SubMain.Add_Forms(this, oFormUniqueID, "PS_CO665");
 
-				string strXml = null;
-				strXml = oXmlDoc.xml.ToString();
-
-				PSH_Globals.SBO_Application.LoadBatchActions(strXml);
+				PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
 				oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
 				oForm.SupportedModes = -1;
@@ -137,7 +136,6 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PS_CO665_MTX01()
         {
-            //int i = 0;
             string Query01;
             string BPLID; //사업장
             string StdYear; //기준년도
@@ -151,7 +149,7 @@ namespace PSH_BOne_AddOn
                 BPLID = oForm.Items.Item("BPLID").Specific.Value.ToString().Trim(); //사업장
                 StdYear = oForm.Items.Item("StdYear").Specific.Value.ToString().Trim(); //기준년도
                 
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회 중...", 100, false);
+                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
                 oForm.Freeze(true);
 
@@ -196,22 +194,24 @@ namespace PSH_BOne_AddOn
                 if (errCode == "1")
                 {
                     PSH_Globals.SBO_Application.MessageBox("결과가 존재하지 않습니다.");
-                    //PSH_Globals.SBO_Application.StatusBar.SetText("결과가 존재하지 않습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
                 else
                 {
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-                    //PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
             }
             finally
             {
+                if (ProgBar01 != null)
+                {
+                    ProgBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                }
+
                 oForm.Update();
-                ProgBar01.Stop();
                 oForm.Freeze(false);
 
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet01);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
             }
         }
 
@@ -365,18 +365,6 @@ namespace PSH_BOne_AddOn
                 }
                 else if (pVal.BeforeAction == false)
                 {
-                    if (pVal.ItemUID == "PS_CO665")
-                    {
-                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-                        {
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-                        {
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-                        {
-                        }
-                    }
                 }
             }
             catch (Exception ex)
@@ -478,6 +466,7 @@ namespace PSH_BOne_AddOn
 
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid01);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO665A);
                 }
             }
             catch (Exception ex)

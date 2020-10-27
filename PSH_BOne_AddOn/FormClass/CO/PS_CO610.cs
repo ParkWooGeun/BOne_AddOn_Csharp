@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-
 using SAPbouiCOM;
-
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.DataPack;
 using PSH_BOne_AddOn.Form;
@@ -14,16 +12,13 @@ namespace PSH_BOne_AddOn
 	/// </summary>
 	internal class PS_CO610 : PSH_BaseClass
 	{
-		public string oFormUniqueID;
-		public SAPbouiCOM.Matrix oMat01;
-			
+		private string oFormUniqueID;
+		private SAPbouiCOM.Matrix oMat01;
 		private SAPbouiCOM.DBDataSource oDS_PS_CO610H; //등록헤더
 		private SAPbouiCOM.DBDataSource oDS_PS_CO610L; //등록라인
-
 		private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
 		private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
 		private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
-
 		private int oSeq;
 
 		/// <summary>
@@ -50,10 +45,7 @@ namespace PSH_BOne_AddOn
 				oFormUniqueID = "PS_CO610_" + SubMain.Get_TotalFormsCount();
 				SubMain.Add_Forms(this, oFormUniqueID, "PS_CO610");
 
-				string strXml = null;
-				strXml = oXmlDoc.xml.ToString();
-
-				PSH_Globals.SBO_Application.LoadBatchActions(strXml);
+				PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
 				oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
 				oForm.SupportedModes = -1;
@@ -65,7 +57,6 @@ namespace PSH_BOne_AddOn
 
                 CreateItems();
                 ComboBox_Setting();
-                CF_ChooseFromList();
                 Initial_Setting();
                 FormItemEnabled();
                 FormClear();
@@ -163,21 +154,6 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
-            }
-        }
-
-        /// <summary>
-        /// ChooseFromList
-        /// </summary>
-        private void CF_ChooseFromList()
-        {
-            try
-            {
-
-            }
-            catch(Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
         }
 
@@ -296,14 +272,14 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 행추가
         /// </summary>
-        /// <param name="oSeq"></param>
+        /// <param name="pSeq"></param>
         /// <param name="oRow"></param>
         /// <param name="RowIserted"></param>
-        private void AddMatrixRow(short oSeq, int oRow, bool RowIserted)
+        private void AddMatrixRow(short pSeq, int oRow, bool RowIserted)
         {
             try
             {
-                switch (oSeq)
+                switch (pSeq)
                 {
                     case 0:
                         oMat01.AddRow();
@@ -354,8 +330,7 @@ namespace PSH_BOne_AddOn
         /// 메트릭스에 데이터 로드
         /// </summary>
         private void MTX01()
-        {
-            
+        {   
             int i;
             string sQry;
             string YM;
@@ -370,7 +345,7 @@ namespace PSH_BOne_AddOn
                 YM = oForm.Items.Item("YM").Specific.Value.ToString().Trim();
                 BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
                 
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet01.RecordCount, false);
+                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", 100, false);
 
                 oForm.Freeze(true);
 
@@ -390,7 +365,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (i + 1 > oDS_PS_CO610L.Size)
                     {
-                        oDS_PS_CO610L.InsertRecord((i));
+                        oDS_PS_CO610L.InsertRecord(i);
                     }
 
                     oMat01.AddRow();
@@ -408,8 +383,6 @@ namespace PSH_BOne_AddOn
                     oDS_PS_CO610L.SetValue("U_UseDept", i, oRecordSet01.Fields.Item("UseDept").Value.ToString().Trim());
 
                     oRecordSet01.MoveNext();
-                    ProgBar01.Value = ProgBar01.Value + 1;
-                    ProgBar01.Text = ProgBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
 
                 oMat01.Columns.Item("Desc").Visible = false;
@@ -429,11 +402,15 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                if (ProgBar01 != null)
+                {
+                    ProgBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                }
+                
                 oForm.Update();
-                ProgBar01.Stop();
                 oForm.Freeze(false);
 
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
         }
@@ -1304,9 +1281,10 @@ namespace PSH_BOne_AddOn
                 else if (pVal.Before_Action == false)
                 {
                     SubMain.Remove_Forms(oFormUniqueID);
-
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO610H);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO610L);
                 }
             }
             catch (Exception ex)
@@ -1404,13 +1382,6 @@ namespace PSH_BOne_AddOn
                         case "1290":
                         case "1291": //레코드이동버튼
                             FormItemEnabled();
-                            //if (oMat01.VisualRowCount > 0)
-                            //{
-                            //    if (!string.IsNullOrEmpty(oMat01.Columns.Item("AcctCode").Cells.Item(oMat01.VisualRowCount).Specific.Value))
-                            //    {
-                            //        AddMatrixRow(1, oMat01.RowCount, true);
-                            //    }
-                            //}
                             break;
                         case "1293": //행닫기
                             break;

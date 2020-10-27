@@ -345,7 +345,7 @@ namespace PSH_BOne_AddOn
                             }
 
                             sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
-                            sQry = sQry + " WHERE Code = '1' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim() + "' And U_UseYN = 'Y'";
+                            sQry = sQry + " WHERE Code = '1' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "' And U_UseYN = 'Y'";
                             sQry = sQry + " ORDER BY U_Seq";
 
                             dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("TeamCode").Specific, "N");
@@ -364,7 +364,7 @@ namespace PSH_BOne_AddOn
                             }
 
                             sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
-                            sQry = sQry + " WHERE Code = '2' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim() + "' And U_Char1 = '" + oForm.Items.Item("TeamCode").Specific.VALUE.ToString().Trim() + "' And U_UseYN = 'Y'";
+                            sQry = sQry + " WHERE Code = '2' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "' And U_Char1 = '" + oForm.Items.Item("TeamCode").Specific.Value.ToString().Trim() + "' And U_UseYN = 'Y'";
                             sQry = sQry + " Order By U_Seq";
                             dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("RspCode").Specific, "N");
                             oForm.Items.Item("RspCode").DisplayDesc = true;
@@ -443,7 +443,7 @@ namespace PSH_BOne_AddOn
                         oComboCol = (SAPbouiCOM.ComboBoxColumn)oGrid1.Columns.Item("Activity");
 
                         sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
-                        sQry = sQry + " WHERE U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE + "' And Code = 'P127' AND U_UseYN= 'Y' Order by U_Seq";
+                        sQry = sQry + " WHERE U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value + "' And Code = 'P127' AND U_UseYN= 'Y' Order by U_Seq";
                         oRecordSet.DoQuery(sQry);
                         if (oRecordSet.RecordCount > 0)
                         {

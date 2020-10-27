@@ -253,9 +253,9 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "MSTCOD":    //사번
-                                sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("MSTCOD").Specific.VALUE.ToString().Trim() + "'";
+                                sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "'";
                                 oRecordSet.DoQuery(sQry);
-                                oForm.Items.Item("MSTNAME").Specific.VALUE = oRecordSet.Fields.Item("U_FullName").Value.ToString().Trim();
+                                oForm.Items.Item("MSTNAME").Specific.Value = oRecordSet.Fields.Item("U_FullName").Value.ToString().Trim();
                                 break;
                         }
                     }
@@ -348,7 +348,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 //사원번호 Check(필수)
-                if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.VALUE.Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사원번호는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("MSTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -383,7 +383,7 @@ namespace PSH_BOne_AddOn
             string MSTCOD = string.Empty;
 
             CLTCOD = oForm.Items.Item("CLTCOD").Specific.Selected.Value.ToString().Trim();
-            MSTCOD = oForm.Items.Item("MSTCOD").Specific.VALUE.Trim();
+            MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();

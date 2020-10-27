@@ -272,9 +272,9 @@ namespace PSH_BOne_AddOn
                         //switch (pVal.ItemUID)
                         //{
                         //    case "MSTCOD":
-                        //        sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("MSTCOD").Specific.VALUE.ToString().Trim() + "'";
+                        //        sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "'";
                         //        oRecordSet.DoQuery(sQry);
-                        //        oForm.Items.Item("MSTNAME").Specific.VALUE = oRecordSet.Fields.Item("U_FullName").Value.ToString().Trim();
+                        //        oForm.Items.Item("MSTNAME").Specific.Value = oRecordSet.Fields.Item("U_FullName").Value.ToString().Trim();
                         //        break;
                         //}
                     }
@@ -367,7 +367,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 // 사원번호 Check (필수)
-                //if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.VALUE.Trim()))
+                //if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.Value.Trim()))
                 //{
                 //    PSH_Globals.SBO_Application.SetStatusBarMessage("사원번호는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                 //    oForm.Items.Item("MSTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -405,9 +405,9 @@ namespace PSH_BOne_AddOn
             string PAYTYP = string.Empty;
 
             CLTCOD = oForm.Items.Item("CLTCOD").Specific.Selected.Value.ToString().Trim();
-            YM = oForm.Items.Item("YM").Specific.VALUE.Trim();
+            YM = oForm.Items.Item("YM").Specific.Value.Trim();
             JOBGBN = oForm.Items.Item("JOBGBN").Specific.Selected.Value.ToString().Trim();
-            JIGBIL = oForm.Items.Item("JIGBIL").Specific.VALUE.Trim();
+            JIGBIL = oForm.Items.Item("JIGBIL").Specific.Value.Trim();
             PAYTYP = oForm.Items.Item("PAYTYP").Specific.Selected.Value.ToString().Trim();
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();

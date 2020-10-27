@@ -134,7 +134,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY134_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -508,7 +508,7 @@ namespace PSH_BOne_AddOn
                             oMat1.FlushToDataSource();
                             sQry = "select a.Code, FullName = a.U_FullName, TeamCode = a.U_TeamCode, TeamName = (Select U_CodeNm From [@PS_HR200L] Where Code = '1' and U_Code = a.U_TeamCode) ";
                             sQry = sQry + " From [@PH_PY001A] a ";
-                            sQry = sQry + " Where a.U_CLTCOD = '"+ oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim() +"'";
+                            sQry = sQry + " Where a.U_CLTCOD = '"+ oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() +"'";
                             sQry = sQry + " and a.Code = '" + oDS_PH_PY134B.GetValue("U_MSTCOD", pVal.Row - 1).ToString().Trim() + "'";
 
                             oRecordSet.DoQuery(sQry);
@@ -773,10 +773,10 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
                 
-                Param01 = oForm.Items.Item("Param01").Specific.VALUE;
-                Param02 = oForm.Items.Item("Param01").Specific.VALUE;
-                Param03 = oForm.Items.Item("Param01").Specific.VALUE;
-                Param04 = oForm.Items.Item("Param01").Specific.VALUE;
+                Param01 = oForm.Items.Item("Param01").Specific.Value;
+                Param02 = oForm.Items.Item("Param01").Specific.Value;
+                Param03 = oForm.Items.Item("Param01").Specific.Value;
+                Param04 = oForm.Items.Item("Param01").Specific.Value;
 
                 sQry = "SELECT 10";
                 oRecordSet.DoQuery(sQry);

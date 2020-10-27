@@ -99,7 +99,7 @@ namespace PSH_BOne_AddOn
                 dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
 
                 /// 귀속년월
-                oForm.Items.Item("YM").Specific.VALUE = DateTime.Now.ToString("yyyyMM");
+                oForm.Items.Item("YM").Specific.Value = DateTime.Now.ToString("yyyyMM");
 
                 //// 지급종류
                 oForm.Items.Item("JOBTYP").Specific.ValidValues.Add("1", "급여");
@@ -169,7 +169,7 @@ namespace PSH_BOne_AddOn
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD",true);
 
                     /// 귀속년월
-                    oForm.Items.Item("YM").Specific.VALUE = DateTime.Now.ToString("yyyyMM");
+                    oForm.Items.Item("YM").Specific.Value = DateTime.Now.ToString("yyyyMM");
                     oForm.EnableMenu("1281", false);
                     ////문서찾기
                     oForm.EnableMenu("1282", false);
@@ -555,7 +555,7 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.BeforeAction == true & pVal.ItemUID == "Mat1" & pVal.ColUID == "PDCode" & pVal.CharPressed == 9)
                 {
-                    if (string.IsNullOrEmpty(oMat1.Columns.Item("PDCode").Cells.Item(pVal.Row).Specific.VALUE))
+                    if (string.IsNullOrEmpty(oMat1.Columns.Item("PDCode").Cells.Item(pVal.Row).Specific.Value))
                     {
                         oMat1.Columns.Item("PDCode").Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                         PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
@@ -594,15 +594,15 @@ namespace PSH_BOne_AddOn
                     {
                         if (pVal.ItemUID == "Mat1" & pVal.ColUID == "PDCode")
                         {
-                            if (!string.IsNullOrEmpty(oMat1.Columns.Item("PDCode").Cells.Item(pVal.Row).Specific.VALUE))
+                            if (!string.IsNullOrEmpty(oMat1.Columns.Item("PDCode").Cells.Item(pVal.Row).Specific.Value))
                             {
-                                if (oMat1.Columns.Item("PayDud").Cells.Item(pVal.Row).Specific.VALUE == "1")
+                                if (oMat1.Columns.Item("PayDud").Cells.Item(pVal.Row).Specific.Value == "1")
                                 {
-                                    oMat1.Columns.Item("PDName").Cells.Item(pVal.Row).Specific.VALUE = dataHelpClass.Get_ReData( "U_CodeNm", "U_Code", "[@PS_HR200L]", "'" + oMat1.Columns.Item("PDCode").Cells.Item(pVal.Row).Specific.VALUE + "'", " AND Code = 'P134'");
+                                    oMat1.Columns.Item("PDName").Cells.Item(pVal.Row).Specific.Value = dataHelpClass.Get_ReData( "U_CodeNm", "U_Code", "[@PS_HR200L]", "'" + oMat1.Columns.Item("PDCode").Cells.Item(pVal.Row).Specific.Value + "'", " AND Code = 'P134'");
                                 }
                                 else
                                 {
-                                    oMat1.Columns.Item("PDName").Cells.Item(pVal.Row).Specific.VALUE = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" + oMat1.Columns.Item("PDCode").Cells.Item(pVal.Row).Specific.VALUE + "'", " AND Code = 'P143'");
+                                    oMat1.Columns.Item("PDName").Cells.Item(pVal.Row).Specific.Value = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" + oMat1.Columns.Item("PDCode").Cells.Item(pVal.Row).Specific.Value + "'", " AND Code = 'P143'");
                                 }
                             }
                             oMat1.Columns.Item("PDCode").Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -661,35 +661,35 @@ namespace PSH_BOne_AddOn
             string sQry = string.Empty;
             try
             {
-                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     return functionReturnValue;
                 }
 
-                if (string.IsNullOrEmpty(oForm.Items.Item("YM").Specific.VALUE.ToString().Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("YM").Specific.Value.ToString().Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("귀속년월은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("YM").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     return functionReturnValue;
                 }
 
-                if (string.IsNullOrEmpty(oForm.Items.Item("JOBTYP").Specific.VALUE.ToString().Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("JOBTYP").Specific.Value.ToString().Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("지급종류는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("JOBTYP").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     return functionReturnValue;
                 }
 
-                if (string.IsNullOrEmpty(oForm.Items.Item("JOBGBN").Specific.VALUE.ToString().Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("JOBGBN").Specific.Value.ToString().Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("지급구분은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("JOBGBN").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     return functionReturnValue;
                 }
 
-                if (string.IsNullOrEmpty(oForm.Items.Item("JOBTRG").Specific.VALUE.ToString().Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("JOBTRG").Specific.Value.ToString().Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("지급대상은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("JOBTRG").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -835,11 +835,11 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
-                YM = oForm.Items.Item("YM").Specific.VALUE.ToString().Trim();
-                JOBTYP = oForm.Items.Item("JOBTYP").Specific.VALUE.ToString().Trim();
-                JOBGBN = oForm.Items.Item("JOBGBN").Specific.VALUE.ToString().Trim();
-                JOBTRG = oForm.Items.Item("JOBTRG").Specific.VALUE.ToString().Trim();
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                YM = oForm.Items.Item("YM").Specific.Value.ToString().Trim();
+                JOBTYP = oForm.Items.Item("JOBTYP").Specific.Value.ToString().Trim();
+                JOBGBN = oForm.Items.Item("JOBGBN").Specific.Value.ToString().Trim();
+                JOBTRG = oForm.Items.Item("JOBTRG").Specific.Value.ToString().Trim();
 
                 //// 수당, 공제 테이블 고정:V, 상여:Y 인 값을 임시테이블에 넣는다
                 sQry = "EXEC PH_PY109_1_01 '" + CLTCOD + "' , '" + YM + "' , '" + JOBTYP + "' , '" + JOBGBN + "' , '" + JOBTRG + "'";

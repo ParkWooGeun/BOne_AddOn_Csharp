@@ -327,10 +327,10 @@ namespace PSH_BOne_AddOn
 
             CLTCOD = oForm.Items.Item("CLTCOD").Specific.Selected.Value.ToString().Trim();
             YM = oForm.Items.Item("YM").Specific.Value.Trim();
-            JOBGBN = oForm.Items.Item("JOBGBN").Specific.VALUE.Trim();
-            JIGBIL = oForm.Items.Item("JIGBIL").Specific.VALUE.Trim();
-            PAYTYP = oForm.Items.Item("PAYTYP").Specific.VALUE.Trim();
-            GUBUN = oForm.Items.Item("GUBUN").Specific.VALUE.Trim();
+            JOBGBN = oForm.Items.Item("JOBGBN").Specific.Value.Trim();
+            JIGBIL = oForm.Items.Item("JIGBIL").Specific.Value.Trim();
+            PAYTYP = oForm.Items.Item("PAYTYP").Specific.Value.Trim();
+            GUBUN = oForm.Items.Item("GUBUN").Specific.Value.Trim();
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();

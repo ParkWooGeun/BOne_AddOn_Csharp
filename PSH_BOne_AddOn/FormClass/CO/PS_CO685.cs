@@ -1,11 +1,6 @@
 using System;
-using System.Collections.Generic;
-
 using SAPbouiCOM;
-
 using PSH_BOne_AddOn.Data;
-using PSH_BOne_AddOn.DataPack;
-using PSH_BOne_AddOn.Form;
 
 namespace PSH_BOne_AddOn
 {
@@ -16,14 +11,11 @@ namespace PSH_BOne_AddOn
 	{
 		private string oFormUniqueID;
 		private SAPbouiCOM.Matrix oMat01;
-			
 		private SAPbouiCOM.DBDataSource oDS_PS_CO685H; //등록헤더
 		private SAPbouiCOM.DBDataSource oDS_PS_CO685L; //등록라인
-
         private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
         private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
-
         private int oSeq;
 
 		/// <summary>
@@ -49,10 +41,7 @@ namespace PSH_BOne_AddOn
 				oFormUniqueID = "PS_CO685_" + SubMain.Get_TotalFormsCount();
 				SubMain.Add_Forms(this, oFormUniqueID, "PS_CO685");
 
-				string strXml = null;
-				strXml = oXmlDoc.xml.ToString();
-
-				PSH_Globals.SBO_Application.LoadBatchActions(strXml);
+				PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
 				oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
 				oForm.SupportedModes = -1;
@@ -177,6 +166,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Items.Item("DocNum").Enabled = true;
                     oForm.Items.Item("JdtDate").Enabled = true;
+                    oForm.Items.Item("Comments").Enabled = true;
                     oForm.Items.Item("BPLId").Enabled = true;
                     oForm.Items.Item("YM").Enabled = true;
                     oForm.Items.Item("GrpAccC").Enabled = true;
@@ -191,7 +181,7 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("YM").Enabled = false;
                         oForm.Items.Item("BPLId").Enabled = false;
                         oForm.Items.Item("JdtDate").Enabled = false;
-                        oForm.Items.Item("Comments").Enabled = false;
+                        oForm.Items.Item("Comments").Enabled = true;
                         oForm.Items.Item("Btn02").Enabled = false;
                         oForm.Items.Item("GrpAccC").Enabled = false;
                     }
@@ -203,7 +193,7 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("YM").Enabled = false;
                         oForm.Items.Item("BPLId").Enabled = false;
                         oForm.Items.Item("JdtDate").Enabled = false;
-                        oForm.Items.Item("Comments").Enabled = false;
+                        oForm.Items.Item("Comments").Enabled = true;
                         oForm.Items.Item("Btn02").Enabled = false;
                         oForm.Items.Item("Btn03").Enabled = false;
                         oForm.Items.Item("GrpAccC").Enabled = false;
@@ -216,6 +206,7 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("YM").Enabled = false;
                         oForm.Items.Item("BPLId").Enabled = false;
                         oForm.Items.Item("JdtDate").Enabled = true;
+                        oForm.Items.Item("Comments").Enabled = true;
                         oForm.Items.Item("Btn02").Enabled = true;
                         oForm.Items.Item("Btn03").Enabled = true;
                         oForm.Items.Item("GrpAccC").Enabled = false;
@@ -226,9 +217,7 @@ namespace PSH_BOne_AddOn
             }
             catch(Exception ex)
             {
-                //PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                //PSH_Globals.SBO_Application.StatusBar.SetText("TEST" + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                PSH_Globals.SBO_Application.MessageBox("Error:" + ex.Message + ":" + oForm.Mode);
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
         }
 
@@ -305,16 +294,16 @@ namespace PSH_BOne_AddOn
                 string BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
                 string GrpAccC = oForm.Items.Item("GrpAccC").Specific.Value.ToString().Trim();
 
+                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
+                oForm.Freeze(true);
+
                 sQry = "EXEC [PS_CO685_01] '";
                 sQry += BPLId + "','";
                 sQry += YM + "','";
                 sQry += GrpAccC + "'";
                 oRecordSet01.DoQuery(sQry);
                 
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet01.RecordCount, false);
-
-                oForm.Freeze(true);
-
                 oMat01.Clear();
                 oDS_PS_CO685L.Clear();
 
@@ -339,8 +328,6 @@ namespace PSH_BOne_AddOn
                     oDS_PS_CO685L.SetValue("U_Price", i, oRecordSet01.Fields.Item("Price").Value.ToString().Trim());
 
                     oRecordSet01.MoveNext();
-                    ProgBar01.Value = ProgBar01.Value + 1;
-                    ProgBar01.Text = ProgBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
 
                 oMat01.LoadFromDataSource();
@@ -359,11 +346,15 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                ProgBar01.Stop();
+                if (ProgBar01 != null)
+                {
+                    ProgBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                }
+                
                 oForm.Freeze(false);
 
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
             }
         }
 
@@ -1212,7 +1203,6 @@ namespace PSH_BOne_AddOn
                 else if (pVal.Before_Action == false)
                 {
                     SubMain.Remove_Forms(oFormUniqueID);
-
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO685H);

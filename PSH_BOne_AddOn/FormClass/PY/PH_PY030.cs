@@ -101,8 +101,8 @@ namespace PSH_BOne_AddOn
                 oForm.Update();
 
                 // 기간
-                oForm.Items.Item("SFrDate").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
-                oForm.Items.Item("SToDate").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
+                oForm.Items.Item("SFrDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
+                oForm.Items.Item("SToDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
                 // 사번 포커스
                 oForm.Items.Item("MSTCOD").Click();
 
@@ -323,24 +323,24 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                sDocEntry = oForm.Items.Item("SDocEntry").Specific.VALUE.ToString().Trim();                // 관리번호
-                sCLTCOD   = oForm.Items.Item("SCLTCOD").Specific.VALUE.ToString().Trim();                  // 사업장
-                SDestNo1  = oForm.Items.Item("SDestNo1").Specific.VALUE.ToString().Trim();                 // 출장번호1
-                SDestNo2  = oForm.Items.Item("SDestNo2").Specific.VALUE.ToString().Trim();                 // 출장번호2
-                sMSTCOD   = oForm.Items.Item("SMSTCOD").Specific.VALUE.ToString().Trim();                  // 사원번호
-                SDestinat = oForm.Items.Item("SDestinat").Specific.VALUE.ToString().Trim();                // 출장지
-                SDest2    = oForm.Items.Item("SDest2").Specific.VALUE.ToString().Trim();                   // 출장지상세
-                SCoCode   = oForm.Items.Item("SCoCode").Specific.VALUE.ToString().Trim();                  // 작번
-                SFrDate   = oForm.Items.Item("SFrDate").Specific.VALUE.ToString().Trim().Replace(".", ""); // 시작일자
-                SToDate   = oForm.Items.Item("SToDate").Specific.VALUE.ToString().Trim().Replace(".", ""); // 종료일자
-                SObject   = oForm.Items.Item("SObject").Specific.VALUE.ToString().Trim();                  // 목적
-                SComments = oForm.Items.Item("SComments").Specific.VALUE.ToString().Trim();                // 비고
-                SRegCls   = oForm.Items.Item("SRegCls").Specific.VALUE.ToString().Trim();                  // 등록구분
-                SObjCls   = oForm.Items.Item("SObjCls").Specific.VALUE.ToString().Trim();                  // 목적구분
-                SDestCode = oForm.Items.Item("SDestCode").Specific.VALUE.ToString().Trim();                // 출장지역
-                SDestDiv  = oForm.Items.Item("SDestDiv").Specific.VALUE.ToString().Trim();                 // 출장구분
-                SVehicle  = oForm.Items.Item("SVehicle").Specific.VALUE.ToString().Trim();                 // 차량구분
-                sTeamCode = oForm.Items.Item("STeamCode").Specific.VALUE.ToString().Trim();                // 팀
+                sDocEntry = oForm.Items.Item("SDocEntry").Specific.Value.ToString().Trim();                // 관리번호
+                sCLTCOD   = oForm.Items.Item("SCLTCOD").Specific.Value.ToString().Trim();                  // 사업장
+                SDestNo1  = oForm.Items.Item("SDestNo1").Specific.Value.ToString().Trim();                 // 출장번호1
+                SDestNo2  = oForm.Items.Item("SDestNo2").Specific.Value.ToString().Trim();                 // 출장번호2
+                sMSTCOD   = oForm.Items.Item("SMSTCOD").Specific.Value.ToString().Trim();                  // 사원번호
+                SDestinat = oForm.Items.Item("SDestinat").Specific.Value.ToString().Trim();                // 출장지
+                SDest2    = oForm.Items.Item("SDest2").Specific.Value.ToString().Trim();                   // 출장지상세
+                SCoCode   = oForm.Items.Item("SCoCode").Specific.Value.ToString().Trim();                  // 작번
+                SFrDate   = oForm.Items.Item("SFrDate").Specific.Value.ToString().Trim().Replace(".", ""); // 시작일자
+                SToDate   = oForm.Items.Item("SToDate").Specific.Value.ToString().Trim().Replace(".", ""); // 종료일자
+                SObject   = oForm.Items.Item("SObject").Specific.Value.ToString().Trim();                  // 목적
+                SComments = oForm.Items.Item("SComments").Specific.Value.ToString().Trim();                // 비고
+                SRegCls   = oForm.Items.Item("SRegCls").Specific.Value.ToString().Trim();                  // 등록구분
+                SObjCls   = oForm.Items.Item("SObjCls").Specific.Value.ToString().Trim();                  // 목적구분
+                SDestCode = oForm.Items.Item("SDestCode").Specific.Value.ToString().Trim();                // 출장지역
+                SDestDiv  = oForm.Items.Item("SDestDiv").Specific.Value.ToString().Trim();                 // 출장구분
+                SVehicle  = oForm.Items.Item("SVehicle").Specific.Value.ToString().Trim();                 // 차량구분
+                sTeamCode = oForm.Items.Item("STeamCode").Specific.Value.ToString().Trim();                // 팀
 
                 sQry = "            EXEC [PH_PY030_01] ";
                 sQry = sQry + "'" + sDocEntry + "',";
@@ -463,7 +463,7 @@ namespace PSH_BOne_AddOn
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                 {
 
-                    DocEntry = oForm.Items.Item("DocEntry").Specific.VALUE.ToString().Trim();
+                    DocEntry = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim();
 
                     sQry = "SELECT COUNT(*) FROM [@PH_PY030A] WHERE DocEntry = '" + DocEntry + "'";
                     oRecordSet01.DoQuery(sQry);
@@ -545,36 +545,36 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                DocEntry = Convert.ToInt16(oForm.Items.Item("DocEntry").Specific.VALUE.ToString().Trim());
-                CLTCOD   = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
-                DestNo1  = oForm.Items.Item("DestNo1").Specific.VALUE.ToString().Trim();
-                DestNo2  = oForm.Items.Item("DestNo2").Specific.VALUE.ToString().Trim();
-                MSTCOD   = oForm.Items.Item("MSTCOD").Specific.VALUE.ToString().Trim();
-                MSTNAM   = oForm.Items.Item("MSTNAM").Specific.VALUE.ToString().Trim();
-                Destinat = oForm.Items.Item("Destinat").Specific.VALUE.ToString().Trim();
-                Dest2    = oForm.Items.Item("Dest2").Specific.VALUE.ToString().Trim();
-                CoCode   = oForm.Items.Item("CoCode").Specific.VALUE.ToString().Trim();
-                FrDate   = oForm.Items.Item("FrDate").Specific.VALUE.ToString().Trim();
-                FrTime   = oForm.Items.Item("FrTime").Specific.VALUE.ToString().Trim();
-                ToDate   = oForm.Items.Item("ToDate").Specific.VALUE.ToString().Trim();
-                ToTime   = oForm.Items.Item("ToTime").Specific.VALUE.ToString().Trim();
-                Object_Renamed = oForm.Items.Item("Object").Specific.VALUE.ToString().Trim();
-                Comments = oForm.Items.Item("Comments").Specific.VALUE.ToString().Trim();
-                RegCls   = oForm.Items.Item("RegCls").Specific.VALUE.ToString().Trim();
-                ObjCls   = oForm.Items.Item("ObjCls").Specific.VALUE.ToString().Trim();
-                DestCode = oForm.Items.Item("DestCode").Specific.VALUE.ToString().Trim();
-                DestDiv  = oForm.Items.Item("DestDiv").Specific.VALUE.ToString().Trim();
-                Vehicle  = oForm.Items.Item("Vehicle").Specific.VALUE.ToString().Trim();
-                FuelPrc  = Convert.ToDouble(oForm.Items.Item("FuelPrc").Specific.VALUE.ToString().Trim());
-                FuelType = oForm.Items.Item("FuelType").Specific.VALUE.ToString().Trim();
-                Distance = Convert.ToDouble(oForm.Items.Item("Distance").Specific.VALUE.ToString().Trim());
-                TransExp = Convert.ToDouble(oForm.Items.Item("TransExp").Specific.VALUE.ToString().Trim());
-                DayExp   = Convert.ToDouble(oForm.Items.Item("DayExp").Specific.VALUE.ToString().Trim());
-                FoodNum  = oForm.Items.Item("FoodNum").Specific.VALUE.ToString().Trim();
-                FoodExp  = Convert.ToDouble(oForm.Items.Item("FoodExp").Specific.VALUE.ToString().Trim());
-                ParkExp  = Convert.ToDouble(oForm.Items.Item("ParkExp").Specific.VALUE.ToString().Trim());
-                TollExp  = Convert.ToDouble(oForm.Items.Item("TollExp").Specific.VALUE.ToString().Trim());
-                TotalExp = Convert.ToDouble(oForm.Items.Item("TotalExp").Specific.VALUE.ToString().Trim());
+                DocEntry = Convert.ToInt16(oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim());
+                CLTCOD   = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                DestNo1  = oForm.Items.Item("DestNo1").Specific.Value.ToString().Trim();
+                DestNo2  = oForm.Items.Item("DestNo2").Specific.Value.ToString().Trim();
+                MSTCOD   = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
+                MSTNAM   = oForm.Items.Item("MSTNAM").Specific.Value.ToString().Trim();
+                Destinat = oForm.Items.Item("Destinat").Specific.Value.ToString().Trim();
+                Dest2    = oForm.Items.Item("Dest2").Specific.Value.ToString().Trim();
+                CoCode   = oForm.Items.Item("CoCode").Specific.Value.ToString().Trim();
+                FrDate   = oForm.Items.Item("FrDate").Specific.Value.ToString().Trim();
+                FrTime   = oForm.Items.Item("FrTime").Specific.Value.ToString().Trim();
+                ToDate   = oForm.Items.Item("ToDate").Specific.Value.ToString().Trim();
+                ToTime   = oForm.Items.Item("ToTime").Specific.Value.ToString().Trim();
+                Object_Renamed = oForm.Items.Item("Object").Specific.Value.ToString().Trim();
+                Comments = oForm.Items.Item("Comments").Specific.Value.ToString().Trim();
+                RegCls   = oForm.Items.Item("RegCls").Specific.Value.ToString().Trim();
+                ObjCls   = oForm.Items.Item("ObjCls").Specific.Value.ToString().Trim();
+                DestCode = oForm.Items.Item("DestCode").Specific.Value.ToString().Trim();
+                DestDiv  = oForm.Items.Item("DestDiv").Specific.Value.ToString().Trim();
+                Vehicle  = oForm.Items.Item("Vehicle").Specific.Value.ToString().Trim();
+                FuelPrc  = Convert.ToDouble(oForm.Items.Item("FuelPrc").Specific.Value.ToString().Trim());
+                FuelType = oForm.Items.Item("FuelType").Specific.Value.ToString().Trim();
+                Distance = Convert.ToDouble(oForm.Items.Item("Distance").Specific.Value.ToString().Trim());
+                TransExp = Convert.ToDouble(oForm.Items.Item("TransExp").Specific.Value.ToString().Trim());
+                DayExp   = Convert.ToDouble(oForm.Items.Item("DayExp").Specific.Value.ToString().Trim());
+                FoodNum  = oForm.Items.Item("FoodNum").Specific.Value.ToString().Trim();
+                FoodExp  = Convert.ToDouble(oForm.Items.Item("FoodExp").Specific.Value.ToString().Trim());
+                ParkExp  = Convert.ToDouble(oForm.Items.Item("ParkExp").Specific.Value.ToString().Trim());
+                TollExp  = Convert.ToDouble(oForm.Items.Item("TollExp").Specific.Value.ToString().Trim());
+                TotalExp = Convert.ToDouble(oForm.Items.Item("TotalExp").Specific.Value.ToString().Trim());
 
 
                 if (string.IsNullOrEmpty(Convert.ToString(DocEntry).ToString().Trim()))
@@ -678,35 +678,35 @@ namespace PSH_BOne_AddOn
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
-                CLTCOD   = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
-                DestNo1  = oForm.Items.Item("DestNo1").Specific.VALUE.ToString().Trim();
-                DestNo2  = oForm.Items.Item("DestNo2").Specific.VALUE.ToString().Trim();
-                MSTCOD   = oForm.Items.Item("MSTCOD").Specific.VALUE.ToString().Trim();
-                MSTNAM   = oForm.Items.Item("MSTNAM").Specific.VALUE.ToString().Trim();
-                Destinat = oForm.Items.Item("Destinat").Specific.VALUE.ToString().Trim();
-                Dest2    = oForm.Items.Item("Dest2").Specific.VALUE.ToString().Trim();
-                CoCode   = oForm.Items.Item("CoCode").Specific.VALUE.ToString().Trim();
-                FrDate   = oForm.Items.Item("FrDate").Specific.VALUE.ToString().Trim();
-                FrTime   = oForm.Items.Item("FrTime").Specific.VALUE.ToString().Trim();
-                ToDate   = oForm.Items.Item("ToDate").Specific.VALUE.ToString().Trim();
-                ToTime   = oForm.Items.Item("ToTime").Specific.VALUE.ToString().Trim();
-                Object_Renamed = oForm.Items.Item("Object").Specific.VALUE.ToString().Trim();
-                Comments = oForm.Items.Item("Comments").Specific.VALUE.ToString().Trim();
-                RegCls   = oForm.Items.Item("RegCls").Specific.VALUE.ToString().Trim();
-                ObjCls   = oForm.Items.Item("ObjCls").Specific.VALUE.ToString().Trim();
-                DestCode = oForm.Items.Item("DestCode").Specific.VALUE.ToString().Trim();
-                DestDiv  = oForm.Items.Item("DestDiv").Specific.VALUE.ToString().Trim();
-                Vehicle  = oForm.Items.Item("Vehicle").Specific.VALUE.ToString().Trim();
-                FuelPrc  = Convert.ToDouble(oForm.Items.Item("FuelPrc").Specific.VALUE.ToString().Trim());
-                FuelType = oForm.Items.Item("FuelType").Specific.VALUE.ToString().Trim();
-                Distance = Convert.ToDouble(oForm.Items.Item("Distance").Specific.VALUE.ToString().Trim());
-                TransExp = Convert.ToDouble(oForm.Items.Item("TransExp").Specific.VALUE.ToString().Trim());
-                DayExp   = Convert.ToDouble(oForm.Items.Item("DayExp").Specific.VALUE.ToString().Trim());
-                FoodNum  = oForm.Items.Item("FoodNum").Specific.VALUE.ToString().Trim();
-                FoodExp  = Convert.ToDouble(oForm.Items.Item("FoodExp").Specific.VALUE.ToString().Trim());
-                ParkExp  = Convert.ToDouble(oForm.Items.Item("ParkExp").Specific.VALUE.ToString().Trim());
-                TollExp  = Convert.ToDouble(oForm.Items.Item("TollExp").Specific.VALUE.ToString().Trim());
-                TotalExp = Convert.ToDouble(oForm.Items.Item("TotalExp").Specific.VALUE.ToString().Trim());
+                CLTCOD   = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                DestNo1  = oForm.Items.Item("DestNo1").Specific.Value.ToString().Trim();
+                DestNo2  = oForm.Items.Item("DestNo2").Specific.Value.ToString().Trim();
+                MSTCOD   = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
+                MSTNAM   = oForm.Items.Item("MSTNAM").Specific.Value.ToString().Trim();
+                Destinat = oForm.Items.Item("Destinat").Specific.Value.ToString().Trim();
+                Dest2    = oForm.Items.Item("Dest2").Specific.Value.ToString().Trim();
+                CoCode   = oForm.Items.Item("CoCode").Specific.Value.ToString().Trim();
+                FrDate   = oForm.Items.Item("FrDate").Specific.Value.ToString().Trim();
+                FrTime   = oForm.Items.Item("FrTime").Specific.Value.ToString().Trim();
+                ToDate   = oForm.Items.Item("ToDate").Specific.Value.ToString().Trim();
+                ToTime   = oForm.Items.Item("ToTime").Specific.Value.ToString().Trim();
+                Object_Renamed = oForm.Items.Item("Object").Specific.Value.ToString().Trim();
+                Comments = oForm.Items.Item("Comments").Specific.Value.ToString().Trim();
+                RegCls   = oForm.Items.Item("RegCls").Specific.Value.ToString().Trim();
+                ObjCls   = oForm.Items.Item("ObjCls").Specific.Value.ToString().Trim();
+                DestCode = oForm.Items.Item("DestCode").Specific.Value.ToString().Trim();
+                DestDiv  = oForm.Items.Item("DestDiv").Specific.Value.ToString().Trim();
+                Vehicle  = oForm.Items.Item("Vehicle").Specific.Value.ToString().Trim();
+                FuelPrc  = Convert.ToDouble(oForm.Items.Item("FuelPrc").Specific.Value.ToString().Trim());
+                FuelType = oForm.Items.Item("FuelType").Specific.Value.ToString().Trim();
+                Distance = Convert.ToDouble(oForm.Items.Item("Distance").Specific.Value.ToString().Trim());
+                TransExp = Convert.ToDouble(oForm.Items.Item("TransExp").Specific.Value.ToString().Trim());
+                DayExp   = Convert.ToDouble(oForm.Items.Item("DayExp").Specific.Value.ToString().Trim());
+                FoodNum  = oForm.Items.Item("FoodNum").Specific.Value.ToString().Trim();
+                FoodExp  = Convert.ToDouble(oForm.Items.Item("FoodExp").Specific.Value.ToString().Trim());
+                ParkExp  = Convert.ToDouble(oForm.Items.Item("ParkExp").Specific.Value.ToString().Trim());
+                TollExp  = Convert.ToDouble(oForm.Items.Item("TollExp").Specific.Value.ToString().Trim());
+                TotalExp = Convert.ToDouble(oForm.Items.Item("TotalExp").Specific.Value.ToString().Trim());
                 UserSign = Convert.ToString(PSH_Globals.oCompany.UserSignature);
 
                 sQry = "SELECT ISNULL(MAX(DocEntry), 0) FROM[@PH_PY030A]";
@@ -783,37 +783,37 @@ namespace PSH_BOne_AddOn
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
-                if (string.IsNullOrEmpty(oForm.Items.Item("DestNo1").Specific.VALUE.ToString().Trim()))      // 출장번호1
+                if (string.IsNullOrEmpty(oForm.Items.Item("DestNo1").Specific.Value.ToString().Trim()))      // 출장번호1
                 {
                     ErrNum = 1;
                     throw new Exception();
                 }
-                else if (string.IsNullOrEmpty(oForm.Items.Item("DestNo2").Specific.VALUE.ToString().Trim()))  // 출장번호2
+                else if (string.IsNullOrEmpty(oForm.Items.Item("DestNo2").Specific.Value.ToString().Trim()))  // 출장번호2
                 {
                     ErrNum = 2;
                     throw new Exception();
                 }
-                else if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.VALUE.ToString().Trim()))  // 사원번호
+                else if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim()))  // 사원번호
                 {
                     ErrNum = 3;
                     throw new Exception();
                 }
-                else if (string.IsNullOrEmpty(oForm.Items.Item("FrDate").Specific.VALUE.ToString().Trim()))  // 시작일자
+                else if (string.IsNullOrEmpty(oForm.Items.Item("FrDate").Specific.Value.ToString().Trim()))  // 시작일자
                 {
                     ErrNum = 4;
                     throw new Exception();
                 }
-                else if (string.IsNullOrEmpty(oForm.Items.Item("FrTime").Specific.VALUE.ToString().Trim()))  // 시작시각
+                else if (string.IsNullOrEmpty(oForm.Items.Item("FrTime").Specific.Value.ToString().Trim()))  // 시작시각
                 {
                     ErrNum = 5;
                     throw new Exception();
                 }
-                else if (string.IsNullOrEmpty(oForm.Items.Item("ToDate").Specific.VALUE.ToString().Trim()))  // 종료일자
+                else if (string.IsNullOrEmpty(oForm.Items.Item("ToDate").Specific.Value.ToString().Trim()))  // 종료일자
                 {
                     ErrNum = 6;
                     throw new Exception();
                 }
-                else if (string.IsNullOrEmpty(oForm.Items.Item("ToTime").Specific.VALUE.ToString().Trim()))  // 종료시각
+                else if (string.IsNullOrEmpty(oForm.Items.Item("ToTime").Specific.Value.ToString().Trim()))  // 종료시각
                 {
                     ErrNum = 7;
                     throw new Exception();
@@ -934,7 +934,7 @@ namespace PSH_BOne_AddOn
                         sQry = sQry + "             U_CodeNm";
                         sQry = sQry + " FROM        [@PS_HR200L]";
                         sQry = sQry + " WHERE       Code = '1'";
-                        sQry = sQry + "             AND U_Char2 = '" + oForm.Items.Item("SCLTCOD").Specific.VALUE + "'";
+                        sQry = sQry + "             AND U_Char2 = '" + oForm.Items.Item("SCLTCOD").Specific.Value + "'";
                         sQry = sQry + "             AND U_UseYN = 'Y'";
                         sQry = sQry + " ORDER BY    U_Seq";
                         dataHelpClass.Set_ComboList((oForm.Items.Item("STeamCode").Specific), sQry,"", false, false);
@@ -942,11 +942,11 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("STeamCode").DisplayDesc = true;
                         break;
                     case "Destinat":
-                        if (oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim() == "1")
+                        if (oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() == "1")
                         {
-                            sQry = "Select Distance = U_Num2 From [@PS_HR200L] Where Code = 'P217' And U_Code = '" + oForm.Items.Item("Destinat").Specific.VALUE.ToString().Trim() + "' and U_Char1 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim() + "'";
+                            sQry = "Select Distance = U_Num2 From [@PS_HR200L] Where Code = 'P217' And U_Code = '" + oForm.Items.Item("Destinat").Specific.Value.ToString().Trim() + "' and U_Char1 = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "'";
                             oRecordSet01.DoQuery(sQry);
-                            oForm.Items.Item("Distance").Specific.VALUE = oRecordSet01.Fields.Item("Distance").Value;
+                            oForm.Items.Item("Distance").Specific.Value = oRecordSet01.Fields.Item("Distance").Value;
                         }
                         break;
                 }
@@ -1358,12 +1358,12 @@ namespace PSH_BOne_AddOn
                 double Distance = 0;                //거리
                 int TransExp = 0;                //교통비
 
-                FuelPrc = Convert.ToDouble(oForm.Items.Item("FuelPrc").Specific.VALUE.ToString().Trim());
-                Distance = Convert.ToDouble(oForm.Items.Item("Distance").Specific.VALUE.ToString().Trim());
+                FuelPrc = Convert.ToDouble(oForm.Items.Item("FuelPrc").Specific.Value.ToString().Trim());
+                Distance = Convert.ToDouble(oForm.Items.Item("Distance").Specific.Value.ToString().Trim());
 
                 TransExp = Convert.ToInt32((FuelPrc * Distance * 0.1) / 10) * 10;                //원단위  절사 2020.06.03 황영수
 
-                oForm.Items.Item("TransExp").Specific.VALUE = TransExp;
+                oForm.Items.Item("TransExp").Specific.Value = TransExp;
             }
             catch (Exception ex)
             {
@@ -1384,11 +1384,11 @@ namespace PSH_BOne_AddOn
             double TotalExp = 0;               // 합계
             try
             {
-                TransExp = Convert.ToDouble(oForm.Items.Item("TransExp").Specific.VALUE.ToString().Trim());
-                DayExp = Convert.ToDouble(oForm.Items.Item("DayExp").Specific.VALUE.ToString().Trim());
-                FoodExp = Convert.ToDouble(oForm.Items.Item("FoodExp").Specific.VALUE.ToString().Trim());
-                ParkExp = Convert.ToDouble(oForm.Items.Item("ParkExp").Specific.VALUE.ToString().Trim());
-                TollExp = Convert.ToDouble(oForm.Items.Item("TollExp").Specific.VALUE.ToString().Trim());
+                TransExp = Convert.ToDouble(oForm.Items.Item("TransExp").Specific.Value.ToString().Trim());
+                DayExp = Convert.ToDouble(oForm.Items.Item("DayExp").Specific.Value.ToString().Trim());
+                FoodExp = Convert.ToDouble(oForm.Items.Item("FoodExp").Specific.Value.ToString().Trim());
+                ParkExp = Convert.ToDouble(oForm.Items.Item("ParkExp").Specific.Value.ToString().Trim());
+                TollExp = Convert.ToDouble(oForm.Items.Item("TollExp").Specific.Value.ToString().Trim());
                 TotalExp = TransExp + DayExp + FoodExp + ParkExp + TollExp;
 
                 oDS_PH_PY030A.SetValue("U_TotalExp", 0, Convert.ToString(TotalExp));
@@ -1412,14 +1412,14 @@ namespace PSH_BOne_AddOn
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
-                FrDate = codeaHelpClass.Left(oForm.Items.Item("FrDate").Specific.VALUE.ToString().Trim(), 6);
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                FrDate = codeaHelpClass.Left(oForm.Items.Item("FrDate").Specific.Value.ToString().Trim(), 6);
 
                 sQry = "EXEC PH_PY030_05 '" + CLTCOD + "', '" + FrDate + "'";
                 oRecordSet01.DoQuery(sQry);
 
-                oForm.Items.Item("DestNo1").Specific.VALUE = FrDate;
-                oForm.Items.Item("DestNo2").Specific.VALUE = oRecordSet01.Fields.Item("DestNo2").Value.ToString().Trim();
+                oForm.Items.Item("DestNo1").Specific.Value = FrDate;
+                oForm.Items.Item("DestNo2").Specific.Value = oRecordSet01.Fields.Item("DestNo2").Value.ToString().Trim();
             }
             catch (Exception ex)
             {
@@ -1845,11 +1845,11 @@ namespace PSH_BOne_AddOn
                             PH_PY030_FlushToItemValue(pVal.ItemUID);
                             if (pVal.ItemUID == "MSTCOD")
                             {
-                                oForm.Items.Item("MSTNAM").Specific.VALUE = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("MSTCOD").Specific.VALUE + "'", "");                                //성명
+                                oForm.Items.Item("MSTNAM").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("MSTCOD").Specific.Value + "'", "");                                //성명
                             }
                             else if (pVal.ItemUID == "SMSTCOD")
                             {
-                                oForm.Items.Item("SMSTNAM").Specific.VALUE = dataHelpClass.Get_ReData("U_FULLNAME", "U_MSTCOD", "[OHEM]", "'" + oForm.Items.Item("SMSTCOD").Specific.VALUE + "'", "");                                //성명
+                                oForm.Items.Item("SMSTNAM").Specific.Value = dataHelpClass.Get_ReData("U_FULLNAME", "U_MSTCOD", "[OHEM]", "'" + oForm.Items.Item("SMSTCOD").Specific.Value + "'", "");                                //성명
                             }
                         }
                     }
@@ -2013,7 +2013,7 @@ namespace PSH_BOne_AddOn
                     {
                         for (i = 1; i <= oMat01.VisualRowCount; i++)
                         {
-                            oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.VALUE = i;
+                            oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value = i;
                         }
                         oMat01.FlushToDataSource();
                         oDS_PH_PY030A.RemoveRecord(oDS_PH_PY030A.Size - 1);
@@ -2057,36 +2057,36 @@ namespace PSH_BOne_AddOn
                             oMat01.SelectRow(pVal.Row, true, false);
                             oForm.Freeze(true);
 
-                            oDS_PH_PY030A.SetValue("DocEntry", 0, oMat01.Columns.Item("DocEntry").Cells.Item(pVal.Row).Specific.VALUE);                  // 관리번호
-                            oDS_PH_PY030A.SetValue("U_CLTCOD", 0, oMat01.Columns.Item("CLTCOD").Cells.Item(pVal.Row).Specific.VALUE);                    // 사업장
-                            oDS_PH_PY030A.SetValue("U_DestNo1", 0, oMat01.Columns.Item("DestNo1").Cells.Item(pVal.Row).Specific.VALUE);                  // 출장번호1
-                            oDS_PH_PY030A.SetValue("U_DestNo2", 0, oMat01.Columns.Item("DestNo2").Cells.Item(pVal.Row).Specific.VALUE);                  // 출장번호2
-                            oDS_PH_PY030A.SetValue("U_MSTCOD", 0, oMat01.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.VALUE);                    // 사원번호
-                            oDS_PH_PY030A.SetValue("U_MSTNAM", 0, oMat01.Columns.Item("MSTNAM").Cells.Item(pVal.Row).Specific.VALUE);                    // 사원성명
-                            oDS_PH_PY030A.SetValue("U_Destinat", 0, oMat01.Columns.Item("Destinat").Cells.Item(pVal.Row).Specific.VALUE);                // 출장지
-                            oDS_PH_PY030A.SetValue("U_Dest2", 0, oMat01.Columns.Item("Dest2").Cells.Item(pVal.Row).Specific.VALUE);                      // 출장지상세
-                            oDS_PH_PY030A.SetValue("U_CoCode", 0, oMat01.Columns.Item("CoCode").Cells.Item(pVal.Row).Specific.VALUE);                    // 작번
-                            oDS_PH_PY030A.SetValue("U_FrDate", 0, oMat01.Columns.Item("FrDate").Cells.Item(pVal.Row).Specific.VALUE.Replace(".", ""));   // 시작일자
-                            oDS_PH_PY030A.SetValue("U_FrTime", 0, oMat01.Columns.Item("FrTime").Cells.Item(pVal.Row).Specific.VALUE);                    // 시작시각
-                            oDS_PH_PY030A.SetValue("U_ToDate", 0, oMat01.Columns.Item("ToDate").Cells.Item(pVal.Row).Specific.VALUE.Replace(".", ""));   // 종료일자
-                            oDS_PH_PY030A.SetValue("U_ToTime", 0, oMat01.Columns.Item("ToTime").Cells.Item(pVal.Row).Specific.VALUE);                    // 종료시각
-                            oDS_PH_PY030A.SetValue("U_Object", 0, oMat01.Columns.Item("Object").Cells.Item(pVal.Row).Specific.VALUE);                    // 목적
-                            oDS_PH_PY030A.SetValue("U_Comments", 0, oMat01.Columns.Item("Comments").Cells.Item(pVal.Row).Specific.VALUE);                // 비고
-                            oDS_PH_PY030A.SetValue("U_RegCls", 0, oMat01.Columns.Item("RegCls").Cells.Item(pVal.Row).Specific.VALUE);                    // 등록구분
-                            oDS_PH_PY030A.SetValue("U_ObjCls", 0, oMat01.Columns.Item("ObjCls").Cells.Item(pVal.Row).Specific.VALUE);                    // 목적구분
-                            oDS_PH_PY030A.SetValue("U_DestCode", 0, oMat01.Columns.Item("DestCode").Cells.Item(pVal.Row).Specific.VALUE);                // 출장지역
-                            oDS_PH_PY030A.SetValue("U_DestDiv", 0, oMat01.Columns.Item("DestDiv").Cells.Item(pVal.Row).Specific.VALUE);                  // 출장구분
-                            oDS_PH_PY030A.SetValue("U_Vehicle", 0, oMat01.Columns.Item("Vehicle").Cells.Item(pVal.Row).Specific.VALUE);                  // 차량구분
-                            oDS_PH_PY030A.SetValue("U_FuelPrc", 0, oMat01.Columns.Item("FuelPrc").Cells.Item(pVal.Row).Specific.VALUE);                  // 1L단가
-                            oDS_PH_PY030A.SetValue("U_FuelType", 0, oMat01.Columns.Item("FuelType").Cells.Item(pVal.Row).Specific.VALUE);                // 유류
-                            oDS_PH_PY030A.SetValue("U_Distance", 0, oMat01.Columns.Item("Distance").Cells.Item(pVal.Row).Specific.VALUE);                // 거리
-                            oDS_PH_PY030A.SetValue("U_TransExp", 0, oMat01.Columns.Item("TransExp").Cells.Item(pVal.Row).Specific.VALUE);                // 교통비
-                            oDS_PH_PY030A.SetValue("U_DayExp", 0, oMat01.Columns.Item("DayExp").Cells.Item(pVal.Row).Specific.VALUE);                    // 일비
-                            oDS_PH_PY030A.SetValue("U_FoodNum", 0, oMat01.Columns.Item("FoodNum").Cells.Item(pVal.Row).Specific.VALUE);                  // 식수
-                            oDS_PH_PY030A.SetValue("U_FoodExp", 0, oMat01.Columns.Item("FoodExp").Cells.Item(pVal.Row).Specific.VALUE);                  // 식비
-                            oDS_PH_PY030A.SetValue("U_ParkExp", 0, oMat01.Columns.Item("ParkExp").Cells.Item(pVal.Row).Specific.VALUE);                  // 주차비
-                            oDS_PH_PY030A.SetValue("U_TollExp", 0, oMat01.Columns.Item("TollExp").Cells.Item(pVal.Row).Specific.VALUE);                  // 도로비
-                            oDS_PH_PY030A.SetValue("U_TotalExp", 0, oMat01.Columns.Item("TotalExp").Cells.Item(pVal.Row).Specific.VALUE);                // 합계
+                            oDS_PH_PY030A.SetValue("DocEntry", 0, oMat01.Columns.Item("DocEntry").Cells.Item(pVal.Row).Specific.Value);                  // 관리번호
+                            oDS_PH_PY030A.SetValue("U_CLTCOD", 0, oMat01.Columns.Item("CLTCOD").Cells.Item(pVal.Row).Specific.Value);                    // 사업장
+                            oDS_PH_PY030A.SetValue("U_DestNo1", 0, oMat01.Columns.Item("DestNo1").Cells.Item(pVal.Row).Specific.Value);                  // 출장번호1
+                            oDS_PH_PY030A.SetValue("U_DestNo2", 0, oMat01.Columns.Item("DestNo2").Cells.Item(pVal.Row).Specific.Value);                  // 출장번호2
+                            oDS_PH_PY030A.SetValue("U_MSTCOD", 0, oMat01.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.Value);                    // 사원번호
+                            oDS_PH_PY030A.SetValue("U_MSTNAM", 0, oMat01.Columns.Item("MSTNAM").Cells.Item(pVal.Row).Specific.Value);                    // 사원성명
+                            oDS_PH_PY030A.SetValue("U_Destinat", 0, oMat01.Columns.Item("Destinat").Cells.Item(pVal.Row).Specific.Value);                // 출장지
+                            oDS_PH_PY030A.SetValue("U_Dest2", 0, oMat01.Columns.Item("Dest2").Cells.Item(pVal.Row).Specific.Value);                      // 출장지상세
+                            oDS_PH_PY030A.SetValue("U_CoCode", 0, oMat01.Columns.Item("CoCode").Cells.Item(pVal.Row).Specific.Value);                    // 작번
+                            oDS_PH_PY030A.SetValue("U_FrDate", 0, oMat01.Columns.Item("FrDate").Cells.Item(pVal.Row).Specific.Value.Replace(".", ""));   // 시작일자
+                            oDS_PH_PY030A.SetValue("U_FrTime", 0, oMat01.Columns.Item("FrTime").Cells.Item(pVal.Row).Specific.Value);                    // 시작시각
+                            oDS_PH_PY030A.SetValue("U_ToDate", 0, oMat01.Columns.Item("ToDate").Cells.Item(pVal.Row).Specific.Value.Replace(".", ""));   // 종료일자
+                            oDS_PH_PY030A.SetValue("U_ToTime", 0, oMat01.Columns.Item("ToTime").Cells.Item(pVal.Row).Specific.Value);                    // 종료시각
+                            oDS_PH_PY030A.SetValue("U_Object", 0, oMat01.Columns.Item("Object").Cells.Item(pVal.Row).Specific.Value);                    // 목적
+                            oDS_PH_PY030A.SetValue("U_Comments", 0, oMat01.Columns.Item("Comments").Cells.Item(pVal.Row).Specific.Value);                // 비고
+                            oDS_PH_PY030A.SetValue("U_RegCls", 0, oMat01.Columns.Item("RegCls").Cells.Item(pVal.Row).Specific.Value);                    // 등록구분
+                            oDS_PH_PY030A.SetValue("U_ObjCls", 0, oMat01.Columns.Item("ObjCls").Cells.Item(pVal.Row).Specific.Value);                    // 목적구분
+                            oDS_PH_PY030A.SetValue("U_DestCode", 0, oMat01.Columns.Item("DestCode").Cells.Item(pVal.Row).Specific.Value);                // 출장지역
+                            oDS_PH_PY030A.SetValue("U_DestDiv", 0, oMat01.Columns.Item("DestDiv").Cells.Item(pVal.Row).Specific.Value);                  // 출장구분
+                            oDS_PH_PY030A.SetValue("U_Vehicle", 0, oMat01.Columns.Item("Vehicle").Cells.Item(pVal.Row).Specific.Value);                  // 차량구분
+                            oDS_PH_PY030A.SetValue("U_FuelPrc", 0, oMat01.Columns.Item("FuelPrc").Cells.Item(pVal.Row).Specific.Value);                  // 1L단가
+                            oDS_PH_PY030A.SetValue("U_FuelType", 0, oMat01.Columns.Item("FuelType").Cells.Item(pVal.Row).Specific.Value);                // 유류
+                            oDS_PH_PY030A.SetValue("U_Distance", 0, oMat01.Columns.Item("Distance").Cells.Item(pVal.Row).Specific.Value);                // 거리
+                            oDS_PH_PY030A.SetValue("U_TransExp", 0, oMat01.Columns.Item("TransExp").Cells.Item(pVal.Row).Specific.Value);                // 교통비
+                            oDS_PH_PY030A.SetValue("U_DayExp", 0, oMat01.Columns.Item("DayExp").Cells.Item(pVal.Row).Specific.Value);                    // 일비
+                            oDS_PH_PY030A.SetValue("U_FoodNum", 0, oMat01.Columns.Item("FoodNum").Cells.Item(pVal.Row).Specific.Value);                  // 식수
+                            oDS_PH_PY030A.SetValue("U_FoodExp", 0, oMat01.Columns.Item("FoodExp").Cells.Item(pVal.Row).Specific.Value);                  // 식비
+                            oDS_PH_PY030A.SetValue("U_ParkExp", 0, oMat01.Columns.Item("ParkExp").Cells.Item(pVal.Row).Specific.Value);                  // 주차비
+                            oDS_PH_PY030A.SetValue("U_TollExp", 0, oMat01.Columns.Item("TollExp").Cells.Item(pVal.Row).Specific.Value);                  // 도로비
+                            oDS_PH_PY030A.SetValue("U_TotalExp", 0, oMat01.Columns.Item("TotalExp").Cells.Item(pVal.Row).Specific.Value);                // 합계
 
                             oForm.Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
                             PH_PY030_LoadCaption();
@@ -2329,9 +2329,9 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                CLTCOD  = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
-                DestNo1 = oForm.Items.Item("DestNo1").Specific.VALUE.ToString().Trim();
-                DestNo2 = oForm.Items.Item("DestNo2").Specific.VALUE.ToString().Trim();
+                CLTCOD  = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                DestNo1 = oForm.Items.Item("DestNo1").Specific.Value.ToString().Trim();
+                DestNo2 = oForm.Items.Item("DestNo2").Specific.Value.ToString().Trim();
 
                 WinTitle = "[PH_PY030] 공용증";
 
@@ -2411,26 +2411,26 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                DocEntry = oForm.Items.Item("SDocEntry").Specific.VALUE;        
-                CLTCOD   = oForm.Items.Item("SCLTCOD").Specific.Selected.VALUE.ToString().Trim(); 
-                DestNo1  = oForm.Items.Item("SDestNo1").Specific.VALUE.ToString().Trim();        
-                DestNo2  = oForm.Items.Item("SDestNo2").Specific.VALUE.ToString().Trim();        
-                MSTCOD   = oForm.Items.Item("SMSTCOD").Specific.VALUE.ToString().Trim();          
-                Destinat = oForm.Items.Item("SDestinat").Specific.Selected.VALUE.ToString().Trim();    
-                Dest2    = oForm.Items.Item("SDest2").Specific.VALUE.ToString().Trim();
-                CoCode   = oForm.Items.Item("SCoCode").Specific.VALUE.ToString().Trim();
-                //FrDt     = oForm.Items.Item("SFrDate").Specific.VALUE.ToString().Trim();
-                //ToDt     = oForm.Items.Item("SToDate").Specific.VALUE.ToString().Trim();
+                DocEntry = oForm.Items.Item("SDocEntry").Specific.Value;        
+                CLTCOD   = oForm.Items.Item("SCLTCOD").Specific.Selected.Value.ToString().Trim(); 
+                DestNo1  = oForm.Items.Item("SDestNo1").Specific.Value.ToString().Trim();        
+                DestNo2  = oForm.Items.Item("SDestNo2").Specific.Value.ToString().Trim();        
+                MSTCOD   = oForm.Items.Item("SMSTCOD").Specific.Value.ToString().Trim();          
+                Destinat = oForm.Items.Item("SDestinat").Specific.Selected.Value.ToString().Trim();    
+                Dest2    = oForm.Items.Item("SDest2").Specific.Value.ToString().Trim();
+                CoCode   = oForm.Items.Item("SCoCode").Specific.Value.ToString().Trim();
+                //FrDt     = oForm.Items.Item("SFrDate").Specific.Value.ToString().Trim();
+                //ToDt     = oForm.Items.Item("SToDate").Specific.Value.ToString().Trim();
                 FrDt = DateTime.ParseExact(oForm.Items.Item("SFrDate").Specific.Value, "yyyyMMdd", null);
                 ToDt = DateTime.ParseExact(oForm.Items.Item("SToDate").Specific.Value, "yyyyMMdd", null);
-                Object_Renamed = oForm.Items.Item("SObject").Specific.VALUE.ToString().Trim();
-                Comments = oForm.Items.Item("SComments").Specific.VALUE.ToString().Trim();
-                TeamCode = oForm.Items.Item("STeamCode").Specific.VALUE.ToString().Trim();
-                RegCls   = oForm.Items.Item("SRegCls").Specific.Selected.VALUE.ToString().Trim();
-                ObjCls   = oForm.Items.Item("SObjCls").Specific.Selected.VALUE.ToString().Trim();
-                DestCode = oForm.Items.Item("SDestCode").Specific.Selected.VALUE.ToString().Trim();
-                DestDiv  = oForm.Items.Item("SDestDiv").Specific.Selected.VALUE.ToString().Trim();
-                Vehicle  = oForm.Items.Item("SVehicle").Specific.Selected.VALUE.ToString().Trim();
+                Object_Renamed = oForm.Items.Item("SObject").Specific.Value.ToString().Trim();
+                Comments = oForm.Items.Item("SComments").Specific.Value.ToString().Trim();
+                TeamCode = oForm.Items.Item("STeamCode").Specific.Value.ToString().Trim();
+                RegCls   = oForm.Items.Item("SRegCls").Specific.Selected.Value.ToString().Trim();
+                ObjCls   = oForm.Items.Item("SObjCls").Specific.Selected.Value.ToString().Trim();
+                DestCode = oForm.Items.Item("SDestCode").Specific.Selected.Value.ToString().Trim();
+                DestDiv  = oForm.Items.Item("SDestDiv").Specific.Selected.Value.ToString().Trim();
+                Vehicle  = oForm.Items.Item("SVehicle").Specific.Selected.Value.ToString().Trim();
 
                 WinTitle = "[PH_PY030] 공용여비 신청서";
 

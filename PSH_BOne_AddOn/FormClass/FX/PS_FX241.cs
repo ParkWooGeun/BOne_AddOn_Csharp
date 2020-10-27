@@ -677,10 +677,10 @@ namespace PSH_BOne_AddOn
                 List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>(); //Parameter
                 List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
                 //// 조회조건문
-                BPLID = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
-                YM = codeHelpClass.Left(oForm.Items.Item("YM").Specific.VALUE.ToString().Trim(),4) + codeHelpClass.Right(oForm.Items.Item("YM").Specific.VALUE.ToString().Trim(),2);
-                Div = oForm.Items.Item("Div").Specific.Selected.VALUE.ToString().Trim();
-                Gubun = oForm.Items.Item("Gubun").Specific.Selected.VALUE.ToString().Trim();
+                BPLID = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
+                YM = codeHelpClass.Left(oForm.Items.Item("YM").Specific.Value.ToString().Trim(),4) + codeHelpClass.Right(oForm.Items.Item("YM").Specific.Value.ToString().Trim(),2);
+                Div = oForm.Items.Item("Div").Specific.Selected.Value.ToString().Trim();
+                Gubun = oForm.Items.Item("Gubun").Specific.Selected.Value.ToString().Trim();
 
                 WinTitle = "[PS_FX241] 분말부자재비용분석";
                 if (oForm.Items.Item("Rad01").Specific.Selected == true)

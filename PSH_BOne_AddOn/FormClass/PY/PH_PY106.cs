@@ -119,7 +119,7 @@ namespace PSH_BOne_AddOn
                 //// 헤더 설정
                 ////----------------------------------------------------------------------------------------------
                 //// 귀속년월
-                oForm.Items.Item("YM").Specific.VALUE = DateTime.Now.ToString("yyyyMM");
+                oForm.Items.Item("YM").Specific.Value = DateTime.Now.ToString("yyyyMM");
 
                 ////사업장
                 oForm.Items.Item("CLTCOD").DisplayDesc = true;
@@ -201,7 +201,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY106_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -235,8 +235,8 @@ namespace PSH_BOne_AddOn
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
 
                     /// 귀속년월
-                    //UPGRADE_WARNING: oForm.Items(YM).Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    oForm.Items.Item("YM").Specific.VALUE = DateTime.Now.ToString("yyyyMM");
+                    //UPGRADE_WARNING: oForm.Items(YM).Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    oForm.Items.Item("YM").Specific.Value = DateTime.Now.ToString("yyyyMM");
 
                     //// 1.근속년수 계산기준
                     oForm.Items.Item("GNSGBN").Specific.Select(1, SAPbouiCOM.BoSearchKey.psk_Index);
@@ -677,13 +677,13 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "Mat1" & pVal.Row > 0)
                     {
-                        //UPGRADE_WARNING: oMat01.Columns().Cells().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        oForm.DataSources.UserDataSources.Item("DISSIL").ValueEx = oMat01.Columns.Item("SILCUN").Cells.Item(pVal.Row).Specific.VALUE;
+                        //UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        oForm.DataSources.UserDataSources.Item("DISSIL").ValueEx = oMat01.Columns.Item("SILCUN").Cells.Item(pVal.Row).Specific.Value;
                     }
                     else if (pVal.ItemUID == "Mat02" & pVal.Row > 0)
                     {
-                        //UPGRADE_WARNING: oMat02.Columns(FILCOD).Cells(pVal.Row).Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                        oForm.DataSources.UserDataSources.Item("DISSIL").ValueEx = oForm.DataSources.UserDataSources.Item("DISSIL").ValueEx + oMat02.Columns.Item("FILCOD").Cells.Item(pVal.Row).Specific.VALUE;
+                        //UPGRADE_WARNING: oMat02.Columns(FILCOD).Cells(pVal.Row).Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        oForm.DataSources.UserDataSources.Item("DISSIL").ValueEx = oForm.DataSources.UserDataSources.Item("DISSIL").ValueEx + oMat02.Columns.Item("FILCOD").Cells.Item(pVal.Row).Specific.Value;
                     }
                 }
             }
@@ -1081,7 +1081,7 @@ namespace PSH_BOne_AddOn
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
-                if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY106A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.VALUE + "'", 0, 1) == "Y")
+                if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY106A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "Y")
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("해당문서는 다른사용자에 의해 취소되었습니다. 작업을 진행할수 없습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     functionReturnValue = false;
@@ -1254,11 +1254,11 @@ namespace PSH_BOne_AddOn
                 DocEntry = dataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PH_PY106'", "");
                 if (Convert.ToDouble(DocEntry) == 0)
                 {
-                    oForm.Items.Item("DocEntry").Specific.VALUE = 1;
+                    oForm.Items.Item("DocEntry").Specific.Value = 1;
                 }
                 else
                 {
-                    oForm.Items.Item("DocEntry").Specific.VALUE = DocEntry;
+                    oForm.Items.Item("DocEntry").Specific.Value = DocEntry;
                 }
             }
             catch (Exception ex)

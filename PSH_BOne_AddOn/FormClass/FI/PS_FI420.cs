@@ -96,7 +96,7 @@ namespace PSH_BOne_AddOn
 							{
 								if (pval.ItemUID == "CntcCode")
 								{
-									if (string.IsNullOrEmpty(oForm.Items.Item(pval.ItemUID).Specific.VALUE))
+									if (string.IsNullOrEmpty(oForm.Items.Item(pval.ItemUID).Specific.Value))
 									{
 										PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
 										BubbleEvent = false;
@@ -530,9 +530,9 @@ namespace PSH_BOne_AddOn
 				switch (oUID)
 				{
 					case "CntcCode":
-						sQry = "Select lastName + firstName From OHEM Where U_MSTCOD = '" + oForm.Items.Item("CntcCode").Specific.VALUE.ToString().Trim() + "'";
+						sQry = "Select lastName + firstName From OHEM Where U_MSTCOD = '" + oForm.Items.Item("CntcCode").Specific.Value.ToString().Trim() + "'";
 						oRecordSet.DoQuery(sQry);
-						oForm.Items.Item("CntcName").Specific.VALUE = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+						oForm.Items.Item("CntcName").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 						break;
 				}
 			}
@@ -564,10 +564,10 @@ namespace PSH_BOne_AddOn
 			SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet.RecordCount, false);
 			try
 			{
-				BPLID = oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim();
-				DocType = oForm.Items.Item("DocType").Specific.VALUE.ToString().Trim();
+				BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+				DocType = oForm.Items.Item("DocType").Specific.Value.ToString().Trim();
 				//DocDate = DateTime.ParseExact(oForm.Items.Item("DocDate").Specific.Value, "yyyyMMdd", null);
-				DocDate = oForm.Items.Item("DocDate").Specific.VALUE.ToString().Trim();
+				DocDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
 
 				if (String.IsNullOrEmpty(DocDate))
 				{
@@ -652,11 +652,11 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				DocType = oForm.Items.Item("DocType").Specific.VALUE.ToString().Trim();
+				DocType = oForm.Items.Item("DocType").Specific.Value.ToString().Trim();
 
 				WinTitle = "회계전표 [PS_FI420]";
 
-				if (oForm.Items.Item("PntGbn").Specific.VALUE.ToString().Trim() == "20")
+				if (oForm.Items.Item("PntGbn").Specific.Value.ToString().Trim() == "20")
 				{
 					ReportName = "PS_FI420_02.rpt";
 				}
@@ -688,13 +688,13 @@ namespace PSH_BOne_AddOn
 				// 조회조건문
 
 				//// 조회조건문  (원본)
-				//sQry = "EXEC [PS_FI420_02] '" + oForm.Items.Item("DocType").Specific.VALUE.ToString().Trim() + "'";
+				//sQry = "EXEC [PS_FI420_02] '" + oForm.Items.Item("DocType").Specific.Value.ToString().Trim() + "'";
 				//oRecordSet.DoQuery(sQry);
 				////    If oRecordSet01.RecordCount = 0 Then
 				////        ErrNum = 1
 				////        GoTo Print_Report01_Error
 				////    End If
-				//if (oForm.Items.Item("DocType").Specific.VALUE.ToString().Trim() == "13")
+				//if (oForm.Items.Item("DocType").Specific.Value.ToString().Trim() == "13")
 				//{
 				//	sQry = " Select * From  ZPS_FI420_TEMP Order by U_RptItm01,TransId, Convert(Numeric(12,0),Line_Id)";
 				//}

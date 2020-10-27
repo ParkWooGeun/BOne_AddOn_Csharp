@@ -105,7 +105,7 @@ namespace PSH_BOne_AddOn
                 // 년도
                 oForm.DataSources.UserDataSources.Add("StdYear", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 4);
                 oForm.Items.Item("StdYear").Specific.DataBind.SetBound(true, "", "StdYear");
-                oForm.Items.Item("StdYear").Specific.VALUE = DateTime.Now.ToString("yyyy");
+                oForm.Items.Item("StdYear").Specific.Value = DateTime.Now.ToString("yyyy");
 
                 // 기준년월(급여)
                 oForm.DataSources.UserDataSources.Add("YYYYMM", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 6);
@@ -225,7 +225,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY417_FormItemEnabled();
-                    oForm.Items.Item("DocEntry").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -253,7 +253,7 @@ namespace PSH_BOne_AddOn
                     // 접속자에 따른 권한별 사업장 콤보박스세팅
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
                     //년도 세팅
-                    oForm.Items.Item("StdYear").Specific.VALUE = Convert.ToString(DateTime.Now.Year - 1);
+                    oForm.Items.Item("StdYear").Specific.Value = Convert.ToString(DateTime.Now.Year - 1);
                     oForm.EnableMenu("1281", true);   // 문서찾기
                     oForm.EnableMenu("1282", false);  // 문서추가
 
@@ -310,11 +310,11 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
-                StdYear = oForm.Items.Item("StdYear").Specific.VALUE.Trim();
-                YYYYMM = oForm.Items.Item("YYYYMM").Specific.VALUE.Trim();
-                DocDate = oForm.Items.Item("DocDate").Specific.VALUE.Trim();
-                Div = oForm.Items.Item("Div").Specific.VALUE.Trim();
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
+                StdYear = oForm.Items.Item("StdYear").Specific.Value.Trim();
+                YYYYMM = oForm.Items.Item("YYYYMM").Specific.Value.Trim();
+                DocDate = oForm.Items.Item("DocDate").Specific.Value.Trim();
+                Div = oForm.Items.Item("Div").Specific.Value.Trim();
 
                 sQry = "            EXEC [PH_PY417_01] ";
                 sQry = sQry + "'" + CLTCOD + "',"; //사업장
@@ -365,10 +365,10 @@ namespace PSH_BOne_AddOn
 
                 }
 
-                oForm.Items.Item("STot").Specific.VALUE = STot;
-                oForm.Items.Item("JTot").Specific.VALUE = JTot;
-                oForm.Items.Item("NTot").Specific.VALUE = NTot;
-                oForm.Items.Item("Total").Specific.VALUE = Tot;
+                oForm.Items.Item("STot").Specific.Value = STot;
+                oForm.Items.Item("JTot").Specific.Value = JTot;
+                oForm.Items.Item("NTot").Specific.Value = NTot;
+                oForm.Items.Item("Total").Specific.Value = Tot;
 
                 oMat01.LoadFromDataSource();
                 oMat01.AutoResizeColumns();
@@ -427,12 +427,12 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                Param01 = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
-                Param02 = oForm.Items.Item("StdYear").Specific.VALUE.Trim();
-                Param03 = oForm.Items.Item("YM").Specific.VALUE.Trim();
-                Param04 = oForm.Items.Item("DocDate").Specific.VALUE.Trim();
-                Param05 = oForm.Items.Item("JOBTYP").Specific.VALUE.Trim();
-                Param06 = oForm.Items.Item("JOBGBN").Specific.VALUE.Trim();
+                Param01 = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
+                Param02 = oForm.Items.Item("StdYear").Specific.Value.Trim();
+                Param03 = oForm.Items.Item("YM").Specific.Value.Trim();
+                Param04 = oForm.Items.Item("DocDate").Specific.Value.Trim();
+                Param05 = oForm.Items.Item("JOBTYP").Specific.Value.Trim();
+                Param06 = oForm.Items.Item("JOBGBN").Specific.Value.Trim();
 
                 sQry = "EXEC PH_PY417_02 '" + Param01 + "','" + Param02 + "','" + Param03 + "','" + Param04 + "','" + Param05 + "','" + Param06 + "'";
                 oRecordSet.DoQuery(sQry);
@@ -694,7 +694,7 @@ namespace PSH_BOne_AddOn
 
                             PH_PY417_MTX01();
 
-                            if (Conversion.Val(oForm.Items.Item("Total").Specific.VALUE) != 0)
+                            if (Conversion.Val(oForm.Items.Item("Total").Specific.Value) != 0)
                             {
                                 PH_PY417_PY109_Update();
                             }
@@ -837,7 +837,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 // 사업장
-                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.VALUE.Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -846,7 +846,7 @@ namespace PSH_BOne_AddOn
                 }
 
                 // 년도
-                if (string.IsNullOrEmpty(oForm.Items.Item("StdYear").Specific.VALUE.Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("StdYear").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("년도는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("StdYear").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -856,21 +856,21 @@ namespace PSH_BOne_AddOn
 
                 if (oForm.DataSources.UserDataSources.Item("Check01").Value == "Y")
                 {
-                    if (string.IsNullOrEmpty(Strings.Trim(oForm.Items.Item("YM").Specific.VALUE)))
+                    if (string.IsNullOrEmpty(Strings.Trim(oForm.Items.Item("YM").Specific.Value)))
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("지급년월은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                         oForm.Items.Item("YM").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                         functionReturnValue = false;
                         return functionReturnValue;
                     }
-                    if (string.IsNullOrEmpty(Strings.Trim(oForm.Items.Item("JOBTYP").Specific.VALUE)))
+                    if (string.IsNullOrEmpty(Strings.Trim(oForm.Items.Item("JOBTYP").Specific.Value)))
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("지급종류는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                         oForm.Items.Item("JOBTYP").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                         functionReturnValue = false;
                         return functionReturnValue;
                     }
-                    if (string.IsNullOrEmpty(Strings.Trim(oForm.Items.Item("JOBGBN").Specific.VALUE)))
+                    if (string.IsNullOrEmpty(Strings.Trim(oForm.Items.Item("JOBGBN").Specific.Value)))
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("지급구분은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                         oForm.Items.Item("JOBGBN").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -1058,14 +1058,14 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "StdYear":
-                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
-                                StdYear = oForm.Items.Item("StdYear").Specific.VALUE.Trim();
+                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
+                                StdYear = oForm.Items.Item("StdYear").Specific.Value.Trim();
 
                                 // 해당년도의 마지막 급여년월과 지급일자
                                 sQry = "SELECT Distinct YM = U_YM, JIGBIL = Convert(char(8),U_JIGBIL,112) FROM [@PH_PY112A] WHERE U_JOBTYP = '1' And U_JOBGBN = '1' And U_CLTCOD =  '" + CLTCOD + "' And U_YM =  '" + StdYear + "12' ";
                                 oRecordSet.DoQuery(sQry);
-                                oForm.Items.Item("YYYYMM").Specific.VALUE = oRecordSet.Fields.Item("YM").Value.Trim();
-                                oForm.Items.Item("DocDate").Specific.VALUE = oRecordSet.Fields.Item("JIGBIL").Value.Trim();
+                                oForm.Items.Item("YYYYMM").Specific.Value = oRecordSet.Fields.Item("YM").Value.Trim();
+                                oForm.Items.Item("DocDate").Specific.Value = oRecordSet.Fields.Item("JIGBIL").Value.Trim();
                                 break;
                         }
                     }

@@ -415,12 +415,12 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				if (string.IsNullOrEmpty(oForm.Items.Item("StrDate").Specific.VALUE.ToString().Trim()))
+				if (string.IsNullOrEmpty(oForm.Items.Item("StrDate").Specific.Value.ToString().Trim()))
 				{
 					ErrNum = 1;
 					throw new Exception();
 				}
-				if (string.IsNullOrEmpty(oForm.Items.Item("EndDate").Specific.VALUE.ToString().Trim()))
+				if (string.IsNullOrEmpty(oForm.Items.Item("EndDate").Specific.Value.ToString().Trim()))
 				{
 					ErrNum = 2;
 					throw new Exception();
@@ -463,9 +463,9 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				StrDate = oForm.Items.Item("StrDate").Specific.VALUE.ToString().Trim();
-				EndDate = oForm.Items.Item("EndDate").Specific.VALUE.ToString().Trim();
-				BPLId   = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
+				StrDate = oForm.Items.Item("StrDate").Specific.Value.ToString().Trim();
+				EndDate = oForm.Items.Item("EndDate").Specific.Value.ToString().Trim();
+				BPLId   = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
 
 				WinTitle = "[PS_FI931] 부가세집계표";
 				ReportName = "PS_FI931_01.RPT";

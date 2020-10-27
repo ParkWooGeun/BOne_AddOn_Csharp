@@ -1,5 +1,4 @@
 using System;
-
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 
@@ -12,14 +11,11 @@ namespace PSH_BOne_AddOn
 	{
 		private string oFormUniqueID;
 		private SAPbouiCOM.Matrix oMat01;
-			
 		private SAPbouiCOM.DBDataSource oDS_PS_CO670H; //등록헤더
 		private SAPbouiCOM.DBDataSource oDS_PS_CO670L; //등록라인
-
 		private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
 		private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
 		private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
-
 		private int oSeq;
 
         /// <summary>
@@ -46,10 +42,7 @@ namespace PSH_BOne_AddOn
 				oFormUniqueID = "PS_CO670_" + SubMain.Get_TotalFormsCount();
 				SubMain.Add_Forms(this, oFormUniqueID, "PS_CO670");
 
-				string strXml = null;
-				strXml = oXmlDoc.xml.ToString();
-
-				PSH_Globals.SBO_Application.LoadBatchActions(strXml);
+				PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
 				oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
 				oForm.SupportedModes = -1;
@@ -248,7 +241,7 @@ namespace PSH_BOne_AddOn
                 StdDate = oForm.Items.Item("StdDate").Specific.Value.ToString().Trim();
                 CoAcctCD = oForm.Items.Item("CoAcctCD").Specific.Value.ToString().Trim();
 
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet01.RecordCount, false);
+                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
                 oForm.Freeze(true);
 
@@ -308,11 +301,15 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                if (ProgBar01 != null)
+                {
+                    ProgBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                }
+
                 oForm.Update();
-                ProgBar01.Stop();
                 oForm.Freeze(false);
 
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
         }
@@ -645,10 +642,10 @@ namespace PSH_BOne_AddOn
                 for (i = 1; i <= oMat01.VisualRowCount - 1; i++)
                 {
                     //분개여부 UPDATE
-                    sQry = "        UPDATE  [@PS_CO660L]";
-                    sQry = sQry + " SET     U_JEYN = 'N'";
-                    sQry = sQry + " WHERE   DocEntry = " + oMat01.Columns.Item("BasEntry").Cells.Item(i).Specific.VALUE;
-                    sQry = sQry + "         AND LineID = " + oMat01.Columns.Item("BasLine").Cells.Item(i).Specific.VALUE;
+                    sQry = "  UPDATE  [@PS_CO660L]";
+                    sQry += " SET     U_JEYN = 'N'";
+                    sQry += " WHERE   DocEntry = " + oMat01.Columns.Item("BasEntry").Cells.Item(i).Specific.Value;
+                    sQry += "         AND LineID = " + oMat01.Columns.Item("BasLine").Cells.Item(i).Specific.Value;
 
                     oRecordSet01.DoQuery(sQry);
                 }
@@ -668,7 +665,7 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.oCompany.GetNewObjectCode(out sTransId);
                     sQry = "Update [@PS_CO670H] Set U_JdtCanNo = '" + sTransId + "', U_JdtCC = '" + sCC + "' ";
-                    sQry = sQry + "Where DocNum = '" + oDS_PS_CO670H.GetValue("DocNum", 0).ToString().Trim() + "'";
+                    sQry += "Where DocNum = '" + oDS_PS_CO670H.GetValue("DocNum", 0).ToString().Trim() + "'";
                     oRecordSet01.DoQuery(sQry);
 
                     if (PSH_Globals.oCompany.InTransaction == true)
@@ -1112,9 +1109,10 @@ namespace PSH_BOne_AddOn
                 else if (pVal.Before_Action == false)
                 {
                     SubMain.Remove_Forms(oFormUniqueID);
-
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO670H);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO670L);
                 }
             }
             catch (Exception ex)

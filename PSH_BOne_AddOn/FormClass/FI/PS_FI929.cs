@@ -396,22 +396,22 @@ namespace PSH_BOne_AddOn
 
 			//MDC_PS_Common.ConnectODBC();
 
-			////UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			//sDocDate = Strings.Trim(oForm.Items.Item("DocDate").Specific.VALUE);
+			////UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+			//sDocDate = Strings.Trim(oForm.Items.Item("DocDate").Specific.Value);
 			////UPGRADE_WARNING: oForm.Items().Specific.Selected 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			//sType = Strings.Trim(oForm.Items.Item("Type").Specific.Selected.VALUE);
+			//sType = Strings.Trim(oForm.Items.Item("Type").Specific.Selected.Value);
 			////UPGRADE_WARNING: oForm.Items().Specific.Selected 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			//sBPLId = Strings.Trim(oForm.Items.Item("BPLId").Specific.Selected.VALUE);
+			//sBPLId = Strings.Trim(oForm.Items.Item("BPLId").Specific.Selected.Value);
 			//if (string.IsNullOrEmpty(sBPLId))
 			//	sBPLId = "%";
 
 			////// Crystal
 			////UPGRADE_WARNING: oForm.Items(Type).Specific.Selected 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			//if (oForm.Items.Item("Type").Specific.Selected.VALUE == "10") {
+			//if (oForm.Items.Item("Type").Specific.Selected.Value == "10") {
 			//	WinTitle = "[PS_FI929]" + "재무상태표";
 			//	oText[1] = "재무상태표";
 			//	//UPGRADE_WARNING: oForm.Items(Type).Specific.Selected 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			//} else if (oForm.Items.Item("Type").Specific.Selected.VALUE == "20") {
+			//} else if (oForm.Items.Item("Type").Specific.Selected.Value == "20") {
 			//	WinTitle = "[PS_FI929]" + "포괄손익계산서";
 			//	oText[1] = "포괄손익계산서";
 			//}

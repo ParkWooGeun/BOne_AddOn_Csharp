@@ -173,7 +173,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY020_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -201,7 +201,7 @@ namespace PSH_BOne_AddOn
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
                     oForm.EnableMenu("1281", true);                    // 문서찾기
                     oForm.EnableMenu("1282", false);                   // 문서추가
-                    oForm.Items.Item("PosDate").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
+                    oForm.Items.Item("PosDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
                 }
                 else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE))
                 {
@@ -453,7 +453,7 @@ namespace PSH_BOne_AddOn
                                     }
                                 }
                                 sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
-                                sQry = sQry + " WHERE Code = '1' AND U_Char2 = '" + Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE) + "' And U_UseYN = 'Y'";
+                                sQry = sQry + " WHERE Code = '1' AND U_Char2 = '" + Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value) + "' And U_UseYN = 'Y'";
                                 sQry = sQry + " ORDER BY U_Seq";
                                 dataHelpClass.Set_ComboList(oForm.Items.Item("TeamCode").Specific, sQry, "", false, false);
                                 oForm.Items.Item("TeamCode").DisplayDesc = true;
@@ -469,7 +469,7 @@ namespace PSH_BOne_AddOn
                                     }
                                 }
                                 sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
-                                sQry = sQry + " WHERE Code = '2' AND U_Char2 = '" + Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE) + "' And U_Char1 = '" + oForm.Items.Item("TeamCode").Specific.VALUE + "' And U_UseYN = 'Y'";
+                                sQry = sQry + " WHERE Code = '2' AND U_Char2 = '" + Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value) + "' And U_Char1 = '" + oForm.Items.Item("TeamCode").Specific.Value + "' And U_UseYN = 'Y'";
                                 sQry = sQry + " Order By U_Seq";
                                 dataHelpClass.Set_ComboList(oForm.Items.Item("RspCode").Specific, sQry, "", false, false);
                                 oForm.Items.Item("RspCode").DisplayDesc = true;
@@ -485,7 +485,7 @@ namespace PSH_BOne_AddOn
                                     }
                                 }
                                 sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
-                                sQry = sQry + " WHERE Code = '9' AND U_Char3 = '" + Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE) + "' And U_Char1 = '" + oForm.Items.Item("RspCode").Specific.VALUE + "' And U_UseYN = 'Y'";
+                                sQry = sQry + " WHERE Code = '9' AND U_Char3 = '" + Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value) + "' And U_Char1 = '" + oForm.Items.Item("RspCode").Specific.Value + "' And U_UseYN = 'Y'";
                                 sQry = sQry + " Order By U_Seq";
                                 dataHelpClass.Set_ComboList(oForm.Items.Item("ClsCode").Specific, sQry, "", false, false);
                                 oForm.Items.Item("ClsCode").DisplayDesc = true;
@@ -719,7 +719,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 functionReturnValue = false;
-                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.VALUE))
+                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -751,8 +751,8 @@ namespace PSH_BOne_AddOn
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
-                sQry = "Exec PH_PY020 '" + oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim() + "','" + oForm.Items.Item("PosDate").Specific.VALUE.ToString().Trim() + "', '" + oForm.Items.Item("TeamCode").Specific.VALUE.ToString().Trim() + "',";
-                sQry = sQry + "'" + oForm.Items.Item("RspCode").Specific.VALUE.ToString().Trim() + "', '" + oForm.Items.Item("ClsCode").Specific.VALUE.ToString().Trim() + "'";
+                sQry = "Exec PH_PY020 '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "','" + oForm.Items.Item("PosDate").Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("TeamCode").Specific.Value.ToString().Trim() + "',";
+                sQry = sQry + "'" + oForm.Items.Item("RspCode").Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("ClsCode").Specific.Value.ToString().Trim() + "'";
                 oDS_PH_PY020.ExecuteQuery(sQry);
 
                 iRow = oForm.DataSources.DataTables.Item(0).Rows.Count;
@@ -784,7 +784,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 functionReturnValue = false;
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
                 if (oForm.DataSources.DataTables.Item(0).Rows.Count > 0)
                 {
                     for (i = 0; i <= oForm.DataSources.DataTables.Item(0).Rows.Count - 1; i++)

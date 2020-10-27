@@ -314,7 +314,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 functionReturnValue = false;
-                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.VALUE))
+                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -348,11 +348,11 @@ namespace PSH_BOne_AddOn
             string FrDate = string.Empty;
             string ToDate = string.Empty;
 
-            CLTCODE = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
+            CLTCODE = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
             Grantor = PSH_Globals.oCompany.UserName;
-            ObjectCode = oForm.Items.Item("ObjectCode").Specific.VALUE.Trim();
-            FrDate = oForm.Items.Item("FrDt").Specific.VALUE.Trim();
-            ToDate = oForm.Items.Item("ToDt").Specific.VALUE.Trim();
+            ObjectCode = oForm.Items.Item("ObjectCode").Specific.Value.Trim();
+            FrDate = oForm.Items.Item("FrDt").Specific.Value.Trim();
+            ToDate = oForm.Items.Item("ToDt").Specific.Value.Trim();
 
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
@@ -390,7 +390,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 functionReturnValue = false;
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
                 if (PSH_Globals.SBO_Application.MessageBox("저장하시겠습니까?", 2, "Yes", "No") == 2)
                 {
                     ErrNum = 1;
@@ -403,7 +403,7 @@ namespace PSH_BOne_AddOn
                         if (oDS_PS_DateCommit.Columns.Item("OKYN").Cells.Item(i).Value != "N")
                         {
                             sQry = "UPDATE PSH_DateChange SET OKYN = '" + oDS_PS_DateCommit.Columns.Item("OKYN").Cells.Item(i).Value + "', ApprDate = convert(char(8), GETDATE(), 112)";
-                            sQry = sQry + " where ObjectCode ='" + oForm.Items.Item("ObjectCode").Specific.VALUE.Trim() + "'";
+                            sQry = sQry + " where ObjectCode ='" + oForm.Items.Item("ObjectCode").Specific.Value.Trim() + "'";
                             sQry = sQry + "  and OKYN = 'N'";
                             sQry = sQry + "  and DocEntry = '" + oDS_PS_DateCommit.Columns.Item("DocEntry").Cells.Item(i).Value + "'";
                             sQry = sQry + "  and LineId ="  + oDS_PS_DateCommit.Columns.Item("LineId").Cells.Item(i).Value;
@@ -412,7 +412,7 @@ namespace PSH_BOne_AddOn
 
                             if (oDS_PS_DateCommit.Columns.Item("OKYN").Cells.Item(i).Value == "Y")
                             {
-                                sQry = "EXEC [PS_DateCommit_02] '" + oForm.Items.Item("ObjectCode").Specific.VALUE.Trim() + "'";
+                                sQry = "EXEC [PS_DateCommit_02] '" + oForm.Items.Item("ObjectCode").Specific.Value.Trim() + "'";
                                 sQry = sQry + ",'" + oDS_PS_DateCommit.Columns.Item("DocEntry").Cells.Item(i).Value + "'";
                                 sQry = sQry + ",'" + oDS_PS_DateCommit.Columns.Item("LineId").Cells.Item(i).Value + "'";
                                 sQry = sQry + ",'" + oDS_PS_DateCommit.Columns.Item("DocDate").Cells.Item(i).Value + "'";
@@ -590,11 +590,11 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
                 sRow = oRow;
-                BPLId = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
+                BPLId = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                 CreateUser = oDS_PS_DateCommit.Columns.Item("CreateUser").Cells.Item(oRow).Value;
                 DocEntry = oDS_PS_DateCommit.Columns.Item("DocEntry").Cells.Item(oRow).Value;
                 Grantor = PSH_Globals.oCompany.UserName;
-                ObjectCode = oForm.Items.Item("ObjectCode").Specific.VALUE.ToString().Trim(); 
+                ObjectCode = oForm.Items.Item("ObjectCode").Specific.Value.ToString().Trim(); 
                 LineId = oDS_PS_DateCommit.Columns.Item("LineId").Cells.Item(oRow).Value;
 
                 sQry = "SELECT  Comments ";
@@ -610,7 +610,7 @@ namespace PSH_BOne_AddOn
 
                 //공통 S
 
-                oForm.Items.Item("Comments").Specific.VALUE = oRecordSet.Fields.Item("Comments").Value;
+                oForm.Items.Item("Comments").Specific.Value = oRecordSet.Fields.Item("Comments").Value;
 
             }
             catch (Exception ex)
@@ -655,17 +655,17 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "MSTCOD":
-                                sQry = "SELECT U_FullName from [@PH_PY001A] Where Code = '" + oForm.Items.Item("MSTCOD").Specific.VALUE + "'";
+                                sQry = "SELECT U_FullName from [@PH_PY001A] Where Code = '" + oForm.Items.Item("MSTCOD").Specific.Value + "'";
                                 oRecordSet.DoQuery(sQry);
                                 if (oRecordSet.RecordCount > 0)
                                 {
-                                    oForm.Items.Item("FullName").Specific.VALUE = oRecordSet.Fields.Item(0).Value;
+                                    oForm.Items.Item("FullName").Specific.Value = oRecordSet.Fields.Item(0).Value;
 
                                 }
                                 break;
 
                             case "Grid01":
-                                switch (oForm.Items.Item("CLTCOD").Specific.VALUE.Trim())
+                                switch (oForm.Items.Item("CLTCOD").Specific.Value.Trim())
                                 {
                                     case "1":
                                         if (Convert.ToDouble(oDS_PS_DateCommit.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) != 0 & Convert.ToDouble(oDS_PS_DateCommit.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) != 1)

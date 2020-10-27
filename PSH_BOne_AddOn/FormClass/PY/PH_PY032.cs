@@ -271,12 +271,12 @@ namespace PSH_BOne_AddOn
             SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet01.RecordCount, false);
             try
             {
-                sCLTCOD = oForm.Items.Item("SCLTCOD").Specific.VALUE.ToString().Trim();                    //사업장
-                sTeamCd = oForm.Items.Item("STeamCd").Specific.VALUE.ToString().Trim();                    //부서
-                sMSTCOD = oForm.Items.Item("SMSTCOD").Specific.VALUE.ToString().Trim();                    //사원번호
-                SFrDate = oForm.Items.Item("SFrDate").Specific.VALUE.ToString().Trim().Replace(".", "");   //시작일자
-                SToDate = oForm.Items.Item("SToDate").Specific.VALUE.ToString().Trim().Replace(".", "");   //종료일자
-                SObject = oForm.Items.Item("SObject").Specific.VALUE.ToString().Trim();                    //목적
+                sCLTCOD = oForm.Items.Item("SCLTCOD").Specific.Value.ToString().Trim();                    //사업장
+                sTeamCd = oForm.Items.Item("STeamCd").Specific.Value.ToString().Trim();                    //부서
+                sMSTCOD = oForm.Items.Item("SMSTCOD").Specific.Value.ToString().Trim();                    //사원번호
+                SFrDate = oForm.Items.Item("SFrDate").Specific.Value.ToString().Trim().Replace(".", "");   //시작일자
+                SToDate = oForm.Items.Item("SToDate").Specific.Value.ToString().Trim().Replace(".", "");   //종료일자
+                SObject = oForm.Items.Item("SObject").Specific.Value.ToString().Trim();                    //목적
 
                 oForm.Freeze(true);
 
@@ -369,7 +369,7 @@ namespace PSH_BOne_AddOn
             {
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                 {
-                    DocEntry = oForm.Items.Item("DocEntry").Specific.VALUE.ToString().Trim();
+                    DocEntry = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim();
 
                     sQry = "SELECT COUNT(*) FROM [@PH_PY032A] WHERE DocEntry = '" + DocEntry + "'";
                     oRecordSet01.DoQuery(sQry);
@@ -420,15 +420,15 @@ namespace PSH_BOne_AddOn
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
-                DocEntry = Convert.ToInt32(oForm.Items.Item("DocEntry").Specific.VALUE.ToString().Trim());       //관리번호
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();                            //사업장
-                MSTCOD = oForm.Items.Item("MSTCOD").Specific.VALUE.ToString().Trim();                            //사원번호
-                MSTNAM = oForm.Items.Item("MSTNAM").Specific.VALUE.ToString().Trim();                            //사원성명
-                FrDate = oForm.Items.Item("FrDate").Specific.VALUE.ToString().Trim();                            //시작일자
-                FrTime = oForm.Items.Item("FrTime").Specific.VALUE.ToString().Trim();                            //시작시각
-                ToDate = oForm.Items.Item("ToDate").Specific.VALUE.ToString().Trim();                            //종료일자
-                ToTime = oForm.Items.Item("ToTime").Specific.VALUE.ToString().Trim();                            //종료시각
-                Object_Renamed = oForm.Items.Item("Object").Specific.VALUE.ToString().Trim();                    //목적
+                DocEntry = Convert.ToInt32(oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim());       //관리번호
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();                            //사업장
+                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();                            //사원번호
+                MSTNAM = oForm.Items.Item("MSTNAM").Specific.Value.ToString().Trim();                            //사원성명
+                FrDate = oForm.Items.Item("FrDate").Specific.Value.ToString().Trim();                            //시작일자
+                FrTime = oForm.Items.Item("FrTime").Specific.Value.ToString().Trim();                            //시작시각
+                ToDate = oForm.Items.Item("ToDate").Specific.Value.ToString().Trim();                            //종료일자
+                ToTime = oForm.Items.Item("ToTime").Specific.Value.ToString().Trim();                            //종료시각
+                Object_Renamed = oForm.Items.Item("Object").Specific.Value.ToString().Trim();                    //목적
 
                 if (string.IsNullOrEmpty(Convert.ToString(DocEntry).ToString().Trim()))
                 {
@@ -488,14 +488,14 @@ namespace PSH_BOne_AddOn
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();                //사업장
-                MSTCOD = oForm.Items.Item("MSTCOD").Specific.VALUE.ToString().Trim();                //사원번호
-                MSTNAM = oForm.Items.Item("MSTNAM").Specific.VALUE.ToString().Trim();                //사원성명
-                FrDate = oForm.Items.Item("FrDate").Specific.VALUE.ToString().Trim();                //시작일자
-                FrTime = oForm.Items.Item("FrTime").Specific.VALUE.ToString().Trim();                //시작시각
-                ToDate = oForm.Items.Item("ToDate").Specific.VALUE.ToString().Trim();                //종료일자
-                ToTime = oForm.Items.Item("ToTime").Specific.VALUE.ToString().Trim();                //종료시각
-                Object_Renamed = oForm.Items.Item("Object").Specific.VALUE.ToString().Trim();        //목적
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();                //사업장
+                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();                //사원번호
+                MSTNAM = oForm.Items.Item("MSTNAM").Specific.Value.ToString().Trim();                //사원성명
+                FrDate = oForm.Items.Item("FrDate").Specific.Value.ToString().Trim();                //시작일자
+                FrTime = oForm.Items.Item("FrTime").Specific.Value.ToString().Trim();                //시작시각
+                ToDate = oForm.Items.Item("ToDate").Specific.Value.ToString().Trim();                //종료일자
+                ToTime = oForm.Items.Item("ToTime").Specific.Value.ToString().Trim();                //종료시각
+                Object_Renamed = oForm.Items.Item("Object").Specific.Value.ToString().Trim();        //목적
                 UserSign = PSH_Globals.oCompany.UserSignature.ToString();
 
                 //DocEntry는 화면상의 DocEntry가 아닌 입력 시점의 최종 DocEntry를 조회한 후 +1하여 INSERT를 해줘야 함
@@ -692,7 +692,7 @@ namespace PSH_BOne_AddOn
 
                     case "SCLTCOD":
 
-                        sCLTCOD = oForm.Items.Item("SCLTCOD").Specific.VALUE.ToString().Trim();
+                        sCLTCOD = oForm.Items.Item("SCLTCOD").Specific.Value.ToString().Trim();
                         if (oForm.Items.Item("STeamCd").Specific.ValidValues.Count > 0)
                         {
                             for (i = oForm.Items.Item("STeamCd").Specific.ValidValues.Count - 1; i >= 0; i += -1)
@@ -867,12 +867,12 @@ namespace PSH_BOne_AddOn
                 double Distance = 0;                //거리
                 double TransExp = 0;                //교통비
 
-                FuelPrc = Convert.ToDouble(oForm.Items.Item("FuelPrc").Specific.VALUE.ToString().Trim());
-                Distance = Convert.ToDouble(oForm.Items.Item("Distance").Specific.VALUE.ToString().Trim());
+                FuelPrc = Convert.ToDouble(oForm.Items.Item("FuelPrc").Specific.Value.ToString().Trim());
+                Distance = Convert.ToDouble(oForm.Items.Item("Distance").Specific.Value.ToString().Trim());
 
                 TransExp = ((FuelPrc * Distance * 0.1) / 10) * 10;                //원단위 절사
 
-                oForm.Items.Item("TransExp").Specific.VALUE = TransExp;
+                oForm.Items.Item("TransExp").Specific.Value = TransExp;
             }
             catch (Exception ex)
             {
@@ -893,11 +893,11 @@ namespace PSH_BOne_AddOn
             double TotalExp = 0;                //합계
             try
             {
-                TransExp = Convert.ToDouble(oForm.Items.Item("TransExp").Specific.VALUE.ToString().Trim());
-                DayExp = Convert.ToDouble(oForm.Items.Item("DayExp").Specific.VALUE.ToString().Trim());
-                FoodExp = Convert.ToDouble(oForm.Items.Item("FoodExp").Specific.VALUE.ToString().Trim());
-                ParkExp = Convert.ToDouble(oForm.Items.Item("ParkExp").Specific.VALUE.ToString().Trim());
-                TollExp = Convert.ToDouble(oForm.Items.Item("TollExp").Specific.VALUE.ToString().Trim());
+                TransExp = Convert.ToDouble(oForm.Items.Item("TransExp").Specific.Value.ToString().Trim());
+                DayExp = Convert.ToDouble(oForm.Items.Item("DayExp").Specific.Value.ToString().Trim());
+                FoodExp = Convert.ToDouble(oForm.Items.Item("FoodExp").Specific.Value.ToString().Trim());
+                ParkExp = Convert.ToDouble(oForm.Items.Item("ParkExp").Specific.Value.ToString().Trim());
+                TollExp = Convert.ToDouble(oForm.Items.Item("TollExp").Specific.Value.ToString().Trim());
                 TotalExp = TransExp + DayExp + FoodExp + ParkExp + TollExp;
 
                 oDS_PH_PY032A.SetValue("U_TotalExp", 0, Convert.ToString(TotalExp));
@@ -920,14 +920,14 @@ namespace PSH_BOne_AddOn
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
-                FrDate = oForm.Items.Item("FrDate").Specific.VALUE.ToString("yyyy").Trim();
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                FrDate = oForm.Items.Item("FrDate").Specific.Value.ToString("yyyy").Trim();
 
                 sQry = "EXEC PH_PY032_05 '" + CLTCOD + "', '" + FrDate + "'";
                 oRecordSet01.DoQuery(sQry);
 
-                oForm.Items.Item("DestNo1").Specific.VALUE = FrDate;
-                oForm.Items.Item("DestNo2").Specific.VALUE = oRecordSet01.Fields.Item("DestNo2").Value.ToString().Trim();
+                oForm.Items.Item("DestNo1").Specific.Value = FrDate;
+                oForm.Items.Item("DestNo2").Specific.Value = oRecordSet01.Fields.Item("DestNo2").Value.ToString().Trim();
             }
             catch (Exception ex)
             {
@@ -1305,11 +1305,11 @@ namespace PSH_BOne_AddOn
                             PH_PY032_FlushToItemValue(pVal.ItemUID);
                             if (pVal.ItemUID == "MSTCOD")
                             {
-                                oForm.Items.Item("MSTNAM").Specific.VALUE = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("MSTCOD").Specific.VALUE + "'","");                                //성명
+                                oForm.Items.Item("MSTNAM").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("MSTCOD").Specific.Value + "'","");                                //성명
                             }
                             else if (pVal.ItemUID == "SMSTCOD")
                             {
-                                oForm.Items.Item("SMSTNAM").Specific.VALUE = dataHelpClass.Get_ReData("U_FULLNAME", "U_MSTCOD", "[OHEM]", "'" + oForm.Items.Item("SMSTCOD").Specific.VALUE + "'", "");                                //성명
+                                oForm.Items.Item("SMSTNAM").Specific.Value = dataHelpClass.Get_ReData("U_FULLNAME", "U_MSTCOD", "[OHEM]", "'" + oForm.Items.Item("SMSTCOD").Specific.Value + "'", "");                                //성명
                             }
                         }
                     }
@@ -1473,7 +1473,7 @@ namespace PSH_BOne_AddOn
                     {
                         for (i = 1; i <= oMat01.VisualRowCount; i++)
                         {
-                            oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.VALUE = i;
+                            oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value = i;
                         }
                         oMat01.FlushToDataSource();
                         oDS_PH_PY032A.RemoveRecord(oDS_PH_PY032A.Size - 1);
@@ -1518,15 +1518,15 @@ namespace PSH_BOne_AddOn
                             oForm.Freeze(true);
 
                             //DataSource를 이용하여 각 컨트롤에 값을 출력
-                            oDS_PH_PY032A.SetValue("DocEntry", 0, oMat01.Columns.Item("DocEntry").Cells.Item(pVal.Row).Specific.VALUE);                          //관리번호
-                            oDS_PH_PY032A.SetValue("U_CLTCOD", 0, oMat01.Columns.Item("CLTCOD").Cells.Item(pVal.Row).Specific.VALUE);                            //사업장
-                            oDS_PH_PY032A.SetValue("U_MSTCOD", 0, oMat01.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.VALUE);                            //사원번호
-                            oDS_PH_PY032A.SetValue("U_MSTNAM", 0, oMat01.Columns.Item("MSTNAM").Cells.Item(pVal.Row).Specific.VALUE);                            //사원성명
-                            oDS_PH_PY032A.SetValue("U_FrDate", 0, oMat01.Columns.Item("FrDate").Cells.Item(pVal.Row).Specific.VALUE.Replace(".", ""));           //시작일자
-                            oDS_PH_PY032A.SetValue("U_FrTime", 0, oMat01.Columns.Item("FrTime").Cells.Item(pVal.Row).Specific.VALUE);                            //시작시각
-                            oDS_PH_PY032A.SetValue("U_ToDate", 0, oMat01.Columns.Item("ToDate").Cells.Item(pVal.Row).Specific.VALUE.Replace(".", ""));           //종료일자
-                            oDS_PH_PY032A.SetValue("U_ToTime", 0, oMat01.Columns.Item("ToTime").Cells.Item(pVal.Row).Specific.VALUE);                            //종료시각
-                            oDS_PH_PY032A.SetValue("U_Object", 0, oMat01.Columns.Item("Object").Cells.Item(pVal.Row).Specific.VALUE);                            //목적
+                            oDS_PH_PY032A.SetValue("DocEntry", 0, oMat01.Columns.Item("DocEntry").Cells.Item(pVal.Row).Specific.Value);                          //관리번호
+                            oDS_PH_PY032A.SetValue("U_CLTCOD", 0, oMat01.Columns.Item("CLTCOD").Cells.Item(pVal.Row).Specific.Value);                            //사업장
+                            oDS_PH_PY032A.SetValue("U_MSTCOD", 0, oMat01.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.Value);                            //사원번호
+                            oDS_PH_PY032A.SetValue("U_MSTNAM", 0, oMat01.Columns.Item("MSTNAM").Cells.Item(pVal.Row).Specific.Value);                            //사원성명
+                            oDS_PH_PY032A.SetValue("U_FrDate", 0, oMat01.Columns.Item("FrDate").Cells.Item(pVal.Row).Specific.Value.Replace(".", ""));           //시작일자
+                            oDS_PH_PY032A.SetValue("U_FrTime", 0, oMat01.Columns.Item("FrTime").Cells.Item(pVal.Row).Specific.Value);                            //시작시각
+                            oDS_PH_PY032A.SetValue("U_ToDate", 0, oMat01.Columns.Item("ToDate").Cells.Item(pVal.Row).Specific.Value.Replace(".", ""));           //종료일자
+                            oDS_PH_PY032A.SetValue("U_ToTime", 0, oMat01.Columns.Item("ToTime").Cells.Item(pVal.Row).Specific.Value);                            //종료시각
+                            oDS_PH_PY032A.SetValue("U_Object", 0, oMat01.Columns.Item("Object").Cells.Item(pVal.Row).Specific.Value);                            //목적
 
                             oForm.Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
                             PH_PY032_LoadCaption();
@@ -1767,8 +1767,8 @@ namespace PSH_BOne_AddOn
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
             try
             {
-                DocEntry = Convert.ToInt32(oForm.Items.Item("DocEntry").Specific.VALUE.ToString().Trim());
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
+                DocEntry = Convert.ToInt32(oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim());
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                 WinTitle = "[PH_PY032] 사용외출증";
 
                 if (CLTCOD == "1")//창원

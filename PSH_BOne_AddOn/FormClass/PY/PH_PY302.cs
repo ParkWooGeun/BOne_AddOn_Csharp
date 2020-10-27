@@ -105,7 +105,7 @@ namespace PSH_BOne_AddOn
                 // 년도
                 oForm.DataSources.UserDataSources.Add("StdYear", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 4);
                 oForm.Items.Item("StdYear").Specific.DataBind.SetBound(true, "", "StdYear");
-                oForm.Items.Item("StdYear").Specific.VALUE = DateTime.Now.ToString("yyyy");
+                oForm.Items.Item("StdYear").Specific.Value = DateTime.Now.ToString("yyyy");
 
                 // 분기
                 oForm.Items.Item("Quarter").Specific.ValidValues.Add("", "");
@@ -189,7 +189,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY302_FormItemEnabled();
-                    oForm.Items.Item("DocEntry").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -216,7 +216,7 @@ namespace PSH_BOne_AddOn
                     //// 접속자에 따른 권한별 사업장 콤보박스세팅
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
                     //년도 세팅
-                    oForm.Items.Item("StdYear").Specific.VALUE = Convert.ToString(DateTime.Now.Year);
+                    oForm.Items.Item("StdYear").Specific.Value = Convert.ToString(DateTime.Now.Year);
                     oForm.EnableMenu("1281", true);  // 문서찾기
                     oForm.EnableMenu("1282", false); // 문서추가
                 }
@@ -266,8 +266,8 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
 
                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();   // 사업장
-                StdYear = oForm.Items.Item("StdYear").Specific.VALUE.Trim();
-                Quarter = oForm.Items.Item("Quarter").Specific.VALUE.Trim();
+                StdYear = oForm.Items.Item("StdYear").Specific.Value.Trim();
+                Quarter = oForm.Items.Item("Quarter").Specific.Value.Trim();
 
                 sQry = "EXEC PH_PY302_01 '" + CLTCOD + "','" + StdYear + "','" + Quarter + "'";
                 oRecordSet.DoQuery(sQry);
@@ -308,9 +308,9 @@ namespace PSH_BOne_AddOn
 
                 Total = FeeTot + TuiTot;
 
-                oForm.Items.Item("FeeTot").Specific.VALUE = FeeTot;
-                oForm.Items.Item("TuiTot").Specific.VALUE = TuiTot;
-                oForm.Items.Item("Total").Specific.VALUE = Total;
+                oForm.Items.Item("FeeTot").Specific.Value = FeeTot;
+                oForm.Items.Item("TuiTot").Specific.Value = TuiTot;
+                oForm.Items.Item("Total").Specific.Value = Total;
 
                 oMat01.LoadFromDataSource();
                 oMat01.AutoResizeColumns();
@@ -365,8 +365,8 @@ namespace PSH_BOne_AddOn
             try
             {
                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();   // 사업장
-                StdYear = oForm.Items.Item("StdYear").Specific.VALUE.Trim();
-                Quarter = oForm.Items.Item("Quarter").Specific.VALUE.Trim();
+                StdYear = oForm.Items.Item("StdYear").Specific.Value.Trim();
+                Quarter = oForm.Items.Item("Quarter").Specific.Value.Trim();
 
                 oMat01.FlushToDataSource();
                 for (loopCount = 0; loopCount <= oMat01.RowCount - 1; loopCount++)
@@ -658,7 +658,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (pVal.ColUID == "Name" & pVal.CharPressed == Convert.ToDouble("9"))
                         {
-                            if (string.IsNullOrEmpty(oMat01.Columns.Item("Name").Cells.Item(pVal.Row).Specific.VALUE.Trim()))
+                            if (string.IsNullOrEmpty(oMat01.Columns.Item("Name").Cells.Item(pVal.Row).Specific.Value.Trim()))
                             {
                                 PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                                 BubbleEvent = false;
@@ -667,7 +667,7 @@ namespace PSH_BOne_AddOn
                     }
                     else if (pVal.ItemUID == "CntcCode" & pVal.CharPressed == Convert.ToDouble("9"))
                     {
-                        if (string.IsNullOrEmpty(oForm.Items.Item("CntcCode").Specific.VALUE))
+                        if (string.IsNullOrEmpty(oForm.Items.Item("CntcCode").Specific.Value))
                         {
                             PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                             BubbleEvent = false;
@@ -738,7 +738,7 @@ namespace PSH_BOne_AddOn
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
-                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.VALUE))
+                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -746,7 +746,7 @@ namespace PSH_BOne_AddOn
                     return functionReturnValue;
                 }
                 // 년도
-                if (string.IsNullOrEmpty(oForm.Items.Item("StdYear").Specific.VALUE.Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("StdYear").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("년도는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("StdYear").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -754,7 +754,7 @@ namespace PSH_BOne_AddOn
                     return functionReturnValue;
                 }
                 // 분기
-                if (string.IsNullOrEmpty(oForm.Items.Item("Quarter").Specific.VALUE.Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("Quarter").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("분기는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("Quarter").Click(SAPbouiCOM.BoCellClickType.ct_Regular);

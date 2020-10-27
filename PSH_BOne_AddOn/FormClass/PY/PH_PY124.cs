@@ -153,7 +153,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY124_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -207,7 +207,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("YM").Enabled = false;
                     oForm.Items.Item("Comments").Enabled = false;
 
-                    if (oForm.Items.Item("StatYN").Specific.VALUE == "Y")
+                    if (oForm.Items.Item("StatYN").Specific.Value == "Y")
                     {
                         oForm.Items.Item("FieldCo").Enabled = false;
                         oForm.Items.Item("Mat1").Enabled = false;
@@ -1014,10 +1014,10 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                Param01 = oForm.Items.Item("Param01").Specific.VALUE;
-                Param02 = oForm.Items.Item("Param01").Specific.VALUE;
-                Param03 = oForm.Items.Item("Param01").Specific.VALUE;
-                Param04 = oForm.Items.Item("Param01").Specific.VALUE;
+                Param01 = oForm.Items.Item("Param01").Specific.Value;
+                Param02 = oForm.Items.Item("Param01").Specific.Value;
+                Param03 = oForm.Items.Item("Param01").Specific.Value;
+                Param04 = oForm.Items.Item("Param01").Specific.Value;
 
                 sQry = "SELECT 10";
                 oRecordSet.DoQuery(sQry);
@@ -1085,11 +1085,11 @@ namespace PSH_BOne_AddOn
                 DocEntry = DataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PH_PY124'", "");
                 if (Convert.ToDouble(DocEntry) == 0)
                 {
-                    oForm.Items.Item("DocEntry").Specific.VALUE = 1;
+                    oForm.Items.Item("DocEntry").Specific.Value = 1;
                 }
                 else
                 {
-                    oForm.Items.Item("DocEntry").Specific.VALUE = DocEntry;
+                    oForm.Items.Item("DocEntry").Specific.Value = DocEntry;
                 }
             }
             catch (Exception ex)
@@ -1112,7 +1112,7 @@ namespace PSH_BOne_AddOn
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
-                if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY124A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.VALUE + "'", 0, 1) == "Y")
+                if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY124A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "Y")
                 {
                     functionReturnValue = false;
                     ErrNumm = 1;
@@ -1246,7 +1246,7 @@ namespace PSH_BOne_AddOn
             }
             else
             {
-                oForm.Items.Item("Comments").Specific.VALUE = sFile;
+                oForm.Items.Item("Comments").Specific.Value = sFile;
             }
 
             //엑셀 Object 연결
@@ -1437,13 +1437,13 @@ namespace PSH_BOne_AddOn
             {
                 oMat1.FlushToDataSource();
 
-                if (oForm.Items.Item("FieldCo").Specific.VALUE.ToString().Trim().Length == 1)
+                if (oForm.Items.Item("FieldCo").Specific.Value.ToString().Trim().Length == 1)
                 {
-                    AMTLen = Convert.ToString(Convert.ToDouble("0") + oForm.Items.Item("FieldCo").Specific.VALUE).ToString().Trim();
+                    AMTLen = Convert.ToString(Convert.ToDouble("0") + oForm.Items.Item("FieldCo").Specific.Value).ToString().Trim();
                 }
                 else
                 {
-                    AMTLen = oForm.Items.Item("FieldCo").Specific.VALUE.ToString().Trim();
+                    AMTLen = oForm.Items.Item("FieldCo").Specific.Value.ToString().Trim();
                 }
 
                 sQry = "";
@@ -1455,11 +1455,11 @@ namespace PSH_BOne_AddOn
                 oRecordSet.DoQuery(sQry);
 
                 sQry = "";
-                sQry = sQry + " update [@PH_PY124A] set U_statYN = 'Y' where U_NaviDoc ='" +oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim() + oForm.Items.Item("YM").Specific.VALUE.ToString().Trim() + "'";
+                sQry = sQry + " update [@PH_PY124A] set U_statYN = 'Y' where U_NaviDoc ='" +oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + oForm.Items.Item("YM").Specific.Value.ToString().Trim() + "'";
 
                 oRecordSet.DoQuery(sQry);
 
-                oForm.Items.Item("StatYN").Specific.VALUE = "Y";
+                oForm.Items.Item("StatYN").Specific.Value = "Y";
                 oForm.Items.Item("Test").Click((SAPbouiCOM.BoCellClickType.ct_Regular));
 
                 oForm.Items.Item("FieldCo").Enabled = false;
@@ -1503,29 +1503,29 @@ namespace PSH_BOne_AddOn
             {
                 oMat1.FlushToDataSource();
 
-                if (oForm.Items.Item("FieldCo").Specific.VALUE.ToString().Trim().Length == 1)
+                if (oForm.Items.Item("FieldCo").Specific.Value.ToString().Trim().Length == 1)
                 {
-                    AMTLen = Convert.ToString(Convert.ToDouble("0") + oForm.Items.Item("FieldCo").Specific.VALUE).ToString().Trim();
+                    AMTLen = Convert.ToString(Convert.ToDouble("0") + oForm.Items.Item("FieldCo").Specific.Value).ToString().Trim();
                 }
                 else
                 {
-                    AMTLen = oForm.Items.Item("FieldCo").Specific.VALUE.ToString().Trim();
+                    AMTLen = oForm.Items.Item("FieldCo").Specific.Value.ToString().Trim();
                 }
 
                 sQry = "";
                 sQry = sQry + " update [@PH_PY109B]";
                 sQry = sQry + " set U_AMT" + AMTLen + "=isnull(U_AMT" + AMTLen + ",0)  - isnull(b.U_TotAmt,0)";
                 sQry = sQry + " from [@PH_PY109B] a left join [@PH_PY124B] b on left(a.code,1) = left(b.code,1) and SUBSTRING(a.code,2,4) = right(b.code,4) and a.U_MSTCOD  = b.U_MSTCOD";
-                sQry = sQry + " where a.code ='" + oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim() + codeHelpClass.Right(oForm.Items.Item("YM").Specific.VALUE.ToString().Trim(), 4) + "111'";
+                sQry = sQry + " where a.code ='" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + codeHelpClass.Right(oForm.Items.Item("YM").Specific.Value.ToString().Trim(), 4) + "111'";
 
                 oRecordSet.DoQuery(sQry);
 
                 sQry = "";
-                sQry = sQry + " update [@PH_PY124A] set U_statYN = 'N' where U_NaviDoc ='" + oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim() + oForm.Items.Item("YM").Specific.VALUE.ToString().Trim() + "'";
+                sQry = sQry + " update [@PH_PY124A] set U_statYN = 'N' where U_NaviDoc ='" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + oForm.Items.Item("YM").Specific.Value.ToString().Trim() + "'";
 
                 oRecordSet.DoQuery(sQry);
 
-                oForm.Items.Item("StatYN").Specific.VALUE = "N";
+                oForm.Items.Item("StatYN").Specific.Value = "N";
                 oForm.Items.Item("FieldCo").Enabled = true;
                 oForm.Items.Item("Mat1").Enabled = true;
                 oForm.Items.Item("Btn_Apply").Enabled = true;

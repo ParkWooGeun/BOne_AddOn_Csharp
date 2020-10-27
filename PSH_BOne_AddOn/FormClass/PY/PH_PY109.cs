@@ -108,7 +108,7 @@ namespace PSH_BOne_AddOn
                 // 귀속년월
              //   oForm.DataSources.UserDataSources.Add("YM", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 6);
              //   oForm.Items.Item("YM").Specific.DataBind.SetBound(true, "", "YM");
-                oForm.Items.Item("YM").Specific.VALUE = DateTime.Now.ToString("yyyyMM");
+                oForm.Items.Item("YM").Specific.Value = DateTime.Now.ToString("yyyyMM");
 
                 // 지급종류
                 oForm.DataSources.UserDataSources.Add("JOBTYP", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
@@ -219,7 +219,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY109_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -252,7 +252,7 @@ namespace PSH_BOne_AddOn
                     // 접속자에 따른 권한별 사업장 콤보박스세팅
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
                     // 귀속년월
-                    oForm.Items.Item("YM").Specific.VALUE = DateTime.Now.ToString("yyyyMM");
+                    oForm.Items.Item("YM").Specific.Value = DateTime.Now.ToString("yyyyMM");
 
                     oForm.EnableMenu("1281", true);  // 문서찾기
                     oForm.EnableMenu("1282", false); // 문서추가
@@ -685,10 +685,10 @@ namespace PSH_BOne_AddOn
                     if (pVal.ItemUID == "Search")
                     {
                         FindYN = "N";
-                        FullName = oForm.Items.Item("FullName").Specific.VALUE;
+                        FullName = oForm.Items.Item("FullName").Specific.Value;
                         for (i = 1; i <= oMat1.VisualRowCount - 1; i++)
                         {
-                            if (oMat1.Columns.Item("MSTNAM").Cells.Item(i).Specific.VALUE.Trim() == FullName)
+                            if (oMat1.Columns.Item("MSTNAM").Cells.Item(i).Specific.Value.Trim() == FullName)
                             {
                                 FindYN = "Y";
                                 oMat1.SelectRow(i, true, false);
@@ -844,7 +844,7 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.BeforeAction == true & pVal.ItemUID == "Mat1" & pVal.ColUID == "MSTCOD" & pVal.CharPressed == 9)
                 {
-                    if (string.IsNullOrEmpty(oMat1.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.VALUE.Trim()))
+                    if (string.IsNullOrEmpty(oMat1.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.Value.Trim()))
                     {
                         oMat1.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                         PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
@@ -852,7 +852,7 @@ namespace PSH_BOne_AddOn
                     }
                     else
                     {
-                        if (dataHelpClass.Value_ChkYn("[@PH_PY001A]", "Code", Convert.ToString(Convert.ToDouble("'") + oMat1.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.VALUE + Convert.ToDouble("'")),"") == true)
+                        if (dataHelpClass.Value_ChkYn("[@PH_PY001A]", "Code", Convert.ToString(Convert.ToDouble("'") + oMat1.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.Value + Convert.ToDouble("'")),"") == true)
                         {
                             oMat1.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
@@ -891,11 +891,11 @@ namespace PSH_BOne_AddOn
                     {
                         if (pVal.ItemUID == "Mat1" & pVal.ColUID == "MSTCOD")
                         {
-                            if (!string.IsNullOrEmpty(oMat1.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.VALUE.Trim()))
+                            if (!string.IsNullOrEmpty(oMat1.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.Value.Trim()))
                             {
-                                oMat1.Columns.Item("MSTNAM").Cells.Item(pVal.Row).Specific.VALUE = dataHelpClass.Get_ReData("U_FULLNAME", "Code", "[@PH_PY001A]", "'" + oMat1.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.VALUE.Trim() + "'","");
-                                oMat1.Columns.Item("DPTCOD").Cells.Item(pVal.Row).Specific.VALUE = dataHelpClass.Get_ReData("U_TeamCode", "Code", "[@PH_PY001A]", "'" + oMat1.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.VALUE.Trim() + "'","");
-                                oMat1.Columns.Item("DPTNAM").Cells.Item(pVal.Row).Specific.VALUE = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" + oMat1.Columns.Item("DPTCOD").Cells.Item(pVal.Row).Specific.VALUE + "'", " AND Code = '1'");
+                                oMat1.Columns.Item("MSTNAM").Cells.Item(pVal.Row).Specific.Value = dataHelpClass.Get_ReData("U_FULLNAME", "Code", "[@PH_PY001A]", "'" + oMat1.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.Value.Trim() + "'","");
+                                oMat1.Columns.Item("DPTCOD").Cells.Item(pVal.Row).Specific.Value = dataHelpClass.Get_ReData("U_TeamCode", "Code", "[@PH_PY001A]", "'" + oMat1.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.Value.Trim() + "'","");
+                                oMat1.Columns.Item("DPTNAM").Cells.Item(pVal.Row).Specific.Value = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" + oMat1.Columns.Item("DPTCOD").Cells.Item(pVal.Row).Specific.Value + "'", " AND Code = '1'");
                             }
                             PH_PY109_AddMatrixRow();
                             oMat1.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -1178,11 +1178,11 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
-                YM = oForm.Items.Item("YM").Specific.VALUE.ToString().Trim();
-                JOBTYP = oForm.Items.Item("JOBTYP").Specific.VALUE.ToString().Trim();
-                JOBGBN = oForm.Items.Item("JOBGBN").Specific.VALUE.ToString().Trim();
-                JOBTRG = oForm.Items.Item("JOBTRG").Specific.VALUE.ToString().Trim();
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                YM = oForm.Items.Item("YM").Specific.Value.ToString().Trim();
+                JOBTYP = oForm.Items.Item("JOBTYP").Specific.Value.ToString().Trim();
+                JOBGBN = oForm.Items.Item("JOBGBN").Specific.Value.ToString().Trim();
+                JOBTRG = oForm.Items.Item("JOBTRG").Specific.Value.ToString().Trim();
 
                 //// 수당, 공제 테이블 고정:V, 상여:Y 인 값을 임시테이블에 넣는다
                 sQry = "EXEC PH_PY109_01 '" + CLTCOD + "' , '" + YM + "' , '" + JOBTYP + "' , '" + JOBGBN + "' , '" + JOBTRG + "'";
@@ -1332,7 +1332,7 @@ namespace PSH_BOne_AddOn
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
 
                 oForm.Items.Item("CLTCOD").Specific.Select("" + sCLTCOD + "", SAPbouiCOM.BoSearchKey.psk_ByValue);
-                oForm.Items.Item("YM").Specific.VALUE = sYM;
+                oForm.Items.Item("YM").Specific.Value = sYM;
                 oForm.Items.Item("JOBTYP").Specific.Select("" + sJOBTYP + "", SAPbouiCOM.BoSearchKey.psk_ByValue);
                 oForm.Items.Item("JOBGBN").Specific.Select("" + sJOBGBN + "", SAPbouiCOM.BoSearchKey.psk_ByValue);
                 oForm.Items.Item("JOBTRG").Specific.Select("" + sJOBTRG + "", SAPbouiCOM.BoSearchKey.psk_ByValue);

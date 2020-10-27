@@ -347,9 +347,9 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             //case "MSTCOD":
-                            //    sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("MSTCOD").Specific.VALUE.ToString().Trim() + "'";
+                            //    sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "'";
                             //    oRecordSet.DoQuery(sQry);
-                            //    oForm.Items.Item("MSTNAME").Specific.VALUE = oRecordSet.Fields.Item("U_FullName").Value.ToString().Trim();
+                            //    oForm.Items.Item("MSTNAME").Specific.Value = oRecordSet.Fields.Item("U_FullName").Value.ToString().Trim();
                             //    break;
                         }
                     }
@@ -410,11 +410,11 @@ namespace PSH_BOne_AddOn
             string PAYTYP = string.Empty;
             string Div = string.Empty;
 
-            CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
-            JIGTYPFr = oForm.Items.Item("JIGTYPFr").Specific.VALUE.Trim();
-            JIGTYPTo = oForm.Items.Item("JIGTYPTo").Specific.VALUE.Trim();
-            PAYTYP = oForm.Items.Item("PAYTYP").Specific.VALUE.Trim();
-            Div = oForm.Items.Item("Div").Specific.VALUE.Trim();
+            CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
+            JIGTYPFr = oForm.Items.Item("JIGTYPFr").Specific.Value.Trim();
+            JIGTYPTo = oForm.Items.Item("JIGTYPTo").Specific.Value.Trim();
+            PAYTYP = oForm.Items.Item("PAYTYP").Specific.Value.Trim();
+            Div = oForm.Items.Item("Div").Specific.Value.Trim();
 
             if (string.IsNullOrEmpty(JIGTYPFr))
                 JIGTYPFr = "00";

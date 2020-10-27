@@ -293,7 +293,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 functionReturnValue = false;
-                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.VALUE))
+                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -333,10 +333,10 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE);
-                YM = Strings.Trim(oForm.Items.Item("YM").Specific.VALUE);
-                YMFrom = Strings.Trim(oForm.Items.Item("YMFrom").Specific.VALUE);
-                YMTo = Strings.Trim(oForm.Items.Item("YMTo").Specific.VALUE);
+                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
+                YM = Strings.Trim(oForm.Items.Item("YM").Specific.Value);
+                YMFrom = Strings.Trim(oForm.Items.Item("YMFrom").Specific.Value);
+                YMTo = Strings.Trim(oForm.Items.Item("YMTo").Specific.Value);
 
                 sQry = "Exec PH_PY120_01 '" + CLTCOD + "','" + YMFrom + "','" + YMTo + "'";
 
@@ -389,11 +389,11 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
-                YM = oForm.Items.Item("YM").Specific.VALUE;
-                JIGBIL = oForm.Items.Item("JIGBIL").Specific.VALUE;
-                YMFrom = oForm.Items.Item("YMFrom").Specific.VALUE;
-                YMTo = oForm.Items.Item("YMTo").Specific.VALUE;
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
+                YM = oForm.Items.Item("YM").Specific.Value;
+                JIGBIL = oForm.Items.Item("JIGBIL").Specific.Value;
+                YMFrom = oForm.Items.Item("YMFrom").Specific.Value;
+                YMTo = oForm.Items.Item("YMTo").Specific.Value;
                 sQry = "Exec PH_PY111_SOGUBF '" + CLTCOD + "','" + YM + "','" + JIGBIL + "','" + YMFrom + "','" + YMTo + "'";
                 oRecordSet.DoQuery(sQry);
 
@@ -481,17 +481,17 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "MSTCOD":
-                                sQry = "SELECT U_FullName from [@PH_PY001A] Where Code = '" + oForm.Items.Item("MSTCOD").Specific.VALUE + "'";
+                                sQry = "SELECT U_FullName from [@PH_PY001A] Where Code = '" + oForm.Items.Item("MSTCOD").Specific.Value + "'";
                                 oRecordSet.DoQuery(sQry);
                                 if (oRecordSet.RecordCount > 0)
                                 {
-                                    oForm.Items.Item("FullName").Specific.VALUE = oRecordSet.Fields.Item(0).Value;
+                                    oForm.Items.Item("FullName").Specific.Value = oRecordSet.Fields.Item(0).Value;
 
                                 }
                                 break;
 
                             case "Grid01":
-                                switch (oForm.Items.Item("CLTCOD").Specific.VALUE.Trim())
+                                switch (oForm.Items.Item("CLTCOD").Specific.Value.Trim())
                                 {
                                     case "1":
                                         if (Convert.ToDouble(oDS_PH_PY120.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) != 0 & Convert.ToDouble(oDS_PH_PY120.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) != 1)

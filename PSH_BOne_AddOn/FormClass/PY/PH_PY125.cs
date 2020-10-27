@@ -146,7 +146,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY125_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -978,7 +978,7 @@ namespace PSH_BOne_AddOn
             }
             else
             {
-                oForm.Items.Item("Comments").Specific.VALUE = sFile;
+                oForm.Items.Item("Comments").Specific.Value = sFile;
             }
 
             //엑셀 Object 연결
@@ -1039,16 +1039,16 @@ namespace PSH_BOne_AddOn
 
                 for (rowCount = 1; rowCount < oMat1.VisualRowCount; rowCount++)
                 {
-                    FullName = oMat1.Columns.Item("FullName").Cells.Item(rowCount).Specific.VALUE;
-                    GovID = oMat1.Columns.Item("govID").Cells.Item(rowCount).Specific.VALUE.Substring(0, 6) + oMat1.Columns.Item("govID").Cells.Item(rowCount).Specific.VALUE.Substring(6, 1);
+                    FullName = oMat1.Columns.Item("FullName").Cells.Item(rowCount).Specific.Value;
+                    GovID = oMat1.Columns.Item("govID").Cells.Item(rowCount).Specific.Value.Substring(0, 6) + oMat1.Columns.Item("govID").Cells.Item(rowCount).Specific.Value.Substring(6, 1);
 
 
                     sQry = "Select Code, U_CLTCOD From [@PH_PY001A] wHERE U_status <> '5' and U_FullName = '" + FullName + "' And Left(U_govID,7) = '" + GovID + "'";
                     oRecordSet.DoQuery(sQry);
                     if (oRecordSet.RecordCount > 0)
                     {
-                        oMat1.Columns.Item("MSTCOD").Cells.Item(rowCount).Specific.VALUE = oRecordSet.Fields.Item(0).Value;
-                        oMat1.Columns.Item("CLTCOD").Cells.Item(rowCount).Specific.VALUE = oRecordSet.Fields.Item(1).Value;
+                        oMat1.Columns.Item("MSTCOD").Cells.Item(rowCount).Specific.Value = oRecordSet.Fields.Item(0).Value;
+                        oMat1.Columns.Item("CLTCOD").Cells.Item(rowCount).Specific.Value = oRecordSet.Fields.Item(1).Value;
                     }
                 }
             }

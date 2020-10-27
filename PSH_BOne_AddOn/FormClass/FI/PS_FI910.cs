@@ -160,7 +160,7 @@ namespace PSH_BOne_AddOn
 								// 헤더
 								if (pval.ItemUID == "SCardCode")
 								{
-									if (string.IsNullOrEmpty(oForm.Items.Item("SCardCode").Specific.VALUE))
+									if (string.IsNullOrEmpty(oForm.Items.Item("SCardCode").Specific.Value))
 									{
 										PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
 										BubbleEvent = false;
@@ -168,7 +168,7 @@ namespace PSH_BOne_AddOn
 								}
 								if (pval.ItemUID == "ECardCode")
 								{
-									if (string.IsNullOrEmpty(oForm.Items.Item("ECardCode").Specific.VALUE))
+									if (string.IsNullOrEmpty(oForm.Items.Item("ECardCode").Specific.Value))
 									{
 										PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
 										BubbleEvent = false;
@@ -433,7 +433,7 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				if (string.IsNullOrEmpty(oForm.Items.Item("BaseDate").Specific.VALUE.ToString().Trim()))
+				if (string.IsNullOrEmpty(oForm.Items.Item("BaseDate").Specific.Value.ToString().Trim()))
 				{
 					ErrNum = 1;
 					throw new Exception();
@@ -475,10 +475,10 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				BaseDate  = oForm.Items.Item("BaseDate").Specific.VALUE.ToString().Trim();
-				SCardCode = oForm.Items.Item("SCardCode").Specific.VALUE.ToString().Trim();
-				ECardCode = oForm.Items.Item("ECardCode").Specific.VALUE.ToString().Trim();
-				BPLId     = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
+				BaseDate  = oForm.Items.Item("BaseDate").Specific.Value.ToString().Trim();
+				SCardCode = oForm.Items.Item("SCardCode").Specific.Value.ToString().Trim();
+				ECardCode = oForm.Items.Item("ECardCode").Specific.Value.ToString().Trim();
+				BPLId     = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
 
 				if (string.IsNullOrEmpty(SCardCode))
 				{

@@ -1,9 +1,6 @@
 ﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
-using PSH_BOne_AddOn.DataPack;
-using PSH_BOne_AddOn.Form;
-using System.Collections.Generic;
 
 namespace PSH_BOne_AddOn
 {
@@ -14,7 +11,6 @@ namespace PSH_BOne_AddOn
     {
         public string oFormUniqueID;
         public SAPbouiCOM.Grid oGrid01;
-
         private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값       
         private int oLastColRow01;  //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
@@ -43,10 +39,7 @@ namespace PSH_BOne_AddOn
                 oFormUniqueID = "PS_CO920_" + SubMain.Get_TotalFormsCount();
                 SubMain.Add_Forms(this, oFormUniqueID, "PS_CO920");
 
-                string strXml = null;
-                strXml = oXmlDoc.xml.ToString();
-
-                PSH_Globals.SBO_Application.LoadBatchActions(strXml);
+                PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
                 oForm.SupportedModes = -1;
@@ -55,6 +48,11 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PS_CO920_CreateItems();
                 PS_CO920_ComboBox_Setting();
+
+                oForm.Items.Item("FrYM").Specific.Value = DateTime.Now.ToString("yyyyMM");
+                oForm.Items.Item("ToYM").Specific.Value = DateTime.Now.ToString("yyyyMM");
+
+                oForm.Items.Item("BtnPrint").Visible = false;
             }
             catch (Exception ex)
             {
@@ -66,8 +64,6 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(false);
                 oForm.Visible = true;
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oXmlDoc); //메모리 해제 
-                oForm.Items.Item("FrYM").Specific.VALUE = DateTime.Now.ToString("yyyyMM");
-                oForm.Items.Item("ToYM").Specific.VALUE = DateTime.Now.ToString("yyyyMM");
             }
         }
 
@@ -117,7 +113,6 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
-
             }
         }
 
@@ -150,35 +145,37 @@ namespace PSH_BOne_AddOn
             }
         }
 
-
         /// <summary>
         /// PS_CO520_MTX01
         /// </summary>
         private void PS_CO920_MTX01()
         {
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbouiCOM.ProgressBar ProgBar01 = null;
+
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             int errCode = 0;
+
             try
             {
+                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
                 oForm.Freeze(true);
-                int i = 0;
                 string Query01 = string.Empty;
                 string BPLID = string.Empty;
                 string FrYM = string.Empty; 
                 string ToYM = string.Empty; 
                 string CntcCode = string.Empty;
 
-                BPLID = oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim();
-                FrYM = oForm.Items.Item("FrYM").Specific.VALUE;
-                ToYM = oForm.Items.Item("ToYM").Specific.VALUE;
+                BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+                FrYM = oForm.Items.Item("FrYM").Specific.Value;
+                ToYM = oForm.Items.Item("ToYM").Specific.Value;
                 CntcCode = dataHelpClass.User_MSTCOD();
 
-                Query01 = "              EXEC PS_CO920_01 '";
-                Query01 = Query01 + BPLID + "','";
-                Query01 = Query01 + FrYM + "','";
-                Query01 = Query01 + ToYM + "','";
-                Query01 = Query01 + CntcCode + "'";
+                Query01 = "EXEC PS_CO920_01 '";
+                Query01 += BPLID + "','";
+                Query01 += FrYM + "','";
+                Query01 += ToYM + "','";
+                Query01 += CntcCode + "'";
 
                 oGrid01.DataTable.Clear();
                 oForm.DataSources.DataTables.Item("DataTable").ExecuteQuery(Query01);
@@ -211,6 +208,12 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                if (ProgBar01 != null)
+                {
+                    ProgBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                }
+
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
                 oForm.Freeze(false);
                 oForm.Update();
@@ -549,26 +552,20 @@ namespace PSH_BOne_AddOn
                 {
                     switch (pVal.MenuUID)
                     {
-                        case "1284":
-                            //취소
+                        case "1284": //취소
                             break;
-                        case "1286":
-                            //닫기
+                        case "1286": //닫기
                             break;
-                        case "1281":
-                            //찾기
+                        case "1281": //찾기
                             break;
-                        case "1282":
-                            //추가
+                        case "1282": //추가
                             break;
                         case "1288":
                         case "1289":
                         case "1290":
-                        case "1291":
-                            //레코드이동버튼
+                        case "1291": //레코드이동버튼
                             break;
-                        case "1293":
-                            //행삭제
+                        case "1293": //행삭제
                             break;
                     }
                 }
@@ -576,58 +573,20 @@ namespace PSH_BOne_AddOn
                 {
                     switch (pVal.MenuUID)
                     {
-                        case "1284":
-                            //취소
+                        case "1284": //취소
                             break;
-                        case "1286":
-                            //닫기
+                        case "1286": //닫기
                             break;
-                        case "1293":
-                            //행삭제
+                        case "1293": //행삭제
                             break;
-                        ////Call Raise_EVENT_ROW_DELETE(FormUID, pVal, BubbleEvent)
-                        case "1281":
-                            //찾기
+                        case "1281": //찾기
                             break;
-                        case "1282":
-                            //추가
+                        case "1282": //추가
                             break;
                         case "1288":
                         case "1289":
                         case "1290":
-                        case "1291":
-                            //레코드이동버튼
-                            break;
-                    }
-                    ////BeforeAction = False
-                }
-                else if ((pVal.BeforeAction == false))
-                {
-                    switch (pVal.MenuUID)
-                    {
-                        case "1284":
-                            //취소
-                            break;
-                        case "1286":
-                            //닫기
-                            break;
-                        case "1293":
-                            //행삭제
-                            break;
-                        ////Call Raise_EVENT_ROW_DELETE(FormUID, pVal, BubbleEvent)
-                        case "1281":
-                            //찾기
-                            break;
-                        ////Call PS_CO920_FormItemEnabled '//UDO방식
-                        case "1282":
-                            //추가
-                            break;
-                        ////Call PS_CO920_FormItemEnabled '//UDO방식
-                        case "1288":
-                        case "1289":
-                        case "1290":
-                        case "1291":
-                            //레코드이동버튼
+                        case "1291": //레코드이동버튼
                             break;
                     }
                 }

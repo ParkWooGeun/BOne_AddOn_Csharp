@@ -586,7 +586,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO901"); //월별 이익률 분석(기계)
 			oFilter.AddEx("PS_CO920"); //월별 판매실적 대비 공수 조회(기계)
 			oFilter.AddEx("PS_CO921"); //월별 작번별 수주금액 대비 공수 현황(기계)
-			oFilter.AddEx("PS_FI030"); //어음발행리스트
 			oFilter.AddEx("PS_FI040"); //만기일자별 받을어음현황
 			oFilter.AddEx("PS_FI050"); //받을어음 추심의뢰서
 			oFilter.AddEx("PS_FI060"); //받을어음 수탁(발송)대장
@@ -1352,6 +1351,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_FI215"); //지급현황
 			oFilter.AddEx("PS_CO170"); //재공완료 대체관리등록
 			oFilter.AddEx("PS_CO685"); //결산분개등록
 			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
@@ -1380,8 +1380,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO610"); //고정자산 본계정 대체
 			oFilter.AddEx("PS_CO660"); //기간비용등록
 			oFilter.AddEx("PS_CO120"); //공정별 원가 계산
-			oFilter.AddEx("PS_CO510"); //원가계산사전점검조회
-			oFilter.AddEx("PS_CO520"); //제품생산 원가항목별 조회
 			oFilter.AddEx("PS_CO901"); //월별 이익률 분석(기계)
 			oFilter.AddEx("PS_CO920"); //월별 판매실적 대비 공수 조회(기계)
 			oFilter.AddEx("PS_CO921"); //월별 작번별 수주금액 대비 공수 현황(기계)
@@ -1827,7 +1825,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO660"); //기간비용등록
 			oFilter.AddEx("PS_CO510"); // 원가계산재공현황
 			oFilter.AddEx("PS_CO520"); //제품생산 원가항목별 조회
-			oFilter.AddEx("PS_CO501"); //품목별원가등록
 			oFilter.AddEx("PS_CO502"); //품목별평균원가항목등록
 			oFilter.AddEx("PS_CO503"); //일일가득액및생산원가계산
 			oFilter.AddEx("PS_CO504"); //일일판매및생산집계

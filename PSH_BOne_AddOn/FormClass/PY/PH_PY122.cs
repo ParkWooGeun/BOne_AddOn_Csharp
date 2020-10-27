@@ -147,7 +147,7 @@ namespace PSH_BOne_AddOn
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY122_FormItemEnabled();
 
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -640,7 +640,7 @@ namespace PSH_BOne_AddOn
                         {
                             if (pVal.ColUID == "MSTCOD")
                             {
-                                if (string.IsNullOrEmpty(oMat1.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.VALUE))
+                                if (string.IsNullOrEmpty(oMat1.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.Value))
                                 {
                                     PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
                                     BubbleEvent = false;
@@ -648,7 +648,7 @@ namespace PSH_BOne_AddOn
                             }
                             else if (pVal.ColUID == "ATeamCod")
                             {
-                                if (string.IsNullOrEmpty(oMat1.Columns.Item("ATeamCod").Cells.Item(pVal.Row).Specific.VALUE))
+                                if (string.IsNullOrEmpty(oMat1.Columns.Item("ATeamCod").Cells.Item(pVal.Row).Specific.Value))
                                 {
                                     PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
                                     BubbleEvent = false;
@@ -656,7 +656,7 @@ namespace PSH_BOne_AddOn
                             }
                             else if (pVal.ColUID == "ARspCode")
                             {
-                                if (string.IsNullOrEmpty(oMat1.Columns.Item("ARspCode").Cells.Item(pVal.Row).Specific.VALUE))
+                                if (string.IsNullOrEmpty(oMat1.Columns.Item("ARspCode").Cells.Item(pVal.Row).Specific.Value))
                                 {
                                     PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
                                     BubbleEvent = false;
@@ -703,7 +703,7 @@ namespace PSH_BOne_AddOn
                             oMat1.FlushToDataSource();
                             sQry = "select a.Code, FullName = a.U_FullName, TeamCode = a.U_TeamCode, TeamName = (Select U_CodeNm From [@PS_HR200L] Where Code = '1' and U_Code = a.U_TeamCode) ";
                             sQry = sQry + " From [@PH_PY001A] a ";
-                            sQry = sQry + " Where a.U_CLTCOD = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.Trim() + "'";
+                            sQry = sQry + " Where a.U_CLTCOD = '" + oForm.Items.Item("CLTCOD").Specific.Value.Trim() + "'";
                             sQry = sQry + " and a.Code = '" + oDS_PH_PY122B.GetValue("U_MSTCOD", pVal.Row - 1) + "'";
                             oRecordSet.DoQuery(sQry);
 
@@ -938,7 +938,7 @@ namespace PSH_BOne_AddOn
                 {
                     for (i = 1; i <= oMat1.VisualRowCount - 1; i++)
                     {
-                        if (string.IsNullOrEmpty(oMat1.Columns.Item("MSTCOD").Cells.Item(i).Specific.VALUE))
+                        if (string.IsNullOrEmpty(oMat1.Columns.Item("MSTCOD").Cells.Item(i).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("사번은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("MSTCOD").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -946,7 +946,7 @@ namespace PSH_BOne_AddOn
                             return functionReturnValue;
                         }
 
-                        if (string.IsNullOrEmpty(oMat1.Columns.Item("TeamCode").Cells.Item(i).Specific.VALUE))
+                        if (string.IsNullOrEmpty(oMat1.Columns.Item("TeamCode").Cells.Item(i).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("부서코드는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("TeamCode").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -954,7 +954,7 @@ namespace PSH_BOne_AddOn
                             return functionReturnValue;
                         }
 
-                        if (string.IsNullOrEmpty(oMat1.Columns.Item("ATeamCod").Cells.Item(i).Specific.VALUE))
+                        if (string.IsNullOrEmpty(oMat1.Columns.Item("ATeamCod").Cells.Item(i).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("변경부서코드는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("ATeamCod").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -962,7 +962,7 @@ namespace PSH_BOne_AddOn
                             return functionReturnValue;
                         }
 
-                        if (string.IsNullOrEmpty(oMat1.Columns.Item("ARspCode").Cells.Item(i).Specific.VALUE))
+                        if (string.IsNullOrEmpty(oMat1.Columns.Item("ARspCode").Cells.Item(i).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("변경담당코드는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("ARspCode").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);

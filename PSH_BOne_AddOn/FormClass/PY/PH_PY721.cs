@@ -364,8 +364,8 @@ namespace PSH_BOne_AddOn
             string OptBtnValue1 = string.Empty;
 
             CLTCOD = oForm.Items.Item("CLTCOD").Specific.Selected.Value.ToString().Trim();
-            FYM = oForm.Items.Item("FYM").Specific.VALUE.Trim();
-            TYM = oForm.Items.Item("TYM").Specific.VALUE.Trim();
+            FYM = oForm.Items.Item("FYM").Specific.Value.Trim();
+            TYM = oForm.Items.Item("TYM").Specific.Value.Trim();
             OptBtnValue = oForm.DataSources.UserDataSources.Item("OptionDS").Value;
             OptBtnValue1 = oForm.DataSources.UserDataSources.Item("OptionDS").Value;
 

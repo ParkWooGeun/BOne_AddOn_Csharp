@@ -93,10 +93,10 @@ namespace PSH_BOne_AddOn
 				oDS_PS_FI421H.SetValue("U_DocDate", 0, DateTime.Now.ToString("yyyyMMdd"));
 
 				// 발행일자FR
-				oForm.Items.Item("SDocDateFr").Specific.VALUE = DateTime.Now.ToString("yyyyMM") + "01";
+				oForm.Items.Item("SDocDateFr").Specific.Value = DateTime.Now.ToString("yyyyMM") + "01";
 
 				// 발행일자TO
-				oForm.Items.Item("SDocDateTo").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
+				oForm.Items.Item("SDocDateTo").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 
 				// 사번 포커스
 				oForm.Items.Item("CntcCode").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -199,17 +199,17 @@ namespace PSH_BOne_AddOn
 			{
 				oForm.Freeze(true);
 
-				sDocEntry = oForm.Items.Item("SDocEntry").Specific.VALUE.ToString().Trim();            //관리번호
-				SSerialNo = oForm.Items.Item("SSerialNo").Specific.VALUE.ToString().Trim();               //일련번호
-				SBPLID = oForm.Items.Item("SBPLId").Specific.VALUE.ToString().Trim();                  //사업장
-				SRspCode = oForm.Items.Item("SRspCode").Specific.VALUE.ToString().Trim();                //담당
-				SCntcCode = oForm.Items.Item("SCntcCode").Specific.VALUE.ToString().Trim();               //사번
-				SCardCode = oForm.Items.Item("SCardCode").Specific.VALUE.ToString().Trim();               //거래처
-				SDocDateFr = oForm.Items.Item("SDocDateFr").Specific.VALUE.ToString().Trim();              //발행일자FR
-				SDocDateTo = oForm.Items.Item("SDocDateTo").Specific.VALUE.ToString().Trim();              //발행일자TO
-				SAmount = Convert.ToDecimal(oForm.Items.Item("SAmount").Specific.VALUE.ToString().Trim()); //공급가액
-				SVatTax = Convert.ToDecimal(oForm.Items.Item("SVatTax").Specific.VALUE.ToString().Trim()); //부가가치세
-				SContents = oForm.Items.Item("SContents").Specific.VALUE.ToString().Trim();               //내용
+				sDocEntry = oForm.Items.Item("SDocEntry").Specific.Value.ToString().Trim();            //관리번호
+				SSerialNo = oForm.Items.Item("SSerialNo").Specific.Value.ToString().Trim();               //일련번호
+				SBPLID = oForm.Items.Item("SBPLId").Specific.Value.ToString().Trim();                  //사업장
+				SRspCode = oForm.Items.Item("SRspCode").Specific.Value.ToString().Trim();                //담당
+				SCntcCode = oForm.Items.Item("SCntcCode").Specific.Value.ToString().Trim();               //사번
+				SCardCode = oForm.Items.Item("SCardCode").Specific.Value.ToString().Trim();               //거래처
+				SDocDateFr = oForm.Items.Item("SDocDateFr").Specific.Value.ToString().Trim();              //발행일자FR
+				SDocDateTo = oForm.Items.Item("SDocDateTo").Specific.Value.ToString().Trim();              //발행일자TO
+				SAmount = Convert.ToDecimal(oForm.Items.Item("SAmount").Specific.Value.ToString().Trim()); //공급가액
+				SVatTax = Convert.ToDecimal(oForm.Items.Item("SVatTax").Specific.Value.ToString().Trim()); //부가가치세
+				SContents = oForm.Items.Item("SContents").Specific.Value.ToString().Trim();               //내용
 
 				sQry = "                EXEC [PS_FI421_01]";
 				sQry = sQry + "'" + sDocEntry + "',";
@@ -303,7 +303,7 @@ namespace PSH_BOne_AddOn
 			{
 				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
 				{
-					DocEntry = oForm.Items.Item("DocEntry").Specific.VALUE.ToString().Trim();
+					DocEntry = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim();
 
 					sQry = "SELECT COUNT(*) FROM [@PS_FI421H] WHERE DocEntry = '" + DocEntry + "'";
 					oRecordSet.DoQuery(sQry);
@@ -366,18 +366,18 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				DocEntry = oForm.Items.Item("DocEntry").Specific.VALUE.ToString().Trim();            
-				SerialNo = oForm.Items.Item("SerialNo").Specific.VALUE.ToString().Trim();            
-				BPLID = oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim();                  
-				RspCode = oForm.Items.Item("RspCode").Specific.VALUE.ToString().Trim();              
-				CntcCode = oForm.Items.Item("CntcCode").Specific.VALUE.ToString().Trim();            
-				CntcName = oForm.Items.Item("CntcName").Specific.VALUE.ToString().Trim();            
-				CardCode = oForm.Items.Item("CardCode").Specific.VALUE.ToString().Trim();            
-				CardName = oForm.Items.Item("CardName").Specific.VALUE.ToString().Trim();            
-				DocDate = oForm.Items.Item("DocDate").Specific.VALUE.ToString().Trim();              
-				Amount = Convert.ToDecimal(oForm.Items.Item("Amount").Specific.VALUE.ToString().Trim());
-				VatTax = Convert.ToDecimal(oForm.Items.Item("VatTax").Specific.VALUE.ToString().Trim());
-				Contents = oForm.Items.Item("Contents").Specific.VALUE.ToString().Trim(); 
+				DocEntry = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim();            
+				SerialNo = oForm.Items.Item("SerialNo").Specific.Value.ToString().Trim();            
+				BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();                  
+				RspCode = oForm.Items.Item("RspCode").Specific.Value.ToString().Trim();              
+				CntcCode = oForm.Items.Item("CntcCode").Specific.Value.ToString().Trim();            
+				CntcName = oForm.Items.Item("CntcName").Specific.Value.ToString().Trim();            
+				CardCode = oForm.Items.Item("CardCode").Specific.Value.ToString().Trim();            
+				CardName = oForm.Items.Item("CardName").Specific.Value.ToString().Trim();            
+				DocDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();              
+				Amount = Convert.ToDecimal(oForm.Items.Item("Amount").Specific.Value.ToString().Trim());
+				VatTax = Convert.ToDecimal(oForm.Items.Item("VatTax").Specific.Value.ToString().Trim());
+				Contents = oForm.Items.Item("Contents").Specific.Value.ToString().Trim(); 
 				UserSign = PSH_Globals.oCompany.UserSignature.ToString();
 				
 				if (string.IsNullOrEmpty(Convert.ToString(DocEntry)))
@@ -443,17 +443,17 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				SerialNo = oForm.Items.Item("SerialNo").Specific.VALUE.ToString().Trim();
-				BPLID = oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim();
-				RspCode = oForm.Items.Item("RspCode").Specific.VALUE.ToString().Trim();
-				CntcCode = oForm.Items.Item("CntcCode").Specific.VALUE.ToString().Trim();
-				CntcName = oForm.Items.Item("CntcName").Specific.VALUE.ToString().Trim();
-				CardCode = oForm.Items.Item("CardCode").Specific.VALUE.ToString().Trim();
-				CardName = oForm.Items.Item("CardName").Specific.VALUE.ToString().Trim();
-				DocDate = oForm.Items.Item("DocDate").Specific.VALUE.ToString().Trim();
-				Amount = Convert.ToDecimal(oForm.Items.Item("Amount").Specific.VALUE.ToString().Trim());
-				VatTax = Convert.ToDecimal(oForm.Items.Item("VatTax").Specific.VALUE.ToString().Trim());
-				Contents = oForm.Items.Item("Contents").Specific.VALUE.ToString().Trim();
+				SerialNo = oForm.Items.Item("SerialNo").Specific.Value.ToString().Trim();
+				BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+				RspCode = oForm.Items.Item("RspCode").Specific.Value.ToString().Trim();
+				CntcCode = oForm.Items.Item("CntcCode").Specific.Value.ToString().Trim();
+				CntcName = oForm.Items.Item("CntcName").Specific.Value.ToString().Trim();
+				CardCode = oForm.Items.Item("CardCode").Specific.Value.ToString().Trim();
+				CardName = oForm.Items.Item("CardName").Specific.Value.ToString().Trim();
+				DocDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
+				Amount = Convert.ToDecimal(oForm.Items.Item("Amount").Specific.Value.ToString().Trim());
+				VatTax = Convert.ToDecimal(oForm.Items.Item("VatTax").Specific.Value.ToString().Trim());
+				Contents = oForm.Items.Item("Contents").Specific.Value.ToString().Trim();
 				UserSign = PSH_Globals.oCompany.UserSignature.ToString();
 
 				// DocEntry는 화면상의 DocEntry가 아닌 입력 시점의 최종 DocEntry를 조회한 후 +1하여 INSERT를 해줘야 함
@@ -511,26 +511,26 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				if (oForm.Items.Item("RspCode").Specific.VALUE.ToString().Trim() == "%")                    //담당
+				if (oForm.Items.Item("RspCode").Specific.Value.ToString().Trim() == "%")                    //담당
 				{
 					ErrNum = 1;
 					throw new Exception();
 				}
-				if (string.IsNullOrEmpty(oForm.Items.Item("CardCode").Specific.VALUE.ToString().Trim()))    //거래처
+				if (string.IsNullOrEmpty(oForm.Items.Item("CardCode").Specific.Value.ToString().Trim()))    //거래처
 				{   ErrNum = 2;
 					throw new Exception();
 				}
-				if (oForm.Items.Item("DocDate").Specific.VALUE.ToString().Trim() == "%")                    //발행일자
+				if (oForm.Items.Item("DocDate").Specific.Value.ToString().Trim() == "%")                    //발행일자
 				{
 					ErrNum = 3;
 					throw new Exception();
 				}
-				if (oForm.Items.Item("Amount").Specific.VALUE.ToString().Trim() == "0")                     //공급가액
+				if (oForm.Items.Item("Amount").Specific.Value.ToString().Trim() == "0")                     //공급가액
 				{
 					ErrNum = 4;
 					throw new Exception();
 				}
-				if (string.IsNullOrEmpty(oForm.Items.Item("Contents").Specific.VALUE.ToString().Trim()))    //내용
+				if (string.IsNullOrEmpty(oForm.Items.Item("Contents").Specific.Value.ToString().Trim()))    //내용
 				{
 					ErrNum = 5;
 					throw new Exception();
@@ -1000,18 +1000,18 @@ namespace PSH_BOne_AddOn
 							oMat01.SelectRow(pval.Row, true, false);
 							oForm.Freeze(true);
 
-							oDS_PS_FI421H.SetValue("DocEntry", 0, oMat01.Columns.Item("DocEntry").Cells.Item(pval.Row).Specific.VALUE);						//관리번호
-							oDS_PS_FI421H.SetValue("U_SerialNo", 0, oMat01.Columns.Item("SerialNo").Cells.Item(pval.Row).Specific.VALUE);					//일련번호
-							oDS_PS_FI421H.SetValue("U_BPLId", 0, oMat01.Columns.Item("BPLId").Cells.Item(pval.Row).Specific.VALUE);							//사업장
-							oDS_PS_FI421H.SetValue("U_RspCode", 0, oMat01.Columns.Item("RspCode").Cells.Item(pval.Row).Specific.VALUE);						//담당
-							oDS_PS_FI421H.SetValue("U_CntcCode", 0, oMat01.Columns.Item("CntcCode").Cells.Item(pval.Row).Specific.VALUE);					//사번
-							oDS_PS_FI421H.SetValue("U_CntcName", 0, oMat01.Columns.Item("CntcName").Cells.Item(pval.Row).Specific.VALUE);					//성명
-							oDS_PS_FI421H.SetValue("U_CardCode", 0, oMat01.Columns.Item("CardCode").Cells.Item(pval.Row).Specific.VALUE);					//거래처
-							oDS_PS_FI421H.SetValue("U_CardName", 0, oMat01.Columns.Item("CardName").Cells.Item(pval.Row).Specific.VALUE);					//거래처명
-							oDS_PS_FI421H.SetValue("U_DocDate", 0, oMat01.Columns.Item("DocDate").Cells.Item(pval.Row).Specific.VALUE);						//발행일자
-							oDS_PS_FI421H.SetValue("U_Amount", 0, oMat01.Columns.Item("Amount").Cells.Item(pval.Row).Specific.VALUE);						//공급가액
-							oDS_PS_FI421H.SetValue("U_VatTax", 0, oMat01.Columns.Item("VatTax").Cells.Item(pval.Row).Specific.VALUE);						//부가가치세
-							oDS_PS_FI421H.SetValue("U_Contents", 0, oMat01.Columns.Item("Contents").Cells.Item(pval.Row).Specific.VALUE);					//내용
+							oDS_PS_FI421H.SetValue("DocEntry", 0, oMat01.Columns.Item("DocEntry").Cells.Item(pval.Row).Specific.Value);						//관리번호
+							oDS_PS_FI421H.SetValue("U_SerialNo", 0, oMat01.Columns.Item("SerialNo").Cells.Item(pval.Row).Specific.Value);					//일련번호
+							oDS_PS_FI421H.SetValue("U_BPLId", 0, oMat01.Columns.Item("BPLId").Cells.Item(pval.Row).Specific.Value);							//사업장
+							oDS_PS_FI421H.SetValue("U_RspCode", 0, oMat01.Columns.Item("RspCode").Cells.Item(pval.Row).Specific.Value);						//담당
+							oDS_PS_FI421H.SetValue("U_CntcCode", 0, oMat01.Columns.Item("CntcCode").Cells.Item(pval.Row).Specific.Value);					//사번
+							oDS_PS_FI421H.SetValue("U_CntcName", 0, oMat01.Columns.Item("CntcName").Cells.Item(pval.Row).Specific.Value);					//성명
+							oDS_PS_FI421H.SetValue("U_CardCode", 0, oMat01.Columns.Item("CardCode").Cells.Item(pval.Row).Specific.Value);					//거래처
+							oDS_PS_FI421H.SetValue("U_CardName", 0, oMat01.Columns.Item("CardName").Cells.Item(pval.Row).Specific.Value);					//거래처명
+							oDS_PS_FI421H.SetValue("U_DocDate", 0, oMat01.Columns.Item("DocDate").Cells.Item(pval.Row).Specific.Value);						//발행일자
+							oDS_PS_FI421H.SetValue("U_Amount", 0, oMat01.Columns.Item("Amount").Cells.Item(pval.Row).Specific.Value);						//공급가액
+							oDS_PS_FI421H.SetValue("U_VatTax", 0, oMat01.Columns.Item("VatTax").Cells.Item(pval.Row).Specific.Value);						//부가가치세
+							oDS_PS_FI421H.SetValue("U_Contents", 0, oMat01.Columns.Item("Contents").Cells.Item(pval.Row).Specific.Value);					//내용
 
 							oForm.Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
 							PS_FI421_LoadCaption();
@@ -1129,19 +1129,19 @@ namespace PSH_BOne_AddOn
 						{
 							if (pval.ItemUID == "CntcCode")
 							{
-								oForm.Items.Item("CntcName").Specific.VALUE = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("CntcCode").Specific.VALUE + "'", "");								//성명
+								oForm.Items.Item("CntcName").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("CntcCode").Specific.Value + "'", "");								//성명
 							}
 							else if (pval.ItemUID == "SCntcCode")
 							{
-								oForm.Items.Item("SCntcName").Specific.VALUE = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("SCntcCode").Specific.VALUE + "'", "");
+								oForm.Items.Item("SCntcName").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("SCntcCode").Specific.Value + "'", "");
 							}
 							else if (pval.ItemUID == "CardCode")
 							{
-								oForm.Items.Item("CardName").Specific.VALUE = dataHelpClass.Get_ReData("CardName", "CardCode", "[OCRD]", "'" + oForm.Items.Item("CardCode").Specific.VALUE + "'", "");
+								oForm.Items.Item("CardName").Specific.Value = dataHelpClass.Get_ReData("CardName", "CardCode", "[OCRD]", "'" + oForm.Items.Item("CardCode").Specific.Value + "'", "");
 							}
 							else if (pval.ItemUID == "SCardCode")
 							{
-								oForm.Items.Item("SCardName").Specific.VALUE = dataHelpClass.Get_ReData("CardName", "CardCode", "[OCRD]", "'" + oForm.Items.Item("SCardCode").Specific.VALUE + "'", "");
+								oForm.Items.Item("SCardName").Specific.Value = dataHelpClass.Get_ReData("CardName", "CardCode", "[OCRD]", "'" + oForm.Items.Item("SCardCode").Specific.Value + "'", "");
 							}
 						}
 					}
@@ -1327,7 +1327,7 @@ namespace PSH_BOne_AddOn
 					{
 						for (i = 1; i <= oMat01.VisualRowCount; i++)
 						{
-							oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.VALUE = i;
+							oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value = i;
 						}
 						oMat01.FlushToDataSource();
 						oDS_PS_FI421H.RemoveRecord(oDS_PS_FI421H.Size - 1);
@@ -1621,12 +1621,12 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				BPLID   = oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim();
-				DocDate = oForm.Items.Item("DocDate").Specific.VALUE.ToString().Trim().Substring(0, 6);
+				BPLID   = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+				DocDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim().Substring(0, 6);
 				sQry = "EXEC PS_FI421_05 '" + BPLID + "', '" + DocDate + "'";
 				oRecordSet.DoQuery(sQry);
 
-				oForm.Items.Item("SerialNo").Specific.VALUE = oRecordSet.Fields.Item("SerialNo").Value;
+				oForm.Items.Item("SerialNo").Specific.Value = oRecordSet.Fields.Item("SerialNo").Value;
 			}
 			catch (Exception ex)
 			{
@@ -1654,8 +1654,8 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				// 인자 MOVE , Trim 시키기..
-				BPLID = oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim();
-				DocEntry = oForm.Items.Item("DocEntry").Specific.VALUE.ToString().Trim();
+				BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+				DocEntry = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim();
 
 				WinTitle = "[PS_FI421] 입금표";
 

@@ -423,14 +423,14 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "SMSTCOD":
-                                sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("SMSTCOD").Specific.VALUE.ToString().Trim() + "'";
+                                sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("SMSTCOD").Specific.Value.ToString().Trim() + "'";
                                 oRecordSet.DoQuery(sQry);
-                                oForm.Items.Item("SFullName").Specific.VALUE = oRecordSet.Fields.Item("U_FullName").Value.ToString().Trim();
+                                oForm.Items.Item("SFullName").Specific.Value = oRecordSet.Fields.Item("U_FullName").Value.ToString().Trim();
                                 break;
                             case "MSTCOD":
-                                sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("MSTCOD").Specific.VALUE.ToString().Trim() + "'";
+                                sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "'";
                                 oRecordSet.DoQuery(sQry);
-                                oForm.Items.Item("FullName").Specific.VALUE = oRecordSet.Fields.Item("U_FullName").Value.ToString().Trim();
+                                oForm.Items.Item("FullName").Specific.Value = oRecordSet.Fields.Item("U_FullName").Value.ToString().Trim();
                                 break;
                         }
                     }
@@ -483,8 +483,8 @@ namespace PSH_BOne_AddOn
                             {
                                 oForm.Items.Item("Gubun").Specific.Select("", SAPbouiCOM.BoSearchKey.psk_ByValue);
                                 oForm.Items.Item("JOBTYP").Specific.Select("", SAPbouiCOM.BoSearchKey.psk_ByValue);
-                                oForm.Items.Item("MSTCOD").Specific.VALUE = "";
-                                oForm.Items.Item("FullName").Specific.VALUE = "";
+                                oForm.Items.Item("MSTCOD").Specific.Value = "";
+                                oForm.Items.Item("FullName").Specific.Value = "";
                                 oForm.DataSources.UserDataSources.Item("DocDate").Value = "";
                                 oForm.DataSources.UserDataSources.Item("Comments").Value = "";
                                 oForm.DataSources.UserDataSources.Item("GaapAmt").Value = "0";
@@ -598,14 +598,14 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
             
-                MSTCOD = oForm.Items.Item("MSTCOD").Specific.VALUE.ToString().Trim();
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
-                DocDate = oForm.Items.Item("DocDate").Specific.VALUE.ToString().Trim();
-                Gubun = oForm.Items.Item("Gubun").Specific.VALUE.ToString().Trim();
-                JOBTYP = oForm.Items.Item("JOBTYP").Specific.VALUE.ToString().Trim();
-                GaapAmt = Convert.ToDouble(oForm.Items.Item("GaapAmt").Specific.VALUE);
-                BenjAmt = Convert.ToDouble(oForm.Items.Item("BenjAmt").Specific.VALUE);
-                Comments = oForm.Items.Item("Comments").Specific.VALUE.ToString().Trim();
+                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                DocDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
+                Gubun = oForm.Items.Item("Gubun").Specific.Value.ToString().Trim();
+                JOBTYP = oForm.Items.Item("JOBTYP").Specific.Value.ToString().Trim();
+                GaapAmt = Convert.ToDouble(oForm.Items.Item("GaapAmt").Specific.Value);
+                BenjAmt = Convert.ToDouble(oForm.Items.Item("BenjAmt").Specific.Value);
+                Comments = oForm.Items.Item("Comments").Specific.Value.ToString().Trim();
                 
                 if (JOBTYP.Trim().Length != 0)
                 {                
@@ -709,11 +709,11 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
-                MSTCOD = oForm.Items.Item("MSTCOD").Specific.VALUE.ToString().Trim();
-                Gubun = oForm.Items.Item("Gubun").Specific.VALUE.ToString().Trim();
-                DocDate = oForm.Items.Item("DocDate").Specific.VALUE.ToString().Trim();
-                JOBTYP = oForm.Items.Item("JOBTYP").Specific.VALUE.ToString().Trim();
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
+                Gubun = oForm.Items.Item("Gubun").Specific.Value.ToString().Trim();
+                DocDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
+                JOBTYP = oForm.Items.Item("JOBTYP").Specific.Value.ToString().Trim();
 
                 if (JOBTYP.Trim().Length != 0)
                 {

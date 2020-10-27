@@ -160,7 +160,7 @@ namespace PSH_BOne_AddOn
 								////헤더
 								if (pval.ItemUID == "SCardCode")
 								{
-									if (string.IsNullOrEmpty(oForm.Items.Item("SCardCode").Specific.VALUE))
+									if (string.IsNullOrEmpty(oForm.Items.Item("SCardCode").Specific.Value))
 									{
 										PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
 										BubbleEvent = false;
@@ -168,7 +168,7 @@ namespace PSH_BOne_AddOn
 								}
 								if (pval.ItemUID == "ECardCode")
 								{
-									if (string.IsNullOrEmpty(oForm.Items.Item("ECardCode").Specific.VALUE))
+									if (string.IsNullOrEmpty(oForm.Items.Item("ECardCode").Specific.Value))
 									{
 										PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
 										BubbleEvent = false;
@@ -432,7 +432,7 @@ namespace PSH_BOne_AddOn
 			int ErrNum = 0;
 			try
 			{
-				if ( string.IsNullOrEmpty(oForm.Items.Item("StrDate").Specific.VALUE.ToString().Trim()))
+				if ( string.IsNullOrEmpty(oForm.Items.Item("StrDate").Specific.Value.ToString().Trim()))
 				{ 
 					ErrNum = 1;
 					throw new Exception();
@@ -474,14 +474,14 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				StrDate = oForm.Items.Item("StrDate").Specific.VALUE.ToString().Trim();
-				EndDate = oForm.Items.Item("StrDate").Specific.VALUE.ToString().Trim();
+				StrDate = oForm.Items.Item("StrDate").Specific.Value.ToString().Trim();
+				EndDate = oForm.Items.Item("StrDate").Specific.Value.ToString().Trim();
 
 				StrDate = StrDate.Substring(0,6) + "01";
 
-				SCardCode = oForm.Items.Item("SCardCode").Specific.VALUE.ToString().Trim();
-				ECardCode = oForm.Items.Item("ECardCode").Specific.VALUE.ToString().Trim();
-				BPLId     = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
+				SCardCode = oForm.Items.Item("SCardCode").Specific.Value.ToString().Trim();
+				ECardCode = oForm.Items.Item("ECardCode").Specific.Value.ToString().Trim();
+				BPLId     = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
 
 				if (string.IsNullOrEmpty(StrDate))
 				{

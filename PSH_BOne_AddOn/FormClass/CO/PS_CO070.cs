@@ -347,9 +347,9 @@ namespace PSH_BOne_AddOn
 			{
 				oForm.Freeze(true);
 
-				iFrDate = oForm.Items.Item("FRefDate").Specific.VALUE.ToString().Trim();
-				iToDate = oForm.Items.Item("TRefDate").Specific.VALUE.ToString().Trim();
-				iBPLId = oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim();
+				iFrDate = oForm.Items.Item("FRefDate").Specific.Value.ToString().Trim();
+				iToDate = oForm.Items.Item("TRefDate").Specific.Value.ToString().Trim();
+				iBPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
 
 				sQry = "EXEC [PS_CO070_01] '" + iFrDate + "','" + iToDate + "'," + iBPLId;
 
@@ -646,10 +646,10 @@ namespace PSH_BOne_AddOn
 				else if (pVal.Before_Action == false)
                 {
                     // 전기일 시작 종료
-                    string sQry = "select F_RefDate,T_RefDate from OFPR Where CONVERT(CHAR(6),F_RefDate,112) = '" + oForm.Items.Item("YM").Specific.VALUE.ToString().Trim() + "'";
+                    string sQry = "select F_RefDate,T_RefDate from OFPR Where CONVERT(CHAR(6),F_RefDate,112) = '" + oForm.Items.Item("YM").Specific.Value.ToString().Trim() + "'";
                     oRecordSet.DoQuery(sQry);
-                    oForm.Items.Item("FRefDate").Specific.VALUE = Convert.ToDateTime(oRecordSet.Fields.Item(0).Value.ToString().Trim()).ToString("yyyyMMdd");
-                    oForm.Items.Item("TRefDate").Specific.VALUE = Convert.ToDateTime(oRecordSet.Fields.Item(1).Value.ToString().Trim()).ToString("yyyyMMdd");
+                    oForm.Items.Item("FRefDate").Specific.Value = Convert.ToDateTime(oRecordSet.Fields.Item(0).Value.ToString().Trim()).ToString("yyyyMMdd");
+                    oForm.Items.Item("TRefDate").Specific.Value = Convert.ToDateTime(oRecordSet.Fields.Item(1).Value.ToString().Trim()).ToString("yyyyMMdd");
                 }
 			}
 			catch (Exception ex)

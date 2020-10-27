@@ -423,12 +423,12 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				// Check
-				if(string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.VALUE.ToString().Trim()))
+				if(string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.Value.ToString().Trim()))
 				{
 					ErrNum = 1;
 					throw new Exception();
 				}
-				if (oForm.Items.Item("Year").Specific.VALUE.ToString().Trim().Length != 4)
+				if (oForm.Items.Item("Year").Specific.Value.ToString().Trim().Length != 4)
 				{
 					ErrNum = 2;
 					throw new Exception();
@@ -473,9 +473,9 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				// 조회조건문
-				Year_Renamed = oForm.Items.Item("Year").Specific.VALUE.ToString().Trim();
-				BPLId = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
-				Option01 = oForm.Items.Item("Option01").Specific.Selected.VALUE.ToString().Trim();
+				Year_Renamed = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
+				BPLId = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
+				Option01 = oForm.Items.Item("Option01").Specific.Selected.Value.ToString().Trim();
 
 				if (Option01 == "A")   // 항목별
 				{

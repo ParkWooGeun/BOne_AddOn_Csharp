@@ -677,9 +677,9 @@ namespace PSH_BOne_AddOn
                         #region 백업
                         //            If oCol = "MSTCOD" Then
 
-                        //                Call oDS_PH_PY015B.setValue("U_ColReg04", oRow - 1, oMat01.Columns(oCol).Cells(oRow).Specific.VALUE) '사번
+                        //                Call oDS_PH_PY015B.setValue("U_ColReg04", oRow - 1, oMat01.Columns(oCol).Cells(oRow).Specific.Value) '사번
                         //
-                        //                Call oDS_PH_PY015B.setValue("U_ColReg03", oRow - 1, oForm.Items("StdYear").Specific.VALUE) '기준년도
+                        //                Call oDS_PH_PY015B.setValue("U_ColReg03", oRow - 1, oForm.Items("StdYear").Specific.Value) '기준년도
                         //
                         //                '대상자의 인사마스터에서 소속 조회
                         //                sQry = "        SELECT  T0.U_TeamCode AS [TeamCode], " '부서코드
@@ -708,19 +708,19 @@ namespace PSH_BOne_AddOn
                         //                sQry = sQry & "         [@PS_HR200L] AS T4"
                         //                sQry = sQry & "             ON T0.U_JIGCOD = T4.U_Code"
                         //                sQry = sQry & "             AND T4.Code = 'P129'"
-                        //                sQry = sQry & " WHERE   T0.Code = '" & oMat01.Columns(oCol).Cells(oRow).Specific.VALUE & "'"
+                        //                sQry = sQry & " WHERE   T0.Code = '" & oMat01.Columns(oCol).Cells(oRow).Specific.Value & "'"
                         //
                         //                Call oRecordSet01.DoQuery(sQry)
                         //
-                        //                TeamCode = oRecordSet01.Fields("TeamCode").VALUE
-                        //                TeamName = oRecordSet01.Fields("TeamName").VALUE
-                        //                RspCode = oRecordSet01.Fields("RspCode").VALUE
-                        //                RspName = oRecordSet01.Fields("RspName").VALUE
-                        //                ClsCode = oRecordSet01.Fields("ClsCode").VALUE
-                        //                ClsName = oRecordSet01.Fields("ClsName").VALUE
-                        //                FullName = IIf(oMat01.Columns(oCol).Cells(oRow).Specific.VALUE = "9999999", "전사원", oRecordSet01.Fields("FullName").VALUE)
-                        //                JIGNAM = oRecordSet01.Fields("JIGNAM").VALUE
-                        //                CLTCOD = oRecordSet01.Fields("CLTCOD").VALUE
+                        //                TeamCode = oRecordSet01.Fields("TeamCode").Value
+                        //                TeamName = oRecordSet01.Fields("TeamName").Value
+                        //                RspCode = oRecordSet01.Fields("RspCode").Value
+                        //                RspName = oRecordSet01.Fields("RspName").Value
+                        //                ClsCode = oRecordSet01.Fields("ClsCode").Value
+                        //                ClsName = oRecordSet01.Fields("ClsName").Value
+                        //                FullName = IIf(oMat01.Columns(oCol).Cells(oRow).Specific.Value = "9999999", "전사원", oRecordSet01.Fields("FullName").Value)
+                        //                JIGNAM = oRecordSet01.Fields("JIGNAM").Value
+                        //                CLTCOD = oRecordSet01.Fields("CLTCOD").Value
                         //
                         //                Call oDS_PH_PY015B.setValue("U_ColReg06", oRow - 1, TeamCode) '부서코드
                         //                Call oDS_PH_PY015B.setValue("U_ColReg07", oRow - 1, TeamName) '부서명
@@ -741,23 +741,23 @@ namespace PSH_BOne_AddOn
                         //
                         //            ElseIf oCol = "TeamCode" Then
                         //
-                        //                Call oDS_PH_PY015B.setValue("U_ColReg07", oRow - 1, IIf(oMat01.Columns(oCol).Cells(oRow).Specific.VALUE = "9999", "전부서", MDC_GetData.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" & oMat01.Columns(oCol).Cells(oRow).Specific.VALUE & "'", " AND Code = '1'"))) '부서
+                        //                Call oDS_PH_PY015B.setValue("U_ColReg07", oRow - 1, IIf(oMat01.Columns(oCol).Cells(oRow).Specific.Value = "9999", "전부서", MDC_GetData.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" & oMat01.Columns(oCol).Cells(oRow).Specific.Value & "'", " AND Code = '1'"))) '부서
                         //
                         //            ElseIf oCol = "RspCode" Then
                         //
-                        //                Call oDS_PH_PY015B.setValue("U_ColReg09", oRow - 1, MDC_GetData.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" & oMat01.Columns(oCol).Cells(oRow).Specific.VALUE & "'", " AND Code = '2'")) '담당
+                        //                Call oDS_PH_PY015B.setValue("U_ColReg09", oRow - 1, MDC_GetData.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" & oMat01.Columns(oCol).Cells(oRow).Specific.Value & "'", " AND Code = '2'")) '담당
                         //
                         //            ElseIf oCol = "ClsCode" Then
                         //
-                        //                Call oDS_PH_PY015B.setValue("U_ColReg11", oRow - 1, MDC_GetData.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" & oMat01.Columns(oCol).Cells(oRow).Specific.VALUE & "'", " AND Code = '9'")) '반
+                        //                Call oDS_PH_PY015B.setValue("U_ColReg11", oRow - 1, MDC_GetData.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" & oMat01.Columns(oCol).Cells(oRow).Specific.Value & "'", " AND Code = '9'")) '반
                         //
                         //            ElseIf oCol = "Class" Then
                         //
-                        //                Call oDS_PH_PY015B.setValue("U_ColReg14", oRow - 1, MDC_GetData.Get_ReData("name", "edType", "OHED", "'" & oMat01.Columns(oCol).Cells(oRow).Specific.VALUE & "'")) '교육구분
+                        //                Call oDS_PH_PY015B.setValue("U_ColReg14", oRow - 1, MDC_GetData.Get_ReData("name", "edType", "OHED", "'" & oMat01.Columns(oCol).Cells(oRow).Specific.Value & "'")) '교육구분
                         //
                         //            ElseIf oCol = "EduFrDt" Then '교육시작일
                         //
-                        //                EduMonth = Mid(oMat01.Columns(oCol).Cells(oRow).Specific.VALUE, 5, 2)
+                        //                EduMonth = Mid(oMat01.Columns(oCol).Cells(oRow).Specific.Value, 5, 2)
                         //
                         //                If Val(EduMonth) >= 1 And Val(EduMonth) <= 3 Then
                         //
@@ -800,22 +800,22 @@ namespace PSH_BOne_AddOn
 
                     case "MSTCOD": //성명
 
-                        oForm.Items.Item("FullName").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("MSTCOD").Specific.VALUE + "'", "");
+                        oForm.Items.Item("FullName").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("MSTCOD").Specific.Value + "'", "");
                         break;
 
                     case "TeamCode": //부서
 
-                        oForm.Items.Item("TeamName").Specific.Value = dataHelpClass.Get_ReData("U_CodeNm", "U_Code",  "[@PS_HR200L]", "'" + oForm.Items.Item("TeamCode").Specific.VALUE + "'", "AND Code = '1'");
+                        oForm.Items.Item("TeamName").Specific.Value = dataHelpClass.Get_ReData("U_CodeNm", "U_Code",  "[@PS_HR200L]", "'" + oForm.Items.Item("TeamCode").Specific.Value + "'", "AND Code = '1'");
                         break;
 
                     case "RspCode": //담당
 
-                        oForm.Items.Item("RspName").Specific.VALUE = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]",  "'" + oForm.Items.Item("RspCode").Specific.VALUE + "'", "AND Code = '2'");
+                        oForm.Items.Item("RspName").Specific.Value = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]",  "'" + oForm.Items.Item("RspCode").Specific.Value + "'", "AND Code = '2'");
                         break;
 
                     case "ClsCode": //반
 
-                        oForm.Items.Item("ClsName").Specific.VALUE = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" + oForm.Items.Item("ClsCode").Specific.VALUE + "'", "AND Code = '9'");
+                        oForm.Items.Item("ClsName").Specific.Value = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" + oForm.Items.Item("ClsCode").Specific.Value + "'", "AND Code = '9'");
                         break;
                 }
             }

@@ -179,7 +179,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY112_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -224,7 +224,7 @@ namespace PSH_BOne_AddOn
                     if (!string.IsNullOrEmpty(oDS_PH_PY112A.GetValue("U_CLTCOD", 0)))
                     {
                         sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
-                        sQry = sQry + " WHERE Code = '1' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.ToString() + "'";
+                        sQry = sQry + " WHERE Code = '1' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString() + "'";
                         sQry = sQry + " ORDER BY U_Code";
                         dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("TeamCode").Specific,"");
                     }
@@ -240,10 +240,10 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("RspCode").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
                     }
 
-                    if (!string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.VALUE))
+                    if (!string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value))
                     {
                         sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
-                        sQry = sQry + " WHERE Code = '2' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim() + "'";
+                        sQry = sQry + " WHERE Code = '2' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "'";
                         sQry = sQry + " Order By U_Code";
                         dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("RspCode").Specific,"");
                     }
@@ -576,7 +576,7 @@ namespace PSH_BOne_AddOn
                             }
 
                             sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
-                            sQry = sQry + " WHERE Code = '1' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.ToString() + "'";
+                            sQry = sQry + " WHERE Code = '1' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString() + "'";
                             sQry = sQry + " ORDER BY U_Code";
                             dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("TeamCode").Specific,"");
 
@@ -594,7 +594,7 @@ namespace PSH_BOne_AddOn
                             }
 
                             sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
-                            sQry = sQry + " WHERE Code = '2' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim() + "'";
+                            sQry = sQry + " WHERE Code = '2' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "'";
                             sQry = sQry + " Order By U_Code";
                             dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("RspCode").Specific,"");
                             oForm.Items.Item("RspCode").DisplayDesc = true;
@@ -1001,7 +1001,7 @@ namespace PSH_BOne_AddOn
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
-                if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY112A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.VALUE + "'", 0, 1) == "Y")
+                if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY112A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "Y")
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("해당문서는 다른사용자에 의해 취소되었습니다. 작업을 진행할수 없습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     functionReturnValue = false;
@@ -1047,11 +1047,11 @@ namespace PSH_BOne_AddOn
                 DocEntry = dataHelpClass.Get_ReData( "AutoKey",  "ObjectCode",  "ONNM",  "'PH_PY112'",  "");
                 if (Convert.ToDouble(DocEntry) == 0)
                 {
-                    oForm.Items.Item("DocEntry").Specific.VALUE = 1;
+                    oForm.Items.Item("DocEntry").Specific.Value = 1;
                 }
                 else
                 {
-                    oForm.Items.Item("DocEntry").Specific.VALUE = DocEntry;
+                    oForm.Items.Item("DocEntry").Specific.Value = DocEntry;
                 }
             }
             catch (Exception ex)
@@ -1073,7 +1073,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 YM = oDS_PH_PY112A.GetValue("U_YM", 0).ToString().Trim();
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                 oForm.PaneLevel = 1;
 
                 ////지급 항목

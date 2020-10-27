@@ -599,9 +599,9 @@ namespace PSH_BOne_AddOn
 					{
 						if ((pval.ItemUID == "AcctCode"))
 						{
-							sQry = "SELECT AcctName FROM [OACT] WHERE AcctCode = '" + oForm.Items.Item(pval.ItemUID).Specific.VALUE + "'";
+							sQry = "SELECT AcctName FROM [OACT] WHERE AcctCode = '" + oForm.Items.Item(pval.ItemUID).Specific.Value + "'";
 							oRecordSet.DoQuery(sQry);
-							oForm.Items.Item("AcctName").Specific.VALUE = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+							oForm.Items.Item("AcctName").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 						}
 						oForm.Items.Item(pval.ItemUID).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 					}
@@ -868,8 +868,8 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
 
 				//날짜 설정
-				oForm.Items.Item("ToDt").Specific.VALUE = DateTime.Now.ToString("yyyy") + "1231";
-				oForm.Items.Item("FrDt").Specific.VALUE = DateTime.Now.ToString("yyyy") + "0101";
+				oForm.Items.Item("ToDt").Specific.Value = DateTime.Now.ToString("yyyy") + "1231";
+				oForm.Items.Item("FrDt").Specific.Value = DateTime.Now.ToString("yyyy") + "0101";
 			}
 			catch (Exception ex)
 			{
@@ -996,11 +996,11 @@ namespace PSH_BOne_AddOn
 				DocEntry = dataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PS_FI961'", "");
 				if (Convert.ToDouble(DocEntry) == 0)
 				{
-					oForm.Items.Item("DocEntry").Specific.VALUE = 1;
+					oForm.Items.Item("DocEntry").Specific.Value = 1;
 				}
 				else
 				{
-					oForm.Items.Item("DocEntry").Specific.VALUE = DocEntry;
+					oForm.Items.Item("DocEntry").Specific.Value = DocEntry;
 				}
 			}
 			catch (Exception ex)
@@ -1093,10 +1093,10 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				BPLID = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
-				FrDt  = oForm.Items.Item("FrDt").Specific.VALUE.ToString().Trim();
-				ToDt  = oForm.Items.Item("ToDt").Specific.VALUE.ToString().Trim();
-				AcctCode = oForm.Items.Item("AcctCode").Specific.VALUE.ToString().Trim();
+				BPLID = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
+				FrDt  = oForm.Items.Item("FrDt").Specific.Value.ToString().Trim();
+				ToDt  = oForm.Items.Item("ToDt").Specific.Value.ToString().Trim();
+				AcctCode = oForm.Items.Item("AcctCode").Specific.Value.ToString().Trim();
 
 				oForm.Freeze(true);
 
@@ -1194,10 +1194,10 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				BPLID = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
-				FrDt = oForm.Items.Item("FrDt").Specific.VALUE.ToString().Trim();
-				ToDt = oForm.Items.Item("ToDt").Specific.VALUE.ToString().Trim();
-				AcctCode = oForm.Items.Item("AcctCode").Specific.VALUE.ToString().Trim();
+				BPLID = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
+				FrDt = oForm.Items.Item("FrDt").Specific.Value.ToString().Trim();
+				ToDt = oForm.Items.Item("ToDt").Specific.Value.ToString().Trim();
+				AcctCode = oForm.Items.Item("AcctCode").Specific.Value.ToString().Trim();
 
 				oForm.Freeze(true);
 
@@ -1309,17 +1309,17 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				BPLID = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
-				FrDt = oForm.Items.Item("FrDt").Specific.VALUE.ToString().Trim();
-				ToDt = oForm.Items.Item("ToDt").Specific.VALUE.ToString().Trim();
+				BPLID = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
+				FrDt = oForm.Items.Item("FrDt").Specific.Value.ToString().Trim();
+				ToDt = oForm.Items.Item("ToDt").Specific.Value.ToString().Trim();
 
 				if (oForm.PaneLevel == 1)
 				{
-					AcctCode03 = oMat02.Columns.Item("AcctCode03").Cells.Item(oLastColRow01).Specific.VALUE.ToString().Trim();
+					AcctCode03 = oMat02.Columns.Item("AcctCode03").Cells.Item(oLastColRow01).Specific.Value.ToString().Trim();
 				}
 				else
 				{
-					AcctCode03 = oMat01.Columns.Item("AcctCode03").Cells.Item(oLastColRow01).Specific.VALUE.ToString().Trim();
+					AcctCode03 = oMat01.Columns.Item("AcctCode03").Cells.Item(oLastColRow01).Specific.Value.ToString().Trim();
 				}
 
 				//oTempClass = new PS_FI962();

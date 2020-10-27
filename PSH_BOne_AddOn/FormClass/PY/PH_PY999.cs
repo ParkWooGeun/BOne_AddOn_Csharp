@@ -202,7 +202,7 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                if ((oForm.Items.Item("pFSGubun").Specific.VALUE == "F"))
+                if ((oForm.Items.Item("pFSGubun").Specific.Value == "F"))
                 {
                     oForm.Items.Item("pUserID").Enabled = false;
                     oForm.Items.Item("CPUserID").Enabled = false;
@@ -225,7 +225,7 @@ namespace PSH_BOne_AddOn
 
                 }
 
-                if ((oForm.Items.Item("pFSGubun").Specific.VALUE == "S"))
+                if ((oForm.Items.Item("pFSGubun").Specific.Value == "S"))
                 {
                     oForm.Items.Item("pUserID").Enabled = true;
                     oForm.Items.Item("CPUserID").Enabled = false;
@@ -247,7 +247,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("Bt_Copy").Enabled = false;
 
                 }
-                if ((oForm.Items.Item("pFSGubun").Specific.VALUE == "C"))
+                if ((oForm.Items.Item("pFSGubun").Specific.Value == "C"))
                 {
                     oForm.Items.Item("CPUserID").Enabled = true;
                     oForm.Items.Item("pUserID").Enabled = true;
@@ -652,12 +652,12 @@ namespace PSH_BOne_AddOn
                             case "Sub1":
                             case "Sub2":
                             case "Sub3":
-                                if ((oForm.Items.Item("pFSGubun").Specific.VALUE == "F"))
+                                if ((oForm.Items.Item("pFSGubun").Specific.Value == "F"))
                                 {
-                                    oForm.DataSources.UserDataSources.Item("UniqueId").Value = oForm.Items.Item("Modual").Specific.VALUE.ToString().Trim() + oForm.Items.Item("Sub1").Specific.VALUE.ToString().Trim() + oForm.Items.Item("Sub2").Specific.VALUE.ToString().Trim() + oForm.Items.Item("Sub3").Specific.VALUE.ToString().Trim() + oForm.Items.Item("No").Specific.VALUE.ToString().Trim() + oForm.Items.Item("pFSGubun").Specific.VALUE.ToString().Trim();
-                                    oForm.Items.Item("Sequence").Specific.VALUE = oForm.Items.Item("Modual").Specific.VALUE.ToString().Trim() + oForm.Items.Item("Sub1").Specific.VALUE.ToString().Trim() + oForm.Items.Item("Sub2").Specific.VALUE.ToString().Trim() + oForm.Items.Item("Sub3").Specific.VALUE.ToString().Trim() + oForm.Items.Item("No").Specific.VALUE.ToString().Trim() + oForm.Items.Item("pFSGubun").Specific.VALUE.ToString().Trim();
+                                    oForm.DataSources.UserDataSources.Item("UniqueId").Value = oForm.Items.Item("Modual").Specific.Value.ToString().Trim() + oForm.Items.Item("Sub1").Specific.Value.ToString().Trim() + oForm.Items.Item("Sub2").Specific.Value.ToString().Trim() + oForm.Items.Item("Sub3").Specific.Value.ToString().Trim() + oForm.Items.Item("No").Specific.Value.ToString().Trim() + oForm.Items.Item("pFSGubun").Specific.Value.ToString().Trim();
+                                    oForm.Items.Item("Sequence").Specific.Value = oForm.Items.Item("Modual").Specific.Value.ToString().Trim() + oForm.Items.Item("Sub1").Specific.Value.ToString().Trim() + oForm.Items.Item("Sub2").Specific.Value.ToString().Trim() + oForm.Items.Item("Sub3").Specific.Value.ToString().Trim() + oForm.Items.Item("No").Specific.Value.ToString().Trim() + oForm.Items.Item("pFSGubun").Specific.Value.ToString().Trim();
                                 }
-                                oForm.Items.Item("Sequence").Specific.VALUE = oForm.Items.Item("Modual").Specific.VALUE.ToString().Trim() + oForm.Items.Item("Sub1").Specific.VALUE.ToString().Trim() + oForm.Items.Item("Sub2").Specific.VALUE.ToString().Trim() + oForm.Items.Item("Sub3").Specific.VALUE.ToString().Trim() + oForm.Items.Item("No").Specific.VALUE.ToString().Trim() + oForm.Items.Item("pFSGubun").Specific.VALUE.ToString().Trim();
+                                oForm.Items.Item("Sequence").Specific.Value = oForm.Items.Item("Modual").Specific.Value.ToString().Trim() + oForm.Items.Item("Sub1").Specific.Value.ToString().Trim() + oForm.Items.Item("Sub2").Specific.Value.ToString().Trim() + oForm.Items.Item("Sub3").Specific.Value.ToString().Trim() + oForm.Items.Item("No").Specific.Value.ToString().Trim() + oForm.Items.Item("pFSGubun").Specific.Value.ToString().Trim();
                                 break;
                         }
                     }
@@ -769,9 +769,9 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                Param01 = oForm.Items.Item("pGubun").Specific.VALUE.ToString().Trim();
-                Param02 = oForm.Items.Item("pFSGubun").Specific.VALUE.ToString().Trim();
-                Param03 = oForm.Items.Item("pUserID").Specific.VALUE.ToString().Trim();
+                Param01 = oForm.Items.Item("pGubun").Specific.Value.ToString().Trim();
+                Param02 = oForm.Items.Item("pFSGubun").Specific.Value.ToString().Trim();
+                Param03 = oForm.Items.Item("pUserID").Specific.Value.ToString().Trim();
 
                 if (string.IsNullOrEmpty(Param01.ToString().Trim()))
                 {
@@ -832,7 +832,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
 
                 sRow = oRow;
-                Param01 = oForm.Items.Item("pFSGubun").Specific.VALUE.ToString().Trim();
+                Param01 = oForm.Items.Item("pFSGubun").Specific.Value.ToString().Trim();
                 Param02 = oDS_PH_PY999A.Columns.Item("UniqueID").Cells.Item(oRow).Value;
                 if (Param01 != "F")
                 {
@@ -870,7 +870,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("FatherID").Specific.Select(oRecordSet.Fields.Item("FatherID").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
                 oForm.DataSources.UserDataSources.Item("Strings").Value = oRecordSet.Fields.Item("Strings").Value;
                 oForm.DataSources.UserDataSources.Item("UniqueId").Value = oRecordSet.Fields.Item("UniqueID").Value;
-                oForm.Items.Item("Sequence").Specific.VALUE = oRecordSet.Fields.Item("Sequence").Value;
+                oForm.Items.Item("Sequence").Specific.Value = oRecordSet.Fields.Item("Sequence").Value;
             }
             catch (Exception ex)
             {
@@ -921,17 +921,17 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
                 sQry = "select UniqueID, Seq  from Authority_Screen where UserID ='";
-                sQry = sQry + oForm.Items.Item("UserID").Specific.VALUE + "'";
+                sQry = sQry + oForm.Items.Item("UserID").Specific.Value + "'";
                 oRecordSet.DoQuery(sQry);
 
                 for (int i = 0; i <= oRecordSet.RecordCount - 1; i++)
                 {
-                    if (oRecordSet.Fields.Item(0).Value == oForm.Items.Item("UniqueID").Specific.VALUE.ToString().Trim())
+                    if (oRecordSet.Fields.Item(0).Value == oForm.Items.Item("UniqueID").Specific.Value.ToString().Trim())
                     {
                         ErrNum = 1;
                         throw new Exception();
                     }
-                    if (oRecordSet.Fields.Item(1).Value  == oForm.Items.Item("Sequence").Specific.VALUE.ToString().Trim())
+                    if (oRecordSet.Fields.Item(1).Value  == oForm.Items.Item("Sequence").Specific.Value.ToString().Trim())
                     {
                         ErrNum = 1;
                         throw new Exception();
@@ -945,22 +945,22 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                pGubun = oForm.Items.Item("pGubun").Specific.VALUE.ToString().Trim();
-                pFSGubun = oForm.Items.Item("pFSGubun").Specific.VALUE.ToString().Trim();
-                pUserID = oForm.Items.Item("pUserID").Specific.VALUE.ToString().Trim();
-                Modual = oForm.Items.Item("Modual").Specific.VALUE.ToString().Trim();
-                Sub1 = oForm.Items.Item("Sub1").Specific.VALUE.ToString().Trim();
-                Sub2 = oForm.Items.Item("Sub2").Specific.VALUE.ToString().Trim();
-                Sub3 = oForm.Items.Item("Sub3").Specific.VALUE.ToString().Trim();
-                UserID = oForm.Items.Item("UserID").Specific.VALUE.ToString().Trim();
-                No = oForm.Items.Item("No").Specific.VALUE.ToString().Trim();
-                Level = oForm.Items.Item("Level").Specific.VALUE.ToString().Trim();
-                FatherID = oForm.Items.Item("FatherID").Specific.VALUE.ToString().Trim();
-                Position = oForm.Items.Item("Position").Specific.VALUE.ToString().Trim();
-                Strings_Renamed = oForm.Items.Item("Strings").Specific.VALUE.ToString().Trim();
-                UniqueID = oForm.Items.Item("UniqueID").Specific.VALUE.ToString().Trim();
-                Sequence = oForm.Items.Item("Sequence").Specific.VALUE.ToString().Trim();
-                pUniqueID = oForm.Items.Item("UniqueID").Specific.VALUE.ToString().Trim();
+                pGubun = oForm.Items.Item("pGubun").Specific.Value.ToString().Trim();
+                pFSGubun = oForm.Items.Item("pFSGubun").Specific.Value.ToString().Trim();
+                pUserID = oForm.Items.Item("pUserID").Specific.Value.ToString().Trim();
+                Modual = oForm.Items.Item("Modual").Specific.Value.ToString().Trim();
+                Sub1 = oForm.Items.Item("Sub1").Specific.Value.ToString().Trim();
+                Sub2 = oForm.Items.Item("Sub2").Specific.Value.ToString().Trim();
+                Sub3 = oForm.Items.Item("Sub3").Specific.Value.ToString().Trim();
+                UserID = oForm.Items.Item("UserID").Specific.Value.ToString().Trim();
+                No = oForm.Items.Item("No").Specific.Value.ToString().Trim();
+                Level = oForm.Items.Item("Level").Specific.Value.ToString().Trim();
+                FatherID = oForm.Items.Item("FatherID").Specific.Value.ToString().Trim();
+                Position = oForm.Items.Item("Position").Specific.Value.ToString().Trim();
+                Strings_Renamed = oForm.Items.Item("Strings").Specific.Value.ToString().Trim();
+                UniqueID = oForm.Items.Item("UniqueID").Specific.Value.ToString().Trim();
+                Sequence = oForm.Items.Item("Sequence").Specific.Value.ToString().Trim();
+                pUniqueID = oForm.Items.Item("UniqueID").Specific.Value.ToString().Trim();
 
                 sQry = "EXEC PH_PY999_03 '" + pFSGubun + "', '" + pUserID + "', '" + pUniqueID + "', '";
                 sQry = sQry + Sequence + "', '" + UniqueID + "', '" + UserID + "', '" + FatherID + "', '" + Strings_Renamed + "', '";
@@ -1012,18 +1012,18 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                if ((oForm.Items.Item("pFSGubun").Specific.VALUE == "F"))
+                if ((oForm.Items.Item("pFSGubun").Specific.Value == "F"))
                 {
                     sQry = "        delete";
                     sQry = sQry + " from    Authority_Folder";
-                    sQry = sQry + " where   UniqueID = '" + oForm.Items.Item("UniqueID").Specific.VALUE + "'";
+                    sQry = sQry + " where   UniqueID = '" + oForm.Items.Item("UniqueID").Specific.Value + "'";
                 }
                 else
                 {
                     sQry = "        delete";
                     sQry = sQry + " from    Authority_Screen";
-                    sQry = sQry + " where   UniqueID = '" + oForm.Items.Item("UniqueID").Specific.VALUE + "'";
-                    sQry = sQry + "         AND UserID = '" + oForm.Items.Item("pUserID").Specific.VALUE + "'";
+                    sQry = sQry + " where   UniqueID = '" + oForm.Items.Item("UniqueID").Specific.Value + "'";
+                    sQry = sQry + "         AND UserID = '" + oForm.Items.Item("pUserID").Specific.Value + "'";
                 }
                 oRecordSet.DoQuery(sQry);
                 PH_PY999_MTX01();
@@ -1057,8 +1057,8 @@ namespace PSH_BOne_AddOn
             string CPUserID = string.Empty;
             int ErrNo = 0;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            pUserID = oForm.Items.Item("pUserID").Specific.VALUE.ToString().Trim();
-            CPUserID = oForm.Items.Item("CPUserID").Specific.VALUE.ToString().Trim();
+            pUserID = oForm.Items.Item("pUserID").Specific.Value.ToString().Trim();
+            CPUserID = oForm.Items.Item("CPUserID").Specific.Value.ToString().Trim();
             try
             {
                 oForm.Freeze(true);
@@ -1078,7 +1078,7 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    sQry = "delete from Authority_Screen where UniqueID ='" + oForm.Items.Item("UniqueID").Specific.VALUE + "'";
+                    sQry = "delete from Authority_Screen where UniqueID ='" + oForm.Items.Item("UniqueID").Specific.Value + "'";
                 }
 
                 sQry = "Insert into Authority_Screen";

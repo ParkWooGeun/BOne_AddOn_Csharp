@@ -195,7 +195,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY130_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -239,10 +239,10 @@ namespace PSH_BOne_AddOn
                     oForm.EnableMenu("1293", false);                    ////행삭제
 
                 }
-                oForm.Items.Item("S_A").Specific.VALUE = 0;
-                oForm.Items.Item("S_B").Specific.VALUE = 0;
-                oForm.Items.Item("S_C").Specific.VALUE = 0;
-                oForm.Items.Item("S_X").Specific.VALUE = 0;
+                oForm.Items.Item("S_A").Specific.Value = 0;
+                oForm.Items.Item("S_B").Specific.Value = 0;
+                oForm.Items.Item("S_C").Specific.Value = 0;
+                oForm.Items.Item("S_X").Specific.Value = 0;
             }
             catch (Exception ex)
             {
@@ -507,35 +507,35 @@ namespace PSH_BOne_AddOn
                         {
                             for (i = 0; i <= oMat1.VisualRowCount - 1; i++)
                             {
-                                if (oMat1.Columns.Item("Grade").Cells.Item(i + 1).Specific.VALUE == "A")
+                                if (oMat1.Columns.Item("Grade").Cells.Item(i + 1).Specific.Value == "A")
                                 {
                                     S_A = S_A + 1;
                                 }
-                                else if (oMat1.Columns.Item("Grade").Cells.Item(i + 1).Specific.VALUE == "B")
+                                else if (oMat1.Columns.Item("Grade").Cells.Item(i + 1).Specific.Value == "B")
                                 {
                                     S_B = S_B + 1;
                                 }
-                                else if (oMat1.Columns.Item("Grade").Cells.Item(i + 1).Specific.VALUE == "C")
+                                else if (oMat1.Columns.Item("Grade").Cells.Item(i + 1).Specific.Value == "C")
                                 {
                                     S_C = S_C + 1;
                                 }
-                                else if (oMat1.Columns.Item("Grade").Cells.Item(i + 1).Specific.VALUE == "X")
+                                else if (oMat1.Columns.Item("Grade").Cells.Item(i + 1).Specific.Value == "X")
                                 {
                                     S_X = S_X + 1;
                                 }
 
                             }
-                            oForm.Items.Item("S_A").Specific.VALUE = S_A;
-                            oForm.Items.Item("S_B").Specific.VALUE = S_B;
-                            oForm.Items.Item("S_C").Specific.VALUE = S_C;
-                            oForm.Items.Item("S_X").Specific.VALUE = S_X;
+                            oForm.Items.Item("S_A").Specific.Value = S_A;
+                            oForm.Items.Item("S_B").Specific.Value = S_B;
+                            oForm.Items.Item("S_C").Specific.Value = S_C;
+                            oForm.Items.Item("S_X").Specific.Value = S_X;
                         }
                         else
                         {
-                            oForm.Items.Item("S_A").Specific.VALUE = 0;
-                            oForm.Items.Item("S_B").Specific.VALUE = 0;
-                            oForm.Items.Item("S_C").Specific.VALUE = 0;
-                            oForm.Items.Item("S_X").Specific.VALUE = 0;
+                            oForm.Items.Item("S_A").Specific.Value = 0;
+                            oForm.Items.Item("S_B").Specific.Value = 0;
+                            oForm.Items.Item("S_C").Specific.Value = 0;
+                            oForm.Items.Item("S_X").Specific.Value = 0;
                         }
                     }
                 }
@@ -584,37 +584,37 @@ namespace PSH_BOne_AddOn
                     {
                         for (i = 0; i <= oMat1.VisualRowCount - 1; i++)
                         {
-                            if (oMat1.Columns.Item("Grade").Cells.Item(i + 1).Specific.VALUE == "A")
+                            if (oMat1.Columns.Item("Grade").Cells.Item(i + 1).Specific.Value == "A")
                             {
                                 S_A = S_A + 1;
                             }
-                            else if (oMat1.Columns.Item("Grade").Cells.Item(i + 1).Specific.VALUE == "B")
+                            else if (oMat1.Columns.Item("Grade").Cells.Item(i + 1).Specific.Value == "B")
                             {
                                 S_B = S_B + 1;
                             }
-                            else if (oMat1.Columns.Item("Grade").Cells.Item(i + 1).Specific.VALUE == "C")
+                            else if (oMat1.Columns.Item("Grade").Cells.Item(i + 1).Specific.Value == "C")
                             {
                                 S_C = S_C + 1;
                             }
-                            else if (oMat1.Columns.Item("Grade").Cells.Item(i + 1).Specific.VALUE == "X")
+                            else if (oMat1.Columns.Item("Grade").Cells.Item(i + 1).Specific.Value == "X")
                             {
                                 S_X = S_X + 1;
                             }
 
                         }
 
-                        oForm.Items.Item("S_A").Specific.VALUE = S_A;
-                        oForm.Items.Item("S_B").Specific.VALUE = S_B;
-                        oForm.Items.Item("S_C").Specific.VALUE = S_C;
-                        oForm.Items.Item("S_X").Specific.VALUE = S_X;
+                        oForm.Items.Item("S_A").Specific.Value = S_A;
+                        oForm.Items.Item("S_B").Specific.Value = S_B;
+                        oForm.Items.Item("S_C").Specific.Value = S_C;
+                        oForm.Items.Item("S_X").Specific.Value = S_X;
 
                     }
                     else
                     {
-                        oForm.Items.Item("S_A").Specific.VALUE = 0;
-                        oForm.Items.Item("S_B").Specific.VALUE = 0;
-                        oForm.Items.Item("S_C").Specific.VALUE = 0;
-                        oForm.Items.Item("S_X").Specific.VALUE = 0;
+                        oForm.Items.Item("S_A").Specific.Value = 0;
+                        oForm.Items.Item("S_B").Specific.Value = 0;
+                        oForm.Items.Item("S_C").Specific.Value = 0;
+                        oForm.Items.Item("S_X").Specific.Value = 0;
                     }
 
                 }
@@ -1005,7 +1005,7 @@ namespace PSH_BOne_AddOn
                     for (i = 1; i <= oMat1.VisualRowCount - 1; i++)
                     {
                         ////구분
-                        if (string.IsNullOrEmpty(oMat1.Columns.Item("Grade").Cells.Item(i).Specific.VALUE))
+                        if (string.IsNullOrEmpty(oMat1.Columns.Item("Grade").Cells.Item(i).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("등급은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("Grade").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -1104,7 +1104,7 @@ namespace PSH_BOne_AddOn
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
-                if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY130A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.VALUE + "'", 0, 1) == "Y")
+                if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY130A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "Y")
                 {
                     functionReturnValue = false;
                     throw new Exception();

@@ -113,7 +113,7 @@ namespace PSH_BOne_AddOn
                 // 년도
                 oForm.DataSources.UserDataSources.Add("StdYear", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 4);
                 oForm.Items.Item("StdYear").Specific.DataBind.SetBound(true, "", "StdYear");
-                oForm.Items.Item("StdYear").Specific.VALUE = DateTime.Now.ToString("yyyy");
+                oForm.Items.Item("StdYear").Specific.Value = DateTime.Now.ToString("yyyy");
 
                 // 분기
                 oForm.Items.Item("Quarter").Specific.ValidValues.Add("", "");
@@ -294,10 +294,10 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
 
                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();   // 사업장
-                SCode = oForm.Items.Item("SCode").Specific.VALUE.Trim();
-                StdYear = oForm.Items.Item("StdYear").Specific.VALUE.Trim();
-                Quarter = oForm.Items.Item("Quarter").Specific.VALUE.Trim();
-                Count = oForm.Items.Item("Count").Specific.VALUE.Trim();
+                SCode = oForm.Items.Item("SCode").Specific.Value.Trim();
+                StdYear = oForm.Items.Item("StdYear").Specific.Value.Trim();
+                Quarter = oForm.Items.Item("Quarter").Specific.Value.Trim();
+                Count = oForm.Items.Item("Count").Specific.Value.Trim();
 
                 sQry = "            EXEC [PH_PY305_01] ";
                 sQry = sQry + "'" + CLTCOD + "',"; //사업장
@@ -313,9 +313,9 @@ namespace PSH_BOne_AddOn
                 oMat01.FlushToDataSource();
                 oMat01.LoadFromDataSource();
 
-                oForm.Items.Item("Team").Specific.VALUE = oRecordSet.Fields.Item("TeamName").Value;        // 신청인-소속
-                oForm.Items.Item("CntcName").Specific.VALUE = oRecordSet.Fields.Item("CntcName").Value;    // 신청인-성명
-                oForm.Items.Item("startDat").Specific.VALUE = oRecordSet.Fields.Item("startDat").Value;    // 신청인-입사일자
+                oForm.Items.Item("Team").Specific.Value = oRecordSet.Fields.Item("TeamName").Value;        // 신청인-소속
+                oForm.Items.Item("CntcName").Specific.Value = oRecordSet.Fields.Item("CntcName").Value;    // 신청인-성명
+                oForm.Items.Item("startDat").Specific.Value = oRecordSet.Fields.Item("startDat").Value;    // 신청인-입사일자
 
                 if (oRecordSet.RecordCount == 0)
                 {
@@ -354,9 +354,9 @@ namespace PSH_BOne_AddOn
                 }
                 Total = FeeTot + TuiTot;
 
-                oForm.Items.Item("FeeTot").Specific.VALUE = FeeTot;
-                oForm.Items.Item("TuiTot").Specific.VALUE = TuiTot;
-                oForm.Items.Item("Total").Specific.VALUE = Total;
+                oForm.Items.Item("FeeTot").Specific.Value = FeeTot;
+                oForm.Items.Item("TuiTot").Specific.Value = TuiTot;
+                oForm.Items.Item("Total").Specific.Value = Total;
 
                 oMat01.LoadFromDataSource();
                 oMat01.AutoResizeColumns();
@@ -403,7 +403,7 @@ namespace PSH_BOne_AddOn
                 switch (oUID)
                 {
                     case "SCode":
-                        oForm.Items.Item("SName").Specific.VALUE = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("SCode").Specific.VALUE + "'", "");
+                        oForm.Items.Item("SName").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("SCode").Specific.Value + "'", "");
                         break;
                 }
             }
@@ -434,10 +434,10 @@ namespace PSH_BOne_AddOn
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 
             CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();   // 사업장
-            SCode = oForm.Items.Item("SCode").Specific.VALUE.Trim();
-            StdYear = oForm.Items.Item("StdYear").Specific.VALUE.Trim();
-            Quarter = oForm.Items.Item("Quarter").Specific.VALUE.Trim();
-            Count = oForm.Items.Item("Count").Specific.VALUE.Trim();
+            SCode = oForm.Items.Item("SCode").Specific.Value.Trim();
+            StdYear = oForm.Items.Item("StdYear").Specific.Value.Trim();
+            Quarter = oForm.Items.Item("Quarter").Specific.Value.Trim();
+            Count = oForm.Items.Item("Count").Specific.Value.Trim();
 
             try
             {
@@ -713,7 +713,7 @@ namespace PSH_BOne_AddOn
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
-                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.VALUE))
+                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -721,7 +721,7 @@ namespace PSH_BOne_AddOn
                     return functionReturnValue;
                 }
                 // 년도
-                if (string.IsNullOrEmpty(oForm.Items.Item("StdYear").Specific.VALUE.Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("StdYear").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("년도는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("StdYear").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -729,7 +729,7 @@ namespace PSH_BOne_AddOn
                     return functionReturnValue;
                 }
                 // 분기
-                if (string.IsNullOrEmpty(oForm.Items.Item("Quarter").Specific.VALUE.Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("Quarter").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("분기는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("Quarter").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -890,16 +890,16 @@ namespace PSH_BOne_AddOn
 
                             //if (pVal.ItemUID == "MSTCOD")
                             //{
-                            //    oForm.Items.Item("MSTNAM").Specific.VALUE = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("MSTCOD").Specific.VALUE + "'", ""); //성명
+                            //    oForm.Items.Item("MSTNAM").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("MSTCOD").Specific.Value + "'", ""); //성명
                             //}
                             //else if (pVal.ItemUID == "ShiftDatCd")
                             //{
-                            //    oForm.Items.Item("ShiftDatNm").Specific.VALUE = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L] AS T0", "'" + oForm.Items.Item("ShiftDatCd").Specific.VALUE + "'", " AND T0.Code = 'P154' AND T0.U_UseYN = 'Y'"); //근무형태
+                            //    oForm.Items.Item("ShiftDatNm").Specific.Value = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L] AS T0", "'" + oForm.Items.Item("ShiftDatCd").Specific.Value + "'", " AND T0.Code = 'P154' AND T0.U_UseYN = 'Y'"); //근무형태
 
                             //}
                             //else if (pVal.ItemUID == "GNMUJOCd")
                             //{
-                            //    oForm.Items.Item("GNMUJONm").Specific.VALUE = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L] AS T0", "'" + oForm.Items.Item("GNMUJOCd").Specific.VALUE + "'", " AND T0.Code = 'P155' AND T0.U_UseYN = 'Y'"); //근무조
+                            //    oForm.Items.Item("GNMUJONm").Specific.Value = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L] AS T0", "'" + oForm.Items.Item("GNMUJOCd").Specific.Value + "'", " AND T0.Code = 'P155' AND T0.U_UseYN = 'Y'"); //근무조
                             //}
                         }
                     }

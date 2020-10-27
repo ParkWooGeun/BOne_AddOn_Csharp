@@ -442,9 +442,9 @@ namespace PSH_BOne_AddOn
 
                 oForm.EnableMenu("1282", true);  // 문서추가
 
-                if (string.IsNullOrEmpty(Strings.Trim(oForm.Items.Item("Year").Specific.VALUE)))
+                if (string.IsNullOrEmpty(Strings.Trim(oForm.Items.Item("Year").Specific.Value)))
                 {
-                    oForm.Items.Item("Year").Specific.VALUE = Convert.ToString(DateTime.Now.Year - 1);
+                    oForm.Items.Item("Year").Specific.Value = Convert.ToString(DateTime.Now.Year - 1);
                 }
                 //-----------------------------------------------
                 oForm.DataSources.UserDataSources.Item("ws_name1").Value = "";
@@ -781,7 +781,7 @@ namespace PSH_BOne_AddOn
                     }
                     if (pVal.ItemUID == "Btn01")  // 저장
                     {
-                        yyyy = oForm.Items.Item("Year").Specific.VALUE.Trim();
+                        yyyy = oForm.Items.Item("Year").Specific.Value.Trim();
                         sQry = "select b.U_UseYN from [@PS_HR200L] b where b.code ='87' and b.u_code ='" + yyyy + "'";
                         oRecordSet.DoQuery(sQry);
 
@@ -798,7 +798,7 @@ namespace PSH_BOne_AddOn
                     if (pVal.ItemUID == "Btn_del")  // 삭제
                     {
 
-                        yyyy = oForm.Items.Item("Year").Specific.VALUE.Trim();
+                        yyyy = oForm.Items.Item("Year").Specific.Value.Trim();
                         sQry = "select b.U_UseYN from [@PS_HR200L] b where b.code ='87' and b.u_code ='" + yyyy + "'";
                         oRecordSet.DoQuery(sQry);
 
@@ -887,8 +887,8 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "MSTCOD":
-                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE);
-                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.VALUE.Trim();
+                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
+                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
 
                                 sQry = "Select Code,";
                                 sQry = sQry + " FullName = U_FullName,";
@@ -912,14 +912,14 @@ namespace PSH_BOne_AddOn
                                 oRecordSet.DoQuery(sQry);
 
                                 oForm.DataSources.UserDataSources.Item("FullName").Value = oRecordSet.Fields.Item("FullName").Value;
-                                oForm.Items.Item("FullName").Specific.VALUE = oRecordSet.Fields.Item("FullName").Value;
-                                oForm.Items.Item("TeamName").Specific.VALUE = oRecordSet.Fields.Item("TeamName").Value;
-                                oForm.Items.Item("RspName").Specific.VALUE = oRecordSet.Fields.Item("RspName").Value;
-                                oForm.Items.Item("ClsName").Specific.VALUE = oRecordSet.Fields.Item("ClsName").Value;
+                                oForm.Items.Item("FullName").Specific.Value = oRecordSet.Fields.Item("FullName").Value;
+                                oForm.Items.Item("TeamName").Specific.Value = oRecordSet.Fields.Item("TeamName").Value;
+                                oForm.Items.Item("RspName").Specific.Value = oRecordSet.Fields.Item("RspName").Value;
+                                oForm.Items.Item("ClsName").Specific.Value = oRecordSet.Fields.Item("ClsName").Value;
                                 break;
                             case "FullName":
-                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE);
-                                FullName = oForm.Items.Item("FullName").Specific.VALUE.Trim();
+                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
+                                FullName = oForm.Items.Item("FullName").Specific.Value.Trim();
 
                                 sQry = "Select Code,";
                                 sQry = sQry + " FullName = U_FullName,";
@@ -944,16 +944,16 @@ namespace PSH_BOne_AddOn
                                 oRecordSet.DoQuery(sQry);
 
                                 oForm.DataSources.UserDataSources.Item("MSTCOD").Value = oRecordSet.Fields.Item("Code").Value;
-                                //                            oForm.Items("MSTCOD").Specific.VALUE = oRecordSet.Fields("Code").VALUE
-                                oForm.Items.Item("TeamName").Specific.VALUE = oRecordSet.Fields.Item("TeamName").Value;
-                                oForm.Items.Item("RspName").Specific.VALUE = oRecordSet.Fields.Item("RspName").Value;
-                                oForm.Items.Item("ClsName").Specific.VALUE = oRecordSet.Fields.Item("ClsName").Value;
+                                //                            oForm.Items("MSTCOD").Specific.Value = oRecordSet.Fields("Code").Value
+                                oForm.Items.Item("TeamName").Specific.Value = oRecordSet.Fields.Item("TeamName").Value;
+                                oForm.Items.Item("RspName").Specific.Value = oRecordSet.Fields.Item("RspName").Value;
+                                oForm.Items.Item("ClsName").Specific.Value = oRecordSet.Fields.Item("ClsName").Value;
                                 break;
 
                             case "ws_mamt1":
-                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE);
-                                yyyy = oForm.Items.Item("Year").Specific.VALUE.Trim();
-                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.VALUE.Trim();
+                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
+                                yyyy = oForm.Items.Item("Year").Specific.Value.Trim();
+                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
 
                                 //총급여액계산해서 5,500 이하는 15% 아니면 12%
                                 sQry = "SELECT SUM(gwase) ";
@@ -976,19 +976,19 @@ namespace PSH_BOne_AddOn
                                 oRecordSet.DoQuery(sQry);
                                 samt = oRecordSet.Fields.Item(0).Value;  // 총급여액(과세대상)
 
-                                if (Convert.ToDouble(oForm.Items.Item("ws_mamt1").Specific.VALUE.Trim()) > 7500000)  // 한도 7백5십만원
+                                if (Convert.ToDouble(oForm.Items.Item("ws_mamt1").Specific.Value.Trim()) > 7500000)  // 한도 7백5십만원
                                 {
-                                    oForm.Items.Item("ws_mamt1").Specific.VALUE = 7500000;
+                                    oForm.Items.Item("ws_mamt1").Specific.Value = 7500000;
                                 }
 
                                 gamt = 0;
                                 if (samt <= 70000000)  // 7천이하자  10%
                                 {
-                                    gamt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("ws_mamt1").Specific.VALUE.Trim()) * 0.1, 0);
+                                    gamt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("ws_mamt1").Specific.Value.Trim()) * 0.1, 0);
                                 }
                                 if (samt <= 55000000)  // 5천5백이하자  12%
                                 {
-                                    gamt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("ws_mamt1").Specific.VALUE.Trim()) * 0.12, 0);
+                                    gamt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("ws_mamt1").Specific.Value.Trim()) * 0.12, 0);
                                 }
 
                                 if (gamt < 0)
@@ -996,13 +996,13 @@ namespace PSH_BOne_AddOn
                                     gamt = 0;
                                 }
 
-                                oForm.Items.Item("ws_gamt1").Specific.VALUE = gamt;
+                                oForm.Items.Item("ws_gamt1").Specific.Value = gamt;
                                 break;
 
                             case "ws_mamt2":
-                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE);
-                                yyyy = oForm.Items.Item("Year").Specific.VALUE.Trim();
-                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.VALUE.Trim();
+                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
+                                yyyy = oForm.Items.Item("Year").Specific.Value.Trim();
+                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
 
                                 //총급여액계산해서 5,500 이하는 15% 아니면 12%
                                 sQry = "SELECT SUM(gwase) ";
@@ -1025,19 +1025,19 @@ namespace PSH_BOne_AddOn
                                 oRecordSet.DoQuery(sQry);
                                 samt = oRecordSet.Fields.Item(0).Value;  // 총급여액(과세대상)
 
-                                if (Convert.ToDouble(oForm.Items.Item("ws_mamt2").Specific.VALUE.Trim()) > 7500000)  // 한도 7백5십만원
+                                if (Convert.ToDouble(oForm.Items.Item("ws_mamt2").Specific.Value.Trim()) > 7500000)  // 한도 7백5십만원
                                 {
-                                    oForm.Items.Item("ws_mamt2").Specific.VALUE = 7500000;
+                                    oForm.Items.Item("ws_mamt2").Specific.Value = 7500000;
                                 }
 
                                 gamt = 0;
                                 if (samt <= 70000000)  // 7천이하자  10%
                                 {
-                                    gamt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("ws_mamt2").Specific.VALUE.Trim()) * 0.1, 0);
+                                    gamt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("ws_mamt2").Specific.Value.Trim()) * 0.1, 0);
                                 }
                                 if (samt <= 55000000)  // 5천5백이하자  12%
                                 {
-                                    gamt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("ws_mamt2").Specific.VALUE.Trim()) * 0.12, 0);
+                                    gamt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("ws_mamt2").Specific.Value.Trim()) * 0.12, 0);
                                 }
 
                                 if (gamt < 0)
@@ -1045,13 +1045,13 @@ namespace PSH_BOne_AddOn
                                     gamt = 0;
                                 }
 
-                                oForm.Items.Item("ws_gamt2").Specific.VALUE = gamt;
+                                oForm.Items.Item("ws_gamt2").Specific.Value = gamt;
                                 break;
 
                             case "ws_mamt3":
-                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE);
-                                yyyy = oForm.Items.Item("Year").Specific.VALUE.Trim();
-                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.VALUE.Trim();
+                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
+                                yyyy = oForm.Items.Item("Year").Specific.Value.Trim();
+                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
 
                                 //총급여액계산해서 5,500 이하는 15% 아니면 12%
                                 sQry = "SELECT SUM(gwase) ";
@@ -1074,19 +1074,19 @@ namespace PSH_BOne_AddOn
                                 oRecordSet.DoQuery(sQry);
                                 samt = oRecordSet.Fields.Item(0).Value;  // 총급여액(과세대상)
 
-                                if (Convert.ToDouble(oForm.Items.Item("ws_mamt3").Specific.VALUE.Trim()) > 7500000)  // 한도 7백5십만원
+                                if (Convert.ToDouble(oForm.Items.Item("ws_mamt3").Specific.Value.Trim()) > 7500000)  // 한도 7백5십만원
                                 {
-                                    oForm.Items.Item("ws_mamt3").Specific.VALUE = 7500000;
+                                    oForm.Items.Item("ws_mamt3").Specific.Value = 7500000;
                                 }
 
                                 gamt = 0;
                                 if (samt <= 70000000)  // 7천이하자  10%
                                 {
-                                    gamt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("ws_mamt3").Specific.VALUE.Trim()) * 0.1, 0);
+                                    gamt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("ws_mamt3").Specific.Value.Trim()) * 0.1, 0);
                                 }
                                 if (samt <= 55000000)  // 5천5백이하자  12%
                                 {
-                                    gamt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("ws_mamt3").Specific.VALUE.Trim()) * 0.12, 0);
+                                    gamt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("ws_mamt3").Specific.Value.Trim()) * 0.12, 0);
                                 }
 
                                 if (gamt < 0)
@@ -1094,51 +1094,51 @@ namespace PSH_BOne_AddOn
                                     gamt = 0;
                                 }
 
-                                oForm.Items.Item("ws_gamt3").Specific.VALUE = gamt;
+                                oForm.Items.Item("ws_gamt3").Specific.Value = gamt;
                                 break;
 
                             case "dj_tamt1":
                                 amt = 0;
                                 gamt = 0;
-                                amt = Convert.ToDouble(oForm.Items.Item("dj_tamt1").Specific.VALUE.Trim());
+                                amt = Convert.ToDouble(oForm.Items.Item("dj_tamt1").Specific.Value.Trim());
                                 gamt = System.Math.Round(amt * 0.4, 0);
                                 if (gamt > 3000000)
                                 {
-                                    oForm.Items.Item("dj_gamt1").Specific.VALUE = 3000000;
+                                    oForm.Items.Item("dj_gamt1").Specific.Value = 3000000;
                                 }
                                 else
                                 {
-                                    oForm.Items.Item("dj_gamt1").Specific.VALUE = gamt;
+                                    oForm.Items.Item("dj_gamt1").Specific.Value = gamt;
                                 }
                                 break;
 
                             case "dj_tamt2":
                                 amt = 0;
                                 gamt = 0;
-                                amt = Convert.ToDouble(oForm.Items.Item("dj_tamt2").Specific.VALUE.Trim());
+                                amt = Convert.ToDouble(oForm.Items.Item("dj_tamt2").Specific.Value.Trim());
                                 gamt = System.Math.Round(amt * 0.4, 0);
                                 if (gamt > 3000000)
                                 {
-                                    oForm.Items.Item("dj_gamt2").Specific.VALUE = 3000000;
+                                    oForm.Items.Item("dj_gamt2").Specific.Value = 3000000;
                                 }
                                 else
                                 {
-                                    oForm.Items.Item("dj_gamt2").Specific.VALUE = gamt;
+                                    oForm.Items.Item("dj_gamt2").Specific.Value = gamt;
                                 }
                                 break;
 
                             case "dj_tamt3":
                                 amt = 0;
                                 gamt = 0;
-                                amt = Convert.ToDouble(oForm.Items.Item("dj_tamt3").Specific.VALUE.Trim());
+                                amt = Convert.ToDouble(oForm.Items.Item("dj_tamt3").Specific.Value.Trim());
                                 gamt = System.Math.Round(amt * 0.4, 0);
                                 if (gamt > 3000000)
                                 {
-                                    oForm.Items.Item("dj_gamt3").Specific.VALUE = 3000000;
+                                    oForm.Items.Item("dj_gamt3").Specific.Value = 3000000;
                                 }
                                 else
                                 {
-                                    oForm.Items.Item("dj_gamt3").Specific.VALUE = gamt;
+                                    oForm.Items.Item("dj_gamt3").Specific.Value = gamt;
                                 }
                                 break;
                         }
@@ -1350,87 +1350,87 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                saup = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE);
-                yyyy = oForm.Items.Item("Year").Specific.VALUE;
-                sabun = Strings.Trim(Conversion.Str(oForm.Items.Item("MSTCOD").Specific.VALUE));
-                ws_name1 = oForm.Items.Item("ws_name1").Specific.VALUE;
-                ws_name2 = oForm.Items.Item("ws_name2").Specific.VALUE;
-                ws_name3 = oForm.Items.Item("ws_name3").Specific.VALUE;
-                ws_jumin1 = oForm.Items.Item("ws_jumin1").Specific.VALUE;
-                ws_jumin2 = oForm.Items.Item("ws_jumin2").Specific.VALUE;
-                ws_jumin3 = oForm.Items.Item("ws_jumin3").Specific.VALUE;
-                ws_hcode1 = oForm.Items.Item("ws_hcode1").Specific.VALUE;
-                ws_hcode2 = oForm.Items.Item("ws_hcode2").Specific.VALUE;
-                ws_hcode3 = oForm.Items.Item("ws_hcode3").Specific.VALUE;
-                ws_hm1 = Convert.ToDouble(oForm.Items.Item("ws_hm1").Specific.VALUE);
-                ws_hm2 = Convert.ToDouble(oForm.Items.Item("ws_hm2").Specific.VALUE);
-                ws_hm3 = Convert.ToDouble(oForm.Items.Item("ws_hm3").Specific.VALUE);
-                ws_addr1 = oForm.Items.Item("ws_addr1").Specific.VALUE;
-                ws_addr2 = oForm.Items.Item("ws_addr2").Specific.VALUE;
-                ws_addr3 = oForm.Items.Item("ws_addr3").Specific.VALUE;
-                ws_fymd1 = oForm.Items.Item("ws_fymd1").Specific.VALUE;
-                ws_fymd2 = oForm.Items.Item("ws_fymd2").Specific.VALUE;
-                ws_fymd3 = oForm.Items.Item("ws_fymd3").Specific.VALUE;
-                ws_tymd1 = oForm.Items.Item("ws_tymd1").Specific.VALUE;
-                ws_tymd2 = oForm.Items.Item("ws_tymd2").Specific.VALUE;
-                ws_tymd3 = oForm.Items.Item("ws_tymd3").Specific.VALUE;
-                ws_mamt1 = Convert.ToDouble(oForm.Items.Item("ws_mamt1").Specific.VALUE);
-                ws_mamt2 = Convert.ToDouble(oForm.Items.Item("ws_mamt2").Specific.VALUE);
-                ws_mamt3 = Convert.ToDouble(oForm.Items.Item("ws_mamt3").Specific.VALUE);
-                ws_gamt1 = Convert.ToDouble(oForm.Items.Item("ws_gamt1").Specific.VALUE);
-                ws_gamt2 = Convert.ToDouble(oForm.Items.Item("ws_gamt2").Specific.VALUE);
-                ws_gamt3 = Convert.ToDouble(oForm.Items.Item("ws_gamt3").Specific.VALUE);
-                dj_name1 = oForm.Items.Item("dj_name1").Specific.VALUE;
-                dj_name2 = oForm.Items.Item("dj_name2").Specific.VALUE;
-                dj_name3 = oForm.Items.Item("dj_name3").Specific.VALUE;
-                dj_jumin1 = oForm.Items.Item("dj_jumin1").Specific.VALUE;
-                dj_jumin2 = oForm.Items.Item("dj_jumin2").Specific.VALUE;
-                dj_jumin3 = oForm.Items.Item("dj_jumin3").Specific.VALUE;
-                dj_fymd1 = oForm.Items.Item("dj_fymd1").Specific.VALUE;
-                dj_fymd2 = oForm.Items.Item("dj_fymd2").Specific.VALUE;
-                dj_fymd3 = oForm.Items.Item("dj_fymd3").Specific.VALUE;
-                dj_tymd1 = oForm.Items.Item("dj_tymd1").Specific.VALUE;
-                dj_tymd2 = oForm.Items.Item("dj_tymd2").Specific.VALUE;
-                dj_tymd3 = oForm.Items.Item("dj_tymd3").Specific.VALUE;
-                dj_eja1 = oForm.Items.Item("dj_eja1").Specific.VALUE;
-                dj_eja2 = oForm.Items.Item("dj_eja2").Specific.VALUE;
-                dj_eja3 = oForm.Items.Item("dj_eja3").Specific.VALUE;
-                dj_tamt1 = Convert.ToDouble(oForm.Items.Item("dj_tamt1").Specific.VALUE);
-                dj_tamt2 = Convert.ToDouble(oForm.Items.Item("dj_tamt2").Specific.VALUE);
-                dj_tamt3 = Convert.ToDouble(oForm.Items.Item("dj_tamt3").Specific.VALUE);
-                dj_wamt1 = Convert.ToDouble(oForm.Items.Item("dj_wamt1").Specific.VALUE);
-                dj_wamt2 = Convert.ToDouble(oForm.Items.Item("dj_wamt2").Specific.VALUE);
-                dj_wamt3 = Convert.ToDouble(oForm.Items.Item("dj_wamt3").Specific.VALUE);
-                dj_eamt1 = Convert.ToDouble(oForm.Items.Item("dj_eamt1").Specific.VALUE);
-                dj_eamt2 = Convert.ToDouble(oForm.Items.Item("dj_eamt2").Specific.VALUE);
-                dj_eamt3 = Convert.ToDouble(oForm.Items.Item("dj_eamt3").Specific.VALUE);
-                dj_gamt1 = Convert.ToDouble(oForm.Items.Item("dj_gamt1").Specific.VALUE);
-                dj_gamt2 = Convert.ToDouble(oForm.Items.Item("dj_gamt2").Specific.VALUE);
-                dj_gamt3 = Convert.ToDouble(oForm.Items.Item("dj_gamt3").Specific.VALUE);
-                ld_name1 = oForm.Items.Item("ld_name1").Specific.VALUE;
-                ld_name2 = oForm.Items.Item("ld_name2").Specific.VALUE;
-                ld_name3 = oForm.Items.Item("ld_name3").Specific.VALUE;
-                ld_jumin1 = oForm.Items.Item("ld_jumin1").Specific.VALUE;
-                ld_jumin2 = oForm.Items.Item("ld_jumin2").Specific.VALUE;
-                ld_jumin3 = oForm.Items.Item("ld_jumin3").Specific.VALUE;
-                ld_hcode1 = oForm.Items.Item("ld_hcode1").Specific.VALUE;
-                ld_hcode2 = oForm.Items.Item("ld_hcode2").Specific.VALUE;
-                ld_hcode3 = oForm.Items.Item("ld_hcode3").Specific.VALUE;
-                ld_hm1 = Convert.ToDouble(oForm.Items.Item("ld_hm1").Specific.VALUE);
-                ld_hm2 = Convert.ToDouble(oForm.Items.Item("ld_hm2").Specific.VALUE);
-                ld_hm3 = Convert.ToDouble(oForm.Items.Item("ld_hm3").Specific.VALUE);
-                ld_addr1 = oForm.Items.Item("ld_addr1").Specific.VALUE;
-                ld_addr2 = oForm.Items.Item("ld_addr2").Specific.VALUE;
-                ld_addr3 = oForm.Items.Item("ld_addr3").Specific.VALUE;
-                ld_fymd1 = oForm.Items.Item("ld_fymd1").Specific.VALUE;
-                ld_fymd2 = oForm.Items.Item("ld_fymd2").Specific.VALUE;
-                ld_fymd3 = oForm.Items.Item("ld_fymd3").Specific.VALUE;
-                ld_tymd1 = oForm.Items.Item("ld_tymd1").Specific.VALUE;
-                ld_tymd2 = oForm.Items.Item("ld_tymd2").Specific.VALUE;
-                ld_tymd3 = oForm.Items.Item("ld_tymd3").Specific.VALUE;
-                ld_bamt1 = Convert.ToDouble(oForm.Items.Item("ld_bamt1").Specific.VALUE);
-                ld_bamt2 = Convert.ToDouble(oForm.Items.Item("ld_bamt2").Specific.VALUE);
-                ld_bamt3 = Convert.ToDouble(oForm.Items.Item("ld_bamt3").Specific.VALUE);
+                saup = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
+                yyyy = oForm.Items.Item("Year").Specific.Value;
+                sabun = Strings.Trim(Conversion.Str(oForm.Items.Item("MSTCOD").Specific.Value));
+                ws_name1 = oForm.Items.Item("ws_name1").Specific.Value;
+                ws_name2 = oForm.Items.Item("ws_name2").Specific.Value;
+                ws_name3 = oForm.Items.Item("ws_name3").Specific.Value;
+                ws_jumin1 = oForm.Items.Item("ws_jumin1").Specific.Value;
+                ws_jumin2 = oForm.Items.Item("ws_jumin2").Specific.Value;
+                ws_jumin3 = oForm.Items.Item("ws_jumin3").Specific.Value;
+                ws_hcode1 = oForm.Items.Item("ws_hcode1").Specific.Value;
+                ws_hcode2 = oForm.Items.Item("ws_hcode2").Specific.Value;
+                ws_hcode3 = oForm.Items.Item("ws_hcode3").Specific.Value;
+                ws_hm1 = Convert.ToDouble(oForm.Items.Item("ws_hm1").Specific.Value);
+                ws_hm2 = Convert.ToDouble(oForm.Items.Item("ws_hm2").Specific.Value);
+                ws_hm3 = Convert.ToDouble(oForm.Items.Item("ws_hm3").Specific.Value);
+                ws_addr1 = oForm.Items.Item("ws_addr1").Specific.Value;
+                ws_addr2 = oForm.Items.Item("ws_addr2").Specific.Value;
+                ws_addr3 = oForm.Items.Item("ws_addr3").Specific.Value;
+                ws_fymd1 = oForm.Items.Item("ws_fymd1").Specific.Value;
+                ws_fymd2 = oForm.Items.Item("ws_fymd2").Specific.Value;
+                ws_fymd3 = oForm.Items.Item("ws_fymd3").Specific.Value;
+                ws_tymd1 = oForm.Items.Item("ws_tymd1").Specific.Value;
+                ws_tymd2 = oForm.Items.Item("ws_tymd2").Specific.Value;
+                ws_tymd3 = oForm.Items.Item("ws_tymd3").Specific.Value;
+                ws_mamt1 = Convert.ToDouble(oForm.Items.Item("ws_mamt1").Specific.Value);
+                ws_mamt2 = Convert.ToDouble(oForm.Items.Item("ws_mamt2").Specific.Value);
+                ws_mamt3 = Convert.ToDouble(oForm.Items.Item("ws_mamt3").Specific.Value);
+                ws_gamt1 = Convert.ToDouble(oForm.Items.Item("ws_gamt1").Specific.Value);
+                ws_gamt2 = Convert.ToDouble(oForm.Items.Item("ws_gamt2").Specific.Value);
+                ws_gamt3 = Convert.ToDouble(oForm.Items.Item("ws_gamt3").Specific.Value);
+                dj_name1 = oForm.Items.Item("dj_name1").Specific.Value;
+                dj_name2 = oForm.Items.Item("dj_name2").Specific.Value;
+                dj_name3 = oForm.Items.Item("dj_name3").Specific.Value;
+                dj_jumin1 = oForm.Items.Item("dj_jumin1").Specific.Value;
+                dj_jumin2 = oForm.Items.Item("dj_jumin2").Specific.Value;
+                dj_jumin3 = oForm.Items.Item("dj_jumin3").Specific.Value;
+                dj_fymd1 = oForm.Items.Item("dj_fymd1").Specific.Value;
+                dj_fymd2 = oForm.Items.Item("dj_fymd2").Specific.Value;
+                dj_fymd3 = oForm.Items.Item("dj_fymd3").Specific.Value;
+                dj_tymd1 = oForm.Items.Item("dj_tymd1").Specific.Value;
+                dj_tymd2 = oForm.Items.Item("dj_tymd2").Specific.Value;
+                dj_tymd3 = oForm.Items.Item("dj_tymd3").Specific.Value;
+                dj_eja1 = oForm.Items.Item("dj_eja1").Specific.Value;
+                dj_eja2 = oForm.Items.Item("dj_eja2").Specific.Value;
+                dj_eja3 = oForm.Items.Item("dj_eja3").Specific.Value;
+                dj_tamt1 = Convert.ToDouble(oForm.Items.Item("dj_tamt1").Specific.Value);
+                dj_tamt2 = Convert.ToDouble(oForm.Items.Item("dj_tamt2").Specific.Value);
+                dj_tamt3 = Convert.ToDouble(oForm.Items.Item("dj_tamt3").Specific.Value);
+                dj_wamt1 = Convert.ToDouble(oForm.Items.Item("dj_wamt1").Specific.Value);
+                dj_wamt2 = Convert.ToDouble(oForm.Items.Item("dj_wamt2").Specific.Value);
+                dj_wamt3 = Convert.ToDouble(oForm.Items.Item("dj_wamt3").Specific.Value);
+                dj_eamt1 = Convert.ToDouble(oForm.Items.Item("dj_eamt1").Specific.Value);
+                dj_eamt2 = Convert.ToDouble(oForm.Items.Item("dj_eamt2").Specific.Value);
+                dj_eamt3 = Convert.ToDouble(oForm.Items.Item("dj_eamt3").Specific.Value);
+                dj_gamt1 = Convert.ToDouble(oForm.Items.Item("dj_gamt1").Specific.Value);
+                dj_gamt2 = Convert.ToDouble(oForm.Items.Item("dj_gamt2").Specific.Value);
+                dj_gamt3 = Convert.ToDouble(oForm.Items.Item("dj_gamt3").Specific.Value);
+                ld_name1 = oForm.Items.Item("ld_name1").Specific.Value;
+                ld_name2 = oForm.Items.Item("ld_name2").Specific.Value;
+                ld_name3 = oForm.Items.Item("ld_name3").Specific.Value;
+                ld_jumin1 = oForm.Items.Item("ld_jumin1").Specific.Value;
+                ld_jumin2 = oForm.Items.Item("ld_jumin2").Specific.Value;
+                ld_jumin3 = oForm.Items.Item("ld_jumin3").Specific.Value;
+                ld_hcode1 = oForm.Items.Item("ld_hcode1").Specific.Value;
+                ld_hcode2 = oForm.Items.Item("ld_hcode2").Specific.Value;
+                ld_hcode3 = oForm.Items.Item("ld_hcode3").Specific.Value;
+                ld_hm1 = Convert.ToDouble(oForm.Items.Item("ld_hm1").Specific.Value);
+                ld_hm2 = Convert.ToDouble(oForm.Items.Item("ld_hm2").Specific.Value);
+                ld_hm3 = Convert.ToDouble(oForm.Items.Item("ld_hm3").Specific.Value);
+                ld_addr1 = oForm.Items.Item("ld_addr1").Specific.Value;
+                ld_addr2 = oForm.Items.Item("ld_addr2").Specific.Value;
+                ld_addr3 = oForm.Items.Item("ld_addr3").Specific.Value;
+                ld_fymd1 = oForm.Items.Item("ld_fymd1").Specific.Value;
+                ld_fymd2 = oForm.Items.Item("ld_fymd2").Specific.Value;
+                ld_fymd3 = oForm.Items.Item("ld_fymd3").Specific.Value;
+                ld_tymd1 = oForm.Items.Item("ld_tymd1").Specific.Value;
+                ld_tymd2 = oForm.Items.Item("ld_tymd2").Specific.Value;
+                ld_tymd3 = oForm.Items.Item("ld_tymd3").Specific.Value;
+                ld_bamt1 = Convert.ToDouble(oForm.Items.Item("ld_bamt1").Specific.Value);
+                ld_bamt2 = Convert.ToDouble(oForm.Items.Item("ld_bamt2").Specific.Value);
+                ld_bamt3 = Convert.ToDouble(oForm.Items.Item("ld_bamt3").Specific.Value);
 
                 if (string.IsNullOrEmpty(Strings.Trim(yyyy)))
                 {
@@ -1753,9 +1753,9 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                saup = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
-                yyyy = oForm.Items.Item("Year").Specific.VALUE.Trim();
-                sabun = oForm.Items.Item("MSTCOD").Specific.VALUE.Trim();
+                saup = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
+                yyyy = oForm.Items.Item("Year").Specific.Value.Trim();
+                sabun = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
 
                 if (PSH_Globals.SBO_Application.MessageBox(" 선택한자료를 삭제하시겠습니까? ?", Convert.ToInt32("2"), "예", "아니오") == Convert.ToDouble("1"))
                 {

@@ -140,7 +140,7 @@ namespace PSH_BOne_AddOn
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY201_FormItemEnabled();
 
-                    oForm.Items.Item("DocEntry").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -312,11 +312,11 @@ namespace PSH_BOne_AddOn
 
                 if (Convert.ToDouble(DocEntry) == 0)
                 {
-                    oForm.Items.Item("DocEntry").Specific.VALUE = 1;
+                    oForm.Items.Item("DocEntry").Specific.Value = 1;
                 }
                 else
                 {
-                    oForm.Items.Item("DocEntry").Specific.VALUE = DocEntry;
+                    oForm.Items.Item("DocEntry").Specific.Value = DocEntry;
                 }
             }
             catch(Exception ex)
@@ -362,7 +362,7 @@ namespace PSH_BOne_AddOn
                             throw new Exception();
                         }
 
-                        if (oMat1.Columns.Item("Amount").Cells.Item(i).Specific.VALUE == "0") //금액
+                        if (oMat1.Columns.Item("Amount").Cells.Item(i).Specific.Value == "0") //금액
                         {
                             ErrNum = 4;
                             throw new Exception();
@@ -617,7 +617,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (pVal.ColUID == "MSTCOD" && pVal.CharPressed == 9)
                         {
-                            if (string.IsNullOrEmpty(oMat1.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.VALUE))
+                            if (string.IsNullOrEmpty(oMat1.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.Value))
                             {
                                 PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                                 BubbleEvent = false;
@@ -845,7 +845,7 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "CntcCode":
-                                oDS_PH_PY201A.SetValue("U_CntcName", 0, dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item(pVal.ItemUID).Specific.VALUE + "'", ""));
+                                oDS_PH_PY201A.SetValue("U_CntcName", 0, dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'", ""));
                                 break;
 
                             case "Mat01":
@@ -854,12 +854,12 @@ namespace PSH_BOne_AddOn
                                 {
                                     oMat1.FlushToDataSource();
 
-                                    oDS_PH_PY201B.SetValue("U_MSTNAM", pVal.Row - 1, dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oMat1.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.VALUE + "'", ""));
-                                    oDS_PH_PY201B.SetValue("U_TeamCode", pVal.Row - 1, dataHelpClass.Get_ReData("U_TeamCode", "Code", "[@PH_PY001A]", "'" + oMat1.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.VALUE + "'", ""));
+                                    oDS_PH_PY201B.SetValue("U_MSTNAM", pVal.Row - 1, dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oMat1.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.Value + "'", ""));
+                                    oDS_PH_PY201B.SetValue("U_TeamCode", pVal.Row - 1, dataHelpClass.Get_ReData("U_TeamCode", "Code", "[@PH_PY001A]", "'" + oMat1.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.Value + "'", ""));
                                     oDS_PH_PY201B.SetValue("U_TeamName", pVal.Row - 1, dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" + oDS_PH_PY201B.GetValue("U_TeamCode", pVal.Row - 1) + "'", " AND Code = '1'"));
-                                    oDS_PH_PY201B.SetValue("U_RspCode", pVal.Row - 1, dataHelpClass.Get_ReData("U_RspCode", "Code", "[@PH_PY001A]", "'" + oMat1.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.VALUE + "'", ""));
+                                    oDS_PH_PY201B.SetValue("U_RspCode", pVal.Row - 1, dataHelpClass.Get_ReData("U_RspCode", "Code", "[@PH_PY001A]", "'" + oMat1.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.Value + "'", ""));
                                     oDS_PH_PY201B.SetValue("U_RspName", pVal.Row - 1, dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" + oDS_PH_PY201B.GetValue("U_RspCode", pVal.Row - 1) + "'", " AND Code = '2'"));
-                                    oDS_PH_PY201B.SetValue("U_ClsCode", pVal.Row - 1, dataHelpClass.Get_ReData("U_ClsCode", "Code", "[@PH_PY001A]", "'" + oMat1.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.VALUE + "'", ""));
+                                    oDS_PH_PY201B.SetValue("U_ClsCode", pVal.Row - 1, dataHelpClass.Get_ReData("U_ClsCode", "Code", "[@PH_PY001A]", "'" + oMat1.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.Value + "'", ""));
                                     oDS_PH_PY201B.SetValue("U_ClsName", pVal.Row - 1, dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" + oDS_PH_PY201B.GetValue("U_ClsCode", pVal.Row - 1) + "'", " AND Code = '9'"));
                                     oDS_PH_PY201B.SetValue("U_Amount", pVal.Row - 1, dataHelpClass.Get_ReData("TOP 1 U_Num1", "Code", "[@PS_HR200l]", "'P238' ORDER BY U_Num1 DESC", ""));
 

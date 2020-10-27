@@ -320,7 +320,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 // 년월 Check (필수)
-                //if (string.IsNullOrEmpty(oForm.Items.Item("YM").Specific.VALUE.Trim()))
+                //if (string.IsNullOrEmpty(oForm.Items.Item("YM").Specific.Value.Trim()))
                 //{
                 //    PSH_Globals.SBO_Application.SetStatusBarMessage("년/월은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                 //    oForm.Items.Item("YM").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -355,7 +355,7 @@ namespace PSH_BOne_AddOn
             string OptBtnValue = string.Empty;
 
             CLTCOD = oForm.Items.Item("CLTCOD").Specific.Selected.Value.ToString().Trim();
-            Sex = oForm.Items.Item("Sex").Specific.VALUE.Trim();
+            Sex = oForm.Items.Item("Sex").Specific.Value.Trim();
             OptBtnValue = oForm.DataSources.UserDataSources.Item("OptionDS").Value;
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();

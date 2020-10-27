@@ -202,7 +202,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY131_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -607,10 +607,10 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                Param01 = oForm.Items.Item("Param01").Specific.VALUE;
-                Param02 = oForm.Items.Item("Param01").Specific.VALUE;
-                Param03 = oForm.Items.Item("Param01").Specific.VALUE;
-                Param04 = oForm.Items.Item("Param01").Specific.VALUE;
+                Param01 = oForm.Items.Item("Param01").Specific.Value;
+                Param02 = oForm.Items.Item("Param01").Specific.Value;
+                Param03 = oForm.Items.Item("Param01").Specific.Value;
+                Param04 = oForm.Items.Item("Param01").Specific.Value;
 
                 sQry = "SELECT 10";
                 oRecordSet.DoQuery(sQry);
@@ -759,7 +759,7 @@ namespace PSH_BOne_AddOn
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
-                if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY131A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.VALUE + "'", 0, 1) == "Y")
+                if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY131A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "Y")
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("해당문서는 다른사용자에 의해 취소되었습니다. 작업을 진행할수 없습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     functionReturnValue = false;
@@ -841,7 +841,7 @@ namespace PSH_BOne_AddOn
                 {
                     for (i = 1; i <= oMat1.VisualRowCount - 1; i++)
                     {
-                        if (string.IsNullOrEmpty(oMat1.Columns.Item("Grade").Cells.Item(i).Specific.VALUE))
+                        if (string.IsNullOrEmpty(oMat1.Columns.Item("Grade").Cells.Item(i).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("등급은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("Grade").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -849,7 +849,7 @@ namespace PSH_BOne_AddOn
                             return functionReturnValue;
                         }
 
-                        if (string.IsNullOrEmpty(oMat1.Columns.Item("Rate").Cells.Item(i).Specific.VALUE))
+                        if (string.IsNullOrEmpty(oMat1.Columns.Item("Rate").Cells.Item(i).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("등급율은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("Rate").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);

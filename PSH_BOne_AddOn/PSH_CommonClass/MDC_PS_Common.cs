@@ -55,7 +55,7 @@ namespace PSH_BOne_AddOn
         //					RecordCount = 1;
         //				}
         //				for (i = 1; i <= RecordCount; i++) {
-        //					//UPGRADE_WARNING: RecordSet01.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        //					//UPGRADE_WARNING: RecordSet01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
         //					//UPGRADE_WARNING: GetValue 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
         //					functionReturnValue = RecordSet01.Fields.Item(FieldCount).Value;
         //					RecordSet01.MoveNext();
@@ -76,8 +76,8 @@ namespace PSH_BOne_AddOn
         //			if (string.IsNullOrEmpty(ColumnUID)) {
         //				if (pval.ItemUID == ItemUID) {
         //					if (pval.CharPressed == Convert.ToDouble("9")) {
-        //						//UPGRADE_WARNING: oForm01.Items(ItemUID).Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						if (string.IsNullOrEmpty(oForm01.Items.Item(ItemUID).Specific.VALUE)) {
+        //						//UPGRADE_WARNING: oForm01.Items(ItemUID).Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        //						if (string.IsNullOrEmpty(oForm01.Items.Item(ItemUID).Specific.Value)) {
         //							SubMain.Sbo_Application.ActivateMenuItem(("7425"));
         //							BubbleEvent = false;
         //						}
@@ -88,7 +88,7 @@ namespace PSH_BOne_AddOn
         //					if (pval.ColUID == ColumnUID) {
         //						if (pval.CharPressed == Convert.ToDouble("9")) {
         //							//UPGRADE_WARNING: oForm01.Items().Specific.Columns 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //							if (string.IsNullOrEmpty(oForm01.Items.Item(ItemUID).Specific.Columns(ColumnUID).Cells(pval.Row).Specific.VALUE)) {
+        //							if (string.IsNullOrEmpty(oForm01.Items.Item(ItemUID).Specific.Columns(ColumnUID).Cells(pval.Row).Specific.Value)) {
         //								SubMain.Sbo_Application.ActivateMenuItem(("7425"));
         //								BubbleEvent = false;
         //							}
@@ -105,8 +105,8 @@ namespace PSH_BOne_AddOn
         //			if (string.IsNullOrEmpty(ColumnUID)) {
         //				if (pval.ItemUID == ItemUID) {
         //					if (pval.CharPressed == Convert.ToDouble("9")) {
-        //						//UPGRADE_WARNING: oForm01.Items(ItemUID).Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						if (string.IsNullOrEmpty(oForm01.Items.Item(ItemUID).Specific.VALUE)) {
+        //						//UPGRADE_WARNING: oForm01.Items(ItemUID).Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        //						if (string.IsNullOrEmpty(oForm01.Items.Item(ItemUID).Specific.Value)) {
         //							SubMain.Sbo_Application.ActivateMenuItem(("7425"));
         //							BubbleEvent = false;
         //						}
@@ -120,7 +120,7 @@ namespace PSH_BOne_AddOn
         //					if (pval.ColUID == ColumnUID) {
         //						if (pval.CharPressed == Convert.ToDouble("9")) {
         //							//UPGRADE_WARNING: oForm01.Items().Specific.Columns 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //							if (string.IsNullOrEmpty(oForm01.Items.Item(ItemUID).Specific.Columns(ColumnUID).Cells(pval.Row).Specific.VALUE)) {
+        //							if (string.IsNullOrEmpty(oForm01.Items.Item(ItemUID).Specific.Columns(ColumnUID).Cells(pval.Row).Specific.Value)) {
         //								SubMain.Sbo_Application.ActivateMenuItem(("7425"));
         //								BubbleEvent = false;
         //							}
@@ -146,7 +146,7 @@ namespace PSH_BOne_AddOn
         //			if ((RecordSet01.RecordCount == 0)) {
         //				functionReturnValue = "";
         //			} else {
-        //				//UPGRADE_WARNING: RecordSet01.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        //				//UPGRADE_WARNING: RecordSet01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
         //				functionReturnValue = RecordSet01.Fields.Item(0).Value;
         //			}
         //			//UPGRADE_NOTE: RecordSet01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
@@ -167,7 +167,7 @@ namespace PSH_BOne_AddOn
         //			if ((RecordSet01.RecordCount == 0)) {
         //				functionReturnValue = "";
         //			} else {
-        //				//UPGRADE_WARNING: RecordSet01.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        //				//UPGRADE_WARNING: RecordSet01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
         //				functionReturnValue = RecordSet01.Fields.Item(0).Value;
         //			}
         //			//UPGRADE_NOTE: RecordSet01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
@@ -188,7 +188,7 @@ namespace PSH_BOne_AddOn
         //			if ((RecordSet01.RecordCount == 0)) {
         //				functionReturnValue = "";
         //			} else {
-        //				//UPGRADE_WARNING: RecordSet01.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        //				//UPGRADE_WARNING: RecordSet01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
         //				functionReturnValue = RecordSet01.Fields.Item(0).Value;
         //			}
         //			//UPGRADE_NOTE: RecordSet01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
@@ -209,7 +209,7 @@ namespace PSH_BOne_AddOn
         //			if ((RecordSet01.RecordCount == 0)) {
         //				functionReturnValue = "";
         //			} else {
-        //				//UPGRADE_WARNING: RecordSet01.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        //				//UPGRADE_WARNING: RecordSet01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
         //				functionReturnValue = RecordSet01.Fields.Item(0).Value;
         //			}
         //			//UPGRADE_NOTE: RecordSet01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
@@ -230,7 +230,7 @@ namespace PSH_BOne_AddOn
         //			if ((RecordSet01.RecordCount == 0)) {
         //				functionReturnValue = "";
         //			} else {
-        //				//UPGRADE_WARNING: RecordSet01.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        //				//UPGRADE_WARNING: RecordSet01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
         //				functionReturnValue = RecordSet01.Fields.Item(0).Value;
         //			}
         //			//UPGRADE_NOTE: RecordSet01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
@@ -251,7 +251,7 @@ namespace PSH_BOne_AddOn
         //			if ((RecordSet01.RecordCount == 0)) {
         //				functionReturnValue = "";
         //			} else {
-        //				//UPGRADE_WARNING: RecordSet01.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        //				//UPGRADE_WARNING: RecordSet01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
         //				functionReturnValue = RecordSet01.Fields.Item(0).Value;
         //			}
         //			//UPGRADE_NOTE: RecordSet01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
@@ -272,7 +272,7 @@ namespace PSH_BOne_AddOn
         //			if ((RecordSet01.RecordCount == 0)) {
         //				functionReturnValue = "";
         //			} else {
-        //				//UPGRADE_WARNING: RecordSet01.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        //				//UPGRADE_WARNING: RecordSet01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
         //				functionReturnValue = RecordSet01.Fields.Item(0).Value;
         //			}
         //			//UPGRADE_NOTE: RecordSet01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
@@ -293,7 +293,7 @@ namespace PSH_BOne_AddOn
         //			if ((RecordSet01.RecordCount == 0)) {
         //				functionReturnValue = "";
         //			} else {
-        //				//UPGRADE_WARNING: RecordSet01.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        //				//UPGRADE_WARNING: RecordSet01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
         //				functionReturnValue = RecordSet01.Fields.Item(0).Value;
         //			}
         //			//UPGRADE_NOTE: RecordSet01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
@@ -314,7 +314,7 @@ namespace PSH_BOne_AddOn
         //			if ((RecordSet01.RecordCount == 0)) {
         //				functionReturnValue = "";
         //			} else {
-        //				//UPGRADE_WARNING: RecordSet01.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        //				//UPGRADE_WARNING: RecordSet01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
         //				functionReturnValue = RecordSet01.Fields.Item(0).Value;
         //			}
         //			//UPGRADE_NOTE: RecordSet01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
@@ -335,7 +335,7 @@ namespace PSH_BOne_AddOn
         //			if ((RecordSet01.RecordCount == 0)) {
         //				functionReturnValue = "";
         //			} else {
-        //				//UPGRADE_WARNING: RecordSet01.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        //				//UPGRADE_WARNING: RecordSet01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
         //				functionReturnValue = RecordSet01.Fields.Item(0).Value;
         //			}
         //			//UPGRADE_NOTE: RecordSet01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
@@ -368,15 +368,15 @@ namespace PSH_BOne_AddOn
         //				////선행작업의 총중량 - 현재 작업에서 생성된 중량을 뺀값을 구함
         //				RecordSet01 = SubMain.Sbo_Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
         //				for (i = 1; i <= oMat01.RowCount - 1; i++) {
-        //					//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					BaseType = oMat01.Columns.Item("43").Cells.Item(i).Specific.VALUE;
+        //					//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        //					BaseType = oMat01.Columns.Item("43").Cells.Item(i).Specific.Value;
         //					if ((BaseType == "-1")) {
         //						goto Continue_Renamed;
         //					}
-        //					//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					BaseEntry = oMat01.Columns.Item("45").Cells.Item(i).Specific.VALUE;
-        //					//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					BaseLine = oMat01.Columns.Item("46").Cells.Item(i).Specific.VALUE;
+        //					//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        //					BaseEntry = oMat01.Columns.Item("45").Cells.Item(i).Specific.Value;
+        //					//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        //					BaseLine = oMat01.Columns.Item("46").Cells.Item(i).Specific.Value;
         //					////판매오더
         //					if ((BaseType == "17")) {
         //						BaseTable = "RDR";
@@ -416,10 +416,10 @@ namespace PSH_BOne_AddOn
         //					}
         //					Query01 = " PS_SBO_GETQUANTITY '" + BaseType + "','" + BaseTable + "','" + BaseEntry + "','" + BaseLine + "'";
         //					RecordSet01.DoQuery(Query01);
-        //					//UPGRADE_WARNING: oMat01.Columns(U_Qty).Cells(i).Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					oMat01.Columns.Item("U_Qty").Cells.Item(i).Specific.VALUE = System.Math.Round(RecordSet01.Fields.Item(0).Value, 0);
-        //					//UPGRADE_WARNING: oMat01.Columns(11).Cells(i).Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					oMat01.Columns.Item("11").Cells.Item(i).Specific.VALUE = System.Math.Round(RecordSet01.Fields.Item(1).Value, 2);
+        //					//UPGRADE_WARNING: oMat01.Columns(U_Qty).Cells(i).Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        //					oMat01.Columns.Item("U_Qty").Cells.Item(i).Specific.Value = System.Math.Round(RecordSet01.Fields.Item(0).Value, 0);
+        //					//UPGRADE_WARNING: oMat01.Columns(11).Cells(i).Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        //					oMat01.Columns.Item("11").Cells.Item(i).Specific.Value = System.Math.Round(RecordSet01.Fields.Item(1).Value, 2);
         //					oMat01.Columns.Item("1").Cells.Item(oMat01.VisualRowCount).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
         //					Continue_Renamed:
         //				}
@@ -1001,13 +1001,13 @@ namespace PSH_BOne_AddOn
         //			} else {
         //				//UPGRADE_WARNING: oFunction01.Imports 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
         //				////에러메시지
-        //				if ((string.IsNullOrEmpty(oFunction01.Imports("E_MESSAGE").VALUE))) {
+        //				if ((string.IsNullOrEmpty(oFunction01.Imports("E_MESSAGE").Value))) {
         //					//UPGRADE_WARNING: oFunction01.Imports 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					ReturnValue = oFunction01.Imports("E_BANFN").VALUE + "/" + oFunction01.Imports("E_BNFPO").VALUE;
+        //					ReturnValue = oFunction01.Imports("E_BANFN").Value + "/" + oFunction01.Imports("E_BNFPO").Value;
         //					////통합구매요청번호 '//통합구매요청 품목번호
         //				} else {
         //					//UPGRADE_WARNING: oFunction01.Imports 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					MDC_Com.MDC_GF_Message(ref oFunction01.Imports("E_MESSAGE").VALUE, ref "E");
+        //					MDC_Com.MDC_GF_Message(ref oFunction01.Imports("E_MESSAGE").Value, ref "E");
         //					goto RFC_Sender_Exit;
         //				}
         //			}
@@ -1084,7 +1084,7 @@ namespace PSH_BOne_AddOn
 
         //			oRecordset01.DoQuery(sQry);
 
-        //			//UPGRADE_WARNING: oRecordset01.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        //			//UPGRADE_WARNING: oRecordset01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
         //			functionReturnValue = oRecordset01.Fields.Item("Grade").Value;
 
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
@@ -1139,7 +1139,7 @@ namespace PSH_BOne_AddOn
 
         //				if (prmKPIGrade == oRecordset01.Fields.Item("CodeName").Value) {
 
-        //					//UPGRADE_WARNING: oRecordset01.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        //					//UPGRADE_WARNING: oRecordset01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
         //					KPI_Score = oRecordset01.Fields.Item("KPIScore").Value;
 
         //				}
@@ -1188,7 +1188,7 @@ namespace PSH_BOne_AddOn
 
         //			oRecordset01.DoQuery(sQry);
 
-        //			//UPGRADE_WARNING: oRecordset01.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        //			//UPGRADE_WARNING: oRecordset01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
         //			functionReturnValue = oRecordset01.Fields.Item("AchieveRate").Value;
 
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
@@ -1234,7 +1234,7 @@ namespace PSH_BOne_AddOn
 
         //			oRecordset01.DoQuery(sQry);
 
-        //			//UPGRADE_WARNING: oRecordset01.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        //			//UPGRADE_WARNING: oRecordset01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
         //			CheckFinishStatus = oRecordset01.Fields.Item("ReturnValue").Value;
 
         //			if (CheckFinishStatus == "True") {

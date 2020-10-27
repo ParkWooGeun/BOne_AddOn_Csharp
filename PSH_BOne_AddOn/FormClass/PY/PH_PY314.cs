@@ -164,7 +164,7 @@ namespace PSH_BOne_AddOn
                 if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
                 {
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);         //// 접속자에 따른 권한별 사업장 콤보박스세팅
-                    oForm.Items.Item("RpmtDate").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
+                    oForm.Items.Item("RpmtDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
                     oForm.EnableMenu("1281", true);                             ////문서찾기
                     oForm.EnableMenu("1282", false);                            ////문서추가
                 }
@@ -208,7 +208,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY314_FormItemEnabled();
-                    oForm.Items.Item("DocEntry").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -564,7 +564,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (pVal.ColUID == "Name" & pVal.CharPressed == Convert.ToDouble("9"))
                         {
-                            if (string.IsNullOrEmpty(oMat1.Columns.Item("Name").Cells.Item(pVal.Row).Specific.VALUE))
+                            if (string.IsNullOrEmpty(oMat1.Columns.Item("Name").Cells.Item(pVal.Row).Specific.Value))
                             {
                                 PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                                 BubbleEvent = false;
@@ -573,7 +573,7 @@ namespace PSH_BOne_AddOn
                     }
                     else if (pVal.ItemUID == "CntcCode" & pVal.CharPressed == Convert.ToDouble("9"))
                     {
-                        if (string.IsNullOrEmpty(oForm.Items.Item("CntcCode").Specific.VALUE))
+                        if (string.IsNullOrEmpty(oForm.Items.Item("CntcCode").Specific.Value))
                         {
                             PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                             BubbleEvent = false;
@@ -743,7 +743,7 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "CntcCode":
-                                oForm.Items.Item("CntcName").Specific.VALUE = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item(pVal.ItemUID).Specific.VALUE + "'" ,"");
+                                oForm.Items.Item("CntcName").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'" ,"");
                             break;
                         }
                     }
@@ -935,7 +935,7 @@ namespace PSH_BOne_AddOn
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
-                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -944,7 +944,7 @@ namespace PSH_BOne_AddOn
                 }
 
                 //년도
-                if (string.IsNullOrEmpty(oForm.Items.Item("RpmtDate").Specific.VALUE.ToString().Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("RpmtDate").Specific.Value.ToString().Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("상환일자는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("RpmtDate").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -984,11 +984,11 @@ namespace PSH_BOne_AddOn
                 DocEntry = dataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PH_PY314'", "");
                 if (Convert.ToInt32(DocEntry) == 0)
                 {
-                    oForm.Items.Item("DocEntry").Specific.VALUE = 1;
+                    oForm.Items.Item("DocEntry").Specific.Value = 1;
                 }
                 else
                 {
-                    oForm.Items.Item("DocEntry").Specific.VALUE = DocEntry;
+                    oForm.Items.Item("DocEntry").Specific.Value = DocEntry;
                 }
             }
             catch (Exception ex)
@@ -1015,9 +1015,9 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
-                RpmtDate = oForm.Items.Item("RpmtDate").Specific.VALUE;
-                CntcCode = oForm.Items.Item("CntcCode").Specific.VALUE;
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                RpmtDate = oForm.Items.Item("RpmtDate").Specific.Value;
+                CntcCode = oForm.Items.Item("CntcCode").Specific.Value;
 
                 ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet01.RecordCount, false);
                 sQry = "EXEC PH_PY314_01 '" + CLTCOD + "', '" + RpmtDate + "', '" + CntcCode + "'";
@@ -1060,7 +1060,7 @@ namespace PSH_BOne_AddOn
                     ProgBar01.Text = ProgBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
 
                 }
-                oForm.Items.Item("Total").Specific.VALUE = Total;
+                oForm.Items.Item("Total").Specific.Value = Total;
                 oMat1.LoadFromDataSource();
                 oMat1.AutoResizeColumns();
                 ProgBar01.Stop();

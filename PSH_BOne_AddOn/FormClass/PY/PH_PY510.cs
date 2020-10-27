@@ -193,7 +193,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY510_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -897,9 +897,9 @@ namespace PSH_BOne_AddOn
                         {
                             //Case "MSTCOD"
                             //사원명 찿아서 화면 표시 하기
-                            //  sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" & Trim(oForm.Items("MSTCOD").Specific.VALUE) & "'"
+                            //  sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" & Trim(oForm.Items("MSTCOD").Specific.Value) & "'"
                             //  oRecordSet.DoQuery sQry
-                            //  oForm.Items("MSTNAME").Specific.String = Trim(oRecordSet.Fields("U_FullName").VALUE)
+                            //  oForm.Items("MSTNAME").Specific.String = Trim(oRecordSet.Fields("U_FullName").Value)
                         }
                     }
                 }

@@ -336,9 +336,9 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
-                FrDt = oForm.Items.Item("FrDt").Specific.VALUE.ToString().Trim();  // 기간(시작)
-                ToDt = oForm.Items.Item("ToDt").Specific.VALUE.ToString().Trim();  // 기간(종료)
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                FrDt = oForm.Items.Item("FrDt").Specific.Value.ToString().Trim();  // 기간(시작)
+                ToDt = oForm.Items.Item("ToDt").Specific.Value.ToString().Trim();  // 기간(종료)
 
                 sQry = "            EXEC [PH_PY678_01] ";
                 sQry = sQry + "'" + CLTCOD + "',";
@@ -447,7 +447,7 @@ namespace PSH_BOne_AddOn
                 oMat01.FlushToDataSource();
                 for (i = 0; i <= oMat01.VisualRowCount - 1; i++)
                 {
-                    CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();    // 사업장
+                    CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();    // 사업장
                     StdDate = oDS_PH_PY678B.GetValue("U_ColDt01", i).Trim();             // 기준일
                     MSTCOD   = oDS_PH_PY678B.GetValue("U_ColReg03", i).Trim();    // 사번
                     DutyAmt  = oDS_PH_PY678B.GetValue("U_ColReg09", i).Trim();           // 식대
@@ -1447,7 +1447,7 @@ namespace PSH_BOne_AddOn
                     {
                         for (i = 1; i <= oMat01.VisualRowCount; i++)
                         {
-                            oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.VALUE = i;
+                            oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value = i;
                         }
                         oMat01.FlushToDataSource();
                         oDS_PH_PY678B.RemoveRecord(oDS_PH_PY678B.Size - 1);

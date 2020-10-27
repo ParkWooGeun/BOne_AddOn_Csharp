@@ -178,7 +178,7 @@ namespace PSH_BOne_AddOn
 								// 헤더
 								if (pval.ItemUID == "SCardCode")
 								{
-									if (string.IsNullOrEmpty(oForm.Items.Item("SCardCode").Specific.VALUE))
+									if (string.IsNullOrEmpty(oForm.Items.Item("SCardCode").Specific.Value))
 									{
 										PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
 										BubbleEvent = false;
@@ -186,7 +186,7 @@ namespace PSH_BOne_AddOn
 								}
 								if (pval.ItemUID == "ECardCode")
 								{
-									if (string.IsNullOrEmpty(oForm.Items.Item("ECardCode").Specific.VALUE))
+									if (string.IsNullOrEmpty(oForm.Items.Item("ECardCode").Specific.Value))
 									{
 										PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
 										BubbleEvent = false;
@@ -452,7 +452,7 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				if (string.IsNullOrEmpty(oForm.Items.Item("DocDateFr").Specific.VALUE.ToString().Trim()))
+				if (string.IsNullOrEmpty(oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim()))
 				{ 
 						ErrNum = 1;
 						throw new Exception();
@@ -496,9 +496,9 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				// 조회조건문
-				BPLID     = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
-				DocDateFr = oForm.Items.Item("DocDateFr").Specific.VALUE.ToString().Trim();
-				DocDateTo = oForm.Items.Item("DocDateTo").Specific.VALUE.ToString().Trim();
+				BPLID     = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
+				DocDateFr = oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim();
+				DocDateTo = oForm.Items.Item("DocDateTo").Specific.Value.ToString().Trim();
 
 				if (oForm.Items.Item("Rad01").Specific.Selected == true)
 				{

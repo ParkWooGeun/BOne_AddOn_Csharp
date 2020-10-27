@@ -482,7 +482,7 @@ namespace PSH_BOne_AddOn
             }
             else
             {
-                oForm.Items.Item("Comments").Specific.VALUE = sFile;
+                oForm.Items.Item("Comments").Specific.Value = sFile;
             }
 
             //엑셀 Object 연결
@@ -629,17 +629,17 @@ namespace PSH_BOne_AddOn
                         appr = oDS_PH_PY009B.GetValue("U_ColReg10", loopCount - 1).Trim();
                         rst = oDS_PH_PY009B.GetValue("U_ColReg11", loopCount - 1).Trim();
 
-                        //CLTCOD = oMat01.Columns.Item("CLTCOD").Cells.Item(loopCount).Specific.VALUE;
-                        //ymd = oMat01.Columns.Item("ymd").Cells.Item(loopCount).Specific.VALUE;
-                        //tms = oMat01.Columns.Item("tms").Cells.Item(loopCount).Specific.VALUE;
-                        //tmrid = oMat01.Columns.Item("tmrid").Cells.Item(loopCount).Specific.VALUE;
-                        //usrid = oMat01.Columns.Item("usrid").Cells.Item(loopCount).Specific.VALUE;
-                        //kname = oMat01.Columns.Item("kname").Cells.Item(loopCount).Specific.VALUE;
-                        //sabun = oMat01.Columns.Item("sabun").Cells.Item(loopCount).Specific.VALUE;
-                        //Gubun = oMat01.Columns.Item("gubun").Cells.Item(loopCount).Specific.VALUE;
-                        //pmode = oMat01.Columns.Item("pmode").Cells.Item(loopCount).Specific.VALUE;
-                        //appr = oMat01.Columns.Item("appr").Cells.Item(loopCount).Specific.VALUE;
-                        //rst = oMat01.Columns.Item("rst").Cells.Item(loopCount).Specific.VALUE;
+                        //CLTCOD = oMat01.Columns.Item("CLTCOD").Cells.Item(loopCount).Specific.Value;
+                        //ymd = oMat01.Columns.Item("ymd").Cells.Item(loopCount).Specific.Value;
+                        //tms = oMat01.Columns.Item("tms").Cells.Item(loopCount).Specific.Value;
+                        //tmrid = oMat01.Columns.Item("tmrid").Cells.Item(loopCount).Specific.Value;
+                        //usrid = oMat01.Columns.Item("usrid").Cells.Item(loopCount).Specific.Value;
+                        //kname = oMat01.Columns.Item("kname").Cells.Item(loopCount).Specific.Value;
+                        //sabun = oMat01.Columns.Item("sabun").Cells.Item(loopCount).Specific.Value;
+                        //Gubun = oMat01.Columns.Item("gubun").Cells.Item(loopCount).Specific.Value;
+                        //pmode = oMat01.Columns.Item("pmode").Cells.Item(loopCount).Specific.Value;
+                        //appr = oMat01.Columns.Item("appr").Cells.Item(loopCount).Specific.Value;
+                        //rst = oMat01.Columns.Item("rst").Cells.Item(loopCount).Specific.Value;
 
                         sQry = "      EXEC PH_PY009 '";
                         sQry = sQry + CLTCOD + "','";

@@ -78,8 +78,8 @@ namespace PSH_BOne_AddOn
                 oMat01.Columns.Item("CLTAdrs").Visible = false; //사업장주소 Visible False
                 oMat01.Columns.Item("RepName").Visible = false; //대표이사명 Visible False
 
-                oForm.Items.Item("SFrDate").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
-                oForm.Items.Item("SToDate").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
+                oForm.Items.Item("SFrDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
+                oForm.Items.Item("SToDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
             }
             catch (Exception ex)
             {
@@ -347,7 +347,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY508_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -499,8 +499,8 @@ namespace PSH_BOne_AddOn
                 //    Call oForm.Items("SDestDiv").Specific.Select(0, psk_Index) '출장구분
                 //    Call oForm.Items("SVehicle").Specific.Select(0, psk_Index) '차량구분
                 //    '기간(월)
-                //    oForm.Items("SFrDate").Specific.VALUE = Format(Now, "YYYY.MM")
-                //    oForm.Items("SToDate").Specific.VALUE = Format(Now, "YYYY.MM")
+                //    oForm.Items("SFrDate").Specific.Value = Format(Now, "YYYY.MM")
+                //    oForm.Items("SToDate").Specific.Value = Format(Now, "YYYY.MM")
 
                 oForm.Items.Item("MSTCOD").Click();
             }
@@ -539,8 +539,8 @@ namespace PSH_BOne_AddOn
                 sQry = "EXEC PH_PY508_05 '" + CLTCOD + "', '" + StdYear + "'";
                 oRecordSet01.DoQuery(sQry);
 
-                oForm.Items.Item("DocNo1").Specific.VALUE = StdYear;
-                oForm.Items.Item("DocNo2").Specific.VALUE = oRecordSet01.Fields.Item("DocNo2").Value.ToString().Trim();
+                oForm.Items.Item("DocNo1").Specific.Value = StdYear;
+                oForm.Items.Item("DocNo2").Specific.Value = oRecordSet01.Fields.Item("DocNo2").Value.ToString().Trim();
             }
             catch (Exception ex)
             {
@@ -1192,8 +1192,8 @@ namespace PSH_BOne_AddOn
                     case "MSTCOD":
 
                         sQry = "      EXEC PH_PY508_06 '";
-                        sQry = sQry + oForm.Items.Item("CLTCOD").Specific.VALUE + "','";
-                        sQry = sQry + oForm.Items.Item("MSTCOD").Specific.VALUE + "'";
+                        sQry = sQry + oForm.Items.Item("CLTCOD").Specific.Value + "','";
+                        sQry = sQry + oForm.Items.Item("MSTCOD").Specific.Value + "'";
 
                         oRecordSet01.DoQuery(sQry);
 
@@ -1212,7 +1212,7 @@ namespace PSH_BOne_AddOn
 
                     case "SMSTCOD":
 
-                        oForm.Items.Item("SMSTNAM").Specific.VALUE = dataHelpClass.Get_ReData("U_FULLNAME", "U_MSTCOD", "[OHEM]", "'" + oForm.Items.Item("SMSTCOD").Specific.VALUE + "'", ""); //성명
+                        oForm.Items.Item("SMSTNAM").Specific.Value = dataHelpClass.Get_ReData("U_FULLNAME", "U_MSTCOD", "[OHEM]", "'" + oForm.Items.Item("SMSTCOD").Specific.Value + "'", ""); //성명
                         break;
 
                     case "UseType1":
@@ -1691,15 +1691,15 @@ namespace PSH_BOne_AddOn
                             oDS_PH_PY508A.SetValue("U_MSTCOD", 0, oMat01.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()); //사번
                             oDS_PH_PY508A.SetValue("U_MSTNAM", 0, oMat01.Columns.Item("MSTNAM").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()); //성명
                             oDS_PH_PY508A.SetValue("U_TeamCode", 0, oMat01.Columns.Item("TeamCode").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()); //소속팀
-                            //Call oDS_PH_PY508A.setValue("U_ColReg12", 0, oMat01.Columns("TeamName").Cells(pval.Row).Specific.VALUE) '소속팀명
+                            //Call oDS_PH_PY508A.setValue("U_ColReg12", 0, oMat01.Columns("TeamName").Cells(pval.Row).Specific.Value) '소속팀명
                             oDS_PH_PY508A.SetValue("U_RspCode", 0, oMat01.Columns.Item("RspCode").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()); //소속담당
-                            //Call oDS_PH_PY508A.setValue("U_ColReg14", 0, oMat01.Columns("RspName").Cells(pval.Row).Specific.VALUE) '소속담당명
+                            //Call oDS_PH_PY508A.setValue("U_ColReg14", 0, oMat01.Columns("RspName").Cells(pval.Row).Specific.Value) '소속담당명
                             oDS_PH_PY508A.SetValue("U_Position", 0, oMat01.Columns.Item("Position").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()); //직책
                             oDS_PH_PY508A.SetValue("U_GovID", 0, oMat01.Columns.Item("GovID").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()); //주민등록번호
                             oDS_PH_PY508A.SetValue("U_CurAdrs", 0, oMat01.Columns.Item("CurAdrs").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()); //현주소
                             oDS_PH_PY508A.SetValue("U_GrpDat", 0, oMat01.Columns.Item("GrpDat").Cells.Item(pVal.Row).Specific.Value.ToString().Replace(".", "")); //입사일
                             oDS_PH_PY508A.SetValue("U_UseCmt", 0, oMat01.Columns.Item("UseCmt").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()); //용도
-                            //Call oDS_PH_PY508A.setValue("U_Retire", 0, IIf(oMat01.Columns("Retire").Cells(pval.Row).Specific.VALUE = "1", oForm.Items("Retire").Specific.Checked = True, oForm.Items("Retire").Specific.Checked = False)) '퇴사여부
+                            //Call oDS_PH_PY508A.setValue("U_Retire", 0, IIf(oMat01.Columns("Retire").Cells(pval.Row).Specific.Value = "1", oForm.Items("Retire").Specific.Checked = True, oForm.Items("Retire").Specific.Checked = False)) '퇴사여부
                             oDS_PH_PY508A.SetValue("U_Retire", 0, (oMat01.Columns.Item("Retire").Cells.Item(pVal.Row).Specific.Value.ToString().Trim() == "1" ? "Y" : "N")); //퇴사여부
 
                             oForm.Items.Item("Retire").Enabled = false;
@@ -1798,12 +1798,12 @@ namespace PSH_BOne_AddOn
                         {
                             //                If (pval.ColUID = "ItemCode") Then
                             //                    '//기타작업
-                            //                    Call oDS_PH_PY508B.setValue("U_" & pval.ColUID, pval.Row - 1, oMat01.Columns(pval.ColUID).Cells(pval.Row).Specific.VALUE)
+                            //                    Call oDS_PH_PY508B.setValue("U_" & pval.ColUID, pval.Row - 1, oMat01.Columns(pval.ColUID).Cells(pval.Row).Specific.Value)
                             //                    If oMat01.RowCount = pval.Row And Trim(oDS_PH_PY508B.GetValue("U_" & pval.ColUID, pval.Row - 1)) <> "" Then
                             //                        PH_PY508_AddMatrixRow (pval.Row)
                             //                    End If
                             //                Else
-                            //                    Call oDS_PH_PY508B.setValue("U_" & pval.ColUID, pval.Row - 1, oMat01.Columns(pval.ColUID).Cells(pval.Row).Specific.VALUE)
+                            //                    Call oDS_PH_PY508B.setValue("U_" & pval.ColUID, pval.Row - 1, oMat01.Columns(pval.ColUID).Cells(pval.Row).Specific.Value)
                             //                End If
                         }
                         else
@@ -1812,11 +1812,11 @@ namespace PSH_BOne_AddOn
 
                             //                If pval.ItemUID = "MSTCOD" Then
                             //
-                            //                    oForm.Items("MSTNAM").Specific.VALUE = MDC_GetData.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" & oForm.Items("MSTCOD").Specific.VALUE & "'") '성명
+                            //                    oForm.Items("MSTNAM").Specific.Value = MDC_GetData.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" & oForm.Items("MSTCOD").Specific.Value & "'") '성명
                             //
                             //                ElseIf pval.ItemUID = "SMSTCOD" Then
                             //
-                            //                    oForm.Items("SMSTNAM").Specific.VALUE = MDC_GetData.Get_ReData("U_FULLNAME", "U_MSTCOD", "[OHEM]", "'" & oForm.Items("SMSTCOD").Specific.VALUE & "'") '성명
+                            //                    oForm.Items("SMSTNAM").Specific.Value = MDC_GetData.Get_ReData("U_FULLNAME", "U_MSTCOD", "[OHEM]", "'" & oForm.Items("SMSTCOD").Specific.Value & "'") '성명
                             //
                             //                End If
 
@@ -1988,7 +1988,7 @@ namespace PSH_BOne_AddOn
                     {
                         for (i = 1; i <= oMat01.VisualRowCount; i++)
                         {
-                            oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.VALUE = i;
+                            oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value = i;
                         }
                         oMat01.FlushToDataSource();
                         oDS_PH_PY508A.RemoveRecord(oDS_PH_PY508A.Size - 1);

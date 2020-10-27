@@ -173,7 +173,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY860_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -259,7 +259,7 @@ namespace PSH_BOne_AddOn
             {
                 functionReturnValue = true;
 
-                if (string.IsNullOrEmpty(oForm.Items.Item("YM").Specific.VALUE))
+                if (string.IsNullOrEmpty(oForm.Items.Item("YM").Specific.Value))
                 {
                     errNum = 1;
                     oForm.Items.Item("YM").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -302,7 +302,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY860A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.VALUE + "'", 0, 1) == "Y")
+                if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY860A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "Y")
                 {
                     errNum = 1;
                     functionReturnValue = false;

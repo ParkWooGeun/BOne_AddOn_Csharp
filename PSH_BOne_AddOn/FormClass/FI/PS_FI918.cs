@@ -126,7 +126,7 @@ namespace PSH_BOne_AddOn
 				//    oRecordSet01.DoQuery sQry
 				//    Call oCombo.ValidValues.Add("001", "전체")
 				//    Do Until oRecordSet01.EOF
-				//        oCombo.ValidValues.Add Trim(oRecordSet01.Fields(0).VALUE), Trim(oRecordSet01.Fields(1).VALUE)
+				//        oCombo.ValidValues.Add Trim(oRecordSet01.Fields(0).Value), Trim(oRecordSet01.Fields(1).Value)
 				//        oRecordSet01.MoveNext
 				//    Loop
 				//    Call oCombo.Select(0, psk_Index)
@@ -187,7 +187,7 @@ namespace PSH_BOne_AddOn
 							{
 								if (pval.ItemUID == "SItemCode")
 								{
-									if (string.IsNullOrEmpty(oForm.Items.Item("SItemCode").Specific.VALUE.ToString().Trim()))
+									if (string.IsNullOrEmpty(oForm.Items.Item("SItemCode").Specific.Value.ToString().Trim()))
 									{
 										PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
 										BubbleEvent = false;
@@ -195,7 +195,7 @@ namespace PSH_BOne_AddOn
 								}
 								if (pval.ItemUID == "EItemCode")
 								{
-									if (string.IsNullOrEmpty(oForm.Items.Item("EItemCode").Specific.VALUE.ToString().Trim()))
+									if (string.IsNullOrEmpty(oForm.Items.Item("EItemCode").Specific.Value.ToString().Trim()))
 									{
 										PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
 										BubbleEvent = false;
@@ -462,12 +462,12 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				if (string.IsNullOrEmpty(oForm.Items.Item("StrDate").Specific.VALUE.ToString().Trim()))
+				if (string.IsNullOrEmpty(oForm.Items.Item("StrDate").Specific.Value.ToString().Trim()))
 				{
 					ErrNum = 1;
 					throw new Exception();
 				}
-				if (string.IsNullOrEmpty(oForm.Items.Item("EndDate").Specific.VALUE.ToString().Trim()))
+				if (string.IsNullOrEmpty(oForm.Items.Item("EndDate").Specific.Value.ToString().Trim()))
 				{
 					ErrNum = 2;
 					throw new Exception();
@@ -516,13 +516,13 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				// 조회조건문
-				ItmGrp    = oForm.Items.Item("ItmGrp").Specific.Selected.VALUE.ToString().Trim();
-				ItmBsort  = oForm.Items.Item("ItmBsort").Specific.VALUE.ToString().Trim();
-				BPLID     = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
-				StrDate   = oForm.Items.Item("StrDate").Specific.VALUE.ToString().Trim();
-				EndDate   = oForm.Items.Item("EndDate").Specific.VALUE.ToString().Trim();
-				SItemCode = oForm.Items.Item("SItemCode").Specific.VALUE.ToString().Trim();
-				EITemCode = oForm.Items.Item("EItemCode").Specific.VALUE.ToString().Trim();
+				ItmGrp    = oForm.Items.Item("ItmGrp").Specific.Selected.Value.ToString().Trim();
+				ItmBsort  = oForm.Items.Item("ItmBsort").Specific.Value.ToString().Trim();
+				BPLID     = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
+				StrDate   = oForm.Items.Item("StrDate").Specific.Value.ToString().Trim();
+				EndDate   = oForm.Items.Item("EndDate").Specific.Value.ToString().Trim();
+				SItemCode = oForm.Items.Item("SItemCode").Specific.Value.ToString().Trim();
+				EITemCode = oForm.Items.Item("EItemCode").Specific.Value.ToString().Trim();
 
 				if (string.IsNullOrEmpty(StrDate))
 				{

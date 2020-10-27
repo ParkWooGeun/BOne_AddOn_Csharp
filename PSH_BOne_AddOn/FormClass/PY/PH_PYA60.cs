@@ -307,11 +307,11 @@ namespace PSH_BOne_AddOn
             string EntFeeYN = string.Empty;
             string OptBtnValue = string.Empty;
 
-            CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
-            yyyy = oForm.Items.Item("StdYear").Specific.VALUE.Trim();
-            Quarter = oForm.Items.Item("Quarter").Specific.VALUE.Trim();
-            Count = oForm.Items.Item("Count").Specific.VALUE.Trim();
-            EntFeeYN = oForm.Items.Item("EntFeeYN").Specific.VALUE.Trim();
+            CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
+            yyyy = oForm.Items.Item("StdYear").Specific.Value.Trim();
+            Quarter = oForm.Items.Item("Quarter").Specific.Value.Trim();
+            Count = oForm.Items.Item("Count").Specific.Value.Trim();
+            EntFeeYN = oForm.Items.Item("EntFeeYN").Specific.Value.Trim();
             OptBtnValue = oForm.DataSources.UserDataSources.Item("OptionDS").Value;
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();

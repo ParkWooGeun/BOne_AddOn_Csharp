@@ -287,7 +287,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY006_FormItemEnabled();
-                    oForm.Items.Item("DocEntry").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -613,7 +613,7 @@ namespace PSH_BOne_AddOn
                 Param05 = Convert.ToDouble(oForm.Items.Item("UPAMT").Specific.Value);
                 Param06 = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
 
-                YM = oForm.Items.Item("YM").Specific.VALUE;
+                YM = oForm.Items.Item("YM").Specific.Value;
                 DocDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
 
                 if (string.IsNullOrEmpty(Param03))
@@ -891,7 +891,7 @@ namespace PSH_BOne_AddOn
             
             try
             {
-                if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY006A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.VALUE + "'", 0, 1) == "Y")
+                if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY006A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "Y")
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("해당문서는 다른사용자에 의해 취소되었습니다. 작업을 진행할수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                     return functionReturnValue;
@@ -1099,7 +1099,7 @@ namespace PSH_BOne_AddOn
                         //승호취소 처리
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                         {
-                            if (oForm.Items.Item("Canceled").Specific.VALUE == "Y")
+                            if (oForm.Items.Item("Canceled").Specific.Value == "Y")
                             {
                                 PH_PY006_MTX03();
                             }
@@ -1312,7 +1312,7 @@ namespace PSH_BOne_AddOn
                         {
 
                             case "CntcCode":
-                                oDS_PH_PY006A.SetValue("U_CntcName", 0, dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item(pVal.ItemUID).Specific.VALUE + "'", ""));
+                                oDS_PH_PY006A.SetValue("U_CntcName", 0, dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'", ""));
                                 break;
 
                             case "Mat01":

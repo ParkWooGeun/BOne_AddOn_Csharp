@@ -165,7 +165,7 @@ namespace PSH_BOne_AddOn
 								////헤더
 								if (pval.ItemUID == "SCardCode")
 								{
-									if (string.IsNullOrEmpty(oForm.Items.Item("SCardCode").Specific.VALUE))
+									if (string.IsNullOrEmpty(oForm.Items.Item("SCardCode").Specific.Value))
 									{
 										PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
 										BubbleEvent = false;
@@ -173,7 +173,7 @@ namespace PSH_BOne_AddOn
 								}
 								if (pval.ItemUID == "ECardCode")
 								{
-									if (string.IsNullOrEmpty(oForm.Items.Item("ECardCode").Specific.VALUE))
+									if (string.IsNullOrEmpty(oForm.Items.Item("ECardCode").Specific.Value))
 									{
 										PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
 										BubbleEvent = false;
@@ -436,17 +436,17 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				if (string.IsNullOrEmpty(oForm.Items.Item("YYYYMM").Specific.VALUE.ToString().Trim()))
+				if (string.IsNullOrEmpty(oForm.Items.Item("YYYYMM").Specific.Value.ToString().Trim()))
 				{ 
 					ErrNum = 1;
 					throw new Exception();
 				}
-				if (oForm.Items.Item("YYYYMM").Specific.VALUE.ToString().Trim().Length != 7)
+				if (oForm.Items.Item("YYYYMM").Specific.Value.ToString().Trim().Length != 7)
 				{
 					ErrNum = 2;
 					throw new Exception();
 				}
-				if (string.IsNullOrEmpty(oForm.Items.Item("BaseDate").Specific.VALUE.ToString().Trim()))
+				if (string.IsNullOrEmpty(oForm.Items.Item("BaseDate").Specific.Value.ToString().Trim()))
 				{
 					ErrNum = 3;
 					throw new Exception();
@@ -503,12 +503,12 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				// 조회조건문
-				YYYYMM = oForm.Items.Item("YYYYMM").Specific.VALUE.ToString().Trim();
+				YYYYMM = oForm.Items.Item("YYYYMM").Specific.Value.ToString().Trim();
 				BaseDate = DateTime.ParseExact(oForm.Items.Item("BaseDate").Specific.Value, "yyyyMMdd", null);
 				BaseDateC = Convert.ToString(BaseDate).Substring(0,10);   // Formula 인수 전달시 시간빼고 날짜만..   
-				SCardCode = oForm.Items.Item("SCardCode").Specific.VALUE.ToString().Trim();
-				ECardCode = oForm.Items.Item("ECardCode").Specific.VALUE.ToString().Trim();
-				BPLId     = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
+				SCardCode = oForm.Items.Item("SCardCode").Specific.Value.ToString().Trim();
+				ECardCode = oForm.Items.Item("ECardCode").Specific.Value.ToString().Trim();
+				BPLId     = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
 
 				StrDate = Convert.ToDateTime(YYYYMM + "-01"); // 시작일자 1일
 				EndDate = StrDate.AddMonths(1).AddDays(-1);   // 그달의마지막일자

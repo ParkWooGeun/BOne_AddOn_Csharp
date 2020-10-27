@@ -321,7 +321,7 @@ namespace PSH_BOne_AddOn
 								//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 								for (i = 0; i <= oMat01.VisualRowCount - 1; i++)
 								{
-									oMat01.Columns.Item("LineId").Cells.Item(i + 1).Specific.VALUE = i + 1;
+									oMat01.Columns.Item("LineId").Cells.Item(i + 1).Specific.Value = i + 1;
 								}
 								oMat01.FlushToDataSource();
 								oDS_PS_FI932L.RemoveRecord(oDS_PS_FI932L.Size - 1);	// Mat1에 마지막라인(빈라인) 삭제
@@ -346,7 +346,7 @@ namespace PSH_BOne_AddOn
 							FormItemEnabled();
 							if (oMat01.VisualRowCount > 0)
 							{
-								if (!string.IsNullOrEmpty(oMat01.Columns.Item("DocDate").Cells.Item(oMat01.VisualRowCount).Specific.VALUE))
+								if (!string.IsNullOrEmpty(oMat01.Columns.Item("DocDate").Cells.Item(oMat01.VisualRowCount).Specific.Value))
 								{
 									Matrix_AddRow(1, oMat01.RowCount, false);
 								}
@@ -489,11 +489,11 @@ namespace PSH_BOne_AddOn
 				Code = dataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PS_FI932'", "");
 				if (Convert.ToDouble(Code) == 0)
 				{
-					oForm.Items.Item("Code").Specific.VALUE = 1;
+					oForm.Items.Item("Code").Specific.Value = 1;
 				}
 				else
 				{
-					oForm.Items.Item("Code").Specific.VALUE = Code;
+					oForm.Items.Item("Code").Specific.Value = Code;
 				}
 			}
 			catch (Exception ex)
@@ -637,7 +637,7 @@ namespace PSH_BOne_AddOn
 					ErrNum = 5;
 					throw new Exception();
 				}
-				if (string.IsNullOrEmpty(oForm.Items.Item("LoanAmt").Specific.VALUE))
+				if (string.IsNullOrEmpty(oForm.Items.Item("LoanAmt").Specific.Value))
 				{
 					ErrNum = 6;
 					throw new Exception();
@@ -652,7 +652,7 @@ namespace PSH_BOne_AddOn
 					ErrNum = 8;
 					throw new Exception();
 				}
-				if (string.IsNullOrEmpty(oForm.Items.Item("LoanIntr").Specific.VALUE))
+				if (string.IsNullOrEmpty(oForm.Items.Item("LoanIntr").Specific.Value))
 				{
 					ErrNum = 9;
 					throw new Exception();

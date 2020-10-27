@@ -182,7 +182,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY119_FormItemEnabled();
-                    //oForm.Items.Item("DocEntry").Specific.VALUE = oFormDocEntry01;
+                    //oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry01;
                     //oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -275,11 +275,11 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                Param01 = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
-                Param02 = oForm.Items.Item("YM").Specific.VALUE;
-                Param03 = oForm.Items.Item("JOBTYP").Specific.VALUE.Trim();
-                Param04 = oForm.Items.Item("JOBGBN").Specific.VALUE.Trim();
-                Param05 = oForm.Items.Item("JIGBIL").Specific.VALUE;
+                Param01 = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
+                Param02 = oForm.Items.Item("YM").Specific.Value;
+                Param03 = oForm.Items.Item("JOBTYP").Specific.Value.Trim();
+                Param04 = oForm.Items.Item("JOBGBN").Specific.Value.Trim();
+                Param05 = oForm.Items.Item("JIGBIL").Specific.Value;
 
                 SAPbouiCOM.ProgressBar ProgressBar01 = null;
                 ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet.RecordCount, false);
@@ -315,7 +315,7 @@ namespace PSH_BOne_AddOn
                     ProgressBar01.Value = ProgressBar01.Value + 1;
                     ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";
                 }
-                oForm.Items.Item("Total").Specific.VALUE = Total;
+                oForm.Items.Item("Total").Specific.Value = Total;
 
                 oMat1.LoadFromDataSource();
                 oMat1.AutoResizeColumns();
@@ -700,7 +700,7 @@ namespace PSH_BOne_AddOn
 
                     if (oMat1.VisualRowCount > 0)
                     {
-                        g_preBankSel = oMat1.Columns.Item("BankSel").Cells.Item(pVal.Row).Specific.VALUE.Trim();
+                        g_preBankSel = oMat1.Columns.Item("BankSel").Cells.Item(pVal.Row).Specific.Value.Trim();
                         //콤보박스 선택전(변경전) 은행
                     }
                 }
@@ -714,14 +714,14 @@ namespace PSH_BOne_AddOn
                             if (pVal.ColUID == "BankSel")
                             {
                                 sQry = "      EXEC PH_PY119_02 '";
-                                sQry = sQry + oMat1.Columns.Item("CntcName").Cells.Item(pVal.Row).Specific.VALUE.Trim() + "','";
-                                sQry = sQry + oMat1.Columns.Item("Tuition").Cells.Item(pVal.Row).Specific.VALUE.Trim() + "','";
+                                sQry = sQry + oMat1.Columns.Item("CntcName").Cells.Item(pVal.Row).Specific.Value.Trim() + "','";
+                                sQry = sQry + oMat1.Columns.Item("Tuition").Cells.Item(pVal.Row).Specific.Value.Trim() + "','";
                                 sQry = sQry + g_preBankSel + "'";
 
                                 oRecordSet.DoQuery(sQry);
 
-                                oMat1.Columns.Item("BankNm").Cells.Item(pVal.Row).Specific.VALUE = oRecordSet.Fields.Item("BankName").Value.Trim();
-                                oMat1.Columns.Item("Tuition").Cells.Item(pVal.Row).Specific.VALUE = oRecordSet.Fields.Item("AccountNum").Value.Trim();
+                                oMat1.Columns.Item("BankNm").Cells.Item(pVal.Row).Specific.Value = oRecordSet.Fields.Item("BankName").Value.Trim();
+                                oMat1.Columns.Item("Tuition").Cells.Item(pVal.Row).Specific.Value = oRecordSet.Fields.Item("AccountNum").Value.Trim();
                             }
                             oMat1.AutoResizeColumns();
                         }
@@ -868,7 +868,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 //사업장
-                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.VALUE.Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -876,7 +876,7 @@ namespace PSH_BOne_AddOn
                     return functionReturnValue;
                 }
                 //년도
-                if (string.IsNullOrEmpty(oForm.Items.Item("YM").Specific.VALUE.Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("YM").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("년월은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("YM").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -884,7 +884,7 @@ namespace PSH_BOne_AddOn
                     return functionReturnValue;
                 }
                 //지급일자
-                if (string.IsNullOrEmpty(oForm.Items.Item("JIGBIL").Specific.VALUE.Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("JIGBIL").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("지급일자는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("JIGBIL").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -892,7 +892,7 @@ namespace PSH_BOne_AddOn
                     return functionReturnValue;
                 }
                 //분기
-                if (string.IsNullOrEmpty(oForm.Items.Item("JOBTYP").Specific.VALUE.Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("JOBTYP").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("지급종류는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("JOBTYP").Click(SAPbouiCOM.BoCellClickType.ct_Regular);

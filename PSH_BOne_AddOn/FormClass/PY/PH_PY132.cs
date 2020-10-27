@@ -218,7 +218,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY132_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -435,12 +435,12 @@ namespace PSH_BOne_AddOn
                                 BubbleEvent = false;
                             }
                         }
-                        tDocEntry = oForm.Items.Item("Code").Specific.VALUE;
+                        tDocEntry = oForm.Items.Item("Code").Specific.Value;
                     }
                     else if (pVal.ItemUID == "Btn1")  // 급(상)여계산
                     {
                         CalcYN = true;
-                        tDocEntry = oForm.Items.Item("Code").Specific.VALUE;
+                        tDocEntry = oForm.Items.Item("Code").Specific.Value;
                         // 유효성 검사
                         if (PH_PY132_DataValidCheck() == true & Pay_Calc() == true)
                         {
@@ -451,7 +451,7 @@ namespace PSH_BOne_AddOn
                             else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                             {
                                 PSH_Globals.SBO_Application.StatusBar.SetText("성과급 차등계산이 진행중입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Warning);
-                                if (oForm.Items.Item("JOBGBN").Specific.VALUE != "2")
+                                if (oForm.Items.Item("JOBGBN").Specific.Value != "2")
                                 {
                                     // 정상계산
                                     oRecordSet.DoQuery("EXEC PH_PY132 '" + tDocEntry + "'");
@@ -639,7 +639,7 @@ namespace PSH_BOne_AddOn
                         {
                             oYM = oDS_PH_PY132A.GetValue("U_YM", 0).ToString().Trim();
                             JIGBIL = DateTime.Now.ToString("yyyyMMdd");
-                            oForm.Items.Item("JIGBIL").Specific.VALUE = JIGBIL;
+                            oForm.Items.Item("JIGBIL").Specific.Value = JIGBIL;
                             oJOBGBN = oDS_PH_PY132A.GetValue("U_JOBGBN", 0).ToString().Trim();
                         }
                         else
@@ -845,7 +845,7 @@ namespace PSH_BOne_AddOn
             {
                 functionReturnValue = true;
 
-                if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY132A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.VALUE + "'", 0, 1) == "Y")
+                if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY132A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "Y")
                 {
                     functionReturnValue = false;
                     throw new Exception();
@@ -891,7 +891,7 @@ namespace PSH_BOne_AddOn
                     // 귀속년월
                     if (pVal.ItemUID == "YM")
                     {
-                        if (string.IsNullOrEmpty(oForm.Items.Item("YM").Specific.VALUE.ToString().Trim()))
+                        if (string.IsNullOrEmpty(oForm.Items.Item("YM").Specific.Value.ToString().Trim()))
                         {
                             oDS_PH_PY132A.SetValue("U_YM", 0, DateTime.Now.ToString("yyyyMM"));
                         }

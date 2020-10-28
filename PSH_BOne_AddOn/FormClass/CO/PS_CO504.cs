@@ -11,8 +11,7 @@ namespace PSH_BOne_AddOn
         private string oFormUniqueID;
         private SAPbouiCOM.Matrix oMat01;
         private SAPbouiCOM.DBDataSource oDS_PS_USERDS01;
-        private string oLast_Item_UID;        //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
-        
+
         /// <summary>
         /// Form 호출
         /// </summary>
@@ -367,7 +366,6 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
-            int i = 0;
             try
             {
                 oForm.Freeze(true);

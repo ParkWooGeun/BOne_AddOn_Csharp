@@ -198,7 +198,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Opt52").Specific.GroupWith(("Opt51"));
                 oForm.Items.Item("Opt51").Specific.Selected = true;
 
-                /// 초기값 셋팅
+                //초기값 셋팅
                 for (i = 1; i <= 9; i++)
                 {
                     CSUCOD[i] = "A0" + i;
@@ -214,7 +214,7 @@ namespace PSH_BOne_AddOn
                 CSUNAM[9] = "퇴직금계";
 
 
-                /// M1 월단위계산수식
+                //M1 월단위계산수식
                 SILCOD[1] = "P01";
                 SILCUN[1] = "총급여";
                 SILCOD[2] = "P02  / 12 * 3";
@@ -233,7 +233,7 @@ namespace PSH_BOne_AddOn
                 SILCUN[8] = "평균임금*30*총근속일수/365";
                 SILCOD[9] = "A06 + A07 + A08";
                 SILCUN[9] = "연퇴직금+월퇴직금+일퇴직금";
-                /// D1 일단위계산수식
+                //D1 일단위계산수식
                 SILCOD[10] = "P01";
                 SILCUN[10] = "총급여";
                 SILCOD[11] = "P02  / 12 * 3";
@@ -252,7 +252,7 @@ namespace PSH_BOne_AddOn
                 SILCUN[17] = "평균임금*30*총근속일수/365";
                 SILCOD[18] = "A06 + A07 + A08";
                 SILCUN[18] = "연퇴직금+월퇴직금+일퇴직금";
-                /// D2 일단위계산수식
+                //D2 일단위계산수식
                 SILCOD[19] = "P01";
                 SILCUN[19] = "총급여";
                 SILCOD[20] = "P02  / 12 * 3";
@@ -272,7 +272,7 @@ namespace PSH_BOne_AddOn
                 SILCOD[27] = "A06 + A07 + A08";
                 SILCUN[27] = "연퇴직금+월퇴직금+일퇴직금";
 
-                /// Folder /~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                //Folder /~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 oForm.DataSources.UserDataSources.Add("FolderDS1", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
                 for (i = 1; i <= 3; i++)
                 {
@@ -295,7 +295,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Folder3").Enabled = true;
 
 
-                //// 직위
+                //직위
                 sQry = "SELECT posID,name FROM [OHPS] ORDER BY posID";
                 oRecordSet.DoQuery(sQry);
                 while (!(oRecordSet.EoF))
@@ -304,10 +304,10 @@ namespace PSH_BOne_AddOn
                     oRecordSet.MoveNext();
                 }
 
-                /// 귀속연월
+                //귀속연월
                 oForm.Items.Item("Code").Specific.Value = DateTime.Now.Year;
 
-                //// 누진계산사용유무
+                //누진계산사용유무
                 oForm.Items.Item("RATUSE").Specific.ValidValues.Add("N", "미사용");
                 oForm.Items.Item("RATUSE").Specific.ValidValues.Add("Y", "사용");
 

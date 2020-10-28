@@ -120,10 +120,10 @@ namespace PSH_BOne_AddOn
         /// <returns>0 : 성공</returns>
         private int Connect_DIAPI()
         {
-            int setConnectionContextReturn = 0;
+            int setConnectionContextReturn;
 
-            string sCookie = string.Empty;
-            string sConnectionContext = string.Empty;
+            string sCookie;
+            string sConnectionContext;
 
             // acquire the connection context cookie from the DI API
             sCookie = PSH_Globals.oCompany.GetContextCookie();
@@ -149,7 +149,7 @@ namespace PSH_BOne_AddOn
         /// <returns>0 : 성공</returns>
         private int Connect_CompanyDB()
         {
-            int connectToCompanyReturn = 0;
+            int connectToCompanyReturn;
 
             // Establish the connection to the company database.
             connectToCompanyReturn = PSH_Globals.oCompany.Connect();
@@ -162,24 +162,23 @@ namespace PSH_BOne_AddOn
         /// </summary>
         public void Initialize_ODBC_Variable()
         {
-            string sQry = string.Empty;
-            string ServerName = string.Empty;
-            SAPbobsCOM.Recordset oRecordSet = null;
+            string sQry;
+            string ServerName;
+            SAPbobsCOM.Recordset oRecordSet = (SAPbobsCOM.Recordset)PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
-            oRecordSet = (SAPbobsCOM.Recordset)PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
+            
             ServerName = PSH_Globals.SBO_Application.Company.ServerName;
 
-            sQry = "        SELECT      PARAM01 AS PARAM01,";
-            sQry = sQry + "             PARAM02 AS PARAM02,";
-            sQry = sQry + "             PARAM03 AS PARAM03,";
-            sQry = sQry + "             PARAM04 AS PARAM04,";
-            sQry = sQry + "             PARAM05 AS PARAM05,";
-            sQry = sQry + "             PARAM06 AS PARAM06,";
-            sQry = sQry + "             PARAM07 AS PARAM07,";
-            sQry = sQry + "             PARAM08 AS PARAM08";
-            sQry = sQry + " FROM        PROFILE ";
-            sQry = sQry + " WHERE       TYPE = 'SERVERINFO'";
+            sQry = "  SELECT      PARAM01 AS PARAM01,";
+            sQry += "             PARAM02 AS PARAM02,";
+            sQry += "             PARAM03 AS PARAM03,";
+            sQry += "             PARAM04 AS PARAM04,";
+            sQry += "             PARAM05 AS PARAM05,";
+            sQry += "             PARAM06 AS PARAM06,";
+            sQry += "             PARAM07 AS PARAM07,";
+            sQry += "             PARAM08 AS PARAM08";
+            sQry += " FROM        PROFILE ";
+            sQry += " WHERE       TYPE = 'SERVERINFO'";
 
             oRecordSet.DoQuery(sQry);
 
@@ -210,7 +209,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void XmlCreateYN()
         {
-            string Query01 = string.Empty;
+            string Query01;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             FileSystemObject FSO = new FileSystemObject();
@@ -276,25 +275,20 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void SaveMenuXml()
         {
-            MSXML2.DOMDocument30 objDOM = new MSXML2.DOMDocument30();
-            string Query01 = string.Empty;
-            string UpdateQry01 = string.Empty;
-            int i = 0;
-            int j = 0;
-            string NowType = string.Empty;
-            string UserID = string.Empty;
+            string Query01;
+            string UpdateQry01;
+            int i;
+            int j;
+            string NowType;
+            string UserID;
+            string AfType;
+            string NowLevel;
+            string AfLevel;
+            string NowSeq;
+            string AfSeq;
+            string XmlString;
 
-            string AfType = string.Empty;
-            string NowLevel = string.Empty;
-            string AfLevel = string.Empty;
-
-            string NowSeq = string.Empty;
-            string AfSeq = string.Empty;
-
-            string teststring = string.Empty;
-            string XmlString = string.Empty;
-
-            string oFilePath = string.Empty;
+            string oFilePath;
             MSXML2.DOMDocument xmldoc = new MSXML2.DOMDocument();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -349,40 +343,39 @@ namespace PSH_BOne_AddOn
 
                     if (oRecordSet01.Fields.Item("UniqueID").Value == "IFX00000000F")
                     {
-                        XmlString = XmlString + " Image=\"\\\\191.1.1.220\\b1_shr\\PathINI\\QM.jpg\"";
+                        XmlString += " Image=\"\\\\191.1.1.220\\b1_shr\\PathINI\\QM.jpg\"";
 
                     }
                     else if (oRecordSet01.Fields.Item("UniqueID").Value == "HGA00000000F")
                     {
-                        XmlString = XmlString + " Image=\"\\\\191.1.1.220\\b1_shr\\PathINI\\GA.jpg\"";
+                        XmlString += " Image=\"\\\\191.1.1.220\\b1_shr\\PathINI\\GA.jpg\"";
 
                     }
                     else if (oRecordSet01.Fields.Item("UniqueID").Value == "GQM00000000F")
                     {
-                        XmlString = XmlString + " Image=\"\\\\191.1.1.220\\b1_shr\\PathINI\\QM.jpg\"";
+                        XmlString += " Image=\"\\\\191.1.1.220\\b1_shr\\PathINI\\QM.jpg\"";
                     }
-
 
                     if (NowType == "2")
                     {
-                        XmlString = XmlString + ">";
+                        XmlString += ">";
                     }
                     else
                     {
-                        XmlString = XmlString + "/>";
+                        XmlString += "/>";
                     }
 
                     // 마지막에 닫는 부분
-                    if ((i == oRecordSet01.RecordCount - 1))
+                    if (i == oRecordSet01.RecordCount - 1)
                     {
 
                         if (Convert.ToDouble(NowType) == 2 && Convert.ToDouble(NowLevel) == 1)
                         {
-                            XmlString = XmlString + "</Menu>";
+                            XmlString += "</Menu>";
 
                             for (j = Convert.ToInt32(NowLevel) - 1; j >= 0; j += -1)
                             {
-                                XmlString = XmlString + "</action></Menus></Menu>";
+                                XmlString += "</action></Menus></Menu>";
                             }
 
                         }
@@ -390,17 +383,17 @@ namespace PSH_BOne_AddOn
                         {
                             for (j = Convert.ToInt32(NowLevel); j >= 0; j += -1)
                             {
-                                XmlString = XmlString + "</action></Menus></Menu>";
+                                XmlString += "</action></Menus></Menu>";
                             }
 
                         }
                         else if (Convert.ToDouble(NowType) == 2 && Convert.ToDouble(NowLevel) == 2)
                         {
-                            XmlString = XmlString + "</Menu>";
+                            XmlString += "</Menu>";
 
                             for (j = Convert.ToInt32(NowLevel); j >= 0; j += -1)
                             {
-                                XmlString = XmlString + "</action></Menus></Menu>";
+                                XmlString += "</action></Menus></Menu>";
                             }
 
                         }
@@ -408,7 +401,7 @@ namespace PSH_BOne_AddOn
                         {
                             for (j = Convert.ToInt32(NowLevel); j >= 0; j += -1)
                             {
-                                XmlString = XmlString + "</action></Menus></Menu>";
+                                XmlString += "</action></Menus></Menu>";
                             }
                         }
                     }
@@ -419,92 +412,92 @@ namespace PSH_BOne_AddOn
                         }
                         else if ((Convert.ToDouble(NowType) == 1 && Convert.ToDouble(AfType) == 1) && (NowLevel == AfLevel) && (Strings.Left(NowSeq, 9) != Strings.Left(AfSeq, 9)))
                         {
-                            XmlString = XmlString + "</action></Menus></Menu>";
+                            XmlString += "</action></Menus></Menu>";
                         }
                         else if ((Convert.ToDouble(NowType) == 1 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 1 && Convert.ToDouble(AfLevel) == 0) && (Strings.Left(NowSeq, 9) != Strings.Left(AfSeq, 9)) && Strings.Right(Strings.Left(NowSeq, 5), 2) == "99")
                         {
-                            XmlString = XmlString + "</action></Menus></Menu>";
+                            XmlString += "</action></Menus></Menu>";
                         }
                         else if ((Convert.ToDouble(NowType) == 1 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 1 && Convert.ToDouble(AfLevel) == 0) && (Strings.Left(NowSeq, 9) != Strings.Left(AfSeq, 9)) && Strings.Right(Strings.Left(NowSeq, 5), 2) != "99")
                         {
-                            XmlString = XmlString + "</action></Menus></Menu></action></Menus></Menu>";
+                            XmlString += "</action></Menus></Menu></action></Menus></Menu>";
                         }
                         else if ((Convert.ToDouble(NowType) == 1 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 2 && Convert.ToDouble(AfLevel) == 0))
                         {
-                            XmlString = XmlString + "</action></Menus></Menu></action></Menus></Menu></action></Menus></Menu>";
+                            XmlString += "</action></Menus></Menu></action></Menus></Menu></action></Menus></Menu>";
                         }
                         else if ((Convert.ToDouble(NowType) == 1 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 0 && Convert.ToDouble(AfLevel) == 0))
                         {
-                            XmlString = XmlString + "</action></Menus></Menu>";
+                            XmlString += "</action></Menus></Menu>";
                         }
                         else if (((Convert.ToDouble(NowType) == 2 && Convert.ToDouble(AfType) == 1) && (NowLevel == AfLevel)) && Strings.Left(NowSeq, 9) == Strings.Left(AfSeq, 9))
                         {
-                            XmlString = XmlString + "<Menus><action type=\"add\">";
+                            XmlString += "<Menus><action type=\"add\">";
                         }
                         else if (((Convert.ToDouble(NowType) == 2 && Convert.ToDouble(AfType) == 1) && (NowLevel == AfLevel)) && (Strings.Left(NowSeq, 9) != Strings.Left(AfSeq, 9)))
                         {
-                            XmlString = XmlString + "</Menu>";
+                            XmlString += "</Menu>";
                         }
                         else if ((Convert.ToDouble(NowType) == 2 && Convert.ToDouble(AfType) == 1) && (Convert.ToDouble(NowLevel) == 0 && Convert.ToDouble(AfLevel) == 0))
                         {
-                            XmlString = XmlString + "<Menus><action type=\"add\">";
+                            XmlString += "<Menus><action type=\"add\">";
                         }
                         else if ((Convert.ToDouble(NowType) == 1 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 2 && Convert.ToDouble(AfLevel) == 2))
                         {
-                            XmlString = XmlString + "</action></Menus></Menu>";
+                            XmlString += "</action></Menus></Menu>";
                         }
                         else if ((Convert.ToDouble(NowType) == 1 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 1 && Convert.ToDouble(AfLevel) == 1))
                         {
-                            XmlString = XmlString + "</action></Menus></Menu>";
+                            XmlString += "</action></Menus></Menu>";
                         }
                         else if ((Convert.ToDouble(NowType) == 1 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 2 && Convert.ToDouble(AfLevel) == 1) && (Strings.Left(NowSeq, 9) != Strings.Left(AfSeq, 9)) && Strings.Right(Strings.Left(NowSeq, 5), 2) != "99" && Strings.Right(Strings.Left(NowSeq, 7), 2) != "99")
                         {
-                            XmlString = XmlString + "</action></Menus></Menu></action></Menus></Menu>";
+                            XmlString += "</action></Menus></Menu></action></Menus></Menu>";
                         }
                         else if ((Convert.ToDouble(NowType) == 1 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 2 && Convert.ToDouble(AfLevel) == 1))
                         {
-                            XmlString = XmlString + "</action></Menus></Menu>";
+                            XmlString += "</action></Menus></Menu>";
                         }
                         else if ((Convert.ToDouble(NowType) == 2 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 0 && Convert.ToDouble(AfLevel) == 1))
                         {
-                            XmlString = XmlString + "<Menus><action type=\"add\">";
+                            XmlString += "<Menus><action type=\"add\">";
                         }
                         else if ((Convert.ToDouble(NowType) == 2 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 1 && Convert.ToDouble(AfLevel) == 2))
                         {
-                            XmlString = XmlString + "<Menus><action type=\"add\">";
+                            XmlString += "<Menus><action type=\"add\">";
                         }
                         else if ((Convert.ToDouble(NowType) == 2 && Convert.ToDouble(AfType) == 2) && (NowLevel == AfLevel))
                         {
-                            XmlString = XmlString + "</Menu>";
+                            XmlString += "</Menu>";
                         }
                         else if ((Convert.ToDouble(NowType) == 2 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 2 && Convert.ToDouble(AfLevel) == 1))
                         {
-                            XmlString = XmlString + "</Menu></action></Menus></Menu>";
+                            XmlString += "</Menu></action></Menus></Menu>";
                         }
                         else if ((Convert.ToDouble(NowType) == 2 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 2 && Convert.ToDouble(AfLevel) == 0))
                         {
-                            XmlString = XmlString + "</Menu></action></Menus></Menu></action></Menus></Menu>";
+                            XmlString += "</Menu></action></Menus></Menu></action></Menus></Menu>";
                         }
                         else if ((Convert.ToDouble(NowType) == 2 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 1 && Convert.ToDouble(AfLevel) == 0))
                         {
-                            XmlString = XmlString + "</Menu></action></Menus></Menu>";
+                            XmlString += "</Menu></action></Menus></Menu>";
                         }
                         else
                         {
-                            XmlString = XmlString + "<err>";
+                            XmlString += "<err>";
                         }
                     }
                     oRecordSet01.MoveNext();
                 }
 
-                XmlString = XmlString + "</action></Menus></Application>";
+                XmlString += "</action></Menus></Application>";
 
                 xmldoc.loadXML(XmlString);
                 xmldoc.insertBefore(xmldoc.createProcessingInstruction("xml", "version='1.0' encoding='UTF-16'"), xmldoc.childNodes[0]);
 
                 oFilePath = PSH_Globals.SP_XMLPath + "\\";
 
-                UserID = UserID + "_Menu_KOR.xml";
+                UserID += "_Menu_KOR.xml";
                 xmldoc.save(oFilePath + UserID);
 
                 UpdateQry01 = "update [Authority_Screen] set UpdateYN ='N' where Gubun ='H' and updateYN ='Y'and UserID ='" + PSH_Globals.oCompany.UserName + "'";
@@ -526,18 +519,10 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void Load_MenuXml()
         {
-            string FileName = string.Empty;
-            System.Xml.XmlDocument oXmlDoc = null;
-            oXmlDoc = new System.Xml.XmlDocument();
-
-            FileName = PSH_Globals.oCompany.UserName + "_Menu_KOR.xml";
-
+            System.Xml.XmlDocument oXmlDoc = new System.Xml.XmlDocument();
+            string FileName = PSH_Globals.oCompany.UserName + "_Menu_KOR.xml";
             oXmlDoc.Load(PSH_Globals.SP_XMLPath + "\\" + FileName);
-
-            string tmpStr;
-            tmpStr = oXmlDoc.InnerXml;
-            PSH_Globals.SBO_Application.LoadBatchActions(tmpStr);
-            //sPath = PSH_Globals.SBO_Application.GetLastBatchResults();
+            PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.InnerXml);
         }
 
         /// <summary>
@@ -2199,7 +2184,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void TerminateApplication()
         {
-            int i = 0;
+            int i;
             PSH_BaseClass oTempClass = new PSH_BaseClass();
 
             if (PSH_Globals.ClassList.Count > 0)
@@ -2245,7 +2230,7 @@ namespace PSH_BOne_AddOn
         {
             BubbleEvent = true;
             PSH_BaseClass oTempClass = new PSH_BaseClass();
-            string FormUID = string.Empty;
+            string FormUID;
 
             try
             {
@@ -2345,7 +2330,7 @@ namespace PSH_BOne_AddOn
         {
             BubbleEvent = true;
             PSH_BaseClass oTempClass = new PSH_BaseClass();
-            string FormUID = string.Empty;
+            string FormUID;
 
             try
             {
@@ -2386,7 +2371,7 @@ namespace PSH_BOne_AddOn
         {
             BubbleEvent = true;
             PSH_BaseClass oTempClass = new PSH_BaseClass();
-            string FormUID = string.Empty;
+            string FormUID;
 
             try
             {

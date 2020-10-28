@@ -89,8 +89,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PH_PY124_CreateItems()
         {
-            string sQry = string.Empty;
-            int i = 0;
+            string sQry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
@@ -99,14 +98,13 @@ namespace PSH_BOne_AddOn
                 oDS_PH_PY124B = oForm.DataSources.DBDataSources.Item("@PH_PY124B");
 
                 oMat1 = oForm.Items.Item("Mat1").Specific;
-                ////@PH_PY124B
-
+                
                 oMat1.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_NotSupported;
                 oMat1.AutoResizeColumns();
 
                 CheckDataApply = false;
 
-                ////// 사업장
+                //사업장
                 oForm.Items.Item("CLTCOD").DisplayDesc = true;
             }
             catch (Exception ex)
@@ -144,7 +142,7 @@ namespace PSH_BOne_AddOn
         {
             try
             {
-                if ((string.IsNullOrEmpty(oFormDocEntry01)))
+                if (string.IsNullOrEmpty(oFormDocEntry01))
                 {
                     PH_PY124_FormItemEnabled();
                     PH_PY124_AddMatrixRow();

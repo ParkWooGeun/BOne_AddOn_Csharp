@@ -23,21 +23,6 @@ namespace PSH_BOne_AddOn
         private string oLastColUID01;  //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
         private int oLastColRow01;     //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
         private int oLast_Mode;      //마지막 모드
-        ////사용자구조체
-        private struct ItemInformations
-        {
-            public string ItemCode;
-            public string LotNo;
-            public int Quantity;
-            public int OPORNo;
-            public int POR1No;
-            public bool check;
-            public int OPDNNo;
-            public int PDN1No;
-        }
-
-        private ItemInformations[] ItemInformation;
-        private int ItemInformationCount;
 
         public string ItemUID { get; private set; }
 
@@ -358,13 +343,13 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PH_PY032_DeleteData()
         {
-            short i = 0;
-            string sQry = string.Empty; ;
+            string sQry;
             short ErrNum = 0;
-            string DocEntry = string.Empty;
+            string DocEntry;
 
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
@@ -374,7 +359,7 @@ namespace PSH_BOne_AddOn
                     sQry = "SELECT COUNT(*) FROM [@PH_PY032A] WHERE DocEntry = '" + DocEntry + "'";
                     oRecordSet01.DoQuery(sQry);
 
-                    if ((oRecordSet01.RecordCount == 0))
+                    if (oRecordSet01.RecordCount == 0)
                     {
                         ErrNum = 1;
                         oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
@@ -390,7 +375,13 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY032_DeleteData_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                if (ErrNum == 1)
+                {
+                    PSH_Globals.SBO_Application.SetStatusBarMessage("삭제할 자료가 없습니다.");
+                }
+                {
+                    PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY032_DeleteData_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                }
             }
             finally
             {

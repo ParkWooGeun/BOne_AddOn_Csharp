@@ -79,8 +79,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PH_PY121_CreateItems()
         {
-            int i = 0;
-            string sQry = string.Empty;
+            string sQry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -95,25 +94,25 @@ namespace PSH_BOne_AddOn
                 oMat1.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_Auto;
                 oMat1.AutoResizeColumns();
 
-                // 사업장
+                //사업장
                 oForm.DataSources.UserDataSources.Add("CLTCOD", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 5);
                 oForm.Items.Item("CLTCOD").DisplayDesc = true;
 
-                // 평가년도
+                //평가년도
                 oForm.DataSources.UserDataSources.Add("YEAR", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 4);
 
-                // 급여반영기간
+                //급여반영기간
                 oForm.DataSources.UserDataSources.Add("YMFROM", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 6);
                 oForm.DataSources.UserDataSources.Add("YMTO", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 6);
 
-                // 직원구분
+                //직원구분
                 oForm.DataSources.UserDataSources.Add("JIGTYP", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 5);
                 sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P126' AND U_UseYN= 'Y' ";
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("JIGTYP").Specific, "");
                 oForm.Items.Item("JIGTYP").DisplayDesc = true;
 
-                // 메트릭스 SET
-                // 사용여부
+                //메트릭스 SET
+                //사용여부
                 oMat1.Columns.Item("UseYN").ValidValues.Add("Y", "Y(사용)");
                 oMat1.Columns.Item("UseYN").ValidValues.Add("N", "N(사용안함)");
                 oMat1.Columns.Item("UseYN").DisplayDesc = true;
@@ -121,7 +120,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY121_CreateItems_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                oForm.Freeze(false);
             }
             finally
             {

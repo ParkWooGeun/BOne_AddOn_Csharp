@@ -998,7 +998,6 @@ namespace PSH_BOne_AddOn
         private bool PH_PY109_DataValidCheck(string ItemUID)
         {
             bool functionReturnValue = false;
-            int i = 0;
             string sQry = string.Empty;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
@@ -1073,7 +1072,6 @@ namespace PSH_BOne_AddOn
                     else
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("라인이 존재하지 않습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                        functionReturnValue = false;
                         return functionReturnValue;
                     }
                 }
@@ -1085,7 +1083,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY109_DataValidCheckError:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                functionReturnValue = false;
                 return functionReturnValue;
             }
             finally

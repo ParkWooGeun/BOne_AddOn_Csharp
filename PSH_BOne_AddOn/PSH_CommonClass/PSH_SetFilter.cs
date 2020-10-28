@@ -324,43 +324,43 @@ namespace PSH_BOne_AddOn
 			//재무관리
 			oFilter.AddEx("PS_CO685"); //결산분개등록
 			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
-			oFilter.AddEx("PS_FI180"); // 분개장
-			oFilter.AddEx("PS_FI190"); // 보조원장조회(EXCEL다운)
-			oFilter.AddEx("PS_FI110"); // 보조재료비현황
-			oFilter.AddEx("PS_FI120"); // 노무비현황
-			oFilter.AddEx("PS_FI130"); // 제조경비 현황
-			oFilter.AddEx("PS_FI140"); // 판관비 현황
-			oFilter.AddEx("PS_FI150"); // 영업외손익,특별손익명세서
-			oFilter.AddEx("PS_FI160"); // 외상매입/미지급금 잔액현황
-			oFilter.AddEx("PS_FI170"); // 신용카드 사용내역
-			oFilter.AddEx("PS_FI913"); // 사원별 접대비 명세서
-			oFilter.AddEx("PS_FI924"); // 거래처별 회전일 현황
-			oFilter.AddEx("PS_FI909"); // 미수현황
-			oFilter.AddEx("PS_FI910"); // 매출채권 연령분석(받을어음)
-			oFilter.AddEx("PS_FI931"); // 부가세집계표
-			oFilter.AddEx("PS_FI420"); // 분개전표 연결발행
-			oFilter.AddEx("PS_FI220"); // 합계잔액시산표
-			oFilter.AddEx("PS_FI904"); // 고정자산현황 - IFRS
-			oFilter.AddEx("PS_FI918"); // 대체출고대장
-			oFilter.AddEx("PS_FI912"); // 예산집행현황
-			oFilter.AddEx("PS_FI210"); // 원가요소(배부담당)별비용집계대장
-			oFilter.AddEx("PS_FI215"); // 지급현황
-			oFilter.AddEx("PS_FI960"); // 입,퇴사자현황
-			oFilter.AddEx("PS_FI961"); // 월별계정별비용현황
-			oFilter.AddEx("PS_FI900"); // IFRS - 시산표 추출
-			oFilter.AddEx("PS_FI901"); // IFRS - 매입매출채무채권추출
-			oFilter.AddEx("PS_FI902"); // IFRS - NRV 평가
-			oFilter.AddEx("PS_FI929"); // IFRS - 재무보고서
-			oFilter.AddEx("PS_FI932"); // 차입금등록
-			oFilter.AddEx("PS_FI933"); // 차입금대장
-			oFilter.AddEx("PS_FI421"); // 입금표등록
-			oFilter.AddEx("PS_CO090"); // 통계주요지표 값 입력
-			oFilter.AddEx("PS_CO080"); // 코스트센터비용집계
-			oFilter.AddEx("PS_CO070"); // 활동량계산
-			oFilter.AddEx("PS_CO185"); // 담당별 판매/ 원재료 / rm단가등록
-			oFilter.AddEx("PS_CO170"); // 재공완료품대체관리등록
-			oFilter.AddEx("PS_FI100"); // 계정별보조원장
-			oFilter.AddEx("PS_FI090"); // 월계표
+			oFilter.AddEx("PS_FI180"); //분개장
+			oFilter.AddEx("PS_FI190"); //보조원장조회(EXCEL다운)
+			oFilter.AddEx("PS_FI110"); //보조재료비현황
+			oFilter.AddEx("PS_FI120"); //노무비현황
+			oFilter.AddEx("PS_FI130"); //제조경비 현황
+			oFilter.AddEx("PS_FI140"); //판관비 현황
+			oFilter.AddEx("PS_FI150"); //영업외손익,특별손익명세서
+			oFilter.AddEx("PS_FI160"); //외상매입/미지급금 잔액현황
+			oFilter.AddEx("PS_FI170"); //신용카드 사용내역
+			oFilter.AddEx("PS_FI913"); //사원별 접대비 명세서
+			oFilter.AddEx("PS_FI924"); //거래처별 회전일 현황
+			oFilter.AddEx("PS_FI909"); //미수현황
+			oFilter.AddEx("PS_FI910"); //매출채권 연령분석(받을어음)
+			oFilter.AddEx("PS_FI931"); //부가세집계표
+			oFilter.AddEx("PS_FI420"); //분개전표 연결발행
+			oFilter.AddEx("PS_FI220"); //합계잔액시산표
+			oFilter.AddEx("PS_FI904"); //고정자산현황 - IFRS
+			oFilter.AddEx("PS_FI918"); //대체출고대장
+			oFilter.AddEx("PS_FI912"); //예산집행현황
+			oFilter.AddEx("PS_FI210"); //원가요소(배부담당)별비용집계대장
+			oFilter.AddEx("PS_FI215"); //지급현황
+			oFilter.AddEx("PS_FI960"); //입,퇴사자현황
+			oFilter.AddEx("PS_FI961"); //월별계정별비용현황
+			oFilter.AddEx("PS_FI900"); //IFRS - 시산표 추출
+			oFilter.AddEx("PS_FI901"); //IFRS - 매입매출채무채권추출
+			oFilter.AddEx("PS_FI902"); //IFRS - NRV 평가
+			oFilter.AddEx("PS_FI929"); //IFRS - 재무보고서
+			oFilter.AddEx("PS_FI932"); //차입금등록
+			oFilter.AddEx("PS_FI933"); //차입금대장
+			oFilter.AddEx("PS_FI421"); //입금표등록
+			oFilter.AddEx("PS_CO090"); //통계주요지표 값 입력
+			oFilter.AddEx("PS_CO080"); //코스트센터비용집계
+			oFilter.AddEx("PS_CO070"); //활동량계산
+			oFilter.AddEx("PS_CO185"); //담당별 판매/ 원재료 / rm단가등록
+			oFilter.AddEx("PS_CO170"); //재공완료품대체관리등록
+			oFilter.AddEx("PS_FI100"); //계정별보조원장
+			oFilter.AddEx("PS_FI090"); //월계표
 			oFilter.AddEx("PS_CO111"); //배부사이클실행결과조회
 			oFilter.AddEx("PS_CO110"); //배부사이클실행
 			oFilter.AddEx("PS_CO260"); //연차설정등록
@@ -544,27 +544,27 @@ namespace PSH_BOne_AddOn
 
 			//재무관리
 			oFilter.AddEx("PS_CO685"); //결산분개등록
-			oFilter.AddEx("PS_FI180"); // 분개장
-			oFilter.AddEx("PS_FI190"); // 보조원장조회(EXCEL다운)
-			oFilter.AddEx("PS_FI160"); // 외상매입/미지급금 잔액현황
-			oFilter.AddEx("PS_FI170"); // 신용카드 사용내역
-			oFilter.AddEx("PS_FI913"); // 사원별 접대비 명세서
-			oFilter.AddEx("PS_FI924"); // 거래처별 회전일 현황
-			oFilter.AddEx("PS_FI909"); // 미수현황
-			oFilter.AddEx("PS_FI910"); // 매출채권 연령분석(받을어음)
-			oFilter.AddEx("PS_FI931"); // 부가세집계표
-			oFilter.AddEx("PS_FI420"); // 분개전표 연결발행
-			oFilter.AddEx("PS_FI918"); // 대체출고대장
-			oFilter.AddEx("PS_FI210"); // 원가요소(배부담당)별비용집계대장
-			oFilter.AddEx("PS_FI215"); // 지급현황
-			oFilter.AddEx("PS_FI960"); // 입,퇴사자현황
-			oFilter.AddEx("PS_FI961"); // 월별계정별비용현황
-			oFilter.AddEx("PS_FI421"); // 입금표등록
-			oFilter.AddEx("PS_CO090"); // 통계주요지표 값 입력
-			oFilter.AddEx("PS_CO080"); // 코스트센터비용집계
-			oFilter.AddEx("PS_CO070"); // 활동량계산
-			oFilter.AddEx("PS_CO170"); // 재공완료품대체관리등록
-			oFilter.AddEx("PS_FI100"); // 계정별보조원장
+			oFilter.AddEx("PS_FI180"); //분개장
+			oFilter.AddEx("PS_FI190"); //보조원장조회(EXCEL다운)
+			oFilter.AddEx("PS_FI160"); //외상매입/미지급금 잔액현황
+			oFilter.AddEx("PS_FI170"); //신용카드 사용내역
+			oFilter.AddEx("PS_FI913"); //사원별 접대비 명세서
+			oFilter.AddEx("PS_FI924"); //거래처별 회전일 현황
+			oFilter.AddEx("PS_FI909"); //미수현황
+			oFilter.AddEx("PS_FI910"); //매출채권 연령분석(받을어음)
+			oFilter.AddEx("PS_FI931"); //부가세집계표
+			oFilter.AddEx("PS_FI420"); //분개전표 연결발행
+			oFilter.AddEx("PS_FI918"); //대체출고대장
+			oFilter.AddEx("PS_FI210"); //원가요소(배부담당)별비용집계대장
+			oFilter.AddEx("PS_FI215"); //지급현황
+			oFilter.AddEx("PS_FI960"); //입,퇴사자현황
+			oFilter.AddEx("PS_FI961"); //월별계정별비용현황
+			oFilter.AddEx("PS_FI421"); //입금표등록
+			oFilter.AddEx("PS_CO090"); //통계주요지표 값 입력
+			oFilter.AddEx("PS_CO080"); //코스트센터비용집계
+			oFilter.AddEx("PS_CO070"); //활동량계산
+			oFilter.AddEx("PS_CO170"); //재공완료품대체관리등록
+			oFilter.AddEx("PS_FI100"); //계정별보조원장
 			oFilter.AddEx("PS_CO110"); //배부사이클실행
 			oFilter.AddEx("PS_CO160"); //재공 원가 이동등록
 			oFilter.AddEx("PS_CO060"); //통계주요지표등록
@@ -579,7 +579,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO665"); //기간비용현황(연간)
 			oFilter.AddEx("PS_CO120"); //공정별 원가 계산
 			oFilter.AddEx("PS_CO131"); //7.원가계산재공현황
-			oFilter.AddEx("PS_CO510"); // 원가계산재공현황
+			oFilter.AddEx("PS_CO510"); //원가계산재공현황
 			oFilter.AddEx("PS_CO520"); //제품생산 원가항목별 조회
 			oFilter.AddEx("PS_CO501"); //품목별원가등록
 			oFilter.AddEx("PS_CO502"); //품목별평균원가항목등록
@@ -827,10 +827,11 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
+			oFilter.AddEx("PS_FI961"); //월별계정별비용현황
 			oFilter.AddEx("PS_CO170"); //재공완료 대체관리등록
-			oFilter.AddEx("PS_CO090"); // 통계주요지표값입력
-			oFilter.AddEx("PS_CO080"); // 코스트센터비용집계
-			oFilter.AddEx("PS_CO070"); // 활동량계산
+			oFilter.AddEx("PS_CO090"); //통계주요지표값입력
+			oFilter.AddEx("PS_CO080"); //코스트센터비용집계
+			oFilter.AddEx("PS_CO070"); //활동량계산
 			oFilter.AddEx("PS_CO685"); //결산분개등록
 			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
 			oFilter.AddEx("PS_CO160"); //재공 원가 이동등록
@@ -1097,13 +1098,12 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
-			oFilter.AddEx("PS_FI180"); // 분개장
-			oFilter.AddEx("PS_FI190"); // 보조원장조회(EXCEL다운)
-			oFilter.AddEx("PS_FI420"); // 분개전표 연결발행
+			oFilter.AddEx("PS_FI180"); //분개장
+			oFilter.AddEx("PS_FI190"); //보조원장조회(EXCEL다운)
+			oFilter.AddEx("PS_FI420"); //분개전표 연결발행
 			oFilter.AddEx("PS_CO100"); //배부사이클생성
 			oFilter.AddEx("PS_CO001"); //결산마감관리
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
-			oFilter.AddEx("PS_CO600"); //통합재무제표
 			oFilter.AddEx("PS_CO660"); //기간비용등록
 			oFilter.AddEx("PS_CO510"); //원가계산사전점검조회
 			oFilter.AddEx("PS_CO520"); //제품생산 원가항목별 조회
@@ -1355,13 +1355,13 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO170"); //재공완료 대체관리등록
 			oFilter.AddEx("PS_CO685"); //결산분개등록
 			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
-			oFilter.AddEx("PS_FI180"); // 분개장
-			oFilter.AddEx("PS_FI190"); // 보조원장조회(EXCEL다운)
-			oFilter.AddEx("PS_FI961"); // 월별계정별비용현황
-			oFilter.AddEx("PS_FI421"); // 입금표등록
-			oFilter.AddEx("PS_CO090"); // 통계주요지표 값 입력
-			oFilter.AddEx("PS_CO080"); // 코스트센터비용집계
-			oFilter.AddEx("PS_CO070"); // 활동량계산
+			oFilter.AddEx("PS_FI180"); //분개장
+			oFilter.AddEx("PS_FI190"); //보조원장조회(EXCEL다운)
+			oFilter.AddEx("PS_FI961"); //월별계정별비용현황
+			oFilter.AddEx("PS_FI421"); //입금표등록
+			oFilter.AddEx("PS_CO090"); //통계주요지표 값 입력
+			oFilter.AddEx("PS_CO080"); //코스트센터비용집계
+			oFilter.AddEx("PS_CO070"); //활동량계산
 			oFilter.AddEx("PS_CO185"); //담당별 판매/ 원재료 / rm단가등록
 			oFilter.AddEx("PS_CO111"); //배부사이클실행결과조회
 			oFilter.AddEx("PS_CO110"); //배부사이클실행
@@ -1414,10 +1414,10 @@ namespace PSH_BOne_AddOn
 
 			//재무관리
 			oFilter.AddEx("PS_CO685"); //결산분개등록
-			oFilter.AddEx("PS_FI190"); // 보조원장조회(EXCEL다운)
-			oFilter.AddEx("PS_FI420"); // 분개전표 연결발행
-			oFilter.AddEx("PS_FI961"); // 월별계정별비용현황
-			oFilter.AddEx("PS_CO070"); // 활동량계산
+			oFilter.AddEx("PS_FI190"); //보조원장조회(EXCEL다운)
+			oFilter.AddEx("PS_FI420"); //분개전표 연결발행
+			oFilter.AddEx("PS_FI961"); //월별계정별비용현황
+			oFilter.AddEx("PS_CO070"); //활동량계산
 			oFilter.AddEx("PS_CO185"); //담당별 판매/ 원재료 / rm단가등록
 			oFilter.AddEx("PS_CO111"); //배부사이클실행결과조회
 			oFilter.AddEx("PS_CO110"); //배부사이클실행
@@ -1443,7 +1443,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("ZPY507"); //정산결과조회(전체)
 
 			//기타관리
-			oFilter.AddEx("PS_FI190"); // 보조원장조회(EXCEL다운)
+			oFilter.AddEx("PS_FI190"); //보조원장조회(EXCEL다운)
 			oFilter.AddEx("PS_CO110"); //배부사이클실행
 		}
 
@@ -1703,15 +1703,15 @@ namespace PSH_BOne_AddOn
 
 			//재무관리
 			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
-			oFilter.AddEx("PS_FI180"); // 분개장
-			oFilter.AddEx("PS_FI190"); // 보조원장조회(EXCEL다운)
-			oFilter.AddEx("PS_FI215"); // 지급현황
-			oFilter.AddEx("PS_FI961"); // 월별계정별비용현황
-			oFilter.AddEx("PS_FI932"); // 차입금등록
-			oFilter.AddEx("PS_FI421"); // 입금표등록
-			oFilter.AddEx("PS_CO090"); // 통계주요지표 값 입력
-			oFilter.AddEx("PS_CO080"); // 코스트센터비용집계
-			oFilter.AddEx("PS_CO070"); // 활동량계산
+			oFilter.AddEx("PS_FI180"); //분개장
+			oFilter.AddEx("PS_FI190"); //보조원장조회(EXCEL다운)
+			oFilter.AddEx("PS_FI215"); //지급현황
+			oFilter.AddEx("PS_FI961"); //월별계정별비용현황
+			oFilter.AddEx("PS_FI932"); //차입금등록
+			oFilter.AddEx("PS_FI421"); //입금표등록
+			oFilter.AddEx("PS_CO090"); //통계주요지표 값 입력
+			oFilter.AddEx("PS_CO080"); //코스트센터비용집계
+			oFilter.AddEx("PS_CO070"); //활동량계산
 			oFilter.AddEx("PS_CO185"); //담당별 판매/ 원재료 / rm단가등록
 			oFilter.AddEx("PS_CO170"); //재공완료품대체관리등록
 			oFilter.AddEx("PS_CO110"); //배부사이클실행
@@ -1725,7 +1725,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO001"); //결산마감관리
 			oFilter.AddEx("PS_CO670"); //기간비용분개등록
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
-			oFilter.AddEx("PS_CO600"); //통합재무제표
 			oFilter.AddEx("PS_CO660"); //기간비용등록
 			oFilter.AddEx("PS_CO120"); //공정별 원가 계산
 			oFilter.AddEx("PS_CO131"); //7.원가계산재공현황
@@ -1804,11 +1803,11 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
 
 			//재무관리
+			oFilter.AddEx("PS_FI961"); //월별계정별비용현황
 			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
-			oFilter.AddEx("PS_FI421"); // 입금표등록
-			oFilter.AddEx("PS_CO090"); // 통계주요지표 값 입력
-			oFilter.AddEx("PS_CO080"); // 코스트센터비용집계
-			oFilter.AddEx("PS_CO070"); // 활동량계산
+			oFilter.AddEx("PS_CO090"); //통계주요지표 값 입력
+			oFilter.AddEx("PS_CO080"); //코스트센터비용집계
+			oFilter.AddEx("PS_CO070"); //활동량계산
 			oFilter.AddEx("PS_CO170"); //재공완료품대체관리등록
 			oFilter.AddEx("PS_CO111"); //배부사이클실행결과조회
 			oFilter.AddEx("PS_CO110"); //배부사이클실행
@@ -1823,7 +1822,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO001"); //결산마감관리
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
 			oFilter.AddEx("PS_CO660"); //기간비용등록
-			oFilter.AddEx("PS_CO510"); // 원가계산재공현황
+			oFilter.AddEx("PS_CO510"); //원가계산재공현황
 			oFilter.AddEx("PS_CO520"); //제품생산 원가항목별 조회
 			oFilter.AddEx("PS_CO502"); //품목별평균원가항목등록
 			oFilter.AddEx("PS_CO503"); //일일가득액및생산원가계산
@@ -2122,7 +2121,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 
 			//재무관리
-			oFilter.AddEx("PS_FI180"); // 분개장
+			oFilter.AddEx("PS_FI180"); //분개장
 		}
 
 		private static void FORM_UNLOAD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2393,43 +2392,44 @@ namespace PSH_BOne_AddOn
 			//재무관리
 			oFilter.AddEx("PS_CO685"); //결산분개등록
 			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
-			oFilter.AddEx("PS_FI180"); // 분개장
-			oFilter.AddEx("PS_FI190"); // 보조원장조회(EXCEL다운)
-			oFilter.AddEx("PS_FI110"); // 보조재료비현황
-			oFilter.AddEx("PS_FI120"); // 노무비현황
-			oFilter.AddEx("PS_FI130"); // 제조경비 현황
-			oFilter.AddEx("PS_FI140"); // 판관비 현황
-			oFilter.AddEx("PS_FI150"); // 영업외손익,특별손익명세서
-			oFilter.AddEx("PS_FI160"); // 외상매입/미지급금 잔액현황
-			oFilter.AddEx("PS_FI170"); // 신용카드 사용내역
-			oFilter.AddEx("PS_FI913"); // 사원별 접대비 명세서
-			oFilter.AddEx("PS_FI924"); // 거래처별 회전일 현황
-			oFilter.AddEx("PS_FI909"); // 미수현황
-			oFilter.AddEx("PS_FI910"); // 매출채권 연령분석(받을어음)
-			oFilter.AddEx("PS_FI931"); // 부가세집계표
-			oFilter.AddEx("PS_FI420"); // 분개전표 연결발행
-			oFilter.AddEx("PS_FI220"); // 합계잔액시산표
-			oFilter.AddEx("PS_FI904"); // 고정자산현황 - IFRS
-			oFilter.AddEx("PS_FI918"); // 대체출고대장
-			oFilter.AddEx("PS_FI912"); // 예산집행현황
-			oFilter.AddEx("PS_FI210"); // 원가요소(배부담당)별비용집계대장
-			oFilter.AddEx("PS_FI215"); // 지급현황
-			oFilter.AddEx("PS_FI960"); // 입,퇴사자현황
-			oFilter.AddEx("PS_FI961"); // 월별계정별비용현황
-			oFilter.AddEx("PS_FI900"); // IFRS - 시산표 추출
-			oFilter.AddEx("PS_FI901"); // IFRS - 매입매출채무채권추출
-			oFilter.AddEx("PS_FI902"); // IFRS - NRV 평가
-			oFilter.AddEx("PS_FI929"); // IFRS - 재무보고서
-			oFilter.AddEx("PS_FI932"); // 차입금등록
-			oFilter.AddEx("PS_FI933"); // 차입금대장
-			oFilter.AddEx("PS_FI421"); // 입금표등록
-			oFilter.AddEx("PS_CO090"); // 통계주요지표 값 입력
-			oFilter.AddEx("PS_CO080"); // 코스트센터비용집계
-			oFilter.AddEx("PS_CO070"); // 활동량계산
-			oFilter.AddEx("PS_CO185"); // 담당별 판매/ 원재료 / rm단가등록
-			oFilter.AddEx("PS_CO170"); // 재공완료품대체관리등록
-			oFilter.AddEx("PS_FI100"); // 계정별보조원장
-			oFilter.AddEx("PS_FI090"); // 월계표
+			oFilter.AddEx("PS_FI180"); //분개장
+			oFilter.AddEx("PS_FI190"); //보조원장조회(EXCEL다운)
+			oFilter.AddEx("PS_FI110"); //보조재료비현황
+			oFilter.AddEx("PS_FI120"); //노무비현황
+			oFilter.AddEx("PS_FI130"); //제조경비 현황
+			oFilter.AddEx("PS_FI140"); //판관비 현황
+			oFilter.AddEx("PS_FI150"); //영업외손익,특별손익명세서
+			oFilter.AddEx("PS_FI160"); //외상매입/미지급금 잔액현황
+			oFilter.AddEx("PS_FI170"); //신용카드 사용내역
+			oFilter.AddEx("PS_FI913"); //사원별 접대비 명세서
+			oFilter.AddEx("PS_FI924"); //거래처별 회전일 현황
+			oFilter.AddEx("PS_FI909"); //미수현황
+			oFilter.AddEx("PS_FI910"); //매출채권 연령분석(받을어음)
+			oFilter.AddEx("PS_FI931"); //부가세집계표
+			oFilter.AddEx("PS_FI420"); //분개전표 연결발행
+			oFilter.AddEx("PS_FI220"); //합계잔액시산표
+			oFilter.AddEx("PS_FI904"); //고정자산현황 - IFRS
+			oFilter.AddEx("PS_FI918"); //대체출고대장
+			oFilter.AddEx("PS_FI912"); //예산집행현황
+			oFilter.AddEx("PS_FI210"); //원가요소(배부담당)별비용집계대장
+			oFilter.AddEx("PS_FI215"); //지급현황
+			oFilter.AddEx("PS_FI960"); //입,퇴사자현황
+			oFilter.AddEx("PS_FI961"); //월별계정별비용현황
+			oFilter.AddEx("PS_FI962"); //월별계정별비용현황(상세)
+			oFilter.AddEx("PS_FI900"); //IFRS - 시산표 추출
+			oFilter.AddEx("PS_FI901"); //IFRS - 매입매출채무채권추출
+			oFilter.AddEx("PS_FI902"); //IFRS - NRV 평가
+			oFilter.AddEx("PS_FI929"); //IFRS - 재무보고서
+			oFilter.AddEx("PS_FI932"); //차입금등록
+			oFilter.AddEx("PS_FI933"); //차입금대장
+			oFilter.AddEx("PS_FI421"); //입금표등록
+			oFilter.AddEx("PS_CO090"); //통계주요지표 값 입력
+			oFilter.AddEx("PS_CO080"); //코스트센터비용집계
+			oFilter.AddEx("PS_CO070"); //활동량계산
+			oFilter.AddEx("PS_CO185"); //담당별 판매/ 원재료 / rm단가등록
+			oFilter.AddEx("PS_CO170"); //재공완료품대체관리등록
+			oFilter.AddEx("PS_FI100"); //계정별보조원장
+			oFilter.AddEx("PS_FI090"); //월계표
 			oFilter.AddEx("PS_CO111"); //배부사이클실행결과조회
 			oFilter.AddEx("PS_CO110"); //배부사이클실행
 			oFilter.AddEx("PS_CO260"); //연차설정등록
@@ -2580,8 +2580,8 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY677"); //근태기찰이상자 수정
 
 			//재무관리
-			oFilter.AddEx("PS_FI190"); // 보조원장조회(EXCEL다운)
-			oFilter.AddEx("PS_FI421"); // 입금표등록
+			oFilter.AddEx("PS_FI190"); //보조원장조회(EXCEL다운)
+			oFilter.AddEx("PS_FI421"); //입금표등록
 			oFilter.AddEx("PS_CO001"); //결산마감관리
 			oFilter.AddEx("PS_CO600"); //통합재무제표
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정 관리

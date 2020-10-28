@@ -86,7 +86,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 oDS_PH_PY109Z = oForm.DataSources.DBDataSources.Item("@PS_USERDS01");
                 
-                ////라인
+                //라인
 
                 oMat1 = oForm.Items.Item("Mat1").Specific;
                 
@@ -95,23 +95,23 @@ namespace PSH_BOne_AddOn
 
                 oForm.Items.Item("CLTCOD").DisplayDesc = true;
 
-                /// 접속자에 따른 권한별 사업장 콤보박스세팅
+                //접속자에 따른 권한별 사업장 콤보박스세팅
                 dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
 
-                /// 귀속년월
+                //귀속년월
                 oForm.Items.Item("YM").Specific.Value = DateTime.Now.ToString("yyyyMM");
 
-                //// 지급종류
+                //지급종류
                 oForm.Items.Item("JOBTYP").Specific.ValidValues.Add("1", "급여");
                 oForm.Items.Item("JOBTYP").Specific.ValidValues.Add("2", "상여");
                 oForm.Items.Item("JOBTYP").DisplayDesc = true;
 
-                //// 지급구분
+                //지급구분
                 sQry = " SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code='P212' AND U_UseYN= 'Y'";
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("JOBGBN").Specific,"");
                 oForm.Items.Item("JOBGBN").DisplayDesc = true;
 
-                //// 지급대상
+                //지급대상
                 sQry = " SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code='P213' AND U_UseYN= 'Y'";
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("JOBTRG").Specific,"");
                 oForm.Items.Item("JOBTRG").DisplayDesc = true;

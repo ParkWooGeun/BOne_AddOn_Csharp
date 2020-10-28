@@ -28,13 +28,13 @@ namespace PSH_BOne_AddOn
         private string oPAYSEL;
         private double oTOTDEB;
         private double oTOTCRE;
-        private double oTOTPAY;
-        private double oTOTGON;
+        //private double oTOTPAY;
+        //private double oTOTGON;
 
         private string oDocDate;
         private string oREMARK;
         private string oDocNum;
-        private string oDIM3;
+        //private string oDIM3;
 
         public string ItemUID { get; private set; }
 
@@ -107,50 +107,40 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
                 
-                ////----------------------------------------------------------------------------------------------
-                //// 데이터셋정의
-                ////----------------------------------------------------------------------------------------------
-                //    '//테이블이 있을경우 데이터셋(Matrix)
-                oDS_PH_PY113A = oForm.DataSources.DBDataSources.Item("@PH_PY113A");
-                ////헤더
-                oDS_PH_PY113B = oForm.DataSources.DBDataSources.Item("@PH_PY113B");
-                ////라인
+                oDS_PH_PY113A = oForm.DataSources.DBDataSources.Item("@PH_PY113A"); //헤더
+                oDS_PH_PY113B = oForm.DataSources.DBDataSources.Item("@PH_PY113B"); //라인
 
                 oMat1 = oForm.Items.Item("Mat1").Specific;
 
                 oMat1.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_NotSupported;
                 oMat1.AutoResizeColumns();
 
-                ////----------------------------------------------------------------------------------------------
-                //// 아이템 설정
-                ////----------------------------------------------------------------------------------------------
-                ////사업장
+                //사업장
                 oForm.Items.Item("CLTCOD").DisplayDesc = true;
 
-                ////지급종류
+                //지급종류
                 oForm.Items.Item("JOBTYP").Specific.ValidValues.Add("1", "급여");
                 oForm.Items.Item("JOBTYP").Specific.ValidValues.Add("2", "상여");
                 oForm.Items.Item("JOBTYP").Specific.Select("0", SAPbouiCOM.BoSearchKey.psk_Index);
                 oForm.Items.Item("JOBTYP").DisplayDesc = true;
 
-                ////지급구분
+                //지급구분
                 sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P212' AND U_UseYN= 'Y'";
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("JOBGBN").Specific, "");
                 oForm.Items.Item("JOBGBN").Specific.Select("0", SAPbouiCOM.BoSearchKey.psk_Index);
                 oForm.Items.Item("JOBGBN").DisplayDesc = true;
 
-
-                ////지급대상자구분
+                //지급대상자구분
                 sQry = " SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code='P213' ORDER BY CAST(U_Code AS NUMERIC) ";
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("PAYSEL").Specific, "");
                 oForm.Items.Item("PAYSEL").Specific.ValidValues.Add("%", "전체");
                 oForm.Items.Item("PAYSEL").Specific.Select("%", SAPbouiCOM.BoSearchKey.psk_ByValue);
                 oForm.Items.Item("PAYSEL").DisplayDesc = true;
 
-                //// 전기일자
+                //전기일자
                 oDS_PH_PY113A.SetValue("U_DOCDATE", 0, DateTime.Now.ToString("yyyyMMdd"));
 
-                /// Matrix
+                //Matrix
                 oMat1 = oForm.Items.Item("Mat1").Specific;
 
                 oMat1.Columns.Item("AcctCode").ExtendedObject.LinkedObject = SAPbouiCOM.BoLinkedObject.lf_GLAccounts;

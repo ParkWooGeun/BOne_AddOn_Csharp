@@ -94,7 +94,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// ComboBox_Setting
 		/// </summary>
-		public void ComboBox_Setting()
+		private void ComboBox_Setting()
 		{
 			string sQry = String.Empty;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -121,57 +121,6 @@ namespace PSH_BOne_AddOn
 			{
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
-		}
-
-		/// <summary>
-		/// FlushToItemValue
-		/// </summary>
-		/// <param name="oUID"></param>
-		/// <param name="oRow"></param>
-		/// <param name="oCol"></param>
-		private void FlushToItemValue(string oUID, int oRow, string oCol)
-		{
-			try
-			{
-				switch (oUID)
-				{
-				}
-				if (oUID == "Mat01")
-				{
-					switch (oCol)
-					{
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-			}
-		}
-
-		/// <summary>
-		/// HeaderSpaceLineDel
-		/// </summary>
-		/// <returns></returns>
-		private bool HeaderSpaceLineDel()
-		{
-			bool functionReturnValue = false;
-			try
-			{
-				switch (true)
-				{
-				}
-				functionReturnValue = true;
-			}
-			catch (Exception ex)
-			{
-				functionReturnValue = false;
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			return functionReturnValue;
 		}
 
 		/// <summary>
@@ -267,25 +216,11 @@ namespace PSH_BOne_AddOn
 					switch (pVal.EventType)
 					{
 						case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED:						//1
-							if (pVal.ItemUID == "1")
+							if (pVal.ItemUID == "Btn01")        //출력버튼 클릭시
 							{
-								if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-								{
-								}
-							}
-							else if (pVal.ItemUID == "Btn01")        //출력버튼 클릭시
-							{
-								if (HeaderSpaceLineDel() == false)
-								{
-									BubbleEvent = false;
-									return;
-								}
-								else
-								{
-									System.Threading.Thread thread = new System.Threading.Thread(Print_Query);
-									thread.SetApartmentState(System.Threading.ApartmentState.STA);
-									thread.Start();
-								}
+								System.Threading.Thread thread = new System.Threading.Thread(Print_Query);
+								thread.SetApartmentState(System.Threading.ApartmentState.STA);
+								thread.Start();
 							}
 							break;
 						case SAPbouiCOM.BoEventTypes.et_KEY_DOWN:							//2

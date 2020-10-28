@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data;
-using System.Configuration;
 using System.Data.SqlClient;
 using System.Xml;
 using System.Data.Common;
@@ -20,10 +19,14 @@ namespace PSH_BOne_AddOn.Database
             try
             {
                 if (cn == null)
+                {
                     cn = CreateConnection(connectString);
-
+                }
+                    
                 if (cn.State != ConnectionState.Open)
+                {
                     cn.Open();
+                }
             }
             catch (Exception ex)
             {

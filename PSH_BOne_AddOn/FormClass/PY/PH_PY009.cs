@@ -1489,15 +1489,15 @@ namespace PSH_BOne_AddOn
         /// <param name="FormUID"></param>
         /// <param name="pVal"></param>
         /// <param name="BubbleEvent"></param>
-        public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pval, ref bool BubbleEvent)
+        public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
             try
             {
                 oForm.Freeze(true);
 
-                if ((pval.BeforeAction == true))
+                if (pVal.BeforeAction == true)
                 {
-                    switch (pval.MenuUID)
+                    switch (pVal.MenuUID)
                     {
                         case "1283":
                             if (PSH_Globals.SBO_Application.MessageBox("현재 화면내용 전체를 제거 하시겠습니까? 복구할 수 없습니다.", 2, "Yes", "No") == 2)
@@ -1523,9 +1523,9 @@ namespace PSH_BOne_AddOn
                             break;
                     }
                 }
-                else if ((pval.BeforeAction == false))
+                else if (pVal.BeforeAction == false)
                 {
-                    switch (pval.MenuUID)
+                    switch (pVal.MenuUID)
                     {
                         case "1283":
                             oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
@@ -1536,8 +1536,6 @@ namespace PSH_BOne_AddOn
                             break;
                         case "1286":
                             break;
-                        //            Case "1293":
-                        //                Call Raise_EVENT_ROW_DELETE(FormUID, pval, BubbleEvent)
                         case "1281": //문서찾기
                             PH_PY009_Enable_FormItem();
                             PH_PY009_Add_MatrixRow();
@@ -1554,7 +1552,7 @@ namespace PSH_BOne_AddOn
                             PH_PY009_Enable_FormItem();
                             break;
                         case "1293": // 행삭제
-                            Raise_EVENT_ROW_DELETE(FormUID, pval, BubbleEvent, oMat01, oDS_PH_PY009B, "U_CODNBR");
+                            Raise_EVENT_ROW_DELETE(FormUID, pVal, BubbleEvent, oMat01, oDS_PH_PY009B, "U_CODNBR");
                             PH_PY009_Add_MatrixRow();
                             break;
                     }

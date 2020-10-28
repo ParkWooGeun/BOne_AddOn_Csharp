@@ -1435,14 +1435,6 @@
             ComboBox_Setting
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI090.FlushToItemValue(System.String,System.Int32,System.String)">
-            <summary>
-            FlushToItemValue
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_FI090.HeaderSpaceLineDel">
             <summary>
             필수항목 체크
@@ -1505,14 +1497,6 @@
             <summary>
             ComboBox_Setting
             </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI100.FlushToItemValue(System.String,System.Int32,System.String)">
-            <summary>
-            FlushToItemValue
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI100.HeaderSpaceLineDel">
             <summary>
@@ -1577,14 +1561,6 @@
             ComboBox_Setting
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI110.FlushToItemValue(System.String,System.Int32,System.String)">
-            <summary>
-            FlushToItemValue
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_FI110.HeaderSpaceLineDel">
             <summary>
             HeaderSpaceLineDel
@@ -1647,14 +1623,6 @@
             <summary>
             ComboBox_Setting
             </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI120.FlushToItemValue(System.String,System.Int32,System.String)">
-            <summary>
-            FlushToItemValue
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI120.HeaderSpaceLineDel">
             <summary>
@@ -1719,14 +1687,6 @@
             ComboBox_Setting
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI130.FlushToItemValue(System.String,System.Int32,System.String)">
-            <summary>
-            FlushToItemValue
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_FI130.HeaderSpaceLineDel">
             <summary>
             HeaderSpaceLineDel
@@ -1789,14 +1749,6 @@
             <summary>
             ComboBox_Setting
             </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI140.FlushToItemValue(System.String,System.Int32,System.String)">
-            <summary>
-            FlushToItemValue
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI140.HeaderSpaceLineDel">
             <summary>
@@ -1861,14 +1813,6 @@
             ComboBox_Setting
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI150.FlushToItemValue(System.String,System.Int32,System.String)">
-            <summary>
-            FlushToItemValue
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_FI150.HeaderSpaceLineDel">
             <summary>
             HeaderSpaceLineDel
@@ -1932,20 +1876,6 @@
             ComboBox_Setting
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI160.FlushToItemValue(System.String,System.Int32,System.String)">
-            <summary>
-            FlushToItemValue
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI160.HeaderSpaceLineDel">
-            <summary>
-            HeaderSpaceLineDel
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_FI160.Print_Query">
             <summary>
             Print_Query
@@ -2002,20 +1932,6 @@
             <summary>
             ComboBox_Setting
             </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI170.FlushToItemValue(System.String,System.Int32,System.String)">
-            <summary>
-            FlushToItemValue
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI170.HeaderSpaceLineDel">
-            <summary>
-            HeaderSpaceLineDel
-            </summary>
-            <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI170.Print_Query">
             <summary>
@@ -2240,14 +2156,6 @@
             ComboBox_Setting
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI210.FlushToItemValue(System.String,System.Int32,System.String)">
-            <summary>
-            FlushToItemValue
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_FI210.HeaderSpaceLineDel">
             <summary>
             HeaderSpaceLineDel
@@ -2457,38 +2365,6 @@
             LoadForm
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI220.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_FormItemEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI220.Raise_FormMenuEvent(System.String@,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
-            <summary>
-            Raise_FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI220.Raise_FormDataEvent(System.String@,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI220.Raise_RightClickEvent(System.String@,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
-            <summary>
-            Raise_RightClickEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="eventInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_FI220.CreateItems">
             <summary>
             CreateItems
@@ -2504,19 +2380,6 @@
             Initialization
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI220.CF_ChooseFromList">
-            <summary>
-            CF_ChooseFromList
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI220.FlushToItemValue(System.String,System.Int32,System.String)">
-            <summary>
-            FlushToItemValue
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_FI220.HeaderSpaceLineDel">
             <summary>
             HeaderSpaceLineDel
@@ -2528,33 +2391,23 @@
             Print_Report01
             </summary>
         </member>
-        <member name="T:PSH_BOne_AddOn.PS_FI420">
-            <summary>
-            분개전표 연결발행  PS_FI420
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI420.LoadForm(System.String)">
-            <summary>
-            LoadForm
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI420.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_FI220.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Raise_FormItemEvent
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI420.Raise_FormMenuEvent(System.String@,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_FI220.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>
             Raise_FormMenuEvent
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI420.Raise_FormDataEvent(System.String@,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_FI220.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
             <summary>
             Raise_FormDataEvent
             </summary>
@@ -2562,13 +2415,23 @@
             <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI420.Raise_RightClickEvent(System.String@,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_FI220.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
             <summary>
             Raise_RightClickEvent
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="eventInfo"></param>
             <param name="BubbleEvent"></param>
+        </member>
+        <member name="T:PSH_BOne_AddOn.PS_FI420">
+            <summary>
+            분개전표 연결발행
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI420.LoadForm(System.String)">
+            <summary>
+            LoadForm
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI420.CreateItems">
             <summary>
@@ -2602,6 +2465,38 @@
             <summary>
             Print_Report01
             </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI420.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormItemEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI420.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormMenuEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI420.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+            <summary>
+            Raise_FormDataEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="BusinessObjectInfo"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI420.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
+            <summary>
+            Raise_RightClickEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_FI421">
             <summary>
@@ -2654,15 +2549,40 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI421.PS_FI421_MatrixSpaceLineDel">
+        <member name="M:PSH_BOne_AddOn.PS_FI421.PS_FI421_CreateItems">
             <summary>
-            PS_FI421_MatrixSpaceLineDel    메트릭스 필수 사항 check
+            PS_FI421_CreateItems
             </summary>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI421.PS_FI421_FormItemEnabled">
+        <member name="M:PSH_BOne_AddOn.PS_FI421.PS_FI421_ComboBox_Setting">
             <summary>
-            PS_FI421_FormItemEnabled
+            PS_FI421_ComboBox_Setting
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI421.PS_FI421_EnableMenus">
+            <summary>
+            PS_FI421_EnableMenus
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI421.PS_FI421_FormResize">
+            <summary>
+            FormResize
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI421.PS_FI421_FormReset">
+            <summary>
+            FormReset
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI421.PS_FI421_GetSerialNo">
+            <summary>
+            PS_FI421_GetSerialNo
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI421.PS_FI421_Print_Report01">
+            <summary>
+            PS_FI421_Print_Report01
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -2670,15 +2590,103 @@
             Raise_FormItemEvent
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_FormMenuEvent(System.String,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_ITEM_PRESSED
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_EVENT_KEY_DOWN(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_KEY_DOWN
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_CLICK
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_COMBO_SELECT
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_DOUBLE_CLICK
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_EVENT_MATRIX_LINK_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_MATRIX_LINK_PRESSED
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_VALIDATE
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_EVENT_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_RESIZE
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_EVENT_GOT_FOCUS(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_GOT_FOCUS
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_FORM_UNLOAD
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_EVENT_ROW_DELETE(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_ROW_DELETE
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>
             Raise_FormMenuEvent
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
@@ -2694,154 +2702,8 @@
             Raise_RightClickEvent
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="pVal"></param>
             <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_ITEM_PRESSED
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_EVENT_KEY_DOWN(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_KEY_DOWN
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_CLICK
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_COMBO_SELECT
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_DOUBLE_CLICK
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_EVENT_MATRIX_LINK_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_MATRIX_LINK_PRESSED
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_VALIDATE
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_EVENT_MATRIX_LOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_MATRIX_LOAD
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_EVENT_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_RESIZE
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_EVENT_CHOOSE_FROM_LIST(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_CHOOSE_FROM_LIST
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_EVENT_GOT_FOCUS(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_GOT_FOCUS
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_FORM_UNLOAD
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI421.Raise_EVENT_ROW_DELETE(System.String,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_ROW_DELETE
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI421.PS_FI421_CreateItems">
-            <summary>
-            PS_FI421_CreateItems
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI421.PS_FI421_ComboBox_Setting">
-            <summary>
-            PS_FI421_ComboBox_Setting
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI421.PS_FI421_CF_ChooseFromList">
-            <summary>
-            PS_FI421_CF_ChooseFromList
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI421.PS_FI421_EnableMenus">
-            <summary>
-            PS_FI421_EnableMenus
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI421.PS_FI421_SetDocument(System.String)">
-            <summary>
-            PS_FI421_SetDocument
-            </summary>
-            <param name="oFormDocEntry01"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI421.PS_FI421_FormResize">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI421.PS_FI421_GetSerialNo">
-            <summary>
-            PS_FI421_GetSerialNo
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI421.PS_FI421_Print_Report01">
-            <summary>
-            PS_FI421_Print_Report01
-            </summary>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_FI900">
             <summary>
@@ -2852,38 +2714,6 @@
             <summary>
             LoadForm
             </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI900.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_FormItemEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI900.Raise_FormMenuEvent(System.String@,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
-            <summary>
-            Raise_FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI900.Raise_FormDataEvent(System.String@,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI900.Raise_RightClickEvent(System.String@,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
-            <summary>
-            Raise_RightClickEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI900.CreateItems">
             <summary>
@@ -2901,6 +2731,38 @@
             DrawGrid
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI900.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormItemEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI900.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormMenuEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI900.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+            <summary>
+            Raise_FormDataEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="BusinessObjectInfo"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI900.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
+            <summary>
+            Raise_RightClickEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_FI901">
             <summary>
             IFRS - 매입매출채무채권추출
@@ -2911,23 +2773,33 @@
             LoadForm
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI901.CreateItems">
+            <summary>
+            CreateItems
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI901.DrawGrid">
+            <summary>
+            DrawGrid
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_FI901.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Raise_FormItemEvent
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI901.Raise_FormMenuEvent(System.String@,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_FI901.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>
             Raise_FormMenuEvent
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI901.Raise_FormDataEvent(System.String@,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_FI901.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
             <summary>
             Raise_FormDataEvent
             </summary>
@@ -2935,33 +2807,17 @@
             <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI901.Raise_RightClickEvent(System.String@,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_FI901.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
             <summary>
             Raise_RightClickEvent
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="pVal"></param>
             <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI901.CreateItems">
-            <summary>
-            CreateItems
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI901.HeaderSpaceLineDel">
-            <summary>
-            HeaderSpaceLineDel
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI901.DrawGrid">
-            <summary>
-            DrawGrid
-            </summary>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_FI902">
             <summary>
-            NRV 평가   PS_FI902
+            NRV 평가
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI902.LoadForm(System.String)">
@@ -2969,23 +2825,28 @@
             LoadForm
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI902.CreateItems">
+            <summary>
+            CreateItems
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_FI902.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Raise_FormItemEvent
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI902.Raise_FormMenuEvent(System.String@,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_FI902.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>
             Raise_FormMenuEvent
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI902.Raise_FormDataEvent(System.String@,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_FI902.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
             <summary>
             Raise_FormDataEvent
             </summary>
@@ -2993,23 +2854,13 @@
             <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI902.Raise_RightClickEvent(System.String@,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_FI902.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
             <summary>
             Raise_RightClickEvent
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="pVal"></param>
             <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI902.CreateItems">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI902.ComboBox_Setting">
-            <summary>
-            ComboBox_Setting
-            </summary>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_FI904">
             <summary>
@@ -3028,48 +2879,8 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI904.ComboBox_Setting">
             <summary>
-            
+            ComboBox_Setting
             </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI904.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_FormItemEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI904.Raise_FormMenuEvent(System.String@,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
-            <summary>
-            Raise_FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI904.Raise_RightClickEvent(System.String@,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
-            <summary>
-            Raise_RightClickEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="eventInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI904.Raise_FormDataEvent(System.String@,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI904.FlushToItemValue(System.String,System.Int32,System.String)">
-            <summary>
-            FlushToItemValue
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI904.HeaderSpaceLineDel">
             <summary>
@@ -3081,6 +2892,38 @@
             <summary>
             Print_Query
             </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI904.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormItemEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI904.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormMenuEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI904.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+            <summary>
+            Raise_FormDataEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="BusinessObjectInfo"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI904.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
+            <summary>
+            Raise_RightClickEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="eventInfo"></param>
+            <param name="BubbleEvent"></param>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_FI907">
             <summary>
@@ -3101,6 +2944,11 @@
         <member name="M:PSH_BOne_AddOn.PS_FI907.PS_FI907_ComboBox_Setting">
             <summary>
             Combobox 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI907.PS_FI907_Print_Report01">
+            <summary>
+            리포트 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI907.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -3150,11 +2998,6 @@
             <param name="FormUID"></param>
             <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI907.PS_FI907_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_FI070">
             <summary>
@@ -3656,31 +3499,34 @@
             ComboBox_Setting
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI909.HeaderSpaceLineDel">
+            <summary>
+            HeaderSpaceLineDel
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI909.Print_Query">
+            <summary>
+            Print_Query
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_FI909.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Raise_FormItemEvent
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI909.Raise_MenuEvent(System.String@,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_FI909.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>
             Raise_MenuEvent
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI909.Raise_RightClickEvent(System.String@,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
-            <summary>
-            Raise_RightClickEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="eventInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI909.Raise_FormDataEvent(System.String@,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_FI909.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
             <summary>
             Raise_FormDataEvent
             </summary>
@@ -3688,22 +3534,17 @@
             <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI909.FlushToItemValue(System.String,System.Int32,System.String)">
+        <member name="M:PSH_BOne_AddOn.PS_FI909.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
             <summary>
-            FlushToItemValue
+            Raise_RightClickEvent
             </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI909.Print_Query">
-            <summary>
-            Print_Query
-            </summary>
+            <param name="FormUID"></param>
+            <param name="eventInfo"></param>
+            <param name="BubbleEvent"></param>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_FI910">
             <summary>
-            매출채권 연령분석(받을어음)   PS_FI910
+            매출채권 연령분석(받을어음)
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI910.LoadForm(System.String)">
@@ -3721,46 +3562,6 @@
             ComboBox_Setting
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI910.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_FormItemEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI910.Raise_FormMenuEvent(System.String@,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
-            <summary>
-            Raise_FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI910.Raise_RightClickEvent(System.String@,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
-            <summary>
-            Raise_RightClickEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="eventInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI910.Raise_FormDataEvent(System.String@,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI910.FlushToItemValue(System.String,System.Int32,System.String)">
-            <summary>
-            FlushToItemValue
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_FI910.HeaderSpaceLineDel">
             <summary>
             HeaderSpaceLineDel
@@ -3771,6 +3572,38 @@
             <summary>
             Print_Query
             </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI910.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormItemEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI910.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormMenuEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI910.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+            <summary>
+            Raise_FormDataEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="BusinessObjectInfo"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI910.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
+            <summary>
+            Raise_RightClickEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="eventInfo"></param>
+            <param name="BubbleEvent"></param>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_FI912">
             <summary>
@@ -3789,48 +3622,8 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI912.ComboBox_Setting">
             <summary>
-            
+            ComboBox_Setting
             </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI912.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_FormItemEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI912.Raise_FormMenuEvent(System.String@,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
-            <summary>
-            Raise_FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI912.Raise_RightClickEvent(System.String@,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
-            <summary>
-            Raise_RightClickEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="eventInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI912.Raise_FormDataEvent(System.String@,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI912.FlushToItemValue(System.String,System.Int32,System.String)">
-            <summary>
-            FlushToItemValue
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI912.HeaderSpaceLineDel">
             <summary>
@@ -3843,9 +3636,41 @@
             Print_Query
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI912.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormItemEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI912.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormMenuEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI912.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
+            <summary>
+            Raise_RightClickEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="eventInfo"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI912.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+            <summary>
+            Raise_FormDataEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="BusinessObjectInfo"></param>
+            <param name="BubbleEvent"></param>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_FI913">
             <summary>
-            사원별 접대비 명세서  PS_FI913
+            사원별 접대비 명세서
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI913.LoadForm(System.String)">
@@ -3863,23 +3688,28 @@
             ComboBox_Setting
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI913.Print_Query">
+            <summary>
+            Print_Query
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_FI913.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Raise_FormItemEvent
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI913.Raise_FormMenuEvent(System.String@,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_FI913.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>
             Raise_FormMenuEvent
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI913.Raise_RightClickEvent(System.String@,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_FI913.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
             <summary>
             Raise_RightClickEvent
             </summary>
@@ -3887,7 +3717,7 @@
             <param name="eventInfo"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI913.Raise_FormDataEvent(System.String@,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_FI913.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
             <summary>
             Raise_FormDataEvent
             </summary>
@@ -3895,23 +3725,9 @@
             <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI913.FlushToItemValue(System.String,System.Int32,System.String)">
+        <member name="T:PSH_BOne_AddOn.PS_FI918">
             <summary>
-            FlushToItemValue
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI913.HeaderSpaceLineDel">
-            <summary>
-            HeaderSpaceLineDel
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI913.Print_Query">
-            <summary>
-            Print_Query
+            대체출고대장
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI918.LoadForm(System.String)">
@@ -3929,46 +3745,6 @@
             ComboBox_Setting
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI918.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_FormItemEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI918.Raise_FormMenuEvent(System.String@,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
-            <summary>
-            Raise_FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI918.Raise_RightClickEvent(System.String@,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
-            <summary>
-            Raise_RightClickEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="eventInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI918.Raise_FormDataEvent(System.String@,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI918.FlushToItemValue(System.String,System.Int32,System.String)">
-            <summary>
-            FlushToItemValue
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_FI918.HeaderSpaceLineDel">
             <summary>
             HeaderSpaceLineDel
@@ -3980,9 +3756,41 @@
             Print_Query
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI918.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormItemEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI918.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormMenuEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI918.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+            <summary>
+            Raise_FormDataEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="BusinessObjectInfo"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI918.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
+            <summary>
+            Raise_RightClickEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="eventInfo"></param>
+            <param name="BubbleEvent"></param>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_FI924">
             <summary>
-            거래처별 회전일 현황  PS_FI924
+            거래처별 회전일 현황
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI924.LoadForm(System.String)">
@@ -4000,46 +3808,6 @@
             ComboBox_Setting
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI924.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_FormItemEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI924.Raise_FormMenuEvent(System.String@,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
-            <summary>
-            Raise_FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI924.Raise_RightClickEvent(System.String@,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
-            <summary>
-            Raise_RightClickEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="eventInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI924.Raise_FormDataEvent(System.String@,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI924.FlushToItemValue(System.String,System.Int32,System.String)">
-            <summary>
-            FlushToItemValue
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_FI924.HeaderSpaceLineDel">
             <summary>
             HeaderSpaceLineDel
@@ -4051,33 +3819,23 @@
             Print_Query
             </summary>
         </member>
-        <member name="T:PSH_BOne_AddOn.PS_FI929">
-            <summary>
-            재무보고서   PS_FI929
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI929.LoadForm(System.String)">
-            <summary>
-            LoadForm
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI929.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_FI924.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Raise_FormItemEvent
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI929.Raise_FormMenuEvent(System.String@,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_FI924.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>
             Raise_FormMenuEvent
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI929.Raise_FormDataEvent(System.String@,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_FI924.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
             <summary>
             Raise_FormDataEvent
             </summary>
@@ -4085,23 +3843,75 @@
             <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI929.Raise_RightClickEvent(System.String@,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_FI924.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
             <summary>
             Raise_RightClickEvent
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="eventInfo"></param>
             <param name="BubbleEvent"></param>
+        </member>
+        <member name="T:PSH_BOne_AddOn.PS_FI929">
+            <summary>
+            재무보고서
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI929.LoadForm(System.String)">
+            <summary>
+            LoadForm
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI929.CreateItems">
             <summary>
             CreateItems
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI929.ComboBox_Setting">
+            <summary>
+            ComboBox_Setting
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI929.Initialization">
+            <summary>
+            Initialization
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_FI929.Print_Report01">
             <summary>
             Print_Report01
             </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI929.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormItemEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI929.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormMenuEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI929.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+            <summary>
+            Raise_FormDataEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="BusinessObjectInfo"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI929.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
+            <summary>
+            Raise_RightClickEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_FI931">
             <summary>
@@ -4123,46 +3933,6 @@
             ComboBox_Setting
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI931.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_FormItemEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI931.Raise_FormMenuEvent(System.String@,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
-            <summary>
-            Raise_FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI931.Raise_RightClickEvent(System.String@,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
-            <summary>
-            Raise_RightClickEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="eventInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI931.Raise_FormDataEvent(System.String@,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI931.FlushToItemValue(System.String,System.Int32,System.String)">
-            <summary>
-            FlushToItemValue
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_FI931.HeaderSpaceLineDel">
             <summary>
             HeaderSpaceLineDel
@@ -4174,9 +3944,41 @@
             Print_Query
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI931.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormItemEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI931.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormMenuEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI931.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+            <summary>
+            Raise_FormDataEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="BusinessObjectInfo"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI931.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
+            <summary>
+            Raise_RightClickEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="eventInfo"></param>
+            <param name="BubbleEvent"></param>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_FI932">
             <summary>
-            차입금등록   PS_FI932
+            차입금등록
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI932.LoadForm(System.String)">
@@ -4193,38 +3995,6 @@
             <summary>
             ComboBox_Setting
             </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI932.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_FormItemEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI932.Raise_FormMenuEvent(System.String@,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
-            <summary>
-            Raise_FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI932.Raise_RightClickEvent(System.String@,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
-            <summary>
-            Raise_RightClickEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="eventInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI932.Raise_FormDataEvent(System.String@,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI932.FormItemEnabled">
             <summary>
@@ -4266,8 +4036,40 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI932.Make_ManageNo">
             <summary>
-            Make_ManageNo    이동등록번호생성
+            이동등록번호생성
             </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI932.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormItemEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI932.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormMenuEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI932.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+            <summary>
+            Raise_FormDataEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="BusinessObjectInfo"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI932.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
+            <summary>
+            Raise_RightClickEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="eventInfo"></param>
+            <param name="BubbleEvent"></param>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_FI933">
             <summary>
@@ -4289,46 +4091,6 @@
             ComboBox_Setting
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI933.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_FormItemEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI933.Raise_FormMenuEvent(System.String@,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
-            <summary>
-            Raise_FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI933.Raise_RightClickEvent(System.String@,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
-            <summary>
-            Raise_RightClickEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI933.Raise_FormDataEvent(System.String@,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI933.FlushToItemValue(System.String,System.Int32,System.String)">
-            <summary>
-            FlushToItemValue
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_FI933.HeaderSpaceLineDel">
             <summary>
             HeaderSpaceLineDel
@@ -4340,9 +4102,41 @@
             Print_Query
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI933.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormItemEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI933.Raise_FormMenuEvent(System.String@,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormMenuEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI933.Raise_FormDataEvent(System.String@,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+            <summary>
+            Raise_FormDataEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="BusinessObjectInfo"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI933.Raise_RightClickEvent(System.String@,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
+            <summary>
+            Raise_RightClickEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_FI960">
             <summary>
-            입,퇴사자현황    PS_FI960
+            입,퇴사자현황
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI960.LoadForm(System.String)">
@@ -4360,46 +4154,6 @@
             
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI960.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_FormItemEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI960.Raise_FormMenuEvent(System.String@,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
-            <summary>
-            Raise_FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI960.Raise_RightClickEvent(System.String@,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
-            <summary>
-            Raise_RightClickEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="eventInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI960.Raise_FormDataEvent(System.String@,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI960.FlushToItemValue(System.String,System.Int32,System.String)">
-            <summary>
-            FlushToItemValue
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_FI960.HeaderSpaceLineDel">
             <summary>
             HeaderSpaceLineDel
@@ -4411,6 +4165,38 @@
             Print_Query
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI960.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormItemEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI960.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormMenuEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI960.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+            <summary>
+            Raise_FormDataEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="BusinessObjectInfo"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI960.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
+            <summary>
+            Raise_RightClickEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="eventInfo"></param>
+            <param name="BubbleEvent"></param>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_FI961">
             <summary>
             월별계정별비용현황
@@ -4421,134 +4207,6 @@
             LoadForm
             </summary>
             <param name="oFormDocEntry01"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_FormItemEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_FormMenuEvent(System.String,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
-            <summary>
-            Raise_FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
-            <summary>
-            Raise_RightClickEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_ITEM_PRESSED
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_EVENT_KEY_DOWN(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_KEY_DOWN
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_COMBO_SELECT
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_CLICK
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_DOUBLE_CLICK
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_EVENT_MATRIX_LINK_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_VALIDATE
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_EVENT_RESIZE(System.String,SAPbouiCOM.ItemEvent,System.Boolean)">
-            <summary>
-            Raise_EVENT_RESIZE
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_EVENT_CHOOSE_FROM_LIST(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_CHOOSE_FROM_LIST
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_EVENT_GOT_FOCUS(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_GOT_FOCUS
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_FORM_UNLOAD
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_EVENT_ROW_DELETE(System.String,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_ROW_DELETE
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI961.PS_FI961_CreateItems">
             <summary>
@@ -4565,11 +4223,6 @@
             PS_FI961_Initial_Setting
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI961.PS_FI961_CF_ChooseFromList">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_FI961.PS_FI961_FormItemEnabled">
             <summary>
             PS_FI961_FormItemEnabled
@@ -4584,19 +4237,14 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI961.PS_FI961_AddMatrixRow2(System.Int32,System.Boolean)">
             <summary>
-            
+            PS_FI961_AddMatrixRow2
             </summary>
             <param name="oRow"></param>
             <param name="RowIserted"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI961.PS_FI961_FormClear">
             <summary>
-            
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI961.PS_FI961_EnableMenus">
-            <summary>
-            PS_FI961_EnableMenus
+            PS_FI961_FormClear
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI961.PS_FI961_SetDocument(System.String)">
@@ -4605,26 +4253,116 @@
             </summary>
             <param name="oFormDocEntry01"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI961.PS_FI961_DataValidCheck">
-            <summary>
-            PS_FI961_DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_FI961.PS_FI961_MTX01">
             <summary>
-            PS_FI961_MTX01
+            배부처별 조회
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI961.PS_FI961_FormResize">
+        <member name="M:PSH_BOne_AddOn.PS_FI961.PS_FI961_MTX02">
             <summary>
-            PS_FI961_FormResize
+            계정과목별 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI961.PS_FI961_GetDetail">
             <summary>
             PS_FI961_GetDetail
             </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormItemEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_ITEM_PRESSED
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_EVENT_KEY_DOWN(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_KEY_DOWN
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_CLICK
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_DOUBLE_CLICK
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_VALIDATE
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_EVENT_MATRIX_LOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_MATRIX_LOAD
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_EVENT_GOT_FOCUS(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_GOT_FOCUS
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_FORM_UNLOAD
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormMenuEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+            <summary>
+            Raise_FormDataEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="BusinessObjectInfo"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI961.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
+            <summary>
+            Raise_RightClickEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_FI962">
             <summary>
@@ -4640,20 +4378,43 @@
             <param name="prmToDt"></param>
             <param name="prmAccount"></param>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI962.PS_FI962_CreateItems">
+            <summary>
+            PS_FI962_CreateItems
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI962.PS_FI962_MTX01(System.String,System.String,System.String,System.String)">
+            <summary>
+            PS_FI962_MTX01
+            </summary>
+            <param name="prmBPLId"></param>
+            <param name="prmFrDt"></param>
+            <param name="prmToDt"></param>
+            <param name="prmAccount"></param>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_FI962.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Raise_FormItemEvent
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI962.Raise_FormMenuEvent(System.String,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_FI962.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_FORM_UNLOAD
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI962.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>
             Raise_FormMenuEvent
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FI962.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
@@ -4669,169 +4430,12 @@
             Raise_RightClickEvent
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="pVal"></param>
             <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI962.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_ITEM_PRESSED
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI962.Raise_EVENT_KEY_DOWN(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_KEY_DOWN
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI962.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_COMBO_SELECT
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI962.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_CLICK
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI962.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_DOUBLE_CLICK
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI962.Raise_EVENT_MATRIX_LINK_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_MATRIX_LINK_PRESSED
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI962.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_VALIDATE
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI962.Raise_EVENT_MATRIX_LOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_MATRIX_LOAD
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI962.Raise_EVENT_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_RESIZE
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI962.Raise_EVENT_CHOOSE_FROM_LIST(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_CHOOSE_FROM_LIST
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI962.Raise_EVENT_GOT_FOCUS(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_GOT_FOCUS
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI962.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_FORM_UNLOAD
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI962.Raise_EVENT_ROW_DELETE(System.String,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_ROW_DELETE
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pval"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI962.PS_FI962_CreateItems">
-            <summary>
-            PS_FI962_CreateItems
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI962.PS_FI962_ComboBox_Setting">
-            <summary>
-            PS_FI962_ComboBox_Setting
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI962.PS_FI962_CF_ChooseFromList">
-            <summary>
-            PS_FI962_CF_ChooseFromList
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI962.PS_FI962_FormItemEnabled">
-            <summary>
-            PS_FI962_FormItemEnabled
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI962.PS_FI962_AddMatrixRow(System.Int32,System.Boolean)">
-            <summary>
-            PS_FI962_AddMatrixRow
-            </summary>
-            <param name="oRow"></param>
-            <param name="RowIserted"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI962.PS_FI962_FormClear">
-            <summary>
-            PS_FI962_FormClear
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI962.PS_FI962_EnableMenus">
-            <summary>
-            PS_FI962_EnableMenus
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI962.PS_FI962_DataValidCheck">
-            <summary>
-            PS_FI962_DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_FI962.PS_FI962_MTX01(System.String,System.String,System.String,System.String)">
-            <summary>
-            PS_FI962_MTX01
-            </summary>
-            <param name="prmBPLId"></param>
-            <param name="prmFrDt"></param>
-            <param name="prmToDt"></param>
-            <param name="prmAccount"></param>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_FX241">
             <summary>
-            분말부자재비용분석
+            고정자산현황(부서)
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FX241.LoadForm(System.String)">
@@ -4848,6 +4452,11 @@
         <member name="M:PSH_BOne_AddOn.PS_FX241.PS_FX241_ComboBox_Setting">
             <summary>
             Combobox 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FX241.PS_FX241_Print_Report01">
+            <summary>
+            리포트 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_FX241.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -4890,11 +4499,6 @@
             <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FX241.PS_FX241_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PS_MM921">
             <summary>
             부자재불출대장(부서)
@@ -4916,13 +4520,18 @@
             Combobox 설정
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM921.PS_MM921_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_MM921.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">pVal</param>
-            <param name="BubbleEvent">Bubble Event</param>
+            <param name="BubbleEvent">Bubble Event</param> 
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM921.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -4955,11 +4564,6 @@
             <param name="FormUID"></param>
             <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_MM921.PS_MM921_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_CO540">
             <summary>
@@ -6930,7 +6534,6 @@
             <summary>
             PS_CO502_MTX01
             </summary>
-            <param name=""></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_CO502.PS_CO502_HeaderSpaceLineDel">
             <summary>
@@ -7054,7 +6657,6 @@
             <summary>
             PS_CO501_MTX01
             </summary>
-            <param name=""></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_CO501.PS_CO501_HeaderSpaceLineDel">
             <summary>
@@ -7790,14 +7392,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_CO600.PS_CO600_FlushToItemValue(System.String,System.Int32,System.String)">
-            <summary>
-            FlushToItemValue(사용자의 Event에 따른 화면 Item의 유동적인 세팅)
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_CO600.PS_CO600_MTX(SAPbouiCOM.Grid,SAPbouiCOM.DataTable)">
             <summary>
             그리드 출력
@@ -7848,25 +7442,9 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_CO600.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            COMBO_SELECT 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_CO600.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_CO600.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            VALIDATE 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -33430,30 +33008,6 @@
             <summary>
             OHEM AddOn
             </summary>
-        </member>
-        <member name="F:PSH_BOne_AddOn.PSH_Globals.M_Used">
-            1:근태, 2:급상여, 3:퇴직, 4:원천
-        </member>
-        <member name="F:PSH_BOne_AddOn.PSH_Globals.M_DayGNT">
-            일근태사용
-        </member>
-        <member name="F:PSH_BOne_AddOn.PSH_Globals.M_YunGNT">
-            년차사용
-        </member>
-        <member name="F:PSH_BOne_AddOn.PSH_Globals.M_PrsGNT">
-            개인별근태사용
-        </member>
-        <member name="F:PSH_BOne_AddOn.PSH_Globals.M_JsnGIT">
-            정산기타소득사용
-        </member>
-        <member name="F:PSH_BOne_AddOn.PSH_Globals.M_JsnBUS">
-            정산사업소득사용
-        </member>
-        <member name="F:PSH_BOne_AddOn.PSH_Globals.M_JsnEJA">
-            정산이자소득사용
-        </member>
-        <member name="F:PSH_BOne_AddOn.PSH_Globals.M_JsnILY">
-            정산일용직사용
         </member>
         <member name="T:PSH_BOne_AddOn.PSH_MainClass">
             <summary>

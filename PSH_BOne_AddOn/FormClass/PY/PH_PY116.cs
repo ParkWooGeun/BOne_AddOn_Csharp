@@ -116,7 +116,7 @@ namespace PSH_BOne_AddOn
                 ////사업장
                 oForm.Items.Item("CLTCOD").DisplayDesc = true;
 
-                /// Matrix
+                //Matrix
                 oMat1 = oForm.Items.Item("Mat1").Specific;
 
                 oMat1.Columns.Item("AcctCode").ExtendedObject.LinkedObject = SAPbouiCOM.BoLinkedObject.lf_GLAccounts;

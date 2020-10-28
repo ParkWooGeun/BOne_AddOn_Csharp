@@ -702,7 +702,7 @@ namespace PSH_BOne_AddOn
                     return functionReturnValue;
                 }
 
-                /// 상여율
+                //상여율
                 if (Convert.ToInt32(oDS_PH_PY108A.GetValue("U_BNSRAT", 0)) == 0)
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("상여율은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
@@ -710,7 +710,7 @@ namespace PSH_BOne_AddOn
                     return functionReturnValue;
                 }
 
-                /// 상여계산 방법
+                //상여계산 방법
                 if (string.IsNullOrEmpty(oDS_PH_PY108A.GetValue("U_BNSCAL", 0).ToString().Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("상여계산방법은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
@@ -718,7 +718,7 @@ namespace PSH_BOne_AddOn
                     return functionReturnValue;
                 }
 
-                /// 상여지급 주기
+                //상여지급 주기
                 if (Convert.ToInt32(oDS_PH_PY108A.GetValue("U_BNSMON", 0)) < 0 | Convert.ToInt32(oDS_PH_PY108A.GetValue("U_BNSMON", 0)) > 12)
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("상여지급 주기필수이며, 0 ~ 12개월 범위 이내이어야 합니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);

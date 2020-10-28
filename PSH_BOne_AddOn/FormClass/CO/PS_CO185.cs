@@ -166,7 +166,7 @@ namespace PSH_BOne_AddOn
 		private bool MatrixSpaceLineDel()
 		{
 			bool functionReturnValue = false;
-			int i = 0;
+			int i;
 			int ErrNum = 0;
 
 			try
@@ -298,7 +298,7 @@ namespace PSH_BOne_AddOn
 		/// <param name="oCol"></param>
 		private void FlushToItemValue(string oUID, int oRow, string oCol)
 		{
-			string sQry = string.Empty;
+			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
@@ -347,7 +347,7 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void ComboBox_Setting()
 		{
-			string sQry = String.Empty;
+			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
@@ -376,14 +376,12 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void LoadData()
 		{
-			int i = 0;
+			int i;
 			string sQry = String.Empty;
-			string iToDate = String.Empty;
-			string iFrDate = String.Empty;
-			string iBPLId = String.Empty;
+			string iBPLId;
 
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-	 		SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet.RecordCount, false);
+	 		SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
 			try
 			{
@@ -414,7 +412,7 @@ namespace PSH_BOne_AddOn
 
 					oRecordSet.MoveNext();
 
-					ProgBar01.Value = ProgBar01.Value + 1;
+					ProgBar01.Value += 1;
 					ProgBar01.Text = ProgBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";
 				}
 				oMat01.LoadFromDataSource();
@@ -839,8 +837,6 @@ namespace PSH_BOne_AddOn
 		/// <param name="BubbleEvent"></param>
 		public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
 		{
-			int i = 0;
-
 			try
 			{
 				if ((pVal.BeforeAction == true))

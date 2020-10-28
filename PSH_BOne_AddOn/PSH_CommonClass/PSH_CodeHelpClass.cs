@@ -1,5 +1,4 @@
-﻿
-namespace PSH_BOne_AddOn.Code
+﻿namespace PSH_BOne_AddOn.Code
 {
     /// <summary>
     /// VB6.0와 C#의 기능 차이 보완용 Class

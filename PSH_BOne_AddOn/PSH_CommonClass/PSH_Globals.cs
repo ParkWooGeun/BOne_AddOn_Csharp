@@ -143,52 +143,52 @@ namespace PSH_BOne_AddOn
         //    public string ENDRET; //퇴직중간정산일
         //}
 
-        /// 1:근태, 2:급상여, 3:퇴직, 4:원천
+        //1:근태, 2:급상여, 3:퇴직, 4:원천
         public static bool[] M_Used = new bool[5];
-        /// 일근태사용
-        public static bool M_DayGNT;
-        /// 년차사용
-        public static bool M_YunGNT;
-        /// 개인별근태사용
-        public static bool M_PrsGNT;
-        /// 정산기타소득사용
-        public static bool M_JsnGIT;
-        /// 정산사업소득사용
-        public static bool M_JsnBUS;
-        /// 정산이자소득사용
-        public static bool M_JsnEJA;
-        /// 정산일용직사용
-        public static bool M_JsnILY;
+        //일근태사용
+        //public static bool M_DayGNT;
+        //년차사용
+        //public static bool M_YunGNT;
+        //개인별근태사용
+        //public static bool M_PrsGNT;
+        //정산기타소득사용
+        //public static bool M_JsnGIT;
+        //정산사업소득사용
+        //public static bool M_JsnBUS;
+        //정산이자소득사용
+        //public static bool M_JsnEJA;
+        //정산일용직사용
+        //public static bool M_JsnILY;
 
 
         ////사용자구조체
-        public static string Value01;
-        public static string Value02;
-        public static string Value03;
-        public static string Value04;
-        public static string Value05;
-        public static string Value06;
-        public static string Value07;
-        public static string Value08;
-        public static string Value09;
-        public static string Value10;
-        public static string Value11;
-        public static string Value12;
-        public static string Value13;
-        public static string Value14;
-        public static string Value15;
-        public static string Value16;
-        public static string Value17;
-        public static string Value18;
-        public static string Value19;
-        public static string Value20;
+        //public static string Value01;
+        //public static string Value02;
+        //public static string Value03;
+        //public static string Value04;
+        //public static string Value05;
+        //public static string Value06;
+        //public static string Value07;
+        //public static string Value08;
+        //public static string Value09;
+        //public static string Value10;
+        //public static string Value11;
+        //public static string Value12;
+        //public static string Value13;
+        //public static string Value14;
+        //public static string Value15;
+        //public static string Value16;
+        //public static string Value17;
+        //public static string Value18;
+        //public static string Value19;
+        //public static string Value20;
 
-        public static int oTitleNameCount;
+        //public static int oTitleNameCount;
 
-        public static System.Windows.Forms.Form ZP_Form_Renamed;
-        public static System.Windows.Forms.Form frmRPT_View11;
-        public static System.Windows.Forms.Form frmRPT_View12;
-        public static System.Windows.Forms.Form frmRPT_View13;
+        //public static System.Windows.Forms.Form ZP_Form_Renamed;
+        //public static System.Windows.Forms.Form frmRPT_View11;
+        //public static System.Windows.Forms.Form frmRPT_View12;
+        //public static System.Windows.Forms.Form frmRPT_View13;
 
 
         //근 속  년 수
@@ -205,8 +205,8 @@ namespace PSH_BOne_AddOn
         public static short ZPAY_GBL_GNMDAY;
 
         //정산년도
-        [VBFixedString(4)]
-        public static short ZPAY_GBL_JSNYER;
+        //[VBFixedString(4)]
+        //public static short ZPAY_GBL_JSNYER;
     }
 
     public class ZPAY_g_EmpID

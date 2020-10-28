@@ -241,7 +241,6 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// PS_CO502_MTX01
         /// </summary>
-        /// <param name=""></param>
         private void PS_CO502_MTX01()
         {
             string sQry;
@@ -272,7 +271,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_CO502L.SetValue("U_ItemName", i, oRecordSet.Fields.Item(1).Value.ToString().Trim());
                     oDS_PS_CO502L.SetValue("U_ItmMsort", i, oRecordSet.Fields.Item(2).Value.ToString().Trim());
                     oDS_PS_CO502L.SetValue("U_ItmMName", i, oRecordSet.Fields.Item(3).Value.ToString().Trim());
-                    i = i + 1;
+                    i += 1;
                     oRecordSet.MoveNext();
                 }
 
@@ -625,7 +624,7 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string sQry = null;
+            string sQry;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {

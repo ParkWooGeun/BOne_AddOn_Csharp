@@ -428,8 +428,6 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PH_PY115_AddMatrixRow()
         {
-            int oRow = 0;
-
             try
             {
                 oForm.Freeze(true);

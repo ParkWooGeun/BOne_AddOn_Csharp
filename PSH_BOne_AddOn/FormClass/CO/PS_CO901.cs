@@ -151,7 +151,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                int i = 0;
                 string Query01 = string.Empty;
 
                 string BPLID = string.Empty;
@@ -551,8 +550,6 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
-            int i;
-
             try
             {
                 oForm.Freeze(true);

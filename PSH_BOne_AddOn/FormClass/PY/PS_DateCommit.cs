@@ -24,7 +24,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         public override void LoadForm(string oFormDocEntry01)
         {
-            int i = 0;
+            int i;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
             try
             {
@@ -75,7 +75,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PS_DateCommit_CreateItems()
         {
-            string sQry = string.Empty;
+            string sQry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
@@ -309,7 +309,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         public bool PS_DateCommit_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool functionReturnValue;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
@@ -340,13 +340,13 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PS_DateCommit_DataFind()
         {
-            int iRow = 0;
-            string sQry = string.Empty;
-            string CLTCODE = string.Empty;
-            string Grantor = string.Empty;
-            string ObjectCode = string.Empty;
-            string FrDate = string.Empty;
-            string ToDate = string.Empty;
+            int iRow;
+            string sQry;
+            string CLTCODE;
+            string Grantor;
+            string ObjectCode;
+            string FrDate;
+            string ToDate;
 
             CLTCODE = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
             Grantor = PSH_Globals.oCompany.UserName;
@@ -382,10 +382,10 @@ namespace PSH_BOne_AddOn
         private bool PS_DateCommit_DataSave()
         {
             bool functionReturnValue = false;
-            int i = 0;
+            int i;
             int ErrNum = 0;
-            string sQry = string.Empty;
-            string CLTCOD = string.Empty;
+            string sQry;
+            string CLTCOD;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
@@ -403,21 +403,21 @@ namespace PSH_BOne_AddOn
                         if (oDS_PS_DateCommit.Columns.Item("OKYN").Cells.Item(i).Value != "N")
                         {
                             sQry = "UPDATE PSH_DateChange SET OKYN = '" + oDS_PS_DateCommit.Columns.Item("OKYN").Cells.Item(i).Value + "', ApprDate = convert(char(8), GETDATE(), 112)";
-                            sQry = sQry + " where ObjectCode ='" + oForm.Items.Item("ObjectCode").Specific.Value.Trim() + "'";
-                            sQry = sQry + "  and OKYN = 'N'";
-                            sQry = sQry + "  and DocEntry = '" + oDS_PS_DateCommit.Columns.Item("DocEntry").Cells.Item(i).Value + "'";
-                            sQry = sQry + "  and LineId ="  + oDS_PS_DateCommit.Columns.Item("LineId").Cells.Item(i).Value;
+                            sQry += " where ObjectCode ='" + oForm.Items.Item("ObjectCode").Specific.Value.Trim() + "'";
+                            sQry += "  and OKYN = 'N'";
+                            sQry += "  and DocEntry = '" + oDS_PS_DateCommit.Columns.Item("DocEntry").Cells.Item(i).Value + "'";
+                            sQry += "  and LineId ="  + oDS_PS_DateCommit.Columns.Item("LineId").Cells.Item(i).Value;
 
                             oRecordSet.DoQuery(sQry);
 
                             if (oDS_PS_DateCommit.Columns.Item("OKYN").Cells.Item(i).Value == "Y")
                             {
                                 sQry = "EXEC [PS_DateCommit_02] '" + oForm.Items.Item("ObjectCode").Specific.Value.Trim() + "'";
-                                sQry = sQry + ",'" + oDS_PS_DateCommit.Columns.Item("DocEntry").Cells.Item(i).Value + "'";
-                                sQry = sQry + ",'" + oDS_PS_DateCommit.Columns.Item("LineId").Cells.Item(i).Value + "'";
-                                sQry = sQry + ",'" + oDS_PS_DateCommit.Columns.Item("DocDate").Cells.Item(i).Value + "'";
-                                sQry = sQry + ",'" + oDS_PS_DateCommit.Columns.Item("DueDate").Cells.Item(i).Value + "'";
-                                sQry = sQry + ",'" + oDS_PS_DateCommit.Columns.Item("TaxDate").Cells.Item(i).Value + "'";
+                                sQry += ",'" + oDS_PS_DateCommit.Columns.Item("DocEntry").Cells.Item(i).Value + "'";
+                                sQry += ",'" + oDS_PS_DateCommit.Columns.Item("LineId").Cells.Item(i).Value + "'";
+                                sQry += ",'" + oDS_PS_DateCommit.Columns.Item("DocDate").Cells.Item(i).Value + "'";
+                                sQry += ",'" + oDS_PS_DateCommit.Columns.Item("DueDate").Cells.Item(i).Value + "'";
+                                sQry += ",'" + oDS_PS_DateCommit.Columns.Item("TaxDate").Cells.Item(i).Value + "'";
                                 oRecordSet.DoQuery(sQry);
                             }
                         }
@@ -455,7 +455,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PS_DateCommit_TitleSetting(int iRow)
         {
-            int i = 0;
+            int i;
 
             string[] COLNAM = new string[9];
 
@@ -574,15 +574,15 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PS_DateCommit_Comments(string oUID, int oRow = 0, string oCol = "")
         {
-            int sRow = 0;
+            int sRow;
             int ErrNum = 0;
-            string sQry = string.Empty;
-            string BPLId = string.Empty;
-            string CreateUser = string.Empty;
-            string ObjectCode = string.Empty;
-            string Grantor = string.Empty;
-            int LineId = 0;
-            int DocEntry = 0;
+            string sQry;
+            string BPLId;
+            string CreateUser;
+            string ObjectCode;
+            string Grantor;
+            int LineId;
+            int DocEntry;
 
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -598,13 +598,13 @@ namespace PSH_BOne_AddOn
                 LineId = oDS_PS_DateCommit.Columns.Item("LineId").Cells.Item(oRow).Value;
 
                 sQry = "SELECT  Comments ";
-                sQry = sQry + "FROM PSH_DateChange ";
-                sQry = sQry + "WHERE ObjectCode		= '"+ ObjectCode + "' ";
-                sQry = sQry + "AND BPLId			= '" + BPLId + "' ";
-                sQry = sQry + "AND Grantor          = '" + Grantor + "' ";
-                sQry = sQry + "AND DocEntry		    = '" + DocEntry + "'  ";
-                sQry = sQry + "AND LineId		    = '" + LineId + "'  ";
-                sQry = sQry + "AND CreateUser       = '" + CreateUser + "' ";
+                sQry += "FROM PSH_DateChange ";
+                sQry += "WHERE ObjectCode = '"+ ObjectCode + "' ";
+                sQry += "AND BPLId = '" + BPLId + "' ";
+                sQry += "AND Grantor = '" + Grantor + "' ";
+                sQry += "AND DocEntry = '" + DocEntry + "'  ";
+                sQry += "AND LineId = '" + LineId + "'  ";
+                sQry += "AND CreateUser = '" + CreateUser + "' ";
 
                 oRecordSet.DoQuery(sQry);
 
@@ -639,9 +639,9 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string sQry = string.Empty;
+            string sQry;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
 

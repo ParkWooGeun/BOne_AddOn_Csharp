@@ -615,6 +615,10 @@ namespace PSH_BOne_AddOn
                 {
                     dataHelpClass.MDC_GF_Message( "거래처코드와, 사업장을 먼저 입력하세요.", "E");
                 }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
             }
             finally
             {
@@ -868,16 +872,13 @@ namespace PSH_BOne_AddOn
         /// <param name="FormUID"></param>
         /// <param name="pVal"></param>
         /// <param name="BubbleEvent"></param>
-        /// <param name="oMat">매트릭스 이름</param>
-        /// <param name="DBData">DB데이터소스</param>
-        /// <param name="CheckField">데이터 체크 필드명</param>
         private void Raise_EVENT_ROW_DELETE(string FormUID, SAPbouiCOM.IMenuEvent pVal, bool BubbleEvent)
         {
-            int i = 0;
+            int i;
 
             try
             {
-                if ((oLast_Col_Row > 0))
+                if (oLast_Col_Row > 0)
                 {
                     if (pVal.BeforeAction == true)
                     {

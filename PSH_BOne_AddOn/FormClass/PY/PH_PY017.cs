@@ -614,13 +614,12 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
-            int i = 0;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             oForm.Freeze(true);
             try
             {
                 oForm.Freeze(false);
-                if ((pVal.BeforeAction == true))
+                if (pVal.BeforeAction == true)
                 {
                     switch (pVal.MenuUID)
                     {
@@ -648,7 +647,7 @@ namespace PSH_BOne_AddOn
                             break;
                     }
                 }
-                else if ((pVal.BeforeAction == false))
+                else if (pVal.BeforeAction == false)
                 {
                     switch (pVal.MenuUID)
                     {
@@ -661,14 +660,12 @@ namespace PSH_BOne_AddOn
                             break;
                         case "1286":
                             break;
-                        case "1281":
-                            ////문서찾기
+                        case "1281": //문서찾기
                             PH_PY017_FormItemEnabled();
                             PH_PY017_AddMatrixRow();
                             oForm.Items.Item("Code").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             break;
-                        case "1282":
-                            ////문서추가
+                        case "1282": //문서추가
                             PH_PY017_FormItemEnabled();
                             PH_PY017_AddMatrixRow();
                             break;
@@ -678,8 +675,7 @@ namespace PSH_BOne_AddOn
                         case "1291":
                             PH_PY017_FormItemEnabled();
                             break;
-                        case "1293":
-                            //// 행삭제
+                        case "1293": // 행삭제
                             Raise_EVENT_ROW_DELETE(FormUID, pVal, BubbleEvent, oMat1, oDS_PH_PY017B, "U_CODNBR"); 
                             PH_PY017_AddMatrixRow();
                             break;
@@ -795,21 +791,19 @@ namespace PSH_BOne_AddOn
         public bool PH_PY017_DataValidCheck()
         {
             bool functionReturnValue = false;
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            string errCode = string.Empty;
+
             try
             {
-                int i = 0;
-                string sQry = string.Empty;
                 string tCode = string.Empty;
+
                 if (oMat1.VisualRowCount > 0)
                 {
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.SetStatusBarMessage("라인 데이터가 없습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                    functionReturnValue = false;
-                    return functionReturnValue;
+                    errCode = "1";
+                    throw new Exception();
                 }
 
                 oMat1.FlushToDataSource();
@@ -818,16 +812,24 @@ namespace PSH_BOne_AddOn
                 tCode = Convert.ToString(Convert.ToDouble(oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim()) + oForm.Items.Item("YM").Specific.Value);
                 oDS_PH_PY017A.SetValue("Code", 0, tCode);
                 oDS_PH_PY017A.SetValue("Name", 0, tCode);
+
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY017_DataValidCheck_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                if (errCode == "1")
+                {
+                    PSH_Globals.SBO_Application.SetStatusBarMessage("라인 데이터가 없습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY017_DataValidCheck_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                }
             }
             finally
             {
-                functionReturnValue = true;
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
+
             return functionReturnValue;
         }
 

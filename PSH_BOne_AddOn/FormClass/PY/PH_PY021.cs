@@ -466,20 +466,17 @@ namespace PSH_BOne_AddOn
         {
             bool functionReturnValue = false;
             
-            short i = 0;
-            short j = 0;
-            string sQry = null;
+            short i;
+            string sQry;
 
-            SAPbobsCOM.Recordset RecordSet01 = null;
-            RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
-            string CLTCOD = string.Empty; //사업장
-            string MSTCOD = string.Empty; //사번
-            string P_EmRel = string.Empty; //비상연락 대상관계
-            string P_EmTel = string.Empty; //비상연락 전화번호
-            string Usersign = string.Empty;
+            string CLTCOD; //사업장
+            string MSTCOD; //사번
+            string P_EmRel; //비상연락 대상관계
+            string P_EmTel; //비상연락 전화번호
+            string Usersign = PSH_Globals.oCompany.UserSignature.ToString();
 
-            Usersign = PSH_Globals.oCompany.UserSignature.ToString();
             try
             {
                 oMat01.FlushToDataSource();
@@ -492,12 +489,12 @@ namespace PSH_BOne_AddOn
                         P_EmRel = oDS_PH_PY021B.GetValue("U_ColReg07", i).ToString().Trim(); //비상연락 대상관계
                         P_EmTel = oDS_PH_PY021B.GetValue("U_ColReg08", i).ToString().Trim(); //비상연락 전화번호
 
-                        sQry = "            EXEC [PH_PY021_02] ";
-                        sQry = sQry + "'" + CLTCOD + "',"; //사업장
-                        sQry = sQry + "'" + MSTCOD + "',"; //사번
-                        sQry = sQry + "'" + P_EmRel + "',"; //비상연락 대상관계
-                        sQry = sQry + "'" + P_EmTel + "',"; //비상연락 전화번호
-                        sQry = sQry + "'" + Usersign + "'"; //비상연락 전화번호
+                        sQry = "EXEC [PH_PY021_02] '";
+                        sQry += CLTCOD + "','"; //사업장
+                        sQry += MSTCOD + "','"; //사번
+                        sQry += P_EmRel + "','"; //비상연락 대상관계
+                        sQry += P_EmTel + "','"; //비상연락 전화번호
+                        sQry += Usersign + "'"; //비상연락 전화번호
 
                         RecordSet01.DoQuery(sQry);
                     }

@@ -90,12 +90,10 @@ namespace PSH_BOne_AddOn
         private void PH_PY106_CreateItems()
         {
             string sQry = string.Empty;
-            int i = 0;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
                 oForm.Freeze(true);
-                //    '//매트릭스--------------------------------------------------------------------------------------
                 oDS_PH_PY106A = oForm.DataSources.DBDataSources.Item("@PH_PY106A");                ////헤더
                 oDS_PH_PY106B = oForm.DataSources.DBDataSources.Item("@PH_PY106B");                ////라인
                 oDS_PH_PY106C = oForm.DataSources.DBDataSources.Item("@PH_PY106C");                ////라인
@@ -103,7 +101,7 @@ namespace PSH_BOne_AddOn
 
                 oForm.DataSources.UserDataSources.Add("DISSIL", SAPbouiCOM.BoDataType.dt_LONG_TEXT);
 
-                ////공식
+                //공식
                 oForm.Items.Item("DISSIL").Specific.DataBind.SetBound(true, "", "DISSIL");
 
                 oMat01 = oForm.Items.Item("Mat01").Specific;
@@ -231,24 +229,23 @@ namespace PSH_BOne_AddOn
 
                     PH_PY106_Display_CsuItem();                    ////Mat02 초기값 가져옴
 
-                    //// 접속자에 따른 권한별 사업장 콤보박스세팅
+                    //접속자에 따른 권한별 사업장 콤보박스세팅
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
 
-                    /// 귀속년월
-                    //UPGRADE_WARNING: oForm.Items(YM).Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                    //귀속년월
                     oForm.Items.Item("YM").Specific.Value = DateTime.Now.ToString("yyyyMM");
 
-                    //// 1.근속년수 계산기준
+                    //1.근속년수 계산기준
                     oForm.Items.Item("GNSGBN").Specific.Select(1, SAPbouiCOM.BoSearchKey.psk_Index);
 
-                    //// 2.상여 계산단위 
+                    //2.상여 계산단위 
                     oForm.Items.Item("BNSLEN").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
-                    //// 3.상여 끝전처리
+                    //3.상여 끝전처리
                     oForm.Items.Item("BNSRND").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
-                    oForm.EnableMenu("1293", true);                    ////행삭제
-                    oForm.EnableMenu("1283", true);                    ////제거
+                    oForm.EnableMenu("1293", true);                    //행삭제
+                    oForm.EnableMenu("1283", true);                    //제거
 
                 }
                 else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE))
@@ -260,11 +257,11 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("BNSLEN").Enabled = true;
                     oForm.Items.Item("BNSRND").Enabled = true;
 
-                    //// 접속자에 따른 권한별 사업장 콤보박스세팅
+                    //접속자에 따른 권한별 사업장 콤보박스세팅
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
 
-                    oForm.EnableMenu("1293", true);                    ////행삭제
-                    oForm.EnableMenu("1283", true);                    ////제거
+                    oForm.EnableMenu("1293", true);                    //행삭제
+                    oForm.EnableMenu("1283", true);                    //제거
                 }
                 else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE))
                 {
@@ -275,11 +272,11 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("BNSLEN").Enabled = false;
                     oForm.Items.Item("BNSRND").Enabled = false;
 
-                    //// 접속자에 따른 권한별 사업장 콤보박스세팅
+                    //접속자에 따른 권한별 사업장 콤보박스세팅
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", false);
 
-                    oForm.EnableMenu("1293", true);                    ////행삭제
-                    oForm.EnableMenu("1283", true);                    ////제거
+                    oForm.EnableMenu("1293", true);                    //행삭제
+                    oForm.EnableMenu("1283", true);                    //제거
                 }
             }
             catch (Exception ex)

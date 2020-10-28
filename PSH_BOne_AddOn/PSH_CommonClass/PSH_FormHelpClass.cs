@@ -1,10 +1,7 @@
 ﻿using System;
 using CrystalDecisions.CrystalReports.Engine;
 using System.Collections.Generic;
-
-using SAPbouiCOM;
 using PSH_BOne_AddOn.DataPack;
-using PSH_BOne_AddOn.Data;
 
 namespace PSH_BOne_AddOn.Form
 {

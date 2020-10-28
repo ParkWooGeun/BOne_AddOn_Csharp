@@ -235,68 +235,6 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// FlushToItemValue(사용자의 Event에 따른 화면 Item의 유동적인 세팅)
-        /// </summary>
-        /// <param name="oUID"></param>
-        /// <param name="oRow"></param>
-        /// <param name="oCol"></param>
-        private void PS_CO600_FlushToItemValue(string oUID, int oRow, string oCol)
-        {
-            try
-            {
-                switch (oUID)
-                {
-                    // Case "CntcCode01"
-
-                    //     If Trim(oForm01.Items("CntcCode01").Specific.Value) = "9999999" Then
-                    //         oForm01.Items("CntcName01").Specific.Value = "공용" '성명
-                    //     Else
-                    //         oForm01.Items("CntcName01").Specific.Value = MDC_GetData.Get_ReData("U_FULLNAME", "U_MSTCOD", "[OHEM]", "'" & Trim(oForm01.Items("CntcCode01").Specific.Value) & "'") '성명
-                    //     End If
-
-                    // Case "TeamCode01"
-
-                    //     If Trim(oForm01.Items("TeamCode01").Specific.Value) = oForm01.Items("BPLID01").Specific.Selected.Value & "999" Then
-                    //         oForm01.Items("TeamName01").Specific.Value = "전체공용"
-                    //     ElseIf Trim(oForm01.Items("TeamCode01").Specific.Value) = "Z" & oForm01.Items("BPLID01").Specific.Selected.Value & "99" Then
-                    //         oForm01.Items("TeamName01").Specific.Value = "사용부서없음"
-                    //     Else
-                    //         oForm01.Items("TeamName01").Specific.Value = MDC_GetData.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" & Trim(oForm01.Items("TeamCode01").Specific.Value) & "'", " AND Code = '1'") '팀
-                    //     End If
-
-                    // Case "CntcCode02"
-
-                    //     If Trim(oForm01.Items("CntcCode02").Specific.Value) = "9999999" Then
-                    //         oForm01.Items("CntcName02").Specific.Value = "공용" '성명
-                    //     Else
-                    //         oForm01.Items("CntcName02").Specific.Value = MDC_GetData.Get_ReData("U_FULLNAME", "U_MSTCOD", "[OHEM]", "'" & Trim(oForm01.Items("CntcCode02").Specific.Value) & "'") '성명
-                    //     End If
-
-                    //  Case "CntcCode03"
-
-                    //     If Trim(oForm01.Items("CntcCode03").Specific.Value) = "9999999" Then
-                    //         oForm01.Items("CntcName03").Specific.Value = "공용" '성명
-                    //     Else
-                    //         oForm01.Items("CntcName03").Specific.Value = MDC_GetData.Get_ReData("U_FULLNAME", "U_MSTCOD", "[OHEM]", "'" & Trim(oForm01.Items("CntcCode03").Specific.Value) & "'") '성명
-                    //     End If
-
-                    // Case "CntcCode05"
-
-                    //     If Trim(oForm01.Items("CntcCode05").Specific.Value) = "9999999" Then
-                    //         oForm01.Items("CntcName05").Specific.Value = "공용" '성명
-                    //     Else
-                    //         oForm01.Items("CntcName05").Specific.Value = MDC_GetData.Get_ReData("U_FULLNAME", "U_MSTCOD", "[OHEM]", "'" & Trim(oForm01.Items("CntcCode05").Specific.Value) & "'") '성명
-                    //     End If
-
-                }
-            }
-            catch(Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-        }
-
-        /// <summary>
         /// 그리드 출력
         /// </summary>
         /// <param name="pGrid">B1 그리드 객체</param>
@@ -592,7 +530,7 @@ namespace PSH_BOne_AddOn
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
-                    Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_CLICK: //6
@@ -612,7 +550,7 @@ namespace PSH_BOne_AddOn
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
-                    Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
@@ -825,35 +763,6 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// COMBO_SELECT 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_COMBO_SELECT(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            try
-            {
-                oForm.Freeze(true);
-                if (pVal.Before_Action == true)
-                {
-                }
-                else if (pVal.Before_Action == false)
-                {
-                    PS_CO600_FlushToItemValue(pVal.ItemUID, pVal.Row, pVal.ColUID);
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-                oForm.Freeze(false);
-            }
-        }
-
-        /// <summary>
         /// CLICK 이벤트
         /// </summary>
         /// <param name="FormUID">Form UID</param>
@@ -888,34 +797,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-        }
-
-        /// <summary>
-        /// VALIDATE 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            try
-            {
-                if (pVal.Before_Action == true)
-                {
-                }
-                else if (pVal.Before_Action == false)
-                {
-                    PS_CO600_FlushToItemValue(pVal.ItemUID, pVal.Row, pVal.ColUID);
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                BubbleEvent = false;
             }
             finally
             {

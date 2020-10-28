@@ -19,8 +19,6 @@ namespace PSH_BOne_AddOn
         private string oLastColUID;
         private int oLastColRow;
 
-        string g_preBankSel;
-
         /// <summary>
         /// Form 호출
         /// </summary>
@@ -979,19 +977,19 @@ namespace PSH_BOne_AddOn
         private bool PH_PY000_DataValidCheck()
         {
             bool functionReturnValue = false;
-            int i = 0;
-            string sQry = string.Empty;
+
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
                 oMat1.FlushToDataSource();
                 // Matrix 마지막 행 삭제(DB 저장시)
                 if (oDS_PH_PY000B.Size > 1)
-                    oDS_PH_PY000B.RemoveRecord((oDS_PH_PY000B.Size - 1));
+                {
+                    oDS_PH_PY000B.RemoveRecord(oDS_PH_PY000B.Size - 1);
+                }
                 oMat1.LoadFromDataSource();
 
                 functionReturnValue = true;
-                return functionReturnValue;
             }
             catch (Exception ex)
             {
@@ -1001,6 +999,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
             }
+
             return functionReturnValue;
         }
     }

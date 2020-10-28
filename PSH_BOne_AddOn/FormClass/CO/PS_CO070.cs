@@ -203,8 +203,8 @@ namespace PSH_BOne_AddOn
 				{
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
-				functionReturnValue = false;
 			}
+
 			return functionReturnValue;
 		}
 
@@ -255,7 +255,6 @@ namespace PSH_BOne_AddOn
 				{
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
-				functionReturnValue = false;
 			}
 			return functionReturnValue;
 		}
@@ -281,7 +280,6 @@ namespace PSH_BOne_AddOn
 						oForm.Freeze(true);
 						oMat01.LoadFromDataSource();
 
-						//--------------------------------------------------------------------------------------------
 						if (oRow == oMat01.RowCount & !string.IsNullOrEmpty(oDS_PS_CO070L.GetValue("U_ActCode", oRow - 1).ToString().Trim()))
 						{
 							// 다음 라인 추가
@@ -306,12 +304,12 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void ComboBox_Setting()
 		{
-			string sQry = string.Empty;
+			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
 			{
-				// 사업장
+				//사업장
 				sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
 				oRecordSet.DoQuery(sQry);
 				while (!(oRecordSet.EoF))
@@ -335,11 +333,11 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void LoadData()
 		{
-			int i = 0;
-			string sQry = String.Empty;
-			string iToDate = String.Empty;
-			string iFrDate = String.Empty;
-			string iBPLId = String.Empty;
+			int i;
+			string sQry;
+			string iToDate;
+			string iFrDate;
+			string iBPLId;
 
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet.RecordCount, false);
@@ -383,7 +381,7 @@ namespace PSH_BOne_AddOn
 
 					oRecordSet.MoveNext();
 
-					ProgBar01.Value = ProgBar01.Value + 1;
+					ProgBar01.Value += 1;
 					ProgBar01.Text = ProgBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";
 				}
 				oMat01.LoadFromDataSource();
@@ -827,8 +825,6 @@ namespace PSH_BOne_AddOn
 		/// <param name="BubbleEvent"></param>
 		public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
 		{
-			int i = 0;
-
 			try
 			{
 				if (pVal.BeforeAction == true)

@@ -818,6 +818,8 @@ namespace PSH_BOne_AddOn
                     ErrNum = 7;
                     throw new Exception();
                 }
+
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
@@ -856,13 +858,15 @@ namespace PSH_BOne_AddOn
                     dataHelpClass.MDC_GF_Message("종료시각은 필수사항입니다. 확인하세요.", "E");
                     oForm.Items.Item("FrTime").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
-                functionReturnValue = false;
-                return functionReturnValue;
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
             }
             finally
             {
-                functionReturnValue = true;
             }
+
             return functionReturnValue;
         }
 

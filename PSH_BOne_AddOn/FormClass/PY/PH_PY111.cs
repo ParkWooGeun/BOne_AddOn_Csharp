@@ -88,12 +88,12 @@ namespace PSH_BOne_AddOn
         private string oEXPDAT = string.Empty; //퇴사자제외일
         private string oRETCHK = string.Empty; //상여퇴직임금에포함
 
-        private bool G06_CHK; //소득세정산
-        private bool G07_CHK; //주민세정산
-        private bool G08_CHK; //건강보험정산
-        private bool G90_CHK; //국민연금정산
-        private bool G91_CHK; //농특세정산
-        
+        //private bool G06_CHK; //소득세정산
+        //private bool G07_CHK; //주민세정산
+        //private bool G08_CHK; //건강보험정산
+        //private bool G90_CHK; //국민연금정산
+        //private bool G91_CHK; //농특세정산
+
         private string G04_BNSUSE;
 
         private string U_CSUCOD;
@@ -158,7 +158,6 @@ namespace PSH_BOne_AddOn
         /// <param name="oFormDocEntry01"></param>
         public override void LoadForm(string oFormDocEntry01)
         {
-            string strXml = string.Empty;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
             try
@@ -178,8 +177,7 @@ namespace PSH_BOne_AddOn
                 oFormUniqueID01 = "PH_PY111_" + SubMain.Get_TotalFormsCount();
                 SubMain.Add_Forms(this, oFormUniqueID01, "PH_PY111");
 
-                strXml = oXmlDoc.xml.ToString();
-                PSH_Globals.SBO_Application.LoadBatchActions(strXml);
+                PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID01);
 
                 oForm.SupportedModes = -1;
@@ -210,8 +208,8 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PH_PY111_CreateItems()
         {
-            string sQry = string.Empty;
-            short iCol = 0;
+            string sQry;
+            short iCol;
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             WG01CODR WG01 = new WG01CODR();
@@ -321,27 +319,27 @@ namespace PSH_BOne_AddOn
                     WG01.TB1KUM[iCol] = 0;
                 }
 
-                sQry = "        SELECT      U_CODNBR,";
-                sQry = sQry + "             U_CODAMT,";
-                sQry = sQry + "             U_CODGON,";
-                sQry = sQry + "             U_CODRAT,";
-                sQry = sQry + "             U_CODKUM ";
-                sQry = sQry + " FROM        [@PH_PY100B]";
-                sQry = sQry + " WHERE       CODE = (";
-                sQry = sQry + "                         SELECT      Top 1";
-                sQry = sQry + "                                     Code";
-                sQry = sQry + "                         FROM        [@PH_PY100A]";
-                sQry = sQry + "                         WHERE       Code <= '" + DateTime.Now.ToString("yyyy") + "'";
-                sQry = sQry + "                         ORDER BY    Code";
-                sQry = sQry + "                                     Desc";
-                sQry = sQry + "                     )";
-                sQry = sQry + "             AND U_CODNBR BETWEEN '0001' AND '0010'";
-                sQry = sQry + " ORDER BY    CODE,";
-                sQry = sQry + "             U_CODNBR";
-                sQry = sQry + "             DESC";
+                sQry = "  SELECT      U_CODNBR,";
+                sQry += "             U_CODAMT,";
+                sQry += "             U_CODGON,";
+                sQry += "             U_CODRAT,";
+                sQry += "             U_CODKUM ";
+                sQry += " FROM        [@PH_PY100B]";
+                sQry += " WHERE       CODE = (";
+                sQry += "                         SELECT      Top 1";
+                sQry += "                                     Code";
+                sQry += "                         FROM        [@PH_PY100A]";
+                sQry += "                         WHERE       Code <= '" + DateTime.Now.ToString("yyyy") + "'";
+                sQry += "                         ORDER BY    Code";
+                sQry += "                                     Desc";
+                sQry += "                     )";
+                sQry += "             AND U_CODNBR BETWEEN '0001' AND '0010'";
+                sQry += " ORDER BY    CODE,";
+                sQry += "             U_CODNBR";
+                sQry += "             DESC";
                 oRecordSet.DoQuery(sQry);
 
-                while (!(oRecordSet.EoF))
+                while (!oRecordSet.EoF)
                 {
                     WG01.TB1AMT[Convert.ToDouble(oRecordSet.Fields.Item("U_CODNBR").Value)] = Convert.ToDouble(oRecordSet.Fields.Item("U_CODAMT").Value);
                     WG01.TB1GON[Convert.ToDouble(oRecordSet.Fields.Item("U_CODNBR").Value)] = Convert.ToDouble(oRecordSet.Fields.Item("U_CODGON").Value);
@@ -482,7 +480,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PH_PY111_FormClear()
         {
-            string DocEntry = string.Empty;
+            string DocEntry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
@@ -676,8 +674,6 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
-
-                returnValue = false;
             }
 
             return returnValue;
@@ -690,17 +686,14 @@ namespace PSH_BOne_AddOn
         private bool Pay_Calc()
         {
             bool returnValue = false;
-
-            //short errNum = 0;
-
-            string sQry = string.Empty;
-            string CLTCOD = string.Empty;
-            string YM = string.Empty;
-            string JOBTYP = string.Empty;
-            string JOBGBN = string.Empty;
-            string JOBTRG = string.Empty;
-            string JIGBIL = string.Empty;
-            string MSTCOD = string.Empty;
+            string sQry;
+            string CLTCOD;
+            string YM;
+            string JOBTYP;
+            string JOBGBN;
+            string JOBTRG;
+            string JIGBIL;
+            string MSTCOD;
 
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -715,12 +708,12 @@ namespace PSH_BOne_AddOn
                 MSTCOD = oDS_PH_PY111A.GetValue("U_MSTCOD", 0).ToString().Trim();
 
                 sQry = "Select Count(*) From [@PH_PY112A] ";
-                sQry = sQry + " Where U_CLTCOD = '" + CLTCOD + "' AND U_YM = '" + YM + "'";
-                sQry = sQry + " AND U_JOBTYP = '" + JOBTYP + "'";
-                sQry = sQry + " AND U_JOBGBN = '" + JOBGBN + "'";
-                sQry = sQry + " AND U_JOBTRG = '" + JOBTRG + "'";
-                sQry = sQry + " AND U_JIGBIL = '" + JIGBIL + "'";
-                sQry = sQry + " AND U_MSTCOD LIKE '%" + MSTCOD + "%'";
+                sQry += " Where U_CLTCOD = '" + CLTCOD + "' AND U_YM = '" + YM + "'";
+                sQry += " AND U_JOBTYP = '" + JOBTYP + "'";
+                sQry += " AND U_JOBGBN = '" + JOBGBN + "'";
+                sQry += " AND U_JOBTRG = '" + JOBTRG + "'";
+                sQry += " AND U_JIGBIL = '" + JIGBIL + "'";
+                sQry += " AND U_MSTCOD LIKE '%" + MSTCOD + "%'";
 
                 oRecordSet.DoQuery(sQry);
 
@@ -768,12 +761,10 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void Display_BonussRate()
         {
-            string sQry = string.Empty;
-            short iCol = 0;
-            int iBNSMON = 0;
-            string JOBGBN = string.Empty;
-
-            //short ErrNum = 0;
+            string sQry;
+            short iCol;
+            int iBNSMON;
+            string JOBGBN;
 
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             SAPbobsCOM.Recordset oRecordSet2 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -791,11 +782,11 @@ namespace PSH_BOne_AddOn
                 }
 
                 sQry = " SELECT U_BNSCAL, U_BNSMON, U_BNSRAT, U_AP1MON, U_AP2MON, U_AP3MON, U_AP4MON, U_AP5MON,";
-                sQry = sQry + " U_AP6MON, U_AP7MON, U_AP8MON, U_AP1RAT, U_AP2RAT, U_AP3RAT, U_AP4RAT, U_AP5RAT, ";
-                sQry = sQry + " U_AP6RAT, U_AP7RAT, U_AP8RAT, U_AP1AMT, U_AP2AMT, U_AP3AMT, U_AP4AMT, U_AP5AMT,";
-                sQry = sQry + " U_AP6AMT, U_AP7AMT, U_AP8AMT, U_AP1GBN, U_AP2GBN, U_AP3GBN, U_AP4GBN, U_AP5GBN,";
-                sQry = sQry + " U_AP6GBN, U_AP7GBN, U_AP8GBN  FROM [@PH_PY108A] ";
-                sQry = sQry + " WHERE U_CLTCOD = '" + oCLTCOD + "'  AND U_JOBGBN = '" + JOBGBN + "'";
+                sQry += " U_AP6MON, U_AP7MON, U_AP8MON, U_AP1RAT, U_AP2RAT, U_AP3RAT, U_AP4RAT, U_AP5RAT, ";
+                sQry += " U_AP6RAT, U_AP7RAT, U_AP8RAT, U_AP1AMT, U_AP2AMT, U_AP3AMT, U_AP4AMT, U_AP5AMT,";
+                sQry += " U_AP6AMT, U_AP7AMT, U_AP8AMT, U_AP1GBN, U_AP2GBN, U_AP3GBN, U_AP4GBN, U_AP5GBN,";
+                sQry += " U_AP6GBN, U_AP7GBN, U_AP8GBN  FROM [@PH_PY108A] ";
+                sQry += " WHERE U_CLTCOD = '" + oCLTCOD + "'  AND U_JOBGBN = '" + JOBGBN + "'";
                 oRecordSet.DoQuery(sQry);
 
                 if (oRecordSet.RecordCount == 0 || oJOBTYP == "1")
@@ -887,7 +878,7 @@ namespace PSH_BOne_AddOn
                         iBNSMON = oRecordSet.Fields.Item(1).Value * -1;
                         if (iBNSMON != 0)
                         {
-                            iBNSMON = iBNSMON + 1;
+                            iBNSMON += 1;
                         }
 
                         oRecordSet2.DoQuery(("SELECT CONVERT(VARCHAR(6),DATEADD(MM, " + iBNSMON.ToString() + ", '" + oYM + "01'),112) FROM OADM"));
@@ -924,13 +915,11 @@ namespace PSH_BOne_AddOn
         private string Create_Tiltle()
         {
             string returnValue = string.Empty;
-            string sQry = string.Empty;
-
+            string sQry;
             short errNum = 0;
-
-            int CSUCNT = 0;
-            int GONCNT = 0;
-            int iCol = 0;
+            int CSUCNT;
+            int GONCNT;
+            int iCol;
             
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -992,7 +981,7 @@ namespace PSH_BOne_AddOn
                         WK_C.BNSUSE[iCol] = oRecordSet.Fields.Item("U_BNSUSE").Value;
                         WK_C.BTXCOD[iCol] = oRecordSet.Fields.Item("U_BTXCOD").Value;
                         U_CSUCOD = oRecordSet.Fields.Item("Code").Value;
-                        iCol = iCol + 1;
+                        iCol += 1;
                         oRecordSet.MoveNext();
                     }
                 }
@@ -1012,13 +1001,13 @@ namespace PSH_BOne_AddOn
                 else
                 {
                     iCol = 0;
-                    G06_CHK = false; //소득세정산
-                    G07_CHK = false; //주민세정산
-                    G08_CHK = false; //건강보험정산
-                    G90_CHK = false; //국민연금정산
-                    G91_CHK = false; //농특세정산
+                    //G06_CHK = false; //소득세정산
+                    //G07_CHK = false; //주민세정산
+                    //G08_CHK = false; //건강보험정산
+                    //G90_CHK = false; //국민연금정산
+                    //G91_CHK = false; //농특세정산
 
-                    while (!(oRecordSet.EoF))
+                    while (!oRecordSet.EoF)
                     {
                         WK_G.GONCOD[iCol] = oRecordSet.Fields.Item("U_CSUCOD").Value;
                         WK_G.GONNAM[iCol] = oRecordSet.Fields.Item("U_CSUNAM").Value;
@@ -1027,30 +1016,30 @@ namespace PSH_BOne_AddOn
                         WK_G.ROUNDT[iCol] = oRecordSet.Fields.Item("U_ROUNDT").Value; //끝전처리
                         WK_G.RODLEN[iCol] = Convert.ToInt16(oRecordSet.Fields.Item("U_LENGTH").Value);
 
-                        if (WK_G.GONCOD[iCol].Trim() == "G06")
-                        {
-                            G06_CHK = true;
-                        }
+                        //if (WK_G.GONCOD[iCol].Trim() == "G06")
+                        //{
+                        //    G06_CHK = true;
+                        //}
 
-                        if (WK_G.GONCOD[iCol].Trim() == "G07")
-                        {
-                            G07_CHK = true;
-                        }
+                        //if (WK_G.GONCOD[iCol].Trim() == "G07")
+                        //{
+                        //    G07_CHK = true;
+                        //}
                             
-                        if (WK_G.GONCOD[iCol].Trim() == "G08")
-                        {
-                            G08_CHK = true;
-                        }
+                        //if (WK_G.GONCOD[iCol].Trim() == "G08")
+                        //{
+                        //    G08_CHK = true;
+                        //}
                             
-                        if (WK_G.GONCOD[iCol].Trim() == "G90")
-                        {
-                            G90_CHK = true;
-                        }
+                        //if (WK_G.GONCOD[iCol].Trim() == "G90")
+                        //{
+                        //    G90_CHK = true;
+                        //}
                             
-                        if (WK_G.GONCOD[iCol].Trim() == "G91")
-                        {
-                            G91_CHK = true;
-                        }
+                        //if (WK_G.GONCOD[iCol].Trim() == "G91")
+                        //{
+                        //    G91_CHK = true;
+                        //}
                             
                         if (WK_G.GONCOD[iCol].Trim() == "G04")
                         {
@@ -1058,7 +1047,7 @@ namespace PSH_BOne_AddOn
                         }
                             
                         U_GONCOD = oRecordSet.Fields.Item("Code").Value;
-                        iCol = iCol + 1;
+                        iCol += 1;
                         oRecordSet.MoveNext();
                     }
                 }
@@ -1072,39 +1061,39 @@ namespace PSH_BOne_AddOn
                 {
                     //1.1) Insert
                     sQry = "INSERT INTO [@PH_PY111T]  (Code, Name, U_YM, U_JOBTYP, U_JOBGBN,";
-                    sQry = sQry + " U_CSUD01, U_CSUD02, U_CSUD03, U_CSUD04, U_CSUD05, U_CSUD06, U_CSUD07, U_CSUD08,";
-                    sQry = sQry + " U_CSUD09, U_CSUD10, U_CSUD11, U_CSUD12, U_CSUD13, U_CSUD14, U_CSUD15, U_CSUD16,";
-                    sQry = sQry + " U_CSUD17, U_CSUD18, U_CSUD19, U_CSUD20, U_CSUD21, U_CSUD22, U_CSUD23, U_CSUD24,";
-                    sQry = sQry + " U_GONG01, U_GONG02, U_GONG03, U_GONG04, U_GONG05, U_GONG06, U_GONG07, U_GONG08,";
-                    sQry = sQry + " U_GONG09, U_GONG10, U_GONG11, U_GONG12, U_GONG13, U_GONG14, U_GONG15, U_GONG16,";
-                    sQry = sQry + " U_GONG17, U_GONG18,";
-                    sQry = sQry + " U_CSUC01, U_CSUC02, U_CSUC03, U_CSUC04, U_CSUC05, U_CSUC06, U_CSUC07, U_CSUC08,";
-                    sQry = sQry + " U_CSUC09, U_CSUC10, U_CSUC11, U_CSUC12, U_CSUC13, U_CSUC14, U_CSUC15, U_CSUC16,";
-                    sQry = sQry + " U_CSUC17, U_CSUC18, U_CSUC19, U_CSUC20, U_CSUC21, U_CSUC22, U_CSUC23, U_CSUC24,";
-                    sQry = sQry + " U_GONC01, U_GONC02, U_GONC03, U_GONC04, U_GONC05, U_GONC06, U_GONC07, U_GONC08,";
-                    sQry = sQry + " U_GONC09, U_GONC10, U_GONC11, U_GONC12, U_GONC13, U_GONC14, U_GONC15, U_GONC16,";
-                    sQry = sQry + " U_GONC17, U_GONC18) VALUES ( ";
-                    sQry = sQry + "  '" + oYM + oJOBTYP + oJOBGBN + "'";
-                    sQry = sQry + ", '" + oYM + oJOBTYP + oJOBGBN + "'";
-                    sQry = sQry + ", '" + oYM + " ', '" + oJOBTYP + "', '" + oJOBGBN + "'";
+                    sQry += " U_CSUD01, U_CSUD02, U_CSUD03, U_CSUD04, U_CSUD05, U_CSUD06, U_CSUD07, U_CSUD08,";
+                    sQry += " U_CSUD09, U_CSUD10, U_CSUD11, U_CSUD12, U_CSUD13, U_CSUD14, U_CSUD15, U_CSUD16,";
+                    sQry += " U_CSUD17, U_CSUD18, U_CSUD19, U_CSUD20, U_CSUD21, U_CSUD22, U_CSUD23, U_CSUD24,";
+                    sQry += " U_GONG01, U_GONG02, U_GONG03, U_GONG04, U_GONG05, U_GONG06, U_GONG07, U_GONG08,";
+                    sQry += " U_GONG09, U_GONG10, U_GONG11, U_GONG12, U_GONG13, U_GONG14, U_GONG15, U_GONG16,";
+                    sQry += " U_GONG17, U_GONG18,";
+                    sQry += " U_CSUC01, U_CSUC02, U_CSUC03, U_CSUC04, U_CSUC05, U_CSUC06, U_CSUC07, U_CSUC08,";
+                    sQry += " U_CSUC09, U_CSUC10, U_CSUC11, U_CSUC12, U_CSUC13, U_CSUC14, U_CSUC15, U_CSUC16,";
+                    sQry += " U_CSUC17, U_CSUC18, U_CSUC19, U_CSUC20, U_CSUC21, U_CSUC22, U_CSUC23, U_CSUC24,";
+                    sQry += " U_GONC01, U_GONC02, U_GONC03, U_GONC04, U_GONC05, U_GONC06, U_GONC07, U_GONC08,";
+                    sQry += " U_GONC09, U_GONC10, U_GONC11, U_GONC12, U_GONC13, U_GONC14, U_GONC15, U_GONC16,";
+                    sQry += " U_GONC17, U_GONC18) VALUES ( ";
+                    sQry += "  '" + oYM + oJOBTYP + oJOBGBN + "'";
+                    sQry += ", '" + oYM + oJOBTYP + oJOBGBN + "'";
+                    sQry += ", '" + oYM + " ', '" + oJOBTYP + "', '" + oJOBGBN + "'";
 
                     for (iCol = 0; iCol < 24; iCol++)
                     {
-                        sQry = sQry + ", N'" + WK_C.CSUNAM[iCol] + "'";
+                        sQry += ", N'" + WK_C.CSUNAM[iCol] + "'";
                     }
                     for (iCol = 0; iCol < 18; iCol++)
                     {
-                        sQry = sQry + ", N'" + WK_G.GONNAM[iCol] + "'";
+                        sQry += ", N'" + WK_G.GONNAM[iCol] + "'";
                     }
                     for (iCol = 0; iCol < 24; iCol++)
                     {
-                        sQry = sQry + ", N'" + WK_C.CSUCOD[iCol] + "'";
+                        sQry += ", N'" + WK_C.CSUCOD[iCol] + "'";
                     }
                     for (iCol = 0; iCol < 18; iCol++)
                     {
-                        sQry = sQry + ", N'" + WK_G.GONCOD[iCol] + "'";
+                        sQry += ", N'" + WK_G.GONCOD[iCol] + "'";
                     }
-                    sQry = sQry + ")";
+                    sQry += ")";
 
                     oRecordSet.DoQuery(sQry);
                 }
@@ -1115,23 +1104,23 @@ namespace PSH_BOne_AddOn
 
                     for (iCol = 0; iCol < 24; iCol++)
                     {
-                        sQry = sQry + ", U_CSUD" + iCol.ToString().PadLeft(2, '0') + " = N'" + WK_C.CSUNAM[iCol] + "'";
+                        sQry += ", U_CSUD" + iCol.ToString().PadLeft(2, '0') + " = N'" + WK_C.CSUNAM[iCol] + "'";
                     }
                     for (iCol = 0; iCol < 18; iCol++)
                     {
-                        sQry = sQry + ", U_GONG" + iCol.ToString().PadLeft(2, '0') + " = N'" + WK_G.GONNAM[iCol] + "'";
+                        sQry += ", U_GONG" + iCol.ToString().PadLeft(2, '0') + " = N'" + WK_G.GONNAM[iCol] + "'";
                     }
                     for (iCol = 0; iCol < 24; iCol++)
                     {
-                        sQry = sQry + ", U_CSUC" + iCol.ToString().PadLeft(2, '0') + " = N'" + WK_C.CSUCOD[iCol] + "'";
+                        sQry += ", U_CSUC" + iCol.ToString().PadLeft(2, '0') + " = N'" + WK_C.CSUCOD[iCol] + "'";
                     }
                     for (iCol = 0; iCol < 18; iCol++)
                     {
-                        sQry = sQry + ", U_GONC" + iCol.ToString().PadLeft(2, '0') + " = N'" + WK_G.GONCOD[iCol] + "'";
+                        sQry += ", U_GONC" + iCol.ToString().PadLeft(2, '0') + " = N'" + WK_G.GONCOD[iCol] + "'";
                     }
-                    sQry = sQry + " WHERE   U_YM = '" + oYM + "'";
-                    sQry = sQry + " AND     U_JOBTYP = '" + oJOBTYP + "'";
-                    sQry = sQry + " AND     U_JOBGBN = '" + oJOBGBN + "'";
+                    sQry += " WHERE   U_YM = '" + oYM + "'";
+                    sQry += " AND     U_JOBTYP = '" + oJOBTYP + "'";
+                    sQry += " AND     U_JOBGBN = '" + oJOBGBN + "'";
 
                     oRecordSet.DoQuery(sQry);
                 }
@@ -1551,8 +1540,8 @@ namespace PSH_BOne_AddOn
         private void Raise_EVENT_COMBO_SELECT(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            string JIGBIL = string.Empty;
-            string queryString = string.Empty;
+            string JIGBIL;
+            string queryString;
 
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
 
@@ -1775,8 +1764,8 @@ namespace PSH_BOne_AddOn
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            string JIGBIL = string.Empty;
-            string queryString = string.Empty;
+            string JIGBIL;
+            string queryString;
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 

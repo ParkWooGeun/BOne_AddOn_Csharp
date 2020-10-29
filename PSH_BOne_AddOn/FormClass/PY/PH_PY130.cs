@@ -19,8 +19,6 @@ namespace PSH_BOne_AddOn
         private string oLastColUID;
         private int oLastColRow;
 
-        string g_preBankSel;
-
         public string ItemUID { get; private set; }
 
         /// <summary>
@@ -483,11 +481,12 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_COMBO_SELECT(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            int i = 0;
-            int S_B = 0;
-            int S_A = 0;
-            int S_C = 0;
-            int S_X = 0;
+            int i;
+            int S_B;
+            int S_A;
+            int S_C;
+            int S_X;
+
             try
             {
                 oForm.Freeze(true);
@@ -509,19 +508,19 @@ namespace PSH_BOne_AddOn
                             {
                                 if (oMat1.Columns.Item("Grade").Cells.Item(i + 1).Specific.Value == "A")
                                 {
-                                    S_A = S_A + 1;
+                                    S_A += 1;
                                 }
                                 else if (oMat1.Columns.Item("Grade").Cells.Item(i + 1).Specific.Value == "B")
                                 {
-                                    S_B = S_B + 1;
+                                    S_B += 1;
                                 }
                                 else if (oMat1.Columns.Item("Grade").Cells.Item(i + 1).Specific.Value == "C")
                                 {
-                                    S_C = S_C + 1;
+                                    S_C += 1;
                                 }
                                 else if (oMat1.Columns.Item("Grade").Cells.Item(i + 1).Specific.Value == "X")
                                 {
-                                    S_X = S_X + 1;
+                                    S_X += 1;
                                 }
 
                             }
@@ -558,12 +557,12 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_MATRIX_LOAD(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            int i = 0;
+            int i;
+            int S_B;
+            int S_A;
+            int S_C;
+            int S_X;
 
-            int S_B = 0;
-            int S_A = 0;
-            int S_C = 0;
-            int S_X = 0;
             try
             {
                 if (pVal.BeforeAction == true)
@@ -573,7 +572,6 @@ namespace PSH_BOne_AddOn
                 {
                     oMat1.LoadFromDataSource();
                     PH_PY130_FormItemEnabled();
-
 
                     S_A = 0;
                     S_B = 0;
@@ -586,28 +584,26 @@ namespace PSH_BOne_AddOn
                         {
                             if (oMat1.Columns.Item("Grade").Cells.Item(i + 1).Specific.Value == "A")
                             {
-                                S_A = S_A + 1;
+                                S_A += 1;
                             }
                             else if (oMat1.Columns.Item("Grade").Cells.Item(i + 1).Specific.Value == "B")
                             {
-                                S_B = S_B + 1;
+                                S_B += 1;
                             }
                             else if (oMat1.Columns.Item("Grade").Cells.Item(i + 1).Specific.Value == "C")
                             {
-                                S_C = S_C + 1;
+                                S_C += 1;
                             }
                             else if (oMat1.Columns.Item("Grade").Cells.Item(i + 1).Specific.Value == "X")
                             {
-                                S_X = S_X + 1;
+                                S_X += 1;
                             }
-
                         }
 
                         oForm.Items.Item("S_A").Specific.Value = S_A;
                         oForm.Items.Item("S_B").Specific.Value = S_B;
                         oForm.Items.Item("S_C").Specific.Value = S_C;
                         oForm.Items.Item("S_X").Specific.Value = S_X;
-
                     }
                     else
                     {
@@ -616,7 +612,6 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("S_C").Specific.Value = 0;
                         oForm.Items.Item("S_X").Specific.Value = 0;
                     }
-
                 }
             }
             catch (Exception ex)
@@ -761,12 +756,10 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-            
             try
             {
                 oForm.Freeze(true);
-                if ((pVal.BeforeAction == true))
+                if (pVal.BeforeAction == true)
                 {
                     switch (pVal.MenuUID)
                     {
@@ -794,7 +787,7 @@ namespace PSH_BOne_AddOn
                             break;
                     }
                 }
-                else if ((pVal.BeforeAction == false))
+                else if (pVal.BeforeAction == false)
                 {
                     switch (pVal.MenuUID)
                     {
@@ -802,18 +795,15 @@ namespace PSH_BOne_AddOn
                             oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
                             PH_PY130_FormItemEnabled();
                             break;
-                        //                Call PH_PY130_AddMatrixRow
                         case "1284":
                             break;
                         case "1286":
                             break;
-                        case "1281":
-                            ////문서찾기
+                        case "1281": //문서찾기
                             PH_PY130_FormItemEnabled();
                             oForm.Items.Item("Code").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             break;
-                        case "1282":
-                            ////문서추가
+                        case "1282": //문서추가
                             PH_PY130_FormItemEnabled();
                             break;
                         case "1288":
@@ -822,8 +812,7 @@ namespace PSH_BOne_AddOn
                         case "1291":
                             PH_PY130_FormItemEnabled();
                             break;
-                        case "1293":
-                            //// 행삭제
+                        case "1293": //행삭제
                             break;
                     }
                 }
@@ -846,11 +835,9 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
         {
-            string sQry = string.Empty;
-
             try
             {
-                if ((BusinessObjectInfo.BeforeAction == true))
+                if (BusinessObjectInfo.BeforeAction == true)
                 {
                     switch (BusinessObjectInfo.EventType)
                     {
@@ -864,7 +851,7 @@ namespace PSH_BOne_AddOn
                             break;
                     }
                 }
-                else if ((BusinessObjectInfo.BeforeAction == false))
+                else if (BusinessObjectInfo.BeforeAction == false)
                 {
                     switch (BusinessObjectInfo.EventType)
                     {
@@ -1098,15 +1085,15 @@ namespace PSH_BOne_AddOn
         private bool PH_PY130_Validate(string ValidateType)
         {
             bool functionReturnValue = false;
-            functionReturnValue = true;
-
             short ErrNumm = 0;
+
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY130A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "Y")
                 {
-                    functionReturnValue = false;
+                    ErrNumm = 1;
                     throw new Exception();
                 }
                 if (ValidateType == "수정")
@@ -1118,12 +1105,18 @@ namespace PSH_BOne_AddOn
                 else if (ValidateType == "취소")
                 {
                 }
+
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
                 if (ErrNumm == 1)
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("해당문서는 다른사용자에 의해 취소되었습니다. 작업을 진행할수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
             }
             finally

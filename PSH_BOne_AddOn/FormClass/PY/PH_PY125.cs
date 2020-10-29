@@ -85,21 +85,16 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PH_PY125_CreateItems()
         {
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
                 oForm.Freeze(true);
 
                 oDS_PH_PY125A = oForm.DataSources.DBDataSources.Item("@PH_PY125A");
                 oDS_PH_PY125B = oForm.DataSources.DBDataSources.Item("@PH_PY125B");
-
                 oMat1 = oForm.Items.Item("Mat01").Specific;
-                ////@PH_PY125B
-
                 oMat1.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_NotSupported;
                 oMat1.AutoResizeColumns();
-
-                //// 년
+                
                 oDS_PH_PY125A.SetValue("U_YEAR", 0, DateTime.Now.ToString("yyyy"));
             }
             catch (Exception ex)
@@ -135,10 +130,9 @@ namespace PSH_BOne_AddOn
         /// <param name="oFormDocEntry01"></param>
         private void PH_PY125_SetDocument(string oFormDocEntry01)
         {
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
-                if ((string.IsNullOrEmpty(oFormDocEntry01)))
+                if (string.IsNullOrEmpty(oFormDocEntry01))
                 {
                     PH_PY125_FormItemEnabled();
                 }
@@ -161,30 +155,27 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PH_PY125_FormItemEnabled()
         {
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
                 oForm.Freeze(true);
-                if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
+                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
                     oForm.EnableMenu("1281", true);                    ////문서찾기
                     oForm.EnableMenu("1282", false);                    ////문서추가
                     oForm.EnableMenu("1293", true);                    ////행삭제
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
                     oForm.EnableMenu("1281", false);                    ////문서찾기
                     oForm.EnableMenu("1282", true);                    ////문서추가
                     oForm.EnableMenu("1293", false);                    ////행삭제
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
                     oForm.EnableMenu("1281", true);                    ////문서찾기
                     oForm.EnableMenu("1282", true);                    ////문서추가
                     oForm.EnableMenu("1293", false);                    ////행삭제
-
                 }
-
             }
             catch (Exception ex)
             {
@@ -817,11 +808,10 @@ namespace PSH_BOne_AddOn
         public bool PH_PY125_DataValidCheck(string ChkYN)
         {
             bool functionReturnValue = false;
-            int i = 0;
-            string sQry = string.Empty;
-            string tCode = string.Empty;
+            string sQry;
+            string tCode;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            
             try
             {
                 if (ChkYN == "Y")
@@ -830,26 +820,24 @@ namespace PSH_BOne_AddOn
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("년도는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                         oForm.Items.Item("YEAR").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                        functionReturnValue = false;
                         return functionReturnValue;
                     }
                 }
                 
-                //// 코드,이름 저장
+                //코드,이름 저장
                 tCode = oDS_PH_PY125A.GetValue("U_YEAR", 0).ToString().Trim();
                 oDS_PH_PY125A.SetValue("Code", 0, tCode);
                 oDS_PH_PY125A.SetValue("Name", 0, tCode);
 
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
-                    //// 데이터 중복 체크
+                    //데이터 중복 체크
                     sQry = "SELECT Code FROM [@PH_PY125A] WHERE Code = '" + tCode + "'";
                     oRecordSet.DoQuery(sQry);
 
                     if (oRecordSet.RecordCount > 0)
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("이미 데이터가 존재합니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                        functionReturnValue = false;
                         return functionReturnValue;
                     }
                 }
@@ -859,10 +847,11 @@ namespace PSH_BOne_AddOn
                     if (oMat1.VisualRowCount == 0)
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("데이터가 없습니다. 확인바랍니다", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                        functionReturnValue = false;
                         return functionReturnValue;
                     }
                 }
+
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
@@ -870,9 +859,9 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                functionReturnValue = true;
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
+
             return functionReturnValue;
         }
 
@@ -1055,7 +1044,7 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 sucessFlag = false;
-                PSH_Globals.SBO_Application.StatusBar.SetText("엑셀 업로드 오류", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
             {

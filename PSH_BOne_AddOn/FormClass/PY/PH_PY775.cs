@@ -372,8 +372,6 @@ namespace PSH_BOne_AddOn
                 OptBtnValue = oForm.DataSources.UserDataSources.Item("OptionDS").Value;
                 OptBtnValue1 = oForm.DataSources.UserDataSources.Item("OptionDS1").Value;
 
-                /// Crystal /~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/
-
                 WinTitle = "[PH_PY775] 개인별년차현황";
 
                 if (OptBtnValue == "1")

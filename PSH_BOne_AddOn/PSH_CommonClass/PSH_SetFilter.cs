@@ -949,8 +949,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY680"); //상벌현황
 			oFilter.AddEx("PH_PY685"); //포상가급현황
 			oFilter.AddEx("PH_PY690"); //생일자현황
-			oFilter.AddEx("PH_PY695"); //인사기록카드
-			oFilter.AddEx("PH_PY705"); //교통비지급근태확인
 			oFilter.AddEx("PH_PY860"); //호봉표조회
 			oFilter.AddEx("PH_PY503"); //승진대상자명부
 			oFilter.AddEx("PH_PY678"); //당직근무자 일괄 등록
@@ -1092,7 +1090,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY030"); //공용등록
 			oFilter.AddEx("PH_PY031"); //출장등록
 			oFilter.AddEx("PH_PY032"); //사용외출등록
-			oFilter.AddEx("PH_PY034"); //공용분개처리
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
 			oFilter.AddEx("PS_DateChange"); //날짜 수정 등록
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
@@ -1479,12 +1476,10 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY014"); //위해일수수정
 			oFilter.AddEx("PH_PY015"); //연차적치등록
 			oFilter.AddEx("PH_PY016"); //기본업무등록
-			oFilter.AddEx("PH_PY017"); //월근태집계
 			oFilter.AddEx("PH_PY018"); //휴일근무체크(연봉제)
 			oFilter.AddEx("PH_PY019"); //반변경등록
 			oFilter.AddEx("PH_PY020"); //일근태 업무변경등록
 			oFilter.AddEx("PH_PY021"); //사원비상연락처관리
-
 			oFilter.AddEx("PH_PY201"); //정년임박자 휴가경비 등록
 			oFilter.AddEx("PH_PY202"); //정년임박자 휴가경비 조회
 			oFilter.AddEx("PH_PY203"); //교육실적등록
@@ -1494,30 +1489,23 @@ namespace PSH_BOne_AddOn
 			//인사 - 리포트
 			oFilter.AddEx("PH_PY501"); //여권발급현황
 			oFilter.AddEx("PH_PY505"); //입사자대장
-			oFilter.AddEx("PH_PY510"); //사원명부
-			oFilter.AddEx("PH_PY515"); //재직자사원명부
 			oFilter.AddEx("PH_PY520"); //퇴직및퇴직예정자대장
-			oFilter.AddEx("PH_PY525"); //학력별인원현황
+			
 			oFilter.AddEx("PH_PY530"); //연령별인원현황
 			oFilter.AddEx("PH_PY535"); //근속년수별인원현황
 			oFilter.AddEx("PH_PY540"); //인원현황(대외용)
 			oFilter.AddEx("PH_PY545"); //인원현황(대내용)
 			oFilter.AddEx("PH_PY550"); //전체인원현황
 			oFilter.AddEx("PH_PY555"); //일일근무자현황
-			oFilter.AddEx("PH_PY560"); //일출근현황
-			oFilter.AddEx("PH_PY565"); //연장근무자현황
 			oFilter.AddEx("PH_PY570"); //연장/휴일근무자현황
 			oFilter.AddEx("PH_PY575"); //근태기찰현황
 			oFilter.AddEx("PH_PY580"); //개인별근태월보
 			oFilter.AddEx("PH_PY585"); //일일출근기록부
-			oFilter.AddEx("PH_PY590"); //기간별근태집계표
-			oFilter.AddEx("PH_PY595"); //근속년수현황
 			oFilter.AddEx("PH_PY600"); //일자별연장근무현황
 			oFilter.AddEx("PH_PY605"); //근속보전휴가발생및사용내역
 			oFilter.AddEx("PH_PY610"); //근태구분별사용내역
 			oFilter.AddEx("PH_PY615"); //당직근무현황
 			oFilter.AddEx("PH_PY620"); //연봉제휴일근무자현황
-			oFilter.AddEx("PH_PY635"); //여행,교육자현황
 			oFilter.AddEx("PH_PY640"); //국민연금퇴직전환금현황
 			oFilter.AddEx("PH_PY645"); //자격수당지급현황
 			oFilter.AddEx("PH_PY650"); //노동조합간부현황
@@ -1535,12 +1523,9 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY695"); //인사기록카드
 			oFilter.AddEx("PH_PY705"); //교통비지급근태확인
 			oFilter.AddEx("PH_PY860"); //호봉표조회
-			oFilter.AddEx("PH_PY503"); //승진대상자명부
 			oFilter.AddEx("PH_PY678"); //당직근무자 일괄 등록
 			oFilter.AddEx("PH_PY507"); //휴직자현황
 			oFilter.AddEx("PH_PY681"); //비근무일수현황
-			oFilter.AddEx("PH_PY935"); //정기승호현황
-			oFilter.AddEx("PH_PY551"); //평균인원조회
 			oFilter.AddEx("PH_PY508"); //재직증명 등록 및 발급
 			oFilter.AddEx("PH_PY522"); //임금피크대상자현황
 			oFilter.AddEx("PH_PY523"); //임금피크대상자월별차수현황
@@ -1563,7 +1548,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY109_1"); //급상여변동자료 항목수정
 			oFilter.AddEx("PH_PY110"); //개인상여율등록
 			oFilter.AddEx("PH_PY111"); //급상여계산
-			oFilter.AddEx("PH_PY112"); //급상여자료관리
 			oFilter.AddEx("PH_PY113"); //급상여분개자료생성
 			oFilter.AddEx("PH_PY114"); //퇴직금기준설정
 			oFilter.AddEx("PH_PY115"); //퇴직금계산
@@ -1607,7 +1591,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY785"); //월국민연금내역
 			oFilter.AddEx("PH_PY790"); //월건강보험내역
 			oFilter.AddEx("PH_PY795"); //연간부서별급여내역
-			oFilter.AddEx("PH_PY800"); //인건비지급자료
 			oFilter.AddEx("PH_PY805"); //급여수당변동내역
 			oFilter.AddEx("PH_PY810"); //직급별통상임금내역
 			oFilter.AddEx("PH_PY815"); //평균임금내역
@@ -1625,7 +1608,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY716"); //기간별급여부서별집계대장
 			oFilter.AddEx("PH_PY721"); //기간별상여부서별집계대장
 			oFilter.AddEx("PH_PY717"); //기간별급여반별집계대장
-			oFilter.AddEx("PH_PY718"); //생산완료금액대비O/T현황
 			oFilter.AddEx("PH_PY701"); //급여지급대장 (노조용)
 
 			oFilter.AddEx("PH_PYA10"); //급여지급대장(부서)
@@ -1661,9 +1643,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY920"); //원천징수영수증출력
 			oFilter.AddEx("PH_PY925"); //기부금명세서출력
 			oFilter.AddEx("PH_PY930"); //정산징수및환급대장
-			oFilter.AddEx("PH_PY931"); //표준세액적용대상자조회
-			oFilter.AddEx("PH_PY932"); //전근무지등록현황
-			oFilter.AddEx("PH_PY933"); //보수총액신고기초자료
 			oFilter.AddEx("PH_PYA55"); //정산징수및환급대장(집계)
 			oFilter.AddEx("PH_PYA70"); //소득세원천징수세액조정신청서출력
 
@@ -1913,18 +1892,14 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY580"); //개인별근태월보
 			oFilter.AddEx("PH_PY585"); //일일출근기록부
 			oFilter.AddEx("PH_PY590"); //기간별근태집계표
-			oFilter.AddEx("PH_PY595"); //근속년수현황
 			oFilter.AddEx("PH_PY600"); //일자별연장근무현황
 			oFilter.AddEx("PH_PY605"); //근속보전휴가발생및사용내역
 			oFilter.AddEx("PH_PY610"); //근태구분별사용내역
 			oFilter.AddEx("PH_PY615"); //당직근무현황
 			oFilter.AddEx("PH_PY620"); //연봉제휴일근무자현황
 			oFilter.AddEx("PH_PY635"); //여행,교육자현황
-			oFilter.AddEx("PH_PY640"); //국민연금퇴직전환금현황
 			oFilter.AddEx("PH_PY645"); //자격수당지급현황
 			oFilter.AddEx("PH_PY650"); //노동조합간부현황
-			oFilter.AddEx("PH_PY655"); //보훈대상자현황
-			oFilter.AddEx("PH_PY660"); //장애근로자현황
 			oFilter.AddEx("PH_PY665"); //사원자녀현황
 			oFilter.AddEx("PH_PY670"); //개인별차량현황
 			oFilter.AddEx("PH_PY675"); //근무편성현황
@@ -2629,7 +2604,7 @@ namespace PSH_BOne_AddOn
 			//기타관리
 		}
 
-		private static void vPRINT(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
+		private static void VPRINT(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_PRINT);
 

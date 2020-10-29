@@ -697,12 +697,10 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
-            int i = 0;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
                 oForm.Freeze(true);
-                if ((pVal.BeforeAction == true))
+                if (pVal.BeforeAction == true)
                 {
                     switch (pVal.MenuUID)
                     {
@@ -731,7 +729,7 @@ namespace PSH_BOne_AddOn
 
                     }
                 }
-                else if ((pVal.BeforeAction == false))
+                else if (pVal.BeforeAction == false)
                 {
                     switch (pVal.MenuUID)
                     {
@@ -744,16 +742,11 @@ namespace PSH_BOne_AddOn
                             break;
                         case "1286":
                             break;
-                        //            Case "1293":
-                        //                Call Raise_EVENT_ROW_DELETE(FormUID, pVal, BubbleEvent)
-                        case "1281":
-                            ////문서찾기
+                        case "1281": //문서찾기
                             PH_PY132_FormItemEnabled();
                             PH_PY132_AddMatrixRow();
                             break;
-
-                        case "1282":
-                            ////문서추가
+                        case "1282": //문서추가
                             PH_PY132_FormItemEnabled();
                             PH_PY132_AddMatrixRow();
                             break;
@@ -763,13 +756,10 @@ namespace PSH_BOne_AddOn
                         case "1291":
                             PH_PY132_FormItemEnabled();
                             break;
-                        case "1293":
-                            //// 행삭제
+                        case "1293": //행삭제
                             break;
-
                     }
                 }
-
             }
             catch (Exception ex)
             {

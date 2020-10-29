@@ -75,7 +75,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 
@@ -92,7 +91,7 @@ namespace PSH_BOne_AddOn.Form
 
             SAPbouiCOM.ProgressBar ProgBar01 = null;
 
-            int loopCount = 0;
+            int loopCount;
 
             try
             {
@@ -132,7 +131,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 
@@ -150,7 +148,7 @@ namespace PSH_BOne_AddOn.Form
 
             SAPbouiCOM.ProgressBar ProgBar01 = null;
 
-            int loopCount = 0;
+            int loopCount;
 
             try
             {
@@ -190,7 +188,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 
@@ -208,8 +205,8 @@ namespace PSH_BOne_AddOn.Form
 
             SAPbouiCOM.ProgressBar ProgBar01 = null;
 
-            int loopCount1 = 0;
-            int loopCount2 = 0;
+            int loopCount1;
+            int loopCount2;
 
             try
             {
@@ -260,7 +257,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 
@@ -279,8 +275,8 @@ namespace PSH_BOne_AddOn.Form
 
             SAPbouiCOM.ProgressBar ProgBar01 = null;
 
-            int loopCount1 = 0;
-            int loopCount2 = 0;
+            int loopCount1;
+            int loopCount2;
 
             try
             {
@@ -331,7 +327,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 
@@ -353,7 +348,7 @@ namespace PSH_BOne_AddOn.Form
 
             SAPbouiCOM.ProgressBar ProgBar01 = null;
 
-            int loopCount1 = 0;
+            int loopCount1;
 
             try
             {
@@ -400,7 +395,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 
@@ -419,8 +413,8 @@ namespace PSH_BOne_AddOn.Form
 
             SAPbouiCOM.ProgressBar ProgBar01 = null;
 
-            int loopCount1 = 0;
-            int loopCount2 = 0;
+            int loopCount1;
+            int loopCount2;
 
             try
             {
@@ -479,7 +473,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 
@@ -499,9 +492,9 @@ namespace PSH_BOne_AddOn.Form
 
             SAPbouiCOM.ProgressBar ProgBar01 = null;
 
-            int loopCount1 = 0;
-            int loopCount2 = 0;
-            int loopCount3 = 0;
+            int loopCount1;
+            int loopCount2;
+            int loopCount3;
 
             try
             {
@@ -578,7 +571,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 
@@ -597,9 +589,9 @@ namespace PSH_BOne_AddOn.Form
 
             SAPbouiCOM.ProgressBar ProgBar01 = null;
 
-            int loopCount1 = 0;
-            int loopCount2 = 0;
-            int loopCount3 = 0;
+            int loopCount1;
+            int loopCount2;
+            int loopCount3;
 
             try
             {
@@ -664,7 +656,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 
@@ -683,7 +674,7 @@ namespace PSH_BOne_AddOn.Form
 
             SAPbouiCOM.ProgressBar ProgBar01 = null;
 
-            int loopCount1 = 0;
+            int loopCount1;
 
             try
             {
@@ -730,7 +721,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 
@@ -750,8 +740,8 @@ namespace PSH_BOne_AddOn.Form
 
             SAPbouiCOM.ProgressBar ProgBar01 = null;
 
-            int loopCount1 = 0;
-            int loopCount2 = 0;
+            int loopCount1;
+            int loopCount2;
 
             try
             {
@@ -810,7 +800,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 
@@ -831,9 +820,9 @@ namespace PSH_BOne_AddOn.Form
 
             SAPbouiCOM.ProgressBar ProgBar01 = null;
 
-            int loopCount1 = 0;
-            int loopCount2 = 0;
-            int loopCount3 = 0;
+            int loopCount1;
+            int loopCount2;
+            int loopCount3;
 
             try
             {
@@ -910,7 +899,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 
@@ -930,9 +918,9 @@ namespace PSH_BOne_AddOn.Form
 
             SAPbouiCOM.ProgressBar ProgBar01 = null;
 
-            int loopCount1 = 0;
-            int loopCount2 = 0;
-            int loopCount3 = 0;
+            int loopCount1;
+            int loopCount2;
+            int loopCount3;
 
             try
             {
@@ -997,7 +985,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 

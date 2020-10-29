@@ -81,8 +81,8 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PH_PY105_CreateItems()
         {
-            int i = 0;
-            string sQry = string.Empty;
+            int i;
+            string sQry;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -506,7 +506,7 @@ namespace PSH_BOne_AddOn
                                     }
                                     else
                                     {
-                                        i = i + 1;
+                                        i += 1;
                                     }
                                 }
                                 for (i = 0; i <= oDS_PH_PY105B.Size; i++)
@@ -841,10 +841,9 @@ namespace PSH_BOne_AddOn
         [STAThread]
         private void PH_PY105_Excel_Upload()
         {
-            int rowCount = 0;
-            int loopCount = 0;
-            string sFile = string.Empty;
-            
+            int rowCount;
+            int loopCount;
+            string sFile;
             bool sucessFlag = false;
             short columnCount = 15; //엑셀 컬럼수
 
@@ -925,7 +924,7 @@ namespace PSH_BOne_AddOn
                     oDS_PH_PY105B.SetValue("U_EXTAMT09", rowCount - 2, Convert.ToString(r[14].Value)); //제수당09
                     oDS_PH_PY105B.SetValue("U_EXTAMT10", rowCount - 2, Convert.ToString(r[15].Value)); //제수당10
 
-                    ProgressBar01.Value = ProgressBar01.Value + 1;
+                    ProgressBar01.Value += 1;
                     ProgressBar01.Text = ProgressBar01.Value + "/" + (xlRow.Count - 1) + "건 Loding...!";
 
                     for (loopCount = 1; loopCount <= columnCount; loopCount++)
@@ -979,9 +978,9 @@ namespace PSH_BOne_AddOn
         private bool PH_PY105_DataApply(string CLTCOD, string YM)
         {
             bool functionReturnValue = false;
-            string sQry = string.Empty;
-            string Tablename = string.Empty;
-            string sTablename = string.Empty;
+            string sQry;
+            string Tablename;
+            string sTablename;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -1001,17 +1000,17 @@ namespace PSH_BOne_AddOn
                 }
 
                 sQry = "";
-                sQry = sQry + " Update T2 ";
-                sQry = sQry + " SET T2.U_STDAMT = T1.U_STDAMT, T2.U_BNSAMT = T1.U_BNSAMT, T2.U_HOBYMM = T0.U_YM";
-                sQry = sQry + " FROM [@PH_PY105A] T0";
-                sQry = sQry + " INNER JOIN [@PH_PY105B] T1 ON T0.Code = T1.Code";
-                sQry = sQry + " INNER JOIN [@PH_PY001A] T2 ON T2.U_JIGCOD = T1.U_JIGCOD AND T2.U_HOBONG = T1.U_HOBCOD";
-                sQry = sQry + " WHERE T0.U_YM = '" + YM + "'";
-                sQry = sQry + " And T2.U_status <> '5' ";
-                sQry = sQry + " And Not Exists (Select * From [@PH_PY001A] T3 ";
-                sQry = sQry + " Where T2.Code = T3.Code";
-                sQry = sQry + " And T3.U_status <> '5'";
-                sQry = sQry + " And dbo.PH_PY_PAYPEAK_YEAR(T3.U_CLTCOD,'" + YM + "',T3.Code) > 0 )";
+                sQry += " Update T2 ";
+                sQry += " SET T2.U_STDAMT = T1.U_STDAMT, T2.U_BNSAMT = T1.U_BNSAMT, T2.U_HOBYMM = T0.U_YM";
+                sQry += " FROM [@PH_PY105A] T0";
+                sQry += " INNER JOIN [@PH_PY105B] T1 ON T0.Code = T1.Code";
+                sQry += " INNER JOIN [@PH_PY001A] T2 ON T2.U_JIGCOD = T1.U_JIGCOD AND T2.U_HOBONG = T1.U_HOBCOD";
+                sQry += " WHERE T0.U_YM = '" + YM + "'";
+                sQry += " And T2.U_status <> '5' ";
+                sQry += " And Not Exists (Select * From [@PH_PY001A] T3 ";
+                sQry += " Where T2.Code = T3.Code";
+                sQry += " And T3.U_status <> '5'";
+                sQry += " And dbo.PH_PY_PAYPEAK_YEAR(T3.U_CLTCOD,'" + YM + "',T3.Code) > 0 )";
                 //호봉등록 년월에 임금피크제대상은 임금조정을 안함.
                 //sQry = sQry & " AND T0.U_YM = '" & YM & "'"
                 oRecordSet.DoQuery(sQry);
@@ -1022,7 +1021,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                functionReturnValue = false;
             }
             finally
             {
@@ -1039,10 +1037,7 @@ namespace PSH_BOne_AddOn
         private bool PH_PY105_DataValidCheck()
         {
             bool functionReturnValue = false;
-            int i = 0;
-            string sQry = string.Empty;
-            string Tablename = string.Empty;
-            string sTablename = string.Empty;
+            int i;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
@@ -1053,7 +1048,6 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    functionReturnValue = false;
                     return functionReturnValue;
                 }
 
@@ -1062,7 +1056,6 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("적용시작월은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("YM").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    functionReturnValue = false;
                     return functionReturnValue;
                 }
 
@@ -1089,7 +1082,6 @@ namespace PSH_BOne_AddOn
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("호봉코드는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("HOBCOD").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            functionReturnValue = false;
                             return functionReturnValue;
                         }
                         //호봉명
@@ -1097,7 +1089,6 @@ namespace PSH_BOne_AddOn
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("내역 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("HOBNAM").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            functionReturnValue = false;
                             return functionReturnValue;
                         }
                     }
@@ -1105,7 +1096,6 @@ namespace PSH_BOne_AddOn
                 else
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("라인 데이터가 없습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                    functionReturnValue = false;
                     return functionReturnValue;
                 }
 
@@ -1124,7 +1114,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                functionReturnValue = false;
             }
             finally
             {

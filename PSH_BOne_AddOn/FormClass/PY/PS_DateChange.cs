@@ -25,8 +25,8 @@ namespace PSH_BOne_AddOn
         /// </summary>
         public override void LoadForm(string oFormDocEntry01)
         {
-            int i = 0;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
+
             try
             {
                 oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PS_DateChange.srf");
@@ -34,7 +34,7 @@ namespace PSH_BOne_AddOn
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
 
-                for (i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
+                for (int i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
                 {
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight")[i - 1].nodeValue = 20;
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
@@ -52,11 +52,9 @@ namespace PSH_BOne_AddOn
                 oForm.SupportedModes = -1;
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 
-
                 oForm.Freeze(true);
                 PS_DateChange_CreateItems();
                 PS_DateChange_FormItemEnabled();
-               // PS_DateChange_EnableMenus();
             }
             catch (Exception ex)
             {
@@ -77,7 +75,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PS_DateChange_CreateItems()
         {
-            string sQry = string.Empty;
+            string sQry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
@@ -92,10 +90,10 @@ namespace PSH_BOne_AddOn
 
                 // BPLId
                 sQry = " SELECT T2.Code ,T2.Name";
-                sQry = sQry + " From [@PH_PY000B] T0 INNER JOIN [@PH_PY000A] T1 ON T0.Code = T1.Code";
-                sQry = sQry + " INNER JOIN [@PH_PY005A] T2 ON T0.U_Value = T2.Code";
-                sQry = sQry + " WHERE T1.Code = 'CLTCOD' AND T0.U_UserCode = '" + PSH_Globals.oCompany.UserName + "'";
-                sQry = sQry + " GROUP BY T2.Code ,T2.Name ORDER BY T2.Code";
+                sQry += " From [@PH_PY000B] T0 INNER JOIN [@PH_PY000A] T1 ON T0.Code = T1.Code";
+                sQry += " INNER JOIN [@PH_PY005A] T2 ON T0.U_Value = T2.Code";
+                sQry += " WHERE T1.Code = 'CLTCOD' AND T0.U_UserCode = '" + PSH_Globals.oCompany.UserName + "'";
+                sQry += " GROUP BY T2.Code ,T2.Name ORDER BY T2.Code";
 
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("BPLId").Specific, "N");
                 oForm.Items.Item("BPLId").DisplayDesc = true;
@@ -109,7 +107,6 @@ namespace PSH_BOne_AddOn
                 // CreateUser
                 oForm.DataSources.UserDataSources.Add("CreateUser", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("CreateUser").Specific.DataBind.SetBound(true, "", "CreateUser");
-
                 oForm.Items.Item("CreateUser").Specific.Value = PSH_Globals.oCompany.UserName;
 
                 // CreateUseV
@@ -153,55 +150,6 @@ namespace PSH_BOne_AddOn
                 // Comments
                 oForm.DataSources.UserDataSources.Add("Comments", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 200);
                 oForm.Items.Item("Comments").Specific.DataBind.SetBound(true, "", "Comments");
-
-                //// 순서
-                //sQry = "select U_Minor , U_CdName from [@PS_SY001L] where code ='A006'";
-                //dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("Modual").Specific, "Y");
-                //oForm.Items.Item("Modual").DisplayDesc = true;
-
-                //// Position
-                //sQry = "select U_Minor , U_CdName from [@PS_SY001L] where code ='A005'";
-                //dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("Position").Specific, "Y");
-                //oForm.Items.Item("Position").DisplayDesc = true;
-
-                //// Sub1
-                //sQry = "select U_Minor , U_CdName from [@PS_SY001L] where code ='H002'";
-                //dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("Sub1").Specific, "Y");
-                //oForm.Items.Item("Sub1").DisplayDesc = true;
-
-                //// Sub2
-                //sQry = "select U_Minor , U_CdName from [@PS_SY001L] where code ='H002'";
-                //dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("Sub2").Specific, "Y");
-                //oForm.Items.Item("Sub2").DisplayDesc = true;
-
-                //// Sub3
-                //sQry = "select U_Minor , U_CdName from [@PS_SY001L] where code ='H002'";
-                //dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("Sub3").Specific, "Y");
-                //oForm.Items.Item("Sub3").DisplayDesc = true;
-
-                //// 순서
-                //sQry = "select U_Minor , U_CdName from [@PS_SY001L] where code ='H002'";
-                //dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("No").Specific, "Y");
-                //oForm.Items.Item("No").DisplayDesc = true;
-
-                //// Level
-                //oForm.Items.Item("Level").Specific.ValidValues.Add("0", "0");
-                //oForm.Items.Item("Level").Specific.ValidValues.Add("1", "1");
-                //oForm.Items.Item("Level").Specific.ValidValues.Add("2", "2");
-                //oForm.Items.Item("Level").DisplayDesc = true;
-
-                //// FatherId
-                //sQry = "select  distinct t.a,t.b   from (select distinct UniqueID as a , UniqueID as b from Authority_Folder union all select distinct FatherID as a , FatherID as b from Authority_Folder) t";
-                //dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("FatherID").Specific, "Y");
-                //oForm.Items.Item("FatherID").DisplayDesc = true;
-
-                //// String
-                //oForm.DataSources.UserDataSources.Add("Strings", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 50);
-                //oForm.Items.Item("Strings").Specific.DataBind.SetBound(true, "", "Strings");
-
-                //// UniqueID
-                //oForm.DataSources.UserDataSources.Add("UniqueID", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
-                //oForm.Items.Item("UniqueID").Specific.DataBind.SetBound(true, "", "UniqueID");
             }
             catch (Exception ex)
             {
@@ -224,26 +172,22 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
+                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
                     oForm.EnableMenu("1281", false);      // 문서찾기
                     oForm.EnableMenu("1282", true);       // 문서추가
-                    //dataHelpClass.CLTCOD_Select(oForm, "BPLID", true);
-                    // 접속자에 따른 권한별 사업장 콤보박스세팅
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
                     oForm.EnableMenu("1281", false);      // 문서찾기
                     oForm.EnableMenu("1282", true);       // 문서추가
                     dataHelpClass.CLTCOD_Select(oForm, "BPLID", true);
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
                     oForm.EnableMenu("1281", true);       // 문서찾기
                     oForm.EnableMenu("1282", true);       // 문서추가
-                    //dataHelpClass.CLTCOD_Select(oForm, "BPLID", true);
                 }
-                // Key set
             }
             catch (Exception ex)
             {
@@ -491,7 +435,7 @@ namespace PSH_BOne_AddOn
 
                     if (pVal.ItemUID == "Btn01")
                     {
-                        PS_DateChange_SAVE(pVal.Row);
+                        PS_DateChange_SAVE();
                     }
 
                     if (pVal.ItemUID == "Btn_del")
@@ -692,7 +636,7 @@ namespace PSH_BOne_AddOn
                                 switch (pVal.ItemUID)
                                 {
                                     case "Grid01":
-                                        PS_DateChange_MTX02(pVal.ItemUID, pVal.Row, pVal.ColUID);
+                                        PS_DateChange_MTX02(pVal.Row);
                                         break;
                                 }
                             }
@@ -736,11 +680,11 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PS_DateChange_MTX01()
         {
-            int iRow = 0;
-            string sQry = string.Empty;
-            string BPLId = string.Empty;
-            string CreateUser = string.Empty;
-            string ObjectCode = string.Empty;
+            int iRow;
+            string sQry;
+            string BPLId;
+            string CreateUser;
+            string ObjectCode;
 
             try
             {
@@ -778,7 +722,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// PS_DateChange_MTX02
         /// </summary>
-        private void PS_DateChange_MTX02(string oUID, int oRow = 0, string oCol = "")
+        private void PS_DateChange_MTX02(int oRow)
         {
             try
             {
@@ -809,25 +753,24 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// PS_DateChange_SAVE
         /// </summary>
-        private void PS_DateChange_SAVE(int oRow = 0)
+        private void PS_DateChange_SAVE()
         {
             // 데이타 저장
             int ErrNum = 0;
-            string sQry = string.Empty;
-            string BPLId        = string.Empty;
-            string ObjectCode   = string.Empty;
-            string CreateUser   = string.Empty;
-            string CreateUseV   = string.Empty;
-            string Grantor      = string.Empty;
-            string GrantorV     = string.Empty;
-            string CreateDate   = string.Empty;
-            string DocEntry     = string.Empty;
-            string LineId       = string.Empty;
-            string DocDate      = string.Empty;
-            string DueDate      = string.Empty;
-            string TaxDate      = string.Empty;
-            string Comments     = string.Empty;
-
+            string sQry;
+            string BPLId;
+            string ObjectCode;
+            string CreateUser;
+            string CreateUseV;
+            string Grantor;
+            string GrantorV;
+            string CreateDate;
+            string DocEntry;
+            string LineId;
+            string DocDate;
+            string DueDate;
+            string TaxDate;
+            string Comments;
 
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -948,11 +891,9 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PS_DateChange_Delete()
         {
-            // 데이타 삭제
-            string sQry = string.Empty;
+            string sQry;
             int ErrNum = 0;
-            int sRow = 0;
-
+            
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
@@ -968,9 +909,9 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
                 sQry = "delete from PSH_DateChange where ObjectCode = '" + oForm.Items.Item("ObjectCode").Specific.Value + "'";
-                sQry = sQry + " and DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'";
-                sQry = sQry + " and LineId = '" + oForm.Items.Item("LineId").Specific.Value + "'";
-                sQry = sQry + " and OKYN = 'N'";
+                sQry += " and DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'";
+                sQry += " and LineId = '" + oForm.Items.Item("LineId").Specific.Value + "'";
+                sQry += " and OKYN = 'N'";
                 oRecordSet.DoQuery(sQry);
 
                 PS_DateChange_MTX01();

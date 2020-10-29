@@ -134,10 +134,8 @@ namespace PSH_BOne_AddOn
                     ////2
                     break;
 
-
                 case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS:
                     ////3
-
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS:
@@ -145,7 +143,7 @@ namespace PSH_BOne_AddOn
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
-                    Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_CLICK: //6
@@ -169,13 +167,12 @@ namespace PSH_BOne_AddOn
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
-                                                             //Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD:
                     ////12
                     break;
-
 
                 case SAPbouiCOM.BoEventTypes.et_FORM_LOAD:
                     ////16
@@ -189,18 +186,16 @@ namespace PSH_BOne_AddOn
                     ////18
                     break;
 
-
                 case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE:
                     ////19
                     break;
-
 
                 case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE:
                     ////20
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
-                                                             // Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
+                    // Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN:
@@ -212,7 +207,7 @@ namespace PSH_BOne_AddOn
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
-                                                                  // Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
+                    // Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED:
@@ -226,7 +221,6 @@ namespace PSH_BOne_AddOn
                 case SAPbouiCOM.BoEventTypes.et_Drag:
                     ////39
                     break;
-
             }
         }
 
@@ -261,40 +255,7 @@ namespace PSH_BOne_AddOn
             {
             }
         }
-        /// <summary>
-        /// COMBO_SELECT 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_COMBO_SELECT(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            string sQry = string.Empty;
-            int i = 0;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-            try
-            {
-                oForm.Freeze(true);
-                if (pVal.Before_Action == true)
-                {
-                }
-                else if (pVal.Before_Action == false)
-                {
-                    if (pVal.ItemChanged == true)
-                    {
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_COMBO_SELECT_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-                oForm.Freeze(false);
-            }
-        }
-
+        
         /// <summary>
         /// VALIDATE 이벤트
         /// </summary>

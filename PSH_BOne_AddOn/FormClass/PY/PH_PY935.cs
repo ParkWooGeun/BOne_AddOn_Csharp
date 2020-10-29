@@ -19,8 +19,8 @@ namespace PSH_BOne_AddOn
         /// </summary>
         public override void LoadForm(string oFormDocEntry01)
         {
-            int i = 0;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
+
             try
             {
                 oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PH_PY935.srf");
@@ -28,7 +28,7 @@ namespace PSH_BOne_AddOn
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
 
-                for (i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
+                for (int i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
                 {
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight")[i - 1].nodeValue = 20;
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
@@ -37,10 +37,7 @@ namespace PSH_BOne_AddOn
                 oFormUniqueID01 = "PH_PY935_" + SubMain.Get_TotalFormsCount();
                 SubMain.Add_Forms(this, oFormUniqueID01, "PH_PY935");
 
-                string strXml = string.Empty;
-                strXml = oXmlDoc.xml.ToString();
-
-                PSH_Globals.SBO_Application.LoadBatchActions(strXml);
+                PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID01);
 
                 oForm.SupportedModes = -1;
@@ -70,7 +67,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PH_PY935_CreateItems()
         {
-            string sQry = string.Empty;
+            string sQry ;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
@@ -176,7 +173,7 @@ namespace PSH_BOne_AddOn
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
-                    Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
@@ -238,49 +235,6 @@ namespace PSH_BOne_AddOn
                     ////39
                     break;
 
-            }
-        }
-
-        /// <summary>
-        /// VALIDATE 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            string sQry = string.Empty;
-            SAPbobsCOM.Recordset oRecordSet = null;
-            oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            try
-            {
-                if (pVal.Before_Action == true)
-                {
-                }
-                else if (pVal.Before_Action == false)
-                {
-                    if (pVal.ItemChanged == true)
-                    {
-                        switch (pVal.ItemUID)
-                        {
-                            //case "Code":    //사번
-                            //    sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("Code").Specific.Value.ToString().Trim() + "'";
-                            //    oRecordSet.DoQuery(sQry);
-                            //    oForm.Items.Item("CodeName").Specific.Value = oRecordSet.Fields.Item("U_FullName").Value.ToString().Trim();
-                            //    break;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_VALIDATE_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                BubbleEvent = false;
-            }
-            finally
-            {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }
 
@@ -354,7 +308,6 @@ namespace PSH_BOne_AddOn
         private bool PH_PY935_DataValidCheck()
         {
             bool functionReturnValue = false;
-            functionReturnValue = false;
 
             try
             {
@@ -367,6 +320,7 @@ namespace PSH_BOne_AddOn
                 //    return functionReturnValue;
                 //}
 
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
@@ -378,7 +332,6 @@ namespace PSH_BOne_AddOn
             }
 
             return functionReturnValue;
-
         }
 
         /// <summary>
@@ -387,12 +340,11 @@ namespace PSH_BOne_AddOn
         [STAThread]
         private void PH_PY935_Print_Report01()
         {
-            string WinTitle = string.Empty;
-            string ReportName = string.Empty;
-
-            string CLTCOD = string.Empty;
-            string JIGTYP = string.Empty;
-            string YM = string.Empty;
+            string WinTitle;
+            string ReportName;
+            string CLTCOD;
+            string JIGTYP;
+            string YM;
 
             CLTCOD = oForm.Items.Item("CLTCOD").Specific.Selected.Value.ToString().Trim();
             JIGTYP = oForm.Items.Item("JIGTYP").Specific.Value.Trim();
@@ -417,7 +369,6 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@YM", YM)); //사번
                 dataPackParameter.Add(new PSH_DataPackClass("@JIGTYP", JIGTYP)); //직원구분
                 
-
                 formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
             catch (Exception ex)

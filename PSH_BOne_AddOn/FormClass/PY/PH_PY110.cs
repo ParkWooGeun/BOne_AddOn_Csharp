@@ -146,10 +146,9 @@ namespace PSH_BOne_AddOn
         /// <param name="oFormDocEntry01"></param>
         private void PH_PY110_SetDocument(string oFormDocEntry01)
         {
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
-                if ((string.IsNullOrEmpty(oFormDocEntry01)))
+                if (string.IsNullOrEmpty(oFormDocEntry01))
                 {
                     PH_PY110_FormItemEnabled();
                     PH_PY110_AddMatrixRow();
@@ -186,9 +185,9 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("Btn_Excel").Enabled = true;
                     oForm.Items.Item("Btn_Create").Enabled = true;
 
-                    //// 접속자에 따른 권한별 사업장 콤보박스세팅
+                    //접속자에 따른 권한별 사업장 콤보박스세팅
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
-                    /// 귀속년월
+                    //귀속년월
                     oForm.Items.Item("YM").Specific.Value = DateTime.Now.ToString("yyyyMM");
 
                     oForm.EnableMenu("1281", true);                     ////문서찾기
@@ -440,8 +439,8 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string sQry = string.Empty;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 oForm.Freeze(true);
@@ -712,7 +711,7 @@ namespace PSH_BOne_AddOn
                                     }
                                     else
                                     {
-                                        i = i + 1;
+                                        i += 1;
                                     }
                                 }
 
@@ -746,44 +745,33 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
         {
-            int i = 0;
-            string sQry = string.Empty;
-
             try
             {
-                if ((BusinessObjectInfo.BeforeAction == true))
+                if (BusinessObjectInfo.BeforeAction == true)
                 {
                     switch (BusinessObjectInfo.EventType)
                     {
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:
-                            ////33
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
                             break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:
-                            ////34
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
                             break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:
-                            ////35
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
                             break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:
-                            ////36
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
                             break;
                     }
                 }
-                else if ((BusinessObjectInfo.BeforeAction == false))
+                else if (BusinessObjectInfo.BeforeAction == false)
                 {
                     switch (BusinessObjectInfo.EventType)
                     {
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:
-                            ////33
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
                             break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:
-                            ////34
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
                             break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:
-                            ////35
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
                             break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:
-                            ////36
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
                             break;
                     }
                 }
@@ -844,7 +832,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         public void PH_PY110_FormClear()
         {
-            string DocEntry = string.Empty;
+            string DocEntry;
 
             PSH_DataHelpClass DataHelpClass = new PSH_DataHelpClass();
 
@@ -873,12 +861,11 @@ namespace PSH_BOne_AddOn
         public bool PH_PY110_DataValidCheck()
         {
             bool functionReturnValue = false;
-            int i = 0;
-            int k = 0;
-            string sCode = string.Empty;
-            string sQry = string.Empty;
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            int i;
+            int k;
+            string sCode;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 ////----------------------------------------------------------------------------------
@@ -938,7 +925,6 @@ namespace PSH_BOne_AddOn
                 else
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("라인 데이터가 없습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                    functionReturnValue = false;
                     return functionReturnValue;
                 }
 
@@ -947,13 +933,14 @@ namespace PSH_BOne_AddOn
                 oDS_PH_PY110A.SetValue("Code", 0, sCode);
                 oDS_PH_PY110A.SetValue("Name", 0, sCode);
 
-                ////데이터 중복 체크
+                //데이터 중복 체크
                 if (!string.IsNullOrEmpty(dataHelpClass.Get_ReData("Code", "Code", "[@PH_PY110A]", "'" + "sCode" + "'","")))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("기존에 데이터가 존재합니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                    functionReturnValue = false;
                     return functionReturnValue;
                 }
+
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
@@ -961,8 +948,6 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                functionReturnValue = true;
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
             return functionReturnValue;
         }
@@ -975,19 +960,17 @@ namespace PSH_BOne_AddOn
         private bool PH_PY110_Validate(string ValidateType)
         {
             bool functionReturnValue = false;
-            functionReturnValue = true;
-
             short ErrNumm = 0;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY110A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "Y")
                 {
-                    PSH_Globals.SBO_Application.SetStatusBarMessage("해당문서는 다른사용자에 의해 취소되었습니다. 작업을 진행할수 없습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                    functionReturnValue = false;
+                    ErrNumm = 1;
                     throw new Exception();
                 }
-                //
+                
                 if (ValidateType == "수정")
                 {
 
@@ -1000,6 +983,8 @@ namespace PSH_BOne_AddOn
                 {
 
                 }
+
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
@@ -1007,10 +992,15 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("해당문서는 다른사용자에 의해 취소되었습니다. 작업을 진행할수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
             }
             finally
             {
             }
+
             return functionReturnValue;
         }
 
@@ -1019,12 +1009,13 @@ namespace PSH_BOne_AddOn
         /// </summary>
         public void PH_PY110_AddMatrixRow()
         {
-            int oRow = 0;
+            int oRow;
+
             try
             {
                 oForm.Freeze(true);
 
-                //    '//[Mat1 용]
+                //[Mat1 용]
                 oMat01.FlushToDataSource();
                 oRow = oMat01.VisualRowCount;
 
@@ -1034,7 +1025,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (oDS_PH_PY110B.Size <= oMat01.VisualRowCount)
                         {
-                            oDS_PH_PY110B.InsertRecord((oRow));
+                            oDS_PH_PY110B.InsertRecord(oRow);
                         }
                         oDS_PH_PY110B.Offset = oRow;
                         oDS_PH_PY110B.SetValue("U_LineNum", oRow, Convert.ToString(oRow + 1));
@@ -1042,8 +1033,8 @@ namespace PSH_BOne_AddOn
                         oDS_PH_PY110B.SetValue("U_MSTNAM", oRow, "");
                         oDS_PH_PY110B.SetValue("U_DPTCOD", oRow, "");
                         oDS_PH_PY110B.SetValue("U_DPTCOD", oRow, "");
-                        oDS_PH_PY110B.SetValue("U_BNSRAT", oRow, Convert.ToString(0));
-                        oDS_PH_PY110B.SetValue("U_BNSAMT", oRow, Convert.ToString(0));
+                        oDS_PH_PY110B.SetValue("U_BNSRAT", oRow, "0");
+                        oDS_PH_PY110B.SetValue("U_BNSAMT", oRow, "0");
                         oDS_PH_PY110B.SetValue("U_REMARK", oRow, "");
                         oMat01.LoadFromDataSource();
                     }
@@ -1055,8 +1046,8 @@ namespace PSH_BOne_AddOn
                         oDS_PH_PY110B.SetValue("U_MSTNAM", oRow - 1, "");
                         oDS_PH_PY110B.SetValue("U_DPTCOD", oRow - 1, "");
                         oDS_PH_PY110B.SetValue("U_DPTCOD", oRow - 1, "");
-                        oDS_PH_PY110B.SetValue("U_BNSRAT", oRow - 1, Convert.ToString(0));
-                        oDS_PH_PY110B.SetValue("U_BNSAMT", oRow - 1, Convert.ToString(0));
+                        oDS_PH_PY110B.SetValue("U_BNSRAT", oRow - 1, "0");
+                        oDS_PH_PY110B.SetValue("U_BNSAMT", oRow - 1, "0");
                         oDS_PH_PY110B.SetValue("U_REMARK", oRow - 1, "");
                         oMat01.LoadFromDataSource();
                     }
@@ -1092,22 +1083,21 @@ namespace PSH_BOne_AddOn
         [STAThread]
         private void PH_PY110_Excel_Upload()
         {
-            int loopCount = 0;
-            int j = 0;
-            int CheckLine = 0;
-            int i = 0;
+            int loopCount;
+            int j;
+            int CheckLine;
+            int i;
             bool sucessFlag = false;
             short columnCount = 5; //엑셀 컬럼수
             short columnCount2 = 5; //엑셀 컬럼수
-            string sFile = null;
-            string sQry = null;
-            double TOTCNT = 0;
-            int V_StatusCnt = 0;
-            int oProValue = 0;
-            int tRow = 0;
-            bool CheckYN = true;
-            string temp1 = string.Empty;
-
+            string sFile;
+            string sQry;
+            double TOTCNT;
+            int V_StatusCnt;
+            int oProValue;
+            int tRow;
+            bool CheckYN;
+            
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -1243,9 +1233,9 @@ namespace PSH_BOne_AddOn
                             oDS_PH_PY110B.RemoveRecord((oDS_PH_PY110B.Size - 1));
                         }
                         //// 사원마스터에서 사번에 대한 정보 가져오기
-                        sQry = "select U_FullName, U_TeamCode, U_CodeNm ";
-                        sQry = sQry + " FROM [@PH_PY001A] T0 INNER JOIN [@PS_HR200L] T1 ON T0.U_TeamCode = T1.U_Code";
-                        sQry = sQry + " WHERE T0.Code='" + Convert.ToString(r[1].Value) + "'";
+                        sQry = "  select U_FullName, U_TeamCode, U_CodeNm ";
+                        sQry += " FROM [@PH_PY001A] T0 INNER JOIN [@PS_HR200L] T1 ON T0.U_TeamCode = T1.U_Code";
+                        sQry += " WHERE T0.Code='" + Convert.ToString(r[1].Value) + "'";
                         oRecordSet01.DoQuery(sQry);
 
                         ////Mat1에 업로드엑셀 사번이 존재 유무 CheckYN
@@ -1275,14 +1265,13 @@ namespace PSH_BOne_AddOn
                         if ((TOTCNT > 50 & tRow == oProValue * V_StatusCnt) | TOTCNT <= 50)
                         {
                             ProgressBar01.Text  = tRow + "/ " + TOTCNT + " 건 처리중...!";
-                            ProgressBar01.Value = ProgressBar01.Value + 1;
+                            ProgressBar01.Value += 1;
                         }
-                        tRow = tRow + 1;
+                        tRow += 1;
                     }
                 }
-                ProgressBar01.Value = ProgressBar01.Value + 1;
+                ProgressBar01.Value += 1;
                 ProgressBar01.Text = ProgressBar01.Value + "/" + (xlRow.Count - 1) + "건 Loding...!";
-
 
                 ////라인번호 재정의
                 for (i = 0; i <= oDS_PH_PY110B.Size - 1; i++)
@@ -1326,22 +1315,20 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void MSTCOD_Setting()
         {
-            string sQry = string.Empty;
-            int iRow = 0;
-            int MatRowCnt = 0;
-            int oRow = 0;
+            string sQry;
+            int iRow;
+            int MatRowCnt;
+            int oRow;
             short ErrNum = 0;
+            string CLTCOD;            ////사업장
+            string JOBYMM;            ////귀속년월
+            string JOBTRG;            ////지급대상
+            double TOTCNT;
+            int V_StatusCnt;
+            int oProValue;
+            int tRow;
+            string CheckValue;
 
-            string CLTCOD = string.Empty;            ////사업장
-            string JOBYMM = string.Empty;            ////귀속년월
-            string JOBTRG = string.Empty;            ////지급대상
-
-            double TOTCNT = 0;
-            int V_StatusCnt = 0;
-            int oProValue = 0;
-            int tRow = 0;
-
-            string CheckValue = string.Empty;
             SAPbouiCOM.ProgressBar ProgressBar01 = null;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             
@@ -1380,12 +1367,12 @@ namespace PSH_BOne_AddOn
                 tRow = 1;
                 ///////////////////////////////////////////////////////
 
-
                 oDS_PH_PY110B.RemoveRecord((oDS_PH_PY110B.Size - 1));
 
                 MatRowCnt = oMat01.VisualRowCount - 2;
                 oRow = oMat01.VisualRowCount - 1;
-                while (!(oRecordSet01.EoF))
+
+                while (!oRecordSet01.EoF)
                 {
                     CheckValue = "N";
                     for (iRow = 0; iRow <= MatRowCnt; iRow++)
@@ -1410,14 +1397,14 @@ namespace PSH_BOne_AddOn
                         oDS_PH_PY110B.SetValue("U_BNSRAT", oRow, "100");                                                         //적용율(%)
                         oDS_PH_PY110B.SetValue("U_BNSAMT", oRow, "0");                                                           //적용금액
                         oDS_PH_PY110B.SetValue("U_REMARK", oRow, "");
-                        oRow = oRow + 1;
+                        oRow += 1;
                     }
 
-                    tRow = tRow + 1;
-                    if ((TOTCNT > 50 & tRow == oProValue * V_StatusCnt) | TOTCNT <= 50)
+                    tRow += 1;
+                    if ((TOTCNT > 50 && tRow == oProValue * V_StatusCnt) || TOTCNT <= 50)
                     {
                         ProgressBar01.Text = tRow + "/ " + TOTCNT + " 건 처리중...!";
-                        oProValue = oProValue + 1;
+                        oProValue += 1;
                         ProgressBar01.Value = oProValue;
                     }
 
@@ -1433,8 +1420,6 @@ namespace PSH_BOne_AddOn
                 }
                 oMat01.LoadFromDataSource();
                 PH_PY110_AddMatrixRow();
-
-                ProgressBar01.Stop();
             }
             catch (Exception ex)
             {
@@ -1458,6 +1443,13 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
+
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
                 oForm.Freeze(false);
             }
         }

@@ -549,11 +549,10 @@ namespace PSH_BOne_AddOn
         {
             short cnt = 0;
             int ErrNum = 0;
-            string sQry = string.Empty;
-            string CLTCOD = string.Empty;
-            string FullName = string.Empty;
-            string MSTCOD = string.Empty;
-            string Year = string.Empty;
+            string sQry;
+            string CLTCOD;
+            string MSTCOD;
+            string Year;
 
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -562,14 +561,12 @@ namespace PSH_BOne_AddOn
                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                 Year = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
-                //FullName = oForm.Items.Item("FullName").Specific.Value.ToString().Trim();
 
                 sQry = " Select Count(*) as cnt From [p_seoyst] Where saup = '" + CLTCOD + "' And yyyy = '" + Year + "' And sabun = '" + MSTCOD + "'";
                 oRecordSet.DoQuery(sQry);
 
-                if (oRecordSet.Fields.Item(cnt).Value > 0)
+                if (Convert.ToInt32(oRecordSet.Fields.Item(cnt).Value > 0))
                 {
-
                     if (string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.Value))
                     {
                         ErrNum = 1;
@@ -595,7 +592,22 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_ITEM_PRESSED_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY419_Delete_ERROR" + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                if (ErrNum == 1)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("년도를 입력하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+                else if (ErrNum == 2)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("사업장을 입력하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+                else if (ErrNum == 3)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("사번을 입력하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
             }
             finally
             {

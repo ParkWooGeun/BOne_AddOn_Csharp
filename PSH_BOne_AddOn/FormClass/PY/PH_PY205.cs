@@ -730,10 +730,7 @@ namespace PSH_BOne_AddOn
         private bool PH_PY205_Validate(string ValidateType)
         {
             bool functionReturnValue = false;
-            functionReturnValue = true;
-
             short ErrNumm = 0;
-
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
@@ -756,13 +753,18 @@ namespace PSH_BOne_AddOn
                 {
 
                 }
+
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
                 if (ErrNumm == 1)
                 {
-                    functionReturnValue = false;
-                    PSH_Globals.SBO_Application.StatusBar.SetText("해당문서는 다른사용자에 의해 취소되었습니다. 작업을 진행할수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);    
+                    PSH_Globals.SBO_Application.StatusBar.SetText("해당문서는 다른사용자에 의해 취소되었습니다. 작업을 진행할수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
             }
             finally

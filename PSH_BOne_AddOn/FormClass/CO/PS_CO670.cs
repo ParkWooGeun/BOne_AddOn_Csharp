@@ -281,7 +281,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_CO670L.SetValue("U_LineMemo", i, oRecordSet01.Fields.Item("LineMemo").Value.ToString().Trim());
 
                     oRecordSet01.MoveNext();
-                    ProgBar01.Value = ProgBar01.Value + 1;
+                    ProgBar01.Value += 1;
                     ProgBar01.Text = ProgBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
 

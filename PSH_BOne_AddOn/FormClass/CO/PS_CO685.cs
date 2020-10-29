@@ -53,7 +53,7 @@ namespace PSH_BOne_AddOn
                 Initial_Setting();
                 FormItemEnabled();
                 FormClear();
-                AddMatrixRow(0, oMat01.RowCount, true);
+                AddMatrixRow(0, oMat01.RowCount);
 
                 oForm.EnableMenu("1283", false); //삭제
 				oForm.EnableMenu("1286", false); //닫기
@@ -251,8 +251,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         /// <param name="pSeq"></param>
         /// <param name="pRow"></param>
-        /// <param name="pRowIserted"></param>
-        private void AddMatrixRow(short pSeq, int pRow, bool pRowIserted)
+        private void AddMatrixRow(short pSeq, int pRow)
         {
             try
             {
@@ -603,7 +602,7 @@ namespace PSH_BOne_AddOn
                             }
 
                             f_oJournalEntries.UserFields.Fields.Item("U_BPLId").Value = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(); //사업장
-                            j = j + 1;
+                            j += 1;
                         }
                     }
                 }
@@ -642,7 +641,7 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.oCompany.GetNewObjectCode(out sTransId);
                     sQry = "Update [@PS_CO685H] Set U_JdtNo = '" + sTransId + "', U_JdtDate = '" + sDocDate + "', U_JdtCC = '" + sCC + "' ";
-                    sQry = sQry + "Where DocNum = '" + oDS_PS_CO685H.GetValue("DocNum", 0).ToString().Trim() + "'";
+                    sQry += "Where DocNum = '" + oDS_PS_CO685H.GetValue("DocNum", 0).ToString().Trim() + "'";
                     oRecordSet01.DoQuery(sQry);
 
                     if (PSH_Globals.oCompany.InTransaction == true)
@@ -1295,7 +1294,7 @@ namespace PSH_BOne_AddOn
                         case "1282": //추가
                             FormItemEnabled();
                             FormClear();
-                            AddMatrixRow(0, oMat01.RowCount, true);
+                            AddMatrixRow(0, oMat01.RowCount);
                             oForm.Items.Item("YM").Click(SAPbouiCOM.BoCellClickType.ct_Collapsed);
                             break;
                         case "1288":

@@ -18,17 +18,13 @@ namespace PSH_BOne_AddOn
         public SAPbouiCOM.Matrix oMat1;
 
         private SAPbouiCOM.DBDataSource oDS_PH_PY118B;
-
-        private string oLastItemUID;
-        private string oLastColUID;
-        private int oLastColRow;
-
+        
         private string oJOBYMM;
         private string oJOBTYP;
         private string oJOBGBN;
         private string oPAYSEL;
         private string oCLTCOD;
-        private string oMSTBRK;
+        //private string oMSTBRK;
         private string oMSTDPT;
         private string oMSTCOD;
 
@@ -64,8 +60,6 @@ namespace PSH_BOne_AddOn
         /// <param name="oFormDocEntry01"></param>
         public override void LoadForm(string oFormDocEntry01)
         {
-
-            string strXml = string.Empty;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
             try
@@ -84,8 +78,7 @@ namespace PSH_BOne_AddOn
                 oFormUniqueID = "PH_PY118_" + SubMain.Get_TotalFormsCount();
                 SubMain.Add_Forms(this, oFormUniqueID, "PH_PY118");
 
-                strXml = oXmlDoc.xml.ToString();
-                PSH_Globals.SBO_Application.LoadBatchActions(strXml);
+                PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
                 oForm.SupportedModes = -1;
@@ -115,9 +108,9 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PH_PY118_CreateItems()
         {
-            string sQry = string.Empty;
+            string sQry;
 
-            SAPbobsCOM.Recordset oRecordSet = oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
@@ -200,7 +193,7 @@ namespace PSH_BOne_AddOn
                 sQry = " SELECT U_FrSMTP, U_FrEMAIL, U_FrPWD FROM [@PH_PY118A] WHERE Code= '1'";
                 oRecordSet.DoQuery(sQry);
 
-                while (!(oRecordSet.EoF))
+                while (!oRecordSet.EoF)
                 {
                     oForm.DataSources.UserDataSources.Item("FrSMTP").Value = oRecordSet.Fields.Item(0).Value;
                     oForm.DataSources.UserDataSources.Item("FrEMAIL").Value = oRecordSet.Fields.Item(1).Value;
@@ -329,7 +322,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void SetSendMail()
         {
-            string sQry = string.Empty;
+            string sQry;
             short errNum = 0;
 
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -362,15 +355,15 @@ namespace PSH_BOne_AddOn
                 if (oRecordSet.RecordCount == 0)
                 {
                     sQry = "INSERT INTO [@PH_PY118A] (Code, Name, U_FrSMTP, U_FrEMAIL, U_FrPWD) values ('1','1','";
-                    sQry = sQry + sFrSMTP + "', '" + sFrEmail + "', '" + sFrPWD + "')";
+                    sQry += sFrSMTP + "', '" + sFrEmail + "', '" + sFrPWD + "')";
                     oRecordSet.DoQuery(sQry);
                 }
                 else
                 {
                     sQry = "UPDATE  [@PH_PY118A] SET   U_FrSMTP = '" + sFrSMTP + "'";
-                    sQry = sQry + " , U_FrEMAIL = '" + sFrEmail + "'";
-                    sQry = sQry + " , U_FrPWD = '" + sFrPWD + "'";
-                    sQry = sQry + " WHERE Code  = '1'";
+                    sQry += " , U_FrEMAIL = '" + sFrEmail + "'";
+                    sQry += " , U_FrPWD = '" + sFrPWD + "'";
+                    sQry += " WHERE Code  = '1'";
                     oRecordSet.DoQuery(sQry);
                 }
             }
@@ -404,7 +397,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PrintChk()
         {
-            short i = 0;
+            short i;
 
             try
             {
@@ -447,7 +440,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void Create_Html2()
         {
-            short i = 0;
+            short i;
 
             try
             {
@@ -780,17 +773,16 @@ namespace PSH_BOne_AddOn
         private bool Execution_Process()
         {
             bool functionReturnValue = false;
-            
-            string sQry = string.Empty;
+            string sQry;
             short errNum = 0;
             int i = 0;
-            int TOTCNT = 0;
-            int V_StatusCnt = 0;
-            int oProValue = 0;
-            int tRow = 0;
+            int TOTCNT;
+            int V_StatusCnt;
+            int oProValue;
+            int tRow;
 
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            SAPbouiCOM.ProgressBar oProgBar = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("데이터 읽는중...!", 50, false);
+            SAPbouiCOM.ProgressBar oProgBar = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
             try
             {
@@ -825,20 +817,20 @@ namespace PSH_BOne_AddOn
                 oDS_PH_PY118B.Clear();
                 oMat1.LoadFromDataSource();
                 //i = 0;
-                sQry = "SELECT T0.U_MSTCOD,T0.U_MSTNAM, T0.U_EmpID,  T2.U_CodeNM, T3.Name,";
-                sQry = sQry + " ISNULL(CONVERT(CHAR(10), T1.U_StartDat, 20),'') AS U_INPDAT,";
-                sQry = sQry + " ISNULL(CONVERT(CHAR(10),T1.U_TermDate, 20), '') AS U_OUTDAT, T0.U_SILJIG, T1.U_email";
-                sQry = sQry + " FROM [@PH_PY112A] T0  INNER JOIN [@PH_PY001A] T1 ON T0.U_MSTCOD = T1.Code";
-                sQry = sQry + " INNER JOIN [@PS_HR200L] T2 ON T1.U_TeamCode = T2.U_Code AND T2.Code = '1'";
-                sQry = sQry + " INNER JOIN [OHPS] T3 ON T1.U_Position = T3.posID";
-                sQry = sQry + " WHERE   T0.U_YM = '" + oJOBYMM + "'";
-                sQry = sQry + " AND     T0.U_JOBTYP = '" + oJOBTYP + "'";
-                sQry = sQry + " AND     T0.U_JOBGBN = '" + oJOBGBN + "'";
-                sQry = sQry + " AND     (T1.U_PAYSEL = '" + oPAYSEL + "' OR T1.U_PAYSEL LIKE '" + oPAYSEL + "')";
-                sQry = sQry + " AND     T0.U_CLTCOD = '" + oCLTCOD + "'";
-                sQry = sQry + " AND     (T1.U_TeamCode = '" + oMSTDPT + "' OR T1.U_TeamCode LIKE '" + oMSTDPT + "')";
-                sQry = sQry + " AND     (T1.Code = '" + oMSTCOD + "' OR T1.Code LIKE '" + oMSTCOD + "')";
-                sQry = sQry + " ORDER BY T0.U_CLTCOD,  T0.U_TeamCode, T1.U_Position, T0.U_MSTCOD";
+                sQry = "  SELECT T0.U_MSTCOD,T0.U_MSTNAM, T0.U_EmpID,  T2.U_CodeNM, T3.Name,";
+                sQry += " ISNULL(CONVERT(CHAR(10), T1.U_StartDat, 20),'') AS U_INPDAT,";
+                sQry += " ISNULL(CONVERT(CHAR(10),T1.U_TermDate, 20), '') AS U_OUTDAT, T0.U_SILJIG, T1.U_email";
+                sQry += " FROM [@PH_PY112A] T0  INNER JOIN [@PH_PY001A] T1 ON T0.U_MSTCOD = T1.Code";
+                sQry += " INNER JOIN [@PS_HR200L] T2 ON T1.U_TeamCode = T2.U_Code AND T2.Code = '1'";
+                sQry += " INNER JOIN [OHPS] T3 ON T1.U_Position = T3.posID";
+                sQry += " WHERE   T0.U_YM = '" + oJOBYMM + "'";
+                sQry += " AND     T0.U_JOBTYP = '" + oJOBTYP + "'";
+                sQry += " AND     T0.U_JOBGBN = '" + oJOBGBN + "'";
+                sQry += " AND     (T1.U_PAYSEL = '" + oPAYSEL + "' OR T1.U_PAYSEL LIKE '" + oPAYSEL + "')";
+                sQry += " AND     T0.U_CLTCOD = '" + oCLTCOD + "'";
+                sQry += " AND     (T1.U_TeamCode = '" + oMSTDPT + "' OR T1.U_TeamCode LIKE '" + oMSTDPT + "')";
+                sQry += " AND     (T1.Code = '" + oMSTCOD + "' OR T1.Code LIKE '" + oMSTCOD + "')";
+                sQry += " ORDER BY T0.U_CLTCOD,  T0.U_TeamCode, T1.U_Position, T0.U_MSTCOD";
 
                 oRecordSet.DoQuery(sQry);
 
@@ -860,9 +852,9 @@ namespace PSH_BOne_AddOn
                 oProValue = 1;
                 tRow = 1;
                 
-                while (!(oRecordSet.EoF))
+                while (!oRecordSet.EoF)
                 {
-                    oDS_PH_PY118B.InsertRecord((i));
+                    oDS_PH_PY118B.InsertRecord(i);
                     oDS_PH_PY118B.Offset = i;
                     oDS_PH_PY118B.SetValue("U_LineNum", i, Convert.ToString(i + 1));
                     oDS_PH_PY118B.SetValue("U_MSTCOD", i, oRecordSet.Fields.Item(0).Value);
@@ -883,16 +875,16 @@ namespace PSH_BOne_AddOn
                     {
                         oDS_PH_PY118B.SetValue("U_Col08", i, "N");
                     }
-                    i = i + 1;
+                    i += 1;
                     oRecordSet.MoveNext();
 
                     if ((TOTCNT > 50 && tRow == oProValue * V_StatusCnt) || TOTCNT <= 50)
                     {
                         oProgBar.Text = tRow + "/ " + TOTCNT + " 건 처리중...!";
-                        oProValue = oProValue + 1;
+                        oProValue += 1;
                         oProgBar.Value = oProValue;
                     }
-                    tRow = tRow + 1;
+                    tRow += 1;
                 }
                 oPrtChk = true;
                 oProgBar.Stop();
@@ -903,9 +895,7 @@ namespace PSH_BOne_AddOn
                 functionReturnValue = true;
             }
             catch(Exception ex)
-            {
-                functionReturnValue = false;
-                
+            {   
                 if (oProgBar != null)
                 {
                     oProgBar.Stop();
@@ -920,7 +910,6 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    //PSH_Globals.SBO_Application.StatusBar.SetText("Execution_Process 실행 중 오류가 발생했습니다." + Strings.Space(10) + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
             }
@@ -934,17 +923,17 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// eMail_Process
+        /// EMail_Process
         /// </summary>
-        private void eMail_Process()
+        private void EMail_Process()
         {
-            string sQry = string.Empty;
+            string sQry;
             short errNum = 0;
-            int i = 0;
-            int cnt = 0;
-            int oRow = 0;
-            string RetVal = string.Empty;
-            string[] GNTSTR = new string[10];
+            int i;
+            int cnt;
+            int oRow;
+            string RetVal;
+            //string[] GNTSTR = new string[10]; //사용되지 않음
 
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
@@ -1033,10 +1022,10 @@ namespace PSH_BOne_AddOn
 
                 //1. 수당/공제/근태 항목
                 //수당 항목
-                sQry = "SELECT T0.U_CSUNAM";
-                sQry = sQry + " FROM [@PH_PY102B] T0 INNER JOIN [@PH_PY102A] T1 ON T0.Code = T1.Code";
-                sQry = sQry + " WHERE U_CLTCOD = '" + oCLTCOD + "'";
-                sQry = sQry + " AND (T1.U_YM = '" + oJOBYMM + "' OR (T1.U_YM <> '" + oJOBYMM + "' AND T1.U_YM = (SELECT MAX(U_YM) FROM [@PH_PY102A] WHERE U_YM <= '" + oJOBYMM + "' )))";
+                sQry = "  SELECT T0.U_CSUNAM";
+                sQry += " FROM [@PH_PY102B] T0 INNER JOIN [@PH_PY102A] T1 ON T0.Code = T1.Code";
+                sQry += " WHERE U_CLTCOD = '" + oCLTCOD + "'";
+                sQry += " AND (T1.U_YM = '" + oJOBYMM + "' OR (T1.U_YM <> '" + oJOBYMM + "' AND T1.U_YM = (SELECT MAX(U_YM) FROM [@PH_PY102A] WHERE U_YM <= '" + oJOBYMM + "' )))";
                 oRecordSet.DoQuery(sQry);
                 if (oRecordSet.RecordCount == 0)
                 {
@@ -1056,10 +1045,10 @@ namespace PSH_BOne_AddOn
                 }
 
                 //공제 항목
-                sQry = "SELECT T0.U_CSUNAM";
-                sQry = sQry + " FROM [@PH_PY103B] T0 INNER JOIN [@PH_PY103A] T1 ON T0.Code = T1.Code";
-                sQry = sQry + " WHERE U_CLTCOD = '" + oCLTCOD + "'";
-                sQry = sQry + " AND (T1.U_YM = '" + oJOBYMM + "' OR (T1.U_YM <> '" + oJOBYMM + "' AND T1.U_YM = (SELECT MAX(U_YM) FROM [@PH_PY103A] WHERE U_YM <= '" + oJOBYMM + "' )))";
+                sQry = "  SELECT T0.U_CSUNAM";
+                sQry += " FROM [@PH_PY103B] T0 INNER JOIN [@PH_PY103A] T1 ON T0.Code = T1.Code";
+                sQry += " WHERE U_CLTCOD = '" + oCLTCOD + "'";
+                sQry += " AND (T1.U_YM = '" + oJOBYMM + "' OR (T1.U_YM <> '" + oJOBYMM + "' AND T1.U_YM = (SELECT MAX(U_YM) FROM [@PH_PY103A] WHERE U_YM <= '" + oJOBYMM + "' )))";
                 oRecordSet.DoQuery(sQry);
                 if (oRecordSet.RecordCount == 0)
                 {
@@ -1132,27 +1121,27 @@ namespace PSH_BOne_AddOn
                         {
                             //급여정보 가져오기
                             sQry = "SELECT  T0.U_MSTCOD,";
-                            sQry = sQry + " T0.U_CSUD01, T0.U_CSUD02, T0.U_CSUD03, T0.U_CSUD04, T0.U_CSUD05, T0.U_CSUD06, T0.U_CSUD07, T0.U_CSUD08,T0.U_CSUD09,";
-                            sQry = sQry + " T0.U_CSUD10, T0.U_CSUD11, T0.U_CSUD12, T0.U_CSUD13, T0.U_CSUD14, T0.U_CSUD15, T0.U_CSUD16,T0.U_CSUD17,T0.U_CSUD18,";
-                            sQry = sQry + " T0.U_CSUD19, T0.U_CSUD20, T0.U_CSUD21, T0.U_CSUD22, T0.U_CSUD23, T0.U_CSUD24, T0.U_CSUD25, T0.U_CSUD26, T0.U_CSUD27,";
-                            sQry = sQry + " T0.U_CSUD28, T0.U_CSUD29, T0.U_CSUD30, T0.U_CSUD31, T0.U_CSUD32, T0.U_CSUD33, T0.U_CSUD34, T0.U_CSUD35, T0.U_CSUD36,";
-                            sQry = sQry + " T0.U_GONG01, T0.U_GONG02, T0.U_GONG03, T0.U_GONG04, T0.U_GONG05, T0.U_GONG06, T0.U_GONG07, T0.U_GONG08, T0.U_GONG09,";
-                            sQry = sQry + " T0.U_GONG10, T0.U_GONG11, T0.U_GONG12, T0.U_GONG13, T0.U_GONG14, T0.U_GONG15, T0.U_GONG16, T0.U_GONG17, T0.U_GONG18,";
-                            sQry = sQry + " T0.U_GONG19, T0.U_GONG20, T0.U_GONG21, T0.U_GONG22, T0.U_GONG23, T0.U_GONG24, T0.U_GONG25, T0.U_GONG26, T0.U_GONG27,";
-                            sQry = sQry + " T0.U_GONG28, T0.U_GONG29, T0.U_GONG30, T0.U_GONG31, T0.U_GONG32, T0.U_GONG33, T0.U_GONG34, T0.U_GONG35, T0.U_GONG36,";
-                            sQry = sQry + " T0.U_TOTPAY, T0.U_TOTGON, T0.U_SILJIG, T0.U_CLTNAM,";
-                            sQry = sQry + " T3.U_GetDay, T3.U_WoHDay, T3.U_PayDay, T3.U_Extend, T3.U_Midnight, T3.U_Special, T3.U_YCHHGA,";
-                            sQry = sQry + " T3.U_EtcDAY1 , T3.U_EtcDAY2, T3.U_WHMDAY, T3.U_SNHDAY, T3.U_SNHHGA, T0.U_APPRAT, T0.U_BUYNSU";
-                            sQry = sQry + " FROM [@PH_PY112A] T0";
-                            sQry = sQry + " LEFT JOIN ( SELECT  T2.U_MSTCOD, T1.U_YM, T2.U_GetDay, T2.U_WoHDay, T2.U_PayDay, T2.U_Extend, T2.U_Midnight, T2.U_Special,";
-                            sQry = sQry + "                     T2.U_YCHHGA, T2.U_EtcDAY1 , T2.U_EtcDAY2, T2.U_WHMDAY, T2.U_SNHDAY, T2.U_SNHHGA";
-                            sQry = sQry + "             FROM [@PH_PY017B] T2 INNER JOIN [@PH_PY017A] T1 ON T2.Code = T1.Code";
-                            sQry = sQry + "           ) T3 ON T0.U_YM = T3.U_YM AND T0.U_MSTCOD = T3.U_MSTCOD";
-                            sQry = sQry + " WHERE   T0.U_YM = '" + oJOBYMM + "'";
-                            sQry = sQry + " AND     T0.U_JOBTYP = '" + oJOBTYP + "'";
-                            sQry = sQry + " AND     T0.U_JOBGBN = '" + oJOBGBN + "'";
-                            sQry = sQry + " AND     (T0.U_JOBTRG = '" + oPAYSEL + "' OR ( T0.U_JOBTRG <> '" + oPAYSEL + "' AND T0.U_JOBTRG LIKE '" + oPAYSEL + "'))";
-                            sQry = sQry + " AND     T0.U_MSTCOD = '" + sMSTCOD + "'";
+                            sQry += " T0.U_CSUD01, T0.U_CSUD02, T0.U_CSUD03, T0.U_CSUD04, T0.U_CSUD05, T0.U_CSUD06, T0.U_CSUD07, T0.U_CSUD08,T0.U_CSUD09,";
+                            sQry += " T0.U_CSUD10, T0.U_CSUD11, T0.U_CSUD12, T0.U_CSUD13, T0.U_CSUD14, T0.U_CSUD15, T0.U_CSUD16,T0.U_CSUD17,T0.U_CSUD18,";
+                            sQry += " T0.U_CSUD19, T0.U_CSUD20, T0.U_CSUD21, T0.U_CSUD22, T0.U_CSUD23, T0.U_CSUD24, T0.U_CSUD25, T0.U_CSUD26, T0.U_CSUD27,";
+                            sQry += " T0.U_CSUD28, T0.U_CSUD29, T0.U_CSUD30, T0.U_CSUD31, T0.U_CSUD32, T0.U_CSUD33, T0.U_CSUD34, T0.U_CSUD35, T0.U_CSUD36,";
+                            sQry += " T0.U_GONG01, T0.U_GONG02, T0.U_GONG03, T0.U_GONG04, T0.U_GONG05, T0.U_GONG06, T0.U_GONG07, T0.U_GONG08, T0.U_GONG09,";
+                            sQry += " T0.U_GONG10, T0.U_GONG11, T0.U_GONG12, T0.U_GONG13, T0.U_GONG14, T0.U_GONG15, T0.U_GONG16, T0.U_GONG17, T0.U_GONG18,";
+                            sQry += " T0.U_GONG19, T0.U_GONG20, T0.U_GONG21, T0.U_GONG22, T0.U_GONG23, T0.U_GONG24, T0.U_GONG25, T0.U_GONG26, T0.U_GONG27,";
+                            sQry += " T0.U_GONG28, T0.U_GONG29, T0.U_GONG30, T0.U_GONG31, T0.U_GONG32, T0.U_GONG33, T0.U_GONG34, T0.U_GONG35, T0.U_GONG36,";
+                            sQry += " T0.U_TOTPAY, T0.U_TOTGON, T0.U_SILJIG, T0.U_CLTNAM,";
+                            sQry += " T3.U_GetDay, T3.U_WoHDay, T3.U_PayDay, T3.U_Extend, T3.U_Midnight, T3.U_Special, T3.U_YCHHGA,";
+                            sQry += " T3.U_EtcDAY1 , T3.U_EtcDAY2, T3.U_WHMDAY, T3.U_SNHDAY, T3.U_SNHHGA, T0.U_APPRAT, T0.U_BUYNSU";
+                            sQry += " FROM [@PH_PY112A] T0";
+                            sQry += " LEFT JOIN ( SELECT  T2.U_MSTCOD, T1.U_YM, T2.U_GetDay, T2.U_WoHDay, T2.U_PayDay, T2.U_Extend, T2.U_Midnight, T2.U_Special,";
+                            sQry += "                     T2.U_YCHHGA, T2.U_EtcDAY1 , T2.U_EtcDAY2, T2.U_WHMDAY, T2.U_SNHDAY, T2.U_SNHHGA";
+                            sQry += "             FROM [@PH_PY017B] T2 INNER JOIN [@PH_PY017A] T1 ON T2.Code = T1.Code";
+                            sQry += "           ) T3 ON T0.U_YM = T3.U_YM AND T0.U_MSTCOD = T3.U_MSTCOD";
+                            sQry += " WHERE   T0.U_YM = '" + oJOBYMM + "'";
+                            sQry += " AND     T0.U_JOBTYP = '" + oJOBTYP + "'";
+                            sQry += " AND     T0.U_JOBGBN = '" + oJOBGBN + "'";
+                            sQry += " AND     (T0.U_JOBTRG = '" + oPAYSEL + "' OR ( T0.U_JOBTRG <> '" + oPAYSEL + "' AND T0.U_JOBTRG LIKE '" + oPAYSEL + "'))";
+                            sQry += " AND     T0.U_MSTCOD = '" + sMSTCOD + "'";
 
                             oRecordSet.DoQuery(sQry);
                             if (oRecordSet.RecordCount > 0)
@@ -1222,7 +1211,7 @@ namespace PSH_BOne_AddOn
                         RetVal = Send_eMail();
                         if (RetVal.Trim() == "True")
                         {
-                            cnt = cnt + 1;
+                            cnt += 1;
                             oDS_PH_PY118B.SetValue("U_Col07", oRow, "Success");
                         }
                         else
@@ -1257,7 +1246,6 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    //MDC_Globals.Sbo_Application.StatusBar.SetText("Send_eMail Error: " + Strings.Space(10) + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
             }

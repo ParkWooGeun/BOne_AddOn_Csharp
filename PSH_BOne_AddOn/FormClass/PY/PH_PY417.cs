@@ -13,14 +13,9 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PH_PY417 : PSH_BaseClass
     {
-        public string oFormUniqueID;
-        public SAPbouiCOM.Matrix oMat01;
-
-        //public SAPbouiCOM.Form oForm;
-
-        private SAPbouiCOM.DBDataSource oDS_PH_PY417A; //등록헤더
+        private string oFormUniqueID;
+        private SAPbouiCOM.Matrix oMat01;
         private SAPbouiCOM.DBDataSource oDS_PH_PY417B; //등록라인
-
         private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
         private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
@@ -286,13 +281,9 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PH_PY417_MTX01()
         {
-            int i = 0;
-            string sQry = null;
+            int i;
+            string sQry;
             short ErrNum = 0;
-            double Total = 0;     // 총계
-            SAPbobsCOM.Recordset oRecordSet = null;
-            oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
             string CLTCOD = string.Empty; // 사업장
             string StdYear = string.Empty;
             string YYYYMM = string.Empty;
@@ -304,7 +295,8 @@ namespace PSH_BOne_AddOn
             double NTot = 0;     // 농특세계
             double Tot = 0;      // 총계
 
-            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet.RecordCount, false);
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
             try
             {
@@ -418,10 +410,8 @@ namespace PSH_BOne_AddOn
 
             string Param05 = null;
             string Param06 = null;
-            string Param07 = null;
-
-            SAPbobsCOM.Recordset oRecordSet = null;
-            oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -437,7 +427,7 @@ namespace PSH_BOne_AddOn
                 sQry = "EXEC PH_PY417_02 '" + Param01 + "','" + Param02 + "','" + Param03 + "','" + Param04 + "','" + Param05 + "','" + Param06 + "'";
                 oRecordSet.DoQuery(sQry);
 
-                if ((oRecordSet.RecordCount == 0))
+                if (oRecordSet.RecordCount == 0)
                 {
                     PSH_Globals.SBO_Application.MessageBox("급여변동자료에 연말정산 징수자료를 업로드 실패했습니다.");
                 }

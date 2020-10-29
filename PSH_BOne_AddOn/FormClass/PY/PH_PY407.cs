@@ -685,11 +685,11 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string sQry = string.Empty;
-            string CLTCOD, MSTCOD, FullName, Div, target, YEAR_Renamed = string.Empty;
-            Double bookAmt = 0;
-            SAPbobsCOM.Recordset oRecordSet = null;
-            oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            string sQry;
+            string CLTCOD;
+            string MSTCOD;
+            string FullName;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -706,24 +706,24 @@ namespace PSH_BOne_AddOn
                                 CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
                                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value;
 
-                                sQry = "Select Code,";
-                                sQry = sQry + " FullName = U_FullName,";
-                                sQry = sQry + " TeamName = Isnull((SELECT U_CodeNm";
-                                sQry = sQry + " From [@PS_HR200L]";
-                                sQry = sQry + " WHERE Code = '1'";
-                                sQry = sQry + " And U_Code = U_TeamCode),''),";
-                                sQry = sQry + " RspName  = Isnull((SELECT U_CodeNm";
-                                sQry = sQry + " From [@PS_HR200L]";
-                                sQry = sQry + " WHERE Code = '2'";
-                                sQry = sQry + " And U_Code = U_RspCode),''),";
-                                sQry = sQry + " ClsName  = Isnull((SELECT U_CodeNm";
-                                sQry = sQry + " From [@PS_HR200L]";
-                                sQry = sQry + " WHERE Code = '9'";
-                                sQry = sQry + " And U_Code  = U_ClsCode";
-                                sQry = sQry + " And U_Char3 = U_CLTCOD),'')";
-                                sQry = sQry + " From [@PH_PY001A]";
-                                sQry = sQry + " Where U_CLTCOD = '" + CLTCOD + "'";
-                                sQry = sQry + " and Code = '" + MSTCOD + "'";
+                                sQry = "  Select    Code,";
+                                sQry += "           FullName = U_FullName,";
+                                sQry += "           TeamName = Isnull((SELECT U_CodeNm";
+                                sQry += "                               From [@PS_HR200L]";
+                                sQry += "                               WHERE Code = '1'";
+                                sQry += "                                   And U_Code = U_TeamCode),''),";
+                                sQry += "           RspName  = Isnull((SELECT U_CodeNm";
+                                sQry += "                               From [@PS_HR200L]";
+                                sQry += "                               WHERE Code = '2'";
+                                sQry += "                                   And U_Code = U_RspCode),''),";
+                                sQry += "           ClsName  = Isnull((SELECT U_CodeNm";
+                                sQry += "                               From [@PS_HR200L]";
+                                sQry += "                               WHERE Code = '9'";
+                                sQry += "                                   And U_Code  = U_ClsCode";
+                                sQry += "                                   And U_Char3 = U_CLTCOD),'')";
+                                sQry += " From      [@PH_PY001A]";
+                                sQry += " Where     U_CLTCOD = '" + CLTCOD + "'";
+                                sQry += "           and Code = '" + MSTCOD + "'";
 
                                 oRecordSet.DoQuery(sQry);
 
@@ -736,26 +736,25 @@ namespace PSH_BOne_AddOn
                                 CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
                                 FullName = oForm.Items.Item("FullName").Specific.Value;
 
-                                sQry = "Select Code,";
-                                sQry = sQry + " FullName = U_FullName,";
-                                sQry = sQry + " TeamName = Isnull((SELECT U_CodeNm";
-                                sQry = sQry + " From [@PS_HR200L]";
-                                sQry = sQry + " WHERE Code = '1'";
-                                sQry = sQry + " And U_Code = U_TeamCode),''),";
-                                sQry = sQry + " RspName  = Isnull((SELECT U_CodeNm";
-                                sQry = sQry + " From [@PS_HR200L]";
-                                sQry = sQry + " WHERE Code = '2'";
-                                sQry = sQry + " And U_Code = U_RspCode),''),";
-                                sQry = sQry + " ClsName  = Isnull((SELECT U_CodeNm";
-                                sQry = sQry + " From [@PS_HR200L]";
-                                sQry = sQry + " WHERE Code = '9'";
-                                sQry = sQry + " And U_Code  = U_ClsCode";
-                                sQry = sQry + " And U_Char3 = U_CLTCOD),'')";
-                                sQry = sQry + " From [@PH_PY001A]";
-                                sQry = sQry + " Where U_CLTCOD = '" + CLTCOD + "'";
-                                sQry = sQry + " And U_status <> '5'";
-                                //퇴사자 제외
-                                sQry = sQry + " and U_FullName = '" + FullName + "'";
+                                sQry = "  Select    Code,";
+                                sQry += "           FullName = U_FullName,";
+                                sQry += "           TeamName = Isnull((SELECT U_CodeNm";
+                                sQry += "                               From [@PS_HR200L]";
+                                sQry += "                               WHERE Code = '1'";
+                                sQry += "                                   And U_Code = U_TeamCode),''),";
+                                sQry += "           RspName  = Isnull((SELECT U_CodeNm";
+                                sQry += "                               From [@PS_HR200L]";
+                                sQry += "                               WHERE Code = '2'";
+                                sQry += "                                   And U_Code = U_RspCode),''),";
+                                sQry += "           ClsName  = Isnull((SELECT U_CodeNm";
+                                sQry += "                               From [@PS_HR200L]";
+                                sQry += "                               WHERE Code = '9'";
+                                sQry += "                                   And U_Code  = U_ClsCode";
+                                sQry += "                                   And U_Char3 = U_CLTCOD),'')";
+                                sQry += " From      [@PH_PY001A]";
+                                sQry += " Where     U_CLTCOD = '" + CLTCOD + "'";
+                                sQry += "               And U_status <> '5'";
+                                sQry += "               and U_FullName = '" + FullName + "'"; //퇴사자 제외
 
                                 oRecordSet.DoQuery(sQry);
 
@@ -766,7 +765,6 @@ namespace PSH_BOne_AddOn
                                 break;
                             case "ntamt":
                                 break;
-
                             case "juminno":
                                 //주민번호
                                 //주민번호입력시 생년월일 생성
@@ -780,7 +778,6 @@ namespace PSH_BOne_AddOn
                                 break;
                             case "amt":
                                 break;
-                            
                         }
                     }
                 }

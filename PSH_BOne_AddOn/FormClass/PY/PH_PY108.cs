@@ -10,15 +10,11 @@ namespace PSH_BOne_AddOn
     internal class PH_PY108 : PSH_BaseClass
     {
         public string oFormUniqueID;
-
-        public SAPbouiCOM.Matrix oMat1;
         private SAPbouiCOM.DBDataSource oDS_PH_PY108A;
 
         private string oLastItemUID;
         private string oLastColUID;
         private int oLastColRow;
-
-        string g_preBankSel;
 
         public string ItemUID { get; private set; }
 
@@ -83,32 +79,31 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PH_PY108_CreateItems()
         {
-            string sQry = string.Empty;
-            int i = 0;
+            string sQry;
+            int i;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 oForm.Freeze(true);
 
                 oDS_PH_PY108A = oForm.DataSources.DBDataSources.Item("@PH_PY108A");
 
-                ////헤더
-
-                ////사업장
+                //헤더
                 //사업장
                 oForm.Items.Item("CLTCOD").DisplayDesc = true;
 
-                ////지급구분
+                //지급구분
                 sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P212' AND U_UseYN= 'Y' order by 1";
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("JOBGBN").Specific, "");
                 oForm.Items.Item("JOBGBN").DisplayDesc = true;
 
-                ////상여계산방법
+                //상여계산방법
                 sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P215' AND U_UseYN= 'Y' order by 1";
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("BNSCAL").Specific, "");
                 oForm.Items.Item("BNSCAL").DisplayDesc = true;
 
-                //// 지급기준
+                //지급기준
                 for (i = 1; i <= 8; i++)
                 {
                     oForm.Items.Item("AP" + i + "GBN").Specific.ValidValues.Add("1", "개월 이상");
@@ -152,13 +147,11 @@ namespace PSH_BOne_AddOn
         /// <param name="oFormDocEntry01"></param>
         private void PH_PY108_SetDocument(string oFormDocEntry01)
         {
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
-                if ((string.IsNullOrEmpty(oFormDocEntry01)))
+                if (string.IsNullOrEmpty(oFormDocEntry01))
                 {
                     PH_PY108_FormItemEnabled();
-                    //dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
                 }
                 else
                 {
@@ -491,7 +484,6 @@ namespace PSH_BOne_AddOn
                     SubMain.Remove_Forms(oFormUniqueID);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY108A);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat1);
                 }
             }
             catch (Exception ex)
@@ -601,10 +593,9 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
         {
-            string sQry = string.Empty;
             try
             {
-                if ((BusinessObjectInfo.BeforeAction == true))
+                if (BusinessObjectInfo.BeforeAction == true)
                 {
                     switch (BusinessObjectInfo.EventType)
                     {
@@ -618,7 +609,7 @@ namespace PSH_BOne_AddOn
                             break;
                     }
                 }
-                else if ((BusinessObjectInfo.BeforeAction == false))
+                else if (BusinessObjectInfo.BeforeAction == false)
                 {
                     switch (BusinessObjectInfo.EventType)
                     {
@@ -755,7 +746,6 @@ namespace PSH_BOne_AddOn
         /// </summary>
         public void PH_PY108_AddMatrixRow()
         {
-            int oRow = 0;
             oForm.Freeze(true);
             try
             {

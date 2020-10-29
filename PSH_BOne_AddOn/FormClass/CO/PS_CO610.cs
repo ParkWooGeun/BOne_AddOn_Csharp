@@ -60,7 +60,7 @@ namespace PSH_BOne_AddOn
                 Initial_Setting();
                 FormItemEnabled();
                 FormClear();
-                AddMatrixRow(0, oMat01.RowCount, true);
+                AddMatrixRow(0, oMat01.RowCount);
 
                 oForm.EnableMenu("1283", false); // 삭제
 				oForm.EnableMenu("1286", false); // 닫기
@@ -274,8 +274,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         /// <param name="pSeq"></param>
         /// <param name="oRow"></param>
-        /// <param name="RowIserted"></param>
-        private void AddMatrixRow(short pSeq, int oRow, bool RowIserted)
+        private void AddMatrixRow(short pSeq, int oRow)
         {
             try
             {
@@ -627,7 +626,7 @@ namespace PSH_BOne_AddOn
                             f_oJournalEntries.Lines.UserFields.Fields.Item("U_OcrName").Value = dataHelpClass.Get_ReData("PrcName", "PrcCode", "[OPRC]", "'" + SPrcCode + "'", ""); //배부규칙명
                             f_oJournalEntries.Lines.UserFields.Fields.Item("U_Number1").Value = oMat01.Columns.Item("Number1").Cells.Item(i).Specific.Value.ToString().Trim(); //관리항목
                             f_oJournalEntries.UserFields.Fields.Item("U_BPLId").Value = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(); //사업장
-                            j = j + 1;
+                            j += 1;
                         }
                     }
                 }
@@ -718,13 +717,13 @@ namespace PSH_BOne_AddOn
             int errCode = 0;
             int errDiCode = 0;
             string errDiMsg = null;
-            int RetVal = 0;
+            int RetVal;
             string sTransId = null;
 
             //string SCardCode = null;
             //string sDocDate = null;
-            string sCC = null;
-            string sQry = null;
+            string sCC;
+            string sQry;
 
             SAPbobsCOM.JournalEntries f_oJournalEntries = null;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -1374,7 +1373,7 @@ namespace PSH_BOne_AddOn
                         case "1282": //추가
                             FormItemEnabled();
                             FormClear();
-                            AddMatrixRow(0, oMat01.RowCount, true);
+                            AddMatrixRow(0, oMat01.RowCount);
                             oForm.Items.Item("YM").Click(SAPbouiCOM.BoCellClickType.ct_Collapsed);
                             break;
                         case "1288":

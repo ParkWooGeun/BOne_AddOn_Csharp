@@ -22,10 +22,10 @@ namespace PSH_BOne_AddOn
         ////FormType 객체
         public static Collection FormTypeList;
 
-        public static int SerialNo;
+        //public static int SerialNo;
 
-        public static string oForm_ActiveItem;
-        public static short oForm_ActiveRow;
+        //public static string oForm_ActiveItem;
+        //public static short oForm_ActiveRow;
 
         ////Path/Srf/Rpt 패스
         ////XML메뉴경로
@@ -38,7 +38,7 @@ namespace PSH_BOne_AddOn
         public static string Report;
 
         ////ODBC
-        public static string SP_ODBC_YN;
+        //public static string SP_ODBC_YN;
         public static string SP_ODBC_IP; //서버 IP
         public static string SP_ODBC_Name;
         public static string SP_ODBC_DBName;
@@ -46,11 +46,11 @@ namespace PSH_BOne_AddOn
         public static string SP_ODBC_PW;
 
         ////Network Connection
-        public static string SP_NETWORK_YN;
-        public static string SP_NETWORK_DRIVE;
-        public static string SP_NETWORK_PATH;
-        public static string SP_NETWORK_ID;
-        public static string SP_NETWORK_PW;
+        //public static string SP_NETWORK_YN;
+        //public static string SP_NETWORK_DRIVE;
+        //public static string SP_NETWORK_PATH;
+        //public static string SP_NETWORK_ID;
+        //public static string SP_NETWORK_PW;
 
         ////Cr부분
         //public static string ZG_CRWDSN;
@@ -81,35 +81,35 @@ namespace PSH_BOne_AddOn
         //public static string[] gRpt_SFormula;
         //public static string[] gRpt_SFormula_Value;
 
-        public class ZPAY_g_EmpID
-        {
-            public string EmpID; //사원순번
-            public string MSTCOD;//사원번호
-            public string MSTNAM; //사원성명
-            public string TeamCode; //부서
-            public string RspCode; //담당
-            public string ClsCode; //반
-            public string CLTCOD; //자사코드
-            public string StartDate; //입사일자
-            public string TermDate; //퇴사일자
-            public string RETDAT; //퇴직정산일
-            public string BALYMD; //최종발령일
-            public string BALCOD; //최종부서
-            public string JIGTYP; //직종
-            public string Position; //직위
-            public string JIGCOD; //직급
-            public string HOBONG; //호봉
-            public string PAYTYP; //급여형태
-            public string PAYSEL; //급여지급일구분
-            public short GONCNT; //공제인원
-            public short DAGYSU; //다자녀추가공제
-            public double STDAMT; //기본급
-            public string GBHSEL; //고용보험여부
-            public string PERNBR; //주민번호
-            public string Sex; //성별
-            public string GRPDAT; //그룹입사일
-            public string ENDRET; //퇴직중간정산일
-        }
+        //public class ZPAY_g_EmpID
+        //{
+        //    public string EmpID; //사원순번
+        //    public string MSTCOD;//사원번호
+        //    public string MSTNAM; //사원성명
+        //    public string TeamCode; //부서
+        //    public string RspCode; //담당
+        //    public string ClsCode; //반
+        //    public string CLTCOD; //자사코드
+        //    public string StartDate; //입사일자
+        //    public string TermDate; //퇴사일자
+        //    public string RETDAT; //퇴직정산일
+        //    public string BALYMD; //최종발령일
+        //    public string BALCOD; //최종부서
+        //    public string JIGTYP; //직종
+        //    public string Position; //직위
+        //    public string JIGCOD; //직급
+        //    public string HOBONG; //호봉
+        //    public string PAYTYP; //급여형태
+        //    public string PAYSEL; //급여지급일구분
+        //    public short GONCNT; //공제인원
+        //    public short DAGYSU; //다자녀추가공제
+        //    public double STDAMT; //기본급
+        //    public string GBHSEL; //고용보험여부
+        //    public string PERNBR; //주민번호
+        //    public string Sex; //성별
+        //    public string GRPDAT; //그룹입사일
+        //    public string ENDRET; //퇴직중간정산일
+        //}
 
 
         ////사원조회 저장용 변수

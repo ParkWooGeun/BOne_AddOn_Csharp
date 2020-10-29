@@ -1,5 +1,4 @@
 ﻿using System;
-
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.Code;
@@ -98,7 +97,6 @@ namespace PSH_BOne_AddOn
         /// <param name="oFormDocEntry01"></param>
         public override void LoadForm(string oFormDocEntry01)
         {
-            string strXml = string.Empty;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
             try
@@ -118,8 +116,7 @@ namespace PSH_BOne_AddOn
                 oFormUniqueID = "PH_PY115_" + SubMain.Get_TotalFormsCount();
                 SubMain.Add_Forms(this, oFormUniqueID, "PH_PY115");
 
-                strXml = oXmlDoc.xml.ToString();
-                PSH_Globals.SBO_Application.LoadBatchActions(strXml);
+                PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
                 oForm.SupportedModes = -1;
@@ -270,10 +267,10 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void BaseSetting()
         {
-            string sQry = string.Empty;
-            int i = 0;
+            string sQry;
+            int i;
             short errNum = 0;
-            string JSNYER = string.Empty;
+            string JSNYER;
 
             FIXTYP = "0";
             ROUNDT = "0";
@@ -302,21 +299,21 @@ namespace PSH_BOne_AddOn
                     WG01.TB1KUM[i] = 0;
                 }
 
-                sQry = "        SELECT      U_CODNBR,";
-                sQry = sQry + "             U_CODAMT,";
-                sQry = sQry + "             U_CODGON,";
-                sQry = sQry + "             U_CODRAT,";
-                sQry = sQry + "             U_CODKUM ";
-                sQry = sQry + " FROM        [@PH_PY100B]";
-                sQry = sQry + " WHERE       Code =  (";
-                sQry = sQry + "                         SELECT      Top 1";
-                sQry = sQry + "                                     Code";
-                sQry = sQry + "                         FROM        [@PH_PY100A]";
-                sQry = sQry + "                         WHERE       Code <= '" + JSNYER.Trim() + "'";
-                sQry = sQry + "                         ORDER BY    Code Desc";
-                sQry = sQry + "                     )";
-                sQry = sQry + " ORDER BY    Code,";
-                sQry = sQry + "             Convert(Integer, U_CODNBR) DESC";
+                sQry = "  SELECT      U_CODNBR,";
+                sQry += "             U_CODAMT,";
+                sQry += "             U_CODGON,";
+                sQry += "             U_CODRAT,";
+                sQry += "             U_CODKUM ";
+                sQry += " FROM        [@PH_PY100B]";
+                sQry += " WHERE       Code =  (";
+                sQry += "                         SELECT      Top 1";
+                sQry += "                                     Code";
+                sQry += "                         FROM        [@PH_PY100A]";
+                sQry += "                         WHERE       Code <= '" + JSNYER.Trim() + "'";
+                sQry += "                         ORDER BY    Code Desc";
+                sQry += "                     )";
+                sQry += " ORDER BY    Code,";
+                sQry += "             Convert(Integer, U_CODNBR) DESC";
                 oRecordSet.DoQuery(sQry);
 
                 while (!oRecordSet.EoF)
@@ -351,14 +348,14 @@ namespace PSH_BOne_AddOn
 
                 //라인정보
                 i = 0;
-                sQry = "        SELECT      T0.U_CSUCOD,";
-                sQry = sQry + "             T0.U_SILCOD,";
-                sQry = sQry + "             T0.U_ROUNDT,";
-                sQry = sQry + "             T0.U_LENGTH";
-                sQry = sQry + " FROM        [@PH_PY114B] T0";
-                sQry = sQry + " WHERE       T0.Code = '" + oCode + "'";
-                sQry = sQry + " ORDER BY    T0.Code,";
-                sQry = sQry + "             T0.U_CSUCOD";
+                sQry = "  SELECT      T0.U_CSUCOD,";
+                sQry += "             T0.U_SILCOD,";
+                sQry += "             T0.U_ROUNDT,";
+                sQry += "             T0.U_LENGTH";
+                sQry += " FROM        [@PH_PY114B] T0";
+                sQry += " WHERE       T0.Code = '" + oCode + "'";
+                sQry += " ORDER BY    T0.Code,";
+                sQry += "             T0.U_CSUCOD";
                 oRecordSet.DoQuery(sQry);
 
                 while (!oRecordSet.EoF)
@@ -366,7 +363,7 @@ namespace PSH_BOne_AddOn
                     WK_SILSIL[i] = oRecordSet.Fields.Item("U_SILCOD").Value; //코딩용계산식
                     WK_ROUNDT[i] = oRecordSet.Fields.Item("U_ROUNDT").Value; //끝전처리
                     WK_LENGTH[i] = Convert.ToInt16(oRecordSet.Fields.Item("U_LENGTH").Value); //단위
-                    i = i + 1;
+                    i += 1;
                     oRecordSet.MoveNext();
                 }
             }
@@ -479,7 +476,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PH_PY115_FormClear()
         {
-            string DocEntry = string.Empty;
+            string DocEntry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
@@ -492,7 +489,7 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    oForm.Items.Item("Code").Specific.Value = DocEntry.PadLeft(8, '0'); //codeHelpClass.Right(Strings.Replace("0000000" + Conversion.Str((double)DocEntry), " ", ""), 8);
+                    oForm.Items.Item("Code").Specific.Value = DocEntry.PadLeft(8, '0');
                 }
             }
             catch (Exception ex)
@@ -510,7 +507,7 @@ namespace PSH_BOne_AddOn
         {
             bool returnValue = false;
             short errNum = 0;
-            double TOTAMT = 0;
+            double TOTAMT;
 
             try
             {
@@ -573,13 +570,13 @@ namespace PSH_BOne_AddOn
                 //헤더부분 체크_E
 
                 TOTAMT = 0;
-                TOTAMT = TOTAMT + Convert.ToDouble(oDS_PH_PY115A.GetValue("U_TJKPAY", 0).Trim()); //퇴직급여
-                TOTAMT = TOTAMT + Convert.ToDouble(oDS_PH_PY115A.GetValue("U_SUDAMT", 0).Trim()); //명예퇴직수당(50%)
-                TOTAMT = TOTAMT + Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BHMAMT", 0).Trim()); //단체퇴직보험
-                TOTAMT = TOTAMT + Convert.ToDouble(oDS_PH_PY115A.GetValue("U_YILPA1", 0).Trim()); //법정퇴직연금일시금
-                TOTAMT = TOTAMT + Convert.ToDouble(oDS_PH_PY115A.GetValue("U_YILPA2", 0).Trim()); //법정외퇴직연금일시금
-                TOTAMT = TOTAMT + Convert.ToDouble(oDS_PH_PY115A.GetValue("U_JTOT01", 0).Trim()); //종전퇴직계1
-                TOTAMT = TOTAMT + Convert.ToDouble(oDS_PH_PY115A.GetValue("U_JTOT02", 0).Trim()); //종전퇴직계2
+                TOTAMT += Convert.ToDouble(oDS_PH_PY115A.GetValue("U_TJKPAY", 0).Trim()); //퇴직급여
+                TOTAMT += Convert.ToDouble(oDS_PH_PY115A.GetValue("U_SUDAMT", 0).Trim()); //명예퇴직수당(50%)
+                TOTAMT += Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BHMAMT", 0).Trim()); //단체퇴직보험
+                TOTAMT += Convert.ToDouble(oDS_PH_PY115A.GetValue("U_YILPA1", 0).Trim()); //법정퇴직연금일시금
+                TOTAMT += Convert.ToDouble(oDS_PH_PY115A.GetValue("U_YILPA2", 0).Trim()); //법정외퇴직연금일시금
+                TOTAMT += Convert.ToDouble(oDS_PH_PY115A.GetValue("U_JTOT01", 0).Trim()); //종전퇴직계1
+                TOTAMT += Convert.ToDouble(oDS_PH_PY115A.GetValue("U_JTOT02", 0).Trim()); //종전퇴직계2
 
                 //RETPAY - 총퇴직금, SH1JIG - 환산-지급예상액(현)
                 if (oUID != "Btn2")
@@ -595,8 +592,6 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                returnValue = false;
-
                 if (errNum == 1)
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("잠금 자료입니다. 확인하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
@@ -673,22 +668,22 @@ namespace PSH_BOne_AddOn
             //VB6.FixedLengthString INPDAT = new VB6.FixedLengthString(8);
             //VB6.FixedLengthString ST2RET = new VB6.FixedLengthString(8);
 
-            string STRDAT = string.Empty;
-            string JINDAT = string.Empty;
-            string JOTDAT = string.Empty;
-            string INPDAT = string.Empty;
-            string ST2RET = string.Empty;
+            string STRDAT;
+            string JINDAT;
+            string JOTDAT;
+            string INPDAT;
+            string ST2RET;
 
-            string WT_RTXGBN_H = string.Empty;
-            string WT_RTXGBN_J = string.Empty;
-            int WT_RTXYER_1 = 0;
-            int WT_RTXYER_2 = 0;
+            string WT_RTXGBN_H;
+            string WT_RTXGBN_J;
+            int WT_RTXYER_1;
+            int WT_RTXYER_2;
 
             //근속년수
-            int WT_GNMYER = 0;
-            int WT_JONYER = 0;
-            int WT_JMMMON = 0;
-            int WT_JMMYER = 0;
+            int WT_GNMYER;
+            int WT_JONYER;
+            int WT_JMMMON;
+            int WT_JMMYER;
             int WT_JDOYER = 0;
 
             //퇴직급여
@@ -716,7 +711,7 @@ namespace PSH_BOne_AddOn
             double WT_TAXSTD;
             double WT_YTXSTD;
             double WT_YSANTX;
-            double WT_SANTAX;
+            //double WT_SANTAX;
             double WT_RTXGON;
             double WT_FRNGON;
             double WT_FRNGO1;
@@ -774,7 +769,7 @@ namespace PSH_BOne_AddOn
 
                 if ((WT_GNMYER % 12) == 0)
                 {
-                    WT_GNMYER = WT_GNMYER / 12;
+                    WT_GNMYER /= 12;
                 }
                 else
                 {
@@ -786,7 +781,7 @@ namespace PSH_BOne_AddOn
 
                 if ((WT_JONYER % 12) == 0)
                 {
-                    WT_JONYER = WT_JONYER / 12;
+                    WT_JONYER /= 12;
                 }
                 else
                 {
@@ -814,12 +809,12 @@ namespace PSH_BOne_AddOn
 
                     if (PSH_Globals.ZPAY_GBL_GNSDAY > 0)
                     {
-                        WT_JDOYER = WT_JDOYER + 1;
+                        WT_JDOYER += 1;
                     }
 
                     if ((WT_JDOYER % 12) == 0)
                     {
-                        WT_JDOYER = WT_JDOYER / 12;
+                        WT_JDOYER /= 12;
                     }
                     else
                     {
@@ -975,7 +970,7 @@ namespace PSH_BOne_AddOn
                 //주현근무지의 입사일자와 정산시작일이 다를경우 : 중도정산을 한경우
                 if (BubJung_YN == "N")
                 {
-                    WT_RETPA1 = WT_RETPA1 + WT_RETPA2; //동일년도중도정산은 종전으로 처리함. 모두 법정퇴직금처리함.
+                    WT_RETPA1 += WT_RETPA2; //동일년도중도정산은 종전으로 처리함. 모두 법정퇴직금처리함.
                     WT_RETPA2 = 0;
                 }
 
@@ -1233,7 +1228,7 @@ namespace PSH_BOne_AddOn
 
                 if ((GN1YER % 12) == 0)
                 {
-                    GN1YER = GN1YER / 12;
+                    GN1YER /= 12;
                 }
                 else
                 {
@@ -1250,7 +1245,7 @@ namespace PSH_BOne_AddOn
                 GN2YER = GNMMON[2] - DUPMON[2];
                 if ((GN2YER % 12) == 0)
                 {
-                    GN2YER = GN2YER / 12;
+                    GN2YER /= 12;
                 }
                 else
                 {
@@ -1281,16 +1276,16 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void Display_ilSiGum()
         {
-            double WK_MYNWON = 0;
-            double WK_MYNBUL = 0;
-            double WK_MYNTOT = 0;
-            double WK_MYNGON = 0;
-            double WK_YILPAY = 0;
-            double WK_JYNWON = 0;
-            double WK_JYNBUL = 0;
-            double WK_JYNTOT = 0;
-            double WK_JYNGON = 0;
-            double WK_JYIL01 = 0;
+            double WK_MYNWON;
+            double WK_MYNBUL;
+            double WK_MYNTOT;
+            double WK_MYNGON;
+            double WK_YILPAY;
+            double WK_JYNWON;
+            double WK_JYNBUL;
+            double WK_JYNTOT;
+            double WK_JYNGON;
+            double WK_JYIL01;
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -1355,14 +1350,14 @@ namespace PSH_BOne_AddOn
         /// <param name="RPTGBN"></param>
         private void Display_TaxWhanSan(short HS_TYPE, string RPTGBN)
         {
-            short i = 0;
+            short i;
 
             double FD_YUNTOT = 0;
             double FD_YUNBUL = 0;
             double FD_YUNGON = 0;
             double FD_YUNWON = 0;
             double FD_RETAMT = 0;
-            int FD_GNMYER = 0;
+            int FD_GNMYER;
             int FD_GNMMON = 0;
 
             //Clear
@@ -1401,7 +1396,7 @@ namespace PSH_BOne_AddOn
 
                             if (oDS_PH_PY115A.GetValue("U_ST2RET", 0).Trim() != "")
                             {
-                                FD_RETAMT = FD_RETAMT + Convert.ToDouble(oDS_PH_PY115A.GetValue("U_JSUD01", 0).Trim());
+                                FD_RETAMT += Convert.ToDouble(oDS_PH_PY115A.GetValue("U_JSUD01", 0).Trim());
                             }
                         }
                         else
@@ -1443,7 +1438,7 @@ namespace PSH_BOne_AddOn
 
                             if (oDS_PH_PY115A.GetValue("U_ST2RET", 0).Trim() == "")
                             {
-                                FD_RETAMT = FD_RETAMT + Convert.ToDouble(oDS_PH_PY115A.GetValue("U_JSUD01", 0).Trim());
+                                FD_RETAMT += Convert.ToDouble(oDS_PH_PY115A.GetValue("U_JSUD01", 0).Trim());
                             }
                         }
                         else
@@ -1619,10 +1614,10 @@ namespace PSH_BOne_AddOn
         private void Compute_TAX_2(double P_RETAMT, int P_GNMYER, short P_DUPYER, double P_SHWJIG, double P_SHWYAS, double P_SHWSUR, string HS_TYPE, double SODAMT)
         {
 
-            short FD_i = 0;
-            string FD_RTXGBN_H = string.Empty;
-            string FD_RTXGBN_J = string.Empty;
-            double FD_YTXSTD = 0;
+            short FD_i;
+            string FD_RTXGBN_H;
+            string FD_RTXGBN_J;
+            double FD_YTXSTD;
             double FD_YSANTX = 0;
 
             //Clear
@@ -1637,10 +1632,8 @@ namespace PSH_BOne_AddOn
             WK401.FRNGON = 0;
             WK401.GULGAB = 0;
             WK401.WSGGON = 0; //환산급여별 공제
-            FD_YTXSTD = 0;
-            FD_YSANTX = 0;
-
-            double JS2AMT = 0; //환산급여 저장용
+            
+            //double JS2AMT; //환산급여 저장용
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
@@ -1709,7 +1702,7 @@ namespace PSH_BOne_AddOn
                 if (HS_TYPE == "2")
                 {
                     //법정퇴직년도공제만큼 차감
-                    WK401.SODGON = WK401.SODGON - SODAMT;
+                    WK401.SODGON -= SODAMT;
                 }
                 else if (HS_TYPE == "3")
                 {
@@ -1844,10 +1837,10 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool Create_Data()
         {
-            string sQry = string.Empty;
+            string sQry;
             short errNum = 0;
 
-            int i = 0;
+            int i;
             int j = 0;
 
             string[] PAYSTD = new string[4];
@@ -1857,14 +1850,14 @@ namespace PSH_BOne_AddOn
             string[] BNSYMM = new string[12];
             double[] BNSAMT = new double[12];
 
-            double YONCSU = 0;
-            string CLTCOD = string.Empty;
-            string MSTCOD = string.Empty;
-            string RETDAT = string.Empty;
-            double KUKJUN = 0;
-            double HUGA = 0;
+            double YONCSU;
+            string CLTCOD;
+            string MSTCOD;
+            string RETDAT;
+            double KUKJUN;
+            double HUGA;
             string JSNGBN = string.Empty;
-            string Div = string.Empty; //퇴충계산시: 1, 퇴직금계산시 :2
+            string Div; //퇴충계산시: 1, 퇴직금계산시 :2
 
             bool returnValue = false;
 
@@ -2131,11 +2124,11 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void Create_JsnData()
         {
-            string sQry = string.Empty;
+            string sQry;
 
-            string WK_JSNYER = string.Empty;
-            double WK_TOTGON = 0;
-            double WK_SILJIG = 0;
+            string WK_JSNYER;
+            double WK_TOTGON;
+            double WK_SILJIG;
             double WK_JSNGAB = 0;
             double WK_JSNJUM = 0;
 
@@ -2147,12 +2140,12 @@ namespace PSH_BOne_AddOn
                 WK_JSNYER = codeHelpClass.Left(oDS_PH_PY115A.GetValue("U_ENDRET", 0).Trim(), 4);
 
                 //자료 조회
-                sQry = "        SELECT      ISNULL(U_CHAGAB,0) AS U_CHAGAB,";
-                sQry = sQry + "             ISNULL(U_CHAJUM,0) AS U_CHAJUM ";
-                sQry = sQry + " FROM        [@ZPY504H]";
-                sQry = sQry + " WHERE       U_JSNYER = '" + WK_JSNYER + "'";
-                sQry = sQry + "             AND U_JSNGBN = '2'";
-                sQry = sQry + "             AND U_MSTCOD = '" + oDS_PH_PY115A.GetValue("U_MSTCOD", 0).Trim() + "'";
+                sQry = "  SELECT      ISNULL(U_CHAGAB,0) AS U_CHAGAB,";
+                sQry += "             ISNULL(U_CHAJUM,0) AS U_CHAJUM ";
+                sQry += " FROM        [@ZPY504H]";
+                sQry += " WHERE       U_JSNYER = '" + WK_JSNYER + "'";
+                sQry += "             AND U_JSNGBN = '2'";
+                sQry += "             AND U_MSTCOD = '" + oDS_PH_PY115A.GetValue("U_MSTCOD", 0).Trim() + "'";
                 oRecordSet.DoQuery(sQry);
 
                 if (oRecordSet.RecordCount > 0)
@@ -2222,15 +2215,15 @@ namespace PSH_BOne_AddOn
         /// <returns>성공여부</returns>
         private bool Compute_PAY()
         {
-            string sQry = string.Empty;
-            string MSTCOD = string.Empty;
-            string stdYear = string.Empty;
+            string sQry;
+            string MSTCOD;
+            string stdYear;
 
-            string STRDAT = string.Empty;
-            string ENDDAT = string.Empty;
-            string INPDAT = string.Empty;
-            string OUTDAT = string.Empty;
-            string TMPDAT = string.Empty;
+            string STRDAT;
+            string ENDDAT;
+            string INPDAT;
+            string OUTDAT;
+            string TMPDAT;
 
             //VB6.FixedLengthString STRDAT = new VB6.FixedLengthString(8);
             //VB6.FixedLengthString ENDDAT = new VB6.FixedLengthString(8);
@@ -2239,45 +2232,45 @@ namespace PSH_BOne_AddOn
             //VB6.FixedLengthString TMPDAT = new VB6.FixedLengthString(8);
 
             short errNum = 0;
-            int iRow = 0;
+            int iRow;
             double AVRPAY = 0;
             double AVRBNS = 0;
             double AVRYON = 0;
             double AVRDAY = 0;
             double MONPAY = 0;
-            double ExPay2 = 0;
+            double ExPay2;
             double AvExp2 = 0;
             double TOTPAY = 0;
             double TOTBNS = 0;
-            double TOTYON = 0;
+            double TOTYON;
 
-            short WK_GNSYER = 0;
-            short WK_GNSMON = 0;
-            short WK_GNSDAY = 0;
-            short WK_TGSDAY = 0;
-            short WK_JONYER = 0;
-            short WK_JONMON = 0;
-            short WK_JMMMON = 0;
-            string WK_PAYTYP = string.Empty;
-            short WK_GNMYER = 0;
-            short WK_GNMMON = 0;
-            short WK_JM2MON = 0;
+            short WK_GNSYER;
+            short WK_GNSMON;
+            short WK_GNSDAY;
+            short WK_TGSDAY;
+            short WK_JONYER;
+            short WK_JONMON;
+            short WK_JMMMON;
+            string WK_PAYTYP;
+            short WK_GNMYER;
+            short WK_GNMMON;
+            short WK_JM2MON;
             double WK_YERTJK = 0;
             double WK_MONTJK = 0;
             double WK_DAYTJK = 0;
             double WK_TJKPAY = 0;
-            double WK_ADDRAT = 0;
-            double WK_GITAA2 = 0;
-            double WK_SUDAMT = 0;
-            int X06_YN = 0;
-            short WK_GNSDAY_M = 0;
-            string SuSilStr = string.Empty;
-            double WK_AMOUNT = 0;
+            double WK_ADDRAT;
+            double WK_GITAA2;
+            double WK_SUDAMT;
+            int X06_YN;
+            short WK_GNSDAY_M;
+            string SuSilStr;
+            double WK_AMOUNT;
 
             bool returnValue = false;
 
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회 중...", 100, false);
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
 
@@ -2365,28 +2358,28 @@ namespace PSH_BOne_AddOn
                 //TOTYON = 0;
 
                 //최근3개월간 급여계산일수
-                AVRDAY = AVRDAY + (oDS_PH_PY115A.GetValue("U_PAYDY1", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_PAYDY1", 0).Trim()));
-                AVRDAY = AVRDAY + (oDS_PH_PY115A.GetValue("U_PAYDY2", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_PAYDY2", 0).Trim()));
-                AVRDAY = AVRDAY + (oDS_PH_PY115A.GetValue("U_PAYDY3", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_PAYDY3", 0).Trim()));
-                AVRDAY = AVRDAY + (oDS_PH_PY115A.GetValue("U_PAYDY4", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_PAYDY4", 0).Trim()));
+                AVRDAY += (oDS_PH_PY115A.GetValue("U_PAYDY1", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_PAYDY1", 0).Trim()));
+                AVRDAY += (oDS_PH_PY115A.GetValue("U_PAYDY2", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_PAYDY2", 0).Trim()));
+                AVRDAY += (oDS_PH_PY115A.GetValue("U_PAYDY3", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_PAYDY3", 0).Trim()));
+                AVRDAY += (oDS_PH_PY115A.GetValue("U_PAYDY4", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_PAYDY4", 0).Trim()));
                 //최근3개월간 급여
-                TOTPAY = TOTPAY + (oDS_PH_PY115A.GetValue("U_PAYT01", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_PAYT01", 0).Trim()));
-                TOTPAY = TOTPAY + (oDS_PH_PY115A.GetValue("U_PAYT02", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_PAYT02", 0).Trim()));
-                TOTPAY = TOTPAY + (oDS_PH_PY115A.GetValue("U_PAYT03", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_PAYT03", 0).Trim()));
-                TOTPAY = TOTPAY + (oDS_PH_PY115A.GetValue("U_PAYT04", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_PAYT04", 0).Trim()));
+                TOTPAY += (oDS_PH_PY115A.GetValue("U_PAYT01", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_PAYT01", 0).Trim()));
+                TOTPAY += (oDS_PH_PY115A.GetValue("U_PAYT02", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_PAYT02", 0).Trim()));
+                TOTPAY += (oDS_PH_PY115A.GetValue("U_PAYT03", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_PAYT03", 0).Trim()));
+                TOTPAY += (oDS_PH_PY115A.GetValue("U_PAYT04", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_PAYT04", 0).Trim()));
                 //최근1년간 상여
-                TOTBNS = TOTBNS + (oDS_PH_PY115A.GetValue("U_BNST01", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BNST01", 0).Trim()));
-                TOTBNS = TOTBNS + (oDS_PH_PY115A.GetValue("U_BNST02", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BNST02", 0).Trim()));
-                TOTBNS = TOTBNS + (oDS_PH_PY115A.GetValue("U_BNST03", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BNST03", 0).Trim()));
-                TOTBNS = TOTBNS + (oDS_PH_PY115A.GetValue("U_BNST04", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BNST04", 0).Trim()));
-                TOTBNS = TOTBNS + (oDS_PH_PY115A.GetValue("U_BNST05", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BNST05", 0).Trim()));
-                TOTBNS = TOTBNS + (oDS_PH_PY115A.GetValue("U_BNST06", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BNST06", 0).Trim()));
-                TOTBNS = TOTBNS + (oDS_PH_PY115A.GetValue("U_BNST07", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BNST07", 0).Trim()));
-                TOTBNS = TOTBNS + (oDS_PH_PY115A.GetValue("U_BNST08", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BNST08", 0).Trim()));
-                TOTBNS = TOTBNS + (oDS_PH_PY115A.GetValue("U_BNST09", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BNST09", 0).Trim()));
-                TOTBNS = TOTBNS + (oDS_PH_PY115A.GetValue("U_BNST10", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BNST10", 0).Trim()));
-                TOTBNS = TOTBNS + (oDS_PH_PY115A.GetValue("U_BNST11", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BNST11", 0).Trim()));
-                TOTBNS = TOTBNS + (oDS_PH_PY115A.GetValue("U_BNST12", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BNST12", 0).Trim()));
+                TOTBNS += (oDS_PH_PY115A.GetValue("U_BNST01", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BNST01", 0).Trim()));
+                TOTBNS += (oDS_PH_PY115A.GetValue("U_BNST02", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BNST02", 0).Trim()));
+                TOTBNS += (oDS_PH_PY115A.GetValue("U_BNST03", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BNST03", 0).Trim()));
+                TOTBNS += (oDS_PH_PY115A.GetValue("U_BNST04", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BNST04", 0).Trim()));
+                TOTBNS += (oDS_PH_PY115A.GetValue("U_BNST05", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BNST05", 0).Trim()));
+                TOTBNS += (oDS_PH_PY115A.GetValue("U_BNST06", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BNST06", 0).Trim()));
+                TOTBNS += (oDS_PH_PY115A.GetValue("U_BNST07", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BNST07", 0).Trim()));
+                TOTBNS += (oDS_PH_PY115A.GetValue("U_BNST08", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BNST08", 0).Trim()));
+                TOTBNS += (oDS_PH_PY115A.GetValue("U_BNST09", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BNST09", 0).Trim()));
+                TOTBNS += (oDS_PH_PY115A.GetValue("U_BNST10", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BNST10", 0).Trim()));
+                TOTBNS += (oDS_PH_PY115A.GetValue("U_BNST11", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BNST11", 0).Trim()));
+                TOTBNS += (oDS_PH_PY115A.GetValue("U_BNST12", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_BNST12", 0).Trim()));
 
                 TOTYON = (oDS_PH_PY115A.GetValue("U_YONCSU", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_YONCSU", 0).Trim()));
 
@@ -2563,7 +2556,7 @@ namespace PSH_BOne_AddOn
                 //기타수당2=미도래연차수당등..
                 WK_GITAA2 = (oDS_PH_PY115A.GetValue("U_GITAA2", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_GITAA2", 0).Trim()));
                 WK_SUDAMT = (oDS_PH_PY115A.GetValue("U_SUDAMT", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_SUDAMT", 0).Trim()));
-                WK_TJKPAY = WK_TJKPAY + WK_GITAA2;
+                WK_TJKPAY += WK_GITAA2;
                 //기타수당1=퇴직금계산에는 제외하고 퇴직금산정서에 포함만 하는 금액임.
 
                 //***************************************************************************
@@ -2637,22 +2630,20 @@ namespace PSH_BOne_AddOn
             //VB6.FixedLengthString INPDAT = new VB6.FixedLengthString(8);
             //VB6.FixedLengthString OUTDAT = new VB6.FixedLengthString(8);
 
-            string STRDAT = string.Empty;
-            string ENDDAT = string.Empty;
-            string INPDAT = string.Empty;
-            string OUTDAT = string.Empty;
-
-            short WK_GNSYER = 0;
-            short WK_GNSMON = 0;
-            short WK_GNSDAY = 0;
-            short WK_TGSDAY = 0;
-            short WK_GN1YER = 0;
-            short WK_GN1MON = 0;
-            short WK_EXPMON = 0;
+            string STRDAT;
+            string ENDDAT;
+            string INPDAT;
+            string OUTDAT;
+            short WK_GNSYER;
+            short WK_GNSMON;
+            short WK_GNSDAY;
+            short WK_TGSDAY;
+            short WK_GN1YER;
+            short WK_GN1MON;
+            short WK_EXPMON;
             short WK_GN2YER = 0;
             short WK_GN2MON = 0;
-            short WK_EX2MON = 0;
-
+            short WK_EX2MON;
             short errNum = 0;
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -2862,11 +2853,11 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool Compute_TAX_3()
         {
-            double WK_TOTGON = 0;
-            double WK_SILJIG = 0;
-            double WK_CHAGAB = 0;
-            double WK_CHAJUM = 0;
-            double WK_RETPAY = 0;
+            double WK_TOTGON;
+            double WK_SILJIG;
+            double WK_CHAGAB;
+            double WK_CHAJUM;
+            double WK_RETPAY;
 
             bool returnValue = false;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -2883,11 +2874,11 @@ namespace PSH_BOne_AddOn
 
                 //공제총액(갑근세 + 특별세 + 주민세 + 퇴직전환 + 기타공제+ 건강보험정산 + 외국납부세액)
                 WK_TOTGON = WK_CHAGAB + WK_CHAJUM;
-                WK_TOTGON = WK_TOTGON + Convert.ToDouble(oDS_PH_PY115A.GetValue("U_GITJA1", 0).Trim()); //국민연금전환금
-                WK_TOTGON = WK_TOTGON + Convert.ToDouble(oDS_PH_PY115A.GetValue("U_MEDJSN", 0).Trim()); //건강보험정산
-                WK_TOTGON = WK_TOTGON + Convert.ToDouble(oDS_PH_PY115A.GetValue("U_JSNGAB", 0).Trim()); //중도정산소득세
-                WK_TOTGON = WK_TOTGON + Convert.ToDouble(oDS_PH_PY115A.GetValue("U_JSNJUM", 0).Trim()); //중도정산주민세
-                WK_TOTGON = WK_TOTGON + Convert.ToDouble(oDS_PH_PY115A.GetValue("U_GITJA2", 0).Trim()); //기타공제
+                WK_TOTGON += Convert.ToDouble(oDS_PH_PY115A.GetValue("U_GITJA1", 0).Trim()); //국민연금전환금
+                WK_TOTGON += Convert.ToDouble(oDS_PH_PY115A.GetValue("U_MEDJSN", 0).Trim()); //건강보험정산
+                WK_TOTGON += Convert.ToDouble(oDS_PH_PY115A.GetValue("U_JSNGAB", 0).Trim()); //중도정산소득세
+                WK_TOTGON += Convert.ToDouble(oDS_PH_PY115A.GetValue("U_JSNJUM", 0).Trim()); //중도정산주민세
+                WK_TOTGON += Convert.ToDouble(oDS_PH_PY115A.GetValue("U_GITJA2", 0).Trim()); //기타공제
 
                 //실지급액(퇴직급여액 - 공제총액)
                 WK_SILJIG = dataHelpClass.IInt(WK_RETPAY + Convert.ToDouble(oDS_PH_PY115A.GetValue("U_GITAA1", 0)) - WK_TOTGON, 1);
@@ -2904,7 +2895,6 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                returnValue = false;
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
@@ -2919,22 +2909,22 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void Compute_APPRAT()
         {
-            string sQry = string.Empty;
+            string sQry;
 
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
-                sQry = "        SELECT      ISNULL(T0.U_ADDRAT,1)";
-                sQry = sQry + " FROM        [@PH_PY114C] T0";
-                sQry = sQry + "             INNER JOIN";
-                sQry = sQry + "             [OHPS] T1";
-                sQry = sQry + "                 ON T0.U_MSTSTP = T1.posID";
-                sQry = sQry + "             INNER JOIN";
-                sQry = sQry + "             [@PH_PY001A] T2";
-                sQry = sQry + "                 ON T2.U_Position = T1.POSID";
-                sQry = sQry + " WHERE       T0.Code = '" + oCode + "'";
-                sQry = sQry + "             AND T2.Code = '" + oDS_PH_PY115A.GetValue("U_MSTCOD", 0).Trim() + "'";
+                sQry = "  SELECT      ISNULL(T0.U_ADDRAT,1)";
+                sQry += " FROM        [@PH_PY114C] T0";
+                sQry += "             INNER JOIN";
+                sQry += "             [OHPS] T1";
+                sQry += "                 ON T0.U_MSTSTP = T1.posID";
+                sQry += "             INNER JOIN";
+                sQry += "             [@PH_PY001A] T2";
+                sQry += "                 ON T2.U_Position = T1.POSID";
+                sQry += " WHERE       T0.Code = '" + oCode + "'";
+                sQry += "             AND T2.Code = '" + oDS_PH_PY115A.GetValue("U_MSTCOD", 0).Trim() + "'";
                 oRecordSet.DoQuery(sQry);
 
                 if (oRecordSet.RecordCount > 0)
@@ -2963,26 +2953,23 @@ namespace PSH_BOne_AddOn
         /// <param name="oUID"></param>
         /// <param name="oRow"></param>
         private void FlushToItemValue(string oUID, int oRow)
-
         {
-            ZPAY_g_EmpID oMast = new ZPAY_g_EmpID();
-            //SAPbouiCOM.ComboBox oCombo;
-            string STRDAT = string.Empty;
-            string ENDDAT = string.Empty;
+            
+            string STRDAT;
+            string ENDDAT;
+            short WK_JONYER;
+            short WK_JONMON;
+            short WK_GNMDAY;
+            short WK_DUPMON;
+            double JRET01;
+            double JYIL03;
+            double JTOT01;
+            double JADD01;
+            double JYIL04;
+            double JTOT02;
 
-            short WK_JONYER = 0;
-            short WK_JONMON = 0;
-            short WK_GNMDAY = 0;
-            short WK_DUPMON = 0;
+            ZPAY_g_EmpID oMast; //= new ZPAY_g_EmpID();
 
-            double JRET01 = 0;
-            double JYIL03 = 0;
-            double JTOT01 = 0;
-            double JADD01 = 0;
-            double JYIL04 = 0;
-            double JTOT02 = 0;
-
-            //oCombo = oForm.Items.Item("JSNGBN").Specific;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
 
@@ -3792,10 +3779,8 @@ namespace PSH_BOne_AddOn
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
-            int i = 0;
-            int j = 0;
-            string temp = string.Empty;
-            Double test = 0;
+            int i;
+            int j;
             int[] PAYTOT = new int[4];
 
             try
@@ -3815,11 +3800,7 @@ namespace PSH_BOne_AddOn
                         {
                             FlushToItemValue(pVal.ItemUID, 0);
                         }
-                        //else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE && (pVal.ItemUID == "ENDRET"))
-                        //{
-                        //    FlushToItemValue(pVal.ItemUID, 0);
-                        //}
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE && (pVal.ItemUID == "GNSYER" || pVal.ItemUID == "GNSMON" || pVal.ItemUID == "GNSDAY" || pVal.ItemUID == "ENDRET"))
+                           else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE && (pVal.ItemUID == "GNSYER" || pVal.ItemUID == "GNSMON" || pVal.ItemUID == "GNSDAY" || pVal.ItemUID == "ENDRET"))
                         {
                             FlushToItemValue(pVal.ItemUID, 0);
                         }
@@ -4011,10 +3992,11 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
-            string Code = string.Empty;
-            string sQry = string.Empty;
+            string Code;
+            string sQry;
+
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            ZPAY_g_EmpID oMast = new ZPAY_g_EmpID();
+            ZPAY_g_EmpID oMast; //= new ZPAY_g_EmpID();
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try

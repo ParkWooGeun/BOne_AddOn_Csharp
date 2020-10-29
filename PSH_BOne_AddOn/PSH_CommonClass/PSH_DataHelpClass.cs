@@ -21,11 +21,10 @@ namespace PSH_BOne_AddOn.Data
         /// <returns>pReColumn 필드의 내용</returns>
         public string Get_ReData(string pReColumn, string pColumn, string pTable, string pTaValue, string pAndLine)
         {
-            SAPbobsCOM.Recordset oRecordSet = null;
-            oRecordSet = (SAPbobsCOM.Recordset)PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             string functionReturnValue = string.Empty;
-            string sQry = string.Empty;
+            string sQry;
 
             sQry = "  SELECT " + pReColumn + " ";
             sQry += " FROM " + pTable;
@@ -40,7 +39,7 @@ namespace PSH_BOne_AddOn.Data
 
                 oRecordSet.DoQuery(sQry);
                 
-                while (!(oRecordSet.EoF))
+                while (!oRecordSet.EoF)
                 {
                     functionReturnValue = oRecordSet.Fields.Item(0).Value.ToString();
                     oRecordSet.MoveNext();
@@ -72,28 +71,21 @@ namespace PSH_BOne_AddOn.Data
         /// <param name="PSH_pFieldValue">체크박스 초기값</param>
         public void PSH_CF_DBDatasourceReturn(SAPbouiCOM.ItemEvent pVal, string PSH_pFormUID, string PSH_pTableName, string PSH_sUDS, string PSH_pMatrix, short PSH_pRow, string PSH_pSeqNoUDS, string PSH_pFieldName, string PSH_pFieldValue)
         {
-            SAPbouiCOM.IChooseFromListEvent PSH_oCFLEvento = null;
-
-            SAPbouiCOM.ChooseFromList PSH_oCFL = null;
-            SAPbouiCOM.DataTable PSH_oDataTable = null;
-
-            SAPbouiCOM.Form PSH_pForm = null;
+            SAPbouiCOM.IChooseFromListEvent PSH_oCFLEvento;
+            SAPbouiCOM.ChooseFromList PSH_oCFL;
+            SAPbouiCOM.DataTable PSH_oDataTable;
+            SAPbouiCOM.Form PSH_pForm;
             SAPbouiCOM.Matrix PSH_oMatrix = null;
-            SAPbouiCOM.DBDataSource PSH_oDBTable = null;
+            SAPbouiCOM.DBDataSource PSH_oDBTable;
 
-            short PSH_iLooper = 0;
-            short PSH_jLooper = 0;
-            string PSH_sCFLID = string.Empty;
+            short PSH_iLooper;
+            short PSH_jLooper;
+            string PSH_sCFLID;
             string[] PSH_sTemp01;
-            //object PSH_sTemp02 = null;
-
-
+            
             PSH_pForm = PSH_Globals.SBO_Application.Forms.Item(PSH_pFormUID);
-
             PSH_oCFLEvento = (SAPbouiCOM.IChooseFromListEvent)pVal;
-
             PSH_oDataTable = PSH_oCFLEvento.SelectedObjects;
-
             PSH_sCFLID = PSH_oCFLEvento.ChooseFromListUID;
             // 취소버튼 클릭시
             if (PSH_oDataTable == null)
@@ -102,7 +94,6 @@ namespace PSH_BOne_AddOn.Data
             }
 
             PSH_oCFL = PSH_pForm.ChooseFromLists.Item(PSH_sCFLID);
-
             PSH_oDBTable = PSH_pForm.DataSources.DBDataSources.Item(PSH_pTableName);
 
             if (!string.IsNullOrEmpty(PSH_pMatrix))
@@ -116,7 +107,6 @@ namespace PSH_BOne_AddOn.Data
             {
                 for (PSH_jLooper = 0; PSH_jLooper <= PSH_oDataTable.Rows.Count - 1; PSH_jLooper++)
                 {
-
                     if (PSH_jLooper > 0)
                     {
                         if (!string.IsNullOrEmpty(PSH_pSeqNoUDS))
@@ -168,7 +158,6 @@ namespace PSH_BOne_AddOn.Data
                     {
                         PSH_oDBTable.SetValue(PSH_pFieldName, PSH_pRow + PSH_jLooper - 1, PSH_pFieldValue);
                     }
-                        
 
                     PSH_oMatrix.LoadFromDataSource();
                 }
@@ -201,9 +190,9 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public bool ChkYearMonth(string YearMon)
         {
-            bool functionReturnValue = false;
-            string oYear = string.Empty;
-            string oMonth = string.Empty;
+            bool functionReturnValue;
+            string oYear;
+            string oMonth;
 
             if (YearMon.Length < 6)
             {
@@ -239,10 +228,8 @@ namespace PSH_BOne_AddOn.Data
         /// <param name="pAddSpace">빈 값 추가 여부</param>
         public void SetReDataCombo(SAPbouiCOM.Form pForm, string pSQL, SAPbouiCOM.ComboBox pCombo, string pAddSpace)
         {
-            int loopCount = 0;
-            SAPbobsCOM.Recordset oRecordSet = null;
-
-            oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            int loopCount;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -323,7 +310,7 @@ namespace PSH_BOne_AddOn.Data
         /// <param name="sItem">컨트롤명</param>
         public void AutoManaged(SAPbouiCOM.Form oForm, string sItem)
         {
-            int loopCount = 0;
+            int loopCount;
             string[] ItemString = sItem.Split(',');
 
             oForm.AutoManaged = true;
@@ -355,11 +342,11 @@ namespace PSH_BOne_AddOn.Data
         public bool Value_ChkYn(string Tablename, string ColumnName, string Key_Str, string And_Line)
         {
             bool functionReturnValue = false;
-            
-            SAPbobsCOM.Recordset s_Recordset = null;
-            string sSQL = string.Empty;
-            int Count_Chk = 0;
+            string sSQL;
+            int Count_Chk;
 
+            SAPbobsCOM.Recordset s_Recordset = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            
             try
             {
                 if (!string.IsNullOrEmpty(Key_Str))
@@ -367,10 +354,8 @@ namespace PSH_BOne_AddOn.Data
                     sSQL = "SELECT count(*) FROM " + Tablename + " Where " + ColumnName + "=" + Convert.ToString(Key_Str);
                     if (!string.IsNullOrEmpty(And_Line))
                     {
-                        sSQL = sSQL + And_Line;
+                        sSQL += And_Line;
                     }
-
-                    s_Recordset = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
                     s_Recordset.DoQuery(sSQL);
 
                     //데이터의 존재유무 확인
@@ -418,7 +403,7 @@ namespace PSH_BOne_AddOn.Data
             ZPAY_g_EmpID F_EmpID = new ZPAY_g_EmpID();
 
             //SAPbobsCOM.Recordset Rs = new SAPbobsCOM.Recordset();
-            string Sql = string.Empty;
+            string Sql;
 
             SAPbobsCOM.Recordset Rs = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -552,7 +537,7 @@ namespace PSH_BOne_AddOn.Data
         public bool Get_PayLockInfo(string sJOBYMM, string sJOBTYP, string sJOBGBN, string sPAYSEL)
         {
             bool functionReturnValue = false;
-            string sQry = string.Empty;
+            string sQry;
 
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -611,13 +596,13 @@ namespace PSH_BOne_AddOn.Data
         public bool TaxNoCheck(string strNo)
         {
             const byte COMPNO_LEN = 10; //사업자번호의 길이
-            bool blnRet = false; //결과값
+            bool blnRet; //결과값
             byte[] aryNo = new byte[COMPNO_LEN + 1]; //문자열 배열
             int bytCntNo; //루프변수
-            short intMod = 0; //나머지숫자
-            short intInt = 0; //소수점이하 절사값
-            short intSub = 0; //계산결과 
-            string BUSNBR = string.Empty; //사업자번호
+            short intMod; //나머지숫자
+            short intInt; //소수점이하 절사값
+            short intSub; //계산결과 
+            string BUSNBR; //사업자번호
 
             BUSNBR = strNo.Replace("-", "");
             
@@ -664,7 +649,7 @@ namespace PSH_BOne_AddOn.Data
             int functionReturnValue = 0;
             double Rub = 0;
             double Cub = 0;
-            short Pnt = 0;
+            short Pnt;
 
             if (Dub == 0)
             {
@@ -721,15 +706,8 @@ namespace PSH_BOne_AddOn.Data
         /// <param name="ENDDAT"></param>
         public void Term2(string STRDAT, string ENDDAT)
         {
-            //string CHKDAY = string.Empty;
-            //string CHKDAY1 = string.Empty;
-            //string ENDDAT1 = string.Empty;
-
             DateTime CHKDAY = new DateTime();
-            DateTime CHKDAY1 = new DateTime();
-            DateTime ENDDAT1 = new DateTime();
-
-            short TempCnt = 0;
+            short TempCnt;
 
             PSH_Globals.ZPAY_GBL_GNSYER = 0;
             PSH_Globals.ZPAY_GBL_GNMYER = 0;
@@ -738,8 +716,8 @@ namespace PSH_BOne_AddOn.Data
             PSH_Globals.ZPAY_GBL_GNSDAY = 0;
             PSH_Globals.ZPAY_GBL_GNMDAY = 0;
             
-            ENDDAT1 = DateTime.ParseExact(ENDDAT, "yyyyMMdd", null).AddDays(1); //1일 추가
-            CHKDAY1 = DateTime.ParseExact(STRDAT, "yyyyMMdd", null);
+            DateTime ENDDAT1 = DateTime.ParseExact(ENDDAT, "yyyyMMdd", null).AddDays(1); //1일 추가
+            DateTime CHKDAY1 = DateTime.ParseExact(STRDAT, "yyyyMMdd", null);
 
             //근속년수 체크
             TempCnt = 0;
@@ -773,12 +751,9 @@ namespace PSH_BOne_AddOn.Data
             }
             PSH_Globals.ZPAY_GBL_GNSDAY = (short)(TempCnt - 1);
             CHKDAY = CHKDAY1.AddDays(PSH_Globals.ZPAY_GBL_GNSDAY);
-
-            // 근속연수
-            PSH_Globals.ZPAY_GBL_GNMYER = PSH_Globals.ZPAY_GBL_GNSYER;
-            // 근속월수
-            PSH_Globals.ZPAY_GBL_GNMMON = (short)(PSH_Globals.ZPAY_GBL_GNSYER * 12 + PSH_Globals.ZPAY_GBL_GNSMON);
-
+            
+            PSH_Globals.ZPAY_GBL_GNMYER = PSH_Globals.ZPAY_GBL_GNSYER; //근속연수
+            PSH_Globals.ZPAY_GBL_GNMMON = (short)(PSH_Globals.ZPAY_GBL_GNSYER * 12 + PSH_Globals.ZPAY_GBL_GNSMON); //근속월수
         }
 
         /// <summary>
@@ -789,10 +764,10 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public double IInt(double Dub, double Pnt)
         {
-            string SDub = string.Empty;
+            string SDub;
             string[] arrSDub;
-            double TDub = 0;
-            double Tub = 0;
+            double TDub;
+            double Tub;
 
             Tub = (Dub >= 0 ? (Dub / Pnt) : (Dub / Pnt * -1)); //13자리 이상의 숫자일 경우 Pnt를 2를 줘서 숫자를 반으로 줄임(VB6.0에서 13자리 이상의 수를 소수점 절사하기위한 알고리즘으로 판단됨)-SongMG
             SDub = Tub.ToString("0000000000000.000000");
@@ -820,14 +795,10 @@ namespace PSH_BOne_AddOn.Data
         public object Get_GabGunSe_Table(ref double GABGUN, ref double JUMINN, double oINCOME, short oInWON, short oChlWON, string JOBYMM, double oKUKAMT, string PAY_001)
         {
             object functionReturnValue = null;
-            string sQry = string.Empty;
+            string sQry;
 
-            double WK_INCOME = 0;
+            double WK_INCOME;
             double WK_GULTAX = 0;
-
-            // Initial
-            WK_INCOME = 0;
-            WK_GULTAX = 0;
 
             SAPbobsCOM.Recordset Rs = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -949,24 +920,15 @@ namespace PSH_BOne_AddOn.Data
         public object Get_GabGunSe(ref double GABGUN, ref double JUMINN, double oINCOME, short oInWON, short oChlWON, string JOBYMM, double oKUKAMT, string PAY_001)
         {
             object functionReturnValue = null;
-            string sQry = string.Empty;
+            string sQry;
 
-            double WS_INCOME = 0;
-            double WK_INCOME = 0;
-            double WK_GNLOSD = 0;
-            double WK_SANTAX = 0;
-            double WK_TAXGON = 0;
-            double WK_KUKAMT = 0;
-            double WK_GULTAX = 0;
-
-            // Initial
-            WK_INCOME = 0;
-            WK_GNLOSD = 0;
-            WK_SANTAX = 0;
-            WK_TAXGON = 0;
-            WK_KUKAMT = 0;
-            WS_INCOME = 0;
-            WK_GULTAX = 0;
+            double WS_INCOME;
+            double WK_INCOME;
+            double WK_GNLOSD;
+            double WK_SANTAX;
+            double WK_TAXGON;
+            double WK_KUKAMT;
+            double WK_GULTAX;
 
             SAPbobsCOM.Recordset Rs = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -983,7 +945,7 @@ namespace PSH_BOne_AddOn.Data
                 }
 
                 //  간이세액조견표 구간 평균값을 사용할 경우
-                if (PAY_001 == "2" | PAY_001 == "3")
+                if (PAY_001 == "2" || PAY_001 == "3")
                 {
                     sQry = "  SELECT TOP 1 ISNULL(T0.U_CODAVR,0) AS U_CODAVR FROM [@ZPY301L] T0 WHERE   T0.CODE <= '" + JOBYMM + "'";
                     sQry += " AND     T0.U_CODFRS <= " + oINCOME + " AND     T0.U_CODTOM >  " + oINCOME + "";
@@ -1032,7 +994,7 @@ namespace PSH_BOne_AddOn.Data
                 //        End Select
                 //   End If
 
-                WK_INCOME = WK_INCOME * 12;
+                WK_INCOME *= 12;
                 // 근로소득공제(2007.01시행)
                 if (Convert.ToInt16(JOBYMM.Substring(0, 4)) <= 2008)
                 {
@@ -1097,20 +1059,20 @@ namespace PSH_BOne_AddOn.Data
                 }
 
                 // 근로소득금액 ( 근로소득-근로소득공제 ) /
-                WK_INCOME = WK_INCOME - WK_GNLOSD;
+                WK_INCOME -= WK_GNLOSD;
                 // 기본공제 /~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/
                 if (Convert.ToInt32(JOBYMM) <= 200812)
                 {
                     //  인적공제 1인당 100만원
                     //  WK_INCOME = WK_INCOME - 1000000                   '/ 1.본        인 /
-                    WK_INCOME = WK_INCOME - (1000000 * oInWON);
+                    WK_INCOME -= (1000000 * oInWON);
                     // 2.부양가족공제 /
                 }
                 else
                 {
                     //  인적공제 1인당 150만원
                     //  WK_INCOME = WK_INCOME - 1500000                   '/ 1.본        인 /
-                    WK_INCOME = WK_INCOME - (1500000 * oInWON);
+                    WK_INCOME -= (1500000 * oInWON);
                     // 2.부양가족공제 /
                 }
 
@@ -1129,15 +1091,15 @@ namespace PSH_BOne_AddOn.Data
                 {
                     if (oChlWON <= 2)
                     {
-                        WK_INCOME = WK_INCOME - 500000;
+                        WK_INCOME -= 500000;
                     }
                     else
                     {
-                        WK_INCOME = WK_INCOME - 500000;
+                        WK_INCOME -= 500000;
                         // 2009.05월분 이전에 다자녀 공제 2인이상 추가인원수 공제했던거는 그대로
                         if (PAY_001 == "1" || PAY_001 == "2")
                         {
-                            WK_INCOME = WK_INCOME - (1000000 * (oChlWON - 2));
+                            WK_INCOME -= (1000000 * (oChlWON - 2));
                         }
                     }
                 }
@@ -1151,25 +1113,25 @@ namespace PSH_BOne_AddOn.Data
                 {
                     if (oInWON <= 2)
                     {
-                        WK_INCOME = WK_INCOME - (1000000 + (WS_INCOME * 12 * 2.5 / 100));
+                        WK_INCOME -= (1000000 + (WS_INCOME * 12 * 2.5 / 100));
                     }
                     else
                     {
-                        WK_INCOME = WK_INCOME - (2400000 + (WS_INCOME * 12 * 5 / 100));
+                        WK_INCOME -= (2400000 + (WS_INCOME * 12 * 5 / 100));
                     }
                 }
                 else
                 {
                     if (oInWON <= 2)
                     {
-                        WK_INCOME = WK_INCOME - (1100000 + (WS_INCOME * 12 * 2.5 / 100));
+                        WK_INCOME -= (1100000 + (WS_INCOME * 12 * 2.5 / 100));
                     }
                     else
                     {
-                        WK_INCOME = WK_INCOME - (2500000 + (WS_INCOME * 12 * 5 / 100));
+                        WK_INCOME -= (2500000 + (WS_INCOME * 12 * 5 / 100));
                         if ((WS_INCOME * 12) > 40000000)
                         {
-                            WK_INCOME = WK_INCOME - ((WS_INCOME * 12 - 40000000) * 5 / 100);
+                            WK_INCOME -= ((WS_INCOME * 12 - 40000000) * 5 / 100);
                         }
                     }
                 }
@@ -1213,7 +1175,7 @@ namespace PSH_BOne_AddOn.Data
 
                         WK_KUKAMT = IInt(WK_KUKAMT * 12 * Rs.Fields.Item("U_EMPRAT").Value / 100, 1);
 
-                        WK_INCOME = WK_INCOME - WK_KUKAMT;
+                        WK_INCOME -= WK_KUKAMT;
                     }
                 }
                 // 과세표준 ( 근로소득금액 - 인적공제 - 특별공제 - 기타소득공제 ) /
@@ -1379,11 +1341,8 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public int TermDay(string StrDate, string EndDate)
         {
-            DateTime STRDAT = new DateTime();
-            DateTime ENDDAT = new DateTime();
-
-            STRDAT = DateTime.ParseExact(StrDate, "yyyyMMdd", null);
-            ENDDAT = DateTime.ParseExact(EndDate, "yyyyMMdd", null);
+            DateTime STRDAT = DateTime.ParseExact(StrDate, "yyyyMMdd", null);
+            DateTime ENDDAT = DateTime.ParseExact(EndDate, "yyyyMMdd", null);
 
             //일자 Format의 유효성확인이 필요할까? 주석처리(2019.05.10 송명규)
             //if (Information.IsDate(Microsoft.VisualBasic.Compatibility.VB6.Support.Format(StrDate, "0000-00-00")) == false || Information.IsDate(Microsoft.VisualBasic.Compatibility.VB6.Support.Format(EndDate, "0000-00-00")) == false)
@@ -1458,29 +1417,31 @@ namespace PSH_BOne_AddOn.Data
             return functionReturnValue;
         }
 
-        /// <summary>
-        /// 한글을 2Byte로 변환
-        /// 사용금지
-        /// </summary>
-        /// <param name="GetStr"></param>
-        /// <returns></returns>
-        public string sStr(string GetStr)
-        {
-            string returnValue = string.Empty;
-            //임시주석_S
-            //returnValue = Microsoft.VisualBasic.Strings.Left(Microsoft.VisualBasic.Strings.StrConv(GetStr, vbFromUnicode), Microsoft.VisualBasic.Strings.Len(GetStr));
-            //returnValue = Microsoft.VisualBasic.Strings.Left(Microsoft.VisualBasic.Strings.StrConv(returnValue, vbUnicode), Microsoft.VisualBasic.Strings.Len(GetStr));
-            //임시주석_E
+        #region sStr 메소드(한글을 2Byte로 변환) 미사용
+        ///// <summary>
+        ///// 한글을 2Byte로 변환
+        ///// 사용금지
+        ///// </summary>
+        ///// <param name="GetStr"></param>
+        ///// <returns></returns>
+        //public string sStr(string GetStr)
+        //{
+        //    string returnValue = string.Empty;
+        //    //임시주석_S
+        //    //returnValue = Microsoft.VisualBasic.Strings.Left(Microsoft.VisualBasic.Strings.StrConv(GetStr, vbFromUnicode), Microsoft.VisualBasic.Strings.Len(GetStr));
+        //    //returnValue = Microsoft.VisualBasic.Strings.Left(Microsoft.VisualBasic.Strings.StrConv(returnValue, vbUnicode), Microsoft.VisualBasic.Strings.Len(GetStr));
+        //    //임시주석_E
 
-            if (Microsoft.VisualBasic.Strings.Asc(Microsoft.VisualBasic.Strings.Right(returnValue, 1)) == 0)
-            {
-                //임시주석_S
-                //Microsoft.VisualBasic.Strings.Mid(returnValue, Microsoft.VisualBasic.Strings.Len(returnValue), 1) = Microsoft.VisualBasic.Strings.Space(1);
-                //임시주석_E
-            }
+        //    if (Microsoft.VisualBasic.Strings.Asc(Microsoft.VisualBasic.Strings.Right(returnValue, 1)) == 0)
+        //    {
+        //        //임시주석_S
+        //        //Microsoft.VisualBasic.Strings.Mid(returnValue, Microsoft.VisualBasic.Strings.Len(returnValue), 1) = Microsoft.VisualBasic.Strings.Space(1);
+        //        //임시주석_E
+        //    }
 
-            return returnValue;
-        }
+        //    return returnValue;
+        //}
+        #endregion
 
         /// <summary>
         /// 에드온 폼을 운영관리에서 적용한 기본 색으로 바탕색변경
@@ -1488,7 +1449,7 @@ namespace PSH_BOne_AddOn.Data
         /// </summary>
         public void Get_FormColor()
         {
-            string sQry = string.Empty;
+            string sQry;
             string StringColor = string.Empty;
 
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -1498,7 +1459,7 @@ namespace PSH_BOne_AddOn.Data
                 sQry = "Select Color from OADM";
                 oRecordSet.DoQuery(sQry);
 
-                while (!(oRecordSet.EoF))
+                while (!oRecordSet.EoF)
                 {
                     StringColor = oRecordSet.Fields.Item(0).Value.ToString().Trim();
                     oRecordSet.MoveNext();
@@ -1560,9 +1521,9 @@ namespace PSH_BOne_AddOn.Data
         public string Get_UserName(string oUserSign)
         {
             string functionReturnValue = string.Empty;
-            string sQry = string.Empty;
+            string sQry;
 
-            SAPbobsCOM.Recordset oRecordSet = null;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -1570,8 +1531,6 @@ namespace PSH_BOne_AddOn.Data
                 {
                     sQry = "  SELECT U_NAME FROM OUSR";
                     sQry += " WHERE USERID = '" + oUserSign + "'";
-
-                    oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
                     oRecordSet.DoQuery(sQry);
                     while (!oRecordSet.EoF)
                     {
@@ -1641,12 +1600,10 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public bool TableFieldCheck(string sTable, string sField1, string sField2)
         {
-            bool functionReturnValue = false;
-            string sQry = string.Empty;
+            bool functionReturnValue;
+            string sQry;
 
-            SAPbobsCOM.Recordset oRecordSet = null;
-
-            oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             functionReturnValue = false;
 
@@ -1688,7 +1645,7 @@ namespace PSH_BOne_AddOn.Data
         /// <param name="DocType">마스터 : Code, 문서 : DocEntry</param>
         public void AuthorityCheck(SAPbouiCOM.Form oForm, string Item, string Table, string DocType)
         {
-            string sQry = string.Empty;
+            string sQry;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -1731,14 +1688,11 @@ namespace PSH_BOne_AddOn.Data
         /// <param name="AuthorityUse">true:권한에 따른사업장표시, false:전체사업장표시)</param>
         public void CLTCOD_Select(SAPbouiCOM.Form oForm, string Item, bool AuthorityUse)
         {
-            int i = 0;
-            string sQry = string.Empty;
+            int i;
+            string sQry;
 
-            SAPbobsCOM.Recordset oRecordSet = null;
-            SAPbouiCOM.ComboBox oCombo = null;
-
-            oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            oCombo = oForm.Items.Item(Item).Specific;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbouiCOM.ComboBox oCombo = oForm.Items.Item(Item).Specific;
 
             try
             {
@@ -1760,10 +1714,9 @@ namespace PSH_BOne_AddOn.Data
 
                     oRecordSet.DoQuery(sQry);
 
-
                     if (oRecordSet.RecordCount > 0)
                     {
-                        while (!(oRecordSet.EoF))
+                        while (!oRecordSet.EoF)
                         {
                             oCombo.ValidValues.Add(oRecordSet.Fields.Item(0).Value, oRecordSet.Fields.Item(1).Value);
                             oRecordSet.MoveNext();
@@ -1783,7 +1736,7 @@ namespace PSH_BOne_AddOn.Data
 
                     if (oRecordSet.RecordCount > 0)
                     {
-                        while (!(oRecordSet.EoF))
+                        while (!oRecordSet.EoF)
                         {
                             oCombo.ValidValues.Add(oRecordSet.Fields.Item(0).Value, oRecordSet.Fields.Item(1).Value);
                             oRecordSet.MoveNext();
@@ -1932,9 +1885,7 @@ namespace PSH_BOne_AddOn.Data
         public void Set_ComboList(ComboBox Lst, string sSQL, string TValue, bool Reset_Renamed, bool SetF)
         {
             SAPbouiCOM.ComboBox ComBox = null;
-            SAPbobsCOM.Recordset s_Recordset = null;
-
-            s_Recordset = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset s_Recordset = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -1984,10 +1935,9 @@ namespace PSH_BOne_AddOn.Data
         public string User_BPLID()
         {
             string functionReturnValue = string.Empty;
-            string sQry = string.Empty;
+            string sQry;
 
-            SAPbobsCOM.Recordset ooRecordset01 = null;
-            ooRecordset01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset ooRecordset01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -2015,18 +1965,16 @@ namespace PSH_BOne_AddOn.Data
         public string User_MSTCOD()
         {
             string functionReturnValue = null;
-            string sQry = null;
+            string sQry;
 
-            SAPbobsCOM.Recordset ooRecordset01 = null;
+            SAPbobsCOM.Recordset oRecordset01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
-                ooRecordset01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
                 sQry = "Select U_MSTCOD From [OHEM] a Inner Join [OUSR] b On a.userId = b.USERID Where b.USER_CODE = '" + PSH_Globals.oCompany.UserName + "'";
-                ooRecordset01.DoQuery(sQry);
+                oRecordset01.DoQuery(sQry);
 
-                functionReturnValue = ooRecordset01.Fields.Item(0).Value.ToString().Trim();
+                functionReturnValue = oRecordset01.Fields.Item(0).Value.ToString().Trim();
             }
             catch(Exception ex)
             {
@@ -2034,7 +1982,7 @@ namespace PSH_BOne_AddOn.Data
             }
             finally
             {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ooRecordset01);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordset01);
             }
 
             return functionReturnValue;
@@ -2048,16 +1996,14 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public bool GovIDCheck(string sID)
         {
-            bool functionReturnValue = false;
-            
-            string Weight = string.Empty;
-
-            int Total = 0;
-            int chk = 0;
-            int Rmn = 0;
-            int i = 0;
-            int Dt = 0;
-            int Wt = 0;
+            bool functionReturnValue;
+            string Weight;
+            int Total;
+            int chk;
+            int Rmn;
+            int i;
+            int Dt;
+            int Wt;
 
             functionReturnValue = false;
 
@@ -2077,7 +2023,7 @@ namespace PSH_BOne_AddOn.Data
                 return functionReturnValue;
             }
 
-            //// 성별구분코드(1,2,3,4:내국인, 5,6,7,8:외국인)
+            //성별구분코드(1,2,3,4:내국인, 5,6,7,8:외국인)
             if (Convert.ToInt16(sID.Substring(6, 1)) < 1 || Convert.ToInt16(sID.Substring(6, 1)) > 8)
             {
                 return functionReturnValue;
@@ -2109,14 +2055,14 @@ namespace PSH_BOne_AddOn.Data
                 Dt = Convert.ToInt16(sID.Substring(i, 1));
                 Wt = Convert.ToInt16(Weight.Substring(i, 1));
 
-                Total = Total + (Dt * Wt);
+                Total += (Dt * Wt);
             }
 
             Rmn = 11 - (Total % 11);
 
             if (Rmn > 9)
             {
-                Rmn = Rmn % 10;
+                Rmn %= 10;
             }
 
             switch (sID.Substring(6, 1))
@@ -2126,10 +2072,10 @@ namespace PSH_BOne_AddOn.Data
                 case "7":
                 case "8":
                     // 외국인
-                    Rmn = Rmn + 2;
+                    Rmn += 2;
                     if (Rmn >= 10)
                     {
-                        Rmn = Rmn - 10;
+                        Rmn -= 10;
                     }
                         
                     break;
@@ -2149,8 +2095,7 @@ namespace PSH_BOne_AddOn.Data
         public string GetValue(string sQry, int FieldCount, int RecordCount)
         {
             string functionReturnValue = string.Empty;
-
-            int i = 0;
+            int i;
 
             SAPbobsCOM.Recordset oRecordset = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -2736,10 +2681,9 @@ namespace PSH_BOne_AddOn.Data
         public string GetItem_Spec2(string ItemCode)
         {
             string functionReturnValue = null;
-            string Query01 = null;
+            string Query01;
 
-            SAPbobsCOM.Recordset oRecordset01 = null;
-            oRecordset01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset oRecordset01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -3016,10 +2960,10 @@ namespace PSH_BOne_AddOn.Data
             {
                 for (i = 1; i <= ItemName.Length; i++)
                 {
-                    tempItemName = tempItemName + codeHelpClass.Mid(ItemName, i, 1);
+                    tempItemName += codeHelpClass.Mid(ItemName, i, 1);
                     if (codeHelpClass.Mid(ItemName, i, 1) == "'")
                     {
-                        tempItemName = tempItemName + "'";
+                        tempItemName += "'";
                     }
                 }
 
@@ -3450,14 +3394,12 @@ namespace PSH_BOne_AddOn.Data
         /// <param name="DueDate"></param>
         /// <param name="ItemType"></param>
         /// <param name="RequestNo"></param>
-        /// <param name="i"></param>
-        /// <param name="LastRow"></param>
         /// <returns></returns>
-        public string RFC_Sender(string BPLId, string ItemCode, string ItemName, string Size, double Qty, string Unit, string RequestDate, string DueDate, string ItemType, string RequestNo, int i, int LastRow)
+        public string RFC_Sender(string BPLId, string ItemCode, string ItemName, string Size, double Qty, string Unit, string RequestDate, string DueDate, string ItemType, string RequestNo)
         {
             string returnValue = string.Empty;
-            string tempReturnValue = string.Empty;
-            string WERKS = string.Empty;
+            string tempReturnValue;
+            string WERKS;
             string errCode = string.Empty;
             string errMessage = string.Empty;
 
@@ -3739,17 +3681,17 @@ namespace PSH_BOne_AddOn.Data
         public bool Check_Finish_Status(string prmBPLId, string prmDocDate, object prmFormTypeEx)
         {
             bool returnValue = false;
-            string sQry = null;
-            string CheckFinishStatus = null;
+            string sQry;
+            string CheckFinishStatus;
 
             SAPbobsCOM.Recordset oRecordset01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
-                sQry = "      EXEC PS_Z_CheckFinishStatus '";
-                sQry = sQry + prmBPLId + "','";
-                sQry = sQry + prmDocDate + "','";
-                sQry = sQry + prmFormTypeEx + "'";
+                sQry = " EXEC PS_Z_CheckFinishStatus '";
+                sQry += prmBPLId + "','";
+                sQry += prmDocDate + "','";
+                sQry += prmFormTypeEx + "'";
 
                 oRecordset01.DoQuery(sQry);
 

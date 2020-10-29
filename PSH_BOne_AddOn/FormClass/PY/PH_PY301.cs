@@ -897,7 +897,7 @@ namespace PSH_BOne_AddOn
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
-                    ///Raise_EVENT_GOT_FOCUS(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_GOT_FOCUS(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 //case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
@@ -905,7 +905,7 @@ namespace PSH_BOne_AddOn
                 //    break;
 
                 case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
-                    ///Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_CLICK: //6
@@ -929,7 +929,7 @@ namespace PSH_BOne_AddOn
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
-                                                             /// Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 //case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD: //12
@@ -969,20 +969,20 @@ namespace PSH_BOne_AddOn
                 //    break;
 
                 case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
-                    ///Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                    //case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED: //37
-                    //    Raise_EVENT_PICKER_CLICKED(FormUID, ref pVal, ref BubbleEvent);
-                    //    break;
+                //case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED: //37
+                //    Raise_EVENT_PICKER_CLICKED(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
 
-                    //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
-                    //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
-                    //    break;
+                //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
+                //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
 
-                    //case SAPbouiCOM.BoEventTypes.et_Drag: //39
-                    //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
-                    //    break;
+                //case SAPbouiCOM.BoEventTypes.et_Drag: //39
+                //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
             }
         }
 
@@ -1379,10 +1379,11 @@ namespace PSH_BOne_AddOn
         //}
 
         /// <summary>
-        ///  지급횟수 계산
+        /// 지급횟수 계산
         /// </summary>
-        /// <param name="pAmt"></param>
+        /// <param name="pGovID"></param>
         /// <param name="pSchCls"></param>
+        /// <param name="pDocEntry"></param>
         /// <returns></returns>
         private int PH_PY301_GetPayCount(string pGovID, string pSchCls, short pDocEntry)
         {
@@ -1458,7 +1459,6 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_COMBO_SELECT(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            int PayCnt = 0;
             try
             {
                 if (pVal.BeforeAction == true)
@@ -1472,13 +1472,7 @@ namespace PSH_BOne_AddOn
                         {
                             if (pVal.ColUID == "SchCls")
                             {
-
                                 oMat1.FlushToDataSource();
-
-                                //지급횟수 조회
-                                //PayCnt = PH_PY301_GetPayCount(oDS_PH_PY301B.GetValue("U_GovID", pVal.Row - 1), oDS_PH_PY301B.GetValue("U_SchCls", pVal.Row - 1), Convert.ToInt16(oDS_PH_PY301A.GetValue("DocEntry", 0)));
-                                //oDS_PH_PY301B.SetValue("U_PayCnt", pVal.Row - 1, Convert.ToString(PayCnt));
-                                //지급횟수
                                 oMat1.LoadFromDataSource();
                             }
                             oMat1.AutoResizeColumns();

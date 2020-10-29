@@ -12,10 +12,10 @@ namespace PSH_BOne_AddOn
         {
             PSH_MainClass Application = new PSH_MainClass();
 
-            while (MessageAPIs.GetMessage(ref MessageAPIs.Msg_Renamed, 0, 0, 0))
+            while (MessageAPIs.GetMessage(ref MessageAPIs.structMsg, 0, 0, 0))
             {
-                MessageAPIs.TranslateMessage(ref MessageAPIs.Msg_Renamed);
-                MessageAPIs.DispatchMessage(ref MessageAPIs.Msg_Renamed);
+                MessageAPIs.TranslateMessage(ref MessageAPIs.structMsg);
+                MessageAPIs.DispatchMessage(ref MessageAPIs.structMsg);
                 System.Windows.Forms.Application.DoEvents();
             }
 
@@ -31,10 +31,10 @@ namespace PSH_BOne_AddOn
         public static void Add_Forms(object cObject, string oFormUid, object oFormTypeEx = null)
         {
             PSH_Globals.ClassList.Add(cObject, oFormUid);
-            PSH_Globals.FormTotalCount = PSH_Globals.FormTotalCount + 1;
-            PSH_Globals.FormCurrentCount = PSH_Globals.FormCurrentCount + 1;
+            PSH_Globals.FormTotalCount += 1;
+            PSH_Globals.FormCurrentCount += 1;
+            PSH_Globals.FormTypeListCount += 1;
             PSH_Globals.FormTypeList.Add(oFormTypeEx, PSH_Globals.FormTypeListCount.ToString());
-            PSH_Globals.FormTypeListCount = PSH_Globals.FormTypeListCount + 1;
         }
 
         /// <summary>
@@ -43,15 +43,13 @@ namespace PSH_BOne_AddOn
         /// <param name="oFormUniqueID"></param>
         public static void Remove_Forms(string oFormUniqueID)
         {
-            object oTempClass = null;
-
-            oTempClass = PSH_Globals.ClassList[oFormUniqueID];
+            //object oTempClass = PSH_Globals.ClassList[oFormUniqueID];
             PSH_Globals.ClassList.Remove(oFormUniqueID);
-            PSH_Globals.FormCurrentCount = PSH_Globals.FormCurrentCount - 1;
+            PSH_Globals.FormTotalCount -= 1;
+            PSH_Globals.FormCurrentCount -= 1;
+            PSH_Globals.FormTypeListCount -= 1;
             PSH_Globals.FormTypeList.Remove((PSH_Globals.FormTypeListCount - 1).ToString());
-            PSH_Globals.FormTypeListCount = PSH_Globals.FormTypeListCount - 1;
-
-            oTempClass = null;
+            //oTempClass = null;
         }
 
         /// <summary>

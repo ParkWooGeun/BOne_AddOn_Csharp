@@ -2329,7 +2329,7 @@ namespace PSH_BOne_AddOn
         private void SBO_Application_FormDataEvent(ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, out bool BubbleEvent)
         {
             BubbleEvent = true;
-            PSH_BaseClass oTempClass = new PSH_BaseClass();
+            PSH_BaseClass oTempClass;
             string FormUID;
 
             try
@@ -2370,7 +2370,7 @@ namespace PSH_BOne_AddOn
         private void SBO_Application_RightClickEvent(ref SAPbouiCOM.ContextMenuInfo eventInfo, out bool BubbleEvent)
         {
             BubbleEvent = true;
-            PSH_BaseClass oTempClass = new PSH_BaseClass();
+            PSH_BaseClass oTempClass;
             string FormUID;
 
             try

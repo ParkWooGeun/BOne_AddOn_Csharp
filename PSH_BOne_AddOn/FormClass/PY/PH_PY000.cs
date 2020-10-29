@@ -77,14 +77,9 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PH_PY000_CreateItems()
         {
-            int i = 0;
-            string sQry = string.Empty;
-            string sTemp = string.Empty;
-            string sTable = string.Empty;
-            string sField1 = string.Empty;
-            string sField2 = string.Empty;
+            int i;
+            string sQry;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
             {
@@ -93,12 +88,8 @@ namespace PSH_BOne_AddOn
                 oDS_PH_PY000B = oForm.DataSources.DBDataSources.Item("@PH_PY000B");
 
                 oMat1 = oForm.Items.Item("Mat1").Specific;
-                ////@PH_PY000B
-
                 oMat1.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_NotSupported;
                 oMat1.AutoResizeColumns();
-
-                
 
                 sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P144' AND U_UseYN= 'Y'";
                 oRecordSet.DoQuery(sQry);
@@ -211,11 +202,11 @@ namespace PSH_BOne_AddOn
         /// </summary>
         public void PH_PY000_AddMatrixRow()
         {
-            int oRow = 0;
+            int oRow;
+
             try
             {
                 oForm.Freeze(true);
-                ////[Mat1]
                 oMat1.FlushToDataSource();
                 oRow = oMat1.VisualRowCount;
 
@@ -423,13 +414,13 @@ namespace PSH_BOne_AddOn
         private void Raise_EVENT_ROW_DELETE(string FormUID, SAPbouiCOM.IMenuEvent pVal, bool BubbleEvent, SAPbouiCOM.Matrix oMat, SAPbouiCOM.DBDataSource DBData, string CheckField)
         {
             int i = 0;
+
             try
             {
-                if ((oLastColRow > 0))
+                if (oLastColRow > 0)
                 {
                     if (pVal.BeforeAction == true)
                     {
-
                     }
                     else if (pVal.BeforeAction == false)
                     {
@@ -437,16 +428,16 @@ namespace PSH_BOne_AddOn
                         {
                             oMat.FlushToDataSource();
 
-                            while ((i <= DBData.Size - 1))
+                            while (i <= DBData.Size - 1)
                             {
                                 if (string.IsNullOrEmpty(DBData.GetValue(CheckField, i)))
                                 {
-                                    DBData.RemoveRecord((i));
+                                    DBData.RemoveRecord(i);
                                     i = 0;
                                 }
                                 else
                                 {
-                                    i = i + 1;
+                                    i += 1;
                                 }
                             }
 
@@ -554,12 +545,12 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            int i = 0;
-            string sQry = string.Empty;
-            string sTemp = string.Empty;
-            string sTable = string.Empty;
-            string sField1 = string.Empty;
-            string sField2 = string.Empty;
+            int i;
+            string sQry;
+            string sTemp;
+            string sTable;
+            string sField1;
+            string sField2;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
@@ -765,16 +756,16 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         private void Raise_FormDataEvent(ref string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
         {
-            int i = 0;
-            string sQry = string.Empty;
-            string sTable = string.Empty;
-            string sField1 = string.Empty;
-            string sField2 = string.Empty;
+            int i;
+            string sQry;
+            string sTable;
+            string sField1;
+            string sField2;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
-                if ((BusinessObjectInfo.BeforeAction == true))
+                if (BusinessObjectInfo.BeforeAction == true)
                 {
                     switch (BusinessObjectInfo.EventType)
                     {
@@ -788,7 +779,7 @@ namespace PSH_BOne_AddOn
                             break;
                     }
                 }
-                else if ((BusinessObjectInfo.BeforeAction == false))
+                else if (BusinessObjectInfo.BeforeAction == false)
                 {
                     switch (BusinessObjectInfo.EventType)
                     {
@@ -813,14 +804,13 @@ namespace PSH_BOne_AddOn
                                     oRecordSet.DoQuery(sQry);
                                     if (oRecordSet.RecordCount > 0)
                                     {
-                                        while (!(oRecordSet.EoF))
+                                        while (!oRecordSet.EoF)
                                         {
                                             oMat1.Columns.Item("Value").ValidValues.Add(oRecordSet.Fields.Item(0).Value, oRecordSet.Fields.Item(1).Value);
                                             oRecordSet.MoveNext();
                                         }
                                     }
                                 }
-
                             }
                             else
                             {
@@ -865,10 +855,10 @@ namespace PSH_BOne_AddOn
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
             int i = 0;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            
             try
             {
-                if ((pVal.BeforeAction == true))
+                if (pVal.BeforeAction == true)
                 {
                     switch (pVal.MenuUID)
                     {
@@ -896,7 +886,7 @@ namespace PSH_BOne_AddOn
                             break;
                     }
                 }
-                else if ((pVal.BeforeAction == false))
+                else if (pVal.BeforeAction == false)
                 {
                     switch (pVal.MenuUID)
                     {
@@ -909,16 +899,12 @@ namespace PSH_BOne_AddOn
                             break;
                         case "1286":
                             break;
-                        //            Case "1293":
-                        //                Call Raise_EVENT_ROW_DELETE(FormUID, pVal, BubbleEvent)
-                        case "1281":
-                            ////문서찾기
+                        case "1281": //문서찾기
                             PH_PY000_FormItemEnabled();
                             PH_PY000_AddMatrixRow();
                             oForm.Items.Item("Code").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             break;
-                        case "1282":
-                            ////문서추가
+                        case "1282": //문서추가
                             PH_PY000_FormItemEnabled();
                             PH_PY000_AddMatrixRow();
                             break;
@@ -928,23 +914,22 @@ namespace PSH_BOne_AddOn
                         case "1291":
                             PH_PY000_FormItemEnabled();
                             break;
-                        case "1293":
-                            // 행삭제
-                            // [MAT1 용]
+                        case "1293": //행삭제
+                            //MAT1
                             if (oMat1.RowCount != oMat1.VisualRowCount)
                             {
                                 oMat1.FlushToDataSource();
 
-                                while ((i <= oDS_PH_PY000B.Size - 1))
+                                while (i <= oDS_PH_PY000B.Size - 1)
                                 {
                                     if (string.IsNullOrEmpty(oDS_PH_PY000B.GetValue("U_UserCode", i)))
                                     {
-                                        oDS_PH_PY000B.RemoveRecord((i));
+                                        oDS_PH_PY000B.RemoveRecord(i);
                                         i = 0;
                                     }
                                     else
                                     {
-                                        i = i + 1;
+                                        i += 1;
                                     }
                                 }
 

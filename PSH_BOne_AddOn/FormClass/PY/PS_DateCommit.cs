@@ -363,7 +363,7 @@ namespace PSH_BOne_AddOn
 
                 iRow = oForm.DataSources.DataTables.Item(0).Rows.Count;
 
-                PS_DateCommit_TitleSetting(iRow);
+                PS_DateCommit_TitleSetting();
             }
             catch (Exception ex)
             {
@@ -453,7 +453,7 @@ namespace PSH_BOne_AddOn
         /// 그리드 타이블 변경
         /// </summary>
         /// <returns></returns>
-        private void PS_DateCommit_TitleSetting(int iRow)
+        private void PS_DateCommit_TitleSetting()
         {
             int i;
 
@@ -530,7 +530,7 @@ namespace PSH_BOne_AddOn
                                 switch (pVal.ItemUID)
                                 {
                                     case "Grid01":
-                                        PS_DateCommit_Comments(pVal.ItemUID, pVal.Row, pVal.ColUID);
+                                        PS_DateCommit_Comments(pVal.Row);
                                         break;
                                 }
                             }
@@ -572,7 +572,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// PS_DateChange_MTX02
         /// </summary>
-        private void PS_DateCommit_Comments(string oUID, int oRow = 0, string oCol = "")
+        private void PS_DateCommit_Comments(int oRow)
         {
             int sRow;
             int ErrNum = 0;
@@ -607,8 +607,6 @@ namespace PSH_BOne_AddOn
                 sQry += "AND CreateUser = '" + CreateUser + "' ";
 
                 oRecordSet.DoQuery(sQry);
-
-                //공통 S
 
                 oForm.Items.Item("Comments").Specific.Value = oRecordSet.Fields.Item("Comments").Value;
 

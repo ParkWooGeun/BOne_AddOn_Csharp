@@ -77,8 +77,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PH_PY415_CreateItems()
         {
-            int i = 0;
-            string sQry = string.Empty;
+            string sQry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -110,7 +109,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY415_CreateItems_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                oForm.Freeze(false);
             }
             finally
             {
@@ -218,9 +216,6 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
-            int i = 0;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
             try
             {
                 oForm.Freeze(true);
@@ -245,15 +240,12 @@ namespace PSH_BOne_AddOn
                         case "1290":
                         case "1291":
                             break;
-                        case "7169":
-                            //엑셀 내보내기
-
-                            //엑셀 내보내기 실행 시 매트릭스의 제일 마지막 행에 빈 행 추가
-                            PH_PY415_AddMatrixRow();
+                        case "7169": //엑셀 내보내기
+                            PH_PY415_AddMatrixRow(); //엑셀 내보내기 실행 시 매트릭스의 제일 마지막 행에 빈 행 추가
                             break;
                     }
                 }
-                else if ((pVal.BeforeAction == false))
+                else if (pVal.BeforeAction == false)
                 {
                     switch (pVal.MenuUID)
                     {
@@ -266,14 +258,12 @@ namespace PSH_BOne_AddOn
                             break;
                         case "1286":
                             break;
-                        case "1281":
-                            // 문서찾기
+                        case "1281": // 문서찾기
                             PH_PY415_FormItemEnabled();
                             PH_PY415_AddMatrixRow();
                             oForm.Items.Item("DocEntry").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             break;
-                        case "1282":
-                            // 문서추가
+                        case "1282": // 문서추가
                             PH_PY415_FormItemEnabled();
                             PH_PY415_AddMatrixRow();
                             break;
@@ -283,12 +273,9 @@ namespace PSH_BOne_AddOn
                         case "1291":
                             PH_PY415_FormItemEnabled();
                             break;
-                        case "1293":
-                            // 행삭제
+                        case "1293": // 행삭제
                             break;
-                        case "7169":
-                            //엑셀 내보내기
-
+                        case "7169": //엑셀 내보내기
                             //엑셀 내보내기 이후 처리
                             oForm.Freeze(true);
                             oDS_PH_PY415B.RemoveRecord(oDS_PH_PY415B.Size - 1);

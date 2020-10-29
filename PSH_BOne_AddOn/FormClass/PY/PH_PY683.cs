@@ -309,10 +309,9 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PH_PY683_DataFind()
         {
-            int iRow = 0;
-            string sQry = string.Empty;
-            string CLTCOD = string.Empty;
-            string YM = string.Empty;
+            string sQry;
+            string CLTCOD;
+            string YM;
 
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try

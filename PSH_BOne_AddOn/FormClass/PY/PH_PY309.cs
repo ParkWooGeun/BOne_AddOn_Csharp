@@ -815,7 +815,7 @@ namespace PSH_BOne_AddOn
                             break;
                         case "1293":
 
-                            if ((PH_PY309_Validate("행삭제") == false))
+                            if (PH_PY309_Validate("행삭제", 0) == false)
                             {
                                 BubbleEvent = false;
                                 oForm.Freeze(false);
@@ -1116,59 +1116,55 @@ namespace PSH_BOne_AddOn
         /// Validate
         /// </summary>
         /// <param name="ValidateType"></param>
+        /// <param name="prmRow"></param>
         /// <returns></returns>
-        private bool PH_PY309_Validate(string ValidateType, int prmRow = 0)
+        private bool PH_PY309_Validate(string ValidateType, int prmRow)
         {
             bool functionReturnValue = false;
-            functionReturnValue = true;
-
             int ErrNumm = 0;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 if (dataHelpClass.GetValue("SELECT Canceled FROM [@PH_PY309A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "Y")
                 {
-                    PSH_Globals.SBO_Application.SetStatusBarMessage("해당문서는 다른사용자에 의해 취소되었습니다. 작업을 진행할수 없습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                    functionReturnValue = false;
+                    ErrNumm = 1;
                     throw new Exception();
                 }
-                //
+                
                 if (ValidateType == "수정")
                 {
 
                     if (oDS_PH_PY309B.GetValue("U_RpmtYN", prmRow - 1) == "Y")
                     {
-
                         PSH_Globals.SBO_Application.MessageBox("상환이 완료된 행입니다. 수정할 수 없습니다.");
-                        functionReturnValue = false;
-                        ErrNumm = 1;
+                        
                         throw new Exception();
-
                     }
-
                 }
                 else if (ValidateType == "행삭제")
                 {
-
                     if (oDS_PH_PY309B.GetValue("U_RpmtYN", oLastColRow - 1) == "Y")
                     {
                         PSH_Globals.SBO_Application.MessageBox("상환이 완료된 행입니다. 수정할 수 없습니다.");
-                        functionReturnValue = false;
                         throw new Exception();
-
                     }
-
                 }
                 else if (ValidateType == "취소")
                 {
-
                 }
+
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
                 if (ErrNumm == 1)
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("해당문서는 다른사용자에 의해 취소되었습니다. 작업을 진행할수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
             }
             finally

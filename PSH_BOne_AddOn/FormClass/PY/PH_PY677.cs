@@ -1302,9 +1302,9 @@ namespace PSH_BOne_AddOn
             string WorkType = string.Empty;
 
             double hTime1 = 0;            // 오전10분휴식시간
-            double hTime2 = 0;            // 점심휴식시간
-            double hTime3 = 0;            // 오후 10분 휴식시간
-            double hTime4 = 0;            // 저녁휴식시간
+            //double hTime2 = 0;            // 점심휴식시간
+            //double hTime3 = 0;            // 오후 10분 휴식시간
+            //double hTime4 = 0;            // 저녁휴식시간
             double hTime5 = 0;            // 야간휴식시간
             double EarlyTo = 0;
             double SEarlyTo = 0;
@@ -2086,29 +2086,28 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private double PH_PY677_Time_Calc(string GetTime, string OffTime)
         {
-            double functionReturnValue = 0;
-            int hh, STime, ETime = 0;
-            double MM, Ret = 0;
+            double returnValue = 0;
+            int STime;
+            int ETime;
     
             try
                 {
                     STime = Convert.ToInt32(Convert.ToDouble( GetTime.Substring(0, 2) ) ) * 3600 + Convert.ToInt32(Convert.ToDouble(GetTime.Substring(2, 2))) * 60;
                     ETime = Convert.ToInt32(Convert.ToDouble( OffTime.Substring(0, 2) ) ) * 3600 + Convert.ToInt32(Convert.ToDouble(OffTime.Substring(2, 2))) * 60;
-                    Ret = ETime - STime;
 
-                    functionReturnValue = Ret;
-                    return functionReturnValue;
+                returnValue = ETime - STime;
                 }
            
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY677_Time_Calc_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                return functionReturnValue;
+                
             }
             finally
             {
-                
             }
+
+            return returnValue;
         }
 
         /// <summary>
@@ -2120,9 +2119,9 @@ namespace PSH_BOne_AddOn
         private double PH_PY677_hhmm_Calc(double mTime, string pWorkType = "")
         {
             double functionReturnValue = 0;
-            int hh = 0;
-            double MM = 0;
-            double Ret = 0;
+            int hh;
+            double MM;
+            double Ret;
 
             try
             {
@@ -2158,22 +2157,22 @@ namespace PSH_BOne_AddOn
 
                 Ret = hh + MM;
 
-                if (pWorkType == "D09" | pWorkType == "D10")
+                if (pWorkType == "D09" || pWorkType == "D10")
                 {
                     Ret = 4;
                 }
 
                 functionReturnValue = Ret;
-                return functionReturnValue;
             }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY677_hhmm_Calc_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                return functionReturnValue;
             }
             finally
             {
             }
+
+            return functionReturnValue;
         }
 
         /// <summary>
@@ -2181,10 +2180,8 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PH_PY677_CheckAll()
         {
-            string CheckType = string.Empty;
-            int loopCount = 0;
-
-            CheckType = "Y";
+            string CheckType = "Y";
+            int loopCount;
 
             try
             {

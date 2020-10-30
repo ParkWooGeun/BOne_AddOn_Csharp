@@ -52,7 +52,7 @@ namespace PSH_BOne_AddOn
                 string strXml = string.Empty;
                 strXml = oXmlDoc.xml.ToString();
 
-                PSH_Globals.SBO_Application.LoadBatchActions(strXml);
+                PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
                 oForm.SupportedModes = -1;
@@ -405,6 +405,7 @@ namespace PSH_BOne_AddOn
 
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 DocEntry = Convert.ToInt32(oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim());       //관리번호
@@ -420,7 +421,6 @@ namespace PSH_BOne_AddOn
                 if (string.IsNullOrEmpty(Convert.ToString(DocEntry).ToString().Trim()))
                 {
                     dataHelpClass.MDC_GF_Message("수정할 항목이 없습니다. 수정하실려면 항목을 선택하세요!", "E");
-                    functionReturnValue = false;
                     throw new Exception();
                 }
 
@@ -438,16 +438,16 @@ namespace PSH_BOne_AddOn
                 oRecordSet01.DoQuery(sQry);
                 dataHelpClass.MDC_GF_Message("수정 완료!", "S");
 
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY032_UpdateData_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                return functionReturnValue;
             }
             finally
             {
-                functionReturnValue = true;
             }
+
             return functionReturnValue;
         }
 
@@ -566,6 +566,8 @@ namespace PSH_BOne_AddOn
                     ErrNum = 7;
                     throw new Exception();
                 }
+
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
@@ -598,12 +600,11 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY032_HeaderSpaceLineDel_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
-                functionReturnValue = false;
             }
             finally
             {
-                functionReturnValue = true;
             }
+
             return functionReturnValue;
         }
 

@@ -47,7 +47,7 @@ namespace PSH_BOne_AddOn
                 string strXml = string.Empty;
                 strXml = oXmlDoc.xml.ToString();
 
-                PSH_Globals.SBO_Application.LoadBatchActions(strXml);
+                PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
                 oForm.SupportedModes = -1;
@@ -925,13 +925,11 @@ namespace PSH_BOne_AddOn
         public bool PH_PY130_DataValidCheck(string ChkYN)
         {
             bool functionReturnValue = false;
-
-            functionReturnValue = false;
-            int i = 0;
-            string sQry = string.Empty;
-            string tCode = string.Empty;
+            int i;
+            string sQry;
+            string tCode;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            
             try
             {
                 if (ChkYN == "Y")
@@ -940,7 +938,6 @@ namespace PSH_BOne_AddOn
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("지급구분은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                         oForm.Items.Item("JOBGBN").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                        functionReturnValue = false;
                         return functionReturnValue;
                     }
                 }
@@ -949,7 +946,6 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("년월은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("YM").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    functionReturnValue = false;
                     return functionReturnValue;
                 }
 
@@ -957,25 +953,23 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("회차는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("Number").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    functionReturnValue = false;
                     return functionReturnValue;
                 }
 
-                //// 코드,이름 저장
+                //코드,이름 저장
                 tCode = oDS_PH_PY130A.GetValue("U_YM", 0).ToString().Trim() + oDS_PH_PY130A.GetValue("U_JOBGBN", 0).ToString().Trim() + oDS_PH_PY130A.GetValue("U_Number", 0).ToString().Trim();
                 oDS_PH_PY130A.SetValue("Code", 0, tCode);
                 oDS_PH_PY130A.SetValue("Name", 0, tCode);
 
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
-                    //// 데이터 중복 체크
+                    //데이터 중복 체크
                     sQry = "SELECT Code FROM [@PH_PY130A] WHERE Code = '" + tCode + "'";
                     oRecordSet.DoQuery(sQry);
 
                     if (oRecordSet.RecordCount > 0)
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("이미 데이터가 존재합니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                        functionReturnValue = false;
                         return functionReturnValue;
                     }
                 }
@@ -985,18 +979,16 @@ namespace PSH_BOne_AddOn
                     if (oMat1.VisualRowCount == 0)
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("데이터가 없습니다. 자료생성을 하기바랍니다", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                        functionReturnValue = false;
                         return functionReturnValue;
                     }
 
                     for (i = 1; i <= oMat1.VisualRowCount - 1; i++)
                     {
-                        ////구분
+                        //구분
                         if (string.IsNullOrEmpty(oMat1.Columns.Item("Grade").Cells.Item(i).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("등급은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("Grade").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            functionReturnValue = false;
                             return functionReturnValue;
                         }
                     }
@@ -1004,6 +996,8 @@ namespace PSH_BOne_AddOn
                 else
                 {
                 }
+
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
@@ -1011,9 +1005,9 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                functionReturnValue = true;
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
+
             return functionReturnValue;
         }
 

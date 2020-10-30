@@ -49,10 +49,9 @@ namespace PSH_BOne_AddOn
                 oFormUniqueID = "PH_PY302_" + SubMain.Get_TotalFormsCount();
                 SubMain.Add_Forms(this, oFormUniqueID, "PH_PY302");
 
-                string strXml = null;
-                strXml = oXmlDoc.xml.ToString();
+                
 
-                PSH_Globals.SBO_Application.LoadBatchActions(strXml);
+                PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
                 oForm.SupportedModes = -1;
@@ -736,13 +735,13 @@ namespace PSH_BOne_AddOn
         {
             bool functionReturnValue = false;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
                 if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    functionReturnValue = false;
                     return functionReturnValue;
                 }
                 // 년도
@@ -750,38 +749,36 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("년도는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("StdYear").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    functionReturnValue = false;
                     return functionReturnValue;
                 }
-                // 분기
+                //분기
                 if (string.IsNullOrEmpty(oForm.Items.Item("Quarter").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("분기는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("Quarter").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    functionReturnValue = false;
                     return functionReturnValue;
                 }
                 oMat01.FlushToDataSource();
-                //// Matrix 마지막 행 삭제(DB 저장시)
+                //Matrix 마지막 행 삭제(DB 저장시)
                 if (oDS_PH_PY302B.Size > 1)
-                    oDS_PH_PY302B.RemoveRecord((oDS_PH_PY302B.Size - 1));
-
+                {
+                    oDS_PH_PY302B.RemoveRecord(oDS_PH_PY302B.Size - 1);
+                }
                 oMat01.LoadFromDataSource();
 
                 functionReturnValue = true;
-                return functionReturnValue;
             }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY302_DataValidCheck_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                functionReturnValue = false;
                 return functionReturnValue;
             }
             finally
             {
-                functionReturnValue = true;
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
+
+            return functionReturnValue;
         }
 
         /// <summary>

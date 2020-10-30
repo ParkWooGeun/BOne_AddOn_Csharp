@@ -44,7 +44,7 @@ namespace PSH_BOne_AddOn
                 string strXml = string.Empty;
                 strXml = oXmlDoc.xml.ToString();
 
-                PSH_Globals.SBO_Application.LoadBatchActions(strXml);
+                PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
                 oForm.SupportedModes = -1;
@@ -684,6 +684,7 @@ namespace PSH_BOne_AddOn
             bool functionReturnValue = false;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 if (string.IsNullOrEmpty(oDS_PH_PY108A.GetValue("U_CLTCOD", 0).ToString().Trim()))
@@ -728,16 +729,18 @@ namespace PSH_BOne_AddOn
                         return functionReturnValue;
                     }
                 }
+
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY108_DataValidCheck_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
             }
             finally
-            {
-                functionReturnValue = true;
+            {   
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
+
             return functionReturnValue;
         }
         

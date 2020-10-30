@@ -24,7 +24,6 @@ namespace PSH_BOne_AddOn
         /// </summary>
         public override void LoadForm(string oFormDocEntry01)
         {
-            int i = 0;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
             try
             {
@@ -33,7 +32,7 @@ namespace PSH_BOne_AddOn
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
 
-                for (i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
+                for (int i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
                 {
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight")[i - 1].nodeValue = 20;
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
@@ -45,7 +44,7 @@ namespace PSH_BOne_AddOn
                 string strXml = string.Empty;
                 strXml = oXmlDoc.xml.ToString();
 
-                PSH_Globals.SBO_Application.LoadBatchActions(strXml);
+                PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID01);
 
                 oForm.SupportedModes = -1;
@@ -290,16 +289,17 @@ namespace PSH_BOne_AddOn
         {
             bool functionReturnValue = false;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
-                functionReturnValue = false;
                 if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    functionReturnValue = false;
                     return functionReturnValue;
                 }
+
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
@@ -307,9 +307,9 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                functionReturnValue = true;
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
+
             return functionReturnValue;
         }
 
@@ -319,16 +319,17 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PH_PY120_DataFind()
         {
-            string sQry = string.Empty;
-            int i = 0;
+            string sQry;
+            int i;
 
             string[] COLNAM = new string[8];
-            string CLTCOD = string.Empty;
-            string YM = string.Empty;
-            string YMFrom = string.Empty;
-            string YMTo = string.Empty;
+            string CLTCOD;
+            string YM;
+            string YMFrom;
+            string YMTo;
 
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
                 oForm.Freeze(true);
@@ -359,7 +360,6 @@ namespace PSH_BOne_AddOn
                 {
                     oGrid1.Columns.Item(i).TitleObject.Caption = COLNAM[i];
                     oGrid1.Columns.Item(i).Editable = false;
-
                 }
             }
             catch (Exception ex)
@@ -379,13 +379,14 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PH_PY120_DataSave()
         {
-            string sQry = string.Empty;
-            string CLTCOD = string.Empty;
-            string YM = string.Empty;
-            string JIGBIL = string.Empty;
-            string YMFrom = string.Empty;
-            string YMTo = string.Empty;
+            string sQry;
+            string CLTCOD;
+            string YM;
+            string JIGBIL;
+            string YMFrom;
+            string YMTo;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
                 oForm.Freeze(true);
@@ -411,52 +412,6 @@ namespace PSH_BOne_AddOn
             }
         }
 
-        ///// <summary>
-        ///// 그리드 타이블 변경
-        ///// </summary>
-        ///// <returns></returns>
-        //private void PH_PY120_TitleSetting(int iRow)
-        //{
-        //    int i = 0;
-        //    string sQry = string.Empty;
-
-        //    string[] COLNAM = new string[8];
-        //    string CLTCOD = string.Empty;
-
-        //    SAPbouiCOM.ComboBoxColumn oComboCol = null;
-        //    SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-        //    try
-        //    {
-        //        oForm.Freeze(true);
-
-        //        COLNAM[0] = "부서";
-        //        COLNAM[1] = "담당";
-        //        COLNAM[2] = "사번";
-        //        COLNAM[3] = "성명";
-        //        COLNAM[4] = "지급구분";
-        //        COLNAM[5] = "총지급액";
-        //        COLNAM[6] = "총공제액";
-        //        COLNAM[7] = "실지급액";
-
-        //        for (i = 0; i <= Information.UBound(COLNAM) - 1; i++)
-        //        {
-        //            oGrid1.Columns.Item(i).TitleObject.Caption = COLNAM[i];
-        //            oGrid1.Columns.Item(i).Editable = false;
-
-        //        }
-        //        oGrid1.AutoResizeColumns();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY120_TitleSetting_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-        //    }
-        //    finally
-        //    {
-        //        oForm.Freeze(false);
-        //        System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
-        //    }
-        //}
-
         /// <summary>
         /// ITEM_PRESSED 이벤트
         /// </summary>
@@ -465,9 +420,9 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string sQry = string.Empty;
+            string sQry;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
 
@@ -556,6 +511,7 @@ namespace PSH_BOne_AddOn
                     SubMain.Remove_Forms(oFormUniqueID01);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid1);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY120);
                 }
             }
             catch (Exception ex)

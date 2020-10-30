@@ -352,7 +352,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_CO001L.SetValue("U_ColReg09", loopCount, RecordSet01.Fields.Item("Comments").Value); //비고
 
                     RecordSet01.MoveNext();
-                    ProgBar01.Value = ProgBar01.Value + 1;
+                    ProgBar01.Value += 1;
                     ProgBar01.Text = ProgBar01.Value + "/" + RecordSet01.RecordCount + "건 조회중...!";
                 }
 

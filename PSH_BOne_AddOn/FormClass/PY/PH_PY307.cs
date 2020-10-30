@@ -49,10 +49,9 @@ namespace PSH_BOne_AddOn
                 oFormUniqueID = "PH_PY307_" + SubMain.Get_TotalFormsCount();
                 SubMain.Add_Forms(this, oFormUniqueID, "PH_PY307");
 
-                string strXml = null;
-                strXml = oXmlDoc.xml.ToString();
+                
 
-                PSH_Globals.SBO_Application.LoadBatchActions(strXml);
+                PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
                 oForm.SupportedModes = -1;
@@ -754,14 +753,13 @@ namespace PSH_BOne_AddOn
         public bool PH_PY307_DataValidCheck()
         {
             bool functionReturnValue = false;
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            
             try
             {
                 if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    functionReturnValue = false;
                     return functionReturnValue;
                 }
 
@@ -770,7 +768,6 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("년도는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("StdYear").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    functionReturnValue = false;
                     return functionReturnValue;
                 }
 
@@ -779,9 +776,10 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("분기는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("Quarter").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    functionReturnValue = false;
                     return functionReturnValue;
                 }
+
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
@@ -789,9 +787,8 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                functionReturnValue = true;
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
+
             return functionReturnValue;
         }
 

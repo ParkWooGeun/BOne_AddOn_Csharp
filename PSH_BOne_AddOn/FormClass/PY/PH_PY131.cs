@@ -48,7 +48,7 @@ namespace PSH_BOne_AddOn
                 string strXml = string.Empty;
                 strXml = oXmlDoc.xml.ToString();
 
-                PSH_Globals.SBO_Application.LoadBatchActions(strXml);
+                PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
                 oForm.SupportedModes = -1;
@@ -79,35 +79,33 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PH_PY131_CreateItems()
         {
-            string sQry = string.Empty;
+            string sQry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
                 oForm.Freeze(true);
 
                 oDS_PH_PY131A = oForm.DataSources.DBDataSources.Item("@PH_PY131A");
                 oDS_PH_PY131B = oForm.DataSources.DBDataSources.Item("@PH_PY131B");
-
                 oMat1 = oForm.Items.Item("Mat1").Specific;
-                ////@PH_PY131B
-
                 oMat1.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_NotSupported;
                 oMat1.AutoResizeColumns();
 
-                //// 년월
-                oDS_PH_PY131A.SetValue("U_YM", 0, DateTime.Now.ToString("yyyyMM"));
-                //// 지급구분
+                oDS_PH_PY131A.SetValue("U_YM", 0, DateTime.Now.ToString("yyyyMM")); //년월
+
+                //지급구분
                 sQry = " SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P212' AND U_UseYN= 'Y' ";
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("JOBGBN").Specific, "");
                 oForm.Items.Item("JOBGBN").DisplayDesc = true;
 
-                ////등급
+                //등급
                 sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '82' AND U_UseYN= 'Y'";
                 oRecordSet.DoQuery(sQry);
                 if (oRecordSet.RecordCount > 0)
                 {
-                    while (!(oRecordSet.EoF))
+                    while (!oRecordSet.EoF)
                     {
                         oMat1.Columns.Item("Grade").ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
                         oRecordSet.MoveNext();
@@ -147,30 +145,23 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PH_PY131_FormItemEnabled()
         {
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
                 oForm.Freeze(true);
-                if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
+                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
-                    oForm.EnableMenu("1281", true);
-                    ////문서찾기
-                    oForm.EnableMenu("1282", false);
-                    ////문서추가
+                    oForm.EnableMenu("1281", true); //문서찾기
+                    oForm.EnableMenu("1282", false); //문서추가
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
-                    oForm.EnableMenu("1281", false);
-                    ////문서찾기
-                    oForm.EnableMenu("1282", true);
-                    ////문서추가
+                    oForm.EnableMenu("1281", false); //문서찾기
+                    oForm.EnableMenu("1282", true); //문서추가
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
-                    oForm.EnableMenu("1281", true);
-                    ////문서찾기
-                    oForm.EnableMenu("1282", true);
-                    ////문서추가
+                    oForm.EnableMenu("1281", true); //문서찾기
+                    oForm.EnableMenu("1282", true); //문서추가
                 }
             }
             catch (Exception ex)
@@ -215,11 +206,12 @@ namespace PSH_BOne_AddOn
         /// </summary>
         public void PH_PY131_AddMatrixRow()
         {
-            int oRow = 0;
+            int oRow;
+
             try
             {
                 oForm.Freeze(true);
-                ////[Mat1]
+                //Mat1
                 oMat1.FlushToDataSource();
                 oRow = oMat1.VisualRowCount;
 
@@ -229,7 +221,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (oDS_PH_PY131B.Size <= oMat1.VisualRowCount)
                         {
-                            oDS_PH_PY131B.InsertRecord((oRow));
+                            oDS_PH_PY131B.InsertRecord(oRow);
                         }
                         oDS_PH_PY131B.Offset = oRow;
                         oDS_PH_PY131B.SetValue("U_LineNum", oRow, Convert.ToString(oRow + 1));
@@ -532,9 +524,6 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_COMBO_SELECT(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string sQry = string.Empty;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
             try
             {
                 oForm.Freeze(true);

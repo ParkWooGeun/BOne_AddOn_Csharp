@@ -45,7 +45,7 @@ namespace PSH_BOne_AddOn
                 string strXml = string.Empty;
                 strXml = oXmlDoc.xml.ToString();
 
-                PSH_Globals.SBO_Application.LoadBatchActions(strXml);
+                PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID01);
 
                 oForm.SupportedModes = -1;
@@ -273,16 +273,17 @@ namespace PSH_BOne_AddOn
         public bool PH_PY583_DataValidCheck()
         {
             bool functionReturnValue = false;
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            
             try
             {
                 if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    functionReturnValue = false;
                     return functionReturnValue;
                 }
+
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
@@ -290,9 +291,8 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                functionReturnValue = true;
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
+
             return functionReturnValue;
         }
 

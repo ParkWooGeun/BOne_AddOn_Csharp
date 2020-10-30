@@ -28,8 +28,8 @@ namespace PSH_BOne_AddOn
         /// </summary>
         public override void LoadForm(string oFormDocEntry01)
         {
-            int i = 0;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
+
             try
             {
                 oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PH_PY020.srf");
@@ -37,7 +37,7 @@ namespace PSH_BOne_AddOn
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
 
-                for (i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
+                for (int i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
                 {
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight")[i - 1].nodeValue = 20;
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
@@ -46,10 +46,7 @@ namespace PSH_BOne_AddOn
                 oFormUniqueID01 = "PH_PY020_" + SubMain.Get_TotalFormsCount();
                 SubMain.Add_Forms(this, oFormUniqueID01, "PH_PY020");
 
-                string strXml = string.Empty;
-                strXml = oXmlDoc.xml.ToString();
-
-                PSH_Globals.SBO_Application.LoadBatchActions(strXml);
+                PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID01);
 
                 oForm.SupportedModes = -1;
@@ -141,7 +138,6 @@ namespace PSH_BOne_AddOn
         /// </summary>
         public void PH_PY020_EnableMenus()
         {
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
                 oForm.EnableMenu("1283", true);                // 제거
@@ -162,10 +158,9 @@ namespace PSH_BOne_AddOn
         /// </summary>
         public void PH_PY020_SetDocument(string oFormDocEntry01)
         {
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
-                if ((string.IsNullOrEmpty(oFormDocEntry01)))
+                if (string.IsNullOrEmpty(oFormDocEntry01))
                 {
                     PH_PY020_FormItemEnabled();
                 }
@@ -276,7 +271,7 @@ namespace PSH_BOne_AddOn
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
-                    Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
@@ -427,8 +422,8 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         private void Raise_EVENT_COMBO_SELECT(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string sQry = string.Empty;
-            int i = 0;
+            string sQry;
+            int i;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
@@ -452,9 +447,9 @@ namespace PSH_BOne_AddOn
                                         oForm.Items.Item("TeamCode").Specific.ValidValues.Remove(i, SAPbouiCOM.BoSearchKey.psk_Index);
                                     }
                                 }
-                                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
-                                sQry = sQry + " WHERE Code = '1' AND U_Char2 = '" + Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value) + "' And U_UseYN = 'Y'";
-                                sQry = sQry + " ORDER BY U_Seq";
+                                sQry = "  SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
+                                sQry += " WHERE Code = '1' AND U_Char2 = '" + Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value) + "' And U_UseYN = 'Y'";
+                                sQry += " ORDER BY U_Seq";
                                 dataHelpClass.Set_ComboList(oForm.Items.Item("TeamCode").Specific, sQry, "", false, false);
                                 oForm.Items.Item("TeamCode").DisplayDesc = true;
                                 break;
@@ -468,9 +463,9 @@ namespace PSH_BOne_AddOn
                                         oForm.Items.Item("RspCode").Specific.ValidValues.Remove(i, SAPbouiCOM.BoSearchKey.psk_Index);
                                     }
                                 }
-                                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
-                                sQry = sQry + " WHERE Code = '2' AND U_Char2 = '" + Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value) + "' And U_Char1 = '" + oForm.Items.Item("TeamCode").Specific.Value + "' And U_UseYN = 'Y'";
-                                sQry = sQry + " Order By U_Seq";
+                                sQry = "  SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
+                                sQry += " WHERE Code = '2' AND U_Char2 = '" + Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value) + "' And U_Char1 = '" + oForm.Items.Item("TeamCode").Specific.Value + "' And U_UseYN = 'Y'";
+                                sQry += " Order By U_Seq";
                                 dataHelpClass.Set_ComboList(oForm.Items.Item("RspCode").Specific, sQry, "", false, false);
                                 oForm.Items.Item("RspCode").DisplayDesc = true;
                                 break;
@@ -484,9 +479,9 @@ namespace PSH_BOne_AddOn
                                         oForm.Items.Item("ClsCode").Specific.ValidValues.Remove(i, SAPbouiCOM.BoSearchKey.psk_Index);
                                     }
                                 }
-                                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
-                                sQry = sQry + " WHERE Code = '9' AND U_Char3 = '" + Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value) + "' And U_Char1 = '" + oForm.Items.Item("RspCode").Specific.Value + "' And U_UseYN = 'Y'";
-                                sQry = sQry + " Order By U_Seq";
+                                sQry = "  SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
+                                sQry += " WHERE Code = '9' AND U_Char3 = '" + Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value) + "' And U_Char1 = '" + oForm.Items.Item("RspCode").Specific.Value + "' And U_UseYN = 'Y'";
+                                sQry += " Order By U_Seq";
                                 dataHelpClass.Set_ComboList(oForm.Items.Item("ClsCode").Specific, sQry, "", false, false);
                                 oForm.Items.Item("ClsCode").DisplayDesc = true;
                                 break;
@@ -665,11 +660,9 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
         {
-            string sQry = string.Empty;
-
             try
             {
-                if ((BusinessObjectInfo.BeforeAction == true))
+                if (BusinessObjectInfo.BeforeAction == true)
                 {
                     switch (BusinessObjectInfo.EventType)
                     {
@@ -682,9 +675,8 @@ namespace PSH_BOne_AddOn
                         case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:                          // 36
                             break;
                     }
-                    ////BeforeAction = False
                 }
-                else if ((BusinessObjectInfo.BeforeAction == false))
+                else if (BusinessObjectInfo.BeforeAction == false)
                 {
                     switch (BusinessObjectInfo.EventType)
                     {
@@ -716,16 +708,17 @@ namespace PSH_BOne_AddOn
         {
             bool functionReturnValue = false;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
-                functionReturnValue = false;
                 if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    functionReturnValue = false;
                     return functionReturnValue;
                 }
+
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
@@ -733,9 +726,9 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                functionReturnValue = true;
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
+
             return functionReturnValue;
         }
 
@@ -745,8 +738,8 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PH_PY020_DataFind()
         {
-            int iRow = 0;
-            string sQry = string.Empty;
+            int iRow;
+            string sQry;
 
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
@@ -776,23 +769,22 @@ namespace PSH_BOne_AddOn
         private bool PH_PY020_DataSave()
         {
             bool functionReturnValue = false;
-            int i = 0;
-            //string PosDate = string.Empty;
-            string sQry = string.Empty;
-            string CLTCOD = string.Empty;
+            int i;
+            string sQry;
+            string CLTCOD;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
-                functionReturnValue = false;
                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
                 if (oForm.DataSources.DataTables.Item(0).Rows.Count > 0)
                 {
                     for (i = 0; i <= oForm.DataSources.DataTables.Item(0).Rows.Count - 1; i++)
                     {
-                        sQry = " UPDATE ZPH_PY008 SET ActText = '" + oDS_PH_PY020.Columns.Item("ActText").Cells.Item(i).Value + "'";
-                        sQry = sQry + " WHERE CLTCOD = '" + CLTCOD + "'";
-                        sQry = sQry + " And PosDate = '" + oDS_PH_PY020.Columns.Item("PosDate").Cells.Item(i).Value.ToString("yyyyMMdd") + "'";
-                        sQry = sQry + " And MSTCOD = '"  + oDS_PH_PY020.Columns.Item("MSTCOD").Cells.Item(i).Value.Trim() + "'";
+                        sQry = "  UPDATE ZPH_PY008 SET ActText = '" + oDS_PH_PY020.Columns.Item("ActText").Cells.Item(i).Value + "'";
+                        sQry += " WHERE CLTCOD = '" + CLTCOD + "'";
+                        sQry += " And PosDate = '" + oDS_PH_PY020.Columns.Item("PosDate").Cells.Item(i).Value.ToString("yyyyMMdd") + "'";
+                        sQry += " And MSTCOD = '"  + oDS_PH_PY020.Columns.Item("MSTCOD").Cells.Item(i).Value.Trim() + "'";
                         oRecordSet.DoQuery(sQry);
                     }
                     PH_PY020_DataFind();
@@ -802,7 +794,6 @@ namespace PSH_BOne_AddOn
                 else
                 {
                     PSH_Globals.SBO_Application.MessageBox("데이터가 존재하지 않습니다.");
-                    functionReturnValue = false;
                 }
             }
             catch (Exception ex)
@@ -813,6 +804,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
+
             return functionReturnValue;
         }
 
@@ -822,13 +814,14 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PH_PY020_TitleSetting(int iRow)
         {
-            int i = 0;
-            int j = 0;
-            string sQry = string.Empty;
+            int i;
+            int j;
+            string sQry;
             string[] COLNAM = new string[16];
 
             SAPbouiCOM.ComboBoxColumn oComboCol = null;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
                 oForm.Freeze(true);
@@ -861,8 +854,8 @@ namespace PSH_BOne_AddOn
                             oGrid1.Columns.Item(i).Type = SAPbouiCOM.BoGridColumnType.gct_ComboBox;
                             oComboCol = (SAPbouiCOM.ComboBoxColumn)oGrid1.Columns.Item("TeamCode");
 
-                            sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
-                            sQry = sQry + " WHERE Code = '1' AND U_UseYN= 'Y' Order by U_Seq";
+                            sQry = "  SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
+                            sQry += " WHERE Code = '1' AND U_UseYN= 'Y' Order by U_Seq";
                             oRecordSet.DoQuery(sQry);
                             if (oRecordSet.RecordCount > 0)
                             {
@@ -879,8 +872,8 @@ namespace PSH_BOne_AddOn
                             oGrid1.Columns.Item(i).Type = SAPbouiCOM.BoGridColumnType.gct_ComboBox;
                             oComboCol = (SAPbouiCOM.ComboBoxColumn)oGrid1.Columns.Item("RspCode");
 
-                            sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
-                            sQry = sQry + " WHERE Code = '2' AND U_UseYN= 'Y' Order by U_Seq";
+                            sQry = "  SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
+                            sQry += " WHERE Code = '2' AND U_UseYN= 'Y' Order by U_Seq";
                             oRecordSet.DoQuery(sQry);
                             if (oRecordSet.RecordCount > 0)
                             {
@@ -898,8 +891,8 @@ namespace PSH_BOne_AddOn
                             oGrid1.Columns.Item(i).Type = SAPbouiCOM.BoGridColumnType.gct_ComboBox;
                             oComboCol = (SAPbouiCOM.ComboBoxColumn)oGrid1.Columns.Item("ClsCode");
 
-                            sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
-                            sQry = sQry + " WHERE Code = '9' AND U_UseYN= 'Y' Order by U_Seq";
+                            sQry = "  SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
+                            sQry += " WHERE Code = '9' AND U_UseYN= 'Y' Order by U_Seq";
                             oRecordSet.DoQuery(sQry);
                             if (oRecordSet.RecordCount > 0)
                             {
@@ -917,8 +910,8 @@ namespace PSH_BOne_AddOn
                             oGrid1.Columns.Item(i).Type = SAPbouiCOM.BoGridColumnType.gct_ComboBox;
                             oComboCol = (SAPbouiCOM.ComboBoxColumn)oGrid1.Columns.Item("ShiftDat");
 
-                            sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
-                            sQry = sQry + " WHERE Code = 'P154' AND U_UseYN= 'Y' Order by U_Seq";
+                            sQry = "  SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
+                            sQry += " WHERE Code = 'P154' AND U_UseYN= 'Y' Order by U_Seq";
                             oRecordSet.DoQuery(sQry);
                             if (oRecordSet.RecordCount > 0)
                             {
@@ -936,8 +929,8 @@ namespace PSH_BOne_AddOn
                             oGrid1.Columns.Item(i).Type = SAPbouiCOM.BoGridColumnType.gct_ComboBox;
                             oComboCol = (SAPbouiCOM.ComboBoxColumn)oGrid1.Columns.Item("GNMUJO");
 
-                            sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
-                            sQry = sQry + " WHERE Code = 'P155' AND U_UseYN= 'Y' Order by U_Seq";
+                            sQry = "  SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
+                            sQry += " WHERE Code = 'P155' AND U_UseYN= 'Y' Order by U_Seq";
                             oRecordSet.DoQuery(sQry);
                             if (oRecordSet.RecordCount > 0)
                             {
@@ -955,8 +948,8 @@ namespace PSH_BOne_AddOn
                             oGrid1.Columns.Item(i).Type = SAPbouiCOM.BoGridColumnType.gct_ComboBox;
                             oComboCol = (SAPbouiCOM.ComboBoxColumn)oGrid1.Columns.Item("DayOff");
 
-                            sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
-                            sQry = sQry + " WHERE Code = 'P202' AND U_UseYN= 'Y' Order by U_Seq";
+                            sQry = "  SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
+                            sQry += " WHERE Code = 'P202' AND U_UseYN= 'Y' Order by U_Seq";
                             oRecordSet.DoQuery(sQry);
                             if (oRecordSet.RecordCount > 0)
                             {
@@ -974,8 +967,8 @@ namespace PSH_BOne_AddOn
                             oGrid1.Columns.Item(i).Type = SAPbouiCOM.BoGridColumnType.gct_ComboBox;
                             oComboCol = (SAPbouiCOM.ComboBoxColumn)oGrid1.Columns.Item("WorkType");
 
-                            sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
-                            sQry = sQry + " WHERE Code = 'P221' AND U_UseYN= 'Y' Order by U_Seq";
+                            sQry = "  SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
+                            sQry += " WHERE Code = 'P221' AND U_UseYN= 'Y' Order by U_Seq";
                             oRecordSet.DoQuery(sQry);
                             if (oRecordSet.RecordCount > 0)
                             {
@@ -1024,33 +1017,6 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oComboCol);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
-            }
-        }
-
-        /// <summary>
-        /// ITEM_PRESSED 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            try
-            {
-
-                if (pVal.BeforeAction == true)
-                {
-                }
-                else if (pVal.BeforeAction == false)
-                {
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_VALIDATE_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
             }
         }
 

@@ -24,7 +24,6 @@ namespace PSH_BOne_AddOn
         /// </summary>
         public override void LoadForm(string oFormDocEntry01)
         {
-            int i = 0;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
             try
             {
@@ -33,7 +32,7 @@ namespace PSH_BOne_AddOn
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
 
-                for (i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
+                for (int i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
                 {
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight")[i - 1].nodeValue = 20;
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
@@ -42,10 +41,7 @@ namespace PSH_BOne_AddOn
                 oFormUniqueID01 = "PH_PY014_" + SubMain.Get_TotalFormsCount();
                 SubMain.Add_Forms(this, oFormUniqueID01, "PH_PY014");
 
-                string strXml = string.Empty;
-                strXml = oXmlDoc.xml.ToString();
-
-                PSH_Globals.SBO_Application.LoadBatchActions(strXml);
+                PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID01);
 
                 oForm.SupportedModes = -1;
@@ -303,14 +299,14 @@ namespace PSH_BOne_AddOn
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
-                functionReturnValue = false;
                 if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    functionReturnValue = false;
                     return functionReturnValue;
                 }
+
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
@@ -318,9 +314,9 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                functionReturnValue = true;
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
+
             return functionReturnValue;
         }
 
@@ -330,14 +326,16 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PH_PY014_DataFind()
         {
-            int iRow = 0;
-            string sQry = string.Empty;
+            int iRow;
+            string sQry;
             
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
-                sQry = "Exec PH_PY014 '" + oForm.Items.Item("CLTCOD").Specific.Value + "','" + oForm.Items.Item("YM").Specific.Value + "',";
-                sQry = sQry + "'" + oForm.Items.Item("MSTCOD").Specific.Value + "'";
+                sQry = "Exec PH_PY014 '";
+                sQry += oForm.Items.Item("CLTCOD").Specific.Value + "','";
+                sQry += oForm.Items.Item("YM").Specific.Value + "','";
+                sQry += oForm.Items.Item("MSTCOD").Specific.Value + "'";
                 oDS_PH_PY014.ExecuteQuery(sQry);
 
                 iRow = oForm.DataSources.DataTables.Item(0).Rows.Count;
@@ -361,14 +359,14 @@ namespace PSH_BOne_AddOn
         private bool PH_PY014_DataSave()
         {
             bool functionReturnValue = false;
-            int i = 0;
-            string ShiftDat = string.Empty;
-            string sQry = string.Empty;
-            string CLTCOD = string.Empty;
+            int i;
+            string ShiftDat;
+            string sQry;
+            string CLTCOD;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
-                functionReturnValue = false;
                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
 
                 if (oForm.DataSources.DataTables.Item(0).Rows.Count > 0)
@@ -377,11 +375,11 @@ namespace PSH_BOne_AddOn
                     {
                         ShiftDat = oDS_PH_PY014.Columns.Item("PosDate").Cells.Item(i).Value.ToString("yyyyMMdd");
 
-                        sQry = " UPDATE ZPH_PY008 SET DangerNu = '" + oDS_PH_PY014.Columns.Item("DangerNu").Cells.Item(i).Value + "',";
-                        sQry = sQry + " DangerCD = '" + oDS_PH_PY014.Columns.Item("DangerCD").Cells.Item(i).Value + "'";
-                        sQry = sQry + " WHERE CLTCOD = '" + CLTCOD + "'";
-                        sQry = sQry + " And PosDate = '" + ShiftDat + "'";
-                        sQry = sQry + " And MSTCOD = '" + oDS_PH_PY014.Columns.Item("MSTCOD").Cells.Item(i).Value + "'";
+                        sQry = "  UPDATE ZPH_PY008 SET DangerNu = '" + oDS_PH_PY014.Columns.Item("DangerNu").Cells.Item(i).Value + "',";
+                        sQry += " DangerCD = '" + oDS_PH_PY014.Columns.Item("DangerCD").Cells.Item(i).Value + "'";
+                        sQry += " WHERE CLTCOD = '" + CLTCOD + "'";
+                        sQry += " And PosDate = '" + ShiftDat + "'";
+                        sQry += " And MSTCOD = '" + oDS_PH_PY014.Columns.Item("MSTCOD").Cells.Item(i).Value + "'";
                         oRecordSet.DoQuery(sQry);
                     }
                     PSH_Globals.SBO_Application.MessageBox("위해일수(등급)가 변경되었습니다.");
@@ -400,24 +398,25 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
+
             return functionReturnValue;
         }
 
         /// <summary>
         /// 그리드 타이블 변경
         /// </summary>
-        /// <returns></returns>
+        /// <param name="iRow"></param>
         private void PH_PY014_TitleSetting(int iRow)
         {
-            int i = 0;
-            int j = 0;
-            string sQry = string.Empty;
-
+            int i;
+            int j;
+            string sQry;
             string[] COLNAM = new string[9];
-            string CLTCOD = string.Empty;
+            string CLTCOD;
             
             SAPbouiCOM.ComboBoxColumn oComboCol = null;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
                 oForm.Freeze(true);
@@ -444,7 +443,7 @@ namespace PSH_BOne_AddOn
                             oComboCol = (SAPbouiCOM.ComboBoxColumn)oGrid1.Columns.Item("WorkType");
 
                             sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
-                            sQry = sQry + " WHERE Code = 'P221' AND U_UseYN= 'Y' Order by U_Seq";
+                            sQry += " WHERE Code = 'P221' AND U_UseYN= 'Y' Order by U_Seq";
                             oRecordSet.DoQuery(sQry);
                             if (oRecordSet.RecordCount > 0)
                             {
@@ -468,7 +467,7 @@ namespace PSH_BOne_AddOn
                             oComboCol = (SAPbouiCOM.ComboBoxColumn)oGrid1.Columns.Item("DangerCD");
 
                             sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] ";
-                            sQry = sQry + " WHERE Code = 'P220' AND U_UseYN= 'Y' And U_Char2 = '" + CLTCOD + "' Order by U_Seq";
+                            sQry += " WHERE Code = 'P220' AND U_UseYN= 'Y' And U_Char2 = '" + CLTCOD + "' Order by U_Seq";
                             oRecordSet.DoQuery(sQry);
                             oComboCol.ValidValues.Add("", "");
                             if (oRecordSet.RecordCount > 0)
@@ -507,12 +506,11 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string sQry = string.Empty;
+            string sQry;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
-
                 if (pVal.BeforeAction == true)
                 {
                 }
@@ -528,7 +526,6 @@ namespace PSH_BOne_AddOn
                                 if (oRecordSet.RecordCount > 0)
                                 {
                                     oForm.Items.Item("FullName").Specific.Value = oRecordSet.Fields.Item(0).Value;
-
                                 }
                                 break;
 
@@ -536,7 +533,7 @@ namespace PSH_BOne_AddOn
                                 switch (oForm.Items.Item("CLTCOD").Specific.Value.Trim())
                                 {
                                     case "1":
-                                        if (Convert.ToDouble(oDS_PH_PY014.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) != 0 & Convert.ToDouble(oDS_PH_PY014.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) != 1)
+                                        if (Convert.ToDouble(oDS_PH_PY014.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) != 0 && Convert.ToDouble(oDS_PH_PY014.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) != 1)
                                         {
                                             oDS_PH_PY014.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value = 0;
                                             PSH_Globals.SBO_Application.SetStatusBarMessage("0 또는 1만 입력 가능합니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
@@ -544,7 +541,7 @@ namespace PSH_BOne_AddOn
                                         oDS_PH_PY014.Columns.Item("DangerCD").Cells.Item(pVal.Row).Value = "";
                                         break;
                                     case "2":
-                                        if (Convert.ToDouble(oDS_PH_PY014.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) != 0.5 & Convert.ToDouble(oDS_PH_PY014.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) != 1)
+                                        if (Convert.ToDouble(oDS_PH_PY014.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) != 0.5 && Convert.ToDouble(oDS_PH_PY014.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) != 1)
                                         {
                                             oDS_PH_PY014.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value = 0;
                                             oDS_PH_PY014.Columns.Item("DangerCD").Cells.Item(pVal.Row).Value = "";

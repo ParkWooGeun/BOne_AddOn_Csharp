@@ -887,13 +887,10 @@ namespace PSH_BOne_AddOn
 			//인사관리
 			oFilter.AddEx("PH_PY001"); //인사마스터 등록
 			oFilter.AddEx("PH_PY002"); //근태시간구분 등록
-			oFilter.AddEx("PH_PY003"); //근태월력설정
 			oFilter.AddEx("PH_PY004"); //근무조편성등록
 			oFilter.AddEx("PH_PY005"); //사업장정보등록
 			oFilter.AddEx("PH_PY006"); //승호작업등록
-			oFilter.AddEx("PH_PY007"); //유류단가등록
 			oFilter.AddEx("PH_PY008"); //일근태등록
-			oFilter.AddEx("PH_PY009"); //기찰자료UPLOAD
 			oFilter.AddEx("PH_PY012"); //출장등록
 			oFilter.AddEx("PH_PY013"); //위해일수계산
 			oFilter.AddEx("PH_PY014"); //위해일수수정
@@ -1125,7 +1122,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY002"); //근태시간구분 등록
 			oFilter.AddEx("PH_PY003"); //근태월력설정
 			oFilter.AddEx("PH_PY004"); //근무조편성등록
-			oFilter.AddEx("PH_PY005"); //사업장정보등록
 			oFilter.AddEx("PH_PY006"); //승호작업등록
 			oFilter.AddEx("PH_PY007"); //유류단가등록
 			oFilter.AddEx("PH_PY008"); //일근태등록
@@ -1467,7 +1463,6 @@ namespace PSH_BOne_AddOn
 			//인사관리
 			oFilter.AddEx("PH_PY001"); //인사마스터 등록
 			oFilter.AddEx("PH_PY002"); //근태시간구분 등록
-			oFilter.AddEx("PH_PY003"); //근태월력설정
 			oFilter.AddEx("PH_PY005"); //사업장정보등록
 			oFilter.AddEx("PH_PY007"); //유류단가등록
 			oFilter.AddEx("PH_PY008"); //일근태등록
@@ -1478,7 +1473,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY016"); //기본업무등록
 			oFilter.AddEx("PH_PY018"); //휴일근무체크(연봉제)
 			oFilter.AddEx("PH_PY019"); //반변경등록
-			oFilter.AddEx("PH_PY020"); //일근태 업무변경등록
 			oFilter.AddEx("PH_PY021"); //사원비상연락처관리
 			oFilter.AddEx("PH_PY201"); //정년임박자 휴가경비 등록
 			oFilter.AddEx("PH_PY202"); //정년임박자 휴가경비 조회
@@ -1855,7 +1849,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY006"); //승호작업등록
 			oFilter.AddEx("PH_PY007"); //유류단가등록
 			oFilter.AddEx("PH_PY008"); //일근태등록
-			oFilter.AddEx("PH_PY009"); //기찰자료UPLOAD
 			oFilter.AddEx("PH_PY010"); //일일근태처리
 			oFilter.AddEx("PH_PY011"); //전문직 호칭 일괄 변경(2013.07.05 송명규 추가)
 			oFilter.AddEx("PH_PY013"); //위해일수계산
@@ -2514,9 +2507,6 @@ namespace PSH_BOne_AddOn
 			//운영관리
 			//인사관리
 			oFilter.AddEx("PH_PY001"); //인사마스터등록
-			oFilter.AddEx("PH_PY002"); //근태시간구분 등록
-			oFilter.AddEx("PH_PY003"); //근태월력설정
-			oFilter.AddEx("PH_PY007"); //유류단가등록
 			oFilter.AddEx("PH_PY508"); //재직증명 등록 및 발급
 			oFilter.AddEx("PH_PY021"); //사원비상연락처관리
 			oFilter.AddEx("PH_PY201"); //정년임박자 휴가경비 등록
@@ -2657,8 +2647,7 @@ namespace PSH_BOne_AddOn
 			//운영관리
 			//인사관리
 			oFilter.AddEx("PH_PY001"); //인사마스터등록
-			oFilter.AddEx("PH_PY005"); //사업장정보등록
-
+			
 			//급여관리
 			oFilter.AddEx("PH_PY103"); //공제항목설정
 

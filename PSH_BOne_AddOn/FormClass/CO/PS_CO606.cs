@@ -3,16 +3,17 @@ using SAPbouiCOM;
 using SAP.Middleware.Connector;
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.Code;
+using System.Runtime.CompilerServices;
 
 namespace PSH_BOne_AddOn
 {
-	/// <summary>
-	/// 통합재무제표 본사 전송
-	/// </summary>
-	internal class PS_CO606 : PSH_BaseClass
-	{
-		private string oFormUniqueID;
-		private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
+    /// <summary>
+    /// 통합재무제표 본사 전송
+    /// </summary>
+    internal class PS_CO606 : PSH_BaseClass
+    {
+        private string oFormUniqueID;
+        private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
         private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
 
@@ -21,53 +22,53 @@ namespace PSH_BOne_AddOn
         /// </summary>
         /// <param name="oFormDocEntry01"></param>
         public override void LoadForm(string oFormDocEntry01)
-		{
-			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
+        {
+            MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
-			try
-			{
-				oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PS_CO606.srf");
-				oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue = oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue + "_" + (SubMain.Get_TotalFormsCount());
-				oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
-				oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
+            try
+            {
+                oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PS_CO606.srf");
+                oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue = oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue + "_" + (SubMain.Get_TotalFormsCount());
+                oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
+                oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
 
-				for (int i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
-				{
-					oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight")[i - 1].nodeValue = 20;
-					oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
-				}
+                for (int i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
+                {
+                    oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight")[i - 1].nodeValue = 20;
+                    oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
+                }
 
-				oFormUniqueID = "PS_CO606_" + SubMain.Get_TotalFormsCount();
-				SubMain.Add_Forms(this, oFormUniqueID, "PS_CO606");
+                oFormUniqueID = "PS_CO606_" + SubMain.Get_TotalFormsCount();
+                SubMain.Add_Forms(this, oFormUniqueID, "PS_CO606");
 
-				PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
-				oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
+                PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
+                oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
-				oForm.SupportedModes = -1;
-				oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
-				//oForm.DataBrowser.BrowseBy = "DocEntry";
+                oForm.SupportedModes = -1;
+                oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
+                //oForm.DataBrowser.BrowseBy = "DocEntry";
 
-				oForm.Freeze(true);
-				CreateItems();
-				
-				oForm.EnableMenu("1283", false); // 삭제
-				oForm.EnableMenu("1286", false); // 닫기
-				oForm.EnableMenu("1287", false); // 복제
-				oForm.EnableMenu("1284", false); // 취소
-				oForm.EnableMenu("1293", false); // 행삭제
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-				oForm.Update();
-				oForm.Freeze(false);
-				oForm.Visible = true;
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(oXmlDoc); //메모리 해제
-			}
-		}
+                oForm.Freeze(true);
+                CreateItems();
+
+                oForm.EnableMenu("1283", false); // 삭제
+                oForm.EnableMenu("1286", false); // 닫기
+                oForm.EnableMenu("1287", false); // 복제
+                oForm.EnableMenu("1284", false); // 취소
+                oForm.EnableMenu("1293", false); // 행삭제
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                oForm.Update();
+                oForm.Freeze(false);
+                oForm.Visible = true;
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oXmlDoc); //메모리 해제
+            }
+        }
 
         /// <summary>
         /// 화면 Item 생성
@@ -153,23 +154,23 @@ namespace PSH_BOne_AddOn
         {
             bool returnValue = false;
             string errCode = string.Empty;
-            short loopCount = 0;
+            short loopCount;
             string errMessage = string.Empty;
 
             string Query01 = string.Empty;
-            string StdYMF = string.Empty;
-            string StdYMT = string.Empty;
-            string StdDtF = string.Empty;
-            string StdDtT = string.Empty;
-            string StdDtS = string.Empty; //조회종료년월의 첫일자 저장
+            string StdYMF;
+            string StdYMT;
+            string StdDtF;
+            string StdDtT;
+            string StdDtS; //조회종료년월의 첫일자 저장
 
             SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             StdYMF = oForm.Items.Item("StdYMF").Specific.Value.ToString().Trim();
             StdYMT = oForm.Items.Item("StdYMT").Specific.Value.ToString().Trim();
 
-            string Client = string.Empty; //클라이언트(운영용:210, 테스트용:710)
-            string ServerIP = string.Empty; //서버IP(운영용:192.1.11.3, 테스트용:192.1.11.7)
+            string Client; //클라이언트(운영용:210, 테스트용:710)
+            string ServerIP; //서버IP(운영용:192.1.11.3, 테스트용:192.1.11.7)
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();

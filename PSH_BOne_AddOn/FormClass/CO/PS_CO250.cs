@@ -40,10 +40,9 @@ namespace PSH_BOne_AddOn
                 oFormUniqueID = "PS_CO250_" + SubMain.Get_TotalFormsCount();
                 SubMain.Add_Forms(this, oFormUniqueID, "PS_CO250");
 
-                string strXml = null;
-                strXml = oXmlDoc.xml.ToString();
+                
 
-                PSH_Globals.SBO_Application.LoadBatchActions(strXml);
+                PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
                 oForm.SupportedModes = -1;

@@ -405,6 +405,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_FI070"); //기간별 지급어음현황
 			oFilter.AddEx("PS_FI907"); //부도어음현황
 			oFilter.AddEx("PS_FI080"); //일계표
+			oFilter.AddEx("PS_FI963"); //보조원장 거래처명 변경
 		}
 
 		private static void KEY_DOWN(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -592,6 +593,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_FI070"); //기간별 지급어음현황
 			oFilter.AddEx("PS_FI907"); //부도어음현황
 			oFilter.AddEx("PS_FI080"); //일계표
+			oFilter.AddEx("PS_FI963"); //보조원장 거래처명 변경
 		}
 
 		private static void GOT_FOCUS(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2442,6 +2444,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_FI070"); //기간별 지급어음현황
 			oFilter.AddEx("PS_FI907"); //부도어음현황
 			oFilter.AddEx("PS_FI080"); //일계표
+			oFilter.AddEx("PS_FI963"); //보조원장 거래처명 변경
 		}
 
 		private static void FORM_ACTIVATE(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)

@@ -1208,13 +1208,12 @@
             DocEntry 초기화
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_CO685.AddMatrixRow(System.Int16,System.Int32,System.Boolean)">
+        <member name="M:PSH_BOne_AddOn.PS_CO685.AddMatrixRow(System.Int16,System.Int32)">
             <summary>
             ///메트릭스 Row추가
             </summary>
             <param name="pSeq"></param>
             <param name="pRow"></param>
-            <param name="pRowIserted"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_CO685.MTX01">
             <summary>
@@ -1339,6 +1338,86 @@
             </summary>
             <param name="FormUID"></param>
             <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="T:PSH_BOne_AddOn.PS_FI963">
+            <summary>
+            보조원장 거래처명 변경
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI963.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFormDocEntry01"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI963.PS_FI963_CreateItems">
+            <summary>
+            화면 Item 생성
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI963.PS_FI963_ComboBox_Setting">
+            <summary>
+            Combobox 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI963.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Form Item Event
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">pVal</param>
+            <param name="BubbleEvent">Bubble Event</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI963.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            ITEM_PRESSED 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI963.Raise_EVENT_KEY_DOWN(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            KEY_DOWN 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI963.PS_FI963_DataValidCheck">
+            <summary>
+            필수 사항 check
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI963.PS_FI963_ChangeName">
+            <summary>
+            ZMDC_JDT1 테이블 필드(U_RptItm01) 변경
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI963.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            FORM_UNLOAD 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI963.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            FormMenuEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_FI963.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+            <summary>
+            FormDataEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_FI080">
@@ -7719,13 +7798,12 @@
             모드에 따른 아이템 설정
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_CO610.AddMatrixRow(System.Int16,System.Int32,System.Boolean)">
+        <member name="M:PSH_BOne_AddOn.PS_CO610.AddMatrixRow(System.Int16,System.Int32)">
             <summary>
             행추가
             </summary>
             <param name="pSeq"></param>
             <param name="oRow"></param>
-            <param name="RowIserted"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_CO610.FormClear">
             <summary>
@@ -9919,12 +9997,12 @@
             PS_DateChange_MTX01
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_DateChange.PS_DateChange_MTX02(System.String,System.Int32,System.String)">
+        <member name="M:PSH_BOne_AddOn.PS_DateChange.PS_DateChange_MTX02(System.Int32)">
             <summary>
             PS_DateChange_MTX02
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_DateChange.PS_DateChange_SAVE(System.Int32)">
+        <member name="M:PSH_BOne_AddOn.PS_DateChange.PS_DateChange_SAVE">
             <summary>
             PS_DateChange_SAVE
             </summary>
@@ -9989,7 +10067,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_DateCommit.PS_DateCommit_TitleSetting(System.Int32)">
+        <member name="M:PSH_BOne_AddOn.PS_DateCommit.PS_DateCommit_TitleSetting">
             <summary>
             그리드 타이블 변경
             </summary>
@@ -10003,7 +10081,7 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_DateCommit.PS_DateCommit_Comments(System.String,System.Int32,System.String)">
+        <member name="M:PSH_BOne_AddOn.PS_DateCommit.PS_DateCommit_Comments(System.Int32)">
             <summary>
             PS_DateChange_MTX02
             </summary>
@@ -10867,14 +10945,6 @@
             <param name="FileName"></param>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.sStr(System.String)">
-            <summary>
-            한글을 2Byte로 변환
-            사용금지
-            </summary>
-            <param name="GetStr"></param>
-            <returns></returns>
-        </member>
         <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.Get_FormColor">
             <summary>
             에드온 폼을 운영관리에서 적용한 기본 색으로 바탕색변경
@@ -11222,7 +11292,7 @@
             <param name="Weight"></param>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.RFC_Sender(System.String,System.String,System.String,System.String,System.Double,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.RFC_Sender(System.String,System.String,System.String,System.String,System.Double,System.String,System.String,System.String,System.String,System.String)">
             <summary>
             R3 통신(실제 구현 할때 테스트 및 보완 필요, 2020.09.15 송명규)
             </summary>
@@ -11236,8 +11306,6 @@
             <param name="DueDate"></param>
             <param name="ItemType"></param>
             <param name="RequestNo"></param>
-            <param name="i"></param>
-            <param name="LastRow"></param>
             <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.Cal_KPI_Grade(System.Int16,System.Int16,System.String,System.String,System.String)">
@@ -15095,13 +15163,11 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY032.PH_PY032_FlushToItemValue(System.String,System.Int32,System.String)">
+        <member name="M:PSH_BOne_AddOn.PH_PY032.PH_PY032_FlushToItemValue(System.String)">
             <summary>
             FlushToItemValue(사용자의 Event에 따른 화면 Item의 유동적인 세팅)
             </summary>
             <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY032.PH_PY032_ComboBox_Setting">
             <summary>
@@ -15361,14 +15427,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY034.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            COMBO_SELECT 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY034.Raise_EVENT_MATRIX_LOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Raise_EVENT_CLICK 이벤트
@@ -15433,13 +15491,11 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY034.PH_PY034_FlushToItemValue(System.String,System.Int32,System.String)">
+        <member name="M:PSH_BOne_AddOn.PH_PY034.PH_PY034_FlushToItemValue(System.String)">
             <summary>
             FlushToItemValue(사용자의 Event에 따른 화면 Item의 유동적인 세팅)
             </summary>
             <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY034.PH_PY034_DataValidCheck">
             <summary>
@@ -17357,14 +17413,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY112.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_VALIDATE
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pVal"></param>
-            <param name="BubbleEvent"></param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY112.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Raise_EVENT_CLICK 이벤트
@@ -17404,12 +17452,6 @@
             <param name="FormUID"></param>
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY112.PH_PY112_DataValidCheck">
-            <summary>
-            DataValidCheck
-            </summary>
-            <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY112.PH_PY112_Validate(System.String)">
             <summary>
@@ -18043,9 +18085,9 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY118.eMail_Process">
+        <member name="M:PSH_BOne_AddOn.PH_PY118.EMail_Process">
             <summary>
-            eMail_Process
+            EMail_Process
             </summary>
         </member>
         <member name="T:PSH_BOne_AddOn.PH_PY119">
@@ -31542,14 +31584,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY931.Raise_EVENT_CHOOSE_FROM_LIST(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            CHOOSE_FROM_LIST 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY931.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>
             FormMenuEvent
@@ -31700,14 +31734,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY932.Raise_EVENT_FORM_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_RESIZE 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY932.Raise_EVENT_CHOOSE_FROM_LIST(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            CHOOSE_FROM_LIST 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>

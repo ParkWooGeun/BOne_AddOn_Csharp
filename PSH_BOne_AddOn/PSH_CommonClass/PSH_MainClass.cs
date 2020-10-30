@@ -2141,6 +2141,11 @@ namespace PSH_BOne_AddOn
                             pBaseClass = new PS_FI080();
                             pBaseClass.LoadForm("");
                             break;
+
+                        case "PS_FI963": //보조원장 거래처명 변경화
+                            pBaseClass = new PS_FI963();
+                            pBaseClass.LoadForm("");
+                            break;
                             #endregion
                     }
                 }

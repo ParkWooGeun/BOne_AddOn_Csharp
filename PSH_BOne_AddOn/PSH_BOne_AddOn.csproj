@@ -144,6 +144,7 @@
     <Compile Include="FormClass\CO\PS_CO170.cs" />
     <Compile Include="FormClass\CO\PS_CO185.cs" />
     <Compile Include="FormClass\CO\PS_CO685.cs" />
+    <Compile Include="FormClass\FI\PS_FI963.cs" />
     <Compile Include="FormClass\FI\PS_FI080.cs" />
     <Compile Include="FormClass\FI\PS_FI090.cs" />
     <Compile Include="FormClass\FI\PS_FI100.cs" />
@@ -1286,6 +1287,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PSH_BOne_AddOn\Menu_KOR.xml" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI963.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO685.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI090.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI100.srf" />

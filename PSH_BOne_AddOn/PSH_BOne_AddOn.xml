@@ -1,4 +1,4 @@
- <?xml version="1.0"?>
+<?xml version="1.0"?>
 <doc>
     <assembly>
         <name>PSH_BOne_AddOn</name>
@@ -3516,7 +3516,7 @@
             <summary>
             추가 수정 삭제 가능 여부 조회
             </summary>
-            <returns></returns>
+            <returns></returns>`
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY008.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>

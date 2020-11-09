@@ -102,17 +102,17 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-				if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
+				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
 					oForm.EnableMenu("1281", true);                 //찾기
 					oForm.EnableMenu("1282", false);                //추가
 				}
-				else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE))
+				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
 				{
 					oForm.EnableMenu("1281", false);                //찾기
 					oForm.EnableMenu("1282", true);                 //추가
 				}
-				else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE))
+				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
 				{
 				}
 			}

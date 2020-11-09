@@ -897,7 +897,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY013"); //위해일수계산
 			oFilter.AddEx("PH_PY014"); //위해일수수정
 			oFilter.AddEx("PH_PY016"); //기본업무등록
-			oFilter.AddEx("PH_PY017"); //월근태집계
 			oFilter.AddEx("PH_PY018"); //휴일근무자체크(연봉제)
 			oFilter.AddEx("PH_PY019"); //반변경등록
 			oFilter.AddEx("PH_PY020"); //일근태 업무변경등록
@@ -970,7 +969,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY103"); //공제항목설정
 			oFilter.AddEx("PH_PY104"); //고정수당공제금액일괄등록
 			oFilter.AddEx("PH_PY105"); //호봉표등록
-			oFilter.AddEx("PH_PY106"); //수당계산식설정
 			oFilter.AddEx("PH_PY107"); //급상여기준일설정
 			oFilter.AddEx("PH_PY108"); //상여율지급설정
 			oFilter.AddEx("PH_PY109"); //급상여변동자료등록
@@ -1214,7 +1212,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY109"); //급상여변동자료등록
 			oFilter.AddEx("PH_PY109_1"); //급상여변동자료 항목수정
 			oFilter.AddEx("PH_PY110"); //개인상여율등록
-			oFilter.AddEx("PH_PY111"); //급상여계산
 			oFilter.AddEx("PH_PY112"); //급상여자료관리
 			oFilter.AddEx("PH_PY113"); //급상여분개자료생성
 			oFilter.AddEx("PH_PY114"); //퇴직금기준설정
@@ -1533,9 +1530,7 @@ namespace PSH_BOne_AddOn
 			//급여관리
 			oFilter.AddEx("PH_PY100"); //기준세액설정
 			oFilter.AddEx("PH_PY101"); //보험률등록
-			oFilter.AddEx("PH_PY102"); //수당항목설정
 			oFilter.AddEx("PH_PY103"); //공제항목설정
-			oFilter.AddEx("PH_PY104"); //고정수당공제금액일괄등록
 			oFilter.AddEx("PH_PY105"); //호봉표등록
 			oFilter.AddEx("PH_PY106"); //수당계산식설정
 			oFilter.AddEx("PH_PY107"); //급상여기준일설정

@@ -227,7 +227,7 @@ namespace PSH_BOne_AddOn
                     oForm.EnableMenu("1282", true); //문서추가
 
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
                     oForm.Items.Item("CLTCOD").Enabled = false;
                     oForm.Items.Item("CntcCode").Enabled = false;

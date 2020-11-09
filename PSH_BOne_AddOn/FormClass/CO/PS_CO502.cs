@@ -108,7 +108,7 @@ namespace PSH_BOne_AddOn
                     oMat01.Columns.Item("Code").Editable = false;
                     oMat01.Columns.Item("Value").Editable = false;
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
                     oForm.Items.Item("ItmBsort").Enabled = false;
                     oForm.Items.Item("DocDate").Enabled = true;

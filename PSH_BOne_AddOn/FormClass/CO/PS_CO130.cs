@@ -111,13 +111,13 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
+                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
                 }
             }
@@ -518,7 +518,7 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
                 int i = 0;
-                if ((pVal.BeforeAction == true))
+                if (pVal.BeforeAction == true)
                 {
                     switch (pVal.MenuUID)
                     {
@@ -546,7 +546,7 @@ namespace PSH_BOne_AddOn
                     }
                     ////BeforeAction = False
                 }
-                else if ((pVal.BeforeAction == false))
+                else if (pVal.BeforeAction == false)
                 {
                     switch (pVal.MenuUID)
                     {

@@ -159,7 +159,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
+                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
                     oForm.ActiveItem = "YM";
                     oForm.Items.Item("Code").Enabled = false;
@@ -172,7 +172,7 @@ namespace PSH_BOne_AddOn
                     // 지급구분
                     oForm.Items.Item("JOBGBN").Specific.Select("1", SAPbouiCOM.BoSearchKey.psk_ByValue);
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
                     oForm.Items.Item("Code").Enabled = true;
                     oForm.Items.Item("Btn1").Visible = false;
@@ -181,7 +181,7 @@ namespace PSH_BOne_AddOn
                     oForm.EnableMenu("1281", false);                   // 문서찾기
                     oForm.EnableMenu("1282", true);                    // 문서추가
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
                     oForm.ActiveItem = "YM";
                     oForm.Items.Item("Code").Enabled = false;

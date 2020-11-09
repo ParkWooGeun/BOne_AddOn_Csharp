@@ -199,7 +199,7 @@ namespace PSH_BOne_AddOn
                             break;
                     }
                 }
-                else if ((pVal.BeforeAction == false))
+                else if (pVal.BeforeAction == false)
                 {
                     switch (pVal.MenuUID)
                     {
@@ -852,7 +852,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
+                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
                     oForm.Items.Item("CLTCOD").Enabled = true; 
                     // 접속자에 따른 권한별 사업장 콤보박스세팅
@@ -861,7 +861,7 @@ namespace PSH_BOne_AddOn
                     oForm.EnableMenu("1282", false); // 문서추가
 
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
                     oForm.Items.Item("CLTCOD").Enabled = true; 
                     // 접속자에 따른 권한별 사업장 콤보박스세팅
@@ -870,7 +870,7 @@ namespace PSH_BOne_AddOn
                     oForm.EnableMenu("1282", true);  // 문서추가
 
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
                     oForm.Items.Item("CLTCOD").Enabled = false; 
                     // 접속자에 따른 권한별 사업장 콤보박스세팅

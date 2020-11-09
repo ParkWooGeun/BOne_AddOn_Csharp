@@ -424,7 +424,7 @@ namespace PSH_BOne_AddOn
                             break;
                     }
                 }
-                else if ((pVal.BeforeAction == false))
+                else if (pVal.BeforeAction == false)
                 {
                     switch (pVal.MenuUID)
                     {

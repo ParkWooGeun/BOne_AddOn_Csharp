@@ -9,12 +9,10 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PH_PY101 : PSH_BaseClass
     {
-        public string oFormUniqueID;
-
-        public SAPbouiCOM.Matrix oMat1;
+        private string oFormUniqueID;
+        private SAPbouiCOM.Matrix oMat1;
         private SAPbouiCOM.DBDataSource oDS_PH_PY101A;
         private SAPbouiCOM.DBDataSource oDS_PH_PY101B;
-
         private string oLastItemUID;
         private string oLastColUID;
         private int oLastColRow;
@@ -41,9 +39,6 @@ namespace PSH_BOne_AddOn
 
                 oFormUniqueID = "PH_PY101_" + SubMain.Get_TotalFormsCount();
                 SubMain.Add_Forms(this, oFormUniqueID, "PH_PY101");
-
-                string strXml = string.Empty;
-                strXml = oXmlDoc.xml.ToString();
 
                 PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
@@ -76,27 +71,22 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PH_PY101_CreateItems()
         {
-            string sQry = string.Empty;
-            int i = 0;
+            string sQry;
+            int i;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
                 oDS_PH_PY101A = oForm.DataSources.DBDataSources.Item("@PH_PY101A");
                 oDS_PH_PY101B = oForm.DataSources.DBDataSources.Item("@PH_PY101B");
                 
                 oMat1 = oForm.Items.Item("Mat1").Specific;
-                ////@PH_PY101B
-                
                 oMat1.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_NotSupported;
                 oMat1.AutoResizeColumns();
 
                 oForm.AutoManaged = true;
-                //MDC_SetMod.AutoManaged(ref oForm, ref "Code");
-                ////----------------------------------------------------------------------------------------------
-                //// 기본사항
-                ////----------------------------------------------------------------------------------------------
 
-                //// 구분
+                //구분
                 sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P180' AND U_UseYN= 'Y'";
                 oRecordSet.DoQuery(sQry);
                 if (oRecordSet.RecordCount > 0)
@@ -109,7 +99,7 @@ namespace PSH_BOne_AddOn
                 }
                 oMat1.Columns.Item("SIType").DisplayDesc = true;
                 
-                //// 기준금액
+                //기준금액
                 sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P181' AND U_UseYN= 'Y'";
                 oRecordSet.DoQuery(sQry);
                 if (oRecordSet.RecordCount > 0)
@@ -128,6 +118,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
                 oForm.Freeze(false);
             }
         }
@@ -178,12 +169,11 @@ namespace PSH_BOne_AddOn
         /// </summary>
         public void PH_PY101_AddMatrixRow()
         {
-            int oRow = 0;
+            int oRow;
+
             try
             {
                 oForm.Freeze(true);
-
-                ////[Mat1]
                 oMat1.FlushToDataSource();
                 oRow = oMat1.VisualRowCount;
 
@@ -198,12 +188,12 @@ namespace PSH_BOne_AddOn
                         oDS_PH_PY101B.Offset = oRow;
                         oDS_PH_PY101B.SetValue("U_LineNum", oRow, Convert.ToString(oRow + 1));
                         oDS_PH_PY101B.SetValue("U_SIType", oRow, "");
-                        oDS_PH_PY101B.SetValue("U_EChgRate", oRow, Convert.ToString(0));
-                        oDS_PH_PY101B.SetValue("U_CChgRate", oRow, Convert.ToString(0));
-                        oDS_PH_PY101B.SetValue("U_TChgRate", oRow, Convert.ToString(0));
+                        oDS_PH_PY101B.SetValue("U_EChgRate", oRow, "0");
+                        oDS_PH_PY101B.SetValue("U_CChgRate", oRow, "0");
+                        oDS_PH_PY101B.SetValue("U_TChgRate", oRow, "0");
                         oDS_PH_PY101B.SetValue("U_BaseType", oRow, "");
-                        oDS_PH_PY101B.SetValue("U_LowLimit", oRow, Convert.ToString(0));
-                        oDS_PH_PY101B.SetValue("U_UppLimit", oRow, Convert.ToString(0));
+                        oDS_PH_PY101B.SetValue("U_LowLimit", oRow, "0");
+                        oDS_PH_PY101B.SetValue("U_UppLimit", oRow, "0");
                         oDS_PH_PY101B.SetValue("U_LineMemo", oRow, "");
                         oMat1.LoadFromDataSource();
                     }
@@ -212,12 +202,12 @@ namespace PSH_BOne_AddOn
                         oDS_PH_PY101B.Offset = oRow - 1;
                         oDS_PH_PY101B.SetValue("U_LineNum", oRow - 1, Convert.ToString(oRow));
                         oDS_PH_PY101B.SetValue("U_SIType", oRow - 1, "");
-                        oDS_PH_PY101B.SetValue("U_EChgRate", oRow - 1, Convert.ToString(0));
-                        oDS_PH_PY101B.SetValue("U_CChgRate", oRow - 1, Convert.ToString(0));
-                        oDS_PH_PY101B.SetValue("U_TChgRate", oRow - 1, Convert.ToString(0));
+                        oDS_PH_PY101B.SetValue("U_EChgRate", oRow - 1, "0");
+                        oDS_PH_PY101B.SetValue("U_CChgRate", oRow - 1, "0");
+                        oDS_PH_PY101B.SetValue("U_TChgRate", oRow - 1, "0");
                         oDS_PH_PY101B.SetValue("U_BaseType", oRow - 1, "");
-                        oDS_PH_PY101B.SetValue("U_LowLimit", oRow - 1, Convert.ToString(0));
-                        oDS_PH_PY101B.SetValue("U_UppLimit", oRow - 1, Convert.ToString(0));
+                        oDS_PH_PY101B.SetValue("U_LowLimit", oRow - 1, "0");
+                        oDS_PH_PY101B.SetValue("U_UppLimit", oRow - 1, "0");
                         oDS_PH_PY101B.SetValue("U_LineMemo", oRow - 1, "");
                         oMat1.LoadFromDataSource();
                     }
@@ -227,12 +217,12 @@ namespace PSH_BOne_AddOn
                     oDS_PH_PY101B.Offset = oRow;
                     oDS_PH_PY101B.SetValue("U_LineNum", oRow, Convert.ToString(oRow + 1));
                     oDS_PH_PY101B.SetValue("U_SIType", oRow, "");
-                    oDS_PH_PY101B.SetValue("U_EChgRate", oRow, Convert.ToString(0));
-                    oDS_PH_PY101B.SetValue("U_CChgRate", oRow, Convert.ToString(0));
-                    oDS_PH_PY101B.SetValue("U_TChgRate", oRow, Convert.ToString(0));
+                    oDS_PH_PY101B.SetValue("U_EChgRate", oRow, "0");
+                    oDS_PH_PY101B.SetValue("U_CChgRate", oRow, "0");
+                    oDS_PH_PY101B.SetValue("U_TChgRate", oRow, "0");
                     oDS_PH_PY101B.SetValue("U_BaseType", oRow, "");
-                    oDS_PH_PY101B.SetValue("U_LowLimit", oRow, Convert.ToString(0));
-                    oDS_PH_PY101B.SetValue("U_UppLimit", oRow, Convert.ToString(0));
+                    oDS_PH_PY101B.SetValue("U_LowLimit", oRow, "0");
+                    oDS_PH_PY101B.SetValue("U_UppLimit", oRow, "0");
                     oDS_PH_PY101B.SetValue("U_LineMemo", oRow, "");
                     oMat1.LoadFromDataSource();
                 }
@@ -256,31 +246,20 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
+                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
-
-                    oForm.EnableMenu("1281", true);
-                    ////문서찾기
-                    oForm.EnableMenu("1282", false);
-                    ////문서추가
-
+                    oForm.EnableMenu("1281", true); //문서찾기
+                    oForm.EnableMenu("1282", false); //문서추가
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
-
-                    oForm.EnableMenu("1281", false);
-                    ////문서찾기
-                    oForm.EnableMenu("1282", true);
-                    ////문서추가
+                    oForm.EnableMenu("1281", false); //문서찾기
+                    oForm.EnableMenu("1282", true); //문서추가
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
-
-                    oForm.EnableMenu("1281", true);
-                    ////문서찾기
-                    oForm.EnableMenu("1282", true);
-                    ////문서추가
-
+                    oForm.EnableMenu("1281", true); //문서찾기
+                    oForm.EnableMenu("1282", true); //문서추가
                 }
             }
             catch (Exception ex)
@@ -413,8 +392,6 @@ namespace PSH_BOne_AddOn
                             {
                                 BubbleEvent = false;
                             }
-
-                            ////해야할일 작업
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {
@@ -422,8 +399,6 @@ namespace PSH_BOne_AddOn
                             {
                                 BubbleEvent = false;
                             }
-                            ////해야할일 작업
-
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                         {
@@ -521,7 +496,6 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 if (pVal.BeforeAction == true)
                 {
-
                 }
                 else if (pVal.BeforeAction == false)
                 {
@@ -661,22 +635,19 @@ namespace PSH_BOne_AddOn
         private bool PH_PY101_DataValidCheck()
         {
             bool functionReturnValue = false;
-
-            functionReturnValue = false;
-            int i = 0;
-            string sQry = string.Empty;
+            int i;
+            
             try
             {
-                ////헤더
+                //헤더
                 if (string.IsNullOrEmpty(oDS_PH_PY101A.GetValue("Code", 0).ToString().Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("년월은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("Code").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    functionReturnValue = false;
                     return functionReturnValue;
                 }
 
-                //// 라인 ---------------------------
+                //라인
                 if (oMat1.VisualRowCount > 1)
                 {
                     for (i = 1; i <= oMat1.VisualRowCount - 1; i++)
@@ -686,24 +657,21 @@ namespace PSH_BOne_AddOn
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("구분은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("SIType").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            functionReturnValue = false;
                             return functionReturnValue;
                         }
-
                     }
                 }
                 else
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("라인 데이터가 없습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                    functionReturnValue = false;
                     return functionReturnValue;
                 }
 
                 oMat1.FlushToDataSource();
-                //// Matrix 마지막 행 삭제(DB 저장시)
                 if (oDS_PH_PY101B.Size > 1)
-                    oDS_PH_PY101B.RemoveRecord((oDS_PH_PY101B.Size - 1));
-
+                {
+                    oDS_PH_PY101B.RemoveRecord(oDS_PH_PY101B.Size - 1);
+                }   
                 oMat1.LoadFromDataSource();
 
                 functionReturnValue = true;
@@ -715,6 +683,7 @@ namespace PSH_BOne_AddOn
             finally
             {
             }
+
             return functionReturnValue;
         }
 
@@ -727,9 +696,10 @@ namespace PSH_BOne_AddOn
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
             int i = 0;
+
             try
             {
-                if ((pVal.BeforeAction == true))
+                if (pVal.BeforeAction == true)
                 {
                     switch (pVal.MenuUID)
                     {
@@ -757,7 +727,7 @@ namespace PSH_BOne_AddOn
                             break;
                     }
                 }
-                else if ((pVal.BeforeAction == false))
+                else if (pVal.BeforeAction == false)
                 {
                     switch (pVal.MenuUID)
                     {
@@ -770,14 +740,12 @@ namespace PSH_BOne_AddOn
                             break;
                         case "1286":
                             break;
-                        case "1281":
-                            ////문서찾기
+                        case "1281": //문서찾기
                             PH_PY101_FormItemEnabled();
                             PH_PY101_AddMatrixRow();
                             oForm.Items.Item("Code").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             break;
-                        case "1282":
-                            ////문서추가
+                        case "1282": //문서추가
                             PH_PY101_FormItemEnabled();
                             PH_PY101_AddMatrixRow();
                             break;
@@ -787,14 +755,13 @@ namespace PSH_BOne_AddOn
                         case "1291":
                             PH_PY101_FormItemEnabled();
                             break;
-                        case "1293":
-                            //// 행삭제
-                            //// [MAT1] 급여 수당
+                        case "1293": // 행삭제
+                            //[MAT1] 급여 수당
                             if (oMat1.RowCount != oMat1.VisualRowCount)
                             {
                                 oMat1.FlushToDataSource();
 
-                                while ((i <= oDS_PH_PY101B.Size - 1))
+                                while (i <= oDS_PH_PY101B.Size - 1)
                                 {
                                     if (string.IsNullOrEmpty(oDS_PH_PY101B.GetValue("U_FILD01", i)))
                                     {
@@ -803,7 +770,7 @@ namespace PSH_BOne_AddOn
                                     }
                                     else
                                     {
-                                        i = i + 1;
+                                        i += 1;
                                     }
                                 }
 

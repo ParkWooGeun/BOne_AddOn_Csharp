@@ -1,6 +1,5 @@
 using System;
 using System.Timers;
-
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.Code;
@@ -13,10 +12,7 @@ namespace PSH_BOne_AddOn
     internal class PH_PY111 : PSH_BaseClass
     {
         private string oFormUniqueID01;
-        //public SAPbouiCOM.Form oForm;
-
         private SAPbouiCOM.DBDataSource oDS_PH_PY111A;
-
         private string oLastItemUID;
         private string oLastColUID;
         private int oLastColRow;
@@ -99,55 +95,6 @@ namespace PSH_BOne_AddOn
         private string U_CSUCOD;
         private string U_GONCOD;
         #endregion
-
-
-        //미사용 변수들_S
-        //private short G_TotCnt = 0; //대상인원수
-        //private short G_PayCnt = 0; //계산인원수
-        //private short G_ChkCnt = 0; //잠금제외수
-
-        //private string StrDate;
-        //private string EndDate;
-        //private int MaxRow;
-        //private short JSNYER;
-
-        //private bool G92_CHK; //고용보험정산
-
-        //private string PAY_001;
-        //private string PAY_007;
-
-        //private double WK_TIMAMT; //시    급
-        //private double WK_DAYAMT; //일    급
-        //private double WK_STDAMT; //월    급
-        //private double WK_BNSAMT; //상여기본
-        //private double WK_APPBNS; //적용상여금
-        //private double WK_AVRAMT; //급여기본등록의 평균임금
-
-        //private string TB1_BT3COD; //사용하는 국외비과세코드
-        //private string TB1_BT5COD; //사용하는 연구비과세코드
-
-        //private double X01_Val; //X01
-        //private double X02_Val; //X02
-        //private double X03_Val; //X03
-        //private double X04_Val; //X04
-
-        //private short X10_Val;
-        //private short X11_Val;
-        //private short X12_Val;
-        //private short X13_Val;
-        //private string X14_Val;
-        //private double X15_Val;
-        //private short X16_Val;
-        //private double X17_Val;
-        //private short X18_Val;
-        //private short X19_Val;
-        //private short X20_Val;
-
-        //private string REMARK1;
-        //private string REMARK2;
-        //private string REMARK3;
-        //private bool TermCHK;
-        //미사용 변수들_E
 
         private string tDocEntry = string.Empty; //저장전 문서번호 저장
         private bool CalcYN; //계산 여부
@@ -870,7 +817,6 @@ namespace PSH_BOne_AddOn
                         oDS_PH_PY111A.SetValue("U_AP" + iCol + "GBN", 0, oRecordSet.Fields.Item(26 + iCol).Value);
                     }
 
-                    //2010.04.05 최동권 추가
                     oYM = oDS_PH_PY111A.GetValue("U_YM", 0).Trim();
 
                     if (!string.IsNullOrEmpty(oYM))
@@ -898,7 +844,6 @@ namespace PSH_BOne_AddOn
             catch(Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                //Create_Tiltle() = "Display_BonussRate :" + Strings.Space(10) + Err().Description;
             }
             finally
             {
@@ -962,13 +907,11 @@ namespace PSH_BOne_AddOn
                 {
                     errNum = 1;
                     throw new Exception();
-                    //수당항목관리를 확인하세요.
-                    //goto Error_Message;
                 }
                 else
                 {
                     iCol = 0;
-                    while (!(oRecordSet.EoF))
+                    while (!oRecordSet.EoF)
                     {
                         WK_C.CSUCOD[iCol] = oRecordSet.Fields.Item("U_CSUCOD").Value;
                         WK_C.CSUNAM[iCol] = oRecordSet.Fields.Item("U_CSUNAM").Value;
@@ -995,8 +938,6 @@ namespace PSH_BOne_AddOn
                 {
                     errNum = 2;
                     throw new Exception();
-                    //공제항목관리를 확인하세요.
-                    //goto Error_Message;
                 }
                 else
                 {
@@ -1192,15 +1133,15 @@ namespace PSH_BOne_AddOn
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_CLICK: //6
-                    Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
-                    Raise_EVENT_DOUBLE_CLICK(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_DOUBLE_CLICK(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED: //8
-                    Raise_EVENT_MATRIX_LINK_PRESSED(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_MATRIX_LINK_PRESSED(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 //case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED: //9
@@ -1212,7 +1153,7 @@ namespace PSH_BOne_AddOn
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
-                    Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 //case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD: //12
@@ -1238,7 +1179,7 @@ namespace PSH_BOne_AddOn
                 //    break;
 
                 case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
-                    Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 //case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
@@ -1250,16 +1191,16 @@ namespace PSH_BOne_AddOn
                 //    break;
 
                 case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
-                    Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                    //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
-                    //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
-                    //    break;
+                //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
+                //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
 
-                    //case SAPbouiCOM.BoEventTypes.et_Drag: //39
-                    //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
-                    //    break;
+                //case SAPbouiCOM.BoEventTypes.et_Drag: //39
+                //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
             }
         }
 
@@ -1607,7 +1548,6 @@ namespace PSH_BOne_AddOn
                             if (oForm.Items.Item("JOBGBN").Specific.Selected != null)
                             {
                                 oJOBGBN = oDS_PH_PY111A.GetValue("U_JOBGBN", 0).Trim();
-
                             }
                             else
                             {
@@ -1678,84 +1618,6 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// CLICK 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_CLICK(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            try
-            {
-                if (pVal.Before_Action == true)
-                {
-                }
-                else if (pVal.Before_Action == false)
-                {
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-        }
-
-        /// <summary>
-        /// DOUBLE_CLICK 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_DOUBLE_CLICK(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            try
-            {
-                if (pVal.Before_Action == true)
-                {
-                }
-                else if (pVal.Before_Action == false)
-                {
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-        }
-
-        /// <summary>
-        /// MATRIX_LINK_PRESSED 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_MATRIX_LINK_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            try
-            {
-                if (pVal.Before_Action == true)
-                {
-                }
-                else if (pVal.Before_Action == false)
-                {
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-        }
-
-        /// <summary>
         /// VALIDATE 이벤트
         /// </summary>
         /// <param name="FormUID">Form UID</param>
@@ -1782,7 +1644,7 @@ namespace PSH_BOne_AddOn
                         {
                             if (string.IsNullOrEmpty(oForm.Items.Item("YM").Specific.Value.ToString().Trim()))
                             {
-                                oDS_PH_PY111A.SetValue("U_YM", 0, DateTime.Now.ToString("yyyyMM")); //Microsoft.VisualBasic.Compatibility.VB6.Support.Format(DateAndTime.Now, "YYYYMM"));
+                                oDS_PH_PY111A.SetValue("U_YM", 0, DateTime.Now.ToString("yyyyMM"));
                             }
                             else
                             {
@@ -1842,32 +1704,6 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// MATRIX_LOAD 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_MATRIX_LOAD(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            try
-            {
-                if (pVal.Before_Action == true)
-                {
-                }
-                else if (pVal.Before_Action == false)
-                {
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-        }
-
-        /// <summary>
         /// FORM_UNLOAD 이벤트
         /// </summary>
         /// <param name="FormUID">Form UID</param>
@@ -1895,64 +1731,6 @@ namespace PSH_BOne_AddOn
             {
             }
         }
-
-        /// <summary>
-        /// FORM_RESIZE 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_FORM_RESIZE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            try
-            {
-                if (pVal.Before_Action == true)
-                {
-                }
-                else if (pVal.Before_Action == false)
-                {
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-        }
-
-        /// <summary>
-        /// CHOOSE_FROM_LIST 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_CHOOSE_FROM_LIST(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            try
-            {
-                if (pVal.Before_Action == true)
-                {
-                }
-                else if (pVal.Before_Action == false)
-                {
-                    //원본 소스(VB6.0 주석처리되어 있음)
-                    //if(pVal.ItemUID == "Code")
-                    //{
-                    //    dataHelpClass.PSH_CF_DBDatasourceReturn(pVal, pVal.FormUID, "@PH_PY001A", "Code", "", 0, "", "", "");
-                    //}
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-        }
-
 
         /// <summary>
         /// FormMenuEvent
@@ -2009,8 +1787,6 @@ namespace PSH_BOne_AddOn
                             break;
                         case "1286":
                             break;
-                        //Case "1293":
-                        //  Raise_EVENT_ROW_DELETE(FormUID, pval, BubbleEvent)
                         case "1281": //문서찾기
                             PH_PY111_FormItemEnabled();
                             break;

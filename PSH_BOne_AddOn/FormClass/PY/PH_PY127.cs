@@ -179,7 +179,7 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
+                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
                     // 접속자에 따른 권한별 사업장 콤보박스세팅
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true );
@@ -194,7 +194,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("SIType").Enabled = true;
                     oForm.Items.Item("Comments").Specific.Value = "";
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
                     // 접속자에 따른 권한별 사업장 콤보박스세팅
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
@@ -210,7 +210,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("Comments").Specific.Value = "";
 
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
                     // 접속자에 따른 권한별 사업장 콤보박스세팅
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", false);
@@ -1570,7 +1570,7 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                if ((pVal.BeforeAction == true))
+                if (pVal.BeforeAction == true)
                 {
                     switch (pVal.MenuUID)
                     {
@@ -1607,7 +1607,7 @@ namespace PSH_BOne_AddOn
                             break;
                     }
                 }
-                else if ((pVal.BeforeAction == false))
+                else if (pVal.BeforeAction == false)
                 {
                     switch (pVal.MenuUID)
                     {

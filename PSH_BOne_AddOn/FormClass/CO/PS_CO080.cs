@@ -817,7 +817,7 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
-				if ((pVal.BeforeAction == true))
+				if (pVal.BeforeAction == true)
 				{
 					switch (pVal.MenuUID)
 					{
@@ -841,7 +841,7 @@ namespace PSH_BOne_AddOn
 							break;
 					}
 				}
-				else if ((pVal.BeforeAction == false))
+				else if (pVal.BeforeAction == false)
 				{
 					switch (pVal.MenuUID)
 					{

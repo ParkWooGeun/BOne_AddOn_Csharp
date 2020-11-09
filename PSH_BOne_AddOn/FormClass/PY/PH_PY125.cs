@@ -606,7 +606,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                if ((pVal.BeforeAction == true))
+                if (pVal.BeforeAction == true)
                 {
                     switch (pVal.MenuUID)
                     {
@@ -635,7 +635,7 @@ namespace PSH_BOne_AddOn
                             //Call AuthorityCheck(oForm, "CLTCOD", "@PH_PY125A", "Code")      '//접속자 권한에 따른 사업장 보기
                     }
                 }
-                else if ((pVal.BeforeAction == false))
+                else if (pVal.BeforeAction == false)
                 {
                     switch (pVal.MenuUID)
                     {

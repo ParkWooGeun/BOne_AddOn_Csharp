@@ -72,7 +72,6 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PH_PY007_CreateItems()
         {
-            string sQry;
             SAPbouiCOM.ComboBox oCombo = null;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -703,7 +702,7 @@ namespace PSH_BOne_AddOn
                             break;
                     }
                 }
-                else if ((pVal.BeforeAction == false))
+                else if (pVal.BeforeAction == false)
                 {
                     switch (pVal.MenuUID)
                     {

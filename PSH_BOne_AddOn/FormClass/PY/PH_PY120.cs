@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
-using PSH_BOne_AddOn.DataPack;
-using PSH_BOne_AddOn.Form;
-using Microsoft.VisualBasic;
 
 namespace PSH_BOne_AddOn
 {
@@ -13,11 +9,9 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PH_PY120 : PSH_BaseClass
     {
-        public string oFormUniqueID01;
-
-        //그리드 사용시
-        public SAPbouiCOM.Grid oGrid1;
-        public SAPbouiCOM.DataTable oDS_PH_PY120;
+        private string oFormUniqueID01;
+        private SAPbouiCOM.Grid oGrid1;
+        private SAPbouiCOM.DataTable oDS_PH_PY120;
 
         /// <summary>
         /// 화면 호출
@@ -40,9 +34,6 @@ namespace PSH_BOne_AddOn
 
                 oFormUniqueID01 = "PH_PY120_" + SubMain.Get_TotalFormsCount();
                 SubMain.Add_Forms(this, oFormUniqueID01, "PH_PY120");
-
-                string strXml = string.Empty;
-                strXml = oXmlDoc.xml.ToString();
 
                 PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID01);
@@ -83,7 +74,7 @@ namespace PSH_BOne_AddOn
                 oGrid1.DataTable = oForm.DataSources.DataTables.Item("PH_PY120");
                 oDS_PH_PY120 = oForm.DataSources.DataTables.Item("PH_PY120");
 
-                ////테이블이 없는경우 데이터셋(Grid)
+                //테이블이 없는경우 데이터셋(Grid)
                 oForm.DataSources.DataTables.Item("PH_PY120").Columns.Add("부서", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
                 oForm.DataSources.DataTables.Item("PH_PY120").Columns.Add("담당", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
                 oForm.DataSources.DataTables.Item("PH_PY120").Columns.Add("사번", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
@@ -93,24 +84,24 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.DataTables.Item("PH_PY120").Columns.Add("총공제액", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
                 oForm.DataSources.DataTables.Item("PH_PY120").Columns.Add("실지급액", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
 
-                ////사업장
+                //사업장
                 oForm.DataSources.UserDataSources.Add("CLTCOD", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
                 oForm.Items.Item("CLTCOD").Specific.DataBind.SetBound(true, "", "CLTCOD");
                 oForm.Items.Item("CLTCOD").DisplayDesc = true;
 
-                //// 귀속년월
+                //귀속년월
                 oForm.DataSources.UserDataSources.Add("YM", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 6);
                 oForm.Items.Item("YM").Specific.DataBind.SetBound(true, "", "YM");
                 oForm.DataSources.UserDataSources.Item("YM").ValueEx = DateTime.Now.ToString("yyyyMM");
 
-                ////대상기간
+                //대상기간
                 oForm.DataSources.UserDataSources.Add("YMFrom", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 6);
                 oForm.Items.Item("YMFrom").Specific.DataBind.SetBound(true, "", "YMFrom");
 
                 oForm.DataSources.UserDataSources.Add("YMTo", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 6);
                 oForm.Items.Item("YMTo").Specific.DataBind.SetBound(true, "", "YMTo");
 
-                ////지급일자
+                //지급일자
                 oForm.DataSources.UserDataSources.Add("JIGBIL", SAPbouiCOM.BoDataType.dt_DATE, 8);
                 oForm.Items.Item("JIGBIL").Specific.DataBind.SetBound(true, "", "JIGBIL");
 
@@ -132,6 +123,7 @@ namespace PSH_BOne_AddOn
         public void PH_PY120_FormItemEnabled()
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 oForm.Freeze(true);
@@ -269,7 +261,6 @@ namespace PSH_BOne_AddOn
                     {
                          PH_PY120_DataFind();
                     }
-
                 }
             }
             catch (Exception ex)
@@ -334,10 +325,10 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
-                YM = Strings.Trim(oForm.Items.Item("YM").Specific.Value);
-                YMFrom = Strings.Trim(oForm.Items.Item("YMFrom").Specific.Value);
-                YMTo = Strings.Trim(oForm.Items.Item("YMTo").Specific.Value);
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                YM = oForm.Items.Item("YM").Specific.Value.ToString().Trim();
+                YMFrom = oForm.Items.Item("YMFrom").Specific.Value.ToString().Trim();
+                YMTo = oForm.Items.Item("YMTo").Specific.Value.ToString().Trim();
 
                 sQry = "Exec PH_PY120_01 '" + CLTCOD + "','" + YMFrom + "','" + YMTo + "'";
 
@@ -356,7 +347,7 @@ namespace PSH_BOne_AddOn
                 COLNAM[6] = "총공제액";
                 COLNAM[7] = "실지급액";
 
-                for (i = 0; i <= Information.UBound(COLNAM); i++)
+                for (i = 0; i <= COLNAM.Length; i++)
                 {
                     oGrid1.Columns.Item(i).TitleObject.Caption = COLNAM[i];
                     oGrid1.Columns.Item(i).Editable = false;
@@ -449,7 +440,7 @@ namespace PSH_BOne_AddOn
                                 switch (oForm.Items.Item("CLTCOD").Specific.Value.Trim())
                                 {
                                     case "1":
-                                        if (Convert.ToDouble(oDS_PH_PY120.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) != 0 & Convert.ToDouble(oDS_PH_PY120.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) != 1)
+                                        if (Convert.ToDouble(oDS_PH_PY120.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) != 0 && Convert.ToDouble(oDS_PH_PY120.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) != 1)
                                         {
                                             oDS_PH_PY120.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value = 0;
                                             PSH_Globals.SBO_Application.SetStatusBarMessage("0 또는 1만 입력 가능합니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
@@ -457,7 +448,7 @@ namespace PSH_BOne_AddOn
                                         oDS_PH_PY120.Columns.Item("DangerCD").Cells.Item(pVal.Row).Value = "";
                                         break;
                                     case "2":
-                                        if (Convert.ToDouble(oDS_PH_PY120.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) != 0.5 & Convert.ToDouble(oDS_PH_PY120.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) != 1)
+                                        if (Convert.ToDouble(oDS_PH_PY120.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) != 0.5 && Convert.ToDouble(oDS_PH_PY120.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) != 1)
                                         {
                                             oDS_PH_PY120.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value = 0;
                                             oDS_PH_PY120.Columns.Item("DangerCD").Cells.Item(pVal.Row).Value = "";
@@ -468,12 +459,10 @@ namespace PSH_BOne_AddOn
                                             if (Convert.ToDouble(oDS_PH_PY120.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) >= 0.5)
                                             {
                                                 oDS_PH_PY120.Columns.Item("DangerCD").Cells.Item(pVal.Row).Value = "56";
-                                                //// '// 위해등급 6급
                                             }
                                             else
                                             {
                                                 oDS_PH_PY120.Columns.Item("DangerCD").Cells.Item(pVal.Row).Value = "";
-                                                ////"56" '// 위해등급 6급
                                             }
                                         }
                                         break;

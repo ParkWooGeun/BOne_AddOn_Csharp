@@ -1202,41 +1202,41 @@
 //					//기간종료일자
 //					oDS_PH_PY012B.SetValue("U_Destinat", oRow, "");
 //					//행선지
-//					oDS_PH_PY012B.SetValue("U_PayPstg", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_PayPstg", oRow, "0");
 //					//지급율
 //					oDS_PH_PY012B.SetValue("U_Currency", oRow, "");
 //					//통화
-//					oDS_PH_PY012B.SetValue("U_Rate", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_Rate", oRow, "0");
 //					//환율
 //					oDS_PH_PY012B.SetValue("U_Vehicle", oRow, "");
 //					//차량구분
 //					oDS_PH_PY012B.SetValue("U_FuelType", oRow, "");
 //					//유종
-//					oDS_PH_PY012B.SetValue("U_FuelPrc", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_FuelPrc", oRow, "0");
 //					//단가
-//					oDS_PH_PY012B.SetValue("U_Distance", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_Distance", oRow, "0");
 //					//거리
-//					oDS_PH_PY012B.SetValue("U_FoodNum", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_FoodNum", oRow, "0");
 //					//식수
-//					oDS_PH_PY012B.SetValue("U_TransExp", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_TransExp", oRow, "0");
 //					//교통비
-//					oDS_PH_PY012B.SetValue("U_InsurExp", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_InsurExp", oRow, "0");
 //					//보험료
-//					oDS_PH_PY012B.SetValue("U_AirpExp", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_AirpExp", oRow, "0");
 //					//공항세
-//					oDS_PH_PY012B.SetValue("U_DayExp", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_DayExp", oRow, "0");
 //					//일비
-//					oDS_PH_PY012B.SetValue("U_FDayExp", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_FDayExp", oRow, "0");
 //					//일비(외화)
-//					oDS_PH_PY012B.SetValue("U_LodgExp", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_LodgExp", oRow, "0");
 //					//숙박비
-//					oDS_PH_PY012B.SetValue("U_FoodExp", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_FoodExp", oRow, "0");
 //					//숙박비(외화)
-//					oDS_PH_PY012B.SetValue("U_ParkExp", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_ParkExp", oRow, "0");
 //					//주차비
-//					oDS_PH_PY012B.SetValue("U_TollExp", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_TollExp", oRow, "0");
 //					//도로비
-//					oDS_PH_PY012B.SetValue("U_TotalExp", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_TotalExp", oRow, "0");
 //					//합계
 //					oMat1.LoadFromDataSource();
 //				} else {
@@ -1249,41 +1249,41 @@
 //					//기간종료일자
 //					oDS_PH_PY012B.SetValue("U_Destinat", oRow - 1, "");
 //					//행선지
-//					oDS_PH_PY012B.SetValue("U_PayPstg", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_PayPstg", oRow - 1, "0");
 //					//지급율
 //					oDS_PH_PY012B.SetValue("U_Currency", oRow - 1, "");
 //					//통화
-//					oDS_PH_PY012B.SetValue("U_Rate", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_Rate", oRow - 1, "0");
 //					//환율
 //					oDS_PH_PY012B.SetValue("U_Vehicle", oRow - 1, "");
 //					//차량구분
 //					oDS_PH_PY012B.SetValue("U_FuelType", oRow - 1, "");
 //					//유종
-//					oDS_PH_PY012B.SetValue("U_FuelPrc", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_FuelPrc", oRow - 1, "0");
 //					//단가
-//					oDS_PH_PY012B.SetValue("U_Distance", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_Distance", oRow - 1, "0");
 //					//거리
-//					oDS_PH_PY012B.SetValue("U_FoodNum", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_FoodNum", oRow - 1, "0");
 //					//식수
-//					oDS_PH_PY012B.SetValue("U_TransExp", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_TransExp", oRow - 1, "0");
 //					//교통비
-//					oDS_PH_PY012B.SetValue("U_InsurExp", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_InsurExp", oRow - 1, "0");
 //					//보험료
-//					oDS_PH_PY012B.SetValue("U_AirpExp", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_AirpExp", oRow - 1, "0");
 //					//공항세
-//					oDS_PH_PY012B.SetValue("U_DayExp", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_DayExp", oRow - 1, "0");
 //					//일비
-//					oDS_PH_PY012B.SetValue("U_FDayExp", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_FDayExp", oRow - 1, "0");
 //					//일비(외화)
-//					oDS_PH_PY012B.SetValue("U_LodgExp", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_LodgExp", oRow - 1, "0");
 //					//숙박비
-//					oDS_PH_PY012B.SetValue("U_FoodExp", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_FoodExp", oRow - 1, "0");
 //					//숙박비(외화)
-//					oDS_PH_PY012B.SetValue("U_ParkExp", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_ParkExp", oRow - 1, "0");
 //					//주차비
-//					oDS_PH_PY012B.SetValue("U_TollExp", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_TollExp", oRow - 1, "0");
 //					//도로비
-//					oDS_PH_PY012B.SetValue("U_TotalExp", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_TotalExp", oRow - 1, "0");
 //					//합계
 //					oMat1.LoadFromDataSource();
 //				}
@@ -1297,41 +1297,41 @@
 //				//기간종료일자
 //				oDS_PH_PY012B.SetValue("U_Destinat", oRow, "");
 //				//행선지
-//				oDS_PH_PY012B.SetValue("U_PayPstg", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_PayPstg", oRow, "0");
 //				//지급율
 //				oDS_PH_PY012B.SetValue("U_Currency", oRow, "");
 //				//통화
-//				oDS_PH_PY012B.SetValue("U_Rate", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_Rate", oRow, "0");
 //				//환율
 //				oDS_PH_PY012B.SetValue("U_Vehicle", oRow, "");
 //				//차량구분
 //				oDS_PH_PY012B.SetValue("U_FuelType", oRow, "");
 //				//유종
-//				oDS_PH_PY012B.SetValue("U_FuelPrc", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_FuelPrc", oRow, "0");
 //				//단가
-//				oDS_PH_PY012B.SetValue("U_Distance", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_Distance", oRow, "0");
 //				//거리
-//				oDS_PH_PY012B.SetValue("U_FoodNum", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_FoodNum", oRow, "0");
 //				//식수
-//				oDS_PH_PY012B.SetValue("U_TransExp", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_TransExp", oRow, "0");
 //				//교통비
-//				oDS_PH_PY012B.SetValue("U_InsurExp", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_InsurExp", oRow, "0");
 //				//보험료
-//				oDS_PH_PY012B.SetValue("U_AirpExp", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_AirpExp", oRow, "0");
 //				//공항세
-//				oDS_PH_PY012B.SetValue("U_DayExp", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_DayExp", oRow, "0");
 //				//일비
-//				oDS_PH_PY012B.SetValue("U_FDayExp", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_FDayExp", oRow, "0");
 //				//일비(외화)
-//				oDS_PH_PY012B.SetValue("U_LodgExp", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_LodgExp", oRow, "0");
 //				//숙박비
-//				oDS_PH_PY012B.SetValue("U_FoodExp", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_FoodExp", oRow, "0");
 //				//숙박비(외화)
-//				oDS_PH_PY012B.SetValue("U_ParkExp", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_ParkExp", oRow, "0");
 //				//주차비
-//				oDS_PH_PY012B.SetValue("U_TollExp", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_TollExp", oRow, "0");
 //				//도로비
-//				oDS_PH_PY012B.SetValue("U_TotalExp", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_TotalExp", oRow, "0");
 //				//합계
 //				oMat1.LoadFromDataSource();
 //			}

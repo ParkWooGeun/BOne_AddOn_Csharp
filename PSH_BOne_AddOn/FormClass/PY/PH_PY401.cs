@@ -269,40 +269,40 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.UserDataSources.Item("symd1").Value = "";
                 oForm.DataSources.UserDataSources.Item("eymd1").Value = "";
 
-                oForm.DataSources.UserDataSources.Item("payrtot1").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("bnstot1").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("fwork1").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("ndtalw1").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("etcntax1").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("lnchalw1").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("ftaxamt1").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("savtaxddc1").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("incmtax1").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("fvsptax1").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("residtax1").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("medcinsr1").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("asopinsr1").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("annuboamt1").Value = Convert.ToString(0);
+                oForm.DataSources.UserDataSources.Item("payrtot1").Value = "0";
+                oForm.DataSources.UserDataSources.Item("bnstot1").Value = "0";
+                oForm.DataSources.UserDataSources.Item("fwork1").Value = "0";
+                oForm.DataSources.UserDataSources.Item("ndtalw1").Value = "0";
+                oForm.DataSources.UserDataSources.Item("etcntax1").Value = "0";
+                oForm.DataSources.UserDataSources.Item("lnchalw1").Value = "0";
+                oForm.DataSources.UserDataSources.Item("ftaxamt1").Value = "0";
+                oForm.DataSources.UserDataSources.Item("savtaxddc1").Value = "0";
+                oForm.DataSources.UserDataSources.Item("incmtax1").Value = "0";
+                oForm.DataSources.UserDataSources.Item("fvsptax1").Value = "0";
+                oForm.DataSources.UserDataSources.Item("residtax1").Value = "0";
+                oForm.DataSources.UserDataSources.Item("medcinsr1").Value = "0";
+                oForm.DataSources.UserDataSources.Item("asopinsr1").Value = "0";
+                oForm.DataSources.UserDataSources.Item("annuboamt1").Value = "0";
 
                 oForm.DataSources.UserDataSources.Item("entno2").Value = "";
                 oForm.DataSources.UserDataSources.Item("servcomp2").Value = "";
                 oForm.DataSources.UserDataSources.Item("symd2").Value = "";
                 oForm.DataSources.UserDataSources.Item("eymd2").Value = "";
 
-                oForm.DataSources.UserDataSources.Item("payrtot2").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("bnstot2").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("fwork2").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("ndtalw2").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("etcntax2").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("lnchalw2").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("ftaxamt2").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("savtaxddc2").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("indmtax2").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("fvsptax2").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("residtax2").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("medcinsr2").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("asopinsr2").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("annuboamt2").Value = Convert.ToString(0);
+                oForm.DataSources.UserDataSources.Item("payrtot2").Value = "0";
+                oForm.DataSources.UserDataSources.Item("bnstot2").Value = "0";
+                oForm.DataSources.UserDataSources.Item("fwork2").Value = "0";
+                oForm.DataSources.UserDataSources.Item("ndtalw2").Value = "0";
+                oForm.DataSources.UserDataSources.Item("etcntax2").Value = "0";
+                oForm.DataSources.UserDataSources.Item("lnchalw2").Value = "0";
+                oForm.DataSources.UserDataSources.Item("ftaxamt2").Value = "0";
+                oForm.DataSources.UserDataSources.Item("savtaxddc2").Value = "0";
+                oForm.DataSources.UserDataSources.Item("indmtax2").Value = "0";
+                oForm.DataSources.UserDataSources.Item("fvsptax2").Value = "0";
+                oForm.DataSources.UserDataSources.Item("residtax2").Value = "0";
+                oForm.DataSources.UserDataSources.Item("medcinsr2").Value = "0";
+                oForm.DataSources.UserDataSources.Item("asopinsr2").Value = "0";
+                oForm.DataSources.UserDataSources.Item("annuboamt2").Value = "0";
             }
             catch (Exception ex)
             {
@@ -749,40 +749,40 @@ namespace PSH_BOne_AddOn
                                 oForm.DataSources.UserDataSources.Item("symd1").Value = "";
                                 oForm.DataSources.UserDataSources.Item("eymd1").Value = "";
 
-                                oForm.DataSources.UserDataSources.Item("payrtot1").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("bnstot1").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("fwork1").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("ndtalw1").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("etcntax1").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("lnchalw1").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("ftaxamt1").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("savtaxddc1").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("incmtax1").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("fvsptax1").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("residtax1").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("medcinsr1").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("asopinsr1").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("annuboamt1").Value = Convert.ToString(0);
+                                oForm.DataSources.UserDataSources.Item("payrtot1").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("bnstot1").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("fwork1").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("ndtalw1").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("etcntax1").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("lnchalw1").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("ftaxamt1").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("savtaxddc1").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("incmtax1").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("fvsptax1").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("residtax1").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("medcinsr1").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("asopinsr1").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("annuboamt1").Value = "0";
 
                                 oForm.DataSources.UserDataSources.Item("entno2").Value = "";
                                 oForm.DataSources.UserDataSources.Item("servcomp2").Value = "";
                                 oForm.DataSources.UserDataSources.Item("symd2").Value = "";
                                 oForm.DataSources.UserDataSources.Item("eymd2").Value = "";
 
-                                oForm.DataSources.UserDataSources.Item("payrtot2").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("bnstot2").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("fwork2").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("ndtalw2").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("etcntax2").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("lnchalw2").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("ftaxamt2").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("savtaxddc2").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("indmtax2").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("fvsptax2").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("residtax2").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("medcinsr2").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("asopinsr2").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("annuboamt2").Value = Convert.ToString(0);
+                                oForm.DataSources.UserDataSources.Item("payrtot2").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("bnstot2").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("fwork2").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("ndtalw2").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("etcntax2").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("lnchalw2").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("ftaxamt2").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("savtaxddc2").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("indmtax2").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("fvsptax2").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("residtax2").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("medcinsr2").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("asopinsr2").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("annuboamt2").Value = "0";
 
                                 PSH_Globals.SBO_Application.MessageBox("결과가 존재하지 않습니다.");
                             }

@@ -978,24 +978,20 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY112"); //급상여자료관리
 			oFilter.AddEx("PH_PY113"); //급상여분개자료생성
 			oFilter.AddEx("PH_PY114"); //퇴직금기준설정
-			oFilter.AddEx("PH_PY115"); //퇴직금계산
 			oFilter.AddEx("PH_PY116"); //퇴직금분개자료생성
 			oFilter.AddEx("PH_PY117"); //급상여마감작업
 			oFilter.AddEx("PH_PY118"); //급상여Email발송
 			oFilter.AddEx("PH_PY119"); //급상여은행파일생성
 			oFilter.AddEx("PH_PY120"); //급상여소급집계처리
 			oFilter.AddEx("PH_PY121"); //평가가급액 등록
-			oFilter.AddEx("PH_PY122"); //급상여출력 개인부서설정등록
 			oFilter.AddEx("PH_PY123"); //가압류등록
 			oFilter.AddEx("PH_PY124"); //베네피아 금액 등록
-			oFilter.AddEx("PH_PY127"); ////개인별 4대보험 보수월액 및 정산금액입력
 			oFilter.AddEx("PH_PY130"); //팀별 성과급차등 등급등록
 			oFilter.AddEx("PH_PY131"); //성과급차등 계수등록
 			oFilter.AddEx("PH_PY132"); //성과급차 개인별 계산
 			oFilter.AddEx("PH_PY133"); //연봉제 횟차 관리
 			oFilter.AddEx("PH_PY134"); //소득세/주민세 조정관리
 			oFilter.AddEx("PH_PY129"); //개인별퇴직연금(DC형) 계산
-            oFilter.AddEx("PH_PY135"); //급상여분개처리
             oFilter.AddEx("PH_PY136"); //급상여분개처리 배부규칙설정
 
             //급여관리 - 리포트
@@ -1213,7 +1209,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY109_1"); //급상여변동자료 항목수정
 			oFilter.AddEx("PH_PY110"); //개인상여율등록
 			oFilter.AddEx("PH_PY112"); //급상여자료관리
-			oFilter.AddEx("PH_PY113"); //급상여분개자료생성
 			oFilter.AddEx("PH_PY114"); //퇴직금기준설정
 			oFilter.AddEx("PH_PY115"); //퇴직금계산
 			oFilter.AddEx("PH_PY116"); //퇴직금분개자료생성
@@ -1550,7 +1545,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY122"); //급상여출력 개인부서설정등록
 			oFilter.AddEx("PH_PY123"); //가압류등록
 			oFilter.AddEx("PH_PY124"); //베네피아 금액 등록
-			oFilter.AddEx("PH_PY130"); //팀별 성과급차등 등급등록
 			oFilter.AddEx("PH_PY131"); //성과급차등 계수등록
 			oFilter.AddEx("PH_PY132"); //성과급차 개인별 계산
 			oFilter.AddEx("PH_PY133"); //연봉제 횟차 관리
@@ -1930,7 +1924,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY109_1"); //급상여변동자료 항목수정
 			oFilter.AddEx("PH_PY110"); //개인상여율등록
 			oFilter.AddEx("PH_PY111"); //급상여계산
-			oFilter.AddEx("PH_PY112"); //급상여자료관리
 			oFilter.AddEx("PH_PY113"); //급상여분개자료생성
 			oFilter.AddEx("PH_PY114"); //퇴직금기준설정
 			oFilter.AddEx("PH_PY115"); //퇴직금계산
@@ -1944,7 +1937,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY123"); //가압류등록
 			oFilter.AddEx("PH_PY124"); //베네피아 금액 등록
 			oFilter.AddEx("PH_PY125"); //퇴직연금 설정
-			oFilter.AddEx("PH_PY127"); //개인별 4대보험 보수월액 및 정산금액입력
 			oFilter.AddEx("PH_PY130"); //팀별 성과급차등 등급등록
 			oFilter.AddEx("PH_PY131"); //성과급차등 계수등록
 			oFilter.AddEx("PH_PY132"); //성과급차 개인별 계산
@@ -2510,8 +2502,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY201"); //정년임박자 휴가경비 등록
 			oFilter.AddEx("PH_PY203"); //교육실적등록
 			oFilter.AddEx("PH_PY204"); //교육계획등록
-			oFilter.AddEx("PH_PY205"); //교육계획VS실적조회
-
+			
 			//급여관리
 			oFilter.AddEx("PH_PY100"); //기준세액설정
 			oFilter.AddEx("PH_PY101"); //보험률등록

@@ -300,9 +300,9 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.UserDataSources.Item("juminno").Value = "";
                 oForm.DataSources.UserDataSources.Item("birthymd").Value = "";
                 oForm.DataSources.UserDataSources.Item("addr").Value = "";
-                oForm.DataSources.UserDataSources.Item("ntsamt").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("amt").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("handoamt").Value = Convert.ToString(0);
+                oForm.DataSources.UserDataSources.Item("ntsamt").Value = "0";
+                oForm.DataSources.UserDataSources.Item("amt").Value = "0";
+                oForm.DataSources.UserDataSources.Item("handoamt").Value = "0";
 
                 oForm.Items.Item("ntsamt").Enabled = true;
                 oForm.Items.Item("ntsamt24").Enabled = false;
@@ -320,15 +320,15 @@ namespace PSH_BOne_AddOn
                 //oForm.Items("trans44").Enabled = False
                 oForm.Items.Item("adgong24").Enabled = false;
 
-                oForm.DataSources.UserDataSources.Item("ntsamt24").Value = Convert.ToString(0);
+                oForm.DataSources.UserDataSources.Item("ntsamt24").Value = "0";
                 //oForm.DataSources.UserDataSources.Item("ntsamt44").Value = 0
 
-                oForm.DataSources.UserDataSources.Item("mart24").Value = Convert.ToString(0);
+                oForm.DataSources.UserDataSources.Item("mart24").Value = "0";
                 //oForm.DataSources.UserDataSources.Item("mart44").Value = 0
-                oForm.DataSources.UserDataSources.Item("trans24").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("bookpms").Value = Convert.ToString(0);
+                oForm.DataSources.UserDataSources.Item("trans24").Value = "0";
+                oForm.DataSources.UserDataSources.Item("bookpms").Value = "0";
                 //oForm.DataSources.UserDataSources.Item("trans44").Value = 0
-                oForm.DataSources.UserDataSources.Item("adgong24").Value = Convert.ToString(0);
+                oForm.DataSources.UserDataSources.Item("adgong24").Value = "0";
 
             }
             catch (Exception ex)
@@ -1076,13 +1076,13 @@ namespace PSH_BOne_AddOn
 
                                             if (Convert.ToDouble(oForm.DataSources.UserDataSources.Item("handoamt").Value) > 0)
                                             {
-                                                oForm.DataSources.UserDataSources.Item("ntsamt").Value = Convert.ToString(0);
+                                                oForm.DataSources.UserDataSources.Item("ntsamt").Value = "0";
                                                 oForm.DataSources.UserDataSources.Item("amt").Value = oForm.DataSources.UserDataSources.Item("handoamt").Value;
                                             }
                                             else
                                             {
-                                                oForm.DataSources.UserDataSources.Item("ntsamt").Value = Convert.ToString(0);
-                                                oForm.DataSources.UserDataSources.Item("amt").Value = Convert.ToString(0);
+                                                oForm.DataSources.UserDataSources.Item("ntsamt").Value = "0";
+                                                oForm.DataSources.UserDataSources.Item("amt").Value = "0";
                                             }
                                         }
                                         else
@@ -1090,12 +1090,12 @@ namespace PSH_BOne_AddOn
                                             if (Convert.ToDouble(oForm.DataSources.UserDataSources.Item("handoamt").Value) > 0)
                                             {
                                                 oForm.DataSources.UserDataSources.Item("ntsamt").Value = oForm.DataSources.UserDataSources.Item("handoamt").Value;
-                                                oForm.DataSources.UserDataSources.Item("amt").Value = Convert.ToString(0);
+                                                oForm.DataSources.UserDataSources.Item("amt").Value = "0";
                                             }
                                             else
                                             {
-                                                oForm.DataSources.UserDataSources.Item("ntsamt").Value = Convert.ToString(0);
-                                                oForm.DataSources.UserDataSources.Item("amt").Value = Convert.ToString(0);
+                                                oForm.DataSources.UserDataSources.Item("ntsamt").Value = "0";
+                                                oForm.DataSources.UserDataSources.Item("amt").Value = "0";
                                             }
                                         }
                                         break;
@@ -1274,15 +1274,15 @@ namespace PSH_BOne_AddOn
                                 oForm.DataSources.UserDataSources.Item("birthymd").Value = "";
                                 oForm.DataSources.UserDataSources.Item("addr").Value = "";
 
-                                oForm.DataSources.UserDataSources.Item("ntsamt").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("amt").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("handoamt").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("ntsamt24").Value = Convert.ToString(0);
+                                oForm.DataSources.UserDataSources.Item("ntsamt").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("amt").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("handoamt").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("ntsamt24").Value = "0";
                                 //oForm.DataSources.UserDataSources.Item("ntsamt44").Value = 0
-                                oForm.DataSources.UserDataSources.Item("bcard_t").Value = Convert.ToString(0);
+                                oForm.DataSources.UserDataSources.Item("bcard_t").Value = "0";
                                 //oForm.DataSources.UserDataSources.Item("bcard44").Value = 0
-                                oForm.DataSources.UserDataSources.Item("bbcard_t").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("bbcard44").Value = Convert.ToString(0);
+                                oForm.DataSources.UserDataSources.Item("bbcard_t").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("bbcard44").Value = "0";
 
                                 oForm.Items.Item("TeamName").Specific.Value = "";
                                 oForm.Items.Item("RspName").Specific.Value = "";

@@ -1355,7 +1355,7 @@ namespace PSH_BOne_AddOn
                         oDS_PH_PY001B.SetValue("U_LineNum", oRow, Convert.ToString(oRow + 1));
                         oDS_PH_PY001B.SetValue("U_FILD01", oRow, "");
                         oDS_PH_PY001B.SetValue("U_FILD02", oRow, "");
-                        oDS_PH_PY001B.SetValue("U_FILD03", oRow, Convert.ToString(0));
+                        oDS_PH_PY001B.SetValue("U_FILD03", oRow, "0");
                         oMat1.LoadFromDataSource();
                     }
                     else
@@ -1364,7 +1364,7 @@ namespace PSH_BOne_AddOn
                         oDS_PH_PY001B.SetValue("U_LineNum", oRow - 1, Convert.ToString(oRow));
                         oDS_PH_PY001B.SetValue("U_FILD01", oRow - 1, "");
                         oDS_PH_PY001B.SetValue("U_FILD02", oRow - 1, "");
-                        oDS_PH_PY001B.SetValue("U_FILD03", oRow - 1, Convert.ToString(0));
+                        oDS_PH_PY001B.SetValue("U_FILD03", oRow - 1, "0");
                         oMat1.LoadFromDataSource();
                     }
                 }
@@ -1374,7 +1374,7 @@ namespace PSH_BOne_AddOn
                     oDS_PH_PY001B.SetValue("U_LineNum", oRow, Convert.ToString(oRow + 1));
                     oDS_PH_PY001B.SetValue("U_FILD01", oRow, "");
                     oDS_PH_PY001B.SetValue("U_FILD02", oRow, "");
-                    oDS_PH_PY001B.SetValue("U_FILD03", oRow, Convert.ToString(0));
+                    oDS_PH_PY001B.SetValue("U_FILD03", oRow, "0");
                     oMat1.LoadFromDataSource();
                 }
 
@@ -1394,7 +1394,7 @@ namespace PSH_BOne_AddOn
                         oDS_PH_PY001C.SetValue("U_LineNum", oRow, Convert.ToString(oRow + 1));
                         oDS_PH_PY001C.SetValue("U_FILD01", oRow, "");
                         oDS_PH_PY001C.SetValue("U_FILD02", oRow, "");
-                        oDS_PH_PY001C.SetValue("U_FILD03", oRow, Convert.ToString(0));
+                        oDS_PH_PY001C.SetValue("U_FILD03", oRow, "0");
                         oMat2.LoadFromDataSource();
                     }
                     else
@@ -1403,7 +1403,7 @@ namespace PSH_BOne_AddOn
                         oDS_PH_PY001C.SetValue("U_LineNum", oRow - 1, Convert.ToString(oRow));
                         oDS_PH_PY001C.SetValue("U_FILD01", oRow - 1, "");
                         oDS_PH_PY001C.SetValue("U_FILD02", oRow - 1, "");
-                        oDS_PH_PY001C.SetValue("U_FILD03", oRow - 1, Convert.ToString(0));
+                        oDS_PH_PY001C.SetValue("U_FILD03", oRow - 1, "0");
                         oMat2.LoadFromDataSource();
                     }
                 }
@@ -1413,7 +1413,7 @@ namespace PSH_BOne_AddOn
                     oDS_PH_PY001C.SetValue("U_LineNum", oRow, Convert.ToString(oRow + 1));
                     oDS_PH_PY001C.SetValue("U_FILD01", oRow, "");
                     oDS_PH_PY001C.SetValue("U_FILD02", oRow, "");
-                    oDS_PH_PY001C.SetValue("U_FILD03", oRow, Convert.ToString(0));
+                    oDS_PH_PY001C.SetValue("U_FILD03", oRow, "0");
                     oMat2.LoadFromDataSource();
                 }
 

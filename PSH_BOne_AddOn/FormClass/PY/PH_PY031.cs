@@ -851,16 +851,16 @@ namespace PSH_BOne_AddOn
                         oDS_PH_PY031A.SetValue("U_DestCode", 0, "%");                        // 금액 필드들을 Reset
                         oDS_PH_PY031A.SetValue("U_PayPstg", 0, Convert.ToString(100));       // 지급율 100으로 재설정
                         oDS_PH_PY031A.SetValue("U_Rate", 0, Convert.ToString(1));            // 환율 1로 재설정
-                        oDS_PH_PY031A.SetValue("U_TransExp", 0, Convert.ToString(0));        // 교통비
-                        oDS_PH_PY031A.SetValue("U_InsurExp", 0, Convert.ToString(0));        // 보험료
-                        oDS_PH_PY031A.SetValue("U_AirpExp", 0, Convert.ToString(0));         // 공항세
-                        oDS_PH_PY031A.SetValue("U_FoodNum", 0, Convert.ToString(0));         // 식수
-                        oDS_PH_PY031A.SetValue("U_FoodExp", 0, Convert.ToString(0));         // 식비
-                        oDS_PH_PY031A.SetValue("U_LodgExp", 0, Convert.ToString(0));         // 숙박비
-                        oDS_PH_PY031A.SetValue("U_FLodgExp", 0, Convert.ToString(0));        // 숙박비(외화)
-                        oDS_PH_PY031A.SetValue("U_DayExp", 0, Convert.ToString(0));          // 일비
-                        oDS_PH_PY031A.SetValue("U_FDayExp", 0, Convert.ToString(0));         // 일비(외화)
-                        oDS_PH_PY031A.SetValue("U_TotalExp", 0, Convert.ToString(0));        // 합계
+                        oDS_PH_PY031A.SetValue("U_TransExp", 0, "0");        // 교통비
+                        oDS_PH_PY031A.SetValue("U_InsurExp", 0, "0");        // 보험료
+                        oDS_PH_PY031A.SetValue("U_AirpExp", 0, "0");         // 공항세
+                        oDS_PH_PY031A.SetValue("U_FoodNum", 0, "0");         // 식수
+                        oDS_PH_PY031A.SetValue("U_FoodExp", 0, "0");         // 식비
+                        oDS_PH_PY031A.SetValue("U_LodgExp", 0, "0");         // 숙박비
+                        oDS_PH_PY031A.SetValue("U_FLodgExp", 0, "0");        // 숙박비(외화)
+                        oDS_PH_PY031A.SetValue("U_DayExp", 0, "0");          // 일비
+                        oDS_PH_PY031A.SetValue("U_FDayExp", 0, "0");         // 일비(외화)
+                        oDS_PH_PY031A.SetValue("U_TotalExp", 0, "0");        // 합계
 
                         if (oDS_PH_PY031A.GetValue("U_DestDiv", 0).ToString().Trim() == "2")
                         {

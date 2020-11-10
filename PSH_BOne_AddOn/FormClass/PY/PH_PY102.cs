@@ -360,7 +360,7 @@ namespace PSH_BOne_AddOn
                         oDS_PH_PY102B.SetValue("U_CSUGBN", oRow, "");
                         oDS_PH_PY102B.SetValue("U_GWATYP", oRow, "");
                         oDS_PH_PY102B.SetValue("U_BTXCOD", oRow, "");
-                        oDS_PH_PY102B.SetValue("U_KUMAMT", oRow, Convert.ToString(0));
+                        oDS_PH_PY102B.SetValue("U_KUMAMT", oRow, "0");
                         oDS_PH_PY102B.SetValue("U_FIXGBN", oRow, "N");
                         oDS_PH_PY102B.SetValue("U_INSLIN", oRow, "");
                         oDS_PH_PY102B.SetValue("U_HOBUSE", oRow, "N");
@@ -383,7 +383,7 @@ namespace PSH_BOne_AddOn
                         oDS_PH_PY102B.SetValue("U_CSUGBN", oRow - 1, "");
                         oDS_PH_PY102B.SetValue("U_GWATYP", oRow - 1, "");
                         oDS_PH_PY102B.SetValue("U_BTXCOD", oRow - 1, "");
-                        oDS_PH_PY102B.SetValue("U_KUMAMT", oRow - 1, Convert.ToString(0));
+                        oDS_PH_PY102B.SetValue("U_KUMAMT", oRow - 1, "0");
                         oDS_PH_PY102B.SetValue("U_FIXGBN", oRow - 1, "N");
                         oDS_PH_PY102B.SetValue("U_INSLIN", oRow - 1, "");
                         oDS_PH_PY102B.SetValue("U_HOBUSE", oRow - 1, "N");
@@ -407,7 +407,7 @@ namespace PSH_BOne_AddOn
                     oDS_PH_PY102B.SetValue("U_CSUGBN", oRow, "");
                     oDS_PH_PY102B.SetValue("U_GWATYP", oRow, "");
                     oDS_PH_PY102B.SetValue("U_BTXCOD", oRow, "");
-                    oDS_PH_PY102B.SetValue("U_KUMAMT", oRow, Convert.ToString(0));
+                    oDS_PH_PY102B.SetValue("U_KUMAMT", oRow, "0");
                     oDS_PH_PY102B.SetValue("U_FIXGBN", oRow, "N");
                     oDS_PH_PY102B.SetValue("U_INSLIN", oRow, "");
                     oDS_PH_PY102B.SetValue("U_HOBUSE", oRow, "N");

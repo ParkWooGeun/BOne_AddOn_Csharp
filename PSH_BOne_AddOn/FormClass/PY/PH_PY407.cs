@@ -239,9 +239,9 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.UserDataSources.Item("saupno").Value = "";
                 oForm.DataSources.UserDataSources.Item("sangho").Value = "";
 
-                oForm.DataSources.UserDataSources.Item("ntamt").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("amt").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("jamt").Value = Convert.ToString(0);
+                oForm.DataSources.UserDataSources.Item("ntamt").Value = "0";
+                oForm.DataSources.UserDataSources.Item("amt").Value = "0";
+                oForm.DataSources.UserDataSources.Item("jamt").Value = "0";
 
                 // Key set
                 oForm.Items.Item("CLTCOD").Enabled = true;
@@ -648,9 +648,9 @@ namespace PSH_BOne_AddOn
                                 oForm.DataSources.UserDataSources.Item("saupno").Value = "";
                                 oForm.DataSources.UserDataSources.Item("sangho").Value = "";
 
-                                oForm.DataSources.UserDataSources.Item("ntamt").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("amt").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("jamt").Value = Convert.ToString(0);
+                                oForm.DataSources.UserDataSources.Item("ntamt").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("amt").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("jamt").Value = "0";
 
                             }
 
@@ -836,9 +836,9 @@ namespace PSH_BOne_AddOn
                                 oForm.Items.Item("gibudscr").Specific.Select("0", SAPbouiCOM.BoSearchKey.psk_Index);
                                 oForm.DataSources.UserDataSources.Item("saupno").Value = "";
                                 oForm.DataSources.UserDataSources.Item("sangho").Value = "";
-                                oForm.DataSources.UserDataSources.Item("ntamt").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("amt").Value = Convert.ToString(0);
-                                oForm.DataSources.UserDataSources.Item("jamt").Value = Convert.ToString(0);
+                                oForm.DataSources.UserDataSources.Item("ntamt").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("amt").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("jamt").Value = "0";
 
                                 PSH_Globals.SBO_Application.MessageBox("결과가 존재하지 않습니다.");
                             }

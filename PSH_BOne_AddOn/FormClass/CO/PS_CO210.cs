@@ -642,7 +642,7 @@ namespace PSH_BOne_AddOn
                             oDS_PS_CO210H.SetValue("Code", 0, "");
                             oDS_PS_CO210H.SetValue("Name", 0, "");
                             oDS_PS_CO210H.SetValue("U_YM", 0, "");
-                            oDS_PS_CO210H.SetValue("U_AddAmt", 0, Convert.ToString(0));
+                            oDS_PS_CO210H.SetValue("U_AddAmt", 0, "0");
 
                             for (i = 0; i <= oMat01.VisualRowCount - 1; i++)
                             {

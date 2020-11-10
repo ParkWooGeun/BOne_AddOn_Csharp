@@ -488,7 +488,7 @@ namespace PSH_BOne_AddOn
         //			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			functionReturnValue = Convert.ToString(0);
+        //			functionReturnValue = "0";
         //			MDC_Com.MDC_GF_Message(ref "User_BPLId_Error:" + Err().Number + " - " + Err().Description, ref "E");
         //			return functionReturnValue;
         //		}
@@ -518,7 +518,7 @@ namespace PSH_BOne_AddOn
         //			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			functionReturnValue = Convert.ToString(0);
+        //			functionReturnValue = "0";
         //			MDC_Com.MDC_GF_Message(ref "User_WhsCode_Error:" + Err().Number + " - " + Err().Description, ref "E");
         //			return functionReturnValue;
         //		}
@@ -549,7 +549,7 @@ namespace PSH_BOne_AddOn
         //			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			functionReturnValue = Convert.ToString(0);
+        //			functionReturnValue = "0";
         //			MDC_Com.MDC_GF_Message(ref "User_MSTCOD_Error:" + Err().Number + " - " + Err().Description, ref "E");
         //			return functionReturnValue;
         //		}
@@ -578,7 +578,7 @@ namespace PSH_BOne_AddOn
         //			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			functionReturnValue = Convert.ToString(0);
+        //			functionReturnValue = "0";
         //			MDC_Com.MDC_GF_Message(ref "User_DeptCode_Error:" + Err().Number + " - " + Err().Description, ref "E");
         //			return functionReturnValue;
         //		}
@@ -615,7 +615,7 @@ namespace PSH_BOne_AddOn
 
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			functionReturnValue = Convert.ToString(0);
+        //			functionReturnValue = "0";
         //			MDC_Com.MDC_GF_Message(ref "User_TeamCode_Error:" + Err().Number + " - " + Err().Description, ref "E");
         //			return functionReturnValue;
         //		}
@@ -652,7 +652,7 @@ namespace PSH_BOne_AddOn
 
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			functionReturnValue = Convert.ToString(0);
+        //			functionReturnValue = "0";
         //			MDC_Com.MDC_GF_Message(ref "User_RspCode_Error:" + Err().Number + " - " + Err().Description, ref "E");
         //			return functionReturnValue;
         //		}
@@ -689,7 +689,7 @@ namespace PSH_BOne_AddOn
 
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			functionReturnValue = Convert.ToString(0);
+        //			functionReturnValue = "0";
         //			MDC_Com.MDC_GF_Message(ref "User_ClsCode_Error:" + Err().Number + " - " + Err().Description, ref "E");
         //			return functionReturnValue;
         //		}
@@ -729,7 +729,7 @@ namespace PSH_BOne_AddOn
 
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			functionReturnValue = Convert.ToString(0);
+        //			functionReturnValue = "0";
         //			MDC_Com.MDC_GF_Message(ref "User_SuperUserYN_Error:" + Err().Number + " - " + Err().Description, ref "E");
         //			return functionReturnValue;
         //		}
@@ -768,7 +768,7 @@ namespace PSH_BOne_AddOn
 
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			functionReturnValue = Convert.ToString(0);
+        //			functionReturnValue = "0";
         //			MDC_Com.MDC_GF_Message(ref "User_SuperUserYN_Error:" + Err().Number + " - " + Err().Description, ref "E");
         //			return functionReturnValue;
         //		}

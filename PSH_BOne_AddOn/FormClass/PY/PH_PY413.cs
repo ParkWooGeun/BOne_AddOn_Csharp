@@ -456,9 +456,9 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("ws_hcode1").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
                 oForm.Items.Item("ws_hcode2").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
                 oForm.Items.Item("ws_hcode3").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-                oForm.DataSources.UserDataSources.Item("ws_hm1").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("ws_hm2").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("ws_hm3").Value = Convert.ToString(0);
+                oForm.DataSources.UserDataSources.Item("ws_hm1").Value = "0";
+                oForm.DataSources.UserDataSources.Item("ws_hm2").Value = "0";
+                oForm.DataSources.UserDataSources.Item("ws_hm3").Value = "0";
                 oForm.DataSources.UserDataSources.Item("ws_addr1").Value = "";
                 oForm.DataSources.UserDataSources.Item("ws_addr2").Value = "";
                 oForm.DataSources.UserDataSources.Item("ws_addr3").Value = "";
@@ -468,12 +468,12 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.UserDataSources.Item("ws_tymd1").Value = "";
                 oForm.DataSources.UserDataSources.Item("ws_tymd2").Value = "";
                 oForm.DataSources.UserDataSources.Item("ws_tymd3").Value = "";
-                oForm.DataSources.UserDataSources.Item("ws_mamt1").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("ws_mamt2").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("ws_mamt3").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("ws_gamt1").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("ws_gamt2").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("ws_gamt3").Value = Convert.ToString(0);
+                oForm.DataSources.UserDataSources.Item("ws_mamt1").Value = "0";
+                oForm.DataSources.UserDataSources.Item("ws_mamt2").Value = "0";
+                oForm.DataSources.UserDataSources.Item("ws_mamt3").Value = "0";
+                oForm.DataSources.UserDataSources.Item("ws_gamt1").Value = "0";
+                oForm.DataSources.UserDataSources.Item("ws_gamt2").Value = "0";
+                oForm.DataSources.UserDataSources.Item("ws_gamt3").Value = "0";
 
                 oForm.DataSources.UserDataSources.Item("dj_name1").Value = "";
                 oForm.DataSources.UserDataSources.Item("dj_name2").Value = "";
@@ -490,18 +490,18 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.UserDataSources.Item("dj_eja1").Value = "";
                 oForm.DataSources.UserDataSources.Item("dj_eja2").Value = "";
                 oForm.DataSources.UserDataSources.Item("dj_eja3").Value = "";
-                oForm.DataSources.UserDataSources.Item("dj_tamt1").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("dj_tamt2").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("dj_tamt3").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("dj_wamt1").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("dj_wamt2").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("dj_wamt3").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("dj_eamt1").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("dj_eamt2").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("dj_eamt3").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("dj_gamt1").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("dj_gamt2").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("dj_gamt3").Value = Convert.ToString(0);
+                oForm.DataSources.UserDataSources.Item("dj_tamt1").Value = "0";
+                oForm.DataSources.UserDataSources.Item("dj_tamt2").Value = "0";
+                oForm.DataSources.UserDataSources.Item("dj_tamt3").Value = "0";
+                oForm.DataSources.UserDataSources.Item("dj_wamt1").Value = "0";
+                oForm.DataSources.UserDataSources.Item("dj_wamt2").Value = "0";
+                oForm.DataSources.UserDataSources.Item("dj_wamt3").Value = "0";
+                oForm.DataSources.UserDataSources.Item("dj_eamt1").Value = "0";
+                oForm.DataSources.UserDataSources.Item("dj_eamt2").Value = "0";
+                oForm.DataSources.UserDataSources.Item("dj_eamt3").Value = "0";
+                oForm.DataSources.UserDataSources.Item("dj_gamt1").Value = "0";
+                oForm.DataSources.UserDataSources.Item("dj_gamt2").Value = "0";
+                oForm.DataSources.UserDataSources.Item("dj_gamt3").Value = "0";
 
                 oForm.DataSources.UserDataSources.Item("ld_name1").Value = "";
                 oForm.DataSources.UserDataSources.Item("ld_name2").Value = "";
@@ -512,9 +512,9 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("ld_hcode1").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
                 oForm.Items.Item("ld_hcode2").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
                 oForm.Items.Item("ld_hcode3").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-                oForm.DataSources.UserDataSources.Item("ld_hm1").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("ld_hm2").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("ld_hm3").Value = Convert.ToString(0);
+                oForm.DataSources.UserDataSources.Item("ld_hm1").Value = "0";
+                oForm.DataSources.UserDataSources.Item("ld_hm2").Value = "0";
+                oForm.DataSources.UserDataSources.Item("ld_hm3").Value = "0";
                 oForm.DataSources.UserDataSources.Item("ld_addr1").Value = "";
                 oForm.DataSources.UserDataSources.Item("ld_addr2").Value = "";
                 oForm.DataSources.UserDataSources.Item("ld_addr3").Value = "";
@@ -524,9 +524,9 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.UserDataSources.Item("ld_tymd1").Value = "";
                 oForm.DataSources.UserDataSources.Item("ld_tymd2").Value = "";
                 oForm.DataSources.UserDataSources.Item("ld_tymd3").Value = "";
-                oForm.DataSources.UserDataSources.Item("ld_bamt1").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("ld_bamt2").Value = Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("ld_bamt3").Value = Convert.ToString(0);
+                oForm.DataSources.UserDataSources.Item("ld_bamt1").Value = "0";
+                oForm.DataSources.UserDataSources.Item("ld_bamt2").Value = "0";
+                oForm.DataSources.UserDataSources.Item("ld_bamt3").Value = "0";
 
                 //Key set
                 oForm.Items.Item("CLTCOD").Enabled = true;

@@ -986,7 +986,7 @@ namespace PSH_BOne_AddOn
                                         oDS_PH_PY677B.SetValue("U_ColDt02", oRow - 1, oDS_PH_PY677B.GetValue("U_ColDt01", oRow - 1)); // 퇴근일자(P_OffDt)
                                         oDS_PH_PY677B.SetValue("U_ColTm01", oRow - 1, "00:00");   // 출근시각(P_GetTime)
                                         oDS_PH_PY677B.SetValue("U_ColTm02", oRow - 1, "00:00");   // 퇴근시각(P_OffTime)
-                                        oDS_PH_PY677B.SetValue("U_ColQty12", oRow - 1, Convert.ToString(0)); // 교대일수
+                                        oDS_PH_PY677B.SetValue("U_ColQty12", oRow - 1, "0"); // 교대일수
                                         PH_PY677_Time_ReSet(oRow);
                                         oMat01.LoadFromDataSource();
                                         break;
@@ -1252,17 +1252,17 @@ namespace PSH_BOne_AddOn
         {
             try
             {
-                oDS_PH_PY677B.SetValue("U_ColQty01", pRow - 1, Convert.ToString(0));  // 기본
-                oDS_PH_PY677B.SetValue("U_ColQty02", pRow - 1, Convert.ToString(0));  // 연장
-                oDS_PH_PY677B.SetValue("U_ColQty03", pRow - 1, Convert.ToString(0));  // 심야
-                oDS_PH_PY677B.SetValue("U_ColQty06", pRow - 1, Convert.ToString(0));  // 조출
-                oDS_PH_PY677B.SetValue("U_ColQty04", pRow - 1, Convert.ToString(0));  // 특근
-                oDS_PH_PY677B.SetValue("U_ColQty05", pRow - 1, Convert.ToString(0));  // 특연
-                oDS_PH_PY677B.SetValue("U_ColQty08", pRow - 1, Convert.ToString(0));  // 교육훈련
-                oDS_PH_PY677B.SetValue("U_ColQty07", pRow - 1, Convert.ToString(0));  // 휴조
-                oDS_PH_PY677B.SetValue("U_ColQty09", pRow - 1, Convert.ToString(0));  // 지각
-                oDS_PH_PY677B.SetValue("U_ColQty10", pRow - 1, Convert.ToString(0));  // 조퇴
-                oDS_PH_PY677B.SetValue("U_ColQty11", pRow - 1, Convert.ToString(0));  // 외출
+                oDS_PH_PY677B.SetValue("U_ColQty01", pRow - 1, "0");  // 기본
+                oDS_PH_PY677B.SetValue("U_ColQty02", pRow - 1, "0");  // 연장
+                oDS_PH_PY677B.SetValue("U_ColQty03", pRow - 1, "0");  // 심야
+                oDS_PH_PY677B.SetValue("U_ColQty06", pRow - 1, "0");  // 조출
+                oDS_PH_PY677B.SetValue("U_ColQty04", pRow - 1, "0");  // 특근
+                oDS_PH_PY677B.SetValue("U_ColQty05", pRow - 1, "0");  // 특연
+                oDS_PH_PY677B.SetValue("U_ColQty08", pRow - 1, "0");  // 교육훈련
+                oDS_PH_PY677B.SetValue("U_ColQty07", pRow - 1, "0");  // 휴조
+                oDS_PH_PY677B.SetValue("U_ColQty09", pRow - 1, "0");  // 지각
+                oDS_PH_PY677B.SetValue("U_ColQty10", pRow - 1, "0");  // 조퇴
+                oDS_PH_PY677B.SetValue("U_ColQty11", pRow - 1, "0");  // 외출
 
                 oDS_PH_PY677B.SetValue("U_ColTm02", pRow - 1, "00:00");               // 퇴근시각
             }

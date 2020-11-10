@@ -1173,17 +1173,17 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                oForm.DataSources.UserDataSources.Item("Base").Value = System.Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("Extend").Value = System.Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("Midnight").Value = System.Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("EarlyTo").Value = System.Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("Special").Value = System.Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("SpExtend").Value = System.Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("EducTran").Value = System.Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("SEarlyTo").Value = System.Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("LateTo").Value = System.Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("EarlyOff").Value = System.Convert.ToString(0);
-                oForm.DataSources.UserDataSources.Item("GoOut").Value = System.Convert.ToString(0);
+                oForm.DataSources.UserDataSources.Item("Base").Value = "0";
+                oForm.DataSources.UserDataSources.Item("Extend").Value = "0";
+                oForm.DataSources.UserDataSources.Item("Midnight").Value = "0";
+                oForm.DataSources.UserDataSources.Item("EarlyTo").Value = "0";
+                oForm.DataSources.UserDataSources.Item("Special").Value = "0";
+                oForm.DataSources.UserDataSources.Item("SpExtend").Value = "0";
+                oForm.DataSources.UserDataSources.Item("EducTran").Value = "0";
+                oForm.DataSources.UserDataSources.Item("SEarlyTo").Value = "0";
+                oForm.DataSources.UserDataSources.Item("LateTo").Value = "0";
+                oForm.DataSources.UserDataSources.Item("EarlyOff").Value = "0";
+                oForm.DataSources.UserDataSources.Item("GoOut").Value = "0";
 
                 oForm.DataSources.UserDataSources.Item("GOFrTime").Value = "0000";
                 oForm.DataSources.UserDataSources.Item("GOToTime").Value = "0000";

@@ -62,7 +62,7 @@ namespace PSH_BOne_AddOn
                 PH_PY202_SetDocument(oFromDocEntry01);
                 //PH_PY202_FormResize();
 
-                oForm.Items.Item("FrDate").Specific.Value = DateTime.Now.AddYears(3).ToString("yyyy") + "0101";
+                oForm.Items.Item("FrDate").Specific.Value = "20200101";
                 oForm.Items.Item("ToDate").Specific.Value = DateTime.Now.AddYears(7).ToString("yyyy") + "1231";
             }
             catch (Exception ex)
@@ -108,14 +108,10 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.UserDataSources.Add("MSTCOD", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("MSTCOD").Specific.DataBind.SetBound(true, "", "MSTCOD");
 
-                ////출력구분
-                //    Set oCombo = oForm.Items("Div").Specific
-                //    oCombo.ValidValues.Add "1", "근무일수미달 체크"
-                //    oCombo.ValidValues.Add "2", "정상근무일의 휴일시간 체크"
-                //    oCombo.ValidValues.Add "3", "정상근무일외 연장시간 체크"
-                //    oCombo.ValidValues.Add "4", "위해코드오류 체크(창원)"
-                //    oCombo.ValidValues.Add "5", "교대일수오류 체크"
-                //    oCombo.Select 0, psk_Index
+                oForm.DataSources.UserDataSources.Add("Check1", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
+                oForm.Items.Item("Check1").Specific.DataBind.SetBound(true, "", "Check1");
+                oForm.Items.Item("Check1").Specific.Checked = false;
+
             }
             catch (Exception ex)
             {
@@ -277,20 +273,32 @@ namespace PSH_BOne_AddOn
             string ToDate = string.Empty;
             string MSTCOD = string.Empty;
 
+
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
+                String Check1;
                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                 FrDate = oForm.Items.Item("FrDate").Specific.Value.ToString().Trim();
                 ToDate = oForm.Items.Item("ToDate").Specific.Value.ToString().Trim();
                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
 
+                if (oForm.DataSources.UserDataSources.Item("Check1").Value == "Y")
+                {
+                    Check1 = "Y";
+                }
+                else
+                {
+                    Check1 = "N";
+                }
+
                 sQry = "      EXEC PH_PY202_01 '";
                 sQry = sQry + CLTCOD + "','";
                 sQry = sQry + FrDate + "','";
                 sQry = sQry + ToDate + "','";
-                sQry = sQry + MSTCOD + "'";
+                sQry = sQry + MSTCOD + "','";
+                sQry = sQry + Check1 + "'";
 
                 oDS_PH_PY202.ExecuteQuery(sQry);
                 
@@ -319,11 +327,21 @@ namespace PSH_BOne_AddOn
             string FrDate = string.Empty; //등록기간(시작)
             string ToDate = string.Empty; //등록기간(종료)
             string MSTCOD = string.Empty; //사번
+            string Check1;
 
             CLTCOD = oForm.Items.Item("CLTCOD").Specific.Selected.Value.ToString().Trim(); //사업장
             FrDate = oForm.Items.Item("FrDate").Specific.Value.Trim(); //oForm.Items.Item("FrDate").Specific.ToString("yyyyMMdd").Trim(); //등록기간(시작)
             ToDate = oForm.Items.Item("ToDate").Specific.Value.Trim(); //oForm.Items.Item("ToDate").Specific.ToString().Trim(); //등록기간(종료)
             MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim(); //사번
+
+            if (oForm.DataSources.UserDataSources.Item("Check1").Value == "Y")
+            {
+                Check1 = "Y";
+            }
+            else
+            {
+                Check1 = "N";
+            }
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
@@ -341,6 +359,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", FrDate)); //등록기간(시작)
                 dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", ToDate)); //등록기간(종료)
                 dataPackParameter.Add(new PSH_DataPackClass("@MSTCOD", MSTCOD)); //사번
+                dataPackParameter.Add(new PSH_DataPackClass("@Div", Check1)); //사번
 
                 formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
             }

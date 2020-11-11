@@ -1097,7 +1097,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO660"); //기간비용등록
 			oFilter.AddEx("PS_CO510"); //원가계산사전점검조회
 			oFilter.AddEx("PS_CO520"); //제품생산 원가항목별 조회
-		}
+		}	
 
 		private static void CLICK(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{

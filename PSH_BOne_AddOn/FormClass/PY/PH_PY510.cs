@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.DataPack;
 using PSH_BOne_AddOn.Form;
-
 
 namespace PSH_BOne_AddOn
 {
@@ -14,12 +12,9 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PH_PY510 : PSH_BaseClass
     {
-        public string oFormUniqueID01;
-        //public SAPbouiCOM.Form oForm;
-
-        public SAPbouiCOM.Grid oGrid1;
-        public SAPbouiCOM.DataTable oDS_PH_PY510;
-
+        private string oFormUniqueID01;
+        private SAPbouiCOM.Grid oGrid1;
+        private SAPbouiCOM.DataTable oDS_PH_PY510;
         private string oLastItemUID;
         private string oLastColUID;
         private int oLastColRow;

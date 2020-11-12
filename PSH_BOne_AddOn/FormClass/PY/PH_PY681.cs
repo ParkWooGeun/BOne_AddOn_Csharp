@@ -4,7 +4,6 @@ using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.DataPack;
 using PSH_BOne_AddOn.Form;
-using Microsoft.VisualBasic;
 
 namespace PSH_BOne_AddOn
 {
@@ -13,11 +12,9 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PH_PY681 : PSH_BaseClass
     {
-        public string oFormUniqueID01;
-
-        //'// 그리드 사용시
-        public SAPbouiCOM.Grid oGrid1;
-        public SAPbouiCOM.DataTable oDS_PH_PY681;
+        private string oFormUniqueID01;
+        private SAPbouiCOM.Grid oGrid1;
+        private SAPbouiCOM.DataTable oDS_PH_PY681;
 
         /// <summary>
         /// 화면 호출
@@ -26,6 +23,7 @@ namespace PSH_BOne_AddOn
         {
             int i = 0;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
+
             try
             {
                 oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PH_PY681.srf");
@@ -129,7 +127,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면의 아이템 Enable 설정
         /// </summary>
-        public void PH_PY681_FormItemEnabled()
+        private void PH_PY681_FormItemEnabled()
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
@@ -144,6 +142,155 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
+            }
+        }
+
+        /// <summary>
+        /// DataValidCheck
+        /// </summary>
+        /// <returns></returns>
+        private bool PH_PY681_DataValidCheck()
+        {
+            bool functionReturnValue = false;
+
+            try
+            {
+                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim()))
+                {
+                    PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                    oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    return functionReturnValue;
+                }
+
+                functionReturnValue = true;
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY681_DataValidCheck_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
+            }
+            finally
+            {
+            }
+
+            return functionReturnValue;
+        }
+
+        /// <summary>
+        /// 데이터 조회
+        /// </summary>
+        /// <returns></returns>
+        private void PH_PY681_DataFind()
+        {
+            string sQry = string.Empty;
+            string CLTCOD = string.Empty;
+            string YYYY = string.Empty;
+            string MSTCOD = string.Empty;
+            string TeamCode = string.Empty;
+            string RspCode = string.Empty;
+            string ClsCode = string.Empty;
+            //SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            oForm.Freeze(true);
+
+            try
+            {
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
+                YYYY = oForm.Items.Item("YYYY").Specific.Value.Trim();
+                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
+                TeamCode = oForm.Items.Item("TeamCode").Specific.Value.Trim();
+                RspCode = oForm.Items.Item("RspCode").Specific.Value.Trim();
+                ClsCode = oForm.Items.Item("ClsCode").Specific.Value.Trim();
+
+                sQry = "                EXEC [PH_PY681_01] ";
+                sQry = sQry + "'" + CLTCOD + "',";                 //사업장
+                sQry = sQry + "'" + TeamCode + "',";               //팀
+                sQry = sQry + "'" + RspCode + "',";                //담당
+                sQry = sQry + "'" + ClsCode + "',";                //반
+                sQry = sQry + "'" + MSTCOD + "',";                 //사번
+                sQry = sQry + "'" + YYYY + "'";                    //기준년도
+
+                oDS_PH_PY681.ExecuteQuery(sQry);
+
+                oForm.Items.Item("Grid01").Specific.Columns.Item(4).RightJustified = true;
+                oForm.Items.Item("Grid01").Specific.Columns.Item(5).RightJustified = true;
+                oForm.Items.Item("Grid01").Specific.Columns.Item(6).RightJustified = true;
+                oForm.Items.Item("Grid01").Specific.Columns.Item(7).RightJustified = true;
+                oForm.Items.Item("Grid01").Specific.Columns.Item(8).RightJustified = true;
+                oForm.Items.Item("Grid01").Specific.Columns.Item(9).RightJustified = true;
+                oForm.Items.Item("Grid01").Specific.Columns.Item(10).RightJustified = true;
+                oForm.Items.Item("Grid01").Specific.Columns.Item(11).RightJustified = true;
+                oForm.Items.Item("Grid01").Specific.Columns.Item(12).RightJustified = true;
+                oForm.Items.Item("Grid01").Specific.Columns.Item(13).RightJustified = true;
+                oForm.Items.Item("Grid01").Specific.Columns.Item(14).RightJustified = true;
+                oForm.Items.Item("Grid01").Specific.Columns.Item(15).RightJustified = true;
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY681_DataFind_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
+            }
+            finally
+            {
+                oForm.Freeze(false);
+                //System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+            }
+        }
+
+        /// <summary>
+        /// 리포트 출력
+        /// </summary>
+        [STAThread]
+        private void PH_PY681_Print_Report01()
+        {
+            string WinTitle = string.Empty;
+            string ReportName = string.Empty;
+
+            string CLTCOD = string.Empty;
+            string YYYY = string.Empty;
+            string MSTCOD = string.Empty;
+            string TeamCode = string.Empty;
+            string RspCode = string.Empty;
+            string ClsCode = string.Empty;
+
+
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+
+            CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
+            YYYY = oForm.Items.Item("YYYY").Specific.Value.Trim();
+            MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
+            TeamCode = oForm.Items.Item("TeamCode").Specific.Value.Trim();
+            RspCode = oForm.Items.Item("RspCode").Specific.Value.Trim();
+            ClsCode = oForm.Items.Item("ClsCode").Specific.Value.Trim();
+
+            try
+            {
+                WinTitle = "[PH_PY580] 비근무일수현황";
+                ReportName = "PH_PY681_01.rpt";
+
+                List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();//Parameter List
+                List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
+
+                //Formula
+                //dataPackFormula.Add(new PSH_DataPackClass("@CLTCOD", dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", CLTCOD, "and Code = 'P144' AND U_UseYN= 'Y'")));
+                //dataPackFormula.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr.Substring(0, 4) + "-" + DocDateFr.Substring(4, 2) + "-" + DocDateFr.Substring(6, 2)));
+                //dataPackFormula.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo.Substring(0, 4) + "-" + DocDateTo.Substring(4, 2) + "-" + DocDateTo.Substring(6, 2)));
+
+                //Parameter
+                dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD)); //사업장
+                dataPackParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode));
+                dataPackParameter.Add(new PSH_DataPackClass("@RspCode", RspCode));
+                dataPackParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode));
+                dataPackParameter.Add(new PSH_DataPackClass("@MSTCOD", MSTCOD));
+                dataPackParameter.Add(new PSH_DataPackClass("@YYYY", YYYY));
+
+                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
             }
         }
 
@@ -307,37 +454,7 @@ namespace PSH_BOne_AddOn
             {
             }
         }
-
-        /// <summary>
-        /// DataValidCheck
-        /// </summary>
-        /// <returns></returns>
-        public bool PH_PY681_DataValidCheck()
-        {
-            bool functionReturnValue = false;
-            
-            try
-            {
-                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim()))
-                {
-                    PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                    oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
-                }
-
-                functionReturnValue = true;
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY681_DataValidCheck_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-            }
-            finally
-            {
-            }
-
-            return functionReturnValue;
-        }
-
+        
         /// <summary>
         /// COMBO_SELECT 이벤트
         /// </summary>
@@ -539,125 +656,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_FORM_UNLOAD_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-        }
-
-        /// <summary>
-        /// 데이터 조회
-        /// </summary>
-        /// <returns></returns>
-        private void PH_PY681_DataFind()
-        {
-            string sQry = string.Empty;
-            string CLTCOD = string.Empty;
-            string YYYY = string.Empty;
-            string MSTCOD = string.Empty;
-            string TeamCode = string.Empty;
-            string RspCode = string.Empty;
-            string ClsCode = string.Empty;
-            //SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            
-            oForm.Freeze(true);
-
-            try
-            {
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
-                YYYY = oForm.Items.Item("YYYY").Specific.Value.Trim();
-                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
-                TeamCode = oForm.Items.Item("TeamCode").Specific.Value.Trim();
-                RspCode = oForm.Items.Item("RspCode").Specific.Value.Trim();
-                ClsCode = oForm.Items.Item("ClsCode").Specific.Value.Trim();
-
-                sQry = "                EXEC [PH_PY681_01] ";
-                sQry = sQry + "'" + CLTCOD + "',";                 //사업장
-                sQry = sQry + "'" + TeamCode + "',";               //팀
-                sQry = sQry + "'" + RspCode + "',";                //담당
-                sQry = sQry + "'" + ClsCode + "',";                //반
-                sQry = sQry + "'" + MSTCOD + "',";                 //사번
-                sQry = sQry + "'" + YYYY + "'";                    //기준년도
-               
-                oDS_PH_PY681.ExecuteQuery(sQry);
-
-                oForm.Items.Item("Grid01").Specific.Columns.Item(4).RightJustified = true;
-                oForm.Items.Item("Grid01").Specific.Columns.Item(5).RightJustified = true;
-                oForm.Items.Item("Grid01").Specific.Columns.Item(6).RightJustified = true;
-                oForm.Items.Item("Grid01").Specific.Columns.Item(7).RightJustified = true;
-                oForm.Items.Item("Grid01").Specific.Columns.Item(8).RightJustified = true;
-                oForm.Items.Item("Grid01").Specific.Columns.Item(9).RightJustified = true;
-                oForm.Items.Item("Grid01").Specific.Columns.Item(10).RightJustified = true;
-                oForm.Items.Item("Grid01").Specific.Columns.Item(11).RightJustified = true;
-                oForm.Items.Item("Grid01").Specific.Columns.Item(12).RightJustified = true;
-                oForm.Items.Item("Grid01").Specific.Columns.Item(13).RightJustified = true;
-                oForm.Items.Item("Grid01").Specific.Columns.Item(14).RightJustified = true;
-                oForm.Items.Item("Grid01").Specific.Columns.Item(15).RightJustified = true;
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY681_DataFind_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-            }
-            finally
-            {
-                oForm.Freeze(false);
-                //System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
-            }
-        }
-
-        /// <summary>
-        /// 리포트 출력
-        /// </summary>
-        [STAThread]
-        private void PH_PY681_Print_Report01()
-        {
-            string WinTitle = string.Empty;
-            string ReportName = string.Empty;
-
-            string CLTCOD = string.Empty;
-            string YYYY = string.Empty;
-            string MSTCOD = string.Empty;
-            string TeamCode = string.Empty;
-            string RspCode = string.Empty;
-            string ClsCode = string.Empty;
-
-
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-            PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
-
-            CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
-            YYYY = oForm.Items.Item("YYYY").Specific.Value.Trim();
-            MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
-            TeamCode = oForm.Items.Item("TeamCode").Specific.Value.Trim();
-            RspCode = oForm.Items.Item("RspCode").Specific.Value.Trim();
-            ClsCode = oForm.Items.Item("ClsCode").Specific.Value.Trim();
-
-            try
-            {
-                WinTitle = "[PH_PY580] 비근무일수현황";
-                ReportName = "PH_PY681_01.rpt";
-                
-                List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();//Parameter List
-                List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
-
-                //Formula
-                //dataPackFormula.Add(new PSH_DataPackClass("@CLTCOD", dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", CLTCOD, "and Code = 'P144' AND U_UseYN= 'Y'")));
-                //dataPackFormula.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr.Substring(0, 4) + "-" + DocDateFr.Substring(4, 2) + "-" + DocDateFr.Substring(6, 2)));
-                //dataPackFormula.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo.Substring(0, 4) + "-" + DocDateTo.Substring(4, 2) + "-" + DocDateTo.Substring(6, 2)));
-
-                //Parameter
-                dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD)); //사업장
-                dataPackParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode));
-                dataPackParameter.Add(new PSH_DataPackClass("@RspCode", RspCode));
-                dataPackParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode));
-                dataPackParameter.Add(new PSH_DataPackClass("@MSTCOD", MSTCOD));
-                dataPackParameter.Add(new PSH_DataPackClass("@YYYY", YYYY));
-
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
             {

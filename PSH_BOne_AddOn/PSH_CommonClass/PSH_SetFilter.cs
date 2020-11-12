@@ -455,7 +455,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY115"); //퇴직금계산
 			oFilter.AddEx("PH_PY116"); //퇴직금분개자료생성
 			oFilter.AddEx("PH_PY121"); //평가가급액 등록
-			oFilter.AddEx("PH_PY676"); //근태시간내역조회
 			oFilter.AddEx("PH_PY677"); //일일근태이상자조회
 			oFilter.AddEx("PH_PY700"); //급여지급대장
 			oFilter.AddEx("PH_PY710"); //상여지급대장
@@ -944,7 +943,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY676"); //근태시간내역조회
 			oFilter.AddEx("PH_PY677"); //일일근태이상자조회
 			oFilter.AddEx("PH_PY679"); //개인별 근태집계 조회
-			oFilter.AddEx("PH_PY680"); //상벌현황
 			oFilter.AddEx("PH_PY685"); //포상가급현황
 			oFilter.AddEx("PH_PY690"); //생일자현황
 			oFilter.AddEx("PH_PY860"); //호봉표조회
@@ -1504,7 +1502,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY675"); //근무편성현황
 			oFilter.AddEx("PH_PY676"); //근태시간내역조회
 			oFilter.AddEx("PH_PY677"); //일일근태이상자조회
-			oFilter.AddEx("PH_PY679"); //개인별 근태집계 조회
 			oFilter.AddEx("PH_PY680"); //상벌현황
 			oFilter.AddEx("PH_PY685"); //포상가급현황
 			oFilter.AddEx("PH_PY690"); //생일자현황

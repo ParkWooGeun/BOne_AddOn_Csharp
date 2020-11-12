@@ -8953,6 +8953,49 @@
             화면의 아이템 Enable 설정
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY135.PH_PY135_FlushToItemValue(System.String,System.Int32,System.String)">
+            <summary>
+            FlushToItemValue(사용자의 Event에 따른 화면 Item의 유동적인 세팅)
+            </summary>
+            <param name="oUID"></param>
+            <param name="oRow"></param>
+            <param name="oCol"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY135.PH_PY135_DataValidCheck">
+            <summary>
+            DataValidCheck
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY135.PH_PY135_MTX01">
+            <summary>
+            PH_PY001_MTX01, 메트릭스에 데이터 로드
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY135.PH_PY135_FormResize">
+            <summary>
+            PH_PY135_FormResize
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY135.PH_PY135_Create_oJournalEntries(System.Int32)">
+            <summary>
+            PH_PY135_Create_oJournalEntries(분개)
+            </summary>
+            <param name="ChkType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY135.PH_PY135_Cancel_oJournalEntries(System.Int32)">
+            <summary>
+            PH_PY135_Create_oJournalEntries(분개취소-역분개)
+            </summary>
+            <param name="ChkType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY135.PH_PY135_AddMatrixRow">
+            <summary>
+            매트릭스 행 추가
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY135.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event
@@ -8994,14 +9037,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY135.Raise_EVENT_FORM_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_RESIZE 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY135.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            COMBO_SELECT 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -9071,49 +9106,6 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY135.PH_PY135_FlushToItemValue(System.String,System.Int32,System.String)">
-            <summary>
-            FlushToItemValue(사용자의 Event에 따른 화면 Item의 유동적인 세팅)
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY135.PH_PY135_DataValidCheck">
-            <summary>
-            DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY135.PH_PY135_MTX01">
-            <summary>
-            PH_PY001_MTX01, 메트릭스에 데이터 로드
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY135.PH_PY135_FormResize">
-            <summary>
-            PH_PY135_FormResize
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY135.PH_PY135_Create_oJournalEntries(System.Int32)">
-            <summary>
-            PH_PY135_Create_oJournalEntries(분개)
-            </summary>
-            <param name="ChkType"></param>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY135.PH_PY135_Cancel_oJournalEntries(System.Int32)">
-            <summary>
-            PH_PY135_Create_oJournalEntries(분개취소-역분개)
-            </summary>
-            <param name="ChkType"></param>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY135.PH_PY135_AddMatrixRow">
-            <summary>
-            매트릭스 행 추가
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY136">
             <summary>
             급상여분개처리 배부규칙설정
@@ -9130,11 +9122,6 @@
             화면 Item 생성
             </summary>
             <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY136.PH_PY136_ComboBox_Setting">
-            <summary>
-            콤보박스 Setting
-            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY136.PH_PY136_EnableMenus">
             <summary>
@@ -9166,6 +9153,12 @@
             <summary>
             PH_PY136_FormResize
             </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY136.PH_PY136_DataValidCheck">
+            <summary>
+            DataValidCheck
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY136.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -9250,12 +9243,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY136.PH_PY136_DataValidCheck">
-            <summary>
-            DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY136.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>
             FormMenuEvent
@@ -9285,6 +9272,11 @@
             화면의 아이템 Enable 설정
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY526.PH_PY526_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY526.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Raise_FormItemEvent
@@ -9308,11 +9300,6 @@
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY526.PH_PY526_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
         </member>
         <member name="T:PSH_BOne_AddOn.PH_PY980">
             <summary>
@@ -19117,7 +19104,7 @@
         </member>
         <member name="T:PSH_BOne_AddOn.PH_PY133">
             <summary>
-            연봉제 횟차관리
+            연봉제 회차관리
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY133.LoadForm(System.String)">
@@ -19143,13 +19130,21 @@
             </summary>
             <param name="oFormDocEntry01"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY133.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PH_PY133.PH_PY133_FormItemEnabled">
             <summary>
-            FormMenuEvent
+            화면의 아이템 Enable 설정
             </summary>
-            <param name="FormUID"></param>
-            <param name="pVal"></param>
-            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY133.PH_PY133_DataValidCheck">
+            <summary>
+            DataValidCheck
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY133.PH_PY133_AddMatrixRow">
+            <summary>
+            매트릭스 행 추가
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY133.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -19158,11 +19153,6 @@
             <param name="FormUID">Form UID</param>
             <param name="pVal">pVal</param>
             <param name="BubbleEvent">Bubble Event</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY133.PH_PY133_AddMatrixRow">
-            <summary>
-            매트릭스 행 추가
-            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY133.Raise_EVENT_GOT_FOCUS(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -19212,16 +19202,13 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY133.PH_PY133_FormItemEnabled">
+        <member name="M:PSH_BOne_AddOn.PH_PY133.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>
-            화면의 아이템 Enable 설정
+            FormMenuEvent
             </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY133.PH_PY133_DataValidCheck">
-            <summary>
-            DataValidCheck
-            </summary>
-            <returns></returns>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
         </member>
         <member name="T:PSH_BOne_AddOn.PH_PY134">
             <summary>
@@ -19259,6 +19246,17 @@
         <member name="M:PSH_BOne_AddOn.PH_PY134.PH_PY134_AddMatrixRow">
             <summary>
             매트릭스 행 추가
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY134.PH_PY134_DataValidCheck">
+            <summary>
+            DataValidCheck
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY134.PH_PY134_MTX01">
+            <summary>
+            PH_PY134_MTX01
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY134.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -19327,17 +19325,6 @@
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY134.PH_PY134_DataValidCheck">
-            <summary>
-            DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY134.PH_PY134_MTX01">
-            <summary>
-            PH_PY134_MTX01
-            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY134.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>
@@ -19443,22 +19430,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY201.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            DOUBLE_CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY201.Raise_EVENT_MATRIX_LINK_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            MATRIX_LINK_PRESSED 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY201.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             VALIDATE 이벤트
@@ -19486,14 +19457,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY201.Raise_EVENT_FORM_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_RESIZE 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY201.Raise_EVENT_CHOOSE_FROM_LIST(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            CHOOSE_FROM_LIST 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -19587,14 +19550,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY202.Raise_EVENT_KEY_DOWN(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            KEY_DOWN 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY202.Raise_EVENT_GOT_FOCUS(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             GOT_FOCUS 이벤트
@@ -19603,33 +19558,9 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY202.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            COMBO_SELECT 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY202.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY202.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            DOUBLE_CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY202.Raise_EVENT_MATRIX_LINK_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            MATRIX_LINK_PRESSED 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -19654,22 +19585,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY202.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_UNLOAD 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY202.Raise_EVENT_FORM_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            FORM_RESIZE 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY202.Raise_EVENT_CHOOSE_FROM_LIST(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            CHOOSE_FROM_LIST 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -19718,11 +19633,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY203.PH_PY203_ComboBox_Setting">
             <summary>
             콤보박스 Setting
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY203.PH_PY203_CF_ChooseFromList">
-            <summary>
-            ChooseFromList
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY203.PH_PY203_EnableMenus">
@@ -19851,22 +19761,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY203.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            DOUBLE_CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY203.Raise_EVENT_MATRIX_LINK_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            MATRIX_LINK_PRESSED 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY203.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             VALIDATE 이벤트
@@ -19894,14 +19788,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY203.Raise_EVENT_FORM_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_RESIZE 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY203.Raise_EVENT_CHOOSE_FROM_LIST(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            CHOOSE_FROM_LIST 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -19950,11 +19836,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY204.PH_PY204_ComboBox_Setting">
             <summary>
             콤보박스 Setting
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY204.PH_PY204_CF_ChooseFromList">
-            <summary>
-            ChooseFromList
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY204.PH_PY204_EnableMenus">
@@ -20083,22 +19964,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY204.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            DOUBLE_CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY204.Raise_EVENT_MATRIX_LINK_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            MATRIX_LINK_PRESSED 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY204.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             VALIDATE 이벤트
@@ -20126,14 +19991,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY204.Raise_EVENT_FORM_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_RESIZE 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY204.Raise_EVENT_CHOOSE_FROM_LIST(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            CHOOSE_FROM_LIST 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -20314,22 +20171,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY205.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            DOUBLE_CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY205.Raise_EVENT_MATRIX_LINK_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            MATRIX_LINK_PRESSED 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY205.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             VALIDATE 이벤트
@@ -20349,22 +20190,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY205.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_UNLOAD 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY205.Raise_EVENT_FORM_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            FORM_RESIZE 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY205.Raise_EVENT_CHOOSE_FROM_LIST(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            CHOOSE_FROM_LIST 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -20443,6 +20268,15 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY301.PH_PY301_GetPayCount(System.String,System.String,System.Int16)">
+            <summary>
+            지급횟수 계산
+            </summary>
+            <param name="pGovID"></param>
+            <param name="pSchCls"></param>
+            <param name="pDocEntry"></param>
+            <returns></returns>
+        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY301.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event
@@ -20482,15 +20316,6 @@
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY301.PH_PY301_GetPayCount(System.String,System.String,System.Int16)">
-            <summary>
-            지급횟수 계산
-            </summary>
-            <param name="pGovID"></param>
-            <param name="pSchCls"></param>
-            <param name="pDocEntry"></param>
-            <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY301.Raise_EVENT_GOT_FOCUS(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -20580,6 +20405,12 @@
             PH_PY302_AddMatrixRow
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY302.PH_PY302_DataValidCheck">
+            <summary>
+            DataValidCheck
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY302.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event
@@ -20612,12 +20443,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY302.PH_PY302_DataValidCheck">
-            <summary>
-            DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY302.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             COMBO_SELECT 이벤트
@@ -20634,30 +20459,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY302.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            DOUBLE_CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY302.Raise_EVENT_MATRIX_LINK_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            MATRIX_LINK_PRESSED 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY302.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            VALIDATE 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY302.Raise_EVENT_MATRIX_LOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             MATRIX_LOAD 이벤트
@@ -20669,14 +20470,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY302.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_UNLOAD 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY302.Raise_EVENT_CHOOSE_FROM_LIST(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            CHOOSE_FROM_LIST 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -20746,12 +20539,12 @@
         <member name="M:PSH_BOne_AddOn.PH_PY303.PH_PY303_PY109_Update">
             <summary>
             PH_PY303_PY109_Update
-            /// </summary>
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY303.PH_PY303_AddMatrixRow">
             <summary>
             PH_PY303_PY109_Update
-            /// </summary>
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY303.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -20807,30 +20600,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY303.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            DOUBLE_CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY303.Raise_EVENT_MATRIX_LINK_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            MATRIX_LINK_PRESSED 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY303.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            VALIDATE 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY303.Raise_EVENT_MATRIX_LOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             MATRIX_LOAD 이벤트
@@ -20842,14 +20611,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY303.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_UNLOAD 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY303.Raise_EVENT_CHOOSE_FROM_LIST(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            CHOOSE_FROM_LIST 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -20924,6 +20685,12 @@
             <param name="oRow"></param>
             <param name="oCol"></param>
         </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY305.PH_PY305_DataValidCheck">
+            <summary>
+            DataValidCheck
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY305.PH_PY305_Print_Report01">
             <summary>
             리포트 출력
@@ -20961,12 +20728,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY305.PH_PY305_DataValidCheck">
-            <summary>
-            DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY305.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             COMBO_SELECT 이벤트
@@ -20978,22 +20739,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY305.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY305.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            DOUBLE_CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY305.Raise_EVENT_MATRIX_LINK_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            MATRIX_LINK_PRESSED 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -21018,14 +20763,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY305.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_UNLOAD 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY305.Raise_EVENT_CHOOSE_FROM_LIST(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            CHOOSE_FROM_LIST 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -21100,6 +20837,12 @@
             <param name="oRow"></param>
             <param name="oCol"></param>
         </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY306.PH_PY306_DataValidCheck">
+            <summary>
+            DataValidCheck
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY306.PH_PY306_Print_Report01">
             <summary>
             리포트 출력
@@ -21137,12 +20880,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY306.PH_PY306_DataValidCheck">
-            <summary>
-            DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY306.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             COMBO_SELECT 이벤트
@@ -21154,22 +20891,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY306.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY306.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            DOUBLE_CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY306.Raise_EVENT_MATRIX_LINK_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            MATRIX_LINK_PRESSED 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -21194,14 +20915,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY306.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_UNLOAD 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY306.Raise_EVENT_CHOOSE_FROM_LIST(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            CHOOSE_FROM_LIST 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -21281,6 +20994,12 @@
             리포트 출력
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY307.PH_PY307_DataValidCheck">
+            <summary>
+            DataValidCheck
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY307.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event
@@ -21313,12 +21032,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY307.PH_PY307_DataValidCheck">
-            <summary>
-            DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY307.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             COMBO_SELECT 이벤트
@@ -21330,22 +21043,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY307.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY307.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            DOUBLE_CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY307.Raise_EVENT_MATRIX_LINK_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            MATRIX_LINK_PRESSED 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -21370,14 +21067,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY307.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_UNLOAD 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY307.Raise_EVENT_CHOOSE_FROM_LIST(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            CHOOSE_FROM_LIST 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -21440,6 +21129,41 @@
             화면의 아이템 Enable 설정
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY309.PH_PY309_DataValidCheck">
+            <summary>
+            DataValidCheck
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY309.PH_PY309_Validate(System.String,System.Int32)">
+            <summary>
+            Validate
+            </summary>
+            <param name="ValidateType"></param>
+            <param name="prmRow"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY309.PH_PY309_FormClear">
+            <summary>
+            DocEntry 초기화
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY309.PH_PY309_AddMatrixRow">
+            <summary>
+            매트릭스 행 추가
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY309.PH_PY309_MTX01">
+            <summary>
+            PH_PY309_MTX01
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY309.PH_PY309_CalDataCheck">
+            <summary>
+            PH_PY309_CalDataCheck
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY309.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event
@@ -21483,14 +21207,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY309.Raise_EVENT_FORM_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_RESIZE 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY309.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            COMBO_SELECT 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -21544,45 +21260,16 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY309.PH_PY309_DataValidCheck">
-            <summary>
-            DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY309.PH_PY309_Validate(System.String,System.Int32)">
-            <summary>
-            Validate
-            </summary>
-            <param name="ValidateType"></param>
-            <param name="prmRow"></param>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY309.PH_PY309_FormClear">
-            <summary>
-            DocEntry 초기화
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY309.PH_PY309_AddMatrixRow">
-            <summary>
-            매트릭스 행 추가
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY309.PH_PY309_MTX01">
-            <summary>
-            PH_PY309_MTX01
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY309.PH_PY309_CalDataCheck">
-            <summary>
-            PH_PY309_CalDataCheck
-            </summary>
-            <returns></returns>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY310">
             <summary>
             대부금개별상환
             </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY310.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFormDocEntry01"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY310.PH_PY310_CreateItems">
             <summary>
@@ -21675,33 +21362,9 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY310.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            COMBO_SELECT 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY310.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY310.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            DOUBLE_CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY310.Raise_EVENT_MATRIX_LINK_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            MATRIX_LINK_PRESSED 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -21726,22 +21389,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY310.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_UNLOAD 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY310.Raise_EVENT_FORM_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            FORM_RESIZE 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY310.Raise_EVENT_CHOOSE_FROM_LIST(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            CHOOSE_FROM_LIST 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -21851,14 +21498,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY311.Raise_EVENT_KEY_DOWN(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            KEY_DOWN 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY311.Raise_EVENT_GOT_FOCUS(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             GOT_FOCUS 이벤트
@@ -21867,33 +21506,9 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY311.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            COMBO_SELECT 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY311.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY311.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            DOUBLE_CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY311.Raise_EVENT_MATRIX_LINK_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            MATRIX_LINK_PRESSED 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -21918,22 +21533,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY311.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_UNLOAD 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY311.Raise_EVENT_FORM_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            FORM_RESIZE 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY311.Raise_EVENT_CHOOSE_FROM_LIST(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            CHOOSE_FROM_LIST 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -21983,12 +21582,6 @@
             메뉴 아이콘 Enable
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY312.PH_PY312_SetDocument(System.String)">
-            <summary>
-            화면세팅
-            </summary>
-            <param name="oFormDocEntry01"></param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY312.PH_PY312_FormItemEnabled">
             <summary>
             화면의 아이템 Enable 설정
@@ -22033,14 +21626,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY312.Raise_EVENT_KEY_DOWN(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            KEY_DOWN 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY312.Raise_EVENT_GOT_FOCUS(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             GOT_FOCUS 이벤트
@@ -22049,41 +21634,9 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY312.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            COMBO_SELECT 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY312.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY312.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            DOUBLE_CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY312.Raise_EVENT_MATRIX_LINK_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            MATRIX_LINK_PRESSED 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY312.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            VALIDATE 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -22100,22 +21653,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY312.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_UNLOAD 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY312.Raise_EVENT_FORM_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            FORM_RESIZE 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY312.Raise_EVENT_CHOOSE_FROM_LIST(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            CHOOSE_FROM_LIST 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -22196,6 +21733,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY313.PH_PY313_DataValidCheck">
+            <summary>
+            DataValidCheck
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY313.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event
@@ -22228,12 +21771,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY313.PH_PY313_DataValidCheck">
-            <summary>
-            DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY313.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             COMBO_SELECT 이벤트
@@ -22245,22 +21782,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY313.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY313.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            DOUBLE_CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY313.Raise_EVENT_MATRIX_LINK_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            MATRIX_LINK_PRESSED 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -22285,14 +21806,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY313.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_UNLOAD 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY313.Raise_EVENT_CHOOSE_FROM_LIST(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            CHOOSE_FROM_LIST 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -22339,11 +21852,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY314.PH_PY314_EnableMenus">
-            <summary>
-            메뉴 아이콘 Enable
-            </summary>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY314.PH_PY314_FormItemEnabled">
             <summary>
             화면의 아이템 Enable 설정
@@ -22355,21 +21863,33 @@
             </summary>
             <param name="oFormDocEntry01"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY314.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PH_PY314.PH_PY314_AddMatrixRow">
             <summary>
-            FormDataEvent
+            매트릭스 행 추가
             </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY314.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PH_PY314.PH_PY314_DataValidCheck">
             <summary>
-            FormMenuEvent
+            DataValidCheck
             </summary>
-            <param name="FormUID"></param>
-            <param name="pVal"></param>
-            <param name="BubbleEvent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY314.PH_PY314_FormClear">
+            <summary>
+            DocEntry 초기화
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY314.PH_PY314_MTX01">
+            <summary>
+            데이터 조회
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY314.PH_PY314_Validate(System.String)">
+            <summary>
+            Validate
+            </summary>
+            <param name="ValidateType"></param>
+            <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY314.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -22443,6 +21963,22 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY314.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            FormMenuEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY314.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+            <summary>
+            FormDataEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="BusinessObjectInfo"></param>
+            <param name="BubbleEvent"></param>
+        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY314.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
             <summary>
             RightClickEvent
@@ -22450,34 +21986,6 @@
             <param name="FormUID"></param>
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY314.PH_PY314_AddMatrixRow">
-            <summary>
-            매트릭스 행 추가
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY314.PH_PY314_DataValidCheck">
-            <summary>
-            DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY314.PH_PY314_FormClear">
-            <summary>
-            DocEntry 초기화
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY314.PH_PY314_MTX01">
-            <summary>
-            데이터 조회
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY314.PH_PY314_Validate(System.String)">
-            <summary>
-            Validate
-            </summary>
-            <param name="ValidateType"></param>
-            <returns></returns>
         </member>
         <member name="T:PSH_BOne_AddOn.PH_PY315">
             <summary>
@@ -22524,6 +22032,12 @@
             <param name="oRow"></param>
             <param name="oCol"></param>
         </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY315.PH_PY315_DataValidCheck">
+            <summary>
+            DataValidCheck
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY315.PH_PY315_Print_Report01">
             <summary>
             리포트 출력
@@ -22561,12 +22075,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY315.PH_PY315_DataValidCheck">
-            <summary>
-            DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY315.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             COMBO_SELECT 이벤트
@@ -22578,22 +22086,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY315.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY315.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            DOUBLE_CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY315.Raise_EVENT_MATRIX_LINK_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            MATRIX_LINK_PRESSED 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -22618,14 +22110,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY315.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_UNLOAD 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY315.Raise_EVENT_CHOOSE_FROM_LIST(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            CHOOSE_FROM_LIST 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -23767,6 +23251,11 @@
             화면의 아이템 Enable 설정
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY501.PH_PY501_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY501.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Raise_FormItemEvent
@@ -23799,17 +23288,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY501.PH_PY501_DataValidCheck">
-            <summary>
-            PH_PY501_DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY501.PH_PY501_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY503">
             <summary>
             승진대상자명부
@@ -23829,6 +23307,11 @@
         <member name="M:PSH_BOne_AddOn.PH_PY503.PH_PY503_FormItemEnabled">
             <summary>
             화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY503.PH_PY503_Print_Report01">
+            <summary>
+            리포트 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY503.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -23855,16 +23338,87 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY503.PH_PY503_DataValidCheck">
+        <member name="T:PSH_BOne_AddOn.PH_PY505">
             <summary>
-            PH_PY503_DataValidCheck
+            입사자대장
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY505.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFormDocEntry01"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY505.PH_PY505_FormClear">
+            <summary>
+            DocEntry 초기화
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY505.PH_PY505_Validate(System.String)">
+            <summary>
+            Validate
+            </summary>
+            <param name="ValidateType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY505.PH_PY505_Print_Report01">
+            <summary>
+            리포트 출력
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY505.PH_PY505_CreateItems">
+            <summary>
+            화면 Item 생성
             </summary>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY503.PH_PY503_Print_Report01">
+        <member name="M:PSH_BOne_AddOn.PH_PY505.PH_PY505_EnableMenus">
             <summary>
-            리포트 조회
+            메뉴 아이콘 Enable
             </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY505.PH_PY505_SetDocument(System.String)">
+            <summary>
+            화면세팅
+            </summary>
+            <param name="oFormDocEntry01"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY505.PH_PY505_FormItemEnabled">
+            <summary>
+            화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY505.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Form Item Event
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">pVal</param>
+            <param name="BubbleEvent">Bubble Event</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY505.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            FormMenuEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY505.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+            <summary>
+            FormDataEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="BusinessObjectInfo"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY505.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
+            <summary>
+            RightClickEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
         </member>
         <member name="T:PSH_BOne_AddOn.PH_PY507">
             <summary>
@@ -23885,6 +23439,11 @@
         <member name="M:PSH_BOne_AddOn.PH_PY507.PH_PY507_FormItemEnabled">
             <summary>
             화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY507.PH_PY507_Print_Report01">
+            <summary>
+            리포트 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY507.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -23919,17 +23478,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY507.PH_PY507_DataValidCheck">
-            <summary>
-            PH_PY507_DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY507.PH_PY507_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY508">
             <summary>
             재직증명 등록 및 발급
@@ -23954,11 +23502,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY508.PH_PY508_ComboBox_Setting">
             <summary>
             콤보박스 Setting
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY508.PH_PY508_CF_ChooseFromList">
-            <summary>
-            CF_ChooseFromList
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY508.PH_PY508_EnableMenus">
@@ -24092,22 +23635,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY508.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            DOUBLE_CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY508.Raise_EVENT_MATRIX_LINK_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            MATRIX_LINK_PRESSED 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY508.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             VALIDATE 이벤트
@@ -24140,15 +23667,7 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY508.Raise_EVENT_CHOOSE_FROM_LIST(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            CHOOSE_FROM_LIST 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY508.Raise_EVENT_ROW_DELETE(System.String@,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PH_PY508.Raise_EVENT_ROW_DELETE(System.String,SAPbouiCOM.IMenuEvent@,System.Boolean@)">
             <summary>
             Raise_EVENT_ROW_DELETE 이벤트
             </summary>
@@ -24375,6 +23894,11 @@
             화면의 아이템 Enable 설정
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY515.PH_PY515_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY515.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Raise_FormItemEvent
@@ -24407,11 +23931,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY515.PH_PY515_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY520">
             <summary>
             퇴직및퇴직예정자대장
@@ -24427,6 +23946,11 @@
             화면 Item 생성
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY520.PH_PY520_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY520.PH_PY520_FormItemEnabled">
             <summary>
@@ -24457,17 +23981,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY520.PH_PY520_DataValidCheck">
-            <summary>
-            PH_PY520_DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY520.PH_PY520_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY522">
             <summary>
             임금피크 대상자 현황
@@ -24487,6 +24000,11 @@
         <member name="M:PSH_BOne_AddOn.PH_PY522.PH_PY522_FormItemEnabled">
             <summary>
             화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY522.PH_PY522_Print_Report01">
+            <summary>
+            리포트 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY522.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -24513,11 +24031,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY522.PH_PY522_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY523">
             <summary>
             임금피크대상자월별차수현황
@@ -24537,6 +24050,11 @@
         <member name="M:PSH_BOne_AddOn.PH_PY523.PH_PY523_FormItemEnabled">
             <summary>
             화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY523.PH_PY523_Print_Report01">
+            <summary>
+            리포트 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY523.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -24563,11 +24081,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY523.PH_PY523_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY524">
             <summary>
             퇴직금중산정산내역
@@ -24583,6 +24096,16 @@
             화면 Item 생성
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY524.PH_PY524_FormItemEnabled">
+            <summary>
+            화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY524.PH_PY524_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY524.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -24608,11 +24131,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY524.PH_PY524_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY525">
             <summary>
             학력별인원현황
@@ -24632,6 +24150,11 @@
         <member name="M:PSH_BOne_AddOn.PH_PY525.PH_PY525_FormItemEnabled">
             <summary>
             화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY525.PH_PY525_Print_Report01">
+            <summary>
+            리포트 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY525.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -24658,17 +24181,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY525.PH_PY525_DataValidCheck">
-            <summary>
-            PH_PY525_DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY525.PH_PY525_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY530">
             <summary>
             연령별인원현황
@@ -24688,6 +24200,11 @@
         <member name="M:PSH_BOne_AddOn.PH_PY530.PH_PY530_FormItemEnabled">
             <summary>
             화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY530.PH_PY530_Print_Report01">
+            <summary>
+            리포트 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY530.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -24714,17 +24231,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY530.PH_PY530_DataValidCheck">
-            <summary>
-            PH_PY530_DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY530.PH_PY530_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY535">
             <summary>
             근속년수별인원현황
@@ -24744,6 +24250,11 @@
         <member name="M:PSH_BOne_AddOn.PH_PY535.PH_PY535_FormItemEnabled">
             <summary>
             화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY535.PH_PY535_Print_Report01">
+            <summary>
+            리포트 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY535.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -24770,11 +24281,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY535.PH_PY535_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY540">
             <summary>
             인원현황(대외용)
@@ -24790,6 +24296,11 @@
             화면 Item 생성
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY540.PH_PY540_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY540.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -24815,11 +24326,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY540.PH_PY540_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY545">
             <summary>
             인원현황(대내용)
@@ -24835,6 +24341,16 @@
             화면 Item 생성
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY545.PH_PY545_FormItemEnabled">
+            <summary>
+            화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY545.PH_PY545_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY545.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -24860,11 +24376,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY545.PH_PY545_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY550">
             <summary>
             전체인원현황
@@ -24880,6 +24391,11 @@
             화면 Item 생성
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY550.PH_PY550_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY550.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -24905,11 +24421,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY550.PH_PY550_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY551">
             <summary>
             평균인원조회
@@ -24929,6 +24440,11 @@
         <member name="M:PSH_BOne_AddOn.PH_PY551.PH_PY551_FormItemEnabled">
             <summary>
             화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY551.PH_PY551_Print_Report01">
+            <summary>
+            리포트 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY551.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -24955,17 +24471,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY551.PH_PY551_DataValidCheck">
-            <summary>
-            PH_PY551_DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY551.PH_PY551_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY555">
             <summary>
             일일근무자현황
@@ -24986,6 +24491,11 @@
              <summary>
              화면의 아이템 Enable 설정
              </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY555.PH_PY555_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY555.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -25019,11 +24529,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY555.PH_PY555_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY560">
             <summary>
             일출근현황
@@ -25039,6 +24544,16 @@
             화면 Item 생성
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY560.PH_PY560_FormItemEnabled">
+            <summary>
+            화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY560.PH_PY560_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY560.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -25064,11 +24579,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY560.PH_PY560_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY565">
             <summary>
             연장근무자현황
@@ -25084,6 +24594,16 @@
             화면 Item 생성
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY565.PH_PY565_FormItemEnabled">
+            <summary>
+            화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY565.PH_PY565_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY565.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -25109,11 +24629,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY565.PH_PY565_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY570">
             <summary>
             연장/휴일근무현황
@@ -25133,6 +24648,11 @@
         <member name="M:PSH_BOne_AddOn.PH_PY570.PH_PY570_FormItemEnabled">
             <summary>
             화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY570.PH_PY570_Print_Report01">
+            <summary>
+            리포트 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY570.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -25159,11 +24679,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY570.PH_PY570_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY575">
             <summary>
             근태기찰현황
@@ -25184,6 +24699,11 @@
              <summary>
              화면의 아이템 Enable 설정
              </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY575.PH_PY575_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY575.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -25225,11 +24745,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY575.PH_PY575_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY580">
             <summary>
             개인별근태월보
@@ -25250,6 +24765,11 @@
              <summary>
              화면의 아이템 Enable 설정
              </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY580.PH_PY580_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY580.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -25291,11 +24811,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY580.PH_PY580_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY583">
             <summary>
             근태마감체크
@@ -25317,22 +24832,6 @@
             화면의 아이템 Enable 설정
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY583.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_FormItemEvent
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">이벤트 </param>
-            <param name="BubbleEvent">Bubble Event</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY583.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            ITEM_PRESSED 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY583.PH_PY583_DataValidCheck">
             <summary>
             DataValidCheck
@@ -25345,7 +24844,15 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY583.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PH_PY583.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormItemEvent
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">이벤트 </param>
+            <param name="BubbleEvent">Bubble Event</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY583.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             ITEM_PRESSED 이벤트
             </summary>
@@ -25382,6 +24889,11 @@
             화면의 아이템 Enable 설정
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY585.PH_PY585_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY585.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Raise_FormItemEvent
@@ -25414,11 +24926,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY585.PH_PY585_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY590">
             <summary>
             기간별근태집계표
@@ -25439,6 +24946,11 @@
              <summary>
              화면의 아이템 Enable 설정
              </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY590.PH_PY590_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY590.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -25472,11 +24984,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY590.PH_PY590_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY595">
             <summary>
             근속년수현황
@@ -25496,6 +25003,11 @@
         <member name="M:PSH_BOne_AddOn.PH_PY595.PH_PY595_FormItemEnabled">
             <summary>
             화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY595.PH_PY595_Print_Report01">
+            <summary>
+            리포트 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY595.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -25522,11 +25034,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY595.PH_PY595_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY600">
             <summary>
             일자별연장근무현황
@@ -25548,6 +25055,11 @@
              화면의 아이템 Enable 설정
              </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY600.PH_PY600_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY600.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Raise_FormItemEvent
@@ -25555,6 +25067,14 @@
             <param name="FormUID">Form UID</param>
             <param name="pVal">pVal</param>
             <param name="BubbleEvent">Bubble Event</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY600.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            ITEM_PRESSED 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY600.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -25580,19 +25100,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY600.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            ITEM_PRESSED 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY600.PH_PY600_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY605">
             <summary>
             근속보전휴가발생및사용내역
@@ -25608,6 +25115,24 @@
             화면 Item 생성
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY605.PH_PY605_FormItemEnabled">
+            <summary>
+            화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY605.PH_PY605_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY605.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormItemEvent
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">이벤트 </param>
+            <param name="BubbleEvent">Bubble Event</param>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY605.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -25641,11 +25166,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY605.PH_PY605_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY610">
             <summary>
             근태구분별사용현황
@@ -25661,6 +25181,24 @@
             화면 Item 생성
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY610.PH_PY610_FormItemEnabled">
+            <summary>
+            화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY610.PH_PY610_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY610.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormItemEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY610.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -25694,11 +25232,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY610.PH_PY610_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY615">
             <summary>
             당직근무자 현황
@@ -25718,6 +25251,11 @@
         <member name="M:PSH_BOne_AddOn.PH_PY615.PH_PY615_FormItemEnabled">
             <summary>
             화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY615.PH_PY615_Print_Report01">
+            <summary>
+            리포트 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY615.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -25760,11 +25298,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY615.PH_PY615_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY620">
             <summary>
             연봉제휴일교통비현황
@@ -25780,6 +25313,16 @@
             화면 Item 생성
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY620.PH_PY620_FormItemEnabled">
+            <summary>
+            화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY620.PH_PY620_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY620.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -25821,11 +25364,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY620.PH_PY620_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY625">
             <summary>
             세탁자명부
@@ -25841,6 +25379,16 @@
             화면 Item 생성
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY625.PH_PY625_FormItemEnabled">
+            <summary>
+            화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY625.PH_PY625_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY625.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -25866,11 +25414,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY625.PH_PY625_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY630">
             <summary>
             사원별 노조비 공제현황
@@ -25886,6 +25429,16 @@
             화면 Item 생성
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY630.PH_PY630_FormItemEnabled">
+            <summary>
+            화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY630.PH_PY630_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY630.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
              <summary>
@@ -25919,11 +25472,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY630.PH_PY630_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY635">
             <summary>
             여행,교육자현황
@@ -25943,6 +25491,11 @@
         <member name="M:PSH_BOne_AddOn.PH_PY635.PH_PY635_FormItemEnabled">
             <summary>
             화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY635.PH_PY635_Print_Report01">
+            <summary>
+            리포트 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY635.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -25969,17 +25522,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY635.PH_PY635_DataValidCheck">
-            <summary>
-            PH_PY635_DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY635.PH_PY635_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY640">
             <summary>
             국민연금퇴직전환금현황
@@ -25999,6 +25541,11 @@
         <member name="M:PSH_BOne_AddOn.PH_PY640.PH_PY640_FormItemEnabled">
             <summary>
             화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY640.PH_PY640_Print_Report01">
+            <summary>
+            리포트 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY640.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -26025,17 +25572,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY640.PH_PY640_DataValidCheck">
-            <summary>
-            PH_PY640_DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY640.PH_PY640_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY645">
             <summary>
             자격수당지급현황
@@ -26055,6 +25591,11 @@
         <member name="M:PSH_BOne_AddOn.PH_PY645.PH_PY645_FormItemEnabled">
             <summary>
             화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY645.PH_PY645_Print_Report01">
+            <summary>
+            리포트 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY645.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -26081,11 +25622,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY645.PH_PY645_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY650">
             <summary>
             노동조합간부현황
@@ -26101,6 +25637,16 @@
             화면 Item 생성
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY650.PH_PY650_FormItemEnabled">
+            <summary>
+            화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY650.PH_PY650_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY650.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -26126,11 +25672,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY650.PH_PY650_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY655">
             <summary>
             보훈대상자현황
@@ -26150,6 +25691,11 @@
         <member name="M:PSH_BOne_AddOn.PH_PY655.PH_PY655_FormItemEnabled">
             <summary>
             화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY655.PH_PY655_Print_Report01">
+            <summary>
+            리포트 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY655.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -26176,17 +25722,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY655.PH_PY655_DataValidCheck">
-            <summary>
-            PH_PY655_DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY655.PH_PY655_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY660">
             <summary>
             장애근로자현황
@@ -26206,6 +25741,11 @@
         <member name="M:PSH_BOne_AddOn.PH_PY660.PH_PY660_FormItemEnabled">
             <summary>
             화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY660.PH_PY660_Print_Report01">
+            <summary>
+            리포트 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY660.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -26232,17 +25772,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY660.PH_PY660_DataValidCheck">
-            <summary>
-            PH_PY660_DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY660.PH_PY660_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY665">
             <summary>
             사원자녀현황
@@ -26262,6 +25791,11 @@
         <member name="M:PSH_BOne_AddOn.PH_PY665.PH_PY665_FormItemEnabled">
             <summary>
             화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY665.PH_PY665_Print_Report01">
+            <summary>
+            리포트 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY665.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -26304,11 +25838,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY665.PH_PY665_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY670">
             <summary>
             개인별차량현황
@@ -26328,6 +25857,11 @@
         <member name="M:PSH_BOne_AddOn.PH_PY670.PH_PY670_FormItemEnabled">
             <summary>
             화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY670.PH_PY670_Print_Report01">
+            <summary>
+            리포트 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY670.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -26370,11 +25904,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY670.PH_PY670_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY675">
             <summary>
             근무편성현황
@@ -26390,6 +25919,11 @@
             화면 Item 생성
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY675.PH_PY675_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY675.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -26414,11 +25948,6 @@
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY675.PH_PY675_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
         </member>
         <member name="T:PSH_BOne_AddOn.PH_PY676">
             <summary>

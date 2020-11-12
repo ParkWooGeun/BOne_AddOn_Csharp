@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
-using PSH_BOne_AddOn.DataPack;
-using PSH_BOne_AddOn.Form;
-using Microsoft.VisualBasic;
 
 namespace PSH_BOne_AddOn
 {
@@ -13,11 +9,9 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PH_PY683 : PSH_BaseClass
     {
-        public string oFormUniqueID01;
-
-        //'// 그리드 사용시
-        public SAPbouiCOM.Grid oGrid1;
-        public SAPbouiCOM.DataTable oDS_PH_PY683;
+        private string oFormUniqueID01;
+        private SAPbouiCOM.Grid oGrid1;
+        private SAPbouiCOM.DataTable oDS_PH_PY683;
 
         /// <summary>
         /// 화면 호출
@@ -107,7 +101,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면의 아이템 Enable 설정
         /// </summary>
-        public void PH_PY683_FormItemEnabled()
+        private void PH_PY683_FormItemEnabled()
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
@@ -122,6 +116,66 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
+            }
+        }
+
+        /// <summary>
+        /// DataValidCheck
+        /// </summary>
+        /// <returns></returns>
+        private bool PH_PY683_DataValidCheck()
+        {
+            bool functionReturnValue = false;
+
+            try
+            {
+                if (string.IsNullOrEmpty(oForm.Items.Item("YM").Specific.Value))
+                {
+                    PSH_Globals.SBO_Application.SetStatusBarMessage("년월은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                    oForm.Items.Item("YM").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    return functionReturnValue;
+                }
+
+                functionReturnValue = true;
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY683_DataValidCheck_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
+            }
+            finally
+            {
+            }
+
+            return functionReturnValue;
+        }
+
+        /// <summary>
+        /// 데이터 조회
+        /// </summary>
+        /// <returns></returns>
+        private void PH_PY683_DataFind()
+        {
+            string sQry;
+            string CLTCOD;
+            string YM;
+
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            try
+            {
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
+                YM = oForm.Items.Item("YM").Specific.Value.Trim();
+
+                sQry = "Exec PH_PY683_01 '" + CLTCOD + "','" + YM + "'";
+
+                oDS_PH_PY683.ExecuteQuery(sQry);
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY683_DataFind_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }
 
@@ -272,67 +326,7 @@ namespace PSH_BOne_AddOn
             {
             }
         }
-
-        /// <summary>
-        /// DataValidCheck
-        /// </summary>
-        /// <returns></returns>
-        public bool PH_PY683_DataValidCheck()
-        {
-            bool functionReturnValue = false;
-
-            try
-            {
-                if (string.IsNullOrEmpty(oForm.Items.Item("YM").Specific.Value))
-                {
-                    PSH_Globals.SBO_Application.SetStatusBarMessage("년월은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                    oForm.Items.Item("YM").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
-                }
-
-                functionReturnValue = true;
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY683_DataValidCheck_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-            }
-            finally
-            {
-            }
-
-            return functionReturnValue;
-        }
-
-        /// <summary>
-        /// 데이터 조회
-        /// </summary>
-        /// <returns></returns>
-        private void PH_PY683_DataFind()
-        {
-            string sQry;
-            string CLTCOD;
-            string YM;
-
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            try
-            {
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
-                YM = oForm.Items.Item("YM").Specific.Value.Trim();
-
-                sQry = "Exec PH_PY683_01 '" + CLTCOD + "','" + YM + "'";
-
-                oDS_PH_PY683.ExecuteQuery(sQry);
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY683_DataFind_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-            }
-            finally
-            {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
-            }
-        }
-
+        
         /// <summary>
         /// ITEM_PRESSED 이벤트
         /// </summary>

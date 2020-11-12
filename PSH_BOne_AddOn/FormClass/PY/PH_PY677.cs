@@ -1,5 +1,4 @@
 using System;
-
 using SAPbouiCOM;
 using SAPbobsCOM;
 using PSH_BOne_AddOn.Data;
@@ -11,12 +10,9 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PH_PY677 : PSH_BaseClass
     {
-        public string oFormUniqueID01;
-        //public SAPbouiCOM.Form oForm;
-        public SAPbouiCOM.Matrix oMat01;
-
+        private string oFormUniqueID01;
+        private SAPbouiCOM.Matrix oMat01;
         private SAPbouiCOM.DBDataSource oDS_PH_PY677B; //등록라인
-
         private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
         private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
@@ -45,25 +41,18 @@ namespace PSH_BOne_AddOn
                 oFormUniqueID01 = "PH_PY677_" + SubMain.Get_TotalFormsCount();
                 SubMain.Add_Forms(this, oFormUniqueID01, "PH_PY677");
 
-                
-
                 PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID01);
 
                 oForm.SupportedModes = -1;
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
-                ////oForm.DataBrowser.BrowseBy="DocEntry" '//UDO방식일때
+                //oForm.DataBrowser.BrowseBy="DocEntry"
 
                 oForm.Freeze(true);
                 PH_PY677_CreateItems();
-                PH_PY677_CF_ChooseFromList();
                 PH_PY677_EnableMenus();
                 PH_PY677_SetDocument(oFormDocEntry01);
                 PH_PY677_FormResize();
-
-                //PH_PY677_Add_MatrixRow(0, true);
-                //PH_PY677_LoadCaption();
-                //PH_PY677_FormItemEnabled();
 
                 oForm.Items.Item("MSTCOD").Click(); //사번 포커스
             }
@@ -85,8 +74,8 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PH_PY677_CreateItems()
         {
-            int i = 0;
-            string sQry = string.Empty;
+            int i;
+            string sQry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -173,26 +162,23 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.UserDataSources.Add("WorkType", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("WorkType").Specific.DataBind.SetBound(true, "", "WorkType");
                 
-                sQry = "        SELECT    U_Code AS [Code],";
-                sQry = sQry + "           U_CodeNm As [Name]";
-                sQry = sQry + " FROM      [@PS_HR200L]";
-                sQry = sQry + " WHERE     Code = 'P221'";
-                sQry = sQry + "           AND U_UseYN = 'Y'";
-                sQry = sQry + " ORDER BY  U_Seq";
+                sQry = "  SELECT    U_Code AS [Code],";
+                sQry += "           U_CodeNm As [Name]";
+                sQry += " FROM      [@PS_HR200L]";
+                sQry += " WHERE     Code = 'P221'";
+                sQry += "           AND U_UseYN = 'Y'";
+                sQry += " ORDER BY  U_Seq";
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("WorkType").Specific, "N");
                 oForm.Items.Item("WorkType").Specific.ValidValues.Add("%", "전체");
                 oForm.Items.Item("WorkType").Specific.Select("%", SAPbouiCOM.BoSearchKey.psk_ByValue);
-                //oForm.Items.Item("WorkType").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-
-                // 매트릭스 기본값 SETTING
-
+                
                 // 근무형태
-                sQry = "        SELECT    U_Code AS [Code],";
-                sQry = sQry + "           U_CodeNm As [Name]";
-                sQry = sQry + " FROM      [@PS_HR200L]";
-                sQry = sQry + " WHERE     Code = 'P154'";
-                sQry = sQry + "           AND U_UseYN = 'Y'";
-                sQry = sQry + " ORDER BY  U_Seq";
+                sQry = "  SELECT    U_Code AS [Code],";
+                sQry += "           U_CodeNm As [Name]";
+                sQry += " FROM      [@PS_HR200L]";
+                sQry += " WHERE     Code = 'P154'";
+                sQry += "           AND U_UseYN = 'Y'";
+                sQry += " ORDER BY  U_Seq";
                 oRecordSet.DoQuery(sQry);
                 if (oRecordSet.RecordCount > 0)
                 {
@@ -205,12 +191,12 @@ namespace PSH_BOne_AddOn
                 oMat01.Columns.Item("ShiftDat").DisplayDesc = true;
 
                 // 근무조
-                sQry = "        SELECT    U_Code AS [Code],";
-                sQry = sQry + "           U_CodeNm As [Name]";
-                sQry = sQry + " FROM      [@PS_HR200L]";
-                sQry = sQry + " WHERE     Code = 'P155'";
-                sQry = sQry + "           AND U_UseYN = 'Y'";
-                sQry = sQry + " ORDER BY  U_Seq";
+                sQry = "  SELECT    U_Code AS [Code],";
+                sQry += "           U_CodeNm As [Name]";
+                sQry += " FROM      [@PS_HR200L]";
+                sQry += " WHERE     Code = 'P155'";
+                sQry += "           AND U_UseYN = 'Y'";
+                sQry += " ORDER BY  U_Seq";
                 oRecordSet.DoQuery(sQry);
                 if (oRecordSet.RecordCount > 0)
                 {
@@ -223,12 +209,12 @@ namespace PSH_BOne_AddOn
                 oMat01.Columns.Item("GNMUJO").DisplayDesc = true;
 
                 // 요일구분
-                sQry = "        SELECT    U_Code AS [Code],";
-                sQry = sQry + "           U_CodeNm As [Name]";
-                sQry = sQry + " FROM      [@PS_HR200L]";
-                sQry = sQry + " WHERE     Code = 'P202'";
-                sQry = sQry + "           AND U_UseYN = 'Y'";
-                sQry = sQry + " ORDER BY  U_Seq";
+                sQry = "  SELECT    U_Code AS [Code],";
+                sQry += "           U_CodeNm As [Name]";
+                sQry += " FROM      [@PS_HR200L]";
+                sQry += " WHERE     Code = 'P202'";
+                sQry += "           AND U_UseYN = 'Y'";
+                sQry += " ORDER BY  U_Seq";
                 oRecordSet.DoQuery(sQry);
                 if (oRecordSet.RecordCount > 0)
                 {
@@ -241,12 +227,12 @@ namespace PSH_BOne_AddOn
                 oMat01.Columns.Item("DayType").DisplayDesc = true;
 
                 // 근태구분
-                sQry = "        SELECT    U_Code AS [Code],";
-                sQry = sQry + "           U_CodeNm As [Name]";
-                sQry = sQry + " FROM      [@PS_HR200L]";
-                sQry = sQry + " WHERE     Code = 'P221'";
-                sQry = sQry + "           AND U_UseYN = 'Y'";
-                sQry = sQry + " ORDER BY  U_Seq";
+                sQry = "  SELECT    U_Code AS [Code],";
+                sQry += "           U_CodeNm As [Name]";
+                sQry += " FROM      [@PS_HR200L]";
+                sQry += " WHERE     Code = 'P221'";
+                sQry += "           AND U_UseYN = 'Y'";
+                sQry += " ORDER BY  U_Seq";
                 oRecordSet.DoQuery(sQry);
                 if (oRecordSet.RecordCount > 0)
                 {
@@ -264,12 +250,12 @@ namespace PSH_BOne_AddOn
                 oMat01.Columns.Item("P_Confirm").DisplayDesc = true;
 
                 // 근태이상분류
-                sQry = "        SELECT    U_Code AS [Code],";
-                sQry = sQry + "           U_CodeNm As [Name]";
-                sQry = sQry + " FROM      [@PS_HR200L]";
-                sQry = sQry + " WHERE     Code = 'P237'";
-                sQry = sQry + "           AND U_UseYN = 'Y'";
-                sQry = sQry + " ORDER BY  U_Seq";
+                sQry = "  SELECT    U_Code AS [Code],";
+                sQry += "           U_CodeNm As [Name]";
+                sQry += " FROM      [@PS_HR200L]";
+                sQry += " WHERE     Code = 'P237'";
+                sQry += "           AND U_UseYN = 'Y'";
+                sQry += " ORDER BY  U_Seq";
                 oRecordSet.DoQuery(sQry);
                 if (oRecordSet.RecordCount > 0)
                 {
@@ -285,7 +271,6 @@ namespace PSH_BOne_AddOn
                 oMat01.Columns.Item("RotateYN").ValidValues.Add("N", "N");
                 oMat01.Columns.Item("RotateYN").ValidValues.Add("Y", "Y");
                 oMat01.Columns.Item("RotateYN").DisplayDesc = true;
-
             }
             catch (Exception ex)
             {
@@ -295,25 +280,6 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
-            }
-        }
-
-        /// <summary>
-        /// ChooseFromList
-        /// </summary>
-        private void PH_PY677_CF_ChooseFromList()
-        {
-            try
-            {
-                oForm.Freeze(true);
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY677_CF_ChooseFromList_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-                oForm.Freeze(false);
             }
         }
 
@@ -353,7 +319,7 @@ namespace PSH_BOne_AddOn
                 if (string.IsNullOrEmpty(oFormDocEntry01))
                 {
                     PH_PY677_FormItemEnabled();
-                    ////Call PH_PY677_AddMatrixRow(0, True) '//UDO방식일때
+                    //Call PH_PY677_AddMatrixRow(0, True) '//UDO방식일때
                 }
                 else
                 {
@@ -425,8 +391,6 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Items.Item("BtnAdd").Specific.Caption = "추가";
                     oForm.Items.Item("BtnDelete").Enabled = false;
-                    //    ElseIf oForm.Mode = fm_OK_MODE Then
-                    //        oForm.Items("BtnAdd").Specific.Caption = "확인"
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                 {
@@ -476,26 +440,25 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PH_PY677_MTX01()
         {
-            short i = 0;
-            string sQry = string.Empty;
+            short i;
             short ErrNum = 0;
+            string sQry;
+            
+            string CLTCOD;            // 사업장
+            string FrDate;            // 시작일자
+            string ToDate;            // 종료일자
+            string TeamCode;          // 부서
+            string RspCode;           // 담당
+            string ClsCode;           // 반
+            string ShiftDat;          // 근무형태
+            string GNMUJO;            // 근무조
+            string MSTCOD;            // 사원번호
+            string Class_Renamed;     // 기찰이상구분(2014.04.10 송명규 추가)
+            string Confirm;           // 근태기찰정상확인(2013.03.29 송명규 추가)
+            string WorkType;          // 근태구분(2014.05.13 송명규 추가)
 
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", 100, false); ;
-
-            string CLTCOD = string.Empty;            // 사업장
-            string FrDate = string.Empty;            // 시작일자
-            string ToDate = string.Empty;            // 종료일자
-            string TeamCode = string.Empty;          // 부서
-            string RspCode = string.Empty;           // 담당
-            string ClsCode = string.Empty;           // 반
-            string ShiftDat = string.Empty;          // 근무형태
-            string GNMUJO = string.Empty;            // 근무조
-            string MSTCOD = string.Empty;            // 사원번호
-            string Class_Renamed = string.Empty;     // 기찰이상구분(2014.04.10 송명규 추가)
-            string Confirm = string.Empty;           // 근태기찰정상확인(2013.03.29 송명규 추가)
-            string WorkType = string.Empty;          // 근태구분(2014.05.13 송명규 추가)
-
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false); ;
 
             try
             {
@@ -514,19 +477,19 @@ namespace PSH_BOne_AddOn
                 Confirm =  oForm.Items.Item("Confirm").Specific.Value.ToString().Trim();
                 WorkType = oForm.Items.Item("WorkType").Specific.Value.ToString().Trim();
 
-                sQry = "            EXEC [PH_PY677_01] ";
-                sQry = sQry + "'" + CLTCOD + "',";                // 사업장
-                sQry = sQry + "'" + FrDate + "',";                // 시작일자
-                sQry = sQry + "'" + ToDate + "',";                // 종료일자
-                sQry = sQry + "'" + TeamCode + "',";              // 부서
-                sQry = sQry + "'" + RspCode + "',";               // 담당
-                sQry = sQry + "'" + ClsCode + "',";               // 반
-                sQry = sQry + "'" + ShiftDat + "',";              // 근무형태
-                sQry = sQry + "'" + GNMUJO + "',";                // 근무조
-                sQry = sQry + "'" + MSTCOD + "',";                // 사원번호
-                sQry = sQry + "'" + Class_Renamed + "',";         // 기찰이상구분
-                sQry = sQry + "'" + Confirm + "',";               // 근태기찰정상확인
-                sQry = sQry + "'" + WorkType + "'";               // 근태구분
+                sQry = "EXEC [PH_PY677_01] '";
+                sQry += CLTCOD + "','";                // 사업장
+                sQry += FrDate + "','";                // 시작일자
+                sQry += ToDate + "','";                // 종료일자
+                sQry += TeamCode + "','";              // 부서
+                sQry += RspCode + "','";               // 담당
+                sQry += ClsCode + "','";               // 반
+                sQry += ShiftDat + "','";              // 근무형태
+                sQry += GNMUJO + "','";                // 근무조
+                sQry += MSTCOD + "','";                // 사원번호
+                sQry += Class_Renamed + "','";         // 기찰이상구분
+                sQry += Confirm + "','";               // 근태기찰정상확인
+                sQry += WorkType + "'";               // 근태구분
 
                 oRecordSet01.DoQuery(sQry);
 
@@ -586,13 +549,6 @@ namespace PSH_BOne_AddOn
                     oDS_PH_PY677B.SetValue("U_ColTm03",  i, oRecordSet01.Fields.Item("R_GetTime").Value);                    //출근시각(기찰)
                     oDS_PH_PY677B.SetValue("U_ColReg19", i, oRecordSet01.Fields.Item("R_OffDt").Value);                      //퇴근일자(기찰)
                     oDS_PH_PY677B.SetValue("U_ColTm04",  i, oRecordSet01.Fields.Item("R_OffTime").Value);                    //퇴근시각(기찰)
-
-                    //        Call oDS_PH_PY677B.setValue("U_ColQty05", i, Trim(oRecordSet01.Fields("R_Base").Value)) '기본(기찰)
-                    //        Call oDS_PH_PY677B.setValue("U_ColQty06", i, Trim(oRecordSet01.Fields("R_Extend").Value)) '연장(기찰)
-                    //        Call oDS_PH_PY677B.setValue("U_ColQty07", i, Trim(oRecordSet01.Fields("R_Special").Value)) '특근(기찰)
-                    //        Call oDS_PH_PY677B.setValue("U_ColQty08", i, Trim(oRecordSet01.Fields("R_SpExtend").Value)) '특연(기찰)
-                    //        Call oDS_PH_PY677B.setValue("U_ColQty09", i, Trim(oRecordSet01.Fields("R_TotTime").Value)) '총근무시간(기찰)
-
                     oDS_PH_PY677B.SetValue("U_ColQty12", i, oRecordSet01.Fields.Item("Rotation").Value);                    //교대일수
                     oDS_PH_PY677B.SetValue("U_ColReg24", i, oRecordSet01.Fields.Item("R_YN").Value);                        //기찰완료여부
                     oDS_PH_PY677B.SetValue("U_ColReg25", i, oRecordSet01.Fields.Item("WkAbCls").Value);                     //근태이상분류
@@ -602,15 +558,12 @@ namespace PSH_BOne_AddOn
 
                     oRecordSet01.MoveNext();
 
-                    ProgBar01.Value = ProgBar01.Value + 1;
+                    ProgBar01.Value += 1;
                     ProgBar01.Text = ProgBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
-
                 }
 
                 oMat01.LoadFromDataSource();
                 oMat01.AutoResizeColumns();
-                ProgBar01.Stop();
-
             }
             catch (Exception ex)
             {
@@ -645,43 +598,42 @@ namespace PSH_BOne_AddOn
         {
             bool functionReturnValue = false;
 
-            int i = 0;
-            string sQry = string.Empty;
+            int i;
+            string sQry;
+            
+            string CLTCOD; // 사업장
+            string PosDate; // 일자
+            string MSTCOD; // 사번
+            string JIGTYP; // 지급타입
+            string PAYTYP; // 급여타입
+            string JIGCOD; // 직급코드
+            string ShiftDat; // 근무형태
+            string GNMUJO; // 근무조
+            string P_WorkType; // 근태구분
+            string P_Confirm; // 기찰정상확인
+            string P_GetTime; // 출근시각
+            string P_OffDt; // 퇴근일자
+            string P_OffTime; // 퇴근시각
+            double P_Base; // 기본
+            double P_Extend; // 연장
+            double P_Special; // 특근
+            double P_SpExtend; // 특연
+            double P_Midnight; // 심야
+            double P_EarlyTo; // 조출
+            double P_SEarlyTo; // 휴조
+            double P_EducTran; // 교육훈련
+            double P_LateTo; // 지각
+            double P_EarlyOff; // 조퇴
+            double P_GoOut; // 외출
+            string P_Comment; // 비고
+            string DangerCd; // 비고
+            string WkAbCls; // 근태이상분류
+            string WkAbCmt; // 근태이상사유
+            string ActText; // 근무내용
+            string RotateYN; // 교대인정
 
-            SAPbobsCOM.Recordset RecordSet01 = null;
-            RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
-            string CLTCOD = string.Empty;            // 사업장
-            string PosDate = string.Empty;           // 일자
-            string MSTCOD = string.Empty;            // 사번
-            string JIGTYP = string.Empty;            // 지급타입
-            string PAYTYP = string.Empty;            // 급여타입
-            string JIGCOD = string.Empty;            // 직급코드
-            string ShiftDat = string.Empty;          // 근무형태
-            string GNMUJO = string.Empty;            // 근무조
-            string P_WorkType = string.Empty;        // 근태구분
-            string P_Confirm = string.Empty;         // 기찰정상확인
-            string P_GetTime = string.Empty;         // 출근시각
-            string P_OffDt = string.Empty;           // 퇴근일자
-            string P_OffTime = string.Empty;         // 퇴근시각
-            double P_Base = 0;                       // 기본
-            double P_Extend = 0;                     // 연장
-            double P_Special = 0;                    // 특근
-            double P_SpExtend = 0;                   // 특연
-            double P_Midnight = 0;                   // 심야
-            double P_EarlyTo = 0;                    // 조출
-            double P_SEarlyTo = 0;                   // 휴조
-            double P_EducTran = 0;                   // 교육훈련
-            double P_LateTo = 0;                     // 지각
-            double P_EarlyOff = 0;                   // 조퇴
-            double P_GoOut = 0;                      // 외출
-            string P_Comment = string.Empty;         // 비고
-            string DangerCd = string.Empty;          // 비고
-            string WkAbCls = string.Empty;           // 근태이상분류
-            string WkAbCmt = string.Empty;           // 근태이상사유
-            string ActText = string.Empty;           // 근무내용
-            string RotateYN = string.Empty;          // 교대인정
 
             try
             {
@@ -721,10 +673,10 @@ namespace PSH_BOne_AddOn
                         DangerCd = dataHelpClass.Get_ReData("DangerCD", "PosDate", "ZPH_PY008", "'" + oDS_PH_PY677B.GetValue("U_ColDt05", i) + "'", " and mstcod ='" + MSTCOD + "'");
 
                         sQry = "Select   U_JIGTYP";
-                        sQry = sQry + ", U_PAYTYP";
-                        sQry = sQry + ", U_JIGCOD ";
-                        sQry = sQry + "from [@PH_PY001A] ";
-                        sQry = sQry + "where u_status <> '5' and code ='" + MSTCOD + "' ";
+                        sQry += ", U_PAYTYP";
+                        sQry += ", U_JIGCOD ";
+                        sQry += "from [@PH_PY001A] ";
+                        sQry += "where u_status <> '5' and code ='" + MSTCOD + "' ";
 
                         RecordSet01.DoQuery(sQry);
 
@@ -733,14 +685,14 @@ namespace PSH_BOne_AddOn
                         JIGCOD = RecordSet01.Fields.Item(2).Value.Trim();
 
                         // 무단결근, 유계결근, 휴직, 무급휴가는 위해 수당 없다.
-                        if (P_WorkType == "A01" | P_WorkType == "A02" | P_WorkType.Substring(0, 1) == "F" | P_WorkType == "D11")
+                        if (P_WorkType == "A01" || P_WorkType == "A02" || P_WorkType.Substring(0, 1) == "F" || P_WorkType == "D11")
                         {
                             DangerCd = "";
                         }
                         else
                         {
                             // 전문직, 계약직 이며 연봉제가 아니고 위해코드가 없으면 위해코드를 기타로..
-                            if ((JIGTYP == "04" | JIGTYP == "05") & PAYTYP != "1" & JIGCOD != "73" & string.IsNullOrEmpty(DangerCd))
+                            if ((JIGTYP == "04" || JIGTYP == "05") && PAYTYP != "1" && JIGCOD != "73" && string.IsNullOrEmpty(DangerCd))
                             {
                                 // 창원사업장만 적용(2013.09.30 송명규 추가)
                                 if (CLTCOD == "1")
@@ -750,34 +702,34 @@ namespace PSH_BOne_AddOn
                             }
                         }
 
-                        sQry = "            EXEC [PH_PY677_02] ";
-                        sQry = sQry + "'" + CLTCOD + "',";                        // 사업장
-                        sQry = sQry + "'" + PosDate + "',";                       // 일자
-                        sQry = sQry + "'" + MSTCOD + "',";                        // 사번
-                        sQry = sQry + "'" + ShiftDat + "',";                      // 근무형태
-                        sQry = sQry + "'" + GNMUJO + "',";                        // 근무조
-                        sQry = sQry + "'" + P_WorkType + "',";                    // 근태구분
-                        sQry = sQry + "'" + P_Confirm + "',";                     // 기찰정상확인
-                        sQry = sQry + "'" + P_GetTime + "',";                     // 출근시각
-                        sQry = sQry + "'" + P_OffDt + "',";                       // 퇴근일자
-                        sQry = sQry + "'" + P_OffTime + "',";                     // 퇴근시각
-                        sQry = sQry + "'" + P_Base + "',";                        // 기본
-                        sQry = sQry + "'" + P_Extend + "',";                      // 연장
-                        sQry = sQry + "'" + P_Special + "',";                     // 특근
-                        sQry = sQry + "'" + P_SpExtend + "',";                    // 특연
-                        sQry = sQry + "'" + P_Midnight + "',";                    // 심야
-                        sQry = sQry + "'" + P_EarlyTo + "',";                     // 조출
-                        sQry = sQry + "'" + P_SEarlyTo + "',";                    // 휴조
-                        sQry = sQry + "'" + P_EducTran + "',";                    // 교육훈련
-                        sQry = sQry + "'" + P_LateTo + "',";                      // 지각
-                        sQry = sQry + "'" + P_EarlyOff + "',";                    // 조퇴
-                        sQry = sQry + "'" + P_GoOut + "',";                       // 외출
-                        sQry = sQry + "'" + P_Comment + "',";                     // 비고
-                        sQry = sQry + "'" + WkAbCls + "',";                       // 근태이상분류
-                        sQry = sQry + "'" + WkAbCmt + "',";                       // 근태이상사유
-                        sQry = sQry + "'" + ActText + "',";                       // 근무내용
-                        sQry = sQry + "'" + RotateYN + "',";                      // 교대인정 황영수(2019.01.31)
-                        sQry = sQry + "'" + DangerCd + "'";                       // 위해코드
+                        sQry = "EXEC [PH_PY677_02] '";
+                        sQry += CLTCOD + "','";                        // 사업장
+                        sQry += PosDate + "','";                       // 일자
+                        sQry += MSTCOD + "','";                        // 사번
+                        sQry += ShiftDat + "','";                      // 근무형태
+                        sQry += GNMUJO + "','";                        // 근무조
+                        sQry += P_WorkType + "','";                    // 근태구분
+                        sQry += P_Confirm + "','";                     // 기찰정상확인
+                        sQry += P_GetTime + "','";                     // 출근시각
+                        sQry += P_OffDt + "','";                       // 퇴근일자
+                        sQry += P_OffTime + "','";                     // 퇴근시각
+                        sQry += P_Base + "','";                        // 기본
+                        sQry += P_Extend + "','";                      // 연장
+                        sQry += P_Special + "','";                     // 특근
+                        sQry += P_SpExtend + "','";                    // 특연
+                        sQry += P_Midnight + "','";                    // 심야
+                        sQry += P_EarlyTo + "','";                     // 조출
+                        sQry += P_SEarlyTo + "','";                    // 휴조
+                        sQry += P_EducTran + "','";                    // 교육훈련
+                        sQry += P_LateTo + "','";                      // 지각
+                        sQry += P_EarlyOff + "','";                    // 조퇴
+                        sQry += P_GoOut + "','";                       // 외출
+                        sQry += P_Comment + "','";                     // 비고
+                        sQry += WkAbCls + "','";                       // 근태이상분류
+                        sQry += WkAbCmt + "','";                       // 근태이상사유
+                        sQry += ActText + "','";                       // 근무내용
+                        sQry += RotateYN + "','";                      // 교대인정 황영수(2019.01.31)
+                        sQry += DangerCd + "'";                       // 위해코드
 
                         RecordSet01.DoQuery(sQry);
                     }
@@ -785,112 +737,15 @@ namespace PSH_BOne_AddOn
                 PSH_Globals.SBO_Application.StatusBar.SetText("수정 완료", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
 
                 functionReturnValue = true;
-                return functionReturnValue;
             }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY677_UpdateData_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                return functionReturnValue;
+
             }
             finally
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet01);
-            }
-        }
-
-        /// <summary>
-        /// 필수입력사항 체크
-        /// </summary>
-        /// <returns>True:필수입력사항을 모두 입력, Fasle:필수입력사항 중 하나라도 입력하지 않았음</returns>
-        private bool PH_PY677_HeaderSpaceLineDel()
-        {
-            bool functionReturnValue = false;
-            short ErrNum = 0;
-
-            try
-            {
-                //if (oForm.Items.Item("DestNo1").Specific.Value.Trim() == "") //출장번호1
-                //{
-                //    ErrNum = 1;
-                //    throw new Exception();
-                //}
-                //else if (oForm.Items.Item("DestNo2").Specific.Value.Trim() == "") //출장번호2
-                //{
-                //    ErrNum = 2;
-                //    throw new Exception();
-                //}
-
-                functionReturnValue = true;
-            }
-            catch (Exception ex)
-            {
-                if (ErrNum == 1)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("출장번호1은 필수사항입니다. 확인하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    oForm.Items.Item("DestNo1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                }
-                else if (ErrNum == 2)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("출장번호2는 필수사항입니다. 확인하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    oForm.Items.Item("DestNo2").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY677_HeaderSpaceLineDel_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-
-                functionReturnValue = false;
-            }
-            finally
-            {
-            }
-
-            return functionReturnValue;
-        }
-
-        /// <summary>
-        /// 메트릭스 필수 사항 check
-        /// 구현은 되어 있지만 사용하지 않음
-        /// </summary>
-        /// <returns></returns>
-        private bool PH_PY677_MatrixSpaceLineDel()
-        {
-            bool functionReturnValue = false;
-
-            int i = 0;
-            short ErrNum = 0;
-
-            try
-            {
-            }
-            catch (Exception ex)
-            {
-                if (ErrNum == 1)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("라인 데이터가 없습니다. 확인하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (ErrNum == 2)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("" + i + 1 + "번 라인의 사원코드가 없습니다. 확인하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (ErrNum == 3)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("" + i + 1 + "번 라인의 시간이 없습니다. 확인하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (ErrNum == 4)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("" + i + 1 + "번 라인의 등록일자가 없습니다. 확인하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (ErrNum == 5)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("" + i + 1 + "번 라인의 비가동코드가 없습니다. 확인하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY677_MatrixSpaceLineDel_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-
-                functionReturnValue = false;
             }
 
             return functionReturnValue;
@@ -904,20 +759,21 @@ namespace PSH_BOne_AddOn
         /// <param name="oCol"></param>
         private void PH_PY677_FlushToItemValue(string oUID, int oRow, string oCol)
         {
-            int i = 0;
+            int i;
             int ErrNum = 0;
-            string sQry = string.Empty;
-            string CLTCOD, TeamCode, RspCode = string.Empty;
-            string PreWorkType = string.Empty;
-            string WorkType = string.Empty;
-            string ymd = string.Empty;
-            string MSTCOD = string.Empty;
-            string YY = string.Empty;
-            Double JanQty = 0;
-            SAPbouiCOM.ProgressBar ProgressBar01 = null;
+            string sQry;
+            string CLTCOD;
+            string TeamCode;
+            string RspCode;
+            string PreWorkType;
+            string WorkType;
+            string ymd;
+            string MSTCOD;
+            string YY;
+            double JanQty = 0;
 
-            SAPbobsCOM.Recordset oRecordSet01 = null;
-            oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbouiCOM.ProgressBar ProgressBar01 = null;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
@@ -941,18 +797,15 @@ namespace PSH_BOne_AddOn
                         }
                         else if (oCol == "P_OffTime")
                         {
-
                             if (oDS_PH_PY677B.GetValue("U_ColTm02", oRow - 1) != "0000")
                             {
-                                PH_PY677_Time_Calc_Main(oDS_PH_PY677B.GetValue("U_ColTm02", oRow - 1), oRow);
+                                PH_PY677_Time_Calc_Main(oRow);
                                 oMat01.LoadFromDataSource();
                                 oMat01.Columns.Item(oCol).Cells.Item(oRow).Click();
                             }
-
                         }
                         else if (oCol == "P_WorkType")
                         {
-
                             WorkType = oDS_PH_PY677B.GetValue("U_ColReg21", oRow - 1).ToString().Trim();
 
                             switch (WorkType)
@@ -965,15 +818,13 @@ namespace PSH_BOne_AddOn
                                 case "F03":
                                 case "F04":
                                 case "F05":
-                                    {
-                                        // 무단결근, 유계결근, 무급휴일, 휴업, 병가(휴직), 신병휴직, 정직(유결), 가사휴직, 공상휴직(F01) 추가(2017.12.07)
-                                        oDS_PH_PY677B.SetValue("U_ColDt02", oRow - 1, oDS_PH_PY677B.GetValue("U_ColDt01", oRow - 1)); // 퇴근일자(P_OffDt)
-                                        oDS_PH_PY677B.SetValue("U_ColTm01", oRow - 1, "00:00"); // 출근시각(P_GetTime)
-                                        oDS_PH_PY677B.SetValue("U_ColTm02", oRow - 1, "00:00"); // 퇴근시각(P_OffTime)
-                                        PH_PY677_Time_ReSet(oRow);
-                                        oMat01.LoadFromDataSource();
-                                        break;
-                                    }
+                                    // 무단결근, 유계결근, 무급휴일, 휴업, 병가(휴직), 신병휴직, 정직(유결), 가사휴직, 공상휴직(F01) 추가(2017.12.07)
+                                    oDS_PH_PY677B.SetValue("U_ColDt02", oRow - 1, oDS_PH_PY677B.GetValue("U_ColDt01", oRow - 1)); // 퇴근일자(P_OffDt)
+                                    oDS_PH_PY677B.SetValue("U_ColTm01", oRow - 1, "00:00"); // 출근시각(P_GetTime)
+                                    oDS_PH_PY677B.SetValue("U_ColTm02", oRow - 1, "00:00"); // 퇴근시각(P_OffTime)
+                                    PH_PY677_Time_ReSet(oRow);
+                                    oMat01.LoadFromDataSource();
+                                    break;
 
                                 case "C02":
                                 case "D04":
@@ -981,154 +832,147 @@ namespace PSH_BOne_AddOn
                                 case "D06":
                                 case "D07":
                                 case "H05":
-                                    {
-                                        // 훈련, 경조휴가, 하기휴가, 특별휴가, 분만휴가, 조합활동
-                                        oDS_PH_PY677B.SetValue("U_ColDt02", oRow - 1, oDS_PH_PY677B.GetValue("U_ColDt01", oRow - 1)); // 퇴근일자(P_OffDt)
-                                        oDS_PH_PY677B.SetValue("U_ColTm01", oRow - 1, "00:00");   // 출근시각(P_GetTime)
-                                        oDS_PH_PY677B.SetValue("U_ColTm02", oRow - 1, "00:00");   // 퇴근시각(P_OffTime)
-                                        oDS_PH_PY677B.SetValue("U_ColQty12", oRow - 1, "0"); // 교대일수
-                                        PH_PY677_Time_ReSet(oRow);
-                                        oMat01.LoadFromDataSource();
-                                        break;
-                                    }
+                                    // 훈련, 경조휴가, 하기휴가, 특별휴가, 분만휴가, 조합활동
+                                    oDS_PH_PY677B.SetValue("U_ColDt02", oRow - 1, oDS_PH_PY677B.GetValue("U_ColDt01", oRow - 1)); // 퇴근일자(P_OffDt)
+                                    oDS_PH_PY677B.SetValue("U_ColTm01", oRow - 1, "00:00");   // 출근시각(P_GetTime)
+                                    oDS_PH_PY677B.SetValue("U_ColTm02", oRow - 1, "00:00");   // 퇴근시각(P_OffTime)
+                                    oDS_PH_PY677B.SetValue("U_ColQty12", oRow - 1, "0"); // 교대일수
+                                    PH_PY677_Time_ReSet(oRow);
+                                    oMat01.LoadFromDataSource();
+                                    break;
+                                    
                                 case "D02":
                                 case "D09":
+                                    // 연차/반차 휴가
+                                    // 연차/반차 휴가 잔여일수 확인
+                                    if (WorkType == "D02")
                                     {
-                                        // 연차/반차 휴가
-                                        // 연차/반차 휴가 잔여일수 확인
-                                        if (WorkType == "D02")
-                                        {
-                                            JanQty = 1;
-                                        }
-                                        else if (WorkType == "D09")
-                                        {
-                                            JanQty = 0.5;
-                                        }
-
-                                        ymd = oDS_PH_PY677B.GetValue("U_ColDt05", oRow - 1).ToString().Trim();
-                                        CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
-                                        MSTCOD = oDS_PH_PY677B.GetValue("U_ColReg05", oRow - 1).ToString().Trim();
-
-                                        ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회중...", oRecordSet01.RecordCount, false);
-
-                                        sQry = "      EXEC [PH_PY775_01] '";
-                                        sQry = sQry + CLTCOD + "','";
-                                        sQry = sQry + ymd.Substring(0,4) + "','";
-                                        sQry = sQry + MSTCOD + "'";
-
-                                        oRecordSet01.DoQuery(sQry);
-
-                                        if (oRecordSet01.Fields.Item("jandd").Value < JanQty)
-                                        {
-                                            ErrNum = 1;
-                                            oDS_PH_PY677B.SetValue("U_ColReg21", oRow - 1, "A00");
-                                            oMat01.LoadFromDataSource();
-                                            throw new Exception();
-                                        }
-                                        else
-                                        {
-                                            oDS_PH_PY677B.SetValue("U_ColDt02", oRow - 1, oDS_PH_PY677B.GetValue("U_ColDt01", oRow - 1));  // 퇴근일자(P_OffDt)
-                                            oDS_PH_PY677B.SetValue("U_ColTm01", oRow - 1, "00:00");                                        // 출근시각(P_GetTime)
-                                            oDS_PH_PY677B.SetValue("U_ColTm02", oRow - 1, "00:00");                                        // 퇴근시각(P_OffTime)
-                                            oDS_PH_PY677B.SetValue("U_ColQty12", oRow - 1, Convert.ToString(1));                           // 교대일수
-
-                                            PH_PY677_Time_ReSet(oRow);
-                                            oMat01.LoadFromDataSource();
-                                        }
-
-                                        ProgressBar01.Value = 100;
-                                        ProgressBar01.Stop();
-                                        break;
+                                        JanQty = 1;
                                     }
+                                    else if (WorkType == "D09")
+                                    {
+                                        JanQty = 0.5;
+                                    }
+
+                                    ymd = oDS_PH_PY677B.GetValue("U_ColDt05", oRow - 1).ToString().Trim();
+                                    CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                                    MSTCOD = oDS_PH_PY677B.GetValue("U_ColReg05", oRow - 1).ToString().Trim();
+
+                                    ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
+                                    sQry = "EXEC [PH_PY775_01] '";
+                                    sQry += CLTCOD + "','";
+                                    sQry += ymd.Substring(0,4) + "','";
+                                    sQry += MSTCOD + "'";
+
+                                    oRecordSet01.DoQuery(sQry);
+
+                                    if (oRecordSet01.Fields.Item("jandd").Value < JanQty)
+                                    {
+                                        ErrNum = 1;
+                                        oDS_PH_PY677B.SetValue("U_ColReg21", oRow - 1, "A00");
+                                        oMat01.LoadFromDataSource();
+                                        throw new Exception();
+                                    }
+                                    else
+                                    {
+                                        oDS_PH_PY677B.SetValue("U_ColDt02", oRow - 1, oDS_PH_PY677B.GetValue("U_ColDt01", oRow - 1));  // 퇴근일자(P_OffDt)
+                                        oDS_PH_PY677B.SetValue("U_ColTm01", oRow - 1, "00:00");                                        // 출근시각(P_GetTime)
+                                        oDS_PH_PY677B.SetValue("U_ColTm02", oRow - 1, "00:00");                                        // 퇴근시각(P_OffTime)
+                                        oDS_PH_PY677B.SetValue("U_ColQty12", oRow - 1, Convert.ToString(1));                           // 교대일수
+
+                                        PH_PY677_Time_ReSet(oRow);
+                                        oMat01.LoadFromDataSource();
+                                    }
+
+                                    ProgressBar01.Value = 100;
+                                    ProgressBar01.Stop();
+                                    break;
+                                    
                                 case "D08":
                                 case "D10":
+                                    //근속보전휴가, 근속보전반차(기계사업부)
+                                    //근속보전휴가 잔량 확인
+                                    ymd = oDS_PH_PY677B.GetValue("U_ColDt05", oRow - 1).ToString().Trim();
+                                    CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                                    MSTCOD = oDS_PH_PY677B.GetValue("U_ColReg05", oRow - 1).ToString().Trim();
+
+                                    if (Convert.ToDateTime(dataHelpClass.ConvertDateType(oDS_PH_PY677B.GetValue("U_ColDt05", oRow - 1), "-")) >= Convert.ToDateTime(ymd.Substring(0, 4) + "-07-01") )
                                     {
-                                        //근속보전휴가, 근속보전반차(기계사업부)
-                                        //근속보전휴가 잔량 확인
-                                        ymd = oDS_PH_PY677B.GetValue("U_ColDt05", oRow - 1).ToString().Trim();
-                                        CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
-                                        MSTCOD = oDS_PH_PY677B.GetValue("U_ColReg05", oRow - 1).ToString().Trim();
-
-                                        if (Convert.ToDateTime(dataHelpClass.ConvertDateType(oDS_PH_PY677B.GetValue("U_ColDt05", oRow - 1), "-")) >= Convert.ToDateTime(ymd.Substring(0, 4) + "-07-01") )
-                                        {
-                                            YY = ymd.Substring(0, 4);
-                                        }
-                                        else
-                                        {
-                                            YY = Convert.ToString(Convert.ToInt16(ymd.Substring(0, 4)) - 1);
-                                        }
-
-                                        ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회중...", oRecordSet01.RecordCount, false);
-
-                                        sQry = "        SELECT     Bqty = ISNULL(( ";
-                                        sQry = sQry + "                               SELECT     ISNULL(c.Qty,0) ";
-                                        sQry = sQry + "                               FROM       [ZPH_GUNSOKCHA] c";
-                                        sQry = sQry + "                               WHERE      c.Year = '" + YY + "'";
-                                        sQry = sQry + "                                          AND (";
-                                        sQry = sQry + "                                                   CASE ";
-                                        sQry = sQry + "                                                       WHEN ISDATE(a.U_GrpDat) = 0 THEN a.U_StartDat ";
-                                        sQry = sQry + "                                                       ELSE A.U_GrpDat ";
-                                        sQry = sQry + "                                                   END";
-                                        sQry = sQry + "                                              ) BETWEEN c.DocDateFr AND c.DocDateTo";
-                                        sQry = sQry + "                           ),0), ";                                        //발생수량
-                                        sQry = sQry + "            Sqty = ISNULL(( ";
-                                        sQry = sQry + "                               SELECT     COUNT(*)";
-                                        sQry = sQry + "                               FROM       [ZPH_PY008] c";
-                                        sQry = sQry + "                               WHERE      c.CLTCOD = A.U_CLTCOD";
-                                        sQry = sQry + "                                          AND c.PosDate BETWEEN '" + YY + "' + '0701' AND CONVERT(CHAR(4),CONVERT(INTEGER,'" + YY + "') + 1 ) + '0630'";
-                                        sQry = sQry + "                                          AND c.MSTCOD  = a.Code";
-                                        sQry = sQry + "                                          AND c.WorkType = 'D08'";
-                                        sQry = sQry + "                                          AND c.PosDate <> '" + ymd + "'";
-                                        sQry = sQry + "                          ),0) ";                                        //보전년차 사용수량
-                                        sQry = sQry + "                    + ";
-                                        sQry = sQry + "                    ISNULL(( ";
-                                        sQry = sQry + "                               SELECT     COUNT(*) / 2.0";
-                                        sQry = sQry + "                               FROM       [ZPH_PY008] c";
-                                        sQry = sQry + "                               WHERE      c.CLTCOD = A.U_CLTCOD";
-                                        sQry = sQry + "                                          AND c.PosDate BETWEEN '" + YY + "' + '0701' AND CONVERT(CHAR(4),CONVERT(INTEGER,'" + YY + "') + 1 ) + '0630'";
-                                        sQry = sQry + "                                          AND c.MSTCOD = a.Code";
-                                        sQry = sQry + "                                          AND c.WorkType = 'D10'";
-                                        sQry = sQry + "                                          AND c.PosDate <> '" + ymd + "'";
-                                        sQry = sQry + "                           ),0)";                                        //보전반차 사용수량
-                                        sQry = sQry + " FROM       [@PH_PY001A] a";
-                                        sQry = sQry + " WHERE      a.U_CLTCOD = '" + CLTCOD + "'";
-                                        sQry = sQry + "            AND a.Code = '" + MSTCOD + "'";
-
-                                        oRecordSet01.DoQuery(sQry);
-
-                                        if (WorkType == "D08")
-                                        {
-                                            JanQty = 1;
-                                        }
-                                        else if (WorkType == "D10")
-                                        {
-                                            JanQty = 0.5;
-                                        }
-
-                                        if (oRecordSet01.Fields.Item("Bqty").Value - oRecordSet01.Fields.Item("Sqty").Value < JanQty)
-                                        {
-
-                                            ErrNum = 2;
-                                            oDS_PH_PY677B.SetValue("U_ColReg21", oRow - 1, "A00");
-                                            oMat01.LoadFromDataSource();
-
-                                            throw new Exception();
-
-                                        }
-                                        else
-                                        {
-                                            oDS_PH_PY677B.SetValue("U_ColDt02", oRow - 1, oDS_PH_PY677B.GetValue("U_ColDt01", oRow - 1));      // 퇴근일자(P_OffDt)
-                                            oDS_PH_PY677B.SetValue("U_ColTm01", oRow - 1, "00:00");                                            // 출근시각(P_GetTime)
-                                            oDS_PH_PY677B.SetValue("U_ColTm02", oRow - 1, "00:00");                                            // 퇴근시각(P_OffTime)
-                                            oDS_PH_PY677B.SetValue("U_ColQty12", oRow - 1, Convert.ToString(1));                               // 교대일수
-                                            PH_PY677_Time_ReSet(oRow);
-                                            oMat01.LoadFromDataSource();
-                                        }
-
-                                        ProgressBar01.Value = 100;
-                                        ProgressBar01.Stop();
-                                        break;
+                                        YY = ymd.Substring(0, 4);
                                     }
+                                    else
+                                    {
+                                        YY = Convert.ToString(Convert.ToInt16(ymd.Substring(0, 4)) - 1);
+                                    }
+
+                                    ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
+                                    sQry = "  SELECT     Bqty = ISNULL(( ";
+                                    sQry += "                               SELECT     ISNULL(c.Qty,0) ";
+                                    sQry += "                               FROM       [ZPH_GUNSOKCHA] c";
+                                    sQry += "                               WHERE      c.Year = '" + YY + "'";
+                                    sQry += "                                          AND (";
+                                    sQry += "                                                   CASE ";
+                                    sQry += "                                                       WHEN ISDATE(a.U_GrpDat) = 0 THEN a.U_StartDat ";
+                                    sQry += "                                                       ELSE A.U_GrpDat ";
+                                    sQry += "                                                   END";
+                                    sQry += "                                              ) BETWEEN c.DocDateFr AND c.DocDateTo";
+                                    sQry += "                           ),0), ";                                        //발생수량
+                                    sQry += "            Sqty = ISNULL(( ";
+                                    sQry += "                               SELECT     COUNT(*)";
+                                    sQry += "                               FROM       [ZPH_PY008] c";
+                                    sQry += "                               WHERE      c.CLTCOD = A.U_CLTCOD";
+                                    sQry += "                                          AND c.PosDate BETWEEN '" + YY + "' + '0701' AND CONVERT(CHAR(4),CONVERT(INTEGER,'" + YY + "') + 1 ) + '0630'";
+                                    sQry += "                                          AND c.MSTCOD  = a.Code";
+                                    sQry += "                                          AND c.WorkType = 'D08'";
+                                    sQry += "                                          AND c.PosDate <> '" + ymd + "'";
+                                    sQry += "                          ),0) ";                                        //보전년차 사용수량
+                                    sQry += "                    + ";
+                                    sQry += "                    ISNULL(( ";
+                                    sQry += "                               SELECT     COUNT(*) / 2.0";
+                                    sQry += "                               FROM       [ZPH_PY008] c";
+                                    sQry += "                               WHERE      c.CLTCOD = A.U_CLTCOD";
+                                    sQry += "                                          AND c.PosDate BETWEEN '" + YY + "' + '0701' AND CONVERT(CHAR(4),CONVERT(INTEGER,'" + YY + "') + 1 ) + '0630'";
+                                    sQry += "                                          AND c.MSTCOD = a.Code";
+                                    sQry += "                                          AND c.WorkType = 'D10'";
+                                    sQry += "                                          AND c.PosDate <> '" + ymd + "'";
+                                    sQry += "                           ),0)";                                        //보전반차 사용수량
+                                    sQry += " FROM       [@PH_PY001A] a";
+                                    sQry += " WHERE      a.U_CLTCOD = '" + CLTCOD + "'";
+                                    sQry += "            AND a.Code = '" + MSTCOD + "'";
+
+                                    oRecordSet01.DoQuery(sQry);
+
+                                    if (WorkType == "D08")
+                                    {
+                                        JanQty = 1;
+                                    }
+                                    else if (WorkType == "D10")
+                                    {
+                                        JanQty = 0.5;
+                                    }
+
+                                    if (oRecordSet01.Fields.Item("Bqty").Value - oRecordSet01.Fields.Item("Sqty").Value < JanQty)
+                                    {
+                                        ErrNum = 2;
+                                        oDS_PH_PY677B.SetValue("U_ColReg21", oRow - 1, "A00");
+                                        oMat01.LoadFromDataSource();
+                                        throw new Exception();
+                                    }
+                                    else
+                                    {
+                                        oDS_PH_PY677B.SetValue("U_ColDt02", oRow - 1, oDS_PH_PY677B.GetValue("U_ColDt01", oRow - 1));      // 퇴근일자(P_OffDt)
+                                        oDS_PH_PY677B.SetValue("U_ColTm01", oRow - 1, "00:00");                                            // 출근시각(P_GetTime)
+                                        oDS_PH_PY677B.SetValue("U_ColTm02", oRow - 1, "00:00");                                            // 퇴근시각(P_OffTime)
+                                        oDS_PH_PY677B.SetValue("U_ColQty12", oRow - 1, Convert.ToString(1));                               // 교대일수
+                                        PH_PY677_Time_ReSet(oRow);
+                                        oMat01.LoadFromDataSource();
+                                    }
+
+                                    ProgressBar01.Value = 100;
+                                    ProgressBar01.Stop();
+                                    break;
                             }
                         }
                         break;
@@ -1159,13 +1003,13 @@ namespace PSH_BOne_AddOn
 
                         //부서콤보세팅
                         oForm.Items.Item("TeamCode").Specific.ValidValues.Add("%", "전체");
-                        sQry = "        SELECT      U_Code AS [Code],";
-                        sQry = sQry + "             U_CodeNm As [Name]";
-                        sQry = sQry + " FROM        [@PS_HR200L]";
-                        sQry = sQry + " WHERE       Code = '1'";
-                        sQry = sQry + "             AND U_UseYN = 'Y'";
-                        sQry = sQry + "             AND U_Char2 = '" + CLTCOD + "'";
-                        sQry = sQry + " ORDER BY    U_Seq";
+                        sQry = "  SELECT      U_Code AS [Code],";
+                        sQry += "             U_CodeNm As [Name]";
+                        sQry += " FROM        [@PS_HR200L]";
+                        sQry += " WHERE       Code = '1'";
+                        sQry += "             AND U_UseYN = 'Y'";
+                        sQry += "             AND U_Char2 = '" + CLTCOD + "'";
+                        sQry += " ORDER BY    U_Seq";
                         dataHelpClass.Set_ComboList(oForm.Items.Item("TeamCode").Specific, sQry, "", false, false);
                         oForm.Items.Item("TeamCode").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
                         break;
@@ -1184,13 +1028,13 @@ namespace PSH_BOne_AddOn
 
                         //담당콤보세팅
                         oForm.Items.Item("RspCode").Specific.ValidValues.Add("%", "전체");
-                        sQry = "        SELECT      U_Code AS [Code],";
-                        sQry = sQry + "             U_CodeNm As [Name]";
-                        sQry = sQry + " FROM        [@PS_HR200L]";
-                        sQry = sQry + " WHERE       Code = '2'";
-                        sQry = sQry + "             AND U_UseYN = 'Y'";
-                        sQry = sQry + "             AND U_Char1 = '" + TeamCode + "'";
-                        sQry = sQry + " ORDER BY    U_Seq";
+                        sQry = "  SELECT      U_Code AS [Code],";
+                        sQry += "             U_CodeNm As [Name]";
+                        sQry += " FROM        [@PS_HR200L]";
+                        sQry += " WHERE       Code = '2'";
+                        sQry += "             AND U_UseYN = 'Y'";
+                        sQry += "             AND U_Char1 = '" + TeamCode + "'";
+                        sQry += " ORDER BY    U_Seq";
                         dataHelpClass.Set_ComboList(oForm.Items.Item("RspCode").Specific, sQry, "", false, false);
                         oForm.Items.Item("RspCode").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
                         break;
@@ -1210,14 +1054,14 @@ namespace PSH_BOne_AddOn
 
                         // 반콤보세팅
                         oForm.Items.Item("ClsCode").Specific.ValidValues.Add("%", "전체");
-                        sQry = "        SELECT      U_Code AS [Code],";
-                        sQry = sQry + "             U_CodeNm As [Name]";
-                        sQry = sQry + " FROM        [@PS_HR200L]";
-                        sQry = sQry + " WHERE       Code = '9'";
-                        sQry = sQry + "             AND U_UseYN = 'Y'";
-                        sQry = sQry + "             AND U_Char1 = '" + RspCode + "'";
-                        sQry = sQry + "             AND U_Char2 = '" + TeamCode + "'";
-                        sQry = sQry + " ORDER BY    U_Seq";
+                        sQry = "  SELECT      U_Code AS [Code],";
+                        sQry += "             U_CodeNm As [Name]";
+                        sQry += " FROM        [@PS_HR200L]";
+                        sQry += " WHERE       Code = '9'";
+                        sQry += "             AND U_UseYN = 'Y'";
+                        sQry += "             AND U_Char1 = '" + RspCode + "'";
+                        sQry += "             AND U_Char2 = '" + TeamCode + "'";
+                        sQry += " ORDER BY    U_Seq";
                         dataHelpClass.Set_ComboList(oForm.Items.Item("ClsCode").Specific, sQry, "", false, false);
                         oForm.Items.Item("ClsCode").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
                         break;
@@ -1240,7 +1084,11 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                //oForm.Freeze(false);
+                if (ProgressBar01 != null)
+                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
+
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
         }
@@ -1264,7 +1112,7 @@ namespace PSH_BOne_AddOn
                 oDS_PH_PY677B.SetValue("U_ColQty10", pRow - 1, "0");  // 조퇴
                 oDS_PH_PY677B.SetValue("U_ColQty11", pRow - 1, "0");  // 외출
 
-                oDS_PH_PY677B.SetValue("U_ColTm02", pRow - 1, "00:00");               // 퇴근시각
+                oDS_PH_PY677B.SetValue("U_ColTm02", pRow - 1, "00:00"); // 퇴근시각
             }
             catch (Exception ex)
             {
@@ -1278,33 +1126,30 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// PH_PY677_Time_Calc_Main
         /// </summary>
-        private object PH_PY677_Time_Calc_Main(string OffTime, int pRow)
+        private void PH_PY677_Time_Calc_Main(int pRow)
         {
-            object functionReturnValue = null;
-            int i = 0;
+            int i;
             int ErrNum = 0;
-            string sQry = string.Empty;
-            string CLTCOD = string.Empty;
-            string ShiftDat = string.Empty; // 근무형태
-            string GNMUJO = string.Empty;   // 근무조
-            string DayOff = string.Empty;   // 평일휴일구분
-            string PosDate = string.Empty;  // 기준일
-            string GetDate = string.Empty;  // 출근일
-            string OffDate = string.Empty;  // 퇴근일
-            string GetTime = string.Empty;  // 출근시간
+            string sQry;
+            string CLTCOD;
+            string ShiftDat; // 근무형태
+            string GNMUJO;   // 근무조
+            string DayOff;   // 평일휴일구분
+            string PosDate;  // 기준일
+            string GetDate;  // 출근일
+            string OffDate;  // 퇴근일
+            string GetTime;  // 출근시각
+            string OffTime;  //퇴근시각
             string STime = string.Empty;
             string ETime = string.Empty;
-            string FromTime = string.Empty;
-            string ToTime = string.Empty;
-            string NextDay = string.Empty;
-            string TimeType = string.Empty;
-            string WorkType = string.Empty;
+            string FromTime;
+            string ToTime;
+            string NextDay;
+            string TimeType;
+            string WorkType;
 
-            double hTime1 = 0;            // 오전10분휴식시간
-            //double hTime2 = 0;            // 점심휴식시간
-            //double hTime3 = 0;            // 오후 10분 휴식시간
-            //double hTime4 = 0;            // 저녁휴식시간
-            double hTime5 = 0;            // 야간휴식시간
+            double hTime1;            // 오전10분휴식시간
+            double hTime5;            // 야간휴식시간
             double EarlyTo = 0;
             double SEarlyTo = 0;
             double Extend = 0;
@@ -1313,10 +1158,8 @@ namespace PSH_BOne_AddOn
             double Base = 0;
             double Special = 0;
 
-            SAPbobsCOM.Recordset oRecordSet = null;
-            oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            
             try
             {
                 
@@ -1331,31 +1174,28 @@ namespace PSH_BOne_AddOn
                 GetTime = oDS_PH_PY677B.GetValue("U_ColTm01", pRow - 1).Trim();                // 출근시각
                 OffTime = oDS_PH_PY677B.GetValue("U_ColTm02", pRow - 1).Trim();                // 퇴근시각
 
-                //GetTime = "0" + GetTime;
-                //GetTime = Strings.Right(GetTime, 4);
                 GetTime = GetTime.PadLeft(4, '0');
                 OffTime = OffTime.PadLeft(4, '0');
 
                 WorkType = oDS_PH_PY677B.GetValue("U_ColReg21", pRow - 1).ToString().Trim();   // 근태구분
 
-                sQry = "        SELECT   U_TimeType, ";
-                sQry = sQry + "          U_FromTime, ";
-                sQry = sQry + "          U_ToTime, ";
-                sQry = sQry + "          U_NextDay ";
-                sQry = sQry + " FROM     [@PH_PY002A] a ";
-                sQry = sQry + "          INNER JOIN ";
-                sQry = sQry + "          [@PH_PY002B] b ";
-                sQry = sQry + "             On a.Code = b.Code ";
-                sQry = sQry + " WHERE    a.U_CLTCOD = '" + CLTCOD + "'";                // 사업부
-                sQry = sQry + "          AND a.U_SType = '" + ShiftDat + "'";           // 교대
-                sQry = sQry + "          AND a.U_Shift = '" + GNMUJO + "'";             // 조
-                sQry = sQry + "          AND b.U_DayType = '" + DayOff + "'";           // 평일
+                sQry = "  SELECT   U_TimeType, ";
+                sQry += "          U_FromTime, ";
+                sQry += "          U_ToTime, ";
+                sQry += "          U_NextDay ";
+                sQry += " FROM     [@PH_PY002A] a ";
+                sQry += "          INNER JOIN ";
+                sQry += "          [@PH_PY002B] b ";
+                sQry += "             On a.Code = b.Code ";
+                sQry += " WHERE    a.U_CLTCOD = '" + CLTCOD + "'";                // 사업부
+                sQry += "          AND a.U_SType = '" + ShiftDat + "'";           // 교대
+                sQry += "          AND a.U_Shift = '" + GNMUJO + "'";             // 조
+                sQry += "          AND b.U_DayType = '" + DayOff + "'";           // 평일
 
                 oRecordSet.DoQuery(sQry);
 
-                if ((oRecordSet.RecordCount == 0))
+                if (oRecordSet.RecordCount == 0)
                 {
-                    //        Call MDC_Com.MDC_GF_Message("결과가 존재하지 않습니다.", "E")
                     ErrNum = 1;
                     throw new Exception();
                 }
@@ -1363,13 +1203,9 @@ namespace PSH_BOne_AddOn
                 for (i = 0; i <= oRecordSet.RecordCount - 1; i++)
                 {
                     FromTime = Convert.ToString(oRecordSet.Fields.Item(1).Value);
-                    // FromTime = "0000" + FromTime;
-                    // FromTime = Strings.Right(FromTime, 4);
                     FromTime = FromTime.PadLeft(4, '0');
 
                     ToTime = Convert.ToString(oRecordSet.Fields.Item(2).Value);
-                    // ToTime = "0000" + ToTime;
-                    // ToTime = Strings.Right(ToTime, 4);
                     ToTime = ToTime.PadLeft(4, '0');
 
                     NextDay = oRecordSet.Fields.Item(3).Value.Trim();
@@ -1390,13 +1226,12 @@ namespace PSH_BOne_AddOn
 
                     switch (TimeType)
                     {
-                        case "40":
-                            // 조출
+                        case "40": // 조출
                             // 출근당일이면
                             if (GetDate == PosDate)
                             {
                                 // 출근시간 < 기준종료시간
-                                if ( Convert.ToDouble(GetTime) < Convert.ToDouble(ToTime) )
+                                if ( Convert.ToDouble(GetTime) < Convert.ToDouble(ToTime))
                                 {
                                     STime = GetTime;
                                     ETime = ToTime;
@@ -1414,20 +1249,16 @@ namespace PSH_BOne_AddOn
                             }
                             break;
                         case "10":
-                        case "50":
-                            ////정상근무시간
-                            if ((GNMUJO == "11" | GNMUJO == "21"))
+                        case "50": //정상근무시간
+                            if (GNMUJO == "11" || GNMUJO == "21")
                             {
                                 switch (NextDay)
                                 {
-                                    case "N":
-                                        // 당일
-                                        // 기준일자 = 출근일자
-                                        if (PosDate == GetDate)
+                                    case "N": // 당일
+                                        if (PosDate == GetDate) // 기준일자 = 출근일자
                                         {
                                             // 1교대1조, 2교대 1조당일
-                                            // 출근시간 < 시작시간
-                                            if (Convert.ToDouble(GetTime) < Convert.ToDouble(FromTime))
+                                            if (Convert.ToDouble(GetTime) < Convert.ToDouble(FromTime)) // 출근시간 < 시작시간
                                             {
                                                 STime = FromTime; // 시작시간
                                             }
@@ -1435,16 +1266,14 @@ namespace PSH_BOne_AddOn
                                             {
                                                 STime = GetTime; // 출근시간
                                             }
-
-                                            // 퇴근일이 틀릴때(다음날 퇴근일때)
-                                            if (GetDate != OffDate)
+                                            
+                                            if (GetDate != OffDate) // 퇴근일이 틀릴때(다음날 퇴근일때)
                                             {
                                                 ETime = ToTime; // 종료시간
                                             }
                                             else
                                             {
-                                                // 퇴근시간 < 종료시간
-                                                if (Convert.ToDouble(OffTime) < Convert.ToDouble(ToTime))
+                                                if (Convert.ToDouble(OffTime) < Convert.ToDouble(ToTime)) // 퇴근시간 < 종료시간
                                                 {
                                                     ETime = OffTime; // 퇴근시간
                                                 }
@@ -1456,33 +1285,29 @@ namespace PSH_BOne_AddOn
 
                                             if (Convert.ToDouble(DayOff) == 1)
                                             {
-                                                Base = Base + PH_PY677_Time_Calc(STime, ETime); // 평일
+                                                Base += PH_PY677_Time_Calc(STime, ETime); // 평일
                                             }
                                             else
                                             {
-                                                Special = Special + PH_PY677_Time_Calc(STime, ETime); // 휴일
+                                                Special += PH_PY677_Time_Calc(STime, ETime); // 휴일
                                             }
                                         }
                                         break;
-                                    case "Y":
-                                        // 익일
+
+                                    case "Y": // 익일
                                         break;
                                 }
                             }
                             else
                             {
-                                // 당일 익일 더해야 한다.
                                 if (GNMUJO == "22")
                                 {
                                     switch (NextDay)
                                     {
-                                        case "N":
-                                            // 당일
-                                            // 기준일 = 출근일
-                                            if (PosDate == GetDate)
+                                        case "N": // 당일
+                                            if (PosDate == GetDate) // 기준일 = 출근일
                                             {
-                                                // 출근시간 < 시작시간
-                                                if (Convert.ToDouble(GetTime) < Convert.ToDouble(FromTime))
+                                                if (Convert.ToDouble(GetTime) < Convert.ToDouble(FromTime)) // 출근시간 < 시작시간
                                                 {
                                                     STime = FromTime; // 시작시간
                                                 }
@@ -1490,12 +1315,10 @@ namespace PSH_BOne_AddOn
                                                 {
                                                     STime = GetTime; // 출근시간
                                                 }
-
-                                                // 퇴근일이 같으면(기준일 퇴근)
-                                                if (GetDate == OffDate)
+                                                
+                                                if (GetDate == OffDate) // 퇴근일이 같으면(기준일 퇴근)
                                                 {
-                                                    // 퇴근시간 < 24시
-                                                    if (Convert.ToDouble(OffTime) < 2400)
+                                                    if (Convert.ToDouble(OffTime) < 2400) // 퇴근시간 < 24시
                                                     {
                                                         ETime = OffTime; // 퇴근시간
                                                     }
@@ -1511,19 +1334,17 @@ namespace PSH_BOne_AddOn
 
                                                 if (Convert.ToDouble(DayOff) == 1)
                                                 {
-                                                    Base = Base + PH_PY677_Time_Calc(STime, ETime);
+                                                    Base += PH_PY677_Time_Calc(STime, ETime);
                                                 }
                                                 else
                                                 {
-                                                    Special = Special + PH_PY677_Time_Calc(STime, ETime);
+                                                    Special += PH_PY677_Time_Calc(STime, ETime);
                                                 }
                                             }
                                             break;
 
-                                        case "Y":
-                                            // 익일
-                                            // 기준일이 같으면 계산안함
-                                            if (PosDate == OffDate)
+                                        case "Y": // 익일
+                                            if (PosDate == OffDate) // 기준일이 같으면 계산안함
                                             {
                                                 STime = "0000";
                                                 ETime = "0000";
@@ -1532,8 +1353,7 @@ namespace PSH_BOne_AddOn
                                             {
                                                 STime = "0000"; // 시작시간은 00시
 
-                                                // 퇴근시간 < 종료시간
-                                                if (Convert.ToDouble(OffTime ) < Convert.ToDouble(ToTime))
+                                                if (Convert.ToDouble(OffTime ) < Convert.ToDouble(ToTime)) // 퇴근시간 < 종료시간
                                                 {
                                                     ETime = OffTime; // 퇴근시간
                                                 }
@@ -1545,11 +1365,11 @@ namespace PSH_BOne_AddOn
 
                                             if (Convert.ToDouble(DayOff) == 1)
                                             {
-                                                Base = Base + PH_PY677_Time_Calc(STime, ETime);
+                                                Base += PH_PY677_Time_Calc(STime, ETime);
                                             }
                                             else
                                             {
-                                                Special = Special + PH_PY677_Time_Calc(STime, ETime);
+                                                Special += PH_PY677_Time_Calc(STime, ETime);
                                             }
                                             break;
                                     }
@@ -1558,36 +1378,27 @@ namespace PSH_BOne_AddOn
                             break;
                         case "65":
                         case "66":
-                        case "15":
-                            // 오전, 오후 휴식시간, 점심시간
-                            // 1교대1조 2교대 1조
-                            if ((GNMUJO == "11" | GNMUJO == "21" | GNMUJO == "22"))
+                        case "15": // 오전, 오후 휴식시간, 점심시간
+                            if (GNMUJO == "11" || GNMUJO == "21" || GNMUJO == "22") // 1교대1조, 2교대1조, 2교대2조
                             {
                                 switch (NextDay)
                                 {
-                                    case "N":
-                                        // 당일
-                                        // 당일 출근이 아니면
-                                        if (PosDate != GetDate)
+                                    case "N": // 당일
+                                        if (PosDate != GetDate) // 당일 출근이 아니면
                                         {
                                             STime = "0000";
                                             ETime = "0000";
                                         }
-                                        else
+                                        else // 당일퇴근
                                         {
-                                            // 당일퇴근
                                             if (PosDate == OffDate)
                                             {
-                                                // 출근시간 < 시작시간
-                                                if (Convert.ToDouble(GetTime)  < Convert.ToDouble(FromTime))
+                                                if (Convert.ToDouble(GetTime)  < Convert.ToDouble(FromTime)) // 출근시간 < 시작시간
                                                 {
-                                                    // 시작시간 <= 퇴근시간
-                                                    if (Convert.ToDouble(FromTime) <= Convert.ToDouble(OffTime))
+                                                    if (Convert.ToDouble(FromTime) <= Convert.ToDouble(OffTime)) // 시작시간 <= 퇴근시간
                                                     {
-                                                        STime = FromTime;
-                                                        // 시작시간
-                                                        // 종료시간 < 퇴근시간
-                                                        if (Convert.ToDouble(ToTime) < Convert.ToDouble(OffTime))
+                                                        STime = FromTime; // 시작시간
+                                                        if (Convert.ToDouble(ToTime) < Convert.ToDouble(OffTime)) // 종료시간 < 퇴근시간
                                                         {
                                                             ETime = ToTime;
                                                         }
@@ -1604,18 +1415,15 @@ namespace PSH_BOne_AddOn
                                                 }
                                                 else
                                                 {
-                                                    // 출근시간 > 종료시간
-                                                    if (Convert.ToDouble(GetTime) > Convert.ToDouble(ToTime))
+                                                    if (Convert.ToDouble(GetTime) > Convert.ToDouble(ToTime)) // 출근시간 > 종료시간
                                                     {
                                                         STime = "0000";
                                                         ETime = "0000";
                                                     }
                                                     else
                                                     {
-                                                        STime = GetTime;
-                                                        // 출근시간
-                                                        // 종료시간 < 퇴근시간
-                                                        if (Convert.ToDouble(ToTime) < Convert.ToDouble(OffTime))
+                                                        STime = GetTime; // 출근시간
+                                                        if (Convert.ToDouble(ToTime) < Convert.ToDouble(OffTime)) // 종료시간 < 퇴근시간
                                                         {
                                                             ETime = ToTime; // 종료시간
                                                         }
@@ -1625,27 +1433,22 @@ namespace PSH_BOne_AddOn
                                                         }
                                                     }
                                                 }
-                                                // 다음날 퇴근
                                             }
-                                            else
+                                            else // 다음날 퇴근
                                             {
-                                                // 종료시간 < 출근시간
-                                                if (Convert.ToDouble(ToTime) < Convert.ToDouble(GetTime))
+                                                if (Convert.ToDouble(ToTime) < Convert.ToDouble(GetTime)) // 종료시간 < 출근시간
                                                 {
                                                     STime = "0000";
                                                     ETime = "0000";
                                                 }
                                                 else
                                                 {
-                                                    // 출근시간 < 시작시간
-                                                    if (Convert.ToDouble(GetTime) < Convert.ToDouble(FromTime))
+                                                    if (Convert.ToDouble(GetTime) < Convert.ToDouble(FromTime)) // 출근시간 < 시작시간
                                                     {
                                                         STime = FromTime;
                                                         ETime = ToTime;
-
-                                                        // 시작시간이후 출근
                                                     }
-                                                    else
+                                                    else // 시작시간이후 출근
                                                     {
                                                         STime = GetTime;
                                                     }
@@ -1654,18 +1457,16 @@ namespace PSH_BOne_AddOn
                                             }
                                         }
                                         break;
-                                    case "Y":
-                                        // 익일
-                                        // 기준일 = 퇴근일(당일퇴근)
-                                        if (PosDate == OffDate)
+
+                                    case "Y": // 익일
+                                        if (PosDate == OffDate) // 기준일 = 퇴근일(당일퇴근)
                                         {
                                             STime = "0000";
                                             ETime = "0000";
                                         }
                                         else
                                         {
-                                            // 퇴근시간 < 시작시간
-                                            if (Convert.ToDouble(OffTime) < Convert.ToDouble(FromTime))
+                                            if (Convert.ToDouble(OffTime) < Convert.ToDouble(FromTime)) // 퇴근시간 < 시작시간
                                             {
                                                 STime = "0000";
                                                 ETime = "0000";
@@ -1673,8 +1474,7 @@ namespace PSH_BOne_AddOn
                                             else
                                             {
                                                 STime = FromTime;
-                                                // 퇴근시간 < 종료시간
-                                                if (Convert.ToDouble(OffTime) < Convert.ToDouble(ToTime))
+                                                if (Convert.ToDouble(OffTime) < Convert.ToDouble(ToTime)) // 퇴근시간 < 종료시간
                                                 {
                                                     ETime = OffTime;
                                                 }
@@ -1686,44 +1486,37 @@ namespace PSH_BOne_AddOn
                                         }
                                         break;
                                 }
-
                             }
 
                             hTime1 = PH_PY677_Time_Calc(STime, ETime); // 오전휴식시간
 
-                            // 야간조(2교대) 오전휴식일경우
-                            if (GNMUJO == "22" & TimeType == "65")
+                            if (GNMUJO == "22" && TimeType == "65") // 야간조(2교대) 오전휴식일경우
                             {
-                                Midnight = Midnight - hTime1;
+                                Midnight -= hTime1;
                             }
                             else
                             {
                                 if (DayOff == "1")
                                 {
-                                    Base = Base - hTime1;
+                                    Base -= hTime1;
                                 }
                                 else
                                 {
-                                    Special = Special - hTime1;
+                                    Special -= hTime1;
                                 }
                             }
                             break;
 
                         case "20":
-                        case "60":
-                            // 연장근무
-                            // 1교대1조 2교대 1조
-                            if ((GNMUJO == "11" | GNMUJO == "21"))
+                        case "60": // 연장근무
+                            if (GNMUJO == "11" || GNMUJO == "21") // 1교대1조, 2교대1조
                             {
                                 switch (NextDay)
                                 {
-                                    case "N":
-                                        // 당일
-                                        //  출근일 <> 퇴근일
-                                        if (PosDate != OffDate)
+                                    case "N": // 당일
+                                        if (PosDate != OffDate) //  출근일 <> 퇴근일
                                         {
-                                            // 출근시간 < 시작시간
-                                            if (Convert.ToDouble(GetTime) < Convert.ToDouble(FromTime))
+                                            if (Convert.ToDouble(GetTime) < Convert.ToDouble(FromTime)) // 출근시간 < 시작시간
                                             {
                                                 STime = FromTime;
                                             }
@@ -1731,12 +1524,11 @@ namespace PSH_BOne_AddOn
                                             {
                                                 STime = GetTime;
                                             }
-                                            ETime = "2400";// 당일 퇴근
+                                            ETime = "2400";
                                         }
-                                        else
+                                        else // 당일 퇴근
                                         {
-                                            // 퇴근시간 < 시작시간
-                                            if (Convert.ToDouble(OffTime) < Convert.ToDouble(FromTime))
+                                            if (Convert.ToDouble(OffTime) < Convert.ToDouble(FromTime)) // 퇴근시간 < 시작시간
                                             {
                                                 STime = "0000";
                                                 ETime = "0000";
@@ -1749,21 +1541,19 @@ namespace PSH_BOne_AddOn
                                         }
                                         if (DayOff == "1")
                                         {
-                                            Extend = Extend + PH_PY677_Time_Calc(STime, ETime);
+                                            Extend += PH_PY677_Time_Calc(STime, ETime);
                                         }
                                         else
                                         {
-                                            SpExtend = SpExtend + PH_PY677_Time_Calc(STime, ETime);
+                                            SpExtend += PH_PY677_Time_Calc(STime, ETime);
                                         }
                                         break;
-                                    case "Y":
-                                        // 익일
-                                        // 기준일 <> 퇴근일
-                                        if (PosDate != OffDate)
+
+                                    case "Y": // 익일
+                                        if (PosDate != OffDate) // 기준일 <> 퇴근일
                                         {
                                             STime = "0000";
-                                            // 퇴근시간 < 종료시간
-                                            if (Convert.ToDouble(OffTime) < Convert.ToDouble(ToTime))
+                                            if (Convert.ToDouble(OffTime) < Convert.ToDouble(ToTime)) // 퇴근시간 < 종료시간
                                             {
                                                 ETime = OffTime;
                                             }
@@ -1771,41 +1561,34 @@ namespace PSH_BOne_AddOn
                                             {
                                                 ETime = ToTime;
                                             }
-
                                         }
                                         else
                                         {
                                             STime = "0000";
                                             ETime = "0000";
                                         }
+
                                         if (DayOff == "1")
                                         {
-                                            Extend = Extend + PH_PY677_Time_Calc(STime, ETime);
+                                            Extend += PH_PY677_Time_Calc(STime, ETime);
                                         }
                                         else
                                         {
-                                            SpExtend = SpExtend + PH_PY677_Time_Calc(STime, ETime);
+                                            SpExtend += PH_PY677_Time_Calc(STime, ETime);
                                         }
                                         break;
-
                                 }
-                                // 2교대 2조
                             }
-                            else if (GNMUJO == "22")
+                            else if (GNMUJO == "22") // 2교대 2조
                             {
                                 switch (NextDay)
                                 {
-                                    case "N":
-                                        //당일
+                                    case "N": //당일
                                         break;
-                                    // 연장근무없다
-                                    case "Y":
-                                        // 익일
-                                        //  기준일 <> 퇴근일
-                                        if (PosDate != OffDate)
+                                    case "Y": // 익일
+                                        if (PosDate != OffDate) //  기준일 <> 퇴근일
                                         {
-                                            // 퇴근시간 < 시작시간
-                                            if (Convert.ToDouble(OffTime) < Convert.ToDouble(FromTime))
+                                            if (Convert.ToDouble(OffTime) < Convert.ToDouble(FromTime)) // 퇴근시간 < 시작시간
                                             {
                                                 STime = "0000";
                                                 ETime = "0000";
@@ -1814,7 +1597,6 @@ namespace PSH_BOne_AddOn
                                             {
                                                 STime = FromTime;
                                                 ETime = OffTime;
-
                                             }
                                         }
                                         else
@@ -1835,23 +1617,18 @@ namespace PSH_BOne_AddOn
                                 }
                             }
                             break;
-                        case "25":
-                            // 저녁휴식
+
+                        case "25": // 저녁휴식
                             break;
-                        case "30":
-                            // 심야시간
-                            // 1교대1조 2교대 1조
-                            if ((GNMUJO == "11" | GNMUJO == "21" | GNMUJO == "22"))
+                        case "30": // 심야시간
+                            if (GNMUJO == "11" || GNMUJO == "21" || GNMUJO == "22") // 1교대1조, 2교대1조, 2교대2조
                             {
                                 switch (NextDay)
                                 {
-                                    case "N":
-                                        // 당일
-                                        // 기준일자 <> 퇴근일자
-                                        if (PosDate != OffDate)
+                                    case "N": // 당일
+                                        if (PosDate != OffDate) // 기준일자 <> 퇴근일자
                                         {
-                                            // 출근시간 < 시작시간
-                                            if (Convert.ToDouble(GetTime) < Convert.ToDouble(FromTime))
+                                            if (Convert.ToDouble(GetTime) < Convert.ToDouble(FromTime)) // 출근시간 < 시작시간
                                             {
                                                 STime = FromTime; // 시작시간
                                             }
@@ -1859,20 +1636,18 @@ namespace PSH_BOne_AddOn
                                             {
                                                 STime = GetTime; // 출근시간
                                             }
-                                            ETime = "2400"; // 당일퇴근시
+                                            ETime = "2400"; 
                                         }
-                                        else
+                                        else // 당일퇴근시
                                         {
-                                            //퇴근시간 < 시작시간
-                                            if (Convert.ToDouble(OffTime) < Convert.ToDouble(FromTime))
+                                            if (Convert.ToDouble(OffTime) < Convert.ToDouble(FromTime)) //퇴근시간 < 시작시간
                                             {
                                                 STime = "0000";
                                                 ETime = "0000";
                                             }
                                             else
                                             {
-                                                // 출근시간 < 시작시간
-                                                if (Convert.ToDouble(GetTime) < Convert.ToDouble(FromTime))
+                                                if (Convert.ToDouble(GetTime) < Convert.ToDouble(FromTime)) // 출근시간 < 시작시간
                                                 {
                                                     STime = FromTime; // 시작시간
                                                 }
@@ -1880,28 +1655,27 @@ namespace PSH_BOne_AddOn
                                                 {
                                                     STime = GetTime;
                                                 }
-
-                                                // 퇴근시간 < 종료시간
-                                                if (Convert.ToDouble(OffTime) < Convert.ToDouble(ToTime))
+                                                
+                                                if (Convert.ToDouble(OffTime) < Convert.ToDouble(ToTime)) // 퇴근시간 < 종료시간
                                                 {
                                                     ETime = OffTime;
                                                 }
                                                 else
                                                 {
-                                                    ETime = ToTime;// 종료시간
+                                                    ETime = ToTime; // 종료시간
                                                 }
                                             }
                                         }
-                                        Midnight = Midnight + PH_PY677_Time_Calc(STime, ETime);
+
+                                        Midnight += PH_PY677_Time_Calc(STime, ETime);
                                         break;
-                                    case "Y":
-                                        // 익일
-                                        // 출근일 <> 퇴근일
-                                        if (PosDate != OffDate)
+
+                                    case "Y": // 익일
+                                        
+                                        if (PosDate != OffDate) // 출근일 <> 퇴근일
                                         {
                                             STime = "0000";
-                                            // 퇴근시간 < 종료시간
-                                            if (Convert.ToDouble(OffTime) < Convert.ToDouble(ToTime))
+                                            if (Convert.ToDouble(OffTime) < Convert.ToDouble(ToTime)) // 퇴근시간 < 종료시간
                                             {
                                                 ETime = OffTime; // 퇴근시간
                                             }
@@ -1915,24 +1689,20 @@ namespace PSH_BOne_AddOn
                                             STime = "0000";
                                             ETime = "0000";
                                         }
-                                        Midnight = Midnight + PH_PY677_Time_Calc(STime, ETime);
+
+                                        Midnight += PH_PY677_Time_Calc(STime, ETime);
                                         break;
                                 }
-
                             }
                             break;
-                        case "35":
-                            // 야간휴식 수정해야함
-                            // hTime5
+
+                        case "35": // 야간휴식
                             switch (NextDay)
                             {
-                                case "N":
-                                    // 당일
-                                    // 기준일자 = 퇴근일자
-                                    if (PosDate == OffDate)
+                                case "N": // 당일
+                                    if (PosDate == OffDate) // 기준일자 = 퇴근일자
                                     {
-                                        // 퇴근시간 < 시작시간
-                                        if (Convert.ToDouble(OffTime) < Convert.ToDouble(FromTime))
+                                        if (Convert.ToDouble(OffTime) < Convert.ToDouble(FromTime)) // 퇴근시간 < 시작시간
                                         {
                                             STime = "0000";
                                             ETime = "0000";
@@ -1958,11 +1728,9 @@ namespace PSH_BOne_AddOn
                                             }
                                         }
                                     }
-                                    else
+                                    else // 다음날 퇴근
                                     {
-                                        // 다음날 퇴근
-                                        // 출근시간 < 시작시간
-                                        if (Convert.ToDouble(GetTime) < Convert.ToDouble(FromTime))
+                                        if (Convert.ToDouble(GetTime) < Convert.ToDouble(FromTime)) // 출근시간 < 시작시간
                                         {
                                             STime = FromTime;
                                         }
@@ -1976,16 +1744,14 @@ namespace PSH_BOne_AddOn
                                     break;
 
                                 case "Y":
-                                    // 기준일자 = 퇴근일자
-                                    if (PosDate == OffDate)
+                                    if (PosDate == OffDate) // 기준일자 = 퇴근일자
                                     {
                                         STime = "0000";
                                         ETime = "0000";
                                     }
                                     else
                                     {
-                                        // 퇴근시간 < 시작시간
-                                        if (Convert.ToDouble(OffTime) < Convert.ToDouble(FromTime))
+                                        if (Convert.ToDouble(OffTime) < Convert.ToDouble(FromTime)) // 퇴근시간 < 시작시간
                                         {
                                             STime = "0000";
                                             ETime = "0000";
@@ -2008,41 +1774,33 @@ namespace PSH_BOne_AddOn
 
                             hTime5 = PH_PY677_Time_Calc(STime, ETime);
 
-                            // 평일
-                            if (DayOff == "1")
+                            if (DayOff == "1") // 평일
                             {
-                                // 2교대 2조(야간조)
-                                if (GNMUJO == "22")
+                                if (GNMUJO == "22") // 2교대 2조(야간조)
                                 {
-                                    Base = Base - hTime5; // 기본근무
-                                    Midnight = Midnight - hTime5;  // 심야시간에서 차감
-                                    // 그외 주간조
+                                    Base -= hTime5; // 기본근무
+                                    Midnight -= hTime5;  // 심야시간에서 차감
                                 }
-                                else
+                                else // 그외 주간조
                                 {
-                                    Extend = Extend - hTime5;
-                                    // 연장근무에서 차감
-                                    Midnight = Midnight - hTime5;
-                                    // 심야시간에서 차감
+                                    Extend -= hTime5; // 연장근무에서 차감
+                                    Midnight -= hTime5; // 심야시간에서 차감
                                 }
                             }
-                            else
+                            else // 휴일
                             {
-                                // 휴일
                                 if (GNMUJO == "22")
                                 {
-                                    Special = Special - hTime5;
-                                    Midnight = Midnight - hTime5; // 심야시간에서 차감
+                                    Special -= hTime5;
+                                    Midnight -= hTime5; // 심야시간에서 차감
                                 }
-                                else
+                                else // 다음날 퇴근은 연장근무임
                                 {
-                                    // 다음날 퇴근은 연장근무임
-                                    SpExtend = SpExtend - hTime5; // 연장근무에서 차감
-                                    Midnight = Midnight - hTime5; // 심야시간에서 차감
+                                    SpExtend -= hTime5; // 연장근무에서 차감
+                                    Midnight -= hTime5; // 심야시간에서 차감
                                 }
                             }
                             break;
-
                     }
                     oRecordSet.MoveNext();
                 }
@@ -2055,9 +1813,6 @@ namespace PSH_BOne_AddOn
                 oDS_PH_PY677B.SetValue("U_ColQty07", pRow - 1, Convert.ToString(PH_PY677_hhmm_Calc(SEarlyTo)));               //휴조
                 oDS_PH_PY677B.SetValue("U_ColQty04", pRow - 1, Convert.ToString(PH_PY677_hhmm_Calc(Special)));                //특근
                 oDS_PH_PY677B.SetValue("U_ColQty05", pRow - 1, Convert.ToString(PH_PY677_hhmm_Calc(SpExtend)));               //특근연장
-
-                return functionReturnValue;
-                
             }
             catch (Exception ex)
             {
@@ -2069,7 +1824,6 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY677_Time_Calc_Main_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
-                return functionReturnValue;
             }
             finally
             {
@@ -2090,17 +1844,15 @@ namespace PSH_BOne_AddOn
             int ETime;
     
             try
-                {
-                    STime = Convert.ToInt32(Convert.ToDouble( GetTime.Substring(0, 2) ) ) * 3600 + Convert.ToInt32(Convert.ToDouble(GetTime.Substring(2, 2))) * 60;
-                    ETime = Convert.ToInt32(Convert.ToDouble( OffTime.Substring(0, 2) ) ) * 3600 + Convert.ToInt32(Convert.ToDouble(OffTime.Substring(2, 2))) * 60;
+            {
+                STime = Convert.ToInt32(Convert.ToDouble( GetTime.Substring(0, 2) ) ) * 3600 + Convert.ToInt32(Convert.ToDouble(GetTime.Substring(2, 2))) * 60;
+                ETime = Convert.ToInt32(Convert.ToDouble( OffTime.Substring(0, 2) ) ) * 3600 + Convert.ToInt32(Convert.ToDouble(OffTime.Substring(2, 2))) * 60;
 
                 returnValue = ETime - STime;
-                }
-           
+            }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY677_Time_Calc_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                
             }
             finally
             {
@@ -2256,11 +2008,11 @@ namespace PSH_BOne_AddOn
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
-                    Raise_EVENT_DOUBLE_CLICK(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_DOUBLE_CLICK(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED: //8
-                    Raise_EVENT_MATRIX_LINK_PRESSED(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_MATRIX_LINK_PRESSED(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 //case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED: //9
@@ -2310,16 +2062,16 @@ namespace PSH_BOne_AddOn
                 //    break;
 
                 case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
-                    Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                    //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
-                    //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
-                    //    break;
+                //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
+                //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
 
-                    //case SAPbouiCOM.BoEventTypes.et_Drag: //39
-                    //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
-                    //    break;
+                //case SAPbouiCOM.BoEventTypes.et_Drag: //39
+                //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
             }
         }
 
@@ -2334,38 +2086,15 @@ namespace PSH_BOne_AddOn
             try
             {
                 if (pVal.BeforeAction == true)
-                {
-                    if (pVal.ItemUID == "PH_PY677")
-                    {
-                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-                        {
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-                        {
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-                        {
-                        }
-                    }
-
-                    // 수정 버튼
-                    if (pVal.ItemUID == "BtnUpdate")
+                {   
+                    if (pVal.ItemUID == "BtnUpdate") // 수정
                     {
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                         {
                             PH_PY677_UpdateData();
                         }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-                        {
-                            if (PH_PY677_HeaderSpaceLineDel() == false)
-                            {
-                                BubbleEvent = false;
-                                return;
-                            }
-                        }
-                    // 조회
                     }
-                    else if (pVal.ItemUID == "BtnSearch")
+                    else if (pVal.ItemUID == "BtnSearch") // 조회
                     {
                         PH_PY677_MTX01();
                     }
@@ -2380,20 +2109,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (pVal.BeforeAction == false)
                 {
-                    if (pVal.ItemUID == "PH_PY677")
-                    {
-                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-                        {
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-                        {
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-                        {
-                        }
-                    }
                 }
-
             }
             catch (Exception ex)
             {
@@ -2409,8 +2125,8 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PH_PY677_ConfirmAll()
         {
-            string ConfirmType = string.Empty;
-            short loopCount = 0;
+            string ConfirmType;
+            short loopCount;
             ConfirmType = "Y";
 
             try
@@ -2579,65 +2295,12 @@ namespace PSH_BOne_AddOn
                     if (pVal.Row > 0)
                     {
                         oMat01.SelectRow(pVal.Row, true, false);
-
                     }
                 }
             }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_CLICK_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-        }
-
-        /// <summary>
-        /// DOUBLE_CLICK 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_DOUBLE_CLICK(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            try
-            {
-                if (pVal.Before_Action == true)
-                {
-                }
-                else if (pVal.Before_Action == false)
-                {
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_DOUBLE_CLICK_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-        }
-
-        /// <summary>
-        /// MATRIX_LINK_PRESSED 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_MATRIX_LINK_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            try
-            {
-                if (pVal.Before_Action == true)
-                {
-                }
-                else if (pVal.Before_Action == false)
-                {
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_MATRIX_LINK_PRESSED_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
             {
@@ -2652,8 +2315,6 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
             try
             {
                 oForm.Freeze(true);
@@ -2712,7 +2373,6 @@ namespace PSH_BOne_AddOn
                 else if (pVal.Before_Action == false)
                 {
                     PH_PY677_FormItemEnabled();
-                    //PH_PY677_AddMatrixRow(oMat01.VisualRowCount) '//UDO방식
                 }
             }
             catch (Exception ex)
@@ -2777,44 +2437,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_FORM_RESIZE_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-        }
-
-        /// <summary>
-        /// CHOOSE_FROM_LIST 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_CHOOSE_FROM_LIST(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
-            try
-            {
-                if (pVal.Before_Action == true)
-                {
-                }
-                else if (pVal.Before_Action == false)
-                {
-                    //원본 소스(VB6.0 주석처리되어 있음)
-                    //        If (pval.ItemUID = "ItemCode") Then
-                    //            Dim oDataTable01 As SAPbouiCOM.DataTable
-                    //            Set oDataTable01 = pval.SelectedObjects
-                    //            oForm.DataSources.UserDataSources("ItemCode").Value = oDataTable01.Columns(0).Cells(0).Value
-                    //            Set oDataTable01 = Nothing
-                    //        End If
-                    //        If (pval.ItemUID = "CardCode" Or pval.ItemUID = "CardName") Then
-                    //            Call MDC_GP_CF_DBDatasourceReturn(pval, pval.FormUID, "@PH_PY677A", "U_CardCode,U_CardName")
-                    //        End If
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_CHOOSE_FROM_LIST_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
             {
@@ -2907,28 +2529,19 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
         {
-            //string sQry = string.Empty;
-
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
             try
             {
                 if (BusinessObjectInfo.BeforeAction == true)
                 {
                     switch (BusinessObjectInfo.EventType)
                     {
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:
-                            //33
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
                             break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:
-                            //34
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
                             break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:
-                            //35
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
                             break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:
-                            //36
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
                             break;
                     }
                 }
@@ -2936,17 +2549,13 @@ namespace PSH_BOne_AddOn
                 {
                     switch (BusinessObjectInfo.EventType)
                     {
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:
-                            //33
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
                             break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:
-                            //34
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
                             break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:
-                            //35
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
                             break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:
-                            //36
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
                             break;
                     }
                 }
@@ -2957,7 +2566,6 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }
 
@@ -3012,9 +2620,7 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         private void Raise_EVENT_ROW_DELETE(string FormUID, ref SAPbouiCOM.IMenuEvent pval, ref bool BubbleEvent)
         {
-            // ERROR: Not supported in C#: OnErrorStatement
-
-            int i = 0;
+            int i;
 
             try
             {
@@ -3022,11 +2628,6 @@ namespace PSH_BOne_AddOn
                 {
                     if (pval.BeforeAction == true)
                     {
-                        //            If (PH_PY677_Validate("행삭제") = False) Then
-                        //                BubbleEvent = False
-                        //                Exit Sub
-                        //            End If
-                        ////행삭제전 행삭제가능여부검사
                     }
                     else if (pval.BeforeAction == false)
                     {

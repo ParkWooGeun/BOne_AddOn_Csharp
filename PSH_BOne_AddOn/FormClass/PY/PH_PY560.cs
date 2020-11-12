@@ -12,15 +12,15 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PH_PY560 : PSH_BaseClass
     {
-        public string oFormUniqueID01;
+        private string oFormUniqueID01;
 
         /// <summary>
         /// 화면 호출
         /// </summary>
         public override void LoadForm(string oFormDocEntry01)
         {
-            int i = 0;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
+
             try
             {
                 oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PH_PY560.srf");
@@ -28,7 +28,7 @@ namespace PSH_BOne_AddOn
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
 
-                for (i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
+                for (int i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
                 {
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight")[i - 1].nodeValue = 20;
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
@@ -36,9 +36,6 @@ namespace PSH_BOne_AddOn
 
                 oFormUniqueID01 = "PH_PY560_" + SubMain.Get_TotalFormsCount();
                 SubMain.Add_Forms(this, oFormUniqueID01, "PH_PY560");
-
-                string strXml = string.Empty;
-                strXml = oXmlDoc.xml.ToString();
 
                 PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID01);
@@ -70,8 +67,9 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PH_PY560_CreateItems()
         {
-            string sQry = string.Empty;
+            string sQry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 oForm.Freeze(true);
@@ -155,10 +153,10 @@ namespace PSH_BOne_AddOn
             }
         }
 
-        ///// <summary>
-        ///// 화면의 아이템 Enable 설정
-        ///// </summary>
-        public void PH_PY560_FormItemEnabled()
+        /// <summary>
+        /// 화면의 아이템 Enable 설정
+        /// </summary>
+        private void PH_PY560_FormItemEnabled()
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
@@ -176,6 +174,148 @@ namespace PSH_BOne_AddOn
             }
         }
 
+        /// <summary>
+        /// 리포트 조회
+        /// </summary>
+        [STAThread]
+        private void PH_PY560_Print_Report01()
+        {
+            string sQry;
+            string WinTitle;
+            string ReportName;
+
+            string CLTCOD;
+            string DocDate;
+            string TeamCode;
+            string SukS;
+            string YaS;
+            string DangJ;
+            string JoongS;
+            string Bus1;
+            string Bus2;
+            string Bus3;
+            string G5_YN;
+            string NoAccdnt;
+
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+
+            try
+            {
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
+                DocDate = oForm.Items.Item("DocDate").Specific.Value.Trim();
+                TeamCode = oForm.Items.Item("TeamCode").Specific.Value.Trim();
+                SukS = oForm.Items.Item("SukS").Specific.Value.Trim();
+                YaS = oForm.Items.Item("YaS").Specific.Value.Trim();
+                DangJ = oForm.Items.Item("DangJik").Specific.Value.Trim();
+                JoongS = oForm.Items.Item("JoongS").Specific.Value.Trim();
+                Bus1 = oForm.Items.Item("Bus1").Specific.Value.Trim();
+                Bus2 = oForm.Items.Item("Bus2").Specific.Value.Trim();
+                Bus3 = oForm.Items.Item("Bus3").Specific.Value.Trim();
+
+                if (oForm.DataSources.UserDataSources.Item("G5_YN").Value == "Y")
+                {
+                    G5_YN = "Y";
+                }
+                else
+                {
+                    G5_YN = "N";
+                }
+
+                if (oForm.DataSources.UserDataSources.Item("NoAccdnt").Value == "Y")
+                {
+                    NoAccdnt = "Y";
+                }
+                else
+                {
+                    NoAccdnt = "N";
+                }
+
+                List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
+                List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
+                List<PSH_DataPackClass> dataPackSubReportParameter = new List<PSH_DataPackClass>();
+                List<PSH_DataPackClass> dataPackSubReportFormula = new List<PSH_DataPackClass>();
+
+                //	평일,휴일Check
+                sQry = "Select b.U_DayType From [@PH_PY003A] a INNER JOIN [@PH_PY003B] b ON a.Code = b.Code WHERE a.U_CLTCOD = '" + CLTCOD + "' AND B.U_DATE = '" + DocDate + "'";
+                oRecordSet.DoQuery(sQry);
+
+                if (oRecordSet.Fields.Item("U_DayType").Value.ToString().Trim() != "2") // 평일
+                {   
+                    WinTitle = "[PH_PY560] 일출근현황";
+                    ReportName = "PH_PY560_01.rpt";
+
+                    //Formula
+                    dataPackFormula.Add(new PSH_DataPackClass("@CLTCOD", dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", CLTCOD, "and Code = 'P144' AND U_UseYN= 'Y'"))); //
+                    dataPackFormula.Add(new PSH_DataPackClass("@DocDate", DocDate.Substring(0, 4) + "-" + DocDate.Substring(4, 2) + "-" + DocDate.Substring(6, 2)));
+
+                    //SubReport Formula
+                    dataPackSubReportFormula.Add(new PSH_DataPackClass("@SukS", SukS, "PH_PY560_SUB3"));
+                    dataPackSubReportFormula.Add(new PSH_DataPackClass("@YaS", YaS, "PH_PY560_SUB3"));
+                    dataPackSubReportFormula.Add(new PSH_DataPackClass("@DangJ", DangJ, "PH_PY560_SUB3"));
+                    dataPackSubReportFormula.Add(new PSH_DataPackClass("@Bus1", Bus1, "PH_PY560_SUB3"));
+                    dataPackSubReportFormula.Add(new PSH_DataPackClass("@Bus2", Bus2, "PH_PY560_SUB3"));
+                    dataPackSubReportFormula.Add(new PSH_DataPackClass("@Bus3", Bus3, "PH_PY560_SUB3"));
+
+                    //Parameter
+                    dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD)); //사업장
+                    dataPackParameter.Add(new PSH_DataPackClass("@DocDate", DocDate));
+                    dataPackParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode));
+
+                    //SubReport Parameter
+                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD, "PH_PY560_SUB1"));
+                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@DocDate", DocDate, "PH_PY560_SUB1"));
+                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY560_SUB1"));
+
+                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD, "PH_PY560_SUB3"));
+                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@DocDate", DocDate, "PH_PY560_SUB3"));
+                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY560_SUB3"));
+                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@G5_YN", G5_YN, "PH_PY560_SUB3"));
+
+                    formHelpClass.CrystalReportOpen(dataPackParameter, dataPackFormula, dataPackSubReportParameter, dataPackSubReportFormula, WinTitle, ReportName);
+                }
+                else // 휴일
+                {   
+                    WinTitle = "[PH_PY560] 일출근현황(휴일)";
+                    if (NoAccdnt == "N")
+                    {
+                        ReportName = "PH_PY560_05.rpt";
+                    }
+                    else
+                    {
+                        ReportName = "PH_PY560_06.rpt";
+                    }
+
+                    //Formula
+                    dataPackFormula.Add(new PSH_DataPackClass("@CLTCOD", dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", CLTCOD, "and Code = 'P144' AND U_UseYN= 'Y'"))); //
+                    dataPackFormula.Add(new PSH_DataPackClass("@DocDate", DocDate.Substring(0, 4) + "-" + DocDate.Substring(4, 2) + "-" + DocDate.Substring(6, 2)));
+                    dataPackFormula.Add(new PSH_DataPackClass("@JoongS", JoongS));
+                    dataPackFormula.Add(new PSH_DataPackClass("@SukS", SukS));
+                    dataPackFormula.Add(new PSH_DataPackClass("@YaS", YaS));
+                    dataPackFormula.Add(new PSH_DataPackClass("@DangJ", DangJ));
+                    dataPackFormula.Add(new PSH_DataPackClass("@Bus1", Bus1));
+                    dataPackFormula.Add(new PSH_DataPackClass("@Bus2", Bus2));
+                    dataPackFormula.Add(new PSH_DataPackClass("@Bus3", Bus3));
+
+                    //Parameter
+                    dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD)); //사업장
+                    dataPackParameter.Add(new PSH_DataPackClass("@DocDate", DocDate));
+                    dataPackParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode));
+
+                    formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY560_Print_Report01_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
+        }
+
         // </summary>
         // <param name="FormUID">Form UID</param>
         // <param name="pVal">이벤트 </param>
@@ -188,18 +328,13 @@ namespace PSH_BOne_AddOn
                     Raise_EVENT_ITEM_PRESSED(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_KEY_DOWN:
-                    ////2
+                case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
                     break;
 
-
-                case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS:
-                    ////3
-
+                case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS:
-                    ////4
+                case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
@@ -210,16 +345,13 @@ namespace PSH_BOne_AddOn
                     //Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK:
-                    ////7
+                case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED:
-                    ////8
+                case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED: //8
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED:
-                    ////9
+                case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED: //9
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
@@ -227,64 +359,50 @@ namespace PSH_BOne_AddOn
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
-                                                             //Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD:
-                    ////12
+                case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD: //12
                     break;
 
-
-                case SAPbouiCOM.BoEventTypes.et_FORM_LOAD:
-                    ////16
+                case SAPbouiCOM.BoEventTypes.et_FORM_LOAD: //16
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD: //17
                     Raise_EVENT_FORM_UNLOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE:
-                    ////18
+                case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: //18
                     break;
 
-
-                case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE:
-                    ////19
+                case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE: //19
                     break;
 
-
-                case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE:
-                    ////20
+                case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE: //20
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
-                                                             // Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN:
-                    ////22
+                case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT:
-                    ////23
+                case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
-                                                                  // Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED:
-                    ////37
+                case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED://37
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_GRID_SORT:
-                    ////38
+                case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_Drag:
-                    ////39
+                case SAPbouiCOM.BoEventTypes.et_Drag: //39
                     break;
-
             }
         }
 
@@ -319,6 +437,7 @@ namespace PSH_BOne_AddOn
             {
             }
         }
+
         /// <summary>
         /// COMBO_SELECT 이벤트
         /// </summary>
@@ -327,9 +446,10 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_COMBO_SELECT(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string sQry = string.Empty;
-            int i = 0;
+            string sQry;
+            int i;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 oForm.Freeze(true);
@@ -342,10 +462,7 @@ namespace PSH_BOne_AddOn
                     {
                         switch (pVal.ItemUID)
                         {
-                            //사업장이 바뀌면 부서와 담당 재설정
-                            case "CLTCOD":
-                                ////부서
-                                ////삭제
+                            case "CLTCOD": //사업장이 바뀌면 부서와 담당 재설정
                                 if (oForm.Items.Item("TeamCode").Specific.ValidValues.Count > 0)
                                 {
                                     for (i = oForm.Items.Item("TeamCode").Specific.ValidValues.Count - 1; i >= 0; i += -1)
@@ -353,13 +470,10 @@ namespace PSH_BOne_AddOn
                                         oForm.Items.Item("TeamCode").Specific.ValidValues.Remove(i, SAPbouiCOM.BoSearchKey.psk_Index);
                                     }
                                 }
-                                ////현재 사업장으로 다시 Qry
                                 sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '1' AND U_UseYN= 'Y' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value.Trim() + "'";
                                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("TeamCode").Specific, "Y");
-
                                 break;
                         }
-
                     }
                 }
             }
@@ -395,155 +509,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_FORM_UNLOAD_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-        }
-
-        /// <summary>
-        /// 리포트 조회
-        /// </summary>
-        [STAThread]
-        private void PH_PY560_Print_Report01()
-        {
-            string sQry = string.Empty;
-            SAPbobsCOM.Recordset oRecordSet = null;
-            oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-            string WinTitle = string.Empty;
-            string ReportName = string.Empty;
-
-            string CLTCOD = string.Empty;
-            string DocDate = string.Empty;
-            string TeamCode = string.Empty;
-            string SukS = string.Empty;
-            string YaS = string.Empty;
-            string DangJ = string.Empty;
-            string JoongS = string.Empty;
-            string Bus1 = string.Empty;
-            string Bus2 = string.Empty;
-            string Bus3 = string.Empty;
-            string G5_YN = string.Empty;
-            string NoAccdnt = string.Empty;
-
-            CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
-            DocDate = oForm.Items.Item("DocDate").Specific.Value.Trim();
-            TeamCode = oForm.Items.Item("TeamCode").Specific.Value.Trim();
-            SukS = oForm.Items.Item("SukS").Specific.Value.Trim();
-            YaS = oForm.Items.Item("YaS").Specific.Value.Trim();
-            DangJ = oForm.Items.Item("DangJik").Specific.Value.Trim();
-            JoongS = oForm.Items.Item("JoongS").Specific.Value.Trim();
-            Bus1 = oForm.Items.Item("Bus1").Specific.Value.Trim();
-            Bus2 = oForm.Items.Item("Bus2").Specific.Value.Trim();
-            Bus3 = oForm.Items.Item("Bus3").Specific.Value.Trim();
-
-            // Chk1,Chk2는 안씀
-            
-
-            if (oForm.DataSources.UserDataSources.Item("G5_YN").Value == "Y")
-            {
-                G5_YN = "Y";
-            }
-            else
-            {
-                G5_YN = "N";
-            }
-
-            if (oForm.DataSources.UserDataSources.Item("NoAccdnt").Value == "Y")
-            {
-                NoAccdnt = "Y";
-            }
-            else
-            {
-                NoAccdnt = "N";
-            }
-
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-            PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
-                    
-
-            try
-            {
-                List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
-                List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
-                List<PSH_DataPackClass> dataPackSubReportParameter = new List<PSH_DataPackClass>();
-                List<PSH_DataPackClass> dataPackSubReportFormula = new List<PSH_DataPackClass>();
-
-                //	평일,휴일Check
-                sQry = "Select b.U_DayType From [@PH_PY003A] a INNER JOIN [@PH_PY003B] b ON a.Code = b.Code WHERE a.U_CLTCOD = '" + CLTCOD + "' AND B.U_DATE = '" + DocDate + "'";
-                oRecordSet.DoQuery(sQry);
-
-                if (oRecordSet.Fields.Item("U_DayType").Value.ToString().Trim() != "2")
-                {
-                    // 평일
-                    WinTitle = "[PH_PY560] 일출근현황";
-                    ReportName = "PH_PY560_01.rpt";
-
-                    //Formula
-                    dataPackFormula.Add(new PSH_DataPackClass("@CLTCOD", dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", CLTCOD, "and Code = 'P144' AND U_UseYN= 'Y'"))); //
-                    dataPackFormula.Add(new PSH_DataPackClass("@DocDate", DocDate.Substring(0, 4) + "-" + DocDate.Substring(4, 2) + "-" + DocDate.Substring(6, 2)));
-
-                    //SubReport Formula
-                    dataPackSubReportFormula.Add(new PSH_DataPackClass("@SukS", SukS, "PH_PY560_SUB3"));
-                    dataPackSubReportFormula.Add(new PSH_DataPackClass("@YaS", YaS, "PH_PY560_SUB3"));
-                    dataPackSubReportFormula.Add(new PSH_DataPackClass("@DangJ", DangJ, "PH_PY560_SUB3"));
-                    dataPackSubReportFormula.Add(new PSH_DataPackClass("@Bus1", Bus1, "PH_PY560_SUB3"));
-                    dataPackSubReportFormula.Add(new PSH_DataPackClass("@Bus2", Bus2, "PH_PY560_SUB3"));
-                    dataPackSubReportFormula.Add(new PSH_DataPackClass("@Bus3", Bus3, "PH_PY560_SUB3"));
-
-                    //Parameter
-                    dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD)); //사업장
-                    dataPackParameter.Add(new PSH_DataPackClass("@DocDate", DocDate)); 
-                    dataPackParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode)); 
-                    
-                    //SubReport Parameter
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD, "PH_PY560_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@DocDate", DocDate, "PH_PY560_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY560_SUB1"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD, "PH_PY560_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@DocDate", DocDate, "PH_PY560_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY560_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@G5_YN", G5_YN, "PH_PY560_SUB3"));
-
-                    formHelpClass.CrystalReportOpen(dataPackParameter, dataPackFormula, dataPackSubReportParameter, dataPackSubReportFormula, WinTitle, ReportName);
-                }
-                else
-                {
-                    // 휴일
-                    WinTitle = "[PH_PY560] 일출근현황(휴일)";
-                    if (NoAccdnt == "N")
-                    {
-                        ReportName = "PH_PY560_05.rpt";
-                    }
-                    else
-                    {
-                        ReportName = "PH_PY560_06.rpt";
-                    }
-                
-                    //Formula
-                    dataPackFormula.Add(new PSH_DataPackClass("@CLTCOD", dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", CLTCOD, "and Code = 'P144' AND U_UseYN= 'Y'"))); //
-                    dataPackFormula.Add(new PSH_DataPackClass("@DocDate", DocDate.Substring(0, 4) + "-" + DocDate.Substring(4, 2) + "-" + DocDate.Substring(6, 2)));
-                    dataPackFormula.Add(new PSH_DataPackClass("@JoongS", JoongS));
-                    dataPackFormula.Add(new PSH_DataPackClass("@SukS", SukS));
-                    dataPackFormula.Add(new PSH_DataPackClass("@YaS", YaS));
-                    dataPackFormula.Add(new PSH_DataPackClass("@DangJ", DangJ));
-                    dataPackFormula.Add(new PSH_DataPackClass("@Bus1", Bus1));
-                    dataPackFormula.Add(new PSH_DataPackClass("@Bus2", Bus2));
-                    dataPackFormula.Add(new PSH_DataPackClass("@Bus3", Bus3));
-
-                    //Parameter
-                    dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD)); //사업장
-                    dataPackParameter.Add(new PSH_DataPackClass("@DocDate", DocDate));
-                    dataPackParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode));
-
-                    formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY560_Print_Report01_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
             {

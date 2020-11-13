@@ -12,15 +12,15 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PH_PY776 : PSH_BaseClass
     {
-        public string oFormUniqueID01;
+        private string oFormUniqueID01;
 
         /// <summary>
         /// 화면 호출
         /// </summary>
         public override void LoadForm(string oFormDocEntry01)
         {
-            int i = 0;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
+
             try
             {
                 oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PH_PY776.srf");
@@ -28,7 +28,7 @@ namespace PSH_BOne_AddOn
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
 
-                for (i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
+                for (int i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
                 {
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight")[i - 1].nodeValue = 20;
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
@@ -36,9 +36,6 @@ namespace PSH_BOne_AddOn
 
                 oFormUniqueID01 = "PH_PY776_" + SubMain.Get_TotalFormsCount();
                 SubMain.Add_Forms(this, oFormUniqueID01, "PH_PY776");
-
-                string strXml = string.Empty;
-                strXml = oXmlDoc.xml.ToString();
 
                 PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID01);
@@ -70,8 +67,6 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PH_PY776_CreateItems()
         {
-            string sQry = string.Empty;
-
             try
             {
                 oForm.Freeze(true);
@@ -102,9 +97,10 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면의 아이템 Enable 설정
         /// </summary>
-        public void PH_PY776_FormItemEnabled()
+        private void PH_PY776_FormItemEnabled()
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 oForm.Freeze(true);
@@ -117,6 +113,55 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
+            }
+        }
+
+        /// <summary>
+        /// 리포트 조회
+        /// </summary>
+        [STAThread]
+        private void PH_PY776_Print_Report01()
+        {
+            string WinTitle;
+            string ReportName;
+
+            string CLTCOD;
+            System.DateTime DocDate;
+            string DocDate_P;
+            string MSTCOD;
+
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+
+            try
+            {
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Selected.Value.ToString().Trim();
+                DocDate = DateTime.ParseExact(oForm.Items.Item("DocDate").Specific.Value, "yyyyMMdd", null);
+                DocDate_P = oForm.Items.Item("DocDate").Specific.Value.Trim();
+                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
+
+                WinTitle = "[PH_PY776] 잔여년차현황";
+                ReportName = "PH_PY776_01.rpt";
+
+                List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
+                List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
+
+                dataPackFormula.Add(new PSH_DataPackClass("@CLTCOD", dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", CLTCOD, "and Code = 'P144' AND U_UseYN= 'Y'"))); //년도
+                dataPackFormula.Add(new PSH_DataPackClass("@DocDate", DocDate_P.Substring(0, 4) + "-" + DocDate_P.Substring(4, 2) + "-" + DocDate_P.Substring(6, 2))); //일자
+
+                //Parameter
+                dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD)); //사업장
+                dataPackParameter.Add(new PSH_DataPackClass("@DocDate", DocDate)); // 날짜
+                dataPackParameter.Add(new PSH_DataPackClass("@MSTCOD", MSTCOD)); //사번
+
+                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY776_Print_Report01_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
             }
         }
 
@@ -134,13 +179,13 @@ namespace PSH_BOne_AddOn
                     Raise_EVENT_ITEM_PRESSED(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_KEY_DOWN:                    ////2
+                case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS:                    ////3
+                case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS:                    ////4
+                case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
                     break;
 
                 //case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
@@ -151,13 +196,13 @@ namespace PSH_BOne_AddOn
                 //    Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
                 //    break;
 
-                case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK:                    ////7
+                case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED:                    ////8
+                case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED: //8
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED:                    ////9
+                case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED: //9
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
@@ -168,46 +213,46 @@ namespace PSH_BOne_AddOn
                 //    Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
                 //    break;
 
-                case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD:                    ////12
+                case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD: //12
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_FORM_LOAD:                    ////16
+                case SAPbouiCOM.BoEventTypes.et_FORM_LOAD: //16
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD: //17
                     Raise_EVENT_FORM_UNLOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE:                    ////18
+                case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: //18
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE:                    ////19
+                case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE: //19
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE:                    ////20
+                case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE: //20
                     break;
 
                 //case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
                 //    Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
                 //    break;
 
-                case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN:                    ////22
+                case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT:                    ////23
+                case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
                     break;
 
                 //case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
                 //    Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
                 //    break;
 
-                case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED:                    ////37
+                case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED: //37
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_GRID_SORT:                    ////38
+                case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_Drag:                    ////39
+                case SAPbouiCOM.BoEventTypes.et_Drag: //39
                     break;
             }
         }
@@ -220,8 +265,9 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string sQry = string.Empty;
+            string sQry;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
                 if (pVal.Before_Action == true)
@@ -244,7 +290,6 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-
                 PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_VALIDATE_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 BubbleEvent = false;
             }
@@ -308,56 +353,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_FORM_UNLOAD_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-        }
-
-        /// <summary>
-        /// 리포트 조회
-        /// </summary>
-        [STAThread]
-        private void PH_PY776_Print_Report01()
-        {
-            string WinTitle = string.Empty;
-            string ReportName = string.Empty;
-
-            string CLTCOD = string.Empty;
-            string DocDate_P = string.Empty;
-            System.DateTime DocDate = default(System.DateTime);
-            string MSTCOD = string.Empty;
-
-
-            CLTCOD = oForm.Items.Item("CLTCOD").Specific.Selected.Value.ToString().Trim();
-            DocDate = DateTime.ParseExact(oForm.Items.Item("DocDate").Specific.Value, "yyyyMMdd", null);
-            DocDate_P = oForm.Items.Item("DocDate").Specific.Value.Trim();
-            MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
-
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-            PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
-
-            try
-            {
-                WinTitle = "[PH_PY776] 잔여년차현황";
-                ReportName = "PH_PY776_01.rpt";
-
-                List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
-                List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
-
-                dataPackFormula.Add(new PSH_DataPackClass("@CLTCOD", dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", CLTCOD, "and Code = 'P144' AND U_UseYN= 'Y'"))); //년도
-                dataPackFormula.Add(new PSH_DataPackClass("@DocDate", DocDate_P.Substring(0, 4) + "-" + DocDate_P.Substring(4, 2) + "-" + DocDate_P.Substring(6, 2))); //일자
-
-                //Parameter
-                dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD)); //사업장
-                dataPackParameter.Add(new PSH_DataPackClass("@DocDate", DocDate)); // 날짜
-                dataPackParameter.Add(new PSH_DataPackClass("@MSTCOD", MSTCOD)); //사번
-
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY776_Print_Report01_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
             {

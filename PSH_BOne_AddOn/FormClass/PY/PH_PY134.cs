@@ -340,7 +340,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                if (ProgressBar01 != null);
+                if (ProgressBar01 != null)
                 {
                     ProgressBar01.Stop();
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);

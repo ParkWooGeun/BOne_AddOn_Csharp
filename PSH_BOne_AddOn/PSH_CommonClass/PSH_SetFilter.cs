@@ -467,7 +467,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY678"); //당직근무자 일괄 등록
 
             //급여관리-리포트
-            oFilter.AddEx("PH_PY718"); //생산완료금액대비O/T현황
             oFilter.AddEx("PH_PY701"); //급여지급대장 (노조용)
 
             //정산관리
@@ -1033,7 +1032,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY716"); //기간별급여부서별집계대장
 			oFilter.AddEx("PH_PY721"); //기간별상여부서별집계대장
 			oFilter.AddEx("PH_PY717"); //기간별급여반별집계대장
-			oFilter.AddEx("PH_PY718"); //생산완료금액대비O/T현황
 			oFilter.AddEx("PH_PY701"); //급여지급대장 (노조용)
 			oFilter.AddEx("PH_PYA10"); //급여지급대장(부서)
 			oFilter.AddEx("PH_PYA20"); //급여부서별집계대장(부서)
@@ -1515,7 +1513,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY522"); //임금피크대상자현황
 			oFilter.AddEx("PH_PY523"); //임금피크대상자월별차수현황
 			oFilter.AddEx("PH_PY524"); //퇴직금 중간 정산내역
-			oFilter.AddEx("PH_PY683"); //교대근무인정현황
 			oFilter.AddEx("PH_PYA65"); //년차현황 (집계)
 			oFilter.AddEx("PH_PY583"); //개인별 근태집계 조회
 
@@ -1555,14 +1552,9 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY630"); //사원별노조비공제현황
 			oFilter.AddEx("PH_PY700"); //급여지급대장
 			oFilter.AddEx("PH_PY710"); //상여지급대장
-			oFilter.AddEx("PH_PY715"); //급여부서별집계대장
-			oFilter.AddEx("PH_PY720"); //상여부서별집계대장
-			oFilter.AddEx("PH_PY725"); //급여직급별집계대장
-			oFilter.AddEx("PH_PY740"); //상여직급별집계대장
 			oFilter.AddEx("PH_PY730"); //급여봉투출력
 			oFilter.AddEx("PH_PY735"); //상여봉투출력
 			oFilter.AddEx("PH_PY745"); //연간지급현황
-			oFilter.AddEx("PH_PY750"); //근로소득징수현황
 			oFilter.AddEx("PH_PY755"); //동호회가입현황
 			oFilter.AddEx("PH_PY760"); //평균임금및퇴직금산출내역서
 			oFilter.AddEx("PH_PY765"); //급여증감내역서

@@ -321,7 +321,6 @@ namespace PSH_BOne_AddOn
         private bool PH_PY135_DataValidCheck()
         {
             bool functionReturnValue = false;
-            int i;
             short errCode = 0;
 
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);

@@ -501,7 +501,6 @@ namespace PSH_BOne_AddOn
                 {
                     oDocDate = string.Format("yyyy-MM-dd", oDocDate);
                 }
-                ///분개장문서
 
                 PSH_Globals.oCompany.StartTransaction();
                 var _with1 = f_oJournalEntries;

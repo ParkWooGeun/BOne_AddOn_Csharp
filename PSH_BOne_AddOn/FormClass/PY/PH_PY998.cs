@@ -9,15 +9,12 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PH_PY998 : PSH_BaseClass
     {
-        public string oFormUniqueID01;
-        
-        public SAPbouiCOM.Matrix oMat01;
-        public SAPbouiCOM.DBDataSource oDS_PH_PY998B;
-
+        private string oFormUniqueID01;
+        private SAPbouiCOM.Matrix oMat01;
+        private SAPbouiCOM.DBDataSource oDS_PH_PY998B;
         private string oLastItemUID;
         private string oLastColUID;
         private int oLastColRow;
-
         private string cSuperUserYN; //최초 화면이 실행 될때 Superuser 여부 저장
 
         /// <summary>
@@ -25,8 +22,8 @@ namespace PSH_BOne_AddOn
         /// </summary>
         public override void LoadForm(string oFormDocEntry01)
         {
-            int i = 0;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
+
             try
             {
                 oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PH_PY998.srf");
@@ -34,7 +31,7 @@ namespace PSH_BOne_AddOn
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
 
-                for (i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
+                for (int i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
                 {
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight")[i - 1].nodeValue = 20;
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
@@ -42,9 +39,6 @@ namespace PSH_BOne_AddOn
 
                 oFormUniqueID01 = "PH_PY998_" + SubMain.Get_TotalFormsCount();
                 SubMain.Add_Forms(this, oFormUniqueID01, "PH_PY998");
-
-                string strXml = string.Empty;
-                strXml = oXmlDoc.xml.ToString();
 
                 PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID01);
@@ -55,9 +49,6 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY998_CreateItems();
                 PH_PY998_ComboBox_Setting();
-                PH_PY998_FormItemEnabled();
-                PH_PY998_EnableMenus();
-                //PH_PY998_GetSuperUser(); //Superuser 여부 저장
             }
             catch (Exception ex)
             {
@@ -153,73 +144,17 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// PH_PY998_EnableMenus
-        /// </summary>
-        private void PH_PY998_EnableMenus()
-        {
-            try
-            {
-                //oForm.EnableMenu("1283", false); // 제거
-                //oForm.EnableMenu("1284", false); // 취소
-                //oForm.EnableMenu("1293", false); // 행삭제
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-        }
-
-        /// <summary>
-        /// 화면의 아이템 Enable 설정
-        /// </summary>
-        private void PH_PY998_FormItemEnabled()
-        {
-            try
-            {
-                oForm.Freeze(true);
-
-                //if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-                //{
-                //    oForm.EnableMenu("1281", false);      // 문서찾기
-                //    oForm.EnableMenu("1282", true);       // 문서추가
-                //    // 접속자에 따른 권한별 사업장 콤보박스세팅
-                //}
-                //else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
-                //{
-                //    oForm.EnableMenu("1281", false);      // 문서찾기
-                //    oForm.EnableMenu("1282", true);       // 문서추가
-                //}
-                //else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-                //{
-                //    oForm.EnableMenu("1281", true);       // 문서찾기
-                //    oForm.EnableMenu("1282", true);       // 문서추가
-                //}
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-                oForm.Freeze(false);
-            }
-        }
-
-        /// <summary>
         /// System Form 권한 조회(원본)
         /// </summary>
         private void PH_PY998_SelectSystemFormPermisson()
         {
-            string sQry = string.Empty;
+            string sQry;
             string permName = string.Empty;
 
             SAPbobsCOM.SBObob oSBObob = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoBridge);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset); //사용자ID 조회용
             SAPbobsCOM.Recordset oRecordSet02 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset); //GetSystemPermission 저장용
-            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet01.RecordCount, false);
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
             try
             {
@@ -237,8 +172,8 @@ namespace PSH_BOne_AddOn
                 string perm = oForm.Items.Item("Perm").Specific.Selected.Value.ToString().Trim();
                 string userCode = oForm.Items.Item("UserCode").Specific.Value.ToString().Trim();
 
-                sQry = "      EXEC PH_PY998_01 '";
-                sQry = sQry + userCode + "'";
+                sQry = "EXEC PH_PY998_01 '";
+                sQry += userCode + "'";
                 oRecordSet01.DoQuery(sQry);
 
                 oMat01.Clear();
@@ -323,7 +258,7 @@ namespace PSH_BOne_AddOn
                     oDS_PH_PY998B.SetValue("U_ColReg05", loopCount, userTable.Rows[loopCount]["TeamName"].ToString()); //소속부서
                     oDS_PH_PY998B.SetValue("U_ColReg06", loopCount, userTable.Rows[loopCount]["Perm"].ToString()); //권한
 
-                    ProgBar01.Value = ProgBar01.Value + 1;
+                    ProgBar01.Value += 1;
                     ProgBar01.Text = "조회중...!";
                 }
 
@@ -353,7 +288,7 @@ namespace PSH_BOne_AddOn
         private void PH_PY998_ChangeSuperUser()
         {
             SAPbobsCOM.Users oUser = null;
-            string lSuperUserYN = string.Empty; //메소드가 호출되는 시점의 Superuser여부를 저장할 지역변수
+            string lSuperUserYN; //메소드가 호출되는 시점의 Superuser여부를 저장할 지역변수
 
             int errCode = 0;
             int errNum = 0;
@@ -364,7 +299,6 @@ namespace PSH_BOne_AddOn
                 oUser = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oUsers);
 
                 if (oUser.GetByKey(PSH_Globals.oCompany.UserSignature))
-                //if (oUser.GetByKey(105))
                 {
                     int userSign = PSH_Globals.oCompany.UserSignature;
 
@@ -422,7 +356,6 @@ namespace PSH_BOne_AddOn
                 oUser = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oUsers);
 
                 if (oUser.GetByKey(PSH_Globals.oCompany.UserSignature))
-                //if (oUser.GetByKey(105))
                 {
                     cSuperUserYN = oUser.Superuser.ToString(); //최초 Superuser 여부를 클래스전역변수에 저장
                 }
@@ -445,11 +378,10 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PH_PY998_SelectAddOnFormPermisson()
         {
-            string sQry = string.Empty;
-            string permName = string.Empty;
+            string sQry;
 
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset); //사용자ID 조회용
-            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet01.RecordCount, false);
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
             try
             {
@@ -458,9 +390,9 @@ namespace PSH_BOne_AddOn
                 string permID = oForm.Items.Item("PermID").Specific.Value.ToString().Trim();
                 string userCode = oForm.Items.Item("UserCode").Specific.Value.ToString().Trim();
 
-                sQry = "      EXEC PH_PY998_02 '";
-                sQry = sQry + permID + "','";
-                sQry = sQry + userCode + "'";
+                sQry = "EXEC PH_PY998_02 '";
+                sQry += permID + "','";
+                sQry += userCode + "'";
                 oRecordSet01.DoQuery(sQry);
 
                 oMat01.Clear();
@@ -487,7 +419,7 @@ namespace PSH_BOne_AddOn
                     oDS_PH_PY998B.SetValue("U_ColReg05", loopCount, oRecordSet01.Fields.Item("TeamName").Value.ToString().Trim()); //소속부서
                     oDS_PH_PY998B.SetValue("U_ColReg06", loopCount, oRecordSet01.Fields.Item("Perm").Value.ToString().Trim()); //권한
 
-                    ProgBar01.Value = ProgBar01.Value + 1;
+                    ProgBar01.Value += 1;
                     ProgBar01.Text = "조회중...!";
 
                     oRecordSet01.MoveNext();
@@ -516,7 +448,7 @@ namespace PSH_BOne_AddOn
         /// <returns>True:필수입력사항을 모두 입력, Fasle:필수입력사항 중 하나라도 입력하지 않았음</returns>
         private bool PH_PY998_DataValidCheck()
         {
-            bool functionReturnValue = true;
+            bool functionReturnValue = false;
             int errNum = 0;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -527,6 +459,8 @@ namespace PSH_BOne_AddOn
                     errNum = 1;
                     throw new Exception();
                 }
+
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
@@ -539,8 +473,6 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
-
-                functionReturnValue = false;
             }
             finally
             {
@@ -630,7 +562,7 @@ namespace PSH_BOne_AddOn
                 //    break;
 
                 case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
-                    Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_CLICK: //6
@@ -727,9 +659,7 @@ namespace PSH_BOne_AddOn
 
                         if (oForm.Items.Item("PGClass").Specific.Selected.Value == "1")
                         {
-                            //this.PH_PY998_ChangeSuperUser(); //Superuser 설정 변경
                             this.PH_PY998_SelectSystemFormPermisson();
-                            //this.PH_PY998_ChangeSuperUser(); //Superuser 설정 변경
                         }
                         else
                         {
@@ -824,36 +754,6 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// COMBO_SELECT 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_COMBO_SELECT(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            try
-            {
-                oForm.Freeze(true);
-
-                if (pVal.BeforeAction == true)
-                {
-                }
-                else if (pVal.BeforeAction == false)
-                {
-                }
-                PH_PY998_FormItemEnabled();
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-                oForm.Freeze(false);
-            }
-        }
-
-        /// <summary>
         /// KEY_DOWN 이벤트
         /// </summary>
         /// <param name="FormUID">Form UID</param>
@@ -891,7 +791,7 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string query = string.Empty;
+            string query;
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -1028,7 +928,6 @@ namespace PSH_BOne_AddOn
                         case "1289":
                         case "1290":
                         case "1291":
-                            PH_PY998_FormItemEnabled();
                             break;
                     }
                 }
@@ -1044,10 +943,7 @@ namespace PSH_BOne_AddOn
                             break;
                         case "1286":
                             break;
-                        //Case "1293":
-                        //  Raise_EVENT_ROW_DELETE(FormUID, pval, BubbleEvent);
                         case "1281": //문서찾기
-                            PH_PY998_FormItemEnabled();
                             break;
                         case "1282": //문서추가
                             break;

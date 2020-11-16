@@ -87,11 +87,11 @@ namespace PSH_BOne_AddOn
 
                 oForm.Items.Item("Rad02").Specific.ValOn = "20";
                 oForm.Items.Item("Rad02").Specific.ValOff = "0";
-                oForm.Items.Item("Rad02").Specific.GroupWith(("Rad01"));
+                oForm.Items.Item("Rad02").Specific.GroupWith("Rad01");
 
                 oForm.Items.Item("Rad03").Specific.ValOn = "30";
                 oForm.Items.Item("Rad03").Specific.ValOff = "0";
-                oForm.Items.Item("Rad03").Specific.GroupWith(("Rad02"));
+                oForm.Items.Item("Rad03").Specific.GroupWith("Rad02");
             }
             catch (Exception ex)
             {

@@ -15,17 +15,7 @@ namespace PSH_BOne_AddOn
         private SAPbouiCOM.DBDataSource oDS_PH_PY009B;
         private string oLastItemUID;
         private string oLastColUID;
-
         private int oLastColRow;
-
-        ///// <summary>
-        ///// 생성자
-        ///// </summary>
-        //public PH_PY009()
-        //{
-        //    this.EVENT_ITEM_PRESSED = true;
-        //    this.FORM_UID = "PH_PY009";
-        //}
 
         /// <summary>
         /// Form 호출

@@ -307,7 +307,7 @@ namespace PSH_BOne_AddOn
                 BPLID = oForm.Items.Item("BPLID").Specific.Selected.Value;
                 StdYear = oForm.Items.Item("StdYear").Specific.Value;
 
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", RecordSet01.RecordCount, false);
+                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
                 oForm.Freeze(true);
 

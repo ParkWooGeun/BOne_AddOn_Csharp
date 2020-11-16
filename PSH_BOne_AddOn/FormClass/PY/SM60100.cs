@@ -113,67 +113,51 @@ namespace PSH_BOne_AddOn
             {
                 switch (pVal.EventType)
                 {
-                    case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED:
-                        ////1
+                    case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED: //1
                         if (pVal.Before_Action == false)
                         {
                         }
                         break;
 
-                    case SAPbouiCOM.BoEventTypes.et_KEY_DOWN:
-                        ////2
+                    case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
                         break;
 
-                    case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS:
-                        ////3
+                    case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
                         break;
-                    //// 종료, 취소 막음
-
-                    case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS:
-                        ////4
+                    
+                    case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
                         break;
 
-                    case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT:
-                        ////5
+                    case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
                         if (pVal.Before_Action == false)
                         {
                         }
                         break;
-                    case SAPbouiCOM.BoEventTypes.et_CLICK:
-                        ////6
+                    case SAPbouiCOM.BoEventTypes.et_CLICK: //6
                         break;
-                    //// 종료, 취소 막음
-
-                    case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK:
-                        ////7
+                    
+                    case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
                         break;
 
-                    case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED:
-                        ////8
+                    case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED: //8
                         break;
 
-                    case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED:
-                        ////9
+                    case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED: //9
                         break;
 
-                    case SAPbouiCOM.BoEventTypes.et_VALIDATE:
-                        ////10
+                    case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
                         break;
 
-                    case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD:
-                        ////11
+                    case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
                         break;
 
-                    case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD:
-                        ////12
+                    case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD: //12
                         break;
 
-                    case SAPbouiCOM.BoEventTypes.et_FORM_LOAD:
-                        ////16
+                    case SAPbouiCOM.BoEventTypes.et_FORM_LOAD: //16
                         break;
 
-                    case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD:
-                        ////17
+                    case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD: //17
                         if (pVal.BeforeAction == true)
                         {
                         }
@@ -184,44 +168,34 @@ namespace PSH_BOne_AddOn
                         }
                         break;
 
-                    case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE:
-                        ////18
+                    case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: //18
                         break;
 
-                    case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE:
-                        ////19
+                    case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE: //19
                         break;
 
-                    case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE:
-                        ////20
+                    case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE: //20
                         break;
 
-                    case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE:
-                        ////21
+                    case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
                         break;
 
-                    case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN:
-                        ////22
+                    case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
                         break;
 
-                    case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT:
-                        ////23
+                    case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
                         break;
 
-                    case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST:
-                        ////27
+                    case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
                         break;
 
-                    case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED:
-                        ////37
+                    case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED: //37
                         break;
 
-                    case SAPbouiCOM.BoEventTypes.et_GRID_SORT:
-                        ////38
+                    case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
                         break;
 
-                    case SAPbouiCOM.BoEventTypes.et_Drag:
-                        ////39
+                    case SAPbouiCOM.BoEventTypes.et_Drag: //39
                         break;
                 }
             }
@@ -298,43 +272,35 @@ namespace PSH_BOne_AddOn
         {
             try
             {
-                if ((BusinessObjectInfo.BeforeAction == true))
+                if (BusinessObjectInfo.BeforeAction == true)
                 {
                     switch (BusinessObjectInfo.EventType)
                     {
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:
-                            ////33
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
                             break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:
-                            ////34
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
                             break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:
-                            ////35
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
                             break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:
-                            ////36
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
                             break;
                     }
                 }
-                else if ((BusinessObjectInfo.BeforeAction == false))
+                else if (BusinessObjectInfo.BeforeAction == false)
                 {
                     switch (BusinessObjectInfo.EventType)
                     {
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:
-                            ////33
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
                             if (oForm.Items.Item("SOTYPE").Specific.Value == "2")
                             {
                                 SM60100_CreateItems();
                             }
                             break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:
-                            ////34
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
                             break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:
-                            ////35
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
                             break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:
-                            ////36
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
                             break;
                     }
                 }
@@ -360,17 +326,6 @@ namespace PSH_BOne_AddOn
                     {
                         case SAPbouiCOM.BoEventTypes.et_RIGHT_CLICK:
                             break;
-                            //            If Left$(pVal.ItemUID, 3) = "CMB" Or Left$(pVal.ItemUID, 3) = "EDT" Then
-                            //                oForm.ActiveItem = "16"
-                            //                BubbleEvent = False
-                            //                Exit Sub
-                            //            ElseIf pVal.ItemUID = "38" Then
-                            //                If GF_Nz(GF_DLookup("SUM(U_INGQTY)", "POR1", " DOCENTRY = " & Trim$(oForm.Items("8").Specific.String))) > 0 Then
-                            //                    oForm.ActiveItem = "16"
-                            //                    BubbleEvent = False
-                            //                    Exit Sub
-                            //                End If
-                            //            End If
                     }
                 }
                 else
@@ -379,10 +334,6 @@ namespace PSH_BOne_AddOn
                     {
                         case SAPbouiCOM.BoEventTypes.et_RIGHT_CLICK:
                             break;
-                            //            If Left$(pVal.ItemUID, 3) = "CMB" Or Left$(pVal.ItemUID, 3) = "EDT" Then
-                            //                BubbleEvent = False
-                            //                Exit Sub
-                            //            End If
                     }
                 }
             }

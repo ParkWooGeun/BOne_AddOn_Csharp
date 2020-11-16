@@ -283,7 +283,7 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet.RecordCount, false);
+                SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
                 for (i = 0; i <= oRecordSet.RecordCount - 1; i++)
                 {

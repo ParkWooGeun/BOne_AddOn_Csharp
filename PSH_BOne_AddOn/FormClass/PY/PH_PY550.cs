@@ -92,9 +92,9 @@ namespace PSH_BOne_AddOn
             }
         }
 
-        ///// <summary>
-        ///// 화면의 아이템 Enable 설정
-        ///// </summary>
+        /// <summary>
+        /// 화면의 아이템 Enable 설정
+        /// </summary>
         private void PH_PY550_FormItemEnabled()
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();

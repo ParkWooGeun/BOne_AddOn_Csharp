@@ -1,5 +1,4 @@
 using System;
-
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 
@@ -10,12 +9,9 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PH_PY999 : PSH_BaseClass
     {
-        public string oFormUniqueID01;
-
-        //'// 그리드 사용시
-        public SAPbouiCOM.Grid oGrid1;
-        public SAPbouiCOM.DataTable oDS_PH_PY999A;
-
+        private string oFormUniqueID01;
+        private SAPbouiCOM.Grid oGrid1;
+        private SAPbouiCOM.DataTable oDS_PH_PY999A;
         private string oLastItemUID;
         private string oLastColUID;
         private int oLastColRow;
@@ -25,8 +21,8 @@ namespace PSH_BOne_AddOn
         /// </summary>
         public override void LoadForm(string oFormDocEntry01)
         {
-            int i = 0;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
+
             try
             {
                 oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PH_PY999.srf");
@@ -34,7 +30,7 @@ namespace PSH_BOne_AddOn
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
 
-                for (i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
+                for (int i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
                 {
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight")[i - 1].nodeValue = 20;
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
@@ -43,15 +39,11 @@ namespace PSH_BOne_AddOn
                 oFormUniqueID01 = "PH_PY999_" + SubMain.Get_TotalFormsCount();
                 SubMain.Add_Forms(this, oFormUniqueID01, "PH_PY999");
 
-                string strXml = string.Empty;
-                strXml = oXmlDoc.xml.ToString();
-
                 PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID01);
 
                 oForm.SupportedModes = -1;
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
-
 
                 oForm.Freeze(true);
                 PH_PY999_CreateItems();
@@ -66,8 +58,7 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Update();
                 oForm.Freeze(false);
-         //       oForm.Visible = true;
-         //       oForm.ActiveItem = "CLTCOD"; //사업장 콤보박스로 포커싱
+                //oForm.Visible = true;
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oXmlDoc); //메모리 해제
             }
         }
@@ -77,7 +68,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PH_PY999_CreateItems()
         {
-            string sQry = string.Empty;
+            string sQry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
@@ -100,17 +91,6 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("pFSGubun").Specific.ValidValues.Add("S", "화면");
                 oForm.Items.Item("pFSGubun").Specific.ValidValues.Add("C", "복제");
                 oForm.Items.Item("pFSGubun").DisplayDesc = true;
-
-                ////복제 YN
-                //oForm.Items.Item("CopyYN").Specific.ValOff = "N";
-                //oForm.Items.Item("CopyYN").Specific.ValOn = "Y";
-
-                //// 급여변동자료적용
-                //oForm.DataSources.UserDataSources.Add("CopyYN", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
-                //oForm.Items.Item("CopyYN").Specific.ValOn = "Y";
-                //oForm.Items.Item("CopyYN").Specific.ValOff = "N";
-                //oForm.Items.Item("CopyYN").Specific.DataBind.SetBound(true, "", "CopyYN");
-                //oForm.DataSources.UserDataSources.Item("CopyYN").Value = "N";
 
                 // 순서
                 sQry = "select U_Minor , U_CdName from [@PS_SY001L] where code ='A006'";
@@ -178,9 +158,9 @@ namespace PSH_BOne_AddOn
         {
             try
             {
-                oForm.EnableMenu("1283", false);                // 제거
-                oForm.EnableMenu("1284", false);                // 취소
-                oForm.EnableMenu("1293", false);                // 행삭제
+                oForm.EnableMenu("1283", false); // 제거
+                oForm.EnableMenu("1284", false); // 취소
+                oForm.EnableMenu("1293", false); // 행삭제
             }
             catch (Exception ex)
             {
@@ -196,13 +176,11 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PH_PY999_FormItemEnabled()
         {
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
             try
             {
                 oForm.Freeze(true);
 
-                if ((oForm.Items.Item("pFSGubun").Specific.Value == "F"))
+                if (oForm.Items.Item("pFSGubun").Specific.Value == "F")
                 {
                     oForm.Items.Item("pUserID").Enabled = false;
                     oForm.Items.Item("CPUserID").Enabled = false;
@@ -222,10 +200,9 @@ namespace PSH_BOne_AddOn
 
                     oForm.Items.Item("Btn_Find").Enabled = true;
                     oForm.Items.Item("Bt_Copy").Enabled = false;
-
                 }
 
-                if ((oForm.Items.Item("pFSGubun").Specific.Value == "S"))
+                if (oForm.Items.Item("pFSGubun").Specific.Value == "S")
                 {
                     oForm.Items.Item("pUserID").Enabled = true;
                     oForm.Items.Item("CPUserID").Enabled = false;
@@ -245,9 +222,9 @@ namespace PSH_BOne_AddOn
 
                     oForm.Items.Item("Btn_Find").Enabled = true;
                     oForm.Items.Item("Bt_Copy").Enabled = false;
-
                 }
-                if ((oForm.Items.Item("pFSGubun").Specific.Value == "C"))
+
+                if (oForm.Items.Item("pFSGubun").Specific.Value == "C")
                 {
                     oForm.Items.Item("CPUserID").Enabled = true;
                     oForm.Items.Item("pUserID").Enabled = true;
@@ -271,21 +248,19 @@ namespace PSH_BOne_AddOn
 
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
-                    oForm.EnableMenu("1281", false);      // 문서찾기
-                    oForm.EnableMenu("1282", true);       // 문서추가
-                    // 접속자에 따른 권한별 사업장 콤보박스세팅
+                    oForm.EnableMenu("1281", false); // 문서찾기
+                    oForm.EnableMenu("1282", true); // 문서추가
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
-                    oForm.EnableMenu("1281", false);      // 문서찾기
-                    oForm.EnableMenu("1282", true);       // 문서추가
+                    oForm.EnableMenu("1281", true); // 문서찾기
+                    oForm.EnableMenu("1282", false); // 문서추가
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
-                    oForm.EnableMenu("1281", true);       // 문서찾기
-                    oForm.EnableMenu("1282", true);       // 문서추가
+                    oForm.EnableMenu("1281", true); // 문서찾기
+                    oForm.EnableMenu("1282", true); // 문서추가
                 }
-                // Key set
             }
             catch (Exception ex)
             {
@@ -325,6 +300,374 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+            }
+        }
+
+        /// <summary>
+        /// PH_PY999_MTX01
+        /// </summary>
+        private void PH_PY999_MTX01()
+        {
+            int iRow;
+            int ErrNum = 0;
+            string sQry;
+            string Param01;
+            string Param02;
+            string Param03;
+
+            try
+            {
+                oForm.Freeze(true);
+
+                Param01 = oForm.Items.Item("pGubun").Specific.Value.ToString().Trim();
+                Param02 = oForm.Items.Item("pFSGubun").Specific.Value.ToString().Trim();
+                Param03 = oForm.Items.Item("pUserID").Specific.Value.ToString().Trim();
+
+                if (string.IsNullOrEmpty(Param01.ToString().Trim()))
+                {
+                    ErrNum = 1;
+                    throw new Exception();
+                }
+
+                if (Param02 == "S")
+                {
+                    if (string.IsNullOrEmpty(Param03.ToString().Trim()))
+                    {
+                        ErrNum = 2;
+                        throw new Exception();
+                    }
+                }
+
+                sQry = "EXEC PH_PY999_01 '" + Param01 + "', '" + Param02 + "', '" + Param03 + "'";
+                oDS_PH_PY999A.ExecuteQuery(sQry);
+                iRow = oForm.DataSources.DataTables.Item(0).Rows.Count;
+            }
+            catch (Exception ex)
+            {
+                if (ErrNum == 1)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("구분이 없습니다. 확인바랍니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+                else if (ErrNum == 2)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("USERID가 없습니다. 확인바랍니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY999_MTX01_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+            }
+            finally
+            {
+                oForm.Freeze(false);
+            }
+        }
+
+        /// <summary>
+        /// PH_PY999_MTX02
+        /// </summary>
+        private void PH_PY999_MTX02(string oUID, int oRow, string oCol)
+        {
+            int sRow;
+            int ErrNum = 0;
+            string sQry;
+            string Param01;
+            string Param02;
+            string Param03 = string.Empty;
+
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                oForm.Freeze(true);
+
+                sRow = oRow;
+                Param01 = oForm.Items.Item("pFSGubun").Specific.Value.ToString().Trim();
+                Param02 = oDS_PH_PY999A.Columns.Item("UniqueID").Cells.Item(oRow).Value;
+                if (Param01 != "F")
+                {
+                    Param03 = oDS_PH_PY999A.Columns.Item("UserID").Cells.Item(oRow).Value;
+                }
+                sQry = "EXEC PH_PY999_02 '" + Param01 + "', '" + Param02 + "', '" + Param03 + "'";
+                oRecordSet.DoQuery(sQry);
+
+                if (oRecordSet.RecordCount == 0)
+                {
+                    ErrNum = 1;
+                    throw new Exception();
+                }
+
+                // Screen일때 UserID를 가져옴.
+                if (Param01 != "F")
+                {
+                    oForm.Items.Item("UserID").Specific.value = oRecordSet.Fields.Item("UserID").Value;
+                }
+                // Folder일때 Level을 가져옴.
+                if (Param01 != "S")
+                {
+                    oForm.Items.Item("Level").Specific.Select(oRecordSet.Fields.Item("Level").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
+                }
+
+                //공통 S
+                oForm.Items.Item("Modual").Specific.Select(oRecordSet.Fields.Item("Modual").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
+                oForm.Items.Item("Sub1").Specific.Select(oRecordSet.Fields.Item("Sub1").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
+                oForm.Items.Item("Sub2").Specific.Select(oRecordSet.Fields.Item("Sub2").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
+                oForm.Items.Item("Sub3").Specific.Select(oRecordSet.Fields.Item("Sub3").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
+                oForm.Items.Item("No").Specific.Select(oRecordSet.Fields.Item("No").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
+                oForm.Items.Item("Position").Specific.Select(oRecordSet.Fields.Item("Position").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
+                oForm.Items.Item("FatherID").Specific.Select(oRecordSet.Fields.Item("FatherID").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
+                oForm.DataSources.UserDataSources.Item("Strings").Value = oRecordSet.Fields.Item("Strings").Value;
+                oForm.DataSources.UserDataSources.Item("UniqueId").Value = oRecordSet.Fields.Item("UniqueID").Value;
+                oForm.Items.Item("Sequence").Specific.Value = oRecordSet.Fields.Item("Sequence").Value;
+            }
+            catch (Exception ex)
+            {
+                if (ErrNum == 1)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("결과가 존재하지 않습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY999_MTX02_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+                oForm.Freeze(false);
+            }
+        }
+
+        /// <summary>
+        /// PH_PY999_SAVE
+        /// </summary>
+        private void PH_PY999_SAVE(int oRow)
+        {
+            // 데이타 저장
+            int ErrNum = 0;
+            string sQry;
+            string pGubun;
+            string pFSGubun;
+            string pUserID;
+            string Modual;
+            string Sub1;
+            string Sub2;
+            string Sub3;
+            string UserID;
+            string No;
+            string Level;
+            string FatherID;
+            string Position;
+            string Strings_Renamed;
+            string UniqueID;
+            string pUniqueID;
+            string Sequence;
+
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                oForm.Freeze(true);
+                sQry = "select UniqueID, Seq  from Authority_Screen where UserID ='";
+                sQry = sQry + oForm.Items.Item("UserID").Specific.Value + "'";
+                oRecordSet.DoQuery(sQry);
+
+                for (int i = 0; i <= oRecordSet.RecordCount - 1; i++)
+                {
+                    if (oRecordSet.Fields.Item(0).Value == oForm.Items.Item("UniqueID").Specific.Value.ToString().Trim())
+                    {
+                        ErrNum = 1;
+                        throw new Exception();
+                    }
+                    if (oRecordSet.Fields.Item(1).Value == oForm.Items.Item("Sequence").Specific.Value.ToString().Trim())
+                    {
+                        ErrNum = 1;
+                        throw new Exception();
+                    }
+                    oRecordSet.MoveNext();
+                }
+
+                if (PSH_Globals.SBO_Application.MessageBox("데이터 입력하시겠습니까?", 2, "Yes", "No") == 2)
+                {
+                    ErrNum = 2;
+                    throw new Exception();
+                }
+
+                pGubun = oForm.Items.Item("pGubun").Specific.Value.ToString().Trim();
+                pFSGubun = oForm.Items.Item("pFSGubun").Specific.Value.ToString().Trim();
+                pUserID = oForm.Items.Item("pUserID").Specific.Value.ToString().Trim();
+                Modual = oForm.Items.Item("Modual").Specific.Value.ToString().Trim();
+                Sub1 = oForm.Items.Item("Sub1").Specific.Value.ToString().Trim();
+                Sub2 = oForm.Items.Item("Sub2").Specific.Value.ToString().Trim();
+                Sub3 = oForm.Items.Item("Sub3").Specific.Value.ToString().Trim();
+                UserID = oForm.Items.Item("UserID").Specific.Value.ToString().Trim();
+                No = oForm.Items.Item("No").Specific.Value.ToString().Trim();
+                Level = oForm.Items.Item("Level").Specific.Value.ToString().Trim();
+                FatherID = oForm.Items.Item("FatherID").Specific.Value.ToString().Trim();
+                Position = oForm.Items.Item("Position").Specific.Value.ToString().Trim();
+                Strings_Renamed = oForm.Items.Item("Strings").Specific.Value.ToString().Trim();
+                UniqueID = oForm.Items.Item("UniqueID").Specific.Value.ToString().Trim();
+                Sequence = oForm.Items.Item("Sequence").Specific.Value.ToString().Trim();
+                pUniqueID = oForm.Items.Item("UniqueID").Specific.Value.ToString().Trim();
+
+                sQry = "EXEC PH_PY999_03 '" + pFSGubun + "', '" + pUserID + "', '" + pUniqueID + "', '";
+                sQry += Sequence + "', '" + UniqueID + "', '" + UserID + "', '" + FatherID + "', '" + Strings_Renamed + "', '";
+                sQry += Position + "', '" + Level + "', '" + No + "', '" + pGubun + "', '";
+                sQry += PSH_Globals.oCompany.UserName + "'";
+                oDS_PH_PY999A.ExecuteQuery(sQry);
+
+                PSH_Globals.SBO_Application.StatusBar.SetText("입력완료", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
+                PH_PY999_MTX01();
+            }
+            catch (Exception ex)
+            {
+                if (ErrNum == 1)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("이미 저장된 값이 있습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+                if (ErrNum == 2)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("입력되지 않았습니다..", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY999_SAVE_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+            }
+            finally
+            {
+                oForm.Freeze(false);
+            }
+        }
+
+        /// <summary>
+        /// PH_PY999_Delete
+        /// </summary>
+        private void PH_PY999_Delete()
+        {
+            // 데이타 삭제
+            string sQry;
+            int ErrNum = 0;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                oForm.Freeze(true);
+
+                if (PSH_Globals.SBO_Application.MessageBox("삭제하시겠습니까?", 2, "Yes", "No") == 2)
+                {
+                    ErrNum = 1;
+                    throw new Exception();
+                }
+
+                if (oForm.Items.Item("pFSGubun").Specific.Value == "F")
+                {
+                    sQry = "  delete";
+                    sQry += " from    Authority_Folder";
+                    sQry += " where   UniqueID = '" + oForm.Items.Item("UniqueID").Specific.Value + "'";
+                }
+                else
+                {
+                    sQry = "  delete";
+                    sQry += " from    Authority_Screen";
+                    sQry += " where   UniqueID = '" + oForm.Items.Item("UniqueID").Specific.Value + "'";
+                    sQry += "         AND UserID = '" + oForm.Items.Item("pUserID").Specific.Value + "'";
+                }
+                oRecordSet.DoQuery(sQry);
+                PH_PY999_MTX01();
+            }
+            catch (Exception ex)
+            {
+                if (ErrNum == 1)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("취소되었습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY999_Delete_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+                oForm.Freeze(false);
+            }
+        }
+
+        /// <summary>
+        /// PH_PY999_Copy
+        /// </summary>
+        private void PH_PY999_Copy()
+        {
+            // 데이타 삭제
+            string sQry;
+            string pUserID;
+            string CPUserID;
+            int ErrNo = 0;
+
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                pUserID = oForm.Items.Item("pUserID").Specific.Value.ToString().Trim();
+                CPUserID = oForm.Items.Item("CPUserID").Specific.Value.ToString().Trim();
+
+                oForm.Freeze(true);
+
+                sQry = "select count(1) from Authority_Screen where UserID ='" + CPUserID + "'";
+                oRecordSet.DoQuery(sQry);
+
+                if (oRecordSet.RecordCount <= 0)
+                {
+                    ErrNo = 1;
+                    throw new Exception();
+                }
+                if (pUserID == "" || CPUserID == "")
+                {
+                    ErrNo = 2;
+                    throw new Exception();
+                }
+                else
+                {
+                    sQry = "delete from Authority_Screen where UniqueID ='" + oForm.Items.Item("UniqueID").Specific.Value + "'";
+                }
+
+                sQry = "Insert into Authority_Screen";
+                sQry += " select '" + CPUserID + "'";
+                sQry += ", FatherID";
+                sQry += ", String";
+                sQry += ", UniqueID";
+                sQry += ", Position";
+                sQry += ", Type";
+                sQry += ", Seq";
+                sQry += ", Gubun";
+                sQry += ", 'Y'";
+                sQry += ", GETDATE()";
+                sQry += ", '" + PSH_Globals.oCompany.UserName + "'";
+                sQry += "  from Authority_Screen";
+                sQry += "  where UserID ='" + pUserID + "'";
+
+                oRecordSet.DoQuery(sQry);
+            }
+            catch (Exception ex)
+            {
+                if (ErrNo == 1)
+                {
+                    PSH_Globals.SBO_Application.MessageBox("복제 계정에 권한이 있습니다. 복제 하고자 모든 권한을 삭제하세요.");
+                }
+                if (ErrNo == 2)
+                {
+                    PSH_Globals.SBO_Application.MessageBox("대상 ID와 복제ID는 필수입니다.");
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY999_Copy_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+                oForm.Freeze(false);
             }
         }
 
@@ -374,7 +717,7 @@ namespace PSH_BOne_AddOn
                 //    break;
 
                 case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
-                    Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
@@ -419,97 +762,16 @@ namespace PSH_BOne_AddOn
                     //Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                    //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
-                    //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
-                    //    break;
+                //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
+                //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
 
-                    //case SAPbouiCOM.BoEventTypes.et_Drag: //39
-                    //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
-                    //    break;
+                //case SAPbouiCOM.BoEventTypes.et_Drag: //39
+                //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
             }
         }
-
-        /// <summary>
-        /// FormMenuEvent
-        /// </summary>
-        /// <param name="FormUID"></param>
-        /// <param name="pVal"></param>
-        /// <param name="BubbleEvent"></param>
-        public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
-        {
-            try
-            {
-                oForm.Freeze(true);
-
-                if (pVal.BeforeAction == true)
-                {
-                    switch (pVal.MenuUID)
-                    {
-                        case "1283":
-                            if (PSH_Globals.SBO_Application.MessageBox("현재 화면내용전체를 제거 하시겠습니까? 복구할 수 없습니다.", 2, "Yes", "No") == 2)
-                            {
-                                BubbleEvent = false;
-                                return;
-                            }
-                            break;
-                        case "1284":
-                            break;
-                        case "1286":
-                            break;
-                        case "1293":
-                            break;
-                        case "1281":
-                            break;
-                        case "1282":
-                            break;
-                        case "1288":
-                        case "1289":
-                        case "1290":
-                        case "1291":
-                            PH_PY999_FormItemEnabled();
-                            break;
-                    }
-                }
-                else if (pVal.BeforeAction == false)
-                {
-                    switch (pVal.MenuUID)
-                    {
-                        case "1283":
-                            oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
-                            break;
-
-                        case "1284":
-                            break;
-                        case "1286":
-                            break;
-                        //Case "1293":
-                        //  Raise_EVENT_ROW_DELETE(FormUID, pval, BubbleEvent);
-                        case "1281": //문서찾기
-                            PH_PY999_FormItemEnabled();
-                            oForm.Items.Item("Code").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            break;
-                        case "1282": //문서추가
-                            break;
-                        case "1288":
-                        case "1289":
-                        case "1290":
-                        case "1291":
-                            break;
-                        case "1293": // 행삭제
-                            break;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_FormMenuEvent_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-                oForm.Freeze(false);
-            }
-        }
-
+        
         /// <summary>
         /// ITEM_PRESSED 이벤트
         /// </summary>
@@ -675,26 +937,6 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// VALIDATE 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            try
-            {
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_VALIDATE_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-        }
-
-        /// <summary>
         /// CLICK 이벤트
         /// </summary>
         /// <param name="FormUID">Form UID</param>
@@ -754,368 +996,80 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// PH_PY999_MTX01
+        /// FormMenuEvent
         /// </summary>
-        private void PH_PY999_MTX01()
+        /// <param name="FormUID"></param>
+        /// <param name="pVal"></param>
+        /// <param name="BubbleEvent"></param>
+        public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
-            int iRow = 0;
-            int ErrNum = 0;
-            string sQry = string.Empty;
-            string Param01 = string.Empty;
-            string Param02 = string.Empty;
-            string Param03 = string.Empty;
-
             try
             {
                 oForm.Freeze(true);
 
-                Param01 = oForm.Items.Item("pGubun").Specific.Value.ToString().Trim();
-                Param02 = oForm.Items.Item("pFSGubun").Specific.Value.ToString().Trim();
-                Param03 = oForm.Items.Item("pUserID").Specific.Value.ToString().Trim();
-
-                if (string.IsNullOrEmpty(Param01.ToString().Trim()))
+                if (pVal.BeforeAction == true)
                 {
-                    ErrNum = 1;
-                    throw new Exception();
-                }
-
-                if (Param02 == "S")
-                {
-                    if (string.IsNullOrEmpty(Param03.ToString().Trim()))
+                    switch (pVal.MenuUID)
                     {
-                        ErrNum = 2;
-                        throw new Exception();
+                        case "1283":
+                            if (PSH_Globals.SBO_Application.MessageBox("현재 화면내용전체를 제거 하시겠습니까? 복구할 수 없습니다.", 2, "Yes", "No") == 2)
+                            {
+                                BubbleEvent = false;
+                                return;
+                            }
+                            break;
+                        case "1284":
+                            break;
+                        case "1286":
+                            break;
+                        case "1293":
+                            break;
+                        case "1281":
+                            break;
+                        case "1282":
+                            break;
+                        case "1288":
+                        case "1289":
+                        case "1290":
+                        case "1291":
+                            PH_PY999_FormItemEnabled();
+                            break;
                     }
                 }
-
-                sQry = "EXEC PH_PY999_01 '" + Param01 + "', '" + Param02 + "', '" + Param03 + "'";
-                oDS_PH_PY999A.ExecuteQuery(sQry);
-                iRow = oForm.DataSources.DataTables.Item(0).Rows.Count;
-            }
-            catch (Exception ex)
-            {
-                if (ErrNum == 1)
+                else if (pVal.BeforeAction == false)
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("구분이 없습니다. 확인바랍니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (ErrNum == 2)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("USERID가 없습니다. 확인바랍니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY999_MTX01_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-            }
-            finally
-            {
-                oForm.Freeze(false);
-            }
-        }
-
-        /// <summary>
-        /// PH_PY999_MTX02
-        /// </summary>
-        private void PH_PY999_MTX02(string oUID, int oRow = 0, string oCol = "")
-        {
-            int sRow = 0;
-            int ErrNum = 0;
-            string sQry = string.Empty;
-            string Param01 = string.Empty;
-            string Param02 = string.Empty;
-            string Param03 = string.Empty;
-
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-            try
-            {
-                oForm.Freeze(true);
-
-                sRow = oRow;
-                Param01 = oForm.Items.Item("pFSGubun").Specific.Value.ToString().Trim();
-                Param02 = oDS_PH_PY999A.Columns.Item("UniqueID").Cells.Item(oRow).Value;
-                if (Param01 != "F")
-                {
-                    Param03 = oDS_PH_PY999A.Columns.Item("UserID").Cells.Item(oRow).Value;
-                }
-                sQry = "EXEC PH_PY999_02 '" + Param01 + "', '" + Param02 + "', '" + Param03 + "'";
-                oRecordSet.DoQuery(sQry);
-
-                if ((oRecordSet.RecordCount == 0))
-                {
-                    ErrNum = 1;
-                    throw new Exception();
-                }
-
-                // Screen일때 UserID를 가져옴.
-                if (Param01 != "F")
-                {
-                   // oForm.Items.Item("UserID").Specific.Select(oRecordSet.Fields.Item("UserID").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
-                    oForm.Items.Item("UserID").Specific.value = oRecordSet.Fields.Item("UserID").Value;
-                }
-                // Folder일때 Level을 가져옴.
-                if (Param01 != "S")
-                {
-                    //oForm.Items.Item("Level").Specific.Select(oRecordSet.Fields.Item("Level").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
-                    oForm.Items.Item("Level").Specific.Select(oRecordSet.Fields.Item("Level").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
-                }
-
-                //공통 S
-                oForm.Items.Item("Modual").Specific.Select(oRecordSet.Fields.Item("Modual").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
-                oForm.Items.Item("Sub1").Specific.Select(oRecordSet.Fields.Item("Sub1").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
-                oForm.Items.Item("Sub2").Specific.Select(oRecordSet.Fields.Item("Sub2").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
-                oForm.Items.Item("Sub3").Specific.Select(oRecordSet.Fields.Item("Sub3").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
-                oForm.Items.Item("No").Specific.Select(oRecordSet.Fields.Item("No").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
-                oForm.Items.Item("Position").Specific.Select(oRecordSet.Fields.Item("Position").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
-                oForm.Items.Item("FatherID").Specific.Select(oRecordSet.Fields.Item("FatherID").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
-                oForm.DataSources.UserDataSources.Item("Strings").Value = oRecordSet.Fields.Item("Strings").Value;
-                oForm.DataSources.UserDataSources.Item("UniqueId").Value = oRecordSet.Fields.Item("UniqueID").Value;
-                oForm.Items.Item("Sequence").Specific.Value = oRecordSet.Fields.Item("Sequence").Value;
-            }
-            catch (Exception ex)
-            {
-                if (ErrNum == 1)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("결과가 존재하지 않습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY999_MTX02_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-            }
-            finally
-            {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
-                oForm.Freeze(false);
-            }
-        }
-
-        /// <summary>
-        /// PH_PY999_SAVE
-        /// </summary>
-        private void PH_PY999_SAVE(int oRow = 0)
-        {
-            // 데이타 저장
-            int ErrNum = 0;
-            string sQry = string.Empty;
-            string pGubun = string.Empty;
-            string pFSGubun = string.Empty;
-            string pUserID = string.Empty;
-            string Modual = string.Empty;
-            string Sub1 = string.Empty;
-            string Sub2 = string.Empty;
-            string Sub3 = string.Empty;
-            string UserID = string.Empty;
-            string No = string.Empty;
-            string Level = string.Empty;
-            string FatherID = string.Empty;
-            string Position = string.Empty;
-            string Strings_Renamed = string.Empty;
-            string UniqueID = string.Empty;
-            string pUniqueID = string.Empty;
-            string Sequence = string.Empty;
-
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-            try
-            {
-                oForm.Freeze(true);
-                sQry = "select UniqueID, Seq  from Authority_Screen where UserID ='";
-                sQry = sQry + oForm.Items.Item("UserID").Specific.Value + "'";
-                oRecordSet.DoQuery(sQry);
-
-                for (int i = 0; i <= oRecordSet.RecordCount - 1; i++)
-                {
-                    if (oRecordSet.Fields.Item(0).Value == oForm.Items.Item("UniqueID").Specific.Value.ToString().Trim())
+                    switch (pVal.MenuUID)
                     {
-                        ErrNum = 1;
-                        throw new Exception();
+                        case "1283":
+                            oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
+                            break;
+
+                        case "1284":
+                            break;
+                        case "1286":
+                            break;
+                        case "1281": //문서찾기
+                            PH_PY999_FormItemEnabled();
+                            oForm.Items.Item("Code").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                            break;
+                        case "1282": //문서추가
+                            break;
+                        case "1288":
+                        case "1289":
+                        case "1290":
+                        case "1291":
+                            break;
+                        case "1293": // 행삭제
+                            break;
                     }
-                    if (oRecordSet.Fields.Item(1).Value  == oForm.Items.Item("Sequence").Specific.Value.ToString().Trim())
-                    {
-                        ErrNum = 1;
-                        throw new Exception();
-                    }
-                    oRecordSet.MoveNext();
                 }
-
-                if (PSH_Globals.SBO_Application.MessageBox("데이터 입력하시겠습니까?", 2, "Yes", "No") == 2)
-                {
-                    ErrNum = 2;
-                    throw new Exception();
-                }
-
-                pGubun = oForm.Items.Item("pGubun").Specific.Value.ToString().Trim();
-                pFSGubun = oForm.Items.Item("pFSGubun").Specific.Value.ToString().Trim();
-                pUserID = oForm.Items.Item("pUserID").Specific.Value.ToString().Trim();
-                Modual = oForm.Items.Item("Modual").Specific.Value.ToString().Trim();
-                Sub1 = oForm.Items.Item("Sub1").Specific.Value.ToString().Trim();
-                Sub2 = oForm.Items.Item("Sub2").Specific.Value.ToString().Trim();
-                Sub3 = oForm.Items.Item("Sub3").Specific.Value.ToString().Trim();
-                UserID = oForm.Items.Item("UserID").Specific.Value.ToString().Trim();
-                No = oForm.Items.Item("No").Specific.Value.ToString().Trim();
-                Level = oForm.Items.Item("Level").Specific.Value.ToString().Trim();
-                FatherID = oForm.Items.Item("FatherID").Specific.Value.ToString().Trim();
-                Position = oForm.Items.Item("Position").Specific.Value.ToString().Trim();
-                Strings_Renamed = oForm.Items.Item("Strings").Specific.Value.ToString().Trim();
-                UniqueID = oForm.Items.Item("UniqueID").Specific.Value.ToString().Trim();
-                Sequence = oForm.Items.Item("Sequence").Specific.Value.ToString().Trim();
-                pUniqueID = oForm.Items.Item("UniqueID").Specific.Value.ToString().Trim();
-
-                sQry = "EXEC PH_PY999_03 '" + pFSGubun + "', '" + pUserID + "', '" + pUniqueID + "', '";
-                sQry = sQry + Sequence + "', '" + UniqueID + "', '" + UserID + "', '" + FatherID + "', '" + Strings_Renamed + "', '";
-                sQry = sQry + Position + "', '" + Level + "', '" + No + "', '" + pGubun + "', '";
-                sQry = sQry + PSH_Globals.oCompany.UserName + "'";
-                oDS_PH_PY999A.ExecuteQuery(sQry);
-
-                PSH_Globals.SBO_Application.StatusBar.SetText("입력완료", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
-                PH_PY999_MTX01();
-            }
-            catch (Exception ex)
-            { 
-                 if (ErrNum == 1)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("이미 저장된 값이 있습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                if (ErrNum == 2)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("입력되지 않았습니다..", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY999_SAVE_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-            }
-            finally
-            {
-                oForm.Freeze(false);
-            }
-        }
-
-        /// <summary>
-        /// PH_PY999_Delete
-        /// </summary>
-        private void PH_PY999_Delete()
-        {
-            // 데이타 삭제
-            string sQry = string.Empty;
-            int ErrNum = 0;
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-            try
-            {
-                oForm.Freeze(true);
-                
-                if (PSH_Globals.SBO_Application.MessageBox("삭제하시겠습니까?", 2, "Yes", "No") == 2)
-                {
-                    ErrNum = 1;
-                    throw new Exception();
-                }
-
-                if ((oForm.Items.Item("pFSGubun").Specific.Value == "F"))
-                {
-                    sQry = "        delete";
-                    sQry = sQry + " from    Authority_Folder";
-                    sQry = sQry + " where   UniqueID = '" + oForm.Items.Item("UniqueID").Specific.Value + "'";
-                }
-                else
-                {
-                    sQry = "        delete";
-                    sQry = sQry + " from    Authority_Screen";
-                    sQry = sQry + " where   UniqueID = '" + oForm.Items.Item("UniqueID").Specific.Value + "'";
-                    sQry = sQry + "         AND UserID = '" + oForm.Items.Item("pUserID").Specific.Value + "'";
-                }
-                oRecordSet.DoQuery(sQry);
-                PH_PY999_MTX01();
             }
             catch (Exception ex)
             {
-                if (ErrNum == 1)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("취소되었습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY999_Delete_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
+                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_FormMenuEvent_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
             {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
-                oForm.Freeze(false);
-            }
-        }
-
-        /// <summary>
-        /// PH_PY999_Copy
-        /// </summary>
-        private void PH_PY999_Copy()
-        {
-            // 데이타 삭제
-            string sQry = string.Empty;
-            string pUserID = string.Empty;
-            string CPUserID = string.Empty;
-            int ErrNo = 0;
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            pUserID = oForm.Items.Item("pUserID").Specific.Value.ToString().Trim();
-            CPUserID = oForm.Items.Item("CPUserID").Specific.Value.ToString().Trim();
-            try
-            {
-                oForm.Freeze(true);
-
-                sQry = "select count(1) from Authority_Screen where UserID ='" + CPUserID + "'";
-                oRecordSet.DoQuery(sQry);
-
-                if (oRecordSet.RecordCount <= 0)
-                {
-                    ErrNo = 1;
-                    throw new Exception(); 
-                }
-                if(pUserID == "" || CPUserID =="")
-                {
-                    ErrNo = 2;
-                    throw new Exception();
-                }
-                else
-                {
-                    sQry = "delete from Authority_Screen where UniqueID ='" + oForm.Items.Item("UniqueID").Specific.Value + "'";
-                }
-
-                sQry = "Insert into Authority_Screen";
-                sQry = sQry + " select '" + CPUserID + "'";
-                sQry = sQry + ", FatherID";
-                sQry = sQry + ", String";
-                sQry = sQry + ", UniqueID";
-                sQry = sQry + ", Position";
-                sQry = sQry + ", Type";
-                sQry = sQry + ", Seq";
-                sQry = sQry + ", Gubun";
-                sQry = sQry + ", 'Y'";
-                sQry = sQry + ", GETDATE()";
-                sQry = sQry + ", '" + PSH_Globals.oCompany.UserName  + "'";
-                sQry = sQry + "  from Authority_Screen";
-                sQry = sQry + "  where UserID ='" + pUserID  + "'";
-
-                oRecordSet.DoQuery(sQry);
-            }
-            catch (Exception ex)
-            {
-                if (ErrNo == 1)
-                {
-                    PSH_Globals.SBO_Application.MessageBox("복제 계정에 권한이 있습니다. 복제 하고자 모든 권한을 삭제하세요.");
-                }
-                if (ErrNo == 2)
-                {
-                    PSH_Globals.SBO_Application.MessageBox("대상 ID와 복제ID는 필수입니다.");
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY999_Copy_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-            }
-            finally
-            {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
                 oForm.Freeze(false);
             }
         }

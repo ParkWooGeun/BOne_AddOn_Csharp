@@ -337,15 +337,13 @@ namespace PSH_BOne_AddOn
             string errCode = string.Empty;
 
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            SAPbouiCOM.ProgressBar ProgBar01 = null;
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
             try
             {
                 YM = oForm.Items.Item("YM").Specific.Value.ToString().Trim();
                 BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
                 
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", 100, false);
-
                 oForm.Freeze(true);
 
                 sQry = "EXEC [PS_CO610_01] '" + BPLId + "','" + YM + "'";

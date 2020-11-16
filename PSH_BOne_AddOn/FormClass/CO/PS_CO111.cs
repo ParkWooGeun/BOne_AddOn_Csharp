@@ -138,7 +138,7 @@ namespace PSH_BOne_AddOn
             string errCode = string.Empty;
             
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            SAPbouiCOM.ProgressBar ProgBar01 = null;
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
             try
             {
@@ -148,8 +148,6 @@ namespace PSH_BOne_AddOn
                 oRecordSet01.DoQuery(sQry);
 
                 oForm.Freeze(true);
-
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet01.RecordCount, false);
 
                 oMat01.Clear();
                 oDS_PS_CO110M.Clear();
@@ -224,7 +222,7 @@ namespace PSH_BOne_AddOn
             double SumCost4 = 0;
 
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            SAPbouiCOM.ProgressBar ProgBar01 = null;
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
             try
             {
@@ -234,8 +232,6 @@ namespace PSH_BOne_AddOn
                 oRecordSet01.DoQuery(sQry);
 
                 oForm.Freeze(true);
-
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet01.RecordCount, false);
 
                 oMat02.Clear();
                 oDS_PS_CO110N.Clear();

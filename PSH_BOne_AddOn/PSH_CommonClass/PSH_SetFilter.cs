@@ -771,7 +771,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PYA50"); //DC전환자부담금지급내역
 			oFilter.AddEx("PH_PYA75"); //교통비외수당지급대장
             oFilter.AddEx("PH_PYA80"); //근무시간표출력
-            oFilter.AddEx("PH_PYA90"); //근로소득간이지급명세서(세무서신고파일생성)
             oFilter.AddEx("PH_PY526"); //임금피크인원현황
             oFilter.AddEx("PH_PY999"); //사용자권한관리
 			oFilter.AddEx("PH_PY998"); //사용자권한조회
@@ -944,7 +943,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY679"); //개인별 근태집계 조회
 			oFilter.AddEx("PH_PY685"); //포상가급현황
 			oFilter.AddEx("PH_PY690"); //생일자현황
-			oFilter.AddEx("PH_PY860"); //호봉표조회
 			oFilter.AddEx("PH_PY503"); //승진대상자명부
 			oFilter.AddEx("PH_PY678"); //당직근무자 일괄 등록
 			oFilter.AddEx("PH_PY507"); //휴직자현황
@@ -1014,7 +1012,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY785"); //월국민연금내역
 			oFilter.AddEx("PH_PY790"); //월건강보험내역
 			oFilter.AddEx("PH_PY795"); //연간부서별급여내역
-			oFilter.AddEx("PH_PY800"); //인건비지급자료
 			oFilter.AddEx("PH_PY805"); //급여수당변동내역
 			oFilter.AddEx("PH_PY810"); //직급별통상임금내역
 			oFilter.AddEx("PH_PY815"); //평균임금내역
@@ -1277,7 +1274,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PYA50"); //DC전환자부담금지급내역
 			oFilter.AddEx("PH_PYA75"); //교통비외수당지급대장
             oFilter.AddEx("PH_PYA80"); //근무시간표출력
-            oFilter.AddEx("PH_PYA90"); //근로소득간이지급명세서(세무서신고파일생성)
             oFilter.AddEx("PH_PY526"); //임금피크인원현황
             oFilter.AddEx("PH_PY999"); //사용자권한관리
 			oFilter.AddEx("PH_PY998"); //사용자권한조회
@@ -1505,7 +1501,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY690"); //생일자현황
 			oFilter.AddEx("PH_PY695"); //인사기록카드
 			oFilter.AddEx("PH_PY705"); //교통비지급근태확인
-			oFilter.AddEx("PH_PY860"); //호봉표조회
 			oFilter.AddEx("PH_PY678"); //당직근무자 일괄 등록
 			oFilter.AddEx("PH_PY507"); //휴직자현황
 			oFilter.AddEx("PH_PY681"); //비근무일수현황
@@ -1591,9 +1586,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PYA50"); //DC전환자부담금지급내역
 			oFilter.AddEx("PH_PYA75"); //교통비외수당지급대장
             oFilter.AddEx("PH_PYA80"); //근무시간표출력
-            oFilter.AddEx("PH_PYA90"); //근로소득간이지급명세서(세무서신고파일생성)
             oFilter.AddEx("PH_PY526"); //임금피크인원현황
-            oFilter.AddEx("PH_PY999"); //사용자권한관리
 			oFilter.AddEx("PH_PY998"); //사용자권한조회
 
 			//정산관리

@@ -94,7 +94,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Rad02").Specific.ValOn = "2";
                 oForm.Items.Item("Rad02").Specific.ValOff = "0";
                 oForm.Items.Item("Rad02").Specific.DataBind.SetBound(true, "", "OptionDS");
-                oForm.Items.Item("Rad02").Specific.GroupWith(("Rad01"));
+                oForm.Items.Item("Rad02").Specific.GroupWith("Rad01");
 
                 //출력구분 RAD
                 oForm.DataSources.UserDataSources.Add("OptionDS1", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);

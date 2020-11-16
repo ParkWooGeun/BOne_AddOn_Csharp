@@ -301,14 +301,14 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void LoadData()
         {
-            int i = 0;
+            int i;
             string sQry;
             string stdYear;
             string BPLId;
             string errCode = string.Empty;
 
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            SAPbouiCOM.ProgressBar ProgBar01 = null;
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
             try
             {
@@ -321,8 +321,6 @@ namespace PSH_BOne_AddOn
                 oRecordSet01.DoQuery(sQry);
 
                 oForm.Freeze(true);
-
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet01.RecordCount, false);
 
                 oMat01.Clear();
                 oDS_PS_CO260L.Clear();

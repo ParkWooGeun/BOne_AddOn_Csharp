@@ -5,15 +5,6 @@
     /// </summary>
     public class PSH_CodeHelpClass
     {
-        ///// <summary>
-        ///// 호출된 메소드명 리턴
-        ///// </summary>
-        ///// <returns>메소드명</returns>
-        //public string GetCurrentMethodName()
-        //{
-        //    return System.Reflection.MethodBase.GetCurrentMethod().Name;
-        //}
-
         /// <summary>
         /// Visual Basic의 Mid 함수를 Method로 구현
         /// </summary>

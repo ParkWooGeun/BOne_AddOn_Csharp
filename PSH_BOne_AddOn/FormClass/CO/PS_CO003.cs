@@ -223,20 +223,18 @@ namespace PSH_BOne_AddOn
             string errCode = string.Empty;
             
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            SAPbouiCOM.ProgressBar ProgBar01 = null;
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
             try
             {
                 string GrpAccC = oForm.Items.Item("GrpAccC").Specific.Value.ToString().Trim();
+                
+                oForm.Freeze(true);
 
                 sQry = "EXEC [PS_CO003_01] '";
                 sQry += GrpAccC + "'";
 
                 oRecordSet01.DoQuery(sQry);
-
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet01.RecordCount, false);
-
-                oForm.Freeze(true);
 
                 oMat01.Clear();
                 oDS_PS_CO003L.Clear();

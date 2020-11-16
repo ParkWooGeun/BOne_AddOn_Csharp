@@ -97,7 +97,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Rad02").Specific.ValOn = "2";
                 oForm.Items.Item("Rad02").Specific.ValOff = "0";
                 oForm.Items.Item("Rad02").Specific.DataBind.SetBound(true, "", "OptionDS");
-                oForm.Items.Item("Rad02").Specific.GroupWith(("Rad01"));
+                oForm.Items.Item("Rad02").Specific.GroupWith("Rad01");
 
                 oForm.Items.Item("Rad03").Specific.ValOn = "3";
                 oForm.Items.Item("Rad03").Specific.ValOff = "0";

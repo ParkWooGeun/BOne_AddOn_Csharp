@@ -1697,6 +1697,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY001"); //인사마스터 등록
 			oFilter.AddEx("PH_PY002"); //근태시간구분 등록
 			oFilter.AddEx("PH_PY003"); //근태월력설정
+			oFilter.AddEx("PH_PY007"); //유류단가등록
 			oFilter.AddEx("PH_PY018"); //휴일근무체크(연봉제)
 
 			oFilter.AddEx("PH_PY201"); //정년임박자 휴가경비 등록

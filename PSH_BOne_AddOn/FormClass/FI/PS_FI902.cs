@@ -74,6 +74,7 @@ namespace PSH_BOne_AddOn
 		public override void Raise_FormItemEvent(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+			SAPbouiCOM.ProgressBar ProgBar01 = null;
 
 			try
 			{
@@ -81,12 +82,17 @@ namespace PSH_BOne_AddOn
 				{
 					switch (pVal.EventType)
 					{
-						case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED:                           //1
+						case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED: //1
 							if (pVal.ItemUID == "Btn01")
 							{
+								ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
 								string docDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
 								string sQry = "Exec PS_FI902_01 '" + docDate + "'";
 								oRecordSet.DoQuery(sQry);
+
+								ProgBar01.Stop();
+								PSH_Globals.SBO_Application.StatusBar.SetText("실행완료", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
 							}
 							break;
 					}
@@ -95,7 +101,7 @@ namespace PSH_BOne_AddOn
 				{
 					switch (pVal.EventType)
 					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD:                            //17
+						case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD: //17
 							System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm); //메모리 해제
 							SubMain.Remove_Forms(oFormUniqueID01);
 							break;
@@ -108,7 +114,13 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+
+				if (ProgBar01 != null)
+				{
+					ProgBar01.Stop();
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+				}
 			}
 		}
 

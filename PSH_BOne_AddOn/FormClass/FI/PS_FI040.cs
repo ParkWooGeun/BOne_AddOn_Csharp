@@ -9,7 +9,7 @@ using PSH_BOne_AddOn.Code;
 namespace PSH_BOne_AddOn
 {
     /// <summary>
-    /// 분말부자재비용분석
+    /// 만기일자별 받을어음현황
     /// </summary>
     internal class PS_FI040 : PSH_BaseClass
     {

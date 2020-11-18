@@ -118,7 +118,7 @@ namespace PSH_BOne_AddOn
             {
                 oForm.EnableMenu("1283", true); //제거
                 oForm.EnableMenu("1284", false); //취소
-                oForm.EnableMenu("1293", true); //행삭제
+                oForm.EnableMenu("1293", false); //행삭제
             }
             catch (Exception ex)
             {
@@ -170,9 +170,9 @@ namespace PSH_BOne_AddOn
 
                     oForm.EnableMenu("1281", true); //문서찾기
                     oForm.EnableMenu("1282", false); //문서추가
-                    oForm.EnableMenu("1293", false); //행삭제
 
                     oForm.Items.Item("Year").Enabled = true;
+                    oForm.Items.Item("CLTCOD").Enabled = true;
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
@@ -181,20 +181,17 @@ namespace PSH_BOne_AddOn
 
                     oForm.EnableMenu("1281", false); //문서찾기
                     oForm.EnableMenu("1282", true); //문서추가
-                    oForm.EnableMenu("1293", false); //행삭제
 
                     oForm.Items.Item("Year").Enabled = true;
+                    oForm.Items.Item("CLTCOD").Enabled = true;
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
-                    //접속자에 따른 권한별 사업장 콤보박스세팅
-                    dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
-
                     oForm.EnableMenu("1281", true); //문서찾기
                     oForm.EnableMenu("1282", true); //문서추가
-                    oForm.EnableMenu("1293", false); //행삭제
 
                     oForm.Items.Item("Year").Enabled = false;
+                    oForm.Items.Item("CLTCOD").Enabled = false;
                 }
             }
             catch (Exception ex)
@@ -217,7 +214,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                ////[Mat1]
+                //[Mat1]
                 oMat1.FlushToDataSource();
                 oRow = oMat1.VisualRowCount;
 
@@ -327,14 +324,14 @@ namespace PSH_BOne_AddOn
                     return functionReturnValue;
                 }
 
-                //// 코드,이름 저장
+                // 코드,이름 저장
                 tCode = oDS_PH_PY007A.GetValue("U_CLTCOD", 0).ToString().Trim() + oDS_PH_PY007A.GetValue("U_Year", 0).ToString().Trim();
                 oDS_PH_PY007A.SetValue("Code", 0, tCode);
                 oDS_PH_PY007A.SetValue("Name", 0, tCode);
 
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
-                    //// 데이터 중복 체크
+                    // 데이터 중복 체크
                     sQry = "SELECT Code FROM [@PH_PY007A] WHERE Code = '" + tCode + "'";
                     oRecordSet.DoQuery(sQry);
 

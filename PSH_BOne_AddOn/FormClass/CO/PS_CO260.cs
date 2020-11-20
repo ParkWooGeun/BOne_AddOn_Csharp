@@ -230,48 +230,6 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// 필수입력사항 체크(Line)
-        /// </summary>
-        /// <returns></returns>
-        private bool MatrixSpaceLineDel()
-        {
-            bool returnValue = false;
-            string errCdoe = string.Empty;
-
-            try
-            {
-                oMat01.FlushToDataSource();
-
-                if (oMat01.VisualRowCount == 0)
-                {
-                    errCdoe = "1";
-                    throw new Exception();
-                }
-
-                for (int i = 0; i <= oMat01.VisualRowCount - 2; i++)
-                {
-
-                }
-
-                oMat01.LoadFromDataSource();
-                returnValue = true;
-            }
-            catch(Exception ex)
-            {
-                if (errCdoe == "1")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("라인 데이터가 없습니다. 확인하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-            }
-
-            return returnValue;
-        }
-
-        /// <summary>
         /// Matrix 마지막 빈행 삭제
         /// </summary>
         private void Delete_EmptyRow()
@@ -514,11 +472,6 @@ namespace PSH_BOne_AddOn
                                 BubbleEvent = false;
                                 return;
                             }
-                            if (MatrixSpaceLineDel() == false)
-                            {
-                                BubbleEvent = false;
-                                return;
-                            }
 
                             string Code = dataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PS_CO260'", "");
 
@@ -534,7 +487,6 @@ namespace PSH_BOne_AddOn
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE && pVal.Action_Success == true)
                         {
                             oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
-                            PSH_Globals.SBO_Application.ActivateMenuItem("1282");
                         }
                     }
                     else if (pVal.ItemUID == "Btn01")

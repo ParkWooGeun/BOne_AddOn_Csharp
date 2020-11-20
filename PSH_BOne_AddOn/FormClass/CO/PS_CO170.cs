@@ -256,13 +256,13 @@ namespace PSH_BOne_AddOn
 				}
 				for (i = 1; i <= oMat01.VisualRowCount - 1; i++)
 				{
-					if ((string.IsNullOrEmpty(oMat01.Columns.Item("PO").Cells.Item(i).Specific.Value.ToString().Trim())))
+					if (string.IsNullOrEmpty(oMat01.Columns.Item("PO").Cells.Item(i).Specific.Value.ToString().Trim()))
 					{
 						oMat01.Columns.Item("PO").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 						ErrNum = 4;
 						throw new Exception();
 					}
-					if ((Convert.ToDouble(oMat01.Columns.Item("MPO").Cells.Item(i).Specific.Value.ToString().Trim()) <= 0))
+					if (string.IsNullOrEmpty(oMat01.Columns.Item("MPO").Cells.Item(i).Specific.Value.ToString().Trim()))
 					{
 						oMat01.Columns.Item("MPO").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 						ErrNum = 5;

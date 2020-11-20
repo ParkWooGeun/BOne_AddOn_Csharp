@@ -3190,12 +3190,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_CO260.MatrixSpaceLineDel">
-            <summary>
-            필수입력사항 체크(Line)
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_CO260.Delete_EmptyRow">
             <summary>
             Matrix 마지막 빈행 삭제
@@ -5339,12 +5333,6 @@
         <member name="M:PSH_BOne_AddOn.PS_CO250.HeaderSpaceLineDel">
             <summary>
             필수입력사항 체크(Header)
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_CO250.MatrixSpaceLineDel">
-            <summary>
-            필수입력사항 체크(Line)
             </summary>
             <returns></returns>
         </member>

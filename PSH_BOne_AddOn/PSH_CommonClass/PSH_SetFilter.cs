@@ -2658,6 +2658,12 @@ namespace PSH_BOne_AddOn
 
 			//재무관리
 			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
+			oFilter.AddEx("PS_CO010"); //원가요소등록
+			oFilter.AddEx("PS_CO020"); //원가요소그룹등록
+			oFilter.AddEx("PS_CO040"); //코스트센터그룹등록
+			oFilter.AddEx("PS_CO050"); //활동유형등록
+			oFilter.AddEx("PS_CO060"); //통계주요지표등록
+
 		}
 
 		private static void MENU_CLICK(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)

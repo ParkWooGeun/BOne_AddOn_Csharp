@@ -268,9 +268,8 @@ namespace PSH_BOne_AddOn
                     oDS_PS_CO003L.SetValue("U_ColReg06", i, oRecordSet01.Fields.Item("GrpAccC").Value.ToString().Trim());
 
                     oRecordSet01.MoveNext();
-                    ProgBar01.Value = ProgBar01.Value + 1;
+                    ProgBar01.Value += 1;
                     ProgBar01.Text = ProgBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
-
                 }
 
                 PS_CO003_Add_MatrixRow(i, false);

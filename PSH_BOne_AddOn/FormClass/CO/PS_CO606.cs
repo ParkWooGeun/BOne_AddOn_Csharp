@@ -3,7 +3,6 @@ using SAPbouiCOM;
 using SAP.Middleware.Connector;
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.Code;
-using System.Runtime.CompilerServices;
 
 namespace PSH_BOne_AddOn
 {
@@ -165,10 +164,7 @@ namespace PSH_BOne_AddOn
             string StdDtS; //조회종료년월의 첫일자 저장
 
             SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-            StdYMF = oForm.Items.Item("StdYMF").Specific.Value.ToString().Trim();
-            StdYMT = oForm.Items.Item("StdYMT").Specific.Value.ToString().Trim();
-
+            
             string Client; //클라이언트(운영용:210, 테스트용:710)
             string ServerIP; //서버IP(운영용:192.1.11.3, 테스트용:192.1.11.7)
 
@@ -179,6 +175,9 @@ namespace PSH_BOne_AddOn
             
             try
             {
+                StdYMF = oForm.Items.Item("StdYMF").Specific.Value.ToString().Trim();
+                StdYMT = oForm.Items.Item("StdYMT").Specific.Value.ToString().Trim();
+
                 //Real
                 Client = "210";
                 ServerIP = "192.1.11.3";
@@ -236,7 +235,7 @@ namespace PSH_BOne_AddOn
 
                 for (loopCount = 0; loopCount <= RecordSet01.RecordCount - 1; loopCount++)
                 {
-                    //SetValue 매개변수용 변수(변수Type이 맞지 않으면 매개변수 전달시 SetValue 메소드 오류발생, 그래서 이런식으로 매개변수에 값 저장후 SetValue에 전달)
+                    //SetValue 매개변수용 변수(변수Type이 맞지 않으면 매개변수 전달시 SetValue 메소드 오류발생, 아래와 같이 매개변수에 값 저장후 SetValue에 전달)
                     string acctCode = RecordSet01.Fields.Item("AcctCode").Value.ToString().Trim();
                     string cont1 = RecordSet01.Fields.Item("Cont1").Value.ToString().Trim();
                     string cont2 = RecordSet01.Fields.Item("Cont2").Value.ToString().Trim();
@@ -413,7 +412,6 @@ namespace PSH_BOne_AddOn
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             string errCode = string.Empty;
-
             SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("전송 중...", 100, false);
 
             try

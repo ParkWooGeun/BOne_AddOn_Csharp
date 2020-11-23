@@ -89,25 +89,24 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PS_CO540_ComboBox_Setting()
         {
-            SAPbouiCOM.ComboBox oCombo = null;
+            string sQry;
+
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
+            
             try
             {
                 oForm.Freeze(true);
-                string sQry = null;
-                oCombo = oForm.Items.Item("Gubun").Specific;
-                oCombo.ValidValues.Add("1", "총괄");
-                oCombo.ValidValues.Add("2", "집계");
-                oCombo.ValidValues.Add("3", "상세");
+                
+                oForm.Items.Item("Gubun").Specific.ValidValues.Add("1", "총괄");
+                oForm.Items.Item("Gubun").Specific.ValidValues.Add("2", "집계");
+                oForm.Items.Item("Gubun").Specific.ValidValues.Add("3", "상세");
+                oForm.Items.Item("Gubun").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
-                oCombo.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-                oCombo = oForm.Items.Item("ItmSort").Specific;
-                oCombo.ValidValues.Add("%", "전체");
-                oCombo.ValidValues.Add("1", "제품");
-                oCombo.ValidValues.Add("2", "상품");
-                oCombo.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+                oForm.Items.Item("ItmSort").Specific.ValidValues.Add("%", "전체");
+                oForm.Items.Item("ItmSort").Specific.ValidValues.Add("1", "제품");
+                oForm.Items.Item("ItmSort").Specific.ValidValues.Add("2", "상품");
+                oForm.Items.Item("ItmSort").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
                 oForm.Items.Item("ItmBsort").Specific.ValidValues.Add("", "");
                 dataHelpClass.Set_ComboList(oForm.Items.Item("ItmBsort").Specific, "SELECT Code, Name FROM [@PSH_ITMBSORT] ORDER BY Code", "", false, false);
@@ -133,7 +132,6 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
-
             }
         }
 
@@ -158,6 +156,7 @@ namespace PSH_BOne_AddOn
             {
                 ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
                 oForm.Freeze(true);
+
                 BPLID =oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
                 YmFrom = oForm.Items.Item("YmFrom").Specific.Value.ToString().Trim();
                 YmTo = oForm.Items.Item("YmTo").Specific.Value.ToString().Trim();

@@ -51,10 +51,10 @@ namespace PSH_BOne_AddOn
                 PS_CO502_FormItemEnabled();
                 PS_CO502_FormClear();
 
-                oForm.EnableMenu("1283", true);                //// 제거
-                oForm.EnableMenu("1293", true);                //// 행삭제
-                oForm.EnableMenu("1287", true);                //// 복제
-                oForm.EnableMenu("1284", false);                //// 취소
+                oForm.EnableMenu("1283", true); // 제거
+                oForm.EnableMenu("1293", true); // 행삭제
+                oForm.EnableMenu("1287", true); // 복제
+                oForm.EnableMenu("1284", false); // 취소
             }
             catch (Exception ex)
             {
@@ -521,7 +521,6 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "1")
                     {
-
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE && pVal.Action_Success == true)
                         {
                             oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
@@ -565,7 +564,7 @@ namespace PSH_BOne_AddOn
                             BubbleEvent = false;
                         }
                     }
-                    // Matrix에 질의 관리자 사용시 선언
+                    
                     if (pVal.ColUID == "Code")
                     {
                         if (string.IsNullOrEmpty(oMat01.Columns.Item("Code").Cells.Item(pVal.Row).Specific.Value))
@@ -626,6 +625,7 @@ namespace PSH_BOne_AddOn
         {
             string sQry;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
                 if (pVal.Before_Action == true)

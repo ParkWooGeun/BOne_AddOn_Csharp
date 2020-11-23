@@ -577,7 +577,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO660"); //기간비용등록
 			oFilter.AddEx("PS_CO665"); //기간비용현황(연간)
 			oFilter.AddEx("PS_CO120"); //공정별 원가 계산
-			oFilter.AddEx("PS_CO131"); //7.원가계산재공현황
 			oFilter.AddEx("PS_CO510"); //원가계산재공현황
 			oFilter.AddEx("PS_CO520"); //제품생산 원가항목별 조회
 			oFilter.AddEx("PS_CO501"); //품목별원가등록
@@ -1769,15 +1768,10 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO001"); //결산마감관리
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
 			oFilter.AddEx("PS_CO660"); //기간비용등록
-			oFilter.AddEx("PS_CO510"); //원가계산재공현황
-			oFilter.AddEx("PS_CO520"); //제품생산 원가항목별 조회
 			oFilter.AddEx("PS_CO502"); //품목별평균원가항목등록
 			oFilter.AddEx("PS_CO503"); //일일가득액및생산원가계산
 			oFilter.AddEx("PS_CO504"); //일일판매및생산집계
 			oFilter.AddEx("PS_CO210"); //휘팅제품원가계산
-			oFilter.AddEx("PS_CO901"); //월별 이익률 분석(기계)
-			oFilter.AddEx("PS_CO920"); //월별 판매실적 대비 공수 조회(기계)
-			oFilter.AddEx("PS_CO921"); //월별 작번별 수주금액 대비 공수 현황(기계)
 		}
 
 		private static void DATASOURCE_LOAD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)

@@ -47,8 +47,8 @@ namespace PSH_BOne_AddOn
 
                 oForm.Freeze(true);
 
-                oForm.EnableMenu("1281", false);                //// 제거
-                oForm.EnableMenu("1292", false);                //// 행삭제
+                oForm.EnableMenu("1281", false); //제거
+                oForm.EnableMenu("1292", false); //행삭제
 
                 PS_CO504_CreateItems();
                 PS_CO504_Initial_Setting();

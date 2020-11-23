@@ -1,5 +1,6 @@
 using System;
 using SAPbouiCOM;
+using System.Timers;
 
 namespace PSH_BOne_AddOn
 {
@@ -8,8 +9,8 @@ namespace PSH_BOne_AddOn
 	/// </summary>
 	internal class PS_CO070 : PSH_BaseClass
 	{
-		public string oFormUniqueID01;
-		public SAPbouiCOM.Matrix oMat01;
+		private string oFormUniqueID01;
+		private SAPbouiCOM.Matrix oMat01;
 		private SAPbouiCOM.DBDataSource oDS_PS_CO070H; //등록헤더
 		private SAPbouiCOM.DBDataSource oDS_PS_CO070L; //등록라인
 		private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
@@ -39,15 +40,15 @@ namespace PSH_BOne_AddOn
 				}
 
 				oFormUniqueID01 = "PS_CO070_" + SubMain.Get_TotalFormsCount();
-				SubMain.Add_Forms(this, oFormUniqueID01, "PS_CO070");                   // 폼추가
-				PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc01.xml.ToString()); // 폼할당
+				SubMain.Add_Forms(this, oFormUniqueID01, "PS_CO070");
+				PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc01.xml.ToString());
 				oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID01);
 				oForm.SupportedModes = -1;
 				oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
-				oForm.DataBrowser.BrowseBy = "Code";                // UDO방식일때
+				oForm.DataBrowser.BrowseBy = "Code";
 
-				oForm.EnableMenu("1293", true);               // 행삭제
-				oForm.EnableMenu("1287", true);               // 복제
+				oForm.EnableMenu("1293", true); // 행삭제
+				oForm.EnableMenu("1287", true); // 복제
 
 				oForm.Freeze(true);
 				CreateItems();
@@ -71,10 +72,8 @@ namespace PSH_BOne_AddOn
 		/// CreateItems
 		/// </summary>
 		/// <returns></returns>
-		private bool CreateItems()
+		private void CreateItems()
 		{
-			bool functionReturnValue = false;
-
 			try
 			{
 				oForm.Freeze(true);
@@ -85,13 +84,17 @@ namespace PSH_BOne_AddOn
 				oMat01 = oForm.Items.Item("Mat01").Specific;
 				oMat01.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_NotSupported;
 				oMat01.AutoResizeColumns();
+
+				oMat01.Item.Enabled = false;
 			}
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 			}
-			oForm.Freeze(false);
-			return functionReturnValue;
+			finally
+			{
+				oForm.Freeze(false);
+			}
 		}
 
 		/// <summary>
@@ -104,13 +107,13 @@ namespace PSH_BOne_AddOn
 				oForm.Freeze(true);
 				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
-					oForm.EnableMenu("1281", true);                 //찾기
-					oForm.EnableMenu("1282", false);                //추가
+					oForm.EnableMenu("1281", true); //찾기
+					oForm.EnableMenu("1282", false); //추가
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
 				{
-					oForm.EnableMenu("1281", false);                //찾기
-					oForm.EnableMenu("1282", true);                 //추가
+					oForm.EnableMenu("1281", false); //찾기
+					oForm.EnableMenu("1282", true); //추가
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
 				{
@@ -137,10 +140,10 @@ namespace PSH_BOne_AddOn
 			{
 				oForm.Freeze(true);
 
-				if (RowIserted == false)  //행추가여부
+				if (RowIserted == false) //행추가여부
 				{
 					oRow = oMat01.RowCount;
-					oDS_PS_CO070L.InsertRecord((oRow));
+					oDS_PS_CO070L.InsertRecord(oRow);
 				}
 				oMat01.AddRow();
 				oDS_PS_CO070L.Offset = oRow;
@@ -164,23 +167,17 @@ namespace PSH_BOne_AddOn
 		private bool MatrixSpaceLineDel()
 		{
 			bool functionReturnValue = false;
-
 			int ErrNum = 0;
 
 			try
 			{
-				// 화면상의 메트릭스에 입력된 내용을 모두 디비데이터소스로 넘긴다
 				oMat01.FlushToDataSource();
-
-				// 라인
 				if (oMat01.VisualRowCount < 1)
 				{
 					ErrNum = 1;
 					throw new Exception();
 				}
 
-				// 맨마지막에 데이터를 삭제하는 이유는 행을 추가 할경우에 디비데이터소스에
-				// 이미 데이터가 들어가 있기 때문에 저장시에는 마지막 행(DB데이터 소스에)을 삭제한다
 				if (oMat01.VisualRowCount > 0)
 				{
 					if (string.IsNullOrEmpty(oDS_PS_CO070L.GetValue("U_DocEntry", oMat01.VisualRowCount - 1)))
@@ -188,8 +185,6 @@ namespace PSH_BOne_AddOn
 						oDS_PS_CO070L.RemoveRecord(oMat01.VisualRowCount - 1);
 					}
 				}
-
-				// 행을 삭제하였으니 DB데이터 소스를 다시 가져온다
 				oMat01.LoadFromDataSource();
 				functionReturnValue = true;
 			}
@@ -312,7 +307,7 @@ namespace PSH_BOne_AddOn
 				//사업장
 				sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
 				oRecordSet.DoQuery(sQry);
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
@@ -360,7 +355,7 @@ namespace PSH_BOne_AddOn
 				{
 					if (i + 1 > oDS_PS_CO070L.Size)
 					{
-						oDS_PS_CO070L.InsertRecord((i));
+						oDS_PS_CO070L.InsertRecord(i);
 					}
 
 					oMat01.AddRow();
@@ -397,6 +392,102 @@ namespace PSH_BOne_AddOn
 				oForm.Freeze(false);
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+			}
+		}
+
+		/// <summary>
+		/// AddOn 연결 유지용 Timer 이벤트
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void KeepAddOnConnection(object sender, ElapsedEventArgs e)
+		{
+			PSH_Globals.SBO_Application.RemoveWindowsMessage(BoWindowsMessageType.bo_WM_TIMER, true);
+		}
+
+		/// <summary>
+		/// SaveData
+		/// </summary>
+		private void SaveData()
+		{
+			string sQry;
+			string iToDate;
+			string iFrDate;
+			string iBPLId;
+			string userSign;
+
+			SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+			SAPbouiCOM.ProgressBar ProgBar01 = ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
+			Timer timer = new Timer();
+
+			try
+			{
+				oForm.Freeze(true);
+
+				iFrDate = oForm.Items.Item("FRefDate").Specific.Value.ToString().Trim();
+				iToDate = oForm.Items.Item("TRefDate").Specific.Value.ToString().Trim();
+				iBPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+				userSign = PSH_Globals.oCompany.UserSignature.ToString();
+
+				sQry = "EXEC [PS_CO070_50] '";
+				sQry += iFrDate + "','";
+				sQry += iToDate + "','";
+				sQry += iBPLId + "','";
+				sQry += userSign + "'";
+
+				timer.Interval = 30000; //30초
+				timer.Elapsed += KeepAddOnConnection;
+				timer.Start();
+
+				oRecordSet01.DoQuery(sQry);
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+			{
+				timer.Stop();
+				timer.Dispose();
+
+				oForm.Update();
+				ProgBar01.Stop();
+				oForm.Freeze(false);
+
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+			}
+		}
+
+		/// <summary>
+		/// FindForm
+		/// </summary>
+		private void FindForm()
+		{
+			string iBPLId;
+			string stdYM;
+
+			try
+			{
+				oForm.Freeze(true);
+				iBPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+				stdYM = oForm.Items.Item("YM").Specific.Value.ToString().Trim();
+				
+				oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE; //찾기모드로 변경
+
+				oForm.Items.Item("BPLId").Specific.Select(iBPLId);
+				oForm.Items.Item("YM").Specific.Value = stdYM;
+
+				oForm.Items.Item("1").Click();
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+			{
+				oForm.Freeze(false);
 			}
 		}
 
@@ -541,8 +632,11 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "Btn01")
                     {
-                        LoadData();
-                    }
+						//LoadData();
+						SaveData();
+						FindForm();
+					}
+
                     if (pVal.ItemUID == "1")
                     {
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)

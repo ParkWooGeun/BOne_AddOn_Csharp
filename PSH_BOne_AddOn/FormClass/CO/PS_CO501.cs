@@ -13,7 +13,7 @@ namespace PSH_BOne_AddOn
         private SAPbouiCOM.Matrix oMat01;
         private SAPbouiCOM.DBDataSource oDS_PS_CO501H; //등록헤더
         private SAPbouiCOM.DBDataSource oDS_PS_CO501L; //등록라인
-        private string oLast_Item_UID;        //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
+        private string oLast_Item_UID; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
         
         /// <summary>
         /// Form 호출

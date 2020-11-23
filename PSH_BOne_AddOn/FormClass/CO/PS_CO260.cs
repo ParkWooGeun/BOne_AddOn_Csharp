@@ -101,8 +101,7 @@ namespace PSH_BOne_AddOn
         {
             string sQry;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
+            
             try
             {
                 sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
@@ -112,8 +111,6 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
                     oRecordSet01.MoveNext();
                 }
-
-                oDS_PS_CO260H.SetValue("U_BPLId", 0, dataHelpClass.User_BPLID());
             }
             catch(Exception ex)
             {
@@ -130,11 +127,15 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void FormItemEnabled()
         {
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
                     oForm.Items.Item("Code").Enabled = false;
+
+                    oDS_PS_CO260H.SetValue("U_BPLId", 0, dataHelpClass.User_BPLID());
 
                     oForm.EnableMenu("1281", true); //찾기
                     oForm.EnableMenu("1282", false); //추가
@@ -219,6 +220,48 @@ namespace PSH_BOne_AddOn
                 else if (errCode == "2")
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("사업장은 필수입력사항입니다. 확인하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+            }
+
+            return returnValue;
+        }
+
+        /// <summary>
+        /// 필수입력사항 체크(Line)
+        /// </summary>
+        /// <returns></returns>
+        private bool MatrixSpaceLineDel()
+        {
+            bool returnValue = false;
+            string errCdoe = string.Empty;
+
+            try
+            {
+                oMat01.FlushToDataSource();
+
+                if (oMat01.VisualRowCount == 0)
+                {
+                    errCdoe = "1";
+                    throw new Exception();
+                }
+
+                for (int i = 0; i <= oMat01.VisualRowCount - 2; i++)
+                {
+
+                }
+
+                oMat01.LoadFromDataSource();
+                returnValue = true;
+            }
+            catch (Exception ex)
+            {
+                if (errCdoe == "1")
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("라인 데이터가 없습니다. 확인하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
                 else
                 {
@@ -317,7 +360,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_CO260L.SetValue("U_MAMT", i, oRecordSet01.Fields.Item("MAMT").Value.ToString().Trim());
 
                     oRecordSet01.MoveNext();
-                    ProgBar01.Value = ProgBar01.Value + 1;
+                    ProgBar01.Value += 1;
                     ProgBar01.Text = ProgBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
 
@@ -468,6 +511,12 @@ namespace PSH_BOne_AddOn
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {
                             if (HeaderSpaceLineDel() == false)
+                            {
+                                BubbleEvent = false;
+                                return;
+                            }
+
+                            if (MatrixSpaceLineDel() == false)
                             {
                                 BubbleEvent = false;
                                 return;
@@ -656,7 +705,6 @@ namespace PSH_BOne_AddOn
                             break;
                         case "1282": //추가
                             FormItemEnabled();
-                            Add_MatrixRow(0, true);
                             break;
                         case "1288":
                         case "1289":

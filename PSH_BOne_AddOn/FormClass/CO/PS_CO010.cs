@@ -292,8 +292,6 @@ namespace PSH_BOne_AddOn
             int i;
             string errCode = string.Empty;
 
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
             try
             {
                 oMat01.FlushToDataSource();

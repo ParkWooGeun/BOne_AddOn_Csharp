@@ -112,35 +112,6 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// FormItemEnabled
-        /// </summary>
-        private void PS_CO901_FormItemEnabled()
-        {
-            try
-            {
-                oForm.Freeze(true);
-
-                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-                {
-                }
-                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
-                {
-                }
-                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-                {
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-                oForm.Freeze(false);
-            }
-        }
-
-        /// <summary>
         /// PS_CO520_MTX01
         /// </summary>
         private void PS_CO901_MTX01()
@@ -148,14 +119,15 @@ namespace PSH_BOne_AddOn
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             int errCode = 0;
+            string Query01;
+
+            string BPLID;
+            string StdYM;
+            string CntcCode;
+
             try
             {
                 oForm.Freeze(true);
-                string Query01 = string.Empty;
-
-                string BPLID = string.Empty;
-                string StdYM = string.Empty;
-                string CntcCode = string.Empty;
                 BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
                 StdYM = oForm.Items.Item("StdYM").Specific.Value;
                 CntcCode = dataHelpClass.User_MSTCOD();
@@ -212,14 +184,14 @@ namespace PSH_BOne_AddOn
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
+            string BPLID;
+            string StdYM;
+            string CntcCode;
+            string WinTitle;
+            string ReportName;
+
             try
             {
-                string BPLID = String.Empty;
-                string StdYM = String.Empty;
-                string CntcCode = String.Empty;
-                string WinTitle = String.Empty;
-                string ReportName = String.Empty;
-
                 WinTitle = "[PS_CO901] 레포트";
                 ReportName = "PS_CO901_01.rpt";
 
@@ -227,10 +199,8 @@ namespace PSH_BOne_AddOn
                 StdYM = oForm.Items.Item("StdYM").Specific.Value;
                 CntcCode = dataHelpClass.User_MSTCOD();
 
-
                 List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>(); //Parameter
                 List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
-
 
                 dataPackParameter.Add(new PSH_DataPackClass("@BPLID", BPLID)); //일자
                 dataPackParameter.Add(new PSH_DataPackClass("@StdYM", StdYM)); //일자
@@ -299,7 +269,7 @@ namespace PSH_BOne_AddOn
                 //    break;
 
                 case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
-                    Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 //case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD: //12
@@ -431,34 +401,6 @@ namespace PSH_BOne_AddOn
                 }
                 else if (pVal.Before_Action == false)
                 {
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-        }
-
-        /// <summary>
-        /// MATRIX_LOAD 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_MATRIX_LOAD(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            try
-            {
-                if (pVal.Before_Action == true)
-                {
-
-                }
-                else if (pVal.Before_Action == false)
-                {
-                    PS_CO901_FormItemEnabled();
                 }
             }
             catch (Exception ex)

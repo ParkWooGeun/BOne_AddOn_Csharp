@@ -419,7 +419,6 @@ namespace PSH_BOne_AddOn
         private bool HeaderSpaceLineDel()
         {
             bool returnValue = false;
-            
             string errCode = string.Empty;
 
             try
@@ -427,6 +426,7 @@ namespace PSH_BOne_AddOn
                 if(oDS_PS_CO610H.GetValue("U_BPLId", 0) == "" || oDS_PS_CO610H.GetValue("U_YM", 0) == "")
                 {
                     errCode = "1";
+                    throw new Exception();
                 }
 
                 returnValue = true;
@@ -709,17 +709,11 @@ namespace PSH_BOne_AddOn
         private bool Cancel_oJournalEntries(short ChkType)
         {
             bool returnValue = false;
-            
-            //int i = 0;
-            //short ErrNum = 0;
             int errCode = 0;
             int errDiCode = 0;
-            string errDiMsg = null;
+            string errDiMsg = string.Empty;
             int RetVal;
-            string sTransId = null;
-
-            //string SCardCode = null;
-            //string sDocDate = null;
+            string sTransId = string.Empty;
             string sCC;
             string sQry;
 

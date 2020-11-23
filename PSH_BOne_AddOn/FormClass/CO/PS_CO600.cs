@@ -54,7 +54,7 @@ namespace PSH_BOne_AddOn
 
 				oForm.SupportedModes = -1;
 				oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
-				//oForm01.DataBrowser.BrowseBy="DocEntry" '//UDO방식일때
+				//oForm01.DataBrowser.BrowseBy="DocEntry"
 
 				oForm.Freeze(true);
                 PS_CO600_CreateItems();
@@ -154,87 +154,6 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// FormItemEnabled
-        /// </summary>
-        private void PS_CO600_FormItemEnabled()
-        {
-            try
-            {
-                oForm.Freeze(true);
-
-                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-                {
-                }
-                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
-                {
-                }
-                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-                {
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-                oForm.Freeze(false);
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="oRow"></param>
-        /// <param name="RowIserted"></param>
-        private void PS_CO600_AddMatrixRow(int oRow, bool RowIserted)
-        {
-            try
-            {
-                oForm.Freeze(true);
-
-                //if (RowIserted == false) //행추가여부
-                //{
-                //    oDS_PS_CO600L.InsertRecord(oRow);
-                //}
-
-                //oMat01.AddRow();
-                //oDS_PS_CO600L.Offset = oRow;
-                //oDS_PS_CO600L.setValue("U_LineNum", oRow, oRow + 1);
-                //oMat01.LoadFromDataSource();
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-                oForm.Freeze(false);
-            }
-        }
-
-        /// <summary>
-        /// DataValidCheck
-        /// </summary>
-        /// <returns></returns>
-        private bool PS_CO600_DataValidCheck()
-        {
-            bool functionReturnValue = false;
-
-            try
-            {
-
-                functionReturnValue = true;
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            
-            return functionReturnValue;
-        }
-
-        /// <summary>
         /// 그리드 출력
         /// </summary>
         /// <param name="pGrid">B1 그리드 객체</param>
@@ -242,10 +161,10 @@ namespace PSH_BOne_AddOn
         private void PS_CO600_MTX(SAPbouiCOM.Grid pGrid, SAPbouiCOM.DataTable pDataTable)
         {
             string Query01 = string.Empty;
-            string FrDt = string.Empty; //조회기간(시작)
-            string ToDt = string.Empty; //조회기간(종료)
-            string Ctgr = string.Empty; //출력구분
-            string PrtCls = string.Empty; //그리드, 리포트 출력구분
+            string FrDt; //조회기간(시작)
+            string ToDt; //조회기간(종료)
+            string Ctgr; //출력구분
+            string PrtCls; //그리드, 리포트 출력구분
 
             string errCode = string.Empty;
 
@@ -264,68 +183,68 @@ namespace PSH_BOne_AddOn
                 {
                     if (Ctgr == "10") //K-GAAP
                     {
-                        Query01 = "         EXEC PS_CO600_01 '";
-                        Query01 = Query01 + FrDt + "','";
-                        Query01 = Query01 + ToDt + "','";
-                        Query01 = Query01 + PrtCls + "'";
+                        Query01 = "EXEC PS_CO600_01 '";
+                        Query01 += FrDt + "','";
+                        Query01 += ToDt + "','";
+                        Query01 += PrtCls + "'";
                     } //K-IFRS
                     else
                     {
-                        Query01 = "         EXEC PS_CO600_21 '";
-                        Query01 = Query01 + FrDt + "','";
-                        Query01 = Query01 + ToDt + "','";
-                        Query01 = Query01 + PrtCls + "'";
+                        Query01 = "EXEC PS_CO600_21 '";
+                        Query01 += FrDt + "','";
+                        Query01 += ToDt + "','";
+                        Query01 += PrtCls + "'";
                     }
                 }
                 else if (pGrid.Item.UniqueID == "Grid02") //제조원가명세서
                 {
                     if (Ctgr == "10") //K-GAAP
                     {
-                        Query01 = "         EXEC PS_CO600_02 '";
-                        Query01 = Query01 + FrDt + "','";
-                        Query01 = Query01 + ToDt + "','";
-                        Query01 = Query01 + PrtCls + "'";
+                        Query01 = "EXEC PS_CO600_02 '";
+                        Query01 += FrDt + "','";
+                        Query01 += ToDt + "','";
+                        Query01 += PrtCls + "'";
                     } //K-IFRS
                     else
                     {
-                        Query01 = "         EXEC PS_CO600_22 '";
-                        Query01 = Query01 + FrDt + "','";
-                        Query01 = Query01 + ToDt + "','";
-                        Query01 = Query01 + PrtCls + "'";
+                        Query01 = "EXEC PS_CO600_22 '";
+                        Query01 += FrDt + "','";
+                        Query01 += ToDt + "','";
+                        Query01 += PrtCls + "'";
                     }
                 }
                 else if (pGrid.Item.UniqueID == "Grid03") //매출원가명세서
                 {
                     if (Ctgr == "10") //K-GAAP
                     {
-                        Query01 = "         EXEC PS_CO600_03 '";
-                        Query01 = Query01 + FrDt + "','";
-                        Query01 = Query01 + ToDt + "','";
-                        Query01 = Query01 + PrtCls + "'";
+                        Query01 = "EXEC PS_CO600_03 '";
+                        Query01 += FrDt + "','";
+                        Query01 += ToDt + "','";
+                        Query01 += PrtCls + "'";
                     } //K-IFRS
                     else
                     {
-                        Query01 = "         EXEC PS_CO600_23 '";
-                        Query01 = Query01 + FrDt + "','";
-                        Query01 = Query01 + ToDt + "','";
-                        Query01 = Query01 + PrtCls + "'";
+                        Query01 = "EXEC PS_CO600_23 '";
+                        Query01 += FrDt + "','";
+                        Query01 += ToDt + "','";
+                        Query01 += PrtCls + "'";
                     }
                 }
                 else if (pGrid.Item.UniqueID == "Grid04") //손익계산서
                 {
                     if (Ctgr == "10") //K-GAAP
                     {
-                        Query01 = "         EXEC PS_CO600_04 '";
-                        Query01 = Query01 + FrDt + "','";
-                        Query01 = Query01 + ToDt + "','";
-                        Query01 = Query01 + PrtCls + "'";
+                        Query01 = "EXEC PS_CO600_04 '";
+                        Query01 += FrDt + "','";
+                        Query01 += ToDt + "','";
+                        Query01 += PrtCls + "'";
                     } //K-IFRS
                     else
                     {
-                        Query01 = "         EXEC PS_CO600_24 '";
-                        Query01 = Query01 + FrDt + "','";
-                        Query01 = Query01 + ToDt + "','";
-                        Query01 = Query01 + PrtCls + "'";
+                        Query01 = "EXEC PS_CO600_24 '";
+                        Query01 += FrDt + "','";
+                        Query01 += ToDt + "','";
+                        Query01 += PrtCls + "'";
                     }
                 }
 
@@ -423,15 +342,15 @@ namespace PSH_BOne_AddOn
             string Ctgr; //출력구분
             string PrtCls; //그리드, 리포트 출력구분
 
-            FrDt = DateTime.ParseExact(oForm.Items.Item("FrDt01").Specific.Value, "yyyyMMdd", null); //조회기간(시작)
-            ToDt = DateTime.ParseExact(oForm.Items.Item("ToDt01").Specific.Value, "yyyyMMdd", null); //조회기간(종료)
-            Ctgr = oForm.Items.Item("Ctgr01").Specific.Selected.Value.ToString().Trim(); //출력구분
-            PrtCls = "R"; //리포트출력
-
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 
             try
             {
+                FrDt = DateTime.ParseExact(oForm.Items.Item("FrDt01").Specific.Value, "yyyyMMdd", null); //조회기간(시작)
+                ToDt = DateTime.ParseExact(oForm.Items.Item("ToDt01").Specific.Value, "yyyyMMdd", null); //조회기간(종료)
+                Ctgr = oForm.Items.Item("Ctgr01").Specific.Selected.Value.ToString().Trim(); //출력구분
+                PrtCls = "R"; //리포트출력
+
                 if (pButtonID.ToString() == "BtnPrt01") //대차대조표
                 {
                     if (Ctgr == "10") //K-GAAP
@@ -534,7 +453,7 @@ namespace PSH_BOne_AddOn
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_CLICK: //6
-                    Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
@@ -631,11 +550,6 @@ namespace PSH_BOne_AddOn
                             PS_CO600_MTX(oGrid02, oDS_PS_CO600B); //제조원가명세서
                             PS_CO600_MTX(oGrid03, oDS_PS_CO600C); //매출원가명세서
                             PS_CO600_MTX(oGrid04, oDS_PS_CO600D); //손익계산서(포괄손익계산서)
-
-                            //PS_CO600_MTX01(); //대차대조표(재무상태표)
-                            //PS_CO600_MTX02(); //제조원가명세서
-                            //PS_CO600_MTX03(); //매출원가명세서
-                            //PS_CO600_MTX04(); //손익계산서(포괄손익계산서)
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {
@@ -695,32 +609,6 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// KEY_DOWN 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_KEY_DOWN(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            try
-            {
-                if (pVal.Before_Action == true)
-                {
-                }
-                else if (pVal.Before_Action == false)
-                {
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-        }
-
-        /// <summary>
         /// GOT_FOCUS 이벤트
         /// </summary>
         /// <param name="FormUID">Form UID</param>
@@ -751,74 +639,6 @@ namespace PSH_BOne_AddOn
                 }
                 else if (pVal.Before_Action == false)
                 {
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-        }
-
-        /// <summary>
-        /// CLICK 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_CLICK(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            try
-            {
-                if (pVal.Before_Action == true)
-                {
-                    if (pVal.ItemUID == "Grid01")
-                    {
-                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-                        {
-                            if (pVal.Row > 0)
-                            {
-                            }
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-                        {
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-                        {
-                        }
-                    }
-                }
-                else if (pVal.Before_Action == false)
-                {
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-        }
-
-        /// <summary>
-        /// MATRIX_LOAD 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_MATRIX_LOAD(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            try
-            {
-                if (pVal.Before_Action == true)
-                {
-                }
-                else if (pVal.Before_Action == false)
-                {
-                    PS_CO600_FormItemEnabled();
                 }
             }
             catch (Exception ex)

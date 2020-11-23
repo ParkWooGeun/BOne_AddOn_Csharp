@@ -54,8 +54,6 @@ namespace PSH_BOne_AddOn
                 oFormUniqueID = "PS_CO111_" + SubMain.Get_TotalFormsCount();
                 SubMain.Add_Forms(this, oFormUniqueID, "PS_CO111");
 
-                
-
                 PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
@@ -179,7 +177,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_CO110M.SetValue("LineId", i, oRecordSet01.Fields.Item("LineId").Value);
 
                     oRecordSet01.MoveNext();
-                    ProgBar01.Value = ProgBar01.Value + 1;
+                    ProgBar01.Value += 1;
                     ProgBar01.Text = ProgBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
 
@@ -261,12 +259,12 @@ namespace PSH_BOne_AddOn
                     oDS_PS_CO110N.SetValue("U_Cost3", i, oRecordSet01.Fields.Item("U_Cost3").Value.ToString().Trim());
                     oDS_PS_CO110N.SetValue("U_Cost4", i, oRecordSet01.Fields.Item("U_Cost4").Value.ToString().Trim());
 
-                    SumCost1 = SumCost1 + Convert.ToDouble(oRecordSet01.Fields.Item("U_Cost1").Value.ToString().Trim());
-                    SumCost2 = SumCost2 + Convert.ToDouble(oRecordSet01.Fields.Item("U_Cost2").Value.ToString().Trim());
-                    SumCost3 = SumCost3 + Convert.ToDouble(oRecordSet01.Fields.Item("U_Cost3").Value.ToString().Trim());
-                    SumCost4 = SumCost4 + Convert.ToDouble(oRecordSet01.Fields.Item("U_Cost4").Value.ToString().Trim());
+                    SumCost1 += Convert.ToDouble(oRecordSet01.Fields.Item("U_Cost1").Value.ToString().Trim());
+                    SumCost2 += Convert.ToDouble(oRecordSet01.Fields.Item("U_Cost2").Value.ToString().Trim());
+                    SumCost3 += Convert.ToDouble(oRecordSet01.Fields.Item("U_Cost3").Value.ToString().Trim());
+                    SumCost4 += Convert.ToDouble(oRecordSet01.Fields.Item("U_Cost4").Value.ToString().Trim());
                     oRecordSet01.MoveNext();
-                    ProgBar01.Value = ProgBar01.Value + 1;
+                    ProgBar01.Value += 1;
                     ProgBar01.Text = ProgBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
 

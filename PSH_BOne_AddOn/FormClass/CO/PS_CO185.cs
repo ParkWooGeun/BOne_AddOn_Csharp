@@ -179,41 +179,26 @@ namespace PSH_BOne_AddOn
 					ErrNum = 1;
 					throw new Exception();
 				}
-				// 맨마지막에 데이터를 삭제하는 이유는 행을 추가 할경우에 디비데이터소스에
-				// 이미 데이터가 들어가 있기 때문에 저장시에는 마지막 행(DB데이터 소스에)을 삭제한다
+
 				if (oMat01.VisualRowCount > 0)
 				{
-					for (i = 0; i <= oMat01.VisualRowCount - 1; i++)
+					for (i = 0; i <= oMat01.VisualRowCount - 2; i++)
 					{
 						oDS_PS_CO185L.Offset = i;
 
-						if (string.IsNullOrEmpty(oDS_PS_CO185H.GetValue("U_BPLId", i).ToString().Trim()))
+						if (string.IsNullOrEmpty(oDS_PS_CO185L.GetValue("U_ReCCCode", i).ToString().Trim()))
 						{
 							ErrNum = 2;
 							throw new Exception();
 						}
-						if (string.IsNullOrEmpty(oDS_PS_CO185H.GetValue("U_YM", i).ToString().Trim()))
+						if (string.IsNullOrEmpty(oDS_PS_CO185L.GetValue("U_ReCCName", i).ToString().Trim()))
 						{
 							ErrNum = 3;
 							throw new Exception();
 						}
-						if (string.IsNullOrEmpty(oDS_PS_CO185L.GetValue("U_ReCCCode", i).ToString().Trim()))
-						{
-							ErrNum = 4;
-							throw new Exception();
-						}
-						if (string.IsNullOrEmpty(oDS_PS_CO185L.GetValue("U_ReCCName", i).ToString().Trim()))
-						{
-							ErrNum = 5;
-							throw new Exception();
-						}
 					}
-					if (string.IsNullOrEmpty(oDS_PS_CO185L.GetValue("U_DocEntry", oMat01.VisualRowCount - 1).ToString().Trim()))
-					{
-						oDS_PS_CO185L.RemoveRecord(oMat01.VisualRowCount - 1);
-					}
+					oDS_PS_CO185L.RemoveRecord(oMat01.VisualRowCount - 1);
 				}
-				//행을 삭제하였으니 DB데이터 소스를 다시 가져온다
 				oMat01.LoadFromDataSource();
 				functionReturnValue = true;
 			}
@@ -224,28 +209,12 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText("라인데이타가 없습니다. 확인하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 				else if (ErrNum == 2)
-                {
-					PSH_Globals.SBO_Application.StatusBar.SetText("사업장코드를 확인하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-				}
-				else if (ErrNum == 3)
-				{
-					PSH_Globals.SBO_Application.StatusBar.SetText("마감년월은 필수입력사항입니다. 확인하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-				}
-				else if (ErrNum == 4)
 				{
 					PSH_Globals.SBO_Application.StatusBar.SetText("Receiver CC는 필수입력사항입니다. 확인하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
-				else if (ErrNum == 5)
+				else if (ErrNum == 3)
 				{
 					PSH_Globals.SBO_Application.StatusBar.SetText("Cost Center Name는 필수입력사항입니다. 확인하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-				}
-				else if (ErrNum == 6)
-				{
-					PSH_Globals.SBO_Application.StatusBar.SetText("구분은 필수입력사항입니다. 확인하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-				}
-				else if (ErrNum == 7)
-				{
-					PSH_Globals.SBO_Application.StatusBar.SetText("금액은 필수입력사항입니다. 확인하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 				else
 				{
@@ -272,7 +241,17 @@ namespace PSH_BOne_AddOn
 					ErrNum = 1;
 					throw new Exception();
 				}
-				PSH_Globals.SBO_Application.MessageBox("정상등록 되었습니다.");
+				if (string.IsNullOrEmpty(oDS_PS_CO185H.GetValue("U_BPLId", 0).ToString().Trim()))
+				{
+					ErrNum = 2;
+					throw new Exception();
+				}
+				if (string.IsNullOrEmpty(oDS_PS_CO185H.GetValue("U_YM", 0).ToString().Trim()))
+				{
+					ErrNum = 3;
+					throw new Exception();
+				}
+
 				functionReturnValue = true;
 			}
 			catch (Exception ex)
@@ -280,6 +259,14 @@ namespace PSH_BOne_AddOn
 				if (ErrNum == 1)
 				{
 					PSH_Globals.SBO_Application.StatusBar.SetText("Code(Key)를 확인하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+				}
+				else if (ErrNum == 2)
+				{
+					PSH_Globals.SBO_Application.StatusBar.SetText("사업장코드를 확인하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+				}
+				else if (ErrNum == 3)
+				{
+					PSH_Globals.SBO_Application.StatusBar.SetText("마감년월은 필수입력사항입니다. 확인하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 				else
 				{
@@ -321,9 +308,8 @@ namespace PSH_BOne_AddOn
 							if (oRow == oMat01.RowCount && !string.IsNullOrEmpty(oDS_PS_CO185L.GetValue("U_ReCCCode", oRow - 1).ToString().Trim()))
 							{
 								oMat01.Columns.Item("ReCCCode").Cells.Item(oRow).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+								AddMatrixRow(oMat01.RowCount, false);
 							}
-
-							AddMatrixRow(oMat01.RowCount, false);
 
 							break;
 					}
@@ -585,10 +571,10 @@ namespace PSH_BOne_AddOn
                             oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
                             PSH_Globals.SBO_Application.ActivateMenuItem("1282");
                         }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
+						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                         {
                             FormItemEnabled();
-                            AddMatrixRow(0, true);
+                            AddMatrixRow(oMat01.RowCount, false);
                         }
                     }
                 }
@@ -843,23 +829,21 @@ namespace PSH_BOne_AddOn
 				{
 					switch (pVal.MenuUID)
 					{
-						case "1284":                            //취소
+						case "1284": //취소
 							break;
-						case "1286":                            //닫기
+						case "1286": //닫기
 							break;
-						case "1293":                            //행삭제
+						case "1293": //행삭제
 							Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
 							break;
-						case "1281":                            //찾기
-							oForm.DataBrowser.BrowseBy = "Code";                //UDO방식일때
+						case "1281": //찾기
 							break;
-						case "1282":                            //추가
-							oForm.DataBrowser.BrowseBy = "Code";                //UDO방식일때
+						case "1282": //추가
 							break;
 						case "1288":
 						case "1289":
 						case "1290":
-						case "1291":                            //레코드이동버튼
+						case "1291": //레코드이동버튼
 							break;
 					}
 				}
@@ -867,25 +851,25 @@ namespace PSH_BOne_AddOn
 				{
 					switch (pVal.MenuUID)
 					{
-						case "1284":                            //취소
+						case "1284": //취소
 							break;
-						case "1286":                            //닫기
+						case "1286": //닫기
 							break;
-						case "1293":                            //행삭제
+						case "1293": //행삭제
 							Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
 							AddMatrixRow(oMat01.RowCount, false);
 							break;
-						case "1281":                            //찾기
-							AddMatrixRow(0, true);                          //UDO방식
-							oForm.DataBrowser.BrowseBy = "Code";            //UDO방식일때        '찾기버튼 클릭시 Matrix에 행 추가
+						case "1281": //찾기
+							AddMatrixRow(0, true);
 							break;
-						case "1282":                            //추가
-							AddMatrixRow(0, true);                          //UDO방식
+						case "1282": //추가
+							AddMatrixRow(0, true);
 							break;
 						case "1288":
 						case "1289":
 						case "1290":
-						case "1291":                            //레코드이동버튼             '추가버튼 클릭시 Matrix에 행 추가
+						case "1291": //레코드이동버튼
+							AddMatrixRow(oMat01.RowCount, false);
 							break;
 					}
 				}

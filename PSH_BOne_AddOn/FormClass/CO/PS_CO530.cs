@@ -85,6 +85,7 @@ namespace PSH_BOne_AddOn
         private void PS_CO530_ComboBox_Setting()
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 oForm.Freeze(true);
@@ -118,45 +119,17 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// FormItemEnabled
-        /// </summary>
-        private void PS_CO530_FormItemEnabled()
-        {
-            try
-            {
-                oForm.Freeze(true);
-
-                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-                {
-                }
-                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
-                {
-                }
-                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-                {
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-                oForm.Freeze(false);
-            }
-        }
-
-        /// <summary>
         /// 리포트 조회
         /// </summary>
         [STAThread]
         private void PS_CO530_Print_Report01()
         {
-            string BPLID = String.Empty;
-            string WinTitle = String.Empty;
-            string ReportName = String.Empty;
-            string YM = String.Empty;
-            string Gubun = String.Empty;
+            string WinTitle;
+            string ReportName;
+
+            string BPLID;
+            string YM;
+            string Gubun;
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
@@ -400,27 +373,6 @@ namespace PSH_BOne_AddOn
                         case "1291": //레코드이동버튼
                             break;
                         case "1293": //행삭제
-                            break;
-                    }
-                }
-                else if (pVal.BeforeAction == false)
-                {
-                    switch (pVal.MenuUID)
-                    {
-                        case "1284": //취소
-                            break;
-                        case "1286": //닫기
-                            break;
-                        case "1293": //행삭제
-                            break;
-                        case "1281": //찾기
-                            break;
-                        case "1282": //추가
-                            break;
-                        case "1288":
-                        case "1289":
-                        case "1290":
-                        case "1291": //레코드이동버튼
                             break;
                     }
                 }

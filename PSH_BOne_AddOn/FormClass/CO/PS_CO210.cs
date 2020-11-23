@@ -147,7 +147,6 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
-                functionReturnValue = false;
             }
             finally
             {
@@ -167,7 +166,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                ErrNum = 0;
 
                 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
                 //// 화면상의 메트릭스에 입력된 내용을 모두 디비데이터소스로 넘긴다
@@ -208,7 +206,6 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
-                functionReturnValue = false;
             }
             finally
             {
@@ -224,10 +221,10 @@ namespace PSH_BOne_AddOn
         /// <returns>True:필수입력사항을 모두 입력, Fasle:필수입력사항 중 하나라도 입력하지 않았음</returns>
         private void LoadData()
         {
-            short i = 0;
-            string sQry = null;
-            string YM = null;
-            string AddAmt = string.Empty;
+            short i;
+            string sQry;
+            string YM;
+            string AddAmt;
 
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             SAPbouiCOM.ProgressBar ProgBar01 = null;
@@ -300,16 +297,11 @@ namespace PSH_BOne_AddOn
         private void PS_CO210_Print_Report01()
         {
 
-            string WinTitle = null;
-            string ReportName = null;
+            string WinTitle;
+            string ReportName;
+            string YM;
 
-            string YM = string.Empty;
-
-
-            string DocDate = string.Empty;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -319,9 +311,6 @@ namespace PSH_BOne_AddOn
                 YM = oForm.Items.Item("YM").Specific.Value.ToString().Trim();
                 List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>(); //Parameter
                 List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
-
-                //Formula
-                //dataPackFormula.Add(new PSH_DataPackClass("@YM", YM.Substring(0, 4) + "-" + YM.Substring(4, 2) + "월")); //년월
 
                 dataPackParameter.Add(new PSH_DataPackClass("@YM", YM)); //일자
 
@@ -593,26 +582,20 @@ namespace PSH_BOne_AddOn
                 {
                     switch (pVal.MenuUID)
                     {
-                        case "1284":
-                            //취소
+                        case "1284": //취소
                             break;
-                        case "1286":
-                            //닫기
+                        case "1286": //닫기
                             break;
-                        case "1281":
-                            //찾기
+                        case "1281": //찾기
                             break;
-                        case "1282":
-                            //추가
+                        case "1282": //추가
                             break;
                         case "1288":
                         case "1289":
                         case "1290":
-                        case "1291":
-                            //레코드이동버튼
+                        case "1291": //레코드이동버튼
                             break;
-                        case "1293":
-                            //행삭제
+                        case "1293": //행삭제
                             break;
                     }
                 }
@@ -620,23 +603,17 @@ namespace PSH_BOne_AddOn
                 {
                     switch (pVal.MenuUID)
                     {
-                        case "1284":
-                            //취소
+                        case "1284": //취소
                             break;
-                        case "1286":
-                            //닫기
+                        case "1286": //닫기
                             break;
-                        case "1281":
-                            //찾기
+                        case "1281": //찾기
                             break;
-                        case "1282":
-                            //추가
-
+                        case "1282": //추가
                             oForm.Freeze(true);
                             PS_CO210_AddMatrixRow(0, true);
                             oForm.Freeze(false);
                             break;
-
                         case "1287":
                             oForm.Freeze(true);
                             oDS_PS_CO210H.SetValue("Code", 0, "");
@@ -656,12 +633,9 @@ namespace PSH_BOne_AddOn
                         case "1288":
                         case "1289":
                         case "1290":
-                        case "1291":
-                            //레코드이동버튼
+                        case "1291": //레코드이동버튼
                             break;
-
-                        case "1293":
-                            //행삭제
+                        case "1293": //행삭제
                             oForm.Freeze(true);
                             if (oMat01.RowCount != oMat01.VisualRowCount)
                             {
@@ -670,12 +644,10 @@ namespace PSH_BOne_AddOn
                                     oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value = i;
                                 }
                                 oMat01.FlushToDataSource();
-                                // DBDataSource에 레코드가 한줄 더 생긴다.
                                 oDS_PS_CO210L.RemoveRecord(oDS_PS_CO210L.Size - 1);
-                                // 레코드 한 줄을 지운다.
                                 oMat01.Clear();
                                 oMat01.LoadFromDataSource();
-                                // DBDataSource를 매트릭스에 올리고
+
                                 if (oMat01.RowCount == 0)
                                 {
                                     PS_CO210_AddMatrixRow(1, true);

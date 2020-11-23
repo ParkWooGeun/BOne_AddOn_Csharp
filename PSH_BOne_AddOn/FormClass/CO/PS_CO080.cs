@@ -72,10 +72,8 @@ namespace PSH_BOne_AddOn
 		/// CreateItems
 		/// </summary>
 		/// <returns></returns>
-		private bool CreateItems()
+		private void CreateItems()
 		{
-			bool functionReturnValue = false;
-
 			try
 			{
 				oForm.Freeze(true);
@@ -95,8 +93,10 @@ namespace PSH_BOne_AddOn
 			{
 				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 			}
-			oForm.Freeze(false);
-			return functionReturnValue;
+			finally
+			{
+				oForm.Freeze(false);
+			}
 		}
 
 		/// <summary>
@@ -109,13 +109,13 @@ namespace PSH_BOne_AddOn
 				oForm.Freeze(true);
 				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
-					oForm.EnableMenu("1281", true);                 //찾기
-					oForm.EnableMenu("1282", false);                //추가
+					oForm.EnableMenu("1281", true); //찾기
+					oForm.EnableMenu("1282", false); //추가
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
 				{
-					oForm.EnableMenu("1281", false);                //찾기
-					oForm.EnableMenu("1282", true);                 //추가
+					oForm.EnableMenu("1281", false); //찾기
+					oForm.EnableMenu("1282", true); //추가
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
 				{
@@ -141,11 +141,11 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-				////행추가여부
+				//행추가여부
 				if (RowIserted == false)
 				{
 					oRow = oMat01.RowCount;
-					oDS_PS_CO080L.InsertRecord((oRow));
+					oDS_PS_CO080L.InsertRecord(oRow);
 				}
 				oMat01.AddRow();
 				oDS_PS_CO080L.Offset = oRow;
@@ -169,21 +169,17 @@ namespace PSH_BOne_AddOn
 		private bool MatrixSpaceLineDel()
 		{
 			bool functionReturnValue = false;
-
 			int ErrNum = 0;
 
 			try
 			{
 				oMat01.FlushToDataSource();
-				// 라인
 				if (oMat01.VisualRowCount < 1)
 				{
 					ErrNum = 1;
 					throw new Exception();
 				}
 
-				// 맨마지막에 데이터를 삭제하는 이유는 행을 추가 할경우에 디비데이터소스에
-				// 이미 데이터가 들어가 있기 때문에 저장시에는 마지막 행(DB데이터 소스에)을 삭제한다
 				if (oMat01.VisualRowCount > 0)
 				{
 					if (string.IsNullOrEmpty(oDS_PS_CO080L.GetValue("U_CoCtCode", oMat01.VisualRowCount - 1)))
@@ -191,12 +187,9 @@ namespace PSH_BOne_AddOn
 						oDS_PS_CO080L.RemoveRecord(oMat01.VisualRowCount - 1);
 					}
 				}
-
-				//행을 삭제하였으니 DB데이터 소스를 다시 가져온다
 				oMat01.LoadFromDataSource();
 				functionReturnValue = true;
 			}
-
 			catch (Exception ex)
 			{
 				if (ErrNum == 1)
@@ -207,8 +200,8 @@ namespace PSH_BOne_AddOn
 				{
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
-				functionReturnValue = false;
 			}
+
 			return functionReturnValue;
 		}
 
@@ -259,7 +252,6 @@ namespace PSH_BOne_AddOn
 				{
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
-				functionReturnValue = false;
 			}
 			return functionReturnValue;
 		}
@@ -285,8 +277,7 @@ namespace PSH_BOne_AddOn
 						oForm.Freeze(true);
 						oMat01.LoadFromDataSource();
 
-						//--------------------------------------------------------------------------------------------
-						if (oRow == oMat01.RowCount & !string.IsNullOrEmpty(oDS_PS_CO080L.GetValue("U_ActCode", oRow - 1).ToString().Trim()))
+						if (oRow == oMat01.RowCount && !string.IsNullOrEmpty(oDS_PS_CO080L.GetValue("U_ActCode", oRow - 1).ToString().Trim()))
 						{
 							// 다음 라인 추가
 							AddMatrixRow(0, false);
@@ -310,7 +301,7 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void ComboBox_Setting()
 		{
-			string sQry = string.Empty;
+			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -319,7 +310,7 @@ namespace PSH_BOne_AddOn
 				// 사업장
 				sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
 				oRecordSet.DoQuery(sQry);
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
@@ -378,7 +369,7 @@ namespace PSH_BOne_AddOn
 				{
 					if (i + 1 > oDS_PS_CO080L.Size)
 					{
-						oDS_PS_CO080L.InsertRecord((i));
+						oDS_PS_CO080L.InsertRecord(i);
 					}
 
 					oMat01.AddRow();
@@ -821,23 +812,21 @@ namespace PSH_BOne_AddOn
 				{
 					switch (pVal.MenuUID)
 					{
-						case "1284":                            //취소
+						case "1284": //취소
 							break;
-						case "1286":                            //닫기
+						case "1286":  //닫기
 							break;
-						case "1293":                            //행삭제
+						case "1293": //행삭제
 							Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
 							break;
-						case "1281":                            //찾기
-							oForm.DataBrowser.BrowseBy = "Code";                            //UDO방식일때
+						case "1281": //찾기
 							break;
-						case "1282":                            //추가
-							oForm.DataBrowser.BrowseBy = "Code";                            //UDO방식일때
+						case "1282": //추가
 							break;
 						case "1288":
 						case "1289":
 						case "1290":
-						case "1291":                            //레코드이동버튼
+						case "1291": //레코드이동버튼
 							break;
 					}
 				}
@@ -845,25 +834,24 @@ namespace PSH_BOne_AddOn
 				{
 					switch (pVal.MenuUID)
 					{
-						case "1284":                            //취소
+						case "1284": //취소
 							break;
-						case "1286":                            //닫기
+						case "1286":  //닫기
 							break;
-						case "1293":                            //행삭제
+						case "1293":  //행삭제
 							Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
 							AddMatrixRow(oMat01.RowCount, false);
 							break;
-						case "1281":                            //찾기
-							AddMatrixRow(0, true);                          //UDO방식
-							oForm.DataBrowser.BrowseBy = "Code";                        //UDO방식일때        '찾기버튼 클릭시 Matrix에 행 추가
+						case "1281":  //찾기
+							AddMatrixRow(0, true);
 							break;
-						case "1282":                            //추가
-							AddMatrixRow(0, true);                   //UDO방식
+						case "1282": //추가
+							AddMatrixRow(0, true);
 							break;
 						case "1288":
 						case "1289":
 						case "1290":
-						case "1291":                            //레코드이동버튼             '추가버튼 클릭시 Matrix에 행 추가
+						case "1291": //레코드이동버튼
 							break;
 					}
 				}
@@ -891,13 +879,13 @@ namespace PSH_BOne_AddOn
 				{
 					switch (BusinessObjectInfo.EventType)
 					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:                         //33
+						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
 							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:                          //34
+						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
 							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:                       //35
+						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
 							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:                       //36
+						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
 							break;
 					}
 				}
@@ -905,13 +893,13 @@ namespace PSH_BOne_AddOn
 				{
 					switch (BusinessObjectInfo.EventType)
 					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:                         //33
+						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
 							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:                          //34
+						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
 							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:                       //35
+						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
 							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:                       //36
+						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
 							break;
 					}
 				}
@@ -937,11 +925,9 @@ namespace PSH_BOne_AddOn
 			{
 				if (pVal.BeforeAction == true)
 				{
-					//작업
 				}
 				else if (pVal.BeforeAction == false)
 				{
-					//작업
 				}
 			}
 			catch (Exception ex)

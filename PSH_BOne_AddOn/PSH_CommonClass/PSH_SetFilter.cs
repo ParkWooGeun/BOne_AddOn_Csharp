@@ -24,12 +24,12 @@ namespace PSH_BOne_AddOn
 			VALIDATE(ref oFilter, ref oFilters); //10
 			MATRIX_LOAD(ref oFilter, ref oFilters); //11
 			//DATASOURCE_LOAD(oFilter, oFilters); //12
-			Form_Load(ref oFilter, ref oFilters); //16
+			FORM_LOAD(ref oFilter, ref oFilters); //16
 			FORM_UNLOAD(ref oFilter, ref oFilters); //17
 			//FORM_ACTIVATE(oFilter, oFilters); //18
 			//FORM_DEACTIVATE(oFilter, oFilters); //19
 			//FORM_CLOSE(oFilter, oFilters); //20
-			Form_Resize(ref oFilter, ref oFilters); //21
+			FORM_RESIZE(ref oFilter, ref oFilters); //21
 			//FORM_KEY_DOWN(oFilter, oFilters); //22
 			//FORM_MENU_HILIGHT(oFilter, oFilters); //23
 			//PRINT(oFilter, oFilters); //24
@@ -320,6 +320,92 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PY135"); //급상여분개처리
 			oFilter.AddEx("PS_DateChange"); //날짜 수정 등록
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
+
+			//재무관리
+			oFilter.AddEx("PS_CO685"); //결산분개등록
+			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
+			oFilter.AddEx("PS_FI180"); //분개장
+			oFilter.AddEx("PS_FI190"); //보조원장조회(EXCEL다운)
+			oFilter.AddEx("PS_FI110"); //보조재료비현황
+			oFilter.AddEx("PS_FI120"); //노무비현황
+			oFilter.AddEx("PS_FI130"); //제조경비 현황
+			oFilter.AddEx("PS_FI140"); //판관비 현황
+			oFilter.AddEx("PS_FI150"); //영업외손익,특별손익명세서
+			oFilter.AddEx("PS_FI160"); //외상매입/미지급금 잔액현황
+			oFilter.AddEx("PS_FI170"); //신용카드 사용내역
+			oFilter.AddEx("PS_FI913"); //사원별 접대비 명세서
+			oFilter.AddEx("PS_FI924"); //거래처별 회전일 현황
+			oFilter.AddEx("PS_FI909"); //미수현황
+			oFilter.AddEx("PS_FI910"); //매출채권 연령분석(받을어음)
+			oFilter.AddEx("PS_FI931"); //부가세집계표
+			oFilter.AddEx("PS_FI420"); //분개전표 연결발행
+			oFilter.AddEx("PS_FI220"); //합계잔액시산표
+			oFilter.AddEx("PS_FI904"); //고정자산현황 - IFRS
+			oFilter.AddEx("PS_FI918"); //대체출고대장
+			oFilter.AddEx("PS_FI912"); //예산집행현황
+			oFilter.AddEx("PS_FI210"); //원가요소(배부담당)별비용집계대장
+			oFilter.AddEx("PS_FI215"); //지급현황
+			oFilter.AddEx("PS_FI960"); //입,퇴사자현황
+			oFilter.AddEx("PS_FI961"); //월별계정별비용현황
+			oFilter.AddEx("PS_FI900"); //IFRS - 시산표 추출
+			oFilter.AddEx("PS_FI901"); //IFRS - 매입매출채무채권추출
+			oFilter.AddEx("PS_FI902"); //IFRS - NRV 평가
+			oFilter.AddEx("PS_FI929"); //IFRS - 재무보고서
+			oFilter.AddEx("PS_FI932"); //차입금등록
+			oFilter.AddEx("PS_FI933"); //차입금대장
+			oFilter.AddEx("PS_FI421"); //입금표등록
+			oFilter.AddEx("PS_CO090"); //통계주요지표 값 입력
+			oFilter.AddEx("PS_CO080"); //코스트센터비용집계
+			oFilter.AddEx("PS_CO070"); //활동량계산
+			oFilter.AddEx("PS_CO185"); //담당별 판매/ 원재료 / rm단가등록
+			oFilter.AddEx("PS_CO170"); //재공완료품대체관리등록
+			oFilter.AddEx("PS_FI100"); //계정별보조원장
+			oFilter.AddEx("PS_FI090"); //월계표
+			oFilter.AddEx("PS_CO111"); //배부사이클실행결과조회
+			oFilter.AddEx("PS_CO110"); //배부사이클실행
+			oFilter.AddEx("PS_CO260"); //연차설정등록
+			oFilter.AddEx("PS_CO250"); //개인별 퇴충 계산
+			oFilter.AddEx("PS_CO160"); //재공 원가 이동등록
+			oFilter.AddEx("PS_CO050"); //활동유형등록
+			oFilter.AddEx("PS_CO060"); //통계주요지표등록
+			oFilter.AddEx("PS_CO040"); //코스트센터그룹등록
+			oFilter.AddEx("PS_CO100"); //배부사이클생성
+			oFilter.AddEx("PS_CO020"); //원가요소그룹등록
+			oFilter.AddEx("PS_CO010"); //원가요소등록
+			oFilter.AddEx("PS_CO001"); //결산마감관리
+			oFilter.AddEx("PS_CO670"); //기간비용분개등록
+			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
+			oFilter.AddEx("PS_CO600"); //통합재무제표
+			oFilter.AddEx("PS_CO606"); //통합재무제표 본사 전송
+			oFilter.AddEx("PS_CO605"); //통합수불부
+			oFilter.AddEx("PS_CO610"); //고정자산 본계정 대체
+			oFilter.AddEx("PS_CO660"); //기간비용등록
+			oFilter.AddEx("PS_CO665"); //기간비용현황(연간)
+			oFilter.AddEx("PS_CO120"); //공정별 원가 계산
+			oFilter.AddEx("PS_CO130"); //제품별 원가 계산
+			oFilter.AddEx("PS_CO131"); //원가계산재공현황
+			oFilter.AddEx("PS_CO510"); //원가계산사전점검조회
+			oFilter.AddEx("PS_CO520"); //제품생산 원가항목별 조회
+			oFilter.AddEx("PS_CO501"); //품목별원가등록
+			oFilter.AddEx("PS_CO502"); //품목별평균원가항목등록
+			oFilter.AddEx("PS_CO503"); //일일가득액및생산원가계산
+			oFilter.AddEx("PS_CO504"); //일일판매및생산집계
+			oFilter.AddEx("PS_CO210"); //휘팅제품원가계산
+			oFilter.AddEx("PS_CO901"); //월별 이익률 분석(기계)
+			oFilter.AddEx("PS_CO920"); //월별 판매실적 대비 공수 조회(기계)
+			oFilter.AddEx("PS_CO921"); //월별 작번별 수주금액 대비 공수 현황(기계)
+			oFilter.AddEx("PS_CO530"); //분말부자재비용분석
+			oFilter.AddEx("PS_CO540"); //원가 분석 레포트(안강)
+			oFilter.AddEx("PS_MM921"); //부자재불출대장(부서)
+			oFilter.AddEx("PS_FX241"); //고정자산현황(부서)
+			oFilter.AddEx("PS_FI030"); //어음발행리스트
+			oFilter.AddEx("PS_FI040"); //만기일자별 받을어음현황
+			oFilter.AddEx("PS_FI050"); //받을어음 추심의뢰서
+			oFilter.AddEx("PS_FI060"); //받을어음 수탁(발송)대장
+			oFilter.AddEx("PS_FI070"); //기간별 지급어음현황
+			oFilter.AddEx("PS_FI907"); //부도어음현황
+			oFilter.AddEx("PS_FI080"); //일계표
+			oFilter.AddEx("PS_FI963"); //보조원장 거래처명 변경
 		}
 
 		private static void KEY_DOWN(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -369,7 +455,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY115"); //퇴직금계산
 			oFilter.AddEx("PH_PY116"); //퇴직금분개자료생성
 			oFilter.AddEx("PH_PY121"); //평가가급액 등록
-			oFilter.AddEx("PH_PY676"); //근태시간내역조회
 			oFilter.AddEx("PH_PY677"); //일일근태이상자조회
 			oFilter.AddEx("PH_PY700"); //급여지급대장
 			oFilter.AddEx("PH_PY710"); //상여지급대장
@@ -382,7 +467,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY678"); //당직근무자 일괄 등록
 
             //급여관리-리포트
-            oFilter.AddEx("PH_PY718"); //생산완료금액대비O/T현황
             oFilter.AddEx("PH_PY701"); //급여지급대장 (노조용)
 
             //정산관리
@@ -456,6 +540,57 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PY136"); //급상여분개처리 배부규칙설정
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
 			oFilter.AddEx("PH_PY998"); //사용자권한조회
+
+			//재무관리
+			oFilter.AddEx("PS_CO685"); //결산분개등록
+			oFilter.AddEx("PS_FI180"); //분개장
+			oFilter.AddEx("PS_FI190"); //보조원장조회(EXCEL다운)
+			oFilter.AddEx("PS_FI160"); //외상매입/미지급금 잔액현황
+			oFilter.AddEx("PS_FI170"); //신용카드 사용내역
+			oFilter.AddEx("PS_FI913"); //사원별 접대비 명세서
+			oFilter.AddEx("PS_FI924"); //거래처별 회전일 현황
+			oFilter.AddEx("PS_FI909"); //미수현황
+			oFilter.AddEx("PS_FI910"); //매출채권 연령분석(받을어음)
+			oFilter.AddEx("PS_FI931"); //부가세집계표
+			oFilter.AddEx("PS_FI420"); //분개전표 연결발행
+			oFilter.AddEx("PS_FI918"); //대체출고대장
+			oFilter.AddEx("PS_FI210"); //원가요소(배부담당)별비용집계대장
+			oFilter.AddEx("PS_FI215"); //지급현황
+			oFilter.AddEx("PS_FI960"); //입,퇴사자현황
+			oFilter.AddEx("PS_FI961"); //월별계정별비용현황
+			oFilter.AddEx("PS_FI421"); //입금표등록
+			oFilter.AddEx("PS_CO090"); //통계주요지표 값 입력
+			oFilter.AddEx("PS_CO080"); //코스트센터비용집계
+			oFilter.AddEx("PS_CO070"); //활동량계산
+			oFilter.AddEx("PS_CO170"); //재공완료품대체관리등록
+			oFilter.AddEx("PS_FI100"); //계정별보조원장
+			oFilter.AddEx("PS_CO110"); //배부사이클실행
+			oFilter.AddEx("PS_CO160"); //재공 원가 이동등록
+			oFilter.AddEx("PS_CO060"); //통계주요지표등록
+			oFilter.AddEx("PS_CO100"); //배부사이클생성
+			oFilter.AddEx("PS_CO020"); //원가요소그룹등록
+			oFilter.AddEx("PS_CO010"); //원가요소등록
+			oFilter.AddEx("PS_CO001"); //결산마감관리
+			oFilter.AddEx("PS_CO670"); //기간비용분개등록
+			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
+			oFilter.AddEx("PS_CO610"); //고정자산 본계정 대체
+			oFilter.AddEx("PS_CO660"); //기간비용등록
+			oFilter.AddEx("PS_CO665"); //기간비용현황(연간)
+			oFilter.AddEx("PS_CO120"); //공정별 원가 계산
+			oFilter.AddEx("PS_CO510"); //원가계산재공현황
+			oFilter.AddEx("PS_CO520"); //제품생산 원가항목별 조회
+			oFilter.AddEx("PS_CO501"); //품목별원가등록
+			oFilter.AddEx("PS_CO502"); //품목별평균원가항목등록
+			oFilter.AddEx("PS_CO901"); //월별 이익률 분석(기계)
+			oFilter.AddEx("PS_CO920"); //월별 판매실적 대비 공수 조회(기계)
+			oFilter.AddEx("PS_CO921"); //월별 작번별 수주금액 대비 공수 현황(기계)
+			oFilter.AddEx("PS_FI040"); //만기일자별 받을어음현황
+			oFilter.AddEx("PS_FI050"); //받을어음 추심의뢰서
+			oFilter.AddEx("PS_FI060"); //받을어음 수탁(발송)대장
+			oFilter.AddEx("PS_FI070"); //기간별 지급어음현황
+			oFilter.AddEx("PS_FI907"); //부도어음현황
+			oFilter.AddEx("PS_FI080"); //일계표
+			oFilter.AddEx("PS_FI963"); //보조원장 거래처명 변경
 		}
 
 		private static void GOT_FOCUS(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -635,7 +770,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PYA50"); //DC전환자부담금지급내역
 			oFilter.AddEx("PH_PYA75"); //교통비외수당지급대장
             oFilter.AddEx("PH_PYA80"); //근무시간표출력
-            oFilter.AddEx("PH_PYA90"); //근로소득간이지급명세서(세무서신고파일생성)
             oFilter.AddEx("PH_PY526"); //임금피크인원현황
             oFilter.AddEx("PH_PY999"); //사용자권한관리
 			oFilter.AddEx("PH_PY998"); //사용자권한조회
@@ -689,7 +823,35 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PY135"); //급상여분개처리
 			oFilter.AddEx("PS_DateChange"); //날짜 수정 등록
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
-        }
+
+			//재무관리
+			oFilter.AddEx("PS_FI961"); //월별계정별비용현황
+			oFilter.AddEx("PS_CO170"); //재공완료 대체관리등록
+			oFilter.AddEx("PS_CO090"); //통계주요지표값입력
+			oFilter.AddEx("PS_CO080"); //코스트센터비용집계
+			oFilter.AddEx("PS_CO070"); //활동량계산
+			oFilter.AddEx("PS_CO685"); //결산분개등록
+			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
+			oFilter.AddEx("PS_CO160"); //재공 원가 이동등록
+			oFilter.AddEx("PS_CO060"); //통계주요지표등록
+			oFilter.AddEx("PS_CO040"); //코스트센터그룹등록
+			oFilter.AddEx("PS_CO100"); //배부사이클생성
+			oFilter.AddEx("PS_CO001"); //결산마감관리
+			oFilter.AddEx("PS_CO670"); //기간비용분개등록
+			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
+			oFilter.AddEx("PS_CO600"); //통합재무제표
+			oFilter.AddEx("PS_CO605"); //통합수불부
+			oFilter.AddEx("PS_CO501"); //품목별원가등록
+			oFilter.AddEx("PS_CO502"); //품목별평균원가항목등록
+			oFilter.AddEx("PS_CO610"); //고정자산 본계정 대체
+			oFilter.AddEx("PS_CO660"); //기간비용등록
+			oFilter.AddEx("PS_CO665"); //기간비용현황(연간)
+			oFilter.AddEx("PS_CO503"); //일일가득액및생산원가계산
+			oFilter.AddEx("PS_CO504"); //일일판매및생산집계
+			oFilter.AddEx("PS_CO901"); //월별 이익률 분석(기계)
+			oFilter.AddEx("PS_CO920"); //월별 판매실적 대비 공수 조회(기계)
+			oFilter.AddEx("PS_CO921"); //월별 작번별 수주금액 대비 공수 현황(기계)
+		}
 
 		private static void LOST_FOCUS(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
@@ -723,18 +885,14 @@ namespace PSH_BOne_AddOn
 			//인사관리
 			oFilter.AddEx("PH_PY001"); //인사마스터 등록
 			oFilter.AddEx("PH_PY002"); //근태시간구분 등록
-			oFilter.AddEx("PH_PY003"); //근태월력설정
 			oFilter.AddEx("PH_PY004"); //근무조편성등록
 			oFilter.AddEx("PH_PY005"); //사업장정보등록
 			oFilter.AddEx("PH_PY006"); //승호작업등록
-			oFilter.AddEx("PH_PY007"); //유류단가등록
 			oFilter.AddEx("PH_PY008"); //일근태등록
-			oFilter.AddEx("PH_PY009"); //기찰자료UPLOAD
 			oFilter.AddEx("PH_PY012"); //출장등록
 			oFilter.AddEx("PH_PY013"); //위해일수계산
 			oFilter.AddEx("PH_PY014"); //위해일수수정
 			oFilter.AddEx("PH_PY016"); //기본업무등록
-			oFilter.AddEx("PH_PY017"); //월근태집계
 			oFilter.AddEx("PH_PY018"); //휴일근무자체크(연봉제)
 			oFilter.AddEx("PH_PY019"); //반변경등록
 			oFilter.AddEx("PH_PY020"); //일근태 업무변경등록
@@ -782,12 +940,8 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY676"); //근태시간내역조회
 			oFilter.AddEx("PH_PY677"); //일일근태이상자조회
 			oFilter.AddEx("PH_PY679"); //개인별 근태집계 조회
-			oFilter.AddEx("PH_PY680"); //상벌현황
 			oFilter.AddEx("PH_PY685"); //포상가급현황
 			oFilter.AddEx("PH_PY690"); //생일자현황
-			oFilter.AddEx("PH_PY695"); //인사기록카드
-			oFilter.AddEx("PH_PY705"); //교통비지급근태확인
-			oFilter.AddEx("PH_PY860"); //호봉표조회
 			oFilter.AddEx("PH_PY503"); //승진대상자명부
 			oFilter.AddEx("PH_PY678"); //당직근무자 일괄 등록
 			oFilter.AddEx("PH_PY507"); //휴직자현황
@@ -809,7 +963,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY103"); //공제항목설정
 			oFilter.AddEx("PH_PY104"); //고정수당공제금액일괄등록
 			oFilter.AddEx("PH_PY105"); //호봉표등록
-			oFilter.AddEx("PH_PY106"); //수당계산식설정
 			oFilter.AddEx("PH_PY107"); //급상여기준일설정
 			oFilter.AddEx("PH_PY108"); //상여율지급설정
 			oFilter.AddEx("PH_PY109"); //급상여변동자료등록
@@ -819,24 +972,20 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY112"); //급상여자료관리
 			oFilter.AddEx("PH_PY113"); //급상여분개자료생성
 			oFilter.AddEx("PH_PY114"); //퇴직금기준설정
-			oFilter.AddEx("PH_PY115"); //퇴직금계산
 			oFilter.AddEx("PH_PY116"); //퇴직금분개자료생성
 			oFilter.AddEx("PH_PY117"); //급상여마감작업
 			oFilter.AddEx("PH_PY118"); //급상여Email발송
 			oFilter.AddEx("PH_PY119"); //급상여은행파일생성
 			oFilter.AddEx("PH_PY120"); //급상여소급집계처리
 			oFilter.AddEx("PH_PY121"); //평가가급액 등록
-			oFilter.AddEx("PH_PY122"); //급상여출력 개인부서설정등록
 			oFilter.AddEx("PH_PY123"); //가압류등록
 			oFilter.AddEx("PH_PY124"); //베네피아 금액 등록
-			oFilter.AddEx("PH_PY127"); ////개인별 4대보험 보수월액 및 정산금액입력
 			oFilter.AddEx("PH_PY130"); //팀별 성과급차등 등급등록
 			oFilter.AddEx("PH_PY131"); //성과급차등 계수등록
 			oFilter.AddEx("PH_PY132"); //성과급차 개인별 계산
 			oFilter.AddEx("PH_PY133"); //연봉제 횟차 관리
 			oFilter.AddEx("PH_PY134"); //소득세/주민세 조정관리
 			oFilter.AddEx("PH_PY129"); //개인별퇴직연금(DC형) 계산
-            oFilter.AddEx("PH_PY135"); //급상여분개처리
             oFilter.AddEx("PH_PY136"); //급상여분개처리 배부규칙설정
 
             //급여관리 - 리포트
@@ -862,7 +1011,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY785"); //월국민연금내역
 			oFilter.AddEx("PH_PY790"); //월건강보험내역
 			oFilter.AddEx("PH_PY795"); //연간부서별급여내역
-			oFilter.AddEx("PH_PY800"); //인건비지급자료
 			oFilter.AddEx("PH_PY805"); //급여수당변동내역
 			oFilter.AddEx("PH_PY810"); //직급별통상임금내역
 			oFilter.AddEx("PH_PY815"); //평균임금내역
@@ -880,7 +1028,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY716"); //기간별급여부서별집계대장
 			oFilter.AddEx("PH_PY721"); //기간별상여부서별집계대장
 			oFilter.AddEx("PH_PY717"); //기간별급여반별집계대장
-			oFilter.AddEx("PH_PY718"); //생산완료금액대비O/T현황
 			oFilter.AddEx("PH_PY701"); //급여지급대장 (노조용)
 			oFilter.AddEx("PH_PYA10"); //급여지급대장(부서)
 			oFilter.AddEx("PH_PYA20"); //급여부서별집계대장(부서)
@@ -928,11 +1075,21 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY030"); //공용등록
 			oFilter.AddEx("PH_PY031"); //출장등록
 			oFilter.AddEx("PH_PY032"); //사용외출등록
-			oFilter.AddEx("PH_PY034"); //공용분개처리
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
 			oFilter.AddEx("PS_DateChange"); //날짜 수정 등록
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
-        }
+
+			//재무관리
+			oFilter.AddEx("PS_FI180"); //분개장
+			oFilter.AddEx("PS_FI190"); //보조원장조회(EXCEL다운)
+			oFilter.AddEx("PS_FI420"); //분개전표 연결발행
+			oFilter.AddEx("PS_CO100"); //배부사이클생성
+			oFilter.AddEx("PS_CO001"); //결산마감관리
+			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
+			oFilter.AddEx("PS_CO660"); //기간비용등록
+			oFilter.AddEx("PS_CO510"); //원가계산사전점검조회
+			oFilter.AddEx("PS_CO520"); //제품생산 원가항목별 조회
+		}	
 
 		private static void CLICK(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
@@ -953,7 +1110,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY002"); //근태시간구분 등록
 			oFilter.AddEx("PH_PY003"); //근태월력설정
 			oFilter.AddEx("PH_PY004"); //근무조편성등록
-			oFilter.AddEx("PH_PY005"); //사업장정보등록
 			oFilter.AddEx("PH_PY006"); //승호작업등록
 			oFilter.AddEx("PH_PY007"); //유류단가등록
 			oFilter.AddEx("PH_PY008"); //일근태등록
@@ -1044,9 +1200,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY109"); //급상여변동자료등록
 			oFilter.AddEx("PH_PY109_1"); //급상여변동자료 항목수정
 			oFilter.AddEx("PH_PY110"); //개인상여율등록
-			oFilter.AddEx("PH_PY111"); //급상여계산
 			oFilter.AddEx("PH_PY112"); //급상여자료관리
-			oFilter.AddEx("PH_PY113"); //급상여분개자료생성
 			oFilter.AddEx("PH_PY114"); //퇴직금기준설정
 			oFilter.AddEx("PH_PY115"); //퇴직금계산
 			oFilter.AddEx("PH_PY116"); //퇴직금분개자료생성
@@ -1119,7 +1273,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PYA50"); //DC전환자부담금지급내역
 			oFilter.AddEx("PH_PYA75"); //교통비외수당지급대장
             oFilter.AddEx("PH_PYA80"); //근무시간표출력
-            oFilter.AddEx("PH_PYA90"); //근로소득간이지급명세서(세무서신고파일생성)
             oFilter.AddEx("PH_PY526"); //임금피크인원현황
             oFilter.AddEx("PH_PY999"); //사용자권한관리
 			oFilter.AddEx("PH_PY998"); //사용자권한조회
@@ -1174,7 +1327,41 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
 			oFilter.AddEx("PS_DateChange"); //날짜 수정 등록
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
-        }
+
+			//재무관리
+			oFilter.AddEx("PS_FI215"); //지급현황
+			oFilter.AddEx("PS_CO170"); //재공완료 대체관리등록
+			oFilter.AddEx("PS_CO685"); //결산분개등록
+			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
+			oFilter.AddEx("PS_FI180"); //분개장
+			oFilter.AddEx("PS_FI190"); //보조원장조회(EXCEL다운)
+			oFilter.AddEx("PS_FI961"); //월별계정별비용현황
+			oFilter.AddEx("PS_FI421"); //입금표등록
+			oFilter.AddEx("PS_CO090"); //통계주요지표 값 입력
+			oFilter.AddEx("PS_CO080"); //코스트센터비용집계
+			oFilter.AddEx("PS_CO070"); //활동량계산
+			oFilter.AddEx("PS_CO185"); //담당별 판매/ 원재료 / rm단가등록
+			oFilter.AddEx("PS_CO111"); //배부사이클실행결과조회
+			oFilter.AddEx("PS_CO110"); //배부사이클실행
+			oFilter.AddEx("PS_CO260"); //연차설정등록
+			oFilter.AddEx("PS_CO250"); //개인별 퇴충 계산
+			oFilter.AddEx("PS_CO160"); //재공 원가 이동등록
+			oFilter.AddEx("PS_CO050"); //활동유형등록
+			oFilter.AddEx("PS_CO060"); //통계주요지표등록
+			oFilter.AddEx("PS_CO040"); //코스트센터그룹등록
+			oFilter.AddEx("PS_CO020"); //원가요소그룹등록
+			oFilter.AddEx("PS_CO010"); //원가요소등록
+			oFilter.AddEx("PS_CO001"); //결산마감관리
+			oFilter.AddEx("PS_CO670"); //기간비용분개등록
+			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
+			oFilter.AddEx("PS_CO600"); //통합재무제표
+			oFilter.AddEx("PS_CO610"); //고정자산 본계정 대체
+			oFilter.AddEx("PS_CO660"); //기간비용등록
+			oFilter.AddEx("PS_CO120"); //공정별 원가 계산
+			oFilter.AddEx("PS_CO901"); //월별 이익률 분석(기계)
+			oFilter.AddEx("PS_CO920"); //월별 판매실적 대비 공수 조회(기계)
+			oFilter.AddEx("PS_CO921"); //월별 작번별 수주금액 대비 공수 현황(기계)
+		}
 
 		private static void DOUBLE_CLICK(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
@@ -1201,8 +1388,19 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PY407"); //정산기부자료등록
             oFilter.AddEx("PH_PY405"); //정산의료비자료등록
 
-            //기타관리
-        }
+			//기타관리
+
+			//재무관리
+			oFilter.AddEx("PS_CO685"); //결산분개등록
+			oFilter.AddEx("PS_FI190"); //보조원장조회(EXCEL다운)
+			oFilter.AddEx("PS_FI420"); //분개전표 연결발행
+			oFilter.AddEx("PS_FI961"); //월별계정별비용현황
+			oFilter.AddEx("PS_CO070"); //활동량계산
+			oFilter.AddEx("PS_CO185"); //담당별 판매/ 원재료 / rm단가등록
+			oFilter.AddEx("PS_CO111"); //배부사이클실행결과조회
+			oFilter.AddEx("PS_CO110"); //배부사이클실행
+			oFilter.AddEx("PS_CO610"); //고정자산 본계정 대체
+		}
 
 		private static void MATRIX_LINK_PRESSED(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
@@ -1223,6 +1421,8 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("ZPY507"); //정산결과조회(전체)
 
 			//기타관리
+			oFilter.AddEx("PS_FI190"); //보조원장조회(EXCEL다운)
+			oFilter.AddEx("PS_CO110"); //배부사이클실행
 		}
 
         private static void MATRIX_COLLAPSE_PRESSED(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1248,7 +1448,6 @@ namespace PSH_BOne_AddOn
 			//인사관리
 			oFilter.AddEx("PH_PY001"); //인사마스터 등록
 			oFilter.AddEx("PH_PY002"); //근태시간구분 등록
-			oFilter.AddEx("PH_PY003"); //근태월력설정
 			oFilter.AddEx("PH_PY005"); //사업장정보등록
 			oFilter.AddEx("PH_PY007"); //유류단가등록
 			oFilter.AddEx("PH_PY008"); //일근태등록
@@ -1257,12 +1456,9 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY014"); //위해일수수정
 			oFilter.AddEx("PH_PY015"); //연차적치등록
 			oFilter.AddEx("PH_PY016"); //기본업무등록
-			oFilter.AddEx("PH_PY017"); //월근태집계
 			oFilter.AddEx("PH_PY018"); //휴일근무체크(연봉제)
 			oFilter.AddEx("PH_PY019"); //반변경등록
-			oFilter.AddEx("PH_PY020"); //일근태 업무변경등록
 			oFilter.AddEx("PH_PY021"); //사원비상연락처관리
-
 			oFilter.AddEx("PH_PY201"); //정년임박자 휴가경비 등록
 			oFilter.AddEx("PH_PY202"); //정년임박자 휴가경비 조회
 			oFilter.AddEx("PH_PY203"); //교육실적등록
@@ -1272,30 +1468,23 @@ namespace PSH_BOne_AddOn
 			//인사 - 리포트
 			oFilter.AddEx("PH_PY501"); //여권발급현황
 			oFilter.AddEx("PH_PY505"); //입사자대장
-			oFilter.AddEx("PH_PY510"); //사원명부
-			oFilter.AddEx("PH_PY515"); //재직자사원명부
 			oFilter.AddEx("PH_PY520"); //퇴직및퇴직예정자대장
-			oFilter.AddEx("PH_PY525"); //학력별인원현황
+			
 			oFilter.AddEx("PH_PY530"); //연령별인원현황
 			oFilter.AddEx("PH_PY535"); //근속년수별인원현황
 			oFilter.AddEx("PH_PY540"); //인원현황(대외용)
 			oFilter.AddEx("PH_PY545"); //인원현황(대내용)
 			oFilter.AddEx("PH_PY550"); //전체인원현황
 			oFilter.AddEx("PH_PY555"); //일일근무자현황
-			oFilter.AddEx("PH_PY560"); //일출근현황
-			oFilter.AddEx("PH_PY565"); //연장근무자현황
 			oFilter.AddEx("PH_PY570"); //연장/휴일근무자현황
 			oFilter.AddEx("PH_PY575"); //근태기찰현황
 			oFilter.AddEx("PH_PY580"); //개인별근태월보
 			oFilter.AddEx("PH_PY585"); //일일출근기록부
-			oFilter.AddEx("PH_PY590"); //기간별근태집계표
-			oFilter.AddEx("PH_PY595"); //근속년수현황
 			oFilter.AddEx("PH_PY600"); //일자별연장근무현황
 			oFilter.AddEx("PH_PY605"); //근속보전휴가발생및사용내역
 			oFilter.AddEx("PH_PY610"); //근태구분별사용내역
 			oFilter.AddEx("PH_PY615"); //당직근무현황
 			oFilter.AddEx("PH_PY620"); //연봉제휴일근무자현황
-			oFilter.AddEx("PH_PY635"); //여행,교육자현황
 			oFilter.AddEx("PH_PY640"); //국민연금퇴직전환금현황
 			oFilter.AddEx("PH_PY645"); //자격수당지급현황
 			oFilter.AddEx("PH_PY650"); //노동조합간부현황
@@ -1306,33 +1495,25 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY675"); //근무편성현황
 			oFilter.AddEx("PH_PY676"); //근태시간내역조회
 			oFilter.AddEx("PH_PY677"); //일일근태이상자조회
-			oFilter.AddEx("PH_PY679"); //개인별 근태집계 조회
 			oFilter.AddEx("PH_PY680"); //상벌현황
 			oFilter.AddEx("PH_PY685"); //포상가급현황
 			oFilter.AddEx("PH_PY690"); //생일자현황
 			oFilter.AddEx("PH_PY695"); //인사기록카드
 			oFilter.AddEx("PH_PY705"); //교통비지급근태확인
-			oFilter.AddEx("PH_PY860"); //호봉표조회
-			oFilter.AddEx("PH_PY503"); //승진대상자명부
 			oFilter.AddEx("PH_PY678"); //당직근무자 일괄 등록
 			oFilter.AddEx("PH_PY507"); //휴직자현황
 			oFilter.AddEx("PH_PY681"); //비근무일수현황
-			oFilter.AddEx("PH_PY935"); //정기승호현황
-			oFilter.AddEx("PH_PY551"); //평균인원조회
 			oFilter.AddEx("PH_PY508"); //재직증명 등록 및 발급
 			oFilter.AddEx("PH_PY522"); //임금피크대상자현황
 			oFilter.AddEx("PH_PY523"); //임금피크대상자월별차수현황
 			oFilter.AddEx("PH_PY524"); //퇴직금 중간 정산내역
-			oFilter.AddEx("PH_PY683"); //교대근무인정현황
 			oFilter.AddEx("PH_PYA65"); //년차현황 (집계)
 			oFilter.AddEx("PH_PY583"); //개인별 근태집계 조회
 
 			//급여관리
 			oFilter.AddEx("PH_PY100"); //기준세액설정
 			oFilter.AddEx("PH_PY101"); //보험률등록
-			oFilter.AddEx("PH_PY102"); //수당항목설정
 			oFilter.AddEx("PH_PY103"); //공제항목설정
-			oFilter.AddEx("PH_PY104"); //고정수당공제금액일괄등록
 			oFilter.AddEx("PH_PY105"); //호봉표등록
 			oFilter.AddEx("PH_PY106"); //수당계산식설정
 			oFilter.AddEx("PH_PY107"); //급상여기준일설정
@@ -1341,7 +1522,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY109_1"); //급상여변동자료 항목수정
 			oFilter.AddEx("PH_PY110"); //개인상여율등록
 			oFilter.AddEx("PH_PY111"); //급상여계산
-			oFilter.AddEx("PH_PY112"); //급상여자료관리
 			oFilter.AddEx("PH_PY113"); //급상여분개자료생성
 			oFilter.AddEx("PH_PY114"); //퇴직금기준설정
 			oFilter.AddEx("PH_PY115"); //퇴직금계산
@@ -1353,7 +1533,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY122"); //급상여출력 개인부서설정등록
 			oFilter.AddEx("PH_PY123"); //가압류등록
 			oFilter.AddEx("PH_PY124"); //베네피아 금액 등록
-			oFilter.AddEx("PH_PY130"); //팀별 성과급차등 등급등록
 			oFilter.AddEx("PH_PY131"); //성과급차등 계수등록
 			oFilter.AddEx("PH_PY132"); //성과급차 개인별 계산
 			oFilter.AddEx("PH_PY133"); //연봉제 횟차 관리
@@ -1367,14 +1546,9 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY630"); //사원별노조비공제현황
 			oFilter.AddEx("PH_PY700"); //급여지급대장
 			oFilter.AddEx("PH_PY710"); //상여지급대장
-			oFilter.AddEx("PH_PY715"); //급여부서별집계대장
-			oFilter.AddEx("PH_PY720"); //상여부서별집계대장
-			oFilter.AddEx("PH_PY725"); //급여직급별집계대장
-			oFilter.AddEx("PH_PY740"); //상여직급별집계대장
 			oFilter.AddEx("PH_PY730"); //급여봉투출력
 			oFilter.AddEx("PH_PY735"); //상여봉투출력
 			oFilter.AddEx("PH_PY745"); //연간지급현황
-			oFilter.AddEx("PH_PY750"); //근로소득징수현황
 			oFilter.AddEx("PH_PY755"); //동호회가입현황
 			oFilter.AddEx("PH_PY760"); //평균임금및퇴직금산출내역서
 			oFilter.AddEx("PH_PY765"); //급여증감내역서
@@ -1385,7 +1559,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY785"); //월국민연금내역
 			oFilter.AddEx("PH_PY790"); //월건강보험내역
 			oFilter.AddEx("PH_PY795"); //연간부서별급여내역
-			oFilter.AddEx("PH_PY800"); //인건비지급자료
 			oFilter.AddEx("PH_PY805"); //급여수당변동내역
 			oFilter.AddEx("PH_PY810"); //직급별통상임금내역
 			oFilter.AddEx("PH_PY815"); //평균임금내역
@@ -1403,7 +1576,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY716"); //기간별급여부서별집계대장
 			oFilter.AddEx("PH_PY721"); //기간별상여부서별집계대장
 			oFilter.AddEx("PH_PY717"); //기간별급여반별집계대장
-			oFilter.AddEx("PH_PY718"); //생산완료금액대비O/T현황
 			oFilter.AddEx("PH_PY701"); //급여지급대장 (노조용)
 
 			oFilter.AddEx("PH_PYA10"); //급여지급대장(부서)
@@ -1413,9 +1585,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PYA50"); //DC전환자부담금지급내역
 			oFilter.AddEx("PH_PYA75"); //교통비외수당지급대장
             oFilter.AddEx("PH_PYA80"); //근무시간표출력
-            oFilter.AddEx("PH_PYA90"); //근로소득간이지급명세서(세무서신고파일생성)
             oFilter.AddEx("PH_PY526"); //임금피크인원현황
-            oFilter.AddEx("PH_PY999"); //사용자권한관리
 			oFilter.AddEx("PH_PY998"); //사용자권한조회
 
 			//정산관리
@@ -1439,9 +1609,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY920"); //원천징수영수증출력
 			oFilter.AddEx("PH_PY925"); //기부금명세서출력
 			oFilter.AddEx("PH_PY930"); //정산징수및환급대장
-			oFilter.AddEx("PH_PY931"); //표준세액적용대상자조회
-			oFilter.AddEx("PH_PY932"); //전근무지등록현황
-			oFilter.AddEx("PH_PY933"); //보수총액신고기초자료
 			oFilter.AddEx("PH_PYA55"); //정산징수및환급대장(집계)
 			oFilter.AddEx("PH_PYA70"); //소득세원천징수세액조정신청서출력
 
@@ -1478,7 +1645,37 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
 			oFilter.AddEx("PS_DateChange"); //날짜 수정 등록
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
-        }
+
+			//재무관리
+			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
+			oFilter.AddEx("PS_FI180"); //분개장
+			oFilter.AddEx("PS_FI190"); //보조원장조회(EXCEL다운)
+			oFilter.AddEx("PS_FI215"); //지급현황
+			oFilter.AddEx("PS_FI961"); //월별계정별비용현황
+			oFilter.AddEx("PS_FI932"); //차입금등록
+			oFilter.AddEx("PS_FI421"); //입금표등록
+			oFilter.AddEx("PS_CO090"); //통계주요지표 값 입력
+			oFilter.AddEx("PS_CO080"); //코스트센터비용집계
+			oFilter.AddEx("PS_CO070"); //활동량계산
+			oFilter.AddEx("PS_CO185"); //담당별 판매/ 원재료 / rm단가등록
+			oFilter.AddEx("PS_CO170"); //재공완료품대체관리등록
+			oFilter.AddEx("PS_CO110"); //배부사이클실행
+			oFilter.AddEx("PS_CO160"); //재공 원가 이동등록
+			oFilter.AddEx("PS_CO050"); //활동유형등록
+			oFilter.AddEx("PS_CO060"); //통계주요지표등록
+			oFilter.AddEx("PS_CO040"); //코스트센터그룹등록
+			oFilter.AddEx("PS_CO100"); //배부사이클생성
+			oFilter.AddEx("PS_CO020"); //원가요소그룹등록
+			oFilter.AddEx("PS_CO010"); //원가요소등록
+			oFilter.AddEx("PS_CO001"); //결산마감관리
+			oFilter.AddEx("PS_CO670"); //기간비용분개등록
+			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
+			oFilter.AddEx("PS_CO660"); //기간비용등록
+			oFilter.AddEx("PS_CO120"); //공정별 원가 계산
+			oFilter.AddEx("PS_CO131"); //7.원가계산재공현황
+			oFilter.AddEx("PS_CO501"); //품목별원가등록
+			oFilter.AddEx("PS_CO502"); //품목별평균원가항목등록
+		}
 
 		private static void MATRIX_LOAD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
@@ -1499,6 +1696,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY001"); //인사마스터 등록
 			oFilter.AddEx("PH_PY002"); //근태시간구분 등록
 			oFilter.AddEx("PH_PY003"); //근태월력설정
+			oFilter.AddEx("PH_PY007"); //유류단가등록
 			oFilter.AddEx("PH_PY018"); //휴일근무체크(연봉제)
 
 			oFilter.AddEx("PH_PY201"); //정년임박자 휴가경비 등록
@@ -1549,7 +1747,32 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY315"); //개인별대부금잔액현황
 			oFilter.AddEx("PH_PY034"); //공용분개처리
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
-        }
+
+			//재무관리
+			oFilter.AddEx("PS_FI961"); //월별계정별비용현황
+			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
+			oFilter.AddEx("PS_CO090"); //통계주요지표 값 입력
+			oFilter.AddEx("PS_CO080"); //코스트센터비용집계
+			oFilter.AddEx("PS_CO070"); //활동량계산
+			oFilter.AddEx("PS_CO170"); //재공완료품대체관리등록
+			oFilter.AddEx("PS_CO111"); //배부사이클실행결과조회
+			oFilter.AddEx("PS_CO110"); //배부사이클실행
+			oFilter.AddEx("PS_CO260"); //연차설정등록
+			oFilter.AddEx("PS_CO250"); //개인별 퇴충 계산
+			oFilter.AddEx("PS_CO160"); //재공 원가 이동등록
+			oFilter.AddEx("PS_CO050"); //활동유형등록
+			oFilter.AddEx("PS_CO060"); //통계주요지표등록
+			oFilter.AddEx("PS_CO040"); //코스트센터그룹등록
+			oFilter.AddEx("PS_CO020"); //원가요소그룹등록
+			oFilter.AddEx("PS_CO010"); //원가요소등록
+			oFilter.AddEx("PS_CO001"); //결산마감관리
+			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
+			oFilter.AddEx("PS_CO660"); //기간비용등록
+			oFilter.AddEx("PS_CO502"); //품목별평균원가항목등록
+			oFilter.AddEx("PS_CO503"); //일일가득액및생산원가계산
+			oFilter.AddEx("PS_CO504"); //일일판매및생산집계
+			oFilter.AddEx("PS_CO210"); //휘팅제품원가계산
+		}
 
 		private static void DATASOURCE_LOAD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
@@ -1570,7 +1793,7 @@ namespace PSH_BOne_AddOn
 			//생산관리
 		}
 
-		private static void Form_Load(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
+		private static void FORM_LOAD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_LOAD);
 
@@ -1594,7 +1817,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY006"); //승호작업등록
 			oFilter.AddEx("PH_PY007"); //유류단가등록
 			oFilter.AddEx("PH_PY008"); //일근태등록
-			oFilter.AddEx("PH_PY009"); //기찰자료UPLOAD
 			oFilter.AddEx("PH_PY010"); //일일근태처리
 			oFilter.AddEx("PH_PY011"); //전문직 호칭 일괄 변경(2013.07.05 송명규 추가)
 			oFilter.AddEx("PH_PY013"); //위해일수계산
@@ -1631,18 +1853,14 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY580"); //개인별근태월보
 			oFilter.AddEx("PH_PY585"); //일일출근기록부
 			oFilter.AddEx("PH_PY590"); //기간별근태집계표
-			oFilter.AddEx("PH_PY595"); //근속년수현황
 			oFilter.AddEx("PH_PY600"); //일자별연장근무현황
 			oFilter.AddEx("PH_PY605"); //근속보전휴가발생및사용내역
 			oFilter.AddEx("PH_PY610"); //근태구분별사용내역
 			oFilter.AddEx("PH_PY615"); //당직근무현황
 			oFilter.AddEx("PH_PY620"); //연봉제휴일근무자현황
 			oFilter.AddEx("PH_PY635"); //여행,교육자현황
-			oFilter.AddEx("PH_PY640"); //국민연금퇴직전환금현황
 			oFilter.AddEx("PH_PY645"); //자격수당지급현황
 			oFilter.AddEx("PH_PY650"); //노동조합간부현황
-			oFilter.AddEx("PH_PY655"); //보훈대상자현황
-			oFilter.AddEx("PH_PY660"); //장애근로자현황
 			oFilter.AddEx("PH_PY665"); //사원자녀현황
 			oFilter.AddEx("PH_PY670"); //개인별차량현황
 			oFilter.AddEx("PH_PY675"); //근무편성현황
@@ -1683,7 +1901,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY109_1"); //급상여변동자료 항목수정
 			oFilter.AddEx("PH_PY110"); //개인상여율등록
 			oFilter.AddEx("PH_PY111"); //급상여계산
-			oFilter.AddEx("PH_PY112"); //급상여자료관리
 			oFilter.AddEx("PH_PY113"); //급상여분개자료생성
 			oFilter.AddEx("PH_PY114"); //퇴직금기준설정
 			oFilter.AddEx("PH_PY115"); //퇴직금계산
@@ -1697,7 +1914,6 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY123"); //가압류등록
 			oFilter.AddEx("PH_PY124"); //베네피아 금액 등록
 			oFilter.AddEx("PH_PY125"); //퇴직연금 설정
-			oFilter.AddEx("PH_PY127"); //개인별 4대보험 보수월액 및 정산금액입력
 			oFilter.AddEx("PH_PY130"); //팀별 성과급차등 등급등록
 			oFilter.AddEx("PH_PY131"); //성과급차등 계수등록
 			oFilter.AddEx("PH_PY132"); //성과급차 개인별 계산
@@ -1837,7 +2053,10 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
 			oFilter.AddEx("PS_DateChange"); //날짜 수정 등록
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
-        }
+
+			//재무관리
+			oFilter.AddEx("PS_FI180"); //분개장
+		}
 
 		private static void FORM_UNLOAD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
@@ -2103,7 +2322,94 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PYA60"); //학자금신청내역(집계)
 			oFilter.AddEx("PS_DateChange"); //날짜 수정 등록
 			oFilter.AddEx("PS_DateCommit"); //날짜 승인
-        }
+
+			//재무관리
+			oFilter.AddEx("PS_CO685"); //결산분개등록
+			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
+			oFilter.AddEx("PS_FI180"); //분개장
+			oFilter.AddEx("PS_FI190"); //보조원장조회(EXCEL다운)
+			oFilter.AddEx("PS_FI110"); //보조재료비현황
+			oFilter.AddEx("PS_FI120"); //노무비현황
+			oFilter.AddEx("PS_FI130"); //제조경비 현황
+			oFilter.AddEx("PS_FI140"); //판관비 현황
+			oFilter.AddEx("PS_FI150"); //영업외손익,특별손익명세서
+			oFilter.AddEx("PS_FI160"); //외상매입/미지급금 잔액현황
+			oFilter.AddEx("PS_FI170"); //신용카드 사용내역
+			oFilter.AddEx("PS_FI913"); //사원별 접대비 명세서
+			oFilter.AddEx("PS_FI924"); //거래처별 회전일 현황
+			oFilter.AddEx("PS_FI909"); //미수현황
+			oFilter.AddEx("PS_FI910"); //매출채권 연령분석(받을어음)
+			oFilter.AddEx("PS_FI931"); //부가세집계표
+			oFilter.AddEx("PS_FI420"); //분개전표 연결발행
+			oFilter.AddEx("PS_FI220"); //합계잔액시산표
+			oFilter.AddEx("PS_FI904"); //고정자산현황 - IFRS
+			oFilter.AddEx("PS_FI918"); //대체출고대장
+			oFilter.AddEx("PS_FI912"); //예산집행현황
+			oFilter.AddEx("PS_FI210"); //원가요소(배부담당)별비용집계대장
+			oFilter.AddEx("PS_FI215"); //지급현황
+			oFilter.AddEx("PS_FI960"); //입,퇴사자현황
+			oFilter.AddEx("PS_FI961"); //월별계정별비용현황
+			oFilter.AddEx("PS_FI962"); //월별계정별비용현황(상세)
+			oFilter.AddEx("PS_FI900"); //IFRS - 시산표 추출
+			oFilter.AddEx("PS_FI901"); //IFRS - 매입매출채무채권추출
+			oFilter.AddEx("PS_FI902"); //IFRS - NRV 평가
+			oFilter.AddEx("PS_FI929"); //IFRS - 재무보고서
+			oFilter.AddEx("PS_FI932"); //차입금등록
+			oFilter.AddEx("PS_FI933"); //차입금대장
+			oFilter.AddEx("PS_FI421"); //입금표등록
+			oFilter.AddEx("PS_CO090"); //통계주요지표 값 입력
+			oFilter.AddEx("PS_CO080"); //코스트센터비용집계
+			oFilter.AddEx("PS_CO070"); //활동량계산
+			oFilter.AddEx("PS_CO185"); //담당별 판매/ 원재료 / rm단가등록
+			oFilter.AddEx("PS_CO170"); //재공완료품대체관리등록
+			oFilter.AddEx("PS_FI100"); //계정별보조원장
+			oFilter.AddEx("PS_FI090"); //월계표
+			oFilter.AddEx("PS_CO111"); //배부사이클실행결과조회
+			oFilter.AddEx("PS_CO110"); //배부사이클실행
+			oFilter.AddEx("PS_CO260"); //연차설정등록
+			oFilter.AddEx("PS_CO250"); //개인별 퇴충 계산
+			oFilter.AddEx("PS_CO160"); //재공 원가 이동등록
+			oFilter.AddEx("PS_CO050"); //활동유형등록
+			oFilter.AddEx("PS_CO060"); //통계주요지표등록
+			oFilter.AddEx("PS_CO040"); //코스트센터그룹등록
+			oFilter.AddEx("PS_CO100"); //배부사이클생성
+			oFilter.AddEx("PS_CO020"); //원가요소그룹등록
+			oFilter.AddEx("PS_CO010"); //원가요소등록
+			oFilter.AddEx("PS_CO001"); //결산마감관리
+			oFilter.AddEx("PS_CO670"); //기간비용분개등록
+			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정관리
+			oFilter.AddEx("PS_CO600"); //통합재무제표
+			oFilter.AddEx("PS_CO605"); //통합수불부
+			oFilter.AddEx("PS_CO610"); //고정자산 본계정 대체
+			oFilter.AddEx("PS_CO660"); //기간비용등록
+			oFilter.AddEx("PS_CO665"); //기간비용현황(연간)
+			oFilter.AddEx("PS_CO120"); //공정별 원가 계산
+			oFilter.AddEx("PS_CO130"); //제품별 원가 계산
+			oFilter.AddEx("PS_CO131"); //원가계산재공현황
+			oFilter.AddEx("PS_CO606"); //통합재무제표 본사 전송
+			oFilter.AddEx("PS_CO510"); //원가계산사전점검조회
+			oFilter.AddEx("PS_CO520"); //제품생산 원가항목별 조회
+			oFilter.AddEx("PS_CO501"); //품목별원가등록
+			oFilter.AddEx("PS_CO502"); //품목별평균원가항목등록
+			oFilter.AddEx("PS_CO503"); //일일가득액및생산원가계산
+			oFilter.AddEx("PS_CO504"); //일일판매및생산집계
+			oFilter.AddEx("PS_CO210"); //휘팅제품원가계산
+			oFilter.AddEx("PS_CO901"); //월별 이익률 분석(기계)
+			oFilter.AddEx("PS_CO920"); //월별 판매실적 대비 공수 조회(기계)
+			oFilter.AddEx("PS_CO921"); //월별 작번별 수주금액 대비 공수 현황(기계)
+			oFilter.AddEx("PS_CO530"); //분말부자재비용분석
+			oFilter.AddEx("PS_CO540"); //원가 분석 레포트(안강)
+			oFilter.AddEx("PS_MM921"); //부자재불출대장(부서)
+			oFilter.AddEx("PS_FX241"); //고정자산현황(부서)
+			oFilter.AddEx("PS_FI030"); //어음발행리스트
+			oFilter.AddEx("PS_FI040"); //만기일자별 받을어음현황
+			oFilter.AddEx("PS_FI050"); //받을어음 추심의뢰서
+			oFilter.AddEx("PS_FI060"); //받을어음 수탁(발송)대장
+			oFilter.AddEx("PS_FI070"); //기간별 지급어음현황
+			oFilter.AddEx("PS_FI907"); //부도어음현황
+			oFilter.AddEx("PS_FI080"); //일계표
+			oFilter.AddEx("PS_FI963"); //보조원장 거래처명 변경
+		}
 
 		private static void FORM_ACTIVATE(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
@@ -2122,6 +2428,11 @@ namespace PSH_BOne_AddOn
 			//급여관리
 			//정산관리
 			//기타관리
+
+			//재무관리
+			oFilter.AddEx("PS_CO685"); //결산분개등록
+			oFilter.AddEx("PS_CO670"); //기간비용분개등록
+			oFilter.AddEx("PS_CO610"); //고정자산 본계정 대체
 		}
 
 		private static void FORM_DEACTIVATE(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2148,7 +2459,7 @@ namespace PSH_BOne_AddOn
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_CLOSE);
 		}
 
-		private static void Form_Resize(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
+		private static void FORM_RESIZE(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_RESIZE);
 
@@ -2163,16 +2474,12 @@ namespace PSH_BOne_AddOn
 			//운영관리
 			//인사관리
 			oFilter.AddEx("PH_PY001"); //인사마스터등록
-			oFilter.AddEx("PH_PY002"); //근태시간구분 등록
-			oFilter.AddEx("PH_PY003"); //근태월력설정
-			oFilter.AddEx("PH_PY007"); //유류단가등록
 			oFilter.AddEx("PH_PY508"); //재직증명 등록 및 발급
 			oFilter.AddEx("PH_PY021"); //사원비상연락처관리
 			oFilter.AddEx("PH_PY201"); //정년임박자 휴가경비 등록
 			oFilter.AddEx("PH_PY203"); //교육실적등록
 			oFilter.AddEx("PH_PY204"); //교육계획등록
-			oFilter.AddEx("PH_PY205"); //교육계획VS실적조회
-
+			
 			//급여관리
 			oFilter.AddEx("PH_PY100"); //기준세액설정
 			oFilter.AddEx("PH_PY101"); //보험률등록
@@ -2202,7 +2509,16 @@ namespace PSH_BOne_AddOn
 
 			//근태관리
 			oFilter.AddEx("PH_PY677"); //근태기찰이상자 수정
-        }
+
+			//재무관리
+			oFilter.AddEx("PS_FI190"); //보조원장조회(EXCEL다운)
+			oFilter.AddEx("PS_FI421"); //입금표등록
+			oFilter.AddEx("PS_CO001"); //결산마감관리
+			oFilter.AddEx("PS_CO600"); //통합재무제표
+			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정 관리
+			oFilter.AddEx("PS_CO605"); //통합수불부
+			oFilter.AddEx("PS_CO665"); //기간비용현황(연간)
+		}
 
 		private static void FORM_KEY_DOWN(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
@@ -2212,15 +2528,17 @@ namespace PSH_BOne_AddOn
 			//운영관리
 			//인사관리
 			//급여관리
-            //정산관리
+			//정산관리
 			//기타관리
 
 			//AddOn Form Type
 			//운영관리
 			//인사관리
 			//급여관리
-            //정산관리
+			//정산관리
 			//기타관리
+			
+			//재무관리
 		}
 
 		private static void FORM_MENU_HILIGHT(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2242,7 +2560,7 @@ namespace PSH_BOne_AddOn
 			//기타관리
 		}
 
-		private static void vPRINT(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
+		private static void VPRINT(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_PRINT);
 
@@ -2295,13 +2613,17 @@ namespace PSH_BOne_AddOn
 			//운영관리
 			//인사관리
 			oFilter.AddEx("PH_PY001"); //인사마스터등록
-			oFilter.AddEx("PH_PY005"); //사업장정보등록
-
+			
 			//급여관리
 			oFilter.AddEx("PH_PY103"); //공제항목설정
 
 			//정산관리
 			//기타관리
+
+			//재무관리
+			oFilter.AddEx("PS_CO170"); //재공완료품대체관리등록
+			oFilter.AddEx("PS_CO160"); //재공 원가 이동등록
+			oFilter.AddEx("PS_CO040"); //코스트센터그룹등록
 		}
 
 		private static void RIGHT_CLICK(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2327,6 +2649,15 @@ namespace PSH_BOne_AddOn
 
 			//정산관리
 			//기타관리
+
+			//재무관리
+			oFilter.AddEx("PS_CO003"); //결산분개 계정관리
+			oFilter.AddEx("PS_CO010"); //원가요소등록
+			oFilter.AddEx("PS_CO020"); //원가요소그룹등록
+			oFilter.AddEx("PS_CO040"); //코스트센터그룹등록
+			oFilter.AddEx("PS_CO050"); //활동유형등록
+			oFilter.AddEx("PS_CO060"); //통계주요지표등록
+
 		}
 
 		private static void MENU_CLICK(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)

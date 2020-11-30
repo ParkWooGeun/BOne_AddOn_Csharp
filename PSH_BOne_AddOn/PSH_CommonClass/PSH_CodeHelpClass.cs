@@ -1,20 +1,10 @@
-﻿
-namespace PSH_BOne_AddOn.Code
+﻿namespace PSH_BOne_AddOn.Code
 {
     /// <summary>
     /// VB6.0와 C#의 기능 차이 보완용 Class
     /// </summary>
     public class PSH_CodeHelpClass
     {
-        ///// <summary>
-        ///// 호출된 메소드명 리턴
-        ///// </summary>
-        ///// <returns>메소드명</returns>
-        //public string GetCurrentMethodName()
-        //{
-        //    return System.Reflection.MethodBase.GetCurrentMethod().Name;
-        //}
-
         /// <summary>
         /// Visual Basic의 Mid 함수를 Method로 구현
         /// </summary>

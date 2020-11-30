@@ -21,6 +21,22 @@
     <FileUpgradeFlags />
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />
+    <PublishUrl>게시\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+	<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>.\bin\</OutputPath>
@@ -28,7 +44,8 @@
     <DebugSymbols>True</DebugSymbols>
     <DefineDebug>True</DefineDebug>
     <DefineTrace>True</DefineTrace>
-    <DefineConstants>Win32=True</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>full</DebugType>
     <NoWarn>1591</NoWarn>
@@ -84,6 +101,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
+    <Reference Include="sapnco, Version=3.0.0.42, Culture=neutral, PublicKeyToken=50436dca5c7f7d23, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\sapnco.dll</HintPath>
+    </Reference>
+    <Reference Include="sapnco_utils, Version=3.0.0.42, Culture=neutral, PublicKeyToken=50436dca5c7f7d23, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\sapnco_utils.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -111,6 +136,91 @@
     <Compile Include="EXT_Form\FrmRPT_Viewer1.designer.cs">
       <DependentUpon>FrmRPT_Viewer1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormClass\CO\PS_CO003.cs" />
+    <Compile Include="FormClass\CO\PS_CO070.cs" />
+    <Compile Include="FormClass\CO\PS_CO080.cs" />
+    <Compile Include="FormClass\CO\PS_CO090.cs" />
+    <Compile Include="FormClass\CO\PS_CO110.cs" />
+    <Compile Include="FormClass\CO\PS_CO111.cs" />
+    <Compile Include="FormClass\CO\PS_CO170.cs" />
+    <Compile Include="FormClass\CO\PS_CO185.cs" />
+    <Compile Include="FormClass\CO\PS_CO685.cs" />
+    <Compile Include="FormClass\FI\PS_FI963.cs" />
+    <Compile Include="FormClass\FI\PS_FI080.cs" />
+    <Compile Include="FormClass\FI\PS_FI090.cs" />
+    <Compile Include="FormClass\FI\PS_FI100.cs" />
+    <Compile Include="FormClass\FI\PS_FI110.cs" />
+    <Compile Include="FormClass\FI\PS_FI120.cs" />
+    <Compile Include="FormClass\FI\PS_FI130.cs" />
+    <Compile Include="FormClass\FI\PS_FI140.cs" />
+    <Compile Include="FormClass\FI\PS_FI150.cs" />
+    <Compile Include="FormClass\FI\PS_FI160.cs" />
+    <Compile Include="FormClass\FI\PS_FI170.cs" />
+    <Compile Include="FormClass\FI\PS_FI180.cs" />
+    <Compile Include="FormClass\FI\PS_FI190.cs" />
+    <Compile Include="FormClass\FI\PS_FI210.cs" />
+    <Compile Include="FormClass\FI\PS_FI215.cs" />
+    <Compile Include="FormClass\FI\PS_FI220.cs" />
+    <Compile Include="FormClass\FI\PS_FI420.cs" />
+    <Compile Include="FormClass\FI\PS_FI421.cs" />
+    <Compile Include="FormClass\FI\PS_FI900.cs" />
+    <Compile Include="FormClass\FI\PS_FI901.cs" />
+    <Compile Include="FormClass\FI\PS_FI902.cs" />
+    <Compile Include="FormClass\FI\PS_FI904.cs" />
+    <Compile Include="FormClass\FI\PS_FI907.cs" />
+    <Compile Include="FormClass\FI\PS_FI070.cs" />
+    <Compile Include="FormClass\CO\PS_CO260.cs" />
+    <Compile Include="FormClass\FI\PS_FI060.cs" />
+    <Compile Include="FormClass\FI\PS_FI050.cs" />
+    <Compile Include="FormClass\FI\PS_FI040.cs" />
+    <Compile Include="FormClass\FI\PS_FI030.cs" />
+    <Compile Include="FormClass\FI\PS_FI909.cs" />
+    <Compile Include="FormClass\FI\PS_FI910.cs" />
+    <Compile Include="FormClass\FI\PS_FI912.cs" />
+    <Compile Include="FormClass\FI\PS_FI913.cs" />
+    <Compile Include="FormClass\FI\PS_FI918.cs" />
+    <Compile Include="FormClass\FI\PS_FI924.cs" />
+    <Compile Include="FormClass\FI\PS_FI929.cs" />
+    <Compile Include="FormClass\FI\PS_FI931.cs" />
+    <Compile Include="FormClass\FI\PS_FI932.cs" />
+    <Compile Include="FormClass\FI\PS_FI933.cs" />
+    <Compile Include="FormClass\FI\PS_FI960.cs" />
+    <Compile Include="FormClass\FI\PS_FI961.cs" />
+    <Compile Include="FormClass\FI\PS_FI962.cs" />
+    <Compile Include="FormClass\FX\PS_FX241.cs" />
+    <Compile Include="FormClass\MM\PS_MM921.cs" />
+    <Compile Include="FormClass\CO\PS_CO540.cs" />
+    <Compile Include="FormClass\CO\PS_CO040.cs" />
+    <Compile Include="FormClass\CO\PS_CO050.cs" />
+    <Compile Include="FormClass\CO\PS_CO060.cs" />
+    <Compile Include="FormClass\CO\PS_CO160.cs" />
+    <Compile Include="FormClass\CO\PS_CO250.cs" />
+    <Compile Include="FormClass\CO\PS_CO530.cs" />
+    <Compile Include="FormClass\CO\PS_CO921.cs" />
+    <Compile Include="FormClass\CO\PS_CO920.cs" />
+    <Compile Include="FormClass\CO\PS_CO901.cs" />
+    <Compile Include="FormClass\CO\PS_CO020.cs" />
+    <Compile Include="FormClass\CO\PS_CO100.cs" />
+    <Compile Include="FormClass\CO\PS_CO210.cs" />
+    <Compile Include="FormClass\CO\PS_CO504.cs" />
+    <Compile Include="FormClass\CO\PS_CO001.cs" />
+    <Compile Include="FormClass\CO\PS_CO010.cs" />
+    <Compile Include="FormClass\CO\PS_CO502.cs" />
+    <Compile Include="FormClass\CO\PS_CO501.cs" />
+    <Compile Include="FormClass\CO\PS_CO503.cs" />
+    <Compile Include="FormClass\CO\PS_CO520.cs" />
+    <Compile Include="FormClass\CO\PS_CO510.cs" />
+    <Compile Include="FormClass\CO\PS_CO131.cs" />
+    <Compile Include="FormClass\CO\PS_CO130.cs" />
+    <Compile Include="FormClass\CO\PS_CO120.cs" />
+    <Compile Include="FormClass\CO\PS_CO600.cs" />
+    <Compile Include="FormClass\CO\PS_CO605.cs" />
+    <Compile Include="FormClass\CO\PS_CO606.cs" />
+    <Compile Include="FormClass\CO\PS_CO610.cs" />
+    <Compile Include="FormClass\CO\PS_CO658.cs" />
+    <Compile Include="FormClass\CO\PS_CO660.cs" />
+    <Compile Include="FormClass\CO\PS_CO665.cs" />
+    <Compile Include="FormClass\CO\PS_CO670.cs" />
     <Compile Include="FormClass\PY\PH_PY998.cs" />
     <Compile Include="FormClass\PY\PH_PY115.cs" />
     <Compile Include="FormClass\PY\PH_PY135.cs" />
@@ -122,13 +232,19 @@
     <Compile Include="FormClass\PY\PH_PYA90.cs" />
     <Compile Include="FormClass\PY\PS_DateChange.cs" />
     <Compile Include="FormClass\PY\PS_DateCommit.cs" />
-    <Compile Include="FormClass\PY\ZPY521.cs" />
     <Compile Include="PSH_CommonClass\AssemblyInfo.cs" />
     <Compile Include="FormClass\PY\ClassModuleSTD.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PSH_CommonClass\DataPack\DataPack.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PSH_CommonClass\DataPack\DataPackPropertyDescriptor.cs" />
+    <Compile Include="PSH_CommonClass\DataPack\DataPackPropertyDescriptorTypeConverter.cs" />
+    <Compile Include="PSH_CommonClass\MDC_PS_Common.cs" />
     <Compile Include="PSH_CommonClass\PSH_BaseClass.cs" />
     <Compile Include="PSH_CommonClass\PSH_CodeHelpClass.cs" />
+    <Compile Include="PSH_CommonClass\PSH_DatabaseHelpClass.cs" />
     <Compile Include="PSH_CommonClass\PSH_DataHelpClass.cs" />
     <Compile Include="PSH_CommonClass\PSH_DataPackClass.cs" />
     <Compile Include="PSH_CommonClass\PSH_FormHelpClass.cs" />
@@ -753,93 +869,12 @@
     <Compile Include="FormClass\PY\PH_PYA75.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FormClass\PY\RPY401.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\RPY501.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\RPY502.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\RPY503.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\RPY504.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\RPY505.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\RPY506.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\RPY507.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\RPY508.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\RPY509.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\RPY510.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\RPY511.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="FormClass\PY\SM60100.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PSH_CommonClass\PSH_Globals.cs" />
     <Compile Include="PSH_CommonClass\PSH_MainClass.cs" />
     <Compile Include="PSH_CommonClass\SubMain.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\UpgradeSupport.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY341.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY343.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY421.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY501.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY502.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY503.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY504.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY505.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY506.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY507.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY508.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY509.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY510.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormClass\PY\ZPY522.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -1186,6 +1221,65 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\RPY510.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\RPY510_2011.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\RPY511.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO600_51.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO600_52.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO600_53.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO600_54.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO605_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO605_02.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO131_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO131_02.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO610_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO210_02.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO901_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO530_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_CO530_02.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI030_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI030_02.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI040_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI050_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI060_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI070_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI080_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI907_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI090_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI100_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI110_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI120_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI130_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI140_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI150_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI160_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI170_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI180_00.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI180_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI180_02.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI180_03.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI180_04.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI180_05.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI180_06.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI180_20.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI210_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI220_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI420_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI420_02.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI421_02.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI904_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI904_02.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI904_03.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI909_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI910_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI912_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI912_02.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI913_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI918_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI924_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI931_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI933_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI960_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FI960_02.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_MM921_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_MM921_02.rpt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EXT_Form\FileListBoxForm.resX">
@@ -1194,6 +1288,88 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PSH_BOne_AddOn\Menu_KOR.xml" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI963.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO685.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI090.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI100.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI110.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI120.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI130.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI140.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI150.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI160.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI170.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI180.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI190.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI210.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI215.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI220.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI420.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI421.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI900.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI901.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI902.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI904.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI909.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI910.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI912.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI913.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI918.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI924.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI929.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI931.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI932.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI933.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI960.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI961.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI962.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI070.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI080.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI907.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI040.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI050.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FI030.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FX241.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM921.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO901.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO001.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO010.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO020.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO100.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO040.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO060.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO003.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\ExtProgram\WaitingForm.exe" />
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO050.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO110.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO111.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO070.srf" />
+    <AdditionalFiles Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO080.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO090.srf" />
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO131.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO501.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO502.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO503.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO504.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO210.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO530.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO540.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO160.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO170.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO185.srf" />
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO250.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO260.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO670.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO665.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO660.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO610.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO520.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO510.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO130.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO120.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO605.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO600.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO658.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY000.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY001.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY002.srf" />
@@ -1430,6 +1606,13 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\ZPY510.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\ZPY521.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\ZPY522.srf" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

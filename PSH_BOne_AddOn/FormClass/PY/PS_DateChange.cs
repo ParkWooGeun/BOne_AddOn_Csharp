@@ -1,24 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
-using PSH_BOne_AddOn.DataPack;
-using PSH_BOne_AddOn.Form;
-using Microsoft.VisualBasic;
 
 namespace PSH_BOne_AddOn
 {
     /// <summary>
-    /// 사용자 권한 등록
+    /// 날짜 변경 요청
     /// </summary>
     internal class PS_DateChange : PSH_BaseClass
     {
-        public string oFormUniqueID01;
-
-        //'// 그리드 사용시
-        public SAPbouiCOM.Grid oGrid1;
-        public SAPbouiCOM.DataTable oDS_PS_DateChangeA;
-
+        private string oFormUniqueID01;
+        private SAPbouiCOM.Grid oGrid1;
+        private SAPbouiCOM.DataTable oDS_PS_DateChangeA;
         private string oLastItemUID;
         private string oLastColUID;
         private int oLastColRow;
@@ -26,10 +19,10 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면 호출
         /// </summary>
-        public override void LoadForm(string oFromDocEntry01)
+        public override void LoadForm(string oFormDocEntry01)
         {
-            int i = 0;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
+
             try
             {
                 oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PS_DateChange.srf");
@@ -37,7 +30,7 @@ namespace PSH_BOne_AddOn
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
 
-                for (i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
+                for (int i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
                 {
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight")[i - 1].nodeValue = 20;
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
@@ -46,20 +39,15 @@ namespace PSH_BOne_AddOn
                 oFormUniqueID01 = "PS_DateChange_" + SubMain.Get_TotalFormsCount();
                 SubMain.Add_Forms(this, oFormUniqueID01, "PS_DateChange");
 
-                string strXml = string.Empty;
-                strXml = oXmlDoc.xml.ToString();
-
-                PSH_Globals.SBO_Application.LoadBatchActions(strXml);
+                PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID01);
 
                 oForm.SupportedModes = -1;
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 
-
                 oForm.Freeze(true);
                 PS_DateChange_CreateItems();
                 PS_DateChange_FormItemEnabled();
-               // PS_DateChange_EnableMenus();
             }
             catch (Exception ex)
             {
@@ -69,8 +57,8 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Update();
                 oForm.Freeze(false);
-                //       oForm.Visible = true;
-                //       oForm.ActiveItem = "CLTCOD"; //사업장 콤보박스로 포커싱
+                //oForm.Visible = true;
+                //oForm.ActiveItem = "CLTCOD"; //사업장 콤보박스로 포커싱
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oXmlDoc); //메모리 해제
             }
         }
@@ -80,7 +68,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PS_DateChange_CreateItems()
         {
-            string sQry = string.Empty;
+            string sQry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
@@ -95,10 +83,10 @@ namespace PSH_BOne_AddOn
 
                 // BPLId
                 sQry = " SELECT T2.Code ,T2.Name";
-                sQry = sQry + " From [@PH_PY000B] T0 INNER JOIN [@PH_PY000A] T1 ON T0.Code = T1.Code";
-                sQry = sQry + " INNER JOIN [@PH_PY005A] T2 ON T0.U_Value = T2.Code";
-                sQry = sQry + " WHERE T1.Code = 'CLTCOD' AND T0.U_UserCode = '" + PSH_Globals.oCompany.UserName + "'";
-                sQry = sQry + " GROUP BY T2.Code ,T2.Name ORDER BY T2.Code";
+                sQry += " From [@PH_PY000B] T0 INNER JOIN [@PH_PY000A] T1 ON T0.Code = T1.Code";
+                sQry += " INNER JOIN [@PH_PY005A] T2 ON T0.U_Value = T2.Code";
+                sQry += " WHERE T1.Code = 'CLTCOD' AND T0.U_UserCode = '" + PSH_Globals.oCompany.UserName + "'";
+                sQry += " GROUP BY T2.Code ,T2.Name ORDER BY T2.Code";
 
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("BPLId").Specific, "N");
                 oForm.Items.Item("BPLId").DisplayDesc = true;
@@ -112,7 +100,6 @@ namespace PSH_BOne_AddOn
                 // CreateUser
                 oForm.DataSources.UserDataSources.Add("CreateUser", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("CreateUser").Specific.DataBind.SetBound(true, "", "CreateUser");
-
                 oForm.Items.Item("CreateUser").Specific.Value = PSH_Globals.oCompany.UserName;
 
                 // CreateUseV
@@ -156,55 +143,6 @@ namespace PSH_BOne_AddOn
                 // Comments
                 oForm.DataSources.UserDataSources.Add("Comments", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 200);
                 oForm.Items.Item("Comments").Specific.DataBind.SetBound(true, "", "Comments");
-
-                //// 순서
-                //sQry = "select U_Minor , U_CdName from [@PS_SY001L] where code ='A006'";
-                //dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("Modual").Specific, "Y");
-                //oForm.Items.Item("Modual").DisplayDesc = true;
-
-                //// Position
-                //sQry = "select U_Minor , U_CdName from [@PS_SY001L] where code ='A005'";
-                //dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("Position").Specific, "Y");
-                //oForm.Items.Item("Position").DisplayDesc = true;
-
-                //// Sub1
-                //sQry = "select U_Minor , U_CdName from [@PS_SY001L] where code ='H002'";
-                //dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("Sub1").Specific, "Y");
-                //oForm.Items.Item("Sub1").DisplayDesc = true;
-
-                //// Sub2
-                //sQry = "select U_Minor , U_CdName from [@PS_SY001L] where code ='H002'";
-                //dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("Sub2").Specific, "Y");
-                //oForm.Items.Item("Sub2").DisplayDesc = true;
-
-                //// Sub3
-                //sQry = "select U_Minor , U_CdName from [@PS_SY001L] where code ='H002'";
-                //dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("Sub3").Specific, "Y");
-                //oForm.Items.Item("Sub3").DisplayDesc = true;
-
-                //// 순서
-                //sQry = "select U_Minor , U_CdName from [@PS_SY001L] where code ='H002'";
-                //dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("No").Specific, "Y");
-                //oForm.Items.Item("No").DisplayDesc = true;
-
-                //// Level
-                //oForm.Items.Item("Level").Specific.ValidValues.Add("0", "0");
-                //oForm.Items.Item("Level").Specific.ValidValues.Add("1", "1");
-                //oForm.Items.Item("Level").Specific.ValidValues.Add("2", "2");
-                //oForm.Items.Item("Level").DisplayDesc = true;
-
-                //// FatherId
-                //sQry = "select  distinct t.a,t.b   from (select distinct UniqueID as a , UniqueID as b from Authority_Folder union all select distinct FatherID as a , FatherID as b from Authority_Folder) t";
-                //dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("FatherID").Specific, "Y");
-                //oForm.Items.Item("FatherID").DisplayDesc = true;
-
-                //// String
-                //oForm.DataSources.UserDataSources.Add("Strings", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 50);
-                //oForm.Items.Item("Strings").Specific.DataBind.SetBound(true, "", "Strings");
-
-                //// UniqueID
-                //oForm.DataSources.UserDataSources.Add("UniqueID", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
-                //oForm.Items.Item("UniqueID").Specific.DataBind.SetBound(true, "", "UniqueID");
             }
             catch (Exception ex)
             {
@@ -215,26 +153,6 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(false);
             }
         }
-
-        ///// <summary>
-        ///// PS_DateChange_EnableMenus
-        ///// </summary>
-        //private void PS_DateChange_EnableMenus()
-        //{
-        //    try
-        //    {
-        //        // oForm.EnableMenu("1283", false);                // 제거
-        //        //oForm.EnableMenu("1284", false);                // 취소
-        //        oForm.EnableMenu("1293", false);                // 행삭제
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        PSH_Globals.SBO_Application.StatusBar.SetText("PS_DateChange_EnableMenus_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-        //    }
-        //    finally
-        //    {
-        //    }
-        //}
 
         /// <summary>
         /// 화면의 아이템 Enable 설정
@@ -247,26 +165,22 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
+                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
-                    oForm.EnableMenu("1281", false);      // 문서찾기
-                    oForm.EnableMenu("1282", true);       // 문서추가
-                    //dataHelpClass.CLTCOD_Select(oForm, "BPLID", true);
-                    // 접속자에 따른 권한별 사업장 콤보박스세팅
+                    oForm.EnableMenu("1281", false); // 문서찾기
+                    oForm.EnableMenu("1282", true); // 문서추가
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
-                    oForm.EnableMenu("1281", false);      // 문서찾기
-                    oForm.EnableMenu("1282", true);       // 문서추가
+                    oForm.EnableMenu("1281", true); // 문서찾기
+                    oForm.EnableMenu("1282", false); // 문서추가
                     dataHelpClass.CLTCOD_Select(oForm, "BPLID", true);
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
-                    oForm.EnableMenu("1281", true);       // 문서찾기
-                    oForm.EnableMenu("1282", true);       // 문서추가
-                    //dataHelpClass.CLTCOD_Select(oForm, "BPLID", true);
+                    oForm.EnableMenu("1281", true); // 문서찾기
+                    oForm.EnableMenu("1282", true); // 문서추가
                 }
-                // Key set
             }
             catch (Exception ex)
             {
@@ -279,35 +193,267 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// FORM_UNLOAD 이벤트
+        /// PS_DateChange_MTX01
         /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_FORM_UNLOAD(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        private void PS_DateChange_MTX01()
         {
+            int iRow;
+            string sQry;
+            string BPLId;
+            string CreateUser;
+            string ObjectCode;
+
             try
             {
-                if (pVal.Before_Action == true)
-                {
-                }
-                else if (pVal.Before_Action == false)
-                {
-                    SubMain.Remove_Forms(oFormUniqueID01);
+                oForm.Freeze(true);
+                oForm.Items.Item("DocEntry").Specific.Value = "";
+                oForm.Items.Item("LineId").Specific.Value = "";
+                oForm.Items.Item("DocDate").Specific.Value = "";
+                oForm.Items.Item("DueDate").Specific.Value = "";
+                oForm.Items.Item("TaxDate").Specific.Value = "";
+                oForm.Items.Item("Comments").Specific.Value = "";
+                oForm.Items.Item("OKYN").Specific.Value = "";
 
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_DateChangeA);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid1);
-                }
+                oForm.Items.Item("Grantor").Specific.Value = "";
+                oForm.Items.Item("GrantorV").Specific.Value = "";
+
+                BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+                CreateUser = oForm.Items.Item("CreateUser").Specific.Value.ToString().Trim();
+                ObjectCode = oForm.Items.Item("ObjectCode").Specific.Value.ToString().Trim();
+
+                sQry = "EXEC PS_DateChange_01 '" + BPLId + "', '" + CreateUser + "', '" + ObjectCode + "'";
+                oDS_PS_DateChangeA.ExecuteQuery(sQry);
+                iRow = oForm.DataSources.DataTables.Item(0).Rows.Count;
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_FORM_UNLOAD_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.StatusBar.SetText("PS_DateChange_MTX01_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
             {
+                oForm.Freeze(false);
             }
         }
+
+        /// <summary>
+        /// PS_DateChange_MTX02
+        /// </summary>
+        private void PS_DateChange_MTX02(int oRow)
+        {
+            try
+            {
+                oForm.Freeze(true);
+                oForm.Items.Item("CreateDate").Specific.Value = oDS_PS_DateChangeA.Columns.Item("등록일").Cells.Item(oRow).Value;
+
+                oForm.Items.Item("DocEntry").Specific.Value = oDS_PS_DateChangeA.Columns.Item("문서번호").Cells.Item(oRow).Value;
+                oForm.Items.Item("LineId").Specific.Value = oDS_PS_DateChangeA.Columns.Item("행번호").Cells.Item(oRow).Value;
+                oForm.Items.Item("DocDate").Specific.Value = oDS_PS_DateChangeA.Columns.Item("전기일").Cells.Item(oRow).Value;
+                oForm.Items.Item("DueDate").Specific.Value = oDS_PS_DateChangeA.Columns.Item("만기일").Cells.Item(oRow).Value;
+                oForm.Items.Item("TaxDate").Specific.Value = oDS_PS_DateChangeA.Columns.Item("증빙일").Cells.Item(oRow).Value;
+                oForm.Items.Item("Comments").Specific.Value = oDS_PS_DateChangeA.Columns.Item("관련근거").Cells.Item(oRow).Value;
+                oForm.Items.Item("OKYN").Specific.Value = oDS_PS_DateChangeA.Columns.Item("처리상태").Cells.Item(oRow).Value;
+
+                oForm.Items.Item("Grantor").Specific.Value = oDS_PS_DateChangeA.Columns.Item("승인자").Cells.Item(oRow).Value;
+                oForm.Items.Item("GrantorV").Specific.Value = oDS_PS_DateChangeA.Columns.Item("승인자명").Cells.Item(oRow).Value;
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("PS_DateChange_MTX02_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                oForm.Freeze(false);
+            }
+        }
+
+        /// <summary>
+        /// PS_DateChange_SAVE
+        /// </summary>
+        private void PS_DateChange_SAVE()
+        {
+            // 데이타 저장
+            int ErrNum = 0;
+            string sQry;
+            string BPLId;
+            string ObjectCode;
+            string CreateUser;
+            string CreateUseV;
+            string Grantor;
+            string GrantorV;
+            string CreateDate;
+            string DocEntry;
+            string LineId;
+            string DocDate;
+            string DueDate;
+            string TaxDate;
+            string Comments;
+
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                oForm.Freeze(true);
+                if (PSH_Globals.SBO_Application.MessageBox("저장하시겠습니까?", 2, "Yes", "No") == 2)
+                {
+                    ErrNum = 7;
+                    throw new Exception();
+                }
+
+                BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+                ObjectCode = oForm.Items.Item("ObjectCode").Specific.Value.ToString().Trim();
+                CreateUser = oForm.Items.Item("CreateUser").Specific.Value.ToString().Trim();
+                CreateUseV = oForm.Items.Item("CreateUseV").Specific.Value.ToString().Trim();
+                Grantor = oForm.Items.Item("Grantor").Specific.Value.ToString().Trim();
+                GrantorV = oForm.Items.Item("GrantorV").Specific.Value.ToString().Trim();
+                CreateDate = oForm.Items.Item("CreateDate").Specific.Value.ToString().Trim();
+                DocEntry = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim();
+                LineId = oForm.Items.Item("LineId").Specific.Value.ToString().Trim();
+                DocDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
+                DueDate = oForm.Items.Item("DueDate").Specific.Value.ToString().Trim();
+                TaxDate = oForm.Items.Item("TaxDate").Specific.Value.ToString().Trim();
+                Comments = oForm.Items.Item("Comments").Specific.Value.ToString().Trim();
+
+                if (BPLId == "")
+                {
+                    ErrNum = 1;
+                    throw new Exception();
+                }
+                if (ObjectCode == "")
+                {
+                    ErrNum = 2;
+                    throw new Exception();
+                }
+                if (Grantor == "")
+                {
+                    ErrNum = 3;
+                    throw new Exception();
+                }
+                if (DocEntry == "")
+                {
+                    ErrNum = 4;
+                    throw new Exception();
+                }
+                if (DocDate + DueDate + TaxDate == "")
+                {
+                    ErrNum = 5;
+                    throw new Exception();
+                }
+                if (Comments == "")
+                {
+                    ErrNum = 6;
+                    throw new Exception();
+                }
+
+                sQry = "EXEC PS_DateChange_02 '" + BPLId + "', '" + ObjectCode + "', '" + CreateUser + "', '";
+                sQry += CreateUseV + "', '" + Grantor + "', '" + GrantorV + "', '" + CreateDate + "', '" + DocEntry + "', '" + LineId + "', '" + DocDate + "', '" + DueDate + "', '";
+                sQry += TaxDate + "', '" + Comments + "'";
+                //oDS_PS_DateChangeA.ExecuteQuery(sQry);
+                oRecordSet.DoQuery(sQry);
+
+                if (oRecordSet.Fields.Item("returnV").Value == "1")
+                {
+                    PSH_Globals.SBO_Application.MessageBox("수정완료");
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.MessageBox("신규등록");
+                }
+
+                PS_DateChange_MTX01();
+            }
+            catch (Exception ex)
+            {
+                if (ErrNum == 1)
+                {
+                    PSH_Globals.SBO_Application.MessageBox("사업장은 필수입니다.");
+                }
+                else if (ErrNum == 2)
+                {
+                    PSH_Globals.SBO_Application.MessageBox("구분은 필수입니다.");
+                }
+                else if (ErrNum == 3)
+                {
+                    PSH_Globals.SBO_Application.MessageBox("승인자는 필수입니다.");
+                }
+                else if (ErrNum == 4)
+                {
+                    PSH_Globals.SBO_Application.MessageBox("문서번호는 필수입니다.");
+                }
+                else if (ErrNum == 5)
+                {
+                    PSH_Globals.SBO_Application.MessageBox("날짜입력은 필수입니다.");
+                }
+                else if (ErrNum == 6)
+                {
+                    PSH_Globals.SBO_Application.MessageBox("관련근거 입력은 필수입니다.");
+                }
+                else if (ErrNum == 7)
+                {
+                    PSH_Globals.SBO_Application.MessageBox("저장을 취소하셨습니다.");
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("PS_DateChange_SAVE_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+            }
+            finally
+            {
+                oForm.Freeze(false);
+            }
+        }
+
+        /// <summary>
+        /// PS_DateChange_Delete
+        /// </summary>
+        private void PS_DateChange_Delete()
+        {
+            string sQry;
+            int ErrNum = 0;
+
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            try
+            {
+                oForm.Freeze(true);
+                if (PSH_Globals.SBO_Application.MessageBox("삭제하시겠습니까?", 2, "Yes", "No") == 2)
+                {
+                    ErrNum = 1;
+                    throw new Exception();
+                }
+                if (oForm.Items.Item("OKYN").Specific.Value.Trim() != "N")
+                {
+                    ErrNum = 2;
+                    throw new Exception();
+                }
+                sQry = "delete from PSH_DateChange where ObjectCode = '" + oForm.Items.Item("ObjectCode").Specific.Value + "'";
+                sQry += " and DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'";
+                sQry += " and LineId = '" + oForm.Items.Item("LineId").Specific.Value + "'";
+                sQry += " and OKYN = 'N'";
+                oRecordSet.DoQuery(sQry);
+
+                PS_DateChange_MTX01();
+            }
+            catch (Exception ex)
+            {
+                if (ErrNum == 1)
+                {
+                    PSH_Globals.SBO_Application.MessageBox("삭제가 취소되었습니다.");
+                }
+                else if (ErrNum == 2)
+                {
+                    PSH_Globals.SBO_Application.MessageBox("처리상태가 N인것만 삭제가능합니다.");
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("PS_DateChange_Delete_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+                oForm.Freeze(false);
+            }
+        }
+        
         /// <summary>
         /// Form Item Event
         /// </summary>
@@ -384,7 +530,7 @@ namespace PSH_BOne_AddOn
                 //    break;
 
                 case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
-                    //Raise_EVENT_RESIZE(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 //case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
@@ -399,97 +545,15 @@ namespace PSH_BOne_AddOn
                     //Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                    //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
-                    //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
-                    //    break;
+                //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
+                //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
 
-                    //case SAPbouiCOM.BoEventTypes.et_Drag: //39
-                    //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
-                    //    break;
+                //case SAPbouiCOM.BoEventTypes.et_Drag: //39
+                //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
             }
         }
-
-        /// <summary>
-        /// FormMenuEvent
-        /// </summary>
-        /// <param name="FormUID"></param>
-        /// <param name="pVal"></param>
-        /// <param name="BubbleEvent"></param>
-        public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
-        {
-            try
-            {
-                oForm.Freeze(true);
-
-                if (pVal.BeforeAction == true)
-                {
-                    switch (pVal.MenuUID)
-                    {
-                        case "1283":
-                            if (PSH_Globals.SBO_Application.MessageBox("현재 화면내용전체를 제거 하시겠습니까? 복구할 수 없습니다.", 2, "Yes", "No") == 2)
-                            {
-                                BubbleEvent = false;
-                                return;
-                            }
-                            break;
-                        case "1284":
-                            break;
-                        case "1286":
-                            break;
-                        case "1293":
-                            break;
-                        case "1281":
-                            break;
-                        case "1282":
-                            break;
-                        case "1288":
-                        case "1289":
-                        case "1290":
-                        case "1291":
-                            PS_DateChange_FormItemEnabled();
-                            break;
-                    }
-                }
-                else if (pVal.BeforeAction == false)
-                {
-                    switch (pVal.MenuUID)
-                    {
-                        case "1283":
-                            oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
-                            break;
-
-                        case "1284":
-                            break;
-                        case "1286":
-                            break;
-                        //Case "1293":
-                        //  Raise_EVENT_ROW_DELETE(FormUID, pval, BubbleEvent);
-                        case "1281": //문서찾기
-                            PS_DateChange_FormItemEnabled();
-                            oForm.Items.Item("Code").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            break;
-                        case "1282": //문서추가
-                            break;
-                        case "1288":
-                        case "1289":
-                        case "1290":
-                        case "1291":
-                            break;
-                        case "1293": // 행삭제
-                            break;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_FormMenuEvent_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-                oForm.Freeze(false);
-            }
-        }
-
 
         /// <summary>
         /// ITEM_PRESSED 이벤트
@@ -514,7 +578,7 @@ namespace PSH_BOne_AddOn
 
                     if (pVal.ItemUID == "Btn01")
                     {
-                        PS_DateChange_SAVE(pVal.Row);
+                        PS_DateChange_SAVE();
                     }
 
                     if (pVal.ItemUID == "Btn_del")
@@ -629,7 +693,7 @@ namespace PSH_BOne_AddOn
                             case "Sub1":
                             case "Sub2":
                             case "ObjectCode":
-                                if (oForm.Items.Item("ObjectCode").Specific.VALUE.ToString().Trim() =="31")
+                                if (oForm.Items.Item("ObjectCode").Specific.Value.ToString().Trim() =="31")
                                 {
                                     oForm.Items.Item("DocDate").Enabled = false;
                                     oForm.Items.Item("DueDate").Enabled = false;
@@ -667,6 +731,7 @@ namespace PSH_BOne_AddOn
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 if (pVal.BeforeAction == true)
@@ -679,7 +744,7 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "Grantor":
-                                oForm.Items.Item("GrantorV").Specific.VALUE = dataHelpClass.Get_ReData("U_Name", "USER_CODE", "OUSR", "'" + oForm.Items.Item("Grantor").Specific.VALUE + "'", "");
+                                oForm.Items.Item("GrantorV").Specific.Value = dataHelpClass.Get_ReData("U_Name", "USER_CODE", "OUSR", "'" + oForm.Items.Item("Grantor").Specific.Value + "'", "");
                                 break;
                         }
                     }
@@ -715,7 +780,7 @@ namespace PSH_BOne_AddOn
                                 switch (pVal.ItemUID)
                                 {
                                     case "Grid01":
-                                        PS_DateChange_MTX02(pVal.ItemUID, pVal.Row, pVal.ColUID);
+                                        PS_DateChange_MTX02(pVal.Row);
                                         break;
                                 }
                             }
@@ -755,267 +820,111 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// PS_DateChange_MTX01
+        /// FORM_UNLOAD 이벤트
         /// </summary>
-        private void PS_DateChange_MTX01()
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_FORM_UNLOAD(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            int iRow = 0;
-            string sQry = string.Empty;
-            string BPLId = string.Empty;
-            string CreateUser = string.Empty;
-            string ObjectCode = string.Empty;
-
             try
             {
-                oForm.Freeze(true);
-                oForm.Items.Item("DocEntry").Specific.VALUE = "";
-                oForm.Items.Item("LineId").Specific.VALUE = "";
-                oForm.Items.Item("DocDate").Specific.VALUE = "";
-                oForm.Items.Item("DueDate").Specific.VALUE = "";
-                oForm.Items.Item("TaxDate").Specific.VALUE = "";
-                oForm.Items.Item("Comments").Specific.VALUE = "";
-                oForm.Items.Item("OKYN").Specific.VALUE = "";
+                if (pVal.Before_Action == true)
+                {
+                }
+                else if (pVal.Before_Action == false)
+                {
+                    SubMain.Remove_Forms(oFormUniqueID01);
 
-                oForm.Items.Item("Grantor").Specific.VALUE = "";
-                oForm.Items.Item("GrantorV").Specific.VALUE = "";
-
-
-                BPLId = oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim();
-                CreateUser = oForm.Items.Item("CreateUser").Specific.VALUE.ToString().Trim();
-                ObjectCode = oForm.Items.Item("ObjectCode").Specific.VALUE.ToString().Trim();
-
-                sQry = "EXEC PS_DateChange_01 '" + BPLId + "', '" + CreateUser + "', '" + ObjectCode + "'";
-                oDS_PS_DateChangeA.ExecuteQuery(sQry);
-                iRow = oForm.DataSources.DataTables.Item(0).Rows.Count;
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_DateChangeA);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid1);
+                }
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText("PS_DateChange_MTX01_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_FORM_UNLOAD_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
             {
-                oForm.Freeze(false);
             }
         }
 
         /// <summary>
-        /// PS_DateChange_MTX02
+        /// FormMenuEvent
         /// </summary>
-        private void PS_DateChange_MTX02(string oUID, int oRow = 0, string oCol = "")
+        /// <param name="FormUID"></param>
+        /// <param name="pVal"></param>
+        /// <param name="BubbleEvent"></param>
+        public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
             try
             {
                 oForm.Freeze(true);
-                oForm.Items.Item("CreateDate").Specific.VALUE = oDS_PS_DateChangeA.Columns.Item("등록일").Cells.Item(oRow).Value;
 
-                oForm.Items.Item("DocEntry").Specific.VALUE = oDS_PS_DateChangeA.Columns.Item("문서번호").Cells.Item(oRow).Value;
-                oForm.Items.Item("LineId").Specific.VALUE = oDS_PS_DateChangeA.Columns.Item("행번호").Cells.Item(oRow).Value;
-                oForm.Items.Item("DocDate").Specific.VALUE = oDS_PS_DateChangeA.Columns.Item("전기일").Cells.Item(oRow).Value;
-                oForm.Items.Item("DueDate").Specific.VALUE = oDS_PS_DateChangeA.Columns.Item("만기일").Cells.Item(oRow).Value;
-                oForm.Items.Item("TaxDate").Specific.VALUE = oDS_PS_DateChangeA.Columns.Item("증빙일").Cells.Item(oRow).Value;
-                oForm.Items.Item("Comments").Specific.VALUE = oDS_PS_DateChangeA.Columns.Item("관련근거").Cells.Item(oRow).Value;
-                oForm.Items.Item("OKYN").Specific.VALUE = oDS_PS_DateChangeA.Columns.Item("처리상태").Cells.Item(oRow).Value;
+                if (pVal.BeforeAction == true)
+                {
+                    switch (pVal.MenuUID)
+                    {
+                        case "1283":
+                            if (PSH_Globals.SBO_Application.MessageBox("현재 화면내용전체를 제거 하시겠습니까? 복구할 수 없습니다.", 2, "Yes", "No") == 2)
+                            {
+                                BubbleEvent = false;
+                                return;
+                            }
+                            break;
+                        case "1284":
+                            break;
+                        case "1286":
+                            break;
+                        case "1293":
+                            break;
+                        case "1281":
+                            break;
+                        case "1282":
+                            break;
+                        case "1288":
+                        case "1289":
+                        case "1290":
+                        case "1291":
+                            PS_DateChange_FormItemEnabled();
+                            break;
+                    }
+                }
+                else if (pVal.BeforeAction == false)
+                {
+                    switch (pVal.MenuUID)
+                    {
+                        case "1283":
+                            oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
+                            break;
 
-                oForm.Items.Item("Grantor").Specific.VALUE = oDS_PS_DateChangeA.Columns.Item("승인자").Cells.Item(oRow).Value;
-                oForm.Items.Item("GrantorV").Specific.VALUE = oDS_PS_DateChangeA.Columns.Item("승인자명").Cells.Item(oRow).Value;
+                        case "1284":
+                            break;
+                        case "1286":
+                            break;
+                        case "1281": //문서찾기
+                            PS_DateChange_FormItemEnabled();
+                            oForm.Items.Item("Code").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                            break;
+                        case "1282": //문서추가
+                            break;
+                        case "1288":
+                        case "1289":
+                        case "1290":
+                        case "1291":
+                            break;
+                        case "1293": // 행삭제
+                            break;
+                    }
+                }
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText("PS_DateChange_MTX02_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_FormMenuEvent_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
             {
-                oForm.Freeze(false);
-            }
-        }
-
-        /// <summary>
-        /// PS_DateChange_SAVE
-        /// </summary>
-        private void PS_DateChange_SAVE(int oRow = 0)
-        {
-            // 데이타 저장
-            int ErrNum = 0;
-            string sQry = string.Empty;
-            string BPLId        = string.Empty;
-            string ObjectCode   = string.Empty;
-            string CreateUser   = string.Empty;
-            string CreateUseV   = string.Empty;
-            string Grantor      = string.Empty;
-            string GrantorV     = string.Empty;
-            string CreateDate   = string.Empty;
-            string DocEntry     = string.Empty;
-            string LineId       = string.Empty;
-            string DocDate      = string.Empty;
-            string DueDate      = string.Empty;
-            string TaxDate      = string.Empty;
-            string Comments     = string.Empty;
-
-
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-            try
-            {
-                oForm.Freeze(true);
-                if (PSH_Globals.SBO_Application.MessageBox("저장하시겠습니까?", 2, "Yes", "No") == 2)
-                {
-                    ErrNum = 7;
-                    throw new Exception();
-                }
-
-                BPLId = oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim();
-                ObjectCode = oForm.Items.Item("ObjectCode").Specific.VALUE.ToString().Trim();
-                CreateUser = oForm.Items.Item("CreateUser").Specific.VALUE.ToString().Trim();
-                CreateUseV = oForm.Items.Item("CreateUseV").Specific.VALUE.ToString().Trim();
-                Grantor = oForm.Items.Item("Grantor").Specific.VALUE.ToString().Trim();
-                GrantorV = oForm.Items.Item("GrantorV").Specific.VALUE.ToString().Trim();
-                CreateDate = oForm.Items.Item("CreateDate").Specific.VALUE.ToString().Trim();
-                DocEntry = oForm.Items.Item("DocEntry").Specific.VALUE.ToString().Trim();
-                LineId = oForm.Items.Item("LineId").Specific.VALUE.ToString().Trim();
-                DocDate = oForm.Items.Item("DocDate").Specific.VALUE.ToString().Trim();
-                DueDate = oForm.Items.Item("DueDate").Specific.VALUE.ToString().Trim();
-                TaxDate = oForm.Items.Item("TaxDate").Specific.VALUE.ToString().Trim();
-                Comments = oForm.Items.Item("Comments").Specific.VALUE.ToString().Trim();
-
-                if (BPLId == "")
-                {
-                    ErrNum = 1;
-                    throw new Exception();
-                }
-                if (ObjectCode == "")
-                {
-                    ErrNum = 2;
-                    throw new Exception();
-                }
-                if (Grantor == "")
-                {
-                    ErrNum = 3;
-                    throw new Exception();
-                }
-                if (DocEntry == "")
-                {
-                    ErrNum = 4;
-                    throw new Exception();
-                }
-                if (DocDate + DueDate + TaxDate == "")
-                {
-                    ErrNum = 5;
-                    throw new Exception();
-                }
-                if (Comments == "")
-                {
-                    ErrNum = 6;
-                    throw new Exception();
-                }
-
-                sQry = "EXEC PS_DateChange_02 '" + BPLId + "', '" + ObjectCode + "', '" + CreateUser + "', '";
-                sQry = sQry + CreateUseV + "', '" + Grantor + "', '" + GrantorV + "', '" + CreateDate + "', '" + DocEntry + "', '" + LineId + "', '" + DocDate + "', '" + DueDate + "', '";
-                sQry = sQry + TaxDate + "', '" + Comments + "'";
-                //oDS_PS_DateChangeA.ExecuteQuery(sQry);
-                oRecordSet.DoQuery(sQry);
-
-                if (oRecordSet.Fields.Item("returnV").Value == "1")
-                {
-                    PSH_Globals.SBO_Application.MessageBox("수정완료");
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.MessageBox("신규등록");
-                }
-
-                PS_DateChange_MTX01();
-            }
-            catch (Exception ex)
-            {
-                if (ErrNum == 1)
-                {
-                    PSH_Globals.SBO_Application.MessageBox("사업장은 필수입니다.");
-                }
-                else if (ErrNum == 2)
-                {
-                    PSH_Globals.SBO_Application.MessageBox("구분은 필수입니다.");
-                }
-                else if (ErrNum == 3)
-                {
-                    PSH_Globals.SBO_Application.MessageBox("승인자는 필수입니다.");
-                }
-                else if (ErrNum == 4)
-                {
-                    PSH_Globals.SBO_Application.MessageBox("문서번호는 필수입니다.");
-                }
-                else if (ErrNum == 5)
-                {
-                    PSH_Globals.SBO_Application.MessageBox("날짜입력은 필수입니다.");
-                }
-                else if (ErrNum == 6)
-                {
-                    PSH_Globals.SBO_Application.MessageBox("관련근거 입력은 필수입니다.");
-                }
-                else if (ErrNum == 7)
-                {
-                    PSH_Globals.SBO_Application.MessageBox("저장을 취소하셨습니다.");
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("PS_DateChange_SAVE_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-            }
-            finally
-            {
-                oForm.Freeze(false);
-            }
-        }
-
-        /// <summary>
-        /// PS_DateChange_Delete
-        /// </summary>
-        private void PS_DateChange_Delete()
-        {
-            // 데이타 삭제
-            string sQry = string.Empty;
-            int ErrNum = 0;
-            int sRow = 0;
-
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            try
-            {
-                oForm.Freeze(true);
-                if (PSH_Globals.SBO_Application.MessageBox("삭제하시겠습니까?", 2, "Yes", "No") == 2)
-                {
-                    ErrNum = 1;
-                    throw new Exception();
-                }
-                if (oForm.Items.Item("OKYN").Specific.VALUE.Trim() != "N")
-                {
-                    ErrNum = 2;
-                    throw new Exception();
-                }
-                sQry = "delete from PSH_DateChange where ObjectCode = '" + oForm.Items.Item("ObjectCode").Specific.VALUE + "'";
-                sQry = sQry + " and DocEntry = '" + oForm.Items.Item("DocEntry").Specific.VALUE + "'";
-                sQry = sQry + " and LineId = '" + oForm.Items.Item("LineId").Specific.VALUE + "'";
-                sQry = sQry + " and OKYN = 'N'";
-                oRecordSet.DoQuery(sQry);
-
-                PS_DateChange_MTX01();
-            }
-            catch (Exception ex)
-            {
-                if (ErrNum == 1)
-                {
-                    PSH_Globals.SBO_Application.MessageBox("삭제가 취소되었습니다.");
-                }
-                else if (ErrNum == 2)
-                {
-                    PSH_Globals.SBO_Application.MessageBox("처리상태가 N인것만 삭제가능합니다.");
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("PS_DateChange_Delete_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-            }
-            finally
-            {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
                 oForm.Freeze(false);
             }
         }

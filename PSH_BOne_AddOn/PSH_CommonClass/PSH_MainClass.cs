@@ -120,10 +120,10 @@ namespace PSH_BOne_AddOn
         /// <returns>0 : 성공</returns>
         private int Connect_DIAPI()
         {
-            int setConnectionContextReturn = 0;
+            int setConnectionContextReturn;
 
-            string sCookie = string.Empty;
-            string sConnectionContext = string.Empty;
+            string sCookie;
+            string sConnectionContext;
 
             // acquire the connection context cookie from the DI API
             sCookie = PSH_Globals.oCompany.GetContextCookie();
@@ -149,7 +149,7 @@ namespace PSH_BOne_AddOn
         /// <returns>0 : 성공</returns>
         private int Connect_CompanyDB()
         {
-            int connectToCompanyReturn = 0;
+            int connectToCompanyReturn;
 
             // Establish the connection to the company database.
             connectToCompanyReturn = PSH_Globals.oCompany.Connect();
@@ -162,24 +162,23 @@ namespace PSH_BOne_AddOn
         /// </summary>
         public void Initialize_ODBC_Variable()
         {
-            string sQry = string.Empty;
-            string ServerName = string.Empty;
-            SAPbobsCOM.Recordset oRecordSet = null;
+            string sQry;
+            string ServerName;
+            SAPbobsCOM.Recordset oRecordSet = (SAPbobsCOM.Recordset)PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
-            oRecordSet = (SAPbobsCOM.Recordset)PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
+            
             ServerName = PSH_Globals.SBO_Application.Company.ServerName;
 
-            sQry = "        SELECT      PARAM01 AS PARAM01,";
-            sQry = sQry + "             PARAM02 AS PARAM02,";
-            sQry = sQry + "             PARAM03 AS PARAM03,";
-            sQry = sQry + "             PARAM04 AS PARAM04,";
-            sQry = sQry + "             PARAM05 AS PARAM05,";
-            sQry = sQry + "             PARAM06 AS PARAM06,";
-            sQry = sQry + "             PARAM07 AS PARAM07,";
-            sQry = sQry + "             PARAM08 AS PARAM08";
-            sQry = sQry + " FROM        PROFILE ";
-            sQry = sQry + " WHERE       TYPE = 'SERVERINFO'";
+            sQry = "  SELECT      PARAM01 AS PARAM01,";
+            sQry += "             PARAM02 AS PARAM02,";
+            sQry += "             PARAM03 AS PARAM03,";
+            sQry += "             PARAM04 AS PARAM04,";
+            sQry += "             PARAM05 AS PARAM05,";
+            sQry += "             PARAM06 AS PARAM06,";
+            sQry += "             PARAM07 AS PARAM07,";
+            sQry += "             PARAM08 AS PARAM08";
+            sQry += " FROM        PROFILE ";
+            sQry += " WHERE       TYPE = 'SERVERINFO'";
 
             oRecordSet.DoQuery(sQry);
 
@@ -210,7 +209,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void XmlCreateYN()
         {
-            string Query01 = string.Empty;
+            string Query01;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             FileSystemObject FSO = new FileSystemObject();
@@ -276,25 +275,20 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void SaveMenuXml()
         {
-            MSXML2.DOMDocument30 objDOM = new MSXML2.DOMDocument30();
-            string Query01 = string.Empty;
-            string UpdateQry01 = string.Empty;
-            int i = 0;
-            int j = 0;
-            string NowType = string.Empty;
-            string UserID = string.Empty;
+            string Query01;
+            string UpdateQry01;
+            int i;
+            int j;
+            string NowType;
+            string UserID;
+            string AfType;
+            string NowLevel;
+            string AfLevel;
+            string NowSeq;
+            string AfSeq;
+            string XmlString;
 
-            string AfType = string.Empty;
-            string NowLevel = string.Empty;
-            string AfLevel = string.Empty;
-
-            string NowSeq = string.Empty;
-            string AfSeq = string.Empty;
-
-            string teststring = string.Empty;
-            string XmlString = string.Empty;
-
-            string oFilePath = string.Empty;
+            string oFilePath;
             MSXML2.DOMDocument xmldoc = new MSXML2.DOMDocument();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -349,40 +343,39 @@ namespace PSH_BOne_AddOn
 
                     if (oRecordSet01.Fields.Item("UniqueID").Value == "IFX00000000F")
                     {
-                        XmlString = XmlString + " Image=\"\\\\191.1.1.220\\b1_shr\\PathINI\\QM.jpg\"";
+                        XmlString += " Image=\"\\\\191.1.1.220\\b1_shr\\PathINI\\QM.jpg\"";
 
                     }
                     else if (oRecordSet01.Fields.Item("UniqueID").Value == "HGA00000000F")
                     {
-                        XmlString = XmlString + " Image=\"\\\\191.1.1.220\\b1_shr\\PathINI\\GA.jpg\"";
+                        XmlString += " Image=\"\\\\191.1.1.220\\b1_shr\\PathINI\\GA.jpg\"";
 
                     }
                     else if (oRecordSet01.Fields.Item("UniqueID").Value == "GQM00000000F")
                     {
-                        XmlString = XmlString + " Image=\"\\\\191.1.1.220\\b1_shr\\PathINI\\QM.jpg\"";
+                        XmlString += " Image=\"\\\\191.1.1.220\\b1_shr\\PathINI\\QM.jpg\"";
                     }
-
 
                     if (NowType == "2")
                     {
-                        XmlString = XmlString + ">";
+                        XmlString += ">";
                     }
                     else
                     {
-                        XmlString = XmlString + "/>";
+                        XmlString += "/>";
                     }
 
                     // 마지막에 닫는 부분
-                    if ((i == oRecordSet01.RecordCount - 1))
+                    if (i == oRecordSet01.RecordCount - 1)
                     {
 
                         if (Convert.ToDouble(NowType) == 2 && Convert.ToDouble(NowLevel) == 1)
                         {
-                            XmlString = XmlString + "</Menu>";
+                            XmlString += "</Menu>";
 
                             for (j = Convert.ToInt32(NowLevel) - 1; j >= 0; j += -1)
                             {
-                                XmlString = XmlString + "</action></Menus></Menu>";
+                                XmlString += "</action></Menus></Menu>";
                             }
 
                         }
@@ -390,17 +383,17 @@ namespace PSH_BOne_AddOn
                         {
                             for (j = Convert.ToInt32(NowLevel); j >= 0; j += -1)
                             {
-                                XmlString = XmlString + "</action></Menus></Menu>";
+                                XmlString += "</action></Menus></Menu>";
                             }
 
                         }
                         else if (Convert.ToDouble(NowType) == 2 && Convert.ToDouble(NowLevel) == 2)
                         {
-                            XmlString = XmlString + "</Menu>";
+                            XmlString += "</Menu>";
 
                             for (j = Convert.ToInt32(NowLevel); j >= 0; j += -1)
                             {
-                                XmlString = XmlString + "</action></Menus></Menu>";
+                                XmlString += "</action></Menus></Menu>";
                             }
 
                         }
@@ -408,7 +401,7 @@ namespace PSH_BOne_AddOn
                         {
                             for (j = Convert.ToInt32(NowLevel); j >= 0; j += -1)
                             {
-                                XmlString = XmlString + "</action></Menus></Menu>";
+                                XmlString += "</action></Menus></Menu>";
                             }
                         }
                     }
@@ -419,92 +412,92 @@ namespace PSH_BOne_AddOn
                         }
                         else if ((Convert.ToDouble(NowType) == 1 && Convert.ToDouble(AfType) == 1) && (NowLevel == AfLevel) && (Strings.Left(NowSeq, 9) != Strings.Left(AfSeq, 9)))
                         {
-                            XmlString = XmlString + "</action></Menus></Menu>";
+                            XmlString += "</action></Menus></Menu>";
                         }
                         else if ((Convert.ToDouble(NowType) == 1 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 1 && Convert.ToDouble(AfLevel) == 0) && (Strings.Left(NowSeq, 9) != Strings.Left(AfSeq, 9)) && Strings.Right(Strings.Left(NowSeq, 5), 2) == "99")
                         {
-                            XmlString = XmlString + "</action></Menus></Menu>";
+                            XmlString += "</action></Menus></Menu>";
                         }
                         else if ((Convert.ToDouble(NowType) == 1 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 1 && Convert.ToDouble(AfLevel) == 0) && (Strings.Left(NowSeq, 9) != Strings.Left(AfSeq, 9)) && Strings.Right(Strings.Left(NowSeq, 5), 2) != "99")
                         {
-                            XmlString = XmlString + "</action></Menus></Menu></action></Menus></Menu>";
+                            XmlString += "</action></Menus></Menu></action></Menus></Menu>";
                         }
                         else if ((Convert.ToDouble(NowType) == 1 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 2 && Convert.ToDouble(AfLevel) == 0))
                         {
-                            XmlString = XmlString + "</action></Menus></Menu></action></Menus></Menu></action></Menus></Menu>";
+                            XmlString += "</action></Menus></Menu></action></Menus></Menu></action></Menus></Menu>";
                         }
                         else if ((Convert.ToDouble(NowType) == 1 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 0 && Convert.ToDouble(AfLevel) == 0))
                         {
-                            XmlString = XmlString + "</action></Menus></Menu>";
+                            XmlString += "</action></Menus></Menu>";
                         }
                         else if (((Convert.ToDouble(NowType) == 2 && Convert.ToDouble(AfType) == 1) && (NowLevel == AfLevel)) && Strings.Left(NowSeq, 9) == Strings.Left(AfSeq, 9))
                         {
-                            XmlString = XmlString + "<Menus><action type=\"add\">";
+                            XmlString += "<Menus><action type=\"add\">";
                         }
                         else if (((Convert.ToDouble(NowType) == 2 && Convert.ToDouble(AfType) == 1) && (NowLevel == AfLevel)) && (Strings.Left(NowSeq, 9) != Strings.Left(AfSeq, 9)))
                         {
-                            XmlString = XmlString + "</Menu>";
+                            XmlString += "</Menu>";
                         }
                         else if ((Convert.ToDouble(NowType) == 2 && Convert.ToDouble(AfType) == 1) && (Convert.ToDouble(NowLevel) == 0 && Convert.ToDouble(AfLevel) == 0))
                         {
-                            XmlString = XmlString + "<Menus><action type=\"add\">";
+                            XmlString += "<Menus><action type=\"add\">";
                         }
                         else if ((Convert.ToDouble(NowType) == 1 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 2 && Convert.ToDouble(AfLevel) == 2))
                         {
-                            XmlString = XmlString + "</action></Menus></Menu>";
+                            XmlString += "</action></Menus></Menu>";
                         }
                         else if ((Convert.ToDouble(NowType) == 1 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 1 && Convert.ToDouble(AfLevel) == 1))
                         {
-                            XmlString = XmlString + "</action></Menus></Menu>";
+                            XmlString += "</action></Menus></Menu>";
                         }
                         else if ((Convert.ToDouble(NowType) == 1 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 2 && Convert.ToDouble(AfLevel) == 1) && (Strings.Left(NowSeq, 9) != Strings.Left(AfSeq, 9)) && Strings.Right(Strings.Left(NowSeq, 5), 2) != "99" && Strings.Right(Strings.Left(NowSeq, 7), 2) != "99")
                         {
-                            XmlString = XmlString + "</action></Menus></Menu></action></Menus></Menu>";
+                            XmlString += "</action></Menus></Menu></action></Menus></Menu>";
                         }
                         else if ((Convert.ToDouble(NowType) == 1 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 2 && Convert.ToDouble(AfLevel) == 1))
                         {
-                            XmlString = XmlString + "</action></Menus></Menu>";
+                            XmlString += "</action></Menus></Menu>";
                         }
                         else if ((Convert.ToDouble(NowType) == 2 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 0 && Convert.ToDouble(AfLevel) == 1))
                         {
-                            XmlString = XmlString + "<Menus><action type=\"add\">";
+                            XmlString += "<Menus><action type=\"add\">";
                         }
                         else if ((Convert.ToDouble(NowType) == 2 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 1 && Convert.ToDouble(AfLevel) == 2))
                         {
-                            XmlString = XmlString + "<Menus><action type=\"add\">";
+                            XmlString += "<Menus><action type=\"add\">";
                         }
                         else if ((Convert.ToDouble(NowType) == 2 && Convert.ToDouble(AfType) == 2) && (NowLevel == AfLevel))
                         {
-                            XmlString = XmlString + "</Menu>";
+                            XmlString += "</Menu>";
                         }
                         else if ((Convert.ToDouble(NowType) == 2 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 2 && Convert.ToDouble(AfLevel) == 1))
                         {
-                            XmlString = XmlString + "</Menu></action></Menus></Menu>";
+                            XmlString += "</Menu></action></Menus></Menu>";
                         }
                         else if ((Convert.ToDouble(NowType) == 2 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 2 && Convert.ToDouble(AfLevel) == 0))
                         {
-                            XmlString = XmlString + "</Menu></action></Menus></Menu></action></Menus></Menu>";
+                            XmlString += "</Menu></action></Menus></Menu></action></Menus></Menu>";
                         }
                         else if ((Convert.ToDouble(NowType) == 2 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 1 && Convert.ToDouble(AfLevel) == 0))
                         {
-                            XmlString = XmlString + "</Menu></action></Menus></Menu>";
+                            XmlString += "</Menu></action></Menus></Menu>";
                         }
                         else
                         {
-                            XmlString = XmlString + "<err>";
+                            XmlString += "<err>";
                         }
                     }
                     oRecordSet01.MoveNext();
                 }
 
-                XmlString = XmlString + "</action></Menus></Application>";
+                XmlString += "</action></Menus></Application>";
 
                 xmldoc.loadXML(XmlString);
                 xmldoc.insertBefore(xmldoc.createProcessingInstruction("xml", "version='1.0' encoding='UTF-16'"), xmldoc.childNodes[0]);
 
                 oFilePath = PSH_Globals.SP_XMLPath + "\\";
 
-                UserID = UserID + "_Menu_KOR.xml";
+                UserID += "_Menu_KOR.xml";
                 xmldoc.save(oFilePath + UserID);
 
                 UpdateQry01 = "update [Authority_Screen] set UpdateYN ='N' where Gubun ='H' and updateYN ='Y'and UserID ='" + PSH_Globals.oCompany.UserName + "'";
@@ -526,18 +519,10 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void Load_MenuXml()
         {
-            string FileName = string.Empty;
-            System.Xml.XmlDocument oXmlDoc = null;
-            oXmlDoc = new System.Xml.XmlDocument();
-
-            FileName = PSH_Globals.oCompany.UserName + "_Menu_KOR.xml";
-
+            System.Xml.XmlDocument oXmlDoc = new System.Xml.XmlDocument();
+            string FileName = PSH_Globals.oCompany.UserName + "_Menu_KOR.xml";
             oXmlDoc.Load(PSH_Globals.SP_XMLPath + "\\" + FileName);
-
-            string tmpStr;
-            tmpStr = oXmlDoc.InnerXml;
-            PSH_Globals.SBO_Application.LoadBatchActions(tmpStr);
-            //sPath = PSH_Globals.SBO_Application.GetLastBatchResults();
+            PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.InnerXml);
         }
 
         /// <summary>
@@ -581,6 +566,7 @@ namespace PSH_BOne_AddOn
                 {
                     switch (pVal.MenuUID)
                     {
+                        #region 인사 관리
                         case "PH_PY001": //사원마스터등록
 
                             pBaseClass = new PH_PY001();
@@ -1726,7 +1712,9 @@ namespace PSH_BOne_AddOn
                             pBaseClass = new PH_PY136();
                             pBaseClass.LoadForm("");
                             break;
+                        #endregion 관리
 
+                        #region 운영 관리
                         case "PS_DateChange": //날짜변경처리
                             pBaseClass = new PS_DateChange();
                             pBaseClass.LoadForm("");
@@ -1741,6 +1729,424 @@ namespace PSH_BOne_AddOn
                             pBaseClass = new PH_PY998();
                             pBaseClass.LoadForm("");
                             break;
+                        #endregion
+
+                        #region 재무 관리
+                        case "PS_CO685": //결산분개 등록
+                            pBaseClass = new PS_CO685();
+                            pBaseClass.LoadForm();
+                            break;
+
+                        case "PS_CO003": //결산분개 계정관리
+                            pBaseClass = new PS_CO003();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI180": // 보조원장
+                            pBaseClass = new PS_FI180();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI190": // 보조원장조회(EXCEL다운)
+                            pBaseClass = new PS_FI190();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI110": // 보조재료비현황
+                            pBaseClass = new PS_FI110();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI120": // 노무비현황
+                            pBaseClass = new PS_FI120();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI130": // 제조경비현황
+                            pBaseClass = new PS_FI130();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI140": // 판관비현황
+                            pBaseClass = new PS_FI140();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI150": // 영업외손익.특별손익명세서
+                            pBaseClass = new PS_FI150();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI160": // 외상매입/미지급금 잔액현황
+                            pBaseClass = new PS_FI160();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI170": // 신용카드 사용내역
+                            pBaseClass = new PS_FI170();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI913": // 사원별 접대비 명세서
+                            pBaseClass = new PS_FI913();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI924": // 거래처별 회전일 현황
+                            pBaseClass = new PS_FI924();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI909": // 미수현황
+                            pBaseClass = new PS_FI909();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI910": // 매출채권 연령분석(받을어음)
+                            pBaseClass = new PS_FI910();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI931": // 부가세집계표
+                            pBaseClass = new PS_FI931();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI420": // 분개전표 연결발행
+                            pBaseClass = new PS_FI420();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI220": // 합계잔액시산표
+                            pBaseClass = new PS_FI220();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI904": // 고정자산현황-IFRS
+                            pBaseClass = new PS_FI904();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI918": // 대체출고대장
+                            pBaseClass = new PS_FI918();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI912": // 예산집행현황
+                            pBaseClass = new PS_FI912();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI210": //원가요소(배부담당)별비용집계대장
+                            pBaseClass = new PS_FI210();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI215": //지급현황
+                            pBaseClass = new PS_FI215();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI960": //입,퇴사자현황
+                            pBaseClass = new PS_FI960();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI961": //월별계정별비용현황
+                            pBaseClass = new PS_FI961();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI900": //IFRS - 시산표 추출
+                            pBaseClass = new PS_FI900();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI901": //IFRS - 매입매출채무채권추출
+                            pBaseClass = new PS_FI901();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI902": //IFRS - NRV 평가
+                            pBaseClass = new PS_FI902();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI929": //IFRS - 재무보고서
+                            pBaseClass = new PS_FI929();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI932": //차입금등록
+                            pBaseClass = new PS_FI932();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI933": //차입금대장
+                            pBaseClass = new PS_FI933();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI421": //입금표등록
+                            pBaseClass = new PS_FI421();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO090": //통계주요지표 값 입력
+                            pBaseClass = new PS_CO090();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO080": //코스트센터비용집계
+                            pBaseClass = new PS_CO080();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO070": //활동량계산
+                            pBaseClass = new PS_CO070();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO185": //담당별 판매/ 원재료 / rm단가등록
+                            pBaseClass = new PS_CO185();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO170": //재공완료품대체관리등록
+                            pBaseClass = new PS_CO170();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI100": //계정별보조원장
+                            pBaseClass = new PS_FI100();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI090": //월계표
+                            pBaseClass = new PS_FI090();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO110": //배부사이클실행
+                            pBaseClass = new PS_CO110();
+                            pBaseClass.LoadForm();
+                            break;
+
+                        case "PS_CO260": //연차설정등록
+                            pBaseClass = new PS_CO260();
+                            pBaseClass.LoadForm();
+                            break;
+
+                        case "PS_CO250": //개인별 퇴충계산
+                            pBaseClass = new PS_CO250();
+                            pBaseClass.LoadForm();
+                            break;
+
+                        case "PS_CO160": //재공 원가 이동등록
+                            pBaseClass = new PS_CO160();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO050": //활동유형등록
+                            pBaseClass = new PS_CO050();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO060": //통계주요지표등록
+                            pBaseClass = new PS_CO060();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO040": //코스트센터그룹등록
+                            pBaseClass = new PS_CO040();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO100": //배부사이클생성
+                            pBaseClass = new PS_CO100();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO020": //원가요소그룹등록
+                            pBaseClass = new PS_CO020();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO010": //원가요소등록
+                            pBaseClass = new PS_CO010();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO001": //결산마감관리
+                            pBaseClass = new PS_CO001();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO658": //통합재무제표 계정 관리
+                            pBaseClass = new PS_CO658();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO600": //통합재무제표
+                            pBaseClass = new PS_CO600();
+							pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO605": //통합재무제표
+                            pBaseClass = new PS_CO605();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO606": //통합재무제표 본사전송
+                            pBaseClass = new PS_CO606();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO610": //고정자산 본계정 대체
+                            pBaseClass = new PS_CO610();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO660": //기간비용등록
+                            pBaseClass = new PS_CO660();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO665": //기간비용현황(연간)
+                            pBaseClass = new PS_CO665();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO670": //기간비용분개등록
+                            pBaseClass = new PS_CO670();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO120": //공정별 원가계산
+                            pBaseClass = new PS_CO120();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO130": //제품별 원가계산
+                            pBaseClass = new PS_CO130();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO131": //원가계산재공현황
+                            pBaseClass = new PS_CO131();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO510": //원가계산사전점검조회
+                            pBaseClass = new PS_CO510();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO520": //제품생산 원가항목별 조회
+                            pBaseClass = new PS_CO520();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO501": //품목별원가등록
+                            pBaseClass = new PS_CO501();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO502": //품목별평균원가항목등록
+                            pBaseClass = new PS_CO502();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO503": //일일가득액및생산원가계산
+                            pBaseClass = new PS_CO503();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO504": //일일판매및생산집계
+                            pBaseClass = new PS_CO504();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO210": //5.휘팅제품원가계산
+                            pBaseClass = new PS_CO210();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO901": //월별 이익률 분석(기계)
+                            pBaseClass = new PS_CO901();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO920": //월별 판매실적 대비 공수 조회(기계)
+                            pBaseClass = new PS_CO920();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO921": //월별 작번별 수주금액 대비 공수 현황(기계)
+                            pBaseClass = new PS_CO921();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO530": //분말부자재비용분석
+                            pBaseClass = new PS_CO530();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_CO540": //원가 분석 레포트(안강)
+                            pBaseClass = new PS_CO540();
+                            pBaseClass.LoadForm("") ;
+                            break;
+
+                        case "PS_MM921": //부자재불출대장(부서)
+                            pBaseClass = new PS_MM921();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FX241": //고정자산현황(부서)
+                            pBaseClass = new PS_FX241();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI030": //어음발행리스트
+                            pBaseClass = new PS_FI030();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI040": // 만기일자별 받을어음현황
+                             pBaseClass = new PS_FI040();
+                             pBaseClass.LoadForm("");
+                             break;
+
+                        case "PS_FI050": //받을어음 추심의뢰서
+                            pBaseClass = new PS_FI050();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI060": //받을어음 수탁(발송)대장
+                            pBaseClass = new PS_FI060();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI070": //기간별 지급어음현황
+                            pBaseClass = new PS_FI070();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI907": //부도어음현황
+                            pBaseClass = new PS_FI907();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI080": //일계표
+                            pBaseClass = new PS_FI080();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_FI963": //보조원장 거래처명 변경화
+                            pBaseClass = new PS_FI963();
+                            pBaseClass.LoadForm("");
+                            break;
+                            #endregion
                     }
                 }
             }
@@ -1783,7 +2189,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void TerminateApplication()
         {
-            int i = 0;
+            int i;
             PSH_BaseClass oTempClass = new PSH_BaseClass();
 
             if (PSH_Globals.ClassList.Count > 0)
@@ -1829,7 +2235,7 @@ namespace PSH_BOne_AddOn
         {
             BubbleEvent = true;
             PSH_BaseClass oTempClass = new PSH_BaseClass();
-            string FormUID = string.Empty;
+            string FormUID;
 
             try
             {
@@ -1928,8 +2334,8 @@ namespace PSH_BOne_AddOn
         private void SBO_Application_FormDataEvent(ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, out bool BubbleEvent)
         {
             BubbleEvent = true;
-            PSH_BaseClass oTempClass = new PSH_BaseClass();
-            string FormUID = string.Empty;
+            PSH_BaseClass oTempClass;
+            string FormUID;
 
             try
             {
@@ -1969,8 +2375,8 @@ namespace PSH_BOne_AddOn
         private void SBO_Application_RightClickEvent(ref SAPbouiCOM.ContextMenuInfo eventInfo, out bool BubbleEvent)
         {
             BubbleEvent = true;
-            PSH_BaseClass oTempClass = new PSH_BaseClass();
-            string FormUID = string.Empty;
+            PSH_BaseClass oTempClass;
+            string FormUID;
 
             try
             {

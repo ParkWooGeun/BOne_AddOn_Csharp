@@ -1,24 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
-using PSH_BOne_AddOn.DataPack;
-using PSH_BOne_AddOn.Form;
-using Microsoft.VisualBasic;
 
 namespace PSH_BOne_AddOn
 {
     /// <summary>
-    /// 위해일수수정
+    /// 날짜 변경 승인
     /// </summary>
     internal class PS_DateCommit : PSH_BaseClass
     {
-        public string oFormUniqueID01;
-
-        //'// 그리드 사용시
-        public SAPbouiCOM.Grid oGrid1;
-        public SAPbouiCOM.DataTable oDS_PS_DateCommit;
-
+        private string oFormUniqueID01;
+        private SAPbouiCOM.Grid oGrid1;
+        private SAPbouiCOM.DataTable oDS_PS_DateCommit;
         private string oLastItemUID;
         private string oLastColUID;
         private int oLastColRow;
@@ -26,10 +19,10 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면 호출
         /// </summary>
-        public override void LoadForm(string oFromDocEntry01)
+        public override void LoadForm(string oFormDocEntry01)
         {
-            int i = 0;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
+
             try
             {
                 oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PS_DateCommit.srf");
@@ -37,7 +30,7 @@ namespace PSH_BOne_AddOn
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
 
-                for (i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
+                for (int i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
                 {
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight")[i - 1].nodeValue = 20;
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
@@ -46,10 +39,7 @@ namespace PSH_BOne_AddOn
                 oFormUniqueID01 = "PS_DateCommit_" + SubMain.Get_TotalFormsCount();
                 SubMain.Add_Forms(this, oFormUniqueID01, "PS_DateCommit");
 
-                string strXml = string.Empty;
-                strXml = oXmlDoc.xml.ToString();
-
-                PSH_Globals.SBO_Application.LoadBatchActions(strXml);
+                PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID01);
 
                 oForm.SupportedModes = -1;
@@ -79,8 +69,9 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PS_DateCommit_CreateItems()
         {
-            string sQry = string.Empty;
+            string sQry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 oForm.Freeze(true);
@@ -90,17 +81,7 @@ namespace PSH_BOne_AddOn
                 oGrid1.DataTable = oForm.DataSources.DataTables.Item("PS_DateCommit");
                 oDS_PS_DateCommit = oForm.DataSources.DataTables.Item("PS_DateCommit");
 
-                //oForm.DataSources.DataTables.Item("PS_DateCommit").Columns.Add("일자", SAPbouiCOM.BoFieldsType.ft_Date);
-                //oForm.DataSources.DataTables.Item("PS_DateCommit").Columns.Add("요일", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
-                //oForm.DataSources.DataTables.Item("PS_DateCommit").Columns.Add("근태구분", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
-                //oForm.DataSources.DataTables.Item("PS_DateCommit").Columns.Add("부서", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
-                //oForm.DataSources.DataTables.Item("PS_DateCommit").Columns.Add("담당", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
-                //oForm.DataSources.DataTables.Item("PS_DateCommit").Columns.Add("사번", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
-                //oForm.DataSources.DataTables.Item("PS_DateCommit").Columns.Add("성명", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
-                //oForm.DataSources.DataTables.Item("PS_DateCommit").Columns.Add("위해일수", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
-                //oForm.DataSources.DataTables.Item("PS_DateCommit").Columns.Add("위해코드", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
-
-                ////사업장
+                //사업장
                 oForm.DataSources.UserDataSources.Add("CLTCOD", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("CLTCOD").Specific.DataBind.SetBound(true, "", "CLTCOD");
                 oForm.Items.Item("CLTCOD").DisplayDesc = true;
@@ -135,9 +116,10 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면의 아이템 Enable 설정
         /// </summary>
-        public void PS_DateCommit_FormItemEnabled()
+        private void PS_DateCommit_FormItemEnabled()
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 oForm.Freeze(true);
@@ -149,6 +131,275 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                oForm.Freeze(false);
+            }
+        }
+
+        /// <summary>
+        /// DataValidCheck
+        /// </summary>
+        /// <returns></returns>
+        private bool PS_DateCommit_DataValidCheck()
+        {
+            bool functionReturnValue = false;
+
+            try
+            {
+                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim()))
+                {
+                    PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                    oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    return functionReturnValue;
+                }
+
+                functionReturnValue = true;
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.SetStatusBarMessage("PS_DateCommit_DataValidCheck_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
+            }
+            finally
+            {
+            }
+
+            return functionReturnValue;
+        }
+
+        /// <summary>
+        /// 데이터 조회
+        /// </summary>
+        /// <returns></returns>
+        private void PS_DateCommit_DataFind()
+        {
+            int iRow;
+            string sQry;
+            string CLTCODE;
+            string Grantor;
+            string ObjectCode;
+            string FrDate;
+            string ToDate;
+
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                CLTCODE = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
+                Grantor = PSH_Globals.oCompany.UserName;
+                ObjectCode = oForm.Items.Item("ObjectCode").Specific.Value.Trim();
+                FrDate = oForm.Items.Item("FrDt").Specific.Value.Trim();
+                ToDate = oForm.Items.Item("ToDt").Specific.Value.Trim();
+
+                sQry = "Exec PS_DateCommit_01 '" + CLTCODE + "','" + Grantor + "',";
+                sQry += "'" + ObjectCode + "','" + FrDate + "','" + ToDate + "'";
+                oDS_PS_DateCommit.ExecuteQuery(sQry);
+
+                iRow = oForm.DataSources.DataTables.Item(0).Rows.Count;
+
+                PS_DateCommit_TitleSetting();
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.SetStatusBarMessage("PS_DateCommit_DataFind_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+            }
+        }
+
+        /// <summary>
+        /// DataSave
+        /// </summary>
+        /// <returns></returns>
+        private bool PS_DateCommit_DataSave()
+        {
+            bool functionReturnValue = false;
+            int i;
+            int ErrNum = 0;
+            string sQry;
+            string CLTCOD;
+
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
+
+                if (PSH_Globals.SBO_Application.MessageBox("저장하시겠습니까?", 2, "Yes", "No") == 2)
+                {
+                    ErrNum = 1;
+                    throw new Exception();
+                }
+                if (oForm.DataSources.DataTables.Item(0).Rows.Count > 0)
+                {
+                    for (i = 0; i <= oForm.DataSources.DataTables.Item(0).Rows.Count - 1; i++)
+                    {
+                        if (oDS_PS_DateCommit.Columns.Item("OKYN").Cells.Item(i).Value != "N")
+                        {
+                            sQry = "UPDATE PSH_DateChange SET OKYN = '" + oDS_PS_DateCommit.Columns.Item("OKYN").Cells.Item(i).Value + "', ApprDate = convert(char(8), GETDATE(), 112)";
+                            sQry += " where ObjectCode ='" + oForm.Items.Item("ObjectCode").Specific.Value.Trim() + "'";
+                            sQry += "  and OKYN = 'N'";
+                            sQry += "  and DocEntry = '" + oDS_PS_DateCommit.Columns.Item("DocEntry").Cells.Item(i).Value + "'";
+                            sQry += "  and LineId =" + oDS_PS_DateCommit.Columns.Item("LineId").Cells.Item(i).Value;
+
+                            oRecordSet.DoQuery(sQry);
+
+                            if (oDS_PS_DateCommit.Columns.Item("OKYN").Cells.Item(i).Value == "Y")
+                            {
+                                sQry = "EXEC [PS_DateCommit_02] '" + oForm.Items.Item("ObjectCode").Specific.Value.Trim() + "'";
+                                sQry += ",'" + oDS_PS_DateCommit.Columns.Item("DocEntry").Cells.Item(i).Value + "'";
+                                sQry += ",'" + oDS_PS_DateCommit.Columns.Item("LineId").Cells.Item(i).Value + "'";
+                                sQry += ",'" + oDS_PS_DateCommit.Columns.Item("DocDate").Cells.Item(i).Value + "'";
+                                sQry += ",'" + oDS_PS_DateCommit.Columns.Item("DueDate").Cells.Item(i).Value + "'";
+                                sQry += ",'" + oDS_PS_DateCommit.Columns.Item("TaxDate").Cells.Item(i).Value + "'";
+                                oRecordSet.DoQuery(sQry);
+                            }
+                        }
+
+                    }
+                    PSH_Globals.SBO_Application.MessageBox("저장되었습니다.");
+                    functionReturnValue = true;
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.MessageBox("데이터가 존재하지 않습니다.");
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ErrNum == 1)
+                {
+                    PSH_Globals.SBO_Application.MessageBox("등록 취소되었습니다.");
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.SetStatusBarMessage("PS_DateCommit_DataSave_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                }
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+            }
+
+            return functionReturnValue;
+        }
+
+        /// <summary>
+        /// 그리드 타이블 변경
+        /// </summary>
+        /// <returns></returns>
+        private void PS_DateCommit_TitleSetting()
+        {
+            int i;
+            string[] COLNAM = new string[9];
+
+            SAPbouiCOM.ComboBoxColumn oComboCol = null;
+
+            try
+            {
+                oForm.Freeze(true);
+
+                COLNAM[0] = "구분";
+                COLNAM[1] = "등록일자";
+                COLNAM[2] = "문서번호";
+                COLNAM[3] = "라인번호";
+                COLNAM[4] = "등록자";
+                COLNAM[5] = "전기일";
+                COLNAM[6] = "만기일";
+                COLNAM[7] = "증빙일";
+                COLNAM[8] = "OKYN";
+
+                for (i = 0; i <= (COLNAM.Length - 1); i++)
+                {
+                    oGrid1.Columns.Item(i).TitleObject.Caption = COLNAM[i];
+                    switch (COLNAM[i])
+                    {
+                        case "OKYN":
+                            oGrid1.Columns.Item(i).Editable = true;
+                            oGrid1.Columns.Item(i).Type = SAPbouiCOM.BoGridColumnType.gct_ComboBox;
+                            oComboCol = (SAPbouiCOM.ComboBoxColumn)oGrid1.Columns.Item("OKYN");
+
+                            oComboCol.ValidValues.Add("N", "대상");
+                            oComboCol.ValidValues.Add("Y", "승인");
+                            oComboCol.ValidValues.Add("C", "반려");
+                            oComboCol.DisplayType = SAPbouiCOM.BoComboDisplayType.cdt_Description;
+
+                            break;
+                        default:
+
+                            oGrid1.Columns.Item(i).Editable = false;
+                            break;
+                    }
+                }
+                oGrid1.AutoResizeColumns();
+            }
+
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.SetStatusBarMessage("PS_DateCommit_TitleSetting_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
+            }
+            finally
+            {
+                oForm.Freeze(false);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oComboCol);
+            }
+        }
+
+        /// <summary>
+        /// PS_DateChange_MTX02
+        /// </summary>
+        private void PS_DateCommit_Comments(int oRow)
+        {
+            int sRow;
+            int ErrNum = 0;
+            string sQry;
+            string BPLId;
+            string CreateUser;
+            string ObjectCode;
+            string Grantor;
+            int LineId;
+            int DocEntry;
+
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                oForm.Freeze(true);
+                sRow = oRow;
+                BPLId = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                CreateUser = oDS_PS_DateCommit.Columns.Item("CreateUser").Cells.Item(oRow).Value;
+                DocEntry = oDS_PS_DateCommit.Columns.Item("DocEntry").Cells.Item(oRow).Value;
+                Grantor = PSH_Globals.oCompany.UserName;
+                ObjectCode = oForm.Items.Item("ObjectCode").Specific.Value.ToString().Trim();
+                LineId = oDS_PS_DateCommit.Columns.Item("LineId").Cells.Item(oRow).Value;
+
+                sQry = "SELECT  Comments ";
+                sQry += "FROM PSH_DateChange ";
+                sQry += "WHERE ObjectCode = '" + ObjectCode + "' ";
+                sQry += "AND BPLId = '" + BPLId + "' ";
+                sQry += "AND Grantor = '" + Grantor + "' ";
+                sQry += "AND DocEntry = '" + DocEntry + "'  ";
+                sQry += "AND LineId = '" + LineId + "'  ";
+                sQry += "AND CreateUser = '" + CreateUser + "' ";
+
+                oRecordSet.DoQuery(sQry);
+
+                oForm.Items.Item("Comments").Specific.Value = oRecordSet.Fields.Item("Comments").Value;
+            }
+            catch (Exception ex)
+            {
+                if (ErrNum == 1)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("결과가 존재하지 않습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("PS_DateChange_MTX02_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
                 oForm.Freeze(false);
             }
         }
@@ -167,36 +418,29 @@ namespace PSH_BOne_AddOn
                     Raise_EVENT_ITEM_PRESSED(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_KEY_DOWN:
-                    ////2
+                case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS:
-                    ////3
+                case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS:
-                    ////4
+                case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
-                    // Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_CLICK: //6
                     Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK:
-                    ////7
+                case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED:
-                    ////8
+                case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED: //8
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED:
-                    ////9
+                case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED: //9
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
@@ -204,62 +448,47 @@ namespace PSH_BOne_AddOn
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
-                    //Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD:
-                    ////12
+                case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD: //12
                     break;
 
-
-                case SAPbouiCOM.BoEventTypes.et_FORM_LOAD:
-                    ////16
+                case SAPbouiCOM.BoEventTypes.et_FORM_LOAD: //16
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD: //17
                     Raise_EVENT_FORM_UNLOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE:
-                    ////18
+                case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: //18
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE:
-                    ////19
+                case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE: //19
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE:
-                    ////20
+                case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE: //20
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
-                    // Raise_EVENT_RESIZE(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN:
-                    ////22
+                case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT:
-                    ////23
+                case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
-                    // Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED:
-                    ////37
+                case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED: //37
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_GRID_SORT:
-                    ////38
+                case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_Drag:
-                    ////39
+                case SAPbouiCOM.BoEventTypes.et_Drag: //39
                     break;
-
             }
         }
 
@@ -308,214 +537,6 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// DataValidCheck
-        /// </summary>
-        /// <returns></returns>
-        public bool PS_DateCommit_DataValidCheck()
-        {
-            bool functionReturnValue = false;
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            try
-            {
-                functionReturnValue = false;
-                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.VALUE))
-                {
-                    PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                    oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    functionReturnValue = false;
-                    return functionReturnValue;
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.SetStatusBarMessage("PS_DateCommit_DataValidCheck_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-            }
-            finally
-            {
-                functionReturnValue = true;
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
-            }
-            return functionReturnValue;
-        }
-
-        /// <summary>
-        /// 데이터 조회
-        /// </summary>
-        /// <returns></returns>
-        private void PS_DateCommit_DataFind()
-        {
-            int iRow = 0;
-            string sQry = string.Empty;
-            string CLTCODE = string.Empty;
-            string Grantor = string.Empty;
-            string ObjectCode = string.Empty;
-            string FrDate = string.Empty;
-            string ToDate = string.Empty;
-
-            CLTCODE = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
-            Grantor = PSH_Globals.oCompany.UserName;
-            ObjectCode = oForm.Items.Item("ObjectCode").Specific.VALUE.Trim();
-            FrDate = oForm.Items.Item("FrDt").Specific.VALUE.Trim();
-            ToDate = oForm.Items.Item("ToDt").Specific.VALUE.Trim();
-
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            try
-            {
-                sQry = "Exec PS_DateCommit_01 '" + CLTCODE + "','" + Grantor + "',";
-                sQry = sQry + "'" + ObjectCode + "','" + FrDate + "','" + ToDate + "'";
-                oDS_PS_DateCommit.ExecuteQuery(sQry);
-
-                iRow = oForm.DataSources.DataTables.Item(0).Rows.Count;
-
-                PS_DateCommit_TitleSetting(iRow);
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.SetStatusBarMessage("PS_DateCommit_DataFind_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-            }
-            finally
-            {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
-            }
-        }
-
-        /// <summary>
-        /// DataSave
-        /// </summary>
-        /// <returns></returns>
-        private bool PS_DateCommit_DataSave()
-        {
-            bool functionReturnValue = false;
-            int i = 0;
-            int ErrNum = 0;
-            string sQry = string.Empty;
-            string CLTCOD = string.Empty;
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            try
-            {
-                functionReturnValue = false;
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
-                if (PSH_Globals.SBO_Application.MessageBox("저장하시겠습니까?", 2, "Yes", "No") == 2)
-                {
-                    ErrNum = 1;
-                    throw new Exception();
-                }
-                if (oForm.DataSources.DataTables.Item(0).Rows.Count > 0)
-                {
-                    for (i = 0; i <= oForm.DataSources.DataTables.Item(0).Rows.Count - 1; i++)
-                    {
-                        if (oDS_PS_DateCommit.Columns.Item("OKYN").Cells.Item(i).Value != "N")
-                        {
-                            sQry = "UPDATE PSH_DateChange SET OKYN = '" + oDS_PS_DateCommit.Columns.Item("OKYN").Cells.Item(i).Value + "', ApprDate = convert(char(8), GETDATE(), 112)";
-                            sQry = sQry + " where ObjectCode ='" + oForm.Items.Item("ObjectCode").Specific.VALUE.Trim() + "'";
-                            sQry = sQry + "  and OKYN = 'N'";
-                            sQry = sQry + "  and DocEntry = '" + oDS_PS_DateCommit.Columns.Item("DocEntry").Cells.Item(i).Value + "'";
-                            sQry = sQry + "  and LineId ="  + oDS_PS_DateCommit.Columns.Item("LineId").Cells.Item(i).Value;
-
-                            oRecordSet.DoQuery(sQry);
-
-                            if (oDS_PS_DateCommit.Columns.Item("OKYN").Cells.Item(i).Value == "Y")
-                            {
-                                sQry = "EXEC [PS_DateCommit_02] '" + oForm.Items.Item("ObjectCode").Specific.VALUE.Trim() + "'";
-                                sQry = sQry + ",'" + oDS_PS_DateCommit.Columns.Item("DocEntry").Cells.Item(i).Value + "'";
-                                sQry = sQry + ",'" + oDS_PS_DateCommit.Columns.Item("LineId").Cells.Item(i).Value + "'";
-                                sQry = sQry + ",'" + oDS_PS_DateCommit.Columns.Item("DocDate").Cells.Item(i).Value + "'";
-                                sQry = sQry + ",'" + oDS_PS_DateCommit.Columns.Item("DueDate").Cells.Item(i).Value + "'";
-                                sQry = sQry + ",'" + oDS_PS_DateCommit.Columns.Item("TaxDate").Cells.Item(i).Value + "'";
-                                oRecordSet.DoQuery(sQry);
-                            }
-                        }
-                        
-                    }
-                    PSH_Globals.SBO_Application.MessageBox("저장되었습니다.");
-                    functionReturnValue = true;
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.MessageBox("데이터가 존재하지 않습니다.");
-                }
-            }
-            catch (Exception ex)
-            {
-                if (ErrNum == 1)
-                {
-                    PSH_Globals.SBO_Application.MessageBox("등록 취소되었습니다.");
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.SetStatusBarMessage("PS_DateCommit_DataSave_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                }
-            }
-            finally
-            {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
-            }
-            return functionReturnValue;
-        }
-
-        /// <summary>
-        /// 그리드 타이블 변경
-        /// </summary>
-        /// <returns></returns>
-        private void PS_DateCommit_TitleSetting(int iRow)
-        {
-            int i = 0;
-
-            string[] COLNAM = new string[9];
-
-            SAPbouiCOM.ComboBoxColumn oComboCol = null;
-            try
-            {
-                oForm.Freeze(true);
-
-                COLNAM[0] = "구분";
-                COLNAM[1] = "등록일자";
-                COLNAM[2] = "문서번호";
-                COLNAM[3] = "라인번호";
-                COLNAM[4] = "등록자";
-                COLNAM[5] = "전기일";
-                COLNAM[6] = "만기일";
-                COLNAM[7] = "증빙일";
-                COLNAM[8] = "OKYN";
-
-                for (i = 0; i <= Information.UBound(COLNAM); i++)
-                {
-                    oGrid1.Columns.Item(i).TitleObject.Caption = COLNAM[i];
-                    switch (COLNAM[i])
-                    {
-                        case "OKYN":
-                            oGrid1.Columns.Item(i).Editable = true;
-                            oGrid1.Columns.Item(i).Type = SAPbouiCOM.BoGridColumnType.gct_ComboBox;
-                            oComboCol = (SAPbouiCOM.ComboBoxColumn)oGrid1.Columns.Item("OKYN");
-
-                            oComboCol.ValidValues.Add("N", "대상"); 
-                            oComboCol.ValidValues.Add("Y", "승인");
-                            oComboCol.ValidValues.Add("C", "반려");
-                            oComboCol.DisplayType = SAPbouiCOM.BoComboDisplayType.cdt_Description;
-
-                            break;
-                        default:
-
-                            oGrid1.Columns.Item(i).Editable = false;
-                            break;
-                    }
-                }
-                oGrid1.AutoResizeColumns();
-            }
-            
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.SetStatusBarMessage("PS_DateCommit_TitleSetting_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-            }
-            finally
-            {
-                oForm.Freeze(false);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oComboCol);
-            }
-        }
-
-
-        /// <summary>
         /// CLICK 이벤트
         /// </summary>
         /// <param name="FormUID">Form UID</param>
@@ -535,7 +556,7 @@ namespace PSH_BOne_AddOn
                                 switch (pVal.ItemUID)
                                 {
                                     case "Grid01":
-                                        PS_DateCommit_Comments(pVal.ItemUID, pVal.Row, pVal.ColUID);
+                                        PS_DateCommit_Comments(pVal.Row);
                                         break;
                                 }
                             }
@@ -575,68 +596,6 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// PS_DateChange_MTX02
-        /// </summary>
-        private void PS_DateCommit_Comments(string oUID, int oRow = 0, string oCol = "")
-        {
-            int sRow = 0;
-            int ErrNum = 0;
-            string sQry = string.Empty;
-            string BPLId = string.Empty;
-            string CreateUser = string.Empty;
-            string ObjectCode = string.Empty;
-            string Grantor = string.Empty;
-            int LineId = 0;
-            int DocEntry = 0;
-
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-            try
-            {
-                oForm.Freeze(true);
-                sRow = oRow;
-                BPLId = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
-                CreateUser = oDS_PS_DateCommit.Columns.Item("CreateUser").Cells.Item(oRow).Value;
-                DocEntry = oDS_PS_DateCommit.Columns.Item("DocEntry").Cells.Item(oRow).Value;
-                Grantor = PSH_Globals.oCompany.UserName;
-                ObjectCode = oForm.Items.Item("ObjectCode").Specific.VALUE.ToString().Trim(); 
-                LineId = oDS_PS_DateCommit.Columns.Item("LineId").Cells.Item(oRow).Value;
-
-                sQry = "SELECT  Comments ";
-                sQry = sQry + "FROM PSH_DateChange ";
-                sQry = sQry + "WHERE ObjectCode		= '"+ ObjectCode + "' ";
-                sQry = sQry + "AND BPLId			= '" + BPLId + "' ";
-                sQry = sQry + "AND Grantor          = '" + Grantor + "' ";
-                sQry = sQry + "AND DocEntry		    = '" + DocEntry + "'  ";
-                sQry = sQry + "AND LineId		    = '" + LineId + "'  ";
-                sQry = sQry + "AND CreateUser       = '" + CreateUser + "' ";
-
-                oRecordSet.DoQuery(sQry);
-
-                //공통 S
-
-                oForm.Items.Item("Comments").Specific.VALUE = oRecordSet.Fields.Item("Comments").Value;
-
-            }
-            catch (Exception ex)
-            {
-                if (ErrNum == 1)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("결과가 존재하지 않습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("PS_DateChange_MTX02_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-            }
-            finally
-            {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
-                oForm.Freeze(false);
-            }
-        }
-
-        /// <summary>
         /// ITEM_PRESSED 이벤트
         /// </summary>
         /// <param name="FormUID">Form UID</param>
@@ -644,9 +603,9 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string sQry = string.Empty;
+            string sQry;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
 
@@ -660,17 +619,17 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "MSTCOD":
-                                sQry = "SELECT U_FullName from [@PH_PY001A] Where Code = '" + oForm.Items.Item("MSTCOD").Specific.VALUE + "'";
+                                sQry = "SELECT U_FullName from [@PH_PY001A] Where Code = '" + oForm.Items.Item("MSTCOD").Specific.Value + "'";
                                 oRecordSet.DoQuery(sQry);
                                 if (oRecordSet.RecordCount > 0)
                                 {
-                                    oForm.Items.Item("FullName").Specific.VALUE = oRecordSet.Fields.Item(0).Value;
+                                    oForm.Items.Item("FullName").Specific.Value = oRecordSet.Fields.Item(0).Value;
 
                                 }
                                 break;
 
                             case "Grid01":
-                                switch (oForm.Items.Item("CLTCOD").Specific.VALUE.Trim())
+                                switch (oForm.Items.Item("CLTCOD").Specific.Value.Trim())
                                 {
                                     case "1":
                                         if (Convert.ToDouble(oDS_PS_DateCommit.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) != 0 & Convert.ToDouble(oDS_PS_DateCommit.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) != 1)
@@ -692,12 +651,10 @@ namespace PSH_BOne_AddOn
                                             if (Convert.ToDouble(oDS_PS_DateCommit.Columns.Item("DangerNu").Cells.Item(pVal.Row).Value) >= 0.5)
                                             {
                                                 oDS_PS_DateCommit.Columns.Item("DangerCD").Cells.Item(pVal.Row).Value = "56";
-                                                //// '// 위해등급 6급
                                             }
                                             else
                                             {
                                                 oDS_PS_DateCommit.Columns.Item("DangerCD").Cells.Item(pVal.Row).Value = "";
-                                                ////"56" '// 위해등급 6급
                                             }
                                         }
                                         break;
@@ -745,6 +702,5 @@ namespace PSH_BOne_AddOn
             {
             }
         }
-
     }
 }

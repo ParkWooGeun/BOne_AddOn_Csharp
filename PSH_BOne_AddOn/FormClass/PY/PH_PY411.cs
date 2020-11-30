@@ -23,7 +23,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면 호출
         /// </summary>
-        public override void LoadForm(string oFromDocEntry01)
+        public override void LoadForm(string oFormDocEntry01)
         {
             int i = 0;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -46,7 +46,7 @@ namespace PSH_BOne_AddOn
                 string strXml = string.Empty;
                 strXml = oXmlDoc.xml.ToString();
 
-                PSH_Globals.SBO_Application.LoadBatchActions(strXml);
+                PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID01);
 
                 oForm.SupportedModes = -1;
@@ -207,20 +207,20 @@ namespace PSH_BOne_AddOn
 
                 oForm.EnableMenu("1282", true);      // 문서추가
 
-                if (string.IsNullOrEmpty(Strings.Trim(oForm.Items.Item("Year").Specific.VALUE)))
+                if (string.IsNullOrEmpty(Strings.Trim(oForm.Items.Item("Year").Specific.Value)))
                 {
-                    oForm.Items.Item("Year").Specific.VALUE = Convert.ToString(DateTime.Now.Year - 1);
+                    oForm.Items.Item("Year").Specific.Value = Convert.ToString(DateTime.Now.Year - 1);
                 }
-                oForm.Items.Item("seqn").Specific.VALUE = "";
+                oForm.Items.Item("seqn").Specific.Value = "";
                 oForm.Items.Item("gubun").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-                oForm.Items.Item("tyyyy").Specific.VALUE = "";
+                oForm.Items.Item("tyyyy").Specific.Value = "";
                 oForm.Items.Item("tgubun").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-                oForm.Items.Item("bcode").Specific.VALUE = "";
-                oForm.Items.Item("bname").Specific.VALUE = "";
-                oForm.Items.Item("bnum").Specific.VALUE = "";
-                oForm.Items.Item("yuncha").Specific.VALUE = 0;
-                oForm.Items.Item("amt").Specific.VALUE = 0;
-                oForm.Items.Item("gamt").Specific.VALUE = 0;
+                oForm.Items.Item("bcode").Specific.Value = "";
+                oForm.Items.Item("bname").Specific.Value = "";
+                oForm.Items.Item("bnum").Specific.Value = "";
+                oForm.Items.Item("yuncha").Specific.Value = 0;
+                oForm.Items.Item("amt").Specific.Value = 0;
+                oForm.Items.Item("gamt").Specific.Value = 0;
 
                 oForm.Items.Item("amt").Enabled = true;
                 ////Key set
@@ -349,7 +349,7 @@ namespace PSH_BOne_AddOn
                 //    break;
 
                 case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
-                    //Raise_EVENT_RESIZE(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 //case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
@@ -480,7 +480,7 @@ namespace PSH_BOne_AddOn
                     }
                     if (pVal.ItemUID == "Btn01")  // 저장
                     {
-                        yyyy = oForm.Items.Item("Year").Specific.VALUE;
+                        yyyy = oForm.Items.Item("Year").Specific.Value;
                         sQry = "select b.U_UseYN from [@PS_HR200L] b where b.code ='87' and b.u_code ='" + yyyy + "'";
                         oRecordSet.DoQuery(sQry);
 
@@ -497,7 +497,7 @@ namespace PSH_BOne_AddOn
                     if (pVal.ItemUID == "Btn_del")  // 삭제
                     {
 
-                        yyyy = oForm.Items.Item("Year").Specific.VALUE;
+                        yyyy = oForm.Items.Item("Year").Specific.Value;
                         sQry = "select b.U_UseYN from [@PS_HR200L] b where b.code ='87' and b.u_code ='" + yyyy + "'";
                         oRecordSet.DoQuery(sQry);
 
@@ -549,9 +549,9 @@ namespace PSH_BOne_AddOn
                     {
                         if (pVal.ItemUID == "gubun")
                         {
-                            oForm.Items.Item("amt").Specific.VALUE = 0;
-                            oForm.Items.Item("gamt").Specific.VALUE = 0;
-                            Gubun = oForm.Items.Item("gubun").Specific.VALUE.Trim();
+                            oForm.Items.Item("amt").Specific.Value = 0;
+                            oForm.Items.Item("gamt").Specific.Value = 0;
+                            Gubun = oForm.Items.Item("gubun").Specific.Value.Trim();
 
                             switch (Gubun)
                             {
@@ -617,8 +617,8 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "MSTCOD":
-                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE);
-                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.VALUE.Trim();
+                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
+                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
 
                                 sQry = "Select Code,";
                                 sQry = sQry + " FullName = U_FullName,";
@@ -642,14 +642,14 @@ namespace PSH_BOne_AddOn
                                 oRecordSet.DoQuery(sQry);
 
                                 oForm.DataSources.UserDataSources.Item("FullName").Value = oRecordSet.Fields.Item("FullName").Value;
-                                oForm.Items.Item("FullName").Specific.VALUE = oRecordSet.Fields.Item("FullName").Value;
-                                oForm.Items.Item("TeamName").Specific.VALUE = oRecordSet.Fields.Item("TeamName").Value;
-                                oForm.Items.Item("RspName").Specific.VALUE = oRecordSet.Fields.Item("RspName").Value;
-                                oForm.Items.Item("ClsName").Specific.VALUE = oRecordSet.Fields.Item("ClsName").Value;
+                                oForm.Items.Item("FullName").Specific.Value = oRecordSet.Fields.Item("FullName").Value;
+                                oForm.Items.Item("TeamName").Specific.Value = oRecordSet.Fields.Item("TeamName").Value;
+                                oForm.Items.Item("RspName").Specific.Value = oRecordSet.Fields.Item("RspName").Value;
+                                oForm.Items.Item("ClsName").Specific.Value = oRecordSet.Fields.Item("ClsName").Value;
                                 break;
                             case "FullName":
-                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE);
-                                FullName = oForm.Items.Item("FullName").Specific.VALUE.Trim();
+                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
+                                FullName = oForm.Items.Item("FullName").Specific.Value.Trim();
 
                                 sQry = "Select Code,";
                                 sQry = sQry + " FullName = U_FullName,";
@@ -674,16 +674,16 @@ namespace PSH_BOne_AddOn
                                 oRecordSet.DoQuery(sQry);
 
                                 oForm.DataSources.UserDataSources.Item("MSTCOD").Value = oRecordSet.Fields.Item("Code").Value;
-                                //                            oForm.Items("MSTCOD").Specific.VALUE = oRecordSet.Fields("Code").VALUE
-                                oForm.Items.Item("TeamName").Specific.VALUE = oRecordSet.Fields.Item("TeamName").Value;
-                                oForm.Items.Item("RspName").Specific.VALUE = oRecordSet.Fields.Item("RspName").Value;
-                                oForm.Items.Item("ClsName").Specific.VALUE = oRecordSet.Fields.Item("ClsName").Value;
+                                //                            oForm.Items("MSTCOD").Specific.Value = oRecordSet.Fields("Code").Value
+                                oForm.Items.Item("TeamName").Specific.Value = oRecordSet.Fields.Item("TeamName").Value;
+                                oForm.Items.Item("RspName").Specific.Value = oRecordSet.Fields.Item("RspName").Value;
+                                oForm.Items.Item("ClsName").Specific.Value = oRecordSet.Fields.Item("ClsName").Value;
                                 break;
 
                             //                        Case "gubun"
                             //
                             //
-                            //                            Gubun = oForm.Items("gubun").Specific.VALUE
+                            //                            Gubun = oForm.Items("gubun").Specific.Value
                             //
                             //                            Select Case Gubun
                             //                               Case "61"
@@ -692,7 +692,7 @@ namespace PSH_BOne_AddOn
                             //                            End Select
 
                             case "bcode":
-                                bcode = oForm.Items.Item("bcode").Specific.VALUE.Trim();
+                                bcode = oForm.Items.Item("bcode").Specific.Value.Trim();
                                 sQry = "Select Code,";
                                 sQry = sQry + " CodeName = U_CodeNm ";
                                 sQry = sQry + " From [@PS_HR200L]";
@@ -701,18 +701,18 @@ namespace PSH_BOne_AddOn
 
                                 oRecordSet.DoQuery(sQry);
 
-                                oForm.Items.Item("bname").Specific.VALUE = oRecordSet.Fields.Item("CodeName").Value;
+                                oForm.Items.Item("bname").Specific.Value = oRecordSet.Fields.Item("CodeName").Value;
                                 break;
 
                             case "amt":
-                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE);
-                                yyyy = oForm.Items.Item("Year").Specific.VALUE.Trim();
-                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.VALUE.Trim();
-                                seqn = oForm.Items.Item("seqn").Specific.VALUE.Trim();
+                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
+                                yyyy = oForm.Items.Item("Year").Specific.Value.Trim();
+                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
+                                seqn = oForm.Items.Item("seqn").Specific.Value.Trim();
                                 amt = 0;
                                 gamt = 0;
                                 
-                                Gubun = oForm.Items.Item("gubun").Specific.VALUE.Trim();
+                                Gubun = oForm.Items.Item("gubun").Specific.Value.Trim();
 
                                 switch (Gubun)
                                 {
@@ -742,27 +742,27 @@ namespace PSH_BOne_AddOn
                                         oRecordSet.DoQuery(sQry);
                                         samt = oRecordSet.Fields.Item(0).Value;  // 총급여액(과세대상)
 
-                                        sQry = " Exec PH_PY411 '" + CLTCOD + "', '" + yyyy + "','" + MSTCOD + "','" + Gubun + "'," + oForm.Items.Item("amt").Specific.VALUE;
+                                        sQry = " Exec PH_PY411 '" + CLTCOD + "', '" + yyyy + "','" + MSTCOD + "','" + Gubun + "'," + oForm.Items.Item("amt").Specific.Value;
                                         oRecordSet.DoQuery(sQry);
                                         gamt = oRecordSet.Fields.Item(0).Value;
 
                                         //                                   sQry = " Select sum(gamt) From [p_seoybank] Where saup = '" & CLTCOD & "' And yyyy = '" & YEAR & "' And sabun = '" & MSTCOD & "' And seqn <> '" & seqn & "' And gubun IN ('11','12','22') "
                                         //                                   oRecordSet.DoQuery sQry
-                                        //                                   gamt = oRecordSet.Fields(0).VALUE
+                                        //                                   gamt = oRecordSet.Fields(0).Value
 
                                         //5500백기준
                                         if (samt <= 55000000)
                                         {
                                             amt = System.Math.Round(gamt * 0.15, 0); // 15%
-                                            oForm.Items.Item("gamt").Specific.VALUE = amt;
+                                            oForm.Items.Item("gamt").Specific.Value = amt;
 
                                         }
                                         else
                                         {
                                             amt = System.Math.Round(gamt * 0.12, 0); // 12%
-                                            oForm.Items.Item("gamt").Specific.VALUE = amt;
+                                            oForm.Items.Item("gamt").Specific.Value = amt;
                                         }
-                                        oForm.Items.Item("amt").Specific.VALUE = gamt;
+                                        oForm.Items.Item("amt").Specific.Value = gamt;
                                         break;
 
                                     case "21":
@@ -771,20 +771,20 @@ namespace PSH_BOne_AddOn
                                         oRecordSet.DoQuery(sQry);
                                         gamt = oRecordSet.Fields.Item(0).Value;
 
-                                        amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.VALUE) * 0.4, 0);
+                                        amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.Value) * 0.4, 0);
 
                                         if (gamt + amt > 720000)
                                         {
-                                            oForm.Items.Item("gamt").Specific.VALUE = 720000 - gamt;
+                                            oForm.Items.Item("gamt").Specific.Value = 720000 - gamt;
                                         }
                                         else
                                         {
-                                            oForm.Items.Item("gamt").Specific.VALUE = amt;
+                                            oForm.Items.Item("gamt").Specific.Value = amt;
                                         }
 
-                                        if (Convert.ToDouble(oForm.Items.Item("gamt").Specific.VALUE) < 0)
+                                        if (Convert.ToDouble(oForm.Items.Item("gamt").Specific.Value) < 0)
                                         {
-                                            oForm.Items.Item("gamt").Specific.VALUE = 0;
+                                            oForm.Items.Item("gamt").Specific.Value = 0;
                                         }
                                         break;
 
@@ -796,20 +796,20 @@ namespace PSH_BOne_AddOn
                                         oRecordSet.DoQuery(sQry);
                                         gamt = oRecordSet.Fields.Item(0).Value;
 
-                                        amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.VALUE) * 0.4, 0);
+                                        amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.Value) * 0.4, 0);
 
                                         if (gamt + amt > 960000)
                                         {
-                                            oForm.Items.Item("gamt").Specific.VALUE = 960000 - gamt;
+                                            oForm.Items.Item("gamt").Specific.Value = 960000 - gamt;
                                         }
                                         else
                                         {
-                                            oForm.Items.Item("gamt").Specific.VALUE = amt;
+                                            oForm.Items.Item("gamt").Specific.Value = amt;
                                         }
 
-                                        if (Convert.ToDouble(oForm.Items.Item("gamt").Specific.VALUE) < 0)
+                                        if (Convert.ToDouble(oForm.Items.Item("gamt").Specific.Value) < 0)
                                         {
-                                            oForm.Items.Item("gamt").Specific.VALUE = 0;
+                                            oForm.Items.Item("gamt").Specific.Value = 0;
                                         }
                                         break;
 
@@ -819,20 +819,20 @@ namespace PSH_BOne_AddOn
                                         oRecordSet.DoQuery(sQry);
                                         gamt = oRecordSet.Fields.Item(0).Value;
 
-                                        amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.VALUE) * 0.4, 0);
+                                        amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.Value) * 0.4, 0);
 
                                         if (gamt + amt > 2400000)
                                         {
-                                            oForm.Items.Item("gamt").Specific.VALUE = 2400000 - gamt;
+                                            oForm.Items.Item("gamt").Specific.Value = 2400000 - gamt;
                                         }
                                         else
                                         {
-                                            oForm.Items.Item("gamt").Specific.VALUE = amt;
+                                            oForm.Items.Item("gamt").Specific.Value = amt;
                                         }
 
-                                        if (Convert.ToDouble(oForm.Items.Item("gamt").Specific.VALUE) < 0)
+                                        if (Convert.ToDouble(oForm.Items.Item("gamt").Specific.Value) < 0)
                                         {
-                                            oForm.Items.Item("gamt").Specific.VALUE = 0;
+                                            oForm.Items.Item("gamt").Specific.Value = 0;
                                         }
                                         break;
 
@@ -844,14 +844,14 @@ namespace PSH_BOne_AddOn
                                         //우리회사는해당사항이 없음 ..   있을시 계산필요
 
                                         //기본 10%만 계산
-                                        amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.VALUE) * 0.1, 0);
+                                        amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.Value) * 0.1, 0);
 
                                         //종합(근로)소득금액의 50%한도 계산이 필요함........이상태에서는 어려움
-                                        oForm.Items.Item("gamt").Specific.VALUE = amt;
+                                        oForm.Items.Item("gamt").Specific.Value = amt;
 
-                                        if (Convert.ToDouble(oForm.Items.Item("gamt").Specific.VALUE) < 0)
+                                        if (Convert.ToDouble(oForm.Items.Item("gamt").Specific.Value) < 0)
                                         {
-                                            oForm.Items.Item("gamt").Specific.VALUE = 0;
+                                            oForm.Items.Item("gamt").Specific.Value = 0;
                                         }
                                         break;
                                    
@@ -905,16 +905,16 @@ namespace PSH_BOne_AddOn
 
                             if ((oRecordSet.RecordCount == 0))
                             {
-                                oForm.Items.Item("seqn").Specific.VALUE = "";
+                                oForm.Items.Item("seqn").Specific.Value = "";
                                 oForm.Items.Item("gubun").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-                                oForm.Items.Item("tyyyy").Specific.VALUE = "";
+                                oForm.Items.Item("tyyyy").Specific.Value = "";
                                 oForm.Items.Item("tgubun").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-                                oForm.Items.Item("bcode").Specific.VALUE = "";
-                                oForm.Items.Item("bname").Specific.VALUE = "";
-                                oForm.Items.Item("bnum").Specific.VALUE = "";
-                                oForm.Items.Item("yuncha").Specific.VALUE = 0;
-                                oForm.Items.Item("amt").Specific.VALUE = 0;
-                                oForm.Items.Item("gamt").Specific.VALUE = 0;
+                                oForm.Items.Item("bcode").Specific.Value = "";
+                                oForm.Items.Item("bname").Specific.Value = "";
+                                oForm.Items.Item("bnum").Specific.Value = "";
+                                oForm.Items.Item("yuncha").Specific.Value = 0;
+                                oForm.Items.Item("amt").Specific.Value = 0;
+                                oForm.Items.Item("gamt").Specific.Value = 0;
 
                                 PSH_Globals.SBO_Application.MessageBox("결과가 존재하지 않습니다.");
 
@@ -1036,19 +1036,19 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                saup = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
-                yyyy = oForm.Items.Item("Year").Specific.VALUE.ToString().Trim();
-                sabun = oForm.Items.Item("MSTCOD").Specific.VALUE.ToString().Trim();
-                seqn = oForm.Items.Item("seqn").Specific.VALUE.ToString().Trim();
-                Gubun = oForm.Items.Item("gubun").Specific.VALUE.ToString().Trim();
-                tyyyy = oForm.Items.Item("tyyyy").Specific.VALUE.ToString().Trim();
-                tgubun = oForm.Items.Item("tgubun").Specific.VALUE.ToString().Trim();
-                bcode = oForm.Items.Item("bcode").Specific.VALUE.ToString().Trim();
-                bname = oForm.Items.Item("bname").Specific.VALUE.ToString().Trim();
-                bnum = oForm.Items.Item("bnum").Specific.VALUE.ToString().Trim();
-                yuncha = Convert.ToDouble(oForm.Items.Item("yuncha").Specific.VALUE);
-                Amt = Convert.ToDouble(oForm.Items.Item("amt").Specific.VALUE);
-                gamt = Convert.ToDouble(oForm.Items.Item("gamt").Specific.VALUE);
+                saup = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                yyyy = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
+                sabun = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
+                seqn = oForm.Items.Item("seqn").Specific.Value.ToString().Trim();
+                Gubun = oForm.Items.Item("gubun").Specific.Value.ToString().Trim();
+                tyyyy = oForm.Items.Item("tyyyy").Specific.Value.ToString().Trim();
+                tgubun = oForm.Items.Item("tgubun").Specific.Value.ToString().Trim();
+                bcode = oForm.Items.Item("bcode").Specific.Value.ToString().Trim();
+                bname = oForm.Items.Item("bname").Specific.Value.ToString().Trim();
+                bnum = oForm.Items.Item("bnum").Specific.Value.ToString().Trim();
+                yuncha = Convert.ToDouble(oForm.Items.Item("yuncha").Specific.Value);
+                Amt = Convert.ToDouble(oForm.Items.Item("amt").Specific.Value);
+                gamt = Convert.ToDouble(oForm.Items.Item("gamt").Specific.Value);
 
                 if (string.IsNullOrEmpty(Strings.Trim(yyyy)))
                 {
@@ -1173,10 +1173,10 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                saup = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE);
-                yyyy = oForm.Items.Item("Year").Specific.VALUE;
-                sabun = Strings.Trim(oForm.Items.Item("MSTCOD").Specific.VALUE);
-                seqn = oForm.Items.Item("seqn").Specific.VALUE;
+                saup = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
+                yyyy = oForm.Items.Item("Year").Specific.Value;
+                sabun = Strings.Trim(oForm.Items.Item("MSTCOD").Specific.Value);
+                seqn = oForm.Items.Item("seqn").Specific.Value;
 
                 if (PSH_Globals.SBO_Application.MessageBox(" 선택한자료를 삭제하시겠습니까? ?", Convert.ToInt32("2"), "예", "아니오") == Convert.ToDouble("1"))
                 {
@@ -1259,1875 +1259,3 @@ namespace PSH_BOne_AddOn
 
     }
 }
-
-
-
-
-//using Microsoft.VisualBasic;
-//using Microsoft.VisualBasic.Compatibility;
-//using System;
-//using System.Collections;
-//using System.Data;
-//using System.Diagnostics;
-//using System.Drawing;
-//using System.Windows.Forms;
-// // ERROR: Not supported in C#: OptionDeclaration
-//namespace MDC_HR_Addon
-//{
-//	internal class PH_PY411
-//	{
-//////********************************************************************************
-//////  File           : PH_PY411.cls
-//////  Module         : 인사관리 > 연말정산관리
-//////  Desc           : 연금.저축등소득공제 등록
-//////********************************************************************************
-
-//		public string oFormUniqueID;
-//		public SAPbouiCOM.Form oForm;
-
-//		public SAPbouiCOM.Grid oGrid1;
-//		public SAPbouiCOM.DataTable oDS_PH_PY411A;
-
-
-//		private string oLastItemUID;
-//		private string oLastColUID;
-//		private int oLastColRow;
-
-//		public void LoadForm(string oFromDocEntry01 = "")
-//		{
-
-//			int i = 0;
-//			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
-
-//			 // ERROR: Not supported in C#: OnErrorStatement
-
-
-//			oXmlDoc.load(MDC_Globals.SP_Path + "\\" + MDC_Globals.SP_Screen + "\\PH_PY411.srf");
-//			oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue = oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue + "_" + (GetTotalFormsCount());
-//			oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue + (GetCurrentFormsCount() * 10);
-//			oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue + (GetCurrentFormsCount() * 10);
-//			for (i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++) {
-//				oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight")[i - 1].nodeValue = 20;
-//				oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
-//			}
-//			oFormUniqueID = "PH_PY411_" + GetTotalFormsCount();
-//			SubMain.AddForms(this, oFormUniqueID, "PH_PY411");
-//			MDC_Globals.Sbo_Application.LoadBatchActions(out (oXmlDoc.xml));
-//			oForm = MDC_Globals.Sbo_Application.Forms.Item(oFormUniqueID);
-
-//			oForm.SupportedModes = -1;
-//			oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
-//			//    oForm.DataBrowser.BrowseBy = "Code"
-
-//			oForm.PaneLevel = 1;
-//			oForm.Freeze(true);
-//			PH_PY411_CreateItems();
-//			PH_PY411_FormItemEnabled();
-//			PH_PY411_EnableMenus();
-//			//    Call PH_PY411_SetDocument(oFromDocEntry01)
-//			//    Call PH_PY411_FormResize
-
-//			oForm.Update();
-//			oForm.Freeze(false);
-
-//			oForm.Visible = true;
-//			//UPGRADE_NOTE: oXmlDoc 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oXmlDoc = null;
-//			return;
-//			LoadForm_Error:
-
-//			oForm.Update();
-//			oForm.Freeze(false);
-//			//UPGRADE_NOTE: oXmlDoc 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oXmlDoc = null;
-//			//UPGRADE_NOTE: oForm 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oForm = null;
-//			MDC_Globals.Sbo_Application.SetStatusBarMessage("Form_Load Error:" + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-//		}
-
-//		private bool PH_PY411_CreateItems()
-//		{
-//			bool functionReturnValue = false;
-
-//			string sQry = null;
-//			int i = 0;
-//			string CLTCOD = null;
-
-//			SAPbouiCOM.CheckBox oCheck = null;
-//			SAPbouiCOM.EditText oEdit = null;
-//			SAPbouiCOM.ComboBox oCombo = null;
-//			SAPbouiCOM.Column oColumn = null;
-//			SAPbouiCOM.Columns oColumns = null;
-//			SAPbouiCOM.OptionBtn optBtn = null;
-
-//			SAPbobsCOM.Recordset oRecordSet = null;
-
-//			 // ERROR: Not supported in C#: OnErrorStatement
-
-
-//			oForm.Freeze(true);
-
-//			oRecordSet = MDC_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-//			oGrid1 = oForm.Items.Item("Grid01").Specific;
-
-//			oForm.DataSources.DataTables.Add("PH_PY411");
-
-//			oGrid1.DataTable = oForm.DataSources.DataTables.Item("PH_PY411");
-//			oDS_PH_PY411A = oForm.DataSources.DataTables.Item("PH_PY411");
-
-
-//			////----------------------------------------------------------------------------------------------
-//			//// 기본사항
-//			////----------------------------------------------------------------------------------------------
-
-//			////사업장
-
-//			oCombo = oForm.Items.Item("CLTCOD").Specific;
-//			//    sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P144' AND U_UseYN= 'Y'"
-//			//    Call SetReDataCombo(oForm, sQry, oCombo)
-//			//    CLTCOD = MDC_SetMod.Get_ReData("Branch", "USER_CODE", "OUSR", "'" & oCompany.UserName & "'")
-//			//    oCombo.Select CLTCOD, psk_ByValue
-//			//    oCombo.Select 0, psk_Index
-//			oForm.Items.Item("CLTCOD").DisplayDesc = true;
-
-//			////년도
-//			oForm.DataSources.UserDataSources.Add("Year", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 4);
-//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			oForm.Items.Item("Year").Specific.DataBind.SetBound(true, "", "Year");
-
-//			////사번
-//			oForm.DataSources.UserDataSources.Add("MSTCOD", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
-//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			oForm.Items.Item("MSTCOD").Specific.DataBind.SetBound(true, "", "MSTCOD");
-//			////성명
-//			oForm.DataSources.UserDataSources.Add("FullName", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
-//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			oForm.Items.Item("FullName").Specific.DataBind.SetBound(true, "", "FullName");
-
-//			////순번
-//			oForm.DataSources.UserDataSources.Add("seqn", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 3);
-//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			oForm.Items.Item("seqn").Specific.DataBind.SetBound(true, "", "seqn");
-
-//			////공제구분
-//			oCombo = oForm.Items.Item("gubun").Specific;
-//			sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '77' AND U_UseYN= 'Y'";
-//			MDC_SetMod.SetReDataCombo(oForm, sQry, ref oCombo, ref "Y");
-//			oCombo.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-//			oForm.Items.Item("gubun").DisplayDesc = true;
-
-//			////투자년도(중소기업창업투자조합출자) 18년추가
-//			oForm.DataSources.UserDataSources.Add("tyyyy", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 4);
-//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			oForm.Items.Item("tyyyy").Specific.DataBind.SetBound(true, "", "tyyyy");
-
-
-//			////투자구분(중소기업창업투자조합출자) 18년추가
-//			oCombo = oForm.Items.Item("tgubun").Specific;
-//			sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '83' AND U_UseYN= 'Y'";
-//			MDC_SetMod.SetReDataCombo(oForm, sQry, ref oCombo, ref "Y");
-//			oCombo.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-//			oForm.Items.Item("tgubun").DisplayDesc = true;
-
-
-//			////금융기관코드
-//			oForm.DataSources.UserDataSources.Add("bcode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
-//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			oForm.Items.Item("bcode").Specific.DataBind.SetBound(true, "", "bcode");
-
-//			////금융기관명
-//			oForm.DataSources.UserDataSources.Add("bname", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
-//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			oForm.Items.Item("bname").Specific.DataBind.SetBound(true, "", "bname");
-
-//			////계좌번호
-//			oForm.DataSources.UserDataSources.Add("bnum", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
-//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			oForm.Items.Item("bnum").Specific.DataBind.SetBound(true, "", "bnum");
-
-//			////납입년차
-//			oForm.DataSources.UserDataSources.Add("yuncha", SAPbouiCOM.BoDataType.dt_SUM);
-//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			oForm.Items.Item("yuncha").Specific.DataBind.SetBound(true, "", "yuncha");
-
-//			////불입금액
-//			oForm.DataSources.UserDataSources.Add("amt", SAPbouiCOM.BoDataType.dt_SUM);
-//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			oForm.Items.Item("amt").Specific.DataBind.SetBound(true, "", "amt");
-
-//			////공제금액
-//			oForm.DataSources.UserDataSources.Add("gamt", SAPbouiCOM.BoDataType.dt_SUM);
-//			//UPGRADE_WARNING: oForm.Items().Specific.DataBind 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			oForm.Items.Item("gamt").Specific.DataBind.SetBound(true, "", "gamt");
-
-//			oForm.Update();
-
-//			//UPGRADE_NOTE: oCheck 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oCheck = null;
-//			//UPGRADE_NOTE: oEdit 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oEdit = null;
-//			//UPGRADE_NOTE: oCombo 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oCombo = null;
-//			//UPGRADE_NOTE: oColumn 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oColumn = null;
-//			//UPGRADE_NOTE: oColumns 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oColumns = null;
-//			//UPGRADE_NOTE: optBtn 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			optBtn = null;
-//			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oRecordSet = null;
-//			oForm.Freeze(false);
-//			return functionReturnValue;
-//			PH_PY411_CreateItems_Error:
-
-//			//UPGRADE_NOTE: oCheck 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oCheck = null;
-//			//UPGRADE_NOTE: oEdit 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oEdit = null;
-//			//UPGRADE_NOTE: oCombo 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oCombo = null;
-//			//UPGRADE_NOTE: oColumn 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oColumn = null;
-//			//UPGRADE_NOTE: oColumns 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oColumns = null;
-//			//UPGRADE_NOTE: optBtn 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			optBtn = null;
-//			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oRecordSet = null;
-//			oForm.Freeze(false);
-//			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY411_CreateItems_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-//			return functionReturnValue;
-//		}
-
-//		private void PH_PY411_EnableMenus()
-//		{
-
-//			 // ERROR: Not supported in C#: OnErrorStatement
-
-
-//			oForm.EnableMenu("1283", false);
-//			////제거
-//			oForm.EnableMenu("1284", false);
-//			////취소
-//			oForm.EnableMenu("1293", false);
-//			////행삭제
-
-//			return;
-//			PH_PY411_EnableMenus_Error:
-
-//			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY411_EnableMenus_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-//		}
-
-//		private void PH_PY411_SetDocument(string oFromDocEntry01)
-//		{
-//			 // ERROR: Not supported in C#: OnErrorStatement
-
-
-//			if ((string.IsNullOrEmpty(oFromDocEntry01))) {
-//				PH_PY411_FormItemEnabled();
-//				//        Call PH_PY411_AddMatrixRow
-//			} else {
-//				oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
-//				PH_PY411_FormItemEnabled();
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("Code").Specific.VALUE = oFromDocEntry01;
-//				oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-//			}
-//			return;
-//			PH_PY411_SetDocument_Error:
-
-//			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY411_SetDocument_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-//		}
-
-//		public void PH_PY411_FormItemEnabled()
-//		{
-//			SAPbouiCOM.ComboBox oCombo = null;
-//			string sQry = null;
-//			int i = 0;
-//			SAPbobsCOM.Recordset oRecordSet = null;
-
-
-//			string CLTCOD = null;
-//			string sPosDate = null;
-
-//			 // ERROR: Not supported in C#: OnErrorStatement
-
-//			oRecordSet = MDC_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-//			oForm.Freeze(true);
-//			if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)) {
-
-
-//				oForm.EnableMenu("1281", false);
-//				////문서찾기
-//				oForm.EnableMenu("1282", true);
-//				////문서추가
-
-
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				if (string.IsNullOrEmpty(Strings.Trim(oForm.Items.Item("Year").Specific.VALUE))) {
-//					//UPGRADE_WARNING: oForm.Items(Year).Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//					oForm.Items.Item("Year").Specific.VALUE = Convert.ToDouble(Microsoft.VisualBasic.Compatibility.VB6.Support.Format(DateAndTime.Now, "YYYY")) - 1;
-//				}
-//				//oForm.Items("Year").Specific.VALUE = Format(Now, "YYYY")
-//				//oForm.Items("MSTCOD").Specific.VALUE = ""
-//				//oForm.Items("FullName").Specific.VALUE = ""
-//				//oForm.Items("TeamName").Specific.VALUE = ""
-//				//oForm.Items("RspName").Specific.VALUE = ""
-//				//oForm.Items("ClsName").Specific.VALUE = ""
-
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("seqn").Specific.VALUE = "";
-
-//				oCombo = oForm.Items.Item("gubun").Specific;
-//				oCombo.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("tyyyy").Specific.VALUE = "";
-//				oCombo = oForm.Items.Item("tgubun").Specific;
-//				oCombo.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("bcode").Specific.VALUE = "";
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("bname").Specific.VALUE = "";
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("bnum").Specific.VALUE = "";
-
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("yuncha").Specific.VALUE = 0;
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("amt").Specific.VALUE = 0;
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("gamt").Specific.VALUE = 0;
-
-//				//// 접속자에 따른 권한별 사업장 콤보박스세팅
-//				MDC_SetMod.CLTCOD_Select(oForm, "CLTCOD");
-
-//				oForm.Items.Item("amt").Enabled = true;
-
-//			} else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)) {
-//				//// 접속자에 따른 권한별 사업장 콤보박스세팅
-//				MDC_SetMod.CLTCOD_Select(oForm, "CLTCOD");
-
-//				oForm.EnableMenu("1281", false);
-//				////문서찾기
-//				oForm.EnableMenu("1282", true);
-//				////문서추가
-
-
-//			} else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)) {
-//				//// 접속자에 따른 권한별 사업장 콤보박스세팅
-//				MDC_SetMod.CLTCOD_Select(ref oForm, ref "CLTCOD", ref false);
-
-//				oForm.EnableMenu("1281", true);
-//				////문서찾기
-//				oForm.EnableMenu("1282", true);
-//				////문서추가
-
-
-//			}
-
-//			////Key set
-//			oForm.Items.Item("CLTCOD").Enabled = true;
-//			oForm.Items.Item("Year").Enabled = true;
-//			oForm.Items.Item("MSTCOD").Enabled = true;
-
-//			oForm.Items.Item("tyyyy").Enabled = false;
-//			oForm.Items.Item("tgubun").Enabled = false;
-
-//			//UPGRADE_NOTE: oCombo 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oCombo = null;
-//			oForm.Freeze(false);
-//			return;
-//			PH_PY411_FormItemEnabled_Error:
-
-//			//UPGRADE_NOTE: oCombo 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oCombo = null;
-//			oForm.Freeze(false);
-//			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY411_FormItemEnabled_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-//		}
-
-
-//		public void Raise_FormItemEvent(ref object FormUID, ref SAPbouiCOM.ItemEvent pval, ref bool BubbleEvent)
-//		{
-//			string sQry = null;
-//			int i = 0;
-//			string tSex = null;
-//			string tBrith = null;
-//			//UPGRADE_NOTE: Day이(가) Day_Renamed(으)로 업그레이드되었습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-//			string Day_Renamed = null;
-//			string ActCode = null;
-//			string CLTCOD = null;
-//			//UPGRADE_NOTE: YEAR이(가) YEAR_Renamed(으)로 업그레이드되었습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-//			string YEAR_Renamed = null;
-//			string MSTCOD = null;
-//			string FullName = null;
-//			string seqn = null;
-//			string bcode = null;
-//			string YY = null;
-//			string Result = null;
-//			string Gubun = null;
-//			string yyyy = null;
-//			int Amt = 0;
-//			int gamt = 0;
-//			int samt = 0;
-
-//			SAPbouiCOM.ComboBox oCombo = null;
-//			SAPbouiCOM.Column oColumn = null;
-//			SAPbouiCOM.Columns oColumns = null;
-//			SAPbobsCOM.Recordset oRecordSet = null;
-
-//			 // ERROR: Not supported in C#: OnErrorStatement
-
-
-//			oRecordSet = MDC_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-//			switch (pval.EventType) {
-//				case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED:
-//					////1
-
-//					if (pval.BeforeAction == true) {
-//						if (pval.ItemUID == "1") {
-//							if (PH_PY411_DataValidCheck() == false) {
-//								BubbleEvent = false;
-//							}
-//						}
-
-//						if (pval.ItemUID == "Btn_ret") {
-//							PH_PY411_MTX01();
-//						}
-
-//						if (pval.ItemUID == "Btn01") {
-//							//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//							yyyy = oForm.Items.Item("Year").Specific.VALUE;
-//							sQry = "select b.U_UseYN from [@PS_HR200L] b where b.code ='87' and b.u_code ='" + yyyy + "'";
-//							oRecordSet.DoQuery(sQry);
-
-//							//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//							Result = oRecordSet.Fields.Item(0).Value;
-//							if (Result != "Y") {
-//								MDC_Globals.Sbo_Application.MessageBox("등록불가 년도입니다. 담당자에게 문의바랍니다.");
-//							}
-//							if (Result == "Y") {
-//								PH_PY411_SAVE();
-//							}
-//						}
-
-//						if (pval.ItemUID == "Btn_del") {
-//							//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//							yyyy = oForm.Items.Item("Year").Specific.VALUE;
-//							sQry = "select b.U_UseYN from [@PS_HR200L] b where b.code ='87' and b.u_code ='" + yyyy + "'";
-//							oRecordSet.DoQuery(sQry);
-
-//							//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//							Result = oRecordSet.Fields.Item(0).Value;
-//							if (Result != "Y") {
-//								MDC_Globals.Sbo_Application.MessageBox("삭제불가 년도입니다. 담당자에게 문의바랍니다.");
-//							}
-//							if (Result == "Y") {
-//								PH_PY411_Delete();
-//								PH_PY411_FormItemEnabled();
-//							}
-//						}
-//						//                If oForm.Mode = fm_FIND_MODE Then
-//						//                    If pval.ItemUID = "Btn01" Then
-//						//                        Sbo_Application.ActivateMenuItem ("7425")
-//						//                        BubbleEvent = False
-//						//                    End If
-//						//
-//						//                End If
-//					} else if (pval.BeforeAction == false) {
-//						switch (pval.ItemUID) {
-//							case "1":
-//								if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE) {
-//									if (pval.ActionSuccess == true) {
-//										PH_PY411_FormItemEnabled();
-//									}
-//								} else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE) {
-//									if (pval.ActionSuccess == true) {
-//										PH_PY411_FormItemEnabled();
-//									}
-//								} else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE) {
-//									if (pval.ActionSuccess == true) {
-//										PH_PY411_FormItemEnabled();
-//									}
-//								}
-//								break;
-//							//
-//						}
-//					}
-//					break;
-
-//				//----------------------------------------------------------
-//				case SAPbouiCOM.BoEventTypes.et_KEY_DOWN:
-//					////2
-//					if (pval.BeforeAction == true) {
-//						if (pval.CharPressed == 9) {
-//							if (pval.ItemUID == "MSTCOD") {
-//								//UPGRADE_WARNING: oForm.Items(MSTCOD).Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//								if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.VALUE)) {
-//									MDC_Globals.Sbo_Application.ActivateMenuItem(("7425"));
-//									BubbleEvent = false;
-//								}
-//							}
-
-//							if (pval.ItemUID == "FullName") {
-//								//UPGRADE_WARNING: oForm.Items(FullName).Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//								if (string.IsNullOrEmpty(oForm.Items.Item("FullName").Specific.VALUE)) {
-//									MDC_Globals.Sbo_Application.ActivateMenuItem(("7425"));
-//									BubbleEvent = false;
-//								}
-//							}
-//							if (pval.ItemUID == "bcode") {
-//								//UPGRADE_WARNING: oForm.Items(bcode).Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//								if (string.IsNullOrEmpty(oForm.Items.Item("bcode").Specific.VALUE)) {
-//									MDC_Globals.Sbo_Application.ActivateMenuItem(("7425"));
-//									BubbleEvent = false;
-//								}
-//							}
-//						}
-//					}
-//					break;
-//				//----------------------------------------------------------
-//				case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS:
-//					////3
-//					switch (pval.ItemUID) {
-//						case "Mat01":
-//							if (pval.Row > 0) {
-//								oLastItemUID = pval.ItemUID;
-//								oLastColUID = pval.ColUID;
-//								oLastColRow = pval.Row;
-//							}
-//							break;
-//						default:
-//							oLastItemUID = pval.ItemUID;
-//							oLastColUID = "";
-//							oLastColRow = 0;
-//							break;
-//					}
-//					break;
-
-//				//----------------------------------------------------------
-//				case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS:
-//					////4
-//					break;
-
-//				//----------------------------------------------------------
-//				case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT:
-//					////5
-//					oForm.Freeze(true);
-//					if (pval.BeforeAction == true) {
-
-//					} else if (pval.BeforeAction == false) {
-//						if (pval.ItemChanged == true) {
-//							////사업장(헤더)
-//							if (pval.ItemUID == "gubun") {
-//								//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//								oForm.Items.Item("amt").Specific.VALUE = 0;
-//								//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//								oForm.Items.Item("gamt").Specific.VALUE = 0;
-
-//								//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//								Gubun = oForm.Items.Item("gubun").Specific.VALUE;
-
-//								switch (Gubun) {
-//									case "61":
-//										oForm.Items.Item("tyyyy").Enabled = true;
-//										oForm.Items.Item("tgubun").Enabled = true;
-//										break;
-//								}
-
-
-//							}
-
-//						}
-//					}
-
-//					oForm.Freeze(false);
-//					break;
-//				//----------------------------------------------------------
-//				case SAPbouiCOM.BoEventTypes.et_CLICK:
-//					////6
-//					oForm.Freeze(true);
-//					if (pval.BeforeAction == true) {
-//						switch (pval.ItemUID) {
-//							case "Grid01":
-//								if (pval.Row >= 0) {
-//									switch (pval.ItemUID) {
-//										case "Grid01":
-//											//Call oMat1.SelectRow(pval.Row, True, False)
-//											PH_PY411_MTX02(pval.ItemUID, ref pval.Row, ref pval.ColUID);
-//											break;
-//									}
-
-//								}
-//								break;
-//						}
-
-//						switch (pval.ItemUID) {
-//							case "Grid01":
-//								if (pval.Row > 0) {
-//									oLastItemUID = pval.ItemUID;
-//									oLastColUID = pval.ColUID;
-//									oLastColRow = pval.Row;
-//								}
-//								break;
-//							default:
-//								oLastItemUID = pval.ItemUID;
-//								oLastColUID = "";
-//								oLastColRow = 0;
-//								break;
-//						}
-//					} else if (pval.BeforeAction == false) {
-
-//					}
-//					oForm.Freeze(false);
-//					break;
-//				//----------------------------------------------------------
-//				case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK:
-//					////7
-//					oForm.Freeze(true);
-//					if (pval.BeforeAction == true) {
-//					} else {
-
-//					}
-//					oForm.Freeze(false);
-//					break;
-//				//----------------------------------------------------------
-//				case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED:
-//					////8
-//					break;
-
-//				//----------------------------------------------------------
-//				case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED:
-//					////9
-//					break;
-//				//----------------------------------------------------------
-//				case SAPbouiCOM.BoEventTypes.et_VALIDATE:
-//					////10
-//					//            Call oForm.Freeze(True)
-//					if (pval.BeforeAction == true) {
-//						if (pval.ItemChanged == true) {
-
-//						}
-
-//					} else if (pval.BeforeAction == false) {
-//						if (pval.ItemChanged == true) {
-//							switch (pval.ItemUID) {
-//								case "MSTCOD":
-//									//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE);
-//									//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									MSTCOD = oForm.Items.Item("MSTCOD").Specific.VALUE;
-
-//									sQry = "Select Code,";
-//									sQry = sQry + " FullName = U_FullName,";
-//									sQry = sQry + " TeamName = Isnull((SELECT U_CodeNm";
-//									sQry = sQry + " From [@PS_HR200L]";
-//									sQry = sQry + " WHERE Code = '1'";
-//									sQry = sQry + " And U_Code = U_TeamCode),''),";
-//									sQry = sQry + " RspName  = Isnull((SELECT U_CodeNm";
-//									sQry = sQry + " From [@PS_HR200L]";
-//									sQry = sQry + " WHERE Code = '2'";
-//									sQry = sQry + " And U_Code = U_RspCode),''),";
-//									sQry = sQry + " ClsName  = Isnull((SELECT U_CodeNm";
-//									sQry = sQry + " From [@PS_HR200L]";
-//									sQry = sQry + " WHERE Code = '9'";
-//									sQry = sQry + " And U_Code  = U_ClsCode";
-//									sQry = sQry + " And U_Char3 = U_CLTCOD),'')";
-//									sQry = sQry + " From [@PH_PY001A]";
-//									sQry = sQry + " Where U_CLTCOD = '" + CLTCOD + "'";
-//									sQry = sQry + " and Code = '" + MSTCOD + "'";
-
-//									oRecordSet.DoQuery(sQry);
-
-//									//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									oForm.DataSources.UserDataSources.Item("FullName").Value = oRecordSet.Fields.Item("FullName").Value;
-
-//									//UPGRADE_WARNING: oForm.Items(FullName).Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									oForm.Items.Item("FullName").Specific.VALUE = oRecordSet.Fields.Item("FullName").Value;
-//									//UPGRADE_WARNING: oForm.Items(TeamName).Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									oForm.Items.Item("TeamName").Specific.VALUE = oRecordSet.Fields.Item("TeamName").Value;
-//									//UPGRADE_WARNING: oForm.Items(RspName).Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									oForm.Items.Item("RspName").Specific.VALUE = oRecordSet.Fields.Item("RspName").Value;
-//									//UPGRADE_WARNING: oForm.Items(ClsName).Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									oForm.Items.Item("ClsName").Specific.VALUE = oRecordSet.Fields.Item("ClsName").Value;
-//									break;
-//								case "FullName":
-//									//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE);
-//									//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									FullName = oForm.Items.Item("FullName").Specific.VALUE;
-
-//									sQry = "Select Code,";
-//									sQry = sQry + " FullName = U_FullName,";
-//									sQry = sQry + " TeamName = Isnull((SELECT U_CodeNm";
-//									sQry = sQry + " From [@PS_HR200L]";
-//									sQry = sQry + " WHERE Code = '1'";
-//									sQry = sQry + " And U_Code = U_TeamCode),''),";
-//									sQry = sQry + " RspName  = Isnull((SELECT U_CodeNm";
-//									sQry = sQry + " From [@PS_HR200L]";
-//									sQry = sQry + " WHERE Code = '2'";
-//									sQry = sQry + " And U_Code = U_RspCode),''),";
-//									sQry = sQry + " ClsName  = Isnull((SELECT U_CodeNm";
-//									sQry = sQry + " From [@PS_HR200L]";
-//									sQry = sQry + " WHERE Code = '9'";
-//									sQry = sQry + " And U_Code  = U_ClsCode";
-//									sQry = sQry + " And U_Char3 = U_CLTCOD),'')";
-//									sQry = sQry + " From [@PH_PY001A]";
-//									sQry = sQry + " Where U_CLTCOD = '" + CLTCOD + "'";
-//									sQry = sQry + " And U_status <> '5'";
-//									//퇴사자 제외
-//									sQry = sQry + " and U_FullName = '" + FullName + "'";
-
-//									oRecordSet.DoQuery(sQry);
-
-//									//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									oForm.DataSources.UserDataSources.Item("MSTCOD").Value = oRecordSet.Fields.Item("Code").Value;
-//									//                            oForm.Items("MSTCOD").Specific.VALUE = oRecordSet.Fields("Code").VALUE
-//									//UPGRADE_WARNING: oForm.Items(TeamName).Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									oForm.Items.Item("TeamName").Specific.VALUE = oRecordSet.Fields.Item("TeamName").Value;
-//									//UPGRADE_WARNING: oForm.Items(RspName).Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									oForm.Items.Item("RspName").Specific.VALUE = oRecordSet.Fields.Item("RspName").Value;
-//									//UPGRADE_WARNING: oForm.Items(ClsName).Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									oForm.Items.Item("ClsName").Specific.VALUE = oRecordSet.Fields.Item("ClsName").Value;
-//									break;
-
-
-//								//                        Case "gubun"
-//								//
-//								//
-//								//                            Gubun = oForm.Items("gubun").Specific.VALUE
-//								//
-//								//                            Select Case Gubun
-//								//                               Case "61"
-//								//                                 oForm.Items("tyyyy").Enabled = True
-//								//                                 oForm.Items("tgubun").Enabled = True
-//								//                            End Select
-
-//								case "bcode":
-//									//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									bcode = oForm.Items.Item("bcode").Specific.VALUE;
-//									sQry = "Select Code,";
-//									sQry = sQry + " CodeName = U_CodeNm ";
-//									sQry = sQry + " From [@PS_HR200L]";
-//									sQry = sQry + " WHERE Code = '78'";
-//									sQry = sQry + " And U_Code = '" + bcode + "'";
-
-//									oRecordSet.DoQuery(sQry);
-
-//									//UPGRADE_WARNING: oForm.Items(bname).Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									oForm.Items.Item("bname").Specific.VALUE = oRecordSet.Fields.Item("CodeName").Value;
-//									break;
-
-//								case "amt":
-//									//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE);
-//									//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									YEAR_Renamed = oForm.Items.Item("Year").Specific.VALUE;
-//									//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									MSTCOD = oForm.Items.Item("MSTCOD").Specific.VALUE;
-//									//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									seqn = oForm.Items.Item("seqn").Specific.VALUE;
-//									Amt = 0;
-//									gamt = 0;
-
-//									//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//									Gubun = oForm.Items.Item("gubun").Specific.VALUE;
-
-//									switch (Gubun) {
-//										case "11":
-//										case "12":
-//										case "22":
-//											//11.근로자퇴직급여보장법, '12.과학기술인공제, 22.연금저축
-
-//											//총급여액계산해서 5,500 이하는 15% 아니면 12%
-//											sQry = "SELECT SUM(gwase) ";
-//											sQry = sQry + "FROM( SELECT gwase   = SUM( a.U_GWASEE ) ";
-//											sQry = sQry + "        FROM [@PH_PY112A] a Inner Join [@PH_PY001A] b On a.U_MSTCOD = b.Code ";
-//											sQry = sQry + "       WHERE b.U_CLTCOD = '" + CLTCOD + "' ";
-//											sQry = sQry + "         And a.U_CLTCOD = b.U_CLTCOD ";
-//											sQry = sQry + "         And a.U_YM     BETWEEN  '" + YEAR_Renamed + "' + '01' AND '" + YEAR_Renamed + "' + '12' ";
-//											sQry = sQry + "         And isnull(b.Code,'')  = '" + MSTCOD + "' ";
-//											sQry = sQry + "      Union All ";
-//											sQry = sQry + "      SELECT gwase   = SUM( a.U_GWASEE ) ";
-//											sQry = sQry + "        FROM [@PH_PY112A] a Inner Join [@PH_PY001A] b On a.U_MSTCOD = b.U_PreCode ";
-//											sQry = sQry + "       WHERE b.U_CLTCOD = '" + CLTCOD + "' ";
-//											sQry = sQry + "         And a.U_CLTCOD = b.U_CLTCOD ";
-//											sQry = sQry + "         And a.U_YM     BETWEEN  '" + YEAR_Renamed + "' + '01' AND '" + YEAR_Renamed + "' + '12' ";
-//											sQry = sQry + "         And isnull(b.Code,'')  = '" + MSTCOD + "' ";
-//											sQry = sQry + "         And Isnull(b.U_PreCode,'') <> '' ";
-//											sQry = sQry + "     ) g";
-
-//											oRecordSet.DoQuery(sQry);
-//											//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//											samt = oRecordSet.Fields.Item(0).Value;
-//											//총급여액(과세대상)
-
-//											//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//											sQry = " Exec PH_PY411 '" + CLTCOD + "', '" + YEAR_Renamed + "','" + MSTCOD + "','" + Gubun + "'," + oForm.Items.Item("amt").Specific.VALUE;
-//											oRecordSet.DoQuery(sQry);
-//											//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//											gamt = oRecordSet.Fields.Item(0).Value;
-
-//											//                                   sQry = " Select sum(gamt) From [p_seoybank] Where saup = '" & CLTCOD & "' And yyyy = '" & YEAR & "' And sabun = '" & MSTCOD & "' And seqn <> '" & seqn & "' And gubun IN ('11','12','22') "
-//											//                                   oRecordSet.DoQuery sQry
-//											//                                   gamt = oRecordSet.Fields(0).VALUE
-
-//											//5500백기준
-//											if (samt <= 55000000) {
-//												Amt = System.Math.Round(gamt * 0.15, 0);
-//												//15%
-//												//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//												oForm.Items.Item("gamt").Specific.VALUE = Amt;
-
-//											} else {
-//												Amt = System.Math.Round(gamt * 0.12, 0);
-//												//12%
-//												//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//												oForm.Items.Item("gamt").Specific.VALUE = Amt;
-//											}
-//											//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//											oForm.Items.Item("amt").Specific.VALUE = gamt;
-//											break;
-
-//										case "21":
-//											//21.개인연금저축
-//											sQry = " Select sum(gamt) From [p_seoybank] Where saup = '" + CLTCOD + "' And yyyy = '" + YEAR_Renamed + "' And sabun = '" + MSTCOD + "' And seqn <> '" + seqn + "' And gubun = '21'";
-//											oRecordSet.DoQuery(sQry);
-//											//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//											gamt = oRecordSet.Fields.Item(0).Value;
-
-//											//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//											Amt = System.Math.Round(oForm.Items.Item("amt").Specific.VALUE * 0.4, 0);
-
-//											if (gamt + Amt > 720000) {
-//												//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//												oForm.Items.Item("gamt").Specific.VALUE = 720000 - gamt;
-//											} else {
-//												//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//												oForm.Items.Item("gamt").Specific.VALUE = Amt;
-//											}
-
-//											//UPGRADE_WARNING: oForm.Items(gamt).Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//											if (oForm.Items.Item("gamt").Specific.VALUE < 0) {
-//												//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//												oForm.Items.Item("gamt").Specific.VALUE = 0;
-//											}
-//											break;
-
-
-//										case "31":
-//										case "32":
-//										case "34":
-//											//31.청약저축, 32.주택청약종합저축, 34.근로자주택마련저축
-//											sQry = " Select sum(gamt) From [p_seoybank] Where saup = '" + CLTCOD + "' And yyyy = '" + YEAR_Renamed + "' And sabun = '" + MSTCOD + "' And seqn <> '" + seqn + "' And gubun IN ('31','32','34') ";
-//											oRecordSet.DoQuery(sQry);
-//											//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//											gamt = oRecordSet.Fields.Item(0).Value;
-
-//											//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//											Amt = System.Math.Round(oForm.Items.Item("amt").Specific.VALUE * 0.4, 0);
-
-//											if (gamt + Amt > 480000) {
-//												//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//												oForm.Items.Item("gamt").Specific.VALUE = 480000 - gamt;
-//											} else {
-//												//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//												oForm.Items.Item("gamt").Specific.VALUE = Amt;
-//											}
-
-//											//UPGRADE_WARNING: oForm.Items(gamt).Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//											if (oForm.Items.Item("gamt").Specific.VALUE < 0) {
-//												//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//												oForm.Items.Item("gamt").Specific.VALUE = 0;
-//											}
-//											break;
-
-//										case "51":
-//											//51.장기집합투자증권저축  40% 240만원한도
-//											sQry = " Select sum(gamt) From [p_seoybank] Where saup = '" + CLTCOD + "' And yyyy = '" + YEAR_Renamed + "' And sabun = '" + MSTCOD + "' And seqn <> '" + seqn + "' And gubun = '51'";
-//											oRecordSet.DoQuery(sQry);
-//											//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//											gamt = oRecordSet.Fields.Item(0).Value;
-
-//											//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//											Amt = System.Math.Round(oForm.Items.Item("amt").Specific.VALUE * 0.4, 0);
-
-//											if (gamt + Amt > 2400000) {
-//												//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//												oForm.Items.Item("gamt").Specific.VALUE = 2400000 - gamt;
-//											} else {
-//												//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//												oForm.Items.Item("gamt").Specific.VALUE = Amt;
-//											}
-
-//											//UPGRADE_WARNING: oForm.Items(gamt).Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//											if (oForm.Items.Item("gamt").Specific.VALUE < 0) {
-//												//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//												oForm.Items.Item("gamt").Specific.VALUE = 0;
-//											}
-//											break;
-
-//										case "61":
-//											//61.중소기업창업투자조합출자 10%
-//											//2018년기준  2018년분은 개인투자조합,벤처기업에직접투자시 3천만원이하100%, 5천만원이하70%, 5천만원초과30%
-//											//            2016,2017년분은 개인투자조합,벤처기업에직접투자시 3천만원이하100%, 5천만원이하50%, 5천만원초과30%
-//											//종합(근로)소득금액의 50%한도
-//											//우리회사는해당사항이 없음 ..   있을시 계산필요
-
-//											//기본 10%만 계산
-//											//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//											Amt = System.Math.Round(oForm.Items.Item("amt").Specific.VALUE * 0.1, 0);
-
-//											//종합(근로)소득금액의 50%한도 계산이 필요함........이상태에서는 어려움
-//											//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//											oForm.Items.Item("gamt").Specific.VALUE = Amt;
-
-//											//UPGRADE_WARNING: oForm.Items(gamt).Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//											if (oForm.Items.Item("gamt").Specific.VALUE < 0) {
-//												//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//												oForm.Items.Item("gamt").Specific.VALUE = 0;
-//											}
-//											break;
-
-
-//									}
-//									break;
-//							}
-
-//						}
-//					}
-//					break;
-//				//            Call oForm.Freeze(False)
-//				//----------------------------------------------------------
-//				case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD:
-//					////11
-//					if (pval.BeforeAction == true) {
-//					} else if (pval.BeforeAction == false) {
-//						//                oMat1.LoadFromDataSource
-//						//                Call PH_PY411_AddMatrixRow
-
-//					}
-//					break;
-//				//----------------------------------------------------------
-//				case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD:
-//					////12
-//					break;
-
-//				//----------------------------------------------------------
-//				case SAPbouiCOM.BoEventTypes.et_FORM_LOAD:
-//					////16
-//					break;
-
-//				//----------------------------------------------------------
-//				case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD:
-//					////17
-//					if (pval.BeforeAction == true) {
-//					} else if (pval.BeforeAction == false) {
-//						SubMain.RemoveForms(oFormUniqueID);
-//						//UPGRADE_NOTE: oForm 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//						oForm = null;
-//						//UPGRADE_NOTE: oDS_PH_PY411A 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//						oDS_PH_PY411A = null;
-
-//						//                Set oMat1 = Nothing
-//					}
-//					break;
-//				//----------------------------------------------------------
-//				case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE:
-//					////18
-//					break;
-
-//				//----------------------------------------------------------
-//				case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE:
-//					////19
-//					break;
-
-//				//----------------------------------------------------------
-//				case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE:
-//					////20
-//					break;
-
-//				//----------------------------------------------------------
-//				case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE:
-//					////21
-//					if (pval.BeforeAction == true) {
-
-//					} else if (pval.BeforeAction == false) {
-
-//					}
-//					break;
-//				//----------------------------------------------------------
-//				case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN:
-//					////22
-//					break;
-
-//				//----------------------------------------------------------
-//				case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT:
-//					////23
-//					break;
-
-//				//----------------------------------------------------------
-//				case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST:
-//					////27
-//					if (pval.BeforeAction == true) {
-
-//					} else if (pval.Before_Action == false) {
-//						//                If pval.ItemUID = "Code" Then
-//						//                    Call MDC_CF_DBDatasourceReturn(pval, pval.FormUID, "@PH_PY411A", "Code")
-//						//                End If
-//					}
-//					break;
-
-//				//----------------------------------------------------------
-//				case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED:
-//					////37
-//					break;
-
-//				//----------------------------------------------------------
-//				case SAPbouiCOM.BoEventTypes.et_GRID_SORT:
-//					////38
-//					break;
-
-//				//----------------------------------------------------------
-//				case SAPbouiCOM.BoEventTypes.et_Drag:
-//					////39
-//					break;
-
-
-//			}
-
-//			//UPGRADE_NOTE: oCombo 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oCombo = null;
-//			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oRecordSet = null;
-
-//			return;
-//			Raise_FormItemEvent_Error:
-//			///''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-//			oForm.Freeze((false));
-//			//UPGRADE_NOTE: oCombo 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oCombo = null;
-//			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oRecordSet = null;
-//			MDC_Globals.Sbo_Application.SetStatusBarMessage("Raise_FormItemEvent_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-//		}
-
-
-//		public void Raise_FormMenuEvent(ref string FormUID, ref SAPbouiCOM.IMenuEvent pval, ref bool BubbleEvent)
-//		{
-//			int i = 0;
-//			 // ERROR: Not supported in C#: OnErrorStatement
-
-//			oForm.Freeze(true);
-
-//			if ((pval.BeforeAction == true)) {
-//				switch (pval.MenuUID) {
-//					case "1283":
-//						if (MDC_Globals.Sbo_Application.MessageBox("현재 화면내용전체를 제거 하시겠습니까? 복구할 수 없습니다.", 2, "Yes", "No") == 2) {
-//							BubbleEvent = false;
-//							return;
-//						}
-//						break;
-//					case "1284":
-//						break;
-//					case "1286":
-//						break;
-//					case "1293":
-//						break;
-//					case "1281":
-//						break;
-//					case "1282":
-//						break;
-//					case "1288":
-//					case "1289":
-//					case "1290":
-//					case "1291":
-//						break;
-//					//                Call PH_PY411_FormItemEnabled
-//				}
-//			} else if ((pval.BeforeAction == false)) {
-//				switch (pval.MenuUID) {
-//					case "1283":
-//						oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
-//						PH_PY411_FormItemEnabled();
-//						break;
-//					//                Call PH_PY411_AddMatrixRow
-//					case "1284":
-//						break;
-//					case "1286":
-//						break;
-//					//            Case "1293":
-//					//                Call Raise_EVENT_ROW_DELETE(FormUID, pval, BubbleEvent)
-//					case "1281":
-//						////문서찾기
-//						PH_PY411_FormItemEnabled();
-//						//                Call PH_PY411_AddMatrixRow
-//						oForm.Items.Item("Code").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-//						break;
-//					case "1282":
-//						////문서추가
-//						PH_PY411_FormItemEnabled();
-//						break;
-//					//                Call PH_PY411_AddMatrixRow
-//					case "1288":
-//					case "1289":
-//					case "1290":
-//					case "1291":
-//						PH_PY411_FormItemEnabled();
-//						break;
-//					case "1293":
-//						//// 행삭제
-//						break;
-
-//				}
-//			}
-//			oForm.Freeze(false);
-//			return;
-//			Raise_FormMenuEvent_Error:
-//			oForm.Freeze(false);
-//			MDC_Globals.Sbo_Application.SetStatusBarMessage("Raise_MenuEvent_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-//		}
-
-//		public void Raise_FormDataEvent(ref string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
-//		{
-//			int i = 0;
-//			string sQry = null;
-//			SAPbouiCOM.ComboBox oCombo = null;
-
-//			SAPbobsCOM.Recordset oRecordSet = null;
-
-
-//			 // ERROR: Not supported in C#: OnErrorStatement
-
-
-//			oRecordSet = MDC_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-//			if ((BusinessObjectInfo.BeforeAction == false)) {
-//				switch (BusinessObjectInfo.EventType) {
-//					case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:
-//						////33
-//						break;
-//					case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:
-//						////34
-//						break;
-//					case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:
-//						////35
-//						break;
-//					case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:
-//						////36
-//						break;
-//				}
-
-//			}
-//			//UPGRADE_NOTE: oCombo 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oCombo = null;
-//			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oRecordSet = null;
-//			return;
-//			Raise_FormDataEvent_Error:
-
-//			//UPGRADE_NOTE: oCombo 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oCombo = null;
-//			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oRecordSet = null;
-//			MDC_Globals.Sbo_Application.SetStatusBarMessage("Raise_FormDataEvent_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-
-//		}
-
-//		public void Raise_RightClickEvent(ref string FormUID, ref SAPbouiCOM.ContextMenuInfo pval, ref bool BubbleEvent)
-//		{
-
-//			 // ERROR: Not supported in C#: OnErrorStatement
-
-
-//			if (pval.BeforeAction == true) {
-//			} else if (pval.BeforeAction == false) {
-//			}
-//			switch (pval.ItemUID) {
-//				case "Mat01":
-//					if (pval.Row > 0) {
-//						oLastItemUID = pval.ItemUID;
-//						oLastColUID = pval.ColUID;
-//						oLastColRow = pval.Row;
-//					}
-//					break;
-//				default:
-//					oLastItemUID = pval.ItemUID;
-//					oLastColUID = "";
-//					oLastColRow = 0;
-//					break;
-//			}
-//			return;
-//			Raise_RightClickEvent_Error:
-
-//			MDC_Globals.Sbo_Application.SetStatusBarMessage("Raise_RightClickEvent_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-//		}
-
-
-//		public void PH_PY411_FormClear()
-//		{
-//			 // ERROR: Not supported in C#: OnErrorStatement
-
-//			string DocEntry = null;
-//			//UPGRADE_WARNING: MDC_GetData.Get_ReData() 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			DocEntry = MDC_GetData.Get_ReData(ref "AutoKey", ref "ObjectCode", ref "ONNM", ref "'PH_PY411'", ref "");
-//			if (Convert.ToDouble(DocEntry) == 0) {
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("DocEntry").Specific.VALUE = 1;
-//			} else {
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("DocEntry").Specific.VALUE = DocEntry;
-//			}
-//			return;
-//			PH_PY411_FormClear_Error:
-//			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY411_FormClear_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-//		}
-
-//		public bool PH_PY411_DataValidCheck()
-//		{
-//			bool functionReturnValue = false;
-//			 // ERROR: Not supported in C#: OnErrorStatement
-
-//			functionReturnValue = false;
-//			int i = 0;
-//			int j = 0;
-
-//			string sQry = null;
-//			SAPbobsCOM.Recordset oRecordSet = null;
-
-//			oRecordSet = MDC_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-//			return functionReturnValue;
-
-
-//			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oRecordSet = null;
-//			PH_PY411_DataValidCheck_Error:
-
-
-//			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oRecordSet = null;
-//			functionReturnValue = false;
-//			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY411_DataValidCheck_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-//			return functionReturnValue;
-//		}
-
-//		private void PH_PY411_MTX01()
-//		{
-
-//			////그리드에 데이터 로드
-
-//			int i = 0;
-//			string sQry = null;
-//			int iRow = 0;
-
-//			string Param01 = null;
-//			string Param02 = null;
-//			string Param03 = null;
-
-//			SAPbobsCOM.Recordset oRecordSet = null;
-
-//			 // ERROR: Not supported in C#: OnErrorStatement
-
-
-//			oForm.Freeze(true);
-//			oRecordSet = MDC_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			Param01 = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE);
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			Param02 = oForm.Items.Item("Year").Specific.VALUE;
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			Param03 = oForm.Items.Item("MSTCOD").Specific.VALUE;
-
-//			if (string.IsNullOrEmpty(Strings.Trim(Param01))) {
-//				MDC_Com.MDC_GF_Message(ref "사업장이 없습니다. 확인바랍니다..", ref "E");
-//				goto PH_PY411_MTX01_Exit;
-//			}
-
-//			if (string.IsNullOrEmpty(Strings.Trim(Param02))) {
-//				MDC_Com.MDC_GF_Message(ref "년도가 없습니다. 확인바랍니다..", ref "E");
-//				goto PH_PY411_MTX01_Exit;
-//			}
-
-//			if (string.IsNullOrEmpty(Strings.Trim(Param03))) {
-//				MDC_Com.MDC_GF_Message(ref "사번이 없습니다. 확인바랍니다..", ref "E");
-//				goto PH_PY411_MTX01_Exit;
-//			}
-
-
-
-//			sQry = "EXEC PH_PY411_01 '" + Param01 + "', '" + Param02 + "', '" + Param03 + "'";
-
-//			oDS_PH_PY411A.ExecuteQuery(sQry);
-
-
-
-//			iRow = oForm.DataSources.DataTables.Item(0).Rows.Count;
-
-//			PH_PY411_TitleSetting(ref iRow);
-
-//			oForm.Update();
-
-//			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oRecordSet = null;
-//			oForm.Freeze(false);
-//			return;
-//			PH_PY411_MTX01_Exit:
-//			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oRecordSet = null;
-//			oForm.Freeze(false);
-//			return;
-//			PH_PY411_MTX01_Error:
-//			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oRecordSet = null;
-//			oForm.Freeze(false);
-//			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY411_MTX01_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-//		}
-//		private void PH_PY411_MTX02(string oUID, ref int oRow = 0, ref string oCol = "")
-//		{
-
-
-//			////그리드 자료를 head에 로드
-
-//			int i = 0;
-//			string sQry = null;
-//			int sRow = 0;
-
-//			string Param01 = null;
-//			string Param02 = null;
-//			string Param03 = null;
-//			string Param04 = null;
-//			string Param05 = null;
-//			string Param06 = null;
-//			string Param07 = null;
-
-//			SAPbouiCOM.ComboBox oCombo = null;
-//			SAPbobsCOM.Recordset oRecordSet = null;
-
-//			 // ERROR: Not supported in C#: OnErrorStatement
-
-
-//			oForm.Freeze(true);
-//			oRecordSet = MDC_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-//			sRow = oRow;
-
-
-//			//UPGRADE_WARNING: oDS_PH_PY411A.Columns.Item().Cells().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			Param01 = oDS_PH_PY411A.Columns.Item("사업장").Cells.Item(oRow).Value;
-//			//UPGRADE_WARNING: oDS_PH_PY411A.Columns.Item().Cells().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			Param02 = oDS_PH_PY411A.Columns.Item("년도").Cells.Item(oRow).Value;
-//			//UPGRADE_WARNING: oDS_PH_PY411A.Columns.Item().Cells().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			Param03 = oDS_PH_PY411A.Columns.Item("사번").Cells.Item(oRow).Value;
-//			//UPGRADE_WARNING: oDS_PH_PY411A.Columns.Item().Cells().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			Param04 = oDS_PH_PY411A.Columns.Item("순번").Cells.Item(oRow).Value;
-
-
-
-//			sQry = "EXEC PH_PY411_02 '" + Param01 + "', '" + Param02 + "', '" + Param03 + "', '" + Param04 + "'";
-//			oRecordSet.DoQuery(sQry);
-
-//			if ((oRecordSet.RecordCount == 0)) {
-
-//				//oForm.Items("MSTCOD").Specific.VALUE = oDS_PH_PY411A.Columns.Item("MSTCOD").Cells(oRow).VALUE
-//				//oForm.Items("FullName").Specific.VALUE = oDS_PH_PY411A.Columns.Item("FullName").Cells(oRow).VALUE
-
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("seqn").Specific.VALUE = "";
-
-//				oCombo = oForm.Items.Item("gubun").Specific;
-//				oCombo.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("tyyyy").Specific.VALUE = "";
-//				oCombo = oForm.Items.Item("tgubun").Specific;
-//				oCombo.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("bcode").Specific.VALUE = "";
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("bname").Specific.VALUE = "";
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("bnum").Specific.VALUE = "";
-
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("yuncha").Specific.VALUE = 0;
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("amt").Specific.VALUE = 0;
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("gamt").Specific.VALUE = 0;
-
-//				MDC_Com.MDC_GF_Message(ref "결과가 존재하지 않습니다.", ref "E");
-//				goto PH_PY411_MTX02_Exit;
-//			}
-
-//			//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			oForm.DataSources.UserDataSources.Item("seqn").Value = oRecordSet.Fields.Item("seqn").Value;
-
-//			oCombo = oForm.Items.Item("gubun").Specific;
-//			oCombo.Select(oRecordSet.Fields.Item("gubun").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
-
-//			//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			oForm.DataSources.UserDataSources.Item("tyyyy").Value = oRecordSet.Fields.Item("tyyyy").Value;
-
-//			oCombo = oForm.Items.Item("tgubun").Specific;
-//			oCombo.Select(oRecordSet.Fields.Item("tgubun").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
-
-//			//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			oForm.DataSources.UserDataSources.Item("bcode").Value = oRecordSet.Fields.Item("bcode").Value;
-//			//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			oForm.DataSources.UserDataSources.Item("bname").Value = oRecordSet.Fields.Item("bname").Value;
-
-//			//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			oForm.DataSources.UserDataSources.Item("yuncha").Value = oRecordSet.Fields.Item("yuncha").Value;
-//			//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			oForm.DataSources.UserDataSources.Item("amt").Value = oRecordSet.Fields.Item("amt").Value;
-//			//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			oForm.DataSources.UserDataSources.Item("gamt").Value = oRecordSet.Fields.Item("gamt").Value;
-//			//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			oForm.DataSources.UserDataSources.Item("bnum").Value = oRecordSet.Fields.Item("bnum").Value;
-//			//    '//부서
-//			//    oForm.Items("TeamName").Specific.VALUE = oRecordSet.Fields("TeamName").VALUE
-//			//    oForm.Items("RspName").Specific.VALUE = oRecordSet.Fields("RspName").VALUE
-//			//    oForm.Items("ClsName").Specific.VALUE = oRecordSet.Fields("ClsName").VALUE
-
-//			////Key Disable
-//			oForm.Items.Item("CLTCOD").Enabled = false;
-//			oForm.Items.Item("Year").Enabled = false;
-//			oForm.Items.Item("MSTCOD").Enabled = false;
-//			// oForm.Items("amt").Enabled = False
-
-//			oForm.Update();
-
-//			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oRecordSet = null;
-//			oForm.Freeze(false);
-//			return;
-//			PH_PY411_MTX02_Exit:
-//			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oRecordSet = null;
-//			oForm.Freeze(false);
-
-//			return;
-//			PH_PY411_MTX02_Error:
-//			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oRecordSet = null;
-//			oForm.Freeze(false);
-//			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY411_MTX02_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-//		}
-
-//		public bool PH_PY411_Validate(string ValidateType)
-//		{
-//			bool functionReturnValue = false;
-//			 // ERROR: Not supported in C#: OnErrorStatement
-
-//			functionReturnValue = true;
-//			object i = null;
-//			int j = 0;
-//			string sQry = null;
-//			SAPbobsCOM.Recordset oRecordSet = null;
-//			oRecordSet = MDC_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			//UPGRADE_WARNING: MDC_Company_Common.GetValue(SELECT Canceled FROM [PH_PY411A] WHERE DocEntry = ' & oForm.Items(DocEntry).Specific.VALUE & ', 0, 1) 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			if (MDC_Company_Common.GetValue("SELECT Canceled FROM [@PH_PY411A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.VALUE + "'", 0, 1) == "Y") {
-//				MDC_Globals.Sbo_Application.SetStatusBarMessage("해당문서는 다른사용자에 의해 취소되었습니다. 작업을 진행할수 없습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-//				functionReturnValue = false;
-//				goto PH_PY411_Validate_Exit;
-//			}
-//			//
-//			if (ValidateType == "수정") {
-
-//			} else if (ValidateType == "행삭제") {
-
-//			} else if (ValidateType == "취소") {
-
-//			}
-//			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oRecordSet = null;
-//			return functionReturnValue;
-//			PH_PY411_Validate_Exit:
-//			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oRecordSet = null;
-//			return functionReturnValue;
-//			PH_PY411_Validate_Error:
-//			functionReturnValue = false;
-//			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY411_Validate_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-//			return functionReturnValue;
-//		}
-
-//////행삭제 (FormUID, pval, BubbleEvent, 매트릭스 이름, 디비데이터소스, 데이터 체크 필드명)
-//		private void Raise_EVENT_ROW_DELETE(ref string FormUID, ref SAPbouiCOM.IMenuEvent pval, ref bool BubbleEvent, ref SAPbouiCOM.Matrix oMat, ref SAPbouiCOM.DBDataSource DBData, ref string CheckField)
-//		{
-
-//			int i = 0;
-
-//			 // ERROR: Not supported in C#: OnErrorStatement
-
-
-//			if ((oLastColRow > 0)) {
-//				if (pval.BeforeAction == true) {
-
-//				} else if (pval.BeforeAction == false) {
-//					if (oMat.RowCount != oMat.VisualRowCount) {
-//						oMat.FlushToDataSource();
-
-//						while ((i <= DBData.Size - 1)) {
-//							if (string.IsNullOrEmpty(DBData.GetValue(CheckField, i))) {
-//								DBData.RemoveRecord((i));
-//								i = 0;
-//							} else {
-//								i = i + 1;
-//							}
-//						}
-
-//						for (i = 0; i <= DBData.Size; i++) {
-//							DBData.SetValue("U_LineNum", i, Convert.ToString(i + 1));
-//						}
-
-//						oMat.LoadFromDataSource();
-//					}
-//				}
-//			}
-//			return;
-//			Raise_EVENT_ROW_DELETE_Error:
-//			MDC_Globals.Sbo_Application.SetStatusBarMessage("Raise_EVENT_ROW_DELETE_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-//		}
-
-
-//		private void PH_PY411_SAVE()
-//		{
-
-//			////데이타 저장
-
-//			int i = 0;
-//			short seqncom = 0;
-//			string sQry = null;
-
-//			string tyyyy = null;
-//			string bname = null;
-//			string Gubun = null;
-//			string sabun = null;
-//			string saup = null;
-//			string yyyy = null;
-//			string seqn = null;
-//			string bcode = null;
-//			string bnum = null;
-//			string tgubun = null;
-//			object yuncha = null;
-//			object Amt = null;
-//			double gamt = 0;
-
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			saup = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE);
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			yyyy = oForm.Items.Item("Year").Specific.VALUE;
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			sabun = Strings.Trim(oForm.Items.Item("MSTCOD").Specific.VALUE);
-
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			seqn = oForm.Items.Item("seqn").Specific.VALUE;
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			Gubun = oForm.Items.Item("gubun").Specific.VALUE;
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			tyyyy = oForm.Items.Item("tyyyy").Specific.VALUE;
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			tgubun = oForm.Items.Item("tgubun").Specific.VALUE;
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			bcode = oForm.Items.Item("bcode").Specific.VALUE;
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			bname = oForm.Items.Item("bname").Specific.VALUE;
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			bnum = oForm.Items.Item("bnum").Specific.VALUE;
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			//UPGRADE_WARNING: yuncha 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			yuncha = oForm.Items.Item("yuncha").Specific.VALUE;
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			//UPGRADE_WARNING: Amt 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			Amt = oForm.Items.Item("amt").Specific.VALUE;
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			gamt = oForm.Items.Item("gamt").Specific.VALUE;
-
-//			SAPbobsCOM.Recordset oRecordSet = null;
-
-//			 // ERROR: Not supported in C#: OnErrorStatement
-
-
-//			oForm.Freeze(true);
-//			oRecordSet = MDC_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-//			if (string.IsNullOrEmpty(Strings.Trim(yyyy))) {
-//				MDC_Com.MDC_GF_Message(ref "년도가 없습니다. 확인바랍니다..", ref "E");
-//				goto PH_PY411_SAVE_Exit;
-//			}
-
-//			if (string.IsNullOrEmpty(Strings.Trim(saup))) {
-//				MDC_Com.MDC_GF_Message(ref "사업장이 없습니다. 확인바랍니다..", ref "E");
-//				goto PH_PY411_SAVE_Exit;
-//			}
-
-//			if (string.IsNullOrEmpty(Strings.Trim(sabun))) {
-//				MDC_Com.MDC_GF_Message(ref "사번이 없습니다. 확인바랍니다..", ref "E");
-//				goto PH_PY411_SAVE_Exit;
-//			}
-
-
-//			//UPGRADE_WARNING: Amt 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			if (string.IsNullOrEmpty(Strings.Trim(Gubun)) | string.IsNullOrEmpty(Strings.Trim(bcode)) | string.IsNullOrEmpty(Strings.Trim(bnum)) | Amt == 0) {
-//				MDC_Com.MDC_GF_Message(ref "정상적인 자료가 아닙니다. 확인바랍니다..", ref "E");
-//				goto PH_PY411_SAVE_Exit;
-//			}
-
-
-//			sQry = " Select Count(*) From [p_seoybank] Where saup = '" + saup + "' And yyyy = '" + yyyy + "' And sabun = '" + sabun + "' And seqn = '" + seqn + "'";
-//			oRecordSet.DoQuery(sQry);
-
-//			if (oRecordSet.Fields.Item(0).Value > 0) {
-//				////갱신
-
-//				sQry = "Update [p_seoybank] set ";
-//				sQry = sQry + "gubun = '" + Gubun + "',";
-//				sQry = sQry + "bcode = '" + bcode + "',";
-//				sQry = sQry + "tyyyy = '" + tyyyy + "',";
-//				sQry = sQry + "tgubun = '" + tgubun + "',";
-//				sQry = sQry + "bname = '" + bname + "',";
-//				sQry = sQry + "bnum = '" + bnum + "',";
-
-//				//UPGRADE_WARNING: yuncha 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				sQry = sQry + "yuncha = " + yuncha + ",";
-//				//UPGRADE_WARNING: Amt 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				sQry = sQry + "amt = " + Amt + ",";
-//				sQry = sQry + "gamt = " + gamt + "";
-
-//				sQry = sQry + " Where saup = '" + saup + "' And yyyy = '" + yyyy + "' And sabun = '" + sabun + "' And seqn = '" + seqn + "'";
-
-//				oRecordSet.DoQuery(sQry);
-
-//			} else {
-//				////신규
-//				//순번 계산
-//				sQry = " Select Convert(int,Max(seqn)) From [p_seoybank] Where saup = '" + saup + "' And yyyy = '" + yyyy + "' And sabun = '" + sabun + "'";
-//				oRecordSet.DoQuery(sQry);
-//				//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				seqncom = oRecordSet.Fields.Item(0).Value;
-//				seqncom = seqncom + 1;
-//				seqn = Microsoft.VisualBasic.Compatibility.VB6.Support.Format(seqncom, "000");
-//				//------------------------------------------------------
-
-//				sQry = "INSERT INTO [p_seoybank]";
-//				sQry = sQry + " (";
-//				sQry = sQry + "saup,";
-//				sQry = sQry + "yyyy,";
-//				sQry = sQry + "sabun,";
-//				sQry = sQry + "seqn,";
-//				sQry = sQry + "gubun,";
-//				sQry = sQry + "tyyyy,";
-//				sQry = sQry + "tgubun,";
-//				sQry = sQry + "bcode,";
-//				sQry = sQry + "bname,";
-//				sQry = sQry + "bnum,";
-//				sQry = sQry + "yuncha,";
-//				sQry = sQry + "amt,";
-//				sQry = sQry + "gamt";
-//				sQry = sQry + " ) ";
-//				sQry = sQry + "VALUES(";
-
-//				sQry = sQry + "'" + saup + "',";
-//				sQry = sQry + "'" + yyyy + "',";
-//				sQry = sQry + "'" + sabun + "',";
-//				sQry = sQry + "'" + seqn + "',";
-//				sQry = sQry + "'" + Gubun + "',";
-//				sQry = sQry + "'" + tyyyy + "',";
-//				sQry = sQry + "'" + tgubun + "',";
-//				sQry = sQry + "'" + bcode + "',";
-//				sQry = sQry + "'" + bname + "',";
-//				sQry = sQry + "'" + bnum + "',";
-
-//				//UPGRADE_WARNING: yuncha 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				sQry = sQry + yuncha + ",";
-//				//UPGRADE_WARNING: Amt 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				sQry = sQry + Amt + ",";
-//				sQry = sQry + gamt + "";
-//				sQry = sQry + " ) ";
-
-//				oRecordSet.DoQuery(sQry);
-//			}
-
-//			PH_PY411_FormItemEnabled();
-
-//			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oRecordSet = null;
-//			oForm.Freeze(false);
-
-//			PH_PY411_MTX01();
-
-//			return;
-//			PH_PY411_SAVE_Exit:
-
-//			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oRecordSet = null;
-//			oForm.Freeze(false);
-
-//			return;
-//			PH_PY411_SAVE_Error:
-//			oForm.Freeze(false);
-
-//			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oRecordSet = null;
-//			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY411_SAVE_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-//		}
-
-
-//		private void PH_PY411_Delete()
-//		{
-//			////선택된 자료 삭제
-
-//			string sabun = null;
-//			string saup = null;
-//			string yyyy = null;
-//			string seqn = null;
-//			object medcex = null;
-//			object ntamt = null;
-//			double cont = 0;
-
-
-//			short i = 0;
-//			short cnt = 0;
-
-//			string sQry = null;
-
-//			SAPbobsCOM.Recordset oRecordSet = null;
-
-//			 // ERROR: Not supported in C#: OnErrorStatement
-
-
-//			oRecordSet = MDC_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-//			oForm.Freeze(true);
-
-
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			saup = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE);
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			yyyy = oForm.Items.Item("Year").Specific.VALUE;
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			sabun = Strings.Trim(oForm.Items.Item("MSTCOD").Specific.VALUE);
-
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			seqn = oForm.Items.Item("seqn").Specific.VALUE;
-
-//			sQry = " Select Count(*) From [p_seoybank] Where saup = '" + saup + "' And yyyy = '" + yyyy + "' And sabun = '" + sabun + "' And seqn = '" + seqn + "'";
-//			oRecordSet.DoQuery(sQry);
-
-//			//UPGRADE_WARNING: oRecordSet.Fields().VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			cnt = oRecordSet.Fields.Item(0).Value;
-//			if (cnt > 0) {
-
-//				if (string.IsNullOrEmpty(Strings.Trim(yyyy))) {
-//					MDC_Com.MDC_GF_Message(ref "년도가 없습니다. 확인바랍니다..", ref "E");
-//					goto PH_PY411_Delete_Exit;
-//				}
-
-//				if (string.IsNullOrEmpty(Strings.Trim(saup))) {
-//					MDC_Com.MDC_GF_Message(ref "사업장이 없습니다. 확인바랍니다..", ref "E");
-//					goto PH_PY411_Delete_Exit;
-//				}
-//				if (string.IsNullOrEmpty(Strings.Trim(sabun))) {
-//					MDC_Com.MDC_GF_Message(ref "사번이 없습니다. 확인바랍니다..", ref "E");
-//					goto PH_PY411_Delete_Exit;
-//				}
-
-
-//				if (MDC_Globals.Sbo_Application.MessageBox(" 선택한라인('" + seqn + "')을 삭제하시겠습니까? ?", Convert.ToInt32("2"), "예", "아니오") == Convert.ToDouble("1")) {
-//					sQry = "Delete From [p_seoybank] Where saup = '" + saup + "' And yyyy = '" + yyyy + "' And sabun = '" + sabun + "' And seqn = '" + seqn + "'";
-//					oRecordSet.DoQuery(sQry);
-//				}
-//			}
-
-
-//			oForm.Freeze(false);
-
-
-//			PH_PY411_MTX01();
-
-//			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oRecordSet = null;
-
-
-//			return;
-//			PH_PY411_Delete_Exit:
-//			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oRecordSet = null;
-
-//			oForm.Freeze(false);
-//			return;
-//			PH_PY411_Delete_Error:
-//			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//			oRecordSet = null;
-
-//			oForm.Freeze(false);
-//			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY411_Delete_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-//		}
-
-
-//		private void PH_PY411_TitleSetting(ref int iRow)
-//		{
-//			//    Dim i               As Long
-//			//    Dim j               As Long
-//			//    Dim sQry            As String
-//			//
-//			//    Dim COLNAM(5)       As String
-//			//
-//			//    Dim oColumn         As SAPbouiCOM.EditTextColumn
-//			//    Dim oComboCol       As SAPbouiCOM.ComboBoxColumn
-//			//
-//			//    Dim oRecordSet  As SAPbobsCOM.Recordset
-//			//
-//			//    On Error GoTo Error_Message
-//			//
-//			//    Set oRecordSet = oCompany.GetBusinessObject(BoRecordset)
-//			//
-//			//    oForm.Freeze True
-//			//
-//			//    COLNAM(0) = "년도"
-//			//    COLNAM(1) = "부서"
-//			//    COLNAM(2) = "담당"
-//			//    COLNAM(3) = "사번"
-//			//    COLNAM(4) = "성명"
-//			//    COLNAM(5) = "직급"
-//			//
-//			//    For i = 0 To UBound(COLNAM)
-//			//        oGrid1.Columns.Item(i).TitleObject.Caption = COLNAM(i)
-//			//        oGrid1.Columns.Item(i).Editable = False
-//			//
-//			//        oGrid1.Columns.Item(i).RightJustified = True
-//			//
-//			//    Next i
-//			//
-//			//    oGrid1.AutoResizeColumns
-//			//
-//			//    oForm.Freeze False
-//			//
-//			//    Set oColumn = Nothing
-//			//
-//			//    Exit Sub
-//			//
-//			//Error_Message:
-//			//    oForm.Freeze False
-//			//    Set oColumn = Nothing
-//			//    Sbo_Application.SetStatusBarMessage "PH_PY411_TitleSetting Error : " & Space(10) & Err.Description, bmt_Short, True
-//		}
-//	}
-//}

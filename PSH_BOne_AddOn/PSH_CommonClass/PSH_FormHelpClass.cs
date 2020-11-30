@@ -1,10 +1,7 @@
 ﻿using System;
 using CrystalDecisions.CrystalReports.Engine;
 using System.Collections.Generic;
-
-using SAPbouiCOM;
 using PSH_BOne_AddOn.DataPack;
-using PSH_BOne_AddOn.Data;
 
 namespace PSH_BOne_AddOn.Form
 {
@@ -25,35 +22,15 @@ namespace PSH_BOne_AddOn.Form
             PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1 rPT_Viewer1 = new PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1();
             ReportDocument reportDocument = new ReportDocument();
 
-            SAPbouiCOM.ProgressBar ProgBar01 = null;
-
-            //int loopCount = 0;
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
             try
             {
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회 중...", 100, false);
-
                 reportDocument.Load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Report + "\\" + pRptName);
-
-                #region ParameterFields 이용(NullReference 예외 발생하여 보류)
-                //ParameterFields parameterFields = new ParameterFields();
-
-                //ParameterField[] parameterField = new ParameterField[pDataPack.Count];
-                //ParameterDiscreteValue[] parameterRange = new ParameterDiscreteValue[pDataPack.Count];
-
-                //for (int loopCount = 0; loopCount <= pDataPack.Count-1; loopCount ++)
-                //{
-                //    parameterField[loopCount].ParameterFieldName = pDataPack[loopCount].Code.ToString();
-                //    parameterRange[loopCount].Value = pDataPack[loopCount].Value.ToString();
-                //    parameterField[loopCount].CurrentValues.Add(parameterRange[loopCount]);
-                //}
-                //parameterFields.Add(parameterField);
-                #endregion
-
+                
                 reportDocument.DataSourceConnections[0].IntegratedSecurity = false;
                 reportDocument.DataSourceConnections[0].SetConnection(PSH_Globals.SP_ODBC_IP, PSH_Globals.SP_ODBC_DBName, PSH_Globals.SP_ODBC_ID, PSH_Globals.SP_ODBC_PW); //데이터베이스 서버 접속
 
-                //rPT_Viewer1.ReportViewer.ParameterFieldInfo = parameterFields;
                 rPT_Viewer1.ReportViewer.ReportSource = reportDocument;
                 rPT_Viewer1.ReportViewer.Refresh();
                 rPT_Viewer1.ReportViewer.Zoom(100);
@@ -78,7 +55,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 
@@ -93,14 +69,12 @@ namespace PSH_BOne_AddOn.Form
             PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1 rPT_Viewer1 = new PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1();
             ReportDocument reportDocument = new ReportDocument();
 
-            SAPbouiCOM.ProgressBar ProgBar01 = null;
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
-            int loopCount = 0;
+            int loopCount;
 
             try
             {
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회 중...", 100, false);
-
                 reportDocument.Load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Report + "\\" + pRptName);
 
                 reportDocument.DataSourceConnections[0].IntegratedSecurity = false;
@@ -135,7 +109,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 
@@ -151,14 +124,12 @@ namespace PSH_BOne_AddOn.Form
             PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1 rPT_Viewer1 = new PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1();
             ReportDocument reportDocument = new ReportDocument();
 
-            SAPbouiCOM.ProgressBar ProgBar01 = null;
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
-            int loopCount = 0;
+            int loopCount;
 
             try
             {
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회 중...", 100, false);
-
                 reportDocument.Load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Report + "\\" + pRptName);
 
                 reportDocument.DataSourceConnections[0].IntegratedSecurity = false;
@@ -193,7 +164,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 
@@ -209,15 +179,13 @@ namespace PSH_BOne_AddOn.Form
             PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1 rPT_Viewer1 = new PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1();
             ReportDocument reportDocument = new ReportDocument();
 
-            SAPbouiCOM.ProgressBar ProgBar01 = null;
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
-            int loopCount1 = 0;
-            int loopCount2 = 0;
+            int loopCount1;
+            int loopCount2;
 
             try
             {
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회 중...", 100, false);
-
                 reportDocument.Load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Report + "\\" + pRptName);
 
                 reportDocument.DataSourceConnections[0].IntegratedSecurity = false;
@@ -263,7 +231,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 
@@ -280,15 +247,13 @@ namespace PSH_BOne_AddOn.Form
             PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1 rPT_Viewer1 = new PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1();
             ReportDocument reportDocument = new ReportDocument();
 
-            SAPbouiCOM.ProgressBar ProgBar01 = null;
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
-            int loopCount1 = 0;
-            int loopCount2 = 0;
+            int loopCount1;
+            int loopCount2;
 
             try
             {
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회 중...", 100, false);
-
                 reportDocument.Load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Report + "\\" + pRptName);
 
                 reportDocument.DataSourceConnections[0].IntegratedSecurity = false;
@@ -334,7 +299,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 
@@ -354,14 +318,12 @@ namespace PSH_BOne_AddOn.Form
             PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1 rPT_Viewer1 = new PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1();
             ReportDocument reportDocument = new ReportDocument();
 
-            SAPbouiCOM.ProgressBar ProgBar01 = null;
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
-            int loopCount1 = 0;
+            int loopCount1;
 
             try
             {
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회 중...", 100, false);
-
                 reportDocument.Load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Report + "\\" + pRptName);
 
                 reportDocument.DataSourceConnections[0].IntegratedSecurity = false;
@@ -403,7 +365,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 
@@ -420,15 +381,13 @@ namespace PSH_BOne_AddOn.Form
             PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1 rPT_Viewer1 = new PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1();
             ReportDocument reportDocument = new ReportDocument();
 
-            SAPbouiCOM.ProgressBar ProgBar01 = null;
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
-            int loopCount1 = 0;
-            int loopCount2 = 0;
+            int loopCount1;
+            int loopCount2;
 
             try
             {
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회 중...", 100, false);
-
                 reportDocument.Load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Report + "\\" + pRptName);
 
                 reportDocument.DataSourceConnections[0].IntegratedSecurity = false;
@@ -482,7 +441,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 
@@ -500,16 +458,14 @@ namespace PSH_BOne_AddOn.Form
             PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1 rPT_Viewer1 = new PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1();
             ReportDocument reportDocument = new ReportDocument();
 
-            SAPbouiCOM.ProgressBar ProgBar01 = null;
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
-            int loopCount1 = 0;
-            int loopCount2 = 0;
-            int loopCount3 = 0;
+            int loopCount1;
+            int loopCount2;
+            int loopCount3;
 
             try
             {
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회 중...", 100, false);
-
                 reportDocument.Load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Report + "\\" + pRptName);
 
                 reportDocument.DataSourceConnections[0].IntegratedSecurity = false;
@@ -581,7 +537,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 
@@ -598,16 +553,14 @@ namespace PSH_BOne_AddOn.Form
             PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1 rPT_Viewer1 = new PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1();
             ReportDocument reportDocument = new ReportDocument();
 
-            SAPbouiCOM.ProgressBar ProgBar01 = null;
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
-            int loopCount1 = 0;
-            int loopCount2 = 0;
-            int loopCount3 = 0;
+            int loopCount1;
+            int loopCount2;
+            int loopCount3;
 
             try
             {
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회 중...", 100, false);
-
                 reportDocument.Load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Report + "\\" + pRptName);
 
                 reportDocument.DataSourceConnections[0].IntegratedSecurity = false;
@@ -667,7 +620,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 
@@ -684,14 +636,12 @@ namespace PSH_BOne_AddOn.Form
             PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1 rPT_Viewer1 = new PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1();
             ReportDocument reportDocument = new ReportDocument();
 
-            SAPbouiCOM.ProgressBar ProgBar01 = null;
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
-            int loopCount1 = 0;
+            int loopCount1;
 
             try
             {
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회 중...", 100, false);
-
                 reportDocument.Load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Report + "\\" + pRptName);
 
                 reportDocument.DataSourceConnections[0].IntegratedSecurity = false;
@@ -733,7 +683,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 
@@ -751,15 +700,13 @@ namespace PSH_BOne_AddOn.Form
             PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1 rPT_Viewer1 = new PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1();
             ReportDocument reportDocument = new ReportDocument();
 
-            SAPbouiCOM.ProgressBar ProgBar01 = null;
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
-            int loopCount1 = 0;
-            int loopCount2 = 0;
+            int loopCount1;
+            int loopCount2;
 
             try
             {
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회 중...", 100, false);
-
                 reportDocument.Load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Report + "\\" + pRptName);
 
                 reportDocument.DataSourceConnections[0].IntegratedSecurity = false;
@@ -813,7 +760,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 
@@ -832,16 +778,14 @@ namespace PSH_BOne_AddOn.Form
             PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1 rPT_Viewer1 = new PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1();
             ReportDocument reportDocument = new ReportDocument();
 
-            SAPbouiCOM.ProgressBar ProgBar01 = null;
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
-            int loopCount1 = 0;
-            int loopCount2 = 0;
-            int loopCount3 = 0;
+            int loopCount1;
+            int loopCount2;
+            int loopCount3;
 
             try
             {
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회 중...", 100, false);
-
                 reportDocument.Load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Report + "\\" + pRptName);
 
                 reportDocument.DataSourceConnections[0].IntegratedSecurity = false;
@@ -913,7 +857,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 
@@ -931,16 +874,14 @@ namespace PSH_BOne_AddOn.Form
             PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1 rPT_Viewer1 = new PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1();
             ReportDocument reportDocument = new ReportDocument();
 
-            SAPbouiCOM.ProgressBar ProgBar01 = null;
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
-            int loopCount1 = 0;
-            int loopCount2 = 0;
-            int loopCount3 = 0;
+            int loopCount1;
+            int loopCount2;
+            int loopCount3;
 
             try
             {
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회 중...", 100, false);
-
                 reportDocument.Load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Report + "\\" + pRptName);
 
                 reportDocument.DataSourceConnections[0].IntegratedSecurity = false;
@@ -1000,7 +941,6 @@ namespace PSH_BOne_AddOn.Form
 
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
-                rPT_Viewer1 = null;
             }
         }
 

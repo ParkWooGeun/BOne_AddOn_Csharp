@@ -34,7 +34,7 @@
 //		private string oLastColUID;
 //		private int oLastColRow;
 
-//		public void LoadForm(string oFromDocEntry01 = "")
+//		public void LoadForm(string oFormDocEntry01 = "")
 //		{
 
 //			int i = 0;
@@ -63,7 +63,7 @@
 //			oForm.Freeze(true);
 //			PH_PY000_CreateItems();
 //			PH_PY000_EnableMenus();
-//			PH_PY000_SetDocument(oFromDocEntry01);
+//			PH_PY000_SetDocument(oFormDocEntry01);
 //			//    Call PH_PY000_FormResize
 
 //			oForm.Update();
@@ -220,19 +220,19 @@
 //			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY000_EnableMenus_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
 //		}
 
-//		private void PH_PY000_SetDocument(string oFromDocEntry01)
+//		private void PH_PY000_SetDocument(string oFormDocEntry01)
 //		{
 //			 // ERROR: Not supported in C#: OnErrorStatement
 
 
-//			if ((string.IsNullOrEmpty(oFromDocEntry01))) {
+//			if ((string.IsNullOrEmpty(oFormDocEntry01))) {
 //				PH_PY000_FormItemEnabled();
 //				PH_PY000_AddMatrixRow();
 //			} else {
 //				oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
 //				PH_PY000_FormItemEnabled();
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("Code").Specific.VALUE = oFromDocEntry01;
+//				//UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//				oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
 //				oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 //			}
 //			return;
@@ -250,20 +250,20 @@
 
 
 //			oForm.Freeze(true);
-//			if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)) {
+//			if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE) {
 
 //				oForm.EnableMenu("1281", true);
 //				////문서찾기
 //				oForm.EnableMenu("1282", false);
 //				////문서추가
 
-//			} else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)) {
+//			} else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE) {
 
 //				oForm.EnableMenu("1281", false);
 //				////문서찾기
 //				oForm.EnableMenu("1282", true);
 //				////문서추가
-//			} else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)) {
+//			} else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE) {
 
 
 //				oForm.EnableMenu("1281", true);
@@ -767,11 +767,11 @@
 //			//UPGRADE_WARNING: MDC_GetData.Get_ReData() 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			DocEntry = MDC_GetData.Get_ReData(ref "AutoKey", ref "ObjectCode", ref "ONNM", ref "'PH_PY000'", ref "");
 //			if (Convert.ToDouble(DocEntry) == 0) {
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("DocEntry").Specific.VALUE = 1;
+//				//UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//				oForm.Items.Item("DocEntry").Specific.Value = 1;
 //			} else {
-//				//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("DocEntry").Specific.VALUE = DocEntry;
+//				//UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//				oForm.Items.Item("DocEntry").Specific.Value = DocEntry;
 //			}
 //			return;
 //			PH_PY000_FormClear_Error:
@@ -833,9 +833,9 @@
 //			SAPbobsCOM.Recordset oRecordSet = null;
 //			oRecordSet = MDC_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			//UPGRADE_WARNING: MDC_Company_Common.GetValue(SELECT Canceled FROM [PH_PY000A] WHERE DocEntry = ' & oForm.Items(DocEntry).Specific.VALUE & ', 0, 1) 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			if (MDC_Company_Common.GetValue("SELECT Canceled FROM [@PH_PY000A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.VALUE + "'", 0, 1) == "Y") {
+//			//UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			//UPGRADE_WARNING: MDC_Company_Common.GetValue(SELECT Canceled FROM [PH_PY000A] WHERE DocEntry = ' & oForm.Items(DocEntry).Specific.Value & ', 0, 1) 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			if (MDC_Company_Common.GetValue("SELECT Canceled FROM [@PH_PY000A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "Y") {
 //				MDC_Globals.Sbo_Application.SetStatusBarMessage("해당문서는 다른사용자에 의해 취소되었습니다. 작업을 진행할수 없습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
 //				functionReturnValue = false;
 //				goto PH_PY000_Validate_Exit;
@@ -892,8 +892,8 @@
 
 //			WinTitle = "[S142] 발주서";
 //			ReportName = "S142_1.rpt";
-//			//UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//			sQry = "EXEC PH_PY000_1 '" + oForm.Items.Item("8").Specific.VALUE + "'";
+//			//UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+//			sQry = "EXEC PH_PY000_1 '" + oForm.Items.Item("8").Specific.Value + "'";
 //			MDC_Globals.gRpt_Formula = new string[2];
 //			MDC_Globals.gRpt_Formula_Value = new string[2];
 //			MDC_Globals.gRpt_SRptSqry = new string[2];

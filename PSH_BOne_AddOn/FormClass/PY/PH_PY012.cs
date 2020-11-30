@@ -32,7 +32,7 @@
 //			//이전 출장구분 값 저장용(전역변수)
 //		string DestDivValue;
 
-//		public void LoadForm(string oFromDocEntry01 = "")
+//		public void LoadForm(string oFormDocEntry01 = "")
 //		{
 
 //			int i = 0;
@@ -61,7 +61,7 @@
 //			oForm.Freeze(true);
 //			PH_PY012_CreateItems();
 //			PH_PY012_EnableMenus();
-//			PH_PY012_SetDocument(oFromDocEntry01);
+//			PH_PY012_SetDocument(oFormDocEntry01);
 //			//    Call PH_PY012_FormResize
 
 //			oForm.Update();
@@ -233,19 +233,19 @@
 //			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY012_EnableMenus_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
 //		}
 
-//		private void PH_PY012_SetDocument(string oFromDocEntry01)
+//		private void PH_PY012_SetDocument(string oFormDocEntry01)
 //		{
 //			 // ERROR: Not supported in C#: OnErrorStatement
 
 
-//			if ((string.IsNullOrEmpty(oFromDocEntry01))) {
+//			if ((string.IsNullOrEmpty(oFormDocEntry01))) {
 //				PH_PY012_FormItemEnabled();
 //				PH_PY012_AddMatrixRow();
 //			} else {
 //				oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
 //				PH_PY012_FormItemEnabled();
 //				//UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("DocEntry").Specific.Value = oFromDocEntry01;
+//				oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry01;
 //				oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 //			}
 //			return;
@@ -262,7 +262,7 @@
 //			SAPbouiCOM.ComboBox oCombo = null;
 
 //			oForm.Freeze(true);
-//			if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)) {
+//			if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE) {
 
 //				//폼 DocEntry 세팅
 //				PH_PY012_FormClear();
@@ -281,7 +281,7 @@
 //				oForm.EnableMenu("1282", false);
 //				////문서추가
 
-//			} else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)) {
+//			} else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE) {
 //				//// 접속자에 따른 권한별 사업장 콤보박스세팅
 //				MDC_SetMod.CLTCOD_Select(oForm, "CLTCOD");
 
@@ -290,7 +290,7 @@
 //				oForm.EnableMenu("1282", true);
 //				////문서추가
 
-//			} else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)) {
+//			} else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE) {
 //				//// 접속자에 따른 권한별 사업장 콤보박스세팅
 //				MDC_SetMod.CLTCOD_Select(ref oForm, ref "CLTCOD", ref false);
 
@@ -1202,41 +1202,41 @@
 //					//기간종료일자
 //					oDS_PH_PY012B.SetValue("U_Destinat", oRow, "");
 //					//행선지
-//					oDS_PH_PY012B.SetValue("U_PayPstg", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_PayPstg", oRow, "0");
 //					//지급율
 //					oDS_PH_PY012B.SetValue("U_Currency", oRow, "");
 //					//통화
-//					oDS_PH_PY012B.SetValue("U_Rate", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_Rate", oRow, "0");
 //					//환율
 //					oDS_PH_PY012B.SetValue("U_Vehicle", oRow, "");
 //					//차량구분
 //					oDS_PH_PY012B.SetValue("U_FuelType", oRow, "");
 //					//유종
-//					oDS_PH_PY012B.SetValue("U_FuelPrc", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_FuelPrc", oRow, "0");
 //					//단가
-//					oDS_PH_PY012B.SetValue("U_Distance", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_Distance", oRow, "0");
 //					//거리
-//					oDS_PH_PY012B.SetValue("U_FoodNum", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_FoodNum", oRow, "0");
 //					//식수
-//					oDS_PH_PY012B.SetValue("U_TransExp", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_TransExp", oRow, "0");
 //					//교통비
-//					oDS_PH_PY012B.SetValue("U_InsurExp", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_InsurExp", oRow, "0");
 //					//보험료
-//					oDS_PH_PY012B.SetValue("U_AirpExp", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_AirpExp", oRow, "0");
 //					//공항세
-//					oDS_PH_PY012B.SetValue("U_DayExp", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_DayExp", oRow, "0");
 //					//일비
-//					oDS_PH_PY012B.SetValue("U_FDayExp", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_FDayExp", oRow, "0");
 //					//일비(외화)
-//					oDS_PH_PY012B.SetValue("U_LodgExp", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_LodgExp", oRow, "0");
 //					//숙박비
-//					oDS_PH_PY012B.SetValue("U_FoodExp", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_FoodExp", oRow, "0");
 //					//숙박비(외화)
-//					oDS_PH_PY012B.SetValue("U_ParkExp", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_ParkExp", oRow, "0");
 //					//주차비
-//					oDS_PH_PY012B.SetValue("U_TollExp", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_TollExp", oRow, "0");
 //					//도로비
-//					oDS_PH_PY012B.SetValue("U_TotalExp", oRow, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_TotalExp", oRow, "0");
 //					//합계
 //					oMat1.LoadFromDataSource();
 //				} else {
@@ -1249,41 +1249,41 @@
 //					//기간종료일자
 //					oDS_PH_PY012B.SetValue("U_Destinat", oRow - 1, "");
 //					//행선지
-//					oDS_PH_PY012B.SetValue("U_PayPstg", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_PayPstg", oRow - 1, "0");
 //					//지급율
 //					oDS_PH_PY012B.SetValue("U_Currency", oRow - 1, "");
 //					//통화
-//					oDS_PH_PY012B.SetValue("U_Rate", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_Rate", oRow - 1, "0");
 //					//환율
 //					oDS_PH_PY012B.SetValue("U_Vehicle", oRow - 1, "");
 //					//차량구분
 //					oDS_PH_PY012B.SetValue("U_FuelType", oRow - 1, "");
 //					//유종
-//					oDS_PH_PY012B.SetValue("U_FuelPrc", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_FuelPrc", oRow - 1, "0");
 //					//단가
-//					oDS_PH_PY012B.SetValue("U_Distance", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_Distance", oRow - 1, "0");
 //					//거리
-//					oDS_PH_PY012B.SetValue("U_FoodNum", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_FoodNum", oRow - 1, "0");
 //					//식수
-//					oDS_PH_PY012B.SetValue("U_TransExp", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_TransExp", oRow - 1, "0");
 //					//교통비
-//					oDS_PH_PY012B.SetValue("U_InsurExp", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_InsurExp", oRow - 1, "0");
 //					//보험료
-//					oDS_PH_PY012B.SetValue("U_AirpExp", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_AirpExp", oRow - 1, "0");
 //					//공항세
-//					oDS_PH_PY012B.SetValue("U_DayExp", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_DayExp", oRow - 1, "0");
 //					//일비
-//					oDS_PH_PY012B.SetValue("U_FDayExp", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_FDayExp", oRow - 1, "0");
 //					//일비(외화)
-//					oDS_PH_PY012B.SetValue("U_LodgExp", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_LodgExp", oRow - 1, "0");
 //					//숙박비
-//					oDS_PH_PY012B.SetValue("U_FoodExp", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_FoodExp", oRow - 1, "0");
 //					//숙박비(외화)
-//					oDS_PH_PY012B.SetValue("U_ParkExp", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_ParkExp", oRow - 1, "0");
 //					//주차비
-//					oDS_PH_PY012B.SetValue("U_TollExp", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_TollExp", oRow - 1, "0");
 //					//도로비
-//					oDS_PH_PY012B.SetValue("U_TotalExp", oRow - 1, Convert.ToString(0));
+//					oDS_PH_PY012B.SetValue("U_TotalExp", oRow - 1, "0");
 //					//합계
 //					oMat1.LoadFromDataSource();
 //				}
@@ -1297,41 +1297,41 @@
 //				//기간종료일자
 //				oDS_PH_PY012B.SetValue("U_Destinat", oRow, "");
 //				//행선지
-//				oDS_PH_PY012B.SetValue("U_PayPstg", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_PayPstg", oRow, "0");
 //				//지급율
 //				oDS_PH_PY012B.SetValue("U_Currency", oRow, "");
 //				//통화
-//				oDS_PH_PY012B.SetValue("U_Rate", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_Rate", oRow, "0");
 //				//환율
 //				oDS_PH_PY012B.SetValue("U_Vehicle", oRow, "");
 //				//차량구분
 //				oDS_PH_PY012B.SetValue("U_FuelType", oRow, "");
 //				//유종
-//				oDS_PH_PY012B.SetValue("U_FuelPrc", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_FuelPrc", oRow, "0");
 //				//단가
-//				oDS_PH_PY012B.SetValue("U_Distance", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_Distance", oRow, "0");
 //				//거리
-//				oDS_PH_PY012B.SetValue("U_FoodNum", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_FoodNum", oRow, "0");
 //				//식수
-//				oDS_PH_PY012B.SetValue("U_TransExp", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_TransExp", oRow, "0");
 //				//교통비
-//				oDS_PH_PY012B.SetValue("U_InsurExp", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_InsurExp", oRow, "0");
 //				//보험료
-//				oDS_PH_PY012B.SetValue("U_AirpExp", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_AirpExp", oRow, "0");
 //				//공항세
-//				oDS_PH_PY012B.SetValue("U_DayExp", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_DayExp", oRow, "0");
 //				//일비
-//				oDS_PH_PY012B.SetValue("U_FDayExp", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_FDayExp", oRow, "0");
 //				//일비(외화)
-//				oDS_PH_PY012B.SetValue("U_LodgExp", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_LodgExp", oRow, "0");
 //				//숙박비
-//				oDS_PH_PY012B.SetValue("U_FoodExp", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_FoodExp", oRow, "0");
 //				//숙박비(외화)
-//				oDS_PH_PY012B.SetValue("U_ParkExp", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_ParkExp", oRow, "0");
 //				//주차비
-//				oDS_PH_PY012B.SetValue("U_TollExp", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_TollExp", oRow, "0");
 //				//도로비
-//				oDS_PH_PY012B.SetValue("U_TotalExp", oRow, Convert.ToString(0));
+//				oDS_PH_PY012B.SetValue("U_TotalExp", oRow, "0");
 //				//합계
 //				oMat1.LoadFromDataSource();
 //			}

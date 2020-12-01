@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.Code;
@@ -7,7 +7,7 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 namespace PSH_BOne_AddOn
 {
     /// <summary>
-    /// 베네?�아 금액?�록
+    /// 베네피아 금액등록
     /// </summary>
     internal class PH_PY124 : PSH_BaseClass
     {
@@ -15,15 +15,15 @@ namespace PSH_BOne_AddOn
         private SAPbouiCOM.Matrix oMat1;
         private SAPbouiCOM.DBDataSource oDS_PH_PY124A;
         private SAPbouiCOM.DBDataSource oDS_PH_PY124B;
-        private string oLastItemUID;     //?�래?�에?? ?�택?? 마�?�? ?�이?? Uid�?
-        private string oLastColUID;      //마�?막아?�템?? 메트�?��?�경?�에 마�?�? ?�택?? Col?? Uid�?
-        private int oLastColRow;         //마�?막아?�템?? 메트�?��?�경?�에 마�?�? ?�택?? Row�?
-        private bool CheckDataApply; //?�용버튼 ?�행?��?
-        private string CLTCOD; //?�업??
-        private string YM; //?�용?�월
+        private string oLastItemUID;     //클래스에서 선택한 마지막 아이템 Uid값
+        private string oLastColUID;      //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
+        private int oLastColRow;         //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
+        private bool CheckDataApply; //적용버튼 실행여부
+        private string CLTCOD; //사업장
+        private string YM; //적용연월
 
         /// <summary>
-        /// Form ?�출
+        /// Form 호출
         /// </summary>
         /// <param name="oFormDocEntry01"></param>
         public override void LoadForm(string oFormDocEntry01)
@@ -67,12 +67,12 @@ namespace PSH_BOne_AddOn
                 oForm.Update();
                 oForm.Freeze(false);
                 oForm.Visible = true;
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oXmlDoc); //메모�? ?�제
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oXmlDoc); //메모리 해제
             }
         }
 
         /// <summary>
-        /// ?�면 Item ?�성
+        /// 화면 Item 생성
         /// </summary>
         /// <returns></returns>
         private void PH_PY124_CreateItems()
@@ -90,7 +90,7 @@ namespace PSH_BOne_AddOn
 
                 CheckDataApply = false;
 
-                oForm.Items.Item("CLTCOD").DisplayDesc = true; //?�업??
+                oForm.Items.Item("CLTCOD").DisplayDesc = true; //사업장
             }
             catch (Exception ex)
             {
@@ -103,15 +103,15 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// 메뉴 ?�이�? Enable
+        /// 메뉴 아이콘 Enable
         /// </summary>
         private void PH_PY124_EnableMenus()
         {
             try
             {
-                oForm.EnableMenu("1283", true);                ////?�거
-                oForm.EnableMenu("1284", false);                ////취소
-                oForm.EnableMenu("1293", true);                ////?�삭??
+                oForm.EnableMenu("1283", true); //제거
+                oForm.EnableMenu("1284", false); //취소
+                oForm.EnableMenu("1293", true); //행삭제
             }
             catch (Exception ex)
             {
@@ -120,7 +120,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// ?�면?�팅
+        /// 화면세팅
         /// </summary>
         /// <param name="oFormDocEntry01"></param>
         private void PH_PY124_SetDocument(string oFormDocEntry01)
@@ -147,7 +147,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// ?�면?? ?�이?? Enable ?�정
+        /// 화면의 아이템 Enable 설정
         /// </summary>
         private void PH_PY124_FormItemEnabled()
         {
@@ -165,10 +165,10 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("Btn_Apply").Enabled = true;
                     oForm.Items.Item("Btn_Cancel").Enabled = false;
                     
-                    dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true); //?�속?�에 ?�른 권한�? ?�업?? 콤보박스?�팅
+                    dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true); //접속자에 따른 권한별 사업장 콤보박스세팅
 
                     oForm.EnableMenu("1281", true); //문서찾기
-                    oForm.EnableMenu("1282", false); //문서추�?
+                    oForm.EnableMenu("1282", false); //문서추가
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
@@ -176,10 +176,10 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("YM").Enabled = true;
                     oForm.Items.Item("Comments").Enabled = false;
 
-                    dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true); //?�속?�에 ?�른 권한�? ?�업?? 콤보박스?�팅
+                    dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true); //접속자에 따른 권한별 사업장 콤보박스세팅
 
                     oForm.EnableMenu("1281", false); //문서찾기
-                    oForm.EnableMenu("1282", true); //문서추�?
+                    oForm.EnableMenu("1282", true); //문서추가
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
@@ -202,10 +202,10 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("Btn_Cancel").Enabled = false;
                     }
 
-                    dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", false); //?�속?�에 ?�른 권한�? ?�업?? 콤보박스?�팅
+                    dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", false); //접속자에 따른 권한별 사업장 콤보박스세팅
 
                     oForm.EnableMenu("1281", true); //문서찾기
-                    oForm.EnableMenu("1282", true); //문서추�?
+                    oForm.EnableMenu("1282", true); //문서추가
                 }
             }
             catch (Exception ex)
@@ -219,7 +219,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// 매트�?�� ?? 추�?
+        /// 매트릭스 행 추가
         /// </summary>
         private void PH_PY124_AddMatrixRow()
         {
@@ -303,20 +303,20 @@ namespace PSH_BOne_AddOn
             {
                 if (string.IsNullOrEmpty(oDS_PH_PY124A.GetValue("U_CLTCOD", 0).ToString().Trim()))
                 {
-                    PSH_Globals.SBO_Application.SetStatusBarMessage("?�업?��? ?�수?�니??.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                    PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     return functionReturnValue;
                 }
 
-                //?�용?�작??
+                //적용시작월
                 if (string.IsNullOrEmpty(oDS_PH_PY124A.GetValue("U_YM", 0).ToString().Trim()))
                 {
-                    PSH_Globals.SBO_Application.SetStatusBarMessage("?�용?�작?��? ?�수?�니??.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                    PSH_Globals.SBO_Application.SetStatusBarMessage("적용시작월은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("YM").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     return functionReturnValue;
                 }
 
-                //Code & Name ?�성
+                //Code & Name 생성
                 oDS_PH_PY124A.SetValue("Code", 0, oDS_PH_PY124A.GetValue("U_CLTCOD", 0).ToString().Trim() + oDS_PH_PY124A.GetValue("U_YM", 0).ToString().Trim());
                 oDS_PH_PY124A.SetValue("NAME", 0, oDS_PH_PY124A.GetValue("U_CLTCOD", 0).ToString().Trim() + oDS_PH_PY124A.GetValue("U_YM", 0).ToString().Trim());
 
@@ -324,12 +324,12 @@ namespace PSH_BOne_AddOn
                 {
                     if (!string.IsNullOrEmpty(dataHelpClass.Get_ReData("Code", "Code", "[@PH_PY124A]", "'" + oDS_PH_PY124A.GetValue("Code", 0).ToString().Trim() + "'", "")))
                     {
-                        PSH_Globals.SBO_Application.SetStatusBarMessage("?��? 존재?�는 코드?�니??.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                        PSH_Globals.SBO_Application.SetStatusBarMessage("이미 존재하는 코드입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                         return functionReturnValue;
                     }
                 }
 
-                //?�인
+                //라인
                 if (oMat1.VisualRowCount >= 1)
                 {
                     for (i = 1; i <= oMat1.VisualRowCount - 1; i++)
@@ -339,13 +339,13 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.SetStatusBarMessage("?�인 ?�이?��? ?�습?�다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                    PSH_Globals.SBO_Application.SetStatusBarMessage("라인 데이터가 없습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     return functionReturnValue;
                 }
 
                 oMat1.FlushToDataSource();
 
-                //Matrix 마�?�? ?? ??��(DB ?�?�시)
+                //Matrix 마지막 행 삭제(DB 저장시)
                 if (oDS_PH_PY124B.Size > 1)
                 {
                     oDS_PH_PY124B.RemoveRecord(oDS_PH_PY124B.Size - 1);
@@ -416,7 +416,7 @@ namespace PSH_BOne_AddOn
                     oDS_PH_PY124B.SetValue("U_COL02", i, oRecordSet.Fields.Item(1).Value);
                     oRecordSet.MoveNext();
                     ProgressBar01.Value += 1;
-                    ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "�? 조회�?...!";
+                    ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";
                 }
                 oMat1.LoadFromDataSource();
                 oMat1.AutoResizeColumns();
@@ -429,7 +429,7 @@ namespace PSH_BOne_AddOn
                 ProgressBar01.Stop();
                 if (ErrNum == 1)
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("결과가 존재?��? ?�습?�다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("결과가 존재하지 않습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
                 else
                 {
@@ -494,11 +494,11 @@ namespace PSH_BOne_AddOn
                     ErrNumm = 1;
                     throw new Exception();
                 }
-                if (ValidateType == "?�정")
+                if (ValidateType == "수정")
                 {
 
                 }
-                else if (ValidateType == "?�삭??")
+                else if (ValidateType == "행삭제")
                 {
 
                 }
@@ -513,7 +513,7 @@ namespace PSH_BOne_AddOn
             {
                 if (ErrNumm == 1)
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("?�당문서?? ?�른?�용?�에 ?�해 취소?�었?�니??. ?�업?? 진행?�수 ?�습?�다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("해당문서는 다른사용자에 의해 취소되었습니다. 작업을 진행할수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
                 else
                 {
@@ -528,7 +528,7 @@ namespace PSH_BOne_AddOn
         }
         
         /// <summary>
-        /// ?��? ?�일 ?�로??
+        /// 엑셀 파일 업로드
         /// </summary>
         [STAThread]
         private void PH_PY124_Excel_Upload()
@@ -538,8 +538,8 @@ namespace PSH_BOne_AddOn
             int CheckLine;
             int i;
             bool sucessFlag = false;
-            short columnCount = 7; //?��? 컬럼??
-            short columnCount2 = 7; //?��? 컬럼??
+            short columnCount = 7; //엑셀 컬럼수
+            short columnCount2 = 7; //엑셀 컬럼수
             string sFile;
             double TOTCNT;
             int V_StatusCnt;
@@ -550,14 +550,14 @@ namespace PSH_BOne_AddOn
             CommonOpenFileDialog commonOpenFileDialog = new CommonOpenFileDialog();
 
             commonOpenFileDialog.Filters.Add(new CommonFileDialogFilter("Excel Files", "*.xls;*.xlsx"));
-            commonOpenFileDialog.Filters.Add(new CommonFileDialogFilter("모든 ?�일", "*.*"));
+            commonOpenFileDialog.Filters.Add(new CommonFileDialogFilter("모든 파일", "*.*"));
             commonOpenFileDialog.IsFolderPicker = false;
 
             if (commonOpenFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
                 sFile = commonOpenFileDialog.FileName;
             }
-            else //Cancel 버튼 ?�릭
+            else //Cancel 버튼 클릭
             {
                 return;
             }
@@ -571,8 +571,8 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Comments").Specific.Value = sFile;
             }
 
-            //?��? Object ?�결
-            //?�시?? 객체참조 ?? Excel.exe 메모�? 반환?? ?�됨, ?�래?� 같이 명시?? 참조�? ?�언
+            //엑셀 Object 연결
+            //암시적 객체참조 시 Excel.exe 메모리 반환이 안됨, 아래와 같이 명시적 참조로 선언
             Microsoft.Office.Interop.Excel.ApplicationClass xlapp = new Microsoft.Office.Interop.Excel.ApplicationClass();
             Microsoft.Office.Interop.Excel.Workbooks xlwbs = xlapp.Workbooks;
             Microsoft.Office.Interop.Excel.Workbook xlwb = xlwbs.Open(sFile);
@@ -590,61 +590,60 @@ namespace PSH_BOne_AddOn
             oMat1.LoadFromDataSource();
             try
             {
-                ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("?�작!", xlRow.Count, false);
+                ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("시작!", xlRow.Count, false);
                 Microsoft.Office.Interop.Excel.Range[] t = new Microsoft.Office.Interop.Excel.Range[columnCount2 + 1];
                 for (loopCount = 1; loopCount <= columnCount2; loopCount++)
                 {
                     t[loopCount] = (Microsoft.Office.Interop.Excel.Range)xlCell[1, loopCount];
                 }
 
-                // �? ?�?��? 비교
-                if (Convert.ToString(t[1].Value) != "?�련번호")
+                // 첫 타이틀 비교
+                if (Convert.ToString(t[1].Value) != "일련번호")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("A?? 첫번�? ?? ?�?��??� ?�련번호", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("A열 첫번째 행 타이틀은 일련번호", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     throw new Exception();
                 }
-                if (Convert.ToString(t[2].Value) != "?�번")
+                if (Convert.ToString(t[2].Value) != "사번")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("B?? ?�번�? ?? ?�?��??� ?�번", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("B열 두번째 행 타이틀은 사번", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     throw new Exception();
                 }
-                if (Convert.ToString(t[3].Value) != "?�름")
+                if (Convert.ToString(t[3].Value) != "이름")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("C?? ?�번�? ?? ?�?��??� ?�름", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("C열 세번째 행 타이틀은 이름", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     throw new Exception();
                 }
-                if (Convert.ToString(t[4].Value) != "베네?�아")
+                if (Convert.ToString(t[4].Value) != "베네피아")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("D?? ?�번�? ?? ?�?��??� 베네?�아", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("D열 세번째 행 타이틀은 베네피아", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     throw new Exception();
                 }
-                if (Convert.ToString(t[5].Value) != "?�수�?")
+                if (Convert.ToString(t[5].Value) != "영수증")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("E?? ?�번�? ?? ?�?��??� ?�수�?", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("E열 세번째 행 타이틀은 영수증", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     throw new Exception();
                 }
-                if (Convert.ToString(t[6].Value) != "복�?카드(�?��)")
+                if (Convert.ToString(t[6].Value) != "복지카드(국내)")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("F?? ?�번�? ?? ?�?��??� 복�?카드(�?��)", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("F열 세번째 행 타이틀은 복지카드(국내)", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     throw new Exception();
                 }
-                if (Convert.ToString(t[7].Value) != "총합�?(??)")
+                if (Convert.ToString(t[7].Value) != "총합계(원)")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("G?? ?�번�? ?? ?�?��??� 총합�?(??)", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("G열 세번째 행 타이틀은 총합계(원)", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     throw new Exception();
                 }
 
-                //?�로그레?? �?    ///////////////////////////////////////
-                ProgressBar01.Text = "?�이?? ?�는�?...!";
+                //프로그레스 바    ///////////////////////////////////////
+                ProgressBar01.Text = "데이터 읽는중...!";
 
-                //최�?�? 구하�? ///////////////////////////////////////
+                //최대값 구하기 ///////////////////////////////////////
                 TOTCNT = xlsh.UsedRange.Rows.Count;
 
                 V_StatusCnt = Convert.ToInt32(Math.Round(TOTCNT / 50, 0));
                 oProValue = 1;
                 tRow = 1;
-                /////////////////////////////////////////////////////
-
+                
                 for (i = 2; i <= xlsh.UsedRange.Rows.Count; i++)
                 {
                     Microsoft.Office.Interop.Excel.Range[] r = new Microsoft.Office.Interop.Excel.Range[columnCount + 1];
@@ -653,18 +652,16 @@ namespace PSH_BOne_AddOn
                     {
                         r[loopCount] = (Microsoft.Office.Interop.Excel.Range)xlCell[i, loopCount];
                     }
-                    //CheckYN = false;
                     for (j = 0; j <= oDS_PH_PY124B.Size - 1; j++)
                     {
 
                         if (Convert.ToString(r[1].Value) == oDS_PH_PY124B.GetValue("U_MSTCOD", j).ToString().Trim())
                         {
-                            //CheckYN = true;
                             CheckLine = j;
                         }
                     }
 
-                    //마�?막행 ?�거
+                    //마지막행 제거
                     if (string.IsNullOrEmpty(oDS_PH_PY124B.GetValue("U_MSTCOD", oDS_PH_PY124B.Size - 1).ToString().Trim()))
                     {
                         oDS_PH_PY124B.RemoveRecord(oDS_PH_PY124B.Size - 1);
@@ -683,15 +680,15 @@ namespace PSH_BOne_AddOn
 
                     if ((TOTCNT > 50 && tRow == oProValue * V_StatusCnt) || TOTCNT <= 50)
                     {
-                        ProgressBar01.Text = tRow + "/ " + TOTCNT + " �? 처리�?...!";
+                        ProgressBar01.Text = tRow + "/ " + TOTCNT + " 건 처리중...!";
                         ProgressBar01.Value += 1;
                     }
                     tRow += 1;
                 }
                 ProgressBar01.Value += 1;
-                ProgressBar01.Text = ProgressBar01.Value + "/" + (xlRow.Count - 1) + "�? Loding...!";
+                ProgressBar01.Text = ProgressBar01.Value + "/" + (xlRow.Count - 1) + "건 Loding...!";
 
-                //?�인번호 ?�정??
+                //라인번호 재정의
                 for (i = 0; i <= oDS_PH_PY124B.Size - 1; i++)
                 {
                     oDS_PH_PY124B.SetValue("U_LineNum", i, Convert.ToString(i + 1));
@@ -721,7 +718,7 @@ namespace PSH_BOne_AddOn
 
                 if (sucessFlag == true)
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("?��? Loding ?�료", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("엑셀 Loding 완료", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
                 }
                 oForm.Freeze(false);
             }
@@ -776,7 +773,8 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Btn_Apply").Enabled = false;
                 oForm.Items.Item("Btn_Cancel").Enabled = true;
 
-                PSH_Globals.SBO_Application.StatusBar.SetText("급상?��??? ?�료?? 금액?? ?�용 ?�었?�니??.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
+                PSH_Globals.SBO_Application.StatusBar.SetText("급상여변동 자료에 금액이 적용 되었습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
@@ -836,8 +834,8 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Btn_Apply").Enabled = true;
                 oForm.Items.Item("Btn_Cancel").Enabled = false;
 
-                PSH_Globals.SBO_Application.StatusBar.SetText("급상?��??? ?�료?? 금액?? ?�용 ?�었?�니??.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
-
+                PSH_Globals.SBO_Application.StatusBar.SetText("급상여변동 자료에 금액이 적용 되었습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
@@ -947,7 +945,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// ITEM_PRESSED ?�벤??
+        /// ITEM_PRESSED 이벤트
         /// </summary>
         /// <param name="FormUID">Form UID</param>
         /// <param name="pVal">ItemEvent 객체</param>
@@ -1014,7 +1012,7 @@ namespace PSH_BOne_AddOn
                         }
                         else
                         {
-                            PSH_Globals.SBO_Application.SetStatusBarMessage("베네?�아 ?�료가 ?�습?�다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                            PSH_Globals.SBO_Application.SetStatusBarMessage("베네피아 자료가 없습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                         }
                     }
                 }
@@ -1029,7 +1027,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// Raise_EVENT_GOT_FOCUS ?�벤??
+        /// Raise_EVENT_GOT_FOCUS 이벤트
         /// </summary>
         /// <param name="FormUID">Form UID</param>
         /// <param name="pVal">ItemEvent 객체</param>
@@ -1065,7 +1063,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// Raise_EVENT_CLICK ?�벤??
+        /// Raise_EVENT_CLICK 이벤트
         /// </summary>
         /// <param name="FormUID">Form UID</param>
         /// <param name="pVal">ItemEvent 객체</param>
@@ -1141,7 +1139,6 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemChanged == true)
                     {
-
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                         {
                             if (pVal.ItemUID == "YM")
@@ -1181,7 +1178,7 @@ namespace PSH_BOne_AddOn
             {
                 if(ErrCode == 1)
                 {
-                    PSH_Globals.SBO_Application.MessageBox("급상?��??�자�? ?�력?� ?�수?�니??.");
+                    PSH_Globals.SBO_Application.MessageBox("급상여변동자료 입력은 필수입니다.");
                 }
                 else
                 {
@@ -1191,7 +1188,7 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모�? ?�제
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
             }
         }
 
@@ -1226,7 +1223,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// FORM_UNLOAD ?�벤??
+        /// FORM_UNLOAD 이벤트
         /// </summary>
         /// <param name="FormUID">Form UID</param>
         /// <param name="pVal">ItemEvent 객체</param>
@@ -1258,7 +1255,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// ROW_DELETE(Raise_FormMenuEvent?�서 ?�출), ?�당 ?�래?�에?�는 ?�용?��? ?�음
+        /// ROW_DELETE(Raise_FormMenuEvent에서 호출), 해당 클래스에서는 사용되지 않음
         /// </summary>
         /// <param name="FormUID"></param>
         /// <param name="pval"></param>
@@ -1332,7 +1329,7 @@ namespace PSH_BOne_AddOn
                     switch (pVal.MenuUID)
                     {
                         case "1283":
-                            if (PSH_Globals.SBO_Application.MessageBox("?�재 ?�면?�용?�체�? ?�거 ?�시겠습?�까? 복구?? ?? ?�습?�다.", 2, "Yes", "No") == 2)
+                            if (PSH_Globals.SBO_Application.MessageBox("현재 화면내용전체를 제거 하시겠습니까? 복구할 수 없습니다.", 2, "Yes", "No") == 2)
                             {
                                 BubbleEvent = false;
                                 return;
@@ -1355,7 +1352,7 @@ namespace PSH_BOne_AddOn
                         case "1289":
                         case "1290":
                         case "1291":
-                            dataHelpClass.AuthorityCheck(oForm, "CLTCOD", "@PH_PY124A", "Code"); //?�속?? 권한?? ?�른 ?�업?? 보기
+                            dataHelpClass.AuthorityCheck(oForm, "CLTCOD", "@PH_PY124A", "Code"); //접속자 권한에 따른 사업장 보기
                             PH_PY124_FormItemEnabled();
                             break;
                     }
@@ -1378,7 +1375,7 @@ namespace PSH_BOne_AddOn
                             PH_PY124_AddMatrixRow();
                             oForm.Items.Item("Code").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             break;
-                        case "1282": //문서추�?
+                        case "1282": //문서추가
                             PH_PY124_FormItemEnabled();
                             PH_PY124_AddMatrixRow();
                             break;
@@ -1390,7 +1387,7 @@ namespace PSH_BOne_AddOn
                             CLTCOD = oDS_PH_PY124A.GetValue("U_CLTCOD", 0).ToString().Trim();
                             YM = codeHelpClass.Right(oDS_PH_PY124A.GetValue("U_YM", 0).ToString().Trim(), 4);
                             break;
-                        case "1293": //?�삭??
+                        case "1293": //행삭제
                             Raise_EVENT_ROW_DELETE(FormUID, pVal, BubbleEvent, oMat1, oDS_PH_PY124B, "U_JIGCOD");
                             PH_PY124_AddMatrixRow();
                             break;
@@ -1496,93 +1493,6 @@ namespace PSH_BOne_AddOn
             {
             }
         }
+    }
+}
 
-//            //UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체?? 기본 ?�성?? ?�인?? ?? ?�습?�다. ?�세?? ?�용?� ?�음?? 참조?�십?�오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//            oForm.Items.Item("StatYN").Specific.VALUE = "Y";
-
-//            oForm.Items.Item("Test").Click((SAPbouiCOM.BoCellClickType.ct_Regular));
-
-//            oForm.Items.Item("FieldCo").Enabled = false;
-//            oForm.Items.Item("Mat1").Enabled = false;
-//            oForm.Items.Item("Btn_Apply").Enabled = false;
-//            oForm.Items.Item("Btn_Cancel").Enabled = true;
-
-//            MDC_Globals.Sbo_Application.StatusBar.SetText("급상?��??? ?�료?? 금액?? ?�용 ?�었?�니??.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
-//            //UPGRADE_NOTE: oRecordSet 개체?? 가비�?가 ?�집?�어?? ?�멸?�니??. ?�세?? ?�용?� ?�음?? 참조?�십?�오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//            oRecordSet = null;
-//            return functionReturnValue;
-//        PH_PY124_DataApply_Error:
-
-//            //UPGRADE_NOTE: oRecordSet 개체?? 가비�?가 ?�집?�어?? ?�멸?�니??. ?�세?? ?�용?� ?�음?? 참조?�십?�오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//            oRecordSet = null;
-//            MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY124_DataApply_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-//            return functionReturnValue;
-//        }
-
-//        private bool PH_PY124_DataCancel(ref string CLTCOD, ref string YM)
-//        {
-//            bool functionReturnValue = false;
-//            string sQry = null;
-//            SAPbobsCOM.Recordset oRecordSet = null;
-//            string Tablename = null;
-//            string sTablename = null;
-//            string AMTLen = null;
-
-
-//            oRecordSet = MDC_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-//            // ERROR: Not supported in C#: OnErrorStatement
-
-
-//            functionReturnValue = false;
-
-//            oMat1.FlushToDataSource();
-
-//            //UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체?? 기본 ?�성?? ?�인?? ?? ?�습?�다. ?�세?? ?�용?� ?�음?? 참조?�십?�오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//            if (Strings.Len(Strings.Trim(oForm.Items.Item("FieldCo").Specific.VALUE)) == 1)
-//            {
-//                //UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체?? 기본 ?�성?? ?�인?? ?? ?�습?�다. ?�세?? ?�용?� ?�음?? 참조?�십?�오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//                AMTLen = Strings.Trim(Convert.ToString(Convert.ToDouble("0") + oForm.Items.Item("FieldCo").Specific.VALUE));
-//            }
-//            else
-//            {
-//                //UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체?? 기본 ?�성?? ?�인?? ?? ?�습?�다. ?�세?? ?�용?� ?�음?? 참조?�십?�오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//                AMTLen = Strings.Trim(oForm.Items.Item("FieldCo").Specific.VALUE);
-//            }
-
-
-//            sQry = "";
-//            sQry = sQry + " update [@PH_PY109B]";
-//            sQry = sQry + " set U_AMT" + AMTLen + "=isnull(U_AMT" + AMTLen + ",0)  - isnull(b.U_TotAmt,0)";
-//            sQry = sQry + " from [@PH_PY109B] a left join [@PH_PY124B] b on left(a.code,1) = left(b.code,1) and SUBSTRING(a.code,2,4) = right(b.code,4) and a.U_MSTCOD  = b.U_MSTCOD";
-//            //UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체?? 기본 ?�성?? ?�인?? ?? ?�습?�다. ?�세?? ?�용?� ?�음?? 참조?�십?�오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//            sQry = sQry + " where a.code ='" + Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE) + Strings.Right(Strings.Trim(oForm.Items.Item("YM").Specific.VALUE), 4) + "111'";
-
-//            oRecordSet.DoQuery(sQry);
-
-//            sQry = "";
-//            //UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체?? 기본 ?�성?? ?�인?? ?? ?�습?�다. ?�세?? ?�용?� ?�음?? 참조?�십?�오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//            sQry = sQry + " update [@PH_PY124A] set U_statYN = 'N' where U_NaviDoc ='" + Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE) + Strings.Trim(oForm.Items.Item("YM").Specific.VALUE) + "'";
-
-//            oRecordSet.DoQuery(sQry);
-
-//            //UPGRADE_WARNING: oForm.Items().Specific.VALUE 개체?? 기본 ?�성?? ?�인?? ?? ?�습?�다. ?�세?? ?�용?� ?�음?? 참조?�십?�오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//            oForm.Items.Item("StatYN").Specific.VALUE = "N";
-//            oForm.Items.Item("FieldCo").Enabled = true;
-//            oForm.Items.Item("Mat1").Enabled = true;
-//            oForm.Items.Item("Btn_Apply").Enabled = true;
-//            oForm.Items.Item("Btn_Cancel").Enabled = false;
-
-//            MDC_Globals.Sbo_Application.StatusBar.SetText("급상?��??? ?�료?? 금액?? ?�용 ?�었?�니??.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
-//            //UPGRADE_NOTE: oRecordSet 개체?? 가비�?가 ?�집?�어?? ?�멸?�니??. ?�세?? ?�용?� ?�음?? 참조?�십?�오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//            oRecordSet = null;
-//            return functionReturnValue;
-//        PH_PY124_DataCancel_Error:
-
-//            //UPGRADE_NOTE: oRecordSet 개체?? 가비�?가 ?�집?�어?? ?�멸?�니??. ?�세?? ?�용?� ?�음?? 참조?�십?�오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-//            oRecordSet = null;
-//            MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY124_DataCancel_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-//            return functionReturnValue;
-//        }
-//    }
-//}

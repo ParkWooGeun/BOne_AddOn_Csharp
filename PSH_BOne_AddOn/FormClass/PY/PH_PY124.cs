@@ -634,10 +634,10 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                //프로그레스 바    ///////////////////////////////////////
+                //프로그레스 바
                 ProgressBar01.Text = "데이터 읽는중...!";
 
-                //최대값 구하기 ///////////////////////////////////////
+                //최대값 구하기
                 TOTCNT = xlsh.UsedRange.Rows.Count;
 
                 V_StatusCnt = Convert.ToInt32(Math.Round(TOTCNT / 50, 0));

@@ -36,7 +36,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-	<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>.\bin\</OutputPath>
@@ -1580,32 +1580,6 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PYA65.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PYA70.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PYA75.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\RPY401.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\RPY501.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\RPY502.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\RPY503.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\RPY504.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\RPY505.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\RPY506.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\RPY508.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\RPY509.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\RPY510.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\RPY511.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\ZPY341.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\ZPY343.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\ZPY421.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\ZPY501.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\ZPY502.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\ZPY503.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\ZPY504.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\ZPY505.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\ZPY506.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\ZPY507.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\ZPY508.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\ZPY509.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\ZPY510.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\ZPY521.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\ZPY522.srf" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

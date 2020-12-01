@@ -109,9 +109,9 @@ namespace PSH_BOne_AddOn
         {
             try
             {
-                oForm.EnableMenu("1283", true);                ////제거
-                oForm.EnableMenu("1284", false);                ////취소
-                oForm.EnableMenu("1293", true);                ////행삭제
+                oForm.EnableMenu("1283", true); //제거
+                oForm.EnableMenu("1284", false); //취소
+                oForm.EnableMenu("1293", true); //행삭제
             }
             catch (Exception ex)
             {
@@ -634,17 +634,16 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                //프로그레스 바    ///////////////////////////////////////
+                //프로그레스 바
                 ProgressBar01.Text = "데이터 읽는중...!";
 
-                //최대값 구하기 ///////////////////////////////////////
+                //최대값 구하기
                 TOTCNT = xlsh.UsedRange.Rows.Count;
 
                 V_StatusCnt = Convert.ToInt32(Math.Round(TOTCNT / 50, 0));
                 oProValue = 1;
                 tRow = 1;
-                /////////////////////////////////////////////////////
-
+                
                 for (i = 2; i <= xlsh.UsedRange.Rows.Count; i++)
                 {
                     Microsoft.Office.Interop.Excel.Range[] r = new Microsoft.Office.Interop.Excel.Range[columnCount + 1];
@@ -653,13 +652,11 @@ namespace PSH_BOne_AddOn
                     {
                         r[loopCount] = (Microsoft.Office.Interop.Excel.Range)xlCell[i, loopCount];
                     }
-                    //CheckYN = false;
                     for (j = 0; j <= oDS_PH_PY124B.Size - 1; j++)
                     {
 
                         if (Convert.ToString(r[1].Value) == oDS_PH_PY124B.GetValue("U_MSTCOD", j).ToString().Trim())
                         {
-                            //CheckYN = true;
                             CheckLine = j;
                         }
                     }
@@ -777,6 +774,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Btn_Cancel").Enabled = true;
 
                 PSH_Globals.SBO_Application.StatusBar.SetText("급상여변동 자료에 금액이 적용 되었습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
@@ -837,7 +835,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Btn_Cancel").Enabled = false;
 
                 PSH_Globals.SBO_Application.StatusBar.SetText("급상여변동 자료에 금액이 적용 되었습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
-
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {

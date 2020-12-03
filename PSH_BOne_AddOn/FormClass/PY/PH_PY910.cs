@@ -13,11 +13,7 @@ namespace PSH_BOne_AddOn
     internal class PH_PY910 : PSH_BaseClass
     {
         public string oFormUniqueID01;
-
-        /// <summary>
-        /// 화면 호출
-        /// </summary>
-        public override void LoadForm(string oFormDocEntry01)
+        public override void LoadForm(string oFromDocEntry01)
         {
             int i = 0;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -37,9 +33,10 @@ namespace PSH_BOne_AddOn
                 oFormUniqueID01 = "PH_PY910_" + SubMain.Get_TotalFormsCount();
                 SubMain.Add_Forms(this, oFormUniqueID01, "PH_PY910");
 
-                
+                string strXml = null;
+                strXml = oXmlDoc.xml.ToString();
 
-                PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
+                PSH_Globals.SBO_Application.LoadBatchActions(strXml);
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID01);
 
                 oForm.SupportedModes = -1;
@@ -89,14 +86,14 @@ namespace PSH_BOne_AddOn
                 // 부서
                 oForm.DataSources.UserDataSources.Add("TeamCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("TeamCode").Specific.DataBind.SetBound(true, "", "TeamCode");
-                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '1' AND U_UseYN= 'Y' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "'";
+                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '1' AND U_UseYN= 'Y' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim() + "'";
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("TeamCode").Specific, "Y");
                 oForm.Items.Item("TeamCode").DisplayDesc = true;
 
                 // 담당
                 oForm.DataSources.UserDataSources.Add("RspCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("RspCode").Specific.DataBind.SetBound(true, "", "RspCode");
-                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '2' AND U_UseYN= 'Y' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "'";
+                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '2' AND U_UseYN= 'Y' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim() + "'";
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("RspCode").Specific, "Y");
                 oForm.Items.Item("RspCode").DisplayDesc = true;
 
@@ -154,102 +151,81 @@ namespace PSH_BOne_AddOn
         {
             switch (pVal.EventType)
             {
-                case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED: //1
+                case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED:            //1
                     Raise_EVENT_ITEM_PRESSED(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_KEY_DOWN:
-                    ////2
+                case SAPbouiCOM.BoEventTypes.et_KEY_DOWN:                //2
                     break;
 
-
-                case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS:
-                    ////3
-
+                case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS:               //3
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS:
-                    ////4
+                case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS:              //4
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
+                case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT:            //5
                     Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_CLICK: //6
+                case SAPbouiCOM.BoEventTypes.et_CLICK:                   //6
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK:
-                    ////7
+                case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK:            //7
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED:
-                    ////8
+                case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED:     //8
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED:
-                    ////9
+                case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED: //9
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
+                case SAPbouiCOM.BoEventTypes.et_VALIDATE:                //10
                     Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
+                case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD:             //11
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD:
-                    ////12
+                case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD:         //12
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_FORM_LOAD:
-                    ////16
+                case SAPbouiCOM.BoEventTypes.et_FORM_LOAD:               //16
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD: //17
+                case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD:             //17
                     Raise_EVENT_FORM_UNLOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE:
-                    ////18
+                case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE:           //18
                     break;
 
-
-                case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE:
-                    ////19
+                case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE:         //19
                     break;
 
-
-                case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE:
-                    ////20
+                case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE:              //20
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
+                case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE:             //21
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN:
-                    ////22
+                case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN:           //22
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT:
-                    ////23
+                case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT:       //23
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
+                case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST:        //27
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED:
-                    ////37
+                case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED:          //37
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_GRID_SORT:
-                    ////38
+                case SAPbouiCOM.BoEventTypes.et_GRID_SORT:               //38
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_Drag:
-                    ////39
+                case SAPbouiCOM.BoEventTypes.et_Drag:                    //39
                     break;
-
             }
         }
 
@@ -279,10 +255,10 @@ namespace PSH_BOne_AddOn
                     {
                         switch (pVal.ItemUID)
                         {
-                            //사업장이 바뀌면 부서와 담당 재설정
+                            // 사업장이 바뀌면 부서와 담당 재설정
                             case "CLTCOD":
-                                ////부서
-                                ////삭제
+                                // 부서
+                                // 삭제
                                 if (oForm.Items.Item("TeamCode").Specific.ValidValues.Count > 0)
                                 {
                                     for (i = oForm.Items.Item("TeamCode").Specific.ValidValues.Count - 1; i >= 0; i += -1)
@@ -290,12 +266,12 @@ namespace PSH_BOne_AddOn
                                         oForm.Items.Item("TeamCode").Specific.ValidValues.Remove(i, SAPbouiCOM.BoSearchKey.psk_Index);
                                     }
                                 }
-                                ////현재 사업장으로 다시 Qry
-                                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '1' AND U_UseYN= 'Y' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value.Trim() + "'";
+                                // 현재 사업장으로 다시 Qry
+                                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '1' AND U_UseYN= 'Y' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.Trim() + "'";
                                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("TeamCode").Specific, "Y");
 
-                                ////담당
-                                ////삭제
+                                // 담당
+                                // 삭제
                                 if (oForm.Items.Item("RspCode").Specific.ValidValues.Count > 0)
                                 {
                                     for (i = oForm.Items.Item("RspCode").Specific.ValidValues.Count - 1; i >= 0; i += -1)
@@ -304,11 +280,11 @@ namespace PSH_BOne_AddOn
                                     }
                                 }
                                 ////현재 사업장으로 다시 Qry
-                                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '2' AND U_UseYN= 'Y' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value.Trim() + "'";
+                                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '2' AND U_UseYN= 'Y' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.Trim() + "'";
                                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("RspCode").Specific, "Y");
 
-                                ////반
-                                ////삭제
+                                // 반
+                                // 삭제
                                 if (oForm.Items.Item("ClsCode").Specific.ValidValues.Count > 0)
                                 {
                                     for (i = oForm.Items.Item("ClsCode").Specific.ValidValues.Count - 1; i >= 0; i += -1)
@@ -316,17 +292,17 @@ namespace PSH_BOne_AddOn
                                         oForm.Items.Item("ClsCode").Specific.ValidValues.Remove(i, SAPbouiCOM.BoSearchKey.psk_Index);
                                     }
                                 }
-                                ////현재 사업장으로 다시 Qry
-                                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '9' AND U_UseYN= 'Y'";
-                                sQry = sQry + " AND U_Char3 = '" + oForm.Items.Item("CLTCOD").Specific.Value.Trim() + "'";
-                                sQry = sQry + " AND U_Char1 = '" + oForm.Items.Item("RspCode").Specific.Value + "'";
+                                // 현재 사업장으로 다시 Qry
+                                sQry  = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '9' AND U_UseYN= 'Y'";
+                                sQry += " AND U_Char3 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.Trim() + "'";
+                                sQry += " AND U_Char1 = '" + oForm.Items.Item("RspCode").Specific.VALUE + "'";
                                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("ClsCode").Specific, "Y");
                                 break;
 
-                            ////부서가 바뀌면 담당 재설정
+                            // 부서가 바뀌면 담당 재설정
                             case "TeamCode":
-                                ////담당은 그 부서의 담당만 표시
-                                ////삭제
+                                // 담당은 그 부서의 담당만 표시
+                                // 삭제
                                 if (oForm.Items.Item("RspCode").Specific.ValidValues.Count > 0)
                                 {
                                     for (i = oForm.Items.Item("RspCode").Specific.ValidValues.Count - 1; i >= 0; i += -1)
@@ -334,12 +310,12 @@ namespace PSH_BOne_AddOn
                                         oForm.Items.Item("RspCode").Specific.ValidValues.Remove(i, SAPbouiCOM.BoSearchKey.psk_Index);
                                     }
                                 }
-                                ////현재 사업장으로 다시 Qry
-                                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '2' AND U_UseYN= 'Y' AND U_Char1 = '" + oForm.Items.Item("TeamCode").Specific.Value + "' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value.Trim() + "'";
+                                // 현재 사업장으로 다시 Qry
+                                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '2' AND U_UseYN= 'Y' AND U_Char1 = '" + oForm.Items.Item("TeamCode").Specific.VALUE + "' AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.Trim() + "'";
                                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("RspCode").Specific, "Y");
 
-                                ////반
-                                ////삭제
+                                // 반
+                                // 삭제
                                 if (oForm.Items.Item("ClsCode").Specific.ValidValues.Count > 0)
                                 {
                                     for (i = oForm.Items.Item("ClsCode").Specific.ValidValues.Count - 1; i >= 0; i += -1)
@@ -347,17 +323,17 @@ namespace PSH_BOne_AddOn
                                         oForm.Items.Item("ClsCode").Specific.ValidValues.Remove(i, SAPbouiCOM.BoSearchKey.psk_Index);
                                     }
                                 }
-                                ////현재 사업장으로 다시 Qry
-                                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '9' AND U_UseYN= 'Y'";
-                                sQry = sQry + " AND U_Char3 = '" + oForm.Items.Item("CLTCOD").Specific.Value.Trim() + "'";
-                                sQry = sQry + " AND U_Char1 = '" + oForm.Items.Item("RspCode").Specific.Value + "'";
+                                // 현재 사업장으로 다시 Qry
+                                sQry  = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '9' AND U_UseYN= 'Y'";
+                                sQry += " AND U_Char3 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.Trim() + "'";
+                                sQry += " AND U_Char1 = '" + oForm.Items.Item("RspCode").Specific.VALUE + "'";
                                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("ClsCode").Specific, "Y");
                                 break;
 
-                            ////담당이 바뀌면 반 재설정
+                            // 담당이 바뀌면 반 재설정
                             case "RspCode":
-                                ////반
-                                ////삭제
+                                // 반
+                                // 삭제
                                 if (oForm.Items.Item("ClsCode").Specific.ValidValues.Count > 0)
                                 {
                                     for (i = oForm.Items.Item("ClsCode").Specific.ValidValues.Count - 1; i >= 0; i += -1)
@@ -365,14 +341,12 @@ namespace PSH_BOne_AddOn
                                         oForm.Items.Item("ClsCode").Specific.ValidValues.Remove(i, SAPbouiCOM.BoSearchKey.psk_Index);
                                     }
                                 }
-                                ////현재 사업장으로 다시 Qry
-                                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '9' AND U_UseYN= 'Y'";
-                                sQry = sQry + " AND U_Char3 = '" + oForm.Items.Item("CLTCOD").Specific.Value.Trim() + "'";
-                                sQry = sQry + " AND U_Char1 = '" + oForm.Items.Item("RspCode").Specific.Value + "'";
+                                // 현재 사업장으로 다시 Qry
+                                sQry  = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '9' AND U_UseYN= 'Y'";
+                                sQry += " AND U_Char3 = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.Trim() + "'";
+                                sQry += " AND U_Char1 = '" + oForm.Items.Item("RspCode").Specific.VALUE + "'";
                                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("ClsCode").Specific, "Y");
                                 break;
-
-
                         }
                     }
                 }
@@ -411,9 +385,9 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "MSTCOD":
-                                sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "'";
+                                sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("MSTCOD").Specific.VALUE.ToString().Trim() + "'";
                                 oRecordSet.DoQuery(sQry);
-                                oForm.Items.Item("MSTNAME").Specific.Value = oRecordSet.Fields.Item("U_FullName").Value.ToString().Trim();
+                                oForm.Items.Item("MSTNAME").Specific.VALUE = oRecordSet.Fields.Item("U_FullName").Value.ToString().Trim();
                                 break;
                         }
                     }
@@ -509,397 +483,25 @@ namespace PSH_BOne_AddOn
             
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
-
-            CLTCOD = oForm.Items.Item("CLTCOD").Specific.Selected.Value.ToString().Trim();
-            YYYY = oForm.Items.Item("YYYY").Specific.Value.Trim();
-            TeamCode = oForm.Items.Item("TeamCode").Specific.Value.Trim();
-            RspCode = oForm.Items.Item("RspCode").Specific.Value.Trim();
-            ClsCode = oForm.Items.Item("ClsCode").Specific.Value.Trim();
-            MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
             
             try
             {
-                if (YYYY == "2013")
-                {
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Selected.Value.ToString().Trim();
+                YYYY = oForm.Items.Item("YYYY").Specific.Value.Trim();
+                TeamCode = oForm.Items.Item("TeamCode").Specific.Value.Trim();
+                RspCode = oForm.Items.Item("RspCode").Specific.Value.Trim();
+                ClsCode = oForm.Items.Item("ClsCode").Specific.Value.Trim();
+                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
 
-                    //2013년귀속
-                    WinTitle = "[PH_PY910] 소득공제신고서출력 2013년";
-                    ReportName = "PH_PY910_01.rpt";
+                if (Convert.ToInt16(YYYY) >= 2020)
+                {
+                    //2020년귀속
+                    WinTitle = "[PH_PY910] 소득공제신고서출력 2020년";
+                    ReportName = "PH_PY910_20_01.rpt";
 
                     List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>(); //Parameter
                     List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
                     List<PSH_DataPackClass> dataPackSubReportParameter = new List<PSH_DataPackClass>(); //SubReport
-
-                    //Formula
-                    //dataPackFormula.Add(new PSH_DataPackClass("@CLTCOD", dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", CLTCOD, "and Code = 'P144' AND U_UseYN= 'Y'"))); //사업장
-
-                    //Parameter
-                    dataPackParameter.Add(new PSH_DataPackClass("@saup", CLTCOD)); //사업장
-                    dataPackParameter.Add(new PSH_DataPackClass("@yyyy", YYYY));
-                    dataPackParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode));
-                    dataPackParameter.Add(new PSH_DataPackClass("@RspCode", RspCode));
-                    dataPackParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode));
-                    dataPackParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD));
-
-                    //SubReport Parameter
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB1"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB2"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB3"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB4"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB4"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB4"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB4"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB4"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB4"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB5"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB5"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB5"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB5"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB5"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB5"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB6"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB6"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB6"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB6"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB6"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB6"));
-
-                    formHelpClass.CrystalReportOpen(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
-                }
-
-                if (YYYY == "2014")
-                {
-
-                    //2014년귀속
-                    WinTitle = "[PH_PY910] 소득공제신고서출력 2014년";
-                    ReportName = "PH_PY910_14_01.rpt";
-
-                    List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>(); //Parameter
-                    List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
-                    List<PSH_DataPackClass> dataPackSubReportParameter = new List<PSH_DataPackClass>(); //SubReport
-
-                    //Formula
-                    //dataPackFormula.Add(new PSH_DataPackClass("@CLTCOD", dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", CLTCOD, "and Code = 'P144' AND U_UseYN= 'Y'"))); //사업장
-
-                    //Parameter
-                    dataPackParameter.Add(new PSH_DataPackClass("@saup", CLTCOD)); //사업장
-                    dataPackParameter.Add(new PSH_DataPackClass("@yyyy", YYYY));
-                    dataPackParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode));
-                    dataPackParameter.Add(new PSH_DataPackClass("@RspCode", RspCode));
-                    dataPackParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode));
-                    dataPackParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD));
-
-                    //SubReport Parameter
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB1"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB2"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB3"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB4"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB4"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB4"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB4"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB4"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB4"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB5"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB5"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB5"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB5"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB5"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB5"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB51"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB51"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB51"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB51"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB51"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB51"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB6"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB6"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB6"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB6"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB6"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB6"));
-
-                    formHelpClass.CrystalReportOpen(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
-                }
-
-                if (YYYY == "2015")
-                {
-
-                    //2015년귀속
-                    WinTitle = "[PH_PY910] 소득공제신고서출력 2015년";
-                    ReportName = "PH_PY910_15_01.rpt";
-
-                    List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>(); //Parameter
-                    List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
-                    List<PSH_DataPackClass> dataPackSubReportParameter = new List<PSH_DataPackClass>(); //SubReport
-
-                    //Formula
-                    //dataPackFormula.Add(new PSH_DataPackClass("@CLTCOD", dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", CLTCOD, "and Code = 'P144' AND U_UseYN= 'Y'"))); //사업장
-
-                    //Parameter
-                    dataPackParameter.Add(new PSH_DataPackClass("@saup", CLTCOD)); //사업장
-                    dataPackParameter.Add(new PSH_DataPackClass("@yyyy", YYYY));
-                    dataPackParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode));
-                    dataPackParameter.Add(new PSH_DataPackClass("@RspCode", RspCode));
-                    dataPackParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode));
-                    dataPackParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD));
-
-                    //SubReport Parameter
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB1"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB2"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB3"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB4"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB4"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB4"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB4"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB4"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB4"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB5"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB5"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB5"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB5"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB5"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB5"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB51"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB51"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB51"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB51"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB51"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB51"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB6"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB6"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB6"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB6"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB6"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB6"));
-
-                    formHelpClass.CrystalReportOpen(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
-                }
-
-                if (YYYY == "2016")
-                {
-
-                    //2016년귀속
-                    WinTitle = "[PH_PY910] 소득공제신고서출력 2016년";
-                    ReportName = "PH_PY910_16_01.rpt";
-
-                    List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>(); //Parameter
-                    List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
-                    List<PSH_DataPackClass> dataPackSubReportParameter = new List<PSH_DataPackClass>(); //SubReport
-
-                    //Formula
-                    //dataPackFormula.Add(new PSH_DataPackClass("@CLTCOD", dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", CLTCOD, "and Code = 'P144' AND U_UseYN= 'Y'"))); //사업장
-
-                    //Parameter
-                    dataPackParameter.Add(new PSH_DataPackClass("@saup", CLTCOD)); //사업장
-                    dataPackParameter.Add(new PSH_DataPackClass("@yyyy", YYYY));
-                    dataPackParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode));
-                    dataPackParameter.Add(new PSH_DataPackClass("@RspCode", RspCode));
-                    dataPackParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode));
-                    dataPackParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD));
-
-                    //SubReport Parameter
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB1"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB2"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB3"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB4"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB4"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB4"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB4"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB4"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB4"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB5"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB5"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB5"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB5"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB5"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB5"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB51"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB51"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB51"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB51"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB51"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB51"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB6"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB6"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB6"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB6"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB6"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB6"));
-
-                    formHelpClass.CrystalReportOpen(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
-                }
-
-                if (YYYY == "2017")
-                {
-
-                    //2017년귀속
-                    WinTitle = "[PH_PY910] 소득공제신고서출력 2017년";
-                    ReportName = "PH_PY910_17_01.rpt";
-
-                    List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>(); //Parameter
-                    List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
-                    List<PSH_DataPackClass> dataPackSubReportParameter = new List<PSH_DataPackClass>(); //SubReport
-
-                    //Formula
-                    //dataPackFormula.Add(new PSH_DataPackClass("@CLTCOD", dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", CLTCOD, "and Code = 'P144' AND U_UseYN= 'Y'"))); //사업장
-
-                    //Parameter
-                    dataPackParameter.Add(new PSH_DataPackClass("@saup", CLTCOD)); //사업장
-                    dataPackParameter.Add(new PSH_DataPackClass("@yyyy", YYYY));
-                    dataPackParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode));
-                    dataPackParameter.Add(new PSH_DataPackClass("@RspCode", RspCode));
-                    dataPackParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode));
-                    dataPackParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD));
-
-                    //SubReport Parameter
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB1"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB2"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB3"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB3"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB4"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB4"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB4"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB4"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB4"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB4"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB5"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB5"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB5"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB5"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB5"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB5"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB51"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB51"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB51"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB51"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB51"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB51"));
-
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB6"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB6"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB6"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB6"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB6"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB6"));
-
-                    formHelpClass.CrystalReportOpen(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
-                }
-
-                if (YYYY == "2018")
-                {
-
-                    //2018년귀속
-                    WinTitle = "[PH_PY910] 소득공제신고서출력 2018년";
-                    ReportName = "PH_PY910_18_01.rpt";
-
-                    List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>(); //Parameter
-                    List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
-                    List<PSH_DataPackClass> dataPackSubReportParameter = new List<PSH_DataPackClass>(); //SubReport
-
-                    //Formula
-                    //dataPackFormula.Add(new PSH_DataPackClass("@CLTCOD", dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", CLTCOD, "and Code = 'P144' AND U_UseYN= 'Y'"))); //사업장
 
                     //Parameter
                     dataPackParameter.Add(new PSH_DataPackClass("@saup", CLTCOD)); //사업장
@@ -982,8 +584,7 @@ namespace PSH_BOne_AddOn
 
                     formHelpClass.CrystalReportOpen(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
                 }
-
-                if (YYYY == "2019")
+                else
                 {
 
                     //2019년귀속
@@ -994,9 +595,6 @@ namespace PSH_BOne_AddOn
                     List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
                     List<PSH_DataPackClass> dataPackSubReportParameter = new List<PSH_DataPackClass>(); //SubReport
 
-                    //Formula
-                    //dataPackFormula.Add(new PSH_DataPackClass("@CLTCOD", dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", CLTCOD, "and Code = 'P144' AND U_UseYN= 'Y'"))); //사업장
-
                     //Parameter
                     dataPackParameter.Add(new PSH_DataPackClass("@saup", CLTCOD)); //사업장
                     dataPackParameter.Add(new PSH_DataPackClass("@yyyy", YYYY));
@@ -1078,7 +676,6 @@ namespace PSH_BOne_AddOn
 
                     formHelpClass.CrystalReportOpen(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
                 }
-
             }
             catch (Exception ex)
             {

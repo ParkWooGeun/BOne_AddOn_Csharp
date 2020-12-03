@@ -1,0 +1,1581 @@
+using Microsoft.VisualBasic;
+using System;
+
+using SAPbouiCOM;
+using PSH_BOne_AddOn.Data;
+using PSH_BOne_AddOn.Code;
+
+namespace PSH_BOne_AddOn
+{
+
+    /// <summary>
+    /// 퇴직소득지급명세서자료 전산매체수록
+    /// </summary>
+    internal class PH_PY995 : PSH_BaseClass
+    {
+        public string oFormUniqueID01;
+        //public SAPbouiCOM.Form oForm;
+
+        /// <summary>
+        /// Form 호출
+        /// </summary>
+        public override void LoadForm()
+        {
+            string strXml = string.Empty;
+            MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
+
+            try
+            {
+                oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PH_PY995.srf");
+                oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue = oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue + "_" + (SubMain.Get_TotalFormsCount());
+                oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
+                oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
+
+                //매트릭스의 타이틀높이와 셀높이를 고정
+                for (int i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
+                {
+                    oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight")[i - 1].nodeValue = 20;
+                    oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
+                }
+
+                oFormUniqueID01 = "PH_PY995_" + SubMain.Get_TotalFormsCount();
+                SubMain.Add_Forms(this, oFormUniqueID01, "PH_PY995");
+
+                strXml = oXmlDoc.xml.ToString();
+                PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
+                oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID01);
+
+                oForm.SupportedModes = -1;
+                oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
+
+                oForm.Freeze(true);
+                CreateItems();
+
+                oForm.EnableMenu("1281", false); //찾기
+                oForm.EnableMenu("1282", true); //추가
+                oForm.EnableMenu("1284", false); //취소
+                oForm.EnableMenu("1293", false); //행삭제
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                oForm.Update();
+                oForm.Freeze(false);
+                oForm.Visible = true;
+                oForm.ActiveItem = "DocDate"; //제출일자로 포커싱
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oXmlDoc); //메모리 해제
+            }
+        }
+
+        /// <summary>
+        /// 화면 Item 생성
+        /// </summary>
+        private void CreateItems()
+        {
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
+            try
+            {
+                // 정산년도
+                oForm.DataSources.UserDataSources.Add("YYYY", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 4);
+                oForm.Items.Item("YYYY").Specific.Value = DateTime.Now.AddYears(-1).ToString("yyyy"); // 기본년도에서 - 1
+
+                // 홈택스ID
+                oForm.DataSources.UserDataSources.Add("HtaxID", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
+                oForm.Items.Item("HtaxID").Specific.DataBind.SetBound(true, "", "HtaxID");
+
+                // 담당자부서
+                oForm.DataSources.UserDataSources.Add("TeamName", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
+                oForm.Items.Item("TeamName").Specific.DataBind.SetBound(true, "", "TeamName");
+
+                // 담당자성명
+                oForm.DataSources.UserDataSources.Add("Dname", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
+                oForm.Items.Item("Dname").Specific.DataBind.SetBound(true, "", "Dname");
+
+                // 담당자전화번호
+                oForm.DataSources.UserDataSources.Add("Dtel", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
+                oForm.Items.Item("Dtel").Specific.DataBind.SetBound(true, "", "Dtel");
+
+                // 제출일자
+                oForm.DataSources.UserDataSources.Add("DocDate", SAPbouiCOM.BoDataType.dt_DATE, 10);
+                oForm.Items.Item("DocDate").Specific.DataBind.SetBound(true, "", "DocDate");
+
+                // 사업장
+                oForm.DataSources.UserDataSources.Add("CLTCOD", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
+                oForm.Items.Item("CLTCOD").Specific.DataBind.SetBound(true, "", "CLTCOD");
+                oForm.Items.Item("CLTCOD").DisplayDesc = true;
+                dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true); //접속자에 따른 권한별 사업장 콤보박스세팅
+
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+        }
+
+        /// <summary>
+        /// 신고파일 생성
+        /// </summary>
+        /// <returns></returns>
+        private bool File_Create()
+        {
+            bool functionReturnValue = false;
+            short errNum = 0;
+            string stringSpace = string.Empty;
+            string CLTCOD, yyyy, HtaxID, TeamName, Dname, Dtel, DocDate = string.Empty;
+
+            try
+            {
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                yyyy = oForm.Items.Item("YYYY").Specific.Value.ToString().Trim();
+                HtaxID = oForm.Items.Item("HtaxID").Specific.Value.ToString().Trim();
+                TeamName = oForm.Items.Item("TeamName").Specific.Value.ToString().Trim();
+                Dname = oForm.Items.Item("Dname").Specific.Value.ToString().Trim();
+                Dtel = oForm.Items.Item("Dtel").Specific.Value.ToString().Trim();
+                DocDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
+
+                errNum = 0;
+
+                // Question
+                if (PSH_Globals.SBO_Application.MessageBox("전산매체신고 파일을 생성하시겠습니까?", 2, "&Yes!", "&No") == 2)
+                {
+                    errNum = 1;
+                    throw new Exception();
+                }
+
+                // A RECORD 처리
+                if (File_Create_A_record(CLTCOD, HtaxID, TeamName, Dname, Dtel, DocDate) == false)
+                {
+                    errNum = 2;
+                    throw new Exception();
+                }
+                // B RECORD 처리
+                if (File_Create_B_record(CLTCOD, yyyy) == false)
+                {
+                    errNum = 3;
+                    throw new Exception();
+                }
+                // C RECORD 처리
+                if (File_Create_C_record(CLTCOD, yyyy) == false)
+                {
+                    errNum = 4;
+                    throw new Exception();
+                }
+                FileSystem.FileClose(1);
+
+                PSH_Globals.SBO_Application.StatusBar.SetText("전산매체수록이 정상적으로 완료되었습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
+                functionReturnValue = true;
+            }
+            catch (Exception ex)
+            {
+                functionReturnValue = false;
+
+                if (errNum == 1)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("취소하였습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
+                }
+                else if (errNum == 2)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("A레코드(근로 제출자 레코드) 생성 실패.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                }
+                else if (errNum == 3)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("B레코드(근로 원천징수의무자별 집계 레코드) 생성 실패.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                }
+                else if (errNum == 4)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("C레코드(근로 주(현)근무처 레코드) 생성 실패.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                }
+                else
+                {
+                    stringSpace = new string(' ', 10);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("File_Create 실행 중 오류가 발생했습니다." + stringSpace + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                }
+            }
+
+            return functionReturnValue;
+        }
+
+        /// <summary>
+        /// A레코드 생성
+        /// </summary>
+        /// <returns></returns>
+        private bool File_Create_A_record(string pCLTCOD, string pHtaxID, string pTeamName, string pDname, string pDtel, string pDocDate)
+        {
+            bool functionReturnValue = false;
+            short errNum = 0;
+            string sQry = string.Empty;
+            string saup = string.Empty;
+            string oFilePath = string.Empty; //파일 경로
+
+            PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            // A 제출자 레코드
+            // 2013년기준 1400 BYTE
+            // 2014년기준 1090 BYTE
+            // 2016년기준 1110 BYTE 
+            // 2017년기준 1110 BYTE
+
+            string A001;  //  1     '레코드구분
+            string A002;  //  2     '자료구분
+            string A003;  //  3     '세무서
+            string A004;  //  8     '제출일자
+            string A005;  //  1     '제출자구분 (1;세무대리인, 2;법인, 3;개인)
+            string A006;  //  6     '세무대리인관리번호
+            string A007;  //  20    '홈텍스ID
+            string A008;  //  4     '세무프로그램코드
+            string A009;  //  10    '사업자번호
+            string A010;  //  40    '법인명(상호)
+            string A011;  //  30    '담당자부서
+            string A012;  //  30    '담당자성명
+            string A013;  //  15    '담당자전화번호
+            string A014;  //  5     '신고의무자수
+            string A015;  //  3     '한글코드종류
+            string A016;  //  932   '공란
+
+            try
+            {
+                //A_RECORE QUERY
+                sQry = "EXEC PH_PY995_A '" + pCLTCOD + "', '" + pHtaxID + "', '" + pTeamName + "', '" + pDname + "', '" + pDtel + "', '" + pDocDate + "'";
+                oRecordSet.DoQuery(sQry);
+
+                if (oRecordSet.RecordCount == 0)
+                {
+                    errNum = 1;
+                    throw new Exception();
+                }
+                else
+                {
+                    //PATH및 파일이름 만들기
+                    saup = oRecordSet.Fields.Item("A009").Value; //사업자번호
+                    oFilePath = "C:\\BANK\\EA" + codeHelpClass.Mid(saup, 0, 7) + "." + codeHelpClass.Mid(saup, 7, 3);
+                    FileSystem.FileClose(1);
+                    FileSystem.FileOpen(1, oFilePath, OpenMode.Output);
+
+                    // A RECORD MOVE
+                    A001 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A001").Value.ToString().Trim(), 1);
+                    A002 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A002").Value.ToString().Trim(), 2);
+                    A003 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A003").Value.ToString().Trim(), 3);
+                    A004 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A004").Value.ToString().Trim(), 8);
+                    A005 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A005").Value.ToString().Trim(), 1);
+                    A006 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A006").Value.ToString().Trim(), 6);
+                    A007 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A007").Value.ToString().Trim(), 20);
+                    A008 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A008").Value.ToString().Trim(), 4);
+                    A009 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A009").Value.ToString().Trim(), 10);
+                    A010 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A010").Value.ToString().Trim(), 40);
+                    A011 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A011").Value.ToString().Trim(), 30);
+                    A012 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A012").Value.ToString().Trim(), 30);
+                    A013 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A013").Value.ToString().Trim(), 15);
+                    A014 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A014").Value.ToString().Trim(), 5, '0');
+                    A015 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A015").Value.ToString().Trim(), 3);
+                    A016 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A016").Value.ToString().Trim(), 932);
+
+                    FileSystem.PrintLine(1, A001 + A002 + A003 + A004 + A005 + A006 + A007 + A008 + A009 + A010 + A011 + A012 + A013 + A014 + A015 + A016);
+
+                }
+
+                functionReturnValue = true;
+            }
+            catch (Exception ex)
+            {
+                functionReturnValue = false;
+                if (errNum == 1)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("귀속년도의 자사정보(A RECORD)가 존재하지 않습니다. 등록하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+                FileSystem.FileClose(1);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+            }
+
+            return functionReturnValue;
+        }
+
+        /// <summary>
+        /// B레코드 생성
+        /// </summary>
+        /// <returns></returns>
+        private bool File_Create_B_record(string pCLTCOD, string pyyyy)
+        {
+            bool functionReturnValue = false;
+            short errNum = 0;
+            string sQry = string.Empty;
+
+            PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            // B 원천징수의무자별 집계 레코드
+            string B001;    // 1     '레코드구분
+            string B002;    // 2     '자료구분
+            string B003;    // 3     '세무서
+            string B004;    // 6     '일련번호
+            string B005;    // 10    '사업자번호
+            string B006;    // 40    '법인명(상호)
+            string B007;    // 30    '대표자(성명)
+            string B008;    // 13    '주민(법인)등록번호
+            string B009;    // 1     '제출대상기간코드
+            string B010;    // 7     '퇴직소득자(C레코드)수
+            string B011;    // 7     '공란
+            string B012;    // 14    '정산-과세대상퇴직금여합계
+            string B013_1;  // 1     '부호
+            string B013_2;  // 13    '신고대상소득세합계
+            string B014;    // 13    '이연퇴직소득세액합계
+            string B015_1;  // 1     '부호
+            string B015_2;  // 13    '차감원천징수-소득세액합계
+            string B016_1;  // 1     '부호
+            string B016_2;  // 13    '차감원천징수-지방소득세액합계
+            string B017_1;  // 1     '부호
+            string B017_2;  // 13    '차감원천징수-농어촌특별세액합계
+            string B018_1;  // 1     '부호
+            string B018_2;  // 13    '차감원천징수세액-계합계
+            string B019;    // 893   '공란
+
+            try
+            {
+                // B_RECORE QUERY
+                sQry = "EXEC PH_PY995_B '" + pCLTCOD + "', '" + pyyyy + "'";
+                oRecordSet.DoQuery(sQry);
+
+                if (oRecordSet.RecordCount == 0)
+                {
+                    errNum = 1;
+                    throw new Exception();
+                }
+                else
+                {
+                    // B RECORD MOVE
+                    B001   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B001").Value.ToString().Trim(), 1);
+                    B002   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B002").Value.ToString().Trim(), 2);
+                    B003   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B003").Value.ToString().Trim(), 3);
+                    B004   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B004").Value.ToString().Trim(), 6);
+                    B005   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B005").Value.ToString().Trim(), 10);
+                    B006   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B006").Value.ToString().Trim(), 40);
+                    B007   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B007").Value.ToString().Trim(), 30);
+                    B008   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B008").Value.ToString().Trim(), 13);
+                    B009   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B009").Value.ToString().Trim(), 1);
+                    B010   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B010").Value.ToString().Trim(), 7, '0');
+                    B011   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B011").Value.ToString().Trim(), 7);
+                    B012   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B012").Value.ToString().Trim(), 14, '0');
+                    B013_1 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B013_1").Value.ToString().Trim(), 1);
+                    B013_2 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B013_2").Value.ToString().Trim(), 13, '0');
+                    B014   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B014").Value.ToString().Trim(), 13, '0');
+                    B015_1 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B015_1").Value.ToString().Trim(), 1);
+                    B015_2 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B015_2").Value.ToString().Trim(), 13, '0');
+                    B016_1 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B016_1").Value.ToString().Trim(), 1);
+                    B016_2 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B016_2").Value.ToString().Trim(), 13, '0');
+                    B017_1 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B017_1").Value.ToString().Trim(), 1);
+                    B017_2 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B017_2").Value.ToString().Trim(), 13, '0');
+                    B018_1 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B018_1").Value.ToString().Trim(), 1);
+                    B018_2 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B018_2").Value.ToString().Trim(), 13, '0');
+                    B019   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B019").Value.ToString().Trim(), 893);
+
+                    FileSystem.PrintLine(1, B001 + B002 + B003 + B004 + B005 + B006 + B007 + B008 + B009 + B010 + B011 + B012 + B013_1 + B013_2 + B014
+                                          + B015_1 + B015_2 + B016_1 + B016_2 + B017_1 + B017_2 + B018_1 + B018_2 + B019);
+                }
+
+                functionReturnValue = true;
+            }
+            catch (Exception ex)
+            {
+                functionReturnValue = false;
+                if (errNum == 1)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("B레코드가 존재하지 않습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+                FileSystem.FileClose(1);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+            }
+
+            return functionReturnValue;
+        }
+
+        /// <summary>
+        /// C레코드 생성
+        /// </summary>
+        /// <returns></returns>
+        private bool File_Create_C_record(string pCLTCOD, string pyyyy)
+        {
+            bool functionReturnValue = false;
+            short errNum = 0;
+            string sQry = string.Empty;
+            string C_SAUP, C_YYYY, C_SABUN = string.Empty;
+            int NEWCNT = 0; //일련번호
+
+            PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
+            SAPbouiCOM.ProgressBar ProgressBar01 = null;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            // C 레코드(퇴직소득자 레코드)
+            string C001;   // 1     '레코드구분
+            string C002;   // 2     '자료구분
+            string C003;   // 3     '세무서
+            string C004;   // 6     '일련번호
+            string C005;   // 10    '사업자번호
+            string C006;   // 1     '징수의무자구분 1.사업장 3.공적연금사업자
+            // 소득자
+            string C007;   // 1     '거주구분 1.거주자 2.비거주자
+            string C008;   // 1     '내.외국인구분 1.내국인 9.외국인
+            string C009;   // 2     '거주지국코드
+            string C010;   // 30    '성명
+            string C011;   // 13    '주민등록번호
+            string C012;   // 1     '임원여부  1.여 2.부
+            string C013;   // 8     '확정급여형퇴직연금제도가입일
+            string C014;   // 11    '2011.12.31 퇴직금
+            string C015;   // 8     '귀속연도시작연월일
+            string C016;   // 8     '귀속연도종료연월일
+            string C017;   // 1     '퇴직사유
+            // 퇴직급여현황-중간지급등
+            string C018;   // 40    '근무처명
+            string C019;   // 10    '근무처사업자등록번호
+            string C020;   // 11    '퇴직급여
+            string C021;   // 11    '비과세퇴직급여
+            string C022;   // 11    '과세대상퇴직급여
+            // 퇴직급여현황-최종분
+            string C023;   // 40    '근무처명
+            string C024;   // 10    '근무처사업자등록번호
+            string C025;   // 11    '퇴직급여
+            string C026;   // 11    '비과세퇴직급여
+            string C027;   // 11    '과세대상퇴직급여
+            // 퇴직급여현황-정산
+            string C028;   // 11    '퇴직급여
+            string C029;   // 11    '비과세퇴직급여
+            string C030;   // 11    '과세대상퇴직급여
+            // 근속연수-중간지급등
+            string C031;   // 8     '입사일
+            string C032;   // 8     '기산일
+            string C033;   // 8     '퇴사일
+            string C034;   // 8     '지급일
+            string C035;   // 4     '근속월수
+            string C036;   // 4     '제외월수
+            string C037;   // 4     '가산월수
+            string C038;   // 4     '중복월수
+            string C039;   // 4     '근속연수
+            // 근속연수-최종
+            string C040;   // 8     '입사일
+            string C041;   // 8     '기산일
+            string C042;   // 8     '퇴사일
+            string C043;   // 8     '지급일
+            string C044;   // 4     '근속월수
+            string C045;   // 4     '제외월수
+            string C046;   // 4     '가산월수
+            string C047;   // 4     '중복월수
+            string C048;   // 4     '근속연수
+            // 근속연수-정산
+            string C049;   // 8     '입사일
+            string C050;   // 8     '기산일
+            string C051;   // 8     '퇴사일
+            string C052;   // 8     '지급일
+            string C053;   // 4     '근속월수
+            string C054;   // 4     '제외월수
+            string C055;   // 4     '가산월수
+            string C056;   // 4     '중복월수
+            string C057;   // 4     '근속연수
+            // 근속연수-안분-2012.12.31이전
+            string C058;   // 8     '입사일
+            string C059;   // 8     '기산일
+            string C060;   // 8     '퇴사일
+            string C061;   // 8     '지급일
+            string C062;   // 4     '근속월수
+            string C063;   // 4     '제외월수
+            string C064;   // 4     '가산월수
+            string C065;   // 4     '중복월수
+            string C066;   // 4     '근속연수
+            // 근속연수-안분-2013.01.01이후
+            string C067;   // 8     '입사일
+            string C068;   // 8     '기산일
+            string C069;   // 8     '퇴사일
+            string C070;   // 8     '지급일
+            string C071;   // 4     '근속월수
+            string C072;   // 4     '제외월수
+            string C073;   // 4     '가산월수
+            string C074;   // 4     '중복월수
+            string C075;   // 4     '근속연수
+            // 개정규정에따른계산방법-과세표준계산
+            string C076;   // 11    '퇴직소득
+            string C077;   // 11    '근속연수공제
+            string C078;   // 11    '환산급여
+            string C079;   // 11    '환산급여별공제
+            string C080;   // 11    '퇴직소득과세표준
+            // 개정규정에따른계산방법-세액계산
+            string C081;   // 11    '환산산출세액
+            string C082;   // 11    '산출세액
+            // 종전규정에 따른 계산 방법 - 과세표준계산
+            string C083;   // 11    '퇴직소득
+            string C084;   // 11    '퇴직소득정률공제
+            string C085;   // 11    '근속연수공제
+            string C086;   // 11    '퇴직소득과세표준
+            // 종전규정에 따른 계산 방법 - 세액계산 - 2012.12.31 이전
+            string C087;   // 11    '과세표준안분
+            string C088;   // 11    '연평균과세표준
+            string C089;   // 11    '환산과세표준
+            string C090;   // 11    '환산산출세액
+            string C091;   // 11    '연평균산출세액
+            string C092;   // 11    '산출세액
+            // 종전규정에 따른 계산 방법 - 세액계산 - 2013.1.1 이후
+            string C093;   // 11    '과세표준안분
+            string C094;   // 11    '연평균과세표준
+            string C095;   // 11    '환산과세표준
+            string C096;   // 11    '환산산출세액
+            string C097;   // 11    '연평균산출세액
+            string C098;   // 11    '산출세액
+            // 종전규정에 따른 계산 방법 - 세액계산 - 합계
+            string C099;   // 11    '과세표준안분
+            string C100;   // 11    '연평균과세표준
+            string C101;   // 11    '환산과세표준
+            string C102;   // 11    '환산산출세액
+            string C103;   // 11    '연평균산출세액
+            string C104;   // 11    '산출세액
+            // 퇴직소득세액계산
+            string C105;   // 4     '퇴직일이속하는과세연도
+            string C106;   // 11    '퇴직소득세산출세액
+            string C107;   // 11    '기납부(또는기과세이연)세액
+            string C108_1; // 1     '부호
+            string C108_2; // 11    '신고대상세액
+            // 이연퇴직소득세액계산
+            string C109_1; // 1     '부호
+            string C109_2; // 11    '신고대상세액
+            string C110;   // 11    '계좌입금금액_합계
+            string C111;   // 11    '퇴직급여
+            string C112;   // 11    '이연퇴직소득세
+            // 납부명세-신고대상세액
+            string C113_1; // 1     '부호
+            string C113_2; // 11    '소득세
+            string C114_1; // 1     '부호
+            string C114_2; // 11    '지방소득세
+            string C115_1; // 1     '부호
+            string C115_2; // 11    '농어총특별세
+            string C116_1; // 1     '부호
+            string C116_2; // 11    '계
+            // 납부명세-이연퇴직소득세
+            string C117;   // 11    '소득세
+            string C118;   // 11    '지방소득세
+            string C119;   // 11    '농어촌특별세
+            string C120;   // 11    '계
+            // 납부명세-차감원천징수세액
+            string C121_1; // 1     '부호
+            string C121_2; // 11    '소득세
+            string C122_1; // 1     '부호
+            string C122_2; // 11    '지방소득세
+            string C123_1; // 1     '부호
+            string C123_2; // 11    '농어총특별세
+            string C124_1; // 1     '부호
+            string C124_2; // 11    '계
+            string C125;   // 2     '공란
+
+            try
+            {
+                // C_RECORE QUERY
+                sQry = "EXEC PH_PY995_C '" + pCLTCOD + "', '" + pyyyy + "'";
+                oRecordSet.DoQuery(sQry);
+
+                ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("작성시작!", oRecordSet.RecordCount, false);
+
+                if (oRecordSet.RecordCount == 0)
+                {
+                    errNum = 1;
+                    throw new Exception();
+                }
+                else
+                {
+                    NEWCNT = 0;
+                    while (!oRecordSet.EoF)
+                    {
+                        NEWCNT = NEWCNT + 1; //일련번호
+                        C_SAUP = oRecordSet.Fields.Item("saup").Value.ToString().Trim();
+                        C_YYYY = oRecordSet.Fields.Item("yyyy").Value.ToString().Trim();
+                        C_SABUN = oRecordSet.Fields.Item("sabun").Value.ToString().Trim();
+
+                        //C RECORD MOVE
+                        C001   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C001").Value.ToString().Trim(), 1);
+                        C002   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C002").Value.ToString().Trim(), 2);
+                        C003   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C003").Value.ToString().Trim(), 3);
+                        C004   = codeHelpClass.GetFixedLengthStringByte(NEWCNT.ToString(), 6, '0');
+                        C005   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C005").Value.ToString().Trim(), 10);
+                        C006   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C006").Value.ToString().Trim(), 1, '0');
+                             
+                        C007   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C007").Value.ToString().Trim(), 1);
+                        C008   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C008").Value.ToString().Trim(), 1);
+                        C009   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C009").Value.ToString().Trim(), 2);
+                        C010   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C010").Value.ToString().Trim(), 30);
+                        C011   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C011").Value.ToString().Trim(), 13);
+                        C012   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C012").Value.ToString().Trim(), 1);
+                        C013   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C013").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 8, '0');
+                        // TABLE이 소수 6자리(numeric(19,6))라서 사사오입 시킴(C#은 기본으로 .5가 반올림 안됨 그래서 MidpointRounding.AwayFromZero 문을 씀)
+                        C014 = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C014").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C015   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C015").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 8, '0');
+                        C016   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C016").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 8, '0');
+                        C017   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C017").Value.ToString().Trim(), 1);
+                                                                                                                                
+                        C018   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C018").Value.ToString().Trim(), 40);
+                        C019   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C019").Value.ToString().Trim(), 10);
+                        C020   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C020").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C021   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C021").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C022   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C022").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                                                                                                                                
+                        C023   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C023").Value.ToString().Trim(), 40);
+                        C024   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C024").Value.ToString().Trim(), 10);
+                        C025   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C025").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C026   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C026").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C027   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C027").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                                                                                   
+                        C028   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C028").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C029   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C029").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C030   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C030").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                                                                                                                            
+                        C031   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C031").Value.ToString().Trim(), 8, '0');
+                        C032   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C032").Value.ToString().Trim(), 8, '0');
+                        C033   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C033").Value.ToString().Trim(), 8, '0');
+                        C034   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C034").Value.ToString().Trim(), 8, '0');
+                        C035   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C035").Value.ToString().Trim(), 4, '0');
+                        C036   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C036").Value.ToString().Trim(), 4, '0');
+                        C037   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C037").Value.ToString().Trim(), 4, '0');
+                        C038   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C038").Value.ToString().Trim(), 4, '0');
+                        C039   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C039").Value.ToString().Trim(), 4, '0');
+                                                                                                            
+                        C040   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C040").Value.ToString().Trim(), 8, '0');
+                        C041   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C041").Value.ToString().Trim(), 8, '0');
+                        C042   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C042").Value.ToString().Trim(), 8, '0');
+                        C043   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C043").Value.ToString().Trim(), 8, '0');
+                        C044   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C044").Value.ToString().Trim(), 4, '0');
+                        C045   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C045").Value.ToString().Trim(), 4, '0');
+                        C046   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C046").Value.ToString().Trim(), 4, '0');
+                        C047   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C047").Value.ToString().Trim(), 4, '0');
+                        C048   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C048").Value.ToString().Trim(), 4, '0');
+                                                                                                           
+                        C049   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C049").Value.ToString().Trim(), 8, '0');
+                        C050   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C050").Value.ToString().Trim(), 8, '0');
+                        C051   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C051").Value.ToString().Trim(), 8, '0');
+                        C052   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C052").Value.ToString().Trim(), 8, '0');
+                        C053   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C053").Value.ToString().Trim(), 4, '0');
+                        C054   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C054").Value.ToString().Trim(), 4, '0');
+                        C055   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C055").Value.ToString().Trim(), 4, '0');
+                        C056   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C056").Value.ToString().Trim(), 4, '0');
+                        C057   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C057").Value.ToString().Trim(), 4, '0');
+                                                                                                                      
+                        C058   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C058").Value.ToString().Trim(), 8, '0');
+                        C059   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C059").Value.ToString().Trim(), 8, '0');
+                        C060   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C060").Value.ToString().Trim(), 8, '0');
+                        C061   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C061").Value.ToString().Trim(), 8, '0');
+                        C062   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C062").Value.ToString().Trim(), 4, '0');
+                        C063   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C063").Value.ToString().Trim(), 4, '0');
+                        C064   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C064").Value.ToString().Trim(), 4, '0');
+                        C065   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C065").Value.ToString().Trim(), 4, '0');
+                        C066   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C066").Value.ToString().Trim(), 4, '0');
+                                                                                                                      
+                        C067   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C067").Value.ToString().Trim(), 8, '0');
+                        C068   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C068").Value.ToString().Trim(), 8, '0');
+                        C069   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C069").Value.ToString().Trim(), 8, '0');
+                        C070   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C070").Value.ToString().Trim(), 8, '0');
+                        C071   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C071").Value.ToString().Trim(), 4, '0');
+                        C072   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C072").Value.ToString().Trim(), 4, '0');
+                        C073   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C073").Value.ToString().Trim(), 4, '0');
+                        C074   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C074").Value.ToString().Trim(), 4, '0');
+                        C075   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C075").Value.ToString().Trim(), 4, '0');
+                                                                                                                            
+                        C076   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C076").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C077   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C077").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C078   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C078").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C079   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C079").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C080   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C080").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                                                                                   
+                        C081   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C081").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C082   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C082").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                                                                                   
+                        C083   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C083").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C084   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C084").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C085   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C085").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C086   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C086").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                                                                                   
+                        C087   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C087").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C088   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C088").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C089   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C089").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C090   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C090").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C091   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C091").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C092   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C092").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                                                                                   
+                        C093   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C093").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0'); 
+                        C094   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C094").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0'); 
+                        C095   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C095").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0'); 
+                        C096   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C096").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0'); 
+                        C097   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C097").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0'); 
+                        C098   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C098").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                                                                                   
+                        C099   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C099").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C100   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C100").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C101   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C101").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C102   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C102").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C103   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C103").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C104   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C104").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                                                                                                                            
+                        C105   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C105").Value.ToString().Trim(), 4, '0'); 
+                        C106   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C106").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0'); 
+                        C107   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C107").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C108_1 = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C108_1").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 1, '0');
+                        C108_2 = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C108_2").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                                                                                                                                  
+                        C109_1 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C109_1").Value.ToString().Trim(), 1, '0');
+                        C109_2 = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C109_2").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C110   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C110").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0'); 
+                        C111   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C111").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0'); 
+                        C112   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C112").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                                                                                                                                
+                        C113_1 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C113_1").Value.ToString().Trim(), 1, '0');
+                        C113_2 = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C113_2").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C114_1 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C114_1").Value.ToString().Trim(), 1, '0');
+                        C114_2 = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C114_2").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C115_1 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C115_1").Value.ToString().Trim(), 1, '0');
+                        C115_2 = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C115_2").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C116_1 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C116_1").Value.ToString().Trim(), 1, '0');
+                        C116_2 = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C116_2").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                                                                                                                                
+                        C117   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C117").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0'); 
+                        C118   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C118").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0'); 
+                        C119   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C119").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0'); 
+                        C120   = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C120").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                                                                                                                                
+                        C121_1 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C121_1").Value.ToString().Trim(), 1, '0');
+                        C121_2 = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C121_2").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C122_1 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C122_1").Value.ToString().Trim(), 1, '0');
+                        C122_2 = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C122_2").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C123_1 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C123_1").Value.ToString().Trim(), 1, '0');
+                        C123_2 = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C123_2").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C124_1 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C124_1").Value.ToString().Trim(), 1, '0');
+                        C124_2 = codeHelpClass.GetFixedLengthStringByte(Math.Round(Convert.ToDouble(oRecordSet.Fields.Item("C124_2").Value), MidpointRounding.AwayFromZero).ToString().Trim(), 11, '0');
+                        C125   = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C125").Value.ToString().Trim(), 2);
+
+                        FileSystem.PrintLine(1, C001 + C002 + C003 + C004 + C005 + C006 + C007 + C008 + C009 + C010 + C011 + C012 + C013 + C014 + C015 + C016 + C017 + C018 + C019 + C020
+                                              + C021 + C022 + C023 + C024 + C025 + C026 + C027 + C028 + C029 + C030 + C031 + C032 + C033 + C034 + C035 + C036 + C037 + C038 + C039 + C040
+                                              + C041 + C042 + C043 + C044 + C045 + C046 + C047 + C048 + C049 + C050 + C051 + C052 + C053 + C054 + C055 + C056 + C057 + C058 + C059 + C060
+                                              + C061 + C062 + C063 + C064 + C065 + C066 + C067 + C068 + C069 + C070 + C071 + C072 + C073 + C074 + C075 + C076 + C077 + C078 + C079 + C080
+                                              + C081 + C082 + C083 + C084 + C085 + C086 + C087 + C088 + C089 + C090 + C091 + C092 + C093 + C094 + C095 + C096 + C097 + C098 + C099 + C100
+                                              + C101 + C102 + C103 + C104 + C105 + C106 + C107 + C108_1 + C108_2 + C109_1 + C109_2 + C110 + C111 + C112 + C113_1 + C113_2 + C114_1 + C114_2 
+                                              + C115_1 + C115_2 + C116_1 + C116_2 + C117 + C118 + C119 + C120 + C121_1 + C121_2 + C122_1 + C122_2 + C123_1 + C123_2 + C124_1 + C124_2 + C125);
+
+                        // D 레코드 : 연금계좌입금명세 레코드 수록
+                        if (Conversion.Val(C110) > 0)    // 계좌입금금액_합계  2016부터있음
+                        {
+                            if (File_Create_D_record(C_SAUP, C_YYYY, C_SABUN, C004) == false)
+                            {
+                                errNum = 2;
+                                throw new Exception();
+                            }
+                        }
+
+                        oRecordSet.MoveNext();
+
+                        ProgressBar01.Value = ProgressBar01.Value + 1;
+                        ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 작성중........!";
+
+                    }
+                }
+
+                functionReturnValue = true;
+            }
+            catch (Exception ex)
+            {
+                functionReturnValue = false;
+                ProgressBar01.Stop();
+                if (errNum == 1)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("C레코드가 존재하지 않습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                }
+                else if (errNum == 2)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("D레코드 생성 실패.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+                FileSystem.FileClose(1);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+            }
+
+            return functionReturnValue;
+        }
+
+        /// <summary>
+        /// D 레코드 생성
+        /// </summary>
+        /// <returns></returns>
+        private bool File_Create_D_record(string psaup, string pyyyy, string psabun, string pC004)
+        {
+            bool functionReturnValue = false;
+            short errNum = 0;
+            string sQry = string.Empty;
+
+            PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            // D 연금계좌입금명세 레코드 수록
+            string D001;  // 1     '레코드구분
+            string D002;  // 2     '자료구분
+            string D003;  // 3     '세무서
+            string D004;  // 6     '일련번호
+            // 원천징수의무자
+            string D005;  // 10    '사업자번호
+            string D006;  // 50    '공란
+            // 소득자
+            string D007;  // 13    '소득자주민등록번호
+            // 연금계좌입금명세
+            string D008;  // 2     '연금계좌_일련번호
+            string D009;  // 30    '연금계좌_취급자
+            string D010;  // 10    '연금계좌_사업자등록번호
+            string D011;  // 20    '연금계좌_계좌번호
+            string D012;  // 8     '연금계좌_입금일
+            string D013;  // 11    '연금계좌_계좌입금금액
+            string D014;  // 944   '공란
+
+            try
+            {
+                // D_RECORE QUERY
+                sQry = "EXEC PH_PY995_D '" + psaup + "', '" + pyyyy + "', '" + psabun + "'";
+                oRecordSet.DoQuery(sQry);
+
+                if (oRecordSet.RecordCount == 0)
+                {
+                    errNum = 1;
+                    throw new Exception();
+                }
+                else
+                {
+                    while (!oRecordSet.EoF)
+                    {
+                        // D RECORD MOVE
+                        D001 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D001").Value.ToString().Trim(), 1);
+                        D002 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D002").Value.ToString().Trim(), 2);
+                        D003 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D003").Value.ToString().Trim(), 3);
+                        D004 = codeHelpClass.GetFixedLengthStringByte(pC004.ToString(), 6, '0');   // C레코드의 일련번호
+                        D005 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D005").Value.ToString().Trim(), 10);
+                        D006 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D006").Value.ToString().Trim(), 50);
+                        D007 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D007").Value.ToString().Trim(), 13);
+                        D008 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D008").Value.ToString().Trim(), 2);
+                        D009 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D009").Value.ToString().Trim(), 30);
+                        D010 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D010").Value.ToString().Trim(), 10);
+                        D011 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D011").Value.ToString().Trim(), 20);
+                        D012 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D012").Value.ToString().Trim(), 8, '0');
+                        D013 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D013").Value.ToString().Trim(), 11, '0');
+                        D014 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D014").Value.ToString().Trim(), 944);
+
+                        FileSystem.PrintLine(1, D001 + D002 + D003 + D004 + D005 + D006 + D007 + D008 + D009 + D010 + D011 + D012 + D013 + D014);
+
+                        oRecordSet.MoveNext();
+                    }
+                }
+
+                functionReturnValue = true;
+            }
+            catch (Exception ex)
+            {
+                functionReturnValue = false;
+                if (errNum == 1)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("D레코드가 존재하지 않습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+                FileSystem.FileClose(1);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+            }
+
+            return functionReturnValue;
+        }
+
+        /// <summary>
+        /// 필수 입력값 체크
+        /// </summary>
+        /// <returns></returns>
+        private bool HeaderSpaceLineDel()
+        {
+            bool functionReturnValue = false;
+            short errNum = 0;
+
+            try
+            {
+                if (string.IsNullOrEmpty(oForm.Items.Item("HtaxID").Specific.Value))
+                {
+                    errNum = 1;
+                    throw new Exception();
+                }
+                else if (string.IsNullOrEmpty(oForm.Items.Item("TeamName").Specific.Value))
+                {
+                    errNum = 2;
+                    throw new Exception();
+                }
+                else if (string.IsNullOrEmpty(oForm.Items.Item("Dname").Specific.Value))
+                {
+                    errNum = 3;
+                    throw new Exception();
+                }
+                else if (string.IsNullOrEmpty(oForm.Items.Item("Dtel").Specific.Value))
+                {
+                    errNum = 4;
+                    throw new Exception();
+                }
+                else if (string.IsNullOrEmpty(oForm.Items.Item("DocDate").Specific.Value))
+                {
+                    errNum = 5;
+                    throw new Exception();
+                }
+
+                functionReturnValue = true;
+            }
+            catch (Exception ex)
+            {
+                functionReturnValue = false;
+
+                if (errNum == 1)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("홈텍스ID(5자리이상)를 확인하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                }
+                else if (errNum == 2)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("담당자부서는 필수입니다. 입력하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                }
+                else if (errNum == 3)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("담당자성명은 필수입니다. 입력하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                }
+                else if (errNum == 4)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("담당자전화번호는 필수입니다. 입력하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                }
+                else if (errNum == 5)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("제출일자는 필수입니다. 입력하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+            }
+            finally
+            {
+            }
+
+            return functionReturnValue;
+        }
+
+        /// <summary>
+        /// Form Item Event
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">pVal</param>
+        /// <param name="BubbleEvent">Bubble Event</param>
+        public override void Raise_FormItemEvent(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            switch (pVal.EventType)
+            {
+                case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED: //1
+                    Raise_EVENT_ITEM_PRESSED(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+
+                case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
+                    Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+
+                case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
+                    Raise_EVENT_GOT_FOCUS(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+
+                //case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
+                //    break;
+
+                case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
+                    Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+
+                case SAPbouiCOM.BoEventTypes.et_CLICK: //6
+                    Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+
+                case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
+                    Raise_EVENT_DOUBLE_CLICK(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+
+                case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED: //8
+                    Raise_EVENT_MATRIX_LINK_PRESSED(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+
+                //case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED: //9
+                //    Raise_EVENT_MATRIX_COLLAPSE_PRESSED(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+
+                case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
+                    Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+
+                case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
+                    Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+
+                //case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD: //12
+                //    Raise_EVENT_DATASOURCE_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+
+                //case SAPbouiCOM.BoEventTypes.et_FORM_LOAD: //16
+                //    Raise_EVENT_FORM_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+
+                case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD: //17
+                    Raise_EVENT_FORM_UNLOAD(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+
+                //case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: //18
+                //    break;
+
+                //case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE: //19
+                //    break;
+
+                //case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE: //20
+                //    Raise_EVENT_FORM_CLOSE(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+
+                case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
+                    Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+
+                //case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
+                //    Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+
+                //case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
+                //    Raise_EVENT_FORM_MENU_HILIGHT(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+
+                case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
+                    Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+
+                    //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
+                    //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
+
+                    //case SAPbouiCOM.BoEventTypes.et_Drag: //39
+                    //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
+            }
+        }
+
+        /// <summary>
+        /// ITEM_PRESSED 이벤트
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            try
+            {
+                if (pVal.BeforeAction == true)
+                {
+                    if (pVal.ItemUID == "1")
+                    {
+                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+                        {
+                        }
+                    }
+                    if (pVal.ItemUID == "Btn01")
+                    {
+                        if (HeaderSpaceLineDel() == false)
+                        {
+                            BubbleEvent = false;
+                            return;
+                        }
+                        if (File_Create() == false)
+                        {
+                            BubbleEvent = false;
+                            return;
+                        }
+                        else
+                        {
+                            BubbleEvent = false;
+                            oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
+                        }
+                    }
+                }
+                else if (pVal.BeforeAction == false)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
+        }
+
+        /// <summary>
+        /// KEY_DOWN 이벤트
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_KEY_DOWN(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            try
+            {
+                if (pVal.Before_Action == true)
+                {
+                }
+                else if (pVal.Before_Action == false)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
+        }
+
+        /// <summary>
+        /// GOT_FOCUS 이벤트
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_GOT_FOCUS(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            try
+            {
+                if (pVal.Before_Action == true)
+                {
+                }
+                else if (pVal.Before_Action == false)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
+        }
+
+        /// <summary>
+        /// COMBO_SELECT 이벤트
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_COMBO_SELECT(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            string sQry = string.Empty;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                oForm.Freeze(true);
+                if (pVal.Before_Action == true)
+                {
+                }
+                else if (pVal.Before_Action == false)
+                {
+                    if (pVal.ItemChanged == true)
+                    {
+                        switch (pVal.ItemUID)
+                        {
+                            //사업장 변경되면
+                            case "CLTCOD":
+                                sQry = "SELECT U_HomeTId, U_ChgDpt, U_ChgName, U_ChgTel  FROM [@PH_PY005A] WHERE U_CLTCode = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "'";
+                                oRecordSet.DoQuery(sQry);
+                                oForm.Items.Item("HtaxID").Specific.String = oRecordSet.Fields.Item("U_HomeTId").Value.Trim();
+                                oForm.Items.Item("TeamName").Specific.String = oRecordSet.Fields.Item("U_ChgDpt").Value.Trim();
+                                oForm.Items.Item("Dname").Specific.String = oRecordSet.Fields.Item("U_ChgName").Value.Trim();
+                                oForm.Items.Item("Dtel").Specific.String = oRecordSet.Fields.Item("U_ChgTel").Value.Trim();
+                                oForm.ActiveItem = "DocDate"; //제출일자로 포커싱
+                                break;
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                oForm.Freeze(false);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+            }
+        }
+
+        /// <summary>
+        /// CLICK 이벤트
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_CLICK(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            try
+            {
+                if (pVal.Before_Action == true)
+                {
+                }
+                else if (pVal.Before_Action == false)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
+        }
+
+        /// <summary>
+        /// DOUBLE_CLICK 이벤트
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_DOUBLE_CLICK(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            try
+            {
+                if (pVal.Before_Action == true)
+                {
+                }
+                else if (pVal.Before_Action == false)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
+        }
+
+        /// <summary>
+        /// MATRIX_LINK_PRESSED 이벤트
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_MATRIX_LINK_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            try
+            {
+                if (pVal.Before_Action == true)
+                {
+                }
+                else if (pVal.Before_Action == false)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
+        }
+
+        /// <summary>
+        /// VALIDATE 이벤트
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
+            try
+            {
+                if (pVal.Before_Action == true)
+                {
+                }
+                else if (pVal.Before_Action == false)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                BubbleEvent = false;
+            }
+            finally
+            {
+            }
+        }
+
+        /// <summary>
+        /// MATRIX_LOAD 이벤트
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_MATRIX_LOAD(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
+            try
+            {
+                if (pVal.Before_Action == true)
+                {
+                }
+                else if (pVal.Before_Action == false)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
+        }
+
+        /// <summary>
+        /// FORM_UNLOAD 이벤트
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_FORM_UNLOAD(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            try
+            {
+                if (pVal.Before_Action == true)
+                {
+                }
+                else if (pVal.Before_Action == false)
+                {
+                    SubMain.Remove_Forms(oFormUniqueID01);
+
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
+                    //System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat1);
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
+        }
+
+        /// <summary>
+        /// FORM_RESIZE 이벤트
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_FORM_RESIZE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            try
+            {
+                if (pVal.Before_Action == true)
+                {
+                }
+                else if (pVal.Before_Action == false)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
+        }
+
+        /// <summary>
+        /// CHOOSE_FROM_LIST 이벤트
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_CHOOSE_FROM_LIST(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
+            try
+            {
+                if (pVal.Before_Action == true)
+                {
+                }
+                else if (pVal.Before_Action == false)
+                {
+                    //원본 소스(VB6.0 주석처리되어 있음)
+                    //if(pVal.ItemUID == "Code")
+                    //{
+                    //    dataHelpClass.PSH_CF_DBDatasourceReturn(pVal, pVal.FormUID, "@PH_PY001A", "Code", "", 0, "", "", "");
+                    //}
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
+        }
+
+        /// <summary>
+        /// FormMenuEvent
+        /// </summary>
+        /// <param name="FormUID"></param>
+        /// <param name="pVal"></param>
+        /// <param name="BubbleEvent"></param>
+        public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
+        {
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
+            try
+            {
+                oForm.Freeze(true);
+
+                if (pVal.BeforeAction == true)
+                {
+
+                }
+                else if (pVal.BeforeAction == false)
+                {
+                    switch (pVal.MenuUID)
+                    {
+                        case "1287": //복제
+                            break;
+                        case "1281":
+                        case "1282":
+                            oForm.Items.Item("JsnYear").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                            break;
+                        case "1288": // TODO: to "1291"
+                            break;
+                        case "1293":
+                            break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                oForm.Freeze(false);
+            }
+        }
+
+        /// <summary>
+        /// FormDataEvent
+        /// </summary>
+        /// <param name="FormUID"></param>
+        /// <param name="BusinessObjectInfo"></param>
+        /// <param name="BubbleEvent"></param>
+        public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
+        {
+            try
+            {
+                if (BusinessObjectInfo.BeforeAction == true)
+                {
+                    switch (BusinessObjectInfo.EventType)
+                    {
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
+                            break;
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
+                            break;
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
+                            break;
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
+                            break;
+                    }
+                }
+                else if (BusinessObjectInfo.BeforeAction == false)
+                {
+                    switch (BusinessObjectInfo.EventType)
+                    {
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
+                            break;
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
+                            break;
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
+                            break;
+                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
+                            break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
+        }
+
+        /// <summary>
+        /// RightClickEvent
+        /// </summary>
+        /// <param name="FormUID"></param>
+        /// <param name="pVal"></param>
+        /// <param name="BubbleEvent"></param>
+        public override void Raise_RightClickEvent(string FormUID, ref SAPbouiCOM.ContextMenuInfo pVal, ref bool BubbleEvent)
+        {
+            try
+            {
+                if (pVal.BeforeAction == true)
+                {
+                }
+                else if (pVal.BeforeAction == false)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
+        }
+    }
+}
+

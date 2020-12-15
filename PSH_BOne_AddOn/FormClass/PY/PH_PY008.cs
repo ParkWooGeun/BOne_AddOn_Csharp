@@ -1913,6 +1913,8 @@ namespace PSH_BOne_AddOn
 
                             ProgressBar01.Value += 1;
                             ProgressBar01.Text = ProgressBar01.Value + "/" + oDS_PH_PY008.Rows.Count + "건 저장중...!";
+
+                            PH_PY008_LeaveOfAbsence(CLTCOD, PosDate, MSTCOD); // 휴직자 확인 후 휴직일 경우 자료 입력
                         }
                     }
                 }
@@ -2084,6 +2086,38 @@ namespace PSH_BOne_AddOn
 
                 oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+            }
+        }
+
+        /// <summary>
+        /// 휴직자 체크후 변경
+        /// </summary>
+        /// <param name="CLTCODE">사업장</param>
+        /// <param name="DocDate">날짜</param>
+        /// <param name="MSTCOD">사번</param>
+        /// <returns></returns>
+        private void PH_PY008_LeaveOfAbsence(string CLTCODE, string DocDate, String MSTCOD )
+        {
+            string sQry = string.Empty;
+            //string CLTCOD = string.Empty;
+            //string YM = string.Empty;
+
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                oForm.Freeze(true);
+                sQry = "Exec [PH_PY008_03] '" + CLTCODE + "','" + DocDate + "','" + MSTCOD + "'";
+                oRecordSet.DoQuery(sQry);
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }
@@ -4018,9 +4052,11 @@ namespace PSH_BOne_AddOn
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             oForm.Freeze(true);
-
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
+                String sQry;
+
                 if (pVal.BeforeAction == true)
                 {
 

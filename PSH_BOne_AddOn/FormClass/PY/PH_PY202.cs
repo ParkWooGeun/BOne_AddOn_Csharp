@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
@@ -54,7 +54,7 @@ namespace PSH_BOne_AddOn
                 PH_PY202_EnableMenus();
                 PH_PY202_SetDocument(oFormDocEntry01);
 
-                oForm.Items.Item("FrDate").Specific.Value = DateTime.Now.AddYears(3).ToString("yyyy") + "0101";
+                oForm.Items.Item("FrDate").Specific.Value = "20200101";
                 oForm.Items.Item("ToDate").Specific.Value = DateTime.Now.AddYears(7).ToString("yyyy") + "1231";
             }
             catch (Exception ex)
@@ -99,6 +99,20 @@ namespace PSH_BOne_AddOn
 
                 oForm.DataSources.UserDataSources.Add("MSTCOD", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("MSTCOD").Specific.DataBind.SetBound(true, "", "MSTCOD");
+
+                ////출력구분
+                //    Set oCombo = oForm.Items("Div").Specific
+                //    oCombo.ValidValues.Add "1", "근무일수미달 체크"
+                //    oCombo.ValidValues.Add "2", "정상근무일의 휴일시간 체크"
+                //    oCombo.ValidValues.Add "3", "정상근무일외 연장시간 체크"
+                //    oCombo.ValidValues.Add "4", "위해코드오류 체크(창원)"
+                //    oCombo.ValidValues.Add "5", "교대일수오류 체크"
+                //    oCombo.Select 0, psk_Index
+
+                oForm.DataSources.UserDataSources.Add("Check1", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
+                oForm.Items.Item("Check1").Specific.DataBind.SetBound(true, "", "Check1");
+                oForm.Items.Item("Check1").Specific.Checked = false;
+
             }
             catch (Exception ex)
             {
@@ -258,20 +272,32 @@ namespace PSH_BOne_AddOn
             string ToDate;
             string MSTCOD;
 
+
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
+                String Check1;
                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                 FrDate = oForm.Items.Item("FrDate").Specific.Value.ToString().Trim();
                 ToDate = oForm.Items.Item("ToDate").Specific.Value.ToString().Trim();
                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
 
-                sQry = "EXEC PH_PY202_01 '";
-                sQry += CLTCOD + "','";
-                sQry += FrDate + "','";
-                sQry += ToDate + "','";
-                sQry += MSTCOD + "'";
+                if (oForm.DataSources.UserDataSources.Item("Check1").Value == "Y")
+                {
+                    Check1 = "Y";
+                }
+                else
+                {
+                    Check1 = "N";
+                }
+
+                sQry = "      EXEC PH_PY202_01 '";
+                sQry = sQry + CLTCOD + "','";
+                sQry = sQry + FrDate + "','";
+                sQry = sQry + ToDate + "','";
+                sQry = sQry + MSTCOD + "','";
+                sQry = sQry + Check1 + "'";
 
                 oDS_PH_PY202.ExecuteQuery(sQry);
                 
@@ -300,12 +326,23 @@ namespace PSH_BOne_AddOn
             string FrDate; //등록기간(시작)
             string ToDate; //등록기간(종료)
             string MSTCOD; //사번
+            string Check1;
 
             CLTCOD = oForm.Items.Item("CLTCOD").Specific.Selected.Value.ToString().Trim(); //사업장
             FrDate = oForm.Items.Item("FrDate").Specific.Value.Trim(); //oForm.Items.Item("FrDate").Specific.ToString("yyyyMMdd").Trim(); //등록기간(시작)
             ToDate = oForm.Items.Item("ToDate").Specific.Value.Trim(); //oForm.Items.Item("ToDate").Specific.ToString().Trim(); //등록기간(종료)
             MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim(); //사번
 
+            if (oForm.DataSources.UserDataSources.Item("Check1").Value == "Y")
+            {
+                Check1 = "Y";
+            }
+            else
+            {
+                Check1 = "N";
+            }
+
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
             
             try
@@ -321,6 +358,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", FrDate)); //등록기간(시작)
                 dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", ToDate)); //등록기간(종료)
                 dataPackParameter.Add(new PSH_DataPackClass("@MSTCOD", MSTCOD)); //사번
+                dataPackParameter.Add(new PSH_DataPackClass("@Div", Check1)); //퇴직자포함
 
                 formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
             }
@@ -525,6 +563,8 @@ namespace PSH_BOne_AddOn
             {
             }
         }
+        
+        /// <summary>
 
         /// <summary>
         /// CLICK 이벤트
@@ -538,9 +578,8 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.Before_Action == true)
                 {
-                    switch (pVal.ItemUID)
-                    {
-                        case "Grid01":
+                    //switch (pVal.ItemUI	D)
+ 						                       case "Grid01":
                             if (pVal.Row > 0)
                             {
                                 oLastItemUID = pVal.ItemUID;
@@ -566,6 +605,10 @@ namespace PSH_BOne_AddOn
             finally
             {
             }
+            }
+        }
+
+        /// <summary>
         }
 
         /// <summary>
@@ -576,13 +619,12 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            string sQry;
-
-            try
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCry
             {
-                if (pVal.Before_Action == true)
-                {
+			{
+				if (pVal.Before_Action == true)
+             
+			try          {
                 }
                 else if (pVal.Before_Action == false)
                 {
@@ -671,7 +713,8 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// FormMenuEvent
+        /// RESIZE 이벤트
+  
         /// </summary>
         /// <param name="FormUID"></param>
         /// <param name="pVal"></param>
@@ -758,13 +801,9 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
         {
-            try
-            {
-                if (BusinessObjectInfo.BeforeAction == true)
-                {
-                    switch (BusinessObjectInfo.EventType)
-                    {
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
+            //string sQry = string.Empty;
+
+            SAPbobsCOM.Recordset t_FORM_DATA_LOAD: //33
                             break;
                         case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
                             break;
@@ -803,8 +842,9 @@ namespace PSH_BOne_AddOn
         /// </summary>
         /// <param name="FormUID"></param>
         /// <param name="pVal"></param>
-        /// <param name="BubbleEvent"></param>
-        public override void Raise_RightClickEvent(string FormUID, ref SAPbouiCOM.ContextMenuInfo pVal, ref bool BubbleEvent)
+        /// <param name="BubbleEvent}
+></param>
+        public override void Raise_RightClickEvent(string For			}mUID, ref SAPbouiCOM.ContextMenuInfo pVal, ref bool BubbleEvent)
         {
             try
             {
@@ -840,5 +880,13 @@ namespace PSH_BOne_AddOn
             {
             }
         }
-    }
-}
+
+
+        #region Event 코드
+
+        #region Raise_FormItemEvent
+        //		public void Raise_FormItemEvent(ref object FormUID, ref SAPbouiCOM.ItemEvent pval, ref bool BubbleEvent)
+        //		{
+        //			string sQry = null;
+        //			int i = 0;
+        //			SAPbouiCOM.	}

@@ -12406,6 +12406,15 @@
             데이터 저장
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY008.PH_PY008_LeaveOfAbsence(System.String,System.String,System.String)">
+            <summary>
+            휴직자 체크후 변경
+            </summary>
+            <param name="CLTCODE">사업장</param>
+            <param name="DocDate">날짜</param>
+            <param name="MSTCOD">사번</param>
+            <returns></returns>
+        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY008.PH_PY008_OverTimeCheck(System.String,System.String)">
             <summary>
             주근무시간 체크
@@ -12477,7 +12486,7 @@
             <summary>
             추가 수정 삭제 가능 여부 조회
             </summary>
-            <returns></returns>
+            <returns></returns>`
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY008.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>

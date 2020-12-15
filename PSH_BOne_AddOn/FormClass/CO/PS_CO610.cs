@@ -181,8 +181,10 @@ namespace PSH_BOne_AddOn
         {
             try
             {
+
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
+                    oForm.Items.Item("Comments").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     oForm.Items.Item("DocNum").Enabled = false;
                     oForm.Items.Item("JdtDate").Enabled = true;
                     oForm.Items.Item("Amt").Enabled = false;
@@ -194,7 +196,6 @@ namespace PSH_BOne_AddOn
                     oMat01.Columns.Item("Number1").Editable = true;
                     oForm.Items.Item("BPLId").Enabled = true;
                     oForm.Items.Item("JdtDate").Enabled = true;
-                    oForm.Items.Item("Comments").Enabled = true;
                     oMat01.Columns.Item("LongYear").Editable = true;
                     oForm.Items.Item("YM").Enabled = true;
                 }
@@ -209,6 +210,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (oForm.Items.Item("JdtCC").Specific.Value == "Y")
                     {
+                        oForm.Items.Item("Comments").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                         oForm.Items.Item("Amt").Enabled = false;
                         oForm.Items.Item("JdtDate").Enabled = false;
                         oMat01.Columns.Item("Check").Editable = false;
@@ -219,12 +221,12 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("YM").Enabled = false;
                         oForm.Items.Item("BPLId").Enabled = false;
                         oForm.Items.Item("JdtDate").Enabled = false;
-                        oForm.Items.Item("Comments").Enabled = false;
                         oForm.Items.Item("Btn02").Enabled = false;
                         oMat01.Columns.Item("LongYear").Editable = false;
                     }
                     else if (oForm.Items.Item("JdtCC").Specific.Value == "N")
                     {
+                        oForm.Items.Item("Comments").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                         oForm.Items.Item("Amt").Enabled = false;
                         oForm.Items.Item("JdtDate").Enabled = false;
                         oMat01.Columns.Item("Check").Editable = false;
@@ -235,7 +237,6 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("YM").Enabled = false;
                         oForm.Items.Item("BPLId").Enabled = false;
                         oForm.Items.Item("JdtDate").Enabled = false;
-                        oForm.Items.Item("Comments").Enabled = false;
                         oForm.Items.Item("Btn02").Enabled = false;
                         oMat01.Columns.Item("LongYear").Editable = false;
                         oForm.Items.Item("Btn03").Enabled = false;

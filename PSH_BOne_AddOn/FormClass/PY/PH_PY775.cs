@@ -161,7 +161,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                WinTitle = "[PH_PY775] 임금피크대상자현황";
+                WinTitle = "[PH_PY775] 개인별연차현황";
                 ReportName = "PH_PY775_01.rpt";
 
                 List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
@@ -173,8 +173,6 @@ namespace PSH_BOne_AddOn
                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
                 OptBtnValue = oForm.DataSources.UserDataSources.Item("OptionDS").Value;
                 OptBtnValue1 = oForm.DataSources.UserDataSources.Item("OptionDS1").Value;
-
-                WinTitle = "[PH_PY775] 개인별년차현황";
 
                 if (OptBtnValue == "1")
                 {

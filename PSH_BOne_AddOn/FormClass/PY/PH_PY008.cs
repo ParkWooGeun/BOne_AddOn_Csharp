@@ -914,7 +914,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (oDS_PH_PY008.Columns.Item("Chk").Cells.Item(i).Value.ToString().Trim() == "Y")
                         {
-                            Chkcnt = Chkcnt + 1;
+                            Chkcnt += 1;
                         }
                     }
 
@@ -1579,7 +1579,7 @@ namespace PSH_BOne_AddOn
                                                 }
                                                 else if ((Special + SpecialTot) >= 24)
                                                 {
-                                                    Special = Special - (Special + SpecialTot - 24);
+                                                    Special -= (Special + SpecialTot - 24);
                                                 }
                                             }
                                             else
@@ -2099,10 +2099,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PH_PY008_LeaveOfAbsence(string CLTCODE, string DocDate, String MSTCOD )
         {
-            string sQry = string.Empty;
-            //string CLTCOD = string.Empty;
-            //string YM = string.Empty;
-
+            string sQry;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -2898,11 +2895,11 @@ namespace PSH_BOne_AddOn
 
                                             if (Convert.ToInt16(DayOff) == 1)
                                             {
-                                                Base = Base + PH_PY008_Time_Calc(STime, ETime); //평일
+                                                Base += PH_PY008_Time_Calc(STime, ETime); //평일
                                             }
                                             else
                                             {
-                                                Special = Special + PH_PY008_Time_Calc(STime, ETime); //휴일
+                                                Special += PH_PY008_Time_Calc(STime, ETime); //휴일
                                             }
                                         }
 
@@ -2942,11 +2939,11 @@ namespace PSH_BOne_AddOn
 
                                             if (Convert.ToInt16(DayOff) == 1)
                                             {
-                                                Base = Base + PH_PY008_Time_Calc(STime, ETime);
+                                                Base += PH_PY008_Time_Calc(STime, ETime);
                                             }
                                             else
                                             {
-                                                Special = Special + PH_PY008_Time_Calc(STime, ETime);
+                                                Special += PH_PY008_Time_Calc(STime, ETime);
                                             }
                                         }
 
@@ -2974,11 +2971,11 @@ namespace PSH_BOne_AddOn
 
                                         if (Convert.ToDouble(DayOff) == 1)
                                         {
-                                            Base = Base + PH_PY008_Time_Calc(STime, ETime);
+                                            Base += PH_PY008_Time_Calc(STime, ETime);
                                         }
                                         else
                                         {
-                                            Special = Special + PH_PY008_Time_Calc(STime, ETime);
+                                            Special += PH_PY008_Time_Calc(STime, ETime);
                                         }
                                             
                                         break;
@@ -4052,11 +4049,9 @@ namespace PSH_BOne_AddOn
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             oForm.Freeze(true);
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            
             try
             {
-                String sQry;
-
                 if (pVal.BeforeAction == true)
                 {
 

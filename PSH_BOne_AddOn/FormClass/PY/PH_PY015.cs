@@ -23,7 +23,6 @@ namespace PSH_BOne_AddOn
         /// <param name="oFormDocEntry01"></param>
         public override void LoadForm(string oFormDocEntry01)
         {
-            string strXml = string.Empty;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
             try
@@ -42,8 +41,7 @@ namespace PSH_BOne_AddOn
 
                 oFormUniqueID01 = "PH_PY015_" + SubMain.Get_TotalFormsCount();
                 SubMain.Add_Forms(this, oFormUniqueID01, "PH_PY015");
-
-                strXml = oXmlDoc.xml.ToString();
+                
                 PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID01);
 
@@ -407,6 +405,7 @@ namespace PSH_BOne_AddOn
                     oDS_PH_PY015B.SetValue("U_ColQty04", i, oRecordSet01.Fields.Item("Tot").Value.ToString().Trim()); //계
                     oDS_PH_PY015B.SetValue("U_ColQty05", i, oRecordSet01.Fields.Item("useyy").Value.ToString().Trim()); //사용일수
                     oDS_PH_PY015B.SetValue("U_ColQty06", i, oRecordSet01.Fields.Item("jandd").Value.ToString().Trim()); //정산대상
+                    oDS_PH_PY015B.SetValue("U_ColQty09", i, oRecordSet01.Fields.Item("Deldd").Value.ToString().Trim()); //차감
                     oDS_PH_PY015B.SetValue("U_ColQty07", i, oRecordSet01.Fields.Item("savedd").Value.ToString().Trim()); //적치
                     oDS_PH_PY015B.SetValue("U_ColQty08", i, oRecordSet01.Fields.Item("paydd").Value.ToString().Trim()); //임금대치
                     oDS_PH_PY015B.SetValue("U_ColReg18", i, oRecordSet01.Fields.Item("CLTCOD").Value.ToString().Trim()); //사업장
@@ -511,7 +510,8 @@ namespace PSH_BOne_AddOn
             string StdYear; //기준년도
             string MSTCOD; //사번
             string FullName; //성명
-            float SaveDCnt; //적치(이월) 수량
+            float delDCnt; //차감수량
+            float saveDCnt; //적치(이월) 수량
             float PayDCnt; //임금대치 수량
             float UseDCnt; //사용 수량
             string UserSign; //등록자ID
@@ -534,7 +534,8 @@ namespace PSH_BOne_AddOn
                         StdYear = oDS_PH_PY015B.GetValue("U_ColReg19", i).ToString().Trim(); //기준년도
                         MSTCOD = oDS_PH_PY015B.GetValue("U_ColReg20", i).ToString().Trim(); //사번
                         FullName = oDS_PH_PY015B.GetValue("U_ColReg05", i).ToString().Trim(); //성명
-                        SaveDCnt = Convert.ToSingle(oDS_PH_PY015B.GetValue("U_ColQty07", i).ToString().Trim()); //적치(이월) 수량
+                        delDCnt = Convert.ToSingle(oDS_PH_PY015B.GetValue("U_ColQty09", i).ToString().Trim()); //차감 수량
+                        saveDCnt = Convert.ToSingle(oDS_PH_PY015B.GetValue("U_ColQty07", i).ToString().Trim()); //적치(이월) 수량
                         PayDCnt = Convert.ToSingle(oDS_PH_PY015B.GetValue("U_ColQty08", i).ToString().Trim()); //임금대치 수량
                         UseDCnt = Convert.ToSingle(oDS_PH_PY015B.GetValue("U_ColQty05", i).ToString().Trim()); //사용 수량
 
@@ -543,12 +544,13 @@ namespace PSH_BOne_AddOn
                         sQry += StdYear + "','";//기준년도
                         sQry += MSTCOD + "','"; //사번
                         sQry += FullName + "','"; //성명
-                        sQry += SaveDCnt + "','"; //적치(이월) 수량
+                        sQry += delDCnt + "','"; //차감수량
+                        sQry += saveDCnt + "','"; //적치(이월) 수량
                         sQry += PayDCnt + "','"; //임금대치 수량
                         sQry += UseDCnt + "','"; //사용수량
                         sQry += UserSign + "'"; //등록자ID
 
-                        if (SaveDCnt == 0 && PayDCnt == 0)
+                        if (saveDCnt == 0 && PayDCnt == 0)
                         {
                             string stringSpace = new string(' ', 10);
 
@@ -610,8 +612,9 @@ namespace PSH_BOne_AddOn
         private void PH_PY015_FlushToItemValue(string oUID, int oRow, string oCol)
         {
             short errNum = 0;
-            float SaveDCnt; //적치수량
-            float JanDCnt; //정산대상 수량
+            float delDCnt; //차감수량
+            float saveDCnt; //적치수량
+            float janDCnt; //정산대상 수량
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -622,28 +625,28 @@ namespace PSH_BOne_AddOn
                 {
                     case "Mat01":
 
-                        oMat01.FlushToDataSource();
-
-                        if (oCol == "savedd")
+                        if (oCol == "savedd" || oCol == "Deldd")
                         {
-                            SaveDCnt = Convert.ToSingle(oMat01.Columns.Item(oCol).Cells.Item(oRow).Specific.Value);
-                            JanDCnt = Convert.ToSingle(oMat01.Columns.Item("jandd").Cells.Item(oRow).Specific.Value);
+                            oMat01.FlushToDataSource();
 
-                            if (SaveDCnt > JanDCnt)
+                            delDCnt = Convert.ToSingle(oMat01.Columns.Item("Deldd").Cells.Item(oRow).Specific.Value);
+                            saveDCnt = Convert.ToSingle(oMat01.Columns.Item("savedd").Cells.Item(oRow).Specific.Value);
+                            janDCnt = Convert.ToSingle(oMat01.Columns.Item("jandd").Cells.Item(oRow).Specific.Value);
+
+                            if ((delDCnt + saveDCnt) > janDCnt)
                             {
                                 errNum = 1;
                                 throw new Exception();
                             }
                             else
                             {
-                                oDS_PH_PY015B.SetValue("U_ColQty08", oRow - 1, (JanDCnt - SaveDCnt).ToString());
+                                oDS_PH_PY015B.SetValue("U_ColQty08", oRow - 1, (janDCnt - (saveDCnt + delDCnt)).ToString());
                             }
-                        }
 
-                        oMat01.LoadFromDataSource();
-                        //강제 포커스 이동_S
-                        oMat01.Columns.Item(oCol).Cells.Item(oRow).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                        //강제 포커스 이동_E
+                            oMat01.LoadFromDataSource();
+                        }
+                        
+                        oMat01.Columns.Item(oCol).Cells.Item(oRow).Click(SAPbouiCOM.BoCellClickType.ct_Regular); //강제 포커스 이동
                         oMat01.AutoResizeColumns();
                         break;
 
@@ -672,7 +675,7 @@ namespace PSH_BOne_AddOn
             {
                 if (errNum == 1)
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("적치(이월) 수량이 정산대상보다 많습니다. 확인하십시오.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("적치수량과 차감수량의 합이 정산대상보다 많습니다. 확인하십시오.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
                 else
                 {
@@ -1072,12 +1075,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (pVal.ItemUID == "Mat01")
                         {
-                            if (pVal.ColUID == "savedd")
-                            {
-                                PH_PY015_FlushToItemValue(pVal.ItemUID, pVal.Row, pVal.ColUID);
-                            }
-
-                            oMat01.AutoResizeColumns();
+                            PH_PY015_FlushToItemValue(pVal.ItemUID, pVal.Row, pVal.ColUID);
                         }
                         else
                         {

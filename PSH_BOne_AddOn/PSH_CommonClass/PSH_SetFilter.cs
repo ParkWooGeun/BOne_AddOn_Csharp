@@ -406,6 +406,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_FI907"); //부도어음현황
 			oFilter.AddEx("PS_FI080"); //일계표
 			oFilter.AddEx("PS_FI963"); //보조원장 거래처명 변경
+			oFilter.AddEx("PS_CO800"); //제품 원재료 변환
 		}
 
 		private static void KEY_DOWN(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -591,6 +592,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_FI907"); //부도어음현황
 			oFilter.AddEx("PS_FI080"); //일계표
 			oFilter.AddEx("PS_FI963"); //보조원장 거래처명 변경
+			oFilter.AddEx("PS_CO800"); //제품 원재료 변환
 		}
 
 		private static void GOT_FOCUS(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -851,6 +853,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO901"); //월별 이익률 분석(기계)
 			oFilter.AddEx("PS_CO920"); //월별 판매실적 대비 공수 조회(기계)
 			oFilter.AddEx("PS_CO921"); //월별 작번별 수주금액 대비 공수 현황(기계)
+			oFilter.AddEx("PS_CO800"); //제품 원재료 변환
 		}
 
 		private static void LOST_FOCUS(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1361,6 +1364,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO901"); //월별 이익률 분석(기계)
 			oFilter.AddEx("PS_CO920"); //월별 판매실적 대비 공수 조회(기계)
 			oFilter.AddEx("PS_CO921"); //월별 작번별 수주금액 대비 공수 현황(기계)
+			oFilter.AddEx("PS_CO800"); //제품 원재료 변환
 		}
 
 		private static void DOUBLE_CLICK(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1400,6 +1404,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO111"); //배부사이클실행결과조회
 			oFilter.AddEx("PS_CO110"); //배부사이클실행
 			oFilter.AddEx("PS_CO610"); //고정자산 본계정 대체
+			oFilter.AddEx("PS_CO800"); //제품 원재료 변환
 		}
 
 		private static void MATRIX_LINK_PRESSED(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1675,6 +1680,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO131"); //7.원가계산재공현황
 			oFilter.AddEx("PS_CO501"); //품목별원가등록
 			oFilter.AddEx("PS_CO502"); //품목별평균원가항목등록
+			oFilter.AddEx("PS_CO800"); //제품 원재료 변환
 		}
 
 		private static void MATRIX_LOAD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2381,7 +2387,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO600"); //통합재무제표
 			oFilter.AddEx("PS_CO605"); //통합수불부
 			oFilter.AddEx("PS_CO610"); //고정자산 본계정 대체
-			oFilter.AddEx("PS_CO660"); //기간비용등록
+			oFilter.AddEx("PS_CO660"); //기간비용등록ㄴㅁ
 			oFilter.AddEx("PS_CO665"); //기간비용현황(연간)
 			oFilter.AddEx("PS_CO120"); //공정별 원가 계산
 			oFilter.AddEx("PS_CO130"); //제품별 원가 계산
@@ -2409,6 +2415,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_FI907"); //부도어음현황
 			oFilter.AddEx("PS_FI080"); //일계표
 			oFilter.AddEx("PS_FI963"); //보조원장 거래처명 변경
+			oFilter.AddEx("PS_CO800"); //제품 원재료 변환
 		}
 
 		private static void FORM_ACTIVATE(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2433,6 +2440,8 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO685"); //결산분개등록
 			oFilter.AddEx("PS_CO670"); //기간비용분개등록
 			oFilter.AddEx("PS_CO610"); //고정자산 본계정 대체
+			oFilter.AddEx("PS_CO800"); //제품 원재료 변환
+
 		}
 
 		private static void FORM_DEACTIVATE(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2657,6 +2666,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO040"); //코스트센터그룹등록
 			oFilter.AddEx("PS_CO050"); //활동유형등록
 			oFilter.AddEx("PS_CO060"); //통계주요지표등록
+			oFilter.AddEx("PS_CO800"); //제품원재료변환
 
 		}
 

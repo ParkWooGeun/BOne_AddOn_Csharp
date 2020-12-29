@@ -2146,6 +2146,11 @@ namespace PSH_BOne_AddOn
                             pBaseClass = new PS_FI963();
                             pBaseClass.LoadForm("");
                             break;
+
+                        case "PS_CO800": //제품원재료 변환
+                            pBaseClass = new PS_CO800();
+                            pBaseClass.LoadForm("");
+                            break;
                             #endregion
                     }
                 }

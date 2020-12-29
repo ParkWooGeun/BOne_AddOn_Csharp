@@ -123,6 +123,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Div").Specific.ValidValues.Add("13", "작업지시일자 VS 작업일보일자 확인(기계)");
                 oForm.Items.Item("Div").Specific.ValidValues.Add("14", "납품전기일 대비 송장전기일 비교");
                 oForm.Items.Item("Div").Specific.ValidValues.Add("15", "분말 원자료투입 체크(신동)");
+                oForm.Items.Item("Div").Specific.ValidValues.Add("16", "생산완료 오류체크");
                 oForm.Items.Item("Div").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
             }
@@ -269,6 +270,10 @@ namespace PSH_BOne_AddOn
                 else if (Div == "15")
                 {
                     Query01 = "EXEC PS_CO510_15 '" + BPLId + "','" + DocDateFr + "','" + DocDateTo + "'";
+                }
+                else if (Div == "16")
+                {
+                    Query01 = "EXEC PS_CO510_16 '" + BPLId + "','" + DocDateFr + "','" + DocDateTo + "'";
                 }
 
                 oGrid01.DataTable.Clear();

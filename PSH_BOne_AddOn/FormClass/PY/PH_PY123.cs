@@ -409,7 +409,7 @@ namespace PSH_BOne_AddOn
                 COLNAM[7] = "변제금액";
                 COLNAM[8] = "비고";
 
-                for (i = 0; i <= COLNAM.Length; i++)
+                for (i = 0; i < COLNAM.Length; i++)
                 {
                     oGrid1.Columns.Item(i).TitleObject.Caption = COLNAM[i];
                     if (i >= 0 & i <= COLNAM.Length)

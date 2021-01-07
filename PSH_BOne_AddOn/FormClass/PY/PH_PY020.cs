@@ -361,7 +361,7 @@ namespace PSH_BOne_AddOn
                 COLNAM[14] = "특연";
                 COLNAM[15] = "근무내용";
 
-                for (i = 0; i <= COLNAM.Length; i++)
+                for (i = 0; i < COLNAM.Length; i++)
                 {
                     oGrid1.Columns.Item(i).TitleObject.Caption = COLNAM[i];
 

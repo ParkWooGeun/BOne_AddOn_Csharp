@@ -302,7 +302,7 @@ namespace PSH_BOne_AddOn
         private void PH_PY117_TitleSetting(int iRow)
         {
             int i;
-            string[] COLNAM = new string[81];
+            string[] COLNAM = new string[80];
 
             try
             {
@@ -330,7 +330,7 @@ namespace PSH_BOne_AddOn
                 if (string.IsNullOrEmpty(EndCheck))
                 { EndCheck = "N"; }
 
-                for (i = 0; i <= COLNAM.Length - 1; i++)
+                for (i = 0; i < COLNAM.Length; i++)
                 {
                     oGrid1.Columns.Item(i).TitleObject.Caption = COLNAM[i];
                     if (i >= 0 & i < COLNAM.Length)

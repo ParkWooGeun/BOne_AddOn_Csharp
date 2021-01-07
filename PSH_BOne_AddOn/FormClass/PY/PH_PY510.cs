@@ -357,7 +357,7 @@ namespace PSH_BOne_AddOn
                 //    COLNAM[21] = "입사일자"
 
 
-                for (i = 0; i <= COLNAM.Length; i++)
+                for (i = 0; i < COLNAM.Length; i++)
                 {
                     oGrid1.Columns.Item(i).TitleObject.Caption = COLNAM[i];
                     if (i >= 0 & i < COLNAM.Length)

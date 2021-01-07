@@ -309,7 +309,7 @@ namespace PSH_BOne_AddOn
                 COLNAM[7] = "증빙일";
                 COLNAM[8] = "OKYN";
 
-                for (i = 0; i <= (COLNAM.Length - 1); i++)
+                for (i = 0; i < COLNAM.Length; i++)
                 {
                     oGrid1.Columns.Item(i).TitleObject.Caption = COLNAM[i];
                     switch (COLNAM[i])

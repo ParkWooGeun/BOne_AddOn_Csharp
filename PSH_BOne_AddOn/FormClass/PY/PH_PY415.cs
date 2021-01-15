@@ -17,7 +17,12 @@ namespace PSH_BOne_AddOn
         private string oLastItemUID;
         private string oLastColUID;
         private int oLastColRow;
-        public override void LoadForm(string oFromDocEntry01)
+
+        /// <summary>
+        /// Form 호출
+        /// </summary>
+        /// <param name="oFormDocEntry01"></param>
+        public override void LoadForm(string oFormDocEntry01)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -37,19 +42,20 @@ namespace PSH_BOne_AddOn
                 oFormUniqueID = "PH_PY415_" + SubMain.Get_TotalFormsCount();
                 SubMain.Add_Forms(this, oFormUniqueID, "PH_PY415");
 
-                string strXml = null;
-                strXml = oXmlDoc.xml.ToString();
+                
 
-                PSH_Globals.SBO_Application.LoadBatchActions(strXml);
+                PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
                 oForm.SupportedModes = -1;
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
+          //      oForm.DataBrowser.BrowseBy = "DocEntry";
 
                 oForm.Freeze(true);
                 oForm.Visible = true;
                 PH_PY415_CreateItems();
-                PH_PY415_SetDocument(oFromDocEntry01);
+                PH_PY415_EnableMenus();
+                PH_PY415_SetDocument(oFormDocEntry01);
             }
             catch (Exception ex)
             {
@@ -70,7 +76,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PH_PY415_CreateItems()
         {
-            string sQry = string.Empty;
+            string sQry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -109,16 +115,33 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }
-        
+
         /// <summary>
-        /// 화면세팅
+        /// 메뉴 아이콘 Enable
         /// </summary>
-        /// <param name="oFromDocEntry01"></param>
-        private void PH_PY415_SetDocument(string oFromDocEntry01)
+        private void PH_PY415_EnableMenus()
         {
             try
             {
-                if (string.IsNullOrEmpty(oFromDocEntry01))
+                //oForm.EnableMenu("1283", true); //제거
+                //oForm.EnableMenu("1284", false); //취소
+                //oForm.EnableMenu("1293", true); //행삭제
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY415_EnableMenus_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
+            }
+        }
+
+        /// <summary>
+        /// 화면세팅
+        /// </summary>
+        /// <param name="oFormDocEntry01"></param>
+        private void PH_PY415_SetDocument(string oFormDocEntry01)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(oFormDocEntry01))
                 {
                     PH_PY415_FormItemEnabled();
                 }
@@ -127,7 +150,7 @@ namespace PSH_BOne_AddOn
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY415_FormItemEnabled();
 
-                    oForm.Items.Item("DocEntry").Specific.VALUE = oFromDocEntry01;
+                    oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry01;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -147,17 +170,17 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
+                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
                     // 접속자에 따른 권한별 사업장 콤보박스세팅
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
-                    oForm.Items.Item("Year").Specific.VALUE = Convert.ToString(DateTime.Now.Year - 1);
+                    oForm.Items.Item("Year").Specific.Value = Convert.ToString(DateTime.Now.Year - 1);
 
                     oForm.EnableMenu("1281", true); ////문서찾기
                     oForm.EnableMenu("1282", false); ////문서추가
 
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
                     // 접속자에 따른 권한별 사업장 콤보박스세팅
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
@@ -165,7 +188,7 @@ namespace PSH_BOne_AddOn
                     oForm.EnableMenu("1282", true); ////문서추가
 
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
                     //// 접속자에 따른 권한별 사업장 콤보박스세팅
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", false);
@@ -176,6 +199,7 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY301_FormItemEnabled_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                oForm.Freeze(false);
             }
             finally
             {
@@ -191,8 +215,6 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
             try
             {
                 oForm.Freeze(true);
@@ -217,15 +239,12 @@ namespace PSH_BOne_AddOn
                         case "1290":
                         case "1291":
                             break;
-                        case "7169":
-                            //엑셀 내보내기
-
-                            //엑셀 내보내기 실행 시 매트릭스의 제일 마지막 행에 빈 행 추가
-                            PH_PY415_AddMatrixRow();
+                        case "7169": //엑셀 내보내기
+                            PH_PY415_AddMatrixRow(); //엑셀 내보내기 실행 시 매트릭스의 제일 마지막 행에 빈 행 추가
                             break;
                     }
                 }
-                else if ((pVal.BeforeAction == false))
+                else if (pVal.BeforeAction == false)
                 {
                     switch (pVal.MenuUID)
                     {
@@ -238,12 +257,12 @@ namespace PSH_BOne_AddOn
                             break;
                         case "1286":
                             break;
-                        case "1281":                            // 문서찾기
+                        case "1281": // 문서찾기
                             PH_PY415_FormItemEnabled();
                             PH_PY415_AddMatrixRow();
                             oForm.Items.Item("DocEntry").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             break;
-                        case "1282":                            // 문서추가
+                        case "1282": // 문서추가
                             PH_PY415_FormItemEnabled();
                             PH_PY415_AddMatrixRow();
                             break;
@@ -253,9 +272,9 @@ namespace PSH_BOne_AddOn
                         case "1291":
                             PH_PY415_FormItemEnabled();
                             break;
-                        case "1293":                            // 행삭제
+                        case "1293": // 행삭제
                             break;
-                        case "7169":                            //엑셀 내보내기
+                        case "7169": //엑셀 내보내기
                             //엑셀 내보내기 이후 처리
                             oForm.Freeze(true);
                             oDS_PH_PY415B.RemoveRecord(oDS_PH_PY415B.Size - 1);
@@ -294,7 +313,11 @@ namespace PSH_BOne_AddOn
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
+                    //Raise_EVENT_GOT_FOCUS(FormUID, ref pVal, ref BubbleEvent);
                     break;
+
+                //case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
+                //    break;
 
                 case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
                     Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
@@ -305,10 +328,16 @@ namespace PSH_BOne_AddOn
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
+                    //Raise_EVENT_DOUBLE_CLICK(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED: //8
+                    //Raise_EVENT_MATRIX_LINK_PRESSED(FormUID, ref pVal, ref BubbleEvent);
                     break;
+
+                //case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED: //9
+                //    Raise_EVENT_MATRIX_COLLAPSE_PRESSED(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
 
                 case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
                     Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
@@ -318,16 +347,51 @@ namespace PSH_BOne_AddOn
                     Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
+                //case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD: //12
+                //    Raise_EVENT_DATASOURCE_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+
+                //case SAPbouiCOM.BoEventTypes.et_FORM_LOAD: //16
+                //    Raise_EVENT_FORM_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+
                 case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD: //17
                     Raise_EVENT_FORM_UNLOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
+                //case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: //18
+                //    break;
+
+                //case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE: //19
+                //    break;
+
+                ////case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE: //20
+                //    Raise_EVENT_FORM_CLOSE(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+
                 case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
+                    //Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
                     break;
+
+                //case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
+                //    Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+
+                //case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
+                //    Raise_EVENT_FORM_MENU_HILIGHT(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
 
                 case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
                     Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
                     break;
+
+                    //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
+                    //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
+
+                    //case SAPbouiCOM.BoEventTypes.et_Drag: //39
+                    //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
             }
         }
 
@@ -385,6 +449,7 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY415_CreateItems_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                oForm.Freeze(false);
             }
             finally
             {
@@ -402,6 +467,7 @@ namespace PSH_BOne_AddOn
         {
             try
             {
+
                 oForm.Freeze(true);
                 switch (pVal.ItemUID)
                 {
@@ -423,6 +489,7 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_GOT_FOCUS_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                oForm.Freeze(false);
             }
             finally
             {
@@ -540,6 +607,7 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_COMBO_SELECT_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                oForm.Freeze(false);
             }
             finally
             {
@@ -563,6 +631,7 @@ namespace PSH_BOne_AddOn
                 else if (pVal.Before_Action == false)
                 {
                     SubMain.Remove_Forms(oFormUniqueID);
+
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY415B);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat1);
@@ -593,6 +662,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 if (pVal.BeforeAction == true)
                 {
+
                 }
                 else if (pVal.BeforeAction == false)
                 {
@@ -602,7 +672,7 @@ namespace PSH_BOne_AddOn
                         {
                             case "MSTCOD":
                                 // 사원명 찿아서 화면 표시 하기
-                                sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("MSTCOD").Specific.VALUE.Trim() + "'";
+                                sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("MSTCOD").Specific.Value.Trim() + "'";
                                 oRecordSet.DoQuery(sQry);
                                 oForm.Items.Item("FullName").Specific.String = oRecordSet.Fields.Item("U_FullName").Value.Trim();
                                 break;
@@ -613,6 +683,7 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_VALIDATE_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                oForm.Freeze(false);
             }
             finally
             {
@@ -694,9 +765,9 @@ namespace PSH_BOne_AddOn
                                 return;
                             }
 
-                            yyyy = oForm.Items.Item("Year").Specific.VALUE.Trim();
-                            FullName = oForm.Items.Item("FullName").Specific.VALUE.Trim();
-                            if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.VALUE.Trim()))
+                            yyyy = oForm.Items.Item("Year").Specific.Value.Trim();
+                            FullName = oForm.Items.Item("FullName").Specific.Value.Trim();
+                            if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.Value.Trim()))
                             {
                                 if (PSH_Globals.SBO_Application.MessageBox(yyyy + "년 전사원 정산계산을 하시겠습니까?", 2, "Yes", "No") == 2)
                                 {
@@ -733,6 +804,29 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "1")
                     {
+                        //if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+                        //{
+                        //    if (pVal.ActionSuccess == true)
+                        //    {
+                        //        PH_PY415_FormItemEnabled();
+                        //        PH_PY415_AddMatrixRow();
+                        //    }
+                        //}
+                        //else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
+                        //{
+                        //    if (pVal.ActionSuccess == true)
+                        //    {
+                        //        PH_PY415_FormItemEnabled();
+                        //        PH_PY415_AddMatrixRow();
+                        //    }
+                        //}
+                        //else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
+                        //{
+                        //    if (pVal.ActionSuccess == true)
+                        //    {
+                        //        PH_PY415_FormItemEnabled();
+                        //    }
+                        //}
                     }
                 }
             }
@@ -762,12 +856,13 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "MSTCOD")
                     {
-                        if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.VALUE.Trim()))
+                        if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.Value.Trim()))
                         {
                             PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
                             BubbleEvent = false;
                         }
                     }
+
                 }
                 else
                 if (pVal.Before_Action == false)
@@ -790,41 +885,39 @@ namespace PSH_BOne_AddOn
         private bool PH_PY415_DataValidCheck()
         {
             bool functionReturnValue = false;
-            int ErrNum = 0;
+
             try
             {
-                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.VALUE.Trim()))  // 사업장
-                {
-                    ErrNum = 1;
-                    throw new Exception();
-                }
-                
-                if (string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.VALUE.Trim()))  //년도
-                {
-                    ErrNum = 2;
-                    throw new Exception();
-                }
-                functionReturnValue = true;
-            }
-            catch (Exception ex)
-            {
-                if (ErrNum == 1)
+                // 사업장
+                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    functionReturnValue = false;
+                    return functionReturnValue;
                 }
-                else if (ErrNum == 2)
+
+                //년도
+                if (string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("년도는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("Year").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    functionReturnValue = false;
+                    return functionReturnValue;
                 }
-                else
-                {
-                    PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY415_DataValidCheck_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                }
-                functionReturnValue = false;
+                functionReturnValue = true;
+                return functionReturnValue;
+
             }
-            return functionReturnValue;
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY415_DataValidCheck_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                functionReturnValue = false;
+                return functionReturnValue;
+            }
+            finally
+            {
+            }
         }
 
         /// <summary>
@@ -847,18 +940,26 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
-                Year = oForm.Items.Item("Year").Specific.VALUE.Trim();
-                MSTCOD = oForm.Items.Item("MSTCOD").Specific.VALUE.Trim();
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
+                Year = oForm.Items.Item("Year").Specific.Value.Trim();
+                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
 
                 if (string.IsNullOrEmpty(MSTCOD))
                 {
                     MSTCOD = "%";
                 }
-                
-                if (Convert.ToDouble(Year) >= 2020)  // 2020귀속
+               
+                //    If Param02 <= "2013" Then
+                //        sQry = "EXEC PH_PY415_01 '" & Param01 & "','" & Param02 & "','" & Param03 & "'"
+                //    Else
+                //        '//2014년 변경
+                //        sQry = "EXEC PH_PY415_2015 '" & Param01 & "','" & Param02 & "','" & Param03 & "'"
+                //    End If
+
+                // 2019귀속
+                if (Convert.ToDouble(Year) >= 2019)
                 {
-                    sQry = "EXEC PH_PY415_2020 '" + CLTCOD + "','" + Year + "','" + MSTCOD + "'";
+                    sQry = "EXEC PH_PY415_2019 '" + CLTCOD + "','" + Year + "','" + MSTCOD + "'";
                 }
                 oRecordSet.DoQuery(sQry);
 
@@ -939,16 +1040,28 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
-                Year = oForm.Items.Item("Year").Specific.VALUE.Trim();
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
+                Year = oForm.Items.Item("Year").Specific.Value.Trim();
 
                 for (i = 1; i <= oMat1.VisualRowCount; i++)
                 {
-                    MSTCOD = oMat1.Columns.Item("MSTCOD").Cells.Item(i).Specific.VALUE.Trim();
+                    MSTCOD = oMat1.Columns.Item("MSTCOD").Cells.Item(i).Specific.Value.Trim();
 
-                    if (Convert.ToDouble(Year) >= 2020)
+                    //        If Param02 = "2014" And (oMat1.Columns("FullName").Cells(i).Specific.Value = "박용철" Or oMat1.Columns("FullName").Cells(i).Specific.Value = "국요한") Then
+                    //            '//2014년 재정산시 박용철, 국요한 제외
+                    //        Else
+                    //            If Param02 <= "2013" Then
+                    //                sQry = "EXEC PH_PY415_02 '" & Param01 & "','" & Param02 & "','" & Param03 & "'"
+                    //            Else
+                    //                '//2015 연말정산
+                    //                sQry = "EXEC PH_PY415_2015_02 '" & Param01 & "','" & Param02 & "','" & Param03 & "'"
+                    //            End If
+                    //            Call oRecordSet.DoQuery(sQry)
+                    //        End If
+
+                    if (Convert.ToDouble(Year) >= 2019)
                     {
-                        sQry = "EXEC PH_PY415_2020_02 '" + CLTCOD + "','" + Year + "','" + MSTCOD + "'"; //정산 계산
+                        sQry = "EXEC PH_PY415_2019_02 '" + CLTCOD + "','" + Year + "','" + MSTCOD + "'"; //정산 계산
                         oRecordSet.DoQuery(sQry);
                     }
 
@@ -960,11 +1073,23 @@ namespace PSH_BOne_AddOn
 
                 for (i = 1; i <= oMat1.VisualRowCount; i++)
                 {
-                    MSTCOD = oMat1.Columns.Item("MSTCOD").Cells.Item(i).Specific.VALUE.Trim();
+                    MSTCOD = oMat1.Columns.Item("MSTCOD").Cells.Item(i).Specific.Value.Trim();
 
-                    if (Convert.ToDouble(Year) >= 2020)
+                    //        If Param02 = "2014" And (oMat1.Columns("FullName").Cells(i).Specific.Value = "박용철" Or oMat1.Columns("FullName").Cells(i).Specific.Value = "국요한") Then
+                    //            '//2014년 재정산시 박용철, 국요한 제외
+                    //        Else
+                    //            If Param02 <= "2013" Then
+                    //
+                    //            Else
+                    //                '//2015 연말정산_표준세액공제 적용받을시 계산
+                    //                sQry = "EXEC PH_PY415_2015_03 '" & Param01 & "','" & Param02 & "','" & Param03 & "'"
+                    //            End If
+                    //            Call oRecordSet.DoQuery(sQry)
+                    //        End If
+
+                    if (Convert.ToDouble(Year) >= 2019)
                     {
-                        sQry = "EXEC PH_PY415_2020_03 '" + CLTCOD + "','" + Year + "','" + MSTCOD + "'"; //표준공제 계산
+                        sQry = "EXEC PH_PY415_2019_03 '" + CLTCOD + "','" + Year + "','" + MSTCOD + "'"; //표준공제 계산
                         oRecordSet.DoQuery(sQry);
                     }
 
@@ -975,10 +1100,10 @@ namespace PSH_BOne_AddOn
                 ProgressBar01.Value = 0;
                 ProgressBar01.Text = "기부조정 계산 처리중...!";
 
-                // 정산계산은 사원별로 하고 기부조정은 전체로함
-                if (Convert.ToDouble(Year) >= 2020)
+                //2018년(2017귀속)부터 기부조정계산 추가 (정산계산은 사원별로 하고 기부조정은 전체로함)
+                if (Convert.ToDouble(Year) >= 2019)
                 {
-                    sQry = "EXEC PH_PY415_2020_04 '" + CLTCOD + "','" + Year + "'";  //기부조정 계산
+                    sQry = "EXEC PH_PY415_2019_04 '" + CLTCOD + "','" + Year + "'"; //기부조정 계산
                     oRecordSet.DoQuery(sQry);
                 }
 
@@ -988,12 +1113,19 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
+                ProgressBar01.Stop();
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+
                 returnValue = System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message;
+                //PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY415_Calc_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
             }
             finally
             {
-                ProgressBar01.Stop();
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
                 oForm.Freeze(false);
             }

@@ -914,7 +914,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (oDS_PH_PY008.Columns.Item("Chk").Cells.Item(i).Value.ToString().Trim() == "Y")
                         {
-                            Chkcnt = Chkcnt + 1;
+                            Chkcnt += 1;
                         }
                     }
 
@@ -1579,7 +1579,7 @@ namespace PSH_BOne_AddOn
                                                 }
                                                 else if ((Special + SpecialTot) >= 24)
                                                 {
-                                                    Special = Special - (Special + SpecialTot - 24);
+                                                    Special -= (Special + SpecialTot - 24);
                                                 }
                                             }
                                             else
@@ -1913,6 +1913,8 @@ namespace PSH_BOne_AddOn
 
                             ProgressBar01.Value += 1;
                             ProgressBar01.Text = ProgressBar01.Value + "/" + oDS_PH_PY008.Rows.Count + "건 저장중...!";
+
+                            PH_PY008_LeaveOfAbsence(CLTCOD, PosDate, MSTCOD); // 휴직자 확인 후 휴직일 경우 자료 입력
                         }
                     }
                 }
@@ -2084,6 +2086,35 @@ namespace PSH_BOne_AddOn
 
                 oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+            }
+        }
+
+        /// <summary>
+        /// 휴직자 체크후 변경
+        /// </summary>
+        /// <param name="CLTCODE">사업장</param>
+        /// <param name="DocDate">날짜</param>
+        /// <param name="MSTCOD">사번</param>
+        /// <returns></returns>
+        private void PH_PY008_LeaveOfAbsence(string CLTCODE, string DocDate, String MSTCOD )
+        {
+            string sQry;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                oForm.Freeze(true);
+                sQry = "Exec [PH_PY008_03] '" + CLTCODE + "','" + DocDate + "','" + MSTCOD + "'";
+                oRecordSet.DoQuery(sQry);
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }
@@ -2864,11 +2895,11 @@ namespace PSH_BOne_AddOn
 
                                             if (Convert.ToInt16(DayOff) == 1)
                                             {
-                                                Base = Base + PH_PY008_Time_Calc(STime, ETime); //평일
+                                                Base += PH_PY008_Time_Calc(STime, ETime); //평일
                                             }
                                             else
                                             {
-                                                Special = Special + PH_PY008_Time_Calc(STime, ETime); //휴일
+                                                Special += PH_PY008_Time_Calc(STime, ETime); //휴일
                                             }
                                         }
 
@@ -2908,11 +2939,11 @@ namespace PSH_BOne_AddOn
 
                                             if (Convert.ToInt16(DayOff) == 1)
                                             {
-                                                Base = Base + PH_PY008_Time_Calc(STime, ETime);
+                                                Base += PH_PY008_Time_Calc(STime, ETime);
                                             }
                                             else
                                             {
-                                                Special = Special + PH_PY008_Time_Calc(STime, ETime);
+                                                Special += PH_PY008_Time_Calc(STime, ETime);
                                             }
                                         }
 
@@ -2940,11 +2971,11 @@ namespace PSH_BOne_AddOn
 
                                         if (Convert.ToDouble(DayOff) == 1)
                                         {
-                                            Base = Base + PH_PY008_Time_Calc(STime, ETime);
+                                            Base += PH_PY008_Time_Calc(STime, ETime);
                                         }
                                         else
                                         {
-                                            Special = Special + PH_PY008_Time_Calc(STime, ETime);
+                                            Special += PH_PY008_Time_Calc(STime, ETime);
                                         }
                                             
                                         break;
@@ -4018,7 +4049,7 @@ namespace PSH_BOne_AddOn
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             oForm.Freeze(true);
-
+            
             try
             {
                 if (pVal.BeforeAction == true)

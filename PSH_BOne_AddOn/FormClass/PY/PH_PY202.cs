@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
@@ -54,7 +54,7 @@ namespace PSH_BOne_AddOn
                 PH_PY202_EnableMenus();
                 PH_PY202_SetDocument(oFormDocEntry01);
 
-                oForm.Items.Item("FrDate").Specific.Value = DateTime.Now.AddYears(3).ToString("yyyy") + "0101";
+                oForm.Items.Item("FrDate").Specific.Value = "20200101";
                 oForm.Items.Item("ToDate").Specific.Value = DateTime.Now.AddYears(7).ToString("yyyy") + "1231";
             }
             catch (Exception ex)
@@ -99,6 +99,10 @@ namespace PSH_BOne_AddOn
 
                 oForm.DataSources.UserDataSources.Add("MSTCOD", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("MSTCOD").Specific.DataBind.SetBound(true, "", "MSTCOD");
+
+                oForm.DataSources.UserDataSources.Add("Check1", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
+                oForm.Items.Item("Check1").Specific.DataBind.SetBound(true, "", "Check1");
+                oForm.Items.Item("Check1").Specific.Checked = false;
             }
             catch (Exception ex)
             {
@@ -121,7 +125,7 @@ namespace PSH_BOne_AddOn
                 oForm.EnableMenu("1284", false); //취소
                 oForm.EnableMenu("1293", true); //행삭제
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY202_EnableMenus_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
@@ -147,7 +151,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY202_SetDocument_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
@@ -189,7 +193,7 @@ namespace PSH_BOne_AddOn
                     oForm.EnableMenu("1282", true); //문서추가
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY202_FormItemEnabled_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
@@ -228,7 +232,7 @@ namespace PSH_BOne_AddOn
 
                 functionReturnValue = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 if (ErrNum == 1)
                 {
@@ -257,7 +261,7 @@ namespace PSH_BOne_AddOn
             string FrDate;
             string ToDate;
             string MSTCOD;
-
+            String check1;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -267,17 +271,27 @@ namespace PSH_BOne_AddOn
                 ToDate = oForm.Items.Item("ToDate").Specific.Value.ToString().Trim();
                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
 
+                if (oForm.DataSources.UserDataSources.Item("Check1").Value == "Y")
+                {
+                    check1 = "Y";
+                }
+                else
+                {
+                    check1 = "N";
+                }
+
                 sQry = "EXEC PH_PY202_01 '";
                 sQry += CLTCOD + "','";
                 sQry += FrDate + "','";
                 sQry += ToDate + "','";
-                sQry += MSTCOD + "'";
+                sQry += MSTCOD + "','";
+                sQry += check1 + "'";
 
                 oDS_PH_PY202.ExecuteQuery(sQry);
-                
+
                 oGrid1.Columns.Item(11).RightJustified = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("" + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
@@ -300,6 +314,7 @@ namespace PSH_BOne_AddOn
             string FrDate; //등록기간(시작)
             string ToDate; //등록기간(종료)
             string MSTCOD; //사번
+            string check1;
 
             CLTCOD = oForm.Items.Item("CLTCOD").Specific.Selected.Value.ToString().Trim(); //사업장
             FrDate = oForm.Items.Item("FrDate").Specific.Value.Trim(); //oForm.Items.Item("FrDate").Specific.ToString("yyyyMMdd").Trim(); //등록기간(시작)
@@ -307,7 +322,7 @@ namespace PSH_BOne_AddOn
             MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim(); //사번
 
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
-            
+
             try
             {
                 WinTitle = "[PH_PY202] 레포트";
@@ -316,11 +331,21 @@ namespace PSH_BOne_AddOn
 
                 List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
 
+                if (oForm.DataSources.UserDataSources.Item("Check1").Value == "Y")
+                {
+                    check1 = "Y";
+                }
+                else
+                {
+                    check1 = "N";
+                }
+
                 //Parameter
                 dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD)); //사업장
                 dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", FrDate)); //등록기간(시작)
                 dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", ToDate)); //등록기간(종료)
                 dataPackParameter.Add(new PSH_DataPackClass("@MSTCOD", MSTCOD)); //사번
+                dataPackParameter.Add(new PSH_DataPackClass("@Div", check1)); //퇴직자포함
 
                 formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
             }
@@ -618,8 +643,6 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_MATRIX_LOAD(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
             try
             {
                 if (pVal.Before_Action == true)

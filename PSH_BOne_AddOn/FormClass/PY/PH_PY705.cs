@@ -291,7 +291,7 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
       
-                for (i = 0; i <= COLNAM.Length; i++)
+                for (i = 0; i < COLNAM.Length; i++)
                 {
                     oGrid1.Columns.Item(i).TitleObject.Caption = COLNAM[i];
                     if (i >= 0 & i < COLNAM.Length)

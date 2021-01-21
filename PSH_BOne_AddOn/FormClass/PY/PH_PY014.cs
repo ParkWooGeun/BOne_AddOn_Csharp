@@ -275,7 +275,7 @@ namespace PSH_BOne_AddOn
                 COLNAM[8] = "위해코드";
 
                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
-                for (i = 0; i <= COLNAM.Length; i++)
+                for (i = 0; i < COLNAM.Length; i++)
                 {
                     oGrid1.Columns.Item(i).TitleObject.Caption = COLNAM[i];
                     switch (COLNAM[i])

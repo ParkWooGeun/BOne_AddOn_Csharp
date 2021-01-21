@@ -178,14 +178,14 @@ namespace PSH_BOne_AddOn
                 COLNAM[6] = "업무코드";
                 COLNAM[7] = "기본업무";
 
-                for (i = 0; i <= COLNAM.Length; i++)
+                for (i = 0; i < COLNAM.Length; i++)
                 {
                     oGrid1.Columns.Item(i).TitleObject.Caption = COLNAM[i];
-                    if (i >= 0 && i < COLNAM.Length)
+                    if (i >= 0 && i < COLNAM.Length -1)
                     {
                         oGrid1.Columns.Item(i).Editable = false;
                     }
-                    else if (i == COLNAM.Length)
+                    else if (i == COLNAM.Length -1)
                     {
                         oGrid1.Columns.Item(i).Editable = true;
                         oGrid1.Columns.Item(i).Type = SAPbouiCOM.BoGridColumnType.gct_ComboBox;

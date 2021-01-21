@@ -383,7 +383,7 @@ namespace PSH_BOne_AddOn
                     }
                     oDS_PH_PY007B.Offset = i;
                     oDS_PH_PY007B.SetValue("U_LineNum", i, Convert.ToString(i + 1));
-                    oDS_PH_PY007B.SetValue("U_Month", i, i.ToString().PadLeft(2, '0')); //2자리수 채워서 첫째자리에 "0" 추가
+                    oDS_PH_PY007B.SetValue("U_Month", i, (i+1).ToString().PadLeft(2, '0')); //2자리수 채워서 첫째자리에 "0" 추가
                     oDS_PH_PY007B.SetValue("U_Gasoline", i, "0");
                     oDS_PH_PY007B.SetValue("U_Diesel", i, "0");
                     oDS_PH_PY007B.SetValue("U_LPG", i, "0");

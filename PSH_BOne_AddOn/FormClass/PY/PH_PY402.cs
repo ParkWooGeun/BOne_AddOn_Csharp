@@ -651,10 +651,10 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("birthymd").Specific.VALUE = oMat01.Columns.Item("birthymd").Cells.Item(pVal.Row).Specific.VALUE;
                         oForm.Items.Item("addr").Specific.VALUE = oMat01.Columns.Item("addr").Cells.Item(pVal.Row).Specific.VALUE;
                     }
-                    // 신용카드(520,540,550)일때
+                    // 신용카드(520,540,545,550)일때
                     if (oForm.Items.Item("target").Specific.VALUE == "520" || oForm.Items.Item("target").Specific.VALUE == "540" || oForm.Items.Item("target").Specific.VALUE == "545" || oForm.Items.Item("target").Specific.VALUE == "550")
                     {
-                        oForm.Items.Item("ntsamt24").Click(SAPbouiCOM.BoCellClickType.ct_Regular);  // 포커싱을 일반금액으로..
+                        oForm.Items.Item("ntsamt3").Click(SAPbouiCOM.BoCellClickType.ct_Regular);  // 포커싱을 일반금액으로..
                     }
                 }
                 if (oGrid1.Columns.Count > 0)
@@ -1431,7 +1431,7 @@ namespace PSH_BOne_AddOn
             if (string.IsNullOrEmpty(Strings.Trim(CLTCOD)))
             {
                 PSH_Globals.SBO_Application.SetStatusBarMessage("사업장이 없습니다. 확인바랍니다..", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                oForm.Items.Item("Year").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 return; 
             }
 
@@ -1445,7 +1445,7 @@ namespace PSH_BOne_AddOn
             if (string.IsNullOrEmpty(Strings.Trim(MSTCOD)))
             {
                 PSH_Globals.SBO_Application.SetStatusBarMessage("사번이 없습니다. 확인바랍니다..", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                oForm.Items.Item("Year").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                oForm.Items.Item("MSTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 return;
             }
 

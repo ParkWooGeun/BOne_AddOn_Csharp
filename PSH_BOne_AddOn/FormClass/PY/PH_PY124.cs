@@ -695,6 +695,7 @@ namespace PSH_BOne_AddOn
                 }
                 oMat1.LoadFromDataSource();
                 oMat1.AutoResizeColumns();
+                PH_PY124_AddMatrixRow();
             }
             catch (Exception ex)
             {

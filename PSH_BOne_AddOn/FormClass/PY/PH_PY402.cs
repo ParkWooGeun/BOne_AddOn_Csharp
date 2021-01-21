@@ -652,7 +652,7 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("addr").Specific.VALUE = oMat01.Columns.Item("addr").Cells.Item(pVal.Row).Specific.VALUE;
                     }
                     // 신용카드(520,540,550)일때
-                    if (oForm.Items.Item("target").Specific.VALUE == "520" | oForm.Items.Item("target").Specific.VALUE == "540" | oForm.Items.Item("target").Specific.VALUE == "550")
+                    if (oForm.Items.Item("target").Specific.VALUE == "520" || oForm.Items.Item("target").Specific.VALUE == "540" || oForm.Items.Item("target").Specific.VALUE == "545" || oForm.Items.Item("target").Specific.VALUE == "550")
                     {
                         oForm.Items.Item("ntsamt24").Click(SAPbouiCOM.BoCellClickType.ct_Regular);  // 포커싱을 일반금액으로..
                     }
@@ -889,9 +889,9 @@ namespace PSH_BOne_AddOn
                                 oForm.Items.Item("targetnm").Specific.VALUE = oRecordSet.Fields.Item("CodeNm").Value;
                                 oForm.Items.Item("handoamt").Specific.VALUE = Convert.ToString(oRecordSet.Fields.Item("handoamt").Value);
 
-                                if (target == "520" || target == "540" || target == "550")
+                                if (target == "520" || target == "540" || target == "545" || target == "550")
                                 {
-                                    // 신용카드(520,540,550)일때
+                                    // 신용카드등(520,540,545,550)일때
                                     oForm.Items.Item("ntsamt").Enabled = false;
                                     oForm.Items.Item("amt").Enabled = false;      // 2020년부터 국세청외(기타)는 없애기로 모두 국세청으로 등록
                                     oForm.Items.Item("ntsamt3").Click(SAPbouiCOM.BoCellClickType.ct_Regular);  // 포커싱을 일반금액으로..
@@ -1031,19 +1031,19 @@ namespace PSH_BOne_AddOn
                                 }
                                 else
                                 {
-                                    if (Strings.Mid(oForm.Items.Item("juminno").Specific.VALUE, 7, 1) == "1" | Strings.Mid(oForm.Items.Item("juminno").Specific.VALUE, 7, 1) == "2")
+                                    if (Strings.Mid(oForm.Items.Item("juminno").Specific.VALUE, 7, 1) == "1" || Strings.Mid(oForm.Items.Item("juminno").Specific.VALUE, 7, 1) == "2")
                                     {
                                         oForm.Items.Item("birthymd").Specific.VALUE = "19" + Strings.Mid(oForm.Items.Item("juminno").Specific.VALUE, 1, 6);
                                     }
-                                    else if (Strings.Mid(oForm.Items.Item("juminno").Specific.VALUE, 7, 1) == "3" | Strings.Mid(oForm.Items.Item("juminno").Specific.VALUE, 7, 1) == "4")
+                                    else if (Strings.Mid(oForm.Items.Item("juminno").Specific.VALUE, 7, 1) == "3" || Strings.Mid(oForm.Items.Item("juminno").Specific.VALUE, 7, 1) == "4")
                                     {
                                         oForm.Items.Item("birthymd").Specific.VALUE = "20" + Strings.Mid(oForm.Items.Item("juminno").Specific.VALUE, 1, 6);
                                     }
-                                    else if (Strings.Mid(oForm.Items.Item("juminno").Specific.VALUE, 7, 1) == "5" | Strings.Mid(oForm.Items.Item("juminno").Specific.VALUE, 7, 1) == "6")
+                                    else if (Strings.Mid(oForm.Items.Item("juminno").Specific.VALUE, 7, 1) == "5" || Strings.Mid(oForm.Items.Item("juminno").Specific.VALUE, 7, 1) == "6")
                                     {
                                         oForm.Items.Item("birthymd").Specific.VALUE = "19" + Strings.Mid(oForm.Items.Item("juminno").Specific.VALUE, 1, 6);
                                     }
-                                    else if (Strings.Mid(oForm.Items.Item("juminno").Specific.VALUE, 7, 1) == "7" | Strings.Mid(oForm.Items.Item("juminno").Specific.VALUE, 7, 1) == "8")
+                                    else if (Strings.Mid(oForm.Items.Item("juminno").Specific.VALUE, 7, 1) == "7" || Strings.Mid(oForm.Items.Item("juminno").Specific.VALUE, 7, 1) == "8")
                                     {
                                         oForm.Items.Item("birthymd").Specific.VALUE = "20" + Strings.Mid(oForm.Items.Item("juminno").Specific.VALUE, 1, 6);
                                     }
@@ -1592,7 +1592,7 @@ namespace PSH_BOne_AddOn
 
                     if (!string.IsNullOrEmpty(Strings.Trim(CheckDate1)))
                     {
-                        if (relate == "05" | relate == "06" | relate == "07" | relate == "12" | relate == "13" | relate == "21" | relate == "22")
+                        if (relate == "05" || relate == "06" || relate == "07" || relate == "12" || relate == "13" || relate == "21" || relate == "22")
                         {
                             if (Convert.ToDouble(birthymd) > Convert.ToDouble(CheckDate1))
                             {
@@ -1611,7 +1611,7 @@ namespace PSH_BOne_AddOn
 
                     if (!string.IsNullOrEmpty(Strings.Trim(CheckDate2)))
                     {
-                        if (relate == "03" | relate == "04" | relate == "08" | relate == "23")
+                        if (relate == "03" || relate == "04" || relate == "08" || relate == "23")
                         {
                             if (Convert.ToDouble(birthymd) <= Convert.ToDouble(CheckDate2))
                             {
@@ -1846,7 +1846,7 @@ namespace PSH_BOne_AddOn
                 {
                     oGrid1.Columns.Item(i).TitleObject.Caption = COLNAM[i];
                     oGrid1.Columns.Item(i).Editable = false;
-                    if (COLNAM[i] == "사번" | COLNAM[i] == "공제구분코드" | COLNAM[i] == "공제대상코드" | COLNAM[i] == "관계코드" | COLNAM[i] == "주민번호")
+                    if (COLNAM[i] == "사번" || COLNAM[i] == "공제구분코드" || COLNAM[i] == "공제대상코드" || COLNAM[i] == "관계코드" || COLNAM[i] == "주민번호")
                     {
                         oGrid1.Columns.Item(i).Visible = false;
                     }

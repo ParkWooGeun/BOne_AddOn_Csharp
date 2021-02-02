@@ -565,6 +565,11 @@
             LoadData
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_CO080.AmountSum">
+            <summary>
+            LoadData
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_CO080.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Raise_FormItemEvent

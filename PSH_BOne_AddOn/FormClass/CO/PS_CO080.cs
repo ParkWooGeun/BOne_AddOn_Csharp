@@ -402,6 +402,34 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
+		/// LoadData
+		/// </summary>
+		private void AmountSum()
+		{
+			string sQry;
+			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+			try
+			{
+				oForm.Freeze(true);
+
+				sQry = "select sum(U_Amount)  from [@PS_CO080L] where code ='"+ oForm.Items.Item("YM").Specific.Value.ToString().Trim() + oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() + "'"; ;
+				oRecordSet.DoQuery(sQry);
+
+				oForm.DataSources.UserDataSources.Item("Amount").Value = oRecordSet.Fields.Item(0).Value.ToString();
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+			{
+				oForm.Freeze(false);
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+			}
+		}
+
+		/// <summary>
 		/// Raise_FormItemEvent
 		/// </summary>
 		/// <param name="FormUID"></param>
@@ -536,6 +564,10 @@ namespace PSH_BOne_AddOn
                                 return;
                             }
                         }
+                        else
+                        {
+							AmountSum();
+						}
                     }
                 }
 				else if (pVal.BeforeAction == false)
@@ -852,6 +884,7 @@ namespace PSH_BOne_AddOn
 						case "1289":
 						case "1290":
 						case "1291": //레코드이동버튼
+							AmountSum();
 							break;
 					}
 				}

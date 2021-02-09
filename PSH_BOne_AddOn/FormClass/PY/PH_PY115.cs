@@ -3058,7 +3058,7 @@ namespace PSH_BOne_AddOn
                                     }
                                     else
                                     {
-                                        // oDS_PH_PY115A.SetValue("U_DSDAT2", 0, "20130101");
+                                        oDS_PH_PY115A.SetValue("U_DSDAT2", 0, "20130101");
                                     }
 
                                     oDS_PH_PY115A.SetValue("U_DEDAT2", 0, DateTime.Now.ToString("yyyyMMdd"));

@@ -564,7 +564,7 @@ namespace PSH_BOne_AddOn
                 sQry = " Select Count(*) as cnt From [p_seoyst] Where saup = '" + CLTCOD + "' And yyyy = '" + Year + "' And sabun = '" + MSTCOD + "'";
                 oRecordSet.DoQuery(sQry);
 
-                if (Convert.ToInt32(oRecordSet.Fields.Item(cnt).Value > 0))
+                if (Convert.ToInt32(oRecordSet.Fields.Item(cnt).Value) > 0)
                 {
                     if (string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.Value))
                     {

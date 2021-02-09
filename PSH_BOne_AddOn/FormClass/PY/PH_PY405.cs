@@ -891,19 +891,22 @@ namespace PSH_BOne_AddOn
                                         }
 
                                         // 장애자인경우
-                                        sQry = " Select Cnt = Count(*) From p_seoybase ";
-                                        sQry = sQry + " Where yyyy = '" + yyyy + "'";
-                                        sQry = sQry + " and div = '20' and target = '220'";
-                                        sQry = sQry + " And juminno = '" + juminno + "'";
-                                        oRecordSet.DoQuery(sQry);
+                                        if (oForm.Items.Item("olddiv").Specific.Value.ToString().Trim() == "N")  //경로가 Check된경우는 제외
+                                        {
+                                            sQry = " Select Cnt = Count(*) From p_seoybase ";
+                                            sQry = sQry + " Where yyyy = '" + yyyy + "'";
+                                            sQry = sQry + " and div = '20' and target = '220'";
+                                            sQry = sQry + " And juminno = '" + juminno + "'";
+                                            oRecordSet.DoQuery(sQry);
 
-                                        if (oRecordSet.Fields.Item("Cnt").Value > 0)
-                                        {
-                                            oForm.Items.Item("deform").Specific.Select("Y", SAPbouiCOM.BoSearchKey.psk_ByValue);
-                                        }
-                                        else
-                                        {
-                                            oForm.Items.Item("deform").Specific.Select("N", SAPbouiCOM.BoSearchKey.psk_ByValue);
+                                            if (oRecordSet.Fields.Item("Cnt").Value > 0)
+                                            {
+                                                oForm.Items.Item("deform").Specific.Select("Y", SAPbouiCOM.BoSearchKey.psk_ByValue);
+                                            }
+                                            else
+                                            {
+                                                oForm.Items.Item("deform").Specific.Select("N", SAPbouiCOM.BoSearchKey.psk_ByValue);
+                                            }
                                         }
                                     }
                                     else

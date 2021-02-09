@@ -940,7 +940,7 @@ namespace PSH_BOne_AddOn
                         FileSystem.PrintLine(1, C001 + C002 + C003 + C004 + C005 + C006 + C007 + C008 + C009 + C010 + C011 + C012 + C013 + C014 + C015 + C016 + C017 + C018 + C019 + C020
                                               + C021 + C022 + C023 + C024 + C025 + C026 + C027 + C028 + C029 + C030 + C031 + C032 + C033 + C034 + C035 + C036 + C037 + C038 + C039 + C040
                                               + C041 + C042 + C043 + C044 + C045 + C046 + C047 + C048 + C049 + C050 + C051 + C052 + C053 + C054 + C055 + C056 + C057 + C058 + C059 + C060
-                                              + C061 + C062A + C062B + C062C + C063 + C064 + C065 + C066 + C067 + C068A + C068B + C068C + C069 + C070 + C071 + C072 + C073 + C074 + C075 + C075 + C076 + C077 + C078 + C079 + C080
+                                              + C061 + C062A + C062B + C062C + C063 + C064 + C065 + C066 + C067 + C068A + C068B + C068C + C069 + C070 + C071 + C072 + C073 + C074 + C075 + C076 + C077 + C078 + C079 + C080
                                               + C081A + C081B + C082A + C082B + C083A + C083B + C084 + C085 + C086A + C086B + C087A + C087B + C088A + C088B + C089A + C089B + C090A + C090B + C091A + C091B + C092A + C092B + C093A + C093B + C094A + C094B + C094C + C095A + C095B + C096A + C096B + C096C + C096D + C097 + C098 + C099 + C100
                                               + C101 + C102 + C103 + C104 + C105 + C106 + C107 + C108 + C109 + C110 + C111 + C112 + C113 + C114 + C115 + C116 + C117 + C118 + C119 + C120
                                               + C121 + C122 + C123 + C124 + C125 + C126A + C126B + C127A + C127B + C128A + C128B + C129A + C129B + C130A + C130B + C131A + C131B + C132A + C132B + C133A + C133B + C134A + C134B + C135A + C135B + C136A + C136B + C137A + C137B + C138A + C138B + C139A + C139B + C140A + C140B
@@ -1276,82 +1276,83 @@ namespace PSH_BOne_AddOn
             string E004; // 6    '일련번호
             string E005; // 10   '사업자등록번호
             string E006; // 13   '소득자주민등록번호
-
-            string[] E007 = new string[5]; // 1    '관계코드
-            string[] E008 = new string[5]; // 1    '내외국인구분
-            string[] E009 = new string[5]; // 30   '성명
-            string[] E010 = new string[5]; // 13   '주민등록번호
-            string[] E011 = new string[5]; // 1    '기본공제
-            string[] E012 = new string[5]; // 1    '장애자공제
-            string[] E013 = new string[5]; // 1    '부녀자공제
-            string[] E014 = new string[5]; // 1    '경로우대
-            string[] E015 = new string[5]; // 1    '한부모공제
-            string[] E016 = new string[5]; // 1    '출산.입양공제
-            string[] E017 = new string[5]; // 1    '자녀공제
-            string[] E018 = new string[5]; // 1    '교육비공제 1,2,3,4
-            string[] E019 = new string[5]; // 10   '국세청-보험료_건강보험
-            string[] E020 = new string[5]; // 10   '국세청-보험료_고용보험
-            string[] E021 = new string[5]; // 10   '국세청-보험료_보장성보험
-            string[] E022 = new string[5]; // 10   '국세청-보험료_장애인전용보장성보험
-            string[] E023 = new string[5]; // 10   '국세청-의료비_일반
-            string[] E024 = new string[5]; // 10   '국세청-의료비_난임
-            string[] E025 = new string[5]; // 10   '국세청-의료비_65세이상.장애인.건강보험산정특례자
-            string[] E026 = new string[5]; // 10   '국세청-의료비_실손의료보험금
-            string[] E027 = new string[5]; // 10   '국세청-교육비_일반
-            string[] E028 = new string[5]; // 10   '국세청-교육비_장애인특수교육비
+            // 2020 년 3개로
+            string[] E007 = new string[3]; // 1    '관계코드
+            string[] E008 = new string[3]; // 1    '내외국인구분
+            string[] E009 = new string[3]; // 30   '성명
+            string[] E010 = new string[3]; // 13   '주민등록번호
+            string[] E011 = new string[3]; // 1    '기본공제
+            string[] E012 = new string[3]; // 1    '장애자공제
+            string[] E013 = new string[3]; // 1    '부녀자공제
+            string[] E014 = new string[3]; // 1    '경로우대
+            string[] E015 = new string[3]; // 1    '한부모공제
+            string[] E016 = new string[3]; // 1    '출산.입양공제
+            string[] E017 = new string[3]; // 1    '자녀공제
+            string[] E018 = new string[3]; // 1    '교육비공제 1,2,3,4
+            string[] E019 = new string[3]; // 10   '국세청-보험료_건강보험
+            string[] E020 = new string[3]; // 10   '국세청-보험료_고용보험
+            string[] E021 = new string[3]; // 10   '국세청-보험료_보장성보험
+            string[] E022 = new string[3]; // 10   '국세청-보험료_장애인전용보장성보험
+            string[] E023 = new string[3]; // 10   '국세청-의료비_일반
+            string[] E024 = new string[3]; // 10   '국세청-의료비_난임
+            string[] E025 = new string[3]; // 10   '국세청-의료비_65세이상.장애인.건강보험산정특례자
+            string[] E026 = new string[3]; // 10   '국세청-의료비_실손의료보험금
+            string[] E027 = new string[3]; // 10   '국세청-교육비_일반
+            string[] E028 = new string[3]; // 10   '국세청-교육비_장애인특수교육비
             // 2020년 신용카드 등
-            string[] E029 = new string[5]; // 10   '국세청-신용카드  3월
-            string[] E030 = new string[5]; // 10   '국세청-직불카드  3월
-            string[] E031 = new string[5]; // 10   '국세청-현금영수증  3월
-            string[] E032 = new string[5]; // 10   '국세청-도서.공연사용분 3월
-            string[] E033 = new string[5]; // 10   '국세청-전통시장사용액 3월
-            string[] E034 = new string[5]; // 10   '국세청-대중교통이용액 3월
-            string[] E035 = new string[5]; // 10   '국세청-신용카드  4-7월
-            string[] E036 = new string[5]; // 10   '국세청-직불카드  4-7월
-            string[] E037 = new string[5]; // 10   '국세청-현금영수증  4-7월
-            string[] E038 = new string[5]; // 10   '국세청-도서.공연사용분 4-7월
-            string[] E039 = new string[5]; // 10   '국세청-전통시장사용액 4-7월
-            string[] E040 = new string[5]; // 10   '국세청-대중교통이용액 4-7월
-            string[] E041 = new string[5]; // 10   '국세청-신용카드  그외
-            string[] E042 = new string[5]; // 10   '국세청-직불카드  그외
-            string[] E043 = new string[5]; // 10   '국세청-현금영수증  그외
-            string[] E044 = new string[5]; // 10   '국세청-도서.공연사용분 그외
-            string[] E045 = new string[5]; // 10   '국세청-전통시장사용액 그외
-            string[] E046 = new string[5]; // 10   '국세청-대중교통이용액 그외
+            string[] E029 = new string[3]; // 10   '국세청-신용카드  3월
+            string[] E030 = new string[3]; // 10   '국세청-직불카드  3월
+            string[] E031 = new string[3]; // 10   '국세청-현금영수증  3월
+            string[] E032 = new string[3]; // 10   '국세청-도서.공연사용분 3월
+            string[] E033 = new string[3]; // 10   '국세청-전통시장사용액 3월
+            string[] E034 = new string[3]; // 10   '국세청-대중교통이용액 3월
+            string[] E035 = new string[3]; // 10   '국세청-신용카드  4-7월
+            string[] E036 = new string[3]; // 10   '국세청-직불카드  4-7월
+            string[] E037 = new string[3]; // 10   '국세청-현금영수증  4-7월
+            string[] E038 = new string[3]; // 10   '국세청-도서.공연사용분 4-7월
+            string[] E039 = new string[3]; // 10   '국세청-전통시장사용액 4-7월
+            string[] E040 = new string[3]; // 10   '국세청-대중교통이용액 4-7월
+            string[] E041 = new string[3]; // 10   '국세청-신용카드  그외
+            string[] E042 = new string[3]; // 10   '국세청-직불카드  그외
+            string[] E043 = new string[3]; // 10   '국세청-현금영수증  그외
+            string[] E044 = new string[3]; // 10   '국세청-도서.공연사용분 그외
+            string[] E045 = new string[3]; // 10   '국세청-전통시장사용액 그외
+            string[] E046 = new string[3]; // 10   '국세청-대중교통이용액 그외
             //
-            string[] E047 = new string[5]; // 13   '국세청-기부금
+            string[] E047 = new string[3]; // 13   '국세청-기부금
 
-            string[] E048 = new string[5]; // 10   '기타-보험료_건강보험
-            string[] E049 = new string[5]; // 10   '기타-보험료_고용보험
-            string[] E050 = new string[5]; // 10   '기타-보험료_보장성
-            string[] E051 = new string[5]; // 10   '기타-보험료_장애인전용보장성
-            string[] E052 = new string[5]; // 10   '기타-의료비_일반
-            string[] E053 = new string[5]; // 10   '기타-의료비_난임
-            string[] E054 = new string[5]; // 10   '기타-의료비_65세이상.장애인.건강보험산정특례자
-            string[] E055 = new string[5]; // 10   '기타-의료비_실손의료보험금
-            string[] E056 = new string[5]; // 10   '기타-교육비_일반
-            string[] E057 = new string[5]; // 10   '기타-교육비_장애인특수교육비
+            string[] E048 = new string[3]; // 10   '기타-보험료_건강보험
+            string[] E049 = new string[3]; // 10   '기타-보험료_고용보험
+            string[] E050 = new string[3]; // 10   '기타-보험료_보장성
+            string[] E051 = new string[3]; // 10   '기타-보험료_장애인전용보장성
+            string[] E052 = new string[3]; // 10   '기타-의료비_일반
+            string[] E053 = new string[3]; // 10   '기타-의료비_난임
+            string[] E054 = new string[3]; // 10   '기타-의료비_65세이상.장애인.건강보험산정특례자
+            string[] E055_1 = new string[3]; // 1  '기타-의료비_실손의료보험금부호
+            string[] E055_2 = new string[3]; // 10 '기타-의료비_실손의료보험금
+            string[] E056 = new string[3]; // 10   '기타-교육비_일반
+            string[] E057 = new string[3]; // 10   '기타-교육비_장애인특수교육비
             // 2020년 신용카드 등
-            string[] E058 = new string[5]; // 10   '기타-신용카드   3월
-            string[] E059 = new string[5]; // 10   '기타-직불카드   3월
-            string[] E060 = new string[5]; // 10   '기타-도서.공연사용분 3월
-            string[] E061 = new string[5]; // 10   '기타-전통시장사용액  3월
-            string[] E062 = new string[5]; // 10   '기타-대중교통이용액  3월 
-            string[] E063 = new string[5]; // 10   '기타-신용카드   3월
-            string[] E064 = new string[5]; // 10   '기타-직불카드   3월
-            string[] E065 = new string[5]; // 10   '기타-도서.공연사용분 3월
-            string[] E066 = new string[5]; // 10   '기타-전통시장사용액  3월
-            string[] E067 = new string[5]; // 10   '기타-대중교통이용액  3월 
-            string[] E068 = new string[5]; // 10   '기타-신용카드   3월
-            string[] E069 = new string[5]; // 10   '기타-직불카드   3월
-            string[] E070 = new string[5]; // 10   '기타-도서.공연사용분 3월
-            string[] E071 = new string[5]; // 10   '기타-전통시장사용액  3월
-            string[] E072 = new string[5]; // 10   '기타-대중교통이용액  3월 
+            string[] E058 = new string[3]; // 10   '기타-신용카드   3월
+            string[] E059 = new string[3]; // 10   '기타-직불카드   3월
+            string[] E060 = new string[3]; // 10   '기타-도서.공연사용분 3월
+            string[] E061 = new string[3]; // 10   '기타-전통시장사용액  3월
+            string[] E062 = new string[3]; // 10   '기타-대중교통이용액  3월 
+            string[] E063 = new string[3]; // 10   '기타-신용카드   3월
+            string[] E064 = new string[3]; // 10   '기타-직불카드   3월
+            string[] E065 = new string[3]; // 10   '기타-도서.공연사용분 3월
+            string[] E066 = new string[3]; // 10   '기타-전통시장사용액  3월
+            string[] E067 = new string[3]; // 10   '기타-대중교통이용액  3월 
+            string[] E068 = new string[3]; // 10   '기타-신용카드   3월
+            string[] E069 = new string[3]; // 10   '기타-직불카드   3월
+            string[] E070 = new string[3]; // 10   '기타-도서.공연사용분 3월
+            string[] E071 = new string[3]; // 10   '기타-전통시장사용액  3월
+            string[] E072 = new string[3]; // 10   '기타-대중교통이용액  3월 
             //
-            string[] E073 = new string[5]; // 13   '기타-기부금
+            string[] E073 = new string[3]; // 13   '기타-기부금
 
             string E208;                   // 2    '부양가족레코드일련번호
-            string E209 = string.Empty;    // 29   '공란
+            string E209 = string.Empty;    // 26   '공란
 
             try
             {
@@ -1376,20 +1377,20 @@ namespace PSH_BOne_AddOn
                     {
                         if (BUYCNT == 0)  // 초기화
                         {
-                            for (i = 0; i <= 4; i++)
+                            for (i = 0; i <= 2; i++)   //  2020 3개
                             {
-                                E007[i] = codeHelpClass.GetFixedLengthStringByte(" ", 1);
-                                E008[i] = codeHelpClass.GetFixedLengthStringByte(" ", 1);
-                                E009[i] = codeHelpClass.GetFixedLengthStringByte(" ", 30);
-                                E010[i] = codeHelpClass.GetFixedLengthStringByte(" ", 13);
-                                E011[i] = codeHelpClass.GetFixedLengthStringByte(" ", 1);
-                                E012[i] = codeHelpClass.GetFixedLengthStringByte(" ", 1);
-                                E013[i] = codeHelpClass.GetFixedLengthStringByte(" ", 1);
-                                E014[i] = codeHelpClass.GetFixedLengthStringByte(" ", 1);
-                                E015[i] = codeHelpClass.GetFixedLengthStringByte(" ", 1);
-                                E016[i] = codeHelpClass.GetFixedLengthStringByte(" ", 1);
-                                E017[i] = codeHelpClass.GetFixedLengthStringByte(" ", 1);
-                                E018[i] = codeHelpClass.GetFixedLengthStringByte(" ", 1);
+                                E007[i] = codeHelpClass.GetFixedLengthStringByte("", 1);
+                                E008[i] = codeHelpClass.GetFixedLengthStringByte("", 1);
+                                E009[i] = codeHelpClass.GetFixedLengthStringByte("", 30);
+                                E010[i] = codeHelpClass.GetFixedLengthStringByte("", 13);
+                                E011[i] = codeHelpClass.GetFixedLengthStringByte("", 1);
+                                E012[i] = codeHelpClass.GetFixedLengthStringByte("", 1);
+                                E013[i] = codeHelpClass.GetFixedLengthStringByte("", 1);
+                                E014[i] = codeHelpClass.GetFixedLengthStringByte("", 1);
+                                E015[i] = codeHelpClass.GetFixedLengthStringByte("", 1);
+                                E016[i] = codeHelpClass.GetFixedLengthStringByte("", 1);
+                                E017[i] = codeHelpClass.GetFixedLengthStringByte("", 1);
+                                E018[i] = codeHelpClass.GetFixedLengthStringByte("", 1);
 
                                 E019[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
                                 E020[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
@@ -1419,7 +1420,7 @@ namespace PSH_BOne_AddOn
                                 E044[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
                                 E045[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
                                 E046[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
-                                E047[i] = codeHelpClass.GetFixedLengthStringByte("0", 13, '0');
+                                E047[i] = codeHelpClass.GetFixedLengthStringByte("0", 13, '0');  // 13
                                 E048[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
                                 E049[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
                                 E050[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
@@ -1427,7 +1428,8 @@ namespace PSH_BOne_AddOn
                                 E052[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
                                 E053[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
                                 E054[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
-                                E055[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
+                                E055_1[i] = codeHelpClass.GetFixedLengthStringByte("0", 1, '0');
+                                E055_2[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
                                 E056[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
                                 E057[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
                                 E058[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
@@ -1445,7 +1447,7 @@ namespace PSH_BOne_AddOn
                                 E070[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
                                 E071[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
                                 E072[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
-                                E073[i] = codeHelpClass.GetFixedLengthStringByte("0", 13, '0');
+                                E073[i] = codeHelpClass.GetFixedLengthStringByte("0", 13, '0');  // 13
                             }
                         }
 
@@ -1498,7 +1500,8 @@ namespace PSH_BOne_AddOn
                         E052[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E052").Value.ToString().Trim(), 10, '0');
                         E053[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E053").Value.ToString().Trim(), 10, '0');
                         E054[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E054").Value.ToString().Trim(), 10, '0');
-                        E055[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E055").Value.ToString().Trim(), 10, '0');
+                        E055_1[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E055_1").Value.ToString().Trim(), 1, '0');
+                        E055_2[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E055_2").Value.ToString().Trim(), 10, '0');
                         E056[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E056").Value.ToString().Trim(), 10, '0');
                         E057[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E057").Value.ToString().Trim(), 10, '0');
                         E058[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E058").Value.ToString().Trim(), 10, '0');
@@ -1518,12 +1521,12 @@ namespace PSH_BOne_AddOn
                         E072[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E072").Value.ToString().Trim(), 10, '0');
                         E073[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E073").Value.ToString().Trim(), 13, '0'); // 13
 
-                        E209 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E209").Value.ToString().Trim(), 29); //공란
+                        E209 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E209").Value.ToString().Trim(), 26); //공란
 
                         oRecordSet.MoveNext();
 
                         // If BUYCNT = 4 Then    '5개면 인쇄 0 - 4
-                        if (BUYCNT == 4 || oRecordSet.EoF)
+                        if (BUYCNT == 2 || oRecordSet.EoF)  // 2020년 3개
                         {
                             E208 = codeHelpClass.GetFixedLengthStringByte(FAMCNT.ToString(), 2, '0'); // 일련번호
 
@@ -1532,28 +1535,28 @@ namespace PSH_BOne_AddOn
                                                   + E007[0] + E008[0] + E009[0] + E010[0] + E011[0] + E012[0] + E013[0] + E014[0] + E015[0] + E016[0] + E017[0] + E018[0] + E019[0] + E020[0]
                                                   + E021[0] + E022[0] + E023[0] + E024[0] + E025[0] + E026[0] + E027[0] + E028[0] + E029[0] + E030[0] + E031[0] + E032[0] + E033[0] + E034[0]
                                                   + E035[0] + E036[0] + E037[0] + E038[0] + E039[0] + E040[0] + E041[0] + E042[0] + E043[0] + E044[0] + E045[0] + E046[0] + E047[0] + E048[0]
-                                                  + E049[0] + E050[0] + E051[0] + E052[0] + E053[0] + E054[0] + E055[0] + E056[0] + E057[0] + E058[0] + E059[0] + E060[0] + E061[0] + E062[0]
+                                                  + E049[0] + E050[0] + E051[0] + E052[0] + E053[0] + E054[0] + E055_1[0] + E055_2[0] + E056[0] + E057[0] + E058[0] + E059[0] + E060[0] + E061[0] + E062[0]
                                                   + E063[0] + E064[0] + E065[0] + E066[0] + E067[0] + E068[0] + E069[0] + E070[0] + E071[0] + E072[0] + E073[0]
                                                   + E007[1] + E008[1] + E009[1] + E010[1] + E011[1] + E012[1] + E013[1] + E014[1] + E015[1] + E016[1] + E017[1] + E018[1] + E019[1] + E020[1]
                                                   + E021[1] + E022[1] + E023[1] + E024[1] + E025[1] + E026[1] + E027[1] + E028[1] + E029[1] + E030[1] + E031[1] + E032[1] + E033[1] + E034[1]
                                                   + E035[1] + E036[1] + E037[1] + E038[1] + E039[1] + E040[1] + E041[1] + E042[1] + E043[1] + E044[1] + E045[1] + E046[1] + E047[1] + E048[1]
-                                                  + E049[1] + E050[1] + E051[1] + E052[1] + E053[1] + E054[1] + E055[1] + E056[1] + E057[1] + E058[1] + E059[1] + E060[1] + E061[1] + E062[1]
+                                                  + E049[1] + E050[1] + E051[1] + E052[1] + E053[1] + E054[1] + E055_1[1] + E055_2[1] + E056[1] + E057[1] + E058[1] + E059[1] + E060[1] + E061[1] + E062[1]
                                                   + E063[1] + E064[1] + E065[1] + E066[1] + E067[1] + E068[1] + E069[1] + E070[1] + E071[1] + E072[1] + E073[1]
                                                   + E007[2] + E008[2] + E009[2] + E010[2] + E011[2] + E012[2] + E013[2] + E014[2] + E015[2] + E016[2] + E017[2] + E018[2] + E019[2] + E020[2]
                                                   + E021[2] + E022[2] + E023[2] + E024[2] + E025[2] + E026[2] + E027[2] + E028[2] + E029[2] + E030[2] + E031[2] + E032[2] + E033[2] + E034[2]
                                                   + E035[2] + E036[2] + E037[2] + E038[2] + E039[2] + E040[2] + E041[2] + E042[2] + E043[2] + E044[2] + E045[2] + E046[2] + E047[2] + E048[2]
-                                                  + E049[2] + E050[2] + E051[2] + E052[2] + E053[2] + E054[2] + E055[2] + E056[2] + E057[2] + E058[2] + E059[2] + E060[2] + E061[2] + E062[2]
+                                                  + E049[2] + E050[2] + E051[2] + E052[2] + E053[2] + E054[2] + E055_1[2] + E055_2[2] + E056[2] + E057[2] + E058[2] + E059[2] + E060[2] + E061[2] + E062[2]
                                                   + E063[2] + E064[2] + E065[2] + E066[2] + E067[2] + E068[2] + E069[2] + E070[2] + E071[2] + E072[2] + E073[2]
-                                                  + E007[3] + E008[3] + E009[3] + E010[3] + E011[3] + E012[3] + E013[3] + E014[3] + E015[3] + E016[3] + E017[3] + E018[3] + E019[3] + E020[3]
-                                                  + E021[3] + E022[3] + E023[3] + E024[3] + E025[3] + E026[3] + E027[3] + E028[3] + E029[3] + E030[3] + E031[3] + E032[3] + E033[3] + E034[3]
-                                                  + E035[3] + E036[3] + E037[3] + E038[3] + E039[3] + E040[3] + E041[3] + E042[3] + E043[3] + E044[3] + E045[3] + E046[3] + E047[3] + E048[3]
-                                                  + E049[3] + E050[3] + E051[3] + E052[3] + E053[3] + E054[3] + E055[3] + E056[3] + E057[3] + E058[3] + E059[3] + E060[3] + E061[3] + E062[3]
-                                                  + E063[3] + E064[3] + E065[3] + E066[3] + E067[3] + E068[3] + E069[3] + E070[3] + E071[3] + E072[3] + E073[3]
-                                                  + E007[4] + E008[4] + E009[4] + E010[4] + E011[4] + E012[4] + E013[4] + E014[4] + E015[4] + E016[4] + E017[4] + E018[4] + E019[4] + E020[4]
-                                                  + E021[4] + E022[4] + E023[4] + E024[4] + E025[4] + E026[4] + E027[4] + E028[4] + E029[4] + E030[4] + E031[4] + E032[4] + E033[4] + E034[4]
-                                                  + E035[4] + E036[4] + E037[4] + E038[4] + E039[4] + E040[4] + E041[4] + E042[4] + E043[4] + E044[4] + E045[4] + E046[4] + E047[4] + E048[4]
-                                                  + E049[4] + E050[4] + E051[4] + E052[4] + E053[4] + E054[4] + E055[4] + E056[4] + E057[4] + E058[4] + E059[4] + E060[4] + E061[4] + E062[4]
-                                                  + E063[4] + E064[4] + E065[4] + E066[4] + E067[4] + E068[4] + E069[4] + E070[4] + E071[4] + E072[4] + E073[4]
+                                                  //+ E007[3] + E008[3] + E009[3] + E010[3] + E011[3] + E012[3] + E013[3] + E014[3] + E015[3] + E016[3] + E017[3] + E018[3] + E019[3] + E020[3]
+                                                  //+ E021[3] + E022[3] + E023[3] + E024[3] + E025[3] + E026[3] + E027[3] + E028[3] + E029[3] + E030[3] + E031[3] + E032[3] + E033[3] + E034[3]
+                                                  //+ E035[3] + E036[3] + E037[3] + E038[3] + E039[3] + E040[3] + E041[3] + E042[3] + E043[3] + E044[3] + E045[3] + E046[3] + E047[3] + E048[3]
+                                                  //+ E049[3] + E050[3] + E051[3] + E052[3] + E053[3] + E054[3] + E055[3] + E056[3] + E057[3] + E058[3] + E059[3] + E060[3] + E061[3] + E062[3]
+                                                  //+ E063[3] + E064[3] + E065[3] + E066[3] + E067[3] + E068[3] + E069[3] + E070[3] + E071[3] + E072[3] + E073[3]
+                                                  //+ E007[4] + E008[4] + E009[4] + E010[4] + E011[4] + E012[4] + E013[4] + E014[4] + E015[4] + E016[4] + E017[4] + E018[4] + E019[4] + E020[4]
+                                                  //+ E021[4] + E022[4] + E023[4] + E024[4] + E025[4] + E026[4] + E027[4] + E028[4] + E029[4] + E030[4] + E031[4] + E032[4] + E033[4] + E034[4]
+                                                  //+ E035[4] + E036[4] + E037[4] + E038[4] + E039[4] + E040[4] + E041[4] + E042[4] + E043[4] + E044[4] + E045[4] + E046[4] + E047[4] + E048[4]
+                                                  //+ E049[4] + E050[4] + E051[4] + E052[4] + E053[4] + E054[4] + E055[4] + E056[4] + E057[4] + E058[4] + E059[4] + E060[4] + E061[4] + E062[4]
+                                                  //+ E063[4] + E064[4] + E065[4] + E066[4] + E067[4] + E068[4] + E069[4] + E070[4] + E071[4] + E072[4] + E073[4]
                                                   + E208 + E209);
                             BUYCNT = 0;
                             FAMCNT += 1;

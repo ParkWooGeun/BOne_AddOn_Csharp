@@ -1122,7 +1122,7 @@ namespace PSH_BOne_AddOn
                                 if (bookAmt > 70000000)
                                 {
                                     oForm.Items.Item("ntsamt3").Specific.VALUE = Conversion.Val(oForm.Items.Item("ntsamt3").Specific.VALUE) + Conversion.Val(oForm.Items.Item("bookpms3").Specific.VALUE);
-                                    oForm.Items.Item("ntsamt").Specific.VALUE = Conversion.Val(oForm.Items.Item("ntsamt3").Specific.VALUE);
+                                    oForm.Items.Item("ntsamt").Specific.VALUE += Conversion.Val(oForm.Items.Item("ntsamt3").Specific.VALUE);
                                     oForm.Items.Item("bookpms3").Specific.VALUE = 0;
                                     PSH_Globals.SBO_Application.MessageBox("총급여 7천만원 초과자입니다. 일반금액에 합산하고 도서공연비는 0처리 합니다.");
                                 }
@@ -1165,7 +1165,7 @@ namespace PSH_BOne_AddOn
                                 if (bookAmt > 70000000)
                                 {
                                     oForm.Items.Item("ntsamt47").Specific.VALUE = Conversion.Val(oForm.Items.Item("ntsamt47").Specific.VALUE) + Conversion.Val(oForm.Items.Item("bookpms47").Specific.VALUE);
-                                    oForm.Items.Item("ntsamt").Specific.VALUE = Conversion.Val(oForm.Items.Item("ntsamt47").Specific.VALUE);
+                                    oForm.Items.Item("ntsamt").Specific.VALUE += Conversion.Val(oForm.Items.Item("ntsamt47").Specific.VALUE);
                                     oForm.Items.Item("bookpms47").Specific.VALUE = 0;
                                     PSH_Globals.SBO_Application.MessageBox("총급여 7천만원 초과자입니다. 일반금액에 합산하고 도서공연비는 0처리 합니다.");
                                 }
@@ -1208,7 +1208,7 @@ namespace PSH_BOne_AddOn
                                 if (bookAmt > 70000000)
                                 {
                                     oForm.Items.Item("ntsamt24").Specific.VALUE = Conversion.Val(oForm.Items.Item("ntsamt24").Specific.VALUE) + Conversion.Val(oForm.Items.Item("bookpms").Specific.VALUE);
-                                    oForm.Items.Item("ntsamt").Specific.VALUE = Conversion.Val(oForm.Items.Item("ntsamt24").Specific.VALUE);
+                                    oForm.Items.Item("ntsamt").Specific.VALUE += Conversion.Val(oForm.Items.Item("ntsamt24").Specific.VALUE);
                                     oForm.Items.Item("bookpms").Specific.VALUE = 0;
                                     PSH_Globals.SBO_Application.MessageBox("총급여 7천만원 초과자입니다. 일반금액에 합산하고 도서공연비는 0처리 합니다.");
                                 }

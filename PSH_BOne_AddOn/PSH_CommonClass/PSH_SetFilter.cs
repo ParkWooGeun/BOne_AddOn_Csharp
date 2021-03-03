@@ -407,6 +407,9 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_FI080"); //일계표
 			oFilter.AddEx("PS_FI963"); //보조원장 거래처명 변경
 			oFilter.AddEx("PS_CO800"); //제품 원재료 변환
+
+			//판매관리
+			oFilter.AddEx("PS_SD600"); //견적양식등록
 		}
 
 		private static void KEY_DOWN(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -593,6 +596,9 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_FI080"); //일계표
 			oFilter.AddEx("PS_FI963"); //보조원장 거래처명 변경
 			oFilter.AddEx("PS_CO800"); //제품 원재료 변환
+
+			//판매관리
+			oFilter.AddEx("PS_SD600"); //견적양식등록
 		}
 
 		private static void GOT_FOCUS(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -854,6 +860,9 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO920"); //월별 판매실적 대비 공수 조회(기계)
 			oFilter.AddEx("PS_CO921"); //월별 작번별 수주금액 대비 공수 현황(기계)
 			oFilter.AddEx("PS_CO800"); //제품 원재료 변환
+
+			//판매관리
+			oFilter.AddEx("PS_SD600"); //견적양식등록
 		}
 
 		private static void LOST_FOCUS(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1092,6 +1101,9 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO660"); //기간비용등록
 			oFilter.AddEx("PS_CO510"); //원가계산사전점검조회
 			oFilter.AddEx("PS_CO520"); //제품생산 원가항목별 조회
+
+			//판매관리
+			oFilter.AddEx("PS_SD600"); //견적양식등록
 		}	
 
 		private static void CLICK(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1365,6 +1377,9 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO920"); //월별 판매실적 대비 공수 조회(기계)
 			oFilter.AddEx("PS_CO921"); //월별 작번별 수주금액 대비 공수 현황(기계)
 			oFilter.AddEx("PS_CO800"); //제품 원재료 변환
+
+			//판매관리
+			oFilter.AddEx("PS_SD600"); //견적양식등록
 		}
 
 		private static void DOUBLE_CLICK(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1681,6 +1696,9 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO501"); //품목별원가등록
 			oFilter.AddEx("PS_CO502"); //품목별평균원가항목등록
 			oFilter.AddEx("PS_CO800"); //제품 원재료 변환
+
+			//판매관리
+			oFilter.AddEx("PS_SD600"); //견적양식등록
 		}
 
 		private static void MATRIX_LOAD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1778,6 +1796,9 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO503"); //일일가득액및생산원가계산
 			oFilter.AddEx("PS_CO504"); //일일판매및생산집계
 			oFilter.AddEx("PS_CO210"); //휘팅제품원가계산
+
+			//판매관리
+			oFilter.AddEx("PS_SD600"); //견적양식등록
 		}
 
 		private static void DATASOURCE_LOAD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2416,6 +2437,9 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_FI080"); //일계표
 			oFilter.AddEx("PS_FI963"); //보조원장 거래처명 변경
 			oFilter.AddEx("PS_CO800"); //제품 원재료 변환
+
+			//판매관리
+			oFilter.AddEx("PS_SD600"); //견적양식등록
 		}
 
 		private static void FORM_ACTIVATE(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2527,6 +2551,9 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PS_CO658"); //통합재무제표용 계정 관리
 			oFilter.AddEx("PS_CO605"); //통합수불부
 			oFilter.AddEx("PS_CO665"); //기간비용현황(연간)
+
+			//판매관리
+			oFilter.AddEx("PS_SD600"); //견적양식등록
 		}
 
 		private static void FORM_KEY_DOWN(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)

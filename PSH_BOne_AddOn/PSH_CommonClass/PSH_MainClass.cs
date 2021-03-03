@@ -2151,7 +2151,15 @@ namespace PSH_BOne_AddOn
                             pBaseClass = new PS_CO800();
                             pBaseClass.LoadForm("");
                             break;
-                            #endregion
+                        #endregion
+
+                        #region 판매관리
+                        case "PS_SD600": //견적양식등록
+                            pBaseClass = new PS_SD600();
+                            pBaseClass.LoadForm("");
+                            break;
+                        #endregion
+
                     }
                 }
             }

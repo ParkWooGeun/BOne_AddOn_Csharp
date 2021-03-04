@@ -53,6 +53,7 @@ namespace PSH_BOne_AddOn
                 }
 
                 PSH_SetFilter.Execute(); //Event Filter Excute
+                //PSH_Globals.ExecuteEventFilter(typeof(PS_SD603));
                 //PSH_EventHelpClass eventHelpClass = new PSH_EventHelpClass();
                 //PSH_BaseClass baseClass = new PSH_BaseClass();
                 //eventHelpClass.Set_EventFilter(baseClass);
@@ -2164,10 +2165,13 @@ namespace PSH_BOne_AddOn
                             pBaseClass.LoadForm("");
                             break;
 
+                        case "PS_SD603": //견적조회
+                            pBaseClass = new PS_SD603();
+                            pBaseClass.LoadForm();
+                            break;
 
 
-
-                        #endregion
+                            #endregion
 
                     }
                 }

@@ -1,9 +1,6 @@
 using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
-using PSH_BOne_AddOn.Form;
-using PSH_BOne_AddOn.DataPack;
-using System.Collections.Generic;
 
 namespace PSH_BOne_AddOn
 {
@@ -94,7 +91,7 @@ namespace PSH_BOne_AddOn
 
         /// <summary>
         /// Combobox 설정
-        /// </summary> 
+        /// </summary>
         private void PS_SD602_ComboBox_Setting()
         {
             string sQry;

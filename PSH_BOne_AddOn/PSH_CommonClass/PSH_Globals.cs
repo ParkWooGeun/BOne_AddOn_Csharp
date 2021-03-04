@@ -207,6 +207,212 @@ namespace PSH_BOne_AddOn
         //정산년도
         //[VBFixedString(4)]
         //public static short ZPAY_GBL_JSNYER;
+
+        /// <summary>
+        /// SAP B1 이벤트 필터 자동 등록
+        /// </summary>
+        /// <param name="classType">Form Class</param>
+        public static void ExecuteEventFilter(System.Type classType, ref SAPbouiCOM.EventFilter eventFilter, ref SAPbouiCOM.EventFilters eventFilters)
+        {
+            //SAPbouiCOM.EventFilters eventFilters = new SAPbouiCOM.EventFilters();
+            //SAPbouiCOM.EventFilter eventFilter = null;
+
+            try
+            {
+                System.Reflection.MethodInfo[] arrayMethodInfo = classType.GetMethods(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly);
+
+                for (int i = 0; i < arrayMethodInfo.Length; i++)
+                {
+                    System.Reflection.MethodInfo methodInfo = (System.Reflection.MethodInfo)arrayMethodInfo[i];
+
+                    if (methodInfo.Name == "Raise_EVENT_ITEM_PRESSED")
+                    {
+                        eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED);
+                        eventFilter.AddEx(classType.Name);
+                    }
+
+                    //if (methodInfo.Name == "Raise_EVENT_KEY_DOWN")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_KEY_DOWN);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_GOT_FOCUS")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_GOT_FOCUS);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_LOST_FOCUS")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_LOST_FOCUS);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_COMBO_SELECT")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_COMBO_SELECT);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_CLICK")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_CLICK);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_DOUBLE_CLICK")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_MATRIX_LINK_PRESSED")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_MATRIX_COLLAPSE_PRESSED")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_VALIDATE")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_VALIDATE);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_MATRIX_LOAD")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_DATASOURCE_LOAD")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_FORM_LOAD")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_LOAD);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_FORM_UNLOAD")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_FORM_ACTIVATE")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_FORM_DEACTIVATE")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_FORM_CLOSE")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_CLOSE);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_FORM_RESIZE")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_RESIZE);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_FORM_KEY_DOWN")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_FORM_MENU_HILIGHT")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_PRINT")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_PRINT);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_PRINT_DATA")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_PRINT_DATA);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_CHOOSE_FROM_LIST")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_RightClickEvent")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_RIGHT_CLICK);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_MENU_CLICK")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_MENU_CLICK);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_FORM_DATA_ADD")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_FORM_DATA_UPDATE")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_FORM_DATA_DELETE")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+
+                    //if (methodInfo.Name == "Raise_EVENT_FORM_DATA_LOAD")
+                    //{
+                    //    eventFilter = eventFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD);
+                    //    eventFilter.AddEx(classType.Name);
+                    //}
+                }
+
+                //SBO_Application.SetFilter(eventFilters);
+            }
+            catch(System.Exception ex)
+            {
+                SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+            }
+            //finally
+            //{
+            //    System.Runtime.InteropServices.Marshal.ReleaseComObject(eventFilter);
+            //    System.Runtime.InteropServices.Marshal.ReleaseComObject(eventFilters);
+            //}
+        }
+
     }
 
     public class ZPAY_g_EmpID

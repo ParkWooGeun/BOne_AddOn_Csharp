@@ -410,6 +410,7 @@ namespace PSH_BOne_AddOn
 
 			//판매관리
 			oFilter.AddEx("PS_SD600"); //견적양식등록
+			oFilter.AddEx("PS_SD602"); //견적등록
 		}
 
 		private static void KEY_DOWN(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -599,6 +600,7 @@ namespace PSH_BOne_AddOn
 
 			//판매관리
 			oFilter.AddEx("PS_SD600"); //견적양식등록
+			oFilter.AddEx("PS_SD602"); //견적등록
 		}
 
 		private static void GOT_FOCUS(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -863,6 +865,7 @@ namespace PSH_BOne_AddOn
 
 			//판매관리
 			oFilter.AddEx("PS_SD600"); //견적양식등록
+			oFilter.AddEx("PS_SD602"); //견적등록
 		}
 
 		private static void LOST_FOCUS(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1104,6 +1107,7 @@ namespace PSH_BOne_AddOn
 
 			//판매관리
 			oFilter.AddEx("PS_SD600"); //견적양식등록
+			oFilter.AddEx("PS_SD602"); //견적등록
 		}	
 
 		private static void CLICK(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1380,6 +1384,7 @@ namespace PSH_BOne_AddOn
 
 			//판매관리
 			oFilter.AddEx("PS_SD600"); //견적양식등록
+			oFilter.AddEx("PS_SD602"); //견적등록
 		}
 
 		private static void DOUBLE_CLICK(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1443,6 +1448,8 @@ namespace PSH_BOne_AddOn
 			//기타관리
 			oFilter.AddEx("PS_FI190"); //보조원장조회(EXCEL다운)
 			oFilter.AddEx("PS_CO110"); //배부사이클실행
+
+			//판매관리
 		}
 
         private static void MATRIX_COLLAPSE_PRESSED(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1699,6 +1706,7 @@ namespace PSH_BOne_AddOn
 
 			//판매관리
 			oFilter.AddEx("PS_SD600"); //견적양식등록
+			oFilter.AddEx("PS_SD602"); //견적등록
 		}
 
 		private static void MATRIX_LOAD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -1799,6 +1807,7 @@ namespace PSH_BOne_AddOn
 
 			//판매관리
 			oFilter.AddEx("PS_SD600"); //견적양식등록
+			oFilter.AddEx("PS_SD602"); //견적등록
 		}
 
 		private static void DATASOURCE_LOAD(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
@@ -2440,6 +2449,7 @@ namespace PSH_BOne_AddOn
 
 			//판매관리
 			oFilter.AddEx("PS_SD600"); //견적양식등록
+			oFilter.AddEx("PS_SD602"); //견적등록
 		}
 
 		private static void FORM_ACTIVATE(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)

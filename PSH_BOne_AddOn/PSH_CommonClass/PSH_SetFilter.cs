@@ -244,6 +244,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY998"); //사용자권한조회
 
 			//정산관리
+			oFilter.AddEx("PH_PY400"); //연말정산대상자등록
 			oFilter.AddEx("PH_PY401"); //전근무지등록
 			oFilter.AddEx("PH_PY402"); //정산기초자료 등록
 			oFilter.AddEx("PH_PY405"); //의료비등록
@@ -470,8 +471,9 @@ namespace PSH_BOne_AddOn
             //급여관리-리포트
             oFilter.AddEx("PH_PY701"); //급여지급대장 (노조용)
 
-            //정산관리
-            oFilter.AddEx("PH_PY401"); //전근무지등록
+			//정산관리
+			oFilter.AddEx("PH_PY400"); //연말정산대상자등록
+			oFilter.AddEx("PH_PY401"); //전근무지등록
 			oFilter.AddEx("PH_PY402"); //정산기초자료 등록
 			oFilter.AddEx("PH_PY405"); //의료비등록
 			oFilter.AddEx("PH_PY407"); //기부금등록
@@ -777,6 +779,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY998"); //사용자권한조회
 
 			//정산관리
+			oFilter.AddEx("PH_PY400"); //연말정산대상자등록
 			oFilter.AddEx("PH_PY401"); //전근무지등록
 			oFilter.AddEx("PH_PY402"); //정산기초자료 등록
 			oFilter.AddEx("PH_PY405"); //의료비등록
@@ -1044,6 +1047,7 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PY999"); //사용자권한관리
 
 			//정산관리
+			oFilter.AddEx("PH_PY400"); //연말정산대상자등록
 			oFilter.AddEx("PH_PY402"); //정산기초자료등록
 			oFilter.AddEx("PH_PY405"); //의료비등록
 			oFilter.AddEx("PH_PY407"); //기부금등록
@@ -1281,6 +1285,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY998"); //사용자권한조회
 
 			//정산관리
+			oFilter.AddEx("PH_PY400"); //연말정산대상자등록
 			oFilter.AddEx("PH_PY401"); //전근무지등록
 			oFilter.AddEx("PH_PY402"); //정산기초자료 등록
 			oFilter.AddEx("PH_PY405"); //의료비등록
@@ -1594,6 +1599,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY998"); //사용자권한조회
 
 			//정산관리
+			oFilter.AddEx("PH_PY400"); //연말정산대상자등록
 			oFilter.AddEx("PH_PY401"); //전근무지등록
 			oFilter.AddEx("PH_PY402"); //정산기초자료 등록
 			oFilter.AddEx("PH_PY405"); //의료비등록
@@ -1734,8 +1740,9 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PY135"); //급상여분개처리
             oFilter.AddEx("PH_PY136"); //급상여분개처리 배부규칙설정
 
-            //정산관리
-            oFilter.AddEx("ZPY343"); //월별 자료 관리
+			//정산관리
+			oFilter.AddEx("PH_PY400"); //연말정산대상자등록
+			oFilter.AddEx("ZPY343"); //월별 자료 관리
 			oFilter.AddEx("ZPY501"); //소득공제항목 등록
 			oFilter.AddEx("ZPY502"); //종(전) 근무지 등록
 			oFilter.AddEx("ZPY505"); //기부금명세등록
@@ -1985,6 +1992,7 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PY999"); //사용자권한관리
 
 			//정산관리
+			oFilter.AddEx("PH_PY400"); //연말정산대상자등록
 			oFilter.AddEx("PH_PY401"); //전근무지등록
 			oFilter.AddEx("PH_PY402"); //정산기초자료 등록
 			oFilter.AddEx("PH_PY405"); //의료비등록
@@ -2256,6 +2264,7 @@ namespace PSH_BOne_AddOn
 			oFilter.AddEx("PH_PY998"); //사용자권한조회
 
 			//정산관리
+			oFilter.AddEx("PH_PY400"); //연말정산대상자등록
 			oFilter.AddEx("PH_PY401"); //전근무지등록
 			oFilter.AddEx("PH_PY402"); //정산기초자료 등록
 			oFilter.AddEx("PH_PY405"); //의료비등록
@@ -2503,8 +2512,9 @@ namespace PSH_BOne_AddOn
             oFilter.AddEx("PH_PY135"); //급상여분개처리
             oFilter.AddEx("PH_PY136"); //급상여분개처리 배부규칙설정
 
-            //정산관리
-            oFilter.AddEx("ZPY501"); //소득공제항목 등록
+			//정산관리
+			oFilter.AddEx("PH_PY400"); //연말정산대상자등록
+			oFilter.AddEx("ZPY501"); //소득공제항목 등록
 
             //기타관리
 			oFilter.AddEx("PH_PY301"); //학자금신청등록

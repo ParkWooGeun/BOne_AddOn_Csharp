@@ -59,7 +59,7 @@ namespace PSH_BOne_AddOn
                 PS_SD600_Initial_Setting();
                 PS_SD600_EnableMenus();
                 PS_SD600_SetDocument(oFormDocEntry01);
-                PS_SD600_FormResize();
+                //PS_SD600_FormResize();
 
                 oForm.EnableMenu("1283", false); //삭제
 				oForm.EnableMenu("1287", false); //복제
@@ -1114,14 +1114,14 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.Before_Action == true)
                 {
-                }
-                else if (pVal.Before_Action == false)
-                {
                     SubMain.Remove_Forms(oFormUniqueID);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_SD600H);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_SD600L);
+                }
+                else if (pVal.Before_Action == false)
+                {   
                 }
             }
             catch (Exception ex)

@@ -56,6 +56,7 @@ namespace PSH_BOne_AddOn
                 PH_PY204_Add_MatrixRow(0, true);
                 PH_PY204_LoadCaption();
                 PH_PY204_FormReset();
+                PSH_Globals.ExecuteEventFilter(typeof(PH_PY204));
             }
             catch (Exception ex)
             {

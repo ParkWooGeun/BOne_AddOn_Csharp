@@ -52,6 +52,7 @@ namespace PSH_BOne_AddOn
 
                 PS_CO504_CreateItems();
                 PS_CO504_Initial_Setting();
+                PSH_Globals.ExecuteEventFilter(typeof(PS_CO504));
             }
             catch (Exception ex)
             {

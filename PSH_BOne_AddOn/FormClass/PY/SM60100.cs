@@ -17,6 +17,7 @@ namespace PSH_BOne_AddOn
 
             SM60100_CreateItems();
             SM60100_FormItemEnabled();
+            PSH_Globals.ExecuteEventFilter(typeof(SM60100));
         }
 
         private void SM60100_CreateItems()
@@ -36,7 +37,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText("SM60100_CreateItems_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
             {                
@@ -68,7 +69,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText("SM60100_FormItemEnabled_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
             {
@@ -98,7 +99,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText("SM60100_DataValidCheck_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
             {
@@ -114,9 +115,6 @@ namespace PSH_BOne_AddOn
                 switch (pVal.EventType)
                 {
                     case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED: //1
-                        if (pVal.Before_Action == false)
-                        {
-                        }
                         break;
 
                     case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
@@ -129,9 +127,6 @@ namespace PSH_BOne_AddOn
                         break;
 
                     case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
-                        if (pVal.Before_Action == false)
-                        {
-                        }
                         break;
                     case SAPbouiCOM.BoEventTypes.et_CLICK: //6
                         break;
@@ -158,14 +153,7 @@ namespace PSH_BOne_AddOn
                         break;
 
                     case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD: //17
-                        if (pVal.BeforeAction == true)
-                        {
-                        }
-                        else if (pVal.BeforeAction == false)
-                        {
-                            SubMain.Remove_Forms(oFormUniqueID);
-                            oForm = null;
-                        }
+                        Raise_EVENT_FORM_UNLOAD(FormUID, ref pVal, ref BubbleEvent);
                         break;
 
                     case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: //18
@@ -201,11 +189,40 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_ItemEvent_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
             {               
             }        
+        }
+
+        /// <summary>
+        /// FORM_UNLOAD 이벤트
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_FORM_UNLOAD(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            try
+            {
+                if (pVal.Before_Action == true)
+                {
+                    SubMain.Remove_Forms(oFormUniqueID);
+                    oForm = null;
+                }
+                else if (pVal.Before_Action == false)
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
         }
 
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
@@ -260,7 +277,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_FormMenuEvent_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
             {
@@ -291,10 +308,6 @@ namespace PSH_BOne_AddOn
                     switch (BusinessObjectInfo.EventType)
                     {
                         case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
-                            if (oForm.Items.Item("SOTYPE").Specific.Value == "2")
-                            {
-                                SM60100_CreateItems();
-                            }
                             break;
                         case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
                             break;
@@ -307,10 +320,40 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_FormDataEvent_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
             {             
+            }
+        }
+
+        /// <summary>
+        /// FORM_DATA_LOAD 이벤트
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="BusinessObjectInfo">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_FORM_DATA_LOAD(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
+        {
+            try
+            {
+                if (BusinessObjectInfo.BeforeAction == true)
+                {
+                }
+                else if (BusinessObjectInfo.BeforeAction == false)
+                {
+                    if (oForm.Items.Item("SOTYPE").Specific.Value == "2")
+                    {
+                        SM60100_CreateItems();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
             }
         }
 

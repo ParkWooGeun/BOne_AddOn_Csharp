@@ -55,6 +55,7 @@ namespace PSH_BOne_AddOn
                 PH_PY021_FormResize();
 
                 oForm.Items.Item("MSTCOD").Click(); //사번 포커스
+                PSH_Globals.ExecuteEventFilter(typeof(PH_PY021));
             }
             catch (Exception ex)
             {

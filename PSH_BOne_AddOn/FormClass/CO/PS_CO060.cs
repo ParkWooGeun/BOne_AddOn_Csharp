@@ -53,6 +53,7 @@ namespace PSH_BOne_AddOn
                 PS_CO060_ComboBox_Setting();
                 PS_CO060_EnableMenus();
                 PS_CO060_SetDocument(oFormDocEntry01);
+                PSH_Globals.ExecuteEventFilter(typeof(PS_CO060));
             }
 			catch (Exception ex)
 			{

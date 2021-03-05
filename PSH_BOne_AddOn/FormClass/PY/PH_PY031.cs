@@ -67,7 +67,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("SToDate").Specific.Value = DateTime.Now.ToString("yyyy.MM");
                 // 사번 포커스
                 oForm.Items.Item("MSTCOD").Click();
-
+                PSH_Globals.ExecuteEventFilter(typeof(PH_PY031));
             }
             catch (Exception ex)
             {

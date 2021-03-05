@@ -53,6 +53,7 @@ namespace PSH_BOne_AddOn
                 PS_CO921_ComboBox_Setting();
 
                 oForm.Items.Item("StdYM").Specific.Value = DateTime.Now.ToString("yyyyMM");
+                PSH_Globals.ExecuteEventFilter(typeof(PS_CO921));
             }
             catch (Exception ex)
             {

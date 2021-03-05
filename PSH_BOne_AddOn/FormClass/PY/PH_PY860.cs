@@ -51,6 +51,7 @@ namespace PSH_BOne_AddOn
                 PH_PY860_ComboBox_Setting();
                 PH_PY860_EnableMenus();
                 PH_PY860_SetDocument(oFormDocEntry01);
+                PSH_Globals.ExecuteEventFilter(typeof(PH_PY860));
             }
             catch (Exception ex)
             {

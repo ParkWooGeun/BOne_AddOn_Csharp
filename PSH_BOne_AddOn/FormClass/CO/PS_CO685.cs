@@ -60,7 +60,8 @@ namespace PSH_BOne_AddOn
 				oForm.EnableMenu("1287", true); //복제
 				oForm.EnableMenu("1284", true); //취소
 				oForm.EnableMenu("1293", true); //행삭제
-			}
+                PSH_Globals.ExecuteEventFilter(typeof(PS_CO685));
+            }
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);

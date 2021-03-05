@@ -52,6 +52,7 @@ namespace PSH_BOne_AddOn
                 PH_PY104_CreateItems();
                 PH_PY104_EnableMenus();
                 PH_PY104_SetDocument(oFormDocEntry01);
+                PSH_Globals.ExecuteEventFilter(typeof(PH_PY104));
             }
             catch (Exception ex)
             {

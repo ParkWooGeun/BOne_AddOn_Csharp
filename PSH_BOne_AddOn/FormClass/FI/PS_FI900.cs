@@ -44,7 +44,8 @@ namespace PSH_BOne_AddOn
 				oForm.EnableMenu("1283", false);				//// 제거
 				oForm.EnableMenu("1284", false);				//// 취소
 				oForm.EnableMenu("1287", false);				//// 복원
-				oForm.EnableMenu("1293", false);				//// 행삭제
+				oForm.EnableMenu("1293", false);                //// 행삭제
+				PSH_Globals.ExecuteEventFilter(typeof(PS_FI900));
 			}
 			catch (Exception ex)
 			{

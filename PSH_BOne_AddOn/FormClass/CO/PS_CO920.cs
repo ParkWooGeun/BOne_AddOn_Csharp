@@ -53,6 +53,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("ToYM").Specific.Value = DateTime.Now.ToString("yyyyMM");
 
                 oForm.Items.Item("BtnPrint").Visible = false;
+                PSH_Globals.ExecuteEventFilter(typeof(PS_CO920));
             }
             catch (Exception ex)
             {

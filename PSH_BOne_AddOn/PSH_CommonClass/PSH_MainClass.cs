@@ -52,7 +52,7 @@ namespace PSH_BOne_AddOn
                     System.Environment.Exit(0);
                 }
 
-                //PSH_SetFilter.Execute(); //Event Filter Execute(2021.03.05 송명규 주석 처리, 각 화면 클래스에서 동적으로 이벤트 필터 생성)
+                PSH_SetFilter.Execute(); //Event Filter Execute
 
                 this.XmlCreateYN();
                 this.Load_MenuXml();

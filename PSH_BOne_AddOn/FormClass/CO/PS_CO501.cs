@@ -56,6 +56,7 @@ namespace PSH_BOne_AddOn
 
                 PS_CO501_FormItemEnabled();
                 PS_CO501_FormClear();
+                PSH_Globals.ExecuteEventFilter(typeof(PS_CO501));
             }
             catch (Exception ex)
             {

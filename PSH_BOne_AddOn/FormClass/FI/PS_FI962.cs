@@ -47,6 +47,7 @@ namespace PSH_BOne_AddOn
 
 				PS_FI962_CreateItems();
 				PS_FI962_MTX01(prmBPLId, prmFrDt, prmToDt, prmAccount);
+				PSH_Globals.ExecuteEventFilter(typeof(PS_FI962));
 			}
 			catch (Exception ex)
 			{

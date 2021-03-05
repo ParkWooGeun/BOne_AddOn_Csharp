@@ -50,6 +50,7 @@ namespace PSH_BOne_AddOn
 
                 oForm.Items.Item("U_ItmBsort").Specific.Value = "401";
                 oForm.Items.Item("ItmBname").Specific.Value = "부자재";
+                PSH_Globals.ExecuteEventFilter(typeof(PS_MM921));
             }
             catch (Exception ex)
             {

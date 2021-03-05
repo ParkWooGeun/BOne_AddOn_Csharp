@@ -63,6 +63,7 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("SDocDateFr").Specific.Value = DateTime.Now.ToString("yyyyMM") + "01"; // 발행일자FR
 				oForm.Items.Item("SDocDateTo").Specific.Value = DateTime.Now.ToString("yyyyMMdd"); // 발행일자TO
 				oForm.Items.Item("CntcCode").Click(SAPbouiCOM.BoCellClickType.ct_Regular); // 사번 포커스
+				PSH_Globals.ExecuteEventFilter(typeof(PS_FI421));
 			}
 			catch (Exception ex)
 			{

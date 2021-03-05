@@ -58,6 +58,7 @@ namespace PSH_BOne_AddOn
 
                 PS_CO210_CreateItems();
                 PS_CO210_AddMatrixRow(0, true);
+                PSH_Globals.ExecuteEventFilter(typeof(PS_CO210));
             }
             catch (Exception ex)
             {

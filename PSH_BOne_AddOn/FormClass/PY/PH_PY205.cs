@@ -69,6 +69,7 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.UserDataSources.Item("CancelYN03").Value = "Y";
 
                 oForm.Items.Item("MSTCOD01").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                PSH_Globals.ExecuteEventFilter(typeof(PH_PY205));
             }
             catch (Exception ex)
             {

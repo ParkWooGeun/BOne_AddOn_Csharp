@@ -52,11 +52,7 @@ namespace PSH_BOne_AddOn
                     System.Environment.Exit(0);
                 }
 
-                PSH_SetFilter.Execute(); //Event Filter Excute
-                //PSH_Globals.ExecuteEventFilter(typeof(PS_SD603));
-                //PSH_EventHelpClass eventHelpClass = new PSH_EventHelpClass();
-                //PSH_BaseClass baseClass = new PSH_BaseClass();
-                //eventHelpClass.Set_EventFilter(baseClass);
+                //PSH_SetFilter.Execute(); //Event Filter Execute(2021.03.05 송명규 주석 처리, 각 화면 클래스에서 동적으로 이벤트 필터 생성)
 
                 this.XmlCreateYN();
                 this.Load_MenuXml();

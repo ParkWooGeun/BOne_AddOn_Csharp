@@ -66,7 +66,8 @@ namespace PSH_BOne_AddOn
 				oForm.EnableMenu("1286", true); //닫기
 				oForm.EnableMenu("1284", true); //취소
 				oForm.EnableMenu("1293", true); //행삭제
-			}
+                PSH_Globals.ExecuteEventFilter(typeof(PS_SD600));
+            }
             catch (Exception ex)
             {
 				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
@@ -370,44 +371,37 @@ namespace PSH_BOne_AddOn
                     errCode = "1";
                     throw new Exception();
                 }
-
-                if (string.IsNullOrEmpty(oForm.Items.Item("CntcCode").Specific.Value)) //등록자
+                else if (string.IsNullOrEmpty(oForm.Items.Item("CntcCode").Specific.Value)) //등록자
                 {
                     errCode = "2";
                     throw new Exception();
                 }
-
-                if (oForm.Items.Item("SubYN").Specific.Value == "%") //을병지포함
+                else if (oForm.Items.Item("SubYN").Specific.Value == "%") //을병지포함
                 {
                     errCode = "3";
                     throw new Exception();
                 }
-
-                if (string.IsNullOrEmpty(oForm.Items.Item("CardName").Specific.Value)) //거래처명
+                else if (string.IsNullOrEmpty(oForm.Items.Item("CardName").Specific.Value)) //거래처명
                 {
                     errCode = "4";
                     throw new Exception();
                 }
-                
-                if (string.IsNullOrEmpty(oForm.Items.Item("CardPart").Specific.Value)) //부서
+                else if (string.IsNullOrEmpty(oForm.Items.Item("CardPart").Specific.Value)) //부서
                 {
                     errCode = "5";
                     throw new Exception();
                 }
-                
-                if (string.IsNullOrEmpty(oForm.Items.Item("CardPrsn").Specific.Value)) //담당자
+                else if (string.IsNullOrEmpty(oForm.Items.Item("CardPrsn").Specific.Value)) //담당자
                 {
                     errCode = "6";
                     throw new Exception();
                 }
-                
-                if (string.IsNullOrEmpty(oForm.Items.Item("QuotNm").Specific.Value)) //견적명
+                else if (string.IsNullOrEmpty(oForm.Items.Item("QuotNm").Specific.Value)) //견적명
                 {
                     errCode = "7";
                     throw new Exception();
                 }
-
-                if (oForm.Items.Item("SubYN").Specific.Value == "Y") //품명(을병지를 포함할 때만 품명 체크)
+                else if (oForm.Items.Item("SubYN").Specific.Value == "Y") //품명(을병지를 포함할 때만 품명 체크)
                 {
                     if (string.IsNullOrEmpty(oForm.Items.Item("ItemName").Specific.Value))
                     {
@@ -415,8 +409,7 @@ namespace PSH_BOne_AddOn
                         throw new Exception();
                     }
                 }
-
-                if (oForm.Items.Item("SubYN").Specific.Value == "Y") //도번,규격(을병지를 포함할 때만 품명 체크)
+                else if (oForm.Items.Item("SubYN").Specific.Value == "Y") //도번,규격(을병지를 포함할 때만 품명 체크)
                 {
                     if (string.IsNullOrEmpty(oForm.Items.Item("Spec").Specific.Value))
                     {
@@ -424,13 +417,12 @@ namespace PSH_BOne_AddOn
                         throw new Exception();
                     }
                 }
-                
-                if (oForm.Items.Item("ItemGrp").Specific.Value == "%") //품목구분
+                else if (oForm.Items.Item("ItemGrp").Specific.Value == "%") //품목구분
                 {
                     errCode = "10";
                     throw new Exception();
                 }
-                
+
                 if (oMat01.VisualRowCount == 1) //라인정보 미입력 시
                 {
                     errCode = "11";
@@ -444,32 +436,27 @@ namespace PSH_BOne_AddOn
                         errCode = "12";
                         throw new Exception();
                     }
-                    
-                    if (string.IsNullOrEmpty(oMat01.Columns.Item("Content1").Cells.Item(i).Specific.Value)) //내용(재질/규격/공정)
+                    else if (string.IsNullOrEmpty(oMat01.Columns.Item("Content1").Cells.Item(i).Specific.Value)) //내용(재질/규격/공정)
                     {
                         errCode = "13";
                         throw new Exception();
                     }
-                    
-                    if (string.IsNullOrEmpty(oMat01.Columns.Item("Content2").Cells.Item(i).Specific.Value)) //수량(중량/공수)
+                    else if (string.IsNullOrEmpty(oMat01.Columns.Item("Content2").Cells.Item(i).Specific.Value)) //수량(중량/공수)
                     {
                         errCode = "14";
                         throw new Exception();
                     }
-                    
-                    if (string.IsNullOrEmpty(oMat01.Columns.Item("Unit").Cells.Item(i).Specific.Value)) //단위
+                    else if (string.IsNullOrEmpty(oMat01.Columns.Item("Unit").Cells.Item(i).Specific.Value)) //단위
                     {
                         errCode = "15";
                         throw new Exception();
                     }
-                    
-                    if (string.IsNullOrEmpty(oMat01.Columns.Item("Price").Cells.Item(i).Specific.Value)) //단가
+                    else if (string.IsNullOrEmpty(oMat01.Columns.Item("Price").Cells.Item(i).Specific.Value)) //단가
                     {
                         errCode = "16";
                         throw new Exception();
                     }
-                    
-                    if (string.IsNullOrEmpty(oMat01.Columns.Item("Amount").Cells.Item(i).Specific.Value)) //금액
+                    else if (string.IsNullOrEmpty(oMat01.Columns.Item("Amount").Cells.Item(i).Specific.Value)) //금액
                     {
                         errCode = "17";
                         throw new Exception();
@@ -661,7 +648,7 @@ namespace PSH_BOne_AddOn
 
                 List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>(); //Parameter
                 
-                //Formula
+                //Parameter
                 dataPackParameter.Add(new PSH_DataPackClass("@QuotNo", quotNo)); //견적번호
                 dataPackParameter.Add(new PSH_DataPackClass("@SubYM", subYN)); //을병지 포함여부
                 

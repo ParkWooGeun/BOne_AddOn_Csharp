@@ -1,9 +1,9 @@
 namespace PSH_BOne_AddOn
 {
-    /// <summary>
-    /// 이벤트 필터
-    /// </summary>
-    internal static class PSH_SetFilter
+	/// <summary>
+	/// 이벤트 필터(2021.03.05부 사용안함, 각 화면 클래스에서 동적으로 이벤트 필터 생성)
+	/// </summary>
+	internal static class PSH_SetFilter
     {
         public static void Execute()
 		{
@@ -20,29 +20,27 @@ namespace PSH_BOne_AddOn
             CLICK(ref oFilter, ref oFilters); //6
             DOUBLE_CLICK(ref oFilter, ref oFilters); //7
             MATRIX_LINK_PRESSED(ref oFilter, ref oFilters); //8
-            //MATRIX_COLLAPSE_PRESSED(oFilter, oFilters); //9
+            MATRIX_COLLAPSE_PRESSED(ref oFilter, ref oFilters); //9
             VALIDATE(ref oFilter, ref oFilters); //10
             MATRIX_LOAD(ref oFilter, ref oFilters); //11
-            //DATASOURCE_LOAD(oFilter, oFilters); //12
+            DATASOURCE_LOAD(ref oFilter, ref oFilters); //12
             FORM_LOAD(ref oFilter, ref oFilters); //16
             FORM_UNLOAD(ref oFilter, ref oFilters); //17
-			//FORM_ACTIVATE(oFilter, oFilters); //18
-			//FORM_DEACTIVATE(oFilter, oFilters); //19
-			//FORM_CLOSE(oFilter, oFilters); //20
+            FORM_ACTIVATE(ref oFilter, ref oFilters); //18
+            FORM_DEACTIVATE(ref oFilter, ref oFilters); //19
+            FORM_CLOSE(ref oFilter, ref oFilters); //20
             FORM_RESIZE(ref oFilter, ref oFilters); //21
-            //FORM_KEY_DOWN(oFilter, oFilters); //22
-            //FORM_MENU_HILIGHT(oFilter, oFilters); //23
-            //PRINT(oFilter, oFilters); //24
-            //PRINT_DATA(oFilter, oFilters); //25
+            FORM_KEY_DOWN(ref oFilter, ref oFilters); //22
+            FORM_MENU_HILIGHT(ref oFilter, ref oFilters); //23
+            PRINT(ref oFilter, ref oFilters); //24
+            PRINT_DATA(ref oFilter, ref oFilters); //25
             CHOOSE_FROM_LIST(ref oFilter, ref oFilters); //27
             RIGHT_CLICK(ref oFilter, ref oFilters); //28
             MENU_CLICK(ref oFilter, ref oFilters); //32
             FORM_DATA_ADD(ref oFilter, ref oFilters); //33
             FORM_DATA_UPDATE(ref oFilter, ref oFilters); //34
-	        //FORM_DATA_DELETE(oFilter, oFilters); //35
+            FORM_DATA_DELETE(ref oFilter, ref oFilters); //35
             FORM_DATA_LOAD(ref oFilter, ref oFilters); //36
-
-            //PSH_Globals.ExecuteEventFilter(typeof(PS_SD603), ref oFilter, ref oFilters);
 
 			//Setting the application with the EventFilters object
 			PSH_Globals.SBO_Application.SetFilter(oFilters);
@@ -2608,7 +2606,7 @@ namespace PSH_BOne_AddOn
 			//기타관리
 		}
 
-		private static void VPRINT(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
+		private static void PRINT(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
 		{
 			oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_PRINT);
 

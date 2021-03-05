@@ -55,6 +55,7 @@ namespace PSH_BOne_AddOn
                 PS_SD602_ComboBox_Setting();
                 PS_SD602_EnableMenus();
                 PS_SD602_SetDocument(oFormDocEntry01);
+                PSH_Globals.ExecuteEventFilter(typeof(PS_SD602));
             }
 			catch(Exception ex)
 			{
@@ -121,10 +122,10 @@ namespace PSH_BOne_AddOn
         {
             oForm.EnableMenu("1283", false); //삭제
             oForm.EnableMenu("1286", true); //닫기
-            oForm.EnableMenu("1287", false); //복제
+            oForm.EnableMenu("1287", true); //복제
             oForm.EnableMenu("1285", true); //복원
             oForm.EnableMenu("1284", true); //취소
-            oForm.EnableMenu("1293", true); // 행삭제
+            oForm.EnableMenu("1293", true); //행삭제
             oForm.EnableMenu("1281", false);
             oForm.EnableMenu("1282", true);
         }
@@ -177,7 +178,7 @@ namespace PSH_BOne_AddOn
 
                     oForm.Items.Item("BPLID").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
                     oForm.Items.Item("CntcCode").Specific.Value = dataHelpClass.User_MSTCOD();
-                    oForm.Items.Item("DocDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd"); //Microsoft.VisualBasic.Compatibility.VB6.Support.Format(DateAndTime.Now, "YYYYMMDD");
+                    oForm.Items.Item("DocDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
@@ -349,14 +350,12 @@ namespace PSH_BOne_AddOn
                     errCode = "1";
                     throw new Exception();
                 }
-                
-                if (string.IsNullOrEmpty(oForm.Items.Item("CntcCode").Specific.Value)) //담당자 미입력 시
+                else if (string.IsNullOrEmpty(oForm.Items.Item("CntcCode").Specific.Value)) //담당자 미입력 시
                 {
                     errCode = "2";
                     throw new Exception();
                 }
-                
-                if (string.IsNullOrEmpty(oForm.Items.Item("DocDate").Specific.Value)) //견적일자 미입력 시
+                else if (string.IsNullOrEmpty(oForm.Items.Item("DocDate").Specific.Value)) //견적일자 미입력 시
                 {
                     errCode = "3";
                     throw new Exception();
@@ -375,32 +374,27 @@ namespace PSH_BOne_AddOn
                         errCode = "5";
                         throw new Exception();
                     }
-                    
-                    if (string.IsNullOrEmpty(oMat01.Columns.Item("ItemSpec").Cells.Item(i).Specific.Value)) //규격
+                    else if (string.IsNullOrEmpty(oMat01.Columns.Item("ItemSpec").Cells.Item(i).Specific.Value)) //규격
                     {
                         errCode = "6";
                         throw new Exception();
                     }
-                    
-                    if (string.IsNullOrEmpty(oMat01.Columns.Item("ItemUnit").Cells.Item(i).Specific.Value)) //단위
+                    else if (string.IsNullOrEmpty(oMat01.Columns.Item("ItemUnit").Cells.Item(i).Specific.Value)) //단위
                     {
                         errCode = "7";
                         throw new Exception();
                     }
-                    
-                    if (Convert.ToDouble(oMat01.Columns.Item("Quantity").Cells.Item(i).Specific.Value) == 0) //수량
+                    else if (Convert.ToDouble(oMat01.Columns.Item("Quantity").Cells.Item(i).Specific.Value) == 0) //수량
                     {
                         errCode = "8";
                         throw new Exception();
                     }
-                    
-                    if (Convert.ToDouble(oMat01.Columns.Item("Price").Cells.Item(i).Specific.Value) == 0) //단가
+                    else if (Convert.ToDouble(oMat01.Columns.Item("Price").Cells.Item(i).Specific.Value) == 0) //단가
                     {
                         errCode = "9";
                         throw new Exception();
                     }
-                    
-                    if (Convert.ToDouble(oMat01.Columns.Item("Amount").Cells.Item(i).Specific.Value) == 0) //금액
+                    else if (Convert.ToDouble(oMat01.Columns.Item("Amount").Cells.Item(i).Specific.Value) == 0) //금액
                     {
                         errCode = "10";
                         throw new Exception();

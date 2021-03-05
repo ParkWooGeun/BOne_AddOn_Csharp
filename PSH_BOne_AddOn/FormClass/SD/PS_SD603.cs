@@ -57,8 +57,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("ToDt").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 
                 oForm.Items.Item("CardCode").Click();
-                //PSH_Globals.ExecuteEventFilter(typeof(PS_SD603));
-                //ExecuteEventFilter(typeof(PS_SD603));
+                PSH_Globals.ExecuteEventFilter(typeof(PS_SD603));
             }
             catch (Exception ex)
             {
@@ -798,31 +797,5 @@ namespace PSH_BOne_AddOn
             {
             }
         }
-
-        //private void ExecuteEventFilter(System.Type myType)
-        //{
-        //    SAPbouiCOM.EventFilters oFilters = new SAPbouiCOM.EventFilters();
-        //    SAPbouiCOM.EventFilter oFilter = null;
-
-        //    System.Reflection.MethodInfo[] myArrayMethodInfo = myType.GetMethods(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly);
-
-        //    for (int i = 0; i < myArrayMethodInfo.Length; i++)
-        //    {
-        //        System.Reflection.MethodInfo myMethodInfo = (System.Reflection.MethodInfo)myArrayMethodInfo[i];
-
-        //        //PSH_Globals.SBO_Application.MessageBox(myMethodInfo.Name);
-
-        //        if (myMethodInfo.Name == "Raise_EVENT_ITEM_PRESSED")
-        //        {
-        //            oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED);
-        //            oFilter.AddEx(myType.Name);
-        //        }
-        //    }
-
-        //    PSH_Globals.SBO_Application.SetFilter(oFilters);
-
-        //    oFilter = null;
-        //    oFilters = null;
-        //}
     }
 }

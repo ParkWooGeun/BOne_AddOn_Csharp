@@ -11763,7 +11763,7 @@
         </member>
         <member name="T:PSH_BOne_AddOn.PSH_SetFilter">
             <summary>
-            이벤트 필터
+            이벤트 필터(2021.03.05부 사용안함, 각 화면 클래스에서 동적으로 이벤트 필터 생성)
             </summary>
         </member>
         <member name="T:PSH_BOne_AddOn.PH_PY000">
@@ -31464,7 +31464,7 @@
             OHEM AddOn
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PSH_Globals.ExecuteEventFilter(System.Type,SAPbouiCOM.EventFilter@,SAPbouiCOM.EventFilters@)">
+        <member name="M:PSH_BOne_AddOn.PSH_Globals.ExecuteEventFilter(System.Type)">
             <summary>
             SAP B1 이벤트 필터 자동 등록
             </summary>

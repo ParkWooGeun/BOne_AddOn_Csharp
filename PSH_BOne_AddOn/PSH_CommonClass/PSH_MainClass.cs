@@ -2151,6 +2151,17 @@ namespace PSH_BOne_AddOn
                             pBaseClass = new PS_CO800();
                             pBaseClass.LoadForm("");
                             break;
+
+                        case "PS_SD901": //(기계)판매오더 수주처 변경시 작업시시 변경처리
+                            pBaseClass = new PS_SD901();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD012": //파카 라벨 출력
+                            pBaseClass = new PS_SD012();
+                            pBaseClass.LoadForm("");
+                            break;
+                            
                             #endregion
                     }
                 }

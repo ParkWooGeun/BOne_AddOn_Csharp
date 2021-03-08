@@ -52,10 +52,7 @@ namespace PSH_BOne_AddOn
                     System.Environment.Exit(0);
                 }
 
-                PSH_SetFilter.Execute(); //Event Filter Excute
-                //PSH_EventHelpClass eventHelpClass = new PSH_EventHelpClass();
-                //PSH_BaseClass baseClass = new PSH_BaseClass();
-                //eventHelpClass.Set_EventFilter(baseClass);
+                PSH_SetFilter.Execute(); //Event Filter Execute
 
                 this.XmlCreateYN();
                 this.Load_MenuXml();
@@ -2151,6 +2148,23 @@ namespace PSH_BOne_AddOn
                             pBaseClass = new PS_CO800();
                             pBaseClass.LoadForm("");
                             break;
+                        #endregion
+
+                        #region 판매관리
+                        case "PS_SD600": //견적양식등록
+                            pBaseClass = new PS_SD600();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD602": //견적등록
+                            pBaseClass = new PS_SD602();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD603": //견적조회
+                            pBaseClass = new PS_SD603();
+                            pBaseClass.LoadForm();
+                            break;
 
                         case "PS_SD901": //(기계)판매오더 수주처 변경시 작업시시 변경처리
                             pBaseClass = new PS_SD901();
@@ -2161,8 +2175,8 @@ namespace PSH_BOne_AddOn
                             pBaseClass = new PS_SD012();
                             pBaseClass.LoadForm("");
                             break;
-                            
-                            #endregion
+                        #endregion
+
                     }
                 }
             }
@@ -2175,21 +2189,24 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 시스템폼 생성
         /// </summary>
-        /// <param name="pval"></param>
-        private void Create_SYSTEMForm(SAPbouiCOM.ItemEvent pval)
+        /// <param name="pVal"></param>
+        /// <param name="pBaseClass"></param>
+        private void Create_SYSTEMForm(SAPbouiCOM.ItemEvent pVal, ref PSH_BaseClass pBaseClass)
         {
             try
             {
-                if (pval.BeforeAction == true)
+                if (pVal.BeforeAction == true)
                 {
-                    if (pval.EventType == SAPbouiCOM.BoEventTypes.et_FORM_LOAD)
+                    if (pVal.EventType == SAPbouiCOM.BoEventTypes.et_FORM_LOAD)
                     {
-                        //switch (pval.FormTypeEx)
-                        //{
+                        switch(pVal.FormTypeEx)
+                        {
 
-                            //Case "-60100"       '//인사관리>사원마스터데이터 (사용자 정의 필드)
-                            //  Set oTempClass = New SM60100: oTempClass.LoadForm (pval.FormUID): AddForms oTempClass, pval.FormUID, pval.FormTypeEx
-                        //}
+                            //case "60100":       //인사관리>사원마스터데이터 (사용자 정의 필드)
+                            //    pBaseClass = new SM60100();
+                            //    pBaseClass.LoadForm(pVal.FormUID);
+                            //    break;
+                        }
                     }
                 }
                 return;
@@ -2299,7 +2316,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                Create_SYSTEMForm(pVal);
+                Create_SYSTEMForm(pVal, ref oTempClass);
 
                 if (Strings.Left(pVal.FormUID, 2) != "F_")
                 {

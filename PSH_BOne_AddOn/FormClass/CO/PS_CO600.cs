@@ -63,8 +63,8 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("FrDt01").Specific.Value = DateTime.Now.ToString("yyyy0101");
 				oForm.Items.Item("ToDt01").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 				
-				oForm.Items.Item("Folder01").Specific.Select();				
-			}
+				oForm.Items.Item("Folder01").Specific.Select();
+            }
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);

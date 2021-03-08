@@ -53,7 +53,6 @@ namespace PSH_BOne_AddOn
                 PS_CO040_CF_ChooseFromList();
                 PS_CO040_EnableMenus();
                 PS_CO040_SetDocument(oFormDocEntry01);
-                PSH_Globals.ExecuteEventFilter(typeof(PS_CO040));
             }
 			catch (Exception ex)
 			{

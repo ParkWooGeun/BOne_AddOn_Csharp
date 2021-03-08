@@ -71,7 +71,6 @@ namespace PSH_BOne_AddOn
 
                 CreateItems();
                 LoadData01();
-                PSH_Globals.ExecuteEventFilter(typeof(PS_CO111));
             }
             catch (Exception ex)
             {

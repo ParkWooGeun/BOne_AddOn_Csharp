@@ -49,7 +49,6 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY998_CreateItems();
                 PH_PY998_ComboBox_Setting();
-                PSH_Globals.ExecuteEventFilter(typeof(PH_PY998));
             }
             catch (Exception ex)
             {

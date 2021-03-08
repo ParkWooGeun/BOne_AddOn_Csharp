@@ -55,7 +55,6 @@ namespace PSH_BOne_AddOn
                 PH_PY015_SetDocument(oFormDocEntry01);
                 PH_PY015_LoadCaption();
                 PH_PY015_FormReset();
-                PSH_Globals.ExecuteEventFilter(typeof(PH_PY015));
             }
             catch (Exception ex)
             {

@@ -48,7 +48,6 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PS_DateChange_CreateItems();
                 PS_DateChange_FormItemEnabled();
-                PSH_Globals.ExecuteEventFilter(typeof(PS_DateChange));
             }
             catch (Exception ex)
             {

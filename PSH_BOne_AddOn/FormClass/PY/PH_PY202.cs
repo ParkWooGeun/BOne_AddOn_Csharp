@@ -56,7 +56,6 @@ namespace PSH_BOne_AddOn
 
                 oForm.Items.Item("FrDate").Specific.Value = "20200101";
                 oForm.Items.Item("ToDate").Specific.Value = DateTime.Now.AddYears(7).ToString("yyyy") + "1231";
-                PSH_Globals.ExecuteEventFilter(typeof(PH_PY202));
             }
             catch (Exception ex)
             {

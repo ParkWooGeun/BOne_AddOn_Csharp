@@ -66,7 +66,6 @@ namespace PSH_BOne_AddOn
 				oForm.EnableMenu("1286", true); //닫기
 				oForm.EnableMenu("1284", true); //취소
 				oForm.EnableMenu("1293", true); //행삭제
-                PSH_Globals.ExecuteEventFilter(typeof(PS_SD600));
             }
             catch (Exception ex)
             {
@@ -753,9 +752,6 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string ErrNum = string.Empty; //에러번호
-            string InsertedDocEntry = string.Empty; //입력된 문서의 문서번호를 리턴
-
             string QuotNo;
             string BPLID;
             string QuotDt;
@@ -780,7 +776,6 @@ namespace PSH_BOne_AddOn
 
                             if (QuotNo == "Overflow") //견적번호 오버플로우
                             {
-                                ErrNum = "001";
                                 BubbleEvent = false;
                                 return;
                             }

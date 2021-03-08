@@ -52,7 +52,6 @@ namespace PSH_BOne_AddOn
 				PS_CO170_ComboBox_Setting();
 				PS_CO170_EnableMenus();
 				PS_CO170_AddMatrixRow(0, true);
-				PSH_Globals.ExecuteEventFilter(typeof(PS_CO170));
 			}
 			catch (Exception ex)
 			{

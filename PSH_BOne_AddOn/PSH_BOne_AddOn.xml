@@ -11763,8 +11763,25 @@
         </member>
         <member name="T:PSH_BOne_AddOn.PSH_SetFilter">
             <summary>
-            이벤트 필터(2021.03.05부 사용안함, 각 화면 클래스에서 동적으로 이벤트 필터 생성)
+            이벤트 필터
+            1. 현재 Namespace의 전체 클래스 조회
+            2. 클래스의 메소드 중 해당 이벤트 필터 메소드가 존재하면 필터 추가
             </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PSH_SetFilter.GetClasses(System.String)">
+            <summary>
+            Namespcae의 전체 클래스 조회
+            </summary>
+            <param name="nameSpace">Namespace</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PSH_SetFilter.RegisterEventFilter(System.String,System.Type,SAPbouiCOM.EventFilter@)">
+            <summary>
+            SAP B1 이벤트 필터 등록
+            </summary>
+            <param name="eventMethodName">이벤트 필터 메소드 명</param>
+            <param name="classType">클래스 타입</param>
+            <param name="eventFilter">이벤트 필터</param>
         </member>
         <member name="T:PSH_BOne_AddOn.PH_PY000">
             <summary>
@@ -31464,11 +31481,21 @@
             OHEM AddOn
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PSH_Globals.ExecuteEventFilter(System.Type)">
+        <member name="M:PSH_BOne_AddOn.SM60100.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
-            SAP B1 이벤트 필터 자동 등록
+            FORM_UNLOAD 이벤트
             </summary>
-            <param name="classType">Form Class</param>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.SM60100.Raise_EVENT_FORM_DATA_LOAD(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+            <summary>
+            FORM_DATA_LOAD 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="BusinessObjectInfo">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
         <member name="T:PSH_BOne_AddOn.PSH_MainClass">
             <summary>
@@ -31542,11 +31569,12 @@
             <param name="pVal"></param>
             <param name="pBaseClass"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PSH_MainClass.Create_SYSTEMForm(SAPbouiCOM.ItemEvent)">
+        <member name="M:PSH_BOne_AddOn.PSH_MainClass.Create_SYSTEMForm(SAPbouiCOM.ItemEvent,PSH_BOne_AddOn.PSH_BaseClass@)">
             <summary>
             시스템폼 생성
             </summary>
-            <param name="pval"></param>
+            <param name="pVal"></param>
+            <param name="pBaseClass"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PSH_MainClass.TerminateApplication">
             <summary>

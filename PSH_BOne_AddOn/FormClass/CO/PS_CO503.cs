@@ -58,7 +58,6 @@ namespace PSH_BOne_AddOn
                 PS_CO503_FormClear();
                 PS_CO503_Initial_Setting();
                 PS_CO503_AddMatrixRow(0, true);
-                PSH_Globals.ExecuteEventFilter(typeof(PS_CO503));
             }
             catch (Exception ex)
             {

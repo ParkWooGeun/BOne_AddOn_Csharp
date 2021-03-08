@@ -45,7 +45,6 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PS_CO540_CreateItems();
                 PS_CO540_ComboBox_Setting();
-                PSH_Globals.ExecuteEventFilter(typeof(PS_CO540));
             }
             catch (Exception ex)
             {

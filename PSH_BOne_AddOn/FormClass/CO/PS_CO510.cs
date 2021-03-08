@@ -47,7 +47,6 @@ namespace PSH_BOne_AddOn
                 
                 PS_CO510_CreateItems();
                 PS_CO510_ComboBox_Setting();
-                PSH_Globals.ExecuteEventFilter(typeof(PS_CO510));
             }
             catch (Exception ex)
             {

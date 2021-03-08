@@ -58,7 +58,6 @@ namespace PSH_BOne_AddOn
                 PH_PY311_SetDocument(oFormDocEntry01);
                 PH_PY311_Load_MonthData();
                 PH_PY311_AddMatrixRow();
-                PSH_Globals.ExecuteEventFilter(typeof(PH_PY311));
             }
             catch(Exception ex)
             {

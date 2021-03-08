@@ -50,7 +50,6 @@ namespace PSH_BOne_AddOn
                 oForm.Visible = true;
                 PH_PY415_CreateItems();
                 PH_PY415_SetDocument(oFromDocEntry01);
-                PSH_Globals.ExecuteEventFilter(typeof(PH_PY415));
             }
             catch (Exception ex)
             {

@@ -68,7 +68,6 @@ namespace PSH_BOne_AddOn
 
                 oForm.Items.Item("SFrDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
                 oForm.Items.Item("SToDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
-                PSH_Globals.ExecuteEventFilter(typeof(PH_PY508));
             }
             catch (Exception ex)
             {

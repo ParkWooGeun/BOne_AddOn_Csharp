@@ -53,7 +53,6 @@ namespace PSH_BOne_AddOn
                 PH_PY011_SetDocument(oFormDocEntry01);
 
                 oForm.Items.Item("StdDate").Specific.Value = DateTime.Now.ToString("yyyyMM01"); //기준일자
-                PSH_Globals.ExecuteEventFilter(typeof(PH_PY011));
             }
             catch (Exception ex)
             {

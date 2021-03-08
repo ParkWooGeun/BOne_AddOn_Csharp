@@ -64,7 +64,6 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("ToDt01").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 				
 				oForm.Items.Item("Folder01").Specific.Select();
-                PSH_Globals.ExecuteEventFilter(typeof(PS_CO600));
             }
 			catch (Exception ex)
 			{

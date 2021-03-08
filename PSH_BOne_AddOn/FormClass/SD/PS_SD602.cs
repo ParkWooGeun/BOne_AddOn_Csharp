@@ -55,7 +55,6 @@ namespace PSH_BOne_AddOn
                 PS_SD602_ComboBox_Setting();
                 PS_SD602_EnableMenus();
                 PS_SD602_SetDocument(oFormDocEntry01);
-                PSH_Globals.ExecuteEventFilter(typeof(PS_SD602));
             }
 			catch(Exception ex)
 			{

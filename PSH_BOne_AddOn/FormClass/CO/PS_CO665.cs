@@ -52,7 +52,6 @@ namespace PSH_BOne_AddOn
                 PS_CO665_ComboBox_Setting();
 
                 oForm.Items.Item("StdYear").Specific.Value = DateTime.Now.ToString("yyyy");
-                PSH_Globals.ExecuteEventFilter(typeof(PS_CO665));
             }
 			catch (Exception ex)
 			{

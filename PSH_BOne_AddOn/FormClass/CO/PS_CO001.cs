@@ -64,7 +64,6 @@ namespace PSH_BOne_AddOn
 				oForm.EnableMenu("1293", false); //행삭제
 				oForm.EnableMenu("1281", false);
 				oForm.EnableMenu("1282", true);
-                PSH_Globals.ExecuteEventFilter(typeof(PS_CO001));
             }
 			catch (Exception ex)
 			{

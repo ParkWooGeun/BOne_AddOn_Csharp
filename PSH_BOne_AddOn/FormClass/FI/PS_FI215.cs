@@ -54,7 +54,6 @@ namespace PSH_BOne_AddOn
 				PS_FI215_ComboBox_Setting();
 				PS_FI215_Initial_Setting();
 				PS_FI215_SetDocument(oFormDocEntry01);
-				PSH_Globals.ExecuteEventFilter(typeof(PS_FI215));
 			}
 			catch (Exception ex)
 			{

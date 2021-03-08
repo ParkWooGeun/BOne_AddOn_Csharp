@@ -57,7 +57,6 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("ToDt").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 
                 oForm.Items.Item("CardCode").Click();
-                PSH_Globals.ExecuteEventFilter(typeof(PS_SD603));
             }
             catch (Exception ex)
             {

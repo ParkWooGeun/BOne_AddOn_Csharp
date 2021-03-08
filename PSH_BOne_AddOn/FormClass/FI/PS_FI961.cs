@@ -54,7 +54,6 @@ namespace PSH_BOne_AddOn
 				PS_FI961_SetDocument(oFormDocEntry01);
 
 				oForm.Items.Item("Folder01").Specific.Select();             //폼이 로드 될 때 Folder01이 선택됨
-				PSH_Globals.ExecuteEventFilter(typeof(PS_FI961));
 			}
 			catch (Exception ex)
 			{

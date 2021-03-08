@@ -17,38 +17,35 @@ namespace PSH_BOne_AddOn
 
             SM60100_CreateItems();
             SM60100_FormItemEnabled();
-            PSH_Globals.ExecuteEventFilter(typeof(SM60100));
         }
 
         private void SM60100_CreateItems()
-        {            
-            SAPbouiCOM.Item oItem = null;
-            SAPbouiCOM.Item oItem01 = null;
-            SAPbouiCOM.ComboBox oCombo = null;
-            SAPbouiCOM.Folder oFolder = null;
-            SAPbouiCOM.EditText oEdit = null;
-            SAPbobsCOM.UserFieldsMD oUserField = null;
+        {
+            //SAPbouiCOM.Item oItem = null;
+            //SAPbouiCOM.Item oItem01 = null;
+            //SAPbouiCOM.ComboBox oCombo = null;
+            //SAPbouiCOM.Folder oFolder = null;
+            //SAPbouiCOM.EditText oEdit = null;
+            //SAPbobsCOM.UserFieldsMD oUserField = null;
 
             try
             {
                 oForm.Freeze(true);
-                             
-                oItem = null;                
             }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
-            {                
+            {
                 oForm.Freeze(false);
-                
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oItem); //메모리 해제
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oItem01); //메모리 해제
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oCombo); //메모리 해제
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oFolder); //메모리 해제
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oEdit); //메모리 해제
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oUserField); //메모리 해제
+
+                //System.Runtime.InteropServices.Marshal.ReleaseComObject(oItem); //메모리 해제
+                //System.Runtime.InteropServices.Marshal.ReleaseComObject(oItem01); //메모리 해제
+                //System.Runtime.InteropServices.Marshal.ReleaseComObject(oCombo); //메모리 해제
+                //System.Runtime.InteropServices.Marshal.ReleaseComObject(oFolder); //메모리 해제
+                //System.Runtime.InteropServices.Marshal.ReleaseComObject(oEdit); //메모리 해제
+                //System.Runtime.InteropServices.Marshal.ReleaseComObject(oUserField); //메모리 해제
             }
         }
 
@@ -289,33 +286,17 @@ namespace PSH_BOne_AddOn
         {
             try
             {
-                if (BusinessObjectInfo.BeforeAction == true)
+                switch (BusinessObjectInfo.EventType)
                 {
-                    switch (BusinessObjectInfo.EventType)
-                    {
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
-                            break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
-                            break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
-                            break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
-                            break;
-                    }
-                }
-                else if (BusinessObjectInfo.BeforeAction == false)
-                {
-                    switch (BusinessObjectInfo.EventType)
-                    {
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
-                            break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
-                            break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
-                            break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
-                            break;
-                    }
+                    case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
+                        Raise_EVENT_FORM_DATA_LOAD(FormUID, ref BusinessObjectInfo, ref BubbleEvent);
+                        break;
+                    case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
+                        break;
+                    case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
+                        break;
+                    case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
+                        break;
                 }
             }
             catch (Exception ex)

@@ -53,7 +53,6 @@ namespace PSH_BOne_AddOn
 				CreateItems();
 				AddMatrixRow(0, true);
 				ComboBox_Setting();
-				PSH_Globals.ExecuteEventFilter(typeof(PS_CO185));
 			}
 			catch (Exception ex)
 			{

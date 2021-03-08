@@ -54,7 +54,6 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY402_CreateItems();
                 PH_PY402_FormItemEnabled();
-                PSH_Globals.ExecuteEventFilter(typeof(PH_PY402));
             }
             catch (Exception ex)
             {

@@ -62,7 +62,6 @@ namespace PSH_BOne_AddOn
 				oForm.EnableMenu("1293", true); //행삭제
 
                 oForm.Items.Item("DocEntry").Visible = false; //레코드 이동 버튼의 순차 동작을 위해 추가한 DocEntry의 Visible을 false로 지정
-                PSH_Globals.ExecuteEventFilter(typeof(PS_CO260));
             }
 			catch (Exception ex)
 			{

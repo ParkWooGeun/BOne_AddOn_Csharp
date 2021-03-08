@@ -60,7 +60,6 @@ namespace PSH_BOne_AddOn
                 PH_PY032_LoadCaption();
                 PH_PY032_FormItemEnabled();
                 PH_PY032_FormReset();
-                PSH_Globals.ExecuteEventFilter(typeof(PH_PY032));
             }
             catch (Exception ex)
             {

@@ -14,11 +14,11 @@ namespace PSH_BOne_AddOn
         private static List<Type> classList = GetClasses("PSH_BOne_AddOn"); //Namespace 내의 모든 클래스 조회
 
         public static void Execute()
-		{
-			SAPbouiCOM.EventFilters oFilters = null;
-			SAPbouiCOM.EventFilter oFilter = null;
+        {
+            SAPbouiCOM.EventFilters oFilters = null;
+            SAPbouiCOM.EventFilter oFilter = null;
 
-			oFilters = new SAPbouiCOM.EventFilters();
+            oFilters = new SAPbouiCOM.EventFilters();
 
             ITEM_PRESSED(ref oFilter, ref oFilters); //1
             KEY_DOWN(ref oFilter, ref oFilters); //2
@@ -49,12 +49,12 @@ namespace PSH_BOne_AddOn
             FORM_DATA_UPDATE(ref oFilter, ref oFilters); //34
             FORM_DATA_DELETE(ref oFilter, ref oFilters); //35
             FORM_DATA_LOAD(ref oFilter, ref oFilters); //36
-            
+
             PSH_Globals.SBO_Application.SetFilter(oFilters);
-			
-			oFilter = null;
-			oFilters = null;
-		}
+
+            oFilter = null;
+            oFilters = null;
+        }
 
         private static void ITEM_PRESSED(ref SAPbouiCOM.EventFilter oFilter, ref SAPbouiCOM.EventFilters oFilters)
         {

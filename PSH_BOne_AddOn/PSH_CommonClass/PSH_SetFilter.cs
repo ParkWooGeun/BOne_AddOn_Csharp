@@ -11,7 +11,7 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal static class PSH_SetFilter
     {
-        private static List<Type> classList = GetClasses("PSH_BOne_AddOn_Class"); //Namespace 내의 모든 클래스 조회
+        private static List<Type> classList = GetClasses("PSH_BOne_AddOn"); //Namespace 내의 모든 클래스 조회
 
         public static void Execute()
 		{

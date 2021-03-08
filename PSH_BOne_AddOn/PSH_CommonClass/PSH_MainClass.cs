@@ -2151,7 +2151,16 @@ namespace PSH_BOne_AddOn
                             pBaseClass = new PS_CO800();
                             pBaseClass.LoadForm("");
                             break;
-                            #endregion
+                        #endregion
+
+                        #region 생산관리
+                        case "PS_PP084": //생산완료등록(분말)
+                            pBaseClass = new PS_PP084();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        #endregion
+
                     }
                 }
             }

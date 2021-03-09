@@ -2159,7 +2159,12 @@ namespace PSH_BOne_AddOn
                             pBaseClass.LoadForm("");
                             break;
 
-                        #endregion
+                        case "PS_PP036": //MG생산일보조회
+                            pBaseClass = new PS_PP036();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                            #endregion
 
                     }
                 }

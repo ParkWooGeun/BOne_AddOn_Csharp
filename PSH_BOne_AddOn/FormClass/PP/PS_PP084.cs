@@ -2013,9 +2013,9 @@ namespace PSH_BOne_AddOn
                 }
                 else if (pVal.BeforeAction == false)
                 {
-                    if ((pVal.ItemUID == "Mat01"))
+                    if (pVal.ItemUID == "Mat01")
                     {
-                        if ((pVal.ColUID == "WhsCode"))
+                        if (pVal.ColUID == "WhsCode")
                         {
                             if (oDataTable01 == null)
                             {

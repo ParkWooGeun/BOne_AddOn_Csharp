@@ -2150,7 +2150,6 @@ namespace PSH_BOne_AddOn
                             break;
                         #endregion
 
-<<<<<<< HEAD
                         #region 생산관리
                         case "PS_PP084": //생산완료등록(분말)
                             pBaseClass = new PS_PP084();
@@ -2162,8 +2161,8 @@ namespace PSH_BOne_AddOn
                             pBaseClass.LoadForm("");
                             break;
 
-                            #endregion
-=======
+                        #endregion
+
                         #region 판매관리
                         case "PS_SD600": //견적양식등록
                             pBaseClass = new PS_SD600();
@@ -2190,7 +2189,6 @@ namespace PSH_BOne_AddOn
                             pBaseClass.LoadForm("");
                             break;
                         #endregion
->>>>>>> fbe4ec51ed946578fe20df6e26579cbfc63f5ad3
 
                     }
                 }

@@ -2175,7 +2175,12 @@ namespace PSH_BOne_AddOn
                             pBaseClass = new PS_SD012();
                             pBaseClass.LoadForm("");
                             break;
-                        #endregion
+
+                        case "PS_SD013": //AR송장 만기일 조회 및 승인
+                            pBaseClass = new PS_SD013();
+                            pBaseClass.LoadForm("");
+                            break;
+                            #endregion
 
                     }
                 }
@@ -2199,7 +2204,6 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.EventType == SAPbouiCOM.BoEventTypes.et_FORM_LOAD)
                     {
-                        switch(pVal.FormTypeEx)
                         {
 
                             //case "60100":       //인사관리>사원마스터데이터 (사용자 정의 필드)

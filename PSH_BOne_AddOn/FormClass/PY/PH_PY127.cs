@@ -997,16 +997,14 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.BeforeAction == true)
                 {
-                }
-                else if (pVal.BeforeAction == false)
-                {
                     SubMain.Remove_Forms(oFormUniqueID);
-
-                    //메모리 해제
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY127A);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY127B);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
+                }
+                else if (pVal.BeforeAction == false)
+                {   
                 }
             }
             catch (Exception ex)

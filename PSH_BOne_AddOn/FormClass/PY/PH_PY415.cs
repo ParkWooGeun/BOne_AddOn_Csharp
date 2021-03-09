@@ -9,14 +9,16 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PH_PY415 : PSH_BaseClass
     {
-        public string oFormUniqueID;
-
-        public SAPbouiCOM.Matrix oMat1;
+        private string oFormUniqueID;
+        private SAPbouiCOM.Matrix oMat1;
         private SAPbouiCOM.DBDataSource oDS_PH_PY415B;
-
         private string oLastItemUID;
         private string oLastColUID;
         private int oLastColRow;
+
+        /// <summary>
+        /// 화면 호출
+        /// </summary>
         public override void LoadForm(string oFromDocEntry01)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -559,13 +561,13 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.Before_Action == true)
                 {
-                }
-                else if (pVal.Before_Action == false)
-                {
                     SubMain.Remove_Forms(oFormUniqueID);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY415B);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat1);
+                }
+                else if (pVal.Before_Action == false)
+                {   
                 }
             }
             catch (Exception ex)

@@ -59,7 +59,6 @@ namespace PSH_BOne_AddOn
                 PH_PY931_CreateItems();
                 PH_PY931_EnableMenus();
                 PH_PY931_SetDocument(oFormDocEntry01);
-                //PH_PY931_FormResize();
             }
             catch (Exception ex)
             {

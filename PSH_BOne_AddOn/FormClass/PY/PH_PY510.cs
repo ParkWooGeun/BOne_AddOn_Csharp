@@ -55,7 +55,6 @@ namespace PSH_BOne_AddOn
                 PH_PY510_CreateItems();
                 PH_PY510_EnableMenus();
                 PH_PY510_SetDocument(oFormDocEntry01);
-                //PH_PY510_FormResize();
             }
             catch (Exception ex)
             {
@@ -909,14 +908,13 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.Before_Action == true)
                 {
-                }
-                else if (pVal.Before_Action == false)
-                {
                     SubMain.Remove_Forms(oFormUniqueID01);
-
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY510);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid1);
+                }
+                else if (pVal.Before_Action == false)
+                {   
                 }
             }
             catch (Exception ex)

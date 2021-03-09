@@ -63,8 +63,8 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("FrDt01").Specific.Value = DateTime.Now.ToString("yyyy0101");
 				oForm.Items.Item("ToDt01").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 				
-				oForm.Items.Item("Folder01").Specific.Select();				
-			}
+				oForm.Items.Item("Folder01").Specific.Select();
+            }
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
@@ -662,15 +662,19 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.Before_Action == true)
                 {
-                }
-                else if (pVal.Before_Action == false)
-                {
                     SubMain.Remove_Forms(oFormUniqueID);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid01);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid02);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid03);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid04);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO600A);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO600B);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO600C);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO600D);
+                }
+                else if (pVal.Before_Action == false)
+                {   
                 }
             }
             catch (Exception ex)

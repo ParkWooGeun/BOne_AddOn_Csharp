@@ -44,7 +44,7 @@ namespace PSH_BOne_AddOn
 				oForm.EnableMenu("1283", false);				//// 제거
 				oForm.EnableMenu("1284", false);				//// 취소
 				oForm.EnableMenu("1287", false);				//// 복원
-				oForm.EnableMenu("1293", false);				//// 행삭제
+				oForm.EnableMenu("1293", false);                //// 행삭제
 			}
 			catch (Exception ex)
 			{
@@ -153,210 +153,224 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// Raise_FormItemEvent
+		/// Form Item Event
 		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="pVal"></param>
-		/// <param name="BubbleEvent"></param>
+		/// <param name="FormUID">Form UID</param>
+		/// <param name="pVal">pVal</param>
+		/// <param name="BubbleEvent">Bubble Event</param>
 		public override void Raise_FormItemEvent(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
-			string sQry = string.Empty;
+			switch (pVal.EventType)
+			{
+				case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED: //1
+					Raise_EVENT_ITEM_PRESSED(FormUID, ref pVal, ref BubbleEvent);
+					break;
+				case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
+					//Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
+					break;
+				case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
+					//Raise_EVENT_GOT_FOCUS(FormUID, ref pVal, ref BubbleEvent);
+					break;
+				case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
+					//Raise_EVENT_LOST_FOCUS(FormUID, ref pVal, ref BubbleEvent);
+					break;
+				case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
+					//Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
+					break;
+				case SAPbouiCOM.BoEventTypes.et_CLICK: //6
+					//Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
+					break;
+				case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
+					//Raise_EVENT_DOUBLE_CLICK(FormUID, ref pVal, ref BubbleEvent);
+					break;
+				case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED: //8
+					//Raise_EVENT_MATRIX_LINK_PRESSED(FormUID, ref pVal, ref BubbleEvent);
+					break;
+				case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED: //9
+					//Raise_EVENT_MATRIX_COLLAPSE_PRESSED(FormUID, ref pVal, ref BubbleEvent);
+					break;
+				case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
+					//Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
+					break;
+				case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
+					//Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
+					break;
+				case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD: //12
+					//Raise_EVENT_DATASOURCE_LOAD(FormUID, ref pVal, ref BubbleEvent);
+					break;
+				case SAPbouiCOM.BoEventTypes.et_FORM_LOAD: //16
+					//Raise_EVENT_FORM_LOAD(FormUID, ref pVal, ref BubbleEvent);
+					break;
+				case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD: //17
+					Raise_EVENT_FORM_UNLOAD(FormUID, ref pVal, ref BubbleEvent);
+					break;
+				case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: //18
+					//Raise_EVENT_FORM_ACTIVATE(FormUID, ref pVal, ref BubbleEvent);
+					break;
+				case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE: //19
+					//Raise_EVENT_FORM_DEACTIVATE(FormUID, ref pVal, ref BubbleEvent);
+					break;
+				case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE: //20
+					//Raise_EVENT_FORM_CLOSE(FormUID, ref pVal, ref BubbleEvent);
+					break;
+				case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
+					//Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
+					break;
+				case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
+					//Raise_EVENT_FORM_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
+					break;
+				case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
+					//Raise_EVENT_FORM_MENU_HILIGHT(FormUID, ref pVal, ref BubbleEvent);
+					break;
+				case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
+					//Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
+					break;
+				case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
+					//Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
+					break;
+				case SAPbouiCOM.BoEventTypes.et_Drag: //39
+					//Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
+					break;
+			}
+		}
 
-			int sReturnValue = 0;
-			string AcctMon = string.Empty;
-			string Company = string.Empty;
-			string Version = string.Empty;
-			string AcctYear = string.Empty;
-			string BPLId = string.Empty;
-			
-			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+		/// <summary>
+		/// ITEM_PRESSED 이벤트
+		/// </summary>
+		/// <param name="FormUID">Form UID</param>
+		/// <param name="pVal">ItemEvent 객체</param>
+		/// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+		private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            string sQry;
+            int sReturnValue;
+            string AcctMon;
+            string Company;
+            string Version;
+            string AcctYear;
+            string BPLId;
 
-			try
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
 			{
 				if (pVal.BeforeAction == true)
 				{
-					switch (pVal.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED:						//1
-							if (pVal.ItemUID == "Btn01" || pVal.ItemUID == "Btn02" || pVal.ItemUID == "Btn03")
-							{
-								if (HeaderSpaceLineDel() == false)
-								{
-									BubbleEvent = false;
-									return;
-								}
+                    if (pVal.ItemUID == "Btn01" || pVal.ItemUID == "Btn02" || pVal.ItemUID == "Btn03")
+                    {
+                        if (HeaderSpaceLineDel() == false)
+                        {
+                            BubbleEvent = false;
+                            return;
+                        }
 
-								Version  = oForm.Items.Item("Version").Specific.Selected.Value.ToString().Trim();
-								Company  = oForm.Items.Item("Company").Specific.Value.ToString().Trim();
-								AcctYear = oForm.Items.Item("AcctYear").Specific.Value.ToString().Trim();
-								AcctMon  = oForm.Items.Item("AcctMon").Specific.Value.ToString().Trim();
-								BPLId    = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+                        Version = oForm.Items.Item("Version").Specific.Selected.Value.ToString().Trim();
+                        Company = oForm.Items.Item("Company").Specific.Value.ToString().Trim();
+                        AcctYear = oForm.Items.Item("AcctYear").Specific.Value.ToString().Trim();
+                        AcctMon = oForm.Items.Item("AcctMon").Specific.Value.ToString().Trim();
+                        BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
 
-								if (pVal.ItemUID == "Btn01")
-								{
-									sQry = " Select * From [ZFI010] Where ";
-									sQry += "Version = '" + Version + "' And ";
-									sQry += "Company = '" + Company + "' And ";
-									sQry += "AcctYear = '" + AcctYear + "' And ";
-									sQry += "AcctMon = '" + AcctMon + "' And ";
-									sQry += "BPLId = '" + BPLId + "' ";
-									oRecordSet.DoQuery(sQry);
+                        if (pVal.ItemUID == "Btn01")
+                        {
+                            sQry = " Select * From [ZFI010] Where ";
+                            sQry += "Version = '" + Version + "' And ";
+                            sQry += "Company = '" + Company + "' And ";
+                            sQry += "AcctYear = '" + AcctYear + "' And ";
+                            sQry += "AcctMon = '" + AcctMon + "' And ";
+                            sQry += "BPLId = '" + BPLId + "' ";
+                            oRecordSet.DoQuery(sQry);
 
-									if (oRecordSet.RecordCount > 0)
-									{
-										sReturnValue = PSH_Globals.SBO_Application.MessageBox("해당 조건의 데이터가 존재합니다. 바꾸시겠습니까?", 1, "&확인", "&취소");
-									}
-									else
-									{
-										sReturnValue = PSH_Globals.SBO_Application.MessageBox("해당 조건의 데이터를 저장하시겠습니까?", 1, "&확인", "&취소");
-									}
+                            if (oRecordSet.RecordCount > 0)
+                            {
+                                sReturnValue = PSH_Globals.SBO_Application.MessageBox("해당 조건의 데이터가 존재합니다. 바꾸시겠습니까?", 1, "&확인", "&취소");
+                            }
+                            else
+                            {
+                                sReturnValue = PSH_Globals.SBO_Application.MessageBox("해당 조건의 데이터를 저장하시겠습니까?", 1, "&확인", "&취소");
+                            }
 
-									switch (sReturnValue)
-									{
-										case 1:
-											if (oRecordSet.RecordCount > 0)
-											{
-												sQry = " Delete [ZFI010] Where ";
-												sQry += "Version = '" + Version + "' And ";
-												sQry += "Company = '" + Company + "' And ";
-												sQry += "AcctYear = '" + AcctYear + "' And ";
-												sQry += "AcctMon = '" + AcctMon + "' And ";
-												sQry += "BPLId = '" + BPLId + "' ";
-												oRecordSet.DoQuery(sQry);
-											}
-											sQry = "EXEC [PS_FI900_01] '" + Version + "', '" + Company + "', '" + AcctYear + "', '" + AcctMon + "', '" + BPLId + "'";
-											oRecordSet.DoQuery(sQry);
-											PSH_Globals.SBO_Application.StatusBar.SetText("해당 조건의 데이터가 성공적으로 저장되었습니다. 데이터를 확인해보세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
+                            switch (sReturnValue)
+                            {
+                                case 1:
+                                    if (oRecordSet.RecordCount > 0)
+                                    {
+                                        sQry = " Delete [ZFI010] Where ";
+                                        sQry += "Version = '" + Version + "' And ";
+                                        sQry += "Company = '" + Company + "' And ";
+                                        sQry += "AcctYear = '" + AcctYear + "' And ";
+                                        sQry += "AcctMon = '" + AcctMon + "' And ";
+                                        sQry += "BPLId = '" + BPLId + "' ";
+                                        oRecordSet.DoQuery(sQry);
+                                    }
+                                    sQry = "EXEC [PS_FI900_01] '" + Version + "', '" + Company + "', '" + AcctYear + "', '" + AcctMon + "', '" + BPLId + "'";
+                                    oRecordSet.DoQuery(sQry);
+                                    PSH_Globals.SBO_Application.StatusBar.SetText("해당 조건의 데이터가 성공적으로 저장되었습니다. 데이터를 확인해보세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
 
-											sQry = "EXEC [PS_FI900_02] '" + Version + "', '" + Company + "', '" + AcctYear + "', '" + AcctMon + "', '" + BPLId + "'";
-											oForm.DataSources.DataTables.Item(0).ExecuteQuery(sQry);
-											oGrid01.DataTable = oForm.DataSources.DataTables.Item("Grid01");
+                                    sQry = "EXEC [PS_FI900_02] '" + Version + "', '" + Company + "', '" + AcctYear + "', '" + AcctMon + "', '" + BPLId + "'";
+                                    oForm.DataSources.DataTables.Item(0).ExecuteQuery(sQry);
+                                    oGrid01.DataTable = oForm.DataSources.DataTables.Item("Grid01");
 
-											DrawGrid();
-											break;
-										case 2:
-											PSH_Globals.SBO_Application.MessageBox("실행이 취소되었습니다.");
-											BubbleEvent = false;
-											break;
-									}
-								}
-								else if (pVal.ItemUID == "Btn02")
-								{
-									sQry = "EXEC [PS_FI900_02] '" + Version + "', '" + Company + "', '" + AcctYear + "', '" + AcctMon + "', '" + BPLId + "'";
-									oForm.DataSources.DataTables.Item(0).ExecuteQuery(sQry);
-									oGrid01.DataTable = oForm.DataSources.DataTables.Item("Grid01");
+                                    DrawGrid();
+                                    break;
+                                case 2:
+                                    PSH_Globals.SBO_Application.MessageBox("실행이 취소되었습니다.");
+                                    BubbleEvent = false;
+                                    break;
+                            }
+                        }
+                        else if (pVal.ItemUID == "Btn02")
+                        {
+                            sQry = "EXEC [PS_FI900_02] '" + Version + "', '" + Company + "', '" + AcctYear + "', '" + AcctMon + "', '" + BPLId + "'";
+                            oForm.DataSources.DataTables.Item(0).ExecuteQuery(sQry);
+                            oGrid01.DataTable = oForm.DataSources.DataTables.Item("Grid01");
 
-									DrawGrid();
-								}
-								else if (pVal.ItemUID == "Btn03")
-								{
-									sQry = " Select * From [ZFI010] Where ";
-									sQry += "Version = '" + Version + "' And ";
-									sQry += "Company = '" + Company + "' And ";
-									sQry += "AcctYear = '" + AcctYear + "' And ";
-									sQry += "AcctMon = '" + AcctMon + "' And ";
-									sQry += "BPLId = '" + BPLId + "' ";
-									oRecordSet.DoQuery(sQry);
+                            DrawGrid();
+                        }
+                        else if (pVal.ItemUID == "Btn03")
+                        {
+                            sQry = " Select * From [ZFI010] Where ";
+                            sQry += "Version = '" + Version + "' And ";
+                            sQry += "Company = '" + Company + "' And ";
+                            sQry += "AcctYear = '" + AcctYear + "' And ";
+                            sQry += "AcctMon = '" + AcctMon + "' And ";
+                            sQry += "BPLId = '" + BPLId + "' ";
+                            oRecordSet.DoQuery(sQry);
 
-									if (oRecordSet.RecordCount > 0)
-									{
-										sReturnValue = PSH_Globals.SBO_Application.MessageBox("해당 조건의 데이터가 존재합니다. 삭제하시겠습니까?", 1, "&확인", "&취소");
-										switch (sReturnValue)
-										{
-											case 1:
-												sQry = " Delete [ZFI010] Where ";
-												sQry += "Version = '" + Version + "' And ";
-												sQry += "Company = '" + Company + "' And ";
-												sQry += "AcctYear = '" + AcctYear + "' And ";
-												sQry += "AcctMon = '" + AcctMon + "' And ";
-												sQry += "BPLId = '" + BPLId + "' ";
-												oRecordSet.DoQuery(sQry);
-												PSH_Globals.SBO_Application.StatusBar.SetText("해당 조건의 데이터가 성공적으로 삭제되었습니다. 데이터를 확인해보세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
-												sQry = "EXEC [PS_FI900_02] '" + Version + "', '" + Company + "', '" + AcctYear + "', '" + AcctMon + "', '" + BPLId + "'";
-												oForm.DataSources.DataTables.Item(0).ExecuteQuery(sQry);
-												oGrid01.DataTable = oForm.DataSources.DataTables.Item("Grid01");
+                            if (oRecordSet.RecordCount > 0)
+                            {
+                                sReturnValue = PSH_Globals.SBO_Application.MessageBox("해당 조건의 데이터가 존재합니다. 삭제하시겠습니까?", 1, "&확인", "&취소");
+                                switch (sReturnValue)
+                                {
+                                    case 1:
+                                        sQry = " Delete [ZFI010] Where ";
+                                        sQry += "Version = '" + Version + "' And ";
+                                        sQry += "Company = '" + Company + "' And ";
+                                        sQry += "AcctYear = '" + AcctYear + "' And ";
+                                        sQry += "AcctMon = '" + AcctMon + "' And ";
+                                        sQry += "BPLId = '" + BPLId + "' ";
+                                        oRecordSet.DoQuery(sQry);
+                                        PSH_Globals.SBO_Application.StatusBar.SetText("해당 조건의 데이터가 성공적으로 삭제되었습니다. 데이터를 확인해보세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
+                                        sQry = "EXEC [PS_FI900_02] '" + Version + "', '" + Company + "', '" + AcctYear + "', '" + AcctMon + "', '" + BPLId + "'";
+                                        oForm.DataSources.DataTables.Item(0).ExecuteQuery(sQry);
+                                        oGrid01.DataTable = oForm.DataSources.DataTables.Item("Grid01");
 
-												DrawGrid();
-												break;
-											case 2:
-												PSH_Globals.SBO_Application.MessageBox("실행이 취소되었습니다.");
-												BubbleEvent = false;
-												break;
-										}
-									}
-									else
-									{
-										PSH_Globals.SBO_Application.MessageBox("실행이 취소되었습니다.");
-									}
-								}
-							}
-							break;
-						case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS:                          //3
-							break;
-						case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS:                         //4
-							break;
-						case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT:						//5
-							break;
-						case SAPbouiCOM.BoEventTypes.et_CLICK:							    //6
-							break;
-						case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK:						//7
-							break;
-						case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED:				//8
-							break;
-						case SAPbouiCOM.BoEventTypes.et_VALIDATE:							//10
-							break;
-						case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD:						//11
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD:                        //17
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE:						//18
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE:					//19
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE:						//20
-							break;
-						case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST:					//27
-							break;
-					}
-				}
+                                        DrawGrid();
+                                        break;
+                                    case 2:
+                                        PSH_Globals.SBO_Application.MessageBox("실행이 취소되었습니다.");
+                                        BubbleEvent = false;
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                PSH_Globals.SBO_Application.MessageBox("실행이 취소되었습니다.");
+                            }
+                        }
+                    }
+                }
 				else if (pVal.BeforeAction == false)
 				{
-					switch (pVal.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED:						//1
-							break;
-						case SAPbouiCOM.BoEventTypes.et_KEY_DOWN:							//2
-							break;
-						case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS:                          //3
-							break;
-						case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS:                         //4
-							break;
-						case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT:						//5
-							break;
-						case SAPbouiCOM.BoEventTypes.et_CLICK:							    //6
-							break;
-						case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK:						//7
-							break;
-						case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED:				//8
-							break;
-						case SAPbouiCOM.BoEventTypes.et_VALIDATE:							//10
-							break;
-						case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD:						//11
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD:                        //17		
-							System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm); //메모리 해제
-							System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid01); //메모리 해제
-							SubMain.Remove_Forms(oFormUniqueID01);
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE:						//18
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE:					//19
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE:						//20
-							break;
-						case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST:					//27
-							break;
-					}
 				}
 			}
 			catch (Exception ex)
@@ -366,6 +380,35 @@ namespace PSH_BOne_AddOn
 			finally
 			{
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
+			}
+		}
+
+		/// <summary>
+		/// FORM_UNLOAD 이벤트
+		/// </summary>
+		/// <param name="FormUID">Form UID</param>
+		/// <param name="pVal">ItemEvent 객체</param>
+		/// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+		private void Raise_EVENT_FORM_UNLOAD(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+		{
+			try
+			{
+				if (pVal.Before_Action == true)
+                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm); //메모리 해제
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid01); //메모리 해제
+                    SubMain.Remove_Forms(oFormUniqueID01);
+                }
+				else if (pVal.Before_Action == false)
+				{
+				}
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+			{
 			}
 		}
 

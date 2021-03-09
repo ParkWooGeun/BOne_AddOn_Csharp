@@ -14,12 +14,10 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PH_PY405 : PSH_BaseClass
     {
-        public string oFormUniqueID01;
-
-        //'// 그리드 사용시
-        public SAPbouiCOM.Grid oGrid1;
-        public SAPbouiCOM.DataTable oDS_PH_PY405;
-        public SAPbouiCOM.Matrix oMat01;
+        private string oFormUniqueID01;
+        private SAPbouiCOM.Grid oGrid1;
+        private SAPbouiCOM.DataTable oDS_PH_PY405;
+        private SAPbouiCOM.Matrix oMat01;
         private SAPbouiCOM.DBDataSource oDS_PH_PY405L;
 
         /// <summary>
@@ -321,16 +319,15 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.Before_Action == true)
                 {
-                }
-                else if (pVal.Before_Action == false)
-                {
                     SubMain.Remove_Forms(oFormUniqueID01);
-
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY405);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY405L);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid1);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
+                }
+                else if (pVal.Before_Action == false)
+                {   
                 }
             }
             catch (Exception ex)
@@ -524,7 +521,6 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(false);
             }
         }
-
 
         /// <summary>
         /// ITEM_PRESSED 이벤트

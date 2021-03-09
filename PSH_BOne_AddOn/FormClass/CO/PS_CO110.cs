@@ -56,7 +56,7 @@ namespace PSH_BOne_AddOn
 				oForm.EnableMenu("1286", false); //닫기
 				oForm.EnableMenu("1284", false); //취소
 				oForm.EnableMenu("1293", true); //행삭제
-			}
+            }
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
@@ -779,14 +779,14 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.Before_Action == true)
                 {
-                }
-                else if (pVal.Before_Action == false)
-                {
                     SubMain.Remove_Forms(oFormUniqueID);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO110H);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO110L);
+                }
+                else if (pVal.Before_Action == false)
+                {   
                 }
             }
             catch (Exception ex)

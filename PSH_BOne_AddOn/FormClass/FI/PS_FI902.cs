@@ -65,72 +65,170 @@ namespace PSH_BOne_AddOn
 			}
 		}
 
-		/// <summary>
-		/// Raise_FormItemEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="pVal"></param>
-		/// <param name="BubbleEvent"></param>
-		public override void Raise_FormItemEvent(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-		{
-			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-			SAPbouiCOM.ProgressBar ProgBar01 = null;
+        /// <summary>
+        /// Form Item Event
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">pVal</param>
+        /// <param name="BubbleEvent">Bubble Event</param>
+        public override void Raise_FormItemEvent(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            switch (pVal.EventType)
+            {
+                case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED: //1
+                    Raise_EVENT_ITEM_PRESSED(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
+                    //Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
+                    //Raise_EVENT_GOT_FOCUS(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
+                    //Raise_EVENT_LOST_FOCUS(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
+                    //Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_CLICK: //6
+                    //Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
+                    //Raise_EVENT_DOUBLE_CLICK(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED: //8
+                    //Raise_EVENT_MATRIX_LINK_PRESSED(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED: //9
+                    //Raise_EVENT_MATRIX_COLLAPSE_PRESSED(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
+                    //Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
+                    //Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD: //12
+                    //Raise_EVENT_DATASOURCE_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_FORM_LOAD: //16
+                    //Raise_EVENT_FORM_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD: //17
+                    Raise_EVENT_FORM_UNLOAD(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: //18
+                    //Raise_EVENT_FORM_ACTIVATE(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE: //19
+                    //Raise_EVENT_FORM_DEACTIVATE(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE: //20
+                    //Raise_EVENT_FORM_CLOSE(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
+                    //Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
+                    //Raise_EVENT_FORM_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
+                    //Raise_EVENT_FORM_MENU_HILIGHT(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
+                    //Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
+                    //Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_Drag: //39
+                    //Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+            }
+        }
 
-			try
-			{
-				if (pVal.BeforeAction == true)
-				{
-					switch (pVal.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED: //1
-							if (pVal.ItemUID == "Btn01")
-							{
-								ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+        /// <summary>
+        /// ITEM_PRESSED 이벤트
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbouiCOM.ProgressBar ProgBar01 = null;
 
-								string docDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
-								string sQry = "Exec PS_FI902_01 '" + docDate + "'";
-								oRecordSet.DoQuery(sQry);
+            try
+            {
+                if (pVal.BeforeAction == true)
+                {
+                    if (pVal.ItemUID == "Btn01")
+                    {
+                        ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
-								ProgBar01.Stop();
-								PSH_Globals.SBO_Application.StatusBar.SetText("실행완료", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
-							}
-							break;
-					}
-				}
-				else if (pVal.BeforeAction == false)
-				{
-					switch (pVal.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD: //17
-							System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm); //메모리 해제
-							SubMain.Remove_Forms(oFormUniqueID01);
-							break;
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+                        string docDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
+                        string sQry = "Exec PS_FI902_01 '" + docDate + "'";
+                        oRecordSet.DoQuery(sQry);
 
-				if (ProgBar01 != null)
-				{
-					ProgBar01.Stop();
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
-				}
-			}
-		}
+                        ProgBar01.Stop();
+                        PSH_Globals.SBO_Application.StatusBar.SetText("실행완료", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
+                    }
+                }
+                else if (pVal.BeforeAction == false)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 
-		/// <summary>
-		/// Raise_FormMenuEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="pVal"></param>
-		/// <param name="BubbleEvent"></param>
-		public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
+                if (ProgBar01 != null)
+                {
+                    ProgBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                }
+            }
+        }
+
+        /// <summary>
+        /// FORM_UNLOAD 이벤트
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_FORM_UNLOAD(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            try
+            {
+                if (pVal.Before_Action == true)
+                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm); //메모리 해제
+                    SubMain.Remove_Forms(oFormUniqueID01);
+                }
+                else if (pVal.Before_Action == false)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
+        }
+
+        /// <summary>
+        /// Raise_FormMenuEvent
+        /// </summary>
+        /// <param name="FormUID"></param>
+        /// <param name="pVal"></param>
+        /// <param name="BubbleEvent"></param>
+        public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
 		{
 			try
 			{

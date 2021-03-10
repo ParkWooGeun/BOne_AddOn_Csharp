@@ -11,9 +11,8 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PH_PY980 : PSH_BaseClass
     {
-        public string oFormUniqueID01;
-        //public SAPbouiCOM.Form oForm;
-
+        private string oFormUniqueID01;
+        
         /// <summary>
         /// Form 호출
         /// </summary>
@@ -2317,13 +2316,11 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.Before_Action == true)
                 {
+                    SubMain.Remove_Forms(oFormUniqueID01);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                 }
                 else if (pVal.Before_Action == false)
-                {
-                    SubMain.Remove_Forms(oFormUniqueID01);
-
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
-                    //System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat1);
+                {   
                 }
             }
             catch (Exception ex)

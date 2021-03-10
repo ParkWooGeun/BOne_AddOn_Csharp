@@ -12,7 +12,7 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PH_PYA55 : PSH_BaseClass
     {
-        public string oFormUniqueID01;
+        private string oFormUniqueID01;
 
         /// <summary>
         /// 화면 호출
@@ -105,7 +105,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면의 아이템 Enable 설정
         /// </summary>
-        public void PH_PYA55_FormItemEnabled()
+        private void PH_PYA55_FormItemEnabled()
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
@@ -283,11 +283,11 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.Before_Action == true)
                 {
-                }
-                else if (pVal.Before_Action == false)
-                {
                     SubMain.Remove_Forms(oFormUniqueID01);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
+                }
+                else if (pVal.Before_Action == false)
+                {   
                 }
             }
             catch (Exception ex)

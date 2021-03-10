@@ -10,6 +10,9 @@ namespace PSH_BOne_AddOn
     {
         private string oFormUniqueID;
 
+        /// <summary>
+        /// Form 호출
+        /// </summary>
         public override void LoadForm(string oFormUid)
         {
             oFormUniqueID = oFormUid;
@@ -19,6 +22,9 @@ namespace PSH_BOne_AddOn
             SM60100_FormItemEnabled();
         }
 
+        /// <summary>
+        /// 화면 Item 생성
+        /// </summary>
         private void SM60100_CreateItems()
         {
             //SAPbouiCOM.Item oItem = null;
@@ -49,6 +55,9 @@ namespace PSH_BOne_AddOn
             }
         }
 
+        /// <summary>
+        /// 화면의 아이템 Enable 설정
+        /// </summary>
         private void SM60100_FormItemEnabled()
         {
             try
@@ -74,6 +83,10 @@ namespace PSH_BOne_AddOn
             }
         }
 
+        /// <summary>
+        /// DataValidCheck
+        /// </summary>
+        /// <returns></returns>
         private bool SM60100_DataValidCheck()
         {
             bool functionReturnValue = false;
@@ -105,6 +118,12 @@ namespace PSH_BOne_AddOn
             return functionReturnValue;
         }
 
+        /// <summary>
+        /// Raise_FormItemEvent
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">이벤트 </param>
+        /// <param name="BubbleEvent">Bubble Event</param>
         public override void Raise_FormItemEvent(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             try
@@ -206,7 +225,7 @@ namespace PSH_BOne_AddOn
                 if (pVal.Before_Action == true)
                 {
                     SubMain.Remove_Forms(oFormUniqueID);
-                    oForm = null;
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                 }
                 else if (pVal.Before_Action == false)
                 {
@@ -222,6 +241,12 @@ namespace PSH_BOne_AddOn
             }
         }
 
+        /// <summary>
+        /// FormMenuEvent
+        /// </summary>
+        /// <param name="FormUID"></param>
+        /// <param name="pVal"></param>
+        /// <param name="BubbleEvent"></param>
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
             try
@@ -282,6 +307,12 @@ namespace PSH_BOne_AddOn
             }       
         }
 
+        /// <summary>
+        /// FormDataEvent
+        /// </summary>
+        /// <param name="FormUID"></param>
+        /// <param name="BusinessObjectInfo"></param>
+        /// <param name="BubbleEvent"></param>
         public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
         {
             try
@@ -338,6 +369,12 @@ namespace PSH_BOne_AddOn
             }
         }
 
+        /// <summary>
+        /// RightClickEvent
+        /// </summary>
+        /// <param name="FormUID"></param>
+        /// <param name="pVal"></param>
+        /// <param name="BubbleEvent"></param>
         public override void Raise_RightClickEvent(string FormUID, ref SAPbouiCOM.ContextMenuInfo pVal, ref bool BubbleEvent)
         {
             oForm = PSH_Globals.SBO_Application.Forms.Item(pVal.FormUID);

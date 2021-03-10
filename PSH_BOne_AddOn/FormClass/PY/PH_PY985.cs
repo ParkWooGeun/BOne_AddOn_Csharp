@@ -12,6 +12,10 @@ namespace PSH_BOne_AddOn
     internal class PH_PY985 : PSH_BaseClass
     {
         public string oFormUniqueID01;
+
+        /// <summary>
+        /// Form 호출
+        /// </summary>
         public override void LoadForm()
         {
             string strXml = string.Empty;
@@ -329,8 +333,6 @@ namespace PSH_BOne_AddOn
             return functionReturnValue;
         }
 
-        
-
         /// <summary>
         /// ITEM_PRESSED 이벤트
         /// </summary>
@@ -442,11 +444,11 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.Before_Action == true)
                 {
-                }
-                else if (pVal.Before_Action == false)
-                {
                     SubMain.Remove_Forms(oFormUniqueID01);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
+                }
+                else if (pVal.Before_Action == false)
+                {   
                 }
             }
             catch (Exception ex)

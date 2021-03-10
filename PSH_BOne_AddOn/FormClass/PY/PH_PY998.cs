@@ -116,7 +116,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// PH_PY030_ComboBox_Setting
         /// </summary>
-        public void PH_PY998_ComboBox_Setting()
+        private void PH_PY998_ComboBox_Setting()
         {
             try
             {
@@ -692,14 +692,13 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.Before_Action == true)
                 {
-                }
-                else if (pVal.Before_Action == false)
-                {
                     SubMain.Remove_Forms(oFormUniqueID01);
-
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY998B);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
+                }
+                else if (pVal.Before_Action == false)
+                {   
                 }
             }
             catch (Exception ex)

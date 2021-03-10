@@ -396,7 +396,7 @@ namespace PSH_BOne_AddOn
 
         /// <summary>
         /// PH_PY417_PY109_Update
-        /// /// </summary>
+        /// </summary>
         private void PH_PY417_PY109_Update()
         {
             string sQry = null;
@@ -461,7 +461,7 @@ namespace PSH_BOne_AddOn
 
         /// <summary>
         /// PH_PY417_PY109_Update
-        /// /// </summary>
+        /// </summary>
         private void PH_PY417_AddMatrixRow()
         {
             int oRow = 0;
@@ -530,7 +530,6 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(false);
             }
         }
-
 
         /// <summary>
         /// Form Item Event
@@ -1118,13 +1117,13 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.Before_Action == true)
                 {
-                }
-                else if (pVal.Before_Action == false)
-                {
                     SubMain.Remove_Forms(oFormUniqueID);
-
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY417B);
+                }
+                else if (pVal.Before_Action == false)
+                {   
                 }
             }
             catch (Exception ex)

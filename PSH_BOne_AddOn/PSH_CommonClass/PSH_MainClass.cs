@@ -2180,6 +2180,22 @@ namespace PSH_BOne_AddOn
                             pBaseClass = new PS_SD013();
                             pBaseClass.LoadForm("");
                             break;
+
+                        case "PS_SD380": //납품명세서
+                            pBaseClass = new PS_SD380();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD110": //견적및수주현황
+                            pBaseClass = new PS_SD110();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD120": //견적서현황
+                            pBaseClass = new PS_SD120();
+                            pBaseClass.LoadForm("");
+                            break;
+
                             #endregion
 
                     }

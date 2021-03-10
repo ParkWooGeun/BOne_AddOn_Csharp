@@ -915,15 +915,15 @@ namespace PSH_BOne_AddOn
 			{
 				if (pVal.BeforeAction == true)
 				{
-				}
-				else if (pVal.BeforeAction == false)
-				{
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm); //메모리 해제
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01); //메모리 해제
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat02); //메모리 해제
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_FI961L); //메모리 해제
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_FI961M); //메모리 해제
 					SubMain.Remove_Forms(oFormUniqueID01);
+				}
+				else if (pVal.BeforeAction == false)
+				{	
 				}
 			}
 			catch (Exception ex)

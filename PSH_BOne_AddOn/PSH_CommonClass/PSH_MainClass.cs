@@ -2150,6 +2150,19 @@ namespace PSH_BOne_AddOn
                             break;
                         #endregion
 
+                        #region 생산관리
+                        case "PS_PP084": //생산완료등록(분말)
+                            pBaseClass = new PS_PP084();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_PP036": //MG생산일보조회
+                            pBaseClass = new PS_PP036();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        #endregion
+
                         #region 판매관리
                         case "PS_SD600": //견적양식등록
                             pBaseClass = new PS_SD600();

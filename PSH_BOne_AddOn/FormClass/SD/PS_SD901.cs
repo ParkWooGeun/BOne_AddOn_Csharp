@@ -208,7 +208,7 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
-				if ((pval.BeforeAction == true))
+				if (pval.BeforeAction == true)
 				{
 					switch (pval.MenuUID)
 					{
@@ -229,7 +229,7 @@ namespace PSH_BOne_AddOn
 							break;
 					}
 				}
-				else if ((pval.BeforeAction == false))
+				else if (pval.BeforeAction == false)
 				{
 					switch (pval.MenuUID)
 					{
@@ -270,7 +270,7 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
-				if ((BusinessObjectInfo.BeforeAction == true))
+				if (BusinessObjectInfo.BeforeAction == true)
 				{
 					switch (BusinessObjectInfo.EventType)
 					{
@@ -284,7 +284,7 @@ namespace PSH_BOne_AddOn
 							break;
 					}
 				}
-				else if ((BusinessObjectInfo.BeforeAction == false))
+				else if (BusinessObjectInfo.BeforeAction == false)
 				{
 					switch (BusinessObjectInfo.EventType)
 					{

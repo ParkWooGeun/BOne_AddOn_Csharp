@@ -2224,6 +2224,16 @@ namespace PSH_BOne_AddOn
                             pBaseClass.LoadForm("");
                             break;
 
+                        case "PS_SD130": //수주접수현황
+                            pBaseClass = new PS_SD130();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD160": //수주/견적비교현황
+                            pBaseClass = new PS_SD160();
+                            pBaseClass.LoadForm("");
+                            break;
+
                             #endregion
 
                     }

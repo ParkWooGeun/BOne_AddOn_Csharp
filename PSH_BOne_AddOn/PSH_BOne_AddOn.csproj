@@ -245,6 +245,8 @@
     <Compile Include="FormClass\SD\PS_SD013.cs" />
     <Compile Include="FormClass\SD\PS_SD110.cs" />
     <Compile Include="FormClass\SD\PS_SD120.cs" />
+    <Compile Include="FormClass\SD\PS_SD130.cs" />
+    <Compile Include="FormClass\SD\PS_SD160.cs" />
     <Compile Include="FormClass\SD\PS_SD380.cs" />
     <Compile Include="FormClass\SD\PS_SD901.cs" />
     <Compile Include="FormClass\SD\PS_SD600.cs" />

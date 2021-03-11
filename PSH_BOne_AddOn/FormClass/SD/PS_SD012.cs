@@ -173,7 +173,9 @@ namespace PSH_BOne_AddOn
 							}
 							else
 							{
-								PS_SD012_Print_Report();
+								System.Threading.Thread thread = new System.Threading.Thread(PS_SD012_Print_Report);
+								thread.SetApartmentState(System.Threading.ApartmentState.STA);
+								thread.Start();
 							}
 						}
 					}
@@ -230,7 +232,7 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
-				if ((pVal.BeforeAction == true))
+				if (pVal.BeforeAction == true)
 				{
 					switch (pVal.MenuUID)
 					{
@@ -251,7 +253,7 @@ namespace PSH_BOne_AddOn
 							break;
 					}
 				}
-				else if ((pVal.BeforeAction == false))
+				else if (pVal.BeforeAction == false)
 				{
 					switch (pVal.MenuUID)
 					{
@@ -295,7 +297,7 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
-				if ((BusinessObjectInfo.BeforeAction == true))
+				if (BusinessObjectInfo.BeforeAction == true)
 				{
 					switch (BusinessObjectInfo.EventType)
 					{
@@ -309,7 +311,7 @@ namespace PSH_BOne_AddOn
 							break;
 					}
 				}
-				else if ((BusinessObjectInfo.BeforeAction == false))
+				else if (BusinessObjectInfo.BeforeAction == false)
 				{
 					switch (BusinessObjectInfo.EventType)
 					{
@@ -365,14 +367,14 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
-				if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
+				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
 
 				}
-				else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE))
+				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
 				{
 				}
-				else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE))
+				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
 				{
 				}
 			}
@@ -392,13 +394,13 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
-				if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
+				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
 				}
-				else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE))
+				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
 				{
 				}
-				else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE))
+				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
 				{
 				}
 			}
@@ -468,6 +470,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// PS_SD012_Print_Report
 		/// </summary>
+		[STAThread]
 		private void PS_SD012_Print_Report()
 		{
 			string WinTitle;

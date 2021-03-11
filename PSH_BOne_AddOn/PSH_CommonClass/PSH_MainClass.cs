@@ -2161,13 +2161,13 @@ namespace PSH_BOne_AddOn
                             pBaseClass.LoadForm("");
                             break;
 
-<<<<<<< HEAD
                         case "PS_PP097": //분말검사결과확인등록
                             pBaseClass = new PS_PP097();
-=======
+                            pBaseClass.LoadForm("");
+                            break;
+
                         case "PS_PP040": //작업일보등록(작지)
                             pBaseClass = new PS_PP040();
->>>>>>> 4a29ab0d4dbda99584b70b3a7792aea78df98975
                             pBaseClass.LoadForm("");
                             break;
 

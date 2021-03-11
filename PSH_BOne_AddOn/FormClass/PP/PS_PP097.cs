@@ -1,7 +1,6 @@
 ﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
-using Microsoft.VisualBasic;
 
 namespace PSH_BOne_AddOn
 {
@@ -11,7 +10,6 @@ namespace PSH_BOne_AddOn
     internal class PS_PP097 : PSH_BaseClass
     {
         private string oFormUniqueID;
-        //private SAPbouiCOM.Form oForm;
         private SAPbouiCOM.Matrix oMat01;
         private SAPbouiCOM.Matrix oMat02;
         private SAPbouiCOM.DBDataSource oDS_PS_PP097M;
@@ -21,25 +19,6 @@ namespace PSH_BOne_AddOn
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
         private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
         private int g_UpdateCount;
-
-        //private struct UpdateDatas
-        //{
-        //    //문서에서 삭제된 자료를 저장할 구조체
-        //    public int InspNo;//삭제한 행의 행번호
-        //    public string PPYN;//삭제한 행의 행번호
-        //    public string QMYN;//삭제한 행의 행번호
-        //}
-        //private UpdateDatas[] UpdateData;
-
-        #region 내부클래스 선언(구조체를 마이그레이션)
-        internal class UpdateDatas
-        {
-            internal int[] InspNo = new int[];
-            internal string[] PPYN = new string[];
-            internal string[] QMYN = new string[];
-        }
-        UpdateDatas UD01 = new UpdateDatas(); //클래스 전체에서 사용됨, 클래스 레벨로 인스턴스 생성
-
 
         /// <summary>
         /// Form 호출
@@ -327,7 +306,6 @@ namespace PSH_BOne_AddOn
                     oDS_PS_PP097M.SetValue("U_ColQty02", loopCount, oRecordSet01.Fields.Item("InspMax").Value);   //두께
                     oDS_PS_PP097M.SetValue("U_ColReg06", loopCount, oRecordSet01.Fields.Item("InspBal").Value);   //상태
                     oDS_PS_PP097M.SetValue("U_ColQty03", loopCount, oRecordSet01.Fields.Item("Value").Value);     //비고
-
                     oRecordSet01.MoveNext();
                 }
                 oMat02.LoadFromDataSource();
@@ -616,38 +594,32 @@ namespace PSH_BOne_AddOn
                     {
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                         {
-                            //금형이력 정보 초기화
                             oMat02.Clear();
                             oDS_PS_PP097M.Clear();
 
-                            PS_PP097_MTX01();
-                            //매트릭스에 데이터 로드
+                            PS_PP097_MTX01();              //매트릭스에 데이터 로드
                         }
-
                     }
                     else if (pVal.ItemUID == "1")
                     {
-                        //행삭제를 한 경우
+                        int[] InspNo = new int [oMat01.RowCount];
+                        string[] PPYN = new string[oMat01.RowCount];
+                        string[] QMYN = new string[oMat01.RowCount];
+
+                        for (i=1; i<= oMat01.RowCount; i++)
+                        {
+                            InspNo[i-1] =  Convert.ToInt32(oMat01.Columns.Item("InspNo").Cells.Item(i).Specific.VALUE);
+                            PPYN[i-1] = oMat01.Columns.Item("PPYN").Cells.Item(i).Specific.VALUE;
+                            QMYN[i-1] = oMat01.Columns.Item("QMYN").Cells.Item(i).Specific.VALUE;
+                        }
                         if (g_UpdateCount > 0)
                         {
                             //구조체 배열에서의 값을 업데이트함.
-                            //for (i = 0; i <= Information.UBound(UpdateData); i++)
-                            for (i = 0; i <= UD01.InspNo.Length; i++)
+                            for (i = 1; i <= oMat01.RowCount; i++)
                             {
-                                sQry = "Update [@PS_QM008H] Set U_PPYN= '" + UD01.PPYN[i] + "', U_QMYN=  '" + UD01.QMYN[i] + "' where U_inspNo ='" + UD01.InspNo[i] + "'";
+                                sQry = "Update [@PS_QM008H] Set U_PPYN= '" + PPYN[i-1] + "', U_QMYN=  '" + QMYN[i - 1] + "' where U_inspNo ='" + InspNo[i - 1] + "'";
                                 oRecordSet01.DoQuery(sQry);
                             }
-                            //삭제행자료 초기화_S
-                            for (i = 0; i <= UD01.InspNo.Length; i++)
-                            {
-                                UD01.InspNo[i] = 0;
-                                UD01.PPYN[i] = Convert.ToString(0);
-                                UD01.QMYN[i] = Convert.ToString(0);
-                            }
-                            //UpdateData = new UpdateDatas[1];
-                            //삭제행자료 초기화_E
-                            g_UpdateCount = 0;
-                            //삭제행 카운트 초기화
                         }
                         PSH_Globals.SBO_Application.MessageBox("수정완료!");
                     }
@@ -675,8 +647,8 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.Before_Action == true)
                 {
-                    dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "CardCode", "");                    //거래처코드 포맷서치 활성
-                    dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "ItemCode", "");                    //품목코드(작번) 포맷서치 활성
+                    dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "CardCode", "");   //거래처코드 포맷서치 활성
+                    dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "ItemCode", "");   //품목코드(작번) 포맷서치 활성
                 }
                 else if (pVal.Before_Action == false)
                 {
@@ -770,19 +742,6 @@ namespace PSH_BOne_AddOn
                 }
                 else if (pVal.Before_Action == false)
                 {
-                    //Array.Resize(ref UD01, g_UpdateCount + 1);
-                    //UD01[g_UpdateCount].InspNo = Convert.ToInt32(oMat01.Columns.Item("InspNo").Cells.Item(oLastColRow01).Specific.VALUE);
-                    //UD01[g_UpdateCount].PPYN = oMat01.Columns.Item("PPYN").Cells.Item(oLastColRow01).Specific.VALUE;
-                    //UD01[g_UpdateCount].QMYN = oMat01.Columns.Item("QMYN").Cells.Item(oLastColRow01).Specific.VALUE;
-                    //g_UpdateCount += 1;
-                    for(i=0; i <= oMat01.RowCount; i++)
-                    {
-                        UD01.InspNo[i] = Convert.ToInt32(oMat01.Columns.Item("InspNo").Cells.Item(oLastColRow01).Specific.VALUE);
-                        UD01.PPYN[i] = oMat01.Columns.Item("PPYN").Cells.Item(oLastColRow01).Specific.VALUE;
-                        UD01.QMYN[i] = oMat01.Columns.Item("QMYN").Cells.Item(oLastColRow01).Specific.VALUE;
-
-                    }
-
                     g_UpdateCount += 1;
                 }
             }
@@ -817,7 +776,6 @@ namespace PSH_BOne_AddOn
                             oLastColUID01 = pVal.ColUID;
                             oLastColRow01 = pVal.Row;
                         }
-
                     }
                     else if (pVal.ItemUID == "Mat02")
                     {
@@ -843,9 +801,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
             }
         }
 

@@ -2161,6 +2161,11 @@ namespace PSH_BOne_AddOn
                             pBaseClass.LoadForm("");
                             break;
 
+                        case "PS_PP097": //분말검사결과확인등록
+                            pBaseClass = new PS_PP097();
+                            pBaseClass.LoadForm("");
+                            break;
+
                         #endregion
 
                         #region 판매관리

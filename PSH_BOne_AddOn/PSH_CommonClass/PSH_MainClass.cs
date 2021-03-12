@@ -2229,6 +2229,11 @@ namespace PSH_BOne_AddOn
                             pBaseClass.LoadForm("");
                             break;
 
+                        case "PS_SD180": //수주실적(거래처별)
+                            pBaseClass = new PS_SD180();
+                            pBaseClass.LoadForm("");
+                            break;
+
                             #endregion
 
                     }

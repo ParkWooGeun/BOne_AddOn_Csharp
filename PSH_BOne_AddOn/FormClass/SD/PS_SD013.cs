@@ -511,7 +511,7 @@ namespace PSH_BOne_AddOn
     	{
 			try
 			{
-				if ((pVal.BeforeAction == true))
+				if (pVal.BeforeAction == true)
 				{
 					switch (pVal.MenuUID)
 					{
@@ -532,7 +532,7 @@ namespace PSH_BOne_AddOn
 							break;
 					}
 				}
-				else if ((pVal.BeforeAction == false))
+				else if (pVal.BeforeAction == false)
 				{
 					switch (pVal.MenuUID)
 					{
@@ -589,7 +589,7 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
-				if ((BusinessObjectInfo.BeforeAction == true))
+				if (BusinessObjectInfo.BeforeAction == true)
 				{
 					switch (BusinessObjectInfo.EventType)
 					{
@@ -603,7 +603,7 @@ namespace PSH_BOne_AddOn
 							break;
 					}
 				}
-				else if ((BusinessObjectInfo.BeforeAction == false))
+				else if (BusinessObjectInfo.BeforeAction == false)
 				{
 					switch (BusinessObjectInfo.EventType)
 					{
@@ -634,21 +634,21 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
-				if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
+				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
 					oForm.Items.Item("DocEntry").Enabled = false;
 					oForm.Items.Item("BPLID").Enabled = true;
 					oForm.Items.Item("FrDt").Enabled = true;
 					oForm.Items.Item("ToDt").Enabled = true;
 				}
-				else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE))
+				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
 				{
 					oForm.Items.Item("DocEntry").Enabled = true;
 					oForm.Items.Item("BPLID").Enabled = true;
 					oForm.Items.Item("FrDt").Enabled = true;
 					oForm.Items.Item("ToDt").Enabled = true;
 				}
-				else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE))
+				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
 				{
 					oForm.Items.Item("DocEntry").Enabled = false;
 					oForm.Items.Item("BPLID").Enabled = false;
@@ -764,7 +764,7 @@ namespace PSH_BOne_AddOn
 				oMat.Clear();
 				oDS_PS_SD013L.Clear();
 
-				if ((oRecordSet.RecordCount == 0))
+				if (oRecordSet.RecordCount == 0)
 				{
 					ErrNum = 1;
 					throw new Exception();
@@ -776,7 +776,7 @@ namespace PSH_BOne_AddOn
 				{
 					if (i + 1 > oDS_PS_SD013L.Size)
 					{
-						oDS_PS_SD013L.InsertRecord((i));
+						oDS_PS_SD013L.InsertRecord(i);
 					}
 
 					oMat.AddRow();

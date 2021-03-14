@@ -2151,6 +2151,11 @@ namespace PSH_BOne_AddOn
                         #endregion
 
                         #region 생산관리
+                        case "PS_PP730": //분말일자별작업조회
+                            pBaseClass = new PS_PP730();
+                            pBaseClass.LoadForm("");
+                            break;
+
                         case "PS_PP084": //생산완료등록(분말)
                             pBaseClass = new PS_PP084();
                             pBaseClass.LoadForm("");
@@ -2158,6 +2163,11 @@ namespace PSH_BOne_AddOn
 
                         case "PS_PP036": //MG생산일보조회
                             pBaseClass = new PS_PP036();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_PP097": //분말검사결과확인등록
+                            pBaseClass = new PS_PP097();
                             pBaseClass.LoadForm("");
                             break;
 
@@ -2211,6 +2221,21 @@ namespace PSH_BOne_AddOn
 
                         case "PS_SD120": //견적서현황
                             pBaseClass = new PS_SD120();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD130": //수주접수현황
+                            pBaseClass = new PS_SD130();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD160": //수주/견적비교현황
+                            pBaseClass = new PS_SD160();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD180": //수주실적(거래처별)
+                            pBaseClass = new PS_SD180();
                             pBaseClass.LoadForm("");
                             break;
 

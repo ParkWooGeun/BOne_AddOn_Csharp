@@ -214,7 +214,9 @@ namespace PSH_BOne_AddOn
 					{
 						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 						{
-							PS_SD380_Print_Report01();
+							System.Threading.Thread thread = new System.Threading.Thread(PS_SD380_Print_Report01);
+							thread.SetApartmentState(System.Threading.ApartmentState.STA);
+							thread.Start();
 						}
 						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
 						{
@@ -363,7 +365,7 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
-				if ((pVal.BeforeAction == true))
+				if (pVal.BeforeAction == true)
 				{
 					switch (pVal.MenuUID)
 					{
@@ -384,7 +386,7 @@ namespace PSH_BOne_AddOn
 							break;
 					}
 				}
-				else if ((pVal.BeforeAction == false))
+				else if (pVal.BeforeAction == false)
 				{
 					switch (pVal.MenuUID)
 					{
@@ -425,7 +427,7 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
-				if ((BusinessObjectInfo.BeforeAction == true))
+				if (BusinessObjectInfo.BeforeAction == true)
 				{
 					switch (BusinessObjectInfo.EventType)
 					{
@@ -439,7 +441,7 @@ namespace PSH_BOne_AddOn
 							break;
 					}
 				}
-				else if ((BusinessObjectInfo.BeforeAction == false))
+				else if (BusinessObjectInfo.BeforeAction == false)
 				{
 					switch (BusinessObjectInfo.EventType)
 					{
@@ -466,6 +468,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// PS_SD380_Print_Report01
 		/// </summary>
+		[STAThread]
 		private void PS_SD380_Print_Report01()
 		{
 			string WinTitle;

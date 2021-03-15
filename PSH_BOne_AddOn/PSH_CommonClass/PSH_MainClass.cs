@@ -2176,6 +2176,11 @@ namespace PSH_BOne_AddOn
                             pBaseClass.LoadForm("");
                             break;
 
+                        case "PS_PP030": //작업지시등록
+                            pBaseClass = new PS_PP030();
+                            pBaseClass.LoadForm("");
+                            break;
+
                         #endregion
 
                         #region 판매관리

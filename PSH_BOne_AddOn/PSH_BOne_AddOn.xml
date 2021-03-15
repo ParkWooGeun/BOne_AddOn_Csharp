@@ -9179,22 +9179,6 @@
             <param name="pVal">pVal</param>
             <param name="BubbleEvent">Bubble Event</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP730.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            ITEM_PRESSED 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP730.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            FORM_UNLOAD 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_PP730.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>
             FormMenuEvent
@@ -9210,6 +9194,22 @@
             <param name="FormUID"></param>
             <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP730.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            ITEM_PRESSED 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP730.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            FORM_UNLOAD 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_PP097">
             <summary>
@@ -9797,6 +9797,42 @@
             근무시간 총합계산
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP040.PS_PP040_OrderInfoLoad">
+            <summary>
+            OrderInfoLoad
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP040.PS_PP040_FindValidateDocument(System.String)">
+            <summary>
+            FindValidateDocument : 작업일보등록(작지) 문서인지 조회
+            </summary>
+            <param name="ObjectType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP040.PS_PP040_DirectionValidateDocument(System.String,System.String,System.String,System.String)">
+            <summary>
+            DirectionValidateDocument : 네비게이터 클릭시 작업일보등록(작지) 문서 조회
+            </summary>
+            <param name="DocEntry"></param>
+            <param name="DocEntryNext"></param>
+            <param name="Direction"></param>
+            <param name="ObjectType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP040.Add_oInventoryGenExit(System.Int16)">
+            <summary>
+            출고 DI API(원재료 출고용)
+            </summary>
+            <param name="ChkType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP040.Add_oInventoryGenEntry(System.Int16)">
+            <summary>
+            입고 DI API(원재료 입고용(출고 취소))
+            </summary>
+            <param name="ChkType"></param>
+            <returns></returns>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_PP040.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event
@@ -9901,6 +9937,22 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP040.Raise_EVENT_ROW_DELETE(System.String,SAPbouiCOM.MenuEvent,System.Boolean)">
+            <summary>
+            행삭제 체크 메소드(Raise_FormMenuEvent 에서 사용)
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP040.Raise_EVENT_RECORD_MOVE(System.String,SAPbouiCOM.MenuEvent,System.Boolean)">
+            <summary>
+            네비게이션 메소드(Raise_FormMenuEvent 에서 사용)
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pval"></param>
+            <param name="BubbleEvent"></param>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_PP040.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>
             FormMenuEvent
@@ -9912,6 +9964,14 @@
         <member name="M:PSH_BOne_AddOn.PS_PP040.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
             <summary>
             FormDataEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="BusinessObjectInfo"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP040.Raise_EVENT_FORM_DATA_LOAD(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+            <summary>
+            FORM_DATA_LOAD 이벤트
             </summary>
             <param name="FormUID"></param>
             <param name="BusinessObjectInfo"></param>
@@ -13231,7 +13291,7 @@
             </summary>
             <param name="pString">적용할 문자열</param>
             <param name="pFromInt">부터</param>
-            <param name="pToInt">꺄지</param>
+            <param name="pToInt">까지</param>
             <returns>처리된 문자열</returns>
         </member>
         <member name="M:PSH_BOne_AddOn.Code.PSH_CodeHelpClass.Left(System.String,System.Int32)">
@@ -14335,14 +14395,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY001.Raise_EVENT_FORM_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_RESIZE 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY001.Raise_EVENT_CHOOSE_FROM_LIST(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            CHOOSE_FROM_LIST 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>

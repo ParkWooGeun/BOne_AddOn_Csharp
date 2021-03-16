@@ -2176,6 +2176,11 @@ namespace PSH_BOne_AddOn
                             pBaseClass.LoadForm("");
                             break;
 
+                        case "PS_PP030": //작업지시등록
+                            pBaseClass = new PS_PP030();
+                            pBaseClass.LoadForm("");
+                            break;
+
                         #endregion
 
                         #region 판매관리
@@ -2231,6 +2236,16 @@ namespace PSH_BOne_AddOn
 
                         case "PS_SD160": //수주/견적비교현황
                             pBaseClass = new PS_SD160();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD180": //수주실적(거래처별)
+                            pBaseClass = new PS_SD180();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD240": //미납품현황(품목별)
+                            pBaseClass = new PS_SD240();
                             pBaseClass.LoadForm("");
                             break;
 

@@ -24,8 +24,6 @@ namespace PSH_BOne_AddOn
 		/// <param name="oFormDocEntry01"></param>
 		public override void LoadForm(string oFormDocEntry01)
 		{
-			// ERROR: Not supported in C#: OnErrorStatement
-
 			int i = 0;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 			try
@@ -582,12 +580,12 @@ namespace PSH_BOne_AddOn
 				else if (ErrNum == 2)
 				{
 					PSH_Globals.SBO_Application.SetStatusBarMessage("기준일자 From은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-					oForm.Items.Item("BPLId").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+					oForm.Items.Item("DocDateFr").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 				}
 				else if (ErrNum == 3)
 				{
 					PSH_Globals.SBO_Application.SetStatusBarMessage("기준일자 To는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-					oForm.Items.Item("DocDateFr").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+					oForm.Items.Item("DocDateTo").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 				}
 				else
 				{

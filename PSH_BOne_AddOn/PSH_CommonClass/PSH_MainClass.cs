@@ -1408,6 +1408,11 @@ namespace PSH_BOne_AddOn
                             pBaseClass.LoadForm("");
                             break;
 
+                        case "PH_PY400": //연멀정산대상자등록
+                            pBaseClass = new PH_PY400();
+                            pBaseClass.LoadForm("");
+                            break;
+
                         case "PH_PY401": //전근무지등록
                             pBaseClass = new PH_PY401();
                             pBaseClass.LoadForm("");

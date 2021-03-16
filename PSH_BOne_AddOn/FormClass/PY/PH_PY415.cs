@@ -723,7 +723,6 @@ namespace PSH_BOne_AddOn
                             }
                             if (Result == "Y")
                             {
-                                PH_PY415_MTX01();
                                 PSH_Globals.SBO_Application.MessageBox(PH_PY415_Calc());
                             }
                         }
@@ -828,94 +827,6 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// PH_PY415_MTX01 
-        /// </summary>
-        private void PH_PY415_MTX01()
-        {
-            int i = 0;
-            int ErrNum = 0;
-
-            string sQry = string.Empty;
-            string CLTCOD = string.Empty;       // 사업장
-            string Year = string.Empty;         // 년도
-            string MSTCOD = string.Empty;       
-
-            SAPbobsCOM.Recordset oRecordSet = null;
-            oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            
-            try
-            {
-                oForm.Freeze(true);
-
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
-                Year = oForm.Items.Item("Year").Specific.VALUE.Trim();
-                MSTCOD = oForm.Items.Item("MSTCOD").Specific.VALUE.Trim();
-
-                if (string.IsNullOrEmpty(MSTCOD))
-                {
-                    MSTCOD = "%";
-                }
-                
-                if (Convert.ToDouble(Year) >= 2020)  // 2020귀속
-                {
-                    sQry = "EXEC PH_PY415_2020 '" + CLTCOD + "','" + Year + "','" + MSTCOD + "'";
-                }
-                oRecordSet.DoQuery(sQry);
-
-                oMat1.Clear();
-                oMat1.FlushToDataSource();
-                oMat1.LoadFromDataSource();
-
-                if ((oRecordSet.RecordCount == 0))
-                {
-                    oMat1.Clear();
-                    ErrNum = 1;
-                    throw new Exception();
-                }
-
-                for (i = 0; i <= oRecordSet.RecordCount - 1; i++)
-                {
-                    if (i != 0)
-                    {
-                        oDS_PH_PY415B.InsertRecord((i));
-                    }
-                    oDS_PH_PY415B.Offset = i;
-                    oDS_PH_PY415B.SetValue("U_LineNum", i, Convert.ToString(i + 1));
-                    oDS_PH_PY415B.SetValue("U_ColReg01", i, oRecordSet.Fields.Item("MSTCOD").Value);
-                    oDS_PH_PY415B.SetValue("U_ColReg02", i, oRecordSet.Fields.Item("FullName").Value);
-                    oDS_PH_PY415B.SetValue("U_ColReg03", i, oRecordSet.Fields.Item("TeamCode").Value);
-                    oDS_PH_PY415B.SetValue("U_ColReg04", i, oRecordSet.Fields.Item("TeamName").Value);
-                    oDS_PH_PY415B.SetValue("U_ColReg05", i, oRecordSet.Fields.Item("RspCode").Value);
-                    oDS_PH_PY415B.SetValue("U_ColReg06", i, oRecordSet.Fields.Item("RspName").Value);
-                    oDS_PH_PY415B.SetValue("U_ColReg07", i, oRecordSet.Fields.Item("ClsCode").Value);
-                    oDS_PH_PY415B.SetValue("U_ColReg08", i, oRecordSet.Fields.Item("ClsName").Value);
-
-                    oRecordSet.MoveNext();
-                }
-
-                oMat1.LoadFromDataSource();
-                oMat1.AutoResizeColumns();
-                oForm.Update();
-            }
-            catch (Exception ex)
-            {
-                if (ErrNum == 1)
-                {
-                    PSH_Globals.SBO_Application.SetStatusBarMessage("데이터가 없습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY415_MTX01_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                }
-            }
-            finally
-            {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
-                oForm.Freeze(false);
-            }
-        }
-
-        /// <summary>
         /// 정산, 표준공제, 기부조정 계산
         /// </summary>
         /// <returns>메소트 처리 결과</returns>
@@ -924,11 +835,12 @@ namespace PSH_BOne_AddOn
             string returnValue = string.Empty;
 
             int i = 0;
-
-            string sQry = string.Empty;
-            string CLTCOD = string.Empty;       // 사업장
-            string Year = string.Empty;         // 년도
-            string MSTCOD = string.Empty;
+            int ErrNum = 0;
+            string sQry;
+            string CLTCOD;
+            string Year;
+            string MSTCOD;
+            string sabun;
 
             SAPbobsCOM.Recordset oRecordSet = null;
             oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -937,39 +849,105 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                oForm.Freeze(true);
-
                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.Trim();
                 Year = oForm.Items.Item("Year").Specific.VALUE.Trim();
+                MSTCOD = oForm.Items.Item("MSTCOD").Specific.VALUE.Trim();
 
-                for (i = 1; i <= oMat1.VisualRowCount; i++)
+                if (string.IsNullOrEmpty(MSTCOD))
                 {
-                    MSTCOD = oMat1.Columns.Item("MSTCOD").Cells.Item(i).Specific.VALUE.Trim();
-
-                    if (Convert.ToDouble(Year) >= 2020)
-                    {
-                        sQry = "EXEC PH_PY415_2020_02 '" + CLTCOD + "','" + Year + "','" + MSTCOD + "'"; //정산 계산
-                        oRecordSet.DoQuery(sQry);
-                    }
-
-                    ProgressBar01.Value = ProgressBar01.Value + 1;
-                    ProgressBar01.Text = "정산 계산 " + ProgressBar01.Value + "/" + oMat1.VisualRowCount + "건 처리중...!";
+                    MSTCOD = "%";
                 }
 
-                ProgressBar01.Value = 0;
-
-                for (i = 1; i <= oMat1.VisualRowCount; i++)
+                if (MSTCOD == "%")
                 {
-                    MSTCOD = oMat1.Columns.Item("MSTCOD").Cells.Item(i).Specific.VALUE.Trim();
+                    if (Convert.ToDouble(Year) >= 2020)  // 2020귀속
+                    {
+                        sQry = "    SELECT Distinct ";
+                        sQry += "          a.sabun AS [MSTCOD], ";
+                        sQry += "  		   b.U_FullName AS [FullName], ";
+                        sQry += "          b.U_TeamCode AS [TeamCode], ";
+                        sQry += "          c.U_CodeNm AS [TeamName], ";
+                        sQry += "          isnull(b.U_RspCode,'') AS [RspCode], ";
+                        sQry += "          isnull(d.U_CodeNm,'') AS [RspName], ";
+                        sQry += "  	       c.U_Seq, ";
+                        sQry += "          d.U_Seq ";
+                        sQry += "     FROM [p_seoytarget] a INNER JOIN [@PH_PY001A] AS b ON b.U_CLTCOD = a.saup AND a.sabun = b.Code ";
+                        sQry += "                 LEFT JOIN  [@PS_HR200L] AS c ON b.U_TeamCode = c.U_Code AND c.Code = '1' ";
+                        sQry += "                 LEFT JOIN  [@PS_HR200L] AS d ON b.U_RspCode = d.U_Code  AND d.Code = '2' ";
+                        sQry += "    WHERE a.saup = '" + CLTCOD + "' ";
+                        sQry += "      AND a.yyyy = '" + Year + "' ";
+                        sQry += " 	   AND a.ChkYN = 'Y' ";
+                        sQry += "  ORDER BY c.U_Seq, ";
+                        sQry += "           d.U_Seq, ";
+                        sQry += "  		    a.sabun ";
 
+                        //  sQry = "EXEC PH_PY415_2020 '" + CLTCOD + "','" + Year + "','" + MSTCOD + "'";
+                        oRecordSet.DoQuery(sQry);
+                        if ((oRecordSet.RecordCount == 0))
+                        {
+                            oMat1.Clear();
+                            ErrNum = 1;
+                            throw new Exception();
+                        }
+                        oMat1.Clear();
+                        oMat1.FlushToDataSource();
+                        oMat1.LoadFromDataSource();
+                        ProgressBar01.Value = 0;
+                        for (i = 0; i <= oRecordSet.RecordCount - 1; i++)
+                        {
+                            if (i != 0)
+                            {
+                                oDS_PH_PY415B.InsertRecord((i));
+                            }
+                            oDS_PH_PY415B.Offset = i;
+                            oDS_PH_PY415B.SetValue("U_LineNum", i, Convert.ToString(i + 1));
+                            oDS_PH_PY415B.SetValue("U_ColReg01", i, oRecordSet.Fields.Item("MSTCOD").Value);
+                            oDS_PH_PY415B.SetValue("U_ColReg02", i, oRecordSet.Fields.Item("FullName").Value);
+                            oDS_PH_PY415B.SetValue("U_ColReg03", i, oRecordSet.Fields.Item("TeamCode").Value);
+                            oDS_PH_PY415B.SetValue("U_ColReg04", i, oRecordSet.Fields.Item("TeamName").Value);
+                            oDS_PH_PY415B.SetValue("U_ColReg05", i, oRecordSet.Fields.Item("RspCode").Value);
+                            oDS_PH_PY415B.SetValue("U_ColReg06", i, oRecordSet.Fields.Item("RspName").Value);
+
+                            oRecordSet.MoveNext();
+                        }
+                        oMat1.LoadFromDataSource();
+                        oMat1.AutoResizeColumns();
+                        oForm.Update();
+
+                        for (i = 1; i <= oMat1.VisualRowCount; i++)
+                        {
+                            sabun = oMat1.Columns.Item("MSTCOD").Cells.Item(i).Specific.VALUE.Trim();
+
+                            if (Convert.ToDouble(Year) >= 2020)
+                            {
+                                sQry = "EXEC PH_PY415_2020 '" + CLTCOD + "','" + Year + "','" + sabun + "'";
+                                oRecordSet.DoQuery(sQry);
+                                sQry = "EXEC PH_PY415_2020_02 '" + CLTCOD + "','" + Year + "','" + sabun + "'"; //정산 계산
+                                oRecordSet.DoQuery(sQry);
+                                sQry = "EXEC PH_PY415_2020_03 '" + CLTCOD + "','" + Year + "','" + sabun + "'"; //표준공제 계산
+                                oRecordSet.DoQuery(sQry);
+                            }
+
+                            ProgressBar01.Value = ProgressBar01.Value + 1;
+                            ProgressBar01.Text = "정산 계산 " + ProgressBar01.Value + "/" + oMat1.VisualRowCount + "건 처리중...!";
+                        }
+                    }
+                }
+                else
+                {
                     if (Convert.ToDouble(Year) >= 2020)
                     {
+                        oDS_PH_PY415B.SetValue("U_ColReg01", 0, oForm.Items.Item("MSTCOD").Specific.VALUE.Trim());
+                        oDS_PH_PY415B.SetValue("U_ColReg02", 0, oForm.Items.Item("FullName").Specific.VALUE.Trim());
+                        oMat1.LoadFromDataSource();
+
+                        sQry = "EXEC PH_PY415_2020 '" + CLTCOD + "','" + Year + "','" + MSTCOD + "'";
+                        oRecordSet.DoQuery(sQry);
+                        sQry = "EXEC PH_PY415_2020_02 '" + CLTCOD + "','" + Year + "','" + MSTCOD + "'"; //정산 계산
+                        oRecordSet.DoQuery(sQry);
                         sQry = "EXEC PH_PY415_2020_03 '" + CLTCOD + "','" + Year + "','" + MSTCOD + "'"; //표준공제 계산
                         oRecordSet.DoQuery(sQry);
                     }
-
-                    ProgressBar01.Value = ProgressBar01.Value + 1;
-                    ProgressBar01.Text = "표준공제 계산 " + ProgressBar01.Value + "/" + oMat1.VisualRowCount + "건 처리중...!";
                 }
 
                 ProgressBar01.Value = 0;
@@ -981,23 +959,25 @@ namespace PSH_BOne_AddOn
                     sQry = "EXEC PH_PY415_2020_04 '" + CLTCOD + "','" + Year + "'";  //기부조정 계산
                     oRecordSet.DoQuery(sQry);
                 }
-
-                ProgressBar01.Value = 100;
-
                 returnValue = "정산계산을 완료하였습니다.";
             }
             catch (Exception ex)
             {
-                returnValue = System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message;
+                if (ErrNum == 1)
+                {
+                    returnValue = "정산대상자가 없습니자.";
+                }
+                else
+                {
+                    returnValue = System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message;
+                }
             }
             finally
             {
                 ProgressBar01.Stop();
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
-                oForm.Freeze(false);
             }
-
             return returnValue;
         }
     }

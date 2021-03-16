@@ -227,16 +227,13 @@
     <Compile Include="FormClass\CO\PS_CO660.cs" />
     <Compile Include="FormClass\CO\PS_CO665.cs" />
     <Compile Include="FormClass\CO\PS_CO670.cs" />
-<<<<<<< HEAD
     <Compile Include="FormClass\PP\PS_PP030.cs" />
     <Compile Include="FormClass\PP\PS_PP730.cs" />
     <Compile Include="FormClass\PP\PS_PP097.cs" />
     <Compile Include="FormClass\PP\PS_PP036.cs" />
     <Compile Include="FormClass\PP\PS_PP084.cs" />
     <Compile Include="FormClass\PP\PS_PP040.cs" />
-=======
     <Compile Include="FormClass\PY\PH_PY400.cs" />
->>>>>>> a4cf6a21fe1cdc8f357f59cd4586a24b45cc5ff7
     <Compile Include="FormClass\PY\PH_PY998.cs" />
     <Compile Include="FormClass\PY\PH_PY115.cs" />
     <Compile Include="FormClass\PY\PH_PY135.cs" />

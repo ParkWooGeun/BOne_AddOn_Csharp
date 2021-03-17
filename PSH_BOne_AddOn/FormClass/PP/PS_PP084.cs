@@ -1191,16 +1191,14 @@ namespace PSH_BOne_AddOn
                 short BoxCnt = 0;
                 short i = 0;
                 string PP030No = null;
-
-                object oTempClass = null;
                 if (pVal.BeforeAction == true)
                 {
                     if (pVal.ItemUID == "Link01")
                     {
-                        //PS_CO040 oTempClass = new PS_PP040();
-                        //oTempClass.LoadForm(oForm.Items.Item("PP040No").Specific.VALUE); /////
-                        //BubbleEvent = false;
-                        //return;
+                        PS_PP040 oTempClass = new PS_PP040();
+                        oTempClass.LoadForm(oForm.Items.Item("PP040No").Specific.VALUE);
+                        BubbleEvent = false;
+                        return;
                     }
                     if (pVal.ItemUID == "PS_PP084")
                     {

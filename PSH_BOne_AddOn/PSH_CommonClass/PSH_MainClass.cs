@@ -1405,6 +1405,11 @@ namespace PSH_BOne_AddOn
                             pBaseClass.LoadForm("");
                             break;
 
+                        case "PH_PY400": //연멀정산대상자등록
+                            pBaseClass = new PH_PY400();
+                            pBaseClass.LoadForm("");
+                            break;
+
                         case "PH_PY401": //전근무지등록
                             pBaseClass = new PH_PY401();
                             pBaseClass.LoadForm("");
@@ -2251,6 +2256,46 @@ namespace PSH_BOne_AddOn
 
                         case "PS_SD240": //미납품현황(품목별)
                             pBaseClass = new PS_SD240();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD241": //미납품현황(포장사업팀)
+                            pBaseClass = new PS_SD241();
+                            pBaseClass.LoadForm("");
+                            break;
+                            
+                        case "PS_SD250": //제품재고현황
+                            pBaseClass = new PS_SD250();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD270": //판매미확정현황
+                            pBaseClass = new PS_SD270();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD280": //제품출고조회
+                            pBaseClass = new PS_SD280();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD290": //납품지연현황
+                            pBaseClass = new PS_SD290();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD295": //거래처별납기분석표
+                            pBaseClass = new PS_SD295();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD310": //판매실적(납품처별)
+                            pBaseClass = new PS_SD310();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD400": //판매현황(멀티)
+                            pBaseClass = new PS_SD400();
                             pBaseClass.LoadForm("");
                             break;
 

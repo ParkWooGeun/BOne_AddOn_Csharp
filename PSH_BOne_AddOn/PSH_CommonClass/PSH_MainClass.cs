@@ -2274,6 +2274,26 @@ namespace PSH_BOne_AddOn
                             pBaseClass.LoadForm("");
                             break;
 
+                        case "PS_SD290": //납품지연현황
+                            pBaseClass = new PS_SD290();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD295": //거래처별납기분석표
+                            pBaseClass = new PS_SD295();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD310": //판매실적(납품처별)
+                            pBaseClass = new PS_SD310();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD400": //판매현황(멀티)
+                            pBaseClass = new PS_SD400();
+                            pBaseClass.LoadForm("");
+                            break;
+
                             #endregion
 
                     }

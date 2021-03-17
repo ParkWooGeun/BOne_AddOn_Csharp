@@ -227,11 +227,8 @@
     <Compile Include="FormClass\CO\PS_CO660.cs" />
     <Compile Include="FormClass\CO\PS_CO665.cs" />
     <Compile Include="FormClass\CO\PS_CO670.cs" />
-<<<<<<< HEAD
     <Compile Include="FormClass\PP\PS_PP048.cs" />
-=======
     <Compile Include="FormClass\PP\PS_PP030.cs" />
->>>>>>> 027df6bc6bc1297e0b036137b2be0fed49c7da45
     <Compile Include="FormClass\PP\PS_PP730.cs" />
     <Compile Include="FormClass\PP\PS_PP097.cs" />
     <Compile Include="FormClass\PP\PS_PP036.cs" />
@@ -1287,6 +1284,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PSH_BOne_AddOn\Menu_KOR.xml" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP048.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP730.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP097.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP036.srf" />

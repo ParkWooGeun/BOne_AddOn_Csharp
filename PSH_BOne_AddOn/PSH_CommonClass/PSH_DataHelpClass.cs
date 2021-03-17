@@ -2111,7 +2111,7 @@ namespace PSH_BOne_AddOn.Data
                     }
                     for (i = 1; i <= RecordCount; i++)
                     {
-                        functionReturnValue = oRecordset.Fields.Item(FieldCount).Value;
+                        functionReturnValue = Convert.ToString(oRecordset.Fields.Item(FieldCount).Value);
                         oRecordset.MoveNext();
                     }
                 }

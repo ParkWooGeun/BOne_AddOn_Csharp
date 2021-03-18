@@ -566,6 +566,13 @@ namespace PSH_BOne_AddOn
                 {
                     switch (pVal.MenuUID)
                     {
+                        #region 생산관리(C#Migration 외)
+                        case "PS_PP750": //작번별 전체 진행 상황 조회
+                            pBaseClass = new PS_PP750();
+                            pBaseClass.LoadForm("");
+                            break;
+                        #endregion
+
                         #region 인사 관리
                         case "PH_PY001": //사원마스터등록
 
@@ -2156,7 +2163,7 @@ namespace PSH_BOne_AddOn
                             pBaseClass = new PS_CO800();
                             pBaseClass.LoadForm("");
                             break;
-                            #endregion
+                        #endregion                        
                     }
                 }
             }

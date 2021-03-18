@@ -8,12 +8,11 @@ using System.Collections.Generic;
 namespace PSH_BOne_AddOn
 {
 	/// <summary>
-	/// 미납품현황(포장사업팀)
+	/// 품목별판매내역서
 	/// </summary>
-	internal class PS_SD241 : PSH_BaseClass
+	internal class PS_SD320 : PSH_BaseClass
 	{
 		public string oFormUniqueID;
-		public SAPbouiCOM.Grid oGrid;
 
 		/// <summary>
 		/// LoadForm
@@ -26,7 +25,7 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PS_SD241.srf");
+				oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PS_SD320.srf");
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue = oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue + "_" + (SubMain.Get_TotalFormsCount());
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
@@ -38,8 +37,8 @@ namespace PSH_BOne_AddOn
 					oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
 				}
 
-				oFormUniqueID = "PS_SD241_" + SubMain.Get_TotalFormsCount();
-				SubMain.Add_Forms(this, oFormUniqueID, "PS_SD241");
+				oFormUniqueID = "PS_SD320_" + SubMain.Get_TotalFormsCount();
+				SubMain.Add_Forms(this, oFormUniqueID, "PS_SD320");
 
 				PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
 				oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
@@ -50,13 +49,12 @@ namespace PSH_BOne_AddOn
 				oForm.Freeze(true);
 				CreateItems();
 				ComboBox_Setting();
-				Initialization();
 
-				oForm.EnableMenu(("1283"), false);				// 삭제
-				oForm.EnableMenu(("1286"), false);				// 닫기
-				oForm.EnableMenu(("1287"), false);				// 복제
+				oForm.EnableMenu(("1283"), false);              // 삭제
+				oForm.EnableMenu(("1286"), false);              // 닫기
+				oForm.EnableMenu(("1287"), false);              // 복제
 				oForm.EnableMenu(("1284"), true);               // 취소
-				oForm.EnableMenu(("1293"), false);				// 행삭제
+				oForm.EnableMenu(("1293"), false);              // 행삭제
 			}
 			catch (Exception ex)
 			{
@@ -78,18 +76,13 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
-				oGrid = oForm.Items.Item("Grid01").Specific;
-				oForm.DataSources.DataTables.Add("PS_SD241");
-				oGrid.DataTable = oForm.DataSources.DataTables.Item("PS_SD241");
+				oForm.DataSources.UserDataSources.Add("StrDate", SAPbouiCOM.BoDataType.dt_DATE, 10);
+				oForm.Items.Item("StrDate").Specific.DataBind.SetBound(true, "", "StrDate");
+				oForm.DataSources.UserDataSources.Item("StrDate").Value = DateTime.Now.ToString("yyyyMMdd");
 
-				oForm.DataSources.UserDataSources.Add("CardCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
-				oForm.Items.Item("CardCode").Specific.DataBind.SetBound(true, "", "CardCode");
-
-				oForm.DataSources.UserDataSources.Add("CardName", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
-				oForm.Items.Item("CardName").Specific.DataBind.SetBound(true, "", "CardName");
-
-				oForm.DataSources.UserDataSources.Add("LotNo", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
-				oForm.Items.Item("LotNo").Specific.DataBind.SetBound(true, "", "LotNo");
+				oForm.DataSources.UserDataSources.Add("EndDate", SAPbouiCOM.BoDataType.dt_DATE, 10);
+				oForm.Items.Item("EndDate").Specific.DataBind.SetBound(true, "", "EndDate");
+				oForm.DataSources.UserDataSources.Item("EndDate").Value = DateTime.Now.ToString("yyyyMMdd");
 			}
 			catch (Exception ex)
 			{
@@ -112,17 +105,27 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				// 사업장
-				sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
+				sQry = "SELECT BPLId, BPLName From OBPL Order by BPLId";
 				oRecordSet.DoQuery(sQry);
+				oForm.Items.Item("BPLId").Specific.ValidValues.Add("0", "전체 사업장");
 				while (!(oRecordSet.EoF))
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
 				}
+				oForm.Items.Item("BPLId").Specific.Select(2, SAPbouiCOM.BoSearchKey.psk_Index);
 
-				oForm.Items.Item("ItmBsort").Specific.ValidValues.Add("", "");
-				dataHelpClass.Set_ComboList(oForm.Items.Item("ItmBsort").Specific, "Select Code, Name from [@PSH_ITMBSORT] Where Left(Code,1) in ('1', '2') Order by Code", "", false, false);
-				oForm.Items.Item("ItmBsort").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+				// 품목구분
+				sQry = "SELECT U_Minor, U_CdName FROM [@PS_SY001L] WHERE Code = 'S002' ORDER BY Code";
+				oRecordSet.DoQuery(sQry);
+
+				oForm.Items.Item("ItemGB").Specific.ValidValues.Add("A", "전체");
+				while (!(oRecordSet.EoF))
+				{
+					oForm.Items.Item("ItemGB").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
+					oRecordSet.MoveNext();
+				}
+				oForm.Items.Item("ItemGB").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 			}
 			catch (Exception ex)
 			{
@@ -133,26 +136,6 @@ namespace PSH_BOne_AddOn
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 
-		}
-
-		/// <summary>
-		/// Initialization
-		/// </summary>
-		public void Initialization()
-		{
-			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
-			try
-			{
-				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);  // 사업장
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-			}
 		}
 
 		/// <summary>
@@ -169,7 +152,7 @@ namespace PSH_BOne_AddOn
                     Raise_EVENT_ITEM_PRESSED(FormUID, ref pVal, ref BubbleEvent);
                     break;
                 case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
-                    //Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
+                    Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
                     break;
                 case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
                     //Raise_EVENT_GOT_FOCUS(FormUID, ref pVal, ref BubbleEvent);
@@ -193,7 +176,7 @@ namespace PSH_BOne_AddOn
                     //Raise_EVENT_MATRIX_COLLAPSE_PRESSED(FormUID, ref pVal, ref BubbleEvent);
                     break;
                 case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
-                    Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
                     break;
                 case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
                     //Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
@@ -205,7 +188,7 @@ namespace PSH_BOne_AddOn
                     //Raise_EVENT_FORM_LOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
                 case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD: //17
-                    Raise_EVENT_FORM_UNLOAD(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_FORM_UNLOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
                 case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: //18
                     //Raise_EVENT_FORM_ACTIVATE(FormUID, ref pVal, ref BubbleEvent);
@@ -249,20 +232,16 @@ namespace PSH_BOne_AddOn
 			{
 				if (pVal.BeforeAction == true)
 				{
-					if (pVal.ItemUID == "BtnPrint")
+					if (pVal.ItemUID == "Btn01")
 					{
 						System.Threading.Thread thread = new System.Threading.Thread(Print_Query);
 						thread.SetApartmentState(System.Threading.ApartmentState.STA);
 						thread.Start();
 					}
-					else if (pVal.ItemUID == "BtnSearch")
-					{
-						PS_SD241_MTX01();
-					}
 				}
 				else if (pVal.BeforeAction == false)
 				{
-					if (pVal.ItemUID == "PS_SD241")
+					if (pVal.ItemUID == "PS_SD320")
 					{
 						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 						{
@@ -274,6 +253,36 @@ namespace PSH_BOne_AddOn
 						{
 						}
 					}
+				}
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+			{
+			}
+		}
+
+		/// <summary>
+		/// Raise_EVENT_KEY_DOWN
+		/// </summary>
+		/// <param name="FormUID"></param>
+		/// <param name="pVal"></param>
+		/// <param name="BubbleEvent"></param>
+		private void Raise_EVENT_KEY_DOWN(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+		{
+			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
+			try
+			{
+				if (pVal.BeforeAction == true)
+				{
+					dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "SItemCode", ""); 
+					dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "CardCode", ""); 
+				}
+				else if (pVal.BeforeAction == false)
+				{
 				}
 			}
 			catch (Exception ex)
@@ -299,7 +308,6 @@ namespace PSH_BOne_AddOn
 				{
 					SubMain.Remove_Forms(oFormUniqueID);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid);
 				}
 				else if (pVal.BeforeAction == false)
 				{
@@ -311,42 +319,6 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
-			}
-		}
-
-		/// <summary>
-		/// Raise_EVENT_VALIDATE
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="pVal"></param>
-		/// <param name="BubbleEvent"></param>
-		private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-		{
-			try
-			{
-				oForm.Freeze(true);
-
-				if (pVal.BeforeAction == true)
-				{
-					if (pVal.ItemChanged == true)
-					{
-						if (pVal.ItemUID == "CardCode")
-						{
-							FlushToItemValue(pVal.ItemUID, pVal.Row, pVal.ColUID);
-						}
-					}
-				}
-				else if (pVal.BeforeAction == false)
-				{
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-				oForm.Freeze(false);
 			}
 		}
 
@@ -430,13 +402,13 @@ namespace PSH_BOne_AddOn
 				{
 					switch (BusinessObjectInfo.EventType)
 					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:							//33
+						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:                         //33
 							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:							//34
+						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:                          //34
 							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:						//35
+						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:                       //35
 							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:						//36
+						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:                       //36
 							break;
 					}
 				}
@@ -444,13 +416,13 @@ namespace PSH_BOne_AddOn
 				{
 					switch (BusinessObjectInfo.EventType)
 					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:							//33
+						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:                         //33
 							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:							//34
+						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:                          //34
 							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:						//35
+						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:                       //35
 							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:						//36
+						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:                       //36
 							break;
 					}
 				}
@@ -461,39 +433,6 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
-			}
-		}
-
-		/// <summary>
-		/// FlushToItemValue
-		/// </summary>
-		/// <param name="oUID"></param>
-		/// <param name="oRow"></param>
-		/// <param name="oCol"></param>
-		private void FlushToItemValue(string oUID, int oRow = 0, string oCol = "")
-		{
-			string sQry;
-			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-			try
-			{
-				switch (oUID)
-				{
-					case "CardCode":
-						sQry = "SELECT CardName FROM OCRD WHERE CardCode =  '" + oForm.Items.Item("CardCode").Specific.VALUE.ToString().Trim() + "'";
-						oRecordSet.DoQuery(sQry);
-
-						oForm.Items.Item("CardName").Specific.String = oRecordSet.Fields.Item("CardName").Value.ToString().Trim();
-						break;
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 		}
 
@@ -503,59 +442,65 @@ namespace PSH_BOne_AddOn
 		[STAThread]
 		private void Print_Query()
 		{
-			string sQry;
 			string WinTitle;
 			string ReportName;
-			string BPLName;
 			string BPLId;
-			string ItmBsort;
+			string StrDate;
+			string EndDate;
+			string ItemGB;
+			string SItemCode;
 			string CardCode;
-			string LotNo;
-			
-			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
 			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 
 			try
 			{
-				BPLId    = oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim();
-				ItmBsort = oForm.Items.Item("ItmBsort").Specific.VALUE.ToString().Trim();
-				CardCode = oForm.Items.Item("CardCode").Specific.VALUE.ToString().Trim();
-				LotNo    = oForm.Items.Item("LotNo").Specific.VALUE.ToString().Trim();
+				BPLId = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
+				StrDate   = oForm.Items.Item("StrDate").Specific.VALUE.ToString().Trim();
+				EndDate   = oForm.Items.Item("EndDate").Specific.VALUE.ToString().Trim();
+				ItemGB    = oForm.Items.Item("ItemGB").Specific.Selected.VALUE.ToString().Trim();
+				SItemCode = oForm.Items.Item("SItemCode").Specific.VALUE.ToString().Trim();
+				CardCode  = oForm.Items.Item("CardCode").Specific.VALUE.ToString().Trim();
 
+				if (BPLId == "0")
+				{
+					BPLId = "%";
+				}
+				if (string.IsNullOrEmpty(StrDate))
+				{
+					StrDate = "19000101";
+				}
+				if (string.IsNullOrEmpty(EndDate))
+				{
+					EndDate = "21001231";
+				}
+				if (string.IsNullOrEmpty(SItemCode))
+				{
+					SItemCode = "%";
+				}
 				if (string.IsNullOrEmpty(CardCode))
 				{
 					CardCode = "%";
 				}
-				if (string.IsNullOrEmpty(LotNo))
-				{
-					LotNo = "%";
-				}
 
-				WinTitle = "미납품현황 [PS_SD241_01]";
-				ReportName = "PS_SD241_01.RPT";
+				WinTitle = "[PS_SD320] 품목별 판매내역서";
+				ReportName = "PS_SD320_01.RPT";
 
 				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
 				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
 
-				if (string.IsNullOrEmpty(BPLId))
-				{
-					BPLName = "전체";
-				}
-				else
-				{
-					sQry = "SELECT BPLName FROM [OBPL] WHERE BPLId = '" + BPLId + "'";
-					oRecordSet.DoQuery(sQry);
-					BPLName = oRecordSet.Fields.Item(0).Value;
-				}
 
 				// Formula 수식필드
-				dataPackFormula.Add(new PSH_DataPackClass("@BPLId", BPLName));
+				dataPackFormula.Add(new PSH_DataPackClass("@StrDate", StrDate));
+				dataPackFormula.Add(new PSH_DataPackClass("@EndDate", EndDate));
 
 				// Parameter
 				dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLId));
-				dataPackParameter.Add(new PSH_DataPackClass("@ItmBsort", ItmBsort));
+				dataPackParameter.Add(new PSH_DataPackClass("@StrDate", DateTime.ParseExact(StrDate, "yyyyMMdd", null)));
+				dataPackParameter.Add(new PSH_DataPackClass("@EndDate", DateTime.ParseExact(EndDate, "yyyyMMdd", null)));
+				dataPackParameter.Add(new PSH_DataPackClass("@ItemGB", ItemGB));
+				dataPackParameter.Add(new PSH_DataPackClass("@ItemCode", SItemCode));
 				dataPackParameter.Add(new PSH_DataPackClass("@CardCode", CardCode));
-				dataPackParameter.Add(new PSH_DataPackClass("@LotNo", LotNo));
 
 				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
 			}
@@ -565,72 +510,6 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
-			}
-		}
-
-		/// <summary>
-		/// PS_SD241_MTX01
-		/// </summary>
-		private void PS_SD241_MTX01()
-		{
-			string BPLId;
-			string ItmBsort;
-			string CardCode;
-			string LotNo;
-
-			int ErrNum = 0;
-			string sQry;
-			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-			try
-			{
-				oForm.Freeze(true);
-
-				BPLId = oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim();
-				ItmBsort = oForm.Items.Item("ItmBsort").Specific.VALUE.ToString().Trim();
-				CardCode = oForm.Items.Item("CardCode").Specific.VALUE.ToString().Trim();
-				LotNo = oForm.Items.Item("LotNo").Specific.VALUE.ToString().Trim();
-
-				if (string.IsNullOrEmpty(CardCode))
-				{
-					CardCode = "%";
-				}
-				if (string.IsNullOrEmpty(LotNo))
-				{
-					LotNo = "%";
-				}
-
-				sQry = "EXEC [PS_SD241_02] '" + BPLId + "', '" + ItmBsort + "', '" + CardCode + "', '" + LotNo + "'";
-
-				oGrid.DataTable.Clear();
-				oForm.DataSources.DataTables.Item("DataTable").ExecuteQuery(sQry);
-				oGrid.DataTable = oForm.DataSources.DataTables.Item("DataTable");
-
-				if (oGrid.Rows.Count == 0)
-				{
-					ErrNum = 1;
-					throw new Exception();
-				}
-
-				oGrid.AutoResizeColumns();
-				oForm.Update();
-			}
-			catch (Exception ex)
-			{
-				if (ErrNum == 1)
-				{
-					PSH_Globals.SBO_Application.SetStatusBarMessage("결과가 존재하지 않습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-				}
-				else
-				{
-					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-				}
-			}
-			finally
-			{
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
-				oForm.Freeze(false);
 			}
 		}
 	}

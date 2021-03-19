@@ -99,6 +99,14 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.UserDataSources.Add("ToDueDt", SAPbouiCOM.BoDataType.dt_DATE);
                 oForm.Items.Item("ToDueDt").Specific.DataBind.SetBound(true, "", "ToDueDt");
 
+                //생산담당(사번)
+                oForm.DataSources.UserDataSources.Add("CntcCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
+                oForm.Items.Item("CntcCode").Specific.DataBind.SetBound(true, "", "CntcCode");
+
+                //생산담당(성명)
+                oForm.DataSources.UserDataSources.Add("CntcName", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
+                oForm.Items.Item("CntcName").Specific.DataBind.SetBound(true, "", "CntcName");
+
                 //작번(품목코드)
                 oForm.DataSources.UserDataSources.Add("ItemCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
                 oForm.Items.Item("ItemCode").Specific.DataBind.SetBound(true, "", "ItemCode");
@@ -114,6 +122,18 @@ namespace PSH_BOne_AddOn
                 //자체/외주
                 oForm.DataSources.UserDataSources.Add("InOut", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 5);
                 oForm.Items.Item("InOut").Specific.DataBind.SetBound(true, "", "InOut");
+
+                //장비/공구
+                oForm.DataSources.UserDataSources.Add("ItemType", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
+                oForm.Items.Item("ItemType").Specific.DataBind.SetBound(true, "", "ItemType");
+
+                //거래처구분
+                oForm.DataSources.UserDataSources.Add("CardType", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
+                oForm.Items.Item("CardType").Specific.DataBind.SetBound(true, "", "CardType");
+
+                //조회구분
+                oForm.DataSources.UserDataSources.Add("SrchType", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
+                oForm.Items.Item("SrchType").Specific.DataBind.SetBound(true, "", "SrchType");
 
                 //생산미완료(체크박스)
                 oForm.DataSources.UserDataSources.Add("CmpltYN", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
@@ -134,13 +154,32 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void SetComboBox()
         {
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 oForm.Freeze(true);
+                //자체/외주
                 oForm.Items.Item("InOut").Specific.ValidValues.Add("%", "전체");
                 oForm.Items.Item("InOut").Specific.ValidValues.Add("IN", "자체");
                 oForm.Items.Item("InOut").Specific.ValidValues.Add("OUT", "외주");
                 oForm.Items.Item("InOut").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+
+                //장비/공구
+                oForm.Items.Item("ItemType").Specific.ValidValues.Add("%", "전체");
+                oForm.Items.Item("ItemType").Specific.ValidValues.Add("M", "장비");
+                oForm.Items.Item("ItemType").Specific.ValidValues.Add("T", "공구");
+                oForm.Items.Item("ItemType").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+
+                //거래처구분
+                oForm.Items.Item("CardType").Specific.ValidValues.Add("%", "전체");
+                dataHelpClass.Set_ComboList(oForm.Items.Item("CardType").Specific, "SELECT U_Minor, U_CdName FROM [@PS_SY001L] WHERE Code = 'C100' ORDER BY Code", "", false, false);
+                oForm.Items.Item("CardType").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+
+                //조회구분
+                oForm.Items.Item("SrchType").Specific.ValidValues.Add("1", "간략보기");
+                oForm.Items.Item("SrchType").Specific.ValidValues.Add("2", "상세보기");
+                oForm.Items.Item("SrchType").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
             }
             catch (Exception ex)
             {
@@ -161,6 +200,7 @@ namespace PSH_BOne_AddOn
             oForm.DataSources.UserDataSources.Item("ToDocDt").Value = DateTime.Now.ToString("yyyy1231");
             oForm.DataSources.UserDataSources.Item("FrDueDt").Value = DateTime.Now.ToString("yyyy0101");
             oForm.DataSources.UserDataSources.Item("ToDueDt").Value = DateTime.Now.ToString("yyyy1231");
+            oForm.Items.Item("CmpltYN").Width = 90;
             oForm.Items.Item("BtnPrint").Visible = false; //출력버튼 비활성
         }
 
@@ -175,8 +215,12 @@ namespace PSH_BOne_AddOn
             string toDocDt; //수주일자(TO)
             string frDueDt; //납기일자(FR)
             string toDueDt; //납기일자(TO)
+            string cntcCode; //생산담당
             string itemCode; //작번
             string inOut; //자체/외주
+            string itemType; //장비/공구
+            string cardType; //거래처구분
+            string srchType; //조회구분
             string cmpltYN; //생산미완료여부
             SAPbouiCOM.ProgressBar ProgBar01 = null;
 
@@ -189,25 +233,77 @@ namespace PSH_BOne_AddOn
                 toDocDt = oForm.Items.Item("ToDocDt").Specific.Value.ToString().Trim(); //수주일자(TO)
                 frDueDt = oForm.Items.Item("FrDueDt").Specific.Value.ToString().Trim(); //납기일자(FR)
                 toDueDt = oForm.Items.Item("ToDueDt").Specific.Value.ToString().Trim(); //납기일자(TO)
+                cntcCode = oForm.Items.Item("CntcCode").Specific.Value.ToString().Trim(); //생산담당
                 itemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim(); //작번
                 inOut = oForm.Items.Item("InOut").Specific.Value.ToString().Trim(); //자체/외주
+                itemType = oForm.Items.Item("ItemType").Specific.Value.ToString().Trim(); //장비/공구
+                cardType = oForm.Items.Item("CardType").Specific.Value.ToString().Trim(); //거래처구분
+                srchType = oForm.Items.Item("SrchType").Specific.Value.ToString().Trim(); //조회구분
                 cmpltYN = (oForm.Items.Item("CmpltYN").Specific.Checked ? "Y" : "N"); //생산미완료여부
 
-                sQry = "EXEC [PS_PP750_01] ";
-                sQry += "'" + frDocDt + "',";
-                sQry += "'" + toDocDt + "',";
-                sQry += "'" + frDueDt + "',";
-                sQry += "'" + toDueDt + "',";
-                sQry += "'" + itemCode + "',"; 
-                sQry += "'" + inOut + "',";
-                sQry += "'" + cmpltYN + "'";
+                if (srchType == "1") //간략보기
+                {
+                    sQry = "EXEC [PS_PP750_01] ";
+                    sQry += "'" + frDocDt + "',";
+                    sQry += "'" + toDocDt + "',";
+                    sQry += "'" + frDueDt + "',";
+                    sQry += "'" + toDueDt + "',";
+                    sQry += "'" + cntcCode + "',";
+                    sQry += "'" + itemCode + "',";
+                    sQry += "'" + inOut + "',";
+                    sQry += "'" + itemType + "',";
+                    sQry += "'" + cardType + "',";
+                    sQry += "'" + cmpltYN + "'";
+                }
+                else //상세보기
+                {
+                    sQry = "EXEC [PS_PP750_01] ";
+                    sQry += "'" + frDocDt + "',";
+                    sQry += "'" + toDocDt + "',";
+                    sQry += "'" + frDueDt + "',";
+                    sQry += "'" + toDueDt + "',";
+                    sQry += "'" + cntcCode + "',";
+                    sQry += "'" + itemCode + "',";
+                    sQry += "'" + inOut + "',";
+                    sQry += "'" + itemType + "',";
+                    sQry += "'" + cardType + "',";
+                    sQry += "'" + cmpltYN + "'";
+                }
 
                 mainGrid.DataTable.Clear();
                 oDS_PS_PP750.ExecuteQuery(sQry);
 
-                mainGrid.Columns.Item(5).RightJustified = true;
+                mainGrid.Columns.Item(5).RightJustified = true; //수주수량(5)
+                mainGrid.Columns.Item(6).RightJustified = true; //수주금액(6)
+                mainGrid.Columns.Item(13).RightJustified = true; //작번등록횟수(13)
+                mainGrid.Columns.Item(16).RightJustified = true; //작업지시등록횟수(16)
+                mainGrid.Columns.Item(18).RightJustified = true; //작업일보횟수(18)
+                mainGrid.Columns.Item(20).RightJustified = true; //구매요청수량(20)
+                mainGrid.Columns.Item(21).RightJustified = true; //구매요청횟수(21)
+                mainGrid.Columns.Item(23).RightJustified = true; //구매견적수량(23)
+                mainGrid.Columns.Item(24).RightJustified = true; //구매견적횟수(24)
+                mainGrid.Columns.Item(26).RightJustified = true; //구매품의수량(26)
+                mainGrid.Columns.Item(27).RightJustified = true; //구매품의횟수(27)
+                mainGrid.Columns.Item(29).RightJustified = true; //가입고수량(29)
+                mainGrid.Columns.Item(30).RightJustified = true; //가입고횟수(30)
+                mainGrid.Columns.Item(32).RightJustified = true; //검수입고수량(32)
+                mainGrid.Columns.Item(33).RightJustified = true; //검수입고횟수(33)
+                mainGrid.Columns.Item(35).RightJustified = true; //검사횟수(35)
+                mainGrid.Columns.Item(37).RightJustified = true; //생산완료수량(37)
+                mainGrid.Columns.Item(38).RightJustified = true; //생산완료횟수(38)
+                mainGrid.Columns.Item(39).RightJustified = true; //생산잔량(수주-생산)(39)
 
-                mainGrid.Columns.Item(8).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //납기일
+                mainGrid.Columns.Item(9).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //납기일(9)
+                mainGrid.Columns.Item(13).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //작번등록횟수(13)
+                mainGrid.Columns.Item(16).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //작업지시등록횟수(16)
+                mainGrid.Columns.Item(18).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //작업일보횟수(18)
+                mainGrid.Columns.Item(21).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //구매요청횟수(21)
+                mainGrid.Columns.Item(24).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //구매견적횟수(24)
+                mainGrid.Columns.Item(27).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //구매품의횟수(27)
+                mainGrid.Columns.Item(30).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //가입고횟수(30)
+                mainGrid.Columns.Item(33).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //검수입고횟수(33)
+                mainGrid.Columns.Item(35).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //검사횟수(35)
+                mainGrid.Columns.Item(38).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //생산완료횟수(38)
             }
             catch (Exception ex)
             {
@@ -421,9 +517,9 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.CharPressed == 9)
                     {
-                        if (pVal.ItemUID == "ItemCode")
+                        if (pVal.ItemUID == "ItemCode" || pVal.ItemUID == "CntcCode")
                         {
-                            if (string.IsNullOrEmpty(oForm.Items.Item("ItemCode").Specific.Value))
+                            if (string.IsNullOrEmpty(oForm.Items.Item(pVal.ItemUID).Specific.Value))
                             {
                                 PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                                 BubbleEvent = false;
@@ -472,6 +568,9 @@ namespace PSH_BOne_AddOn
                             case "ItemCode":
                                 oForm.DataSources.UserDataSources.Item("ItemName").Value = dataHelpClass.Get_ReData("FrgnName", "ItemCode", "[OITM]", "'" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'", "");
                                 oForm.DataSources.UserDataSources.Item("ItemSpec").Value = dataHelpClass.Get_ReData("U_Size", "ItemCode", "[OITM]", "'" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'", "");
+                                break;
+                            case "CntcCode":
+                                oForm.DataSources.UserDataSources.Item("CntcName").Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'", "");
                                 break;
                         }
                     }

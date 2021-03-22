@@ -2304,6 +2304,51 @@ namespace PSH_BOne_AddOn
                             pBaseClass.LoadForm("");
                             break;
 
+                        case "PS_SD320": //품목별판매내역서
+                            pBaseClass = new PS_SD320();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD330": //품목분류별월별판매현황
+                            pBaseClass = new PS_SD330();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD471": //판매현황(거래처별)
+                            pBaseClass = new PS_SD471();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD476": //판매현황(제품,규격별)
+                            pBaseClass = new PS_SD476();
+                            pBaseClass.LoadForm("");
+                            break;
+                            
+                        case "PS_PP688": //생산의뢰서
+                            pBaseClass = new PS_PP688();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_MM091": //기타출고현황
+                            pBaseClass = new PS_MM091();
+                            pBaseClass.LoadForm("");
+                            break;
+                            
+                        case "PS_PP911": //작번이력현황
+                            pBaseClass = new PS_PP911();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD510": //기성매출현황
+                            pBaseClass = new PS_SD510();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD520": //기성매출현황
+                            pBaseClass = new PS_SD520();
+                            pBaseClass.LoadForm("");
+                            break;
+
                             #endregion
 
                     }

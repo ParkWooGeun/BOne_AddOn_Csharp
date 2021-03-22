@@ -228,8 +228,10 @@
     <Compile Include="FormClass\CO\PS_CO660.cs" />
     <Compile Include="FormClass\CO\PS_CO665.cs" />
     <Compile Include="FormClass\CO\PS_CO670.cs" />
+    <Compile Include="FormClass\PP\PS_PP047.cs" />
     <Compile Include="FormClass\PP\PS_PP048.cs" />
     <Compile Include="FormClass\PP\PS_PP030.cs" />
+    <Compile Include="FormClass\PP\PS_PP325.cs" />
     <Compile Include="FormClass\PP\PS_PP688.cs" />
     <Compile Include="FormClass\PP\PS_PP730.cs" />
     <Compile Include="FormClass\PP\PS_PP097.cs" />
@@ -256,11 +258,13 @@
     <Compile Include="FormClass\SD\PS_SD130.cs" />
     <Compile Include="FormClass\SD\PS_SD160.cs" />
     <Compile Include="FormClass\SD\PS_SD180.cs" />
+    <Compile Include="FormClass\SD\PS_SD190.cs" />
     <Compile Include="FormClass\SD\PS_SD240.cs" />
     <Compile Include="FormClass\SD\PS_SD241.cs" />
     <Compile Include="FormClass\SD\PS_SD250.cs" />
     <Compile Include="FormClass\SD\PS_SD270.cs" />
     <Compile Include="FormClass\SD\PS_SD280.cs" />
+    <Compile Include="FormClass\SD\PS_SD285.cs" />
     <Compile Include="FormClass\SD\PS_SD290.cs" />
     <Compile Include="FormClass\SD\PS_SD295.cs" />
     <Compile Include="FormClass\SD\PS_SD310.cs" />
@@ -276,6 +280,7 @@
     <Compile Include="FormClass\SD\PS_SD600.cs" />
     <Compile Include="FormClass\SD\PS_SD602.cs" />
     <Compile Include="FormClass\SD\PS_SD603.cs" />
+    <Compile Include="FormClass\SD\PS_SD950.cs" />
     <Compile Include="FormClass\SM\PS_SM021.cs" />
     <Compile Include="PSH_CommonClass\AssemblyInfo.cs" />
     <Compile Include="FormClass\PY\ClassModuleSTD.cs">
@@ -1303,6 +1308,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PSH_BOne_AddOn\Menu_KOR.xml" />
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP047.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP048.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP730.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP097.srf" />

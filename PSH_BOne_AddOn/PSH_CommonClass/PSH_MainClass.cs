@@ -2161,6 +2161,11 @@ namespace PSH_BOne_AddOn
                             pBaseClass.LoadForm("");
                             break;
 
+                        case "PS_PP047": //금속분말 재작업등록
+                            pBaseClass = new PS_PP047();
+                            pBaseClass.LoadForm("");
+                            break;
+
                         case "PS_PP730": //분말일자별작업조회
                             pBaseClass = new PS_PP730();
                             pBaseClass.LoadForm("");
@@ -2341,6 +2346,26 @@ namespace PSH_BOne_AddOn
 
                         case "PS_SD520": //기성매출현황
                             pBaseClass = new PS_SD520();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD190": //판매실적조회
+                            pBaseClass = new PS_SD190();
+                            pBaseClass.LoadForm("");
+                            break;
+                            
+                        case "PS_SD950": //채권만기일관리
+                            pBaseClass = new PS_SD950();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_PP325": //부품주문번호별출고대장
+                            pBaseClass = new PS_PP325();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD285": //타계정출고현황(샘플,감모손)
+                            pBaseClass = new PS_SD285();
                             pBaseClass.LoadForm("");
                             break;
 

@@ -2161,6 +2161,11 @@ namespace PSH_BOne_AddOn
                             pBaseClass.LoadForm("");
                             break;
 
+                        case "PS_PP047": //금속분말 재작업등록
+                            pBaseClass = new PS_PP047();
+                            pBaseClass.LoadForm("");
+                            break;
+
                         case "PS_PP730": //분말일자별작업조회
                             pBaseClass = new PS_PP730();
                             pBaseClass.LoadForm("");

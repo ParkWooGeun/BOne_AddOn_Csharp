@@ -657,7 +657,7 @@ namespace PSH_BOne_AddOn
 				}
 
 
-				/// Crystal /~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/
+				// Crystal
 				WinTitle = "견적서현황[PS_SD120]";
 				ReportName = "PS_SD120.rpt";
 

@@ -25,8 +25,6 @@ namespace PSH_BOne_AddOn
         private string oStatus;
         private string oCanceled;
 
-        private SAPbouiCOM.BoFormMode oFormMode01;
-
         /// <summary>
         /// Form 호출
         /// </summary>
@@ -133,8 +131,6 @@ namespace PSH_BOne_AddOn
         private void PS_PP048_CF_ChooseFromList()
         {
             SAPbouiCOM.ChooseFromListCollection oCFLs = null;
-
-            SAPbouiCOM.Condition oCon = null;
             SAPbouiCOM.ChooseFromList oCFL = null;
             SAPbouiCOM.ChooseFromListCreationParams oCFLCreationParams = null;
             SAPbouiCOM.Column oColumn = null;
@@ -854,7 +850,6 @@ namespace PSH_BOne_AddOn
                         {
                         }
                     }
-
                     if (pVal.ItemUID == "1")
                     {
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
@@ -885,50 +880,48 @@ namespace PSH_BOne_AddOn
                                 BubbleEvent = false;
                                 return;
                             }
-                            ////해야할일 작업
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                         {
-                            if (pVal.ItemUID == "PS_PP048")
-                            {
-                                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-                                {
-                                }
-                                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-                                {
-                                }
-                                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-                                {
-                                }
-                            }
-                            if (pVal.ItemUID == "1")
-                            {
-                                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-                                {
-                                    if (pVal.ActionSuccess == true)
-                                    {
-                                        dataHelpClass.DoQuery("EXEC PS_PP048_03 '" + oDocEntry + "'");
-                                        PS_PP048_FormItemEnabled();
-                                        PS_PP048_AddMatrixRow(0, true);
-                                    }
-                                }
-                                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-                                {
-
-                                }
-                                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-                                {
-                                    if (pVal.ActionSuccess == true)
-                                    {
-                                        PS_PP048_FormItemEnabled();
-                                    }
-                                }
-                            }
                         }
                     }
                 }
                 else if (pVal.BeforeAction == false)
                 {
+                    if (pVal.ItemUID == "PS_PP048")
+                    {
+                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+                        {
+                        }
+                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
+                        {
+                        }
+                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
+                        {
+                        }
+                    }
+                    if (pVal.ItemUID == "1")
+                    {
+                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+                        {
+                            if (pVal.ActionSuccess == true)
+                            {
+                                dataHelpClass.DoQuery("EXEC PS_PP048_03 '" + oDocEntry + "'");
+                                PS_PP048_FormItemEnabled();
+                                PS_PP048_AddMatrixRow(0, true);
+                            }
+                        }
+                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
+                        {
+                        }
+                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
+                        {
+                            if (pVal.ActionSuccess == true)
+                            {
+                                PS_PP048_FormItemEnabled();
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -1248,7 +1241,6 @@ namespace PSH_BOne_AddOn
                             }
                         }
                         oMat01.LoadFromDataSource();
-                        
                     }
                 }
             }
@@ -1270,7 +1262,7 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            int i = 0;
+            int i;
             string Query01 = null;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();

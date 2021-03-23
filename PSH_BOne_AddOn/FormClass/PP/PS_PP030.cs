@@ -753,7 +753,7 @@ namespace PSH_BOne_AddOn
 
                     query01 = "SELECT Count(*) FROM Z_DSMDFRY Where lotno = '" + oForm.Items.Item("OrdNum").Specific.Value + "'";
                     RecordSet01.DoQuery(query01);
-                    Lot104Exsits = RecordSet01.Fields.Item(0).Value;
+                    Lot104Exsits = Convert.ToInt32(RecordSet01.Fields.Item(0).Value);
 
                     if (Lot104Exsits == 0)
                     {
@@ -1164,7 +1164,7 @@ namespace PSH_BOne_AddOn
                             
                             if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "105" || oForm.Items.Item("OrdGbn").Specific.Selected.Value == "106") //몰드,기계공구
                             {
-                                if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] WHERE U_OrdType = '10' AND Canceled = 'N' AND U_PP030HNo = '" + RecordSet01.Fields.Item(0).Value + "' AND U_PP030LNo = '" + RecordSet01.Fields.Item(1).Value + "'", 0, 1) > 0)
+                                if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] WHERE U_OrdType = '10' AND Canceled = 'N' AND U_PP030HNo = '" + RecordSet01.Fields.Item(0).Value + "' AND U_PP030LNo = '" + RecordSet01.Fields.Item(1).Value + "'", 0, 1)) > 0)
                                 {
                                     errCode = "구매요청";
                                     throw new Exception();
@@ -1173,7 +1173,7 @@ namespace PSH_BOne_AddOn
                             
                             if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "104" || oForm.Items.Item("OrdGbn").Specific.Selected.Value == "107") //삭제된 행중에 멀티,엔드베어링중 작업일보에 등록된 행이면 수정불가
                             {
-                                if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + RecordSet01.Fields.Item(0).Value + "'", 0, 1) > 0)
+                                if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + RecordSet01.Fields.Item(0).Value + "'", 0, 1)) > 0)
                                 {
                                     errCode = "작업일보";
                                     throw new Exception();
@@ -1195,7 +1195,7 @@ namespace PSH_BOne_AddOn
                             //기존에 있던 행중에 멀티,엔드베어링중 작업일보에 등록된 행이면 수정불가
                             if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "104" || oForm.Items.Item("OrdGbn").Specific.Selected.Value == "107") 
                             {
-                                if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'", 0, 1) > 0)
+                                if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                                 {
                                     query01 = "  SELECT     PS_PP030L.U_ItemCode,";
                                     query01 += "            PS_PP030L.U_ItemName,";
@@ -1336,7 +1336,7 @@ namespace PSH_BOne_AddOn
                             //삭제된행중에 외주반출등록된행
                             if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "101")
                             {
-                                if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM130H] PS_MM130H LEFT JOIN [@PS_MM130L] PS_MM130L ON PS_MM130H.DocEntry = PS_MM130L.DocEntry WHERE PS_MM130H.Canceled = 'N' AND PS_MM130L.U_PP030HNo = '" + RecordSet01.Fields.Item(0).Value + "' AND PS_MM130L.U_PP030MNo = '" + RecordSet01.Fields.Item(1).Value + "'", 0, 1) > 0)
+                                if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM130H] PS_MM130H LEFT JOIN [@PS_MM130L] PS_MM130L ON PS_MM130H.DocEntry = PS_MM130L.DocEntry WHERE PS_MM130H.Canceled = 'N' AND PS_MM130L.U_PP030HNo = '" + RecordSet01.Fields.Item(0).Value + "' AND PS_MM130L.U_PP030MNo = '" + RecordSet01.Fields.Item(1).Value + "'", 0, 1)) > 0)
                                 {
                                     errCode = "외주반출";
                                     throw new Exception();
@@ -1346,7 +1346,7 @@ namespace PSH_BOne_AddOn
                             //삭제된행중에 외주등록된행
                             if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "105") //기계공구
                             {
-                                if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] PS_MM005H WHERE PS_MM005H.U_OrdType in ('30','40') AND PS_MM005H.Canceled = 'N' AND PS_MM005H.U_PP030DL = '" + RecordSet01.Fields.Item(0).Value + "-" + RecordSet01.Fields.Item(1).Value + "'", 0, 1) > 0)
+                                if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] PS_MM005H WHERE PS_MM005H.U_OrdType in ('30','40') AND PS_MM005H.Canceled = 'N' AND PS_MM005H.U_PP030DL = '" + RecordSet01.Fields.Item(0).Value + "-" + RecordSet01.Fields.Item(1).Value + "'", 0, 1)) > 0)
                                 {
                                     errCode = "외주청구";
                                     throw new Exception();
@@ -1365,7 +1365,7 @@ namespace PSH_BOne_AddOn
                         }
                         else
                         {
-                            if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND PS_PP040L.U_PP030MNo = '" + oMat03.Columns.Item("LineId").Cells.Item(i).Specific.Value.ToString().Trim() + "'", 0, 1) > 0)
+                            if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND PS_PP040L.U_PP030MNo = '" + oMat03.Columns.Item("LineId").Cells.Item(i).Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                             {
                                 //작업일보등록된문서중에 수정이 된문서를 구함
                                 query01 = "  SELECT     PS_PP030M.U_CpBCode,";
@@ -1413,7 +1413,7 @@ namespace PSH_BOne_AddOn
                                 }
                                 else //외주
                                 {
-                                    if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM130H] PS_MM130H LEFT JOIN [@PS_MM130L] PS_MM130L ON PS_MM130H.DocEntry = PS_MM130L.DocEntry WHERE PS_MM130H.Canceled = 'N' AND PS_MM130L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND PS_MM130L.U_PP030MNo = '" + oMat03.Columns.Item("LineId").Cells.Item(i).Specific.Value.ToString() + "'", 0, 1) > 0)
+                                    if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM130H] PS_MM130H LEFT JOIN [@PS_MM130L] PS_MM130L ON PS_MM130H.DocEntry = PS_MM130L.DocEntry WHERE PS_MM130H.Canceled = 'N' AND PS_MM130L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND PS_MM130L.U_PP030MNo = '" + oMat03.Columns.Item("LineId").Cells.Item(i).Specific.Value.ToString() + "'", 0, 1)) > 0)
                                     {
                                         //외주반출등록된문서중에 수정이 된문서를 구함
                                         query01 = "  SELECT     PS_PP030M.U_CpBCode,";
@@ -1450,7 +1450,6 @@ namespace PSH_BOne_AddOn
                             
                             if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "105") //기계공구
                             {
-                                
                                 if (oMat03.Columns.Item("WorkGbn").Cells.Item(i).Specific.Selected.Value == "10")
                                 {
                                     //자가인 행은 제외
@@ -1461,7 +1460,7 @@ namespace PSH_BOne_AddOn
                                 }
                                 else //외주
                                 {
-                                    if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] PS_MM005H WHERE U_OrdType IN ('30','40') AND PS_MM005H.Canceled = 'N' AND PS_MM005H.U_PP030DL = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "-" + oMat03.Columns.Item("LineId").Cells.Item(i).Specific.Value.ToString().Trim() + "'", 0, 1) > 0)
+                                    if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] PS_MM005H WHERE U_OrdType IN ('30','40') AND PS_MM005H.Canceled = 'N' AND PS_MM005H.U_PP030DL = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "-" + oMat03.Columns.Item("LineId").Cells.Item(i).Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                                     {
                                         //외주청구등록된문서중에 수정이 된문서를 구함
                                         query01 = "  SELECT     PS_PP030M.U_CpBCode,";
@@ -1508,7 +1507,7 @@ namespace PSH_BOne_AddOn
                         //삭제된 행중에 멀티,엔드베어링중 작업일보에 등록된 행이면 수정불가
                         if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "104" || oForm.Items.Item("OrdGbn").Specific.Selected.Value == "107") //MG
                         {
-                            if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'", 0, 1) > 0)
+                            if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                             {
                                 errCode = "작업일보";
                                 throw new Exception();
@@ -1534,7 +1533,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "104" || oForm.Items.Item("OrdGbn").Specific.Selected.Value == "107")
                         {
-                            if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'", 0, 1) > 0)
+                            if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                             {
                                 errCode = "작업일보";
                                 throw new Exception();
@@ -1542,7 +1541,7 @@ namespace PSH_BOne_AddOn
                         }
                         else if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "105" || oForm.Items.Item("OrdGbn").Specific.Selected.Value == "106") //몰드,기계공구
                         {
-                            if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] WHERE U_OrdType = '10' AND Canceled = 'N' AND U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND U_PP030LNo = '" + oMat02.Columns.Item("LineId").Cells.Item(oMat02Row02).Specific.Value.ToString().Trim() + "'", 0, 1) > 0)
+                            if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] WHERE U_OrdType = '10' AND Canceled = 'N' AND U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND U_PP030LNo = '" + oMat02.Columns.Item("LineId").Cells.Item(oMat02Row02).Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                             {
                                 errCode = "구매요청";
                                 throw new Exception();
@@ -1560,7 +1559,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (oForm.Items.Item("OrdGbn").Specific.Selected.Value != "102")
                         {
-                            if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND PS_PP040L.U_PP030MNo = '" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1) > 0)
+                            if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND PS_PP040L.U_PP030MNo = '" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                             {
                                 errCode = "작업일보";
                                 throw new Exception();
@@ -1570,7 +1569,7 @@ namespace PSH_BOne_AddOn
                         //삭제된행중에 외주반출등록된행                        
                         if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "101")
                         {
-                            if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM130H] PS_MM130H LEFT JOIN [@PS_MM130L] PS_MM130L ON PS_MM130H.DocEntry = PS_MM130L.DocEntry WHERE PS_MM130H.Canceled = 'N' AND PS_MM130L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND PS_MM130L.U_PP030MNo = '" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1) > 0)
+                            if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM130H] PS_MM130H LEFT JOIN [@PS_MM130L] PS_MM130L ON PS_MM130H.DocEntry = PS_MM130L.DocEntry WHERE PS_MM130H.Canceled = 'N' AND PS_MM130L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND PS_MM130L.U_PP030MNo = '" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                             {
                                 errCode = "외주반출";
                                 throw new Exception();
@@ -1580,7 +1579,7 @@ namespace PSH_BOne_AddOn
                         //삭제된행중에 외주청구등록된행
                         if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "105") //기계공구일때
                         {
-                            if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] PS_MM005H WHERE U_OrdType IN ('30','40') AND PS_MM005H.Canceled = 'N' AND PS_MM005H.U_PP030DL = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "-" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1) > 0)
+                            if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] PS_MM005H WHERE U_OrdType IN ('30','40') AND PS_MM005H.Canceled = 'N' AND PS_MM005H.U_PP030DL = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "-" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                             {
                                 errCode = "외주청구";
                                 throw new Exception();
@@ -1596,7 +1595,7 @@ namespace PSH_BOne_AddOn
                     }
                     else
                     {
-                        if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND PS_PP040L.U_PP030MNo = '" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1) > 0)
+                        if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND PS_PP040L.U_PP030MNo = '" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                         {
                             errCode = "작업일보";
                             throw new Exception();
@@ -1605,7 +1604,7 @@ namespace PSH_BOne_AddOn
                         //삭제된행중에 외주반출등록된행
                         if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "101")
                         {
-                            if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM130H] PS_MM130H LEFT JOIN [@PS_MM130L] PS_MM130L ON PS_MM130H.DocEntry = PS_MM130L.DocEntry WHERE PS_MM130H.Canceled = 'N' AND PS_MM130L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND PS_MM130L.U_PP030MNo = '" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1) > 0)
+                            if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM130H] PS_MM130H LEFT JOIN [@PS_MM130L] PS_MM130L ON PS_MM130H.DocEntry = PS_MM130L.DocEntry WHERE PS_MM130H.Canceled = 'N' AND PS_MM130L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND PS_MM130L.U_PP030MNo = '" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                             {
                                 errCode = "외주반출";
                                 throw new Exception();
@@ -1615,7 +1614,7 @@ namespace PSH_BOne_AddOn
                         //삭제된행중에 외주청구등록된행
                         if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "105") 
                         {
-                            if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] PS_MM005H WHERE U_OrdType IN ('30','40') AND PS_MM005H.Canceled = 'N' AND PS_MM005H.U_PP030DL = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "-" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1) > 0)
+                            if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] PS_MM005H WHERE U_OrdType IN ('30','40') AND PS_MM005H.Canceled = 'N' AND PS_MM005H.U_PP030DL = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "-" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                             {
                                 errCode = "외주청구";
                                 throw new Exception();
@@ -1631,7 +1630,7 @@ namespace PSH_BOne_AddOn
                     }
                     else
                     {
-                        if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND PS_PP040L.U_PP030MNo = '" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1) > 0)
+                        if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND PS_PP040L.U_PP030MNo = '" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                         {
                             errCode = "작업일보";
                             throw new Exception();
@@ -1640,7 +1639,7 @@ namespace PSH_BOne_AddOn
                         //삭제된행중에 외주반출등록된행
                         if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "101")
                         {
-                            if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM130H] PS_MM130H LEFT JOIN [@PS_MM130L] PS_MM130L ON PS_MM130H.DocEntry = PS_MM130L.DocEntry WHERE PS_MM130H.Canceled = 'N' AND PS_MM130L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND PS_MM130L.U_PP030MNo = '" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1) > 0)
+                            if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM130H] PS_MM130H LEFT JOIN [@PS_MM130L] PS_MM130L ON PS_MM130H.DocEntry = PS_MM130L.DocEntry WHERE PS_MM130H.Canceled = 'N' AND PS_MM130L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND PS_MM130L.U_PP030MNo = '" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                             {
                                 errCode = "외주반출";
                                 throw new Exception();
@@ -1650,7 +1649,7 @@ namespace PSH_BOne_AddOn
                         //삭제된행중에 외주청구등록된행
                         if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "105") //기계공구일때
                         {
-                            if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] PS_MM005H WHERE U_OrdType IN ('30','40) AND PS_MM005H.Canceled = 'N' AND PS_MM005H.U_PP030DL = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "-" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1) > 0)
+                            if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] PS_MM005H WHERE U_OrdType IN ('30','40) AND PS_MM005H.Canceled = 'N' AND PS_MM005H.U_PP030DL = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "-" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                             {
                                 errCode = "외주청구";
                                 throw new Exception();
@@ -1668,14 +1667,14 @@ namespace PSH_BOne_AddOn
                     
                     if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "105" || oForm.Items.Item("OrdGbn").Specific.Selected.Value == "106") //몰드,기계공구
                     {
-                        if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] WHERE U_OrdType = '10' AND Canceled = 'N' AND U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value + "' AND U_OKYN = 'Y'", 0, 1) > 0)
+                        if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] WHERE U_OrdType = '10' AND Canceled = 'N' AND U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value + "' AND U_OKYN = 'Y'", 0, 1)) > 0)
                         {
                             errCode = "구매요청";
                             throw new Exception();
                         }
                     }
 
-                    if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) > 0)
+                    if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1)) > 0)
                     {
                         errCode = "";
                         throw new Exception();
@@ -1684,7 +1683,7 @@ namespace PSH_BOne_AddOn
                     //삭제된행중에 외주반출등록된행
                     if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "101")
                     {
-                        if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM130H] PS_MM130H LEFT JOIN [@PS_MM130L] PS_MM130L ON PS_MM130H.DocEntry = PS_MM130L.DocEntry WHERE PS_MM130H.Canceled = 'N' AND PS_MM130L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'", 0, 1) > 0)
+                        if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM130H] PS_MM130H LEFT JOIN [@PS_MM130L] PS_MM130L ON PS_MM130H.DocEntry = PS_MM130L.DocEntry WHERE PS_MM130H.Canceled = 'N' AND PS_MM130L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                         {
                             errCode = "외주반출";
                             throw new Exception();
@@ -1695,7 +1694,7 @@ namespace PSH_BOne_AddOn
                     //기계공구일때
                     if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "105")
                     {
-                        if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] PS_MM005H WHERE U_OrdType IN ('30','40') AND PS_MM005H.Canceled = 'N' AND U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'", 0, 1) > 0)
+                        if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] PS_MM005H WHERE U_OrdType IN ('30','40') AND PS_MM005H.Canceled = 'N' AND U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                         {
                             errCode = "외주청구";
                             throw new Exception();
@@ -2315,14 +2314,14 @@ namespace PSH_BOne_AddOn
             string query01;
             string query02;
             string itemName;
-            string DocEntry = null;
+            string DocEntry = string.Empty;
             SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             SAPbobsCOM.Recordset RecordSet02 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
             {
-                query01 = "   SELECT " +   DocEntry + "',";
+                query01 = "   SELECT '" +   DocEntry + "',";
                 query01 += "'" +           DocEntry + "',";
                 query01 += "               PS_PP030L.U_ItemCode,";
                 query01 += "               PS_PP030L.U_ItemName,";
@@ -2366,6 +2365,8 @@ namespace PSH_BOne_AddOn
                 query01 += "               AND PS_PP030H.Canceled = 'N'";
                 RecordSet01.DoQuery(query01);
 
+                string temp = RecordSet01.Fields.Item(3).Value.ToString().Trim();
+
                 itemName = dataHelpClass.Make_ItemName(RecordSet01.Fields.Item(3).Value.ToString().Trim());
 
                 DocEntry = dataHelpClass.GetValue("SELECT CASE WHEN ISNULL(MAX(CONVERT(INT,DocEntry)),0) = 0 THEN LEFT(CONVERT(NVARCHAR,'" + RecordSet01.Fields.Item("CGDate").Value + "',112),6) + '0001' ELSE ISNULL(MAX(CONVERT(INT,DocEntry)),0)+1 END FROM [@PS_MM005H] WHERE LEFT(CONVERT(NVARCHAR,'" + RecordSet01.Fields.Item("CGDate").Value + "',112),6) = LEFT(DocEntry,6)", 0, 1);
@@ -2378,7 +2379,7 @@ namespace PSH_BOne_AddOn
                 query02 += "        AND U_PP030LNo = '" + oLineId02 + "'";
                 RecordSet02.DoQuery(query02);
 
-                if (RecordSet02.Fields.Item(0).Value == 0)
+                if (Convert.ToInt32(RecordSet02.Fields.Item(0).Value) == 0)
                 {
                     query01 = "INSERT INTO [@PS_MM005H]";
                     query01 += " (";
@@ -2522,7 +2523,7 @@ namespace PSH_BOne_AddOn
                 {
                     query01 = "SELECT AutoKey FROM [ONNM] WHERE ObjectCode = 'PS_PP030'";
                     RecordSet01.DoQuery(query01);
-                    CurrentDocEntry = RecordSet01.Fields.Item(0).Value;
+                    CurrentDocEntry = Convert.ToInt32(RecordSet01.Fields.Item(0).Value);
                     query01 = "UPDATE [ONNM] SET AutoKey = AutoKey + 1 WHERE ObjectCode = 'PS_PP030'";
                     RecordSet01.DoQuery(query01);
                     
@@ -4029,7 +4030,7 @@ namespace PSH_BOne_AddOn
                                 oDS_PS_PP030H.SetValue("U_" + pVal.ItemUID, 0, oForm.Items.Item(pVal.ItemUID).Specific.Value);
                                 if (Convert.ToDouble(oForm.Items.Item(pVal.ItemUID).Specific.Value) < 0)
                                 {
-                                    oDS_PS_PP030H.SetValue("U_SelWt", 0, Convert.ToString(0));
+                                    oDS_PS_PP030H.SetValue("U_SelWt", 0, "0");
                                     dataHelpClass.MDC_GF_Message("수,중량이 올바르지 않습니다.", "W");
                                 }
 
@@ -4154,6 +4155,7 @@ namespace PSH_BOne_AddOn
                         {
                             PS_PP030_AddMatrixRow01(oMat02.VisualRowCount, false);
                         }
+                        oMat02.AutoResizeColumns();
                     }
                     else if (pVal.ItemUID == "Mat03")
                     {
@@ -4166,6 +4168,7 @@ namespace PSH_BOne_AddOn
                             oMat03.Columns.Item("Sequence").TitleObject.Sortable = false;
                             oMat03.FlushToDataSource();
                         }
+                        oMat03.AutoResizeColumns();
                     }
 
                     //공정금액 합계_S

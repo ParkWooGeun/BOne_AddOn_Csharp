@@ -11,7 +11,6 @@ namespace PSH_BOne_AddOn
 	internal class PS_SM021 : PSH_BaseClass
 	{
 		private string oFormUniqueID;
-		//private SAPbouiCOM.Form oForm;
 		private SAPbouiCOM.Matrix oMat01;
 		private SAPbouiCOM.DBDataSource oDS_PS_SM021L; //등록라인
 		private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
@@ -454,26 +453,17 @@ namespace PSH_BOne_AddOn
             SAPbouiCOM.Matrix oBaseMat01 = null;
             SAPbouiCOM.DBDataSource oBaseDS_PS_PP030L = null;
             SAPbobsCOM.Recordset oRecordSet01 = null;
+            SAPbouiCOM.ProgressBar ProgBar01 = null;
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
 
             try
             {
                 if (pVal.BeforeAction == true)
                 {
-                    if (pVal.ItemUID == "PS_SM021")
+                    if (pVal.ItemUID == "Button01")
                     {
-                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-                        {
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-                        {
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-                        {
-                        }
-                    }
-                    else if (pVal.ItemUID == "Button01")
-                    {
+                        oBaseForm01.Freeze(true);
+                        ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                         {
                             oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -564,7 +554,7 @@ namespace PSH_BOne_AddOn
                         {
                         }
                     }
-                    if (pVal.ItemUID == "Button02")
+                    else if (pVal.ItemUID == "Button02")
                     {
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                         {
@@ -588,9 +578,28 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                //System.Runtime.InteropServices.Marshal.ReleaseComObject(oBaseMat01);
-                //System.Runtime.InteropServices.Marshal.ReleaseComObject(oBaseDS_PS_PP030L);
-                //System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+                oBaseForm01.Freeze(false);
+
+                if (ProgBar01 != null)
+                {
+                    ProgBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                }
+
+                if (oBaseMat01 != null)
+                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oBaseMat01);
+                }
+                
+                if (oBaseDS_PS_PP030L != null)
+                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oBaseDS_PS_PP030L);
+                }
+                
+                if (oRecordSet01 != null)
+                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+                }
             }
         }
 
@@ -734,6 +743,7 @@ namespace PSH_BOne_AddOn
             SAPbouiCOM.Matrix oBaseMat01 = null;
             SAPbouiCOM.DBDataSource oBaseDS_PS_PP030L = null;
             SAPbobsCOM.Recordset oRecordSet01 = null;
+            SAPbouiCOM.ProgressBar ProgBar01 = null;
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
 
             try
@@ -755,6 +765,9 @@ namespace PSH_BOne_AddOn
                             
                             if (oMat01Row01 > 0) //매트릭스 내부행을 클릭했을 경우
                             {
+                                oBaseForm01.Freeze(true);
+                                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
                                 oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
                                 sQry = "Select U_MSTCOD, lastName + firstName From [OHEM] a Inner Join [OUSR] b On a.userId = b.USERID Where USER_CODE = '" + PSH_Globals.oCompany.UserName + "'";
@@ -818,9 +831,28 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                //System.Runtime.InteropServices.Marshal.ReleaseComObject(oBaseMat01);
-                //System.Runtime.InteropServices.Marshal.ReleaseComObject(oBaseDS_PS_PP030L);
-                //System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+                oBaseForm01.Freeze(false);
+
+                if (ProgBar01 != null)
+                {
+                    ProgBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                }
+
+                if (oBaseMat01 != null)
+                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oBaseMat01);
+                }
+
+                if (oBaseDS_PS_PP030L != null)
+                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oBaseDS_PS_PP030L);
+                }
+
+                if (oRecordSet01 != null)
+                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+                }
             }
         }
 

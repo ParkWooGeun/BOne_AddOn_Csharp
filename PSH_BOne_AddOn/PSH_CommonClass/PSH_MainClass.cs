@@ -2156,6 +2156,11 @@ namespace PSH_BOne_AddOn
                         #endregion
 
                         #region 생산관리
+                        case "PS_PP038": //1-가.작업지시-투입자재추가등록,수정,삭제
+                            pBaseClass = new PS_PP038();
+                            pBaseClass.LoadForm("");
+                            break;
+
                         case "PS_PP048": //스크랩입고등록
                             pBaseClass = new PS_PP048();
                             pBaseClass.LoadForm("");

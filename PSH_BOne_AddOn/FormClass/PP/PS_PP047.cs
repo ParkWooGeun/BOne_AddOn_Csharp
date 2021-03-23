@@ -260,7 +260,6 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
                 sRow = oRow;
-                PS_PP047_Form_ini();
                 Param01 = oGrid01.DataTable.Columns.Item("사업장").Cells.Item(oRow).Value;
                 Param02 = oGrid01.DataTable.Columns.Item("일자").Cells.Item(oRow).Value;
                 Param03 = oGrid01.DataTable.Columns.Item("제품코드").Cells.Item(oRow).Value;

@@ -315,25 +315,29 @@ namespace PSH_BOne_AddOn
         private bool PS_PP038_CheckBeforeSearch()
         {
             bool functionReturnValue = false;
+            string errMessage = string.Empty;
             try
             {
                 short ErrNum = 0;
                 ErrNum = 0;
 
-                switch (true)
+                if(oForm.Items.Item("OrdGbn").Specific.VALUE.ToString().Trim() == "%")
                 {
-                    case Strings.Trim(oForm.Items.Item("OrdGbn").Specific.VALUE) == "%":
-					//작업구분
-					ErrNum = 1;
-                        goto PS_PP038_CheckBeforeSearch_Error;
-                        break;
+                    errMessage = "조회조건 작업구분은 필수선택 사항입니다. 확인하세요.";
+                    throw new Exception();
                 }
                 functionReturnValue = true;
             }
 
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                if (errMessage != null)
+                {
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
             }
             return functionReturnValue;
         }

@@ -2972,9 +2972,6 @@ namespace PSH_BOne_AddOn
                                 //화면 호출 구현
                                 //PS_PP033 oTempClass = new PS_PP033();
                                 //oTempClass.LoadForm(this);
-
-                                //lChildForm = new PS_PP033();
-                                //lChildForm.LoadForm(this);
                             }
                             else
                             {
@@ -2994,12 +2991,8 @@ namespace PSH_BOne_AddOn
                         {
                             if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "105" || oForm.Items.Item("OrdGbn").Specific.Selected.Value == "106")
                             {
-                                //화면 호출 구현
-                                //PS_PP033 oTempClass = new PS_PP031();
-                                //oTempClass.LoadForm();
-
-                                //lChildForm = new PS_PP031();
-                                //lChildForm.LoadForm();
+                                PS_PP031 oTempClass = new PS_PP031();
+                                oTempClass.LoadForm();
                             }
                             else
                             {

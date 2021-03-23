@@ -9214,6 +9214,17 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
+        <member name="T:PSH_BOne_AddOn.PS_PP031">
+            <summary>
+            품목별공수조회
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP031.LoadForm(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="oFormDocEntry"></param>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_PP047">
             <summary>
             금속분말 재작업등록

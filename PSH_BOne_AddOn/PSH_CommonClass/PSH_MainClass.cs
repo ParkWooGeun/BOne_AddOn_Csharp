@@ -557,8 +557,12 @@ namespace PSH_BOne_AddOn
         /// <param name="pBaseClass"></param>
 		private void Create_USERForm(SAPbouiCOM.MenuEvent pVal, ref PSH_BaseClass pBaseClass)
         {
+            SAPbouiCOM.ProgressBar ProgBar01 = null;
+
             try
             {
+                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
                 if (pVal.BeforeAction == true)
                 {
                     switch (pVal.MenuUID)
@@ -2156,10 +2160,10 @@ namespace PSH_BOne_AddOn
                         #endregion
 
                         #region 생산관리
-                        case "PS_PP038": //1-가.작업지시-투입자재추가등록,수정,삭제
-                            pBaseClass = new PS_PP038();
-                            pBaseClass.LoadForm("");
-                            break;
+                        //case "PS_PP038": //1-가.작업지시-투입자재추가등록,수정,삭제
+                        //    pBaseClass = new PS_PP038();
+                        //    pBaseClass.LoadForm("");
+                        //    break;
 
                         case "PS_PP048": //스크랩입고등록
                             pBaseClass = new PS_PP048();
@@ -2198,6 +2202,11 @@ namespace PSH_BOne_AddOn
 
                         case "PS_PP030": //작업지시등록
                             pBaseClass = new PS_PP030();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_PP031": //품목별 공수 조회
+                            pBaseClass = new PS_PP031();
                             pBaseClass.LoadForm("");
                             break;
 
@@ -2382,6 +2391,14 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("Create_USERForm_Error: " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                if (ProgBar01 != null)
+                {
+                    ProgBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                }
             }
         }
 

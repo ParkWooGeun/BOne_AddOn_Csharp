@@ -561,7 +561,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false); //MainMenu 클릭 후 화면이 열릴 때까지 Waiting 시작
 
                 if (pVal.BeforeAction == true)
                 {
@@ -2384,7 +2384,6 @@ namespace PSH_BOne_AddOn
                             break;
 
                             #endregion
-
                     }
                 }
             }
@@ -2396,8 +2395,13 @@ namespace PSH_BOne_AddOn
             {
                 if (ProgBar01 != null)
                 {
-                    ProgBar01.Stop();
+                    ProgBar01.Stop(); //MainMenu 클릭 후 화면이 열릴 때까지 Waiting 종료
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                }
+
+                if (pBaseClass.oForm != null)
+                {
+                    pBaseClass.oForm.Select(); //ProgressBar실행 종료후 현재 열린 화면으로 Focus 강제 이동
                 }
             }
         }

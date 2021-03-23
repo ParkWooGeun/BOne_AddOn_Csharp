@@ -256,6 +256,7 @@
     <Compile Include="PSH_CommonClass\PSH_DatabaseHelpClass.cs" />
     <Compile Include="PSH_CommonClass\PSH_DataHelpClass.cs" />
     <Compile Include="PSH_CommonClass\PSH_DataPackClass.cs" />
+    <Compile Include="PSH_CommonClass\PSH_EXPFile.cs" />
     <Compile Include="PSH_CommonClass\PSH_FormHelpClass.cs" />
     <Compile Include="PSH_CommonClass\PSH_SetFilter.cs">
       <SubType>Code</SubType>

@@ -1717,6 +1717,12 @@ namespace PSH_BOne_AddOn
                             pBaseClass = new PH_PY136();
                             pBaseClass.LoadForm("");
                             break;
+
+                        case "PH_PY420": //楷富沥魂殿废 (PDF)
+                            pBaseClass = new PH_PY420();
+                            pBaseClass.LoadForm("");
+                            break;
+
                         #endregion 包府
 
                         #region 款康 包府

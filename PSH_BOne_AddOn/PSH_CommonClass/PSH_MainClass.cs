@@ -2383,6 +2383,16 @@ namespace PSH_BOne_AddOn
                             pBaseClass.LoadForm("");
                             break;
 
+                        case "PS_SD956": //작번이력관리
+                            pBaseClass = new PS_SD956();
+                            pBaseClass.LoadForm("");
+                            break;
+
+                        case "PS_SD960": //거래처별월별채권현황
+                            pBaseClass = new PS_SD960();
+                            pBaseClass.LoadForm("");
+                            break;
+
                             #endregion
                     }
                 }

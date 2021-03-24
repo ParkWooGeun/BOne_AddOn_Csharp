@@ -565,6 +565,7 @@ namespace PSH_BOne_AddOn
 
                 if (pVal.BeforeAction == true)
                 {
+<<<<<<< HEAD
                     switch (pVal.MenuUID)
                     {
                         #region 인사 관리
@@ -2400,6 +2401,12 @@ namespace PSH_BOne_AddOn
 
                             #endregion
                     }
+=======
+                    Type type = Type.GetType("PSH_BOne_AddOn." + pVal.MenuUID); //MenuID와 동일한 클래스 Type 생성
+                    dynamic baseClass = Activator.CreateInstance(type); //MenuID와 동일한 클래스 Instance 생성
+                    pBaseClass = baseClass; //PSH_BaseClass로 형변환
+                    pBaseClass.LoadForm(""); //MenuID에 클릭한 클래스의 LoadForm 호출
+>>>>>>> 38a2c82cdff3218a6b591f75777e4b1996ca2829
                 }
             }
             catch (Exception ex)

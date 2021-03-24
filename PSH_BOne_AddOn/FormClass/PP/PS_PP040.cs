@@ -2382,12 +2382,17 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
+            SAPbouiCOM.ProgressBar ProgBar01 = null;
+
             try
             {
+                oForm.Freeze(true);
                 if (pVal.BeforeAction == true)
                 {
                     if (pVal.ItemUID == "1")
                     {
+                        ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                         {
                             if (PS_PP040_DataValidCheck() == false)
@@ -2505,10 +2510,17 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
             finally
             {
+                if (ProgBar01 != null)
+                {
+                    ProgBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                }
+
+                oForm.Freeze(false);
             }
         }
 
@@ -3197,7 +3209,7 @@ namespace PSH_BOne_AddOn
                                                     {
                                                         if (oMat01.Columns.Item("OrdMgNum").Cells.Item(i).Specific.Value == oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value && i != pVal.Row) //현재 입력한 값이 이미 입력되어 있는경우
                                                         {
-                                                            PSH_Globals.SBO_Application.StatusBar.SetText("이미 입력한 공정입니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Warning);
+                                                            PSH_Globals.SBO_Application.MessageBox("이미 입력한 공정입니다.");
                                                             oDS_PS_PP040L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, "");
                                                             errCode = "1";
                                                             throw new Exception();
@@ -3724,7 +3736,7 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
                 
                 BubbleEvent = false;

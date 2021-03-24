@@ -75,7 +75,7 @@ namespace PSH_BOne_AddOn
 				oForm.EnableMenu("1284", true); //취소
 				oForm.EnableMenu("1293", true); //행삭제
 				oForm.EnableMenu("1299", false); //행닫기
-			}
+            }
 			catch(Exception ex)
 			{
 				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
@@ -2972,9 +2972,6 @@ namespace PSH_BOne_AddOn
                                 //화면 호출 구현
                                 //PS_PP033 oTempClass = new PS_PP033();
                                 //oTempClass.LoadForm(this);
-
-                                //lChildForm = new PS_PP033();
-                                //lChildForm.LoadForm(this);
                             }
                             else
                             {
@@ -2994,12 +2991,8 @@ namespace PSH_BOne_AddOn
                         {
                             if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "105" || oForm.Items.Item("OrdGbn").Specific.Selected.Value == "106")
                             {
-                                //화면 호출 구현
-                                //PS_PP033 oTempClass = new PS_PP031();
-                                //oTempClass.LoadForm();
-
-                                //lChildForm = new PS_PP031();
-                                //lChildForm.LoadForm();
+                                PS_PP031 oTempClass = new PS_PP031();
+                                oTempClass.LoadForm("");
                             }
                             else
                             {

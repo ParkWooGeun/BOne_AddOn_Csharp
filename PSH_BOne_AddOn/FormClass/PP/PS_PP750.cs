@@ -52,9 +52,9 @@ namespace PSH_BOne_AddOn
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 
                 oForm.Freeze(true);
-                CreateItems();
-                SetComboBox();
-                InitializeForm();
+                PS_PP750_CreateItems();
+                PS_PP750_SetComboBox();
+                PS_PP750_InitializeForm();
             }
             catch (Exception ex)
             {
@@ -73,7 +73,7 @@ namespace PSH_BOne_AddOn
         /// 화면 Item 생성
         /// </summary>
         /// <returns></returns>
-        private void CreateItems()
+        private void PS_PP750_CreateItems()
         {
             try
             {
@@ -107,18 +107,6 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.UserDataSources.Add("CntcName", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
                 oForm.Items.Item("CntcName").Specific.DataBind.SetBound(true, "", "CntcName");
 
-                //작번(품목코드)
-                oForm.DataSources.UserDataSources.Add("ItemCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
-                oForm.Items.Item("ItemCode").Specific.DataBind.SetBound(true, "", "ItemCode");
-
-                //품목명
-                oForm.DataSources.UserDataSources.Add("ItemName", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 200);
-                oForm.Items.Item("ItemName").Specific.DataBind.SetBound(true, "", "ItemName");
-
-                //품목규격
-                oForm.DataSources.UserDataSources.Add("ItemSpec", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 200);
-                oForm.Items.Item("ItemSpec").Specific.DataBind.SetBound(true, "", "ItemSpec");
-
                 //자체/외주
                 oForm.DataSources.UserDataSources.Add("InOut", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 5);
                 oForm.Items.Item("InOut").Specific.DataBind.SetBound(true, "", "InOut");
@@ -134,6 +122,34 @@ namespace PSH_BOne_AddOn
                 //조회구분
                 oForm.DataSources.UserDataSources.Add("SrchType", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
                 oForm.Items.Item("SrchType").Specific.DataBind.SetBound(true, "", "SrchType");
+
+                //작번(품목코드)
+                oForm.DataSources.UserDataSources.Add("ItemCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
+                oForm.Items.Item("ItemCode").Specific.DataBind.SetBound(true, "", "ItemCode");
+
+                //품목명
+                oForm.DataSources.UserDataSources.Add("ItemName", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 200);
+                oForm.Items.Item("ItemName").Specific.DataBind.SetBound(true, "", "ItemName");
+
+                //품목규격
+                oForm.DataSources.UserDataSources.Add("ItemSpec", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 200);
+                oForm.Items.Item("ItemSpec").Specific.DataBind.SetBound(true, "", "ItemSpec");
+
+                //품의여부
+                oForm.DataSources.UserDataSources.Add("MM030YN", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
+                oForm.Items.Item("MM030YN").Specific.DataBind.SetBound(true, "", "MM030YN");
+
+                //입고여부
+                oForm.DataSources.UserDataSources.Add("MM050YN", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
+                oForm.Items.Item("MM050YN").Specific.DataBind.SetBound(true, "", "MM050YN");
+
+                //검수여부
+                oForm.DataSources.UserDataSources.Add("MM070YN", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
+                oForm.Items.Item("MM070YN").Specific.DataBind.SetBound(true, "", "MM070YN");
+
+                //품의구분
+                oForm.DataSources.UserDataSources.Add("OrdType", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
+                oForm.Items.Item("OrdType").Specific.DataBind.SetBound(true, "", "OrdType");
 
                 //생산미완료(체크박스)
                 oForm.DataSources.UserDataSources.Add("CmpltYN", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
@@ -152,7 +168,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Combobox 설정
         /// </summary>
-        private void SetComboBox()
+        private void PS_PP750_SetComboBox()
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -180,6 +196,29 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("SrchType").Specific.ValidValues.Add("1", "간략보기");
                 oForm.Items.Item("SrchType").Specific.ValidValues.Add("2", "상세보기");
                 oForm.Items.Item("SrchType").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+
+                //품의여부
+                oForm.Items.Item("MM030YN").Specific.ValidValues.Add("%", "전체");
+                oForm.Items.Item("MM030YN").Specific.ValidValues.Add("Y", "완료");
+                oForm.Items.Item("MM030YN").Specific.ValidValues.Add("N", "미완료");
+                oForm.Items.Item("MM030YN").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+
+                //입고여부
+                oForm.Items.Item("MM050YN").Specific.ValidValues.Add("%", "전체");
+                oForm.Items.Item("MM050YN").Specific.ValidValues.Add("Y", "완료");
+                oForm.Items.Item("MM050YN").Specific.ValidValues.Add("N", "미완료");
+                oForm.Items.Item("MM050YN").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+
+                //검수여부
+                oForm.Items.Item("MM070YN").Specific.ValidValues.Add("%", "전체");
+                oForm.Items.Item("MM070YN").Specific.ValidValues.Add("Y", "완료");
+                oForm.Items.Item("MM070YN").Specific.ValidValues.Add("N", "미완료");
+                oForm.Items.Item("MM070YN").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+
+                //품의구분
+                oForm.Items.Item("OrdType").Specific.ValidValues.Add("%", "전체");
+                dataHelpClass.Set_ComboList(oForm.Items.Item("OrdType").Specific, "SELECT Code, Name From [@PSH_ORDTYP] Order by Code", "", false, false);
+                oForm.Items.Item("OrdType").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
             }
             catch (Exception ex)
             {
@@ -194,7 +233,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 초기 세팅
         /// </summary>
-        private void InitializeForm()
+        private void PS_PP750_InitializeForm()
         {
             oForm.DataSources.UserDataSources.Item("FrDocDt").Value = DateTime.Now.ToString("yyyy0101");
             oForm.DataSources.UserDataSources.Item("ToDocDt").Value = DateTime.Now.ToString("yyyy1231");
@@ -208,7 +247,7 @@ namespace PSH_BOne_AddOn
         /// 데이터 조회
         /// </summary>
         /// <returns></returns>
-        private void SelectData()
+        private void PS_PP750_SelectData()
         {
             string sQry;
             string frDocDt; //수주일자(FR)
@@ -321,10 +360,28 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
+        /// ResizeForm
+        /// </summary>
+        private void PS_PP750_ResizeForm()
+        {
+            try
+            {
+                if (mainGrid.Columns.Count > 0)
+                {
+                    mainGrid.AutoResizeColumns();
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+        }
+
+        /// <summary>
         /// 리포트 출력
         /// </summary>
         [STAThread]
-        private void PrintReport()
+        private void PS_PP750_PrintReport()
         {
             //string WinTitle = string.Empty;
             //string ReportName = string.Empty;
@@ -376,24 +433,6 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-            }
-        }
-
-        /// <summary>
-        /// ResizeForm
-        /// </summary>
-        private void ResizeForm()
-        {
-            try
-            {
-                if (mainGrid.Columns.Count > 0)
-                {
-                    mainGrid.AutoResizeColumns();
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
         }
 
@@ -481,11 +520,11 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "BtnSearch")
                     {
-                        SelectData();
+                        PS_PP750_SelectData();
                     }
                     if (pVal.ItemUID == "BtnPrint")
                     {
-                        System.Threading.Thread thread = new System.Threading.Thread(PrintReport);
+                        System.Threading.Thread thread = new System.Threading.Thread(PS_PP750_PrintReport);
                         thread.SetApartmentState(System.Threading.ApartmentState.STA);
                         thread.Start();
                     }
@@ -630,7 +669,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (pVal.Before_Action == false)
                 {
-                    ResizeForm();
+                    PS_PP750_ResizeForm();
                 }
             }
             catch (Exception ex)

@@ -1314,7 +1314,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="PSH_BOne_AddOn\Menu_KOR.xml" />
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP047.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP048.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP730.srf" />

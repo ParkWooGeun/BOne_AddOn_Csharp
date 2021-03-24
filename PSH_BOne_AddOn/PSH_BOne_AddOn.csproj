@@ -1314,6 +1314,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP038.srf" />
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP047.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP048.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP730.srf" />

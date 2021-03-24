@@ -2393,6 +2393,11 @@ namespace PSH_BOne_AddOn
                             pBaseClass.LoadForm("");
                             break;
 
+                        case "PS_SD477": //품목별판매집계현황
+                            pBaseClass = new PS_SD477();
+                            pBaseClass.LoadForm("");
+                            break;
+
                             #endregion
                     }
                 }

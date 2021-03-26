@@ -148,7 +148,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("MM070YN").Specific.DataBind.SetBound(true, "", "MM070YN");
 
                 //품의구분
-                oForm.DataSources.UserDataSources.Add("OrdType", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
+                oForm.DataSources.UserDataSources.Add("OrdType", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 5);
                 oForm.Items.Item("OrdType").Specific.DataBind.SetBound(true, "", "OrdType");
 
                 //생산미완료(체크박스)
@@ -193,8 +193,8 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("CardType").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
                 //조회구분
-                oForm.Items.Item("SrchType").Specific.ValidValues.Add("1", "간략보기");
-                oForm.Items.Item("SrchType").Specific.ValidValues.Add("2", "상세보기");
+                oForm.Items.Item("SrchType").Specific.ValidValues.Add("1", "한행 보기");
+                oForm.Items.Item("SrchType").Specific.ValidValues.Add("2", "여러행 보기");
                 oForm.Items.Item("SrchType").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
                 //품의여부
@@ -259,7 +259,11 @@ namespace PSH_BOne_AddOn
             string inOut; //자체/외주
             string itemType; //장비/공구
             string cardType; //거래처구분
-            string srchType; //조회구분
+            string srchType; //조회구분(쿼리 매개변수 없음)
+            string MM030YN; //품의여부
+            string MM050YN; //입고여부
+            string MM070YN; //검수여부
+            string ordType; //품의구분
             string cmpltYN; //생산미완료여부
             SAPbouiCOM.ProgressBar ProgBar01 = null;
 
@@ -277,9 +281,14 @@ namespace PSH_BOne_AddOn
                 inOut = oForm.Items.Item("InOut").Specific.Value.ToString().Trim(); //자체/외주
                 itemType = oForm.Items.Item("ItemType").Specific.Value.ToString().Trim(); //장비/공구
                 cardType = oForm.Items.Item("CardType").Specific.Value.ToString().Trim(); //거래처구분
-                srchType = oForm.Items.Item("SrchType").Specific.Value.ToString().Trim(); //조회구분
+                srchType = oForm.Items.Item("SrchType").Specific.Value.ToString().Trim(); //조회구분(쿼리 매개변수 없음)
+                MM030YN = oForm.Items.Item("MM030YN").Specific.Value.ToString().Trim(); //품의여부
+                MM050YN = oForm.Items.Item("MM050YN").Specific.Value.ToString().Trim(); ; //입고여부
+                MM070YN = oForm.Items.Item("MM070YN").Specific.Value.ToString().Trim(); ; //검수여부
+                ordType = oForm.Items.Item("OrdType").Specific.Value.ToString().Trim(); ; //품의구분
                 cmpltYN = (oForm.Items.Item("CmpltYN").Specific.Checked ? "Y" : "N"); //생산미완료여부
 
+                //조회구분에 따라
                 if (srchType == "1") //간략보기
                 {
                     sQry = "EXEC [PS_PP750_01] ";
@@ -292,11 +301,15 @@ namespace PSH_BOne_AddOn
                     sQry += "'" + inOut + "',";
                     sQry += "'" + itemType + "',";
                     sQry += "'" + cardType + "',";
+                    sQry += "'" + MM030YN + "',";
+                    sQry += "'" + MM050YN + "',";
+                    sQry += "'" + MM070YN + "',";
+                    sQry += "'" + ordType + "',";
                     sQry += "'" + cmpltYN + "'";
                 }
                 else //상세보기
                 {
-                    sQry = "EXEC [PS_PP750_01] ";
+                    sQry = "EXEC [PS_PP750_02] ";
                     sQry += "'" + frDocDt + "',";
                     sQry += "'" + toDocDt + "',";
                     sQry += "'" + frDueDt + "',";
@@ -306,6 +319,10 @@ namespace PSH_BOne_AddOn
                     sQry += "'" + inOut + "',";
                     sQry += "'" + itemType + "',";
                     sQry += "'" + cardType + "',";
+                    sQry += "'" + MM030YN + "',";
+                    sQry += "'" + MM050YN + "',";
+                    sQry += "'" + MM070YN + "',";
+                    sQry += "'" + ordType + "',";
                     sQry += "'" + cmpltYN + "'";
                 }
 

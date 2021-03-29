@@ -9740,6 +9740,17 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
+        <member name="T:PSH_BOne_AddOn.PS_PP041">
+            <summary>
+            작업일보등록(공정)
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP041.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFormDocEntry"></param>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_PP047">
             <summary>
             금속분말 재작업등록

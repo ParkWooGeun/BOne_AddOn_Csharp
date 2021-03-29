@@ -231,6 +231,7 @@
     <Compile Include="FormClass\PP\PS_PP031.cs" />
     <Compile Include="FormClass\PP\PS_PP033.cs" />
     <Compile Include="FormClass\PP\PS_PP038.cs" />
+    <Compile Include="FormClass\PP\PS_PP041.cs" />
     <Compile Include="FormClass\PP\PS_PP047.cs" />
     <Compile Include="FormClass\PP\PS_PP048.cs" />
     <Compile Include="FormClass\PP\PS_PP030.cs" />
@@ -1690,6 +1691,8 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP041.srf" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

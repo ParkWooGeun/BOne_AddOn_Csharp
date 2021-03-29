@@ -298,6 +298,7 @@ namespace PSH_BOne_AddOn
             {
                 if (errMessage != null)
                 {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
                 }
                 else
                 {

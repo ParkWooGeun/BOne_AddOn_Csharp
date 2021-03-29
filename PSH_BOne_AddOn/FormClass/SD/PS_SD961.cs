@@ -8,26 +8,26 @@ using System.Collections.Generic;
 namespace PSH_BOne_AddOn
 {
 	/// <summary>
-	/// 거래처별월별채권현황
+	/// 거래처별연령분석
 	/// </summary>
-	internal class PS_SD960 : PSH_BaseClass
+	internal class PS_SD961 : PSH_BaseClass
 	{
 		public string oFormUniqueID;
 		public SAPbouiCOM.Grid oGrid;
-		public SAPbouiCOM.DataTable oDS_PS_SD960A;
+		public SAPbouiCOM.DataTable oDS_PS_SD961A;
 
 		/// <summary>
 		/// LoadForm
 		/// </summary>
 		/// <param name="oFormDocEntry01"></param>
 		public override void LoadForm(string oFormDocEntry01)
-		{ 
-		    int i;
+		{
+			int i;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
 			try
 			{
-				oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PS_SD960.srf");
+				oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PS_SD961.srf");
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue = oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue + "_" + (SubMain.Get_TotalFormsCount());
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
@@ -39,19 +39,20 @@ namespace PSH_BOne_AddOn
 					oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
 				}
 
-				oFormUniqueID = "PS_SD960_" + SubMain.Get_TotalFormsCount();
-				SubMain.Add_Forms(this, oFormUniqueID, "PS_SD960");
+				oFormUniqueID = "PS_SD961_" + SubMain.Get_TotalFormsCount();
+				SubMain.Add_Forms(this, oFormUniqueID, "PS_SD961");
 
 				PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
 				oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
 				oForm.SupportedModes = -1;
-                oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
+				oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 
-                oForm.Freeze(true);
-                PS_SD960_CreateItems();
-                PS_SD960_ComboBox_Setting();
-            }
+				oForm.Freeze(true);
+
+				PS_SD961_CreateItems();
+				PS_SD961_ComboBox_Setting();
+			}
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
@@ -66,23 +67,25 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_SD960_CreateItems
+		/// PS_SD961_CreateItems
 		/// </summary>
-		private void PS_SD960_CreateItems()
+		private void PS_SD961_CreateItems()
 		{
 			try
 			{
-			//	oForm.Freeze(true);
+				oForm.Freeze(true);
 
 				oGrid = oForm.Items.Item("Grid01").Specific;
-				oForm.DataSources.DataTables.Add("PS_SD960A");
-				oGrid.DataTable = oForm.DataSources.DataTables.Item("PS_SD960A");
-				oDS_PS_SD960A = oForm.DataSources.DataTables.Item("PS_SD960A");
+				oForm.DataSources.DataTables.Add("PS_SD961A");
+				oGrid.DataTable = oForm.DataSources.DataTables.Item("PS_SD961A");
+				oDS_PS_SD961A = oForm.DataSources.DataTables.Item("PS_SD961A");
 
-				oForm.DataSources.UserDataSources.Add("BPLId", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
-				oForm.DataSources.UserDataSources.Add("YM", SAPbouiCOM.BoDataType.dt_LONG_TEXT, 100);
-
+				//사업장
+				oForm.DataSources.UserDataSources.Add("BPLId", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 5);
 				oForm.Items.Item("BPLId").Specific.DataBind.SetBound(true, "", "BPLId");
+
+				//기준년월
+				oForm.DataSources.UserDataSources.Add("YM", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 6);
 				oForm.Items.Item("YM").Specific.DataBind.SetBound(true, "", "YM");
 
 				oForm.Items.Item("YM").Specific.VALUE = DateTime.Now.ToString("yyyyMM");
@@ -93,21 +96,35 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
-				//oForm.Freeze(false);
+				oForm.Freeze(false);
 			}
 		}
 
 		/// <summary>
-		/// PS_SD960_ComboBox_Setting
+		/// PS_SD961_ComboBox_Setting
 		/// </summary>
-		public void PS_SD960_ComboBox_Setting()
+		public void PS_SD961_ComboBox_Setting()
 		{
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
 			try
 			{
-				dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM [OBPL] ORDER BY BPLId", "", false, false);
-				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
+				oForm.Freeze(true);
+
+				// 사업장
+				oForm.Items.Item("BPLId").Specific.ValidValues.Add("%", "전사업장");
+				dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLID, BPLName FROM OBPL order by BPLID", "", false, false);
+				oForm.Items.Item("BPLId").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+
+				// 채권/채무
+				oForm.Items.Item("Gubun").Specific.ValidValues.Add("1", "채권");
+				oForm.Items.Item("Gubun").Specific.ValidValues.Add("2", "채무");
+				oForm.Items.Item("Gubun").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+
+				// 출력구분
+				oForm.Items.Item("PRT").Specific.ValidValues.Add("1", "거래처별미결현황");
+				oForm.Items.Item("PRT").Specific.ValidValues.Add("2", "거래처별연령분석");
+				oForm.Items.Item("PRT").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 			}
 			catch (Exception ex)
 			{
@@ -115,6 +132,7 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
+				oForm.Freeze(false);
 			}
 		}
 
@@ -144,7 +162,7 @@ namespace PSH_BOne_AddOn
                     //Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
                     break;
                 case SAPbouiCOM.BoEventTypes.et_CLICK: //6
-                   // Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
                     break;
                 case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
                     //Raise_EVENT_DOUBLE_CLICK(FormUID, ref pVal, ref BubbleEvent);
@@ -216,7 +234,7 @@ namespace PSH_BOne_AddOn
 					{
 						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 						{
-							PS_SD960_MTX01();
+							PS_SD961_MTX01();
 						}
 						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
 						{
@@ -230,7 +248,7 @@ namespace PSH_BOne_AddOn
 
 						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 						{
-							System.Threading.Thread thread = new System.Threading.Thread(PS_SD960_Print_Report01);
+							System.Threading.Thread thread = new System.Threading.Thread(PS_SD961_Print_Report01);
 							thread.SetApartmentState(System.Threading.ApartmentState.STA);
 							thread.Start();
 						}
@@ -246,7 +264,7 @@ namespace PSH_BOne_AddOn
 				else if (pVal.BeforeAction == false)
 				{
 
-					if (pVal.ItemUID == "PS_SD960")
+					if (pVal.ItemUID == "PS_SD961")
 					{
 						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 						{
@@ -284,7 +302,7 @@ namespace PSH_BOne_AddOn
 					SubMain.Remove_Forms(oFormUniqueID);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid);
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_SD960A);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_SD961A);
 				}
 				else if (pVal.Before_Action == false)
 				{
@@ -410,21 +428,97 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_SD960_MTX01
+		/// PS_SD961_MTX01
 		/// </summary>
-		private void PS_SD960_MTX01()
+		private void PS_SD961_MTX01()
 		{
+			int i;
 			int ErrNum = 0;
 			string sQry;
+
+			string BPLId;      //사업장
+			string YM;         //기준년월
+			string Gubun;      //AR/AP
+			string PRT;        //출력구분
+
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
 			try
 			{
 				oForm.Freeze(true);
-				sQry = "EXEC PS_SD960_02 '" + oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim() + "', '" + oForm.Items.Item("YM").Specific.VALUE.ToString().Trim() + "'";
+
+				BPLId = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
+				YM    = oForm.Items.Item("YM").Specific.VALUE.ToString().Trim();
+				Gubun = oForm.Items.Item("Gubun").Specific.Selected.VALUE.ToString().Trim();
+				PRT   = oForm.Items.Item("PRT").Specific.Selected.VALUE.ToString().Trim();
+
+				if (PRT == "1")
+				{
+					sQry = "              EXEC PS_SD961_01 '";
+					sQry += BPLId + "','";
+					sQry += YM + "','";
+					sQry += Gubun + "'";
+				}
+				else
+				{
+					sQry = "              EXEC PS_SD961_02 '";
+					sQry += BPLId + "','";
+					sQry += YM + "','";
+					sQry += Gubun + "'";
+				}
 
 				oGrid.DataTable.Clear();
-				oDS_PS_SD960A.ExecuteQuery(sQry);
+				oDS_PS_SD961A.ExecuteQuery(sQry);
+
+				if (PRT == "1")
+				{
+					oGrid.Columns.Item(0).TitleObject.Caption = "사업장코드";
+					oGrid.Columns.Item(1).TitleObject.Caption = "사업장명";
+					oGrid.Columns.Item(2).TitleObject.Caption = "거래처코드";
+					oGrid.Columns.Item(3).TitleObject.Caption = "거래처명";
+					oGrid.Columns.Item(4).TitleObject.Caption = "전표번호";
+					oGrid.Columns.Item(5).TitleObject.Caption = "연체일수";
+					oGrid.Columns.Item(6).TitleObject.Caption = "전기일자";
+					oGrid.Columns.Item(7).TitleObject.Caption = "만기일자";
+					oGrid.Columns.Item(8).TitleObject.Caption = "금액";
+					oGrid.Columns.Item(9).TitleObject.Caption = "순액";
+					oGrid.Columns.Item(10).TitleObject.Caption = "세금";
+					oGrid.Columns.Item(11).TitleObject.Caption = "원래금액";
+					oGrid.Columns.Item(12).TitleObject.Caption = "증빙일자";
+
+					for (i = 8; i <= 11; i++)
+					{
+						oGrid.Columns.Item(i).RightJustified = true;
+					}
+				}
+				else
+				{
+					oGrid.Columns.Item(0).TitleObject.Caption = "사업장코드";
+					oGrid.Columns.Item(1).TitleObject.Caption = "사업장명";
+					oGrid.Columns.Item(2).TitleObject.Caption = "거래처코드";
+					oGrid.Columns.Item(3).TitleObject.Caption = "거래처명";
+					oGrid.Columns.Item(4).TitleObject.Caption = "합계금액";
+					oGrid.Columns.Item(5).TitleObject.Caption = "M-";
+					oGrid.Columns.Item(6).TitleObject.Caption = "M";
+					oGrid.Columns.Item(7).TitleObject.Caption = "M+1";
+					oGrid.Columns.Item(8).TitleObject.Caption = "M+2";
+					oGrid.Columns.Item(9).TitleObject.Caption = "M+3";
+					oGrid.Columns.Item(10).TitleObject.Caption = "M+4";
+					oGrid.Columns.Item(11).TitleObject.Caption = "M+5";
+					oGrid.Columns.Item(12).TitleObject.Caption = "M+6";
+					oGrid.Columns.Item(13).TitleObject.Caption = "M+7";
+					oGrid.Columns.Item(14).TitleObject.Caption = "M+8";
+					oGrid.Columns.Item(15).TitleObject.Caption = "M+9";
+					oGrid.Columns.Item(16).TitleObject.Caption = "M+10";
+					oGrid.Columns.Item(17).TitleObject.Caption = "M+11";
+					oGrid.Columns.Item(18).TitleObject.Caption = "M+12";
+					oGrid.Columns.Item(19).TitleObject.Caption = "12개월이상";
+
+					for (i = 4; i <= 19; i++)
+					{
+						oGrid.Columns.Item(i).RightJustified = true;
+					}
+				}
 
 				if (oGrid.Rows.Count == 0)
 				{
@@ -453,50 +547,64 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_SD960_Print_Report01
+		/// PS_SD961_Print_Report01
 		/// </summary>
 		[STAThread]
-		private void PS_SD960_Print_Report01()
+		private void PS_SD961_Print_Report01()
 		{
 			string sQry;
-			string WinTitle;
-			string ReportName;
+			string WinTitle = string.Empty;
+			string ReportName = string.Empty;
 			string BPLName;
-			string BPLId;
-			string YM;
+			string BPLId;		//사업장
+			string YM;			//기준년월
+			string Gubun;		//AR/AP
+			string PRT;			//출력구분
 
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 
 			try
 			{
-				BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
-				YM = oForm.Items.Item("YM").Specific.Value.ToString().Trim();
+				BPLId = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
+				YM = oForm.Items.Item("YM").Specific.VALUE.ToString().Trim();
+				Gubun = oForm.Items.Item("Gubun").Specific.VALUE.ToString().Trim();
+				PRT = oForm.Items.Item("PRT").Specific.VALUE.ToString().Trim();
 
-				if (string.IsNullOrEmpty(BPLId))
+				if (BPLId == "%")
 				{
-					BPLName = "전체";
+					BPLName = "전사업장";
 				}
 				else
 				{
 					sQry = "SELECT BPLName FROM [OBPL] WHERE BPLId = '" + BPLId + "'";
 					oRecordSet.DoQuery(sQry);
-					BPLName = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+					BPLName = oRecordSet.Fields.Item(0).Value;
 				}
 
-				WinTitle = "[PS_SD960] 거래처별월별채권현황";
-				ReportName = "PS_SD960_01.rpt";
+				if (PRT == "1")
+				{
+					WinTitle = "[PS_SD961_01] 거래처별 미결현황";
+					ReportName = "PS_SD961_01.rpt";
+				}
+				else
+				{
+					WinTitle = "[PS_SD961_02] 거래처별 연령분석";
+					ReportName = "PS_SD961_02.rpt";
+				}
 
 				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
 				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
 
 				// Formula 수식필드
 				dataPackFormula.Add(new PSH_DataPackClass("@BPLId", BPLName));
-				dataPackFormula.Add(new PSH_DataPackClass("@Ym", YM.Substring(0, 4) + "-" + YM.Substring(4, 2)));
+				dataPackFormula.Add(new PSH_DataPackClass("@YM", YM.Substring(0, 4) + "-" + YM.Substring(4, 2)));
+				dataPackFormula.Add(new PSH_DataPackClass("@Gubun", Gubun));
 
 				// Parameter
 				dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLId));
 				dataPackParameter.Add(new PSH_DataPackClass("@YM", YM));
+				dataPackParameter.Add(new PSH_DataPackClass("@Gubun", Gubun));
 
 				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
 			}

@@ -2752,7 +2752,6 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(messageType);
             }
         }
 
@@ -3137,21 +3136,17 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            int i = 0;
-            string query01 = null;
-            double weight = 0;
-            double unitTime = 0;
-            double unitRemainTime = 0;
-            double time = 0;
-            double hour = 0;
-            double minute = 0;
+            int i;
+            string query01;
+            double weight;
+            double unitTime;
+            double unitRemainTime;
+            double time;
+            double hour;
+            double minute;
+            string ordMgNum;
             string errMessage = string.Empty;
-            
-
-            //string sQry = null;
-            string ordMgNum = null;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
             SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             SAPbouiCOM.BoStatusBarMessageType messageType = BoStatusBarMessageType.smt_Error;
 
@@ -3172,7 +3167,7 @@ namespace PSH_BOne_AddOn
                             else
                             {
                                 if (pVal.ColUID == "ordMgNum")
-                                {   
+                                {
                                     if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "선택") //작업구분에 값이 없으면 작업지시가 불러오기전
                                     {
                                         oDS_PS_PP041L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, "");
@@ -3239,9 +3234,9 @@ namespace PSH_BOne_AddOn
                                                 oDS_PS_PP041L.SetValue("U_PP030MNo", pVal.Row - 1, RecordSet01.Fields.Item("PP030MNo").Value);
                                                 oDS_PS_PP041L.SetValue("U_PSum", pVal.Row - 1, RecordSet01.Fields.Item("PSum").Value);
                                                 oDS_PS_PP041L.SetValue("U_BQty", pVal.Row - 1, RecordSet01.Fields.Item("BQty").Value);
-                                                
+
                                                 if (oForm.Items.Item("SOrdGbn").Specific.Value.ToString().Trim() == "104") //멀티
-                                                {   
+                                                {
                                                     if (oForm.Items.Item("SCpCode").Specific.Value.ToString().Trim() == "CP50101") //vmill공정
                                                     {
                                                         oDS_PS_PP041L.SetValue("U_PQty", pVal.Row - 1, RecordSet01.Fields.Item("BQty").Value);
@@ -3413,7 +3408,7 @@ namespace PSH_BOne_AddOn
                                         else if (oForm.Items.Item("OrdType").Specific.Selected.Value == "40") //작업타입이 실적
                                         {
                                         }
-//Continue_Renamed:
+                                        //Continue_Renamed:
                                         //if (oMat01.RowCount == pVal.Row & !string.IsNullOrEmpty(Strings.Trim(oDS_PS_PP041L.GetValue("U_" + pVal.ColUID, pVal.Row - 1))))
                                         //{
                                         //    PS_PP041_AddMatrixRow01(pVal.Row, false);
@@ -3554,7 +3549,7 @@ namespace PSH_BOne_AddOn
                                     oDS_PS_PP041M.SetValue("U_NTime", pVal.Row - 1, "0");
                                     oDS_PS_PP041M.SetValue("U_YTime", pVal.Row - 1, oForm.Items.Item("BaseTime").Specific.Value);
                                     oDS_PS_PP041M.SetValue("U_TTime", pVal.Row - 1, oForm.Items.Item("BaseTime").Specific.Value);
-                                    
+
                                     if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "104") //멀티일때만
                                     {
                                         if (oMat02.VisualRowCount > 1)
@@ -3605,7 +3600,7 @@ namespace PSH_BOne_AddOn
                                     oDS_PS_PP041M.SetValue("U_NTime", pVal.Row - 1, Convert.ToString(time));
                                     oDS_PS_PP041M.SetValue("U_YTime", pVal.Row - 1, Convert.ToString(Convert.ToDouble(oForm.Items.Item("BaseTime").Specific.Value) - time));
                                     oDS_PS_PP041M.SetValue("U_TTime", pVal.Row - 1, Convert.ToString(Convert.ToDouble(oForm.Items.Item("BaseTime").Specific.Value) - time));
-                                    
+
                                     if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "104") //멀티일때만
                                     {
                                         if (oMat02.VisualRowCount > 1)
@@ -3642,7 +3637,7 @@ namespace PSH_BOne_AddOn
                                     oDS_PS_PP041M.SetValue("U_NTime", pVal.Row - 1, "0");
                                     oDS_PS_PP041M.SetValue("U_YTime", pVal.Row - 1, oForm.Items.Item("BaseTime").Specific.Value);
                                     oDS_PS_PP041M.SetValue("U_TTime", pVal.Row - 1, oForm.Items.Item("BaseTime").Specific.Value);
-                                    
+
                                     if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "104") //멀티일때만
                                     {
                                         if (oMat02.VisualRowCount > 1)
@@ -3693,7 +3688,7 @@ namespace PSH_BOne_AddOn
                                     oDS_PS_PP041M.SetValue("U_NTime", pVal.Row - 1, Convert.ToString(time));
                                     oDS_PS_PP041M.SetValue("U_YTime", pVal.Row - 1, Convert.ToString(Convert.ToDouble(oForm.Items.Item("BaseTime").Specific.Value) - time));
                                     oDS_PS_PP041M.SetValue("U_TTime", pVal.Row - 1, Convert.ToString(Convert.ToDouble(oForm.Items.Item("BaseTime").Specific.Value) - time));
-                                    
+
                                     if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "104") //멀티일때만
                                     {
                                         if (oMat02.VisualRowCount > 1)
@@ -3726,7 +3721,7 @@ namespace PSH_BOne_AddOn
                             {
                                 oDS_PS_PP041M.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
                                 oDS_PS_PP041M.SetValue("U_TTime", pVal.Row - 1, Convert.ToString(Convert.ToDouble(oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
-                                
+
                                 if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "104") //멀티일때만
                                 {
                                     if (oMat02.VisualRowCount > 1)
@@ -3849,10 +3844,12 @@ namespace PSH_BOne_AddOn
             {
                 if (errMessage != string.Empty)
                 {
+                    //PSH_Globals.SBO_Application.MessageBox(errMessage);
                     PSH_Globals.SBO_Application.StatusBar.SetText(errMessage, BoMessageTime.bmt_Short, messageType);
                 }
                 else
                 {
+                    //PSH_Globals.SBO_Application.MessageBox(ex.Message);
                     PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
                 BubbleEvent = false;
@@ -3861,7 +3858,6 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet01);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(messageType);
             }
         }
 

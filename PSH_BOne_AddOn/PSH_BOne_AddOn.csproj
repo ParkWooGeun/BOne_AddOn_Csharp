@@ -940,7 +940,7 @@
     <Compile Include="FormClass\PY\PH_PYA75.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FormClass\PY\SM60100.cs">
+    <Compile Include="FormClass\CORE\C60100.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PSH_CommonClass\PSH_Globals.cs" />

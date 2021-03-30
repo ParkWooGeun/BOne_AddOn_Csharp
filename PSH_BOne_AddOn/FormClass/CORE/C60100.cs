@@ -6,7 +6,7 @@ namespace PSH_BOne_AddOn
     /// <summary>
     /// OHEM AddOn
     /// </summary>
-    internal class _3590 : PSH_BaseClass
+    internal class C60100 : PSH_BaseClass
     {
         private string oFormUniqueID;
 

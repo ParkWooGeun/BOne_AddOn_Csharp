@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using SAPbouiCOM;
 using Scripting;
 using PSH_BOne_AddOn.Code;
+using PSH_BOne_AddOn.Data;
 
 namespace PSH_BOne_AddOn
 {
@@ -565,10 +566,17 @@ namespace PSH_BOne_AddOn
 
                 if (pVal.BeforeAction == true)
                 {
-                    Type type = Type.GetType("PSH_BOne_AddOn." + pVal.MenuUID); //MenuID와 동일한 클래스 Type 생성
-                    dynamic baseClass = Activator.CreateInstance(type); //MenuID와 동일한 클래스 Instance 생성
-                    pBaseClass = baseClass; //PSH_BaseClass로 형변환
-                    pBaseClass.LoadForm(""); //MenuID에 클릭한 클래스의 LoadForm 호출
+                    for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
+                    {
+                        if (PSH_Globals.classAllList[i].Name == pVal.MenuUID)
+                        {
+                            Type type = Type.GetType("PSH_BOne_AddOn." + pVal.MenuUID); //MenuUID와 동일한 클래스 Type 생성
+                            dynamic baseClass = Activator.CreateInstance(type); //MenuUID와 동일한 클래스 Instance 생성
+                            pBaseClass = baseClass; //PSH_BaseClass로 형변환
+                            pBaseClass.LoadForm(""); //MenuUID에 클릭한 클래스의 LoadForm 호출
+                            break;
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -603,13 +611,17 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.EventType == SAPbouiCOM.BoEventTypes.et_FORM_LOAD)
                     {
+                        if (pVal.FormTypeEx == "")
                         {
-
-                            //case "60100":       //인사관리>사원마스터데이터 (사용자 정의 필드)
-                            //    pBaseClass = new SM60100();
-                            //    pBaseClass.LoadForm(pVal.FormUID);
-                            //    break;
                         }
+
+                        //{
+
+                        //    //case "60100":       //인사관리>사원마스터데이터 (사용자 정의 필드)
+                        //    //    pBaseClass = new SM60100();
+                        //    //    pBaseClass.LoadForm(pVal.FormUID);
+                        //    //    break;
+                        //}
                     }
                 }
                 return;
@@ -671,16 +683,18 @@ namespace PSH_BOne_AddOn
         {
             BubbleEvent = true;
             PSH_BaseClass oTempClass = new PSH_BaseClass();
-            string FormUID;
+            SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
             {
                 if (pVal.BeforeAction == true)
                 {
                     Create_USERForm(pVal, ref oTempClass);
+                    RecordSet01.DoQuery("EXEC Z_PS_FormCount '" + dataHelpClass.User_MSTCOD() + "','" + pVal.MenuUID + "'"); //Form 실행 횟수 저장
                 }
 
-                FormUID = PSH_Globals.SBO_Application.Forms.ActiveForm.UniqueID;
+                string FormUID = PSH_Globals.SBO_Application.Forms.ActiveForm.UniqueID;
 
                 if (Strings.Left(FormUID, 2) != "F_")
                 {
@@ -709,6 +723,10 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("SBO_Application_MenuEvent_Error: " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet01);
             }
         }
 

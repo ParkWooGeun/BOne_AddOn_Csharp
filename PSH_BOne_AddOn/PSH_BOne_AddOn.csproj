@@ -235,6 +235,7 @@
     <Compile Include="FormClass\PP\PS_PP031.cs" />
     <Compile Include="FormClass\PP\PS_PP033.cs" />
     <Compile Include="FormClass\PP\PS_PP038.cs" />
+    <Compile Include="FormClass\PP\PS_PP041.cs" />
     <Compile Include="FormClass\PP\PS_PP047.cs" />
     <Compile Include="FormClass\PP\PS_PP048.cs" />
     <Compile Include="FormClass\PP\PS_PP030.cs" />
@@ -247,6 +248,7 @@
     <Compile Include="FormClass\PP\PS_PP040.cs" />
     <Compile Include="FormClass\PP\PS_PP900.cs" />
     <Compile Include="FormClass\PP\PS_PP905.cs" />
+    <Compile Include="FormClass\PP\PS_PP909.cs" />
     <Compile Include="FormClass\PP\PS_PP911.cs" />
     <Compile Include="FormClass\PY\PH_PY400.cs" />
     <Compile Include="FormClass\PY\PH_PY998.cs" />
@@ -284,12 +286,16 @@
     <Compile Include="FormClass\SD\PS_SD471.cs" />
     <Compile Include="FormClass\SD\PS_SD476.cs" />
     <Compile Include="FormClass\SD\PS_SD477.cs" />
+    <Compile Include="FormClass\SD\PS_SD480.cs" />
+    <Compile Include="FormClass\SD\PS_SD485.cs" />
+    <Compile Include="FormClass\SD\PS_SD486.cs" />
     <Compile Include="FormClass\SD\PS_SD510.cs" />
     <Compile Include="FormClass\SD\PS_SD520.cs" />
     <Compile Include="FormClass\SD\PS_SD901.cs" />
     <Compile Include="FormClass\SD\PS_SD600.cs" />
     <Compile Include="FormClass\SD\PS_SD602.cs" />
     <Compile Include="FormClass\SD\PS_SD603.cs" />
+    <Compile Include="FormClass\SD\PS_SD912.cs" />
     <Compile Include="FormClass\SD\PS_SD950.cs" />
     <Compile Include="FormClass\SD\PS_SD955.cs" />
     <Compile Include="FormClass\SD\PS_SD956.cs" />
@@ -939,7 +945,7 @@
     <Compile Include="FormClass\PY\PH_PYA75.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FormClass\PY\SM60100.cs">
+    <Compile Include="FormClass\CORE\C60100.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PSH_CommonClass\PSH_Globals.cs" />
@@ -1711,6 +1717,8 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP041.srf" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualBasic;
+using System.Collections.Generic;
 
 namespace PSH_BOne_AddOn
 {
@@ -32,6 +33,28 @@ namespace PSH_BOne_AddOn
         public static short ZPAY_GBL_GNMYER; //근무년수
         public static short ZPAY_GBL_GNMMON; //월수
         public static short ZPAY_GBL_GNMDAY; //일 수
+
+        /// <summary>
+        /// Namespcae의 전체 클래스 조회
+        /// </summary>
+        /// <param name="nameSpace">Namespace</param>
+        /// <returns></returns>
+        public static List<Type> GetClasses(string nameSpace)
+        {
+            List<Type> typeList = new List<Type>();
+
+            foreach (Type t in System.Reflection.Assembly.GetExecutingAssembly().GetTypes())
+            {
+                if (t.Namespace == nameSpace && !t.IsAbstract) //추상클래스, 인터페이스 제외
+                {
+                    typeList.Add(t);
+                }
+            }
+
+            return typeList;
+        }
+
+        public static List<Type> classAllList = GetClasses("PSH_BOne_AddOn"); //Namespace 내의 모든 클래스 조회
     }
 
     public class ZPAY_g_EmpID

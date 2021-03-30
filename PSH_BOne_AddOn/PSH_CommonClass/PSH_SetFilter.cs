@@ -11,7 +11,7 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal static class PSH_SetFilter
     {
-        private static List<Type> classList = GetClasses("PSH_BOne_AddOn"); //Namespace 내의 모든 클래스 조회
+        //private static List<Type> classAllList = GetClasses("PSH_BOne_AddOn"); //Namespace 내의 모든 클래스 조회
 
         public static void Execute()
         {
@@ -60,9 +60,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_ITEM_PRESSED", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_ITEM_PRESSED", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -70,9 +70,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_KEY_DOWN);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_KEY_DOWN", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_KEY_DOWN", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -80,9 +80,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_GOT_FOCUS);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_GOT_FOCUS", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_GOT_FOCUS", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -90,9 +90,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_LOST_FOCUS);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_LOST_FOCUS", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_LOST_FOCUS", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -100,9 +100,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_COMBO_SELECT);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_COMBO_SELECT", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_COMBO_SELECT", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -110,9 +110,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_CLICK);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_CLICK", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_CLICK", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -120,9 +120,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_DOUBLE_CLICK", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_DOUBLE_CLICK", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -130,9 +130,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_MATRIX_LINK_PRESSED", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_MATRIX_LINK_PRESSED", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -140,9 +140,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_MATRIX_COLLAPSE_PRESSED", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_MATRIX_COLLAPSE_PRESSED", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -150,9 +150,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_VALIDATE);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_VALIDATE", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_VALIDATE", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -160,9 +160,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_MATRIX_LOAD", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_MATRIX_LOAD", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -170,9 +170,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_DATASOURCE_LOAD", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_DATASOURCE_LOAD", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -180,9 +180,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_LOAD);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_FORM_LOAD", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_FORM_LOAD", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -190,9 +190,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_FORM_UNLOAD", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_FORM_UNLOAD", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -200,9 +200,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_FORM_ACTIVATE", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_FORM_ACTIVATE", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -210,9 +210,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_FORM_DEACTIVATE", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_FORM_DEACTIVATE", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -220,9 +220,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_CLOSE);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_FORM_CLOSE", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_FORM_CLOSE", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -230,9 +230,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_RESIZE);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_FORM_RESIZE", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_FORM_RESIZE", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -240,9 +240,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_FORM_KEY_DOWN", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_FORM_KEY_DOWN", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -250,9 +250,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_FORM_MENU_HILIGHT", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_FORM_MENU_HILIGHT", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -260,9 +260,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_PRINT);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_PRINT", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_PRINT", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -270,9 +270,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_PRINT_DATA);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_PRINT_DATA", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_PRINT_DATA", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -280,9 +280,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_CHOOSE_FROM_LIST", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_CHOOSE_FROM_LIST", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -290,9 +290,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_RIGHT_CLICK);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_RIGHT_CLICK", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_RIGHT_CLICK", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -300,9 +300,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_MENU_CLICK);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_MENU_CLICK", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_MENU_CLICK", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -310,9 +310,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_FORM_DATA_ADD", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_FORM_DATA_ADD", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -320,9 +320,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_FORM_DATA_UPDATE", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_FORM_DATA_UPDATE", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -330,9 +330,9 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_FORM_DATA_DELETE", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_FORM_DATA_DELETE", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
@@ -340,31 +340,31 @@ namespace PSH_BOne_AddOn
         {
             oFilter = oFilters.Add(SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD);
 
-            for (int i = 0; i < classList.Count; i++)
+            for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
             {
-                RegisterEventFilter("Raise_EVENT_FORM_DATA_LOAD", classList[i], ref oFilter);
+                RegisterEventFilter("Raise_EVENT_FORM_DATA_LOAD", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
 
-        /// <summary>
-        /// Namespcae의 전체 클래스 조회
-        /// </summary>
-        /// <param name="nameSpace">Namespace</param>
-        /// <returns></returns>
-        private static List<Type> GetClasses(string nameSpace)
-        {
-            List<Type> typeList = new List<Type>();
+        ///// <summary>
+        ///// Namespcae의 전체 클래스 조회
+        ///// </summary>
+        ///// <param name="nameSpace">Namespace</param>
+        ///// <returns></returns>
+        //private static List<Type> GetClasses(string nameSpace)
+        //{
+        //    List<Type> typeList = new List<Type>();
 
-            foreach (Type t in Assembly.GetExecutingAssembly().GetTypes())
-            {
-                if (t.Namespace == nameSpace && !t.IsAbstract) //추상클래스, 인터페이스 제외
-                {
-                    typeList.Add(t);
-                }
-            }
+        //    foreach (Type t in Assembly.GetExecutingAssembly().GetTypes())
+        //    {
+        //        if (t.Namespace == nameSpace && !t.IsAbstract) //추상클래스, 인터페이스 제외
+        //        {
+        //            typeList.Add(t);
+        //        }
+        //    }
 
-            return typeList;
-        }
+        //    return typeList;
+        //}
 
         /// <summary>
         /// SAP B1 이벤트 필터 등록

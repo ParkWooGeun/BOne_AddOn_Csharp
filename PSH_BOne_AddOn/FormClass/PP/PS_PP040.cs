@@ -4076,9 +4076,9 @@ namespace PSH_BOne_AddOn
         /// 네비게이션 메소드(Raise_FormMenuEvent 에서 사용)
         /// </summary>
         /// <param name="FormUID"></param>
-        /// <param name="pval"></param>
+        /// <param name="pVal"></param>
         /// <param name="BubbleEvent"></param>
-        private void Raise_EVENT_RECORD_MOVE(string FormUID, SAPbouiCOM.MenuEvent pval, bool BubbleEvent)
+        private void Raise_EVENT_RECORD_MOVE(string FormUID, SAPbouiCOM.MenuEvent pVal, bool BubbleEvent)
         {
             string Query01;
             string DocEntry;
@@ -4090,9 +4090,9 @@ namespace PSH_BOne_AddOn
                 DocEntry = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim(); //원본문서
                 DocEntryNext = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim(); //다음문서
 
-                if (pval.MenuUID == "1288") //다음
+                if (pVal.MenuUID == "1288") //다음
                 {
-                    if (pval.BeforeAction == true)
+                    if (pVal.BeforeAction == true)
                     {
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                         {
@@ -4116,9 +4116,9 @@ namespace PSH_BOne_AddOn
                         }
                     }
                 }
-                else if (pval.MenuUID == "1289") //이전
+                else if (pVal.MenuUID == "1289") //이전
                 {
-                    if (pval.BeforeAction == true)
+                    if (pVal.BeforeAction == true)
                     {
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                         {
@@ -4142,9 +4142,9 @@ namespace PSH_BOne_AddOn
                         }
                     }
                 }
-                else if (pval.MenuUID == "1290") //첫번째레코드로이동
+                else if (pVal.MenuUID == "1290") //첫번째레코드로이동
                 {
-                    if (pval.BeforeAction == true)
+                    if (pVal.BeforeAction == true)
                     {
                         Query01 = " SELECT TOP 1 DocEntry FROM [@PS_PP040H] ORDER BY DocEntry DESC"; //가장 마지막행
                         RecordSet01.DoQuery(Query01);
@@ -4157,9 +4157,9 @@ namespace PSH_BOne_AddOn
                         }
                     }
                 } 
-                else if (pval.MenuUID == "1291") //마지막문서로이동
+                else if (pVal.MenuUID == "1291") //마지막문서로이동
                 {
-                    if (pval.BeforeAction == true)
+                    if (pVal.BeforeAction == true)
                     {
                         Query01 = " SELECT TOP 1 DocEntry FROM [@PS_PP040H] ORDER BY DocEntry ASC"; //가장 첫행
                         RecordSet01.DoQuery(Query01);

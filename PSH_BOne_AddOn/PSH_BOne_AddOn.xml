@@ -9242,7 +9242,7 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_PP362.PS_PP362_AddMatrixRow(System.Int32,SAPbouiCOM.Matrix,SAPbouiCOM.DBDataSource,System.Boolean)">
             <summary>
-            
+            PS_PP362_AddMatrixRow
             </summary>
             <param name="oRow">행 번호</param>
             <param name="RowIserted">행 추가 여부</param>

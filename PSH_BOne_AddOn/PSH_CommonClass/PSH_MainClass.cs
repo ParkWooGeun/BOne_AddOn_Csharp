@@ -741,32 +741,14 @@ namespace PSH_BOne_AddOn
 
                 if (Strings.Left(pVal.FormUID, 2) != "F_")
                 {
-                    if (Check_ValidateForm(pVal.FormTypeEx))
+                    oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
+                    if (oTempClass.oForm == null)
                     {
-                        if (pVal.EventType == BoEventTypes.et_FORM_UNLOAD)
-                        {
-                            if (pVal.Before_Action == true)
-                            {
-                                oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
-                            }
-                            else if (pVal.Before_Action == false) //FORM_UNLOAD 이벤트가 Before_Action == false 일 때는 PSH_Globals.ClassList[FormUID] 에 index 오류 발생하므로 강제 return
-                            {
-                                return;
-                            }
-                        }
-                        else
-                        {
-                            oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
-                        }
-
-                        if (oTempClass.oForm == null)
-                        {
-                            return;
-                        }
-                        else
-                        {
-                            oTempClass.Raise_FormItemEvent(FormUID, ref pVal, ref BubbleEvent);
-                        }
+                        return;
+                    }
+                    else
+                    {
+                        oTempClass.Raise_FormItemEvent(FormUID, ref pVal, ref BubbleEvent);
                     }
                 }
                 else if (Strings.Left(pVal.FormUID, 2) == "F_")

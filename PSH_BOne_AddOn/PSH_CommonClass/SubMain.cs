@@ -34,7 +34,7 @@ namespace PSH_BOne_AddOn
             PSH_Globals.FormTotalCount += 1;
             PSH_Globals.FormCurrentCount += 1;
             PSH_Globals.FormTypeListCount += 1;
-            PSH_Globals.FormTypeList.Add(oFormTypeEx, PSH_Globals.FormTypeListCount.ToString());
+            PSH_Globals.FormTypeList.Add(oFormTypeEx, oFormUid);
         }
 
         /// <summary>
@@ -43,13 +43,18 @@ namespace PSH_BOne_AddOn
         /// <param name="oFormUniqueID"></param>
         public static void Remove_Forms(string oFormUniqueID)
         {
-            //object oTempClass = PSH_Globals.ClassList[oFormUniqueID];
-            PSH_Globals.ClassList.Remove(oFormUniqueID);
-            PSH_Globals.FormTotalCount -= 1;
-            PSH_Globals.FormCurrentCount -= 1;
-            PSH_Globals.FormTypeListCount -= 1;
-            PSH_Globals.FormTypeList.Remove((PSH_Globals.FormTypeListCount - 1).ToString());
-            //oTempClass = null;
+            try
+            {
+                PSH_Globals.ClassList.Remove(oFormUniqueID);
+                PSH_Globals.FormTotalCount -= 1;
+                PSH_Globals.FormCurrentCount -= 1;
+                PSH_Globals.FormTypeListCount -= 1;
+                PSH_Globals.FormTypeList.Remove(oFormUniqueID);
+            }
+            catch (System.Exception ex)
+            {
+                PSH_Globals.SBO_Application.MessageBox(ex.Message);
+            }
         }
 
         /// <summary>

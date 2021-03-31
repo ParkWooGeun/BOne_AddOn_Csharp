@@ -686,14 +686,14 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				if (pVal.Before_Action == true)
-				{
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm); //메모리 해제
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01); //메모리 해제
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_FI420L); //메모리 해제
-                    SubMain.Remove_Forms(oFormUniqueID01);
+				{   
                 }
 				else if (pVal.Before_Action == false)
 				{
+					SubMain.Remove_Forms(oFormUniqueID01);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_FI420L);
 				}
 			}
 			catch (Exception ex)

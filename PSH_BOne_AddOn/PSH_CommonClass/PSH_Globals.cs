@@ -25,7 +25,7 @@ namespace PSH_BOne_AddOn
         public static string SP_ODBC_DBName;
         public static string SP_ODBC_ID;
         public static string SP_ODBC_PW;
-
+        
         public static bool[] M_Used = new bool[5]; //1:근태, 2:급상여, 3:퇴직, 4:원천
         public static short ZPAY_GBL_GNSYER; //근속년수
         public static short ZPAY_GBL_GNSMON; //월수

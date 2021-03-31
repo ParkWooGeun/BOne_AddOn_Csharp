@@ -12143,13 +12143,6 @@
             2. 클래스의 메소드 중 해당 이벤트 필터 메소드가 존재하면 필터 추가
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PSH_SetFilter.GetClasses(System.String)">
-            <summary>
-            Namespcae의 전체 클래스 조회
-            </summary>
-            <param name="nameSpace">Namespace</param>
-            <returns></returns>
-        </member>
         <member name="M:PSH_BOne_AddOn.PSH_SetFilter.RegisterEventFilter(System.String,System.Type,SAPbouiCOM.EventFilter@)">
             <summary>
             SAP B1 이벤트 필터 등록
@@ -31939,6 +31932,13 @@
             OHEM AddOn
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PSH_Globals.GetClasses(System.String)">
+            <summary>
+            Namespcae의 전체 클래스 조회
+            </summary>
+            <param name="nameSpace">Namespace</param>
+            <returns></returns>
+        </member>
         <member name="T:PSH_BOne_AddOn.PSH_MainClass">
             <summary>
             MainClass : 광역변수 초기화, 어플리케이션 연결, DI API 연결, 회사 DB 연결, ODBC 연결용 변수 초기화, MainMenu용 XML 로딩, 유효폼 검사, AddOn 폼 생성, System 폼 생성, 이벤트 정의, 이벤트 필터 실행
@@ -32011,11 +32011,12 @@
             <param name="pVal"></param>
             <param name="pBaseClass"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PSH_MainClass.Create_SYSTEMForm(SAPbouiCOM.ItemEvent)">
+        <member name="M:PSH_BOne_AddOn.PSH_MainClass.Create_SYSTEMForm(SAPbouiCOM.ItemEvent,PSH_BOne_AddOn.PSH_BaseClass@)">
             <summary>
             시스템폼 생성
             </summary>
-            <param name="pval"></param>
+            <param name="pVal"></param>
+            <param name="pBaseClass"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PSH_MainClass.TerminateApplication">
             <summary>

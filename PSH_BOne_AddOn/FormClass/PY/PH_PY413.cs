@@ -1,11 +1,6 @@
 using System;
-using System.Collections.Generic;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
-using PSH_BOne_AddOn.DataPack;
-using PSH_BOne_AddOn.Form;
-using Microsoft.VisualBasic;
-
 
 namespace PSH_BOne_AddOn
 {
@@ -442,7 +437,7 @@ namespace PSH_BOne_AddOn
 
                 oForm.EnableMenu("1282", true);  // 문서추가
 
-                if (string.IsNullOrEmpty(Strings.Trim(oForm.Items.Item("Year").Specific.Value)))
+                if (string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.Value.ToString().Trim()))
                 {
                     oForm.Items.Item("Year").Specific.Value = Convert.ToString(DateTime.Now.Year - 1);
                 }
@@ -559,10 +554,7 @@ namespace PSH_BOne_AddOn
                 else if (pVal.Before_Action == false)
                 {
                     SubMain.Remove_Forms(oFormUniqueID01);
-
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
-                    //System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY413);
-                    //System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid1);
                 }
             }
             catch (Exception ex)
@@ -757,7 +749,6 @@ namespace PSH_BOne_AddOn
             }
         }
 
-
         /// <summary>
         /// ITEM_PRESSED 이벤트
         /// </summary>
@@ -887,8 +878,8 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "MSTCOD":
-                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
-                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
+                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
 
                                 sQry = "Select Code,";
                                 sQry = sQry + " FullName = U_FullName,";
@@ -918,8 +909,8 @@ namespace PSH_BOne_AddOn
                                 oForm.Items.Item("ClsName").Specific.Value = oRecordSet.Fields.Item("ClsName").Value;
                                 break;
                             case "FullName":
-                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
-                                FullName = oForm.Items.Item("FullName").Specific.Value.Trim();
+                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                                FullName = oForm.Items.Item("FullName").Specific.Value.ToString().Trim();
 
                                 sQry = "Select Code,";
                                 sQry = sQry + " FullName = U_FullName,";
@@ -951,9 +942,9 @@ namespace PSH_BOne_AddOn
                                 break;
 
                             case "ws_mamt1":
-                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
-                                yyyy = oForm.Items.Item("Year").Specific.Value.Trim();
-                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
+                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                                yyyy = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
+                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
 
                                 //총급여액계산해서 5,500 이하는 15% 아니면 12%
                                 sQry = "SELECT SUM(gwase) ";
@@ -1000,9 +991,9 @@ namespace PSH_BOne_AddOn
                                 break;
 
                             case "ws_mamt2":
-                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
-                                yyyy = oForm.Items.Item("Year").Specific.Value.Trim();
-                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
+                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                                yyyy = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
+                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
 
                                 //총급여액계산해서 5,500 이하는 15% 아니면 12%
                                 sQry = "SELECT SUM(gwase) ";
@@ -1049,9 +1040,9 @@ namespace PSH_BOne_AddOn
                                 break;
 
                             case "ws_mamt3":
-                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
-                                yyyy = oForm.Items.Item("Year").Specific.Value.Trim();
-                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
+                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                                yyyy = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
+                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
 
                                 //총급여액계산해서 5,500 이하는 15% 아니면 12%
                                 sQry = "SELECT SUM(gwase) ";
@@ -1210,19 +1201,19 @@ namespace PSH_BOne_AddOn
                 Year = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
 
-                if (string.IsNullOrEmpty(Strings.Trim(Year)))
+                if (string.IsNullOrEmpty(Year))
                 {
                     PSH_Globals.SBO_Application.MessageBox("년도가 없습니다. 확인바랍니다..");
                     return;
                 }
 
-                if (string.IsNullOrEmpty(Strings.Trim(CLTCOD)))
+                if (string.IsNullOrEmpty(CLTCOD))
                 {
                     PSH_Globals.SBO_Application.MessageBox("사업장이 없습니다. 확인바랍니다..");
                     return;
                 }
 
-                if (string.IsNullOrEmpty(Strings.Trim(MSTCOD)))
+                if (string.IsNullOrEmpty(MSTCOD))
                 {
                     PSH_Globals.SBO_Application.MessageBox("사번이 없습니다. 확인바랍니다..");
                     return;
@@ -1350,9 +1341,9 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                saup = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
-                yyyy = oForm.Items.Item("Year").Specific.Value;
-                sabun = Strings.Trim(Conversion.Str(oForm.Items.Item("MSTCOD").Specific.Value));
+                saup = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                yyyy = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
+                sabun = oForm.Items.Item("MSTCOD").Specific.Value;
                 ws_name1 = oForm.Items.Item("ws_name1").Specific.Value;
                 ws_name2 = oForm.Items.Item("ws_name2").Specific.Value;
                 ws_name3 = oForm.Items.Item("ws_name3").Specific.Value;
@@ -1432,19 +1423,19 @@ namespace PSH_BOne_AddOn
                 ld_bamt2 = Convert.ToDouble(oForm.Items.Item("ld_bamt2").Specific.Value);
                 ld_bamt3 = Convert.ToDouble(oForm.Items.Item("ld_bamt3").Specific.Value);
 
-                if (string.IsNullOrEmpty(Strings.Trim(yyyy)))
+                if (string.IsNullOrEmpty(yyyy))
                 {
                     PSH_Globals.SBO_Application.MessageBox("년도가 없습니다. 확인바랍니다..");
                     return;
                 }
 
-                if (string.IsNullOrEmpty(Strings.Trim(saup)))
+                if (string.IsNullOrEmpty(saup))
                 {
                     PSH_Globals.SBO_Application.MessageBox("사업장이 없습니다. 확인바랍니다..");
                     return;
                 }
 
-                if (string.IsNullOrEmpty(Strings.Trim(sabun)))
+                if (string.IsNullOrEmpty(sabun))
                 {
                     PSH_Globals.SBO_Application.MessageBox("사번이 없습니다. 확인바랍니다..");
                     return;

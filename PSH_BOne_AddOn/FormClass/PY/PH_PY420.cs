@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualBasic;
-using System;
+﻿using System;
 using SAPbouiCOM;
 using System.Text;
 using System.Windows.Forms;
@@ -107,7 +106,6 @@ namespace PSH_BOne_AddOn
             }
         }
 
-
         /// <summary>
         /// 화면의 아이템 Enable 설정
         /// </summary>
@@ -122,15 +120,15 @@ namespace PSH_BOne_AddOn
                 // 문서추가
                 oForm.EnableMenu("1282", true);
 
-                if (string.IsNullOrEmpty(Strings.Trim(oForm.Items.Item("Year").Specific.VALUE)))
+                if (string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.Value.ToString().Trim()))
                 {
-                    oForm.Items.Item("Year").Specific.VALUE = Convert.ToString(DateTime.Now.Year - 1);
+                    oForm.Items.Item("Year").Specific.Value = Convert.ToString(DateTime.Now.Year - 1);
                 }
 
-                if (string.IsNullOrEmpty(Strings.Trim(oForm.Items.Item("MSTCOD").Specific.VALUE)))
+                if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim()))
                 {
-                    oForm.Items.Item("MSTCOD").Specific.VALUE = "";
-                    oForm.Items.Item("FullName").Specific.VALUE = "";
+                    oForm.Items.Item("MSTCOD").Specific.Value = "";
+                    oForm.Items.Item("FullName").Specific.Value = "";
                 }
             }
             catch (Exception ex)
@@ -163,11 +161,11 @@ namespace PSH_BOne_AddOn
 
                 if (fileDlg.ShowDialog() == DialogResult.OK)
                 {
-                    oForm.Items.Item("Comments").Specific.VALUE = fileDlg.FileName;
+                    oForm.Items.Item("Comments").Specific.Value = fileDlg.FileName;
                 }
-                string filePath = oForm.Items.Item("Comments").Specific.VALUE;
-                password = oForm.Items.Item("Password").Specific.VALUE;
-                MSTCOD = oForm.Items.Item("MSTCOD").Specific.VALUE;
+                string filePath = oForm.Items.Item("Comments").Specific.Value;
+                password = oForm.Items.Item("Password").Specific.Value;
+                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value;
                 string strXML = "XML";
 
                 if (string.IsNullOrEmpty(filePath))
@@ -231,7 +229,7 @@ namespace PSH_BOne_AddOn
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
-                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.VALUE))
+                if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value))
                 {
                     PSH_Globals.SBO_Application.MessageBox("사업장은 필수입니다.");
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -239,7 +237,7 @@ namespace PSH_BOne_AddOn
                     return functionReturnValue;
                 }
                 // 년도
-                if (string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.VALUE.Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.MessageBox("년도는 필수입니다.");
                     oForm.Items.Item("Year").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -247,21 +245,21 @@ namespace PSH_BOne_AddOn
                     return functionReturnValue;
                 }
                 // 분기
-                if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.VALUE.Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.MessageBox("사번은 필수입니다.");
                     oForm.Items.Item("MSTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     functionReturnValue = false;
                     return functionReturnValue;
                 }
-                if (string.IsNullOrEmpty(oForm.Items.Item("FullName").Specific.VALUE.Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("FullName").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.MessageBox("이름은 필수입니다.");
                     oForm.Items.Item("FullName").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     functionReturnValue = false;
                     return functionReturnValue;
                 }
-                sQry = "select count(*)  from [p_seoybase] where div in (10) and yyyy = '"+ oForm.Items.Item("Year").Specific.VALUE.Trim()  + "' and sabun ='"+ oForm.Items.Item("MSTCOD").Specific.VALUE.Trim() + "'";
+                sQry = "select count(*)  from [p_seoybase] where div in (10) and yyyy = '"+ oForm.Items.Item("Year").Specific.Value.Trim()  + "' and sabun ='"+ oForm.Items.Item("MSTCOD").Specific.Value.Trim() + "'";
                 oRecordSet.DoQuery(sQry);
 
                 if (oRecordSet.Fields.Item(0).Value <= 0){
@@ -306,9 +304,9 @@ namespace PSH_BOne_AddOn
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
-                mstcode = oForm.Items.Item("MSTCOD").Specific.VALUE;
-                yyyy = oForm.Items.Item("Year").Specific.VALUE;
-                BPLID = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
+                mstcode = oForm.Items.Item("MSTCOD").Specific.Value;
+                yyyy = oForm.Items.Item("Year").Specific.Value;
+                BPLID = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                 //oFilePath = @"\\191.1.1.220\pdf\";
                 oFilePath = "\\\\" + PSH_Globals.SP_ODBC_IP + "\\pdf\\";
 
@@ -344,9 +342,9 @@ namespace PSH_BOne_AddOn
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
-                BPLID = oForm.Items.Item("CLTCOD").Specific.VALUE;
-                yyyy = oForm.Items.Item("Year").Specific.VALUE;
-                mstcode = oForm.Items.Item("MSTCOD").Specific.VALUE;
+                BPLID = oForm.Items.Item("CLTCOD").Specific.Value;
+                yyyy = oForm.Items.Item("Year").Specific.Value;
+                mstcode = oForm.Items.Item("MSTCOD").Specific.Value;
 
                 sQry = "Exec PH_PY420_01 '" + BPLID + "', '" + yyyy + "', '" + mstcode + "'";
                 oRecordSet.DoQuery(sQry);
@@ -485,7 +483,6 @@ namespace PSH_BOne_AddOn
             }
         }
 
-
         /// <summary>
         /// VALIDATE 이벤트
         /// </summary>
@@ -514,8 +511,8 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "MSTCOD":
-                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
-                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.VALUE.ToString().Trim();
+                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
 
                                 sQry = "Select Code,";
                                 sQry = sQry + " FullName = U_FullName,";
@@ -541,8 +538,8 @@ namespace PSH_BOne_AddOn
                                 break;
 
                             case "FullName":
-                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.VALUE);
-                                FullName = oForm.Items.Item("FullName").Specific.VALUE;
+                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                                FullName = oForm.Items.Item("FullName").Specific.Value;
 
                                 sQry = "Select Code,";
                                 sQry = sQry + " FullName = U_FullName,";
@@ -567,7 +564,7 @@ namespace PSH_BOne_AddOn
                                 oRecordSet.DoQuery(sQry);
 
                                 oForm.DataSources.UserDataSources.Item("MSTCOD").Value = oRecordSet.Fields.Item("Code").Value;
-                                //oForm.Items("MSTCOD").Specific.VALUE = oRecordSet.Fields("Code").VALUE
+                                //oForm.Items("MSTCOD").Specific.Value = oRecordSet.Fields("Code").Value
                                 break;
                         }
                     }
@@ -628,7 +625,6 @@ namespace PSH_BOne_AddOn
             }
         }
 
-
         /// <summary>
         /// FORM_UNLOAD 이벤트
         /// </summary>
@@ -645,8 +641,6 @@ namespace PSH_BOne_AddOn
                 else if (pVal.BeforeAction == false)
                 {
                     SubMain.Remove_Forms(oFormUniqueID);
-
-                    //메모리 해제
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                 }
             }

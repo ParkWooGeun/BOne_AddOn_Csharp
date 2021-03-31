@@ -12,6 +12,7 @@ namespace PSH_BOne_AddOn
     internal class PH_PY985 : PSH_BaseClass
     {
         public string oFormUniqueID01;
+
         public override void LoadForm()
         {
             string strXml = string.Empty;
@@ -328,8 +329,6 @@ namespace PSH_BOne_AddOn
 
             return functionReturnValue;
         }
-
-        
 
         /// <summary>
         /// ITEM_PRESSED 이벤트

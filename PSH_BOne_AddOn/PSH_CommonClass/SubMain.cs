@@ -51,7 +51,7 @@ namespace PSH_BOne_AddOn
                 PSH_Globals.FormTypeListCount -= 1;
                 PSH_Globals.FormTypeList.Remove(oFormUniqueID);
             }
-            catch (System.Exception ex)
+            catch(System.Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(ex.Message);
             }

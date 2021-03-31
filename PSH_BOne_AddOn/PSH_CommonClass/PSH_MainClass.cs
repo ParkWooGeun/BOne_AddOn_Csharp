@@ -164,7 +164,7 @@ namespace PSH_BOne_AddOn
             string ServerName;
             SAPbobsCOM.Recordset oRecordSet = (SAPbobsCOM.Recordset)PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
-
+            
             ServerName = PSH_Globals.SBO_Application.Company.ServerName;
 
             sQry = "  SELECT      PARAM01 AS PARAM01,";
@@ -184,8 +184,7 @@ namespace PSH_BOne_AddOn
             {
                 //ODBC
                 //PSH_Globals.SP_ODBC_YN = Trim(oRecordset.Fields("Value01").Value)
-                if (codeHelpClass.Right(ServerName, 3) == "223")
-                {
+                if (codeHelpClass.Right(ServerName, 3) == "223"){
                     PSH_Globals.SP_ODBC_Name = "MDCERP";
                 }
                 else
@@ -259,7 +258,7 @@ namespace PSH_BOne_AddOn
                 }
                 //XML No 생성
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("XmlCreateYN_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
@@ -744,22 +743,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (Check_ValidateForm(pVal.FormTypeEx))
                     {
-                        if (pVal.EventType == BoEventTypes.et_FORM_UNLOAD)
-                        {
-                            if (pVal.Before_Action == true)
-                            {
-                                oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
-                            }
-                            else if (pVal.Before_Action == false) //FORM_UNLOAD 이벤트가 Before_Action == false 일 때는 PSH_Globals.ClassList[FormUID] 에 index 오류 발생하므로 강제 return
-                            {
-                                return;
-                            }
-                        }
-                        else
-                        {
-                            oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
-                        }
-
+                        oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
                         if (oTempClass.oForm == null)
                         {
                             return;

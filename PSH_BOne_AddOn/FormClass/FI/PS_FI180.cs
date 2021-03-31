@@ -725,11 +725,11 @@ namespace PSH_BOne_AddOn
 			{
 				if (pVal.Before_Action == true)
 				{
-                    SubMain.Remove_Forms(oFormUniqueID01);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm); //메모리 해제
                 }
 				else if (pVal.Before_Action == false)
 				{
+					SubMain.Remove_Forms(oFormUniqueID01);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
 				}
 			}
 			catch (Exception ex)

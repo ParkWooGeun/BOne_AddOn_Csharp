@@ -361,13 +361,13 @@ namespace PSH_BOne_AddOn
 			{
 				if (pVal.BeforeAction == true)
 				{
+				}
+				else if (pVal.BeforeAction == false)
+				{
 					SubMain.Remove_Forms(oFormUniqueID);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_SD956_01A);
-				}
-				else if (pVal.BeforeAction == false)
-				{
 				}
 			}
 			catch (Exception ex)

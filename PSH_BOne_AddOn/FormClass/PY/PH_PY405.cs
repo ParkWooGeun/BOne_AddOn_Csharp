@@ -319,15 +319,15 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.Before_Action == true)
                 {
-                    SubMain.Remove_Forms(oFormUniqueID01);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY405);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY405L);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid1);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
                 }
                 else if (pVal.Before_Action == false)
-                {   
+                {
+                    SubMain.Remove_Forms(oFormUniqueID01);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid1);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY405);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY405L);
                 }
             }
             catch (Exception ex)

@@ -374,12 +374,12 @@ namespace PSH_BOne_AddOn
 			{
 				if (pVal.Before_Action == true)
 				{
-					SubMain.Remove_Forms(oFormUniqueID);
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid);
 				}
 				else if (pVal.Before_Action == false)
 				{
+					SubMain.Remove_Forms(oFormUniqueID);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid);
 				}
 			}
 			catch (Exception ex)

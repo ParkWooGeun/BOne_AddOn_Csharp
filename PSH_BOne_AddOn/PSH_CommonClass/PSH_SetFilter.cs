@@ -11,8 +11,6 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal static class PSH_SetFilter
     {
-        //private static List<Type> classAllList = GetClasses("PSH_BOne_AddOn"); //Namespace 내의 모든 클래스 조회
-
         public static void Execute()
         {
             SAPbouiCOM.EventFilters oFilters = null;
@@ -345,26 +343,6 @@ namespace PSH_BOne_AddOn
                 RegisterEventFilter("Raise_EVENT_FORM_DATA_LOAD", PSH_Globals.classAllList[i], ref oFilter);
             }
         }
-
-        ///// <summary>
-        ///// Namespcae의 전체 클래스 조회
-        ///// </summary>
-        ///// <param name="nameSpace">Namespace</param>
-        ///// <returns></returns>
-        //private static List<Type> GetClasses(string nameSpace)
-        //{
-        //    List<Type> typeList = new List<Type>();
-
-        //    foreach (Type t in Assembly.GetExecutingAssembly().GetTypes())
-        //    {
-        //        if (t.Namespace == nameSpace && !t.IsAbstract) //추상클래스, 인터페이스 제외
-        //        {
-        //            typeList.Add(t);
-        //        }
-        //    }
-
-        //    return typeList;
-        //}
 
         /// <summary>
         /// SAP B1 이벤트 필터 등록

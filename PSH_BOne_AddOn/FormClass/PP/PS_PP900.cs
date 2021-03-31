@@ -664,6 +664,9 @@ namespace PSH_BOne_AddOn
 			{
 				if (pVal.BeforeAction == true)
 				{
+				}
+				else if (pVal.BeforeAction == false)
+				{
 					SubMain.Remove_Forms(oFormUniqueID);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
@@ -671,9 +674,6 @@ namespace PSH_BOne_AddOn
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_PP900H);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_PP900L);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_PP900M);
-				}
-				else if (pVal.BeforeAction == false)
-				{
 				}
 			}
 			catch (Exception ex)

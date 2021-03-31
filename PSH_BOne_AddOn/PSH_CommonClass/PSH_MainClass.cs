@@ -741,14 +741,17 @@ namespace PSH_BOne_AddOn
 
                 if (Strings.Left(pVal.FormUID, 2) != "F_")
                 {
-                    oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
-                    if (oTempClass.oForm == null)
+                    if (Check_ValidateForm(pVal.FormTypeEx))
                     {
-                        return;
-                    }
-                    else
-                    {
-                        oTempClass.Raise_FormItemEvent(FormUID, ref pVal, ref BubbleEvent);
+                        oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
+                        if (oTempClass.oForm == null)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            oTempClass.Raise_FormItemEvent(FormUID, ref pVal, ref BubbleEvent);
+                        }
                     }
                 }
                 else if (Strings.Left(pVal.FormUID, 2) == "F_")

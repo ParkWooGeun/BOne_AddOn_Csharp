@@ -4524,9 +4524,26 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.Before_Action == true)
                 {
+                }
+                else if (pVal.Before_Action == false)
+                {
                     SubMain.Remove_Forms(oFormUniqueID);
-
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat1);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat2);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat3);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat4);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat5);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat6);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat7);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat8);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat9);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat10);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat11);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat12);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat13);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat14);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat15);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY001A);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY001B);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY001C);
@@ -4543,25 +4560,6 @@ namespace PSH_BOne_AddOn
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY001P);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY001Q);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY001R);
-
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat1);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat2);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat3);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat4);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat5);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat6);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat7);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat8);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat9);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat10);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat11);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat12);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat13);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat14);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat15);
-                }
-                else if (pVal.Before_Action == false)
-                {   
                 }
             }
             catch (Exception ex)

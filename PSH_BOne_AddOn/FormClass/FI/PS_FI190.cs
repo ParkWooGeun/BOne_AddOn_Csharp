@@ -396,11 +396,12 @@ namespace PSH_BOne_AddOn
 			{
 				if (pVal.BeforeAction == true)
 				{
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm); //메모리 해제
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid01); //메모리 해제
 				}
 				else if (pVal.BeforeAction == false)
-				{	
+				{
+					SubMain.Remove_Forms(oFormUniqueID01);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid01);
 				}
 			}
 			catch (Exception ex)

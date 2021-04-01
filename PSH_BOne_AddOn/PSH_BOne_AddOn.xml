@@ -9317,14 +9317,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP940.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            COMBO_SELECT 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_PP940.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             CLICK 이벤트
@@ -11741,7 +11733,7 @@
         </member>
         <member name="T:PSH_BOne_AddOn.PS_PP036">
             <summary>
-            MG생산 작업공정 확인(수정)
+            9.MG생산일보조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_PP036.LoadForm(System.String)">
@@ -11782,17 +11774,6 @@
             </summary>
             <param name="oRow">행 번호</param>
             <param name="RowIserted">행 추가 여부</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP036.PS_PP036_FormClear">
-            <summary>
-            DocEntry 초기화
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP036.PS_PP036_DataValidCheck">
-            <summary>
-            필수 사항 check
-            </summary>
-            <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_PP036.PS_PP036_SetBaseForm">
             <summary>
@@ -11953,7 +11934,7 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_PP084.PS_PP084_AddMatrixRow(System.Int32,System.Boolean)">
             <summary>
-            
+            PS_PP084_AddMatrixRow
             </summary>
             <param name="oRow">행 번호</param>
             <param name="RowIserted">행 추가 여부</param>

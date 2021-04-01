@@ -567,7 +567,7 @@ namespace PSH_BOne_AddOn
                     //입력된 행에 대해
                     for (i = 1; i <= oMat01.VisualRowCount - 1; i++)
                     {
-                        if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "101" | oForm.Items.Item("OrdGbn").Specific.Selected.Value == "102" | oForm.Items.Item("OrdGbn").Specific.Selected.Value == "104" | oForm.Items.Item("OrdGbn").Specific.Selected.Value == "107")
+                        if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "101" || oForm.Items.Item("OrdGbn").Specific.Selected.Value == "102" || oForm.Items.Item("OrdGbn").Specific.Selected.Value == "104" || oForm.Items.Item("OrdGbn").Specific.Selected.Value == "107")
                         {
                             if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP030H] PS_PP030H LEFT JOIN [@PS_PP030M] PS_PP030M ON PS_PP030H.DocEntry = PS_PP030M.DocEntry WHERE PS_PP030H.Canceled = 'N' AND CONVERT(NVARCHAR,PS_PP030H.DocEntry) + '-' + CONVERT(NVARCHAR,PS_PP030M.LineId) = '" + oMat01.Columns.Item("PP030No").Cells.Item(i).Specific.Value + "'", 0, 1) <= 0)
                             {
@@ -575,7 +575,7 @@ namespace PSH_BOne_AddOn
                                 throw new Exception();
                             }
                         }
-                        else if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "105" | oForm.Items.Item("OrdGbn").Specific.Selected.Value == "106")
+                        else if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "105" || oForm.Items.Item("OrdGbn").Specific.Selected.Value == "106")
                         {
                             if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP030H] PS_PP030H LEFT JOIN [@PS_PP030M] PS_PP030M ON PS_PP030H.DocEntry = PS_PP030M.DocEntry WHERE PS_PP030H.Canceled = 'N' AND PS_PP030H.DocEntry = '" + oMat01.Columns.Item("PP030No").Cells.Item(i).Specific.Value + "'", 0, 1) <= 0)
                             {
@@ -899,7 +899,7 @@ namespace PSH_BOne_AddOn
                         throw new Exception();
                     }
                     //기계몰드는 수주수량보다 생산수량이 많을 수 없다.
-                    if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "105" | oForm.Items.Item("OrdGbn").Specific.Selected.Value == "106")
+                    if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "105" || oForm.Items.Item("OrdGbn").Specific.Selected.Value == "106")
                     {
                         if (Convert.ToDouble(oMat01.Columns.Item("BQty").Cells.Item(i).Specific.Value) < Convert.ToDouble(oMat01.Columns.Item("YQty").Cells.Item(i).Specific.Value))
                         {
@@ -907,12 +907,12 @@ namespace PSH_BOne_AddOn
                             throw new Exception();
                         }
                         //기계 부품일 경우 수주량 완료량 비교해서 막기 - 류영조
-                        if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "105" & oForm.Items.Item("BPLId").Specific.Selected.Value == "2")
+                        if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "105" && oForm.Items.Item("BPLId").Specific.Selected.Value == "2")
                         {
                             sQry = "Select U_ItmMSort From OITM Where ItemCode = '" + oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.Value.ToString().Trim() + "'";
                             oRecordSet01.DoQuery(sQry);
 
-                            if (oRecordSet01.Fields.Item(0).Value.ToString().Trim() == "10502" | oRecordSet01.Fields.Item(0).Value.ToString().Trim() == "10503" | oRecordSet01.Fields.Item(0).Value.ToString().Trim() == "10504")
+                            if (oRecordSet01.Fields.Item(0).Value.ToString().Trim() == "10502" || oRecordSet01.Fields.Item(0).Value.ToString().Trim() == "10503" || oRecordSet01.Fields.Item(0).Value.ToString().Trim() == "10504")
                             {
                                 sQry = "Select Quantity From RDR1 Where DocEntry = '" + oMat01.Columns.Item("ORDRNo").Cells.Item(i).Specific.Value.ToString().Trim() + "' And ";
                                 sQry = sQry + "LineNum = '" + oMat01.Columns.Item("RDR1No").Cells.Item(i).Specific.Value.ToString().Trim() + "'";
@@ -961,7 +961,7 @@ namespace PSH_BOne_AddOn
                                 }
                                 else if (RDR1Qty < PP080LQty)
                                 {
-                                    if (Convert.ToDouble(oMat01.Columns.Item("ORDRNo").Cells.Item(i).Specific.Value.ToString().Trim()) == 0 | string.IsNullOrEmpty(oMat01.Columns.Item("ORDRNo").Cells.Item(i).Specific.Value.ToString().Trim()))
+                                    if (Convert.ToDouble(oMat01.Columns.Item("ORDRNo").Cells.Item(i).Specific.Value.ToString().Trim()) == 0 || string.IsNullOrEmpty(oMat01.Columns.Item("ORDRNo").Cells.Item(i).Specific.Value.ToString().Trim()))
                                     {
                                     }
                                     else
@@ -974,7 +974,7 @@ namespace PSH_BOne_AddOn
                         }
                     }
                     //부품,멀티인경우
-                    if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "102" | oForm.Items.Item("OrdGbn").Specific.Selected.Value == "104")
+                    if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "102" || oForm.Items.Item("OrdGbn").Specific.Selected.Value == "104")
                     {
                         if (string.IsNullOrEmpty(oMat01.Columns.Item("BatchNum").Cells.Item(i).Specific.Value))
                         {
@@ -1381,7 +1381,7 @@ namespace PSH_BOne_AddOn
                             {
                                 //기타작업
                                 oDS_PS_PP084L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Selected.Value);
-                                if (oMat01.RowCount == pVal.Row & !string.IsNullOrEmpty(oDS_PS_PP084L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
+                                if (oMat01.RowCount == pVal.Row && !string.IsNullOrEmpty(oDS_PS_PP084L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
                                 {
                                     PS_PP084_AddMatrixRow(pVal.Row, false);
                                 }
@@ -1505,7 +1505,7 @@ namespace PSH_BOne_AddOn
                         if (pVal.Row > 0)
                         {
                             oMat01.SelectRow(pVal.Row, true, false);
-                            if (oMat01.Columns.Item("OrdGbn").Cells.Item(pVal.Row).Specific.Value == "105" | oMat01.Columns.Item("OrdGbn").Cells.Item(pVal.Row).Specific.Value == "106")
+                            if (oMat01.Columns.Item("OrdGbn").Cells.Item(pVal.Row).Specific.Value == "105" || oMat01.Columns.Item("OrdGbn").Cells.Item(pVal.Row).Specific.Value == "106")
                             {
                                 ProgressBar01.Text = "조회중...!";
                             }
@@ -1559,10 +1559,10 @@ namespace PSH_BOne_AddOn
                 }
                 else if (pVal.BeforeAction == false)
                 {
-                    if (pVal.ItemUID == "Mat01" & pVal.Row == 0 & pVal.ColUID == "Check")
+                    if (pVal.ItemUID == "Mat01" && pVal.Row == 0 && pVal.ColUID == "Check")
                     {
                         oMat01.FlushToDataSource();
-                        if (string.IsNullOrEmpty(oDS_PS_PP084L.GetValue("U_Check", 0).ToString().Trim()) | oDS_PS_PP084L.GetValue("U_Check", 0).ToString().Trim() == "N")
+                        if (string.IsNullOrEmpty(oDS_PS_PP084L.GetValue("U_Check", 0).ToString().Trim()) || oDS_PS_PP084L.GetValue("U_Check", 0).ToString().Trim() == "N")
                         {
                             Check = "Y";
                         }
@@ -1592,7 +1592,7 @@ namespace PSH_BOne_AddOn
                         j = 0;
                         for (i = 0; i <= oMat01.VisualRowCount - 1; i++)
                         {
-                            if (oDS_PS_PP084L.GetValue("U_PP030No", i).ToString().Trim() == oDS_PS_PP0841L.GetValue("U_ColReg01", pVal.Row - 1).ToString().Trim() & oDS_PS_PP084L.GetValue("U_BatchNum", i).ToString().Trim() == oDS_PS_PP0841L.GetValue("U_ColReg04", pVal.Row - 1).ToString().Trim())
+                            if (oDS_PS_PP084L.GetValue("U_PP030No", i).ToString().Trim() == oDS_PS_PP0841L.GetValue("U_ColReg01", pVal.Row - 1).ToString().Trim() && oDS_PS_PP084L.GetValue("U_BatchNum", i).ToString().Trim() == oDS_PS_PP0841L.GetValue("U_ColReg04", pVal.Row - 1).ToString().Trim())
                             {
                                 dataHelpClass.MDC_GF_Message( "같은 행을 두번 선택할 수 없습니다. 확인하세요.","W");
                                 j = 1;
@@ -1690,7 +1690,7 @@ namespace PSH_BOne_AddOn
                                     }
                                     oForm.Items.Item("SumQty").Specific.Value = SumQty;
                                 }
-                                if (oMat01.RowCount == pVal.Row & !string.IsNullOrEmpty(oDS_PS_PP084L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
+                                if (oMat01.RowCount == pVal.Row && !string.IsNullOrEmpty(oDS_PS_PP084L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
                                 {
                                     PS_PP084_AddMatrixRow(pVal.Row, false);
                                 }
@@ -2076,7 +2076,7 @@ namespace PSH_BOne_AddOn
                             //취소
                             for (i = 1; i <= oMat01.VisualRowCount; i++)
                             {
-                                if (oMat01.Columns.Item("Check").Cells.Item(i).Specific.Checked == true & string.IsNullOrEmpty(oMat01.Columns.Item("OIGENum").Cells.Item(i).Specific.Value.ToString().Trim()))
+                                if (oMat01.Columns.Item("Check").Cells.Item(i).Specific.Checked == true && string.IsNullOrEmpty(oMat01.Columns.Item("OIGENum").Cells.Item(i).Specific.Value.ToString().Trim()))
                                 {
                                     RowCounter = RowCounter + 1;
                                 }

@@ -342,7 +342,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 DocEntry = dataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PS_PP940'", "");
-                if (string.IsNullOrEmpty(DocEntry) | DocEntry == "0")
+                if (string.IsNullOrEmpty(DocEntry) || DocEntry == "0")
                 {
                     oForm.Items.Item("Code").Specific.Value = 1;
                 }
@@ -875,7 +875,7 @@ namespace PSH_BOne_AddOn
                                 oDS_PS_PP940L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
                                 oDS_PS_PP940L.SetValue("U_ItmMname", pVal.Row - 1, dataHelpClass.Get_ReData("U_CodeName", "U_Code", "[@PSH_ITMMSORT]", "'" + oDS_PS_PP940L.GetValue("U_ItmMsort", pVal.Row - 1).ToString().Trim() + "'", ""));
                                 oMat01.LoadFromDataSource();
-                                if (oMat01.RowCount == pVal.Row & !string.IsNullOrEmpty(oDS_PS_PP940L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
+                                if (oMat01.RowCount == pVal.Row && !string.IsNullOrEmpty(oDS_PS_PP940L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
                                 {
                                     PS_PP940_AddMatrixRow(pVal.Row, false);
                                 }

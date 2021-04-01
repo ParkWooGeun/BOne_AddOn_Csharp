@@ -1,5 +1,4 @@
 ﻿using System;
-
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.Code;
@@ -51,13 +50,6 @@ namespace PSH_BOne_AddOn
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 
                 oForm.Freeze(true);
-                //oBaseForm01 = oForm02;
-                //oBaseItemUID01 = oItemUID02;
-                //oBaseColUID01 = oColUID02;
-                //oBaseColRow01 = oColRow02;
-                //oBaseTradeType01 = oTradeType02;
-                //oBaseItmBsort01 = oItmBsort02;
-
                 PS_PP047_CreateItems();
                 PS_PP047_ComboBox_Setting();
                 PS_PP047_FormItemEnabled();
@@ -158,7 +150,6 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                oForm.Freeze(true);
                 //사업장콤보박스세팅
                 dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM [OBPL] ORDER BY BPLId", "", false, false);
                 oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
@@ -172,10 +163,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
-            finally
-            {
-                oForm.Freeze(false);
-            }
         }
 
         /// <summary>
@@ -188,14 +175,14 @@ namespace PSH_BOne_AddOn
             {
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
-                    oForm.Items.Item("CntcCode").Specific.VALUE = dataHelpClass.User_MSTCOD();
-                    oForm.Items.Item("Seqno").Specific.VALUE = "0";
+                    oForm.Items.Item("CntcCode").Specific.Value = dataHelpClass.User_MSTCOD();
+                    oForm.Items.Item("Seqno").Specific.Value = "0";
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
-                    ////각모드에따른 아이템설정
+                    //각모드에따른 아이템설정
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
                 }
             }
@@ -213,14 +200,14 @@ namespace PSH_BOne_AddOn
             string sQry;
             string BPLID;
             string DocDate;
-
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
                 oForm.Freeze(true);
-                BPLID = oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim();
-                DocDate = oForm.Items.Item("DocDate").Specific.VALUE.ToString().Trim();
+                BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+                DocDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
                 oGrid01.DataTable.Clear();
 
                 sQry = " EXEC [PS_PP047_01]  '" + BPLID + "', '" + codeHelpClass.Left(DocDate, 6) + "'";
@@ -234,7 +221,6 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                oForm.Update();
                 oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
             }
@@ -243,19 +229,19 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// PS_PP047_MTX01
         /// </summary>
-        private void PS_PP047_MTX02(string oUID, int oRow = 0, string oCol = "")
+        private void PS_PP047_MTX02(string oUID, int oRow, string oCol)
         {
             string sQry;
             int sRow;
-            int errCode = 0;
+            string errMessage = string.Empty;
             string Param01;
             string Param02;
             string Param03;
             string Param04;
             string Param05;
-
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            
             try
             {
                 oForm.Freeze(true);
@@ -273,7 +259,7 @@ namespace PSH_BOne_AddOn
                 if (oRecordSet01.RecordCount == 0)
                 {
                     PS_PP047_Form_ini();
-                    errCode = 1;
+                    errMessage = "결과가 존재하지 않습니다.";
                     throw new Exception();
                 }
                 else
@@ -289,8 +275,8 @@ namespace PSH_BOne_AddOn
                     oForm.DataSources.UserDataSources.Item("FailCode").Value = oRecordSet01.Fields.Item("FailCode").Value;
                     oForm.DataSources.UserDataSources.Item("FailName").Value = oRecordSet01.Fields.Item("FailName").Value;
                     oForm.DataSources.UserDataSources.Item("Remark").Value = oRecordSet01.Fields.Item("Remark").Value;
-                    oForm.Items.Item("ItemCode").Specific.VALUE = oRecordSet01.Fields.Item("ItemCode").Value;
-                    oForm.Items.Item("ItemName").Specific.VALUE = oRecordSet01.Fields.Item("ItemName").Value;
+                    oForm.Items.Item("ItemCode").Specific.Value = oRecordSet01.Fields.Item("ItemCode").Value;
+                    oForm.Items.Item("ItemName").Specific.Value = oRecordSet01.Fields.Item("ItemName").Value;
                     oForm.Items.Item("CpCode").Specific.Select(oRecordSet01.Fields.Item("CpCode").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
                 }
 
@@ -304,9 +290,9 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if (errCode == 1)
+                if (errMessage != string.Empty)
                 {
-                    PSH_Globals.SBO_Application.MessageBox("결과가 존재하지 않습니다.");
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
                 }
                 else
                 {
@@ -315,7 +301,6 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                oForm.Update();
                 oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
             }
@@ -326,8 +311,8 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PS_PP047_SAVE()
         {
-            string sQry;
             int Seqno;
+            string sQry;
             string FailName ;
             string CntcName ;
             string DocDate;
@@ -343,23 +328,24 @@ namespace PSH_BOne_AddOn
             double Weight;
             string errMessage = string.Empty;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
                 oForm.Freeze(true);
-                BPLID = oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim();
-                ItmBsort = oForm.Items.Item("ItmBsort").Specific.VALUE.ToString().Trim();
-                ItmMsort = oForm.Items.Item("ItmMsort").Specific.VALUE;
-                ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
-                ItemName = oForm.Items.Item("ItemName").Specific.VALUE;
-                CpCode = oForm.Items.Item("CpCode").Specific.VALUE.ToString().Trim();
-                DocDate = oForm.Items.Item("DocDate").Specific.VALUE.ToString().Trim();
-                Seqno =  Convert.ToInt32(oForm.Items.Item("Seqno").Specific.VALUE);
-                CntcCode = oForm.Items.Item("CntcCode").Specific.VALUE.ToString().Trim();
-                CntcName = oForm.Items.Item("CntcName").Specific.VALUE;
-                FailCode = oForm.Items.Item("FailCode").Specific.VALUE;
-                FailName = oForm.Items.Item("FailName").Specific.VALUE;
-                Weight = Convert.ToDouble(oForm.Items.Item("Weight").Specific.VALUE);
-                Remark = oForm.Items.Item("Remark").Specific.VALUE;
+                BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+                ItmBsort = oForm.Items.Item("ItmBsort").Specific.Value.ToString().Trim();
+                ItmMsort = oForm.Items.Item("ItmMsort").Specific.Value;
+                ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
+                ItemName = oForm.Items.Item("ItemName").Specific.Value;
+                CpCode = oForm.Items.Item("CpCode").Specific.Value.ToString().Trim();
+                DocDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
+                Seqno =  Convert.ToInt32(oForm.Items.Item("Seqno").Specific.Value);
+                CntcCode = oForm.Items.Item("CntcCode").Specific.Value.ToString().Trim();
+                CntcName = oForm.Items.Item("CntcName").Specific.Value;
+                FailCode = oForm.Items.Item("FailCode").Specific.Value;
+                FailName = oForm.Items.Item("FailName").Specific.Value;
+                Weight = Convert.ToDouble(oForm.Items.Item("Weight").Specific.Value);
+                Remark = oForm.Items.Item("Remark").Specific.Value;
 
                 if (string.IsNullOrEmpty(DocDate.ToString().Trim()))
                 {
@@ -469,23 +455,24 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PS_PP047_Delete()
         {
+            int Seqno;
+            int Cnt;
             string CpCode;
             string DocDate;
             string BPLID ;
             string ItemCode;
-            int Seqno;
-            int Cnt;
             string sQry;
             string errMessage = string.Empty;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
                 oForm.Freeze(true);
-                BPLID = oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim();
-                DocDate = oForm.Items.Item("DocDate").Specific.VALUE.ToString().Trim();
-                ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
-                CpCode = oForm.Items.Item("CpCode").Specific.VALUE.ToString().Trim();
-                Seqno = Convert.ToInt32(oForm.Items.Item("Seqno").Specific.VALUE);
+                BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+                DocDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
+                ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
+                CpCode = oForm.Items.Item("CpCode").Specific.Value.ToString().Trim();
+                Seqno = Convert.ToInt32(oForm.Items.Item("Seqno").Specific.Value);
 
                 sQry = " Select Count(*) From [Z_PS_PP047] Where BPLId = '" + BPLID + "' And DocDate = '" + DocDate + "' And ItemCode = '" + ItemCode + "' And CpCode = '" + CpCode + "' And Seqno = " + Seqno + "";
                 oRecordSet01.DoQuery(sQry);
@@ -532,16 +519,17 @@ namespace PSH_BOne_AddOn
         {
             string DocEntry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 DocEntry = dataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PS_PP047'", "");
                 if (Convert.ToDouble(DocEntry) == 0)
                 {
-                    oForm.Items.Item("DocEntry").Specific.VALUE = 1;
+                    oForm.Items.Item("DocEntry").Specific.Value = 1;
                 }
                 else
                 {
-                    oForm.Items.Item("DocEntry").Specific.VALUE = DocEntry;
+                    oForm.Items.Item("DocEntry").Specific.Value = DocEntry;
                 }
             }
             catch (Exception ex)
@@ -556,9 +544,10 @@ namespace PSH_BOne_AddOn
         private void PS_PP047_Form_ini()
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
-                oForm.Items.Item("CntcCode").Specific.VALUE = dataHelpClass.User_MSTCOD();
+                oForm.Items.Item("CntcCode").Specific.Value = dataHelpClass.User_MSTCOD();
 
                 oForm.DataSources.UserDataSources.Item("ItemCode").Value = "";
                 oForm.DataSources.UserDataSources.Item("ItemName").Value = "";
@@ -584,10 +573,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-                oForm.Update();
             }
         }
 
@@ -728,18 +713,6 @@ namespace PSH_BOne_AddOn
                 }
                 else if (pVal.BeforeAction == false)
                 {
-                    if (pVal.ItemUID == "PS_PP047")
-                    {
-                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-                        {
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-                        {
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-                        {
-                        }
-                    }
                 }
             }
             catch (Exception ex)
@@ -768,27 +741,27 @@ namespace PSH_BOne_AddOn
                         //사번
                         if (pVal.ItemUID == "CntcCode")
                         {
-                            if (string.IsNullOrEmpty(oForm.Items.Item("CntcCode").Specific.VALUE))
+                            if (string.IsNullOrEmpty(oForm.Items.Item("CntcCode").Specific.Value))
                             {
-                                PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
+                                PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                                 BubbleEvent = false;
                             }
                         }
                         //제품코드
                         if (pVal.ItemUID == "ItemCode")
                         {
-                            if (string.IsNullOrEmpty(oForm.Items.Item("ItemCode").Specific.VALUE))
+                            if (string.IsNullOrEmpty(oForm.Items.Item("ItemCode").Specific.Value))
                             {
-                                PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
+                                PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                                 BubbleEvent = false;
                             }
                         }
                         //재작업사유(불량)코드
                         if (pVal.ItemUID == "FailCode")
                         {
-                            if (string.IsNullOrEmpty(oForm.Items.Item("FailCode").Specific.VALUE))
+                            if (string.IsNullOrEmpty(oForm.Items.Item("FailCode").Specific.Value))
                             {
-                                PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
+                                PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                                 BubbleEvent = false;
                             }
                         }
@@ -802,9 +775,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
             }
         }
 
@@ -838,9 +808,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
-            finally
-            {
-            }
         }
 
         /// <summary>
@@ -853,6 +820,7 @@ namespace PSH_BOne_AddOn
         {
             int i;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 oForm.Freeze(true);
@@ -868,7 +836,7 @@ namespace PSH_BOne_AddOn
                             oForm.Items.Item("ItmMsort").Specific.ValidValues.Remove(i, SAPbouiCOM.BoSearchKey.psk_Index);
                         }
                         oForm.Items.Item("ItmMsort").Specific.ValidValues.Add("", "");
-                        dataHelpClass.Set_ComboList(oForm.Items.Item("ItmMsort").Specific, "SELECT U_Code, U_CodeName FROM [@PSH_ITMMSORT] WHERE U_rCode = '" + oForm.Items.Item("ItmBsort").Specific.Selected.VALUE + "' ORDER BY U_Code", "", false, false);
+                        dataHelpClass.Set_ComboList(oForm.Items.Item("ItmMsort").Specific, "SELECT U_Code, U_CodeName FROM [@PSH_ITMMSORT] WHERE U_rCode = '" + oForm.Items.Item("ItmBsort").Specific.Selected.Value + "' ORDER BY U_Code", "", false, false);
                         if (oForm.Items.Item("ItmMsort").Specific.ValidValues.Count > 0)
                         {
                             oForm.Items.Item("ItmMsort").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
@@ -941,9 +909,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
-            finally
-            {
-            }
         }
 
         /// <summary>
@@ -958,6 +923,7 @@ namespace PSH_BOne_AddOn
             string oQuery;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
                 oForm.Freeze(true);
@@ -972,23 +938,23 @@ namespace PSH_BOne_AddOn
                         if (pVal.ItemUID == "CntcCode")
                         {
                             oQuery = "SELECT FullName = U_FullName  ";
-                            oQuery = oQuery + "FROM [@PH_PY001A] WHERE Code = '" + oForm.Items.Item(pVal.ItemUID).Specific.VALUE + "'";
+                            oQuery = oQuery + "FROM [@PH_PY001A] WHERE Code = '" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'";
                             oRecordSet01.DoQuery(oQuery);
-                            oForm.Items.Item("CntcName").Specific.VALUE = oRecordSet01.Fields.Item("FullName").Value.ToString().Trim();
+                            oForm.Items.Item("CntcName").Specific.Value = oRecordSet01.Fields.Item("FullName").Value.ToString().Trim();
                         }
                         //제품코드
                         if (pVal.ItemUID == "ItemCode")
                         {
-                            oQuery = "Select ItemName From OITM Where ItemCode = '" + oForm.Items.Item(pVal.ItemUID).Specific.VALUE + "'";
+                            oQuery = "Select ItemName From OITM Where ItemCode = '" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'";
                             oRecordSet01.DoQuery(oQuery);
-                            oForm.Items.Item("ItemName").Specific.VALUE = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
+                            oForm.Items.Item("ItemName").Specific.Value = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
 
                             for (i = oForm.Items.Item("CpCode").Specific.ValidValues.Count - 1; i >= 0; i += -1)
                             {
                                 oForm.Items.Item("CpCode").Specific.ValidValues.Remove(0, SAPbouiCOM.BoSearchKey.psk_Index);
                             }
                             oForm.Items.Item("CpCode").Specific.ValidValues.Add("", "");
-                            dataHelpClass.Set_ComboList(oForm.Items.Item("CpCode").Specific, "SELECT U_CpCode, U_CpName FROM [@PS_PP004H] WHERE U_ItemCode = '" + oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim() + "' ORDER BY U_Sequence", "", false, false);
+                            dataHelpClass.Set_ComboList(oForm.Items.Item("CpCode").Specific, "SELECT U_CpCode, U_CpName FROM [@PS_PP004H] WHERE U_ItemCode = '" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "' ORDER BY U_Sequence", "", false, false);
                             if (oForm.Items.Item("CpCode").Specific.ValidValues.Count > 0)
                             {
                                 oForm.Items.Item("CpCode").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
@@ -997,7 +963,7 @@ namespace PSH_BOne_AddOn
                         //불량코드
                         if (pVal.ItemUID == "FailCode")
                         {
-                            oQuery = "Select U_SmalName From [@PS_PP003L] Where U_SmalCode = '" + oForm.Items.Item(pVal.ItemUID).Specific.VALUE + "'";
+                            oQuery = "Select U_SmalName From [@PS_PP003L] Where U_SmalCode = '" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'";
                             oRecordSet01.DoQuery(oQuery);
                             oForm.Items.Item("FailName").Specific.String = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
                         }
@@ -1038,9 +1004,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
-            finally
-            {
-            }
         }
 
         /// <summary>
@@ -1067,9 +1030,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
-            finally
-            {
-            }
         }
 
         /// <summary>
@@ -1094,9 +1054,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
             }
         }
 
@@ -1212,9 +1169,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
-            finally
-            {
-            }
         }
 
         /// <summary>
@@ -1252,9 +1206,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
             }
         }
     }

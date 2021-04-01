@@ -982,14 +982,14 @@ namespace PSH_BOne_AddOn
             try
             {
                 if (pVal.BeforeAction == true)
+                {   
+                }
+                else if (pVal.BeforeAction == false)
                 {
                     SubMain.Remove_Forms(oFormUniqueID);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY009B);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
-                }
-                else if (pVal.BeforeAction == false)
-                {   
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY009B);
                 }
             }
             catch (Exception ex)

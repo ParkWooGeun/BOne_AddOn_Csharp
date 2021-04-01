@@ -252,11 +252,11 @@ namespace PSH_BOne_AddOn
 			{
 				if (pVal.BeforeAction == true)
 				{
-					SubMain.Remove_Forms(oFormUniqueID);
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
 				}
 				else if (pVal.BeforeAction == false)
 				{
+					SubMain.Remove_Forms(oFormUniqueID);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
 				}
 			}
 			catch (Exception ex)

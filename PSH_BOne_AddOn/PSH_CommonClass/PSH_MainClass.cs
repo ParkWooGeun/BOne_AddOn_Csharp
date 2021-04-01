@@ -743,22 +743,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (Check_ValidateForm(pVal.FormTypeEx))
                     {
-                        if (pVal.EventType == BoEventTypes.et_FORM_UNLOAD)
-                        {
-                            if (pVal.Before_Action == true)
-                            {
-                                oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
-                            }
-                            else if (pVal.Before_Action == false) //FORM_UNLOAD 이벤트가 Before_Action == false 일 때는 PSH_Globals.ClassList[FormUID] 에 index 오류 발생하므로 강제 return
-                            {
-                                return;
-                            }
-                        }
-                        else
-                        {
-                            oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
-                        }
-
+                        oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
                         if (oTempClass.oForm == null)
                         {
                             return;

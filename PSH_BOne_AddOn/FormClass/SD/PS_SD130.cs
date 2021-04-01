@@ -337,13 +337,13 @@ namespace PSH_BOne_AddOn
 			}
 		}
 
-			/// <summary>
-			/// Raise_EVENT_GOT_FOCUS
-			/// </summary>
-			/// <param name="FormUID"></param>
-			/// <param name="pVal"></param>
-			/// <param name="BubbleEvent"></param>
-			private void Raise_EVENT_GOT_FOCUS(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+		/// <summary>
+		/// Raise_EVENT_GOT_FOCUS
+		/// </summary>
+		/// <param name="FormUID"></param>
+		/// <param name="pVal"></param>
+		/// <param name="BubbleEvent"></param>
+		private void Raise_EVENT_GOT_FOCUS(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
 			try
 			{
@@ -478,12 +478,12 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				if (pVal.Before_Action == true)
-				{
-					SubMain.Remove_Forms(oFormUniqueID);
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
+				{	
 				}
 				else if (pVal.Before_Action == false)
 				{
+					SubMain.Remove_Forms(oFormUniqueID);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
 				}
 			}
 			catch (Exception ex)

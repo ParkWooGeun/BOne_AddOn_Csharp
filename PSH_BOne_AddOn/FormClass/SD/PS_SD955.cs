@@ -397,25 +397,25 @@ namespace PSH_BOne_AddOn
 			}
 		}
 
-			/// <summary>
-			/// Raise_EVENT_FORM_UNLOAD
-			/// </summary>
-			/// <param name="FormUID"></param>
-			/// <param name="pVal"></param>
-			/// <param name="BubbleEvent"></param>
-			private void Raise_EVENT_FORM_UNLOAD(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+		/// <summary>
+		/// Raise_EVENT_FORM_UNLOAD
+		/// </summary>
+		/// <param name="FormUID"></param>
+		/// <param name="pVal"></param>
+		/// <param name="BubbleEvent"></param>
+		private void Raise_EVENT_FORM_UNLOAD(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
 			try
 			{
 				if (pVal.Before_Action == true)
 				{
+				}
+				else if (pVal.Before_Action == false)
+				{
 					SubMain.Remove_Forms(oFormUniqueID);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_SD955A);
-				}
-				else if (pVal.Before_Action == false)
-				{
 				}
 			}
 			catch (Exception ex)

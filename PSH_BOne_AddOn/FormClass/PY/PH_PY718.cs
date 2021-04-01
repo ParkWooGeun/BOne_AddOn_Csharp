@@ -608,14 +608,14 @@ namespace PSH_BOne_AddOn
             try
             {
                 if (pVal.Before_Action == true)
+                {   
+                }
+                else if (pVal.Before_Action == false)
                 {
                     SubMain.Remove_Forms(oFormUniqueID01);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY718);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid1);
-                }
-                else if (pVal.Before_Action == false)
-                {   
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY718);
                 }
             }
             catch (Exception ex)

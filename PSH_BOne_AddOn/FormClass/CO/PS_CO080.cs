@@ -752,15 +752,15 @@ namespace PSH_BOne_AddOn
 			{
 				if (pVal.Before_Action == true)
 				{
+				}
+				else if (pVal.Before_Action == false)
+                {
 					SubMain.Remove_Forms(oFormUniqueID01);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm); //메모리 해제
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01); //메모리 해제
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO080H); //메모리 해제
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO080L); //메모리 해제
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO080L); //메모리 해제	
 				}
-				else if (pVal.Before_Action == false)
-                {	
-                }
 			}
 			catch (Exception ex)
 			{

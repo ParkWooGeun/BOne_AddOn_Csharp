@@ -229,6 +229,16 @@
     <Compile Include="FormClass\CO\PS_CO665.cs" />
     <Compile Include="FormClass\CO\PS_CO670.cs" />
     <Compile Include="FormClass\PP\PS_PP042.cs" />
+    <Compile Include="FormClass\PP\PS_PP150.cs" />
+    <Compile Include="FormClass\PP\PS_PP151.cs" />
+    <Compile Include="FormClass\PP\PS_PP152.cs" />
+    <Compile Include="FormClass\PP\PS_PP155.cs" />
+    <Compile Include="FormClass\PP\PS_PP360.cs" />
+    <Compile Include="FormClass\PP\PS_PP400.cs" />
+    <Compile Include="FormClass\PP\PS_PP510.cs" />
+    <Compile Include="FormClass\PP\PS_PP520.cs" />
+    <Compile Include="FormClass\PP\PS_PP632.cs" />
+    <Compile Include="FormClass\PP\PS_PP638.cs" />
     <Compile Include="FormClass\PP\PS_PP940.cs" />
     <Compile Include="FormClass\PP\PS_PP362.cs" />
     <Compile Include="FormClass\PP\PS_PP035.cs" />

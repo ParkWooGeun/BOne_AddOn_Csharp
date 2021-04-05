@@ -7,21 +7,6 @@
     {
         public SAPbouiCOM.Form oForm;
 
-        //public string _formUID;
-        //private bool _eventItemPressed; //ITEM_PRESSED
-
-        //public string FORM_UID
-        //{
-        //    get { return this._formUID; }
-        //    set { this._formUID = value; }
-        //}
-
-        //public bool EVENT_ITEM_PRESSED
-        //{
-        //    get { return this._eventItemPressed; }
-        //    set { this._eventItemPressed = value; }
-        //}
-
         public virtual void LoadForm()
         {
         }

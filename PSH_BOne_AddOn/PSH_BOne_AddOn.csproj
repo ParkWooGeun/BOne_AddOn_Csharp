@@ -322,6 +322,7 @@
     <Compile Include="FormClass\SD\PS_SD960.cs" />
     <Compile Include="FormClass\SD\PS_SD961.cs" />
     <Compile Include="FormClass\SD\PS_SD962.cs" />
+    <Compile Include="FormClass\SM\PS_SM010.cs" />
     <Compile Include="FormClass\SM\PS_SM021.cs" />
     <Compile Include="PSH_CommonClass\AssemblyInfo.cs" />
     <Compile Include="FormClass\PY\ClassModuleSTD.cs">

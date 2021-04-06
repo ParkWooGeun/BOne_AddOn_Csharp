@@ -240,7 +240,6 @@
     <Compile Include="FormClass\PY\PH_PYA90.cs" />
     <Compile Include="FormClass\PY\PS_DateChange.cs" />
     <Compile Include="FormClass\PY\PS_DateCommit.cs" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY420.cs" />
     <Compile Include="PSH_CommonClass\AssemblyInfo.cs" />
     <Compile Include="FormClass\PY\ClassModuleSTD.cs">
       <SubType>Code</SubType>

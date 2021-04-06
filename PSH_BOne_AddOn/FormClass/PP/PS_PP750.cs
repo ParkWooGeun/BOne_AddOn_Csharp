@@ -195,7 +195,7 @@ namespace PSH_BOne_AddOn
 
                 //조회구분
                 oForm.Items.Item("SrchType").Specific.ValidValues.Add("1", "집계 보기");
-                oForm.Items.Item("SrchType").Specific.ValidValues.Add("2", "상세 보기");
+                oForm.Items.Item("SrchType").Specific.ValidValues.Add("2", "상세 보기(구매)");
                 oForm.Items.Item("SrchType").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
                 //품의여부
@@ -250,7 +250,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PS_PP750_SelectData()
         {
-            string sQry;
+            string sQry = string.Empty;
             string frDocDt; //수주일자(FR)
             string toDocDt; //수주일자(TO)
             string frDueDt; //납기일자(FR)
@@ -289,8 +289,10 @@ namespace PSH_BOne_AddOn
                 ordType = oForm.Items.Item("OrdType").Specific.Value.ToString().Trim(); ; //품의구분
                 cmpltYN = (oForm.Items.Item("CmpltYN").Specific.Checked ? "Y" : "N"); //생산미완료여부
 
+                oForm.DataSources.UserDataSources.Item("SItemCD").Value = ""; //선택작번 초기화
+
                 //조회구분에 따라
-                if (srchType == "1") //간략보기
+                if (srchType == "1") //집계 보기
                 {
                     sQry = "EXEC [PS_PP750_01] ";
                     sQry += "'" + frDocDt + "',";
@@ -308,7 +310,7 @@ namespace PSH_BOne_AddOn
                     sQry += "'" + ordType + "',";
                     sQry += "'" + cmpltYN + "'";
                 }
-                else //상세보기
+                else if(srchType == "2") //상세 보기(구매)
                 {
                     sQry = "EXEC [PS_PP750_02] ";
                     sQry += "'" + frDocDt + "',";
@@ -330,37 +332,108 @@ namespace PSH_BOne_AddOn
                 mainGrid.DataTable.Clear();
                 oDS_PS_PP750.ExecuteQuery(sQry);
 
-                mainGrid.Columns.Item(5).RightJustified = true; //수주수량(5)
-                mainGrid.Columns.Item(6).RightJustified = true; //수주금액(6)
-                mainGrid.Columns.Item(13).RightJustified = true; //작번등록횟수(13)
-                mainGrid.Columns.Item(16).RightJustified = true; //작업지시등록횟수(16)
-                mainGrid.Columns.Item(18).RightJustified = true; //작업일보횟수(18)
-                mainGrid.Columns.Item(20).RightJustified = true; //구매요청수량(20)
-                mainGrid.Columns.Item(21).RightJustified = true; //구매요청횟수(21)
-                mainGrid.Columns.Item(23).RightJustified = true; //구매견적수량(23)
-                mainGrid.Columns.Item(24).RightJustified = true; //구매견적횟수(24)
-                mainGrid.Columns.Item(26).RightJustified = true; //구매품의수량(26)
-                mainGrid.Columns.Item(27).RightJustified = true; //구매품의횟수(27)
-                mainGrid.Columns.Item(29).RightJustified = true; //가입고수량(29)
-                mainGrid.Columns.Item(30).RightJustified = true; //가입고횟수(30)
-                mainGrid.Columns.Item(32).RightJustified = true; //검수입고수량(32)
-                mainGrid.Columns.Item(33).RightJustified = true; //검수입고횟수(33)
-                mainGrid.Columns.Item(35).RightJustified = true; //검사횟수(35)
-                mainGrid.Columns.Item(37).RightJustified = true; //생산완료수량(37)
-                mainGrid.Columns.Item(38).RightJustified = true; //생산완료횟수(38)
-                mainGrid.Columns.Item(39).RightJustified = true; //생산잔량(수주-생산)(39)
+                if (srchType == "1")
+                {
+                    mainGrid.Columns.Item(5).RightJustified = true; //수주수량(5)
+                    mainGrid.Columns.Item(6).RightJustified = true; //수주금액(6)
+                    mainGrid.Columns.Item(13).RightJustified = true; //작번등록횟수(13)
+                    mainGrid.Columns.Item(16).RightJustified = true; //작업지시등록횟수(16)
+                    mainGrid.Columns.Item(18).RightJustified = true; //작업일보횟수(18)
+                    mainGrid.Columns.Item(20).RightJustified = true; //구매요청수량(20)
+                    mainGrid.Columns.Item(21).RightJustified = true; //구매요청횟수(21)
+                    mainGrid.Columns.Item(23).RightJustified = true; //구매견적수량(23)
+                    mainGrid.Columns.Item(24).RightJustified = true; //구매견적횟수(24)
+                    mainGrid.Columns.Item(26).RightJustified = true; //구매품의수량(26)
+                    mainGrid.Columns.Item(27).RightJustified = true; //구매품의횟수(27)
+                    mainGrid.Columns.Item(29).RightJustified = true; //가입고수량(29)
+                    mainGrid.Columns.Item(30).RightJustified = true; //가입고횟수(30)
+                    mainGrid.Columns.Item(32).RightJustified = true; //검수입고수량(32)
+                    mainGrid.Columns.Item(33).RightJustified = true; //검수입고횟수(33)
+                    mainGrid.Columns.Item(35).RightJustified = true; //검사횟수(35)
+                    mainGrid.Columns.Item(37).RightJustified = true; //생산완료수량(37)
+                    mainGrid.Columns.Item(38).RightJustified = true; //생산완료횟수(38)
+                    mainGrid.Columns.Item(39).RightJustified = true; //생산잔량(수주-생산)(39)
 
-                mainGrid.Columns.Item(9).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //납기일(9)
-                mainGrid.Columns.Item(13).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //작번등록횟수(13)
-                mainGrid.Columns.Item(16).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //작업지시등록횟수(16)
-                mainGrid.Columns.Item(18).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //작업일보횟수(18)
-                mainGrid.Columns.Item(21).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //구매요청횟수(21)
-                mainGrid.Columns.Item(24).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //구매견적횟수(24)
-                mainGrid.Columns.Item(27).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //구매품의횟수(27)
-                mainGrid.Columns.Item(30).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //가입고횟수(30)
-                mainGrid.Columns.Item(33).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //검수입고횟수(33)
-                mainGrid.Columns.Item(35).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //검사횟수(35)
-                mainGrid.Columns.Item(38).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //생산완료횟수(38)
+                    //Grid 컬러 초기화
+                    for (int i = 0; i < mainGrid.Columns.Count; i++)
+                    {
+                        mainGrid.Columns.Item(i).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(231, 231, 231));
+                    }
+
+                    //행 컬러 지정
+                    for (int i = 0; i < mainGrid.Rows.Count; i++)
+                    {
+                        if (i % 2 == 1)
+                        {
+                            mainGrid.CommonSetting.SetRowBackColor(i + 1, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(245, 245, 245)));
+                        }
+                    }
+
+                    mainGrid.Columns.Item(9).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //납기일(9)
+                    mainGrid.Columns.Item(13).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //작번등록횟수(13)
+                    mainGrid.Columns.Item(16).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //작업지시등록횟수(16)
+                    mainGrid.Columns.Item(18).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //작업일보횟수(18)
+                    mainGrid.Columns.Item(21).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //구매요청횟수(21)
+                    mainGrid.Columns.Item(24).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //구매견적횟수(24)
+                    mainGrid.Columns.Item(27).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //구매품의횟수(27)
+                    mainGrid.Columns.Item(30).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //가입고횟수(30)
+                    mainGrid.Columns.Item(33).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //검수입고횟수(33)
+                    mainGrid.Columns.Item(35).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //검사횟수(35)
+                    mainGrid.Columns.Item(38).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //생산완료횟수(38)
+
+                    oForm.Items.Item("SItemCD").Enabled = true;
+                    oForm.Items.Item("BtnPPDtl").Enabled = true;
+                    oForm.Items.Item("BtnMMDtl").Enabled = true;
+                }
+                else if (srchType == "2")
+                {
+                    mainGrid.Columns.Item(5).RightJustified = true; //수주수량(5)
+                    mainGrid.Columns.Item(6).RightJustified = true; //수주금액(6)
+                    mainGrid.Columns.Item(13).RightJustified = true; //작번등록횟수(13)
+                    mainGrid.Columns.Item(16).RightJustified = true; //작업지시등록횟수(16)
+                    mainGrid.Columns.Item(18).RightJustified = true; //작업일보횟수(18)
+                    mainGrid.Columns.Item(28).RightJustified = true; //청구수량(28)
+                    mainGrid.Columns.Item(37).RightJustified = true; //품의금액(37)
+                    mainGrid.Columns.Item(38).RightJustified = true; //품의수량(38)
+                    mainGrid.Columns.Item(39).RightJustified = true; //견적수량(39)
+                    mainGrid.Columns.Item(42).RightJustified = true; //입고수량(42)
+                    mainGrid.Columns.Item(43).RightJustified = true; //검수수량(43)
+                    mainGrid.Columns.Item(45).RightJustified = true; //검수금액(45)
+                    mainGrid.Columns.Item(46).RightJustified = true; //미입고수량(46)
+                    mainGrid.Columns.Item(47).RightJustified = true; //미입고금액(47)
+                    mainGrid.Columns.Item(49).RightJustified = true; //검사횟수(49)
+                    mainGrid.Columns.Item(51).RightJustified = true; //생산완료수량(51)
+                    mainGrid.Columns.Item(52).RightJustified = true; //생산완료횟수(52)
+                    mainGrid.Columns.Item(53).RightJustified = true; //생산잔량(수주-생산)(53)
+
+                    //Grid 컬러 초기화
+                    for (int i = 0; i < mainGrid.Columns.Count; i++)
+                    {
+                        mainGrid.Columns.Item(i).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(231, 231, 231));
+                    }
+
+                    //동일 작번 행 컬러 지정
+                    for (int i = 0; i < mainGrid.Rows.Count; i++)
+                    {
+                        if (mainGrid.DataTable.GetValue(1, i) == "")
+                        {
+                            mainGrid.CommonSetting.SetRowBackColor(i + 1, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(245, 245, 245)));
+                        }
+                    }
+
+                    mainGrid.Columns.Item(9).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //납기일(9)
+                    mainGrid.Columns.Item(13).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //작번등록횟수(13)
+                    mainGrid.Columns.Item(16).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //작업지시등록횟수(16)
+                    mainGrid.Columns.Item(18).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //작업일보횟수(18)
+                    mainGrid.Columns.Item(35).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //거래처코드(35)
+                    mainGrid.Columns.Item(36).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //거래처명(36)
+                    mainGrid.Columns.Item(49).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //검사횟수(49)
+                    mainGrid.Columns.Item(52).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 242, 204)); //생산완료횟수(52)
+
+                    oForm.Items.Item("SItemCD").Enabled = false;
+                    oForm.Items.Item("BtnPPDtl").Enabled = false;
+                    oForm.Items.Item("BtnMMDtl").Enabled = false;
+                }
             }
             catch (Exception ex)
             {
@@ -485,7 +558,8 @@ namespace PSH_BOne_AddOn
                     }
                     else if (pVal.ItemUID == "BtnPPDtl") //생산상세정보조회
                     {
-
+                        PS_PP751 tempForm = new PS_PP751();
+                        tempForm.LoadForm(this);
                     }
                     else if (pVal.ItemUID == "BtnMMDtl") //구매상세정보조회
                     {
@@ -496,7 +570,10 @@ namespace PSH_BOne_AddOn
                     {
                         if (mainGrid.Rows.SelectedRows.Count != 0)
                         {
-                            oForm.DataSources.UserDataSources.Item("SItemCD").Value = mainGrid.DataTable.GetValue(1, mainGrid.Rows.SelectedRows.Item(0, BoOrderType.ot_RowOrder));
+                            if (oForm.DataSources.UserDataSources.Item("SrchType").Value == "1") //집계보기에서만 선택작번 연동
+                            {
+                                oForm.DataSources.UserDataSources.Item("SItemCD").Value = mainGrid.DataTable.GetValue(1, mainGrid.Rows.SelectedRows.Item(0, BoOrderType.ot_RowOrder));
+                            }
                         }
                     }
                 }

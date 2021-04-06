@@ -156,6 +156,15 @@ namespace PSH_BOne_AddOn
                 mainGrid.Columns.Item(25).RightJustified = true; //검수금액(25)
                 mainGrid.Columns.Item(26).RightJustified = true; //미입고수량(26)
                 mainGrid.Columns.Item(27).RightJustified = true; //미입고금액(27)
+
+                //행 컬러 지정
+                for (int i = 0; i < mainGrid.Rows.Count; i++)
+                {
+                    if (i % 2 == 1)
+                    {
+                        mainGrid.CommonSetting.SetRowBackColor(i + 1, System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(245, 245, 245)));
+                    }
+                }
             }
             catch (Exception ex)
             {

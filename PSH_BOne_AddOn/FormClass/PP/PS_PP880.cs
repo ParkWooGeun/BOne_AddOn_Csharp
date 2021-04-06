@@ -8,9 +8,9 @@ using System.Collections.Generic;
 namespace PSH_BOne_AddOn
 {
 	/// <summary>
-	/// 공정별생산현황
+	/// 담당별생산계획대비실적대장
 	/// </summary>
-	internal class PS_PP929 : PSH_BaseClass
+	internal class PS_PP880 : PSH_BaseClass
 	{
 		private string oFormUniqueID;
 
@@ -25,7 +25,7 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PS_PP929.srf");
+				oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PS_PP880.srf");
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue = oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue + "_" + (SubMain.Get_TotalFormsCount());
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
@@ -37,8 +37,8 @@ namespace PSH_BOne_AddOn
 					oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
 				}
 
-				oFormUniqueID = "PS_PP929_" + SubMain.Get_TotalFormsCount();
-				SubMain.Add_Forms(this, oFormUniqueID, "PS_PP929");
+				oFormUniqueID = "PS_PP880_" + SubMain.Get_TotalFormsCount();
+				SubMain.Add_Forms(this, oFormUniqueID, "PS_PP880");
 
 				PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
 				oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
@@ -84,6 +84,24 @@ namespace PSH_BOne_AddOn
 				oForm.DataSources.UserDataSources.Add("DocDateTo", SAPbouiCOM.BoDataType.dt_DATE, 10);
 				oForm.Items.Item("DocDateTo").Specific.DataBind.SetBound(true, "", "DocDateTo");
 				oForm.DataSources.UserDataSources.Item("DocDateTo").Value = DateTime.Now.ToString("yyyyMMdd");
+
+				//기본값은 일별 이기때문에 False
+				oForm.Items.Item("DocDateTo").Visible = false;
+				oForm.Items.Item("Text1").Visible = false;
+
+				oForm.DataSources.UserDataSources.Add("RadioBtn", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
+
+				//일별
+				oForm.Items.Item("Rad01").Specific.ValOn = "A";
+				oForm.Items.Item("Rad01").Specific.ValOff = "0";
+				oForm.Items.Item("Rad01").Specific.DataBind.SetBound(true, "", "RadioBtn");
+				oForm.Items.Item("Rad01").Specific.Selected = true;
+
+				//기간별
+				oForm.Items.Item("Rad02").Specific.ValOn = "B";
+				oForm.Items.Item("Rad02").Specific.ValOff = "0";
+				oForm.Items.Item("Rad02").Specific.DataBind.SetBound(true, "", "RadioBtn");
+				oForm.Items.Item("Rad02").Specific.GroupWith(("Rad01"));
 			}
 			catch (Exception ex)
 			{
@@ -110,11 +128,6 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
 				}
-
-				//출력구분
-				oForm.Items.Item("Gbn01").Specific.ValidValues.Add("1", "부문별생산현황");
-				oForm.Items.Item("Gbn01").Specific.ValidValues.Add("2", "제품별생산현황");
-				oForm.Items.Item("Gbn01").Specific.Select("1", SAPbouiCOM.BoSearchKey.psk_ByValue);
 			}
 			catch (Exception ex)
 			{
@@ -150,6 +163,9 @@ namespace PSH_BOne_AddOn
 		[STAThread]
 		private void Print_Query()
 		{
+			string sQry;
+			string BPLName;
+			string BsortName;
 			string WinTitle = string.Empty;
 			string ReportName = string.Empty;
 
@@ -157,40 +173,41 @@ namespace PSH_BOne_AddOn
 			string DocDateFr;
 			string DocDateTo;
 			string ItmBsort;
-			string Gbn01;
+			string RadioBtn;
 
+			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 
 			try
 			{
-				BPLId     = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+				BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
 				DocDateFr = oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim();
 				DocDateTo = oForm.Items.Item("DocDateTo").Specific.Value.ToString().Trim();
-				ItmBsort  = oForm.Items.Item("ItmBsort").Specific.Value.ToString().Trim();
-				Gbn01     = oForm.Items.Item("Gbn01").Specific.Value.ToString().Trim();
+				ItmBsort = oForm.Items.Item("ItmBsort").Specific.Value.ToString().Trim();
+				RadioBtn = oForm.DataSources.UserDataSources.Item("RadioBtn").Value.ToString().Trim();
 
-				if (string.IsNullOrEmpty(DocDateFr))
-				{
-					DocDateFr = "19000101";
-				}
-				if (string.IsNullOrEmpty(DocDateTo))
-				{
-					DocDateTo = "99999999";
-				}
 				if (string.IsNullOrEmpty(ItmBsort))
 				{
 					ItmBsort = "%";
 				}
 
-				if (Gbn01 == "1")
+				sQry = "SELECT BPLName FROM [OBPL] WHERE BPLId = '" + BPLId + "'";
+				oRecordSet.DoQuery(sQry);
+				BPLName = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+
+				sQry = "SELECT Name FROM [@PSH_ITMBSORT] WHERE CODE = '" + oForm.Items.Item("ItmBsort").Specific.Value.ToString().Trim() + "'";
+				oRecordSet.DoQuery(sQry);
+				BsortName = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+
+				if (RadioBtn == "A")
 				{
-					WinTitle = "부문별생산현황[PS_PP929_01]";
-					ReportName = "PS_PP929_01.RPT";
+					WinTitle = "담당별생산계획대비실적대장 [PS_PP880_01]";
+					ReportName = "PS_PP880_01.RPT";
 				}
-				else if (Gbn01 == "2")
+				else if (RadioBtn == "B")
 				{
-					WinTitle = "제품별생산현황[PS_PP929_02]";
-					ReportName = "PS_PP929_02.RPT";
+					WinTitle = "담당별생산계획대비실적대장 [PS_PP880_02]";
+					ReportName = "PS_PP880_02.RPT";
 				}
 
 				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
@@ -199,18 +216,33 @@ namespace PSH_BOne_AddOn
 				// Formula 수식필드
 				dataPackFormula.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr.Substring(0, 4) + "-" + DocDateFr.Substring(4, 2) + "-" + DocDateFr.Substring(6, 2)));
 				dataPackFormula.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo.Substring(0, 4) + "-" + DocDateTo.Substring(4, 2) + "-" + DocDateTo.Substring(6, 2)));
+				dataPackFormula.Add(new PSH_DataPackClass("@BPLId", BPLName));
+				dataPackFormula.Add(new PSH_DataPackClass("@ItmBsort", BsortName));
 
 				// Parameter
-				dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLId));
-				dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr));
-				dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo));
-				dataPackParameter.Add(new PSH_DataPackClass("@ItmBsort", ItmBsort));
-				
+				if (RadioBtn == "A")
+				{
+					dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLId));
+					dataPackParameter.Add(new PSH_DataPackClass("@DocDate", DocDateFr));
+					dataPackParameter.Add(new PSH_DataPackClass("@ItmBsort", ItmBsort));
+				}
+				else if (RadioBtn == "B")
+				{
+					dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLId));
+					dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr));
+					dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo));
+					dataPackParameter.Add(new PSH_DataPackClass("@ItmBsort", ItmBsort));
+				}
+
 				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
 			}
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+			{
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 		}
 
@@ -222,7 +254,7 @@ namespace PSH_BOne_AddOn
 		/// <param name="BubbleEvent">Bubble Event</param>
 		public override void Raise_FormItemEvent(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
-			switch (pVal.EventType)
+            switch (pVal.EventType)
 			{
                 case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED: //1
                     Raise_EVENT_ITEM_PRESSED(FormUID, ref pVal, ref BubbleEvent);
@@ -316,6 +348,18 @@ namespace PSH_BOne_AddOn
 						System.Threading.Thread thread = new System.Threading.Thread(Print_Query);
 						thread.SetApartmentState(System.Threading.ApartmentState.STA);
 						thread.Start();
+					}
+
+					//아이탬 Visible 처리
+					if (oForm.DataSources.UserDataSources.Item("RadioBtn").Value == "A")
+					{
+						oForm.Items.Item("DocDateTo").Visible = false;
+						oForm.Items.Item("Text1").Visible = false;
+					}
+					else if (oForm.DataSources.UserDataSources.Item("RadioBtn").Value == "B")
+						{
+						oForm.Items.Item("DocDateTo").Visible = true;
+						oForm.Items.Item("Text1").Visible = true;
 					}
 				}
 				else if (pVal.BeforeAction == false)

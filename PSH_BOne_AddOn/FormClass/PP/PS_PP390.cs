@@ -8,9 +8,9 @@ using System.Collections.Generic;
 namespace PSH_BOne_AddOn
 {
 	/// <summary>
-	/// 공정별생산현황
+	/// 원재료불출현황
 	/// </summary>
-	internal class PS_PP929 : PSH_BaseClass
+	internal class PS_PP390 : PSH_BaseClass
 	{
 		private string oFormUniqueID;
 
@@ -25,7 +25,7 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PS_PP929.srf");
+				oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PS_PP390.srf");
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue = oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue + "_" + (SubMain.Get_TotalFormsCount());
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
@@ -37,8 +37,8 @@ namespace PSH_BOne_AddOn
 					oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
 				}
 
-				oFormUniqueID = "PS_PP929_" + SubMain.Get_TotalFormsCount();
-				SubMain.Add_Forms(this, oFormUniqueID, "PS_PP929");
+				oFormUniqueID = "PS_PP390_" + SubMain.Get_TotalFormsCount();
+				SubMain.Add_Forms(this, oFormUniqueID, "PS_PP390");
 
 				PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
 				oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
@@ -110,11 +110,6 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
 				}
-
-				//출력구분
-				oForm.Items.Item("Gbn01").Specific.ValidValues.Add("1", "부문별생산현황");
-				oForm.Items.Item("Gbn01").Specific.ValidValues.Add("2", "제품별생산현황");
-				oForm.Items.Item("Gbn01").Specific.Select("1", SAPbouiCOM.BoSearchKey.psk_ByValue);
 			}
 			catch (Exception ex)
 			{
@@ -150,24 +145,22 @@ namespace PSH_BOne_AddOn
 		[STAThread]
 		private void Print_Query()
 		{
-			string WinTitle = string.Empty;
-			string ReportName = string.Empty;
+			string WinTitle;
+			string ReportName;
 
 			string BPLId;
 			string DocDateFr;
 			string DocDateTo;
 			string ItmBsort;
-			string Gbn01;
 
 			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 
 			try
 			{
-				BPLId     = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+				BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
 				DocDateFr = oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim();
 				DocDateTo = oForm.Items.Item("DocDateTo").Specific.Value.ToString().Trim();
-				ItmBsort  = oForm.Items.Item("ItmBsort").Specific.Value.ToString().Trim();
-				Gbn01     = oForm.Items.Item("Gbn01").Specific.Value.ToString().Trim();
+				ItmBsort = oForm.Items.Item("ItmBsort").Specific.Value.ToString().Trim();
 
 				if (string.IsNullOrEmpty(DocDateFr))
 				{
@@ -182,16 +175,8 @@ namespace PSH_BOne_AddOn
 					ItmBsort = "%";
 				}
 
-				if (Gbn01 == "1")
-				{
-					WinTitle = "부문별생산현황[PS_PP929_01]";
-					ReportName = "PS_PP929_01.RPT";
-				}
-				else if (Gbn01 == "2")
-				{
-					WinTitle = "제품별생산현황[PS_PP929_02]";
-					ReportName = "PS_PP929_02.RPT";
-				}
+				WinTitle = "원재료불출현황[PS_PP390_01]";
+				ReportName = "PS_PP390_01.RPT";
 
 				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
 				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
@@ -205,7 +190,7 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr));
 				dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo));
 				dataPackParameter.Add(new PSH_DataPackClass("@ItmBsort", ItmBsort));
-				
+
 				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
 			}
 			catch (Exception ex)

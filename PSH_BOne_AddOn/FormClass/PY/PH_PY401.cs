@@ -1,11 +1,6 @@
 using System;
-using System.Collections.Generic;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
-using PSH_BOne_AddOn.DataPack;
-using PSH_BOne_AddOn.Form;
-using Microsoft.VisualBasic;
-
 
 namespace PSH_BOne_AddOn
 {
@@ -15,8 +10,6 @@ namespace PSH_BOne_AddOn
     internal class PH_PY401 : PSH_BaseClass
     {
         public string oFormUniqueID01;
-
-        //'// 그리드 사용시
         public SAPbouiCOM.Grid oGrid1;
         public SAPbouiCOM.DataTable oDS_PH_PY401;
 
@@ -25,8 +18,8 @@ namespace PSH_BOne_AddOn
         /// </summary>
         public override void LoadForm(string oFormDocEntry01)
         {
-            int i = 0;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
+
             try
             {
                 oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PH_PY401.srf");
@@ -34,7 +27,7 @@ namespace PSH_BOne_AddOn
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
 
-                for (i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
+                for (int i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
                 {
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight")[i - 1].nodeValue = 20;
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
@@ -330,10 +323,9 @@ namespace PSH_BOne_AddOn
                 else if (pVal.Before_Action == false)
                 {
                     SubMain.Remove_Forms(oFormUniqueID01);
-
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY401);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid1);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY401);
                 }
             }
             catch (Exception ex)
@@ -527,7 +519,6 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(false);
             }
         }
-
 
         /// <summary>
         /// ITEM_PRESSED 이벤트
@@ -732,7 +723,7 @@ namespace PSH_BOne_AddOn
                         {
                             oForm.Freeze(true);
 
-                            Param01 = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
+                            Param01 = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                             Param02 = oDS_PH_PY401.Columns.Item("Year").Cells.Item(pVal.Row).Value;
                             Param03 = oDS_PH_PY401.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Value;
 
@@ -870,7 +861,7 @@ namespace PSH_BOne_AddOn
             Year = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
 
 
-            if (string.IsNullOrEmpty(Strings.Trim(Year)))
+            if (string.IsNullOrEmpty(Year))
             {
                 PSH_Globals.SBO_Application.SetStatusBarMessage("년도가 없습니다. 확인바랍니다..", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                 oForm.Items.Item("Year").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -1229,10 +1220,10 @@ namespace PSH_BOne_AddOn
                 COLNAM[4] = "성명";
                 COLNAM[5] = "직급";
                 
-                for (i = 0; i <= Information.UBound(COLNAM); i++)
+                for (i = 0; i < COLNAM.Length; i++)
                 {
                     oGrid1.Columns.Item(i).TitleObject.Caption = COLNAM[i];
-                    if (i >= 0 & i <= Information.UBound(COLNAM))
+                    if (i >= 0 && i < COLNAM.Length)
                     {
                         oGrid1.Columns.Item(i).Editable = false;
                     }

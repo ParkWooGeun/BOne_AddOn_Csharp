@@ -1014,7 +1014,6 @@ namespace PSH_BOne_AddOn
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO660H);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO660L);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oFormMode01);
                 }
             }
             catch (Exception ex)

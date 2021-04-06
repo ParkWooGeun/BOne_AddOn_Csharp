@@ -954,11 +954,11 @@ namespace PSH_BOne_AddOn
                 else if (pVal.Before_Action == false)
                 {
                     SubMain.Remove_Forms(oFormUniqueID01);
-
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat1);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid01);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY311A);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY311B);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat1);
                 }
             }
             catch (Exception ex)

@@ -918,12 +918,12 @@ namespace PSH_BOne_AddOn
 				}
 				else if (pVal.BeforeAction == false)
 				{
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm); //메모리 해제
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01); //메모리 해제
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat02); //메모리 해제
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_FI961L); //메모리 해제
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_FI961M); //메모리 해제
 					SubMain.Remove_Forms(oFormUniqueID01);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat02);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_FI961L);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_FI961M);
 				}
 			}
 			catch (Exception ex)

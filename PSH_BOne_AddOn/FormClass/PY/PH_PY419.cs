@@ -1,4 +1,3 @@
-using Microsoft.VisualBasic;
 using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
@@ -11,9 +10,6 @@ namespace PSH_BOne_AddOn
     internal class PH_PY419 : PSH_BaseClass
     {
         public string oFormUniqueID01;
-        //public SAPbouiCOM.Form oForm;
-
-        //'// 그리드 사용시
         public SAPbouiCOM.Grid oGrid1;
         public SAPbouiCOM.DataTable oDS_PH_PY419;
 
@@ -218,10 +214,9 @@ namespace PSH_BOne_AddOn
                 else if (pVal.Before_Action == false)
                 {
                     SubMain.Remove_Forms(oFormUniqueID01);
-
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY419);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid1);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY419);
                 }
             }
             catch (Exception ex)
@@ -445,7 +440,7 @@ namespace PSH_BOne_AddOn
                         {
 
                             case "MSTCOD":
-                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
+                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value;
 
                                 sQry = "Select Code,";

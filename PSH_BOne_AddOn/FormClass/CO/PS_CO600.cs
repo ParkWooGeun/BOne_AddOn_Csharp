@@ -671,6 +671,10 @@ namespace PSH_BOne_AddOn
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid02);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid03);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid04);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO600A);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO600B);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO600C);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO600D);
                 }
             }
             catch (Exception ex)

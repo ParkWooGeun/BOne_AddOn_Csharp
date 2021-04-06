@@ -12,6 +12,7 @@ namespace PSH_BOne_AddOn
     internal class PH_PY995 : PSH_BaseClass
     {
         public string oFormUniqueID01;
+
         /// <summary>
         /// Form 호출
         /// </summary>

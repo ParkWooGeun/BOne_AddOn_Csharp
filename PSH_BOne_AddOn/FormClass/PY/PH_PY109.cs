@@ -1574,11 +1574,11 @@ namespace PSH_BOne_AddOn
                 {
                     SubMain.Remove_Forms(oFormUniqueID);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat1);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat2);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY109A);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY109B);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY109Z);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat1);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat2);
                 }
             }
             catch (Exception ex)

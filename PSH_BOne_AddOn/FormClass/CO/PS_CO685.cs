@@ -18,11 +18,11 @@ namespace PSH_BOne_AddOn
         private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
         private int oSeq;
 
-		/// <summary>
-		/// Form 호출
-		/// </summary>
-		public override void LoadForm()
-		{
+        /// <summary>
+        /// Form 호출
+        /// </summary>
+        public override void LoadForm(string oFormDocEntry01)
+        {
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
 			try

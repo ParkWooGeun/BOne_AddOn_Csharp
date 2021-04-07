@@ -9216,7 +9216,7 @@
         </member>
         <member name="T:PSH_BOne_AddOn.PS_PP042">
             <summary>
-            
+            MG생산 작업일보(현장) 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_PP042.LoadForm(SAPbouiCOM.Form,System.Int32)">
@@ -9325,6 +9325,17 @@
             <param name="FormUID"></param>
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
+        </member>
+        <member name="T:PSH_BOne_AddOn.PS_PP044">
+            <summary>
+            작업일보등록(방산부품)
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP044.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFormDocEntry"></param>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_PP111">
             <summary>

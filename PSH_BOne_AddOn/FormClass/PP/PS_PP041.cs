@@ -526,7 +526,7 @@ namespace PSH_BOne_AddOn
                 DocEntry = dataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PS_PP040'", "");
                 if (string.IsNullOrEmpty(DocEntry) || DocEntry == "0")
                 {
-                    oForm.Items.Item("DocEntry").Specific.Value = 1;
+                    oForm.Items.Item("DocEntry").Specific.Value = "1";
                 }
                 else
                 {

@@ -77,7 +77,7 @@ namespace PSH_BOne_AddOn
                 oForm.Update();
                 oForm.Freeze(false);
                 oForm.Visible = true;
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oXmlDoc); //메모리 해제
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oXmlDoc);
             }
         }
 
@@ -241,7 +241,6 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
-
             }
             catch (Exception ex)
             {
@@ -282,13 +281,13 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("1").Enabled = true;
 
                     oForm.Items.Item("OrdType").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index); //항상일반타입이여야함
-                    oForm.Items.Item("OrdGbn").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index); //선택인상태
+                    oForm.Items.Item("OrdGbn").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index); //선택인 상태
                     oForm.Items.Item("BPLId").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
                     oForm.Items.Item("SOrdGbn").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
                     oForm.Items.Item("SBPLId").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-                    oForm.Items.Item("SCpCode").Specific.Value = "";
+                    oForm.DataSources.UserDataSources.Item("SCpCode").Value = "";
                     oForm.Items.Item("UseMCode").Specific.Value = "";
-                    oForm.Items.Item("SMoldNo").Specific.Value = "";
+                    oForm.DataSources.UserDataSources.Item("SMoldNo").Value = "";
                     oForm.Items.Item("MoldCode").Specific.Value = "";
 
                     PS_PP041_FormClear();
@@ -927,7 +926,7 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.MessageBox(ex.Message);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + (char)13 + ex.Message);
                 }
             }
             finally
@@ -1423,8 +1422,7 @@ namespace PSH_BOne_AddOn
                 else if (ValidateType == "수정01") //수정전 수정가능여부검사
                 {
                     if (oForm.Items.Item("OrdType").Specific.Selected.Value == "10") //작업타입이 일반인경우
-                    {
-                        
+                    {   
                         if (string.IsNullOrEmpty(oMat01.Columns.Item("LineId").Cells.Item(oMat01Row01).Specific.Value))
                         {
                             //새로추가된 행인경우 수정가능
@@ -1615,7 +1613,6 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-
             }
 
             return returnValue;
@@ -1649,7 +1646,6 @@ namespace PSH_BOne_AddOn
                         if (oForm.Items.Item("SOrdGbn").Specific.Selected.Value == "선택") //값이 선택되어 있지 않다면 기본으로
                         {
                             oForm.Items.Item("OrdGbn").Specific.Select(dataHelpClass.GetValue("SELECT U_ItmBsort FROM [@PS_PP001L] WHERE U_CpCode = '" + oForm.Items.Item("SCpCode").Specific.Value + "'", 0, 1), SAPbouiCOM.BoSearchKey.psk_ByValue);
-                            
                         }
                         else //값이 선택되었다면 선택된 값으로..
                         {
@@ -1788,7 +1784,7 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.MessageBox(ex.Message);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
             finally
@@ -1822,6 +1818,15 @@ namespace PSH_BOne_AddOn
 
             try
             {
+                PSH_Globals.oCompany.StartTransaction();
+
+                //현재월의 전기기간 체크 후 잠겨있으면 DI API 미실행
+                if (dataHelpClass.Get_ReData("PeriodStat", "[NAME]", "OFPR", "'" + DateTime.Now.ToString("yyyy") + "-" + DateTime.Now.ToString("MM") + "'", "") == "Y")
+                {
+                    errCode = "2";
+                    throw new Exception();
+                }                
+
                 for (oRow = 0; oRow <= oDS_PS_PP041L.Size - 1; oRow++)
                 {
                     if (oDS_PS_PP041L.GetValue("U_OrdGbn", oRow).ToString().Trim() == "104" || oDS_PS_PP041L.GetValue("U_OrdGbn", oRow).ToString().Trim() == "107") //멀티 또는 엔드베어링일경우
@@ -1856,15 +1861,14 @@ namespace PSH_BOne_AddOn
                     returnValue = true;
                     return returnValue;
                 }
-
-                PSH_Globals.oCompany.StartTransaction();
+                
                 DI_oInventoryGenExit = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenExit); //문서타입(입고)
 
                 i = 1;
                 
                 //Header
-                DI_oInventoryGenExit.DocDate = dataHelpClass.ConvertDateType(oForm.Items.Item("DocDate").Specific.Value, "-");
-                DI_oInventoryGenExit.TaxDate = dataHelpClass.ConvertDateType(oForm.Items.Item("DocDate").Specific.Value, "-");
+                DI_oInventoryGenExit.DocDate = Convert.ToDateTime(dataHelpClass.ConvertDateType(oForm.Items.Item("DocDate").Specific.Value, "-"));
+                DI_oInventoryGenExit.TaxDate = Convert.ToDateTime(dataHelpClass.ConvertDateType(oForm.Items.Item("DocDate").Specific.Value, "-"));
                 DI_oInventoryGenExit.Comments = "작업일보등록(" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + ") 출고";
 
                 //Line
@@ -1971,11 +1975,15 @@ namespace PSH_BOne_AddOn
 
                 if (errCode == "1")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("DI실행 중 오류 발생 : [" + errDICode + "]" + errDIMsg, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox("DI실행 중 오류 발생 : [" + errDICode + "]" + (char)13 + errDIMsg);
+                }
+                else if (errCode == "2")
+                {
+                    PSH_Globals.SBO_Application.MessageBox("현재월의 전기기간이 잠겼습니다. 회계부서에 문의하세요.");
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + (char)13 + ex.Message);
                 }
             }
             finally
@@ -2015,6 +2023,13 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.oCompany.StartTransaction();
 
+                //현재월의 전기기간 체크 후 잠겨있으면 DI API 미실행
+                if (dataHelpClass.Get_ReData("PeriodStat", "[NAME]", "OFPR", "'" + DateTime.Now.ToString("yyyy") + "-" + DateTime.Now.ToString("MM") + "'", "") == "Y")
+                {
+                    errCode = "2";
+                    throw new Exception();
+                }
+
                 for (oRow = 0; oRow <= oDS_PS_PP041L.Size - 1; oRow++)
                 {
                     if (!string.IsNullOrEmpty(oDS_PS_PP041L.GetValue("U_OutDoc", oRow).ToString().Trim())) //출고되어진 문서가 있는경우
@@ -2034,8 +2049,8 @@ namespace PSH_BOne_AddOn
                 i = 1;
 
                 //Header
-                DI_oInventoryGenEntry.DocDate = dataHelpClass.ConvertDateType(oForm.Items.Item("DocDate").Specific.Value, "-");
-                DI_oInventoryGenEntry.TaxDate = dataHelpClass.ConvertDateType(oForm.Items.Item("DocDate").Specific.Value, "-");
+                DI_oInventoryGenEntry.DocDate = Convert.ToDateTime(dataHelpClass.ConvertDateType(oForm.Items.Item("DocDate").Specific.Value, "-"));
+                DI_oInventoryGenEntry.TaxDate = Convert.ToDateTime(dataHelpClass.ConvertDateType(oForm.Items.Item("DocDate").Specific.Value, "-"));
                 DI_oInventoryGenEntry.Comments = "작업일보등록(" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + ") 출고 취소";
                 DI_oInventoryGenEntry.UserFields.Fields.Item("U_CtrlType").Value = "C";
                 DI_oInventoryGenEntry.UserFields.Fields.Item("U_CancDoc").Value = oDS_PS_PP041L.GetValue("U_OutDoc", 0); //불출취소시 관리유형(취소) 원재료 입고현황과 구분을 하기위함
@@ -2119,11 +2134,15 @@ namespace PSH_BOne_AddOn
 
                 if (errCode == "1")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("DI실행 중 오류 발생 : [" + errDICode + "]" + errDIMsg, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox("DI실행 중 오류 발생 : [" + errDICode + "]" + (char)13 + errDIMsg);
+                }
+                else if (errCode == "2")
+                {
+                    PSH_Globals.SBO_Application.MessageBox("현재월의 전기기간이 잠겼습니다. 회계부서에 문의하세요.");
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + (char)13 + ex.Message);
                 }
             }
             finally
@@ -2252,13 +2271,10 @@ namespace PSH_BOne_AddOn
                             }
 
                             //원재료 불출없이 추가시 주석 시작
-                            if (PS_PP041_InsertoInventoryGenExit(2) == false) 
+                            if (PS_PP041_InsertoInventoryGenExit(2) == false)
                             {
                                 BubbleEvent = false;
                                 return;
-                            }
-                            else
-                            {
                             }
                             //원재료 불출없이 추가시 주석 종료
 
@@ -2290,16 +2306,6 @@ namespace PSH_BOne_AddOn
                                 {
                                     BubbleEvent = false;
                                 }
-
-                                //int vReturnValue = PSH_Globals.SBO_Application.MessageBox("저장하지 않는 자료가 있습니다. 취소하시겠습니까?", 2, "&확인", "&취소");
-                                //switch (vReturnValue)
-                                //{
-                                //    case 1:
-                                //        break;
-                                //    case 2:
-                                //        BubbleEvent = false;
-                                //        break;
-                                //}
                             }
                         }
                     }
@@ -2328,8 +2334,8 @@ namespace PSH_BOne_AddOn
 
                             if (totTime > 0)
                             {
-                                unitTime = Convert.ToDouble((totTime / (oMat01.VisualRowCount - 1)).ToString("#,###.##"));
-                                unitRemainTime = Convert.ToDouble((totTime - unitTime * (oMat01.VisualRowCount - 1)).ToString("#,###.##"));
+                                unitTime = Convert.ToDouble((totTime / (oMat01.VisualRowCount - 1)).ToString("#,##0.##"));
+                                unitRemainTime = Convert.ToDouble((totTime - unitTime * (oMat01.VisualRowCount - 1)).ToString("#,##0.##"));
 
                                 for (int i = 0; i <= oMat01.VisualRowCount - 2; i++)
                                 {
@@ -2351,7 +2357,6 @@ namespace PSH_BOne_AddOn
                             }
                         }
                     }
-
                 }
                 else if (pVal.BeforeAction == false)
                 {
@@ -2362,7 +2367,7 @@ namespace PSH_BOne_AddOn
                             if (pVal.ActionSuccess == true)
                             {
                                 PS_PP041_FormItemEnabled();
-                                PS_PP041_AddMatrixRow02(0, true);
+                                PS_PP041_AddMatrixRow02(0, true); //작업자 매트릭스 빈행 추가
                             }
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
@@ -2388,7 +2393,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + (char)13 + ex.Message);
             }
             finally
             {
@@ -2442,19 +2447,8 @@ namespace PSH_BOne_AddOn
                                 {
                                     if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "104")
                                     {
-                                        string docDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
-                                        string workCode = oMat02.Columns.Item("WorkCode").Cells.Item(1).Specific.Value;
-                                        //PS_PP042 oTempClass = new PS_PP042(); //화면 호출 구현 필요
-
-                                        if (oForm.Items.Item("ilboChk").Specific.Checked == true)
-                                        {
-                                            //oTempClass.LoadForm(oForm, pVal.ItemUID, pVal.ColUID, pVal.Row, oForm.Items.Item("BPLId").Specific.Value, oForm.Items.Item("CpCode").Specific.Value, docDate, workCode);
-                                        }
-                                        else
-                                        {
-                                            //oTempClass.LoadForm(oForm, pVal.ItemUID, pVal.ColUID, pVal.Row, oForm.Items.Item("BPLId").Specific.Value, oForm.Items.Item("CpCode").Specific.Value, "", "");
-                                        }
-
+                                        PS_PP042 oTempClass = new PS_PP042();
+                                        oTempClass.LoadForm(oForm, pVal.Row);
                                         BubbleEvent = false;
                                     }
                                     else
@@ -2891,7 +2885,6 @@ namespace PSH_BOne_AddOn
                         if (pVal.ColUID == "OrdMgNum")
                         {
                             PS_PP030 oTempClass = new PS_PP030();
-                            //oTempClass.LoadForm(codeHelpClass.Mid(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value, 1, Strings.InStr(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value, "-") - 1));
                             oTempClass.LoadForm(codeHelpClass.Mid(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value, 0, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().IndexOf("-")));
                         }
                         else if (pVal.ColUID == "PP030HNo")
@@ -2905,7 +2898,6 @@ namespace PSH_BOne_AddOn
                         if (pVal.ColUID == "OrdMgNum")
                         {
                             PS_PP030 oTempClass = new PS_PP030();
-                            //oTempClass.LoadForm(codeHelpClass.Mid(oMat03.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value, 1, Strings.InStr(oMat03.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value, "-") - 1));
                             oTempClass.LoadForm(codeHelpClass.Mid(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value, 0, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().IndexOf("-")));
                         }
                     }
@@ -2944,7 +2936,6 @@ namespace PSH_BOne_AddOn
             SAPbouiCOM.ProgressBar ProgBar01 = null;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            SAPbouiCOM.BoStatusBarMessageType messageType = BoStatusBarMessageType.smt_Error;
 
             try
             {
@@ -2982,13 +2973,11 @@ namespace PSH_BOne_AddOn
                                                 if (RecordSet01.Fields.Item("Result").Value == "Y1")
                                                 {
                                                     errMessage = "품질부적합 등록건(등록상태)입니다. 품질보증팀(검사자)에 문의하십시오.";
-                                                    messageType = BoStatusBarMessageType.smt_Warning;
                                                     throw new Exception();
                                                 }
                                                 else if (RecordSet01.Fields.Item("Result").Value == "Y2")
                                                 {
                                                     errMessage = "품질부적합 등록건(1차 해제상태)입니다. 품질보증팀(팀장)에 문의하십시오.";
-                                                    messageType = BoStatusBarMessageType.smt_Warning;
                                                     throw new Exception();
                                                 }
                                             }
@@ -2998,7 +2987,6 @@ namespace PSH_BOne_AddOn
                                                 if (oMat01.Columns.Item("OrdMgNum").Cells.Item(i).Specific.Value == oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value && i != pVal.Row) //현재 입력한 값이 이미 입력되어 있는경우
                                                 {
                                                     errMessage = "이미 입력한 공정입니다.";
-                                                    messageType = BoStatusBarMessageType.smt_Warning;
                                                     oDS_PS_PP041L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, "");
                                                     if (oMat01.RowCount == pVal.Row && !string.IsNullOrEmpty(oDS_PS_PP041L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
                                                     {
@@ -3411,7 +3399,7 @@ namespace PSH_BOne_AddOn
                                         {
                                             if (dataHelpClass.GetValue("SELECT TOP 1 U_CpCode FROM [@PS_PP030M] WHERE DocEntry = '" + oMat01.Columns.Item("PP030HNo").Cells.Item(1).Specific.Value + "' ORDER BY U_Sequence ASC", 0, 1) != oMat01.Columns.Item("CpCode").Cells.Item(1).Specific.Value)
                                             {
-                                                //해당작지의 첫공정과 공정정보의 공정이 다르면 분배 '//V_MILL일때만 해당.. 엔드베어링에서는 어떻게 동작하는지 정의필요
+                                                //해당작지의 첫공정과 공정정보의 공정이 다르면 분배, V_MILL일때만 해당.. 엔드베어링에서는 어떻게 동작하는지 정의필요
                                                 if (Convert.ToDouble(oDS_PS_PP041M.GetValue("U_YTime", pVal.Row - 1)) > 0)
                                                 {
                                                     unitTime = Convert.ToDouble(oDS_PS_PP041M.GetValue("U_YTime", pVal.Row - 1)) / (oMat01.VisualRowCount == 1 ? 1 : (oMat01.VisualRowCount - 1));
@@ -3448,7 +3436,7 @@ namespace PSH_BOne_AddOn
                                         {
                                             if (dataHelpClass.GetValue("SELECT TOP 1 U_CpCode FROM [@PS_PP030M] WHERE DocEntry = '" + oMat01.Columns.Item("PP030HNo").Cells.Item(1).Specific.Value + "' ORDER BY U_Sequence ASC", 0, 1) != oMat01.Columns.Item("CpCode").Cells.Item(1).Specific.Value)
                                             {
-                                                //해당작지의 첫공정과 공정정보의 공정이 다르면 분배 '//V_MILL일때만 해당.. 엔드베어링에서는 어떻게 동작하는지 정의필요
+                                                //해당작지의 첫공정과 공정정보의 공정이 다르면 분배, V_MILL일때만 해당.. 엔드베어링에서는 어떻게 동작하는지 정의필요
                                                 if (Convert.ToDouble(oDS_PS_PP041M.GetValue("U_YTime", pVal.Row - 1)) > 0)
                                                 {
                                                     unitTime = Convert.ToDouble(oDS_PS_PP041M.GetValue("U_YTime", pVal.Row - 1)) / (oMat01.VisualRowCount == 1 ? 1 : (oMat01.VisualRowCount - 1));
@@ -3620,12 +3608,6 @@ namespace PSH_BOne_AddOn
                             }
                         }
 
-                        //oMat01.LoadFromDataSource();
-                        //oMat01.AutoResizeColumns();
-                        //oMat02.LoadFromDataSource();
-                        //oMat02.AutoResizeColumns();
-                        //oMat03.LoadFromDataSource();
-                        //oMat03.AutoResizeColumns();
                         oForm.Update();
 
                         if (pVal.ItemUID == "Mat01")
@@ -3654,11 +3636,11 @@ namespace PSH_BOne_AddOn
             {
                 if (errMessage != string.Empty)
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(errMessage, BoMessageTime.bmt_Short, messageType);
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + (char)13 + ex.Message);
                 }
                 BubbleEvent = false;
             }
@@ -3787,7 +3769,7 @@ namespace PSH_BOne_AddOn
         {
             int i;
             int j;
-            bool exist = false;
+            bool exist;
             string errMessage = string.Empty;
             SAPbouiCOM.BoStatusBarMessageType messageType = BoStatusBarMessageType.smt_Error;
 

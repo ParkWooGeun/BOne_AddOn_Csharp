@@ -1545,7 +1545,7 @@ namespace PSH_BOne_AddOn
                     total += Convert.ToDouble(string.IsNullOrEmpty(oMat01.Columns.Item("WorkTime").Cells.Item(loopCount + 1).Specific.Value.ToString().Trim()) ? 0 : oMat01.Columns.Item("WorkTime").Cells.Item(loopCount + 1).Specific.Value.ToString().Trim());
                 }
 
-                oForm.Items.Item("Total").Specific.Value = total.ToString("#,###.##");
+                oForm.Items.Item("Total").Specific.Value = total.ToString("#,##0.##");
             }
             catch(Exception ex)
             {
@@ -1775,6 +1775,13 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.oCompany.StartTransaction();
 
+                //현재월의 전기기간 체크 후 잠겨있으면 DI API 미실행
+                if (dataHelpClass.Get_ReData("PeriodStat", "[NAME]", "OFPR", "'" + DateTime.Now.ToString("yyyy") + "-" + DateTime.Now.ToString("MM") + "'", "") == "Y")
+                {
+                    errCode = "2";
+                    throw new Exception();
+                }
+
                 oMat01.FlushToDataSource();
                 DocDate = dataHelpClass.ConvertDateType(oDS_PS_PP040H.GetValue("U_DocDate", 0), "-");
                 DocNum = oDS_PS_PP040H.GetValue("DocEntry", 0).ToString().Trim();
@@ -1881,13 +1888,17 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack);
                 }
 
-                if(errCode == "1")
+                if (errCode == "1")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("DI실행 중 오류 발생 : [" + errDICode + "]" + errDIMsg, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox("DI실행 중 오류 발생 : [" + errDICode + "]" + (char)13 + errDIMsg);
+                }
+                else if (errCode == "2")
+                {
+                    PSH_Globals.SBO_Application.MessageBox("현재월의 전기기간이 잠겼습니다. 회계부서에 문의하세요.");
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + (char)13 + ex.Message);
                 }
             }
             finally
@@ -1937,6 +1948,14 @@ namespace PSH_BOne_AddOn
             try
             {
                 PSH_Globals.oCompany.StartTransaction();
+
+                //현재월의 전기기간 체크 후 잠겨있으면 DI API 미실행
+                if (dataHelpClass.Get_ReData("PeriodStat", "[NAME]", "OFPR", "'" + DateTime.Now.ToString("yyyy") + "-" + DateTime.Now.ToString("MM") + "'", "") == "Y")
+                {
+                    errCode = "2";
+                    throw new Exception();
+                }
+
                 oMat01.FlushToDataSource();
 
                 DocDate = dataHelpClass.ConvertDateType(oDS_PS_PP040H.GetValue("U_DocDate", 0), "-");
@@ -2045,11 +2064,15 @@ namespace PSH_BOne_AddOn
 
                 if (errCode == "1")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("DI실행 중 오류 발생 : [" + errDICode + "]" + errDIMsg, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox("DI실행 중 오류 발생 : [" + errDICode + "]" + (char)13 + errDIMsg);
+                }
+                else if (errCode == "2")
+                {
+                    PSH_Globals.SBO_Application.MessageBox("현재월의 전기기간이 잠겼습니다. 회계부서에 문의하세요.");
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + (char)13 + ex.Message);
                 }
             } 
             finally
@@ -2179,9 +2202,6 @@ namespace PSH_BOne_AddOn
                                 {
                                     BubbleEvent = false;
                                     return;
-                                }
-                                else
-                                {
                                 }
                             }
 

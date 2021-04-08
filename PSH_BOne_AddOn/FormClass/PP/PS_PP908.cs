@@ -133,7 +133,7 @@ namespace PSH_BOne_AddOn
 			}
 			catch (Exception ex)
 			{
-				PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY695_Print_Report01_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 			}
 		}
 
@@ -149,7 +149,7 @@ namespace PSH_BOne_AddOn
 			}
 			catch (Exception ex)
 			{
-				PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY695_Print_Report01_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 			}
 		}
 

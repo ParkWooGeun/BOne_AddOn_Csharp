@@ -947,17 +947,17 @@ namespace PSH_BOne_AddOn
             int i;
             int j;
             string Query01;
-            int PrevDBCpQty;
-            int PrevMATRIXCpQty;
-            int CurrentDBCpQty;
-            int CurrentMATRIXCpQty;
+            double PrevDBCpQty;
+            double PrevMATRIXCpQty;
+            double CurrentDBCpQty;
+            double CurrentMATRIXCpQty;
             string PrevCpInfo;
             string CurrentCpInfo;
             string OrdMgNum;
             bool Exist;
             string LineNum;
             string DocEntry;
-            string errCode = string.Empty;
+            string errMessage = string.Empty;
 
             SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -968,7 +968,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (dataHelpClass.GetValue("SELECT Canceled FROM [@PS_PP040H] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "Y")
                     {
-                        errCode = "1";
+                        errMessage = "해당문서는 다른사용자에 의해 취소되었습니다. 작업을 진행할 수 없습니다.";
                         throw new Exception();
                     }
                 }
@@ -982,7 +982,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (oForm.Items.Item("OrdType").Specific.Selected.Value.ToString().Trim() == "30" || oForm.Items.Item("OrdType").Specific.Selected.Value.ToString().Trim() == "40") //작업타입이 외주, 실적인경우
                 {
-                    errCode = "2";
+                    errMessage = "해당작업타입은 변경이 불가능합니다.";
                     throw new Exception();
                 }
                 
@@ -994,7 +994,7 @@ namespace PSH_BOne_AddOn
                         {
                             if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP030H] PS_PP030H LEFT JOIN [@PS_PP030M] PS_PP030M ON PS_PP030H.DocEntry = PS_PP030M.DocEntry WHERE PS_PP030H.Canceled = 'N' AND CONVERT(NVARCHAR,PS_PP030H.DocEntry) + '-' + CONVERT(NVARCHAR,PS_PP030M.LineId) = '" + oMat01.Columns.Item("OrdMgNum").Cells.Item(i).Specific.Value + "'", 0, 1)) <= 0)
                             {
-                                errCode = "4";
+                                errMessage = "작업지시문서가 존재하지 않습니다.";
                                 throw new Exception();
                             }
                         }
@@ -1026,7 +1026,7 @@ namespace PSH_BOne_AddOn
                                     else
                                     {
                                         //라인번호가 같고, 문서번호가 같으면 존재하는행
-                                        if (Convert.ToInt64(RecordSet01.Fields.Item(0).Value) == Convert.ToInt64(oForm.Items.Item("DocEntry").Specific.Value) && Convert.ToInt64(RecordSet01.Fields.Item(1).Value) == Convert.ToInt64(oMat01.Columns.Item("LineId").Cells.Item(j).Specific.Value))
+                                        if (Convert.ToInt32(RecordSet01.Fields.Item(0).Value) == Convert.ToInt32(oForm.Items.Item("DocEntry").Specific.Value) && Convert.ToInt32(RecordSet01.Fields.Item(1).Value) == Convert.ToInt32(oMat01.Columns.Item("LineId").Cells.Item(j).Specific.Value))
                                         {
                                             Exist = true;
                                         }
@@ -1044,13 +1044,13 @@ namespace PSH_BOne_AddOn
                                             //휘팅벌크포장
                                             if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP070H] PS_PP070H LEFT JOIN [@PS_PP070L] PS_PP070L ON PS_PP070H.DocEntry = PS_PP070L.DocEntry WHERE PS_PP070H.Canceled = 'N' AND PS_PP070L.U_PP030HNo = '" + RecordSet01.Fields.Item("PP030HNo").Value + "' AND PS_PP070L.U_PP030MNo = '" + RecordSet01.Fields.Item("PP030MNo").Value + "'", 0, 1)) > 0)
                                             {
-                                                errCode = "5";
+                                                errMessage = "삭제된행이 생산실적 등록된 행입니다. 적용할 수 없습니다.";
                                                 throw new Exception();
                                             }
                                             //휘팅실적
                                             if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP080H] PS_PP080H LEFT JOIN [@PS_PP080L] PS_PP080L ON PS_PP080H.DocEntry = PS_PP080L.DocEntry WHERE PS_PP080H.Canceled = 'N' AND PS_PP080L.U_PP030HNo = '" + RecordSet01.Fields.Item("PP030HNo").Value + "' AND PS_PP080L.U_PP030MNo = '" + RecordSet01.Fields.Item("PP030MNo").Value + "'", 0, 1)) > 0)
                                             {
-                                                errCode = "4";
+                                                errMessage = "삭제된행이 생산실적 등록된 행입니다. 적용할 수 없습니다.";
                                                 throw new Exception();
                                             }
                                         }
@@ -1073,35 +1073,35 @@ namespace PSH_BOne_AddOn
                                         }
                                         else
                                         {
-                                            PrevDBCpQty = Convert.ToInt32(dataHelpClass.GetValue("SELECT SUM(PS_PP040L.U_PQty) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040L.U_OrdMgNum = '" + PrevCpInfo + "' AND PS_PP040H.DocEntry <> '" + RecordSet01.Fields.Item(0).Value + "' AND PS_PP040H.Canceled = 'N'", 0, 1));
+                                            PrevDBCpQty = Convert.ToDouble(dataHelpClass.GetValue("SELECT SUM(PS_PP040L.U_PQty) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040L.U_OrdMgNum = '" + PrevCpInfo + "' AND PS_PP040H.DocEntry <> '" + RecordSet01.Fields.Item(0).Value + "' AND PS_PP040H.Canceled = 'N'", 0, 1));
                                             //재공이동 수량
-                                            PrevDBCpQty += Convert.ToInt32(dataHelpClass.GetValue("SELECT Isnull(SUM(b.U_PQty),0) FROM [@PS_CO160H] a Inner JOIN [@PS_CO160L] b ON a.DocEntry = b.DocEntry WHERE b.U_MPO = '" + PrevCpInfo + "' AND a.Canceled = 'N'", 0, 1));
-                                            PrevDBCpQty += Convert.ToInt32(dataHelpClass.GetValue("SELECT Isnull(SUM(b.U_PQty),0) * -1 FROM [@PS_CO160H] a Inner JOIN [@PS_CO160L] b ON a.DocEntry = b.DocEntry WHERE b.U_PO = '" + PrevCpInfo + "' AND a.Canceled = 'N'", 0, 1));
+                                            PrevDBCpQty += Convert.ToDouble(dataHelpClass.GetValue("SELECT Isnull(SUM(b.U_PQty),0) FROM [@PS_CO160H] a Inner JOIN [@PS_CO160L] b ON a.DocEntry = b.DocEntry WHERE b.U_MPO = '" + PrevCpInfo + "' AND a.Canceled = 'N'", 0, 1));
+                                            PrevDBCpQty += Convert.ToDouble(dataHelpClass.GetValue("SELECT Isnull(SUM(b.U_PQty),0) * -1 FROM [@PS_CO160H] a Inner JOIN [@PS_CO160L] b ON a.DocEntry = b.DocEntry WHERE b.U_PO = '" + PrevCpInfo + "' AND a.Canceled = 'N'", 0, 1));
 
                                             PrevMATRIXCpQty = 0;
                                             for (j = 1; j <= oMat01.VisualRowCount - 1; j++)
                                             {
                                                 if (oMat01.Columns.Item("OrdMgNum").Cells.Item(j).Specific.Value == PrevCpInfo)
                                                 {
-                                                    PrevMATRIXCpQty += Convert.ToInt32(oMat01.Columns.Item("PQty").Cells.Item(j).Specific.Value);
+                                                    PrevMATRIXCpQty += Convert.ToDouble(oMat01.Columns.Item("PQty").Cells.Item(j).Specific.Value);
                                                 }
                                             }
 
-                                            CurrentDBCpQty = Convert.ToInt32(dataHelpClass.GetValue("SELECT SUM(PS_PP040L.U_PQty) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040L.U_OrdMgNum = '" + CurrentCpInfo + "' AND PS_PP040L.DocEntry <> '" + RecordSet01.Fields.Item(0).Value + "' AND PS_PP040H.Canceled = 'N'", 0, 1));
-                                            CurrentDBCpQty += Convert.ToInt32(dataHelpClass.GetValue("SELECT Isnull(SUM(b.U_PQty),0) FROM [@PS_CO160H] a Inner JOIN [@PS_CO160L] b ON a.DocEntry = b.DocEntry WHERE b.U_MPO = '" + CurrentCpInfo + "' AND a.Canceled = 'N'", 0, 1));
-                                            CurrentDBCpQty += Convert.ToInt32(dataHelpClass.GetValue("SELECT Isnull(SUM(b.U_PQty),0) * -1 FROM [@PS_CO160H] a Inner JOIN [@PS_CO160L] b ON a.DocEntry = b.DocEntry WHERE b.U_PO = '" + CurrentCpInfo + "' AND a.Canceled = 'N'", 0, 1));
+                                            CurrentDBCpQty = Convert.ToDouble(dataHelpClass.GetValue("SELECT SUM(PS_PP040L.U_PQty) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040L.U_OrdMgNum = '" + CurrentCpInfo + "' AND PS_PP040L.DocEntry <> '" + RecordSet01.Fields.Item(0).Value + "' AND PS_PP040H.Canceled = 'N'", 0, 1));
+                                            CurrentDBCpQty += Convert.ToDouble(dataHelpClass.GetValue("SELECT Isnull(SUM(b.U_PQty),0) FROM [@PS_CO160H] a Inner JOIN [@PS_CO160L] b ON a.DocEntry = b.DocEntry WHERE b.U_MPO = '" + CurrentCpInfo + "' AND a.Canceled = 'N'", 0, 1));
+                                            CurrentDBCpQty += Convert.ToDouble(dataHelpClass.GetValue("SELECT Isnull(SUM(b.U_PQty),0) * -1 FROM [@PS_CO160H] a Inner JOIN [@PS_CO160L] b ON a.DocEntry = b.DocEntry WHERE b.U_PO = '" + CurrentCpInfo + "' AND a.Canceled = 'N'", 0, 1));
 
                                             CurrentMATRIXCpQty = 0;
                                             for (j = 1; j <= oMat01.VisualRowCount - 1; j++)
                                             {
                                                 if (oMat01.Columns.Item("OrdMgNum").Cells.Item(j).Specific.Value == CurrentCpInfo)
                                                 {
-                                                    CurrentMATRIXCpQty += Convert.ToInt32(oMat01.Columns.Item("PQty").Cells.Item(j).Specific.Value);
+                                                    CurrentMATRIXCpQty += Convert.ToDouble(oMat01.Columns.Item("PQty").Cells.Item(j).Specific.Value);
                                                 }
                                             }
                                             if ((PrevDBCpQty + PrevMATRIXCpQty) < (CurrentDBCpQty + CurrentMATRIXCpQty))
                                             {
-                                                errCode = "7";
+                                                errMessage = "삭제된 공정의 선행공정의 생산수량이 삭제된 공정의 생산수량을 미달합니다.";
                                                 throw new Exception();
                                             }
                                         }
@@ -1163,7 +1163,7 @@ namespace PSH_BOne_AddOn
                                                 }
                                                 else //값이 변경된 행의 경우
                                                 {
-                                                    errCode = "4";
+                                                    errMessage = "생산실적이 등록된 행은 수정할 수 없습니다.";
                                                     throw new Exception();
                                                 }
                                             }
@@ -1191,36 +1191,36 @@ namespace PSH_BOne_AddOn
                                 }
                                 else
                                 {
-                                    PrevDBCpQty = Convert.ToInt32(dataHelpClass.GetValue("EXEC PS_PP040_07 '" + PrevCpInfo + "', '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1));
+                                    PrevDBCpQty = Convert.ToDouble(dataHelpClass.GetValue("EXEC PS_PP040_07 '" + PrevCpInfo + "', '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1));
                                     //재공 이동수량 반영
-                                    PrevDBCpQty += Convert.ToInt32(dataHelpClass.GetValue("SELECT Isnull(SUM(b.U_PQty),0) FROM [@PS_CO160H] a Inner JOIN [@PS_CO160L] b ON a.DocEntry = b.DocEntry WHERE b.U_MPO = '" + PrevCpInfo + "' AND a.Canceled = 'N'", 0, 1));
-                                    PrevDBCpQty += Convert.ToInt32(dataHelpClass.GetValue("SELECT Isnull(SUM(b.U_PQty),0) * -1 FROM [@PS_CO160H] a Inner JOIN [@PS_CO160L] b ON a.DocEntry = b.DocEntry WHERE b.U_PO = '" + PrevCpInfo + "' AND a.Canceled = 'N'", 0, 1));
+                                    PrevDBCpQty += Convert.ToDouble(dataHelpClass.GetValue("SELECT Isnull(SUM(b.U_PQty),0) FROM [@PS_CO160H] a Inner JOIN [@PS_CO160L] b ON a.DocEntry = b.DocEntry WHERE b.U_MPO = '" + PrevCpInfo + "' AND a.Canceled = 'N'", 0, 1));
+                                    PrevDBCpQty += Convert.ToDouble(dataHelpClass.GetValue("SELECT Isnull(SUM(b.U_PQty),0) * -1 FROM [@PS_CO160H] a Inner JOIN [@PS_CO160L] b ON a.DocEntry = b.DocEntry WHERE b.U_PO = '" + PrevCpInfo + "' AND a.Canceled = 'N'", 0, 1));
 
                                     PrevMATRIXCpQty = 0;
                                     for (j = 1; j <= oMat01.VisualRowCount - 1; j++)
                                     {
                                         if (oMat01.Columns.Item("OrdMgNum").Cells.Item(j).Specific.Value == PrevCpInfo)
                                         {
-                                            PrevMATRIXCpQty += Convert.ToInt32(oMat01.Columns.Item("PQty").Cells.Item(j).Specific.Value);
+                                            PrevMATRIXCpQty += Convert.ToDouble(oMat01.Columns.Item("PQty").Cells.Item(j).Specific.Value);
                                         }
                                     }
-                                    CurrentDBCpQty = Convert.ToInt32(dataHelpClass.GetValue("EXEC PS_PP040_07 '" + CurrentCpInfo + "', '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1));
-                                    CurrentDBCpQty += Convert.ToInt32(dataHelpClass.GetValue("SELECT Isnull(SUM(b.U_PQty),0) FROM [@PS_CO160H] a Inner JOIN [@PS_CO160L] b ON a.DocEntry = b.DocEntry WHERE b.U_MPO = '" + CurrentCpInfo + "' AND a.Canceled = 'N'", 0, 1));
-                                    CurrentDBCpQty += Convert.ToInt32(dataHelpClass.GetValue("SELECT Isnull(SUM(b.U_PQty),0) * -1 FROM [@PS_CO160H] a Inner JOIN [@PS_CO160L] b ON a.DocEntry = b.DocEntry WHERE b.U_PO = '" + CurrentCpInfo + "' AND a.Canceled = 'N'", 0, 1));
+                                    CurrentDBCpQty = Convert.ToDouble(dataHelpClass.GetValue("EXEC PS_PP040_07 '" + CurrentCpInfo + "', '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1));
+                                    CurrentDBCpQty += Convert.ToDouble(dataHelpClass.GetValue("SELECT Isnull(SUM(b.U_PQty),0) FROM [@PS_CO160H] a Inner JOIN [@PS_CO160L] b ON a.DocEntry = b.DocEntry WHERE b.U_MPO = '" + CurrentCpInfo + "' AND a.Canceled = 'N'", 0, 1));
+                                    CurrentDBCpQty += Convert.ToDouble(dataHelpClass.GetValue("SELECT Isnull(SUM(b.U_PQty),0) * -1 FROM [@PS_CO160H] a Inner JOIN [@PS_CO160L] b ON a.DocEntry = b.DocEntry WHERE b.U_PO = '" + CurrentCpInfo + "' AND a.Canceled = 'N'", 0, 1));
 
                                     CurrentMATRIXCpQty = 0;
                                     for (j = 1; j <= oMat01.VisualRowCount - 1; j++)
                                     {
                                         if (oMat01.Columns.Item("OrdMgNum").Cells.Item(j).Specific.Value == CurrentCpInfo)
                                         {
-                                            CurrentMATRIXCpQty += Convert.ToInt32(oMat01.Columns.Item("PQty").Cells.Item(j).Specific.Value);
+                                            CurrentMATRIXCpQty += Convert.ToDouble(oMat01.Columns.Item("PQty").Cells.Item(j).Specific.Value);
                                         }
                                     }
                                     
                                     if ((PrevDBCpQty + PrevMATRIXCpQty) < (CurrentDBCpQty + CurrentMATRIXCpQty))
                                     {
                                         oMat01.SelectRow(i, true, false);
-                                        errCode = "7";
+                                        errMessage = "선행공정의 생산수량이 현공정의 생산수량에 미달 합니다.";
                                         throw new Exception();
                                     }
                                 }
@@ -1263,14 +1263,14 @@ namespace PSH_BOne_AddOn
                                     //휘팅벌크포장
                                     if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP070H] PS_PP070H LEFT JOIN [@PS_PP070L] PS_PP070L ON PS_PP070H.DocEntry = PS_PP070L.DocEntry WHERE PS_PP070H.Canceled = 'N' AND PS_PP070L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value + "' AND PS_PP070L.U_PP030MNo = '" + oMat01.Columns.Item("LineId").Cells.Item(oMat01Row01).Specific.Value + "'", 0, 1)) > 0)
                                     {
-                                        errCode = "4";
+                                        errMessage = "삭제된행이 생산실적 등록된 행입니다. 적용할 수 없습니다.";
                                         throw new Exception();
                                     }
 
                                     //휘팅실적
                                     if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP080H] PS_PP080H LEFT JOIN [@PS_PP080L] PS_PP080L ON PS_PP080H.DocEntry = PS_PP080L.DocEntry WHERE PS_PP080H.Canceled = 'N' AND PS_PP080L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value + "' AND PS_PP080L.U_PP030MNo = '" + oMat01.Columns.Item("LineId").Cells.Item(oMat01Row01).Specific.Value + "'", 0, 1)) > 0)
                                     {
-                                        errCode = "4";
+                                        errMessage = "삭제된행이 생산실적 등록된 행입니다. 적용할 수 없습니다.";
                                         throw new Exception();
                                     }
                                 }
@@ -1289,9 +1289,9 @@ namespace PSH_BOne_AddOn
 
                                 string stockQty = string.IsNullOrEmpty(dataHelpClass.GetValue(Query01, 0, 1)) ? "0" : dataHelpClass.GetValue(Query01, 0, 1);
 
-                                if (Convert.ToInt32(stockQty) > 0)
+                                if (Convert.ToDouble(stockQty) > 0)
                                 {
-                                    errCode = "12";
+                                    errMessage = "재고가 존재하는 작번입니다. 삭제할 수 없습니다.";
                                     throw new Exception();
                                 }
                             }
@@ -1331,9 +1331,9 @@ namespace PSH_BOne_AddOn
                                     DocEntry = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim();
                                     LineNum = oMat01.Columns.Item("LineNum").Cells.Item(oMat01Row01).Specific.Value.ToString().Trim();
 
-                                    if (oMat01.Columns.Item("PQty").Cells.Item(oMat01Row01).Specific.Value.ToString().Trim() != dataHelpClass.GetValue("select U_pqty from [@PS_PP040L] where DocEntry ='" + DocEntry + "' and u_linenum ='" + LineNum + "'", 0, 1))
+                                    if (Convert.ToDouble(oMat01.Columns.Item("PQty").Cells.Item(oMat01Row01).Specific.Value.ToString().Trim()) != Convert.ToDouble(dataHelpClass.GetValue("select U_pqty from [@PS_PP040L] where DocEntry ='" + DocEntry + "' and u_linenum ='" + LineNum + "'", 0, 1)))
                                     {
-                                        errCode = "13";
+                                        errMessage = "원자재 불출이 진행된 행은 생산수량을 수정할 수 없습니다.";
                                         throw new Exception();
                                     }
                                 }
@@ -1346,14 +1346,14 @@ namespace PSH_BOne_AddOn
                                     //휘팅벌크포장
                                     if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP070H] PS_PP070H LEFT JOIN [@PS_PP070L] PS_PP070L ON PS_PP070H.DocEntry = PS_PP070L.DocEntry WHERE PS_PP070H.Canceled = 'N' AND PS_PP070L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value + "' AND PS_PP070L.U_PP030MNo = '" + oMat01.Columns.Item("LineId").Cells.Item(oMat01Row01).Specific.Value + "'", 0, 1)) > 0)
                                     {
-                                        errCode = "4";
+                                        errMessage = "수정된행이 생산실적 등록된 행입니다. 적용할 수 없습니다.";
                                         throw new Exception();
                                     }
 
                                     //휘팅실적
                                     if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP080H] PS_PP080H LEFT JOIN [@PS_PP080L] PS_PP080L ON PS_PP080H.DocEntry = PS_PP080L.DocEntry WHERE PS_PP080H.Canceled = 'N' AND PS_PP080L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value + "' AND PS_PP080L.U_PP030MNo = '" + oMat01.Columns.Item("LineId").Cells.Item(oMat01Row01).Specific.Value + "'", 0, 1)) > 0)
                                     {
-                                        errCode = "4";
+                                        errMessage = "수정된행이 생산실적 등록된 행입니다. 적용할 수 없습니다.";
                                         throw new Exception();
                                     }
                                 }
@@ -1381,7 +1381,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (dataHelpClass.GetValue("SELECT Canceled FROM [@PS_PP040H] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "Y")
                     {
-                        errCode = "1";
+                        errMessage = "이미취소된 문서 입니다. 취소할 수 없습니다.";
                         throw new Exception();
                     }
                     
@@ -1411,14 +1411,14 @@ namespace PSH_BOne_AddOn
                                     //휘팅벌크포장
                                     if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP070H] PS_PP070H LEFT JOIN [@PS_PP070L] PS_PP070L ON PS_PP070H.DocEntry = PS_PP070L.DocEntry WHERE PS_PP070H.Canceled = 'N' AND PS_PP070L.U_PP030HNo = '" + RecordSet01.Fields.Item("PP030HNo").Value + "' AND PS_PP070L.U_PP030MNo = '" + RecordSet01.Fields.Item("PP030MNo").Value + "'", 0, 1)) > 0)
                                     {
-                                        errCode = "17";
+                                        errMessage = "생산실적 등록된 문서입니다. 적용할 수 없습니다.";
                                         throw new Exception();
                                     }
 
                                     //휘팅실적
                                     if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP080H] PS_PP080H LEFT JOIN [@PS_PP080L] PS_PP080L ON PS_PP080H.DocEntry = PS_PP080L.DocEntry WHERE PS_PP080H.Canceled = 'N' AND PS_PP080L.U_PP030HNo = '" + RecordSet01.Fields.Item("PP030HNo").Value + "' AND PS_PP080L.U_PP030MNo = '" + RecordSet01.Fields.Item("PP030MNo").Value + "'", 0, 1)) > 0)
                                     {
-                                        errCode = "17";
+                                        errMessage = "생산실적 등록된 문서입니다. 적용할 수 없습니다.";
                                         throw new Exception();
                                     }
                                 }
@@ -1441,21 +1441,19 @@ namespace PSH_BOne_AddOn
                                 }
                                 else
                                 {
-                                    PrevDBCpQty = Convert.ToInt32(dataHelpClass.GetValue("SELECT SUM(PS_PP040L.U_PQty) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040L.U_OrdMgNum = '" + PrevCpInfo + "' AND PS_PP040H.DocEntry <> '" + RecordSet01.Fields.Item(0).Value + "' AND PS_PP040H.Canceled = 'N'", 0, 1));
-                                    PrevDBCpQty += Convert.ToInt32(dataHelpClass.GetValue("SELECT Isnull(SUM(b.U_PQty),0) FROM [@PS_CO160H] a Inner JOIN [@PS_CO160L] b ON a.DocEntry = b.DocEntry WHERE b.U_MPO = '" + PrevCpInfo + "' AND a.Canceled = 'N'", 0, 1));
-                                    PrevDBCpQty += Convert.ToInt32(dataHelpClass.GetValue("SELECT Isnull(SUM(b.U_PQty),0) * -1 FROM [@PS_CO160H] a Inner JOIN [@PS_CO160L] b ON a.DocEntry = b.DocEntry WHERE b.U_PO = '" + PrevCpInfo + "' AND a.Canceled = 'N'", 0, 1));
-
+                                    PrevDBCpQty = Convert.ToDouble(dataHelpClass.GetValue("SELECT SUM(PS_PP040L.U_PQty) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040L.U_OrdMgNum = '" + PrevCpInfo + "' AND PS_PP040H.DocEntry <> '" + RecordSet01.Fields.Item(0).Value + "' AND PS_PP040H.Canceled = 'N'", 0, 1));
+                                    PrevDBCpQty += Convert.ToDouble(dataHelpClass.GetValue("SELECT Isnull(SUM(b.U_PQty),0) FROM [@PS_CO160H] a Inner JOIN [@PS_CO160L] b ON a.DocEntry = b.DocEntry WHERE b.U_MPO = '" + PrevCpInfo + "' AND a.Canceled = 'N'", 0, 1));
+                                    PrevDBCpQty += Convert.ToDouble(dataHelpClass.GetValue("SELECT Isnull(SUM(b.U_PQty),0) * -1 FROM [@PS_CO160H] a Inner JOIN [@PS_CO160L] b ON a.DocEntry = b.DocEntry WHERE b.U_PO = '" + PrevCpInfo + "' AND a.Canceled = 'N'", 0, 1));
                                     PrevMATRIXCpQty = 0;
 
-                                    CurrentDBCpQty = Convert.ToInt32(dataHelpClass.GetValue("SELECT SUM(PS_PP040L.U_PQty) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040L.U_OrdMgNum = '" + CurrentCpInfo + "' AND PS_PP040L.DocEntry <> '" + RecordSet01.Fields.Item(0).Value + "' AND PS_PP040H.Canceled = 'N'", 0, 1));
-                                    CurrentDBCpQty += Convert.ToInt32(dataHelpClass.GetValue("SELECT Isnull(SUM(b.U_PQty),0) FROM [@PS_CO160H] a Inner JOIN [@PS_CO160L] b ON a.DocEntry = b.DocEntry WHERE b.U_MPO = '" + CurrentCpInfo + "' AND a.Canceled = 'N'", 0, 1));
-                                    CurrentDBCpQty += Convert.ToInt32(dataHelpClass.GetValue("SELECT Isnull(SUM(b.U_PQty),0) * -1 FROM [@PS_CO160H] a Inner JOIN [@PS_CO160L] b ON a.DocEntry = b.DocEntry WHERE b.U_PO = '" + CurrentCpInfo + "' AND a.Canceled = 'N'", 0, 1));
-
+                                    CurrentDBCpQty = Convert.ToDouble(dataHelpClass.GetValue("SELECT SUM(PS_PP040L.U_PQty) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040L.U_OrdMgNum = '" + CurrentCpInfo + "' AND PS_PP040L.DocEntry <> '" + RecordSet01.Fields.Item(0).Value + "' AND PS_PP040H.Canceled = 'N'", 0, 1));
+                                    CurrentDBCpQty += Convert.ToDouble(dataHelpClass.GetValue("SELECT Isnull(SUM(b.U_PQty),0) FROM [@PS_CO160H] a Inner JOIN [@PS_CO160L] b ON a.DocEntry = b.DocEntry WHERE b.U_MPO = '" + CurrentCpInfo + "' AND a.Canceled = 'N'", 0, 1));
+                                    CurrentDBCpQty += Convert.ToDouble(dataHelpClass.GetValue("SELECT Isnull(SUM(b.U_PQty),0) * -1 FROM [@PS_CO160H] a Inner JOIN [@PS_CO160L] b ON a.DocEntry = b.DocEntry WHERE b.U_PO = '" + CurrentCpInfo + "' AND a.Canceled = 'N'", 0, 1));
                                     CurrentMATRIXCpQty = 0;
 
                                     if ((PrevDBCpQty + PrevMATRIXCpQty) < (CurrentDBCpQty + CurrentMATRIXCpQty))
                                     {
-                                        errCode = "7";
+                                        errMessage = "취소문서의 선행공정의 생산수량이 취소문서의 생산수량을 미달합니다.";
                                         throw new Exception();
                                     }
                                 }
@@ -1485,41 +1483,13 @@ namespace PSH_BOne_AddOn
             }
             catch(Exception ex)
             {
-                if (errCode == "1")
+                if (errMessage != string.Empty)
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("해당문서는 다른사용자에 의해 취소되었습니다. 적용할수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "2")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("해당작업타입은 변경이 불가능합니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "4")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("생산실적 등록된 행입니다. 적용할수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "5")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("작업지시문서가 존재하지 않습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "7")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("선행공정의 생산수량이 현공정의 생산수량에 미달 합니다. 적용할 수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "12")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("재고가 존재하는 작번입니다. 적용할 수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "13")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("원자재 불출이 진행된 행은 생산수량을 수정할 수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "17")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("생산실적 등록된 문서입니다. 적용할수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + (char)13 + ex.Message);
                 }
             }
             finally
@@ -1729,7 +1699,7 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.MessageBox(ex.Message);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + (char)13 + ex.Message);
                 }
             }
             finally
@@ -3906,10 +3876,11 @@ namespace PSH_BOne_AddOn
                         query01 = "  SELECT		ISNULL";
                         query01 += "            (";
                         query01 += "                MIN(DocEntry),";
-                        query01 += "                (SELECT MIN(DocEntry) FROM [@PS_PP040H] WHERE U_DocType = '10')";
+                        query01 += "                (SELECT MIN(DocEntry) FROM [@PS_PP040H] WHERE U_DocType = '10' AND U_OrdGbn IN ('101','102','103','105','106','108','109','110','111','601','602'))";
                         query01 += "            )";
                         query01 += " FROM       [@PS_PP040H]";
                         query01 += " WHERE      U_DocType = '10'";
+                        query01 += "            AND U_OrdGbn IN ('101','102','103','105','106','108','109','110','111','601','602')";
                         query01 += "            AND DocEntry > " + docEntry;
 
                         oForm.Items.Item("DocEntry").Specific.Value = dataHelpClass.GetValue(query01, 0, 1);
@@ -3940,10 +3911,11 @@ namespace PSH_BOne_AddOn
                         query01 = "  SELECT		ISNULL";
                         query01 += "            (";
                         query01 += "                MAX(DocEntry),";
-                        query01 += "                (SELECT MAX(DocEntry) FROM [@PS_PP040H] WHERE U_DocType = '10')";
+                        query01 += "                (SELECT MAX(DocEntry) FROM [@PS_PP040H] WHERE U_DocType = '10' AND U_OrdGbn IN ('101','102','103','105','106','108','109','110','111','601','602'))";
                         query01 += "            )";
                         query01 += " FROM       [@PS_PP040H]";
                         query01 += " WHERE      U_DocType = '10'";
+                        query01 += "            AND U_OrdGbn IN ('101','102','103','105','106','108','109','110','111','601','602')";
                         query01 += "            AND DocEntry < " + docEntry;
 
                         oForm.Items.Item("DocEntry").Specific.Value = dataHelpClass.GetValue(query01, 0, 1);
@@ -3959,6 +3931,7 @@ namespace PSH_BOne_AddOn
                     query01 = "  SELECT     MIN(DocEntry)";
                     query01 += " FROM       [@PS_PP040H]";
                     query01 += " WHERE      U_DocType = '10'";
+                    query01 += "            AND U_OrdGbn IN ('101','102','103','105','106','108','109','110','111','601','602')";
 
                     oForm.Items.Item("DocEntry").Specific.Value = dataHelpClass.GetValue(query01, 0, 1);
                     oForm.Items.Item("1").Enabled = true;
@@ -3972,6 +3945,7 @@ namespace PSH_BOne_AddOn
                     query01 = "  SELECT     MAX(DocEntry)";
                     query01 += " FROM       [@PS_PP040H]";
                     query01 += " WHERE      U_DocType = '10'";
+                    query01 += "            AND U_OrdGbn IN ('101','102','103','105','106','108','109','110','111','601','602')";
 
                     oForm.Items.Item("DocEntry").Specific.Value = dataHelpClass.GetValue(query01, 0, 1);
                     oForm.Items.Item("1").Enabled = true;

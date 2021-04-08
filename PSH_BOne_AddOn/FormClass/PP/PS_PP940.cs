@@ -382,6 +382,11 @@ namespace PSH_BOne_AddOn
                     errMessage = "등록일자를 선택하지 않았습니다.";
                     throw new Exception();
                 }
+                else if (string.IsNullOrEmpty(oForm.Items.Item("ItmBsort").Specific.Value))
+                {
+                    errMessage = "품목대분류를 입력하지 않았습니다.";
+                    throw new Exception();
+                }
                 else if(oMat01.VisualRowCount == 1)
                 {
                     errMessage = "라인이 존재하지 않습니다.";
@@ -716,9 +721,9 @@ namespace PSH_BOne_AddOn
                         {
                             if (string.IsNullOrEmpty(oMat01.Columns.Item("ItemCode").Cells.Item(pVal.Row).Specific.Value))
                             {
-                                //PS_SM010 PS_SM010 = new PS_SM010();
-                                //PS_SM010.LoadForm(oForm, pVal.ItemUID, pVal.ColUID, pVal.Row);
-                                //BubbleEvent = false;
+                                PS_SM010 PS_SM010 = new PS_SM010();
+                                PS_SM010.LoadForm(oForm, pVal.ItemUID, pVal.ColUID, pVal.Row);
+                                BubbleEvent = false;
                             }
                         }
                         else if (pVal.ColUID == "MachCode")
@@ -923,6 +928,7 @@ namespace PSH_BOne_AddOn
                     }
 
                 }
+                oMat01.AutoResizeColumns();
             }
             catch (Exception ex)
             {

@@ -1,15 +1,16 @@
 using System;
-using System.Collections.Generic;
 using SAPbouiCOM;
-using PSH_BOne_AddOn.DataPack;
+using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.Form;
+using PSH_BOne_AddOn.DataPack;
+using System.Collections.Generic;
 
 namespace PSH_BOne_AddOn
 {
     /// <summary>
-    /// 부품일자별생산현황
+    /// 생산팀O/T현황
     /// </summary>
-    internal class PS_PP960 : PSH_BaseClass
+    internal class PS_PP970 : PSH_BaseClass
     {
         private string oFormUniqueID01;
 
@@ -22,7 +23,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PS_PP960.srf");
+                oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PS_PP970.srf");
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue = oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue + "_" + (SubMain.Get_TotalFormsCount());
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
                 oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
@@ -33,18 +34,26 @@ namespace PSH_BOne_AddOn
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
                 }
 
-                oFormUniqueID01 = "PS_PP960_" + SubMain.Get_TotalFormsCount();
-                SubMain.Add_Forms(this, oFormUniqueID01, "PS_PP960");
+                oFormUniqueID01 = "PS_PP970_" + SubMain.Get_TotalFormsCount();
+                SubMain.Add_Forms(this, oFormUniqueID01, "PS_PP970");
 
                 PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID01);
 
                 oForm.SupportedModes = -1;
-                oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
+                oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
 
                 oForm.Freeze(true);
 
-                PS_PP960_CreateItems();
+                PS_PP970_CreateItems();
+                ComboBox_Setting();
+                Initialization();
+
+                oForm.EnableMenu(("1283"), false); //// 삭제
+                oForm.EnableMenu(("1286"), false); //// 닫기
+                oForm.EnableMenu(("1287"), false); //// 복제
+                oForm.EnableMenu(("1284"), true);  //// 취소
+                oForm.EnableMenu(("1293"), false); //// 행삭제
             }
             catch (Exception ex)
             {
@@ -63,22 +72,33 @@ namespace PSH_BOne_AddOn
         /// 화면 Item 생성
         /// </summary>
         /// <returns></returns>
-        private void PS_PP960_CreateItems()
+        private void PS_PP970_CreateItems()
         {
             try
             {
-                oForm.DataSources.UserDataSources.Add("Fym", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
-                oForm.DataSources.UserDataSources.Add("Tym", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
+                oForm.DataSources.UserDataSources.Add("DocDateFr", SAPbouiCOM.BoDataType.dt_DATE, 10);
+                oForm.Items.Item("DocDateFr").Specific.DataBind.SetBound(true, "", "DocDateFr");
+                oForm.DataSources.UserDataSources.Item("DocDateFr").Value = DateTime.Now.ToString("yyyyMMdd");
+
+                oForm.DataSources.UserDataSources.Add("DocDateTo", SAPbouiCOM.BoDataType.dt_DATE, 10);
+                oForm.Items.Item("DocDateTo").Specific.DataBind.SetBound(true, "", "DocDateTo");
+                oForm.DataSources.UserDataSources.Item("DocDateTo").Value = DateTime.Now.ToString("yyyyMMdd");
+
+                //사번
+                oForm.DataSources.UserDataSources.Add("CntcCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
+                oForm.Items.Item("CntcCode").Specific.DataBind.SetBound(true, "", "CntcCode");
+
+                //성명
+                oForm.DataSources.UserDataSources.Add("CntcName", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
+                oForm.Items.Item("CntcName").Specific.DataBind.SetBound(true, "", "CntcName");
+
                 oForm.DataSources.UserDataSources.Add("Rad01", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
                 oForm.DataSources.UserDataSources.Add("Rad02", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
+                oForm.DataSources.UserDataSources.Add("Rad03", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
 
-                oForm.Items.Item("Fym").Specific.DataBind.SetBound(true, "", "Fym");
-                oForm.Items.Item("Tym").Specific.DataBind.SetBound(true, "", "Tym");
                 oForm.Items.Item("Rad01").Specific.DataBind.SetBound(true, "", "Rad01");
                 oForm.Items.Item("Rad02").Specific.DataBind.SetBound(true, "", "Rad02");
-
-                oForm.Items.Item("Fym").Specific.VALUE = DateTime.Now.ToString("yyyyMM");
-                oForm.Items.Item("Tym").Specific.VALUE = DateTime.Now.ToString("yyyyMM");
+                oForm.Items.Item("Rad02").Specific.DataBind.SetBound(true, "", "Rad03");
 
                 oForm.Items.Item("Rad01").Specific.ValOn = "10";
                 oForm.Items.Item("Rad01").Specific.ValOff = "0";
@@ -87,6 +107,10 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Rad02").Specific.ValOn = "20";
                 oForm.Items.Item("Rad02").Specific.ValOff = "0";
                 oForm.Items.Item("Rad02").Specific.GroupWith(("Rad01"));
+
+                oForm.Items.Item("Rad03").Specific.ValOn = "30";
+                oForm.Items.Item("Rad03").Specific.ValOff = "0";
+                oForm.Items.Item("Rad03").Specific.GroupWith(("Rad01"));
             }
             catch (Exception ex)
             {
@@ -95,45 +119,113 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// PS_PP960_Print_Report01 리포트 조회
+        /// ComboBox_Setting
         /// </summary>
-        [STAThread]
-        private void PS_PP960_Print_Report01()
+        private void ComboBox_Setting()
         {
-            string WinTitle;
-            string ReportName;
-
-            string Fym;
-            string Tym;
-
-            PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+            string sQry;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
-                Fym = oForm.Items.Item("Fym").Specific.Value.ToString().Trim();
-                Tym = oForm.Items.Item("Tym").Specific.Value.ToString().Trim();
+                // 사업장
+                sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
+                oRecordSet.DoQuery(sQry);
+                while (!(oRecordSet.EoF))
+                {
+                    oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
+                    oRecordSet.MoveNext();
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+        }
+
+        public void Initialization()
+        {
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
+            try
+            {
+                //아이디별 사업장 세팅
+                oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+        }
+
+        /// <summary>
+        /// PS_PP970_Print_Report01 리포트 조회
+        /// </summary>
+        [STAThread]
+        private void PS_PP970_Print_Report01()
+        {
+            string sQry;
+            string WinTitle = string.Empty;
+            string ReportName = string.Empty;
+            string BPLName;
+
+            string BPLID;
+            string DocDateFr;
+            string DocDateTo;
+            string CntcCode;
+
+            PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                BPLID     = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+                DocDateFr = oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim();
+                DocDateTo = oForm.Items.Item("DocDateTo").Specific.Value.ToString().Trim();
+                CntcCode  = oForm.Items.Item("CntcCode").Specific.Value.ToString().Trim();
+
+                sQry = "SELECT BPLName FROM [OBPL] WHERE BPLId = '" + BPLID + "'";
+                oRecordSet.DoQuery(sQry);
+                BPLName = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 
                 if (oForm.Items.Item("Rad01").Specific.Selected == true)
                 {
-                    WinTitle = "부품일자별생산현황 [PS_PP960]";
-                    ReportName = "PS_PP960_01.rpt";
+                    WinTitle = "[PS_PP970_01] 생산팀O/T현황";
+                    ReportName = "PS_PP970_01.RPT";
                 }
-                else
+                else if (oForm.Items.Item("Rad02").Specific.Selected == true)
                 {
-                    WinTitle = "부품일자별생산현황 [PS_PP960]";
-                    ReportName = "PS_PP960_02.rpt";
+                    WinTitle = "[PS_PP970_02] 생산팀O/T현황";
+                    ReportName = "PS_PP970_02.RPT";
+                }
+                else if (oForm.Items.Item("Rad03").Specific.Selected == true)
+                {
+                    WinTitle = "[PS_PP970_03] 생산팀O/T현황";
+                    ReportName = "PS_PP970_03.RPT";
                 }
 
                 List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
                 List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
 
                 //Formula
-                dataPackFormula.Add(new PSH_DataPackClass("@Fym", Fym.Substring(0, 4) + "-" + Fym.Substring(4, 2) ));
-                dataPackFormula.Add(new PSH_DataPackClass("@Tym", Tym.Substring(0, 4) + "-" + Tym.Substring(4, 2)));
+                dataPackFormula.Add(new PSH_DataPackClass("@BPLId", BPLName));
+                dataPackFormula.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr.Substring(0, 4) + "-" + DocDateFr.Substring(4, 2) + "-" + DocDateFr.Substring(6, 2)));
+                dataPackFormula.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo.Substring(0, 4) + "-" + DocDateTo.Substring(4, 2) + "-" + DocDateTo.Substring(6, 2)));
 
                 //Parameter
-                dataPackParameter.Add(new PSH_DataPackClass("@Fym", Fym)); //사업장
-                dataPackParameter.Add(new PSH_DataPackClass("@Tym", Tym)); //
+                if (oForm.Items.Item("Rad01").Specific.Selected == true || oForm.Items.Item("Rad02").Specific.Selected == true)
+                {
+                    dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", BPLID)); 
+                    dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr)); 
+                    dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo)); 
+                }
+                else if (oForm.Items.Item("Rad03").Specific.Selected == true)
+                {
+                    dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", BPLID));
+                    dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr));
+                    dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo));
+                    dataPackParameter.Add(new PSH_DataPackClass("@CntcCode", CntcCode));
+                }
 
                 formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
@@ -141,47 +233,10 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
-        }
-
-        /// <summary>
-        /// PS_PP960_DataValidCheck
-        /// </summary>
-        /// <returns></returns>
-        private bool PS_PP960_DataValidCheck()
-        {
-            string errMessage = String.Empty;
-            bool functionReturnValue = false;
-
-            try
+            finally
             {
-                if (string.IsNullOrEmpty(oForm.Items.Item("Fym").Specific.Value.ToString().Trim()))
-                {
-                    errMessage = "생산년월 From은 필수입니다.";
-                    oForm.Items.Item("Fym").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    throw new Exception();
-                }
-
-                if (string.IsNullOrEmpty(oForm.Items.Item("Tym").Specific.Value.ToString().Trim()))
-                {
-                    errMessage = "생산년월 To는 필수입니다.";
-                    oForm.Items.Item("Tym").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    throw new Exception();
-                }
-
-                functionReturnValue = true;
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
-            catch (Exception ex)
-            {
-                if (errMessage != string.Empty)
-                {
-                    PSH_Globals.SBO_Application.MessageBox(errMessage);
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-            }
-            return functionReturnValue;
         }
 
         // </summary>
@@ -197,6 +252,7 @@ namespace PSH_BOne_AddOn
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
+                    Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
@@ -221,7 +277,7 @@ namespace PSH_BOne_AddOn
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
-                    //Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
+                    Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
@@ -283,20 +339,9 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "Btn01")
                     {
-                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-                        {
-                            if (PS_PP960_DataValidCheck() == false)
-                            {
-                                BubbleEvent = false;
-                                return;
-                            }
-                            else
-                            {
-                                System.Threading.Thread thread = new System.Threading.Thread(PS_PP960_Print_Report01);
-                                thread.SetApartmentState(System.Threading.ApartmentState.STA);
-                                thread.Start();
-                            }
-                        }
+                        System.Threading.Thread thread = new System.Threading.Thread(PS_PP970_Print_Report01);
+                        thread.SetApartmentState(System.Threading.ApartmentState.STA);
+                        thread.Start();
                     }
                 }
                 else if (pVal.BeforeAction == false)
@@ -306,6 +351,70 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+        }
+
+        /// <summary>
+		/// Raise_EVENT_KEY_DOWN
+		/// </summary>
+		/// <param name="FormUID"></param>
+		/// <param name="pVal"></param>
+		/// <param name="BubbleEvent"></param>
+		private void Raise_EVENT_KEY_DOWN(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
+            try
+            {
+                if (pVal.BeforeAction == true)
+                {
+                    dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "CntcCode", "");
+                }
+                else if (pVal.BeforeAction == false)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+        }
+
+        /// <summary>
+		/// Raise_EVENT_VALIDATE
+		/// </summary>
+		/// <param name="FormUID"></param>
+		/// <param name="pVal"></param>
+		/// <param name="BubbleEvent"></param>
+		private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
+            try
+            {
+                oForm.Freeze(true);
+
+                if (pVal.BeforeAction == true)
+                {
+                }
+                else if (pVal.BeforeAction == false)
+                {
+                    if (pVal.ItemChanged == true)
+                    {
+                        if (pVal.ItemUID == "CntcCode")
+                        {
+                            oForm.Items.Item("CntcName").Specific.VALUE = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("CntcCode").Specific.Value.ToString().Trim() + "'", "");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                oForm.Freeze(false);
             }
         }
 

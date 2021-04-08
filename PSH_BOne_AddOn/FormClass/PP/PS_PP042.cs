@@ -1,12 +1,11 @@
 using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
-using PSH_BOne_AddOn.Code;
 
 namespace PSH_BOne_AddOn
 {
     /// <summary>
-    /// 
+    /// MG생산 작업일보(현장) 조회
     /// </summary>
 	internal class PS_PP042 : PSH_BaseClass
 	{

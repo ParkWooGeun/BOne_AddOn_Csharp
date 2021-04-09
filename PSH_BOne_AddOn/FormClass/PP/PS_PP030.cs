@@ -4104,8 +4104,7 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_MATRIX_LOAD(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            int i;
-            
+            int i;            
 
             try
             {
@@ -4120,6 +4119,7 @@ namespace PSH_BOne_AddOn
                         oMat01.Clear();
                         oMat01.FlushToDataSource();
                         oMat01.LoadFromDataSource();
+                        oMat01.AutoResizeColumns();
                     }
                     else if (pVal.ItemUID == "Mat02")
                     {

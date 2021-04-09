@@ -3967,10 +3967,11 @@ namespace PSH_BOne_AddOn
                         query01 = "  SELECT		ISNULL";
                         query01 += "            (";
                         query01 += "                MIN(DocEntry),";
-                        query01 += "                (SELECT MIN(DocEntry) FROM [@PS_PP040H] WHERE U_DocType = '20')";
+                        query01 += "                (SELECT MIN(DocEntry) FROM [@PS_PP040H] WHERE U_DocType = '20' AND U_OrdGbn IN ('104','107'))";
                         query01 += "            )";
                         query01 += " FROM       [@PS_PP040H]";
                         query01 += " WHERE      U_DocType = '20'";
+                        query01 += "            AND U_OrdGbn IN ('104','107')";
                         query01 += "            AND DocEntry > " + docEntry;
 
                         oForm.Items.Item("DocEntry").Specific.Value = dataHelpClass.GetValue(query01, 0, 1);
@@ -4001,10 +4002,11 @@ namespace PSH_BOne_AddOn
                         query01 = "  SELECT		ISNULL";
                         query01 += "            (";
                         query01 += "                MAX(DocEntry),";
-                        query01 += "                (SELECT MAX(DocEntry) FROM [@PS_PP040H] WHERE U_DocType = '20')";
+                        query01 += "                (SELECT MAX(DocEntry) FROM [@PS_PP040H] WHERE U_DocType = '20' AND U_OrdGbn IN ('104','107'))";
                         query01 += "            )";
                         query01 += " FROM       [@PS_PP040H]";
                         query01 += " WHERE      U_DocType = '20'";
+                        query01 += "            AND U_OrdGbn IN ('104','107')";
                         query01 += "            AND DocEntry < " + docEntry;
 
                         oForm.Items.Item("DocEntry").Specific.Value = dataHelpClass.GetValue(query01, 0, 1);
@@ -4020,6 +4022,7 @@ namespace PSH_BOne_AddOn
                     query01 = "  SELECT     MIN(DocEntry)";
                     query01 += " FROM       [@PS_PP040H]";
                     query01 += " WHERE      U_DocType = '20'";
+                    query01 += "            AND U_OrdGbn IN ('104','107')";
 
                     oForm.Items.Item("DocEntry").Specific.Value = dataHelpClass.GetValue(query01, 0, 1);
                     oForm.Items.Item("1").Enabled = true;
@@ -4033,6 +4036,7 @@ namespace PSH_BOne_AddOn
                     query01 = "  SELECT     MAX(DocEntry)";
                     query01 += " FROM       [@PS_PP040H]";
                     query01 += " WHERE      U_DocType = '20'";
+                    query01 += "            AND U_OrdGbn IN ('104','107')";
 
                     oForm.Items.Item("DocEntry").Specific.Value = dataHelpClass.GetValue(query01, 0, 1);
                     oForm.Items.Item("1").Enabled = true;

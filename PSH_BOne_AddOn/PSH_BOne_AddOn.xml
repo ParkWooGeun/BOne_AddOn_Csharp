@@ -9591,6 +9591,11 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
+        <member name="T:PSH_BOne_AddOn.PS_PP045">
+            <summary>
+            생산일보조회
+            </summary>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_PP111">
             <summary>
             추가예상공수(비용)등록대상

@@ -180,7 +180,7 @@ namespace PSH_BOne_AddOn
                 dataHelpClass.Combo_ValidValues_SetValueItem(oForm.Items.Item("DocType").Specific, "PS_PP040", "DocType", false);
 
                 oForm.Items.Item("OrdGbn").Specific.ValidValues.Add("선택", "선택");
-                dataHelpClass.Set_ComboList(oForm.Items.Item("OrdGbn").Specific, "SELECT Code, Name FROM [@PSH_ITMBSORT] WHERE U_PudYN = 'Y' AND CODE NOT IN('104','107') order by Code", "", false, false);
+                dataHelpClass.Set_ComboList(oForm.Items.Item("OrdGbn").Specific, "SELECT Code, Name FROM [@PSH_ITMBSORT] WHERE U_PudYN = 'Y' AND CODE NOT IN('104','107','102','602') order by Code", "", false, false);
                 dataHelpClass.GP_MatrixSetMatComboList(oMat01.Columns.Item("BPLId"), "SELECT BPLId, BPLName FROM OBPL order by BPLId", "", "");
                 dataHelpClass.GP_MatrixSetMatComboList(oMat01.Columns.Item("OrdGbn"), "SELECT Code, Name FROM [@PSH_ITMBSORT] WHERE U_PudYN = 'Y' order by Code", "", "");
 
@@ -3876,11 +3876,11 @@ namespace PSH_BOne_AddOn
                         query01 = "  SELECT		ISNULL";
                         query01 += "            (";
                         query01 += "                MIN(DocEntry),";
-                        query01 += "                (SELECT MIN(DocEntry) FROM [@PS_PP040H] WHERE U_DocType = '10' AND U_OrdGbn IN ('101','102','103','105','106','108','109','110','111','601','602'))";
+                        query01 += "                (SELECT MIN(DocEntry) FROM [@PS_PP040H] WHERE U_DocType = '10' AND U_OrdGbn IN ('101','103','105','106','108','109','110','111','601'))";
                         query01 += "            )";
                         query01 += " FROM       [@PS_PP040H]";
                         query01 += " WHERE      U_DocType = '10'";
-                        query01 += "            AND U_OrdGbn IN ('101','102','103','105','106','108','109','110','111','601','602')";
+                        query01 += "            AND U_OrdGbn IN ('101','103','105','106','108','109','110','111','601')";
                         query01 += "            AND DocEntry > " + docEntry;
 
                         oForm.Items.Item("DocEntry").Specific.Value = dataHelpClass.GetValue(query01, 0, 1);
@@ -3911,11 +3911,11 @@ namespace PSH_BOne_AddOn
                         query01 = "  SELECT		ISNULL";
                         query01 += "            (";
                         query01 += "                MAX(DocEntry),";
-                        query01 += "                (SELECT MAX(DocEntry) FROM [@PS_PP040H] WHERE U_DocType = '10' AND U_OrdGbn IN ('101','102','103','105','106','108','109','110','111','601','602'))";
+                        query01 += "                (SELECT MAX(DocEntry) FROM [@PS_PP040H] WHERE U_DocType = '10' AND U_OrdGbn IN ('101','103','105','106','108','109','110','111','601'))";
                         query01 += "            )";
                         query01 += " FROM       [@PS_PP040H]";
                         query01 += " WHERE      U_DocType = '10'";
-                        query01 += "            AND U_OrdGbn IN ('101','102','103','105','106','108','109','110','111','601','602')";
+                        query01 += "            AND U_OrdGbn IN ('101','103','105','106','108','109','110','111','601')";
                         query01 += "            AND DocEntry < " + docEntry;
 
                         oForm.Items.Item("DocEntry").Specific.Value = dataHelpClass.GetValue(query01, 0, 1);
@@ -3931,7 +3931,7 @@ namespace PSH_BOne_AddOn
                     query01 = "  SELECT     MIN(DocEntry)";
                     query01 += " FROM       [@PS_PP040H]";
                     query01 += " WHERE      U_DocType = '10'";
-                    query01 += "            AND U_OrdGbn IN ('101','102','103','105','106','108','109','110','111','601','602')";
+                    query01 += "            AND U_OrdGbn IN ('101','103','105','106','108','109','110','111','601')";
 
                     oForm.Items.Item("DocEntry").Specific.Value = dataHelpClass.GetValue(query01, 0, 1);
                     oForm.Items.Item("1").Enabled = true;
@@ -3945,7 +3945,7 @@ namespace PSH_BOne_AddOn
                     query01 = "  SELECT     MAX(DocEntry)";
                     query01 += " FROM       [@PS_PP040H]";
                     query01 += " WHERE      U_DocType = '10'";
-                    query01 += "            AND U_OrdGbn IN ('101','102','103','105','106','108','109','110','111','601','602')";
+                    query01 += "            AND U_OrdGbn IN ('101','103','105','106','108','109','110','111','601')";
 
                     oForm.Items.Item("DocEntry").Specific.Value = dataHelpClass.GetValue(query01, 0, 1);
                     oForm.Items.Item("1").Enabled = true;

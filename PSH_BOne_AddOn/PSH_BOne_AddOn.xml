@@ -9439,16 +9439,6 @@
             <param name="ObjectType"></param>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP044.PS_PP044_DirectionValidateDocument(System.String,System.String,System.String,System.String)">
-            <summary>
-            DirectionValidateDocument
-            </summary>
-            <param name="DocEntry"></param>
-            <param name="DocEntryNext"></param>
-            <param name="Direction"></param>
-            <param name="ObjectType"></param>
-            <returns></returns>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_PP044.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event

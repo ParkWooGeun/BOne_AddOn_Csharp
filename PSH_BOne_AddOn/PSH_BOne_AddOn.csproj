@@ -228,6 +228,7 @@
     <Compile Include="FormClass\CO\PS_CO660.cs" />
     <Compile Include="FormClass\CO\PS_CO665.cs" />
     <Compile Include="FormClass\CO\PS_CO670.cs" />
+    <Compile Include="FormClass\PP\PS_PP945.cs" />
     <Compile Include="FormClass\PP\PS_PP042.cs" />
     <Compile Include="FormClass\PP\PS_PP044.cs" />
     <Compile Include="FormClass\PP\PS_PP045.cs" />
@@ -1403,6 +1404,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP945.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SM010.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP940.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP362.srf" />

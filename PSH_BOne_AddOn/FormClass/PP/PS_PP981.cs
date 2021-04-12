@@ -767,7 +767,7 @@ namespace PSH_BOne_AddOn
 					if (pval.ItemChanged == true)
 					{
 
-						if ((pval.ItemUID == "Mat01"))
+						if (pval.ItemUID == "Mat01")
 						{
 						}
 						else

@@ -300,6 +300,8 @@
     <Compile Include="FormClass\PP\PS_PP982.cs" />
     <Compile Include="FormClass\PP\PS_PP983.cs" />
     <Compile Include="FormClass\PP\PS_PP984.cs" />
+    <Compile Include="FormClass\PP\PS_PP985.cs" />
+    <Compile Include="FormClass\PP\PS_PP988.cs" />
     <Compile Include="FormClass\PY\PH_PY400.cs" />
     <Compile Include="FormClass\PY\PH_PY998.cs" />
     <Compile Include="FormClass\PY\PH_PY115.cs" />

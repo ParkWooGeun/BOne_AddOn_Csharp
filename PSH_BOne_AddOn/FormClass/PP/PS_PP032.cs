@@ -4,17 +4,9 @@ using PSH_BOne_AddOn.Data;
 
 namespace PSH_BOne_AddOn
 {
-    //***************************************************************************************************************
-    //  File : PS_PP032.cls
-    //  Module : 생산관리 > 표준공수등록
-    //  Desc :
-    //  FormType : PS_PP032
-    //  Creator : Song Myoung gyu
-    //  Create Date : 2012.04.10
-    //  Modifier :
-    //  Modified Date :
-    //  Company : Poongsan Holdings
-    //***************************************************************************************************************
+    /// <summary>
+    /// 표준공수등록
+    /// </summary>
     internal class PS_PP032 : PSH_BaseClass
     {
         private string oFormUniqueID;
@@ -301,7 +293,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 DocEntry = dataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PS_PP032'", "");
-                if (string.IsNullOrEmpty(DocEntry) | DocEntry == "0")
+                if (string.IsNullOrEmpty(DocEntry) || DocEntry == "0")
                 {
                     oForm.Items.Item("DocEntry").Specific.Value = 1;
                 }
@@ -712,7 +704,7 @@ namespace PSH_BOne_AddOn
                             {
                                 oDS_PS_PP032L.SetValue("U_CpBName", pVal.Row - 1, dataHelpClass.GetValue("SELECT Name FROM [@PS_PP001H] WHERE Code = '" + oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value + "'", 0, 1));
 
-                                if (oMat01.RowCount == pVal.Row & !string.IsNullOrEmpty(oDS_PS_PP032L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
+                                if (oMat01.RowCount == pVal.Row && !string.IsNullOrEmpty(oDS_PS_PP032L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
                                 {
                                     PS_PP032_AddMatrixRow(pVal.Row, false);
                                 }

@@ -6,7 +6,7 @@ using PSH_BOne_AddOn.Code;
 namespace PSH_BOne_AddOn
 {
     /// <summary>
-    /// 11.일일생산계획등록
+    /// 일일생산계획등록
     /// </summary>
     internal class PS_PP940 : PSH_BaseClass
     {

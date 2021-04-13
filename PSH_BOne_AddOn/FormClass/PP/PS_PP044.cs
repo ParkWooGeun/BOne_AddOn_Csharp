@@ -2765,7 +2765,6 @@ namespace PSH_BOne_AddOn
                                                         }
                                                     }
                                                     //생산완료등록이 완료된 작번인지 체크_수량으로 비교(2012.08.27 송명규 추가)_E
-
                                                 }
 
                                                 query01 = "EXEC PS_PP040_01 '" + oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value + "', '" + oForm.Items.Item("OrdType").Specific.Selected.Value + "'";

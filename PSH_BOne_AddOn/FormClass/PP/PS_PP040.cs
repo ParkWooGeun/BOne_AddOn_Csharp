@@ -1628,11 +1628,11 @@ namespace PSH_BOne_AddOn
                 }
                 else if (errCode == "4")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("외주는 입력할수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("외주는 입력할 수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
                 else if (errCode == "5")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("실적은 입력할수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("실적은 입력할 수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
                 else
                 {
@@ -2379,7 +2379,6 @@ namespace PSH_BOne_AddOn
                                 {
                                     dataHelpClass.ActiveUserDefineValueAlways(ref oForm, ref pVal, ref BubbleEvent, "Mat01", "OrdMgNum");
                                 }
-                                
                             }
                             else if (ordType == "30") //외주
                             {   
@@ -3691,7 +3690,7 @@ namespace PSH_BOne_AddOn
                                || oMat01.Columns.Item("CpCode").Cells.Item(oLastColRow01).Specific.Value == "CP80101")
                            ) //분말 첫번째 공정
                         {
-                            PSH_Globals.SBO_Application.StatusBar.SetText("첫공정은 행삭제 할수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                            PSH_Globals.SBO_Application.StatusBar.SetText("첫공정은 행삭제 할 수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                             BubbleEvent = false;
                             return;
                         }
@@ -3700,7 +3699,7 @@ namespace PSH_BOne_AddOn
                                     || oMat01.Columns.Item("CpCode").Cells.Item(oLastColRow01).Specific.Value) == "CP80101"
                                 ) //분말 첫번째 공정
                         {
-                            PSH_Globals.SBO_Application.StatusBar.SetText("첫공정은 행삭제 할수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                            PSH_Globals.SBO_Application.StatusBar.SetText("첫공정은 행삭제 할 수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                             BubbleEvent = false;
                             return;
                         }

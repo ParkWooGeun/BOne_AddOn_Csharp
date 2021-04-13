@@ -965,7 +965,7 @@ namespace PSH_BOne_AddOn
             {   
                 if (dataHelpClass.GetValue("SELECT Canceled FROM [@PS_PP040H] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "Y")
                 {
-                    errMessage = "해당문서는 다른사용자에 의해 취소되었습니다. 작업을 진행할수 없습니다.";
+                    errMessage = "해당문서는 다른사용자에 의해 취소되었습니다. 작업을 진행할 수 없습니다.";
                     throw new Exception();
                 }
 
@@ -1047,7 +1047,7 @@ namespace PSH_BOne_AddOn
                                     //실적, 문서의 타입 필요
                                     if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP080H] PS_PP080H LEFT JOIN [@PS_PP080L] PS_PP080L ON PS_PP080H.DocEntry = PS_PP080L.DocEntry WHERE Isnull(PS_PP080L.U_OIGENum,'') = '' AND PS_PP080L.U_PP030HNo = '" + RecordSet01.Fields.Item("PP030HNo").Value + "' AND PS_PP080L.U_PP030MNo = '" + RecordSet01.Fields.Item("PP030MNo").Value + "'", 0, 1)) > 0)
                                     {
-                                        errMessage = "삭제된행이 생산실적 등록된 행입니다. 적용할수 없습니다.";
+                                        errMessage = "삭제된행이 생산실적 등록된 행입니다. 적용할 수 없습니다.";
                                         throw new Exception();
                                     }
                                 }
@@ -1121,7 +1121,7 @@ namespace PSH_BOne_AddOn
                             {
                                 if (oMat01.Columns.Item("OrdGbn").Cells.Item(i).Specific.Value == "104") //멀티
                                 {
-                                    //수량이 수정되면 뒷공정이 존재한다면 수정할수 없다.
+                                    //수량이 수정되면 뒷공정이 존재한다면 수정할 수 없다.
                                     nextCpInfo = dataHelpClass.GetValue("EXEC PS_PP040_03 '" + oMat01.Columns.Item("OrdMgNum").Cells.Item(i).Specific.Value + "'", 0, 1);
                                     if (!string.IsNullOrEmpty(nextCpInfo))
                                     {
@@ -1161,7 +1161,7 @@ namespace PSH_BOne_AddOn
                                             }
                                             else
                                             {
-                                                errMessage = "후행공정이 입력된 문서입니다. 수정할수 없습니다.";
+                                                errMessage = "후행공정이 입력된 문서입니다. 수정할 수 없습니다.";
                                                 throw new Exception();
                                             }
                                         }
@@ -1210,7 +1210,7 @@ namespace PSH_BOne_AddOn
                                             }
                                             else
                                             {
-                                                errMessage = "생산실적이 등록된 행은 수정할수 없습니다.";
+                                                errMessage = "생산실적이 등록된 행은 수정할 수 없습니다.";
                                                 throw new Exception();
                                             }
                                         }
@@ -1261,7 +1261,7 @@ namespace PSH_BOne_AddOn
                                             }
                                             else
                                             {
-                                                errMessage = "생산실적이 등록된 행은 수정할수 없습니다.";
+                                                errMessage = "생산실적이 등록된 행은 수정할 수 없습니다.";
                                                 throw new Exception();
                                             }
                                         }
@@ -1359,14 +1359,14 @@ namespace PSH_BOne_AddOn
                                     //휘팅벌크포장
                                     if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP070H] PS_PP070H LEFT JOIN [@PS_PP070L] PS_PP070L ON PS_PP070H.DocEntry = PS_PP070L.DocEntry WHERE PS_PP070H.Canceled = 'N' AND PS_PP070L.U_PP030HNo = '" + oMat01.Columns.Item("PP030HNo").Cells.Item(oMat01Row01).Specific.Value + "' AND PS_PP070L.U_PP030MNo = '" + oMat01.Columns.Item("PP030MNo").Cells.Item(oMat01Row01).Specific.Value + "'", 0, 1)) > 0)
                                     {
-                                        errMessage = "생산실적 등록된 행입니다. 적용할수 없습니다.";
+                                        errMessage = "생산실적 등록된 행입니다. 적용할 수 없습니다.";
                                         throw new Exception();
                                     }
 
                                     //휘팅실적
                                     if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP080H] PS_PP080H LEFT JOIN [@PS_PP080L] PS_PP080L ON PS_PP080H.DocEntry = PS_PP080L.DocEntry WHERE Isnull(PS_PP080L.U_OIGENum,'') = '' AND PS_PP080L.U_PP030HNo = '" + oMat01.Columns.Item("PP030HNo").Cells.Item(oMat01Row01).Specific.Value + "' AND PS_PP080L.U_PP030MNo = '" + oMat01.Columns.Item("PP030MNo").Cells.Item(oMat01Row01).Specific.Value + "'", 0, 1)) > 0)
                                     {
-                                        errMessage = "생산실적 등록된 행입니다. 적용할수 없습니다.";
+                                        errMessage = "생산실적 등록된 행입니다. 적용할 수 없습니다.";
                                         throw new Exception();
                                     }
                                 }
@@ -1388,7 +1388,7 @@ namespace PSH_BOne_AddOn
 
                                     if (Convert.ToInt32(dataHelpClass.GetValue(query01, 0, 1)) > 0)
                                     {
-                                        errMessage = "생산실적 등록된 행입니다. 적용할수 없습니다.";
+                                        errMessage = "생산실적 등록된 행입니다. 적용할 수 없습니다.";
                                         throw new Exception();
                                     }
                                 }
@@ -1399,7 +1399,7 @@ namespace PSH_BOne_AddOn
                                 {
                                     if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND CONVERT(NVARCHAR,PS_PP040L.U_PP030HNo) + '-' + CONVERT(NVARCHAR,PS_PP040L.U_PP030MNo) = '" + nextCpInfo + "'", 0, 1)) > 0)
                                     {
-                                        errMessage = "후행공정이 존재합니다. 적용할수 없습니다.";
+                                        errMessage = "후행공정이 존재합니다. 적용할 수 없습니다.";
                                         throw new Exception();
                                     }
                                 }
@@ -1437,14 +1437,14 @@ namespace PSH_BOne_AddOn
                                     //휘팅벌크포장
                                     if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP070H] PS_PP070H LEFT JOIN [@PS_PP070L] PS_PP070L ON PS_PP070H.DocEntry = PS_PP070L.DocEntry WHERE PS_PP070H.Canceled = 'N' AND PS_PP070L.U_PP030HNo = '" + oMat01.Columns.Item("PP030HNo").Cells.Item(oMat01Row01).Specific.Value + "' AND PS_PP070L.U_PP030MNo = '" + oMat01.Columns.Item("PP030MNo").Cells.Item(oMat01Row01).Specific.Value + "'", 0, 1)) > 0)
                                     {
-                                        errMessage = "생산실적 등록된 행입니다. 적용할수 없습니다.";
+                                        errMessage = "생산실적 등록된 행입니다. 적용할 수 없습니다.";
                                         throw new Exception();
                                     }
 
                                     //휘팅실적
                                     if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP080H] PS_PP080H LEFT JOIN [@PS_PP080L] PS_PP080L ON PS_PP080H.DocEntry = PS_PP080L.DocEntry WHERE Isnull(PS_PP080L.U_OIGENum,'') = '' AND PS_PP080L.U_PP030HNo = '" + oMat01.Columns.Item("PP030HNo").Cells.Item(oMat01Row01).Specific.Value + "' AND PS_PP080L.U_PP030MNo = '" + oMat01.Columns.Item("PP030MNo").Cells.Item(oMat01Row01).Specific.Value + "'", 0, 1)) > 0)
                                     {
-                                        errMessage = "생산실적 등록된 행입니다. 적용할수 없습니다.";
+                                        errMessage = "생산실적 등록된 행입니다. 적용할 수 없습니다.";
                                         throw new Exception();
                                     }
                                 }
@@ -1457,7 +1457,7 @@ namespace PSH_BOne_AddOn
                                     //실적
                                     if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP080H] PS_PP080H LEFT JOIN [@PS_PP080L] PS_PP080L ON PS_PP080H.DocEntry = PS_PP080L.DocEntry WHERE Isnull(PS_PP080L.U_OIGENum,'') = '' AND PS_PP080L.U_PP030HNo = '" + RecordSet01.Fields.Item("PP030HNo").Value + "' AND PS_PP080L.U_PP030MNo = '" + RecordSet01.Fields.Item("PP030MNo").Value + "'", 0, 1)) > 0)
                                     {
-                                        errMessage = "생산실적 등록된 행입니다. 적용할수 없습니다.";
+                                        errMessage = "생산실적 등록된 행입니다. 적용할 수 없습니다.";
                                         throw new Exception();
                                     }
                                 }
@@ -1468,7 +1468,7 @@ namespace PSH_BOne_AddOn
                                 {
                                     if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND CONVERT(NVARCHAR,PS_PP040L.U_PP030HNo) + '-' + CONVERT(NVARCHAR,PS_PP040L.U_PP030MNo) = '" + nextCpInfo + "'", 0, 1)) > 0)
                                     {
-                                        errMessage = "후행공정이 존재합니다. 적용할수 없습니다.";
+                                        errMessage = "후행공정이 존재합니다. 적용할 수 없습니다.";
                                         throw new Exception();
                                     }
                                 }
@@ -1492,7 +1492,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (dataHelpClass.GetValue("SELECT Canceled FROM [@PS_PP040H] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "Y")
                     {
-                        errMessage = "이미취소된 문서 입니다. 취소할수 없습니다.";
+                        errMessage = "이미취소된 문서 입니다. 취소할 수 없습니다.";
                         throw new Exception();
                     }
                     
@@ -1521,7 +1521,7 @@ namespace PSH_BOne_AddOn
                                 //실적, 문서의타입필요
                                 if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP080H] PS_PP080H LEFT JOIN [@PS_PP080L] PS_PP080L ON PS_PP080H.DocEntry = PS_PP080L.DocEntry WHERE Isnull(PS_PP080L.U_OIGENum,'') = '' AND PS_PP080L.U_PP030HNo = '" + RecordSet01.Fields.Item("PP030HNo").Value + "' AND PS_PP080L.U_PP030MNo = '" + RecordSet01.Fields.Item("PP030MNo").Value + "' AND PS_PP080H.Status = 'O'", 0, 1)) > 0)
                                 {
-                                    errMessage = "생산실적 등록된 문서입니다. 적용할수 없습니다.";
+                                    errMessage = "생산실적 등록된 문서입니다. 적용할 수 없습니다.";
                                     throw new Exception();
                                 }
                             }
@@ -1534,7 +1534,7 @@ namespace PSH_BOne_AddOn
                                 {
                                     if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND CONVERT(NVARCHAR,PS_PP040L.U_PP030HNo) + '-' + CONVERT(NVARCHAR,PS_PP040L.U_PP030MNo) = '" + nextCpInfo + "'", 0, 1)) > 0)
                                     {
-                                        errMessage = "후행공정이 입력된 문서입니다. 적용할수 없습니다.";
+                                        errMessage = "후행공정이 입력된 문서입니다. 적용할 수 없습니다.";
                                         throw new Exception();
                                     }
                                 }
@@ -2323,9 +2323,9 @@ namespace PSH_BOne_AddOn
                         {
                         }
                     }
-                    else if (pVal.ItemUID == "Button02")
+                    else if (pVal.ItemUID == "Button02") //작업시간배부
                     {
-                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
+                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {
                             for (int i = 1; i <= oMat02.VisualRowCount - 1; i++)
                             {
@@ -2447,9 +2447,12 @@ namespace PSH_BOne_AddOn
                                 {
                                     if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "104")
                                     {
-                                        PS_PP042 oTempClass = new PS_PP042();
-                                        oTempClass.LoadForm(oForm, pVal.Row);
-                                        BubbleEvent = false;
+                                        if (oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value == "")
+                                        {
+                                            PS_PP042 oTempClass = new PS_PP042();
+                                            oTempClass.LoadForm(oForm, pVal.Row);
+                                            BubbleEvent = false;
+                                        }
                                     }
                                     else
                                     {
@@ -3021,21 +3024,21 @@ namespace PSH_BOne_AddOn
                                                 oDS_PS_PP041L.SetValue("U_PSum", pVal.Row - 1, RecordSet01.Fields.Item("PSum").Value);
                                                 oDS_PS_PP041L.SetValue("U_BQty", pVal.Row - 1, RecordSet01.Fields.Item("BQty").Value);
 
-                                                if (oForm.Items.Item("SOrdGbn").Specific.Value.ToString().Trim() == "104") //멀티
+                                                if (oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim() == "104") //멀티
                                                 {
-                                                    if (oForm.Items.Item("SCpCode").Specific.Value.ToString().Trim() == "CP50101") //vmill공정
+                                                    if (oForm.Items.Item("CpCode").Specific.Value.ToString().Trim() == "CP50101") //vmill공정
                                                     {
                                                         oDS_PS_PP041L.SetValue("U_PQty", pVal.Row - 1, RecordSet01.Fields.Item("BQty").Value);
                                                         oDS_PS_PP041L.SetValue("U_YQty", pVal.Row - 1, RecordSet01.Fields.Item("BQty").Value);
                                                         oDS_PS_PP041L.SetValue("U_ScrapWt", pVal.Row - 1, "0");
                                                     }
-                                                    else if (oForm.Items.Item("SCpCode").Specific.Value.ToString().Trim() == "CP50102") //열처리공정
+                                                    else if (oForm.Items.Item("CpCode").Specific.Value.ToString().Trim() == "CP50102") //열처리공정
                                                     {
                                                         oDS_PS_PP041L.SetValue("U_PQty", pVal.Row - 1, RecordSet01.Fields.Item("BQty").Value);
                                                         oDS_PS_PP041L.SetValue("U_YQty", pVal.Row - 1, RecordSet01.Fields.Item("BQty").Value);
                                                         oDS_PS_PP041L.SetValue("U_ScrapWt", pVal.Row - 1, "0");
                                                     }
-                                                    else if (oForm.Items.Item("SCpCode").Specific.Value.ToString().Trim() == "CP50103") //pk공정
+                                                    else if (oForm.Items.Item("CpCode").Specific.Value.ToString().Trim() == "CP50103") //pk공정
                                                     {
                                                         if (RecordSet01.Fields.Item("ReWorkYN").Value == "N")
                                                         {
@@ -3050,19 +3053,19 @@ namespace PSH_BOne_AddOn
                                                             oDS_PS_PP041L.SetValue("U_ScrapWt", pVal.Row - 1, "0");
                                                         }
                                                     }
-                                                    else if (oForm.Items.Item("SCpCode").Specific.Value.ToString().Trim() == "CP50104") //2차압연공정
+                                                    else if (oForm.Items.Item("CpCode").Specific.Value.ToString().Trim() == "CP50104") //2차압연공정
                                                     {
                                                         oDS_PS_PP041L.SetValue("U_PQty", pVal.Row - 1, Convert.ToString(Convert.ToDouble(RecordSet01.Fields.Item("BQty").Value) - 10));
                                                         oDS_PS_PP041L.SetValue("U_YQty", pVal.Row - 1, Convert.ToString(Convert.ToDouble(RecordSet01.Fields.Item("BQty").Value) - 10));
                                                         oDS_PS_PP041L.SetValue("U_ScrapWt", pVal.Row - 1, "10");
                                                     }
-                                                    else if (oForm.Items.Item("SCpCode").Specific.Value.ToString().Trim() == "CP50105") //SLITTER공정
+                                                    else if (oForm.Items.Item("CpCode").Specific.Value.ToString().Trim() == "CP50105") //SLITTER공정
                                                     {
                                                         oDS_PS_PP041L.SetValue("U_PQty", pVal.Row - 1, RecordSet01.Fields.Item("BQty").Value);
                                                         oDS_PS_PP041L.SetValue("U_YQty", pVal.Row - 1, RecordSet01.Fields.Item("BQty").Value);
                                                         oDS_PS_PP041L.SetValue("U_ScrapWt", pVal.Row - 1, "0");
                                                     }
-                                                    else if (oForm.Items.Item("SCpCode").Specific.Value.ToString().Trim() == "CP50108") //P&F
+                                                    else if (oForm.Items.Item("CpCode").Specific.Value.ToString().Trim() == "CP50108") //P&F
                                                     {
                                                         if (oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() == "1")
                                                         {
@@ -3078,7 +3081,7 @@ namespace PSH_BOne_AddOn
                                                             oDS_PS_PP041L.SetValue("U_ScrapWt", pVal.Row - 1, "0");
                                                         }
                                                     }
-                                                    else if (oForm.Items.Item("SCpCode").Specific.Value.ToString().Trim() == "CP50109") //S&D
+                                                    else if (oForm.Items.Item("CpCode").Specific.Value.ToString().Trim() == "CP50109") //S&D
                                                     {
                                                         if (oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() == "1")
                                                         {
@@ -3096,7 +3099,7 @@ namespace PSH_BOne_AddOn
                                                         //S&D(Slitter & DEGREASER) 공정(코드 : CP50109)에서 LOSS 발생시 최초투입중량의 0.6%, 추가(2017.01.02 송명규, 노근용 요청)
                                                         oDS_PS_PP041L.SetValue("U_LOSS", pVal.Row - 1, RecordSet01.Fields.Item("LOSS").Value);
                                                     }
-                                                    else if (oForm.Items.Item("SCpCode").Specific.Value.ToString().Trim() == "CP50106") //탈지공정
+                                                    else if (oForm.Items.Item("CpCode").Specific.Value.ToString().Trim() == "CP50106") //탈지공정
                                                     {
                                                         if (oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() == "1")
                                                         {
@@ -3114,7 +3117,7 @@ namespace PSH_BOne_AddOn
                                                         //탈지공정에서 LOSS발생 최초투입중량의 0.6%
                                                         oDS_PS_PP041L.SetValue("U_LOSS", pVal.Row - 1, RecordSet01.Fields.Item("LOSS").Value);
                                                     }
-                                                    else if (oForm.Items.Item("SCpCode").Specific.Value.ToString().Trim() == "CP50107") //PACKING공정
+                                                    else if (oForm.Items.Item("CpCode").Specific.Value.ToString().Trim() == "CP50107") //PACKING공정
                                                     {
                                                         oDS_PS_PP041L.SetValue("U_PQty", pVal.Row - 1, RecordSet01.Fields.Item("PackWg").Value); //생산포장라벨중량 자동 표기(2016.07.18 송명규)
                                                         oDS_PS_PP041L.SetValue("U_YQty", pVal.Row - 1, RecordSet01.Fields.Item("PackWg").Value); //생산포장라벨중량 자동 표기(2016.07.18 송명규)
@@ -3787,7 +3790,7 @@ namespace PSH_BOne_AddOn
                         }
                         else if (oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim() == "107" && oForm.Items.Item("CpCode").Specific.Value.ToString().Trim() == "CP10101") //엔드베어링의 첫공정일 경우
                         {
-                            errMessage = "엔드베어링의 첫공정은 행삭제 할수 없습니다.";
+                            errMessage = "엔드베어링의 첫공정은 행삭제 할 수 없습니다.";
                             BubbleEvent = false;
                             throw new Exception();
                         }

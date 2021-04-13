@@ -173,7 +173,7 @@ namespace PSH_BOne_AddOn
         private bool PP_PS945_CheckWorkType(int pRow)
         {
             bool functionReturnValue = false;
-            int loopCount = 0;
+            int loopCount;
 
             try
             {
@@ -383,10 +383,11 @@ namespace PSH_BOne_AddOn
         {
             int LastDay;
             int loopCount;
+            int DisableColumn; 
             string stringDt;
-            string DayName = string.Empty;
             string DisableColumnString;
-            DayOfWeek DayNum; int DisableColumn = 0;
+            string DayName = string.Empty; 
+            DayOfWeek DayNum;
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -676,7 +677,6 @@ namespace PSH_BOne_AddOn
                             }
                             oDocEntry01 = oForm.Items.Item("Code").Specific.Value;
                             oFormMode01 = oForm.Mode;
-
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {

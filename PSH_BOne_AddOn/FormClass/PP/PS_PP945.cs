@@ -360,7 +360,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 DocEntry = dataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PS_PP945'", "");
-                if (string.IsNullOrEmpty(DocEntry) | DocEntry == "0")
+                if (string.IsNullOrEmpty(DocEntry) || DocEntry == "0")
                 {
                     oForm.Items.Item("Code").Specific.Value = 1;
                 }
@@ -822,7 +822,7 @@ namespace PSH_BOne_AddOn
                                 {
                                     oMat01.FlushToDataSource();
                                     oDS_PS_PP945L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Selected.Value);
-                                    if (oMat01.RowCount == pVal.Row & !string.IsNullOrEmpty(oDS_PS_PP945L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
+                                    if (oMat01.RowCount == pVal.Row && !string.IsNullOrEmpty(oDS_PS_PP945L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
                                     {
                                         PS_PP945_AddMatrixRow(pVal.Row, false);
                                     }

@@ -332,7 +332,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 DocEntry = dataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PS_PP055'", "");
-                if (string.IsNullOrEmpty(DocEntry) | DocEntry == "0")
+                if (string.IsNullOrEmpty(DocEntry) || DocEntry == "0")
                 {
                     oForm.Items.Item("DocEntry").Specific.Value = 1;
                 }
@@ -778,7 +778,7 @@ namespace PSH_BOne_AddOn
                                 oDS_PS_PP055L.SetValue("U_Wgt", pVal.Row - 1, oRecordSet01.Fields.Item("Wgt").Value);
 
                                 //모든 컬럼이 입력되었을 때
-                                if (oMat01.RowCount == pVal.Row & !string.IsNullOrEmpty(oDS_PS_PP055L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
+                                if (oMat01.RowCount == pVal.Row && !string.IsNullOrEmpty(oDS_PS_PP055L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
                                 {
                                     PS_PP055_AddMatrixRow(pVal.Row, false);
                                 }

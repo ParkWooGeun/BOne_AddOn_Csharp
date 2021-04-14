@@ -194,7 +194,7 @@ namespace PSH_BOne_AddOn
                 oColumn = oMat01.Columns.Item("WhsCode");
                 oCFLs = oForm.ChooseFromLists;
                 oCFLCreationParams = PSH_Globals.SBO_Application.CreateObject(SAPbouiCOM.BoCreatableObjectType.cot_ChooseFromListCreationParams);
-                oCFLCreationParams.ObjectType = Convert.ToString(SAPbouiCOM.BoLinkedObject.lf_Warehouses);
+                oCFLCreationParams.ObjectType = "64"; //SAPbouiCOM.BoLinkedObject.lf_Warehouses
                 oCFLCreationParams.UniqueID = "CFLWAREHOUSES";
                 oCFLCreationParams.MultiSelection = false;
                 oCFL = oCFLs.Add(oCFLCreationParams);
@@ -386,6 +386,10 @@ namespace PSH_BOne_AddOn
             catch(Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                oForm.Freeze(false);
             }
         }
 
@@ -1324,8 +1328,8 @@ namespace PSH_BOne_AddOn
                         {
                             if (pVal.ColUID == "PP030No" && oForm.Items.Item("BPLId").Specific.Selected.Value == "1" && oForm.Items.Item("OrdGbn").Specific.Selected.Value == "101") //창원 휘팅일때
                             {
-                                //PS_PP071 tempForm = new PS_PP071();
-                                //tempForm.LoadForm(oForm, pVal.ItemUID, pVal.ColUID, pVal.Row, oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim(), oForm.Items.Item("OrdGbn").Specific.Selected.Value.ToString().Trim());
+                                PS_PP071 tempForm = new PS_PP071();
+                                tempForm.LoadForm(oForm, pVal.ItemUID, pVal.ColUID, pVal.Row, oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim(), oForm.Items.Item("OrdGbn").Specific.Selected.Value.ToString().Trim());
                             }
                             else
                             {
@@ -1336,6 +1340,27 @@ namespace PSH_BOne_AddOn
                 }
                 else if (pVal.Before_Action == false)
                 {
+                    if (pVal.ItemUID == "Mat01")
+                    {
+                        if (pVal.CharPressed == 38) //방향키(↑)
+                        {
+                            if (pVal.Row > 1 && pVal.Row <= oMat01.VisualRowCount)
+                            {
+                                oForm.Freeze(true);
+                                oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row - 1).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                                oForm.Freeze(false);
+                            }
+                        }
+                        else if (pVal.CharPressed == 40) //방향키(↓)
+                        {
+                            if (pVal.Row > 0 && pVal.Row < oMat01.VisualRowCount)
+                            {
+                                oForm.Freeze(true);
+                                oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row + 1).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                                oForm.Freeze(false);
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -1513,71 +1538,74 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "Mat01")
                     {
-                        if (pVal.Row > 0)
-                        {
-                            oMat01.SelectRow(pVal.Row, true, false);
-                            if (oMat01.Columns.Item("OrdGbn").Cells.Item(pVal.Row).Specific.Value == "105" || oMat01.Columns.Item("OrdGbn").Cells.Item(pVal.Row).Specific.Value == "106")
+                        //if (pVal.ColUID != "PQty") //생산수량 클릭시 제외
+                        //{
+                            if (pVal.Row > 0)
                             {
-                                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+                                oMat01.SelectRow(pVal.Row, true, false);
+                                if (oMat01.Columns.Item("OrdGbn").Cells.Item(pVal.Row).Specific.Value == "105" || oMat01.Columns.Item("OrdGbn").Cells.Item(pVal.Row).Specific.Value == "106")
+                                {
+                                    ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
-                                //폼 사용자 필드 visible
-                                PS_PP080_SetVisibleItem(true);
-                                
-                                Query01 = "Select Quantity, LineTotal From RDR1 Where DocEntry = '" + oMat01.Columns.Item("ORDRNo").Cells.Item(pVal.Row).Specific.Value + "' And U_LineNum = '" + oMat01.Columns.Item("RDR1No").Cells.Item(pVal.Row).Specific.Value + "'";
-                                RecordSet01.DoQuery(Query01);
-                                if (RecordSet01.RecordCount == 1)
-                                {
-                                    oForm.Items.Item("SjQty").Specific.Value = RecordSet01.Fields.Item("Quantity").Value;
-                                    oForm.Items.Item("SjAmt").Specific.Value = RecordSet01.Fields.Item("LineTotal").Value;
-                                }
-                                else
-                                {
-                                    oForm.Items.Item("SjQty").Specific.Value = 0;
-                                    oForm.Items.Item("SjAmt").Specific.Value = 0;
-                                }
+                                    //폼 사용자 필드 visible
+                                    PS_PP080_SetVisibleItem(true);
 
-                                Query01 = "EXEC PS_PP080_05 '" + oMat01.Columns.Item("OrdNum").Cells.Item(pVal.Row).Specific.Value + "', '" + oMat01.Columns.Item("PP030HNo").Cells.Item(pVal.Row).Specific.Value + "'";
-                                RecordSet01.DoQuery(Query01);
+                                    Query01 = "Select Quantity, LineTotal From RDR1 Where DocEntry = '" + oMat01.Columns.Item("ORDRNo").Cells.Item(pVal.Row).Specific.Value + "' And U_LineNum = '" + oMat01.Columns.Item("RDR1No").Cells.Item(pVal.Row).Specific.Value + "'";
+                                    RecordSet01.DoQuery(Query01);
+                                    if (RecordSet01.RecordCount == 1)
+                                    {
+                                        oForm.Items.Item("SjQty").Specific.Value = RecordSet01.Fields.Item("Quantity").Value;
+                                        oForm.Items.Item("SjAmt").Specific.Value = RecordSet01.Fields.Item("LineTotal").Value;
+                                    }
+                                    else
+                                    {
+                                        oForm.Items.Item("SjQty").Specific.Value = 0;
+                                        oForm.Items.Item("SjAmt").Specific.Value = 0;
+                                    }
 
-                                if (RecordSet01.RecordCount == 1)
-                                {
-                                    oForm.Items.Item("Cost01").Specific.Value = RecordSet01.Fields.Item("Cost01").Value;
-                                    oForm.Items.Item("Cost02").Specific.Value = RecordSet01.Fields.Item("Cost02").Value;
-                                    oForm.Items.Item("Cost03").Specific.Value = RecordSet01.Fields.Item("Cost03").Value;
-                                    oForm.Items.Item("Cost04").Specific.Value = RecordSet01.Fields.Item("Cost04").Value;
-                                    oForm.Items.Item("Cost05").Specific.Value = RecordSet01.Fields.Item("Cost05").Value;
-                                    oForm.Items.Item("Cost06").Specific.Value = RecordSet01.Fields.Item("Cost06").Value;
-                                    oForm.Items.Item("CostTot").Specific.Value = RecordSet01.Fields.Item("CostTot").Value;
-                                    oForm.Items.Item("aCost01").Specific.Value = RecordSet01.Fields.Item("aCost01").Value;
-                                    oForm.Items.Item("aCost02").Specific.Value = RecordSet01.Fields.Item("aCost02").Value;
-                                    oForm.Items.Item("aCost03").Specific.Value = RecordSet01.Fields.Item("aCost03").Value;
-                                    oForm.Items.Item("aCost04").Specific.Value = RecordSet01.Fields.Item("aCost04").Value;
-                                    oForm.Items.Item("aCost05").Specific.Value = RecordSet01.Fields.Item("aCost05").Value;
-                                    oForm.Items.Item("aCost06").Specific.Value = RecordSet01.Fields.Item("aCost06").Value;
-                                    oForm.Items.Item("aCostTot").Specific.Value = RecordSet01.Fields.Item("aCostTot").Value;
-                                    oForm.Items.Item("tSaleQty").Specific.Value = RecordSet01.Fields.Item("tSaleQty").Value;
-                                    oForm.Items.Item("tSaleAmt").Specific.Value = RecordSet01.Fields.Item("tSaleAmt").Value;
-                                }
-                                else
-                                {
-                                    oForm.Items.Item("Cost01").Specific.Value = 0;
-                                    oForm.Items.Item("Cost02").Specific.Value = 0;
-                                    oForm.Items.Item("Cost03").Specific.Value = 0;
-                                    oForm.Items.Item("Cost04").Specific.Value = 0;
-                                    oForm.Items.Item("Cost05").Specific.Value = 0;
-                                    oForm.Items.Item("Cost06").Specific.Value = 0;
-                                    oForm.Items.Item("CostTot").Specific.Value = 0;
-                                    oForm.Items.Item("aCost01").Specific.Value = 0;
-                                    oForm.Items.Item("aCost02").Specific.Value = 0;
-                                    oForm.Items.Item("aCost03").Specific.Value = 0;
-                                    oForm.Items.Item("aCost04").Specific.Value = 0;
-                                    oForm.Items.Item("aCost05").Specific.Value = 0;
-                                    oForm.Items.Item("aCost06").Specific.Value = 0;
-                                    oForm.Items.Item("aCostTot").Specific.Value = 0;
-                                    oForm.Items.Item("tSaleAmt").Specific.Value = 0;
+                                    Query01 = "EXEC PS_PP080_05 '" + oMat01.Columns.Item("OrdNum").Cells.Item(pVal.Row).Specific.Value + "', '" + oMat01.Columns.Item("PP030HNo").Cells.Item(pVal.Row).Specific.Value + "'";
+                                    RecordSet01.DoQuery(Query01);
+
+                                    if (RecordSet01.RecordCount == 1)
+                                    {
+                                        oForm.Items.Item("Cost01").Specific.Value = RecordSet01.Fields.Item("Cost01").Value;
+                                        oForm.Items.Item("Cost02").Specific.Value = RecordSet01.Fields.Item("Cost02").Value;
+                                        oForm.Items.Item("Cost03").Specific.Value = RecordSet01.Fields.Item("Cost03").Value;
+                                        oForm.Items.Item("Cost04").Specific.Value = RecordSet01.Fields.Item("Cost04").Value;
+                                        oForm.Items.Item("Cost05").Specific.Value = RecordSet01.Fields.Item("Cost05").Value;
+                                        oForm.Items.Item("Cost06").Specific.Value = RecordSet01.Fields.Item("Cost06").Value;
+                                        oForm.Items.Item("CostTot").Specific.Value = RecordSet01.Fields.Item("CostTot").Value;
+                                        oForm.Items.Item("aCost01").Specific.Value = RecordSet01.Fields.Item("aCost01").Value;
+                                        oForm.Items.Item("aCost02").Specific.Value = RecordSet01.Fields.Item("aCost02").Value;
+                                        oForm.Items.Item("aCost03").Specific.Value = RecordSet01.Fields.Item("aCost03").Value;
+                                        oForm.Items.Item("aCost04").Specific.Value = RecordSet01.Fields.Item("aCost04").Value;
+                                        oForm.Items.Item("aCost05").Specific.Value = RecordSet01.Fields.Item("aCost05").Value;
+                                        oForm.Items.Item("aCost06").Specific.Value = RecordSet01.Fields.Item("aCost06").Value;
+                                        oForm.Items.Item("aCostTot").Specific.Value = RecordSet01.Fields.Item("aCostTot").Value;
+                                        oForm.Items.Item("tSaleQty").Specific.Value = RecordSet01.Fields.Item("tSaleQty").Value;
+                                        oForm.Items.Item("tSaleAmt").Specific.Value = RecordSet01.Fields.Item("tSaleAmt").Value;
+                                    }
+                                    else
+                                    {
+                                        oForm.Items.Item("Cost01").Specific.Value = 0;
+                                        oForm.Items.Item("Cost02").Specific.Value = 0;
+                                        oForm.Items.Item("Cost03").Specific.Value = 0;
+                                        oForm.Items.Item("Cost04").Specific.Value = 0;
+                                        oForm.Items.Item("Cost05").Specific.Value = 0;
+                                        oForm.Items.Item("Cost06").Specific.Value = 0;
+                                        oForm.Items.Item("CostTot").Specific.Value = 0;
+                                        oForm.Items.Item("aCost01").Specific.Value = 0;
+                                        oForm.Items.Item("aCost02").Specific.Value = 0;
+                                        oForm.Items.Item("aCost03").Specific.Value = 0;
+                                        oForm.Items.Item("aCost04").Specific.Value = 0;
+                                        oForm.Items.Item("aCost05").Specific.Value = 0;
+                                        oForm.Items.Item("aCost06").Specific.Value = 0;
+                                        oForm.Items.Item("aCostTot").Specific.Value = 0;
+                                        oForm.Items.Item("tSaleAmt").Specific.Value = 0;
+                                    }
                                 }
                             }
-                        }
+                        //}
                     }
                 }
                 else if (pVal.Before_Action == false)
@@ -1672,6 +1700,8 @@ namespace PSH_BOne_AddOn
 
             try
             {
+                oForm.Freeze(true);
+
                 if (pVal.Before_Action == true)
                 {
                     if (pVal.ItemChanged == true)
@@ -1680,6 +1710,8 @@ namespace PSH_BOne_AddOn
                         {
                             if (pVal.ColUID == "PP030No")
                             {
+                                oMat01.FlushToDataSource();
+
                                 for (i = 1; i <= oMat01.RowCount; i++)
                                 {
                                     if (oMat01.Columns.Item("PP030No").Cells.Item(i).Specific.Value == oMat01.Columns.Item("PP030No").Cells.Item(pVal.Row).Specific.Value && i != pVal.Row) //현재 입력한 값이 이미 입력되어 있는경우
@@ -1749,16 +1781,19 @@ namespace PSH_BOne_AddOn
                                         sumQty += Convert.ToDouble(oMat01.Columns.Item("YQty").Cells.Item(i + 1).Specific.Value); //합격수량 sum
                                     }
 
-                                    oForm.Items.Item("sumQty").Specific.Value = Convert.ToString(sumQty);
+                                    oForm.Items.Item("SumQty").Specific.Value = Convert.ToString(sumQty);
                                 }
 
                                 if (oMat01.RowCount == pVal.Row && !string.IsNullOrEmpty(oDS_PS_PP080L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
                                 {
                                     PS_PP080_AddMatrixRow(pVal.Row, false);
                                 }
+
+                                oMat01.LoadFromDataSource();
                             }
                             else if (pVal.ColUID == "PQty")
                             {
+                                oMat01.FlushToDataSource();
                                 if (oMat01.Columns.Item("OrdGbn").Cells.Item(pVal.Row).Specific.Value == "104") //멀티
                                 {
                                     if (Convert.ToDouble(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value) <= 0)
@@ -1829,7 +1864,6 @@ namespace PSH_BOne_AddOn
                                         oDS_PS_PP080L.SetValue("U_NWeight", pVal.Row - 1, "0");
                                     }
                                 }
-
                                 oMat01.LoadFromDataSource();
 
                                 for (i = 0; i <= oMat01.VisualRowCount - 1; i++)
@@ -1837,10 +1871,11 @@ namespace PSH_BOne_AddOn
                                     sumQty += Convert.ToDouble(oMat01.Columns.Item("YQty").Cells.Item(i + 1).Specific.Value); //합격수량 sum
                                 }
 
-                                oForm.Items.Item("sumQty").Specific.Value = Convert.ToString(sumQty);
+                                oForm.Items.Item("SumQty").Specific.Value = Convert.ToString(sumQty);
                             }
                             else if (pVal.ColUID == "NQty")
                             {
+                                oMat01.FlushToDataSource();
                                 if (oMat01.Columns.Item("OrdGbn").Cells.Item(pVal.Row).Specific.Value == "104") //멀티
                                 {
                                     if (Convert.ToDouble(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value) > 0)
@@ -1889,16 +1924,14 @@ namespace PSH_BOne_AddOn
                                         }
                                     }
                                 }
-
                                 oMat01.LoadFromDataSource();
 
-                                
                                 for (i = 0; i <= oMat01.VisualRowCount - 1; i++)
                                 {
                                     sumQty += Convert.ToDouble(oMat01.Columns.Item("YQty").Cells.Item(i + 1).Specific.Value); //합격수량 sum
                                 }
 
-                                oForm.Items.Item("sumQty").Specific.Value = Convert.ToString(sumQty);
+                                oForm.Items.Item("SumQty").Specific.Value = Convert.ToString(sumQty);
                             }
                             else
                             {
@@ -1926,7 +1959,7 @@ namespace PSH_BOne_AddOn
                                 oDS_PS_PP080H.SetValue("U_" + pVal.ItemUID, 0, oForm.Items.Item(pVal.ItemUID).Specific.Value);
                             }
                         }
-                        oMat01.LoadFromDataSource();
+
                         oMat01.AutoResizeColumns();
                         oForm.Update();
                         if (pVal.ItemUID == "Mat01")
@@ -1958,6 +1991,7 @@ namespace PSH_BOne_AddOn
             finally
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet01);
+                oForm.Freeze(false);
             }
         }
 
@@ -2073,7 +2107,10 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oDataTable01);
+                if (oDataTable01 != null)
+                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDataTable01);
+                }
             }
         }
 

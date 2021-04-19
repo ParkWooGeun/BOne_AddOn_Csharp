@@ -106,12 +106,12 @@ namespace PSH_BOne_AddOn
             try
             {
                 //비용구분
-                sQry = "        SELECT      T0.U_Minor, ";
-                sQry = sQry + "             T0.U_CdName";
-                sQry = sQry + " FROM        [@PS_SY001L] T0";
-                sQry = sQry + " WHERE       T0.Code = 'P210'";
-                sQry = sQry + "             AND T0.U_UseYN = 'Y'";
-                sQry = sQry + " ORDER BY    T0.U_Seq";
+                sQry = " SELECT      T0.U_Minor, ";
+                sQry += "             T0.U_CdName";
+                sQry += " FROM        [@PS_SY001L] T0";
+                sQry += " WHERE       T0.Code = 'P210'";
+                sQry += "             AND T0.U_UseYN = 'Y'";
+                sQry += " ORDER BY    T0.U_Seq";
 
                 dataHelpClass.GP_MatrixSetMatComboList(oMat01.Columns.Item("AmtCls"), sQry ,"" ,"");
             }
@@ -258,7 +258,6 @@ namespace PSH_BOne_AddOn
             string Query01;
             string OrdNum;
             string errMessage = string.Empty;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 

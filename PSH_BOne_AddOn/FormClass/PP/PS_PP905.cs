@@ -191,8 +191,6 @@ namespace PSH_BOne_AddOn
 		/// <param name="BubbleEvent"></param>
 		private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
-			PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
-
 			try
 			{
 				if (pVal.BeforeAction == true)
@@ -227,18 +225,6 @@ namespace PSH_BOne_AddOn
 					if (pVal.ItemUID == "Folder03")    //Folder03이 선택되었을 때
 					{
 						oForm.PaneLevel = 3;
-					}
-					if (pVal.ItemUID == "PS_PP905")
-					{
-						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-						{
-						}
-						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-						{
-						}
-						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-						{
-						}
 					}
 				}
 			}
@@ -782,7 +768,7 @@ namespace PSH_BOne_AddOn
 					oDS_PS_PP905L.SetValue("U_ColQty06", loopCount, oRecordSet.Fields.Item("LoadTime").Value.ToString().Trim());               //부하시간
 
 					oRecordSet.MoveNext();
-					ProgressBar01.Value = ProgressBar01.Value + 1;
+					ProgressBar01.Value += 1;
 					ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";
 				}
 
@@ -862,7 +848,7 @@ namespace PSH_BOne_AddOn
 					oDS_PS_PP905M.SetValue("U_ColReg06", loopCount, oRecordSet.Fields.Item("WkDate").Value.ToString().Trim());              //최종작업일자
 
 					oRecordSet.MoveNext();
-					ProgressBar01.Value = ProgressBar01.Value + 1;
+					ProgressBar01.Value += 1;
 					ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";
 				}
 

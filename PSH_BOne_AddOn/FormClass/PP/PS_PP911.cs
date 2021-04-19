@@ -12,7 +12,7 @@ namespace PSH_BOne_AddOn
 	/// </summary>
 	internal class PS_PP911 : PSH_BaseClass
 	{
-		public string oFormUniqueID;
+		private string oFormUniqueID;
 
 		/// <summary>
 		/// LoadForm
@@ -20,7 +20,7 @@ namespace PSH_BOne_AddOn
 		/// <param name="oFormDocEntry01"></param>
 		public override void LoadForm(string oFormDocEntry01)
 		{
-			int i = 0;
+			int i;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
 			try
@@ -67,11 +67,10 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// ComboBox_Setting
 		/// </summary>
-		public void ComboBox_Setting()
+		private void ComboBox_Setting()
 		{
 			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
 			try
 			{
@@ -97,7 +96,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// Initialization
 		/// </summary>
-		public void Initialization()
+		private void Initialization()
 		{
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 

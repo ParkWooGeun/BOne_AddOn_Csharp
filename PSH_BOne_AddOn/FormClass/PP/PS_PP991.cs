@@ -211,12 +211,12 @@ namespace PSH_BOne_AddOn
 
 						if (oCol == "PP030Entry")
 						{
-							sQry = "        SELECT      T0.U_OrdNum AS [OrdNum],";    //작번
-							sQry = sQry + "             T0.U_OrdSub1 AS [OrdSub1],";  //서브작번1
-							sQry = sQry + "             T0.U_OrdSub2 AS [OrdSub2],";  //서브작번2
-							sQry = sQry + "             T0.U_JakMyung AS [ItemName]"; //품명
-							sQry = sQry + " FROM        [@PS_PP030H] AS T0";
-							sQry = sQry + " WHERE       T0.DocEntry = '" + oDS_PS_PP991O.GetValue("U_ColReg02", oRow - 1).ToString().Trim() + "'";
+							sQry = " SELECT      T0.U_OrdNum AS [OrdNum],";    //작번
+							sQry += "             T0.U_OrdSub1 AS [OrdSub1],";  //서브작번1
+							sQry += "             T0.U_OrdSub2 AS [OrdSub2],";  //서브작번2
+							sQry += "             T0.U_JakMyung AS [ItemName]"; //품명
+							sQry += " FROM        [@PS_PP030H] AS T0";
+							sQry += " WHERE       T0.DocEntry = '" + oDS_PS_PP991O.GetValue("U_ColReg02", oRow - 1).ToString().Trim() + "'";
 							oRecordSet.DoQuery(sQry);
 
 							oDS_PS_PP991O.SetValue("U_ColReg01", oRow - 1, "Y");                                                        //선택
@@ -582,7 +582,7 @@ namespace PSH_BOne_AddOn
 					oDS_PS_PP991O.SetValue("U_ColReg06", i, oRecordSet.Fields.Item("ItemName").Value.ToString().Trim());	//품명
 
 					oRecordSet.MoveNext();
-					ProgressBar01.Value = ProgressBar01.Value + 1;
+					ProgressBar01.Value += 1;
 					ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";
 				}
 
@@ -648,7 +648,7 @@ namespace PSH_BOne_AddOn
 						sQry += ItemName + "'";
 						oRecordSet.DoQuery(sQry);
 
-						ProgressBar01.Value = ProgressBar01.Value + 1;
+						ProgressBar01.Value += 1;
 						ProgressBar01.Text = ProgressBar01.Value + "/" + (oMat01.VisualRowCount - 1) + "건 저장중...";
 					}
 				}

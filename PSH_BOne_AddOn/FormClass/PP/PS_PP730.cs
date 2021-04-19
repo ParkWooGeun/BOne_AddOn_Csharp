@@ -99,7 +99,6 @@ namespace PSH_BOne_AddOn
         private void PS_PP730_ComboBox_Setting()
         {
             string sQry;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try

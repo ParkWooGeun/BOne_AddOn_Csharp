@@ -588,7 +588,6 @@ namespace PSH_BOne_AddOn
 		{
 			int i;
 			string sQry;
-			string errMessage = String.Empty;
 
 			string CntcCode; //조회자 사번
 			string OrdNum;   //메인작번
@@ -641,7 +640,7 @@ namespace PSH_BOne_AddOn
 					oDS_PS_PP985A.SetValue("U_ColSum01", i, oRecordSet.Fields.Item("MatAmt").Value.ToString().Trim());		//자재비
 
 					oRecordSet.MoveNext();
-					ProgressBar01.Value = ProgressBar01.Value + 1;
+					ProgressBar01.Value += 1;
 					ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";
 				}
 
@@ -668,7 +667,6 @@ namespace PSH_BOne_AddOn
 		{
 			int i;
 			string sQry;
-			string errMessage = String.Empty;
 
 			string CntcCode; //조회자 사번
 			string OrdNum;   //메인작번
@@ -723,7 +721,7 @@ namespace PSH_BOne_AddOn
 					oDS_PS_PP985B.SetValue("U_ColReg07", i, oRecordSet.Fields.Item("LastWkDt").Value.ToString().Trim());  //최종작업일
 
 					oRecordSet.MoveNext();
-					ProgressBar01.Value = ProgressBar01.Value + 1;
+					ProgressBar01.Value += 1;
 					ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";
 				}
 
@@ -750,7 +748,6 @@ namespace PSH_BOne_AddOn
 		{
 			int i;
 			string sQry;
-			string errMessage = String.Empty;
 
 			string CntcCode; //조회자 사번
 			string OrdNum;   //메인작번
@@ -802,7 +799,7 @@ namespace PSH_BOne_AddOn
 					oDS_PS_PP985C.SetValue("U_ColSum01", i, oRecordSet.Fields.Item("Amt").Value.ToString().Trim());      //금액
 
 					oRecordSet.MoveNext();
-					ProgressBar01.Value = ProgressBar01.Value + 1;
+					ProgressBar01.Value += 1;
 					ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";
 				}
 
@@ -829,7 +826,6 @@ namespace PSH_BOne_AddOn
 		{
 			int i;
 			string sQry;
-			string errMessage = String.Empty;
 
 			string CntcCode; //조회자 사번
 			string OrdNum;   //메인작번
@@ -881,7 +877,7 @@ namespace PSH_BOne_AddOn
 					oDS_PS_PP985D.SetValue("U_ColSum01", i, oRecordSet.Fields.Item("Amt").Value.ToString().Trim());      //금액
 
 					oRecordSet.MoveNext();
-					ProgressBar01.Value = ProgressBar01.Value + 1;
+					ProgressBar01.Value += 1;
 					ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";
 				}
 
@@ -908,7 +904,6 @@ namespace PSH_BOne_AddOn
 		{
 			int i;
 			string sQry;
-			string errMessage = String.Empty;
 
 			string CntcCode; //조회자 사번
 			string OrdNum;   //메인작번
@@ -961,7 +956,7 @@ namespace PSH_BOne_AddOn
 					oDS_PS_PP985E.SetValue("U_ColSum01", i, oRecordSet.Fields.Item("Amt").Value.ToString().Trim());      //설계비
 
 					oRecordSet.MoveNext();
-					ProgressBar01.Value = ProgressBar01.Value + 1;
+					ProgressBar01.Value += 1;
 					ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";
 				}
 
@@ -988,7 +983,6 @@ namespace PSH_BOne_AddOn
 		{
 			int i;
 			string sQry;
-			string errMessage = String.Empty;
 
 			string CntcCode; //조회자 사번
 			string OrdNum;   //메인작번
@@ -1050,7 +1044,7 @@ namespace PSH_BOne_AddOn
 					oDS_PS_PP985F.SetValue("U_ColSum13", i, oRecordSet.Fields.Item("Total").Value.ToString().Trim());   //계
 
 					oRecordSet.MoveNext();
-					ProgressBar01.Value = ProgressBar01.Value + 1;
+					ProgressBar01.Value += 1;
 					ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";
 				}
 

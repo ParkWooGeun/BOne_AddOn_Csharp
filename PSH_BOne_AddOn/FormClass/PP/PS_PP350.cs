@@ -369,9 +369,6 @@ namespace PSH_BOne_AddOn
 			string OrdNum;
 			string BatchNum;
 
-			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
-			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
 			try
 			{
 				oForm.Freeze(true);

@@ -267,11 +267,11 @@ namespace PSH_BOne_AddOn
 					//준수여부 건수 카운트
 					if (oRecordSet.Fields.Item("AssignYN").Value.ToString().Trim() == "Y")
 					{
-						AssignYCnt = AssignYCnt + 1;
+						AssignYCnt += 1;
 					}
 
 					oRecordSet.MoveNext();
-					ProgressBar01.Value = ProgressBar01.Value + 1;
+					ProgressBar01.Value += 1;
 					ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";
 				}
 

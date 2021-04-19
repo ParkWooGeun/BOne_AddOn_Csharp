@@ -343,7 +343,7 @@ namespace PSH_BOne_AddOn
             string CardCode;  //거래처
             string ItemCode;  //품목(작번)
             string errMessage = string.Empty;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -402,7 +402,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_PP362L.SetValue("U_ColReg18", loopCount, oRecordSet01.Fields.Item("YesNo").Value);    //완료구분
 
                     oRecordSet01.MoveNext();
-                    ProgressBar01.Value = ProgressBar01.Value + 1;
+                    ProgressBar01.Value += 1;
                     ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
                 oMat01.LoadFromDataSource();
@@ -445,7 +445,6 @@ namespace PSH_BOne_AddOn
             int loopCount;
             string Query01;
             string errMessage = string.Empty;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -491,7 +490,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_PP362M.SetValue("U_ColReg15", loopCount, oRecordSet01.Fields.Item("PP030HNo").Value); //작지등록No
 
                     oRecordSet01.MoveNext();
-                    ProgressBar01.Value = ProgressBar01.Value + 1;
+                    ProgressBar01.Value += 1;
                     ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
                 oMat02.LoadFromDataSource();
@@ -537,7 +536,6 @@ namespace PSH_BOne_AddOn
             int loopCount;
             string Query01;
             string errMessage = string.Empty;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -575,7 +573,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_PP362N.SetValue("U_ColSum01", loopCount, oRecordSet01.Fields.Item("MatAmt").Value);    //자재비
 
                     oRecordSet01.MoveNext();
-                    ProgressBar01.Value = ProgressBar01.Value + 1;
+                    ProgressBar01.Value += 1;
                     ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
                 oMat03.LoadFromDataSource();
@@ -621,7 +619,7 @@ namespace PSH_BOne_AddOn
             int loopCount;
             string Query01;
             string errMessage = string.Empty;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -659,7 +657,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_PP362O.SetValue("U_ColSum01", loopCount, oRecordSet01.Fields.Item("Amt").Value);      //설계비
 
                     oRecordSet01.MoveNext();
-                    ProgressBar01.Value = ProgressBar01.Value + 1;
+                    ProgressBar01.Value += 1;
                     ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
                 oMat04.LoadFromDataSource();
@@ -698,7 +696,7 @@ namespace PSH_BOne_AddOn
             int loopCount;
             string Query01;
             string errMessage = string.Empty;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -741,7 +739,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_PP362P.SetValue("U_ColReg12", loopCount, oRecordSet01.Fields.Item("Sub1_2").Value);    //서브작번
 
                     oRecordSet01.MoveNext();
-                    ProgressBar01.Value = ProgressBar01.Value + 1;
+                    ProgressBar01.Value += 1;
                     ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
                 oMat05.LoadFromDataSource();
@@ -787,7 +785,6 @@ namespace PSH_BOne_AddOn
             int loopCount;
             string Query01;
             string errMessage = string.Empty;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -829,7 +826,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_PP362Q.SetValue("U_ColReg11", loopCount, oRecordSet01.Fields.Item("PP040HNo").Value);//작업일보번호
 
                     oRecordSet01.MoveNext();
-                    ProgressBar01.Value = ProgressBar01.Value + 1;
+                    ProgressBar01.Value += 1;
                     ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
                 oMat06.LoadFromDataSource();
@@ -874,7 +871,7 @@ namespace PSH_BOne_AddOn
             int loopCount;
             string Query01;
             string errMessage = string.Empty;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -909,7 +906,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_PP362R.SetValue("U_ColSum01", loopCount, oRecordSet01.Fields.Item("Amt").Value);     //금액
 
                     oRecordSet01.MoveNext();
-                    ProgressBar01.Value = ProgressBar01.Value + 1;
+                    ProgressBar01.Value += 1;
                     ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
                 oMat07.LoadFromDataSource();
@@ -955,7 +952,7 @@ namespace PSH_BOne_AddOn
             int loopCount = 0;
             string Query01 = null;
             string errMessage = string.Empty;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -992,7 +989,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_PP362S.SetValue("U_ColSum01", loopCount, oRecordSet01.Fields.Item("Amt").Value);     //금액
 
                     oRecordSet01.MoveNext();
-                    ProgressBar01.Value = ProgressBar01.Value + 1;
+                    ProgressBar01.Value += 1;
                     ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
                 oMat08.LoadFromDataSource();
@@ -1657,6 +1654,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
                 oForm.Freeze(false);
             }
         }

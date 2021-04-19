@@ -136,7 +136,7 @@ namespace PSH_BOne_AddOn
 			string DocDateFr;
 			string DocDateTo;
 			string ItmMsort;
-			string Seq = string.Empty;
+			string Seq;
 
 			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 

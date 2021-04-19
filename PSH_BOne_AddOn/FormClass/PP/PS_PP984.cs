@@ -148,19 +148,19 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				//거래처구분
-				sQry = "           SELECT     U_Minor AS [Code], ";
-				sQry = sQry + "               U_CdName AS [Name]";
-				sQry = sQry + " FROM      [@PS_SY001L]";
-				sQry = sQry + " WHERE     Code = 'C100'";
+				sQry = "  SELECT     U_Minor AS [Code], ";
+				sQry += "               U_CdName AS [Name]";
+				sQry += " FROM      [@PS_SY001L]";
+				sQry += " WHERE     Code = 'C100'";
 				oForm.Items.Item("CardType").Specific.ValidValues.Add("%", "전체");
 				dataHelpClass.Set_ComboList(oForm.Items.Item("CardType").Specific, sQry, "", false, false);
 				oForm.Items.Item("CardType").Specific.Select("%", SAPbouiCOM.BoSearchKey.psk_ByValue);
 
 				//품목구분
-				sQry = "           SELECT     U_Minor AS [Code], ";
-				sQry = sQry + "               U_CdName AS [Name]";
-				sQry = sQry + " FROM      [@PS_SY001L]";
-				sQry = sQry + " WHERE     Code = 'S002'";
+				sQry = "  SELECT     U_Minor AS [Code], ";
+				sQry += "               U_CdName AS [Name]";
+				sQry += " FROM      [@PS_SY001L]";
+				sQry += " WHERE     Code = 'S002'";
 				oForm.Items.Item("ItemType").Specific.ValidValues.Add("%", "전체");
 				dataHelpClass.Set_ComboList(oForm.Items.Item("ItemType").Specific, sQry, "", false, false);
 				oForm.Items.Item("ItemType").Specific.Select("%", SAPbouiCOM.BoSearchKey.psk_ByValue);
@@ -173,13 +173,13 @@ namespace PSH_BOne_AddOn
 
 				//담당콤보세팅
 				oForm.Items.Item("RspCode").Specific.ValidValues.Add("%", "전체");
-				sQry = "            SELECT      U_Code AS [Code],";
-				sQry = sQry + "                 U_CodeNm As [Name]";
-				sQry = sQry + "  FROM       [@PS_HR200L]";
-				sQry = sQry + "  WHERE      Code = '2'";
-				sQry = sQry + "                 AND U_UseYN = 'Y'";
-				sQry = sQry + "                 AND U_Char1 = '2800'";
-				sQry = sQry + "  ORDER BY  U_Seq";
+				sQry = "  SELECT      U_Code AS [Code],";
+				sQry += "                 U_CodeNm As [Name]";
+				sQry += "  FROM       [@PS_HR200L]";
+				sQry += "  WHERE      Code = '2'";
+				sQry += "                 AND U_UseYN = 'Y'";
+				sQry += "                 AND U_Char1 = '2800'";
+				sQry += "  ORDER BY  U_Seq";
 				dataHelpClass.Set_ComboList(oForm.Items.Item("RspCode").Specific, sQry, "", false, false);
 				oForm.Items.Item("RspCode").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 			}
@@ -390,7 +390,7 @@ namespace PSH_BOne_AddOn
 					oDS_PS_PP984L.SetValue("U_ColReg09", i, oRecordSet.Fields.Item("ItemName").Value.ToString().Trim());  //품목명
 
 					oRecordSet.MoveNext();
-					ProgressBar01.Value = ProgressBar01.Value + 1;
+					ProgressBar01.Value += 1;
 					ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";
 
 				}
@@ -558,7 +558,7 @@ namespace PSH_BOne_AddOn
 		/// Raise_EVENT_COMBO_SELECT
 		/// </summary>
 		/// <param name="FormUID"></param>
-		/// <param name="pval"></param>
+		/// <param name="pVal"></param>
 		/// <param name="BubbleEvent"></param>
 		private void Raise_EVENT_COMBO_SELECT(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{

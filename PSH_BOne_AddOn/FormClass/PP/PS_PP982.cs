@@ -638,7 +638,7 @@ namespace PSH_BOne_AddOn
 					oDS_PS_PP982O.SetValue("U_ColReg07", i, oRecordSet.Fields.Item("Comments").Value.ToString().Trim()); //비고
 
 					oRecordSet.MoveNext();
-					ProgressBar01.Value = ProgressBar01.Value + 1;
+					ProgressBar01.Value += 1;
 					ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";
 
 				}
@@ -709,7 +709,7 @@ namespace PSH_BOne_AddOn
 
 						oRecordSet.DoQuery(sQry);
 
-						ProgressBar01.Value = ProgressBar01.Value + 1;
+						ProgressBar01.Value += 1;
 						ProgressBar01.Text = ProgressBar01.Value + "/" + (oMat01.VisualRowCount - 1) + "건 저장중...";
 					}
 				}

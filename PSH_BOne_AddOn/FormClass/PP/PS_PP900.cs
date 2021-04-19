@@ -310,8 +310,6 @@ namespace PSH_BOne_AddOn
 		/// <param name="BubbleEvent"></param>
 		private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
-			PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
-
 			try
 			{
 				if (pVal.BeforeAction == true)
@@ -347,19 +345,6 @@ namespace PSH_BOne_AddOn
 					if (pVal.ItemUID == "Folder02")  //Folder02가 선택되었을 때
 					{
 						oForm.PaneLevel = 2;
-					}
-
-					if (pVal.ItemUID == "PS_PP900")
-					{
-						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-						{
-						}
-						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-						{
-						}
-						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-						{
-						}
 					}
 				}
 			}
@@ -917,7 +902,7 @@ namespace PSH_BOne_AddOn
 					oDS_PS_PP900L.SetValue("U_ColReg18", loopCount, oRecordSet.Fields.Item("DocEntry").Value.ToString().Trim());				//작업지시문서번호
 
 					oRecordSet.MoveNext();
-					ProgressBar01.Value = ProgressBar01.Value + 1;
+					ProgressBar01.Value += 1;
 					ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";
 				}
 				oMat01.LoadFromDataSource();
@@ -949,7 +934,7 @@ namespace PSH_BOne_AddOn
 		/// <param name="prmDocEntry"></param>
 		private void PS_PP900_MTX02(int prmDocEntry)
 		{
-			int loopCount = 0;
+			int loopCount;
 			int ErrNum = 0;
 			string sQry;
 
@@ -995,7 +980,7 @@ namespace PSH_BOne_AddOn
 					oDS_PS_PP900M.SetValue("U_ColReg07", loopCount, oRecordSet.Fields.Item("ReportYN").Value.ToString().Trim());					//작업일보여부
 
 					oRecordSet.MoveNext();
-					ProgressBar01.Value = ProgressBar01.Value + 1;
+					ProgressBar01.Value += 1;
 					ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";
 				}
 				oMat02.LoadFromDataSource();

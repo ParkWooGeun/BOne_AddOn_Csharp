@@ -129,28 +129,28 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("BPLID").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
 
 				//품목대분류
-				sQry = "           SELECT     Code,";
-				sQry = sQry + "               Name";
-				sQry = sQry + " FROM      [@PSH_ITMBSORT]";
-				sQry = sQry + " WHERE     U_PudYN = 'Y'";
+				sQry = " SELECT     Code,";
+				sQry += "               Name";
+				sQry += " FROM      [@PSH_ITMBSORT]";
+				sQry += " WHERE     U_PudYN = 'Y'";
 				oForm.Items.Item("ItmBSort").Specific.ValidValues.Add("%", "전체");
 				dataHelpClass.Set_ComboList(oForm.Items.Item("ItmBSort").Specific, sQry, "", false, false);
 				oForm.Items.Item("ItmBSort").Specific.Select("%", SAPbouiCOM.BoSearchKey.psk_ByValue);
 
 				//거래처구분
-				sQry = "           SELECT     U_Minor AS [Code], ";
-				sQry = sQry + "               U_CdName AS [Name]";
-				sQry = sQry + " FROM      [@PS_SY001L]";
-				sQry = sQry + " WHERE     Code = 'C100'";
+				sQry = "  SELECT     U_Minor AS [Code], ";
+				sQry += "               U_CdName AS [Name]";
+				sQry += " FROM      [@PS_SY001L]";
+				sQry += " WHERE     Code = 'C100'";
 				oForm.Items.Item("CardType").Specific.ValidValues.Add("%", "전체");
 				dataHelpClass.Set_ComboList(oForm.Items.Item("CardType").Specific, sQry, "", false, false);
 				oForm.Items.Item("CardType").Specific.Select("%", SAPbouiCOM.BoSearchKey.psk_ByValue);
 
 				//품목구분
-				sQry = "           SELECT     U_Minor AS [Code], ";
-				sQry = sQry + "               U_CdName AS [Name]";
-				sQry = sQry + " FROM      [@PS_SY001L]";
-				sQry = sQry + " WHERE     Code = 'S002'";
+				sQry = " SELECT     U_Minor AS [Code], ";
+				sQry += "               U_CdName AS [Name]";
+				sQry += " FROM      [@PS_SY001L]";
+				sQry += " WHERE     Code = 'S002'";
 				oForm.Items.Item("ItemType").Specific.ValidValues.Add("%", "전체");
 				dataHelpClass.Set_ComboList(oForm.Items.Item("ItemType").Specific, sQry, "", false, false);
 				oForm.Items.Item("ItemType").Specific.Select("%", SAPbouiCOM.BoSearchKey.psk_ByValue);

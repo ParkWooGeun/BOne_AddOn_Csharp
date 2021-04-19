@@ -21,7 +21,7 @@ namespace PSH_BOne_AddOn
 		public override void LoadForm(string oFormDocEntry01)
 		{
 
-			int i = 0;
+			int i;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
 			try

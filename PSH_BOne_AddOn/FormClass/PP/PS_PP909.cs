@@ -919,7 +919,7 @@ namespace PSH_BOne_AddOn
 					oDS_PS_PP909L.SetValue("U_ColReg04", loopCount, oRecordSet.Fields.Item("YTime").Value.ToString().Trim());		//작업시간
 
 					oRecordSet.MoveNext();
-					ProgressBar01.Value = ProgressBar01.Value + 1;
+					ProgressBar01.Value += 1;
 					ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";
 				}
 				oMat01.LoadFromDataSource();
@@ -998,7 +998,7 @@ namespace PSH_BOne_AddOn
 					oDS_PS_PP909M.SetValue("U_ColReg10", loopCount, oRecordSet.Fields.Item("NdwQty").Value.ToString().Trim());			//신규도면매수
 
 					oRecordSet.MoveNext();
-					ProgressBar01.Value = ProgressBar01.Value + 1;
+					ProgressBar01.Value += 1;
 					ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";
 				}
 

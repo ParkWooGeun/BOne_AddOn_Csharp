@@ -130,7 +130,6 @@ namespace PSH_BOne_AddOn
 		{
 			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
 			try
 			{
@@ -223,7 +222,7 @@ namespace PSH_BOne_AddOn
 					oDS_PS_PP111L.SetValue("U_ColReg12", i, oRecordSet.Fields.Item("UUName").Value.ToString().Trim());      //수정자
 
 					oRecordSet.MoveNext();
-					ProgressBar01.Value = ProgressBar01.Value + 1;
+					ProgressBar01.Value += 1;
 					ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";
 
 					oMat.LoadFromDataSource();
@@ -255,8 +254,8 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void PS_PP111_AddData()
 		{
-			short loopCount = 0;
-			string sQry = null;
+			short loopCount;
+			string sQry;
 
 			string BPLID;		//사업장
 			string StdYM;		//기준년월

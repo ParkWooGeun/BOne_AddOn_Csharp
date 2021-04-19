@@ -114,7 +114,6 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void ComboBox_Setting()
 		{
-			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -165,8 +164,8 @@ namespace PSH_BOne_AddOn
 			string sQry;
 			string BPLName;
 			string BsortName;
-			string WinTitle = string.Empty;
-			string ReportName = string.Empty;
+			string WinTitle;
+			string ReportName;
 
 			string BPLId;
 			string DocDateFr;

@@ -10750,6 +10750,37 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
+        <member name="T:PSH_BOne_AddOn.PS_SD080">
+            <summary>
+            여신한도 초과요청
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD080.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFormDocEntry01"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD080.PS_SD080_CreateItems">
+            <summary>
+            화면 Item 생성
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD080.PS_SD080_SetComboBox">
+            <summary>
+            콤보박스 세팅
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD080.PS_SD080_Initialize">
+            <summary>
+            화면 초기화
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD080.PS_SD080_ClearForm">
+            <summary>
+            DocNum 초기화
+            </summary>
+        </member>
         <member name="T:PSH_BOne_AddOn.Database.Pack.DataPack">
             <remarks>
             Tier, Biz 간에 DataParameter를 한번에 묶어서 보내기 위한 HelperClass.
@@ -11346,7 +11377,7 @@
             </summary>
             <param name="pString">적용할 문자열</param>
             <param name="pFromInt">부터</param>
-            <param name="pToInt">꺄지</param>
+            <param name="pToInt">까지</param>
             <returns>처리된 문자열</returns>
         </member>
         <member name="M:PSH_BOne_AddOn.Code.PSH_CodeHelpClass.Left(System.String,System.Int32)">
@@ -12142,13 +12173,6 @@
             1. 현재 Namespace의 전체 클래스 조회
             2. 클래스의 메소드 중 해당 이벤트 필터 메소드가 존재하면 필터 추가
             </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PSH_SetFilter.GetClasses(System.String)">
-            <summary>
-            Namespcae의 전체 클래스 조회
-            </summary>
-            <param name="nameSpace">Namespace</param>
-            <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PSH_SetFilter.RegisterEventFilter(System.String,System.Type,SAPbouiCOM.EventFilter@)">
             <summary>
@@ -31939,6 +31963,13 @@
             OHEM AddOn
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PSH_Globals.GetClasses(System.String)">
+            <summary>
+            Namespcae의 전체 클래스 조회
+            </summary>
+            <param name="nameSpace">Namespace</param>
+            <returns></returns>
+        </member>
         <member name="T:PSH_BOne_AddOn.PSH_MainClass">
             <summary>
             MainClass : 광역변수 초기화, 어플리케이션 연결, DI API 연결, 회사 DB 연결, ODBC 연결용 변수 초기화, MainMenu용 XML 로딩, 유효폼 검사, AddOn 폼 생성, System 폼 생성, 이벤트 정의, 이벤트 필터 실행
@@ -32011,11 +32042,12 @@
             <param name="pVal"></param>
             <param name="pBaseClass"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PSH_MainClass.Create_SYSTEMForm(SAPbouiCOM.ItemEvent)">
+        <member name="M:PSH_BOne_AddOn.PSH_MainClass.Create_SYSTEMForm(SAPbouiCOM.ItemEvent,PSH_BOne_AddOn.PSH_BaseClass@)">
             <summary>
             시스템폼 생성
             </summary>
-            <param name="pval"></param>
+            <param name="pVal"></param>
+            <param name="pBaseClass"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PSH_MainClass.TerminateApplication">
             <summary>

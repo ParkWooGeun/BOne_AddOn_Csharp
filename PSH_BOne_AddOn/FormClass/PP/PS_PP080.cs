@@ -285,6 +285,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("OrdGbn").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
                     oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
                     oForm.Items.Item("CntcCode").Specific.Value = dataHelpClass.User_MSTCOD();
+                    oDS_PS_PP080H.SetValue("U_CntcName", 0, dataHelpClass.GetValue("SELECT LastName + FirstName FROM [OHEM] WHERE U_MSTCOD = '" + dataHelpClass.User_MSTCOD() + "'", 0, 1));
                     oForm.Items.Item("Focus").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     oForm.Items.Item("DocEntry").Enabled = false;
                     oForm.Items.Item("BPLId").Enabled = true;
@@ -1005,24 +1006,26 @@ namespace PSH_BOne_AddOn
                 }
 
                 List<ItemInformation> itemInfoList = new List<ItemInformation>();
-
+                
                 for (i = 1; i <= oMat01.VisualRowCount - 1; i++)
                 {
                     if (string.IsNullOrEmpty(oMat01.Columns.Item("OIGENum").Cells.Item(i).Specific.Value.ToString().Trim()))
                     {
                         if (oMat01.Columns.Item("Check").Cells.Item(i).Specific.Checked == true)
                         {
-                            ItemInformation itemInfo = new ItemInformation();
-                            itemInfo.OrdGbn = oMat01.Columns.Item("OrdGbn").Cells.Item(i).Specific.Selected.Value;
-                            itemInfo.PP030HNo = oMat01.Columns.Item("PP030HNo").Cells.Item(i).Specific.Value;
-                            itemInfo.PP030MNo = oMat01.Columns.Item("PP030MNo").Cells.Item(i).Specific.Value;
-                            itemInfo.ItemCode = oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.Value;
-                            itemInfo.Quantity = Convert.ToDouble(oMat01.Columns.Item("YQty").Cells.Item(i).Specific.Value);
-                            itemInfo.WhsCode = oMat01.Columns.Item("WhsCode").Cells.Item(i).Specific.Value;
-                            itemInfo.BatchNum = oMat01.Columns.Item("BatchNum").Cells.Item(i).Specific.Value;
-                            itemInfo.LineNum = Convert.ToInt32(oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value);
-                            itemInfo.ORDRNo = oMat01.Columns.Item("ORDRNo").Cells.Item(i).Specific.Value;
-                            itemInfo.RDR1No = oMat01.Columns.Item("RDR1No").Cells.Item(i).Specific.Value;
+                            ItemInformation itemInfo = new ItemInformation
+                            {
+                                OrdGbn = oMat01.Columns.Item("OrdGbn").Cells.Item(i).Specific.Selected.Value,
+                                PP030HNo = oMat01.Columns.Item("PP030HNo").Cells.Item(i).Specific.Value,
+                                PP030MNo = oMat01.Columns.Item("PP030MNo").Cells.Item(i).Specific.Value,
+                                ItemCode = oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.Value,
+                                Quantity = Convert.ToDouble(oMat01.Columns.Item("YQty").Cells.Item(i).Specific.Value),
+                                WhsCode = oMat01.Columns.Item("WhsCode").Cells.Item(i).Specific.Value,
+                                BatchNum = oMat01.Columns.Item("BatchNum").Cells.Item(i).Specific.Value,
+                                LineNum = Convert.ToInt32(oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value),
+                                ORDRNo = oMat01.Columns.Item("ORDRNo").Cells.Item(i).Specific.Value,
+                                RDR1No = oMat01.Columns.Item("RDR1No").Cells.Item(i).Specific.Value
+                            };
 
                             itemInfoList.Add(itemInfo);
                         }

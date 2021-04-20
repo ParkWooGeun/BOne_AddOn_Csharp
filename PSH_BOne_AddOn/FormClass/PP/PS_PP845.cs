@@ -8,9 +8,9 @@ using System.Collections.Generic;
 namespace PSH_BOne_AddOn
 {
 	/// <summary>
-	/// 기간별제품기타출고현황
+	/// M/G생산원재료기타출고현황
 	/// </summary>
-	internal class PS_PP643 : PSH_BaseClass
+	internal class PS_PP845 : PSH_BaseClass
 	{
 		private string oFormUniqueID;
 
@@ -25,7 +25,7 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PS_PP643.srf");
+				oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PS_PP845.srf");
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue = oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue + "_" + (SubMain.Get_TotalFormsCount());
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
@@ -37,8 +37,8 @@ namespace PSH_BOne_AddOn
 					oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
 				}
 
-				oFormUniqueID = "PS_PP643_" + SubMain.Get_TotalFormsCount();
-				SubMain.Add_Forms(this, oFormUniqueID, "PS_PP643");
+				oFormUniqueID = "PS_PP845_" + SubMain.Get_TotalFormsCount();
+				SubMain.Add_Forms(this, oFormUniqueID, "PS_PP845");
 
 				PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
 				oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
@@ -103,7 +103,7 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				// 사업장
-				sQry = "SELECT BPLId, BPLName From [OBPL] order by BPLId";
+				sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
 				oRecordSet.DoQuery(sQry);
 				while (!(oRecordSet.EoF))
 				{
@@ -167,8 +167,8 @@ namespace PSH_BOne_AddOn
 				oRecordSet.DoQuery(sQry);
 				BPLName = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 
-				WinTitle = "[PS_PP643_01] 기간별제품기타출고현황";
-				ReportName = "PS_PP643_01.RPT";
+				WinTitle = "[PS_PP845_01] M/G생산원재료기타출고현황";
+				ReportName = "PS_PP845_01.RPT";
 
 				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
 				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
@@ -180,8 +180,9 @@ namespace PSH_BOne_AddOn
 
 				// Parameter
 				dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLID));
-				dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", DateTime.ParseExact(DocDateFr, "yyyyMMdd", null)));
-				dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", DateTime.ParseExact(DocDateTo, "yyyyMMdd", null)));
+				dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr));
+				dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo));
+
 				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
 			}
 			catch (Exception ex)
@@ -204,9 +205,9 @@ namespace PSH_BOne_AddOn
 		{
 			switch (pVal.EventType)
 			{
-				case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED: //1
-					Raise_EVENT_ITEM_PRESSED(FormUID, ref pVal, ref BubbleEvent);
-					break;
+                case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED: //1
+                    Raise_EVENT_ITEM_PRESSED(FormUID, ref pVal, ref BubbleEvent);
+                    break;
                 case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
                     //Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
                     break;

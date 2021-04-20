@@ -8,9 +8,9 @@ using System.Collections.Generic;
 namespace PSH_BOne_AddOn
 {
 	/// <summary>
-	/// 기간별제품기타출고현황
+	/// M/G스크랩수불부  (레포트가 없음????)
 	/// </summary>
-	internal class PS_PP643 : PSH_BaseClass
+	internal class ZPS_MGSCRAP : PSH_BaseClass
 	{
 		private string oFormUniqueID;
 
@@ -25,7 +25,7 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PS_PP643.srf");
+				oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\ZPS_MGSCRAP.srf");
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue = oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue + "_" + (SubMain.Get_TotalFormsCount());
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
@@ -37,8 +37,8 @@ namespace PSH_BOne_AddOn
 					oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
 				}
 
-				oFormUniqueID = "PS_PP643_" + SubMain.Get_TotalFormsCount();
-				SubMain.Add_Forms(this, oFormUniqueID, "PS_PP643");
+				oFormUniqueID = "ZPS_MGSCRAP_" + SubMain.Get_TotalFormsCount();
+				SubMain.Add_Forms(this, oFormUniqueID, "ZPS_MGSCRAP");
 
 				PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
 				oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
@@ -50,7 +50,6 @@ namespace PSH_BOne_AddOn
 
 				CreateItems();
 				ComboBox_Setting();
-				Initialization();
 
 				oForm.EnableMenu(("1283"), false); // 삭제
 				oForm.EnableMenu(("1286"), false); // 닫기
@@ -78,13 +77,13 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
-				oForm.DataSources.UserDataSources.Add("DocDateFr", SAPbouiCOM.BoDataType.dt_DATE, 10);
-				oForm.Items.Item("DocDateFr").Specific.DataBind.SetBound(true, "", "DocDateFr");
-				oForm.DataSources.UserDataSources.Item("DocDateFr").Value = DateTime.Now.ToString("yyyyMMdd");
+				oForm.DataSources.UserDataSources.Add("FYM", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 6);
+				oForm.Items.Item("FYM").Specific.DataBind.SetBound(true, "", "FYM");
+				oForm.DataSources.UserDataSources.Item("FYM").Value = DateTime.Now.ToString("yyyy") + "01";
 
-				oForm.DataSources.UserDataSources.Add("DocDateTo", SAPbouiCOM.BoDataType.dt_DATE, 10);
-				oForm.Items.Item("DocDateTo").Specific.DataBind.SetBound(true, "", "DocDateTo");
-				oForm.DataSources.UserDataSources.Item("DocDateTo").Value = DateTime.Now.ToString("yyyyMMdd");
+				oForm.DataSources.UserDataSources.Add("TYM", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 6);
+				oForm.Items.Item("TYM").Specific.DataBind.SetBound(true, "", "TYM");
+				oForm.DataSources.UserDataSources.Item("TYM").Value = DateTime.Now.ToString("yyyyMM"); ;
 			}
 			catch (Exception ex)
 			{
@@ -103,13 +102,14 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				// 사업장
-				sQry = "SELECT BPLId, BPLName From [OBPL] order by BPLId";
+				sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
 				oRecordSet.DoQuery(sQry);
 				while (!(oRecordSet.EoF))
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
 				}
+				oForm.Items.Item("BPLId").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 			}
 			catch (Exception ex)
 			{
@@ -118,24 +118,6 @@ namespace PSH_BOne_AddOn
 			finally
 			{
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
-			}
-		}
-
-		/// <summary>
-		/// Initialization
-		/// </summary>
-		public void Initialization()
-		{
-			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
-			try
-			{
-				//아이디별 사업장 세팅
-				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 			}
 		}
 
@@ -151,39 +133,40 @@ namespace PSH_BOne_AddOn
 			string BPLName;
 
 			string BPLID;
-			string DocDateFr;
-			string DocDateTo;
+			string FYM;
+			string TYM;
 
 			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
 			{
-				BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
-				DocDateFr = oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim();
-				DocDateTo = oForm.Items.Item("DocDateTo").Specific.Value.ToString().Trim();
+                BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+                FYM = oForm.Items.Item("FYM").Specific.Value.ToString().Trim();
+                TYM = oForm.Items.Item("TYM").Specific.Value.ToString().Trim();
 
-				sQry = "SELECT BPLName FROM [OBPL] WHERE BPLId = '" + BPLID + "'";
-				oRecordSet.DoQuery(sQry);
-				BPLName = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+                sQry = "SELECT BPLName FROM [OBPL] WHERE BPLId = '" + BPLID + "'";
+                oRecordSet.DoQuery(sQry);
+                BPLName = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 
-				WinTitle = "[PS_PP643_01] 기간별제품기타출고현황";
-				ReportName = "PS_PP643_01.RPT";
+                WinTitle = "[ZPS_MGSCRAP_01] M/G생산원재료기타출고현황";
+                ReportName = "ZPS_MGSCRAP_01.RPT";  // REPORT 파일이 없슴
 
 				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
-				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
+                List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
 
-				// Formula 수식필드
-				dataPackFormula.Add(new PSH_DataPackClass("@BPLId", BPLName));
-				dataPackFormula.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr.Substring(0, 4) + "-" + DocDateFr.Substring(4, 2) + "-" + DocDateFr.Substring(6, 2)));
-				dataPackFormula.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo.Substring(0, 4) + "-" + DocDateTo.Substring(4, 2) + "-" + DocDateTo.Substring(6, 2)));
+                // Formula 수식필드
+                dataPackFormula.Add(new PSH_DataPackClass("@BPLId", BPLName));
+                dataPackFormula.Add(new PSH_DataPackClass("@FYM", FYM.Substring(0, 4) + "-" + FYM.Substring(4, 2)));
+                dataPackFormula.Add(new PSH_DataPackClass("@TYM", TYM.Substring(0, 4) + "-" + TYM.Substring(4, 2)));
 
-				// Parameter
-				dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLID));
-				dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", DateTime.ParseExact(DocDateFr, "yyyyMMdd", null)));
-				dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", DateTime.ParseExact(DocDateTo, "yyyyMMdd", null)));
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
-			}
+                // Parameter
+                dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLID));
+                dataPackParameter.Add(new PSH_DataPackClass("@FYM", FYM));
+                dataPackParameter.Add(new PSH_DataPackClass("@TYM", TYM));
+
+                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+            }
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);

@@ -231,6 +231,7 @@
     <Compile Include="FormClass\CO\PS_CO670.cs" />
     <Compile Include="FormClass\PP\PS_PP050.cs" />
     <Compile Include="FormClass\PP\PS_PP051.cs" />
+    <Compile Include="FormClass\PP\PS_PP062.cs" />
     <Compile Include="FormClass\PP\PS_PP071.cs" />
     <Compile Include="FormClass\PP\PS_PP080.cs" />
     <Compile Include="FormClass\PP\PS_PP220.cs" />
@@ -257,7 +258,13 @@
     <Compile Include="FormClass\PP\PS_PP684.cs" />
     <Compile Include="FormClass\PP\PS_PP690.cs" />
     <Compile Include="FormClass\PP\PS_PP830.cs" />
+    <Compile Include="FormClass\PP\PS_PP835.cs" />
     <Compile Include="FormClass\PP\PS_PP840.cs" />
+    <Compile Include="FormClass\PP\PS_PP845.cs" />
+    <Compile Include="FormClass\PP\PS_PP901.cs" />
+    <Compile Include="FormClass\PP\PS_PP902.cs" />
+    <Compile Include="FormClass\PP\PS_PP928.cs" />
+    <Compile Include="FormClass\PP\PS_PP931.cs" />
     <Compile Include="FormClass\PP\PS_PP945.cs" />
     <Compile Include="FormClass\PP\PS_PP042.cs" />
     <Compile Include="FormClass\PP\PS_PP043.cs" />
@@ -334,6 +341,7 @@
     <Compile Include="FormClass\PP\PS_PP989.cs" />
     <Compile Include="FormClass\PP\PS_PP990.cs" />
     <Compile Include="FormClass\PP\PS_PP991.cs" />
+    <Compile Include="FormClass\PP\ZPS_MGSCRAP.cs" />
     <Compile Include="FormClass\PY\PH_PY400.cs" />
     <Compile Include="FormClass\PY\PH_PY998.cs" />
     <Compile Include="FormClass\PY\PH_PY115.cs" />

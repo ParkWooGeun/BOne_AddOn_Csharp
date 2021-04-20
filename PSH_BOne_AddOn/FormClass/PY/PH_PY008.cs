@@ -5310,7 +5310,7 @@ namespace PSH_BOne_AddOn
 
                 switch (pVal.ItemUID)
                 {
-                    case "Mat01":
+                    case "Grid01":
                         if (pVal.Row > 0)
                         {
                             oLastItemUID = pVal.ItemUID;
@@ -5324,7 +5324,6 @@ namespace PSH_BOne_AddOn
                         oLastColRow = 0;
                         break;
                 }
-
             }
             catch (Exception ex)
             {

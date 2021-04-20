@@ -692,6 +692,13 @@ namespace PSH_BOne_AddOn
                 {
                     Create_USERForm(pVal, ref oTempClass);
                     RecordSet01.DoQuery("EXEC Z_PS_FormCount '" + dataHelpClass.User_MSTCOD() + "','" + pVal.MenuUID + "'"); //Form 실행 횟수 저장
+
+                    RecordSet01.DoQuery("EXEC Z_PS_FormType '" + pVal.MenuUID + "'");
+
+                    if (RecordSet01.Fields.Item("FormType").Value == "H")
+                    {
+                        RecordSet01.DoQuery("EXEC Z_PS_FormCount '" + dataHelpClass.User_MSTCOD() + "','" + pVal.MenuUID + "'"); //Form 실행 횟수 저장
+                    }
                 }
 
                 string FormUID = PSH_Globals.SBO_Application.Forms.ActiveForm.UniqueID;

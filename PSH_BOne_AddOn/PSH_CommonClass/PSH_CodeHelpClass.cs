@@ -10,7 +10,7 @@
         /// </summary>
         /// <param name="pString">적용할 문자열</param>
         /// <param name="pFromInt">부터</param>
-        /// <param name="pToInt">꺄지</param>
+        /// <param name="pToInt">까지</param>
         /// <returns>처리된 문자열</returns>
         public string Mid(string pString, int pFromInt, int pToInt)
         {

@@ -2111,7 +2111,7 @@ namespace PSH_BOne_AddOn.Data
                     }
                     for (i = 1; i <= RecordCount; i++)
                     {
-                        functionReturnValue = oRecordset.Fields.Item(FieldCount).Value;
+                        functionReturnValue = Convert.ToString(oRecordset.Fields.Item(FieldCount).Value);
                         oRecordset.MoveNext();
                     }
                 }
@@ -2958,7 +2958,7 @@ namespace PSH_BOne_AddOn.Data
 
             try
             {
-                for (i = 1; i <= ItemName.Length; i++)
+                for (i = 0; i < ItemName.Length; i++)
                 {
                     tempItemName += codeHelpClass.Mid(ItemName, i, 1);
                     if (codeHelpClass.Mid(ItemName, i, 1) == "'")

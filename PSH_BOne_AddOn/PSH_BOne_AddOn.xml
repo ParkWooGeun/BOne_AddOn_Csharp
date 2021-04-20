@@ -11483,7 +11483,7 @@
             </summary>
             <param name="pString">적용할 문자열</param>
             <param name="pFromInt">부터</param>
-            <param name="pToInt">꺄지</param>
+            <param name="pToInt">까지</param>
             <returns>처리된 문자열</returns>
         </member>
         <member name="M:PSH_BOne_AddOn.Code.PSH_CodeHelpClass.Left(System.String,System.Int32)">
@@ -13701,14 +13701,6 @@
         <member name="M:PSH_BOne_AddOn.PH_PY008.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_UNLOAD 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY008.Raise_EVENT_FORM_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            FORM_RESIZE 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>

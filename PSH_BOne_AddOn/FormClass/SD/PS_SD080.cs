@@ -602,6 +602,43 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
+        /// KEY_DOWN 이벤트
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_KEY_DOWN(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            try
+            {
+                if (pVal.Before_Action == true)
+                {
+                    if (pVal.CharPressed == 9)
+                    {
+                        if (pVal.ItemUID == "CntcCode")
+                        {
+                            if (string.IsNullOrEmpty(oForm.Items.Item("CntcCode").Specific.Value))
+                            {
+                                PSH_Globals.SBO_Application.ActivateMenuItem("7425");
+                                BubbleEvent = false;
+                            }
+                        }
+                    }
+                }
+                else if (pVal.Before_Action == false)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
+        }
+
+        /// <summary>
         /// GOT_FOCUS 이벤트
         /// </summary>
         /// <param name="FormUID">Form UID</param>
@@ -627,43 +664,6 @@ namespace PSH_BOne_AddOn
                         oLastItemUID01 = pVal.ItemUID;
                         oLastColUID01 = "";
                         oLastColRow01 = 0;
-                    }
-                }
-                else if (pVal.Before_Action == false)
-                {
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-        }
-
-        /// <summary>
-        /// KEY_DOWN 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_KEY_DOWN(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            try
-            {
-                if (pVal.Before_Action == true)
-                {
-                    if (pVal.CharPressed == 9)
-                    {
-                        if (pVal.ItemUID == "CntcCode")
-                        {
-                            if (string.IsNullOrEmpty(oForm.Items.Item("CntcCode").Specific.Value))
-                            {
-                                PSH_Globals.SBO_Application.ActivateMenuItem("7425");
-                                BubbleEvent = false;
-                            }
-                        }
                     }
                 }
                 else if (pVal.Before_Action == false)

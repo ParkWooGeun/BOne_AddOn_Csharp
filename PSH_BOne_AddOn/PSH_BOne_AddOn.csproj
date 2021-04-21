@@ -232,11 +232,16 @@
     <Compile Include="FormClass\PP\PS_PP050.cs" />
     <Compile Include="FormClass\PP\PS_PP051.cs" />
     <Compile Include="FormClass\PP\PS_PP062.cs" />
+    <Compile Include="FormClass\PP\PS_PP063.cs" />
+    <Compile Include="FormClass\PP\PS_PP064.cs" />
+    <Compile Include="FormClass\PP\PS_PP065.cs" />
     <Compile Include="FormClass\PP\PS_PP071.cs" />
     <Compile Include="FormClass\PP\PS_PP080.cs" />
     <Compile Include="FormClass\PP\PS_PP220.cs" />
     <Compile Include="FormClass\PP\PS_PP230.cs" />
     <Compile Include="FormClass\PP\PS_PP421.cs" />
+    <Compile Include="FormClass\PP\PS_PP550.cs" />
+    <Compile Include="FormClass\PP\PS_PP551.cs" />
     <Compile Include="FormClass\PP\PS_PP560.cs" />
     <Compile Include="FormClass\PP\PS_PP055.cs" />
     <Compile Include="FormClass\PP\PS_PP130.cs" />

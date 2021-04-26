@@ -107,22 +107,11 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PS_SD081_SetComboBox()
         {
-            //string sQry;
-            //SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
             {
-                ////사업장
-                //sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
-                //oRecordSet01.DoQuery(sQry);
-                //while (!oRecordSet01.EoF)
-                //{
-                //    oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
-                //    oRecordSet01.MoveNext();
-                //}
-                //oForm.Items.Item("BPLId").Specific.Select("4", SAPbouiCOM.BoSearchKey.psk_ByValue);
-
+                //사업장
                 dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName From [OBPL] Order by BPLId", "", false, false);
                 oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
 

@@ -828,7 +828,7 @@ namespace PSH_BOne_AddOn
                         case "1282":
                             oForm.Items.Item("JsnYear").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             break;
-                        case "1288": // TODO: to "1291"
+                        case "1288":
                             break;
                         case "1293":
                             break;

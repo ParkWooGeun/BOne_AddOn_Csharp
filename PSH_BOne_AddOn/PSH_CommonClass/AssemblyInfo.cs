@@ -14,10 +14,6 @@ using System.Runtime.InteropServices;
 // 어셈블리와 관련된 정보를 수정하려면
 // 이 특성 값을 변경하십시오.
 
-
-// TODO: 어셈블리 특성 값을 확인하십시오.
-
-
 [assembly: AssemblyTitle("")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyCompany("PSH")]

@@ -5399,11 +5399,6 @@
             Report_Export
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_MM010.PS_MM010_Print_Report03">
-            <summary>
-            Report_Export
-            </summary>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_MM010.PS_MM010_FormItemEnabled">
             <summary>
             모드에 따른 아이템 설정
@@ -5621,14 +5616,13 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM030.PS_MM030_Delete_EmptyRow">
             <summary>
-            Delete_EmptyRow
+            PS_MM030_Delete_EmptyRow()
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_MM030.PS_MM030_oPurchaseOrders_Add(System.Int32)">
+        <member name="M:PSH_BOne_AddOn.PS_MM030.PS_MM030_oPurchaseOrders_Add">
             <summary>
             PS_MM030_oPurchaseOrders_Add
             </summary>
-            <param name="ChkType"></param>
             <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM030.PS_MM030_oPurchaseOrders_Update">

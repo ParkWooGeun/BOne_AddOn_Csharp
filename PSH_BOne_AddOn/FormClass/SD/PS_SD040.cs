@@ -81,7 +81,7 @@ namespace PSH_BOne_AddOn
 				oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
 				oForm.SupportedModes = -1;
-				oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
+				oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 				oForm.DataBrowser.BrowseBy = "DocEntry";
 				
 				oForm.Freeze(true);
@@ -631,7 +631,7 @@ namespace PSH_BOne_AddOn
                 //마감상태 체크_S
                 if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(), oForm.Items.Item("DocDate").Specific.Value, oForm.TypeEx) == false)
                 {
-                    errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다." + (char)19 + "전기일을 확인하고, 회계부서로 문의하세요.";
+                    errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다." + (char)13 + "전기일을 확인하고, 회계부서로 문의하세요.";
                     throw new Exception();
                 }
                 //마감상태 체크_E
@@ -652,9 +652,12 @@ namespace PSH_BOne_AddOn
                         RecordSet01.DoQuery(qeury);
 
                         //생산완료의 전기일(출하요청의 전기일:생산완료의 전기일은 데이터의 구조상 JOIN을 할 수가 없음)보다 이전으로 입력불가(2011.12.07 송명규 추가)
-                        if (RecordSet01.Fields.Item(0).Value.ToString("yyyyMMdd") > oForm.Items.Item("DocDate").Specific.Value) //TODO : 일자 비교 연산 오류 발생 확인
+                        DateTime sd030Date = Convert.ToDateTime(dataHelpClass.ConvertDateType(RecordSet01.Fields.Item(0).Value.ToString("yyyyMMdd"), "-")); //출하요청일
+                        DateTime sd040Date = Convert.ToDateTime(dataHelpClass.ConvertDateType(oForm.Items.Item("DocDate").Specific.Value, "-")); //납품처리일
+
+                        if (sd030Date > sd040Date)
                         {
-                            errMessage = "납품처리 전기일이 출하요청(" + oMat01.Columns.Item("SD030Num").Cells.Item(i).Specific.Value + ") 전기일보다 이전입니다." + (char)19 + "납품전기일을 확인하십시오.";
+                            errMessage = "납품처리 전기일이 출하요청(" + oMat01.Columns.Item("SD030Num").Cells.Item(i).Specific.Value + ") 전기일보다 이전입니다." + (char)13 + "납품처리 전기일을 확인하십시오.";
                             oMat01.Columns.Item("SD030Num").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             throw new Exception();
                         }
@@ -1129,10 +1132,13 @@ namespace PSH_BOne_AddOn
             string Query01;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Documents oDIObject = null;
+            SAPbouiCOM.ProgressBar ProgBar01 = null;
             SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
+                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
                 PSH_Globals.oCompany.StartTransaction();
 
                 //현재월의 전기기간 체크 후 잠겨있으면 DI API 미실행
@@ -1151,13 +1157,13 @@ namespace PSH_BOne_AddOn
                     {
                         ItemCode = oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.Value,
                         BatchNum = oMat01.Columns.Item("LotNo").Cells.Item(i).Specific.Value,
-                        Qty = oMat01.Columns.Item("Qty").Cells.Item(i).Specific.Value,
-                        Weight = oMat01.Columns.Item("Weight").Cells.Item(i).Specific.Value,
+                        Qty = Convert.ToInt32(oMat01.Columns.Item("Qty").Cells.Item(i).Specific.Value),
+                        Weight = Convert.ToDouble(oMat01.Columns.Item("Weight").Cells.Item(i).Specific.Value),
                         Currency = oMat01.Columns.Item("Currency").Cells.Item(i).Specific.Value,
-                        Price = oMat01.Columns.Item("Price").Cells.Item(i).Specific.Value,
-                        LineTotal = oMat01.Columns.Item("LinTotal").Cells.Item(i).Specific.Value,
+                        Price = Convert.ToDouble(oMat01.Columns.Item("Price").Cells.Item(i).Specific.Value),
+                        LineTotal = Convert.ToDouble(oMat01.Columns.Item("LinTotal").Cells.Item(i).Specific.Value),
                         WhsCode = oMat01.Columns.Item("WhsCode").Cells.Item(i).Specific.Value,
-                        SD040HNum = oForm.Items.Item("DocEntry").Specific.Value,
+                        SD040HNum = Convert.ToInt32(oForm.Items.Item("DocEntry").Specific.Value),
                         SD040LNum = i,
                         ORDRNum = Convert.ToInt32(oMat01.Columns.Item("ORDRNum").Cells.Item(i).Specific.Value),
                         RDR1Num = Convert.ToInt32(oMat01.Columns.Item("RDR1Num").Cells.Item(i).Specific.Value),
@@ -1365,6 +1371,13 @@ namespace PSH_BOne_AddOn
                 {
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDIObject);
                 }
+
+                if (ProgBar01 != null)
+                {
+                    ProgBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                }
+
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet01);
             }
 
@@ -1386,10 +1399,13 @@ namespace PSH_BOne_AddOn
             int LineNumCount;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Documents oDIObject = null;
+            SAPbouiCOM.ProgressBar ProgBar01 = null;
             SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
+                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
                 PSH_Globals.oCompany.StartTransaction();
 
                 //현재월의 전기기간 체크 후 잠겨있으면 DI API 미실행
@@ -1408,19 +1424,19 @@ namespace PSH_BOne_AddOn
                     {
                         ItemCode = oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.Value,
                         BatchNum = oMat01.Columns.Item("LotNo").Cells.Item(i).Specific.Value,
-                        Qty = oMat01.Columns.Item("Qty").Cells.Item(i).Specific.Value,
-                        Weight = oMat01.Columns.Item("Weight").Cells.Item(i).Specific.Value,
+                        Qty = Convert.ToInt32(oMat01.Columns.Item("Qty").Cells.Item(i).Specific.Value),
+                        Weight = Convert.ToDouble(oMat01.Columns.Item("Weight").Cells.Item(i).Specific.Value),
                         Currency = oMat01.Columns.Item("Currency").Cells.Item(i).Specific.Value,
-                        Price = oMat01.Columns.Item("Price").Cells.Item(i).Specific.Value,
-                        LineTotal = oMat01.Columns.Item("LinTotal").Cells.Item(i).Specific.Value,
+                        Price = Convert.ToDouble(oMat01.Columns.Item("Price").Cells.Item(i).Specific.Value),
+                        LineTotal = Convert.ToDouble(oMat01.Columns.Item("LinTotal").Cells.Item(i).Specific.Value),
                         WhsCode = oMat01.Columns.Item("WhsCode").Cells.Item(i).Specific.Value,
-                        SD030HNum = Convert.ToInt32(oMat01.Columns.Item("SD030H").Cells.Item(i).Specific.Value),
-                        SD030LNum = Convert.ToInt32(oMat01.Columns.Item("SD030L").Cells.Item(i).Specific.Value),
-                        ORDRNum = Convert.ToInt32(oMat01.Columns.Item("ORDRNum").Cells.Item(i).Specific.Value),
-                        RDR1Num = Convert.ToInt32(oMat01.Columns.Item("RDR1Num").Cells.Item(i).Specific.Value),
+                        SD030HNum = Convert.ToInt32(oMat01.Columns.Item("SD030H").Cells.Item(i).Specific.Value == "" ? "0" : oMat01.Columns.Item("SD030H").Cells.Item(i).Specific.Value),
+                        SD030LNum = Convert.ToInt32(oMat01.Columns.Item("SD030L").Cells.Item(i).Specific.Value == "" ? "0" : oMat01.Columns.Item("SD030L").Cells.Item(i).Specific.Value),
+                        ORDRNum = Convert.ToInt32(oMat01.Columns.Item("ORDRNum").Cells.Item(i).Specific.Value == "" ? "0" : oMat01.Columns.Item("ORDRNum").Cells.Item(i).Specific.Value),
+                        RDR1Num = Convert.ToInt32(oMat01.Columns.Item("RDR1Num").Cells.Item(i).Specific.Value == "" ? "0" : oMat01.Columns.Item("RDR1Num").Cells.Item(i).Specific.Value),
                         Check = false
                     };
-
+                    
                     itemInfoList.Add(itemInfo);
                 }
 
@@ -1532,6 +1548,13 @@ namespace PSH_BOne_AddOn
                 {
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDIObject);
                 }
+
+                if (ProgBar01 != null)
+                {
+                    ProgBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                }
+
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet01);
             }
 
@@ -1539,7 +1562,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// 반품
+        /// 반품(납품 취소)
         /// </summary>
         /// <returns></returns>
         private bool PS_SD040_DI_API_03()
@@ -1557,11 +1580,14 @@ namespace PSH_BOne_AddOn
             string Query02;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Documents oDIObject = null;
+            SAPbouiCOM.ProgressBar ProgBar01 = null;
             SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             SAPbobsCOM.Recordset RecordSet02 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
+                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
                 PSH_Globals.oCompany.StartTransaction();
 
                 //현재월의 전기기간 체크 후 잠겨있으면 DI API 미실행
@@ -1741,6 +1767,13 @@ namespace PSH_BOne_AddOn
                 {
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDIObject);
                 }
+
+                if (ProgBar01 != null)
+                {
+                    ProgBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                }
+
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet01);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet02);
             }
@@ -2611,6 +2644,8 @@ namespace PSH_BOne_AddOn
 
             try
             {
+                oForm.Freeze(true);
+
                 if (pVal.Before_Action == true)
                 {
                     if (pVal.ItemChanged == true)
@@ -3051,6 +3086,8 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                oForm.Freeze(false);
+
                 if (RecordSet01 != null)
                 {
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet01);
@@ -3406,10 +3443,18 @@ namespace PSH_BOne_AddOn
                                         return;
                                     }
                                 }
-                                if (PS_SD040_DI_API_03() == false)
+
+                                if (PSH_Globals.SBO_Application.MessageBox("납품처리를 취소하시겠습니까?", 1, "Yes", "No") == 1)
+                                {
+                                    if (PS_SD040_DI_API_03() == false)
+                                    {
+                                        BubbleEvent = false;
+                                        return;
+                                    }
+                                }
+                                else
                                 {
                                     BubbleEvent = false;
-                                    return;
                                 }
                             }
                             else

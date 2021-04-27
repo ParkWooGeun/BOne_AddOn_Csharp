@@ -10856,7 +10856,7 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD040.PS_SD040_DI_API_03">
             <summary>
-            반품
+            반품(납품 취소)
             </summary>
             <returns></returns>
         </member>

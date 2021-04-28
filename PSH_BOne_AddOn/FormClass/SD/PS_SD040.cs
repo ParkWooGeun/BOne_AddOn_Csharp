@@ -742,9 +742,8 @@ namespace PSH_BOne_AddOn
                         }
                     }
                 }
-                //여신한도초과 Check(?)
-                //풍산은 체크안함
-                if (oForm.Items.Item("CardCode").Specific.Value != "12532")
+                //여신한도초과 Check
+                if (oForm.Items.Item("CardCode").Specific.Value != "12532") //풍산은 체크안함
                 {
                     if (PS_SD040_ValidateCreditLine() == false)
                     {
@@ -772,7 +771,7 @@ namespace PSH_BOne_AddOn
             {
                 if (errMessage == " ")
                 {
-                    //프로세스 체크용 외부 메소드의 실행 결과는 각 메소드에서 메시지 출력, 해당 메소드에서는 메시지 처리 불필요
+                    //프로세스 체크용 외부 메소드의 실행 결과는 각 메소드에서 메시지 출력, 이 메소드에서는 메시지 처리 불필요
                 }
                 else if (errMessage != string.Empty)
                 {
@@ -800,11 +799,13 @@ namespace PSH_BOne_AddOn
             bool returnValue = false;
             string query;
             string errMessage = string.Empty;
+            double totalAmt = 0;
+            double creditLine;
             SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
-                if (oForm.Items.Item("Opt03").Specific.Selected == true) //분말제품
+                if (oForm.Items.Item("Opt01").Specific.Selected == true || oForm.Items.Item("Opt03").Specific.Selected == true) //MG제외
                 {
                     query = "EXEC [S139_hando] '";
                     query += oForm.Items.Item("CardCode").Specific.Value.ToString().Trim() + "', '";
@@ -813,9 +814,17 @@ namespace PSH_BOne_AddOn
 
                     if (RecordSet01.RecordCount > 0)
                     {
-                        if (Convert.ToDouble(RecordSet01.Fields.Item("OverAmt").Value) < 0) //TODO : 부호확인 필요, 여신한도금액
+                        creditLine = Convert.ToDouble(RecordSet01.Fields.Item("OverAmt").Value);
+
+                        //전체 금액 저장
+                        for (int i = 1; i <= oMat01.VisualRowCount - 1; i++)
                         {
-                            errMessage = "여신한도를 초과했습니다.";
+                            totalAmt += Convert.ToDouble(oMat01.Columns.Item("LinTotal").Cells.Item(i).Specific.Value);
+                        }
+
+                        if (creditLine < totalAmt) //여신한도(출고가능금액)보다 전체금액이 크면 출고 불가
+                        {
+                            errMessage = "해당 고객의 여신한도(현재 출고가능금액 : " + creditLine.ToString("#,##0.##") + ")를 초과했습니다." + (char)13 + "납품처리를 등록할 수 없습니다.";
                             throw new Exception();
                         }
                     }

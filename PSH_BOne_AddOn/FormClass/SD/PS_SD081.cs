@@ -177,7 +177,6 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PS_SD081_LoadData()
         {
-        
             short i;
             string sQry;
             string BPLId;
@@ -237,14 +236,14 @@ namespace PSH_BOne_AddOn
                     oDS_PS_SD081L.SetValue("U_LineNum", i, Convert.ToString(i + 1));
                     oDS_PS_SD081L.SetValue("U_ColReg02", i, oRecordSet01.Fields.Item("CardCode").Value.ToString().Trim());
                     oDS_PS_SD081L.SetValue("U_ColReg03", i, oRecordSet01.Fields.Item("CardName").Value.ToString().Trim());
-                    oDS_PS_SD081L.SetValue("U_ColSum01", i, oRecordSet01.Fields.Item("U_CreditP").Value.ToString().Trim()); //현재여신 금액
-                    oDS_PS_SD081L.SetValue("U_ColSum02", i, oRecordSet01.Fields.Item("U_MiSuP").Value.ToString().Trim()); //미수계
-                    oDS_PS_SD081L.SetValue("U_ColSum06", i, oRecordSet01.Fields.Item("U_ArfAmt").Value.ToString().Trim()); //어음
-                    oDS_PS_SD081L.SetValue("U_ColSum07", i, oRecordSet01.Fields.Item("U_Budo").Value.ToString().Trim()); //부도
+                    oDS_PS_SD081L.SetValue("U_ColSum01", i, oRecordSet01.Fields.Item("U_CreditP").Value.ToString().Trim()); //여신한도금액
+                    oDS_PS_SD081L.SetValue("U_ColSum02", i, oRecordSet01.Fields.Item("U_MiSuP").Value.ToString().Trim()); //미수금액
+                    oDS_PS_SD081L.SetValue("U_ColSum06", i, oRecordSet01.Fields.Item("U_ArfAmt").Value.ToString().Trim()); //받을어음
+                    oDS_PS_SD081L.SetValue("U_ColSum07", i, oRecordSet01.Fields.Item("U_Budo").Value.ToString().Trim()); //부도어음
                     oDS_PS_SD081L.SetValue("U_ColSum08", i, oRecordSet01.Fields.Item("U_MisuTot").Value.ToString().Trim()); //채권계
-                    oDS_PS_SD081L.SetValue("U_ColSum03", i, oRecordSet01.Fields.Item("U_Balance").Value.ToString().Trim());
-                    oDS_PS_SD081L.SetValue("U_ColSum04", i, oRecordSet01.Fields.Item("U_OutPreP").Value.ToString().Trim());
-                    oDS_PS_SD081L.SetValue("U_ColSum05", i, oRecordSet01.Fields.Item("OverAmt").Value.ToString().Trim());
+                    oDS_PS_SD081L.SetValue("U_ColSum03", i, oRecordSet01.Fields.Item("U_Balance").Value.ToString().Trim()); //여신잔액
+                    oDS_PS_SD081L.SetValue("U_ColSum04", i, oRecordSet01.Fields.Item("U_OutPreP").Value.ToString().Trim()); //수주잔액
+                    oDS_PS_SD081L.SetValue("U_ColSum05", i, oRecordSet01.Fields.Item("OverAmt").Value.ToString().Trim()); //출고가능금액
 
                     oRecordSet01.MoveNext();
                     ProgBar01.Value += 1;
@@ -327,7 +326,7 @@ namespace PSH_BOne_AddOn
                 }
 
                 oBaseMat01.LoadFromDataSource();
-                
+                oBaseMat01.AutoResizeColumns();
             }
             catch(Exception ex)
             {

@@ -1647,10 +1647,8 @@ namespace PSH_BOne_AddOn
                         {
                             if (!string.IsNullOrEmpty(oMat01.Columns.Item("CGNo").Cells.Item(pVal.Row).Specific.String))
                             {
-                                PSH_Globals.SBO_Application.MessageBox("Migration 진행중입니다. 진행되는 즉시 패치하겠습니다.");
-                                //TempForm02 = new PS_MM010_S();
-                                //TempForm02.LoadForm(oMat01.Columns.Item("CGNo").Cells.Item(pVal.Row).Specific.String);
-                                //BubbleEvent = false;
+                                PS_MM010_S PS_MM010_S = new PS_MM010_S();
+                                PS_MM010_S.LoadForm(oMat01.Columns.Item("CGNo").Cells.Item(pVal.Row).Specific.String);
                             }
                             else
                             {

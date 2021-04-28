@@ -70,6 +70,7 @@ namespace PSH_BOne_AddOn
 
                 oForm.SupportedModes = -1;
                 oForm.DataBrowser.BrowseBy = "DocNum"; //화면키값(화면에서 유일키값을 담고 있는 아이템의 Uid값)
+                oDocNum = oFromDocEntry01;
 
                 oForm.Freeze(true);
                 if (!string.IsNullOrEmpty(oFromDocEntry01))
@@ -80,7 +81,6 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
                 }
-
                 PS_MM030_CreateItems();
                 PS_MM030_ComboBox_Setting();
                 PS_MM030_FormClear();
@@ -101,19 +101,19 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                if (!string.IsNullOrEmpty(oDocNum))
+                oForm.Update();
+                oForm.Freeze(false);
+                if (!string.IsNullOrEmpty(oFromDocEntry01))
                 {
                     PS_MM030_FormItemEnabled();
                     oForm.Items.Item("DocNum").Specific.VALUE = oFromDocEntry01;
-                    oForm.Items.Item("1").Click();
+                    oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
                 else
                 {
                     PS_MM030_Initialization();
                     PS_MM030_FormItemEnabled();
                 }
-                oForm.Update();
-                oForm.Freeze(false);
                 oForm.Visible = true;
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oXmlDoc); //메모리 해제
             }
@@ -445,7 +445,6 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                oForm.Freeze(true);
                 DocNum = dataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PS_MM030'", "");
                 if (Convert.ToDouble(DocNum) == 0)
                 {
@@ -462,7 +461,6 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                oForm.Freeze(false);
             }
         }
 
@@ -493,8 +491,6 @@ namespace PSH_BOne_AddOn
 
             try
             {
-
-                //oForm.Freeze(true);
                 sRow = oRow;
                 switch (oUID)
                 {
@@ -2484,6 +2480,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
+                oForm.Freeze(true);
                 if (pVal.Before_Action == true)
                 {
                 }
@@ -2491,7 +2488,6 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemChanged == true)
                     {
-                        oForm.Freeze(true);
                         if (pVal.ItemUID == "CardCode")
                         {
                             PS_MM030_FlushToItemValue(pVal.ItemUID, 0, "");
@@ -2779,7 +2775,6 @@ namespace PSH_BOne_AddOn
                             }
                             break;
                         case "1282": //추가
-                            oForm.Freeze(true);
                             oDS_PS_MM030H.SetValue("U_DocDate", 0, DateTime.Now.ToString("yyyyMMdd"));
                             oDS_PS_MM030H.SetValue("U_DueDate", 0, DateTime.Now.ToString("yyyyMMdd"));
                             oDS_PS_MM030H.SetValue("U_POStatus", 0, "N");
@@ -2795,13 +2790,11 @@ namespace PSH_BOne_AddOn
                             PS_MM030_Initialization();
                             PS_MM030_FormItemEnabled();
                             PS_MM030_FormClear();
-                            oForm.Freeze(false);
                             break;
                         case "1288": //레코드이동(최초)
                         case "1289": //레코드이동(이전)
                         case "1290": //레코드이동(다음)
                         case "1291": //레코드이동(최종)
-                            oForm.Freeze(true);
                             PS_MM030_FormItemEnabled();
                             oMat01.AutoResizeColumns();
                             if (oMat01.VisualRowCount > 0)
@@ -2814,7 +2807,6 @@ namespace PSH_BOne_AddOn
                                     }
                                 }
                             }
-                            oForm.Freeze(false);
                             break;
                         case "1287": //복제
                             break;

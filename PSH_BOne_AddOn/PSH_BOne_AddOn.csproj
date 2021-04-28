@@ -194,6 +194,9 @@
     <Compile Include="FormClass\FI\PS_FI961.cs" />
     <Compile Include="FormClass\FI\PS_FI962.cs" />
     <Compile Include="FormClass\FX\PS_FX241.cs" />
+    <Compile Include="FormClass\MM\PS_MM951.cs" />
+    <Compile Include="FormClass\MM\PS_MM041.cs" />
+    <Compile Include="FormClass\MM\PS_MM040.cs" />
     <Compile Include="FormClass\MM\PS_MM010.cs" />
     <Compile Include="FormClass\MM\PS_MM030.cs" />
     <Compile Include="FormClass\MM\PS_MM921.cs" />
@@ -1265,9 +1268,13 @@
   <ItemGroup>
     <EmbeddedResource Include="EXT_Form\FileListBoxForm.resX">
       <DependentUpon>FileListBoxForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM951.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM040.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM041.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM010.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM030.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO800.srf" />

@@ -60,6 +60,7 @@ namespace PSH_BOne_AddOn
 
                 oForm.SupportedModes = -1;
                 oForm.DataBrowser.BrowseBy = "DocNum";
+
                 oForm.Freeze(true);
                 if (!string.IsNullOrEmpty(oFromDocEntry01))
                 {

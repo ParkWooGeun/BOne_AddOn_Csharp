@@ -1,7 +1,11 @@
 ﻿using System;
 using SAPbouiCOM;
+using System.Net;
 using SAP.Middleware.Connector;
 using PSH_BOne_AddOn.Code;
+using System.IO;
+
+using System.Web;
 
 namespace PSH_BOne_AddOn.Data
 {
@@ -3720,7 +3724,17 @@ namespace PSH_BOne_AddOn.Data
 
         #endregion MDC_PS_Common 클래스 메소드 구현_E
 
-        //SAP R3 Connect
+        /// <summary>
+        /// SAPConnection
+        /// </summary>
+        /// <param name="rfcDest">목적지 IP</param>
+        /// <param name="rfcRep">저장소Class</param>
+        /// <param name="pName"></param>
+        /// <param name="pAppServerHost">Server IP</param>
+        /// <param name="pClient">Client No</param>
+        /// <param name="pUser">ID</param>
+        /// <param name="pPassword">Password</param>
+        /// <returns></returns>
         public bool SAPConnection(ref RfcDestination rfcDest, ref RfcRepository rfcRep, string pName, string pAppServerHost, string pClient, string pUser, string pPassword)
         {
             bool returnValue;
@@ -3740,6 +3754,56 @@ namespace PSH_BOne_AddOn.Data
             }
 
             return returnValue;
+        }
+
+        /// <summary>
+        /// FTP FIleConnection , Upload
+        /// </summary>
+        /// <param name="ip"></param>
+        /// <param name="port"></param>
+        /// <param name="userid"></param>
+        /// <param name="pwd"></param>
+        /// <param name="path">업로드할 파일 저장할 FTP경로</param>
+        /// <param name="filename">업로드 대상 파일 경로</param>
+        /// <returns></returns>
+        public bool FTPConn_Upload(string ip, string port, string userid, string pwd, string path, string filename)
+        {
+            bool isConnected = false;
+            int contentLen;
+            int buffLength = 2048;
+            byte[] buff = new byte[buffLength]; //버퍼사이즈 지정
+            FileInfo fileInfo = new FileInfo(filename);
+            string uri = string.Format(@"FTP://{0}:{1}/{2}/{3}", ip, port, path, fileInfo.Name);
+            FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(new Uri(uri));//FtpWebRequest object 생성
+            ftpRequest.Credentials = new NetworkCredential(userid, pwd);  //아이디, 패스워드 검증
+            ftpRequest.KeepAlive = false; //서버에 대한 연결이 소멸되지 않아야 하면 true, 소멸되어야 하면 false  (KeepAlive의 기본값은 원래 true임.)
+            ftpRequest.Method = WebRequestMethods.Ftp.UploadFile; //지정한 업로드 명령을 실행
+            ftpRequest.UsePassive = true; //passive모드 사용여부
+            ftpRequest.UseBinary = true; //전송 타입설정
+            ftpRequest.ContentLength = fileInfo.Length;  //서버에 파일사이즈를 알림
+
+            try
+            {
+                FileStream fs = fileInfo.OpenRead(); //파일 읽기
+                
+                Stream strm = ftpRequest.GetRequestStream(); //업로드 할 파일 스트림을 가져옴.
+                contentLen = fs.Read(buff, 0, buffLength); //2kb씩 파일 스트림을 읽은 후 길이 반환
+                
+                while (contentLen != 0) //스트림을 다 읽을때까지 반복.
+                {
+                    strm.Write(buff, 0, contentLen);//FTP에 파일을 기록
+                    contentLen = fs.Read(buff, 0, buffLength);
+                }
+                strm.Close();
+                fs.Close();
+
+                isConnected = true;
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+            }
+            return isConnected;
         }
 
         /// <summary>

@@ -212,7 +212,7 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                sQry = "EXEC [S139_hando] '" + CardCode + "','" + DocDate + "'";
+                sQry = "EXEC [PS_Z_CheckCreditLine] '" + CardCode + "','" + DocDate + "'";
                 oRecordSet01.DoQuery(sQry);
 
                 oMat01.Clear();

@@ -807,7 +807,7 @@ namespace PSH_BOne_AddOn
             {
                 if (oForm.Items.Item("Opt01").Specific.Selected == true || oForm.Items.Item("Opt03").Specific.Selected == true) //MG제외
                 {
-                    query = "EXEC [S139_hando] '";
+                    query = "EXEC [PS_Z_CheckCreditLine] '";
                     query += oForm.Items.Item("CardCode").Specific.Value.ToString().Trim() + "', '";
                     query += oForm.Items.Item("DocDate").Specific.Value.ToString().Trim() + "'";
                     RecordSet01.DoQuery(query);

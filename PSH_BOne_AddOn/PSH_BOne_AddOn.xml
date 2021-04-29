@@ -10750,6 +10750,17 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
+        <member name="T:PSH_BOne_AddOn.PS_SD030">
+            <summary>
+            출하(선출)요청등록
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD030.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFormDocEntry"></param>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_SD040">
             <summary>
             납품처리

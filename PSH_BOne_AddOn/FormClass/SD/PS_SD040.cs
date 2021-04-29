@@ -174,7 +174,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("ExportYN").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
                 dataHelpClass.Combo_ValidValues_SetValueColumn(oMat01.Columns.Item("Status"), "PS_SD040", "Mat01", "Status", false);
-                dataHelpClass.Combo_ValidValues_SetValueItem((oForm.Items.Item("ProgStat").Specific), "PS_PS_SD040", "ProgStat", false);
+                dataHelpClass.Combo_ValidValues_SetValueItem(oForm.Items.Item("ProgStat").Specific, "PS_PS_SD040", "ProgStat", false);
                 dataHelpClass.Combo_ValidValues_SetValueColumn(oMat01.Columns.Item("TrType"), "PS_SD040", "Mat01", "TrType", false);
                 dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL order by BPLId", "1", false, false);
                 dataHelpClass.GP_MatrixSetMatComboList(oMat01.Columns.Item("ItemGpCd"), "SELECT ItmsGrpCod,ItmsGrpNam FROM [OITB]", "", "");
@@ -2600,15 +2600,15 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "Mat01")
                     {
-                        if (pVal.ColUID == "SD030Num") //TODO : PS_SD030 구현 필요
+                        if (pVal.ColUID == "SD030Num") //TODO : PS_SD030, PS_SD031 구분 실행 구현 필요
                         {
-                            //PS_SD030 oTempClass = new PS_SD030();
-                            //oTempClass.LoadForm(codeHelpClass.Mid(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value, 0, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().IndexOf("-")));
+                            PS_SD030 oTempClass = new PS_SD030();
+                            oTempClass.LoadForm(codeHelpClass.Mid(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value, 0, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().IndexOf("-")));
                         }
                         if (pVal.ColUID == "SD030H")
                         {
-                            //PS_SD030 oTempClass = new PS_SD030();
-                            //oTempClass.LoadForm(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                            PS_SD030 oTempClass = new PS_SD030();
+                            oTempClass.LoadForm(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
                         }
                     }
                 }

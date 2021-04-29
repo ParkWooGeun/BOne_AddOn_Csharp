@@ -1318,6 +1318,7 @@ namespace PSH_BOne_AddOn
                                         {
                                             oDS_PS_MM010L.SetValue("U_E_BANFN", i, codeHelpClass.Left(RFC_Sender, RFC_Sender.IndexOf("/") - 1));
                                             oDS_PS_MM010L.SetValue("U_E_BNFPO", i, codeHelpClass.Right(RFC_Sender, RFC_Sender.Length - RFC_Sender.IndexOf("/") - 1));
+                                            oDS_PS_MM010L.SetValue("U_MESSAGE", i, "");
 
                                             if (string.IsNullOrEmpty(codeHelpClass.Left(RFC_Sender, RFC_Sender.IndexOf("/") - 1)) || string.IsNullOrEmpty(codeHelpClass.Right(RFC_Sender, RFC_Sender.Length - RFC_Sender.IndexOf("/"))))
                                             {
@@ -1375,7 +1376,6 @@ namespace PSH_BOne_AddOn
                     {
                         if (oDS_PS_MM010H.GetValue("U_PQType", 0).ToString().Trim() == "10" && (oDS_PS_MM010H.GetValue("U_Purchase", 0).ToString().Trim() != "30" || oDS_PS_MM010H.GetValue("U_Purchase", 0).ToString().Trim() != "40"))
                         {
-                            // If Trim(oDS_PS_MM010H.GetValue("U_BPLId", 0)) = "2" Then ' 이영진과장 & 류석태 대리 요청으로 기계사업부 & 창원사업부 공통 레포트 출력되도록 수정처리함.
                             //기계사업부
                             System.Threading.Thread thread = new System.Threading.Thread(PS_MM010_Print_Report01);
                             thread.SetApartmentState(System.Threading.ApartmentState.STA);

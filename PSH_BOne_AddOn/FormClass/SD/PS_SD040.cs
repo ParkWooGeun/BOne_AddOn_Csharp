@@ -2287,8 +2287,8 @@ namespace PSH_BOne_AddOn
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE) //TODO : PS_MM004 구현 필요
                         {
-                            //tempForm = new PS_MM004(); 
-                            //tempForm.LoadForm("PS_SD040", oForm.Items.Item("DocEntry").Specific.Value);
+                            PS_MM004 tempForm = new PS_MM004(); 
+                            tempForm.LoadForm("PS_SD040", oForm.Items.Item("DocEntry").Specific.Value);
                             BubbleEvent = false;
                         }
                     }
@@ -2600,15 +2600,15 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "Mat01")
                     {
-                        if (pVal.ColUID == "SD030Num") //TODO : PS_SD030, PS_SD031 구분 실행 구현 필요
+                        if (pVal.ColUID == "SD030Num")
                         {
-                            PS_SD030 oTempClass = new PS_SD030();
-                            oTempClass.LoadForm(codeHelpClass.Mid(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value, 0, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().IndexOf("-")));
+                            PS_SD030 tempForm = new PS_SD030();
+                            tempForm.LoadForm(codeHelpClass.Mid(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value, 0, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().IndexOf("-")));
                         }
                         if (pVal.ColUID == "SD030H")
                         {
-                            PS_SD030 oTempClass = new PS_SD030();
-                            oTempClass.LoadForm(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                            PS_SD030 tempForm = new PS_SD030();
+                            tempForm.LoadForm(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
                         }
                     }
                 }
@@ -2643,6 +2643,7 @@ namespace PSH_BOne_AddOn
             double SumWeight = 0;
             double SumSjWt = 0;
             double HWeight = 0;
+            string errMessage = string.Empty;
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
@@ -2665,7 +2666,8 @@ namespace PSH_BOne_AddOn
                             {
                                 if (string.IsNullOrEmpty(oMat01.Columns.Item("SD030Num").Cells.Item(pVal.Row).Specific.Value))
                                 {
-                                    return;
+                                    errMessage = " ";
+                                    throw new Exception();
                                 }
 
                                 if (oForm.Items.Item("Opt03").Specific.Selected != true)
@@ -2676,18 +2678,18 @@ namespace PSH_BOne_AddOn
                                         {
                                             if (oMat01.Columns.Item("SD030Num").Cells.Item(pVal.Row).Specific.Value == oMat01.Columns.Item("SD030Num").Cells.Item(i).Specific.Value)
                                             {
-                                                PSH_Globals.SBO_Application.StatusBar.SetText("동일한 출하(선출)요청이 존재합니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Warning);
+                                                errMessage = "동일한 출하(선출)요청이 존재합니다.";
                                                 oMat01.Columns.Item("SD030Num").Cells.Item(pVal.Row).Specific.Value = "";
-                                                return;
+                                                throw new Exception();
                                             }
 
                                             if (codeHelpClass.Mid(oMat01.Columns.Item("SD030Num").Cells.Item(pVal.Row).Specific.Value, 0, oMat01.Columns.Item("SD030Num").Cells.Item(pVal.Row).Specific.Value.ToString().IndexOf("-")) != codeHelpClass.Mid(oMat01.Columns.Item("SD030Num").Cells.Item(i).Specific.Value, 0, oMat01.Columns.Item("SD030Num").Cells.Item(i).Specific.Value.ToString().IndexOf("-")))
                                             {
                                                 if (oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() == "4") //구로영업소
                                                 {
-                                                    PSH_Globals.SBO_Application.StatusBar.SetText("동일하지않은 출하요청문서가 존재합니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Warning);
+                                                    errMessage = "동일하지않은 출하요청문서가 존재합니다.";
                                                     oMat01.Columns.Item("SD030Num").Cells.Item(pVal.Row).Specific.Value = "";
-                                                    return;
+                                                    throw new Exception();
                                                 }
                                             }
                                         }
@@ -2794,7 +2796,8 @@ namespace PSH_BOne_AddOn
                             {
                                 if (string.IsNullOrEmpty(oMat01.Columns.Item("PackNo").Cells.Item(pVal.Row).Specific.Value))
                                 {
-                                    return;
+                                    errMessage = " ";
+                                    throw new Exception();
                                 }
 
                                 for (i = 1; i <= oMat01.RowCount; i++)
@@ -2803,9 +2806,9 @@ namespace PSH_BOne_AddOn
                                     {
                                         if (oMat01.Columns.Item("PackNo").Cells.Item(pVal.Row).Specific.Value == oMat01.Columns.Item("PackNo").Cells.Item(i).Specific.Value)
                                         {
-                                            PSH_Globals.SBO_Application.StatusBar.SetText("동일한 포장번호가 존재합니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Warning);
+                                            errMessage = "동일한 포장번호가 존재합니다.";
                                             oMat01.Columns.Item("PackNo").Cells.Item(pVal.Row).Specific.Value = "";
-                                            return;
+                                            throw new Exception();
                                         }
                                     }
                                 }
@@ -2826,9 +2829,9 @@ namespace PSH_BOne_AddOn
 
                                 if (RecordSet01.RecordCount <= 0)
                                 {
-                                    PSH_Globals.SBO_Application.StatusBar.SetText("포장번호정보가 존재하지 않습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Warning);
+                                    errMessage = "포장번호정보가 존재하지 않습니다.";
                                     oMat01.Columns.Item("PackNo").Cells.Item(pVal.Row).Specific.Value = "";
-                                    return;
+                                    throw new Exception();
                                 }
                                 else //해당 포장번호로 재고유무확인
                                 {
@@ -2842,9 +2845,9 @@ namespace PSH_BOne_AddOn
                                     }
                                     else if (RecordSet02.Fields.Item(0).Value == "Disabled")
                                     {
-                                        PSH_Globals.SBO_Application.StatusBar.SetText("해당포장번호의 재고가 부족합니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Warning);
+                                        errMessage = "해당 포장번호의 재고가 부족합니다.";
                                         oMat01.Columns.Item("PackNo").Cells.Item(pVal.Row).Specific.Value = "";
-                                        return;
+                                        throw new Exception();
                                     }
                                 }
                                 for (i = 0; i <= RecordSet01.RecordCount - 1; i++)
@@ -3090,7 +3093,19 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                if (errMessage == " ")
+                {
+                    //메시지 출력 없음
+                }
+                else if (errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(errMessage, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Warning);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
+
                 BubbleEvent = false;
             }
             finally

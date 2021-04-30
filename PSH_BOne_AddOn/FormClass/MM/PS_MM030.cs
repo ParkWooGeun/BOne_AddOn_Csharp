@@ -262,16 +262,11 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                //아이디별 사업장 세팅
-                oDS_PS_MM030H.SetValue("U_BPLId", 0, dataHelpClass.User_BPLID());
-
-                //아이디별 사번 세팅
-                oForm.Items.Item("CntcCode").Specific.Value = dataHelpClass.User_MSTCOD();
-
-                //아이디별 부서 세팅
-                oForm.Items.Item("DocCur").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+                
+                oDS_PS_MM030H.SetValue("U_BPLId", 0, dataHelpClass.User_BPLID());//아이디별 사업장 세팅
+                oForm.Items.Item("CntcCode").Specific.Value = dataHelpClass.User_MSTCOD(); //아이디별 사번 세팅
+                oForm.Items.Item("DocCur").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index); //아이디별 부서 세팅
                 oForm.Items.Item("DocRate").Specific.Value = 1;
-
                 oForm.Items.Item("CardCode").Click();
 
                 g_deletedCount = 0;
@@ -739,9 +734,7 @@ namespace PSH_BOne_AddOn
                             oMat01.FlushToDataSource();
                             if (Convert.ToDouble(oMat01.Columns.Item("Price").Cells.Item(oRow).Specific.Value.ToString().Trim()) == 0)
                             {
-
                                 oDS_PS_MM030L.SetValue("U_LinTotal", oRow - 1, Convert.ToString(0));
-
                             }
                             else
                             {
@@ -1681,14 +1674,20 @@ namespace PSH_BOne_AddOn
         private void PS_MM030_Copy_Price()
         {
             int i;
+            SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
             try
             {
+                ProgressBar01.Text = "복사 시작!";
                 oForm.Freeze(true);
+
                 LastPick = "Copy";
-                for (i = 0; i < oMat01.RowCount; i++)
+                for (i = 1; i < oMat01.RowCount; i++)
                 {
                     oMat01.Columns.Item("Price").Cells.Item(i + 1).Specific.Value = oMat01.Columns.Item("LPrice").Cells.Item(i + 1).Specific.Value;
+
+                    ProgressBar01.Value = ProgressBar01.Value + 1;
+                    ProgressBar01.Text = ProgressBar01.Value + "/" + Convert.ToString(oMat01.VisualRowCount - 1) + "건 처리중...!";
                 }
                 oMat01.LoadFromDataSource();
                 oMat01.AutoResizeColumns();
@@ -1697,7 +1696,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
                 }
-
+                ProgressBar01.Text = "수량,중량, 금액합계 계산중!";
                 PS_MM030_TotalAmount_Calculate();
                 LastPick = "";
             }
@@ -1707,6 +1706,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
                 oForm.Freeze(false);
             }
         }

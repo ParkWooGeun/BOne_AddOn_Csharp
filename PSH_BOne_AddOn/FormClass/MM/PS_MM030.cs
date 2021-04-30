@@ -590,7 +590,7 @@ namespace PSH_BOne_AddOn
                                         oDS_PS_MM030L.SetValue("U_Weight", sRow - 1, oRecordSet01.Fields.Item("U_Weight").Value.ToString().Trim());
                                         if (Convert.ToDouble(oRecordSet01.Fields.Item("U_Qty").Value.ToString().Trim()) == 0)
                                         {
-                                            oDS_PS_MM030L.SetValue("U_UnWeight", sRow - 1, Convert.ToString(0));
+                                            oDS_PS_MM030L.SetValue("U_UnWeight", sRow - 1, "0");
                                         }
                                         else
                                         {
@@ -717,7 +717,7 @@ namespace PSH_BOne_AddOn
                             oMat01.FlushToDataSource();
                             if (Convert.ToDouble(oMat01.Columns.Item("Price").Cells.Item(oRow).Specific.Value.ToString().Trim()) == 0)
                             {
-                                oDS_PS_MM030L.SetValue("U_LinTotal", oRow - 1, Convert.ToString(0));
+                                oDS_PS_MM030L.SetValue("U_LinTotal", oRow - 1, "0");
                             }
                             else
                             {
@@ -734,7 +734,7 @@ namespace PSH_BOne_AddOn
                             oMat01.FlushToDataSource();
                             if (Convert.ToDouble(oMat01.Columns.Item("Price").Cells.Item(oRow).Specific.Value.ToString().Trim()) == 0)
                             {
-                                oDS_PS_MM030L.SetValue("U_LinTotal", oRow - 1, Convert.ToString(0));
+                                oDS_PS_MM030L.SetValue("U_LinTotal", oRow - 1, "0");
                             }
                             else
                             {
@@ -794,7 +794,6 @@ namespace PSH_BOne_AddOn
                         }
                         oMat01.AutoResizeColumns();
                         break;
-
                 }
             }
             catch (Exception ex)
@@ -1684,7 +1683,7 @@ namespace PSH_BOne_AddOn
                 LastPick = "Copy";
                 for (i = 1; i < oMat01.RowCount; i++)
                 {
-                    oMat01.Columns.Item("Price").Cells.Item(i + 1).Specific.Value = oMat01.Columns.Item("LPrice").Cells.Item(i + 1).Specific.Value;
+                    oMat01.Columns.Item("Price").Cells.Item(i).Specific.Value = oMat01.Columns.Item("LPrice").Cells.Item(i).Specific.Value;
 
                     ProgressBar01.Value = ProgressBar01.Value + 1;
                     ProgressBar01.Text = ProgressBar01.Value + "/" + Convert.ToString(oMat01.VisualRowCount - 1) + "건 처리중...!";
@@ -1776,7 +1775,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oMat01.FlushToDataSource();
-
                 for (i = 0; i < oMat01.VisualRowCount - 1; i++)
                 {
                     DocTotal += Convert.ToDouble(oMat01.Columns.Item("LinTotal").Cells.Item(i + 1).Specific.Value);

@@ -1222,10 +1222,10 @@ namespace PSH_BOne_AddOn
                                 if (oDS_PS_MM010H.GetValue("U_PQType", 0).ToString().Trim() == "10")
                                 {
                                     oDS_PS_MM010H.SetValue("U_RFCAdms", 0, "Y");
-                                    oDS_PS_MM010H.SetValue("U_RFCType", 0, Convert.ToString(0));
+                                    oDS_PS_MM010H.SetValue("U_RFCType", 0, "0");
                                     for (i = 0; i <= oMat01.VisualRowCount - 2; i++)
                                     {
-                                        oDS_PS_MM010L.SetValue("U_GuBun", i, Convert.ToString(0));
+                                        oDS_PS_MM010L.SetValue("U_GuBun", i, "0");
                                     }
                                 }
                                 else if (oDS_PS_MM010H.GetValue("U_PQType", 0).ToString().Trim() == "20")

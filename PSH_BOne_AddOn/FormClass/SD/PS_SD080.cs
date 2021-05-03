@@ -140,6 +140,8 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
+                oForm.Items.Item("CntcCode").Specific.Value = dataHelpClass.User_MSTCOD();
+                oForm.Items.Item("DocDate").Click();
             }
             catch(Exception ex)
             {

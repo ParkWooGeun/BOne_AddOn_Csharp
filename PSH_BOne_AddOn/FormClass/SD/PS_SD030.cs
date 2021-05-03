@@ -803,9 +803,9 @@ namespace PSH_BOne_AddOn
         private bool PS_SD030_Validate(string ValidateType)
         {
             bool returnValue = false;
-            int i = 0;
-            int j = 0;
-            string query = null;
+            int i;
+            int j;
+            string query;
             string errMessage = string.Empty;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -838,20 +838,21 @@ namespace PSH_BOne_AddOn
                         Exist = false;
                         for (j = 1; j <= oMat01.RowCount - 1; j++)
                         {
-                            //라인번호가 같고, 품목코드가 같으면 존재하는행, LineNum에 값이 존재하는지 확인필요(행삭제된행인경우 LineNum이 존재하지않음)
-                            if (Convert.ToInt32(RecordSet01.Fields.Item(1).Value) == Convert.ToInt32(oMat01.Columns.Item("LineId").Cells.Item(j).Specific.Value) && !string.IsNullOrEmpty(oMat01.Columns.Item("LineId").Cells.Item(j).Specific.Value))
+                            //라인번호가 같고, 품목코드가 같으면 존재하는 행, LineNum에 값이 존재하는지 확인 필요(행삭제된행인경우 LineNum이 존재하지않음)
+                            string lineID = oMat01.Columns.Item("LineId").Cells.Item(j).Specific.Value;
+                            if (Convert.ToInt32(RecordSet01.Fields.Item(1).Value) == Convert.ToInt32(lineID == "" ? "0" : lineID) && !string.IsNullOrEmpty(oMat01.Columns.Item("LineId").Cells.Item(j).Specific.Value))
                             {
                                 Exist = true;
                             }
                         }
                         
-                        if (Exist == false) //삭제된 행중
+                        if (Exist == false) //삭제된 행 중에서
                         {
                             if (oForm.Items.Item("DocType").Specific.Value == "1") //출하요청
                             {
                                 if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_SD040H] PS_SD040H LEFT JOIN [@PS_SD040L] PS_SD040L ON PS_SD040H.DocEntry = PS_SD040L.DocEntry WHERE PS_SD040H.Canceled = 'N' AND PS_SD040L.U_SD030H = '" + RecordSet01.Fields.Item(0).Value + "' AND PS_SD040L.U_SD030L = '" + RecordSet01.Fields.Item(1).Value + "'", 0, 1)) > 0)
                                 {
-                                    errMessage = "삭제된행이 다른 사용자에 의해 납품되었습니다. 적용할 수 없습니다.";
+                                    errMessage = "삭제된 행이 다른 사용자에 의해 납품되었습니다. 적용할 수 없습니다.";
                                     throw new Exception();
                                 }
                             }

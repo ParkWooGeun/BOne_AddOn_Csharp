@@ -1339,6 +1339,17 @@ namespace PSH_BOne_AddOn
                         oDS_PS_SD040L.SetValue("U_ODLNNum", i, Convert.ToString(afterDIDocNum));
                         oDS_PS_SD040L.SetValue("U_DLN1Num", i, Convert.ToString(itemInfoList[i].DLN1Num));
                     }
+
+                    //여신한도초과요청:납품처리여부 필드 업데이트(KEY-해당일자, 거래처코드)
+                    Query01 = "  UPDATE	[@PS_SD080L]";
+                    Query01 += " SET    U_SD040YN = 'Y'";
+                    Query01 += "        FROM[@PS_SD080H] AS T0";
+                    Query01 += "        INNER JOIN";
+                    Query01 += "        [@PS_SD080L] AS T1";
+                    Query01 += "            ON T0.DocEntry = T1.DocEntry";
+                    Query01 += " WHERE  T0.U_DocDate = '" + oForm.Items.Item("DocDate").Specific.Value.ToString().Trim() + "'"; //해당일자
+                    Query01 += "        AND T1.U_CardCode = '" + oForm.Items.Item("CardCode").Specific.Value.ToString().Trim() + "'"; //해당거래처코드
+                    RecordSet01.DoQuery(Query01);
                 }
                 else
                 {
@@ -1735,6 +1746,17 @@ namespace PSH_BOne_AddOn
                     {
                         dataHelpClass.DoQuery("UPDATE [@PS_SD040L] SET U_ORDNNum = '" + afterDIDocNum + "', U_RDN1Num = '" + itemInfoList[i].RDN1Num + "' WHERE DocEntry = '" + itemInfoList[i].SD040HNum + "' AND LineId = '" + itemInfoList[i].SD040LNum + "'");
                     }
+
+                    //여신한도초과요청:납품처리여부 필드 업데이트(KEY-해당일자, 거래처코드)
+                    Query01 = "  UPDATE	[@PS_SD080L]";
+                    Query01 += " SET    U_SD040YN = 'N'"; //납품처리여부 "N"으로 환원
+                    Query01 += "        FROM[@PS_SD080H] AS T0";
+                    Query01 += "        INNER JOIN";
+                    Query01 += "        [@PS_SD080L] AS T1";
+                    Query01 += "            ON T0.DocEntry = T1.DocEntry";
+                    Query01 += " WHERE  T0.U_DocDate = '" + oForm.Items.Item("DocDate").Specific.Value.ToString().Trim() + "'"; //해당일자
+                    Query01 += "        AND T1.U_CardCode = '" + oForm.Items.Item("CardCode").Specific.Value.ToString().Trim() + "'"; //해당거래처코드
+                    RecordSet01.DoQuery(Query01);
                 }
                 else
                 {

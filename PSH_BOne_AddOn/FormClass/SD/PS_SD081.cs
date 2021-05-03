@@ -319,6 +319,7 @@ namespace PSH_BOne_AddOn
                         oBaseDS_PS_SD080L.SetValue("U_TotAmt", sRow, oDS_PS_SD081L.GetValue("U_ColSum08", i).ToString().Trim());
                         oBaseDS_PS_SD080L.SetValue("U_OutPreP", sRow, oDS_PS_SD081L.GetValue("U_ColSum04", i).ToString().Trim());
                         oBaseDS_PS_SD080L.SetValue("U_RequestP", sRow, oDS_PS_SD081L.GetValue("U_ColSum05", i).ToString().Trim());
+                        oBaseDS_PS_SD080L.SetValue("U_SD040YN", sRow, "N");
 
                         oBaseColRow += 1;
                         sRow += 1;

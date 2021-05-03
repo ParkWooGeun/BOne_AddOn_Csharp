@@ -5346,6 +5346,11 @@
             운송확인증등록(출력)
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM004.LoadForm">
+            <summary>
+            클래스내에서 공통으로 사용되는 폼 호출 메소드
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_MM004.LoadForm(System.String)">
             <summary>
             Form 호출(메인메뉴)
@@ -5358,6 +5363,32 @@
             </summary>
             <param name="oFormName"></param>
             <param name="oFormDocEntry"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM004.PS_MM004_CreateItems">
+            <summary>
+            화면 Item 생성
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM004.PS_MM004_SetForm">
+            <summary>
+            화면 초기화
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM004.PS_MM004_SetComboBox">
+            <summary>
+            콤보박스 세팅
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM004.PS_MM004_LoadCaption">
+            <summary>
+            버튼 title 변경(추가/확인/갱신)
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM004.PS_MM004_RET(System.String)">
+            <summary>
+            기 정보 조회
+            </summary>
+            <param name="oDocEntry"></param>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_MM921">
             <summary>

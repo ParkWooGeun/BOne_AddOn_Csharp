@@ -515,7 +515,7 @@ namespace PSH_BOne_AddOn
 
                         oMat01.FlushToDataSource();
 
-                        for (i = 0; i < oMat01.VisualRowCount - 1; i++)
+                        for (i = 0; i <= oMat01.VisualRowCount - 2; i++)
                         {
                             if (oForm.Items.Item("DocCur").Specific.Value == "KRW")
                             {
@@ -573,7 +573,7 @@ namespace PSH_BOne_AddOn
                                 while (!(oRecordSet01.EoF))
                                 {
                                     sSeq = "Y";
-                                    for (i = 0; i < oMat01.VisualRowCount - 1; i++)
+                                    for (i = 0; i <= oMat01.VisualRowCount - 2; i++)
                                     {
                                         if (oDS_PS_MM030L.GetValue("U_PQDocNum", i).ToString().Trim() == oRecordSet01.Fields.Item(0).Value.ToString().Trim() && oDS_PS_MM030L.GetValue("U_PQLinNum", i).ToString().Trim() == oRecordSet01.Fields.Item(1).Value.ToString().Trim())
                                         {
@@ -901,7 +901,7 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                for (i = 0; i < oMat01.VisualRowCount - 1; i++)
+                for (i = 0; i <= oMat01.VisualRowCount - 2; i++)
                 {
                     if (string.IsNullOrEmpty(oDS_PS_MM030L.GetValue("U_ItemCode", i)))
                     {
@@ -1005,8 +1005,6 @@ namespace PSH_BOne_AddOn
 
             try
             {
-
-
                 if (string.IsNullOrEmpty(oDS_PS_MM030H.GetValue("U_PODocNum", 0).ToString().Trim()))
                 {
                     if (PSH_Globals.oCompany.InTransaction == true)
@@ -1033,7 +1031,7 @@ namespace PSH_BOne_AddOn
                     if (oDS_PS_MM030H.GetValue("U_Purchase", 0).ToString().Trim() == "30" || oDS_PS_MM030H.GetValue("U_Purchase", 0).ToString().Trim() == "40" || oDS_PS_MM030H.GetValue("U_Purchase", 0).ToString().Trim() == "60")
                     {
                         DI_oPurchaseOrders.DocType = SAPbobsCOM.BoDocumentTypes.dDocument_Service;
-                        for (i = 0; i < oMat01.VisualRowCount - 1; i++)
+                        for (i = 0; i <= oMat01.VisualRowCount - 2; i++)
                         {
                             if (i > 0)
                             {
@@ -1081,7 +1079,7 @@ namespace PSH_BOne_AddOn
                     else
                     {
                         DI_oPurchaseOrders.DocType = SAPbobsCOM.BoDocumentTypes.dDocument_Items;
-                        for (i = 0; i < oMat01.VisualRowCount - 1; i++)
+                        for (i = 0; i <= oMat01.VisualRowCount - 2; i++)
                         {
                             if (i > 0)
                             {
@@ -1212,6 +1210,8 @@ namespace PSH_BOne_AddOn
                     DI_oPurchaseOrders.BPL_IDAssignedToInvoice = Convert.ToInt32(oDS_PS_MM030H.GetValue("U_BPLId", 0).ToString().Trim());
                     DI_oPurchaseOrders.DocDate = DateTime.ParseExact(oForm.Items.Item("DocDate").Specific.Value, "yyyyMMdd", null);
                     DI_oPurchaseOrders.DocDueDate = DateTime.ParseExact(oForm.Items.Item("DueDate").Specific.Value, "yyyyMMdd", null);
+                    DI_oPurchaseOrders.DocCurrency = oForm.Items.Item("DocCur").Specific.Selected.Value; //ISO 통화기호 추가(2020.04.06 송명규)
+                    DI_oPurchaseOrders.DocRate = Convert.ToDouble(oForm.Items.Item("DocRate").Specific.Value); //환율 추가(2020.04.06 송명규)
                     DI_oPurchaseOrders.Comments = oForm.Items.Item("Comments").Specific.Value;
                     DI_oPurchaseOrders.UserFields.Fields.Item("U_reType").Value = oForm.Items.Item("POType").Specific.Selected.Value;
                     DI_oPurchaseOrders.UserFields.Fields.Item("U_okYN").Value = oForm.Items.Item("POStatus").Specific.Selected.Value;
@@ -1226,12 +1226,23 @@ namespace PSH_BOne_AddOn
                         for (i = 0; i <= oMat01.VisualRowCount - 2; i++)
                         {
                             if (i > 0)
+                            {
                                 DI_oPurchaseOrders.Lines.Add();
+                            }
                             DI_oPurchaseOrders.Lines.SetCurrentLine(i);
-
                             DI_oPurchaseOrders.Lines.ItemDescription = oDS_PS_MM030L.GetValue("U_ItemName", i).ToString().Trim() + "-" + oDS_PS_MM030L.GetValue("U_OutSize", i).ToString().Trim() + "-" + oDS_PS_MM030L.GetValue("U_OutUnit", i).ToString().Trim();
-                            DI_oPurchaseOrders.Lines.LineTotal = Convert.ToDouble(oDS_PS_MM030L.GetValue("U_LinTotal", i).ToString().Trim());
+                            //외화처리 기능 구헌(2020.04.06 송명규)_S
+                            if (oDS_PS_MM030H.GetValue("U_DocCur", 0).ToString().Trim() == "KRW")
+                            {
+                                DI_oPurchaseOrders.Lines.LineTotal = Convert.ToDouble(oDS_PS_MM030L.GetValue("U_LinTotal", i).ToString().Trim());
+                            }
+                            else
+                            {
+                                DI_oPurchaseOrders.Lines.LineTotal = Convert.ToDouble(oDS_PS_MM030L.GetValue("U_FCAmount", i).ToString().Trim());
+                            }
+                            //외화처리 기능 구헌(2020.04.06 송명규)_E
                             DI_oPurchaseOrders.Lines.ShipDate = DateTime.ParseExact(oForm.Items.Item("DueDate").Specific.Value, "yyyyMMdd", null);
+                            DI_oPurchaseOrders.Lines.VatGroup = oRecordSet01.Fields.Item("ECVatGroup").Value;
                             DI_oPurchaseOrders.Lines.UserFields.Fields.Item("U_sItemCode").Value = oDS_PS_MM030L.GetValue("U_ItemCode", i).ToString().Trim();
                             DI_oPurchaseOrders.Lines.UserFields.Fields.Item("U_sItemName").Value = oDS_PS_MM030L.GetValue("U_ItemName", i).ToString().Trim();
                             DI_oPurchaseOrders.Lines.UserFields.Fields.Item("U_sSize").Value = oDS_PS_MM030L.GetValue("U_OutSize", i).ToString().Trim();
@@ -1247,11 +1258,23 @@ namespace PSH_BOne_AddOn
                         for (i = 0; i <= oMat01.VisualRowCount - 2; i++)
                         {
                             if (i > 0)
+                            {
                                 DI_oPurchaseOrders.Lines.Add();
+                            }
                             DI_oPurchaseOrders.Lines.SetCurrentLine(i);
                             DI_oPurchaseOrders.Lines.ItemCode = oDS_PS_MM030L.GetValue("U_ItemCode", i).ToString().Trim();
                             DI_oPurchaseOrders.Lines.Quantity = Convert.ToDouble(oDS_PS_MM030L.GetValue("U_Weight", i).ToString().Trim());
-                            DI_oPurchaseOrders.Lines.UnitPrice = Convert.ToDouble(oDS_PS_MM030L.GetValue("U_Price", i).ToString().Trim());
+                            //외화처리 기능 구헌(2020.04.06 송명규)_S
+                            if (oDS_PS_MM030H.GetValue("U_DocCur", 0).ToString().Trim() == "KRW")
+                            {
+                                DI_oPurchaseOrders.Lines.Price = Convert.ToDouble(oDS_PS_MM030L.GetValue("U_Price", i).ToString().Trim());
+                                DI_oPurchaseOrders.Lines.LineTotal = Convert.ToDouble(oDS_PS_MM030L.GetValue("U_LinTotal", i).ToString().Trim());
+                            }
+                            else
+                            {
+                                DI_oPurchaseOrders.Lines.Price = Convert.ToDouble(oDS_PS_MM030L.GetValue("U_FCPrice", i).ToString().Trim());
+                                DI_oPurchaseOrders.Lines.LineTotal = Convert.ToDouble(oDS_PS_MM030L.GetValue("U_FCAmount", i).ToString().Trim());
+                            }
                             DI_oPurchaseOrders.Lines.DiscountPercent = 0;
                             DI_oPurchaseOrders.Lines.LineTotal = Convert.ToDouble(oDS_PS_MM030L.GetValue("U_LinTotal", i).ToString().Trim());
                             DI_oPurchaseOrders.Lines.WarehouseCode = oDS_PS_MM030L.GetValue("U_WhsCode", i).ToString().Trim();
@@ -1569,7 +1592,6 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@DocNum", DocNum));
 
                 formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
-
             }
             catch (Exception ex)
             {
@@ -1695,7 +1717,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
                 }
-                ProgressBar01.Text = "수량,중량, 금액합계 계산중!";
+                ProgressBar01.Text = "수량, 중량, 금액합계 계산중!";
                 PS_MM030_TotalAmount_Calculate();
                 LastPick = "";
             }
@@ -1711,8 +1733,10 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// 필수 사항 check
+        /// PS_MM030_LineDelete_Possible
         /// </summary>
+        /// <param name="pDocEntry"></param>
+        /// <param name="pLineID"></param>
         /// <returns></returns>
         private bool PS_MM030_LineDelete_Possible(string pDocEntry, string pLineID)
         {
@@ -1762,7 +1786,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// PS_MM030_etBaseForm
+        /// PS_MM030_TotalAmount_Calculate
         /// </summary>
         private void PS_MM030_TotalAmount_Calculate()
         {
@@ -1775,7 +1799,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 oMat01.FlushToDataSource();
-                for (i = 0; i < oMat01.VisualRowCount - 1; i++)
+                for (i = 0; i <= oMat01.VisualRowCount -1; i++)
                 {
                     DocTotal += Convert.ToDouble(oMat01.Columns.Item("LinTotal").Cells.Item(i + 1).Specific.Value);
                     if (string.IsNullOrEmpty(oMat01.Columns.Item("Qty").Cells.Item(i + 1).Specific.Value))
@@ -2629,7 +2653,7 @@ namespace PSH_BOne_AddOn
                     switch (pVal.MenuUID)
                     {
                         case "1284": //취소
-                            for (i = 0; i < oMat01.VisualRowCount - 1; i++)
+                            for (i = 0; i <= oMat01.VisualRowCount - 2; i++)
                             {
                                 LineNum = oMat01.Columns.Item("LineId").Cells.Item(i + 1).Specific.Value.ToString().Trim();
                                 DocNum = oForm.Items.Item("DocNum").Specific.Value.ToString().Trim();
@@ -2655,7 +2679,7 @@ namespace PSH_BOne_AddOn
                             // 부산사업장만 해당되도록 품의취소시 가입고가 남아있을경우 닫기 처리 안됨.
                             if (Convert.ToDouble(oForm.Items.Item("BPLId").Specific.Value) == 2)
                             {
-                                for (i = 0; i < oMat01.VisualRowCount - 1; i++)
+                                for (i = 0; i <= oMat01.VisualRowCount - 2; i++)
                                 {
                                     LineNum = oMat01.Columns.Item("LineId").Cells.Item(i + 1).Specific.Value.ToString().Trim();
                                     DocNum = oForm.Items.Item("DocNum").Specific.Value.ToString().Trim();
@@ -2716,7 +2740,7 @@ namespace PSH_BOne_AddOn
                         case "1293": //행삭제
                             if (oMat01.RowCount != oMat01.VisualRowCount)
                             {
-                                for (i = 0; i < oMat01.VisualRowCount - 1; i++)
+                                for (i = 0; i <= oMat01.VisualRowCount - 1; i++)
                                 {
                                     oMat01.Columns.Item("LineNum").Cells.Item(i + 1).Specific.Value = i + 1;
                                 }
@@ -2736,7 +2760,7 @@ namespace PSH_BOne_AddOn
                                 if (Convert.ToInt32(oForm.Items.Item("DocNum").Specific.Value) < 15647)
                                 {
                                     //최종구매정보
-                                    for (i = 0; i < oMat01.VisualRowCount - 1; i++)
+                                    for (i = 0; i <= oMat01.VisualRowCount - 2; i++)
                                     {
                                         sQry = "EXEC PS_MM030_03 '" + oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() + "', '" + oMat01.Columns.Item("ItemCode").Cells.Item(i + 1).Specific.Value.ToString().Trim() + "', '" + oMat01.Columns.Item("ProcCode").Cells.Item(i + 1).Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("DocNum").Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("DocDate").Specific.Value.ToString().Trim() + "'";
                                         oRecordSet01.DoQuery(sQry);

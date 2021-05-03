@@ -6147,13 +6147,15 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM030.PS_MM030_LineDelete_Possible(System.String,System.String)">
             <summary>
-            필수 사항 check
+            PS_MM030_LineDelete_Possible
             </summary>
+            <param name="pDocEntry"></param>
+            <param name="pLineID"></param>
             <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM030.PS_MM030_TotalAmount_Calculate">
             <summary>
-            PS_MM030_etBaseForm
+            PS_MM030_TotalAmount_Calculate
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM030.PS_MM030_TotalAmount_Compare">

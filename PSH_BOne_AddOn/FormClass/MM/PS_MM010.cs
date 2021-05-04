@@ -301,13 +301,13 @@ namespace PSH_BOne_AddOn
             try
             {
                 //서버IP(운영용:192.1.11.3, 테스트용:192.1.11.7)
-                //Real
-                Client = "210";
-                ServerIP = "192.1.11.3";
+                ////Real
+                //Client = "210";
+                //ServerIP = "192.1.11.3";
 
-                ////test
-                //Client = "810";
-                //ServerIP = "192.1.11.7";
+                //test
+                Client = "810";
+                ServerIP = "192.1.11.7";
 
                 //0. 연결
                 if (dataHelpClass.SAPConnection(ref rfcDest, ref rfcRep, "PSC", ServerIP, Client, "ifuser", "pdauser") == false)
@@ -1316,7 +1316,7 @@ namespace PSH_BOne_AddOn
 
                                         if (!string.IsNullOrEmpty(RFC_Sender))
                                         {
-                                            oDS_PS_MM010L.SetValue("U_E_BANFN", i, codeHelpClass.Left(RFC_Sender, RFC_Sender.IndexOf("/") - 1));
+                                            oDS_PS_MM010L.SetValue("U_E_BANFN", i, codeHelpClass.Left(RFC_Sender, RFC_Sender.IndexOf("/")));
                                             oDS_PS_MM010L.SetValue("U_E_BNFPO", i, codeHelpClass.Right(RFC_Sender, RFC_Sender.Length - RFC_Sender.IndexOf("/") - 1));
                                             oDS_PS_MM010L.SetValue("U_MESSAGE", i, "");
 

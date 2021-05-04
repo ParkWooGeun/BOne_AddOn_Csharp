@@ -10075,7 +10075,7 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SY010.PS_SY010_Initialization">
             <summary>
-            Initialization
+            PS_SY010_Initialization
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SY010.Update_PurchaseDemand(SAPbouiCOM.ItemEvent)">

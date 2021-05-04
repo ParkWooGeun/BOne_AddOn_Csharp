@@ -19,9 +19,6 @@ namespace PSH_BOne_AddOn
         private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
         private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
-
-        private string oDocEntry01;
-
         private SAPbouiCOM.BoFormMode oForm_Mode;
 
         /// <summary>
@@ -61,6 +58,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PS_SY010_CreateItems();
                 PS_SY010_ComboBox_Setting();
+                PS_SY010_Initialization();
 
                 oForm.EnableMenu(("1281"), false); //찾기
                 oForm.EnableMenu(("1282"), false); //추가
@@ -131,7 +129,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                //// 사업장
+                // 사업장
                 sQry = "SELECT BPLId, BPLName From [OBPL] order by BPLId";
                 oRecordSet01.DoQuery(sQry);
                 while (!(oRecordSet01.EoF))
@@ -140,7 +138,7 @@ namespace PSH_BOne_AddOn
                     oRecordSet01.MoveNext();
                 }
 
-                //// 모듈
+                // 모듈
                 sQry = "select distinct b.Code, a.name";
                 sQry = sQry + " from [@PS_SY005H] a inner join [@PS_SY005L] b on a.Code = b.Code and b.U_UseYN ='Y'";
                 sQry = sQry + " Where b.U_AppUser = '" + PSH_Globals.oCompany.UserName + "'";
@@ -161,7 +159,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// Initialization
+        /// PS_SY010_Initialization
         /// </summary>
         private void PS_SY010_Initialization()
         {
@@ -169,8 +167,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                ////아이디별 사업장 세팅
-                oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
+                oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue); //아이디별 사업장 세팅
             }
             catch (Exception ex)
             {
@@ -208,8 +205,9 @@ namespace PSH_BOne_AddOn
                                 sQry = "EXEC [PS_SY010_03] '" + codeValue + "','" + oForm.Items.Item("Module").Specific.VALUE + "','" + PSH_Globals.oCompany.UserSignature + "'";
                                 oRecordSet01.DoQuery(sQry);
                             }
-
                         }
+                        PSH_Globals.SBO_Application.MessageBox("수정완료");
+                        oForm.Items.Item("Btn02").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     }
                     else if (oForm.Items.Item("Module").Specific.Selected.VALUE == "S134")
                     {
@@ -223,8 +221,9 @@ namespace PSH_BOne_AddOn
                                 sQry = "EXEC [PS_SY010_03] '" + codeValue + "','" + oForm.Items.Item("Module").Specific.VALUE + "','" + PSH_Globals.oCompany.UserSignature + "'";
                                 oRecordSet01.DoQuery(sQry);
                             }
-
                         }
+                        PSH_Globals.SBO_Application.MessageBox("수정완료");
+                        oForm.Items.Item("Btn02").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     }
                     else if (oForm.Items.Item("Module").Specific.Selected.VALUE == "OCRD")
                     {
@@ -236,11 +235,9 @@ namespace PSH_BOne_AddOn
                                 sQry = "EXEC [PS_SY010_03] '" + codeValue + "','" + oForm.Items.Item("Module").Specific.VALUE + "','" + PSH_Globals.oCompany.UserSignature + "'";
                                 oRecordSet01.DoQuery(sQry);
                             }
-
                         }
-
-
-                        //UPGRADE_WARNING: oForm.Items(Module).Specific.Selected 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                        PSH_Globals.SBO_Application.MessageBox("수정완료");
+                        oForm.Items.Item("Btn02").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     }
                     else if (oForm.Items.Item("Module").Specific.Selected.VALUE == "CO800")
                     {
@@ -253,13 +250,10 @@ namespace PSH_BOne_AddOn
                                 sQry = "EXEC [PS_SY010_03] '" + codeValue + "','" + oForm.Items.Item("Module").Specific.VALUE + "','" + PSH_Globals.oCompany.UserSignature + "'";
                                 oRecordSet01.DoQuery(sQry);
                             }
-
                         }
-
                         PSH_Globals.SBO_Application.MessageBox("수정완료");
                         oForm.Items.Item("Btn02").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     }
-
                 }
                 else
                 {
@@ -326,6 +320,10 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
+            finally
+            {
+                oForm.Freeze(false);
+            }
         }
 
         /// <summary>
@@ -365,15 +363,17 @@ namespace PSH_BOne_AddOn
                             break;
 
                         case "거래처코드":
-                            oComboCol = (SAPbouiCOM.ComboBoxColumn)oGrid1.Columns.Item("거래처코드");
-                           // oComboCol.LinkedObjectType = "2";
-                            oComboCol.Editable = false;
+                            oGrid1.Columns.Item("거래처코드").Type = BoGridColumnType.gct_EditText;
+                            EditTextColumn col1 = (EditTextColumn)oGrid1.Columns.Item("거래처코드");
+                            col1.Editable = false;
+                            col1.LinkedObjectType = "2"; // Link to BusinessPartner
                             break;
 
                         case "품목코드":
-                            oComboCol = (SAPbouiCOM.ComboBoxColumn)oGrid1.Columns.Item("거래처코드");
-                            //oComboCol.LinkedObjectType = "4";
-                            oComboCol.Editable = false;
+                            oGrid1.Columns.Item("품목코드").Type = BoGridColumnType.gct_EditText;
+                            EditTextColumn col2 = (EditTextColumn)oGrid1.Columns.Item("품목코드");
+                            col2.Editable = false;
+                            col2.LinkedObjectType = "4"; // Link to BusinessPartner
                             break;
 
                         default:
@@ -382,8 +382,6 @@ namespace PSH_BOne_AddOn
                     }
 
                 }
-
-                //그리드의 필드가 존재할때만 AutoResize
                 if (oGrid1.Columns.Count > 0)
                 {
                     oGrid1.AutoResizeColumns();
@@ -634,11 +632,8 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "BPLId")
                     {
-                        oForm.Freeze(true);
                         oDS_PS_SY010H.Clear();
                         oDS_PS_SY010L.Clear();
-
-                        oForm.Freeze(false);
                     }
                     else if (pVal.ItemUID == "Grid01")
                     {

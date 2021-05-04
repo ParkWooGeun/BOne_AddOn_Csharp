@@ -116,7 +116,6 @@ namespace PSH_BOne_AddOn
                 dataHelpClass.Combo_ValidValues_Insert("PS_SY005", "Mat01", "UseYN", "N", "N");
                 dataHelpClass.Combo_ValidValues_SetValueColumn(oMat01.Columns.Item("UseYN"), "PS_SY005", "Mat01", "UseYN", false);
 
-
                 Code = oForm.Items.Item("Code").Specific.Value;
 
                 dataHelpClass.GP_MatrixRemoveMatComboList(oMat01.Columns.Item("Module"));

@@ -411,7 +411,6 @@ namespace PSH_BOne_AddOn
                     DutyAmt  = oDS_PH_PY678B.GetValue("U_ColReg09", i).Trim(); // 식대
                     DutyAmt2 = oDS_PH_PY678B.GetValue("U_ColReg10", i).Trim(); // 조식대
                     DutyGbn  = oDS_PH_PY678B.GetValue("U_ColReg05", i).Trim(); // 당직근무 형태
-
                     if (!string.IsNullOrEmpty(MSTCOD))
                     {
                         sQry = "EXEC [PH_PY678_02] '";
@@ -420,7 +419,8 @@ namespace PSH_BOne_AddOn
                         sQry += MSTCOD + "','"; // 사번
                         sQry += DutyAmt + "','"; // 식대
                         sQry += DutyAmt2 + "','"; // 조식대
-                        sQry += DutyGbn + "'"; // 당직근무형태
+                        sQry += DutyGbn + "','"; // 당직근무형태
+                        sQry += "Y'"; // 당직근무형태
 
                         RecordSet01.DoQuery(sQry);
                     }
@@ -432,12 +432,13 @@ namespace PSH_BOne_AddOn
                     if (!string.IsNullOrEmpty(MSTCOD))
                     {
                         sQry = "EXEC [PH_PY678_02] '";
-                        sQry += CLTCOD + "','";  
-                        sQry += StdDate + "','"; 
-                        sQry += MSTCOD + "','";  
-                        sQry += DutyAmt + "','"; 
-                        sQry += DutyAmt2 + "','";
-                        sQry += DutyGbn + "'";
+                        sQry += CLTCOD + "','"; // 사업장
+                        sQry += StdDate + "','"; // 기준일
+                        sQry += MSTCOD + "','"; // 사번
+                        sQry += DutyAmt + "','"; // 식대
+                        sQry += DutyAmt2 + "','"; // 조식대
+                        sQry += DutyGbn + "','"; // 당직근무형태
+                        sQry += "N'"; // 당직근무형태
 
                         RecordSet01.DoQuery(sQry);
                     }

@@ -233,6 +233,7 @@
     <Compile Include="FormClass\CO\PS_CO660.cs" />
     <Compile Include="FormClass\CO\PS_CO665.cs" />
     <Compile Include="FormClass\CO\PS_CO670.cs" />
+    <Compile Include="FormClass\OA\PS_SY010.cs" />
     <Compile Include="FormClass\OA\PS_SY005.cs" />
     <Compile Include="FormClass\OA\PS_SY001.cs" />
     <Compile Include="FormClass\OA\PS_SY002.cs" />

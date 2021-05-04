@@ -325,10 +325,6 @@ namespace PSH_BOne_AddOn.Data
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(GetType().Name + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
-            finally
-            {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(fRecordset);
-            }
         }
 
         /// <summary>

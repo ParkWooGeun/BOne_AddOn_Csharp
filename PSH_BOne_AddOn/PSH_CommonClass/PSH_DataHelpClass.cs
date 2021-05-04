@@ -306,7 +306,31 @@ namespace PSH_BOne_AddOn.Data
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(fRecordset);
             }
         }
-        
+
+        /// <summary>
+        /// 콤보박스 삭제
+        /// </summary>
+        /// <param name="fCombo"></param>
+        public void GP_MatrixRemoveMatComboList(SAPbouiCOM.Column fCombo)
+        {
+            int i = 0;
+            try
+            {
+                for (i = 1; i <= fCombo.ValidValues.Count; i++)
+                {
+                    fCombo.ValidValues.Remove(0, SAPbouiCOM.BoSearchKey.psk_Index);
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(GetType().Name + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(fRecordset);
+            }
+        }
+
         /// <summary>
         /// 화면 컨트롤 설정
         /// </summary>

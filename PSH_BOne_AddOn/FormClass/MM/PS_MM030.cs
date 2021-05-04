@@ -1848,10 +1848,10 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                DocTotal = Convert.ToDouble(oForm.Items.Item("DocTotal").Specific.Value.ToString().Trim());
-                EAmount1 = Convert.ToDouble(oForm.Items.Item("EAmount1").Specific.Value.ToString().Trim());
-                EAmount2 = Convert.ToDouble(oForm.Items.Item("EAmount2").Specific.Value.ToString().Trim());
-                EAmount3 = Convert.ToDouble(oForm.Items.Item("EAmount3").Specific.Value.ToString().Trim());
+                DocTotal = Convert.ToDouble(oForm.Items.Item("DocTotal").Specific.Value);
+                EAmount1 = Convert.ToDouble(string.IsNullOrEmpty(oForm.Items.Item("EAmount1").Specific.Value));
+                EAmount2 = Convert.ToDouble(string.IsNullOrEmpty(oForm.Items.Item("EAmount2").Specific.Value));
+                EAmount3 = Convert.ToDouble(string.IsNullOrEmpty(oForm.Items.Item("EAmount3").Specific.Value));
 
                 if (EAmount1 + EAmount2 + EAmount3 > 0)
                 {

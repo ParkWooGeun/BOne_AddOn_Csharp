@@ -10200,6 +10200,11 @@
             Combobox 설정
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_SY005.PS_SY005_ComboBox_Modual_Setting">
+            <summary>
+            PS_SY005_ComboBox_Modual_Setting 설정
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_SY005.PS_SY005_EnableMenus">
             <summary>
             EnableMenus

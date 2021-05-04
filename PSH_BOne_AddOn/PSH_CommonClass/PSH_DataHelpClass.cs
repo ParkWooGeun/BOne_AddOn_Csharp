@@ -313,12 +313,14 @@ namespace PSH_BOne_AddOn.Data
         /// <param name="fCombo"></param>
         public void GP_MatrixRemoveMatComboList(SAPbouiCOM.Column fCombo)
         {
-            int i = 0;
+            int i;
             try
             {
-                for (i = 1; i <= fCombo.ValidValues.Count; i++)
+                i = fCombo.ValidValues.Count;
+                while (fCombo.ValidValues.Count > 0)
                 {
                     fCombo.ValidValues.Remove(0, SAPbouiCOM.BoSearchKey.psk_Index);
+                    i--;
                 }
             }
             catch (Exception ex)

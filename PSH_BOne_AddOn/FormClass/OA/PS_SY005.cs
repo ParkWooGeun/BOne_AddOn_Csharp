@@ -112,22 +112,60 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                dataHelpClass.Combo_ValidValues_Insert("PS_SY005", "Mat01", "UseYN", "Y", "Y");
-                dataHelpClass.Combo_ValidValues_Insert("PS_SY005", "Mat01", "UseYN", "N", "N");
-                dataHelpClass.Combo_ValidValues_SetValueColumn(oMat01.Columns.Item("UseYN"), "PS_SY005", "Mat01", "UseYN", false);
-
-                Code = oForm.Items.Item("Code").Specific.Value;
-
-                dataHelpClass.GP_MatrixRemoveMatComboList(oMat01.Columns.Item("Module"));
-                dataHelpClass.GP_MatrixSetMatComboList(oMat01.Columns.Item("Module"), "select b.U_Minor as code ,b.U_CdName as name from [@PS_SY001H] a inner join [@PS_SY001L] b on a.Code = b.Code where 1=1 and U_RelCd ='Module' and a.code = '" + Code + "' order by b.U_Seq", "" ,"");
-
-                dataHelpClass.GP_MatrixRemoveMatComboList(oMat01.Columns.Item("Power"));
-                dataHelpClass.GP_MatrixSetMatComboList(oMat01.Columns.Item("Power"), "select b.U_Minor as code,b.U_CdName as name from [@PS_SY001H] a inner join [@PS_SY001L] b on a.Code = b.Code where 1=1 and U_RelCd ='Power' and a.code = '" + Code + "' order by b.U_Seq", "", "");
-
+                oMat01.Columns.Item("UseYN").ValidValues.Add("Y", "사용함");
+                oMat01.Columns.Item("UseYN").ValidValues.Add("N", "사용안함");
             }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// PS_SY005_ComboBox_Modual_Setting 설정
+        /// </summary>
+        private void PS_SY005_ComboBox_Modual_Setting()
+        {
+            string Code;
+            string sQry;
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                Code = oForm.Items.Item("Code").Specific.Value;
+                sQry = "select Count(*) from [@PS_SY001L] where code = '" + Code + "'";
+                oRecordSet01.DoQuery(sQry);
+                if (oRecordSet01.RecordCount > 0)
+                {
+                    dataHelpClass.GP_MatrixRemoveMatComboList(oMat01.Columns.Item("Module")); //모듈
+                    dataHelpClass.GP_MatrixRemoveMatComboList(oMat01.Columns.Item("Power")); //권한
+                    //모듈
+                    sQry = "select b.U_Minor as code ,b.U_CdName as name from [@PS_SY001H] a inner join [@PS_SY001L] b on a.Code = b.Code where 1=1 and U_RelCd ='Module' and a.code = '" + Code + "' order by b.U_Seq";
+                    oRecordSet01.DoQuery(sQry);
+                    while (!(oRecordSet01.EoF))
+                    {
+                        oMat01.Columns.Item("Module").ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
+                        oRecordSet01.MoveNext();
+                    }
+                    
+                    sQry = "select b.U_Minor as code,b.U_CdName as name from [@PS_SY001H] a inner join [@PS_SY001L] b on a.Code = b.Code where 1=1 and U_RelCd ='Power' and a.code = '" + Code + "' order by b.U_Seq";
+                    oRecordSet01.DoQuery(sQry);
+                    while (!(oRecordSet01.EoF))
+                    {
+                        oMat01.Columns.Item("Power").ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
+                        oRecordSet01.MoveNext();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
         }
 
@@ -856,7 +894,7 @@ namespace PSH_BOne_AddOn
                             oForm.Freeze(true);
                             oMat01.AutoResizeColumns();
                             PS_SY005_FormItemEnabled();
-                            PS_SY005_ComboBox_Setting();
+                            PS_SY005_ComboBox_Modual_Setting();
                             oForm.Freeze(false);
                             break;
                         case "1287": //복제

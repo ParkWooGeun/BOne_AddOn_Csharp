@@ -218,11 +218,11 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    oForm.Items.Item("DocDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd"); //Microsoft.VisualBasic.Compatibility.VB6.Support.Format(DateAndTime.Today, "YYYYMMDD");
-                    oForm.Items.Item("SDocDateF").Specific.Value = DateTime.Now.ToString("yyyyMMdd"); //Microsoft.VisualBasic.Compatibility.VB6.Support.Format(DateAndTime.Today, "YYYYMMDD");
+                    oForm.Items.Item("DocDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
+                    oForm.Items.Item("SDocDateF").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
                 }
 
-                oForm.Items.Item("SDocDateT").Specific.Value = DateTime.Now.ToString("yyyyMMdd"); //Microsoft.VisualBasic.Compatibility.VB6.Support.Format(DateAndTime.Today, "YYYYMMDD");
+                oForm.Items.Item("SDocDateT").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
                 oForm.Items.Item("DocDate").Click();
             }
             catch (Exception ex)
@@ -1618,7 +1618,6 @@ namespace PSH_BOne_AddOn
             {
             }
         }
-
 
         /// <summary>
         /// MATRIX_LOAD 이벤트

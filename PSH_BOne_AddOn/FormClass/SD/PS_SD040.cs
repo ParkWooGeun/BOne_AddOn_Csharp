@@ -1676,7 +1676,7 @@ namespace PSH_BOne_AddOn
                         {
                             if (oForm.Items.Item("Opt03").Specific.Selected == true)
                             {
-                                if (itemInfoList[i - 1].ODLNNum != itemInfoList[i].ODLNNum && itemInfoList[i - 1].DLN1Num != itemInfoList[i].DLN1Num) ////배치번호일때
+                                if (itemInfoList[i - 1].ODLNNum != itemInfoList[i].ODLNNum && itemInfoList[i - 1].DLN1Num != itemInfoList[i].DLN1Num) //배치번호일때
                                 {
                                     oDIObject.Lines.Add();
                                 }

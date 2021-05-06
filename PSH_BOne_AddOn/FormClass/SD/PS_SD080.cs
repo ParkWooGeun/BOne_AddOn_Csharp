@@ -92,6 +92,7 @@ namespace PSH_BOne_AddOn
 
                 //메트릭스 개체 할당
                 oMat01 = oForm.Items.Item("Mat01").Specific;
+                oMat01.AutoResizeColumns();
 
                 oDS_PS_SD080H.SetValue("U_DocDate", 0, DateTime.Now.ToString("yyyyMMdd"));
             }
@@ -823,6 +824,8 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 oForm.Freeze(true);
@@ -878,7 +881,7 @@ namespace PSH_BOne_AddOn
                         case "1282": //추가
                             PS_SD080_EnableFormItem();
                             PS_SD080_ClearForm();
-                            oForm.Items.Item("BPLId").Specific.Select("4", SAPbouiCOM.BoSearchKey.psk_ByValue);
+                            oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
                             oDS_PS_SD080H.SetValue("U_DocDate", 0, DateTime.Now.ToString("yyyyMMdd"));
                             oDS_PS_SD080H.SetValue("U_OKYN", 0, "N");
                             break;

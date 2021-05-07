@@ -25599,6 +25599,95 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
+        <member name="T:PSH_BOne_AddOn.PS_SD010">
+            <summary>
+            생산요청
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD010.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFormDocEntry"></param>		
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD010.PS_SD010_CreateItems">
+            <summary>
+            화면 Item 생성
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD010.PS_SD010_SetComboBox">
+            <summary>
+            Combobox 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD010.PS_SD010_Initialize">
+            <summary>
+            화면 초기화
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD010.PS_SD010_SetRadioButton">
+            <summary>
+            Radio Button 초기화
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD010.PS_SD010_AddMatrixRow(System.Int32,System.Boolean)">
+            <summary>
+            매트릭스 행 추가
+            </summary>
+            <param name="oRow"></param>
+            <param name="RowIserted"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD010.PS_SD010_LoadCaption">
+            <summary>
+            메인버튼 캡션 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD010.PS_SD010_EnableFormItem">
+            <summary>
+            각모드에따른 아이템설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD010.PS_SD010_FlushToItemValue(System.String,System.Int32,System.String)">
+            <summary>
+            FlushToItemValue(사용자의 Event에 따른 화면 Item의 유동적인 세팅)
+            </summary>
+            <param name="oUID"></param>
+            <param name="oRow"></param>
+            <param name="oCol"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD010.PS_SD010_AddData">
+            <summary>
+            데이터 INSERT, UPDATE(기존 데이터가 존재하면 UPDATE, 아니면 INSERT)
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD010.PS_SD010_LoadData">
+            <summary>
+            데이터 조회
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD010.PS_SD010_CheckDate">
+            <summary>
+            선행프로세스와 일자 비교(구현만 하고 사용은 안함)
+            </summary>
+            <returns>true-선행프로세스보다 일자가 같거나 느릴 경우, false-선행프로세스보다 일자가 빠를 경우</returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD010.PS_SD010_DeleteHeaderSpaceLine">
+            <summary>
+            필수입력사항 체크(헤더)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD010.PS_SD010_DeleteMatrixSpaceLine">
+            <summary>
+            필수입력사항 체크(라인)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD010.PS_SD010_Print_Report01">
+            <summary>
+            리포트 출력
+            </summary>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_SD012">
             <summary>
             파카 라벨 출력

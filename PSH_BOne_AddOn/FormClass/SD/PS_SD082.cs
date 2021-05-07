@@ -174,7 +174,6 @@ namespace PSH_BOne_AddOn
             string errMessage = string.Empty;
             SAPbouiCOM.ProgressBar ProgBar01 = null;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
             {
@@ -196,7 +195,7 @@ namespace PSH_BOne_AddOn
                 sQry += okYN + "','";
                 sQry += docNum + "','";
                 sQry += "01','"; //01 : 프로시저에서 Mat01용 SELECT로 분기
-                sQry += PSH_Globals.oCompany.UserSignature + "'"; //접속자 ID
+                sQry += PSH_Globals.oCompany.UserName + "'"; //접속자 ID
                 oRecordSet01.DoQuery(sQry);
 
                 oMat01.Clear();

@@ -11816,7 +11816,7 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD083.PS_SD083_ClearForm">
             <summary>
-            DocNum 초기화
+            DocEntry 초기화
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD083.PS_SD083_SetDocument(System.String)">

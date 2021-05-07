@@ -238,6 +238,8 @@ namespace PSH_BOne_AddOn
         {
             try
             {
+                oForm.Freeze(true);
+
                 if (RowIserted == false)
                 {
                     oDS_PS_SD083L.InsertRecord(oRow);
@@ -250,6 +252,10 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                oForm.Freeze(false);
             }
         }
 
@@ -499,10 +505,10 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
             try
             {
+                oForm.Freeze(true);
+
                 if (pVal.BeforeAction == true)
                 {
                     if (pVal.ItemUID == "1")
@@ -529,15 +535,30 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "1")
                     {
-                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE && pVal.ActionSuccess == true)
+                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                         {
-                            PS_SD083_EnableFormItem();
-                            oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
-                            PSH_Globals.SBO_Application.ActivateMenuItem("1282");
+                            if (pVal.ActionSuccess == true)
+                            {
+                                PS_SD083_EnableFormItem();
+                                oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
+                                PSH_Globals.SBO_Application.ActivateMenuItem("1291");
+                            }
                         }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE && pVal.ActionSuccess == true)
+                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {
-                            PS_SD083_EnableFormItem();
+                            if (pVal.ActionSuccess == true)
+                            {
+                                PS_SD083_EnableFormItem();
+                                PS_SD083_AddMatrixRow(oMat01.RowCount, false);
+                            }
+                        }
+                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
+                        {
+                            if (pVal.ActionSuccess == true)
+                            {
+                                PS_SD083_EnableFormItem();
+                                PS_SD083_AddMatrixRow(oMat01.RowCount, false);
+                            }
                         }
                     }
                 }
@@ -548,6 +569,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                oForm.Freeze(false);
             }
         }
 
@@ -834,7 +856,6 @@ namespace PSH_BOne_AddOn
                             break;
                         case "1281": //찾기
                             PS_SD083_EnableFormItem();
-                            oForm.Items.Item("DocEntry").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             break;
                         case "1282": //추가
                             PS_SD083_EnableFormItem();
@@ -848,6 +869,7 @@ namespace PSH_BOne_AddOn
                         case "1290":
                         case "1291": //레코드이동버튼
                             PS_SD083_EnableFormItem();
+                            PS_SD083_AddMatrixRow(oMat01.RowCount, false);
                             break;
                     }
                 }

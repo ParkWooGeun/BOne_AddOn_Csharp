@@ -420,7 +420,7 @@ namespace PSH_BOne_AddOn
                         sQry += DutyAmt + "','"; // 식대
                         sQry += DutyAmt2 + "','"; // 조식대
                         sQry += DutyGbn + "','"; // 당직근무형태
-                        sQry += "Y'"; // 당직근무형태
+                        sQry += "Y'"; // 식대포함여부
 
                         RecordSet01.DoQuery(sQry);
                     }
@@ -438,7 +438,7 @@ namespace PSH_BOne_AddOn
                         sQry += DutyAmt + "','"; // 식대
                         sQry += DutyAmt2 + "','"; // 조식대
                         sQry += DutyGbn + "','"; // 당직근무형태
-                        sQry += "N'"; // 당직근무형태
+                        sQry += "N'"; // 식대포함여부
 
                         RecordSet01.DoQuery(sQry);
                     }

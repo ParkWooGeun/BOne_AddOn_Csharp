@@ -1,5 +1,4 @@
 ﻿using System;
-
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 
@@ -179,13 +178,13 @@ namespace PSH_BOne_AddOn
         /// Update_PurchaseDemand
         /// </summary>
         /// <returns></returns>
-        private bool Update_PurchaseDemand(SAPbouiCOM.ItemEvent pVal)
+        private bool PS_SY010_Update_PurchaseDemand(SAPbouiCOM.ItemEvent pVal)
         {
             bool functionReturnValue = false;
             string errMessage = string.Empty;
-            short i = 0;
-            string sQry = null;
-            string codeValue = null;
+            short i ;
+            string sQry;
+            string codeValue;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -277,15 +276,13 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// LoadData
         /// </summary>
-        private void LoadData()
+        private void PS_SY010_LoadData()
         {
-            short i = 0;
-            string sQry = null;
-            string Module_Renamed = null;
-            string DocDateFr = null;
-            string DocDateTo = null;
-
-            int iRow = 0;
+            int iRow;
+            string sQry;
+            string Module_Renamed;
+            string DocDateFr;
+            string DocDateTo;
             string errMessage = string.Empty;
 
             try
@@ -307,7 +304,7 @@ namespace PSH_BOne_AddOn
 
                 iRow = oForm.DataSources.DataTables.Item(0).Rows.Count;
 
-                TitleSetting(iRow);
+                PS_SY010_TitleSetting(iRow);
             }
             catch (Exception ex)
             {
@@ -329,28 +326,20 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// EnableMenus
         /// </summary>
-        private void TitleSetting(int iRow)
+        private void PS_SY010_TitleSetting(int iRow)
         {
-            int i = 0;
-            int j = 0;
-            string sQry = null;
-            int ColumnCnt = 0;
-
-            string BPLId = null;
+            int i;
             SAPbouiCOM.ComboBoxColumn oComboCol = null;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
             {
                 oForm.Freeze(true);
-
-                //UBound(COLNAM)
                 for (i = 0; i < oGrid1.DataTable.Columns.Count - 1; i++)
                 {
 
                     switch (oGrid1.Columns.Item(i).TitleObject.Caption)
                     {
-                        //COLNAM(i)
                         case "OKYN":
                             oGrid1.Columns.Item("OKYN").Editable = true;
                             oGrid1.Columns.Item(i).Type = SAPbouiCOM.BoGridColumnType.gct_ComboBox; 
@@ -373,7 +362,7 @@ namespace PSH_BOne_AddOn
                             oGrid1.Columns.Item("품목코드").Type = BoGridColumnType.gct_EditText;
                             EditTextColumn col2 = (EditTextColumn)oGrid1.Columns.Item("품목코드");
                             col2.Editable = false;
-                            col2.LinkedObjectType = "4"; // Link to BusinessPartner
+                            col2.LinkedObjectType = "4"; // Link to ItemMaster
                             break;
 
                         default:
@@ -400,7 +389,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// LoadCaption
         /// </summary>
-        private void LoadCaption()
+        private void PS_SY010_LoadCaption()
         {
             try
             {
@@ -543,14 +532,14 @@ namespace PSH_BOne_AddOn
                     {
                         if (oForm_Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {
-                            if (Update_PurchaseDemand(pVal) == false)
+                            if (PS_SY010_Update_PurchaseDemand(pVal) == false)
                             {
                                 BubbleEvent = false;
                                 return;
                             }
 
                             oForm_Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
-                            LoadCaption();
+                            PS_SY010_LoadCaption();
                         }
                         else if (oForm_Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                         {
@@ -560,10 +549,10 @@ namespace PSH_BOne_AddOn
                     else if (pVal.ItemUID == "Btn02")
                     {
                         oDS_PS_SY010L.Clear();
-                        LoadData();
+                        PS_SY010_LoadData();
 
                         oForm_Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
-                        LoadCaption();
+                        PS_SY010_LoadCaption();
                     }
                 }
                 else if (pVal.BeforeAction == false)
@@ -573,9 +562,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-            }
-            finally
-            {
             }
         }
 
@@ -609,9 +595,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
-            finally
-            {
-            }
         }
 
         /// <summary>
@@ -638,7 +621,7 @@ namespace PSH_BOne_AddOn
                     else if (pVal.ItemUID == "Grid01")
                     {
                         oForm_Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
-                        LoadCaption();
+                        PS_SY010_LoadCaption();
                     }
                 }
             }
@@ -671,7 +654,7 @@ namespace PSH_BOne_AddOn
                         if (pVal.ItemUID == "Grid01")
                         {
                             oForm_Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
-                            LoadCaption();
+                            PS_SY010_LoadCaption();
                         }
                     }
                 }
@@ -680,9 +663,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 BubbleEvent = false;
-            }
-            finally
-            {
             }
         }
 
@@ -714,9 +694,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-            }
-            finally
-            {
             }
         }
 
@@ -764,9 +741,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-            }
-            finally
-            {
             }
         }
 
@@ -878,9 +852,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
-            finally
-            {
-            }
         }
 
         /// <summary>
@@ -920,9 +891,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-            }
-            finally
-            {
             }
         }
     }

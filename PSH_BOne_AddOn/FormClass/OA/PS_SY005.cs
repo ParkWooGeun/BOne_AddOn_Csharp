@@ -107,9 +107,6 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PS_SY005_ComboBox_Setting()
         {
-            string Code;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
             try
             {
                 oMat01.Columns.Item("UseYN").ValidValues.Add("Y", "사용함");
@@ -204,7 +201,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
+                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
                     //각모드에따른 아이템설정
                     oForm.Items.Item("Code").Enabled = true;
@@ -214,7 +211,7 @@ namespace PSH_BOne_AddOn
                     oForm.EnableMenu("1282", false); //추가
 
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
                     //각모드에따른 아이템설정
                     oForm.Items.Item("Code").Specific.Value = "";
@@ -224,7 +221,7 @@ namespace PSH_BOne_AddOn
                     oForm.EnableMenu("1282", true); //추가`
 
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
                     //각모드에따른 아이템설정
                     oForm.Items.Item("Code").Enabled = false;
@@ -242,7 +239,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// 
+        /// PS_SY005_AddMatrixRow
         /// </summary>
         /// <param name="oRow">행 번호</param>
         /// <param name="RowIserted">행 추가 여부</param>
@@ -253,7 +250,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true); 
                 if (RowIserted == false)//행추가여부
                 {
-                    oDS_PS_SY005L.InsertRecord((oRow));
+                    oDS_PS_SY005L.InsertRecord(oRow);
                 }
                 oMat01.AddRow();
                 oDS_PS_SY005L.Offset = oRow;
@@ -311,14 +308,14 @@ namespace PSH_BOne_AddOn
                 {
                     if (i != 0)
                     {
-                        oDS_PS_SY005L.InsertRecord((i));
+                        oDS_PS_SY005L.InsertRecord(i);
                     }
                     oDS_PS_SY005L.Offset = i;
                     oDS_PS_SY005L.SetValue("U_COL01", i, oRecordSet01.Fields.Item(0).Value);
                     oDS_PS_SY005L.SetValue("U_COL02", i, oRecordSet01.Fields.Item(1).Value);
                     oRecordSet01.MoveNext();
 
-                    ProgressBar01.Value = ProgressBar01.Value + 1;
+                    ProgressBar01.Value += 1;
                     ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
                 oMat01.LoadFromDataSource();
@@ -384,7 +381,7 @@ namespace PSH_BOne_AddOn
             string errMessage = string.Empty;
             try
             {
-                if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
+                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
                     PS_SY005_FormClear();
                 }
@@ -400,7 +397,7 @@ namespace PSH_BOne_AddOn
                 }
                 for (i = 1; i <= oMat01.VisualRowCount - 1; i++)
                 {
-                    if ((string.IsNullOrEmpty(oMat01.Columns.Item("USERID").Cells.Item(i).Specific.Value)))
+                    if (string.IsNullOrEmpty(oMat01.Columns.Item("USERID").Cells.Item(i).Specific.Value))
                     {
                         errMessage = "USERID는 필수입니다.";
                         throw new Exception();
@@ -418,7 +415,6 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-
                 if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
@@ -427,9 +423,6 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
-            }
-            finally
-            {
             }
             return functionReturnValue;
         }
@@ -612,9 +605,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
-            finally
-            {
-            }
         }
 
         /// <summary>
@@ -647,9 +637,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
-            finally
-            {
-            }
         }
 
         /// <summary>
@@ -668,7 +655,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemChanged == true)
                     {
-                        if ((pVal.ItemUID == "Mat01"))
+                        if (pVal.ItemUID == "Mat01")
                         {
                             if (pVal.ColUID == "USERID")
                             {
@@ -704,9 +691,6 @@ namespace PSH_BOne_AddOn
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 BubbleEvent = false;
             }
-            finally
-            {
-            }
         }
 
         /// <summary>
@@ -732,9 +716,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
-            finally
-            {
-            }
         }
 
         /// <summary>
@@ -758,15 +739,11 @@ namespace PSH_BOne_AddOn
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_SY005H);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_SY005L);
-
                 }
             }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-            }
-            finally
-            {
             }
         }
 
@@ -815,9 +792,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
-            finally
-            {
-            }
         }
 
         /// <summary>
@@ -832,7 +806,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 if (pVal.BeforeAction == true)
                 {
                     switch (pVal.MenuUID)
@@ -885,7 +858,6 @@ namespace PSH_BOne_AddOn
                             oForm.Freeze(false);
                             break;
                         case "1287": //복제
-                            oForm.Freeze(true);
                             PS_SY005_FormClear();
                             for (i = 0; i <= oMat01.VisualRowCount - 1; i++)
                             {
@@ -893,7 +865,6 @@ namespace PSH_BOne_AddOn
                                 oDS_PS_SY005L.SetValue("Code", i, "");
                                 oMat01.LoadFromDataSource();
                             }
-                            oForm.Freeze(false);
                             break;
                     }
                 }
@@ -951,9 +922,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
-            finally
-            {
-            }
         }
 
         /// <summary>
@@ -993,9 +961,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-            }
-            finally
-            {
             }
         }
     }

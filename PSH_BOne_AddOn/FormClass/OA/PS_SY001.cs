@@ -174,6 +174,7 @@ namespace PSH_BOne_AddOn
         {
             try
             {
+                oForm.Freeze(true);
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
                     //각모드에따른 아이템설정
@@ -533,9 +534,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
-            finally
-            {
-            }
         }
 
         /// <summary>
@@ -567,9 +565,6 @@ namespace PSH_BOne_AddOn
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 BubbleEvent = false;
             }
-            finally
-            {
-            }
         }
 
         /// <summary>
@@ -594,9 +589,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-            }
-            finally
-            {
             }
         }
 
@@ -638,10 +630,10 @@ namespace PSH_BOne_AddOn
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
             int i;
+
             try
             {
                 oForm.Freeze(true);
-
                 if (pVal.BeforeAction == true)
                 {
                     switch (pVal.MenuUID)
@@ -721,7 +713,6 @@ namespace PSH_BOne_AddOn
                             break;
                         case "1287":
                             //복제
-                            oForm.Freeze(true);
                             oDS_PS_SY001H.SetValue("Code", 0, "");
                             oDS_PS_SY001H.SetValue("Name", 0, "");
                             oDS_PS_SY001H.SetValue("U_Major", 0, "");
@@ -734,7 +725,6 @@ namespace PSH_BOne_AddOn
                                 oDS_PS_SY001L.SetValue("Code", i, "");
                                 oMat01.LoadFromDataSource();
                             }
-                            oForm.Freeze(false);
                             break;
                     }
                 }
@@ -792,9 +782,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
-            finally
-            {
-            }
         }
 
         /// <summary>
@@ -834,9 +821,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-            }
-            finally
-            {
             }
         }
     }

@@ -142,21 +142,8 @@ namespace PSH_BOne_AddOn
                     dataHelpClass.GP_MatrixRemoveMatComboList(oMat01.Columns.Item("Module")); //모듈
                     dataHelpClass.GP_MatrixRemoveMatComboList(oMat01.Columns.Item("Power")); //권한
                     //모듈
-                    sQry = "select b.U_Minor as code ,b.U_CdName as name from [@PS_SY001H] a inner join [@PS_SY001L] b on a.Code = b.Code where 1=1 and U_RelCd ='Module' and a.code = '" + Code + "' order by b.U_Seq";
-                    oRecordSet01.DoQuery(sQry);
-                    while (!(oRecordSet01.EoF))
-                    {
-                        oMat01.Columns.Item("Module").ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
-                        oRecordSet01.MoveNext();
-                    }
-                    
-                    sQry = "select b.U_Minor as code,b.U_CdName as name from [@PS_SY001H] a inner join [@PS_SY001L] b on a.Code = b.Code where 1=1 and U_RelCd ='Power' and a.code = '" + Code + "' order by b.U_Seq";
-                    oRecordSet01.DoQuery(sQry);
-                    while (!(oRecordSet01.EoF))
-                    {
-                        oMat01.Columns.Item("Power").ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
-                        oRecordSet01.MoveNext();
-                    }
+                    dataHelpClass.GP_MatrixSetMatComboList(oMat01.Columns.Item("Module"), "select b.U_Minor as code ,b.U_CdName as name from [@PS_SY001H] a inner join [@PS_SY001L] b on a.Code = b.Code where 1=1 and U_RelCd ='Module' and a.code = '" + Code + "' order by b.U_Seq", "", "");
+                    dataHelpClass.GP_MatrixSetMatComboList(oMat01.Columns.Item("Power"), "select b.U_Minor as code,b.U_CdName as name from [@PS_SY001H] a inner join [@PS_SY001L] b on a.Code = b.Code where 1=1 and U_RelCd ='Power' and a.code = '" + Code + "' order by b.U_Seq", "", "");
                 }
             }
             catch (Exception ex)

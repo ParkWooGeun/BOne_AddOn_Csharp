@@ -351,6 +351,8 @@ namespace PSH_BOne_AddOn
             string sQry;
             string DocNum;
             string OkDate;
+            string mstCode; //사번
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -364,10 +366,13 @@ namespace PSH_BOne_AddOn
                     if (oDS_PS_SD082L.GetValue("U_ColReg01", i).ToString().Trim() == "Y")
                     {
                         DocNum = oDS_PS_SD082L.GetValue("U_ColReg02", i).ToString().Trim();
+                        mstCode = dataHelpClass.User_MSTCOD();
 
                         sQry = "  UPDATE    [@PS_SD080H] ";
                         sQry += " SET       U_OkYN = 'Y', ";
-                        sQry += "           U_OkDate = '" + OkDate + "'";
+                        sQry += "           U_OkDate = '" + OkDate + "',";
+                        sQry += "           U_AppCode = '" + mstCode + "',"; //승인자(사번)
+                        sQry += "           U_AppName = '" + dataHelpClass.GetValue("Select lastName + firstName From OHEM Where U_MSTCOD = '" + mstCode + "'", 0, 1) + "'"; //승인자(성명)
                         sQry += " WHERE     DocNum = '" + DocNum + "'";
 
                         RecordSet01.DoQuery(sQry);

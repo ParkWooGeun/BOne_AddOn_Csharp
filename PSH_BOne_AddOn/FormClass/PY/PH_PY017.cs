@@ -1007,7 +1007,7 @@ namespace PSH_BOne_AddOn
                             }
                             else
                             {
-                                PSH_Globals.SBO_Application.MessageBox("급상여분개처리(급,상여) 취소후 자료 제거하세요");
+                                PSH_Globals.SBO_Application.MessageBox("급상여분개처리화면에 급여(정기) 분개처리시 삭제하실 수 없습니다. 분개취소 후 삭제하세요.");
                                 BubbleEvent = false;
                                 return;
                             }

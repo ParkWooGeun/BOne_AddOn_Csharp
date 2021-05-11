@@ -12,8 +12,8 @@ namespace PSH_BOne_AddOn
 	/// </summary>
 	internal class PS_SD091 : PSH_BaseClass
 	{
-		public string oFormUniqueID;
-		public SAPbouiCOM.Matrix oMat01;
+		private string oFormUniqueID;
+		private SAPbouiCOM.Matrix oMat01;
 		private SAPbouiCOM.DBDataSource oDS_PS_SD091H; //등록헤더
 		private SAPbouiCOM.DBDataSource oDS_PS_SD091L; //등록라인
 		private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
@@ -298,16 +298,22 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PS_SD091_EnableFormItem()
         {
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
+                oForm.Freeze(true);
+
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
-                    PS_SD091_SetDocEntry();
                     oForm.EnableMenu("1281", true); //찾기
                     oForm.EnableMenu("1282", false); //추가
                     oForm.EnableMenu("1293", true);
+                    oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
+                    oForm.Items.Item("CntcCode").Specific.Value = dataHelpClass.User_MSTCOD();
                     oForm.Items.Item("DocEntry").Enabled = false;
                     oForm.Items.Item("Btn01").Enabled = false;
+                    PS_SD091_SetDocEntry();
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
@@ -325,10 +331,16 @@ namespace PSH_BOne_AddOn
                     oForm.EnableMenu("1293", false);
                     oForm.Items.Item("Btn01").Enabled = true;
                 }
+
+                oMat01.AutoResizeColumns();
             }
             catch(Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                oForm.Freeze(false);
             }
         }
 
@@ -552,7 +564,7 @@ namespace PSH_BOne_AddOn
                     Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
                     break;
                 case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
-                    //Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                    Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
                 case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD: //12
                     //Raise_EVENT_DATASOURCE_LOAD(FormUID, ref pVal, ref BubbleEvent);
@@ -689,9 +701,8 @@ namespace PSH_BOne_AddOn
                     {
                         if (string.IsNullOrEmpty(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value))
                         {
-                            // TODO : PS_SM020 구현확인
-                            //PS_SM020 tempForm = new PS_SM020(); 
-                            //tempForm.LoadForm(oForm, pVal.ItemUID, pVal.ColUID, pVal.Row);
+                            PS_SM020 tempForm = new PS_SM020();
+                            tempForm.LoadForm(oForm, pVal.ItemUID, pVal.ColUID, pVal.Row);
                             PS_SD091_AddMatrixRow(0, true);
                             BubbleEvent = false;
                         }
@@ -1013,6 +1024,34 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
+        /// MATRIX_LOAD 이벤트
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_MATRIX_LOAD(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            try
+            {
+                if (pVal.Before_Action == true)
+                {
+                }
+                else if (pVal.Before_Action == false)
+                {
+                    PS_SD091_EnableFormItem();
+                    PS_SD091_AddMatrixRow(oMat01.VisualRowCount, false);
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
+        }
+
+        /// <summary>
         /// FORM_UNLOAD 이벤트
         /// </summary>
         /// <param name="FormUID">Form UID</param>
@@ -1224,7 +1263,7 @@ namespace PSH_BOne_AddOn
                         case "1289":
                         case "1290":
                         case "1291": //레코드이동버튼
-                            PS_SD091_EnableFormItem();
+                            //PS_SD091_EnableFormItem();
                             break;
                     }
                 }

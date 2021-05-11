@@ -12,8 +12,8 @@ namespace PSH_BOne_AddOn
 	/// </summary>
 	internal class PS_SD010 : PSH_BaseClass
 	{
-		public string oFormUniqueID;
-		public SAPbouiCOM.Matrix oMat01;
+		private string oFormUniqueID;
+		private SAPbouiCOM.Matrix oMat01;
 		private SAPbouiCOM.DBDataSource oDS_PS_SD010H; //등록헤더
 		private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
 		private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값

@@ -97,10 +97,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
-            finally
-            {
-                oForm.Freeze(false);
-            }
         }
 
         /// <summary>
@@ -155,6 +151,7 @@ namespace PSH_BOne_AddOn
         private void PH_PY017_FormItemEnabled()
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 oForm.Freeze(true);
@@ -203,20 +200,17 @@ namespace PSH_BOne_AddOn
             string sQry;
             string CLTCOD;
             string YM;
-
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
             try
             {
+                oForm.Freeze(true);
                 oForm = PSH_Globals.SBO_Application.Forms.ActiveForm;
-
                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                 YM = oForm.Items.Item("YM").Specific.Value;
-
-                oForm.Freeze(true);
-
+                
                 sQry = "EXEC [PH_PY017_01] '" + CLTCOD + "', '" + YM + "'";
                 oRecordSet.DoQuery(sQry);
 
@@ -240,7 +234,6 @@ namespace PSH_BOne_AddOn
                     oMat1.AddRow();
                     oDS_PH_PY017B.Offset = i;
                     oDS_PH_PY017B.SetValue("U_LineNum", i, Convert.ToString(i + 1));
-
                     oDS_PH_PY017B.SetValue("U_MSTCOD", i, oRecordSet.Fields.Item("MSTCOD").Value.ToString().Trim());
                     oDS_PH_PY017B.SetValue("U_MSTNAM", i, oRecordSet.Fields.Item("FullName").Value.ToString().Trim());
                     oDS_PH_PY017B.SetValue("U_TeamCode", i, oRecordSet.Fields.Item("TeamCode").Value.ToString().Trim());
@@ -292,9 +285,7 @@ namespace PSH_BOne_AddOn
                 }
                 oMat1.LoadFromDataSource();
                 oMat1.AutoResizeColumns();
-
                 PH_PY017_AddMatrixRow();
-
             }
             catch (Exception ex)
             {
@@ -307,7 +298,6 @@ namespace PSH_BOne_AddOn
                     ProgressBar01.Stop();
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
                 }
-
                 oForm.Update();
                 oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
@@ -356,10 +346,6 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
             }
-            finally
-            {
-            }
-
             return functionReturnValue;
         }
 
@@ -428,7 +414,6 @@ namespace PSH_BOne_AddOn
                         oDS_PH_PY017B.SetValue("U_EtcDAY7", oRow, "0");
                         oDS_PH_PY017B.SetValue("U_EtcDAY8", oRow, "0");
                         oDS_PH_PY017B.SetValue("U_EtcDAY9", oRow, "0");
-
                         oMat1.LoadFromDataSource();
                     }
                     else
@@ -477,9 +462,7 @@ namespace PSH_BOne_AddOn
                         oDS_PH_PY017B.SetValue("U_EtcDAY7", oRow, "0");
                         oDS_PH_PY017B.SetValue("U_EtcDAY8", oRow, "0");
                         oDS_PH_PY017B.SetValue("U_EtcDAY9", oRow, "0");
-
                         oMat1.LoadFromDataSource();
-
                     }
                 }
                 else if (oMat1.VisualRowCount == 0)
@@ -528,7 +511,6 @@ namespace PSH_BOne_AddOn
                     oDS_PH_PY017B.SetValue("U_EtcDAY7", oRow, "0");
                     oDS_PH_PY017B.SetValue("U_EtcDAY8", oRow, "0");
                     oDS_PH_PY017B.SetValue("U_EtcDAY9", oRow, "0");
-
                     oMat1.LoadFromDataSource();
                 }
             }
@@ -562,17 +544,13 @@ namespace PSH_BOne_AddOn
                 }
                 if (ValidateType == "수정")
                 {
-
                 }
                 else if (ValidateType == "행삭제")
                 {
-
                 }
                 else if (ValidateType == "취소")
                 {
-
                 }
-
                 functionReturnValue = true;
             }
             catch (Exception ex)
@@ -586,10 +564,6 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
             }
-            finally
-            {
-            }
-
             return functionReturnValue;
         }
 
@@ -752,9 +726,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
-            finally
-            {
-            }
         }
 
         /// <summary>
@@ -773,7 +744,6 @@ namespace PSH_BOne_AddOn
                 else if (pVal.BeforeAction == false)
                 {
                     oMat1.LoadFromDataSource();
-
                     PH_PY017_FormItemEnabled();
                     PH_PY017_AddMatrixRow();
                 }
@@ -781,9 +751,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
             }
         }
 
@@ -866,15 +833,11 @@ namespace PSH_BOne_AddOn
                 }
                 else if (pVal.BeforeAction == false)
                 {
-
                 }
             }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
             }
         }
         
@@ -904,9 +867,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
-            finally
-            {
-            }
         }
 
         /// <summary>
@@ -928,7 +888,6 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.BeforeAction == true)
                     {
-
                     }
                     else if (pVal.BeforeAction == false)
                     {
@@ -948,12 +907,10 @@ namespace PSH_BOne_AddOn
                                     i += 1;
                                 }
                             }
-
                             for (i = 0; i <= DBData.Size; i++)
                             {
                                 DBData.SetValue("U_LineNum", i, Convert.ToString(i + 1));
                             }
-
                             oMat.LoadFromDataSource();
                         }
                     }
@@ -973,10 +930,10 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
-            int i = 0;
             string sQry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
                 oForm.Freeze(true);
@@ -1117,9 +1074,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
-            finally
-            {
-            }
         }
 
         /// <summary>
@@ -1158,9 +1112,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
             }
         }
     }

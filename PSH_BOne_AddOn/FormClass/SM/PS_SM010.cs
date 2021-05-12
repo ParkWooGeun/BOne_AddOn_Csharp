@@ -268,14 +268,7 @@ namespace PSH_BOne_AddOn
             {
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
-                    if (string.IsNullOrEmpty(""))
-                    {
-                    }
-                    else
-                    {
-                        oForm.Items.Item("ItmBsort").Specific.Select("", SAPbouiCOM.BoSearchKey.psk_ByValue);
-                        oForm.Items.Item("ItmBsort").Enabled = false;
-                    }
+                    oForm.Items.Item("ItmBsort").Specific.Value = oBaseForm01.Items.Item("ItmBSort").Specific.Value; //BaseForm의 제품대분류 코드 연동
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {

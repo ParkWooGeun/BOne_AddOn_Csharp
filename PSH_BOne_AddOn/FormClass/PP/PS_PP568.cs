@@ -334,7 +334,7 @@ namespace PSH_BOne_AddOn
 					if (oDS_PS_PP568A.GetValue("U_ColReg01", loopCount).ToString().Trim() == "N")
 					{
 						CheckType = "N";
-						break; // TODO: might not be correct. Was : Exit For
+						break;
 					}
 				}
 

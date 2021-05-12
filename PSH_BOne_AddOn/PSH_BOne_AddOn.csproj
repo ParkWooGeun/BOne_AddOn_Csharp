@@ -196,7 +196,9 @@
     <Compile Include="FormClass\FI\PS_FI961.cs" />
     <Compile Include="FormClass\FI\PS_FI962.cs" />
     <Compile Include="FormClass\FX\PS_FX241.cs" />
+    <Compile Include="FormClass\MM\PS_MM002.cs" />
     <Compile Include="FormClass\MM\PS_MM091.cs" />
+    <Compile Include="FormClass\MM\PS_MM135.cs" />
     <Compile Include="FormClass\MM\PS_MM921.cs" />
     <Compile Include="FormClass\CO\PS_CO540.cs" />
     <Compile Include="FormClass\CO\PS_CO040.cs" />
@@ -432,6 +434,7 @@
     <Compile Include="FormClass\SD\PS_SD962.cs" />
     <Compile Include="FormClass\SM\PS_SM010.cs" />
     <Compile Include="FormClass\SM\PS_SM021.cs" />
+    <Compile Include="FormClass\SM\PS_SM030.cs" />
     <Compile Include="PSH_CommonClass\AssemblyInfo.cs" />
     <Compile Include="FormClass\PY\ClassModuleSTD.cs">
       <SubType>Code</SubType>

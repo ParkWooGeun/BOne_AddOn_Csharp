@@ -232,6 +232,7 @@
     <Compile Include="FormClass\CO\PS_CO660.cs" />
     <Compile Include="FormClass\CO\PS_CO665.cs" />
     <Compile Include="FormClass\CO\PS_CO670.cs" />
+    <Compile Include="FormClass\PP\PS_PP092.cs" />
     <Compile Include="FormClass\PP\PS_PP918.cs" />
     <Compile Include="FormClass\PP\PS_PP110.cs" />
     <Compile Include="FormClass\PP\PS_PP050.cs" />
@@ -1471,6 +1472,12 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_PP362_06.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_PP362_07.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_PP362_08.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_PP092_05.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_PP092_06.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_PP092_10.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_PP092_11.rpt" />
+    <None Include="PSH_BOne_AddOn\PathINI\Report\PS_QM008_20.rpt" />
+    <None Include="PSH_BOne_AddOn\PathINI\Report\PS_QM008_30.rpt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EXT_Form\FileListBoxForm.resX">
@@ -1479,6 +1486,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP092.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD090.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SM020.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD091.srf" />

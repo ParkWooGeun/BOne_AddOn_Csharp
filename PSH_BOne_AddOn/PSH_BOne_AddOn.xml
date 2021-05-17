@@ -26706,6 +26706,33 @@
             </summary>
             <param name="oFormDocEntry"></param>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD090.PS_SD090_CreateItems">
+            <summary>
+            화면 Item 생성
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD090.PS_SD090_SetComboBox">
+            <summary>
+            Combobox 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD090.PS_SD090_EnableFormItem">
+            <summary>
+            각모드에따른 아이템설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD090.PS_SD090_SetDocEntry">
+            <summary>
+            DocEntry 초기화
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD090.PS_SD090_AddMatrixRow(System.Int32,System.Boolean)">
+            <summary>
+            메트릭스 Row추가
+            </summary>
+            <param name="oRow"></param>
+            <param name="RowIserted"></param>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_SD091">
             <summary>
             이동요청등록

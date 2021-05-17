@@ -196,7 +196,9 @@
     <Compile Include="FormClass\FI\PS_FI961.cs" />
     <Compile Include="FormClass\FI\PS_FI962.cs" />
     <Compile Include="FormClass\FX\PS_FX241.cs" />
+    <Compile Include="FormClass\MM\PS_MM002.cs" />
     <Compile Include="FormClass\MM\PS_MM091.cs" />
+    <Compile Include="FormClass\MM\PS_MM135.cs" />
     <Compile Include="FormClass\MM\PS_MM921.cs" />
     <Compile Include="FormClass\CO\PS_CO540.cs" />
     <Compile Include="FormClass\CO\PS_CO040.cs" />
@@ -230,6 +232,13 @@
     <Compile Include="FormClass\CO\PS_CO660.cs" />
     <Compile Include="FormClass\CO\PS_CO665.cs" />
     <Compile Include="FormClass\CO\PS_CO670.cs" />
+    <Compile Include="FormClass\MM\PS_MM955.cs" />
+    <Compile Include="FormClass\MM\PS_MM960.cs" />
+    <Compile Include="FormClass\PP\PS_PP037.cs" />
+    <Compile Include="FormClass\PP\PS_PP046.cs" />
+    <Compile Include="FormClass\PP\PS_PP295.cs" />
+    <Compile Include="FormClass\PP\PS_PP600.cs" />
+    <Compile Include="FormClass\PP\PS_PP601.cs" />
     <Compile Include="FormClass\PP\PS_PP918.cs" />
     <Compile Include="FormClass\PP\PS_PP110.cs" />
     <Compile Include="FormClass\PP\PS_PP050.cs" />
@@ -374,6 +383,7 @@
     <Compile Include="FormClass\PY\PH_PYA90.cs" />
     <Compile Include="FormClass\PY\PS_DateChange.cs" />
     <Compile Include="FormClass\PY\PS_DateCommit.cs" />
+    <Compile Include="FormClass\QM\PS_QM067.cs" />
     <Compile Include="FormClass\SD\PS_SD010.cs" />
     <Compile Include="FormClass\SD\PS_SD012.cs" />
     <Compile Include="FormClass\SD\PS_SD013.cs" />
@@ -438,6 +448,7 @@
     <Compile Include="FormClass\SM\PS_SM010.cs" />
     <Compile Include="FormClass\SM\PS_SM020.cs" />
     <Compile Include="FormClass\SM\PS_SM021.cs" />
+    <Compile Include="FormClass\SM\PS_SM030.cs" />
     <Compile Include="PSH_CommonClass\AssemblyInfo.cs" />
     <Compile Include="FormClass\PY\ClassModuleSTD.cs">
       <SubType>Code</SubType>

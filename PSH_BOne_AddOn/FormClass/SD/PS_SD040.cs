@@ -1014,12 +1014,12 @@ namespace PSH_BOne_AddOn
             {
                 oMat01.FlushToDataSource();
                 //Real
-                //Client = "210";
-                //ServerIP = "192.1.11.3";
+                Client = "210";
+                ServerIP = "192.1.11.3";
 
                 //Test
-                Client = "810";
-                ServerIP = "192.1.11.7";
+                //Client = "810";
+                //ServerIP = "192.1.11.7";
 
                 //0. 연결
                 if (dataHelpClass.SAPConnection(ref rfcDest, ref rfcRep, "PSC", ServerIP, Client, "ifuser", "pdauser") == false)

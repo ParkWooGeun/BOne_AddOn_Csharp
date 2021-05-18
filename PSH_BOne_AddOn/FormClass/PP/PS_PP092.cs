@@ -281,7 +281,6 @@ namespace PSH_BOne_AddOn
                 oRecordSet01.DoQuery(Query01);
 
                 //아이템과 LOT번호는 고유함
-
                 while (oRecordSet01.EoF == false)
                 {
                     Query02 = "UPDATE [OBTN] SET ";
@@ -316,9 +315,8 @@ namespace PSH_BOne_AddOn
         /// Calc_SumWeight
         /// </summary>
         /// <returns></returns>
-        private bool PS_PP092_Calc_SumWeight()
+        private void PS_PP092_Calc_SumWeight()
         {
-            bool functionReturnValue = false;
             int i;
             double SumWeight = 0;
             string errMessage = string.Empty;
@@ -342,7 +340,6 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-            return functionReturnValue;
         }
 
         /// <summary>
@@ -399,7 +396,6 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
-                    //각모드에따른 아이템설정
                     PS_PP092_FormClear();
                     oForm.Items.Item("BPLId").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index); //콤보기본선택
                     oForm.EnableMenu("1281", true); //찾기
@@ -407,15 +403,14 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("InDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
                     oForm.Items.Item("CntcCode").Specific.Value = dataHelpClass.User_MSTCOD();
                     oForm.Items.Item("empty").Click();
-                    oForm.Items.Item("Mat01").Enabled = true; //활성     메트릭스
-                    oForm.Items.Item("CntcCode").Enabled = true;  //활성     작성자
-                    oForm.Items.Item("InDate").Enabled = true; //활성     작성일
-                    oForm.Items.Item("BPLId").Enabled = true; //활성     사업장
-                    oForm.Items.Item("DocEntry").Enabled = false; //비활성   문서번호
+                    oForm.Items.Item("Mat01").Enabled = true; //메트릭스
+                    oForm.Items.Item("CntcCode").Enabled = true;  //작성자
+                    oForm.Items.Item("InDate").Enabled = true; //작성일
+                    oForm.Items.Item("BPLId").Enabled = true; //사업장
+                    oForm.Items.Item("DocEntry").Enabled = false; //문서번호
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
-                    //각모드에따른 아이템설정
                     oForm.EnableMenu("1281", false); //찾기
                     oForm.EnableMenu("1282", true); //추가
                     oForm.Items.Item("DocEntry").Enabled = true; //문서번호활성화
@@ -424,7 +419,6 @@ namespace PSH_BOne_AddOn
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
-                    //각모드에따른 아이템설정
                     Query01 = "";
                     Query01 = "Select Distinct Quantity FROM OIBT WHERE BatchNum = '" + oMat01.Columns.Item("LotNo").Cells.Item(1).Specific.Value + "'";
                     oRecordSet01.DoQuery(Query01);

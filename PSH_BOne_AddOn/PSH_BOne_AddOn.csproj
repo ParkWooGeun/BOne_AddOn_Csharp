@@ -199,6 +199,7 @@
     <Compile Include="FormClass\MM\PS_MM002.cs" />
     <Compile Include="FormClass\MM\PS_MM091.cs" />
     <Compile Include="FormClass\MM\PS_MM135.cs" />
+    <Compile Include="FormClass\MM\PS_MM225.cs" />
     <Compile Include="FormClass\MM\PS_MM921.cs" />
     <Compile Include="FormClass\CO\PS_CO540.cs" />
     <Compile Include="FormClass\CO\PS_CO040.cs" />
@@ -1714,6 +1715,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP295.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP600.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP601.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM067.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD090.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SM020.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD091.srf" />
@@ -1911,6 +1916,13 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP045.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP043.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP032.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP046.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP037.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM002.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM135.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM225.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM955.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM960.srf" />
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP047.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP030.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP031.srf" />

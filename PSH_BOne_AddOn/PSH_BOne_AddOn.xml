@@ -5948,6 +5948,50 @@
             <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
         </member>
+        <member name="T:PSH_BOne_AddOn.PS_MM225">
+            <summary>
+            출하요청리스트관리
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM225.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFormDocEntry"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM225.PS_MM225_CreateItems">
+            <summary>
+            화면 Item 생성
+            </summary>        
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM225.PS_MM225_SetComboBox">
+            <summary>
+            Combobox 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM225.PS_MM225_SetInitial">
+            <summary>
+            화면 초기화
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM225.PS_MM225_AddMatrixRow(System.Int32,System.Boolean)">
+            <summary>
+            메트릭스 Row추가
+            </summary>
+            <param name="oRow"></param>
+            <param name="RowIserted"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM225.PS_MM225_MTX01">
+            <summary>
+            데이터 조회
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM225.PS_MM225_AddData">
+            <summary>
+            데이터 INSERT, UPDATE(기존 데이터가 존재하면 UPDATE, 아니면 INSERT)
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_MM921">
             <summary>
             부자재불출대장(부서)

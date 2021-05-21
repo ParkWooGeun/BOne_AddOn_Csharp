@@ -28301,6 +28301,86 @@
             <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
         </member>
+        <member name="T:PSH_BOne_AddOn.PS_SD035">
+            <summary>
+            출하리스트 등록 및 조회
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD035.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFormDocEntry"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD035.PS_SD035_CreateItems">
+            <summary>
+            화면 Item 생성
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD035.PS_SD035_SetComboBox">
+            <summary>
+            Combobox 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD035.PS_SD035_SetInitial">
+            <summary>
+            화면 초기화
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD035.PS_SD035_EnableMenus">
+            <summary>
+            메뉴활성화
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD035.PS_SD035_SetDocument(System.String)">
+            <summary>
+            SetDocument
+            </summary>
+            <param name="oFormDocEntry"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD035.PS_SD035_EnableFormItem">
+            <summary>
+            각모드에따른 아이템설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD035.PS_SD035_AddMatrixRow(System.Int32,System.Boolean@)">
+            <summary>
+            메트릭스 Row추가
+            </summary>
+            <param name="oRow"></param>
+            <param name="RowIserted"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD035.PS_SD035_CheckDataValid">
+            <summary>
+            필수입력사항 체크
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD035.PS_SD035_MTX01">
+            <summary>
+            데이터 조회
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD035.PS_SD035_MTX02">
+            <summary>
+            데이터 조회
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD035.PS_SD035_SaveData">
+            <summary>
+            데이터 Insert
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD035.PS_SD035_DeleteData">
+            <summary>
+            데이터 Delete
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD035.PS_SD035_PrintReport01">
+            <summary>
+            리포트 출력
+            </summary>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_SD051">
             <summary>
             수주상세금액등록

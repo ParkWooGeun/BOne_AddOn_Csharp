@@ -1031,6 +1031,9 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_MATRIX_LOAD(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
+            double SumQty = 0;
+            double SumWeight = 0;
+
             try
             {
                 if (pVal.Before_Action == true)
@@ -1038,6 +1041,19 @@ namespace PSH_BOne_AddOn
                 }
                 else if (pVal.Before_Action == false)
                 {
+                    for (int i = 0; i <= oMat01.VisualRowCount - 1; i++)
+                    {
+                        if (!string.IsNullOrEmpty(oMat01.Columns.Item("Qty").Cells.Item(i + 1).Specific.Value))
+                        {
+                            SumQty += Convert.ToDouble(oMat01.Columns.Item("Qty").Cells.Item(i + 1).Specific.Value);
+                        }
+
+                        SumWeight += Convert.ToDouble(oMat01.Columns.Item("Weight").Cells.Item(i + 1).Specific.Value);
+                    }
+
+                    oForm.Items.Item("SumQty").Specific.Value = SumQty;
+                    oForm.Items.Item("SumWeight").Specific.Value = SumWeight;
+
                     PS_SD091_EnableFormItem();
                     PS_SD091_AddMatrixRow(oMat01.VisualRowCount, false);
                 }

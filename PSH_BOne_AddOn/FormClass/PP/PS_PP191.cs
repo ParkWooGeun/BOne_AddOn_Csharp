@@ -158,7 +158,7 @@ namespace PSH_BOne_AddOn
 				oForm.Freeze(true);
 				if (RowIserted == false)
 				{
-					oDS_PS_PP191L.InsertRecord((oRow));
+					oDS_PS_PP191L.InsertRecord(oRow);
 				}
 				oMat01.AddRow();
 				oDS_PS_PP191L.Offset = oRow;
@@ -241,7 +241,7 @@ namespace PSH_BOne_AddOn
 				oMat01.FlushToDataSource();
 				oMat01.LoadFromDataSource();
 
-				if ((oRecordSet.RecordCount == 0))
+				if (oRecordSet.RecordCount == 0)
 				{
 					oMat01.Clear();
 					errMessage = "결과가 존재하지 않습니다.";
@@ -314,7 +314,7 @@ namespace PSH_BOne_AddOn
 				oMat02.FlushToDataSource();
 				oMat02.LoadFromDataSource();
 
-				if ((oRecordSet.RecordCount == 0))
+				if (oRecordSet.RecordCount == 0)
 				{
 					oMat02.Clear();
 					errMessage = "결과가 존재하지 않습니다.";

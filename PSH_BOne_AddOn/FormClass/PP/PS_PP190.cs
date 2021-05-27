@@ -152,7 +152,7 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				if ((string.IsNullOrEmpty(oFormDocEntry01)))
+				if (string.IsNullOrEmpty(oFormDocEntry01))
 				{
 					FormItemEnabled();
 					AddMatrixRow(0, true);
@@ -216,7 +216,7 @@ namespace PSH_BOne_AddOn
 				if (RowIserted == false)
 				{
 					oRow = oMat.RowCount;
-					oDS_PS_PP190L.InsertRecord((oRow));
+					oDS_PS_PP190L.InsertRecord(oRow);
 				}
 				oMat.AddRow();
 				oDS_PS_PP190L.Offset = oRow;
@@ -402,7 +402,7 @@ namespace PSH_BOne_AddOn
 			{
 				oForm.Freeze(true);
 				//각모드에따른 아이템설정
-				if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
+				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
 					oForm.EnableMenu("1281", true);		//찾기
 					oForm.EnableMenu("1282", false);	//추가
@@ -412,7 +412,7 @@ namespace PSH_BOne_AddOn
 					oForm.DataSources.UserDataSources.Item("Chk").Value = "N";
 					oForm.Items.Item("Seq").Enabled = false;
 				}
-				else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE))
+				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
 				{
 					oForm.EnableMenu("1281", true);	  //찾기
 					oForm.EnableMenu("1282", true);	  //추가
@@ -421,7 +421,7 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("Code").Enabled = true;
 					oForm.Items.Item("Seq").Enabled = false;
 				}
-				else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE))
+				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
 				{
 					oForm.Items.Item("ToolType").Enabled = false;
 					oForm.Items.Item("Year").Enabled = false;

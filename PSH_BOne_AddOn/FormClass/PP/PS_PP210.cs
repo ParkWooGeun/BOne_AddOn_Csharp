@@ -94,7 +94,7 @@ namespace PSH_BOne_AddOn
 
 				oForm.Items.Item("Rad02").Specific.ValOn = "20";
 				oForm.Items.Item("Rad02").Specific.ValOff = "0";
-				oForm.Items.Item("Rad02").Specific.GroupWith(("Rad01"));
+				oForm.Items.Item("Rad02").Specific.GroupWith("Rad01");
 			}
 			catch (Exception ex)
 			{
@@ -376,7 +376,7 @@ namespace PSH_BOne_AddOn
 						{
 							if (string.IsNullOrEmpty(oForm.Items.Item(pVal.ItemUID).Specific.Value.ToString().Trim()))
 							{
-								PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
+								PSH_Globals.SBO_Application.ActivateMenuItem("7425");
 								BubbleEvent = false;
 							}
 						}

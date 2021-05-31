@@ -194,6 +194,7 @@
     <Compile Include="FormClass\FI\PS_FI961.cs" />
     <Compile Include="FormClass\FI\PS_FI962.cs" />
     <Compile Include="FormClass\FX\PS_FX241.cs" />
+    <Compile Include="FormClass\MM\PS_MM031.cs" />
     <Compile Include="FormClass\MM\PS_MM010_S.cs" />
     <Compile Include="FormClass\MM\PS_MM951.cs" />
     <Compile Include="FormClass\MM\PS_MM041.cs" />

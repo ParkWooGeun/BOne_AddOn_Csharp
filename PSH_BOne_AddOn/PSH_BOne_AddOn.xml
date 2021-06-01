@@ -5363,11 +5363,6 @@
             Combobox 설정
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_MM031.PS_MM031_InitializeForm">
-            <summary>
-            PS_MM031_InitializeForm
-            </summary>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_MM031.PS_MM031_EnableMenus">
             <summary>
             메뉴 아이콘 Enable

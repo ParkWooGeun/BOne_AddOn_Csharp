@@ -53,9 +53,14 @@ namespace PSH_BOne_AddOn
                 PS_MM031_CreateItems();
                 PS_MM031_SetComboBox();
                 PS_MM031_EnableMenus();
-                PS_MM031_InitializeForm();
                 PS_MM031_SetDocument(oFormDocEntry);
                 PS_MM031_FormResize();
+
+                //승인일, 승인여부 숨김
+                oForm.Items.Item("AdmsDate").Visible = false;
+                oForm.Items.Item("26").Visible = false;
+                oForm.Items.Item("AdmsYN").Visible = false;
+                oForm.Items.Item("24").Visible = false;
             }
             catch (Exception ex)
             {
@@ -114,31 +119,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// PS_MM031_InitializeForm
-        /// </summary>
-        private void PS_MM031_InitializeForm()
-        {
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
-            try
-            {
-                oForm.Freeze(true);
-
-                //oDS_PS_MM031H.SetValue("U_BPLID", 0, dataHelpClass.User_BPLID());//아이디별 사업장 세팅
-                oDS_PS_MM031H.SetValue("U_RegDate", 0, DateTime.Now.ToString("yyyyMMdd"));
-                oForm.Items.Item("CntcCode").Specific.Value = dataHelpClass.User_MSTCOD(); //아이디별 사번 세팅
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-            }
-            finally
-            {
-                oForm.Freeze(false);
             }
         }
 
@@ -721,7 +701,9 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
+            string sQry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -739,18 +721,33 @@ namespace PSH_BOne_AddOn
                             if (pVal.ColUID == "MM030No") //품의문서
                             {
                                 oMat01.FlushToDataSource();
-                                //oDS_PS_MM031L.SetValue("U_JobTypNM", pVal.Row - 1, (oDS_PS_MM031L.GetValue("U_JobTyp", pVal.Row - 1).ToString().Trim() == "1" ? "급여" : "상여"));
 
-                                //oDS_PS_MM031L.SetValue("U_JobGbn", pVal.Row - 1, ""); //지급구분
-                                //oDS_PS_MM031L.SetValue("U_JobGbnNM", pVal.Row - 1, ""); //지급구분명
-                                //oDS_PS_MM031L.SetValue("U_AcctCode", pVal.Row - 1, ""); //관리계정
-                                //oDS_PS_MM031L.SetValue("U_AcctName", pVal.Row - 1, ""); //관리계정명
-                                //oDS_PS_MM031L.SetValue("U_TeamCode", pVal.Row - 1, ""); //팀코드
-                                //oDS_PS_MM031L.SetValue("U_TeamName", pVal.Row - 1, ""); //팀명
-                                //oDS_PS_MM031L.SetValue("U_RspCode", pVal.Row - 1, ""); //담당코드
-                                //oDS_PS_MM031L.SetValue("U_RspName", pVal.Row - 1, ""); //담당명
-                                //oDS_PS_MM031L.SetValue("U_ClsCode", pVal.Row - 1, ""); //반코드
-                                //oDS_PS_MM031L.SetValue("U_ClsName", pVal.Row - 1, ""); //반명
+                                sQry = "  SELECT    'ItemCode' = T0.U_ItemCode,"; //품목코드
+                                sQry += "           'ItemName' = T0.U_ItemName,"; //품목명
+                                sQry += "           'ItemSpec' = T0.U_OutSize,"; //규격
+                                sQry += "           'ItemUnit' = T0.U_OutUnit,"; //단위
+                                sQry += "           'Weight' = T0.U_Weight,"; //수량/중량
+                                sQry += "           'Price' = T0.U_Price,"; //단가(원)
+                                sQry += "           'Amount' = T0.U_LinTotal,"; //금액(원)
+                                sQry += "           'Comment' = T0.U_Comments"; //비고
+                                sQry += " FROM      [@PS_MM030L] AS T0";
+                                sQry += " WHERE     CONVERT(VARCHAR(10), T0.DocEntry) + '-' + CONVERT(VARCHAR(10), T0.LineID) = '" + oDS_PS_MM031L.GetValue("U_MM030No", pVal.Row - 1).ToString().Trim() + "'";
+
+                                //sQry = "EXEC PS_MM031_01 '";
+                                //sQry += oDS_PS_MM031H.GetValue("U_BPLID", 0) + "','"; //사업장
+                                //sQry += oDS_PS_MM031L.GetValue("U_MM030No", pVal.Row - 1).ToString().Trim() + "'"; //품의문서번호
+
+                                oRecordSet.DoQuery(sQry);
+
+                                oDS_PS_MM031L.SetValue("U_ItemCode", pVal.Row - 1, oRecordSet.Fields.Item("ItemCode").Value.ToString().Trim()); //품목코드
+                                oDS_PS_MM031L.SetValue("U_ItemName", pVal.Row - 1, oRecordSet.Fields.Item("ItemName").Value.ToString().Trim()); //품목명
+                                oDS_PS_MM031L.SetValue("U_ItemSpec", pVal.Row - 1, oRecordSet.Fields.Item("ItemSpec").Value.ToString().Trim()); //규격
+                                oDS_PS_MM031L.SetValue("U_ItemUnit", pVal.Row - 1, oRecordSet.Fields.Item("ItemUnit").Value.ToString().Trim()); //단위
+                                oDS_PS_MM031L.SetValue("U_Weight", pVal.Row - 1, oRecordSet.Fields.Item("Weight").Value.ToString().Trim()); //수량/중량
+                                oDS_PS_MM031L.SetValue("U_Price", pVal.Row - 1, oRecordSet.Fields.Item("Price").Value.ToString().Trim()); //단가(원)
+                                oDS_PS_MM031L.SetValue("U_Amount", pVal.Row - 1, oRecordSet.Fields.Item("Amount").Value.ToString().Trim()); //금액(원)
+                                oDS_PS_MM031L.SetValue("U_Comment", pVal.Row - 1, oRecordSet.Fields.Item("Comment").Value.ToString().Trim()); //비고
+
                                 oMat01.LoadFromDataSource();
 
                                 PS_MM031_AddMatrixRow();
@@ -760,7 +757,8 @@ namespace PSH_BOne_AddOn
                             if (pVal.ColUID == "Weight") //수량
                             {
                                 oMat01.FlushToDataSource();
-                                //oDS_PS_MM031L.SetValue("U_JobGbnNM", pVal.Row - 1, dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" + oDS_PS_MM031L.GetValue("U_JobGbn", pVal.Row - 1).ToString().Trim() + "'", "AND Code = 'P212'"));
+                                //수량 * 단가 => 금액
+                                oDS_PS_MM031L.SetValue("U_Amount", pVal.Row - 1, Convert.ToString(Convert.ToDouble(oDS_PS_MM031L.GetValue("U_Weight", pVal.Row -1)) * Convert.ToDouble(oDS_PS_MM031L.GetValue("U_Price", pVal.Row - 1))));
                                 oMat01.LoadFromDataSource();
 
                                 oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -781,6 +779,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
                 oForm.Freeze(false);
             }
         }

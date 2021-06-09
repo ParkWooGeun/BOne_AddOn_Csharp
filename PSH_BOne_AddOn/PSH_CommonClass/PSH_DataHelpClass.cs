@@ -109,7 +109,7 @@ namespace PSH_BOne_AddOn.Data
 
             if (!string.IsNullOrEmpty(PSH_pMatrix) && PSH_pRow > 0)
             {
-                for (PSH_jLooper = 0; PSH_jLooper <= PSH_oDataTable.Rows.Count - 1; PSH_jLooper++)
+                for (PSH_jLooper = 0; PSH_jLooper < PSH_oDataTable.Rows.Count; PSH_jLooper++)
                 {
                     if (PSH_jLooper > 0)
                     {
@@ -130,7 +130,7 @@ namespace PSH_BOne_AddOn.Data
                         PSH_oDBTable.Offset = PSH_pRow + PSH_jLooper - 1;
                     }
 
-                    for (PSH_iLooper = 0; PSH_iLooper <= PSH_sTemp01.Length; PSH_iLooper++)
+                    for (PSH_iLooper = 0; PSH_iLooper < PSH_sTemp01.Length; PSH_iLooper++)
                     {
                         // 사원마스타일경우 성 + 이름
                         if (PSH_oCFL.ObjectType == "171")
@@ -169,9 +169,9 @@ namespace PSH_BOne_AddOn.Data
             else
             {
                 //PSH_sTemp02 = "";
-                for (PSH_jLooper = 0; PSH_jLooper <= PSH_oDataTable.Rows.Count - 1; PSH_jLooper++)
+                for (PSH_jLooper = 0; PSH_jLooper < PSH_oDataTable.Rows.Count; PSH_jLooper++)
                 {
-                    for (PSH_iLooper = 0; PSH_iLooper <= PSH_sTemp01.Length; PSH_iLooper++)
+                    for (PSH_iLooper = 0; PSH_iLooper < PSH_sTemp01.Length; PSH_iLooper++)
                     {
                         switch (PSH_oCFL.ObjectType)
                         {

@@ -30609,6 +30609,11 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
+        <member name="T:PSH_BOne_AddOn.PS_SD011">
+            <summary>
+            거래처별 납품품목 라벨출력내용등록
+            </summary>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_SD012">
             <summary>
             파카 라벨 출력

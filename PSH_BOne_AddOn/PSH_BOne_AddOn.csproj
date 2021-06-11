@@ -426,6 +426,7 @@
     <Compile Include="FormClass\SD\PS_SD013.cs" />
     <Compile Include="FormClass\SD\PS_SD021.cs" />
     <Compile Include="FormClass\SD\PS_SD035.cs" />
+    <Compile Include="FormClass\SD\PS_SD050.cs" />
     <Compile Include="FormClass\SD\PS_SD051.cs" />
     <Compile Include="FormClass\SD\PS_SD052.cs" />
     <Compile Include="FormClass\SD\PS_SD053.cs" />
@@ -434,6 +435,7 @@
     <Compile Include="FormClass\SD\PS_SD056.cs" />
     <Compile Include="FormClass\SD\PS_SD057.cs" />
     <Compile Include="FormClass\SD\PS_SD058.cs" />
+    <Compile Include="FormClass\SD\PS_SD061.cs" />
     <Compile Include="FormClass\SD\PS_SD062.cs" />
     <Compile Include="FormClass\SD\PS_SD064.cs" />
     <Compile Include="FormClass\SD\PS_SD090.cs" />

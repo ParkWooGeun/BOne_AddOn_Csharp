@@ -1345,6 +1345,12 @@ namespace PSH_BOne_AddOn
             }
         }
 
+        /// <summary>
+        /// 행삭제 체크 메소드(Raise_FormMenuEvent 에서 사용)
+        /// </summary>
+        /// <param name="FormUID"></param>
+        /// <param name="pVal"></param>
+        /// <param name="BubbleEvent"></param>
         private void Raise_EVENT_ROW_DELETE(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
             try

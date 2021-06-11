@@ -268,7 +268,10 @@ namespace PSH_BOne_AddOn
             {
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
-                    oForm.Items.Item("ItmBsort").Specific.Value = oBaseForm01.Items.Item("ItmBSort").Specific.Value; //BaseForm의 제품대분류 코드 연동
+                    if (oBaseForm01.TypeEx != "PS_SD005" && oBaseForm01.TypeEx != "PS_SD006") //거래처별 제품단가등록[PS_SD005], 판매계획등록[PS_SD006]가 아닐 경우만
+                    {
+                        oForm.Items.Item("ItmBsort").Specific.Value = oBaseForm01.Items.Item("ItmBSort").Specific.Value; //BaseForm의 제품대분류 코드 연동
+                    }
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
@@ -305,7 +308,6 @@ namespace PSH_BOne_AddOn
             string Param10;
             string Param11;
             string errMessage = string.Empty;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -415,7 +417,6 @@ namespace PSH_BOne_AddOn
             string ItemCode;
             string errMessage = string.Empty;
             SAPbouiCOM.Matrix oBaseMat01;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             SAPbobsCOM.Recordset oRecordset02 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -449,7 +450,7 @@ namespace PSH_BOne_AddOn
                         for (i = 0; i <= oGrid01.Rows.SelectedRows.Count - 1; i++)
                         {
                             oBaseMat01.Columns.Item("ItemCode").Cells.Item(oBaseColRow01).Specific.Value = oGrid01.DataTable.Columns.Item("품목코드").Cells.Item(oGrid01.Rows.SelectedRows.Item(i, SAPbouiCOM.BoOrderType.ot_SelectionOrder)).Value;
-                            oBaseColRow01 = oBaseColRow01 + 1;
+                            oBaseColRow01 += 1;
                         }
                     }
                 }
@@ -457,13 +458,13 @@ namespace PSH_BOne_AddOn
                 //case 3 별도
                 else if (oBaseForm01.TypeEx == "PS_MM007")
                 {
-                    sQry = "      SELECT   CASE";
-                    sQry = sQry + "       WHEN LEFT(U_ItmBsort, 1) = '4' THEN '20'";
-                    sQry = sQry + "       WHEN LEFT(U_ItmBsort, 1) = '3' THEN '10'";
-                    sQry = sQry + "       WHEN LEFT(U_ItmBsort, 1) = '2' THEN '50'";
-                    sQry = sQry + "        END";
-                    sQry = sQry + " FROM    OITM";
-                    sQry = sQry + " WHERE   ItemCode = '" + oGrid01.DataTable.Columns.Item("품목코드").Cells.Item(oGrid01.Rows.SelectedRows.Item(i, SAPbouiCOM.BoOrderType.ot_SelectionOrder)).Value + "'";
+                    sQry = "  SELECT    CASE";
+                    sQry += "               WHEN LEFT(U_ItmBsort, 1) = '4' THEN '20'";
+                    sQry += "               WHEN LEFT(U_ItmBsort, 1) = '3' THEN '10'";
+                    sQry += "               WHEN LEFT(U_ItmBsort, 1) = '2' THEN '50'";
+                    sQry += "           END";
+                    sQry += " FROM      OITM";
+                    sQry += " WHERE     ItemCode = '" + oGrid01.DataTable.Columns.Item("품목코드").Cells.Item(oGrid01.Rows.SelectedRows.Item(i, SAPbouiCOM.BoOrderType.ot_SelectionOrder)).Value + "'";
 
                     oRecordSet01.DoQuery(sQry);
 
@@ -483,7 +484,7 @@ namespace PSH_BOne_AddOn
                                 {
                                     oForm.DataSources.UserDataSources.Item("Check01").Value = "Y";
                                     errMessage = "통합부자재 코드로만 선택이 가능합니다. 확인바랍니다.";
-                                    return;
+                                    throw new Exception();
                                 }
                             }
                         }
@@ -498,7 +499,7 @@ namespace PSH_BOne_AddOn
                             oBaseMat01.Columns.Item("MAKTX").Cells.Item(oBaseColRow01).Specific.Value = oGrid01.DataTable.Columns.Item("품명").Cells.Item(oGrid01.Rows.SelectedRows.Item(i, SAPbouiCOM.BoOrderType.ot_SelectionOrder)).Value + " : ";
                             oBaseMat01.Columns.Item("MEINS").Cells.Item(oBaseColRow01).Specific.Value = oGrid01.DataTable.Columns.Item("단위").Cells.Item(oGrid01.Rows.SelectedRows.Item(i, SAPbouiCOM.BoOrderType.ot_SelectionOrder)).Value;
                             oBaseMat01.Columns.Item("MATKL").Cells.Item(oBaseColRow01).Specific.Value = oGrid01.DataTable.Columns.Item("분류코드").Cells.Item(oGrid01.Rows.SelectedRows.Item(i, SAPbouiCOM.BoOrderType.ot_SelectionOrder)).Value;
-                            oBaseColRow01 = oBaseColRow01 + 1;
+                            oBaseColRow01 += 1;
                         }
                     }
                 }
@@ -506,13 +507,13 @@ namespace PSH_BOne_AddOn
                 // csee 4 별도
                 else if (oBaseForm01.TypeEx == "PS_MM005")
                 {
-                    sQry = "      SELECT  CASE";
-                    sQry = sQry + "       WHEN LEFT(U_ItmBsort, 1) = '4' THEN '20'";
-                    sQry = sQry + "       WHEN LEFT(U_ItmBsort, 1) = '3' THEN '10'";
-                    sQry = sQry + "       WHEN LEFT(U_ItmBsort, 1) = '2' THEN '50'";
-                    sQry = sQry + "       END";
-                    sQry = sQry + " FROM    OITM";
-                    sQry = sQry + " WHERE   ItemCode = '" + oGrid01.DataTable.Columns.Item("품목코드").Cells.Item(oGrid01.Rows.SelectedRows.Item(i, SAPbouiCOM.BoOrderType.ot_SelectionOrder)).Value + "'";
+                    sQry = "  SELECT    CASE";
+                    sQry += "               WHEN LEFT(U_ItmBsort, 1) = '4' THEN '20'";
+                    sQry += "               WHEN LEFT(U_ItmBsort, 1) = '3' THEN '10'";
+                    sQry += "               WHEN LEFT(U_ItmBsort, 1) = '2' THEN '50'";
+                    sQry += "           END";
+                    sQry += " FROM      OITM";
+                    sQry += " WHERE     ItemCode = '" + oGrid01.DataTable.Columns.Item("품목코드").Cells.Item(oGrid01.Rows.SelectedRows.Item(i, SAPbouiCOM.BoOrderType.ot_SelectionOrder)).Value + "'";
 
                     oRecordSet01.DoQuery(sQry);
 
@@ -534,7 +535,7 @@ namespace PSH_BOne_AddOn
                                 for (i = 0; i <= oGrid01.Rows.SelectedRows.Count - 1; i++)
                                 {
                                     oBaseMat01.Columns.Item("ItemCode").Cells.Item(oBaseColRow01).Specific.Value = oGrid01.DataTable.Columns.Item("품목코드").Cells.Item(oGrid01.Rows.SelectedRows.Item(i, SAPbouiCOM.BoOrderType.ot_SelectionOrder)).Value;
-                                    oBaseColRow01 = oBaseColRow01 + 1;
+                                    oBaseColRow01 += 1;
                                 }
                             }
                         }
@@ -556,7 +557,7 @@ namespace PSH_BOne_AddOn
                             for (i = 0; i <= oGrid01.Rows.SelectedRows.Count - 1; i++)
                             {
                                 oBaseMat01.Columns.Item("ItemCode").Cells.Item(oBaseColRow01).Specific.Value = oGrid01.DataTable.Columns.Item("품목코드").Cells.Item(oGrid01.Rows.SelectedRows.Item(i, SAPbouiCOM.BoOrderType.ot_SelectionOrder)).Value;
-                                oBaseColRow01 = oBaseColRow01 + 1;
+                                oBaseColRow01 += 1;
                             }
                         }
                     }
@@ -574,7 +575,7 @@ namespace PSH_BOne_AddOn
                         for (i = 0; i <= oGrid01.Rows.SelectedRows.Count - 1; i++)
                         {
                             oBaseMat01.Columns.Item("OrdMgNum").Cells.Item(oBaseColRow01).Specific.Value = oGrid01.DataTable.Columns.Item("품목코드").Cells.Item(oGrid01.Rows.SelectedRows.Item(i, SAPbouiCOM.BoOrderType.ot_SelectionOrder)).Value;
-                            oBaseColRow01 = oBaseColRow01 + 1;
+                            oBaseColRow01 += 1;
                         }
                     }
                 }
@@ -592,7 +593,7 @@ namespace PSH_BOne_AddOn
                         for (i = 0; i <= oGrid01.Rows.SelectedRows.Count - 1; i++)
                         {
                             oBaseMat01.Columns.Item("MItemCod").Cells.Item(oBaseColRow01).Specific.Value = oGrid01.DataTable.Columns.Item("품목코드").Cells.Item(oGrid01.Rows.SelectedRows.Item(i, SAPbouiCOM.BoOrderType.ot_SelectionOrder)).Value;
-                            oBaseColRow01 = oBaseColRow01 + 1;
+                            oBaseColRow01 += 1;
                         }
                     }
                 }
@@ -638,7 +639,7 @@ namespace PSH_BOne_AddOn
                 else if (oBaseForm01.TypeEx == "PS_PP950" || oBaseForm01.TypeEx == "PS_QM010" || oBaseForm01.TypeEx == "PS_PP077" || oBaseForm01.TypeEx == "PS_PP078" || oBaseForm01.TypeEx == "PS_QM005" || oBaseForm01.TypeEx == "PS_SD091" || 
                          oBaseForm01.TypeEx == "PS_QM011" || oBaseForm01.TypeEx == "PS_MM100" || oBaseForm01.TypeEx == "PS_PP025" || oBaseForm01.TypeEx == "PS_SD006" || oBaseForm01.TypeEx == "PS_SD005" || oBaseForm01.TypeEx == "PS_PP083" || 
                          oBaseForm01.TypeEx == "PS_MM097" || oBaseForm01.TypeEx == "PS_QM060" || oBaseForm01.TypeEx == "PS_PP020" || oBaseForm01.TypeEx == "PS_PP010" || oBaseForm01.TypeEx == "PS_MM030" || oBaseForm01.TypeEx == "PS_MM070" || 
-                         oBaseForm01.TypeEx == "PS_SD010" ||   oBaseForm01.TypeEx == "PS_MM110")
+                         oBaseForm01.TypeEx == "PS_SD010" || oBaseForm01.TypeEx == "PS_MM110")
                 {
                     if (oBaseItemUID01 == "ItemCode")
                     {
@@ -904,7 +905,7 @@ namespace PSH_BOne_AddOn
         {
             try
             {
-                if (pVal.ItemUID == "Mat01" | pVal.ItemUID == "Mat02")
+                if (pVal.ItemUID == "Mat01" || pVal.ItemUID == "Mat02")
                 {
                     if (pVal.Row > 0)
                     {
@@ -1285,7 +1286,7 @@ namespace PSH_BOne_AddOn
                 else if (pVal.BeforeAction == false)
                 {
                 }
-                if (pVal.ItemUID == "Mat01" | pVal.ItemUID == "Mat02")
+                if (pVal.ItemUID == "Mat01" || pVal.ItemUID == "Mat02")
                 {
                     if (pVal.Row > 0)
                     {

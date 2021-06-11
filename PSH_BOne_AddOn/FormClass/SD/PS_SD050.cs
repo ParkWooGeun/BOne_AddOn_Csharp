@@ -150,7 +150,7 @@ namespace PSH_BOne_AddOn
 			{
 				if (RowIserted == false)
 				{
-					oDS_PS_SD050L.InsertRecord((oRow));
+					oDS_PS_SD050L.InsertRecord(oRow);
 				}
 				oMat.AddRow();
 				oDS_PS_SD050L.Offset = oRow;
@@ -194,15 +194,15 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
-				if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
+				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
 					oForm.Items.Item("ItemCode").Enabled = true;
 				}
-				else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE))
+				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
 				{
 					oForm.Items.Item("ItemCode").Enabled = true;
 				}
-				else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE))
+				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
 				{
 				}
 			}
@@ -383,7 +383,7 @@ namespace PSH_BOne_AddOn
 				oMat.FlushToDataSource();
 				oMat.LoadFromDataSource();
 
-				if ((oRecordSet.RecordCount == 0))
+				if (oRecordSet.RecordCount == 0)
 				{
 					oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 					Add_MatrixRow(0, true);
@@ -400,7 +400,7 @@ namespace PSH_BOne_AddOn
 				{
 					if (i + 1 > oDS_PS_SD050L.Size)
 					{
-						oDS_PS_SD050L.InsertRecord((i));
+						oDS_PS_SD050L.InsertRecord(i);
 					}
 
 					oMat.AddRow();
@@ -470,7 +470,7 @@ namespace PSH_BOne_AddOn
 					sQry = "Select Count(*) From [@PS_SD050H] where DocEntry = '" + DocEntry + "'";
 					oRecordSet.DoQuery(sQry);
 
-					if ((oRecordSet.RecordCount == 0))
+					if (oRecordSet.RecordCount == 0)
 					{
 						oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 						errMessage = "삭제대상이 없습니다. 확인하세요.";
@@ -1024,7 +1024,7 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				if ((oLastColRow01 > 0))
+				if (oLastColRow01 > 0)
 				{
 					if (pVal.BeforeAction == true)
 					{

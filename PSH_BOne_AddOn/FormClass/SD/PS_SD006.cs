@@ -81,84 +81,91 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PS_SD006_CreateItems()
         {
-            oDS_PS_SD006H = oForm.DataSources.DBDataSources.Item("@PS_SD006H");
-            oDS_PS_SD006L = oForm.DataSources.DBDataSources.Item("@PS_SD006L");
+            try
+            {
+                oDS_PS_SD006H = oForm.DataSources.DBDataSources.Item("@PS_SD006H");
+                oDS_PS_SD006L = oForm.DataSources.DBDataSources.Item("@PS_SD006L");
 
-            oMat01 = oForm.Items.Item("Mat01").Specific;
-            oMat01.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_NotSupported;
-            oMat01.AutoResizeColumns();
+                oMat01 = oForm.Items.Item("Mat01").Specific;
+                oMat01.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_NotSupported;
+                oMat01.AutoResizeColumns();
 
-            oForm.DataSources.UserDataSources.Add("T_Wgt1", SAPbouiCOM.BoDataType.dt_QUANTITY);
-            oForm.Items.Item("T_Wgt1").Specific.DataBind.SetBound(true, "", "T_Wgt1");
+                oForm.DataSources.UserDataSources.Add("T_Wgt1", SAPbouiCOM.BoDataType.dt_QUANTITY);
+                oForm.Items.Item("T_Wgt1").Specific.DataBind.SetBound(true, "", "T_Wgt1");
 
-            oForm.DataSources.UserDataSources.Add("T_Wgt2", SAPbouiCOM.BoDataType.dt_QUANTITY);
-            oForm.Items.Item("T_Wgt2").Specific.DataBind.SetBound(true, "", "T_Wgt2");
+                oForm.DataSources.UserDataSources.Add("T_Wgt2", SAPbouiCOM.BoDataType.dt_QUANTITY);
+                oForm.Items.Item("T_Wgt2").Specific.DataBind.SetBound(true, "", "T_Wgt2");
 
-            oForm.DataSources.UserDataSources.Add("T_Wgt3", SAPbouiCOM.BoDataType.dt_QUANTITY);
-            oForm.Items.Item("T_Wgt3").Specific.DataBind.SetBound(true, "", "T_Wgt3");
+                oForm.DataSources.UserDataSources.Add("T_Wgt3", SAPbouiCOM.BoDataType.dt_QUANTITY);
+                oForm.Items.Item("T_Wgt3").Specific.DataBind.SetBound(true, "", "T_Wgt3");
 
-            oForm.DataSources.UserDataSources.Add("T_Wgt4", SAPbouiCOM.BoDataType.dt_QUANTITY);
-            oForm.Items.Item("T_Wgt4").Specific.DataBind.SetBound(true, "", "T_Wgt4");
+                oForm.DataSources.UserDataSources.Add("T_Wgt4", SAPbouiCOM.BoDataType.dt_QUANTITY);
+                oForm.Items.Item("T_Wgt4").Specific.DataBind.SetBound(true, "", "T_Wgt4");
 
-            oForm.DataSources.UserDataSources.Add("T_Wgt5", SAPbouiCOM.BoDataType.dt_QUANTITY);
-            oForm.Items.Item("T_Wgt5").Specific.DataBind.SetBound(true, "", "T_Wgt5");
+                oForm.DataSources.UserDataSources.Add("T_Wgt5", SAPbouiCOM.BoDataType.dt_QUANTITY);
+                oForm.Items.Item("T_Wgt5").Specific.DataBind.SetBound(true, "", "T_Wgt5");
 
-            oForm.DataSources.UserDataSources.Add("T_Wgt6", SAPbouiCOM.BoDataType.dt_QUANTITY);
-            oForm.Items.Item("T_Wgt6").Specific.DataBind.SetBound(true, "", "T_Wgt6");
+                oForm.DataSources.UserDataSources.Add("T_Wgt6", SAPbouiCOM.BoDataType.dt_QUANTITY);
+                oForm.Items.Item("T_Wgt6").Specific.DataBind.SetBound(true, "", "T_Wgt6");
 
-            oForm.DataSources.UserDataSources.Add("T_Wgt7", SAPbouiCOM.BoDataType.dt_QUANTITY);
-            oForm.Items.Item("T_Wgt7").Specific.DataBind.SetBound(true, "", "T_Wgt7");
+                oForm.DataSources.UserDataSources.Add("T_Wgt7", SAPbouiCOM.BoDataType.dt_QUANTITY);
+                oForm.Items.Item("T_Wgt7").Specific.DataBind.SetBound(true, "", "T_Wgt7");
 
-            oForm.DataSources.UserDataSources.Add("T_Wgt8", SAPbouiCOM.BoDataType.dt_QUANTITY);
-            oForm.Items.Item("T_Wgt8").Specific.DataBind.SetBound(true, "", "T_Wgt8");
+                oForm.DataSources.UserDataSources.Add("T_Wgt8", SAPbouiCOM.BoDataType.dt_QUANTITY);
+                oForm.Items.Item("T_Wgt8").Specific.DataBind.SetBound(true, "", "T_Wgt8");
 
-            oForm.DataSources.UserDataSources.Add("T_Wgt9", SAPbouiCOM.BoDataType.dt_QUANTITY);
-            oForm.Items.Item("T_Wgt9").Specific.DataBind.SetBound(true, "", "T_Wgt9");
+                oForm.DataSources.UserDataSources.Add("T_Wgt9", SAPbouiCOM.BoDataType.dt_QUANTITY);
+                oForm.Items.Item("T_Wgt9").Specific.DataBind.SetBound(true, "", "T_Wgt9");
 
-            oForm.DataSources.UserDataSources.Add("T_Wgt10", SAPbouiCOM.BoDataType.dt_QUANTITY);
-            oForm.Items.Item("T_Wgt10").Specific.DataBind.SetBound(true, "", "T_Wgt10");
+                oForm.DataSources.UserDataSources.Add("T_Wgt10", SAPbouiCOM.BoDataType.dt_QUANTITY);
+                oForm.Items.Item("T_Wgt10").Specific.DataBind.SetBound(true, "", "T_Wgt10");
 
-            oForm.DataSources.UserDataSources.Add("T_Wgt11", SAPbouiCOM.BoDataType.dt_QUANTITY);
-            oForm.Items.Item("T_Wgt11").Specific.DataBind.SetBound(true, "", "T_Wgt11");
+                oForm.DataSources.UserDataSources.Add("T_Wgt11", SAPbouiCOM.BoDataType.dt_QUANTITY);
+                oForm.Items.Item("T_Wgt11").Specific.DataBind.SetBound(true, "", "T_Wgt11");
 
-            oForm.DataSources.UserDataSources.Add("T_Wgt12", SAPbouiCOM.BoDataType.dt_QUANTITY);
-            oForm.Items.Item("T_Wgt12").Specific.DataBind.SetBound(true, "", "T_Wgt12");
+                oForm.DataSources.UserDataSources.Add("T_Wgt12", SAPbouiCOM.BoDataType.dt_QUANTITY);
+                oForm.Items.Item("T_Wgt12").Specific.DataBind.SetBound(true, "", "T_Wgt12");
 
-            oForm.DataSources.UserDataSources.Add("T_Amt1", SAPbouiCOM.BoDataType.dt_SUM);
-            oForm.Items.Item("T_Amt1").Specific.DataBind.SetBound(true, "", "T_Amt1");
+                oForm.DataSources.UserDataSources.Add("T_Amt1", SAPbouiCOM.BoDataType.dt_SUM);
+                oForm.Items.Item("T_Amt1").Specific.DataBind.SetBound(true, "", "T_Amt1");
 
-            oForm.DataSources.UserDataSources.Add("T_Amt2", SAPbouiCOM.BoDataType.dt_SUM);
-            oForm.Items.Item("T_Amt2").Specific.DataBind.SetBound(true, "", "T_Amt2");
+                oForm.DataSources.UserDataSources.Add("T_Amt2", SAPbouiCOM.BoDataType.dt_SUM);
+                oForm.Items.Item("T_Amt2").Specific.DataBind.SetBound(true, "", "T_Amt2");
 
-            oForm.DataSources.UserDataSources.Add("T_Amt3", SAPbouiCOM.BoDataType.dt_SUM);
-            oForm.Items.Item("T_Amt3").Specific.DataBind.SetBound(true, "", "T_Amt3");
+                oForm.DataSources.UserDataSources.Add("T_Amt3", SAPbouiCOM.BoDataType.dt_SUM);
+                oForm.Items.Item("T_Amt3").Specific.DataBind.SetBound(true, "", "T_Amt3");
 
-            oForm.DataSources.UserDataSources.Add("T_Amt4", SAPbouiCOM.BoDataType.dt_SUM);
-            oForm.Items.Item("T_Amt4").Specific.DataBind.SetBound(true, "", "T_Amt4");
+                oForm.DataSources.UserDataSources.Add("T_Amt4", SAPbouiCOM.BoDataType.dt_SUM);
+                oForm.Items.Item("T_Amt4").Specific.DataBind.SetBound(true, "", "T_Amt4");
 
-            oForm.DataSources.UserDataSources.Add("T_Amt5", SAPbouiCOM.BoDataType.dt_SUM);
-            oForm.Items.Item("T_Amt5").Specific.DataBind.SetBound(true, "", "T_Amt5");
+                oForm.DataSources.UserDataSources.Add("T_Amt5", SAPbouiCOM.BoDataType.dt_SUM);
+                oForm.Items.Item("T_Amt5").Specific.DataBind.SetBound(true, "", "T_Amt5");
 
-            oForm.DataSources.UserDataSources.Add("T_Amt6", SAPbouiCOM.BoDataType.dt_SUM);
-            oForm.Items.Item("T_Amt6").Specific.DataBind.SetBound(true, "", "T_Amt6");
+                oForm.DataSources.UserDataSources.Add("T_Amt6", SAPbouiCOM.BoDataType.dt_SUM);
+                oForm.Items.Item("T_Amt6").Specific.DataBind.SetBound(true, "", "T_Amt6");
 
-            oForm.DataSources.UserDataSources.Add("T_Amt7", SAPbouiCOM.BoDataType.dt_SUM);
-            oForm.Items.Item("T_Amt7").Specific.DataBind.SetBound(true, "", "T_Amt7");
+                oForm.DataSources.UserDataSources.Add("T_Amt7", SAPbouiCOM.BoDataType.dt_SUM);
+                oForm.Items.Item("T_Amt7").Specific.DataBind.SetBound(true, "", "T_Amt7");
 
-            oForm.DataSources.UserDataSources.Add("T_Amt8", SAPbouiCOM.BoDataType.dt_SUM);
-            oForm.Items.Item("T_Amt8").Specific.DataBind.SetBound(true, "", "T_Amt8");
+                oForm.DataSources.UserDataSources.Add("T_Amt8", SAPbouiCOM.BoDataType.dt_SUM);
+                oForm.Items.Item("T_Amt8").Specific.DataBind.SetBound(true, "", "T_Amt8");
 
-            oForm.DataSources.UserDataSources.Add("T_Amt9", SAPbouiCOM.BoDataType.dt_SUM);
-            oForm.Items.Item("T_Amt9").Specific.DataBind.SetBound(true, "", "T_Amt9");
+                oForm.DataSources.UserDataSources.Add("T_Amt9", SAPbouiCOM.BoDataType.dt_SUM);
+                oForm.Items.Item("T_Amt9").Specific.DataBind.SetBound(true, "", "T_Amt9");
 
-            oForm.DataSources.UserDataSources.Add("T_Amt10", SAPbouiCOM.BoDataType.dt_SUM);
-            oForm.Items.Item("T_Amt10").Specific.DataBind.SetBound(true, "", "T_Amt10");
+                oForm.DataSources.UserDataSources.Add("T_Amt10", SAPbouiCOM.BoDataType.dt_SUM);
+                oForm.Items.Item("T_Amt10").Specific.DataBind.SetBound(true, "", "T_Amt10");
 
-            oForm.DataSources.UserDataSources.Add("T_Amt11", SAPbouiCOM.BoDataType.dt_SUM);
-            oForm.Items.Item("T_Amt11").Specific.DataBind.SetBound(true, "", "T_Amt11");
+                oForm.DataSources.UserDataSources.Add("T_Amt11", SAPbouiCOM.BoDataType.dt_SUM);
+                oForm.Items.Item("T_Amt11").Specific.DataBind.SetBound(true, "", "T_Amt11");
 
-            oForm.DataSources.UserDataSources.Add("T_Amt12", SAPbouiCOM.BoDataType.dt_SUM);
-            oForm.Items.Item("T_Amt12").Specific.DataBind.SetBound(true, "", "T_Amt12");
+                oForm.DataSources.UserDataSources.Add("T_Amt12", SAPbouiCOM.BoDataType.dt_SUM);
+                oForm.Items.Item("T_Amt12").Specific.DataBind.SetBound(true, "", "T_Amt12");
+            }
+            catch(Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
         }
 
         /// <summary>

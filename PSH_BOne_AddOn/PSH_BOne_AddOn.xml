@@ -30439,7 +30439,6 @@
             <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
         </member>
-<<<<<<< HEAD
         <member name="T:PSH_BOne_AddOn.PS_SD001">
             <summary>
             기계공구,몰드 품목코드 등록
@@ -30528,9 +30527,7 @@
             <param name="BubbleEvent"></param>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_SD010">
-=======
         <member name="T:PSH_BOne_AddOn.PS_SD005">
->>>>>>> 0451351b7e76bedb30c7f9230e4df7a1ef1bac5f
             <summary>
             거래처별 제품 단가 등록
             </summary>

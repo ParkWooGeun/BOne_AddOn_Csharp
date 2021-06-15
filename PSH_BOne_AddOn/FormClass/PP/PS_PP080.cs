@@ -618,12 +618,12 @@ namespace PSH_BOne_AddOn
 
                                 PP080LQty = Convert.ToDouble(oRecordSet01.Fields.Item(0).Value) + Convert.ToDouble(oMat01.Columns.Item("PQty").Cells.Item(i).Specific.Value);
 
-                                if (RDR1Qty == PP080LQty)
+                                if (RDR1Qty >= PP080LQty)
                                 {
                                     //검수입고(원재료품의, 외주제작품의, 가공비품의)가 등록 되지 않으면 생산완료 등록 불가(2012.01.12 송명규 수정)
                                     sQry = "EXEC [PS_PP080_09] '" + oMat01.Columns.Item("PP030HNo").Cells.Item(i).Specific.Value.ToString().Trim() + "'";
                                     oRecordSet01.DoQuery(sQry);
-                                    if (oRecordSet01.Fields.Item(0).Value != 0)
+                                    if (Convert.ToDouble(oRecordSet01.Fields.Item(0).Value) > 0)
                                     {
                                         if (oRecordSet01.Fields.Item(1).Value == "10")
                                         {

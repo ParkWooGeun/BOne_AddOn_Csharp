@@ -429,7 +429,9 @@
     <Compile Include="FormClass\SD\PS_SD011.cs" />
     <Compile Include="FormClass\SD\PS_SD012.cs" />
     <Compile Include="FormClass\SD\PS_SD013.cs" />
+    <Compile Include="FormClass\SD\PS_SD020.cs" />
     <Compile Include="FormClass\SD\PS_SD021.cs" />
+    <Compile Include="FormClass\SD\PS_SD022.cs" />
     <Compile Include="FormClass\SD\PS_SD035.cs" />
     <Compile Include="FormClass\SD\PS_SD050.cs" />
     <Compile Include="FormClass\SD\PS_SD051.cs" />
@@ -1781,7 +1783,7 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD035.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP090.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP091.srf" />
-    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP095.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP095.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP190.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP191.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP200.srf" />
@@ -1814,7 +1816,16 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD057.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD058.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD006.srf" />
-    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD920.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD001.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD020.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD022.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD050.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD056.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD059.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD060.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD061.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD062.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD920.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP295.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP600.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP601.srf" />
@@ -2024,7 +2035,7 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM225.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM955.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM960.srf" />
-    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP047.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP047.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP030.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP031.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP033.srf" />

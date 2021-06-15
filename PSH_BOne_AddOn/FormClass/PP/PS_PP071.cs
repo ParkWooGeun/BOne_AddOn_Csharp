@@ -66,7 +66,7 @@ namespace PSH_BOne_AddOn
 				oBaseOrdGbn01 = oOrdGbn02;
 
 				PS_PP071_CreateItems();
-				//PS_PP071_SetComboBox();
+				PS_PP071_SetComboBox();
 				
 				oForm.EnableMenu("1283", false); //삭제
 				oForm.EnableMenu("1286", false); //닫기
@@ -422,7 +422,6 @@ namespace PSH_BOne_AddOn
                 else if (pVal.Before_Action == false)
                 {
                     SubMain.Remove_Forms(oFormUniqueID);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid01);
                 }
             }

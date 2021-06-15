@@ -239,6 +239,8 @@
     <Compile Include="FormClass\CO\PS_CO660.cs" />
     <Compile Include="FormClass\CO\PS_CO665.cs" />
     <Compile Include="FormClass\CO\PS_CO670.cs" />
+    <Compile Include="FormClass\PP\PS_PP070.cs" />
+    <Compile Include="FormClass\PP\PS_PP075.cs" />
     <Compile Include="FormClass\PP\PS_PP095.cs" />
     <Compile Include="FormClass\PP\PS_PP090.cs" />
     <Compile Include="FormClass\PP\PS_PACKING_PD.cs" />
@@ -420,12 +422,9 @@
     <Compile Include="FormClass\PY\PS_DateChange.cs" />
     <Compile Include="FormClass\PY\PS_DateCommit.cs" />
     <Compile Include="FormClass\QM\PS_QM067.cs" />
-<<<<<<< HEAD
     <Compile Include="FormClass\SD\PS_SD001.cs" />
-=======
     <Compile Include="FormClass\SD\PS_SD005.cs" />
     <Compile Include="FormClass\SD\PS_SD006.cs" />
->>>>>>> 0451351b7e76bedb30c7f9230e4df7a1ef1bac5f
     <Compile Include="FormClass\SD\PS_SD010.cs" />
     <Compile Include="FormClass\SD\PS_SD011.cs" />
     <Compile Include="FormClass\SD\PS_SD012.cs" />

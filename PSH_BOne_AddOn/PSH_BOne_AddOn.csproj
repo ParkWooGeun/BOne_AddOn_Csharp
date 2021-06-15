@@ -2033,11 +2033,9 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM225.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM955.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM960.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP047.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP030.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP031.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP033.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP047.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP048.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP730.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP097.srf" />
@@ -2354,6 +2352,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP041.srf" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP047.srf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1002,7 +1002,6 @@ namespace PSH_BOne_AddOn
             string ServerIP; //서버IP(운영용:192.1.11.3, 테스트용:192.1.11.7)
             int i;
             int j;
-            int l;
             string errCode = string.Empty;
             string errMessage = string.Empty;
 
@@ -1033,7 +1032,8 @@ namespace PSH_BOne_AddOn
                 IRfcTable oTable = oFunction.GetTable("ITAB"); //table 할당
 
                 j = 1;
-                for (i = 0; i <= oMat01.VisualRowCount - 1; i++)
+                oTable.Insert();
+                for (i = 0; i <= oMat01.VisualRowCount -1; i++)
                 {
                     //SetValue 매개변수용 변수(변수Type이 맞지 않으면 매개변수 전달시 SetValue 메소드 오류발생, 아래와 같이 매개변수에 값 저장후 SetValue에 전달)
                     string coilNo = oDS_PS_SD040L.GetValue("U_CoilNo", i).ToString().Trim();
@@ -1042,13 +1042,13 @@ namespace PSH_BOne_AddOn
                     double packWgt = Convert.ToDouble(oDS_PS_SD040L.GetValue("U_PackWgt", i).ToString().Trim());
                     double totalWgt = Convert.ToDouble(oDS_PS_SD040L.GetValue("U_Weight", i)) + Convert.ToDouble(oDS_PS_SD040L.GetValue("U_PackWgt", i));
 
-                    oTable.Insert();
                     oTable.SetValue("ZLOTNO", coilNo);
                     oTable.SetValue("ZORGDT", docDate);
                     oTable.SetValue("NTGEW", weight);
                     oTable.SetValue("ZBOXWE", packWgt);
                     oTable.SetValue("BRGEW", totalWgt);
-                    
+                    oTable.Append();
+
                     if (oMat01.VisualRowCount == i + 1) //마지막에 실행
                     {
                         errCode = "2"; //SAP Function 실행 오류가 발생했을 때 에러코드로 처리하기 위해 이 위치에서 "2"를 대입
@@ -1074,20 +1074,13 @@ namespace PSH_BOne_AddOn
                             errCode = "3";
                             throw new Exception();
                         }
-
-                        for (l = 1; l <= j; l++)
-                        {
-                            oTable.SetValue("ZLOTNO", "");
-                            oTable.SetValue("ZORGDT", "");
-                            oTable.SetValue("NTGEW", 0);
-                            oTable.SetValue("ZBOXWE", 0);
-                            oTable.SetValue("BRGEW", 0);
-                        }
-
+                        oTable.Clear();
+                        oTable.Insert();
                         j = 0;
                     }
 
                     oDS_PS_SD040L.SetValue("U_TransYN", i, "Y");
+                    oMat01.LoadFromDataSource();
                     j += 1;
                 }
 

@@ -242,6 +242,7 @@
     <Compile Include="FormClass\PP\PS_PP070.cs" />
     <Compile Include="FormClass\PP\PS_PP075.cs" />
     <Compile Include="FormClass\PP\PS_PP077.cs" />
+    <Compile Include="FormClass\PP\PS_PP078.cs" />
     <Compile Include="FormClass\PP\PS_PP095.cs" />
     <Compile Include="FormClass\PP\PS_PP090.cs" />
     <Compile Include="FormClass\PP\PS_PACKING_PD.cs" />

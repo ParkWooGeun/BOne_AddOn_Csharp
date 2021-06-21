@@ -10,11 +10,11 @@ namespace PSH_BOne_AddOn
 	/// <summary>
 	/// 검사성적서출력(신양식)
 	/// </summary>
-	internal class PS_QM620 : PSH_BaseClass
+	internal class PS_QM041 : PSH_BaseClass
 	{
 		private string oFormUniqueID;
 		private SAPbouiCOM.Matrix oMat;
-		private SAPbouiCOM.DBDataSource oDS_PS_QM620L; //등록라인
+		private SAPbouiCOM.DBDataSource oDS_PS_QM041L; //등록라인
 
 		/// <summary>
 		/// LoadForm
@@ -26,19 +26,19 @@ namespace PSH_BOne_AddOn
 			this.MainLoadForm(oYM01, oFormDocEntry01);
 		}
 
-		public override void LoadForm(string oFormDocEntry01)
-		{
+        public override void LoadForm(string oFormDocEntry01)
+        {
 			this.MainLoadForm("", oFormDocEntry01);
-		}
+        }
 
 		private void MainLoadForm(string oYM01, string oFormDocEntry01)
-		{
+        {
 			int i;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
 			try
 			{
-				oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PS_QM620.srf");
+				oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PS_QM041.srf");
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue = oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue + "_" + (SubMain.Get_TotalFormsCount());
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
@@ -50,8 +50,8 @@ namespace PSH_BOne_AddOn
 					oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
 				}
 
-				oFormUniqueID = "PS_QM620_" + SubMain.Get_TotalFormsCount();
-				SubMain.Add_Forms(this, oFormUniqueID, "PS_QM620");
+				oFormUniqueID = "PS_QM041_" + SubMain.Get_TotalFormsCount();
+				SubMain.Add_Forms(this, oFormUniqueID, "PS_QM041");
 
 				PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
 				oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
@@ -96,14 +96,14 @@ namespace PSH_BOne_AddOn
 			}
 		}
 
-		/// <summary>
-		/// CreateItems
-		/// </summary>
-		private void CreateItems()
+        /// <summary>
+        /// CreateItems
+        /// </summary>
+        private void CreateItems()
 		{
 			try
 			{
-				oDS_PS_QM620L = oForm.DataSources.DBDataSources.Item("@PS_USERDS01");
+				oDS_PS_QM041L = oForm.DataSources.DBDataSources.Item("@PS_USERDS01");
 				oMat = oForm.Items.Item("Mat01").Specific;
 				oMat.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_Single;
 				oMat.AutoResizeColumns();
@@ -171,12 +171,12 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				if (string.IsNullOrEmpty(oForm.Items.Item("YYYYMM").Specific.Value.ToString().Trim()))
-                {
+				{
 					errMessage = "조회년월은 필수입니다. 입력하여 주십시오.";
 					throw new Exception();
 				}
 				if (oForm.Items.Item("YYYYMM").Specific.Value.ToString().Trim().Length != 7)
-                {
+				{
 					errMessage = "조회년월의 자리수(YYYY-MM)를 확인하여 주십시오.";
 					throw new Exception();
 				}
@@ -215,24 +215,24 @@ namespace PSH_BOne_AddOn
 			{
 				oForm.Freeze(true);
 
-				BPLId    = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
-				YYYYMM   = oForm.Items.Item("YYYYMM").Specific.Value.ToString().Trim();
-				Gubun    = oForm.Items.Item("Gubun").Specific.Value.ToString().Trim();
+				BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+				YYYYMM = oForm.Items.Item("YYYYMM").Specific.Value.ToString().Trim();
+				Gubun = oForm.Items.Item("Gubun").Specific.Value.ToString().Trim();
 				DocEntry = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim();
 
-				sQry = "EXEC PS_QM620_01 '" + BPLId + "', '" + YYYYMM + "', '" + Gubun + "', '" + DocEntry + "'";
+				sQry = "EXEC PS_QM041_01 '" + BPLId + "', '" + YYYYMM + "', '" + Gubun + "', '" + DocEntry + "'";
 				oRecordSet.DoQuery(sQry);
 
-				Cnt = oDS_PS_QM620L.Size;
+				Cnt = oDS_PS_QM041L.Size;
 				if (Cnt > 0)
 				{
 					for (j = 0; j <= Cnt - 1; j++)
 					{
-						oDS_PS_QM620L.RemoveRecord(oDS_PS_QM620L.Size - 1);
+						oDS_PS_QM041L.RemoveRecord(oDS_PS_QM041L.Size - 1);
 					}
 					if (Cnt == 1)
 					{
-						oDS_PS_QM620L.Clear();
+						oDS_PS_QM041L.Clear();
 					}
 				}
 				oMat.LoadFromDataSource();
@@ -240,25 +240,25 @@ namespace PSH_BOne_AddOn
 				j = 1;
 				while (!(oRecordSet.EoF))
 				{
-					if (oDS_PS_QM620L.Size < j)
+					if (oDS_PS_QM041L.Size < j)
 					{
-						oDS_PS_QM620L.InsertRecord(j - 1); //라인추가
+						oDS_PS_QM041L.InsertRecord(j - 1); //라인추가
 					}
-					oDS_PS_QM620L.SetValue("U_LineNum", j - 1, Convert.ToString(j));
+					oDS_PS_QM041L.SetValue("U_LineNum", j - 1, Convert.ToString(j));
 					if (Gubun == "2")
 					{
-						oDS_PS_QM620L.SetValue("U_ColReg01", j - 1, "Y");
+						oDS_PS_QM041L.SetValue("U_ColReg01", j - 1, "Y");
 					}
 					else
 					{
-						oDS_PS_QM620L.SetValue("U_ColReg01", j - 1, "N");
+						oDS_PS_QM041L.SetValue("U_ColReg01", j - 1, "N");
 					}
-					oDS_PS_QM620L.SetValue("U_ColReg02", j - 1, oRecordSet.Fields.Item("U_PackNo").Value.ToString().Trim());
-					oDS_PS_QM620L.SetValue("U_ColReg03", j - 1, oRecordSet.Fields.Item("U_ItemCode").Value.ToString().Trim());
-					oDS_PS_QM620L.SetValue("U_ColReg04", j - 1, oRecordSet.Fields.Item("U_ItemName").Value.ToString().Trim());
-					oDS_PS_QM620L.SetValue("U_ColReg05", j - 1, oRecordSet.Fields.Item("U_CardCode").Value.ToString().Trim());
-					oDS_PS_QM620L.SetValue("U_ColReg06", j - 1, oRecordSet.Fields.Item("U_CardName").Value.ToString().Trim());
-					oDS_PS_QM620L.SetValue("U_ColReg07", j - 1, oRecordSet.Fields.Item("Type").Value.ToString().Trim());
+					oDS_PS_QM041L.SetValue("U_ColReg02", j - 1, oRecordSet.Fields.Item("U_PackNo").Value.ToString().Trim());
+					oDS_PS_QM041L.SetValue("U_ColReg03", j - 1, oRecordSet.Fields.Item("U_ItemCode").Value.ToString().Trim());
+					oDS_PS_QM041L.SetValue("U_ColReg04", j - 1, oRecordSet.Fields.Item("U_ItemName").Value.ToString().Trim());
+					oDS_PS_QM041L.SetValue("U_ColReg05", j - 1, oRecordSet.Fields.Item("U_CardCode").Value.ToString().Trim());
+					oDS_PS_QM041L.SetValue("U_ColReg06", j - 1, oRecordSet.Fields.Item("U_CardName").Value.ToString().Trim());
+					oDS_PS_QM041L.SetValue("U_ColReg07", j - 1, oRecordSet.Fields.Item("Type").Value.ToString().Trim());
 					j += 1;
 					oRecordSet.MoveNext();
 				}
@@ -288,8 +288,13 @@ namespace PSH_BOne_AddOn
 			string sQry;
 
 			string BPLId;
+			string Chk;
+			string ItemCode = string.Empty;
+			string CardCode = string.Empty;
+
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
 			try
 			{
@@ -301,15 +306,50 @@ namespace PSH_BOne_AddOn
 				oMat.FlushToDataSource();
 				for (i = 0; i <= oMat.VisualRowCount - 1; i++)
 				{
-					if (oDS_PS_QM620L.GetValue("U_ColReg01", i).ToString().Trim() == "Y")
+					if (oDS_PS_QM041L.GetValue("U_ColReg01", i).ToString().Trim() == "Y")
 					{
-						sQry = "Insert [Z_PS_QM040] values ('" + BPLId + "', '" + oDS_PS_QM620L.GetValue("U_ColReg02", i).ToString().Trim() + "')";
+						sQry = "Insert [Z_PS_QM040] values ('" + BPLId + "', '" + oDS_PS_QM041L.GetValue("U_ColReg02", i).ToString().Trim() + "')";
 						oRecordSet.DoQuery(sQry);
+
+						CardCode = oDS_PS_QM041L.GetValue("U_ColReg05", i).ToString().Trim(); // (주)TSD '12440' 찿기위해 MOVE
+						ItemCode = oDS_PS_QM041L.GetValue("U_ColReg03", i).ToString().Trim();
 					}
 				}
 
-				WinTitle = "[PS_QM620] 검사성적서출력(신)";
-				ReportName = "PS_QM620_01.RPT";
+				// B/G타입  체크
+				if (Convert.ToInt32(dataHelpClass.GetValue("SELECT count(*) FROM [@PS_PP090H] a inner join [@PS_PP090L] b on a.DocEntry = b.DocEntry INNER JOIN [Z_PS_QM040] z on a.U_BPLId = z.BPLId and a.U_PackNo = z.PackNo left  join [OITM] c on b.U_ItemCode = c.ItemCode WHERE z.BPLId = '" + BPLId + "' and c.U_ItemType in ('16','17','19')", 0, 0)) > 0)
+				{
+					Chk = "Y";
+				}
+				else
+				{
+					Chk = "N";
+				}
+
+				WinTitle = "[PS_QM041] 검사성적서출력(신)";
+
+				if (Chk == "Y")
+				{
+					ReportName = "PS_QM041_02.RPT"; // B/G 타입
+				}
+				else
+				{
+					if (CardCode != "12440")
+					{
+						ReportName = "PS_QM041_01.RPT"; // 일반
+					}
+					else
+					{
+						if (ItemCode != "104010098")
+						{
+							ReportName = "PS_QM041_03.RPT"; // (주)TSD
+						}
+						else
+						{
+							ReportName = "PS_QM041_04.RPT"; // (주)TSD "104010098"
+						}
+					}
+				}
 
 				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
 				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
@@ -319,13 +359,9 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLId));
 
 				//SubReport Parameter
-				dataPackSubReportParameter.Add(new PSH_DataPackClass("@BPLId", BPLId, "PS_QM620_SUB_01"));
-				dataPackSubReportParameter.Add(new PSH_DataPackClass("@BPLId", BPLId, "PS_QM620_SUB_02"));
-				dataPackSubReportParameter.Add(new PSH_DataPackClass("@BPLId", BPLId, "PS_QM620_SUB_03"));
-				dataPackSubReportParameter.Add(new PSH_DataPackClass("@BPLId", BPLId, "PS_QM620_SUB_04"));
-				dataPackSubReportParameter.Add(new PSH_DataPackClass("@BPLId", BPLId, "PS_QM620_SUB_05"));
-				dataPackSubReportParameter.Add(new PSH_DataPackClass("@BPLId", BPLId, "PS_QM620_SUB_06"));
-				dataPackSubReportParameter.Add(new PSH_DataPackClass("@BPLId", BPLId, "PS_QM620_SUB_07"));
+				dataPackSubReportParameter.Add(new PSH_DataPackClass("@BPLId", BPLId, "PS_QM040_SUB_01"));
+				dataPackSubReportParameter.Add(new PSH_DataPackClass("@BPLId", BPLId, "PS_QM040_SUB_02"));
+				dataPackSubReportParameter.Add(new PSH_DataPackClass("@BPLId", BPLId, "PS_QM040_SUB_03"));
 
 				formHelpClass.CrystalReportOpen(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
 			}
@@ -419,7 +455,7 @@ namespace PSH_BOne_AddOn
                     //Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
                     break;
             }
-		}
+        }
 
 		/// <summary>
 		/// Raise_EVENT_ITEM_PRESSED
@@ -485,13 +521,13 @@ namespace PSH_BOne_AddOn
 							{
 								for (int i = 0; i <= oMat.VisualRowCount - 1; i++)
 								{
-									if (oDS_PS_QM620L.GetValue("U_ColReg01", i).ToString().Trim() == "N")
+									if (oDS_PS_QM041L.GetValue("U_ColReg01", i).ToString().Trim() == "N")
 									{
-										oDS_PS_QM620L.SetValue("U_ColReg01", i, "Y");
+										oDS_PS_QM041L.SetValue("U_ColReg01", i, "Y");
 									}
 									else
 									{
-										oDS_PS_QM620L.SetValue("U_ColReg01", i, "N");
+										oDS_PS_QM041L.SetValue("U_ColReg01", i, "N");
 									}
 								}
 								oMat.LoadFromDataSource();
@@ -532,7 +568,7 @@ namespace PSH_BOne_AddOn
 					SubMain.Remove_Forms(oFormUniqueID);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat);
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_QM620L);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_QM041L);
 				}
 			}
 			catch (Exception ex)

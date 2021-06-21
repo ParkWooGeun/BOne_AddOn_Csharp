@@ -721,7 +721,7 @@ namespace PSH_BOne_AddOn
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             string YM;
-            object ChildForm01 = null;
+            //object ChildForm01 = null;
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
 
             try
@@ -812,12 +812,10 @@ namespace PSH_BOne_AddOn
                     }
                     if (pVal.ItemUID == "Button04")
                     {
+                        YM = codeHelpClass.Mid(oForm.Items.Item("DocDate").Specific.VALUE, 1, 4) + "-" + codeHelpClass.Mid(oForm.Items.Item("DocDate").Specific.VALUE, 5, 2);
 
-                        //YM = codeHelpClass.Mid(oForm.Items.Item("DocDate").Specific.VALUE, 1, 4) + "-" + codeHelpClass.Mid(oForm.Items.Item("DocDate").Specific.VALUE, 5, 2);
-
-                        //ChildForm01 = new PS_QM041();
-                        //ChildForm01.LoadForm(YM, oForm.Items.Item("DocEntry").Specific.VALUE);
-
+                        PS_QM041 ChildForm01 = new PS_QM041();
+                        ChildForm01.LoadForm(YM, oForm.Items.Item("DocEntry").Specific.VALUE);
                     }
                     if (pVal.ItemUID == "Button05")
                     {
@@ -850,12 +848,10 @@ namespace PSH_BOne_AddOn
                     }
                     if (pVal.ItemUID == "Button07")
                     {
-
                         YM = codeHelpClass.Mid(oForm.Items.Item("DocDate").Specific.VALUE, 1, 4) + "-" + codeHelpClass.Mid(oForm.Items.Item("DocDate").Specific.VALUE, 5, 2);
 
-                        //ChildForm01 = new PS_QM620(); 
-                        //ChildForm01.LoadForm(YM, oForm.Items.Item("DocEntry").Specific.VALUE);
-
+                        PS_QM620 ChildForm01 = new PS_QM620(); 
+                        ChildForm01.LoadForm(YM, oForm.Items.Item("DocEntry").Specific.VALUE);
                     }
                 }
                 else if (pVal.BeforeAction == false)

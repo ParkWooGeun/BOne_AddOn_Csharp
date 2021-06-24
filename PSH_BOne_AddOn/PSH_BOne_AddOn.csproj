@@ -202,9 +202,14 @@
     <Compile Include="FormClass\FI\PS_FI961.cs" />
     <Compile Include="FormClass\FI\PS_FI962.cs" />
     <Compile Include="FormClass\FX\PS_FX241.cs" />
+    <Compile Include="FormClass\MM\PS_MM095.cs" />
     <Compile Include="FormClass\MM\PS_MM002.cs" />
     <Compile Include="FormClass\MM\PS_MM091.cs" />
+<<<<<<< HEAD
     <Compile Include="FormClass\MM\PS_MM097.cs" />
+=======
+    <Compile Include="FormClass\MM\PS_MM096.cs" />
+>>>>>>> 7ad35eed6d561c9392bad38ea10d3fde5ec79729
     <Compile Include="FormClass\MM\PS_MM135.cs" />
     <Compile Include="FormClass\MM\PS_MM225.cs" />
     <Compile Include="FormClass\MM\PS_MM921.cs" />
@@ -246,6 +251,7 @@
     <Compile Include="FormClass\PP\PS_PP075.cs" />
     <Compile Include="FormClass\PP\PS_PP077.cs" />
     <Compile Include="FormClass\PP\PS_PP078.cs" />
+    <Compile Include="FormClass\PP\PS_PP083.cs" />
     <Compile Include="FormClass\PP\PS_PP095.cs" />
     <Compile Include="FormClass\PP\PS_PP090.cs" />
     <Compile Include="FormClass\PP\PS_PACKING_PD.cs" />

@@ -297,7 +297,7 @@ namespace PSH_BOne_AddOn
 				sQry = "EXEC PS_PP078_01 '" + MovDocNo + "','" + FrDate + "','" + ToDate + "','" + ItemCode + "', '" + Status + "'";
 
 				// Procedure 실행(Grid 사용)
-				oForm.DataSources.DataTables.Item(0).ExecuteQuery((sQry));
+				oForm.DataSources.DataTables.Item(0).ExecuteQuery(sQry);
 				oGrid.DataTable = oForm.DataSources.DataTables.Item("ZTEMP");
 
 				GridSetting();
@@ -482,7 +482,7 @@ namespace PSH_BOne_AddOn
 						_with1.UserFields.Fields.Item("U_CancDoc").Value = oRecordSet.Fields.Item("U_OIGNNo").Value.ToString().Trim();
 
 						RetVal = DI_oInventoryGenExit.Add();
-						if ((0 != RetVal))
+						if (0 != RetVal)
 						{
 							PSH_Globals.oCompany.GetLastError(out errCode, out errMsg);
 							throw new Exception();

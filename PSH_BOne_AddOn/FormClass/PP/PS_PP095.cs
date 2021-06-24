@@ -721,7 +721,6 @@ namespace PSH_BOne_AddOn
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             string YM;
-            object ChildForm01 = null;
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
 
             try
@@ -844,8 +843,7 @@ namespace PSH_BOne_AddOn
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                         {
-
-                            //PS_PP095_Print_Report04();
+                            PS_PP095_Print_Report04();
                         }
                     }
                     if (pVal.ItemUID == "Button07")
@@ -1037,15 +1035,15 @@ namespace PSH_BOne_AddOn
                                     throw new Exception();
                                 }
                                 Query01 = "SELECT PackNo   = a.U_PackNo, ";
-                                Query01 = Query01 + " ItemCode = b.U_ItemCode, ";
-                                Query01 = Query01 + " ItemName = b.U_ItemName, ";
-                                Query01 = Query01 + " Weight   = b.U_Weight, ";
-                                Query01 = Query01 + " LWeight  =  isnull((select max(boxwgt) as result from z_packlist where ordnum  in (select u_ordnum from [@ps_pp095l] where u_packno = a.U_PackNo)),0), ";
-                                Query01 = Query01 + " ProDate = B.U_ProDate ";
-                                Query01 = Query01 + " FROM [@PS_PP090H] a INNER JOIN [@PS_PP090L] b ON a.DocEntry = b.DocEntry AND a.CanCeled = 'N' ";
-                                Query01 = Query01 + " WHERE ";
-                                Query01 = Query01 + " a.U_BPLId = '" + oForm.Items.Item("BPLId").Specific.VALUE + "'";
-                                Query01 = Query01 + " AND b.U_LotNo = '" + oMat01.Columns.Item("OrdNum").Cells.Item(pVal.Row).Specific.VALUE + "'";
+                                Query01 += " ItemCode = b.U_ItemCode, ";
+                                Query01 += " ItemName = b.U_ItemName, ";
+                                Query01 += " Weight   = b.U_Weight, ";
+                                Query01 += " LWeight  =  isnull((select max(boxwgt) as result from z_packlist where ordnum  in (select u_ordnum from [@ps_pp095l] where u_packno = a.U_PackNo)),0), ";
+                                Query01 += " ProDate = B.U_ProDate ";
+                                Query01 += " FROM [@PS_PP090H] a INNER JOIN [@PS_PP090L] b ON a.DocEntry = b.DocEntry AND a.CanCeled = 'N' ";
+                                Query01 += " WHERE ";
+                                Query01 += " a.U_BPLId = '" + oForm.Items.Item("BPLId").Specific.VALUE + "'";
+                                Query01 += " AND b.U_LotNo = '" + oMat01.Columns.Item("OrdNum").Cells.Item(pVal.Row).Specific.VALUE + "'";
 
                                 oRecordSet01.DoQuery(Query01);
 

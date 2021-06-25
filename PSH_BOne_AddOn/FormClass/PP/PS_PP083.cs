@@ -275,7 +275,7 @@ namespace PSH_BOne_AddOn
                 oDIObject.DocDate = DateTime.ParseExact(oForm.Items.Item("DocDate").Specific.Value, "yyyyMMdd", null);
                 oDIObject.UserFields.Fields.Item("U_CardCode").Value = oForm.Items.Item("CardCode").Specific.Value;
                 oDIObject.UserFields.Fields.Item("U_CardName").Value = oForm.Items.Item("CardName").Specific.Value;
-                for (i = 1; i <= oMat01.VisualRowCount; i++)
+                for (i = 1; i <= oMat01.VisualRowCount - 1; i++)
                 {
                     oDIObject.Lines.Add();
                     oDIObject.Lines.SetCurrentLine(j);
@@ -367,7 +367,7 @@ namespace PSH_BOne_AddOn
                 oDIObject.UserFields.Fields.Item("U_CardCode").Value = oForm.Items.Item("CardCode").Specific.Value;
                 oDIObject.UserFields.Fields.Item("U_CardName").Value = oForm.Items.Item("CardName").Specific.Value;
 
-                for (i = 1; i <= oMat01.VisualRowCount; i++)
+                for (i = 1; i <= oMat01.VisualRowCount - 1; i++)
                 {
                     oDIObject.Lines.Add();
                     oDIObject.Lines.SetCurrentLine(j);
@@ -450,7 +450,7 @@ namespace PSH_BOne_AddOn
                     //입력된 행에 대해
                     for (i = 1; i <= oMat01.VisualRowCount - 1; i++)
                     {
-                        if (dataHelpClass.GetValue("SELECT COUNT(*) FROM OITM WHERE ItemCode = '" + oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.Value + "'", 0, 1) <= 0)
+                        if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM OITM WHERE ItemCode = '" + oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.Value + "'", 0, 1)) <= 0)
                         {
                             errMessage = "품목코드가 존재하지 않습니다.";
                             throw new Exception();
@@ -677,8 +677,10 @@ namespace PSH_BOne_AddOn
         private bool PS_PP083_DataValidCheck()
         {
             bool functionReturnValue = false;
-            int i;
+            int i = 0;
             string errMessage = string.Empty;
+            string ClickCode = string.Empty;
+            string type = string.Empty;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -690,42 +692,46 @@ namespace PSH_BOne_AddOn
                 }
                 if (string.IsNullOrEmpty(oForm.Items.Item("DocDate").Specific.Value))
                 {
-                    PSH_Globals.SBO_Application.MessageBox("작성일은 필수입니다.");
-                    oForm.Items.Item("DocDate").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    errMessage = "작성일은 필수입니다";
+                    ClickCode = "DocDate";
+                    type = "F";
                     throw new Exception();
                 }
                 if (string.IsNullOrEmpty(oForm.Items.Item("CntcCode").Specific.Value))
                 {
-                    PSH_Globals.SBO_Application.MessageBox("담당자는 필수입니다.");
-                    oForm.Items.Item("CntcCode").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    errMessage = "담당자는 필수입니다.";
+                    ClickCode = "CntcCode";
+                    type = "F";
                     throw new Exception();
                 }
                 if (oMat01.VisualRowCount <= 1)
                 {
-                    PSH_Globals.SBO_Application.MessageBox("라인이 존재하지 않습니다.");
+                    errMessage = "라인이 존재하지 않습니다.";
                 }
 
                 for (i = 1; i <= oMat01.VisualRowCount - 1; i++)
                 {
                     if (string.IsNullOrEmpty(oMat01.Columns.Item("WhsCode").Cells.Item(i).Specific.Value))
                     {
-                        PSH_Globals.SBO_Application.MessageBox("창고코드는 필수입니다.");
-                        oMat01.Columns.Item("WhsCode").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                        errMessage = "창고코드는 필수입니다.";
+                        ClickCode = "WhsCode";
+                        type = "M";
                         throw new Exception();
                     }
                     if (string.IsNullOrEmpty(oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.Value))
                     {
-                        PSH_Globals.SBO_Application.MessageBox("품목코드는 필수입니다.");
-                        oMat01.Columns.Item("ItemCode").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                        errMessage = "품목코드는 필수입니다.";
+                        ClickCode = "ItemCode";
+                        type = "M";
                         throw new Exception();
                     }
                     if (Convert.ToDouble(oMat01.Columns.Item("YQty").Cells.Item(i).Specific.Value) <= 0)
                     {
-                        PSH_Globals.SBO_Application.MessageBox("생산수량은 필수입니다.");
-                        oMat01.Columns.Item("YQty").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                        errMessage = "생산수량은 필수입니다.";
+                        ClickCode = "YQty";
+                        type = "M";
                         throw new Exception();
                     }
-
                 }
                 if (PS_PP083_Validate("검사01") == false)
                 {
@@ -751,7 +757,22 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                if (errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                    if (type == "F")
+                    {
+                        oForm.Items.Item(ClickCode).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    }
+                    else
+                    {
+                        oMat01.Columns.Item(ClickCode).Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    }
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
             }
             finally
             {

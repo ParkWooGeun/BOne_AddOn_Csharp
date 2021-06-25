@@ -786,27 +786,17 @@ namespace PSH_BOne_AddOn
                     }
                     if (pVal.ItemUID == "Button03")
                     {
-                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+                        if (PS_PP095_Check_QRCode_PrintYN() == "N")
                         {
+                            System.Threading.Thread thread = new System.Threading.Thread(PS_PP095_Print_Report03);
+                            thread.SetApartmentState(System.Threading.ApartmentState.STA);
+                            thread.Start(); //일반 패킹리스트 출력
                         }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
+                        else if (PS_PP095_Check_QRCode_PrintYN() == "Y")
                         {
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-                        {
-
-                            if (PS_PP095_Check_QRCode_PrintYN() == "N")
-                            {
-                                System.Threading.Thread thread = new System.Threading.Thread(PS_PP095_Print_Report03);
-                                thread.SetApartmentState(System.Threading.ApartmentState.STA);
-                                thread.Start(); //일반 패킹리스트 출력
-                            }
-                            else if (PS_PP095_Check_QRCode_PrintYN() == "Y")
-                            {
-                                System.Threading.Thread thread = new System.Threading.Thread(PS_PP095_Print_Report04);
-                                thread.SetApartmentState(System.Threading.ApartmentState.STA);
-                                thread.Start(); //QR코드 패킹리스트 출력
-                            }
+                            System.Threading.Thread thread = new System.Threading.Thread(PS_PP095_Print_Report04);
+                            thread.SetApartmentState(System.Threading.ApartmentState.STA);
+                            thread.Start(); //QR코드 패킹리스트 출력
                         }
                     }
                     if (pVal.ItemUID == "Button04")
@@ -826,9 +816,9 @@ namespace PSH_BOne_AddOn
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                         {
-                            //TempForm01 = new PS_MM004();
-                            //TempForm01.LoadForm("PS_PP095", oForm.Items.Item("DocEntry").Specific.VALUE);
-                            //BubbleEvent = false;
+                            TempForm01 = new PS_MM004();
+                            TempForm01.LoadForm("PS_PP095", oForm.Items.Item("DocEntry").Specific.VALUE);
+                            BubbleEvent = false;
                         }
                     }
                     if (pVal.ItemUID == "Button06")
@@ -841,8 +831,9 @@ namespace PSH_BOne_AddOn
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                         {
-
-                            //PS_PP095_Print_Report04();
+                            System.Threading.Thread thread = new System.Threading.Thread(PS_PP095_Print_Report04);
+                            thread.SetApartmentState(System.Threading.ApartmentState.STA);
+                            thread.Start(); //QR코드 패킹리스트 출력
                         }
                     }
                     if (pVal.ItemUID == "Button07")

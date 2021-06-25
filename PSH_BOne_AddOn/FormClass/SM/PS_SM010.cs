@@ -268,7 +268,7 @@ namespace PSH_BOne_AddOn
             {
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
-                    if (oBaseForm01.TypeEx != "PS_SD005" && oBaseForm01.TypeEx != "PS_SD006") //거래처별 제품단가등록[PS_SD005], 판매계획등록[PS_SD006]가 아닐 경우만
+                    if (oBaseForm01.TypeEx != "PS_SD005" && oBaseForm01.TypeEx != "PS_SD006" && oBaseForm01.TypeEx != "PS_PP083") //거래처별 제품단가등록[PS_SD005], 판매계획등록[PS_SD006]가 아닐 경우만
                     {
                         oForm.Items.Item("ItmBsort").Specific.Value = oBaseForm01.Items.Item("ItmBSort").Specific.Value; //BaseForm의 제품대분류 코드 연동
                     }

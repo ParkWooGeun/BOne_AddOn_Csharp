@@ -816,8 +816,8 @@ namespace PSH_BOne_AddOn
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                         {
-                            TempForm01 = new PS_MM004();
-                            TempForm01.LoadForm("PS_PP095", oForm.Items.Item("DocEntry").Specific.VALUE);
+                            //TempForm01 = new PS_MM004();
+                            //TempForm01.LoadForm("PS_PP095", oForm.Items.Item("DocEntry").Specific.VALUE);
                             BubbleEvent = false;
                         }
                     }

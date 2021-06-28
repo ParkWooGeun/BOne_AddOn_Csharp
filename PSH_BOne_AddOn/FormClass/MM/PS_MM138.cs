@@ -390,6 +390,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
                 oForm.Freeze(false);
             }
         }
@@ -459,8 +460,8 @@ namespace PSH_BOne_AddOn
             int i;
             string sQry;
             int sRow;
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -540,7 +541,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_MM138_Add_InventoryGenExit()
         {
-            bool returnValue = true;
+            bool returnValue = false;
             int i;
             int j = 0;
             int RetVal;
@@ -601,10 +602,10 @@ namespace PSH_BOne_AddOn
                 }
                 oMat01.LoadFromDataSource();
                 oMat01.AutoResizeColumns();
+                returnValue = true;
             }
             catch (Exception ex)
             {
-                returnValue = false;
                 if (PSH_Globals.oCompany.InTransaction)
                 {
                     PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack);
@@ -631,7 +632,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_MM138_Add_InventoryGenEntry()
         {
-            bool returnValue = true;
+            bool returnValue = false;
             int i;
             int j = 0;
             int RetVal;
@@ -695,10 +696,10 @@ namespace PSH_BOne_AddOn
                 }
                 oMat01.LoadFromDataSource();
                 oMat01.AutoResizeColumns();
+                returnValue = false;
             }
             catch (Exception ex)
             {
-                returnValue = false;
                 if (PSH_Globals.oCompany.InTransaction)
                 {
                     PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack);
@@ -736,7 +737,7 @@ namespace PSH_BOne_AddOn
 
         //    try
         //    {
-        //        DocNum = oForm.Items.Item("DocEntry").Specific.VALUE.ToString().Trim();
+        //        DocNum = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim();
 
         //        if (string.IsNullOrEmpty(DocNum))
         //        {
@@ -1144,7 +1145,8 @@ namespace PSH_BOne_AddOn
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
 
             try
-                {
+            {
+                oForm.Freeze(true);
                 if (pVal.Before_Action == true)
                 {
                 }
@@ -1177,7 +1179,6 @@ namespace PSH_BOne_AddOn
                         {
                             if (oMat01.VisualRowCount > 0)
                             {
-                                oForm.Freeze(true);
                                 if ((oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() == "3" || oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() == "5") && !string.IsNullOrEmpty(oForm.Items.Item("ItmGrpCd").Specific.Value.ToString().Trim()))
                                 {
                                     oMat01.FlushToDataSource();
@@ -1214,7 +1215,6 @@ namespace PSH_BOne_AddOn
                                     oForm.Items.Item("Qty").Specific.Value = 0;
                                     PSH_Globals.SBO_Application.MessageBox("외주관리그룹을 입력하시기 바랍니다.");
                                 }
-                                oForm.Freeze(false);
                             }
                         }
                         else if (pVal.ItemUID == "Mat01")
@@ -1234,6 +1234,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                oForm.Freeze(false);
             }
         }
 
@@ -1256,6 +1257,8 @@ namespace PSH_BOne_AddOn
 
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_MM138H);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_MM138L);
 
                 }
             }
@@ -1395,7 +1398,7 @@ namespace PSH_BOne_AddOn
                                 {
                                     if (codeHelpClass.Left(PSH_Globals.oCompany.UserName.ToString().Trim(), 1) == "6")
                                     {
-                                        DocEntry = DocEntry + 1;
+                                        DocEntry += 1;
                                         goto One_More_Check_1288;
                                     }
                                     else
@@ -1443,7 +1446,7 @@ namespace PSH_BOne_AddOn
                                 {
                                     if (codeHelpClass.Left(PSH_Globals.oCompany.UserName.ToString().Trim(), 1) == "6")
                                     {
-                                        DocEntry = DocEntry - 1;
+                                        DocEntry -= 1;
                                         goto One_More_Check_1289;
                                     }
                                     else
@@ -1463,7 +1466,7 @@ namespace PSH_BOne_AddOn
                             {
                                 DocEntryNext = 0;
                             One_More_Check_1290:
-                                DocEntryNext = DocEntryNext + 1;
+                                DocEntryNext += 1;
 
                                 sQry = "Select U_CardCode From [@PS_MM138H] Where DocEntry = '" + DocEntryNext + "'";
                                 oRecordSet01.DoQuery(sQry);
@@ -1489,9 +1492,9 @@ namespace PSH_BOne_AddOn
                             }
                             else if (pVal.MenuUID == "1291")
                             {
-                                DocEntryNext = DocEntryMax + 1;
+                                DocEntryNext += 1;
                             One_More_Check_1291:
-                                DocEntryNext = DocEntryNext - 1;
+                                DocEntryNext -= 1;
 
                                 sQry = "Select U_CardCode From [@PS_MM138H] Where DocEntry = '" + DocEntryNext + "'";
                                 oRecordSet01.DoQuery(sQry);

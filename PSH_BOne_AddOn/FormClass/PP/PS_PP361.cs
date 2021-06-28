@@ -4,14 +4,13 @@ using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.Form;
 using PSH_BOne_AddOn.DataPack;
 using System.Collections.Generic;
-using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace PSH_BOne_AddOn
 {
 	/// <summary>
 	/// 작지별 생산진행현황
 	/// </summary>
-	internal class PS_PP3617 : PSH_BaseClass
+	internal class PS_PP361 : PSH_BaseClass
 	{
 		private string oFormUniqueID;
 		private SAPbouiCOM.Grid oGrid01;
@@ -561,7 +560,7 @@ namespace PSH_BOne_AddOn
 					OrdNum = "%";
 				}
 
-				WinTitle = "[PS_PP361] 작번 List";
+				WinTitle = "[PS_PP361_01] 작번 List";
 				ReportName = "PS_PP361_01.RPT";
 
 				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
@@ -601,7 +600,7 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				WinTitle = "[PS_PP361] 작번 List";
+				WinTitle = "[PS_PP361_02] SUB작번 List";
 				ReportName = "PS_PP361_02.RPT";
 
 				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
@@ -636,27 +635,27 @@ namespace PSH_BOne_AddOn
 			{
 				if (oForm.Items.Item("Selection").Specific.Selected.Value.ToString().Trim() == "100")
 				{
-					WinTitle = "[PS_PP361] 자재비 내역";
+					WinTitle = "[PS_PP361_03] 자재비 내역";
 					ReportName = "PS_PP361_03.RPT";
 				}
 				else if (oForm.Items.Item("Selection").Specific.Selected.Value.ToString().Trim() == "200")
 				{
-					WinTitle = "[PS_PP361] 자체가공비 내역";
+					WinTitle = "[PS_PP361_05] 자체가공비 내역";
 					ReportName = "PS_PP361_05.RPT";
 				}
 				else if (oForm.Items.Item("Selection").Specific.Selected.Value.ToString().Trim() == "300")
 				{
-					WinTitle = "[PS_PP361] 설계비 내역";
+					WinTitle = "[PS_PP361_04] 설계비 내역";
 					ReportName = "PS_PP361_04.RPT";
 				}
 				else if (oForm.Items.Item("Selection").Specific.Selected.Value.ToString().Trim() == "400")
 				{
-					WinTitle = "[PS_PP361] 외주가공비 내역";
+					WinTitle = "[PS_PP361_06] 외주가공비 내역";
 					ReportName = "PS_PP361_06.RPT";
 				}
 				else if (oForm.Items.Item("Selection").Specific.Selected.Value.ToString().Trim() == "500")
 				{
-					WinTitle = "[PS_PP361] 외주제작비 내역";
+					WinTitle = "[PS_PP361_07] 외주제작비 내역";
 					ReportName = "PS_PP361_07.RPT";
 				}
 

@@ -450,7 +450,7 @@ namespace PSH_BOne_AddOn
 			{
 				oForm.Freeze(true);
 				oGrid.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_Single;
-				//oGrid.Columns.Item(2).LinkedObject = SAPbouiCOM.BoLinkedObject.lf_Items;
+				((SAPbouiCOM.EditTextColumn)oGrid.Columns.Item(2)).LinkedObjectType = "4";
 
 				for (i = 0; i <= oGrid.Columns.Count - 1; i++)
 				{

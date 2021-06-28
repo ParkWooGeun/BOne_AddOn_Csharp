@@ -801,7 +801,7 @@ namespace PSH_BOne_AddOn
                     }
                     if (pVal.ItemUID == "Button04")
                     {
-                        YM = codeHelpClass.Mid(oForm.Items.Item("DocDate").Specific.VALUE, 1, 4) + "-" + codeHelpClass.Mid(oForm.Items.Item("DocDate").Specific.VALUE, 5, 2);
+                        YM = codeHelpClass.Mid(oForm.Items.Item("DocDate").Specific.VALUE, 0, 4) + "-" + codeHelpClass.Mid(oForm.Items.Item("DocDate").Specific.VALUE, 4, 2);
 
                         PS_QM041 ChildForm01 = new PS_QM041();
                         ChildForm01.LoadForm(YM, oForm.Items.Item("DocEntry").Specific.VALUE);
@@ -816,8 +816,8 @@ namespace PSH_BOne_AddOn
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                         {
-                            TempForm01 = new PS_MM004();
-                            TempForm01.LoadForm("PS_PP095", oForm.Items.Item("DocEntry").Specific.VALUE);
+                            PS_MM004 PS_MM004 = new PS_MM004();
+                            PS_MM004.LoadForm("PS_PP095", oForm.Items.Item("DocEntry").Specific.VALUE);
                             BubbleEvent = false;
                         }
                     }
@@ -838,7 +838,7 @@ namespace PSH_BOne_AddOn
                     }
                     if (pVal.ItemUID == "Button07")
                     {
-                        YM = codeHelpClass.Mid(oForm.Items.Item("DocDate").Specific.VALUE, 1, 4) + "-" + codeHelpClass.Mid(oForm.Items.Item("DocDate").Specific.VALUE, 5, 2);
+                        YM = codeHelpClass.Mid(oForm.Items.Item("DocDate").Specific.VALUE, 0, 4) + "-" + codeHelpClass.Mid(oForm.Items.Item("DocDate").Specific.VALUE, 4, 2);
 
                         PS_QM620 ChildForm01 = new PS_QM620(); 
                         ChildForm01.LoadForm(YM, oForm.Items.Item("DocEntry").Specific.VALUE);

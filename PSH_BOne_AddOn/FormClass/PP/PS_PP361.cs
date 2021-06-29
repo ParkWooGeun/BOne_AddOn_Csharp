@@ -416,7 +416,7 @@ namespace PSH_BOne_AddOn
 					if (oGrid01.Rows.IsSelected(i) == true)
 					{
 						sQry = "EXEC PS_PP361_02 '" + oGrid01.DataTable.GetValue(0, i).ToString().Trim() + "'";
-						oForm.DataSources.DataTables.Item("ZTEMP02").ExecuteQuery((sQry));
+						oForm.DataSources.DataTables.Item("ZTEMP02").ExecuteQuery(sQry);
 						oGrid02.DataTable = oForm.DataSources.DataTables.Item("ZTEMP02");
 					}
 				}

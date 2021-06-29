@@ -246,6 +246,7 @@
     <Compile Include="FormClass\CO\PS_CO670.cs" />
     <Compile Include="FormClass\PP\PS_PP001.cs" />
     <Compile Include="FormClass\PP\PS_PP015.cs" />
+    <Compile Include="FormClass\PP\PS_PP034.cs" />
     <Compile Include="FormClass\PP\PS_PP070.cs" />
     <Compile Include="FormClass\PP\PS_PP075.cs" />
     <Compile Include="FormClass\PP\PS_PP077.cs" />

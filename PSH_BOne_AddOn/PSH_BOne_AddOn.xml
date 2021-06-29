@@ -11223,6 +11223,11 @@
             메트릭스 데이터 로드(품목정보)
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP004.PS_PP004_MTX02">
+            <summary>
+            메트릭스 데이터 로드(공정정보)
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_PP004.PS_PP004_MTX03">
             <summary>
             메트릭스 데이터 로드(공정추가)
@@ -11345,6 +11350,27 @@
             <param name="FormUID"></param>
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
+        </member>
+        <member name="T:PSH_BOne_AddOn.PS_PP005">
+            <summary>
+            제품 원재료관계등록
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP005.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFormDocEntry"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP005.PS_PP005_CreateItems">
+            <summary>
+            화면 Item 생성
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP005.PS_PP005_SetComboBox">
+            <summary>
+            Combobox 설정
+            </summary>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_PP015">
             <summary>

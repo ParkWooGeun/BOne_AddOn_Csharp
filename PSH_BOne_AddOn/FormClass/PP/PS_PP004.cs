@@ -423,6 +423,9 @@ namespace PSH_BOne_AddOn
             }
         }
 
+        /// <summary>
+        /// 메트릭스 데이터 로드(공정정보)
+        /// </summary>
         private void PS_PP004_MTX02()
         {
             int i;
@@ -611,7 +614,7 @@ namespace PSH_BOne_AddOn
                         {
                             CP30112 = true;
                         }
-                        if (oMat03.Columns.Item("CpCode").Cells.Item(i).Specific.Value == "CP30114") //포장공정
+                        else if (oMat03.Columns.Item("CpCode").Cells.Item(i).Specific.Value == "CP30114") //포장공정
                         {
                             CP30114 = true;
                         }
@@ -1066,7 +1069,7 @@ namespace PSH_BOne_AddOn
                         oMat03.AutoResizeColumns();
                         oForm.Freeze(false);
                     }
-                    if (pVal.ItemUID == "Opt02")
+                    else if (pVal.ItemUID == "Opt02")
                     {
                         oForm.Freeze(true);
                         oForm.Settings.MatrixUID = "Mat02";
@@ -1077,7 +1080,7 @@ namespace PSH_BOne_AddOn
                         oMat03.AutoResizeColumns();
                         oForm.Freeze(false);
                     }
-                    if (pVal.ItemUID == "Opt03")
+                    else if (pVal.ItemUID == "Opt03")
                     {
                         oForm.Freeze(true);
                         oForm.Settings.MatrixUID = "Mat03";
@@ -1088,6 +1091,7 @@ namespace PSH_BOne_AddOn
                         oMat03.AutoResizeColumns();
                         oForm.Freeze(false);
                     }
+
                     if (pVal.ItemUID == "Mat01")
                     {
                         if (pVal.Row > 0)
@@ -1097,7 +1101,7 @@ namespace PSH_BOne_AddOn
                             PS_PP004_MTX03();
                         }
                     }
-                    if (pVal.ItemUID == "Mat02")
+                    else if (pVal.ItemUID == "Mat02")
                     {
                         if (pVal.Row > 0)
                         {
@@ -1105,7 +1109,7 @@ namespace PSH_BOne_AddOn
                             oMat02Row02 = pVal.Row;
                         }
                     }
-                    if (pVal.ItemUID == "Mat03")
+                    else if (pVal.ItemUID == "Mat03")
                     {
                         if (pVal.Row > 0)
                         {

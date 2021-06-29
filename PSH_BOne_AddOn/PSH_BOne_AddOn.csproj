@@ -247,8 +247,12 @@
     <Compile Include="FormClass\PP\PS_PP001.cs" />
     <Compile Include="FormClass\PP\PS_PP002.cs" />
     <Compile Include="FormClass\PP\PS_PP003.cs" />
+<<<<<<< HEAD
     <Compile Include="FormClass\PP\PS_PP007.cs" />
     <Compile Include="FormClass\PP\PS_PP009.cs" />
+=======
+    <Compile Include="FormClass\PP\PS_PP004.cs" />
+>>>>>>> def07ab0b0b87e540a14631aee96ae884c14467e
     <Compile Include="FormClass\PP\PS_PP015.cs" />
     <Compile Include="FormClass\PP\PS_PP034.cs" />
     <Compile Include="FormClass\PP\PS_PP070.cs" />
@@ -266,6 +270,7 @@
     <Compile Include="FormClass\PP\PS_PP037.cs" />
     <Compile Include="FormClass\PP\PS_PP046.cs" />
     <Compile Include="FormClass\PP\PS_PP096.cs" />
+    <Compile Include="FormClass\PP\PS_PP120.cs" />
     <Compile Include="FormClass\PP\PS_PP160.cs" />
     <Compile Include="FormClass\PP\PS_PP190.cs" />
     <Compile Include="FormClass\PP\PS_PP191.cs" />
@@ -2429,11 +2434,13 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP075.srf" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP120.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP001.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP002.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP015.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP003.srf" />
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM138.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP004.srf" />
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP077.srf" />
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP078.srf" />
   </ItemGroup>

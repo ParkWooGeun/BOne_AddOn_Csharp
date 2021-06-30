@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <doc>
     <assembly>
         <name>PSH_BOne_AddOn</name>
@@ -11237,6 +11237,73 @@
             <param name="oCol"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_PP007.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+<<<<<<< HEAD
+=======
+        <member name="T:PSH_BOne_AddOn.PS_PP004">
+            <summary>
+            품목별 표준 공정 등록
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP004.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFormDocEntry"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP004.PS_PP004_CreateItems">
+            <summary>
+            화면 Item 생성
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP004.PS_PP004_SetComboBox">
+            <summary>
+            Combobox 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP004.PS_PP004_CF_ChooseFromList">
+            <summary>
+            ChooseFromList 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP004.PS_PP004_EnableMenus">
+            <summary>
+            EnableMenus
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP004.PS_PP004_ResizeForm">
+            <summary>
+            ResizeForm
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP004.PS_PP004_CheckDataValid">
+            <summary>
+            필수입력사항 체크
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP004.PS_PP004_MTX01">
+            <summary>
+            메트릭스 데이터 로드(품목정보)
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP004.PS_PP004_MTX02">
+            <summary>
+            메트릭스 데이터 로드(공정정보)
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP004.PS_PP004_MTX03">
+            <summary>
+            메트릭스 데이터 로드(공정추가)
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP004.PS_PP004_RegisteProcess">
+            <summary>
+            RegisteProcess
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP004.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+>>>>>>> 3a4ac1bdc6c0f923d6f4a3967b0cb3b178562b87
             <summary>
             Form Item Event
             </summary>
@@ -11392,6 +11459,7 @@
         <member name="M:PSH_BOne_AddOn.PS_PP009.Raise_EVENT_GOT_FOCUS(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Raise_EVENT_GOT_FOCUS
+<<<<<<< HEAD
             </summary>
             <param name="FormUID"></param>
             <param name="pVal"></param>
@@ -11495,6 +11563,8 @@
             <param name="pVal">pVal</param>
             <param name="BubbleEvent">Bubble Event</param>
         </member>
+=======
+>>>>>>> 3a4ac1bdc6c0f923d6f4a3967b0cb3b178562b87
         <member name="M:PSH_BOne_AddOn.PS_PP004.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             ITEM_PRESSED 이벤트
@@ -11575,6 +11645,14 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
+<<<<<<< HEAD
+        <member name="M:PSH_BOne_AddOn.PS_PP004.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            FormMenuEvent
+=======
+        <member name="M:PSH_BOne_AddOn.PS_PP009.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_FORM_UNLOAD
         <member name="M:PSH_BOne_AddOn.PS_PP004.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>
             FormMenuEvent
@@ -11583,6 +11661,21 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP009.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
+            <summary>
+            Raise_RightClickEvent
+>>>>>>> 3a4ac1bdc6c0f923d6f4a3967b0cb3b178562b87
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+<<<<<<< HEAD
+=======
+        <member name="M:PSH_BOne_AddOn.PS_PP009.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            FormMenuEvent
+>>>>>>> 3a4ac1bdc6c0f923d6f4a3967b0cb3b178562b87
         <member name="M:PSH_BOne_AddOn.PS_PP004.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
             <summary>
             FormDataEvent
@@ -11599,6 +11692,38 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
+<<<<<<< HEAD
+=======
+        <member name="T:PSH_BOne_AddOn.PS_PP005">
+            <summary>
+            제품 원재료관계등록
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP005.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFormDocEntry"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP005.PS_PP005_CreateItems">
+            <summary>
+            화면 Item 생성
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP005.PS_PP005_SetComboBox">
+            <summary>
+            Combobox 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP009.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+            <summary>
+            FormDataEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="BusinessObjectInfo"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+>>>>>>> 3a4ac1bdc6c0f923d6f4a3967b0cb3b178562b87
         <member name="T:PSH_BOne_AddOn.PS_PP015">
             <summary>
             포장생산 작업지시서 발행

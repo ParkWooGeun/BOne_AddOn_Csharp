@@ -20,12 +20,9 @@ namespace PSH_BOne_AddOn
 
         private string sPackNo;
         private string sDocNum;
-        private string oDocEntry01;
         private string Last_CntcCode;
         private string Last_CntcName;
         private string Last_InDate;
-
-        private SAPbouiCOM.BoFormMode oFormMode01;
 
         /// <summary>
         /// Form 호출

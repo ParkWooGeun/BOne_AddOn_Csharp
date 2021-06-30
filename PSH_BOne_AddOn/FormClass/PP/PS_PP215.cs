@@ -387,8 +387,6 @@ namespace PSH_BOne_AddOn
 		/// <param name="BubbleEvent"></param>
 		private void Raise_EVENT_KEY_DOWN(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
-			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
 			try
 			{
 				if (pVal.BeforeAction == true)

@@ -251,15 +251,11 @@
     <Compile Include="FormClass\PP\PS_PP007.cs" />
     <Compile Include="FormClass\PP\PS_PP009.cs" />
     <Compile Include="FormClass\PP\PS_PP004.cs" />
-    <Compile Include="FormClass\PP\PS_PP007.cs" />
-    <Compile Include="FormClass\PP\PS_PP009.cs" />
-    <Compile Include="FormClass\PP\PS_PP004.cs" />
     <Compile Include="FormClass\PP\PS_PP011.cs" />
     <Compile Include="FormClass\PP\PS_PP015.cs" />
     <Compile Include="FormClass\PP\PS_PP021.cs" />
     <Compile Include="FormClass\PP\PS_PP025.cs" />
     <Compile Include="FormClass\PP\PS_PP010.cs" />
-    <Compile Include="FormClass\PP\PS_PP015.cs" />
     <Compile Include="FormClass\PP\PS_PP020.cs" />
     <Compile Include="FormClass\PP\PS_PP034.cs" />
     <Compile Include="FormClass\PP\PS_PP070.cs" />

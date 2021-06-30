@@ -866,9 +866,8 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// 입고DI(출고 취소)
+        /// PS_MM096_InsertoInventoryGenEntry
         /// </summary>
-        /// <param name="ChkType"></param>
         /// <returns></returns>
         private bool PS_MM096_InsertoInventoryGenEntry()
         {

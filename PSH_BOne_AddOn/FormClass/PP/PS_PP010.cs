@@ -1489,7 +1489,7 @@ namespace PSH_BOne_AddOn
                                 oRecordSet01.DoQuery(sQry);
 
                                 //작번등록이 존재하면
-                                if (oRecordSet01.Fields.Item("Cnt").Value > 0)
+                                if (Convert.ToInt16(oRecordSet01.Fields.Item("Cnt").Value) > 0)
                                 {
                                     PSH_Globals.SBO_Application.MessageBox("작번등록이 존재하는 작번입니다. 삭제할 수 없습니다.");
                                     BubbleEvent = false;

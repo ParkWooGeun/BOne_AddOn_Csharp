@@ -260,6 +260,8 @@
     <Compile Include="FormClass\PP\PS_PP020.cs" />
     <Compile Include="FormClass\PP\PS_PP034.cs" />
     <Compile Include="FormClass\PP\PS_PP049.cs" />
+    <Compile Include="FormClass\PP\PS_PP060.cs" />
+    <Compile Include="FormClass\PP\PS_PP061.cs" />
     <Compile Include="FormClass\PP\PS_PP070.cs" />
     <Compile Include="FormClass\PP\PS_PP075.cs" />
     <Compile Include="FormClass\PP\PS_PP077.cs" />

@@ -2756,6 +2756,85 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.Before_Action == true)
                 {
+                    if (pVal.ItemUID == "Mat01")
+                    {
+                        if (pVal.Row > 0)
+                        {
+                            if (oForm.Items.Item("OrdType").Specific.Selected.Value == "10" || oForm.Items.Item("OrdType").Specific.Selected.Value == "50" || oForm.Items.Item("OrdType").Specific.Selected.Value == "60") //작업타입이 일반,조정인경우
+                            {
+                                if (string.IsNullOrEmpty(oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value))
+                                {
+                                }
+                                else
+                                {
+                                    if (oMat03.VisualRowCount == 0)
+                                    {
+                                        PS_PP049_AddMatrixRow03(0, true);
+                                    }
+                                    else
+                                    {
+                                        PS_PP049_AddMatrixRow03(oMat03.VisualRowCount, false);
+                                    }
+                                    oDS_PS_PP049N.SetValue("U_OrdMgNum", oMat03.VisualRowCount - 1, oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value);
+                                    oDS_PS_PP049N.SetValue("U_CpCode", oMat03.VisualRowCount - 1, oMat01.Columns.Item("CpCode").Cells.Item(pVal.Row).Specific.Value);
+                                    oDS_PS_PP049N.SetValue("U_CpName", oMat03.VisualRowCount - 1, oMat01.Columns.Item("CpName").Cells.Item(pVal.Row).Specific.Value);
+                                    oDS_PS_PP049N.SetValue("U_OLineNum", oMat03.VisualRowCount - 1, Convert.ToString(pVal.Row));
+                                    oMat03.LoadFromDataSource();
+                                    oMat03.AutoResizeColumns();
+                                    //                        oMat03.Columns("OrdMgNum").TitleObject.Sortable = True
+                                    //                        Call oMat03.Columns("OrdMgNum").TitleObject.Sort(gst_Ascending)
+                                    oMat03.Columns.Item("OLineNum").TitleObject.Sortable = true;
+                                    oMat03.Columns.Item("OLineNum").TitleObject.Sort(SAPbouiCOM.BoGridSortType.gst_Ascending);
+                                    oMat03.FlushToDataSource();
+                                }
+                                //UPGRADE_WARNING: oForm.Items(OrdType).Specific.Selected 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                ////작업타입이 PSMT지원인경우
+                            }
+                            else if (oForm.Items.Item("OrdType").Specific.Selected.Value == "20")
+                            {
+                                //UPGRADE_WARNING: oMat01.Columns(OrdMgNum).Cells(pVal.Row).Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                if (string.IsNullOrEmpty(oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value))
+                                {
+
+                                }
+                                else
+                                {
+                                    if (oMat03.VisualRowCount == 0)
+                                    {
+                                        PS_PP049_AddMatrixRow03(0, ref true);
+                                    }
+                                    else
+                                    {
+                                        PS_PP049_AddMatrixRow03(oMat03.VisualRowCount);
+                                    }
+                                    //UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                    oDS_PS_PP049N.SetValue("U_OrdMgNum", oMat03.VisualRowCount - 1, oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value);
+                                    //UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                    oDS_PS_PP049N.SetValue("U_CpCode", oMat03.VisualRowCount - 1, oMat01.Columns.Item("CpCode").Cells.Item(pVal.Row).Specific.Value);
+                                    //UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                    oDS_PS_PP049N.SetValue("U_CpName", oMat03.VisualRowCount - 1, oMat01.Columns.Item("CpName").Cells.Item(pVal.Row).Specific.Value);
+                                    oDS_PS_PP049N.SetValue("U_OLineNum", oMat03.VisualRowCount - 1, Convert.ToString(pVal.Row));
+                                    oMat03.LoadFromDataSource();
+                                    oMat03.AutoResizeColumns();
+                                    //                        oMat03.Columns("OrdMgNum").TitleObject.Sortable = True
+                                    //                        Call oMat03.Columns("OrdMgNum").TitleObject.Sort(gst_Ascending)
+                                    oMat03.Columns.Item("OLineNum").TitleObject.Sortable = true;
+                                    oMat03.Columns.Item("OLineNum").TitleObject.Sort(SAPbouiCOM.BoGridSortType.gst_Ascending);
+                                    oMat03.FlushToDataSource();
+                                }
+                                //UPGRADE_WARNING: oForm.Items(OrdType).Specific.Selected 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                ////작업타입이 외주인경우
+                            }
+                            else if (oForm.Items.Item("OrdType").Specific.Selected.Value == "30")
+                            {
+                                //UPGRADE_WARNING: oForm.Items(OrdType).Specific.Selected 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+                                ////작업타입이 실적인경우
+                            }
+                            else if (oForm.Items.Item("OrdType").Specific.Selected.Value == "40")
+                            {
+                            }
+                        }
+                    }
                 }
                 else if (pVal.Before_Action == false)
                 {
@@ -3442,71 +3521,7 @@ namespace PSH_BOne_AddOn
         //	 // ERROR: Not supported in C#: OnErrorStatement
 
         //	if (pVal.BeforeAction == true) {
-        //		if (pVal.ItemUID == "Mat01") {
-        //			if (pVal.Row > 0) {
-        //				//UPGRADE_WARNING: oForm.Items(OrdType).Specific.Selected 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				////작업타입이 일반,조정인경우
-        //				if (oForm.Items.Item("OrdType").Specific.Selected.Value == "10" | oForm.Items.Item("OrdType").Specific.Selected.Value == "50" | oForm.Items.Item("OrdType").Specific.Selected.Value == "60") {
-        //					//UPGRADE_WARNING: oMat01.Columns(OrdMgNum).Cells(pVal.Row).Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					if (string.IsNullOrEmpty(oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value)) {
-
-        //					} else {
-        //						if (oMat03.VisualRowCount == 0) {
-        //							PS_PP049_AddMatrixRow03(0, ref true);
-        //						} else {
-        //							PS_PP049_AddMatrixRow03(oMat03.VisualRowCount);
-        //						}
-        //						//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						oDS_PS_PP049N.SetValue("U_OrdMgNum", oMat03.VisualRowCount - 1, oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value);
-        //						//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						oDS_PS_PP049N.SetValue("U_CpCode", oMat03.VisualRowCount - 1, oMat01.Columns.Item("CpCode").Cells.Item(pVal.Row).Specific.Value);
-        //						//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						oDS_PS_PP049N.SetValue("U_CpName", oMat03.VisualRowCount - 1, oMat01.Columns.Item("CpName").Cells.Item(pVal.Row).Specific.Value);
-        //						oDS_PS_PP049N.SetValue("U_OLineNum", oMat03.VisualRowCount - 1, Convert.ToString(pVal.Row));
-        //						oMat03.LoadFromDataSource();
-        //						oMat03.AutoResizeColumns();
-        //						//                        oMat03.Columns("OrdMgNum").TitleObject.Sortable = True
-        //						//                        Call oMat03.Columns("OrdMgNum").TitleObject.Sort(gst_Ascending)
-        //						oMat03.Columns.Item("OLineNum").TitleObject.Sortable = true;
-        //						oMat03.Columns.Item("OLineNum").TitleObject.Sort(SAPbouiCOM.BoGridSortType.gst_Ascending);
-        //						oMat03.FlushToDataSource();
-        //					}
-        //					//UPGRADE_WARNING: oForm.Items(OrdType).Specific.Selected 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				////작업타입이 PSMT지원인경우
-        //				} else if (oForm.Items.Item("OrdType").Specific.Selected.Value == "20") {
-        //					//UPGRADE_WARNING: oMat01.Columns(OrdMgNum).Cells(pVal.Row).Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					if (string.IsNullOrEmpty(oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value)) {
-
-        //					} else {
-        //						if (oMat03.VisualRowCount == 0) {
-        //							PS_PP049_AddMatrixRow03(0, ref true);
-        //						} else {
-        //							PS_PP049_AddMatrixRow03(oMat03.VisualRowCount);
-        //						}
-        //						//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						oDS_PS_PP049N.SetValue("U_OrdMgNum", oMat03.VisualRowCount - 1, oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value);
-        //						//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						oDS_PS_PP049N.SetValue("U_CpCode", oMat03.VisualRowCount - 1, oMat01.Columns.Item("CpCode").Cells.Item(pVal.Row).Specific.Value);
-        //						//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						oDS_PS_PP049N.SetValue("U_CpName", oMat03.VisualRowCount - 1, oMat01.Columns.Item("CpName").Cells.Item(pVal.Row).Specific.Value);
-        //						oDS_PS_PP049N.SetValue("U_OLineNum", oMat03.VisualRowCount - 1, Convert.ToString(pVal.Row));
-        //						oMat03.LoadFromDataSource();
-        //						oMat03.AutoResizeColumns();
-        //						//                        oMat03.Columns("OrdMgNum").TitleObject.Sortable = True
-        //						//                        Call oMat03.Columns("OrdMgNum").TitleObject.Sort(gst_Ascending)
-        //						oMat03.Columns.Item("OLineNum").TitleObject.Sortable = true;
-        //						oMat03.Columns.Item("OLineNum").TitleObject.Sort(SAPbouiCOM.BoGridSortType.gst_Ascending);
-        //						oMat03.FlushToDataSource();
-        //					}
-        //					//UPGRADE_WARNING: oForm.Items(OrdType).Specific.Selected 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				////작업타입이 외주인경우
-        //				} else if (oForm.Items.Item("OrdType").Specific.Selected.Value == "30") {
-        //					//UPGRADE_WARNING: oForm.Items(OrdType).Specific.Selected 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				////작업타입이 실적인경우
-        //				} else if (oForm.Items.Item("OrdType").Specific.Selected.Value == "40") {
-        //				}
-        //			}
-        //		}
+        
         //	} else if (pVal.BeforeAction == false) {
 
         //	}

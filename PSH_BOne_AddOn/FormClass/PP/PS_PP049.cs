@@ -2756,6 +2756,70 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.Before_Action == true)
                 {
+                    if (pVal.ItemUID == "Mat01")
+                    {
+                        if (pVal.Row > 0)
+                        {
+                            if (oForm.Items.Item("OrdType").Specific.Selected.Value == "10" || oForm.Items.Item("OrdType").Specific.Selected.Value == "50" || oForm.Items.Item("OrdType").Specific.Selected.Value == "60") //작업타입이 일반,조정인경우
+                            {
+                                if (string.IsNullOrEmpty(oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value))
+                                {
+                                }
+                                else
+                                {
+                                    if (oMat03.VisualRowCount == 0)
+                                    {
+                                        PS_PP049_AddMatrixRow03(0, true);
+                                    }
+                                    else
+                                    {
+                                        PS_PP049_AddMatrixRow03(oMat03.VisualRowCount, false);
+                                    }
+                                    oDS_PS_PP049N.SetValue("U_OrdMgNum", oMat03.VisualRowCount - 1, oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value);
+                                    oDS_PS_PP049N.SetValue("U_CpCode", oMat03.VisualRowCount - 1, oMat01.Columns.Item("CpCode").Cells.Item(pVal.Row).Specific.Value);
+                                    oDS_PS_PP049N.SetValue("U_CpName", oMat03.VisualRowCount - 1, oMat01.Columns.Item("CpName").Cells.Item(pVal.Row).Specific.Value);
+                                    oDS_PS_PP049N.SetValue("U_OLineNum", oMat03.VisualRowCount - 1, Convert.ToString(pVal.Row));
+                                    oMat03.LoadFromDataSource();
+                                    oMat03.AutoResizeColumns();
+                                    oMat03.Columns.Item("OLineNum").TitleObject.Sortable = true;
+                                    oMat03.Columns.Item("OLineNum").TitleObject.Sort(SAPbouiCOM.BoGridSortType.gst_Ascending);
+                                    oMat03.FlushToDataSource();
+                                }
+                            }
+                            else if (oForm.Items.Item("OrdType").Specific.Selected.Value == "20") //작업타입이 PSMT지원인경우
+                            {
+                                if (string.IsNullOrEmpty(oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value))
+                                {
+                                }
+                                else
+                                {
+                                    if (oMat03.VisualRowCount == 0)
+                                    {
+                                        PS_PP049_AddMatrixRow03(0, true);
+                                    }
+                                    else
+                                    {
+                                        PS_PP049_AddMatrixRow03(oMat03.VisualRowCount, false);
+                                    }
+                                    oDS_PS_PP049N.SetValue("U_OrdMgNum", oMat03.VisualRowCount - 1, oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value);
+                                    oDS_PS_PP049N.SetValue("U_CpCode", oMat03.VisualRowCount - 1, oMat01.Columns.Item("CpCode").Cells.Item(pVal.Row).Specific.Value);
+                                    oDS_PS_PP049N.SetValue("U_CpName", oMat03.VisualRowCount - 1, oMat01.Columns.Item("CpName").Cells.Item(pVal.Row).Specific.Value);
+                                    oDS_PS_PP049N.SetValue("U_OLineNum", oMat03.VisualRowCount - 1, Convert.ToString(pVal.Row));
+                                    oMat03.LoadFromDataSource();
+                                    oMat03.AutoResizeColumns();
+                                    oMat03.Columns.Item("OLineNum").TitleObject.Sortable = true;
+                                    oMat03.Columns.Item("OLineNum").TitleObject.Sort(SAPbouiCOM.BoGridSortType.gst_Ascending);
+                                    oMat03.FlushToDataSource();
+                                }
+                            }
+                            else if (oForm.Items.Item("OrdType").Specific.Selected.Value == "30") //작업타입이 외주인경우
+                            {
+                            }
+                            else if (oForm.Items.Item("OrdType").Specific.Selected.Value == "40") //작업타입이 실적인경우
+                            {
+                            }
+                        }
+                    }
                 }
                 else if (pVal.Before_Action == false)
                 {
@@ -2778,10 +2842,33 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_MATRIX_LINK_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
+            PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
+
             try
             {
                 if (pVal.Before_Action == true)
                 {
+                    if (pVal.ItemUID == "Mat01")
+                    {
+                        if (pVal.ColUID == "OrdMgNum")
+                        {
+                            PS_PP030 oTempClass = new PS_PP030();
+                            oTempClass.LoadForm(codeHelpClass.Mid(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value, 0, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().IndexOf("-")));
+                        }
+                        if (pVal.ColUID == "PP030HNo")
+                        {
+                            PS_PP030 oTempClass = new PS_PP030();
+                            oTempClass.LoadForm(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                        }
+                    }
+                    if (pVal.ItemUID == "Mat03")
+                    {
+                        if (pVal.ColUID == "OrdMgNum")
+                        {
+                            PS_PP030 oTempClass = new PS_PP030();
+                            oTempClass.LoadForm(codeHelpClass.Mid(oMat03.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value, 0, oMat03.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().IndexOf("-")));
+                        }
+                    }
                 }
                 else if (pVal.Before_Action == false)
                 {
@@ -2804,10 +2891,422 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
+            int i;
+            string query01;
+            string errCode = string.Empty;
+            string BatchNumErr = string.Empty;
+            string ReturnValue;
+            SAPbouiCOM.ProgressBar ProgBar01 = null;
+            SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 if (pVal.Before_Action == true)
                 {
+                    if (pVal.ItemChanged == true)
+                    {
+                        if (pVal.ItemUID == "Mat01")
+                        {
+                            if (PS_PP049_Validate("수정01") == false)
+                            {
+                                oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oDS_PS_PP049L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim());
+                            }
+                            else
+                            {
+                                if (pVal.ColUID == "OrdMgNum")
+                                {
+                                    ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+                                }
+                                else if (pVal.ColUID == "BatchNum")
+                                {
+                                    //usb_io_output(609, 0, -1, -2, 0, 0); // 부져음 및 경광등 끄기
+                                    query01 = "EXEC PS_PP049_99 '";
+                                    query01 = query01 + oMat01.Columns.Item("BatchNum").Cells.Item(pVal.Row).Specific.Value + "','";
+                                    query01 = query01 + oForm.Items.Item("ItemCode").Specific.Value + "'";
+
+                                    RecordSet01.DoQuery(query01);
+
+                                    ReturnValue = RecordSet01.Fields.Item("ReturnValue").Value;
+                                    BatchNumErr = RecordSet01.Fields.Item("BatchNum").Value;
+
+                                    if (ReturnValue.ToString().Trim() == "O")
+                                    {
+                                        oDS_PS_PP049L.SetValue("U_OrdMgNum", pVal.Row - 1, Convert.ToString(oForm.Items.Item("PP030HNo").Specific.Value + "-1"));
+                                        oDS_PS_PP049L.SetValue("U_CItemCod", pVal.Row - 1, RecordSet01.Fields.Item("ItemCode").Value);
+                                        oDS_PS_PP049L.SetValue("U_CItemNam", pVal.Row - 1, RecordSet01.Fields.Item("ItemName").Value);
+                                        oDS_PS_PP049L.SetValue("U_OnHandWt", pVal.Row - 1, RecordSet01.Fields.Item("OnHandWt").Value);
+                                    }
+                                    else if (errCode == "E1")
+                                    {
+                                        //usb_io_output(609, 34, 1, 2, 0, 0);
+                                        throw new Exception();
+                                    }
+                                    else if (errCode == "E2")
+                                    {
+                                        //usb_io_output(609, 34, 1, 2, 0, 0);
+                                        throw new Exception();
+                                    }
+                                    else if (errCode == "E3")
+                                    {
+                                        //usb_io_output(609, 34, 1, 2, 0, 0);
+                                        throw new Exception();
+                                    }
+                                    else if (errCode == "E4")
+                                    {
+                                        //usb_io_output(609, 34, 1, 2, 0, 0);
+                                        throw new Exception();
+                                    }
+
+                                    query01 = "EXEC PS_PP049_01 '" + Convert.ToString(oForm.Items.Item("PP030HNo").Specific.Value + "-1") + "', '" + oForm.Items.Item("OrdType").Specific.Selected.Value + "'";
+                                    RecordSet01.DoQuery(query01);
+                                    if (RecordSet01.RecordCount == 0)
+                                    {
+                                        oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, "");
+                                    }
+                                    else
+                                    {
+                                        oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat01.Columns.Item("BatchNum").Cells.Item(pVal.Row).Specific.Value);
+                                        oDS_PS_PP049L.SetValue("U_OrdMgNum", pVal.Row - 1, RecordSet01.Fields.Item("OrdMgNum").Value);
+                                        oDS_PS_PP049L.SetValue("U_Sequence", pVal.Row - 1, RecordSet01.Fields.Item("Sequence").Value);
+                                        oDS_PS_PP049L.SetValue("U_CpCode", pVal.Row - 1, RecordSet01.Fields.Item("CpCode").Value);
+                                        oDS_PS_PP049L.SetValue("U_CpName", pVal.Row - 1, RecordSet01.Fields.Item("CpName").Value);
+                                        oDS_PS_PP049L.SetValue("U_OrdGbn", pVal.Row - 1, RecordSet01.Fields.Item("OrdGbn").Value);
+                                        oDS_PS_PP049L.SetValue("U_BPLId", pVal.Row - 1, RecordSet01.Fields.Item("BPLId").Value);
+                                        oDS_PS_PP049L.SetValue("U_ItemCode", pVal.Row - 1, RecordSet01.Fields.Item("ItemCode").Value);
+                                        oDS_PS_PP049L.SetValue("U_ItemName", pVal.Row - 1, RecordSet01.Fields.Item("ItemName").Value);
+                                        oDS_PS_PP049L.SetValue("U_OrdNum", pVal.Row - 1, RecordSet01.Fields.Item("OrdNum").Value);
+                                        oDS_PS_PP049L.SetValue("U_OrdSub1", pVal.Row - 1, RecordSet01.Fields.Item("OrdSub1").Value);
+                                        oDS_PS_PP049L.SetValue("U_OrdSub2", pVal.Row - 1, RecordSet01.Fields.Item("OrdSub2").Value);
+                                        oDS_PS_PP049L.SetValue("U_PP030HNo", pVal.Row - 1, RecordSet01.Fields.Item("PP030HNo").Value);
+                                        oDS_PS_PP049L.SetValue("U_PP030MNo", pVal.Row - 1, RecordSet01.Fields.Item("PP030MNo").Value);
+                                        oDS_PS_PP049L.SetValue("U_SelWt", pVal.Row - 1, RecordSet01.Fields.Item("SelWt").Value);
+                                        oDS_PS_PP049L.SetValue("U_PSum", pVal.Row - 1, RecordSet01.Fields.Item("PSum").Value);
+                                        oDS_PS_PP049L.SetValue("U_BQty", pVal.Row - 1, RecordSet01.Fields.Item("BQty").Value);
+                                        oDS_PS_PP049L.SetValue("U_PQty", pVal.Row - 1, "0");
+                                        oDS_PS_PP049L.SetValue("U_PWeight", pVal.Row - 1, "0");
+                                        oDS_PS_PP049L.SetValue("U_YQty", pVal.Row - 1, "0");
+                                        oDS_PS_PP049L.SetValue("U_YWeight", pVal.Row - 1, "0");
+                                        oDS_PS_PP049L.SetValue("U_NQty", pVal.Row - 1, "0");
+                                        oDS_PS_PP049L.SetValue("U_NWeight", pVal.Row - 1, "0");
+                                        oDS_PS_PP049L.SetValue("U_ScrapWt", pVal.Row - 1, "0");
+                                        oDS_PS_PP049L.SetValue("U_WorkTime", pVal.Row - 1, "0");
+                                        oDS_PS_PP049L.SetValue("U_LineId", pVal.Row - 1, "");
+                                        oDS_PS_PP049L.SetValue("U_MachCode", pVal.Row - 1, "");
+                                        oDS_PS_PP049L.SetValue("U_MachName", pVal.Row - 1, "");
+                                        
+                                        if (oMat03.VisualRowCount == 0)
+                                        {
+                                            PS_PP049_AddMatrixRow03(0, true);
+                                        }
+                                        else
+                                        {
+                                            PS_PP049_AddMatrixRow03(oMat03.VisualRowCount, false);
+                                        }
+
+                                        oDS_PS_PP049N.SetValue("U_OrdMgNum", oMat03.VisualRowCount - 1, RecordSet01.Fields.Item("OrdMgNum").Value);
+                                        oDS_PS_PP049N.SetValue("U_CpCode", oMat03.VisualRowCount - 1, RecordSet01.Fields.Item("CpCode").Value);
+                                        oDS_PS_PP049N.SetValue("U_CpName", oMat03.VisualRowCount - 1, RecordSet01.Fields.Item("CpName").Value);
+                                        oDS_PS_PP049N.SetValue("U_OLineNum", oMat03.VisualRowCount - 1, Convert.ToString(pVal.Row));
+                                        if (oMat01.RowCount == pVal.Row && !string.IsNullOrEmpty(oDS_PS_PP049L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
+                                        {
+                                            PS_PP049_AddMatrixRow01(pVal.Row, false);
+                                        }
+                                    }
+                                }
+                                else if (pVal.ColUID == "PQty")
+                                {
+                                    string query = "SELECT U_CpUnWt  FROM [@PS_PP004H] WHERE U_ItemCode = '" + oMat01.Columns.Item("ItemCode").Cells.Item(pVal.Row).Specific.Value + "' AND U_CpCode = '" + oMat01.Columns.Item("CpCode").Cells.Item(pVal.Row).Specific.Value + "'";
+                                    string returnValue = dataHelpClass.GetValue(query, 0, 1);
+                                    double weight = Convert.ToDouble(returnValue == "" ? "0" : returnValue) / 1000;
+
+                                    if (Convert.ToDouble(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value) <= 0)
+                                    {
+                                        if (oDS_PS_PP049H.GetValue("U_OrdType", 0).ToString().Trim() == "50" || oDS_PS_PP049H.GetValue("U_OrdType", 0) == "60")
+                                        {
+                                            //goto Skip_PQty;
+                                            oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                                            oDS_PS_PP049L.SetValue("U_YQty", pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                                            if (weight == 0)
+                                            {
+                                                oDS_PS_PP049L.SetValue("U_PWeight", pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                                                oDS_PS_PP049L.SetValue("U_YWeight", pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                                            }
+                                            else
+                                            {
+                                                oDS_PS_PP049L.SetValue("U_PWeight", pVal.Row - 1, Convert.ToString(weight * Convert.ToDouble(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
+                                                oDS_PS_PP049L.SetValue("U_YWeight", pVal.Row - 1, Convert.ToString(weight * Convert.ToDouble(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
+                                            }
+                                            oDS_PS_PP049L.SetValue("U_NQty", pVal.Row - 1, "0");
+                                            oDS_PS_PP049L.SetValue("U_NWeight", pVal.Row - 1, "0");
+                                        }
+                                        else
+                                        {
+                                            oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oDS_PS_PP049L.GetValue("U_" + pVal.ColUID, pVal.Row - 1));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                                        oDS_PS_PP049L.SetValue("U_YQty", pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+
+                                        if (weight == 0)
+                                        {
+                                            oDS_PS_PP049L.SetValue("U_PWeight", pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                                            oDS_PS_PP049L.SetValue("U_YWeight", pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                                        }
+                                        else
+                                        {
+                                            oDS_PS_PP049L.SetValue("U_PWeight", pVal.Row - 1, Convert.ToString(weight * Convert.ToDouble(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
+                                            oDS_PS_PP049L.SetValue("U_YWeight", pVal.Row - 1, Convert.ToString(weight * Convert.ToDouble(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
+                                        }
+                                        oDS_PS_PP049L.SetValue("U_NQty", pVal.Row - 1, "0");
+                                        oDS_PS_PP049L.SetValue("U_NWeight", pVal.Row - 1, "0");
+                                    }
+                                }
+                                else if (pVal.ColUID == "NQty")
+                                {
+                                    string query = "SELECT U_CpUnWt  FROM [@PS_PP004H] WHERE U_ItemCode = '" + oMat01.Columns.Item("ItemCode").Cells.Item(pVal.Row).Specific.Value + "' AND U_CpCode = '" + oMat01.Columns.Item("CpCode").Cells.Item(pVal.Row).Specific.Value + "'";
+                                    string returnValue = dataHelpClass.GetValue(query, 0, 1);
+                                    double weight = Convert.ToDouble(returnValue == "" ? "0" : returnValue) / 1000;
+
+                                    if (Convert.ToDouble(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value) <= 0) //불량 수량이 0보다 작거나 같으면
+                                    {
+                                        if (oDS_PS_PP049H.GetValue("U_OrdType", 0).ToString().Trim() == "50" || oDS_PS_PP049H.GetValue("U_OrdType", 0).ToString().Trim() == "60")
+                                        {
+                                            oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                                            oDS_PS_PP049L.SetValue("U_YQty", pVal.Row - 1, Convert.ToString(Convert.ToDouble(oMat01.Columns.Item("PQty").Cells.Item(pVal.Row).Specific.Value) - Convert.ToDouble(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
+                                            if (weight == 0)
+                                            {
+                                                oDS_PS_PP049L.SetValue("U_NWeight", pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                                                oDS_PS_PP049L.SetValue("U_YWeight", pVal.Row - 1, Convert.ToString(Convert.ToDouble(oMat01.Columns.Item("PQty").Cells.Item(pVal.Row).Specific.Value) - Convert.ToDouble(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
+                                            }
+                                            else
+                                            {
+                                                oDS_PS_PP049L.SetValue("U_NWeight", pVal.Row - 1, Convert.ToString(weight * Convert.ToDouble(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
+                                                oDS_PS_PP049L.SetValue("U_YWeight", pVal.Row - 1, Convert.ToString(weight * (Convert.ToDouble(oMat01.Columns.Item("PQty").Cells.Item(pVal.Row).Specific.Value) - Convert.ToDouble(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value))));
+                                            }
+                                        }
+                                        else
+                                        {
+                                            oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oDS_PS_PP049L.GetValue("U_" + pVal.ColUID, pVal.Row - 1));
+                                        }
+                                    }
+                                    else if (Convert.ToDouble(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value) > Convert.ToDouble(oMat01.Columns.Item("PQty").Cells.Item(pVal.Row).Specific.Value)) //불량수량이 생산수량보다 크면
+                                    {
+                                        if (oDS_PS_PP049H.GetValue("U_OrdType", 0).ToString().Trim() == "50" || oDS_PS_PP049H.GetValue("U_OrdType", 0).ToString().Trim() == "60")
+                                        {
+                                            oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                                            oDS_PS_PP049L.SetValue("U_YQty", pVal.Row - 1, Convert.ToString(Convert.ToDouble(oMat01.Columns.Item("PQty").Cells.Item(pVal.Row).Specific.Value) - Convert.ToDouble(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
+                                            if (weight == 0)
+                                            {
+                                                oDS_PS_PP049L.SetValue("U_NWeight", pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                                                oDS_PS_PP049L.SetValue("U_YWeight", pVal.Row - 1, Convert.ToString(Convert.ToDouble(oMat01.Columns.Item("PQty").Cells.Item(pVal.Row).Specific.Value) - Convert.ToDouble(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
+                                            }
+                                            else
+                                            {
+                                                oDS_PS_PP049L.SetValue("U_NWeight", pVal.Row - 1, Convert.ToString(weight * Convert.ToDouble(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
+                                                oDS_PS_PP049L.SetValue("U_YWeight", pVal.Row - 1, Convert.ToString(weight * (Convert.ToDouble(oMat01.Columns.Item("PQty").Cells.Item(pVal.Row).Specific.Value) - Convert.ToDouble(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value))));
+                                            }
+                                        }
+                                        else
+                                        {
+                                            oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oDS_PS_PP049L.GetValue("U_" + pVal.ColUID, pVal.Row - 1));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                                        oDS_PS_PP049L.SetValue("U_YQty", pVal.Row - 1, Convert.ToString(Convert.ToDouble(oMat01.Columns.Item("PQty").Cells.Item(pVal.Row).Specific.Value) - Convert.ToDouble(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
+                                        if (weight == 0)
+                                        {
+                                            oDS_PS_PP049L.SetValue("U_NWeight", pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                                            oDS_PS_PP049L.SetValue("U_YWeight", pVal.Row - 1, Convert.ToString(Convert.ToDouble(oMat01.Columns.Item("PQty").Cells.Item(pVal.Row).Specific.Value) - Convert.ToDouble(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
+                                        }
+                                        else
+                                        {
+                                            oDS_PS_PP049L.SetValue("U_NWeight", pVal.Row - 1, Convert.ToString(weight * Convert.ToDouble(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
+                                            oDS_PS_PP049L.SetValue("U_YWeight", pVal.Row - 1, Convert.ToString(weight * (Convert.ToDouble(oMat01.Columns.Item("PQty").Cells.Item(pVal.Row).Specific.Value) - Convert.ToDouble(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value))));
+                                        }
+                                    }
+                                }
+                                else if (pVal.ColUID == "WorkTime")  //작업시간(공수)을 입력할 때
+                                {
+                                    if (oForm.Items.Item("BPLId").Specific.Selected.Value != "1")
+                                    {
+                                        oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                                    }
+                                    else
+                                    {
+                                        oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                                    }
+                                }
+                                else if (pVal.ColUID == "CItemCod")
+                                {
+                                    oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                                    oDS_PS_PP049L.SetValue("U_CItemNam", pVal.Row - 1, dataHelpClass.GetValue("SELECT U_ItemNam2 FROM [@PS_PP005H] WHERE U_ItemCod1 = '" + oMat01.Columns.Item("ItemCode").Cells.Item(pVal.Row).Specific.Value + "' and U_ItemCod2 = '" + oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value + "'", 0, 1));
+                                }
+                                else
+                                {
+                                    oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                                }
+                            }
+                            oMat01.LoadFromDataSource();
+                            oMat01.AutoResizeColumns();
+                            oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                            oMat03.LoadFromDataSource();
+                            oMat03.AutoResizeColumns();
+                        }
+                        else if (pVal.ItemUID == "Mat02")
+                        {
+                            if (pVal.ColUID == "WorkCode")
+                            {
+                                oDS_PS_PP049M.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                                oDS_PS_PP049M.SetValue("U_WorkName", pVal.Row - 1, dataHelpClass.GetValue("SELECT LastName + FirstName FROM [OHEM] WHERE U_MSTCOD = '" + oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value + "'", 0, 1));
+                                if (oMat02.RowCount == pVal.Row && !string.IsNullOrEmpty(oDS_PS_PP049M.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
+                                {
+                                    PS_PP049_AddMatrixRow02(pVal.Row, false);
+                                }
+                            }
+                            else if (pVal.ColUID == "NStart")
+                            {
+                                oDS_PS_PP049M.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                                if (Convert.ToDouble(oMat02.Columns.Item("NStart").Cells.Item(pVal.Row).Specific.Value) == 0 || Convert.ToDouble(oMat02.Columns.Item("NEnd").Cells.Item(pVal.Row).Specific.Value) == 0)
+                                {
+                                    oDS_PS_PP049M.SetValue("U_NTime", pVal.Row - 1, "0");
+                                    oDS_PS_PP049M.SetValue("U_YTime", pVal.Row - 1, oForm.Items.Item("BaseTime").Specific.Value);
+                                    oDS_PS_PP049M.SetValue("U_TTime", pVal.Row - 1, oForm.Items.Item("BaseTime").Specific.Value);
+                                }
+                                else
+                                {
+                                    double time = 0;
+                                    if (Convert.ToDouble(oMat02.Columns.Item("NStart").Cells.Item(pVal.Row).Specific.Value) <= Convert.ToDouble(oMat02.Columns.Item("NEnd").Cells.Item(pVal.Row).Specific.Value))
+                                    {
+                                        time = Convert.ToDouble(oMat02.Columns.Item("NEnd").Cells.Item(pVal.Row).Specific.Value) - Convert.ToDouble(oMat02.Columns.Item("NStart").Cells.Item(pVal.Row).Specific.Value);
+                                    }
+                                    else
+                                    {
+                                        time = (2400 - Convert.ToDouble(oMat02.Columns.Item("NStart").Cells.Item(pVal.Row).Specific.Value)) + Convert.ToDouble(oMat02.Columns.Item("NEnd").Cells.Item(pVal.Row).Specific.Value);
+                                    }
+                                    double hour = time / 100;
+                                    double minute = time % 100;
+                                    time = hour;
+                                    if (minute > 0)
+                                    {
+                                        time += 0.5;
+                                    }
+                                    oDS_PS_PP049M.SetValue("U_NTime", pVal.Row - 1, Convert.ToString(time));
+                                    oDS_PS_PP049M.SetValue("U_YTime", pVal.Row - 1, Convert.ToString(Convert.ToDouble(oForm.Items.Item("BaseTime").Specific.Value) - time));
+                                    oDS_PS_PP049M.SetValue("U_TTime", pVal.Row - 1, Convert.ToString(Convert.ToDouble(oForm.Items.Item("BaseTime").Specific.Value) - time));
+                                }
+                            }
+                            else if (pVal.ColUID == "NEnd")
+                            {
+                                oDS_PS_PP049M.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                                if (Convert.ToDouble(oMat02.Columns.Item("NStart").Cells.Item(pVal.Row).Specific.Value) == 0 || Convert.ToDouble(oMat02.Columns.Item("NEnd").Cells.Item(pVal.Row).Specific.Value) == 0)
+                                {
+                                    oDS_PS_PP049M.SetValue("U_NTime", pVal.Row - 1, "0");
+                                    oDS_PS_PP049M.SetValue("U_YTime", pVal.Row - 1, oForm.Items.Item("BaseTime").Specific.Value);
+                                    oDS_PS_PP049M.SetValue("U_TTime", pVal.Row - 1, oForm.Items.Item("BaseTime").Specific.Value);
+                                }
+                                else
+                                {
+                                    double time = 0;
+                                    if (Convert.ToDouble(oMat02.Columns.Item("NStart").Cells.Item(pVal.Row).Specific.Value) <= Convert.ToDouble(oMat02.Columns.Item("NEnd").Cells.Item(pVal.Row).Specific.Value))
+                                    {
+                                        time = Convert.ToDouble(oMat02.Columns.Item("NEnd").Cells.Item(pVal.Row).Specific.Value) - Convert.ToDouble(oMat02.Columns.Item("NStart").Cells.Item(pVal.Row).Specific.Value);
+                                    }
+                                    else
+                                    {
+                                        time = (2400 - Convert.ToDouble(oMat02.Columns.Item("NStart").Cells.Item(pVal.Row).Specific.Value)) + Convert.ToDouble(oMat02.Columns.Item("NEnd").Cells.Item(pVal.Row).Specific.Value);
+                                    }
+                                    double hour = time / 100;
+                                    double minute = time % 100;
+                                    time = hour;
+                                    if (minute > 0)
+                                    {
+                                        time += 0.5;
+                                    }
+                                    oDS_PS_PP049M.SetValue("U_NTime", pVal.Row - 1, Convert.ToString(time));
+                                    oDS_PS_PP049M.SetValue("U_YTime", pVal.Row - 1, Convert.ToString(Convert.ToDouble(oForm.Items.Item("BaseTime").Specific.Value) - time));
+                                    oDS_PS_PP049M.SetValue("U_TTime", pVal.Row - 1, Convert.ToString(Convert.ToDouble(oForm.Items.Item("BaseTime").Specific.Value) - time));
+                                }
+                            }
+                            else if (pVal.ColUID == "YTime")
+                            {
+                                oDS_PS_PP049M.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                                oDS_PS_PP049M.SetValue("U_TTime", pVal.Row - 1, oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                            }
+                            else
+                            {
+                                oDS_PS_PP049M.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                            }
+                            oMat02.LoadFromDataSource();
+                            oMat02.AutoResizeColumns();
+                            oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                        }
+                        else if (pVal.ItemUID == "Mat03")
+                        {
+                            if (pVal.ColUID == "FailCode")
+                            {
+                                oDS_PS_PP049N.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat03.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                                oDS_PS_PP049N.SetValue("U_FailName", pVal.Row - 1, dataHelpClass.GetValue("SELECT U_SmalName FROM [@PS_PP003L] WHERE U_SmalCode = '" + oMat03.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value + "'", 0, 1));
+                            }
+                            else
+                            {
+                                oDS_PS_PP049N.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat03.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
+                            }
+                            oMat03.LoadFromDataSource();
+                            oMat03.AutoResizeColumns();
+                            oMat03.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                        }
+                        else
+                        {
+                            if (pVal.ItemUID == "DocEntry")
+                            {
+                                oDS_PS_PP049H.SetValue(pVal.ItemUID, 0, oForm.Items.Item(pVal.ItemUID).Specific.Value);
+                            }
+                            else if (pVal.ItemUID == "BaseTime")
+                            {
+                                oDS_PS_PP049H.SetValue("U_" + pVal.ItemUID, 0, oForm.Items.Item(pVal.ItemUID).Specific.Value);
+                            }
+                            else if (pVal.ItemUID == "OrdMgNum")
+                            {
+                                oDS_PS_PP049H.SetValue("U_" + pVal.ItemUID, 0, oForm.Items.Item(pVal.ItemUID).Specific.Value);
+                                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
+                                {
+                                    PS_PP049_LoadOrderInfo();
+                                }
+                            }
+                            else if (pVal.ItemUID == "ItemCode")
+                            {
+                                oDS_PS_PP049H.SetValue("U_" + pVal.ItemUID, 0, oForm.Items.Item(pVal.ItemUID).Specific.Value);
+                                oMat01.Clear();
+                                oMat01.FlushToDataSource();
+                                oMat01.LoadFromDataSource();
+                                PS_PP049_AddMatrixRow01(0, true);
+                                oMat02.Clear();
+                                oMat02.FlushToDataSource();
+                                oMat02.LoadFromDataSource();
+                                PS_PP049_AddMatrixRow02(0, true);
+                                oMat03.Clear();
+                                oMat03.FlushToDataSource();
+                                oMat03.LoadFromDataSource();
+                            }
+                            else if (pVal.ItemUID == "UseMCode")
+                            {
+                                query01 = "EXEC PS_PP040_98 '" + oForm.Items.Item("UseMCode").Specific.Value;
+                                RecordSet01.DoQuery(query01);
+                                oForm.Items.Item("UseMName").Specific.Value = RecordSet01.Fields.Item(0).Value.ToString().Trim();
+                            }
+                            else
+                            {
+                                oDS_PS_PP049H.SetValue("U_" + pVal.ItemUID, 0, oForm.Items.Item(pVal.ItemUID).Specific.Value);
+                            }
+                            oForm.Items.Item(pVal.ItemUID).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                        }
+                    }
                 }
                 else if (pVal.Before_Action == false)
                 {
@@ -2815,11 +3314,46 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                if (errCode == "E1")
+                {
+                    PSH_Globals.SBO_Application.MessageBox("배치번호 재고없음 : " + oMat01.Columns.Item("BatchNum").Cells.Item(pVal.Row).Specific.Value);
+                }
+                else if (errCode == "E3")
+                {
+                    PSH_Globals.SBO_Application.MessageBox("배치번호 선입선출 오류 : " + BatchNumErr + " 선입고된 배치번호입니다.");
+                }
+                else if (errCode == "E4")
+                {
+                    PSH_Globals.SBO_Application.MessageBox("원재료 매칭 오류 : " + oMat01.Columns.Item("BatchNum").Cells.Item(pVal.Row).Specific.Value + " - " + "재고없음");
+                }
+                else if (errCode == "1")
+                {
+                    if (oMat01.RowCount == pVal.Row && !string.IsNullOrEmpty(oDS_PS_PP049L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
+                    {
+                        PS_PP049_AddMatrixRow01(pVal.Row, false);
+                    }
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                }
+
                 BubbleEvent = false;
             }
             finally
             {
+                oForm.Freeze(false);
+
+                if (ProgBar01 != null)
+                {
+                    ProgBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                }
+
+                if (RecordSet01 != null)
+                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet01);
+                }
             }
         }
 
@@ -3434,708 +3968,6 @@ namespace PSH_BOne_AddOn
 
 
 
-
-
-        #region Raise_EVENT_DOUBLE_CLICK
-        //private void Raise_EVENT_DOUBLE_CLICK(ref object FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        //{
-        //	 // ERROR: Not supported in C#: OnErrorStatement
-
-        //	if (pVal.BeforeAction == true) {
-        //		if (pVal.ItemUID == "Mat01") {
-        //			if (pVal.Row > 0) {
-        //				//UPGRADE_WARNING: oForm.Items(OrdType).Specific.Selected 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				////작업타입이 일반,조정인경우
-        //				if (oForm.Items.Item("OrdType").Specific.Selected.Value == "10" | oForm.Items.Item("OrdType").Specific.Selected.Value == "50" | oForm.Items.Item("OrdType").Specific.Selected.Value == "60") {
-        //					//UPGRADE_WARNING: oMat01.Columns(OrdMgNum).Cells(pVal.Row).Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					if (string.IsNullOrEmpty(oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value)) {
-
-        //					} else {
-        //						if (oMat03.VisualRowCount == 0) {
-        //							PS_PP049_AddMatrixRow03(0, ref true);
-        //						} else {
-        //							PS_PP049_AddMatrixRow03(oMat03.VisualRowCount);
-        //						}
-        //						//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						oDS_PS_PP049N.SetValue("U_OrdMgNum", oMat03.VisualRowCount - 1, oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value);
-        //						//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						oDS_PS_PP049N.SetValue("U_CpCode", oMat03.VisualRowCount - 1, oMat01.Columns.Item("CpCode").Cells.Item(pVal.Row).Specific.Value);
-        //						//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						oDS_PS_PP049N.SetValue("U_CpName", oMat03.VisualRowCount - 1, oMat01.Columns.Item("CpName").Cells.Item(pVal.Row).Specific.Value);
-        //						oDS_PS_PP049N.SetValue("U_OLineNum", oMat03.VisualRowCount - 1, Convert.ToString(pVal.Row));
-        //						oMat03.LoadFromDataSource();
-        //						oMat03.AutoResizeColumns();
-        //						//                        oMat03.Columns("OrdMgNum").TitleObject.Sortable = True
-        //						//                        Call oMat03.Columns("OrdMgNum").TitleObject.Sort(gst_Ascending)
-        //						oMat03.Columns.Item("OLineNum").TitleObject.Sortable = true;
-        //						oMat03.Columns.Item("OLineNum").TitleObject.Sort(SAPbouiCOM.BoGridSortType.gst_Ascending);
-        //						oMat03.FlushToDataSource();
-        //					}
-        //					//UPGRADE_WARNING: oForm.Items(OrdType).Specific.Selected 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				////작업타입이 PSMT지원인경우
-        //				} else if (oForm.Items.Item("OrdType").Specific.Selected.Value == "20") {
-        //					//UPGRADE_WARNING: oMat01.Columns(OrdMgNum).Cells(pVal.Row).Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					if (string.IsNullOrEmpty(oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value)) {
-
-        //					} else {
-        //						if (oMat03.VisualRowCount == 0) {
-        //							PS_PP049_AddMatrixRow03(0, ref true);
-        //						} else {
-        //							PS_PP049_AddMatrixRow03(oMat03.VisualRowCount);
-        //						}
-        //						//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						oDS_PS_PP049N.SetValue("U_OrdMgNum", oMat03.VisualRowCount - 1, oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value);
-        //						//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						oDS_PS_PP049N.SetValue("U_CpCode", oMat03.VisualRowCount - 1, oMat01.Columns.Item("CpCode").Cells.Item(pVal.Row).Specific.Value);
-        //						//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						oDS_PS_PP049N.SetValue("U_CpName", oMat03.VisualRowCount - 1, oMat01.Columns.Item("CpName").Cells.Item(pVal.Row).Specific.Value);
-        //						oDS_PS_PP049N.SetValue("U_OLineNum", oMat03.VisualRowCount - 1, Convert.ToString(pVal.Row));
-        //						oMat03.LoadFromDataSource();
-        //						oMat03.AutoResizeColumns();
-        //						//                        oMat03.Columns("OrdMgNum").TitleObject.Sortable = True
-        //						//                        Call oMat03.Columns("OrdMgNum").TitleObject.Sort(gst_Ascending)
-        //						oMat03.Columns.Item("OLineNum").TitleObject.Sortable = true;
-        //						oMat03.Columns.Item("OLineNum").TitleObject.Sort(SAPbouiCOM.BoGridSortType.gst_Ascending);
-        //						oMat03.FlushToDataSource();
-        //					}
-        //					//UPGRADE_WARNING: oForm.Items(OrdType).Specific.Selected 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				////작업타입이 외주인경우
-        //				} else if (oForm.Items.Item("OrdType").Specific.Selected.Value == "30") {
-        //					//UPGRADE_WARNING: oForm.Items(OrdType).Specific.Selected 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				////작업타입이 실적인경우
-        //				} else if (oForm.Items.Item("OrdType").Specific.Selected.Value == "40") {
-        //				}
-        //			}
-        //		}
-        //	} else if (pVal.BeforeAction == false) {
-
-        //	}
-        //	return;
-        //	Raise_EVENT_DOUBLE_CLICK_Error:
-        //	SubMain.Sbo_Application.SetStatusBarMessage("Raise_EVENT_DOUBLE_CLICK_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-        //}
-        #endregion
-
-        #region Raise_EVENT_MATRIX_LINK_PRESSED
-        //private void Raise_EVENT_MATRIX_LINK_PRESSED(ref object FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        //{
-        //	 // ERROR: Not supported in C#: OnErrorStatement
-
-        //	object oTempClass = null;
-        //	if (pVal.BeforeAction == true) {
-        //		if (pVal.ItemUID == "Mat01") {
-        //			if (pVal.ColUID == "OrdMgNum") {
-        //				oTempClass = new PS_PP030();
-        //				//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				//UPGRADE_WARNING: oTempClass.LoadForm 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				oTempClass.LoadForm(Strings.Mid(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value, 1, Strings.InStr(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value, "-") - 1));
-        //			}
-        //			if (pVal.ColUID == "PP030HNo") {
-        //				oTempClass = new PS_PP030();
-        //				//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				//UPGRADE_WARNING: oTempClass.LoadForm 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				oTempClass.LoadForm(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
-        //			}
-        //		}
-        //		if (pVal.ItemUID == "Mat03") {
-        //			if (pVal.ColUID == "OrdMgNum") {
-        //				oTempClass = new PS_PP030();
-        //				//UPGRADE_WARNING: oMat03.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				//UPGRADE_WARNING: oTempClass.LoadForm 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				oTempClass.LoadForm(Strings.Mid(oMat03.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value, 1, Strings.InStr(oMat03.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value, "-") - 1));
-        //			}
-        //		}
-        //	} else if (pVal.BeforeAction == false) {
-
-        //	}
-        //	return;
-        //	Raise_EVENT_MATRIX_LINK_PRESSED_Error:
-        //	SubMain.Sbo_Application.SetStatusBarMessage("Raise_EVENT_MATRIX_LINK_PRESSED_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-        //}
-        #endregion
-
-        #region Raise_EVENT_VALIDATE(
-        //private void Raise_EVENT_VALIDATE(ref object FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        //{
-        //	 // ERROR: Not supported in C#: OnErrorStatement
-
-        //	int i = 0;
-        //	string Query01 = null;
-        //	SAPbobsCOM.Recordset RecordSet01 = null;
-        //	double Weight = 0;
-
-        //	double Time = 0;
-        //	//UPGRADE_NOTE: Hour이(가) Hour_Renamed(으)로 업그레이드되었습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-        //	int Hour_Renamed = 0;
-        //	//UPGRADE_NOTE: Minute이(가) Minute_Renamed(으)로 업그레이드되었습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
-        //	int Minute_Renamed = 0;
-        //	string ReturnValue = null;
-        //	string BatchNumErr = null;
-        //	bool result = false;
-
-        //	oForm.Freeze(true);
-        //	SAPbouiCOM.ProgressBar ProgBar01 = null;
-        //	if (pVal.BeforeAction == true) {
-        //		if (pVal.ItemChanged == true) {
-        //			if ((pVal.ItemUID == "Mat01")) {
-        //				if ((PS_PP049_Validate("수정01") == false)) {
-        //					oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, Strings.Trim(oDS_PS_PP049L.GetValue("U_" + pVal.ColUID, pVal.Row - 1)));
-        //				} else {
-        //					if ((pVal.ColUID == "OrdMgNum")) {
-        //						RecordSet01 = SubMain.Sbo_Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-        //						ProgBar01 = SubMain.Sbo_Application.StatusBar.CreateProgressBar("실행 중...", 100, false);
-        //						//
-        //						//                        If oForm.Items("OrdNum").Specific.Value = "" Then '//작지번호에 값이 없으면 작업지시가 불러오기전
-        //						//                            Call oDS_PS_PP049L.setValue("U_" & pVal.ColUID, pVal.Row - 1, "")
-        //						//                        Else '//작업지시가 선택된상태
-        //						//                            If oForm.Items("OrdType").Specific.Selected.Value = "10" Or oForm.Items("OrdType").Specific.Selected.Value = "50" Or oForm.Items("OrdType").Specific.Selected.Value = "60" Or oForm.Items("OrdType").Specific.Selected.Value = "70" Then '//작업타입이 일반,조정, 설계
-        //						//                                '//작지문서헤더번호가 일치하지 않으면
-        //						//                                If oForm.Items("PP030HNo").Specific.Value <> Mid(oMat01.Columns(pVal.ColUID).Cells(pVal.Row).Specific.Value, 1, InStr(oMat01.Columns(pVal.ColUID).Cells(pVal.Row).Specific.Value, "-") - 1) Then
-        //						//                                    Call oDS_PS_PP049L.setValue("U_" & pVal.ColUID, pVal.Row - 1, "")
-        //						//                                Else '//작지문서번호가 일치하면
-        //						//                                    If oForm.Items("BPLId").Specific.Selected.Value <> "1" Then
-        //						//                                        '//신동사업부를 제외한 사업부만 체크
-        //						//                                        For i = 1 To oMat01.RowCount
-        //						//                                            '//현재 입력한 값이 이미 입력되어 있는경우
-        //						//                                            If oMat01.Columns("OrdMgNum").Cells(i).Specific.Value = oMat01.Columns("OrdMgNum").Cells(pVal.Row).Specific.Value And i <> pVal.Row Then
-        //						//                                                Call MDC_Com.MDC_GF_Message("이미 입력한 공정입니다.", "W")
-        //						//                                                Call oDS_PS_PP049L.setValue("U_" & pVal.ColUID, pVal.Row - 1, "")
-        //						//                                                GoTo Continue
-        //						//                                            End If
-        //						//    '                                        '//공정라인의 공정순서가 앞공정보다 높으면
-        //						//    '                                        If Val(oMat01.Columns("Sequence").Cells(i).Specific.Value) >= MDC_PS_Common.GetValue("SELECT PS_PP030M.U_Sequence FROM [@PS_PP030H] PS_PP030H LEFT JOIN [@PS_PP030M] PS_PP030M ON PS_PP030H.DocEntry = PS_PP030M.DocEntry WHERE CONVERT(NVARCHAR,PS_PP030M.DocEntry) + '-' + CONVERT(NVARCHAR,PS_PP030M.LineId) = '" & oMat01.Columns("OrdMgNum").Cells(pVal.Row).Specific.Value & "'") Then
-        //						//    '                                            Call MDC_Com.MDC_GF_Message("공정순서가 올바르지 않습니다.", "W")
-        //						//    '                                            Call oDS_PS_PP049L.setValue("U_" & pVal.ColUID, pVal.Row - 1, "")
-        //						//    '                                            GoTo Continue
-        //						//    '                                        End If
-        //						//                                        Next
-        //						//
-        //						//
-        //						//
-        //						//
-        //						//
-        //						//                                    End If
-        //						//
-        //						//                                    Query01 = "EXEC PS_PP049_01 '" & oMat01.Columns(pVal.ColUID).Cells(pVal.Row).Specific.Value & "', '" & oForm.Items("OrdType").Specific.Selected.Value & "'"
-        //						//                                    RecordSet01.DoQuery Query01
-        //						//                                    If RecordSet01.RecordCount = 0 Then
-        //						//                                        Call oDS_PS_PP049L.setValue("U_" & pVal.ColUID, pVal.Row - 1, "")
-        //						//                                    Else
-        //						//'                                        Call oDS_PS_PP049L.setValue("U_" & pVal.ColUID, pVal.Row - 1, RecordSet01.Fields("OrdMgNum").Value)
-        //						//'                                        Call oDS_PS_PP049L.setValue("U_Sequence", pVal.Row - 1, RecordSet01.Fields("Sequence").Value)
-        //						//'                                        Call oDS_PS_PP049L.setValue("U_CpCode", pVal.Row - 1, RecordSet01.Fields("CpCode").Value)
-        //						//'                                        Call oDS_PS_PP049L.setValue("U_CpName", pVal.Row - 1, RecordSet01.Fields("CpName").Value)
-        //						//'                                        Call oDS_PS_PP049L.setValue("U_OrdGbn", pVal.Row - 1, RecordSet01.Fields("OrdGbn").Value)
-        //						//'                                        Call oDS_PS_PP049L.setValue("U_BPLId", pVal.Row - 1, RecordSet01.Fields("BPLId").Value)
-        //						//'                                        Call oDS_PS_PP049L.setValue("U_ItemCode", pVal.Row - 1, RecordSet01.Fields("ItemCode").Value)
-        //						//'                                        Call oDS_PS_PP049L.setValue("U_ItemName", pVal.Row - 1, RecordSet01.Fields("ItemName").Value)
-        //						//'                                        Call oDS_PS_PP049L.setValue("U_OrdNum", pVal.Row - 1, RecordSet01.Fields("OrdNum").Value)
-        //						//'                                        Call oDS_PS_PP049L.setValue("U_OrdSub1", pVal.Row - 1, RecordSet01.Fields("OrdSub1").Value)
-        //						//'                                        Call oDS_PS_PP049L.setValue("U_OrdSub2", pVal.Row - 1, RecordSet01.Fields("OrdSub2").Value)
-        //						//'                                        Call oDS_PS_PP049L.setValue("U_PP030HNo", pVal.Row - 1, RecordSet01.Fields("PP030HNo").Value)
-        //						//'                                        Call oDS_PS_PP049L.setValue("U_PP030MNo", pVal.Row - 1, RecordSet01.Fields("PP030MNo").Value)
-        //						//'                                        Call oDS_PS_PP049L.setValue("U_SelWt", pVal.Row - 1, RecordSet01.Fields("SelWt").Value)
-        //						//'                                        Call oDS_PS_PP049L.setValue("U_PSum", pVal.Row - 1, RecordSet01.Fields("PSum").Value)
-        //						//'                                        Call oDS_PS_PP049L.setValue("U_BQty", pVal.Row - 1, RecordSet01.Fields("BQty").Value)
-        //						//'                                        Call oDS_PS_PP049L.setValue("U_PQty", pVal.Row - 1, 0)
-        //						//'                                        Call oDS_PS_PP049L.setValue("U_PWeight", pVal.Row - 1, 0)
-        //						//'                                        Call oDS_PS_PP049L.setValue("U_YQty", pVal.Row - 1, 0)
-        //						//'                                        Call oDS_PS_PP049L.setValue("U_YWeight", pVal.Row - 1, 0)
-        //						//'                                        Call oDS_PS_PP049L.setValue("U_NQty", pVal.Row - 1, 0)
-        //						//'                                        Call oDS_PS_PP049L.setValue("U_NWeight", pVal.Row - 1, 0)
-        //						//'                                        Call oDS_PS_PP049L.setValue("U_ScrapWt", pVal.Row - 1, 0)
-        //						//'                                        Call oDS_PS_PP049L.setValue("U_WorkTime", pVal.Row - 1, 0)
-        //						//'                                        Call oDS_PS_PP049L.setValue("U_LineId", pVal.Row - 1, "")
-        //						//
-        //						//                                        '//설비코드,명 Reset
-        //						//                                        Call oDS_PS_PP049L.setValue("U_MachCode", pVal.Row - 1, "")
-        //						//                                        Call oDS_PS_PP049L.setValue("U_MachName", pVal.Row - 1, "")
-        //						//                                        '//불량코드테이블
-        //						//                                        If oMat03.VisualRowCount = 0 Then
-        //						//                                            Call PS_PP049_AddMatrixRow03(0, True)
-        //						//                                        Else
-        //						//                                            Call PS_PP049_AddMatrixRow03(oMat03.VisualRowCount)
-        //						//                                        End If
-        //						//
-        //						//                                        Call oDS_PS_PP049N.setValue("U_OrdMgNum", oMat03.VisualRowCount - 1, RecordSet01.Fields("OrdMgNum").Value)
-        //						//                                        Call oDS_PS_PP049N.setValue("U_CpCode", oMat03.VisualRowCount - 1, RecordSet01.Fields("CpCode").Value)
-        //						//                                        Call oDS_PS_PP049N.setValue("U_CpName", oMat03.VisualRowCount - 1, RecordSet01.Fields("CpName").Value)
-        //						//                                        Call oDS_PS_PP049N.setValue("U_OLineNum", oMat03.VisualRowCount - 1, pVal.Row)
-        //						//
-        //						//
-        //						//
-        //						//                                        '// 류영조
-        //						//                                        If oForm.Items("OrdType").Specific.Selected.Value = "50" Or oForm.Items("OrdType").Specific.Selected.Value = "60" Then
-        //						//                                            Call oDS_PS_PP049H.setValue("U_BaseTime", 0, "1")
-        //						//                                            oMat02.Columns("WorkCode").Cells(1).Specific.Value = "9999999"
-        //						//'                                            oMat02.Columns("WorkName").Cells(1).Specific.Value = "조정"
-        //						//'                                            Call oDS_PS_PP049M.setValue("U_WorkCode", 0, "9999999")
-        //						//                                            Call oDS_PS_PP049M.setValue("U_WorkName", 0, "조정")
-        //						//                                            oMat02.LoadFromDataSource
-        //						//                                        Else
-        //						//'                                            Call oDS_PS_PP049H.setValue("U_BaseTime", 0, "")
-        //						//'                                            oMat02.Columns("WorkCode").Cells(1).Specific.Value = ""
-        //						//'                                            oMat02.Columns("WorkName").Cells(1).Specific.Value = ""
-        //						//                    '                        Call oDS_PS_PP049M.setValue("U_WorkCode", 0, "")
-        //						//                    '                        Call oDS_PS_PP049M.setValue("U_WorkName", 0, "")
-        //						//                                        End If
-        //						//                                    End If
-        //						//                                End If
-        //						//                            ElseIf oForm.Items("OrdType").Specific.Selected.Value = "20" Then '//작업타입이 PSMT지원
-        //						//                                '//올바른 공정코드인지 검사
-        //						//                                If MDC_PS_Common.GetValue("SELECT COUNT(*) FROM [@PS_PP001L] WHERE U_CpCode = '" & oMat01.Columns(pVal.ColUID).Cells(pVal.Row).Specific.Value & "'") = 0 Then
-        //						//                                    Call oDS_PS_PP049L.setValue("U_" & pVal.ColUID, pVal.Row - 1, "")
-        //						//                                Else
-        //						//                                    For i = 1 To oMat01.RowCount
-        //						//                                        '//현재 입력한 값이 이미 입력되어 있는경우
-        //						//                                        If oMat01.Columns("OrdMgNum").Cells(i).Specific.Value = oMat01.Columns("OrdMgNum").Cells(pVal.Row).Specific.Value And i <> pVal.Row Then
-        //						//                                            Call MDC_Com.MDC_GF_Message("이미 입력한 공정입니다.", "W")
-        //						//                                            Call oDS_PS_PP049L.setValue("U_" & pVal.ColUID, pVal.Row - 1, "")
-        //						//                                            GoTo Continue
-        //						//                                        End If
-        //						//                                    Next
-        //						//                                    Call oDS_PS_PP049L.setValue("U_" & pVal.ColUID, pVal.Row - 1, oMat01.Columns(pVal.ColUID).Cells(pVal.Row).Specific.Value)
-        //						//                                    Call oDS_PS_PP049L.setValue("U_CpCode", pVal.Row - 1, oMat01.Columns(pVal.ColUID).Cells(pVal.Row).Specific.Value)
-        //						//                                    Call oDS_PS_PP049L.setValue("U_CpName", pVal.Row - 1, MDC_PS_Common.GetValue("SELECT U_CpName FROM [@PS_PP001L] WHERE U_CpCode = '" & oMat01.Columns(pVal.ColUID).Cells(pVal.Row).Specific.Value & "'", 0, 1))
-        //						//                                    Call oDS_PS_PP049L.setValue("U_OrdGbn", pVal.Row - 1, oForm.Items("OrdGbn").Specific.Selected.Value)
-        //						//                                    Call oDS_PS_PP049L.setValue("U_BPLId", pVal.Row - 1, oForm.Items("BPLId").Specific.Selected.Value)
-        //						//                                    Call oDS_PS_PP049L.setValue("U_ItemCode", pVal.Row - 1, "")
-        //						//                                    Call oDS_PS_PP049L.setValue("U_ItemName", pVal.Row - 1, "")
-        //						//                                    '//PSMT지원은 품목코드 필요없음
-        //						//'                                    Call oDS_PS_PP049L.setValue("U_ItemCode", pVal.Row - 1, oForm.Items("ItemCode").Specific.Value)
-        //						//'                                    Call oDS_PS_PP049L.setValue("U_ItemName", pVal.Row - 1, oForm.Items("ItemName").Specific.Value)
-        //						//                                    Call oDS_PS_PP049L.setValue("U_OrdNum", pVal.Row - 1, oForm.Items("OrdNum").Specific.Value)
-        //						//                                    Call oDS_PS_PP049L.setValue("U_OrdSub1", pVal.Row - 1, oForm.Items("OrdSub1").Specific.Value)
-        //						//                                    Call oDS_PS_PP049L.setValue("U_OrdSub2", pVal.Row - 1, oForm.Items("OrdSub2").Specific.Value)
-        //						//                                    Call oDS_PS_PP049L.setValue("U_PP030HNo", pVal.Row - 1, "")
-        //						//                                    Call oDS_PS_PP049L.setValue("U_PP030MNo", pVal.Row - 1, "")
-        //						//                                    Call oDS_PS_PP049L.setValue("U_PSum", pVal.Row - 1, 0)
-        //						//                                    Call oDS_PS_PP049L.setValue("U_PQty", pVal.Row - 1, 0)
-        //						//                                    Call oDS_PS_PP049L.setValue("U_PWeight", pVal.Row - 1, 0)
-        //						//                                    Call oDS_PS_PP049L.setValue("U_YQty", pVal.Row - 1, 0)
-        //						//                                    Call oDS_PS_PP049L.setValue("U_YWeight", pVal.Row - 1, 0)
-        //						//                                    Call oDS_PS_PP049L.setValue("U_NQty", pVal.Row - 1, 0)
-        //						//                                    Call oDS_PS_PP049L.setValue("U_NWeight", pVal.Row - 1, 0)
-        //						//                                    Call oDS_PS_PP049L.setValue("U_ScrapWt", pVal.Row - 1, 0)
-        //						//                                    '//불량코드테이블
-        //						//                                    If oMat03.VisualRowCount = 0 Then
-        //						//                                        Call PS_PP049_AddMatrixRow03(0, True)
-        //						//                                    Else
-        //						//                                        If oDS_PS_PP049L.GetValue("U_OrdMgNum", pVal.Row - 1) = oDS_PS_PP049N.GetValue("U_OrdMgNum", oMat03.VisualRowCount - 1) Then
-        //						//                                        Else
-        //						//                                            Call PS_PP049_AddMatrixRow03(oMat03.VisualRowCount)
-        //						//                                        End If
-        //						//                                    End If
-        //						//                                    Call oDS_PS_PP049N.setValue("U_OrdMgNum", oMat03.VisualRowCount - 1, oMat01.Columns(pVal.ColUID).Cells(pVal.Row).Specific.Value)
-        //						//                                    Call oDS_PS_PP049N.setValue("U_CpCode", oMat03.VisualRowCount - 1, oMat01.Columns(pVal.ColUID).Cells(pVal.Row).Specific.Value)
-        //						//                                    Call oDS_PS_PP049N.setValue("U_CpName", oMat03.VisualRowCount - 1, MDC_PS_Common.GetValue("SELECT U_CpName FROM [@PS_PP001L] WHERE U_CpCode = '" & oMat01.Columns(pVal.ColUID).Cells(pVal.Row).Specific.Value & "'", 0, 1))
-        //						//                                End If
-        //						//                            ElseIf oForm.Items("OrdType").Specific.Selected.Value = "30" Then '//작업타입이 외주
-        //						//
-        //						//                            ElseIf oForm.Items("OrdType").Specific.Selected.Value = "40" Then '//작업타입이 실적
-        //						//
-        //						//                            End If
-        //						//Continue:
-        //						//                            If oMat01.RowCount = pVal.Row And Trim(oDS_PS_PP049L.GetValue("U_" & pVal.ColUID, pVal.Row - 1)) <> "" Then
-        //						//                                Call PS_PP049_AddMatrixRow01(pVal.Row)
-        //						//                            End If
-        //						//                        End If
-        //						//
-        //						//                        ProgBar01.Value = 100
-        //						//                        ProgBar01.Stop
-        //						//                        Set ProgBar01 = Nothing
-        //						//
-        //						//                        Set RecordSet01 = Nothing
-        //					} else if (pVal.ColUID == "BatchNum") {
-        //						usb_io_output(609, 0, -1, -2, 0, 0);
-        //						// 부져음 및 경광등 끄기
-        //						RecordSet01 = SubMain.Sbo_Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-        //						Query01 = "EXEC PS_PP049_99 '";
-        //						//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						Query01 = Query01 + oMat01.Columns.Item("BatchNum").Cells.Item(pVal.Row).Specific.Value + "','";
-        //						//UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						Query01 = Query01 + oForm.Items.Item("ItemCode").Specific.Value + "'";
-
-
-        //						RecordSet01.DoQuery(Query01);
-
-        //						//UPGRADE_WARNING: RecordSet01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						ReturnValue = RecordSet01.Fields.Item("ReturnValue").Value;
-        //						//UPGRADE_WARNING: RecordSet01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						BatchNumErr = RecordSet01.Fields.Item("BatchNum").Value;
-
-        //						if (Strings.Trim(ReturnValue) == "O") {
-        //							//UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //							oDS_PS_PP049L.SetValue("U_OrdMgNum", pVal.Row - 1, Convert.ToString(oForm.Items.Item("PP030HNo").Specific.Value + "-1"));
-        //							oDS_PS_PP049L.SetValue("U_CItemCod", pVal.Row - 1, RecordSet01.Fields.Item("ItemCode").Value);
-        //							oDS_PS_PP049L.SetValue("U_CItemNam", pVal.Row - 1, RecordSet01.Fields.Item("ItemName").Value);
-        //							oDS_PS_PP049L.SetValue("U_OnHandWt", pVal.Row - 1, RecordSet01.Fields.Item("OnHandWt").Value);
-        //						} else if (ReturnValue == "E1") {
-        //							usb_io_output(609, 34, 1, 2, 0, 0);
-        //							goto Raise_EVENT_VALIDATE_Error;
-        //						} else if (ReturnValue == "E2") {
-        //							usb_io_output(609, 34, 1, 2, 0, 0);
-        //							goto Raise_EVENT_VALIDATE_Error;
-        //						} else if (ReturnValue == "E3") {
-        //							usb_io_output(609, 34, 1, 2, 0, 0);
-        //							goto Raise_EVENT_VALIDATE_Error;
-        //						} else if (ReturnValue == "E4") {
-        //							usb_io_output(609, 34, 1, 2, 0, 0);
-        //							goto Raise_EVENT_VALIDATE_Error;
-        //						}
-
-        //						//UPGRADE_WARNING: oForm.Items(OrdType).Specific.Selected 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						//UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						Query01 = "EXEC PS_PP049_01 '" + Strings.Trim(Convert.ToString(oForm.Items.Item("PP030HNo").Specific.Value + "-1")) + "', '" + oForm.Items.Item("OrdType").Specific.Selected.Value + "'";
-        //						RecordSet01.DoQuery(Query01);
-        //						if (RecordSet01.RecordCount == 0) {
-        //							oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, "");
-        //						} else {
-        //							//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //							oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat01.Columns.Item("BatchNum").Cells.Item(pVal.Row).Specific.Value);
-        //							oDS_PS_PP049L.SetValue("U_OrdMgNum", pVal.Row - 1, RecordSet01.Fields.Item("OrdMgNum").Value);
-        //							oDS_PS_PP049L.SetValue("U_Sequence", pVal.Row - 1, RecordSet01.Fields.Item("Sequence").Value);
-        //							oDS_PS_PP049L.SetValue("U_CpCode", pVal.Row - 1, RecordSet01.Fields.Item("CpCode").Value);
-        //							oDS_PS_PP049L.SetValue("U_CpName", pVal.Row - 1, RecordSet01.Fields.Item("CpName").Value);
-        //							oDS_PS_PP049L.SetValue("U_OrdGbn", pVal.Row - 1, RecordSet01.Fields.Item("OrdGbn").Value);
-        //							oDS_PS_PP049L.SetValue("U_BPLId", pVal.Row - 1, RecordSet01.Fields.Item("BPLId").Value);
-        //							oDS_PS_PP049L.SetValue("U_ItemCode", pVal.Row - 1, RecordSet01.Fields.Item("ItemCode").Value);
-        //							oDS_PS_PP049L.SetValue("U_ItemName", pVal.Row - 1, RecordSet01.Fields.Item("ItemName").Value);
-        //							oDS_PS_PP049L.SetValue("U_OrdNum", pVal.Row - 1, RecordSet01.Fields.Item("OrdNum").Value);
-        //							oDS_PS_PP049L.SetValue("U_OrdSub1", pVal.Row - 1, RecordSet01.Fields.Item("OrdSub1").Value);
-        //							oDS_PS_PP049L.SetValue("U_OrdSub2", pVal.Row - 1, RecordSet01.Fields.Item("OrdSub2").Value);
-        //							oDS_PS_PP049L.SetValue("U_PP030HNo", pVal.Row - 1, RecordSet01.Fields.Item("PP030HNo").Value);
-        //							oDS_PS_PP049L.SetValue("U_PP030MNo", pVal.Row - 1, RecordSet01.Fields.Item("PP030MNo").Value);
-        //							oDS_PS_PP049L.SetValue("U_SelWt", pVal.Row - 1, RecordSet01.Fields.Item("SelWt").Value);
-        //							oDS_PS_PP049L.SetValue("U_PSum", pVal.Row - 1, RecordSet01.Fields.Item("PSum").Value);
-        //							oDS_PS_PP049L.SetValue("U_BQty", pVal.Row - 1, RecordSet01.Fields.Item("BQty").Value);
-        //							oDS_PS_PP049L.SetValue("U_PQty", pVal.Row - 1, Convert.ToString(0));
-        //							oDS_PS_PP049L.SetValue("U_PWeight", pVal.Row - 1, Convert.ToString(0));
-        //							oDS_PS_PP049L.SetValue("U_YQty", pVal.Row - 1, Convert.ToString(0));
-        //							oDS_PS_PP049L.SetValue("U_YWeight", pVal.Row - 1, Convert.ToString(0));
-        //							oDS_PS_PP049L.SetValue("U_NQty", pVal.Row - 1, Convert.ToString(0));
-        //							oDS_PS_PP049L.SetValue("U_NWeight", pVal.Row - 1, Convert.ToString(0));
-        //							oDS_PS_PP049L.SetValue("U_ScrapWt", pVal.Row - 1, Convert.ToString(0));
-        //							oDS_PS_PP049L.SetValue("U_WorkTime", pVal.Row - 1, Convert.ToString(0));
-        //							oDS_PS_PP049L.SetValue("U_LineId", pVal.Row - 1, "");
-
-        //							////설비코드,명 Reset
-        //							oDS_PS_PP049L.SetValue("U_MachCode", pVal.Row - 1, "");
-        //							oDS_PS_PP049L.SetValue("U_MachName", pVal.Row - 1, "");
-        //							////불량코드테이블
-        //							if (oMat03.VisualRowCount == 0) {
-        //								PS_PP049_AddMatrixRow03(0, ref true);
-        //							} else {
-        //								PS_PP049_AddMatrixRow03(oMat03.VisualRowCount);
-        //							}
-
-        //							oDS_PS_PP049N.SetValue("U_OrdMgNum", oMat03.VisualRowCount - 1, RecordSet01.Fields.Item("OrdMgNum").Value);
-        //							oDS_PS_PP049N.SetValue("U_CpCode", oMat03.VisualRowCount - 1, RecordSet01.Fields.Item("CpCode").Value);
-        //							oDS_PS_PP049N.SetValue("U_CpName", oMat03.VisualRowCount - 1, RecordSet01.Fields.Item("CpName").Value);
-        //							oDS_PS_PP049N.SetValue("U_OLineNum", oMat03.VisualRowCount - 1, Convert.ToString(pVal.Row));
-        //							if (oMat01.RowCount == pVal.Row & !string.IsNullOrEmpty(Strings.Trim(oDS_PS_PP049L.GetValue("U_" + pVal.ColUID, pVal.Row - 1)))) {
-        //								PS_PP049_AddMatrixRow01(pVal.Row);
-        //							}
-        //						}
-        //					} else if (pVal.ColUID == "PQty") {
-        //						//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						if (Conversion.Val(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value) <= 0) {
-        //							if (Strings.Trim(oDS_PS_PP049H.GetValue("U_OrdType", 0)) == "50" | Strings.Trim(oDS_PS_PP049H.GetValue("U_OrdType", 0)) == "60") {
-        //								goto Skip_PQty;
-        //							} else {
-        //								oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oDS_PS_PP049L.GetValue("U_" + pVal.ColUID, pVal.Row - 1));
-        //							}
-        //						} else {
-        //							Skip_PQty:
-        //							//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //							oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, Convert.ToString(Conversion.Val(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
-        //							//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //							oDS_PS_PP049L.SetValue("U_YQty", pVal.Row - 1, Convert.ToString(Conversion.Val(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
-        //							//UPGRADE_WARNING: oMat01.Columns(CpCode).Cells(pVal.Row).Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //							//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //							//UPGRADE_WARNING: MDC_PS_Common.GetValue() 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //							Weight = Conversion.Val(MDC_PS_Common.GetValue("SELECT U_CpUnWt  FROM [@PS_PP004H] WHERE U_ItemCode = '" + oMat01.Columns.Item("ItemCode").Cells.Item(pVal.Row).Specific.Value + "' AND U_CpCode = '" + oMat01.Columns.Item("CpCode").Cells.Item(pVal.Row).Specific.Value + "'", 0, 1)) / 1000;
-        //							if (Weight == 0) {
-        //								//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //								oDS_PS_PP049L.SetValue("U_PWeight", pVal.Row - 1, Convert.ToString(Conversion.Val(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
-        //								//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //								oDS_PS_PP049L.SetValue("U_YWeight", pVal.Row - 1, Convert.ToString(Conversion.Val(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
-        //							} else {
-        //								//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //								oDS_PS_PP049L.SetValue("U_PWeight", pVal.Row - 1, Convert.ToString(Weight * Conversion.Val(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
-        //								//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //								oDS_PS_PP049L.SetValue("U_YWeight", pVal.Row - 1, Convert.ToString(Weight * Conversion.Val(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
-        //							}
-        //							oDS_PS_PP049L.SetValue("U_NQty", pVal.Row - 1, Convert.ToString(0));
-        //							oDS_PS_PP049L.SetValue("U_NWeight", pVal.Row - 1, Convert.ToString(0));
-        //						}
-        //					} else if (pVal.ColUID == "NQty") {
-        //						//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						if (Conversion.Val(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value) <= 0) {
-        //							if (Strings.Trim(oDS_PS_PP049H.GetValue("U_OrdType", 0)) == "50" | Strings.Trim(oDS_PS_PP049H.GetValue("U_OrdType", 0)) == "60") {
-        //								goto skip_Nqty;
-        //							} else {
-        //								oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oDS_PS_PP049L.GetValue("U_" + pVal.ColUID, pVal.Row - 1));
-        //							}
-        //							//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						} else if (Conversion.Val(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value) > Conversion.Val(oMat01.Columns.Item("PQty").Cells.Item(pVal.Row).Specific.Value)) {
-        //							if (Strings.Trim(oDS_PS_PP049H.GetValue("U_OrdType", 0)) == "50" | Strings.Trim(oDS_PS_PP049H.GetValue("U_OrdType", 0)) == "60") {
-        //								goto skip_Nqty;
-        //							} else {
-        //								oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oDS_PS_PP049L.GetValue("U_" + pVal.ColUID, pVal.Row - 1));
-        //							}
-        //						} else {
-        //							skip_Nqty:
-        //							//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //							oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, Convert.ToString(Conversion.Val(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
-        //							//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //							oDS_PS_PP049L.SetValue("U_YQty", pVal.Row - 1, Convert.ToString(Conversion.Val(oMat01.Columns.Item("PQty").Cells.Item(pVal.Row).Specific.Value) - Conversion.Val(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
-        //							//UPGRADE_WARNING: oMat01.Columns(CpCode).Cells(pVal.Row).Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //							//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //							//UPGRADE_WARNING: MDC_PS_Common.GetValue() 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //							Weight = Conversion.Val(MDC_PS_Common.GetValue("SELECT U_CpUnWt  FROM [@PS_PP004H] WHERE U_ItemCode = '" + oMat01.Columns.Item("ItemCode").Cells.Item(pVal.Row).Specific.Value + "' AND U_CpCode = '" + oMat01.Columns.Item("CpCode").Cells.Item(pVal.Row).Specific.Value + "'", 0, 1)) / 1000;
-        //							if (Weight == 0) {
-        //								//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //								oDS_PS_PP049L.SetValue("U_NWeight", pVal.Row - 1, Convert.ToString(Conversion.Val(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
-        //								//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //								oDS_PS_PP049L.SetValue("U_YWeight", pVal.Row - 1, Convert.ToString(Conversion.Val(oMat01.Columns.Item("PQty").Cells.Item(pVal.Row).Specific.Value) - Conversion.Val(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
-        //							} else {
-        //								//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //								oDS_PS_PP049L.SetValue("U_NWeight", pVal.Row - 1, Convert.ToString(Weight * Conversion.Val(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
-        //								//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //								oDS_PS_PP049L.SetValue("U_YWeight", pVal.Row - 1, Convert.ToString(Weight * (Conversion.Val(oMat01.Columns.Item("PQty").Cells.Item(pVal.Row).Specific.Value) - Conversion.Val(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value))));
-        //							}
-        //						}
-
-        //					//작업시간(공수)을 입력할 때
-        //					} else if (pVal.ColUID == "WorkTime") {
-
-        //						RecordSet01 = SubMain.Sbo_Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-
-        //						//UPGRADE_WARNING: oForm.Items(BPLId).Specific.Selected 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						if (oForm.Items.Item("BPLId").Specific.Selected.Value != "1") {
-
-
-        //							//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //							oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, Convert.ToString(Conversion.Val(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
-
-        //						} else {
-
-        //							//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //							oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, Convert.ToString(Conversion.Val(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
-
-        //						}
-
-        //						//UPGRADE_NOTE: RecordSet01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        //						RecordSet01 = null;
-
-        //					} else if (pVal.ColUID == "CItemCod") {
-        //						//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
-        //						//UPGRADE_WARNING: oMat01.Columns(pVal.ColUID).Cells(pVal.Row).Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						//UPGRADE_WARNING: MDC_PS_Common.GetValue() 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						oDS_PS_PP049L.SetValue("U_CItemNam", pVal.Row - 1, MDC_PS_Common.GetValue("SELECT U_ItemNam2 FROM [@PS_PP005H] WHERE U_ItemCod1 = '" + oMat01.Columns.Item("ItemCode").Cells.Item(pVal.Row).Specific.Value + "' and U_ItemCod2 = '" + oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value + "'", 0, 1));
-        //					} else {
-        //						//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						oDS_PS_PP049L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
-        //					}
-        //				}
-        //			} else if ((pVal.ItemUID == "Mat02")) {
-        //				if ((pVal.ColUID == "WorkCode")) {
-        //					////기타작업
-        //					//UPGRADE_WARNING: oMat02.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					oDS_PS_PP049M.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
-        //					//UPGRADE_WARNING: oMat02.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					//UPGRADE_WARNING: MDC_PS_Common.GetValue() 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					oDS_PS_PP049M.SetValue("U_WorkName", pVal.Row - 1, MDC_PS_Common.GetValue("SELECT LastName + FirstName FROM [OHEM] WHERE U_MSTCOD = '" + oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value + "'", 0, 1));
-        //					if (oMat02.RowCount == pVal.Row & !string.IsNullOrEmpty(Strings.Trim(oDS_PS_PP049M.GetValue("U_" + pVal.ColUID, pVal.Row - 1)))) {
-        //						PS_PP049_AddMatrixRow02(pVal.Row);
-        //					}
-        //				} else if (pVal.ColUID == "NStart") {
-        //					//UPGRADE_WARNING: oMat02.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					oDS_PS_PP049M.SetValue("U_" + pVal.ColUID, pVal.Row - 1, Convert.ToString(Conversion.Val(oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
-        //					//UPGRADE_WARNING: oMat02.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					if (Conversion.Val(oMat02.Columns.Item("NStart").Cells.Item(pVal.Row).Specific.Value) == 0 | Conversion.Val(oMat02.Columns.Item("NEnd").Cells.Item(pVal.Row).Specific.Value) == 0) {
-        //						oDS_PS_PP049M.SetValue("U_NTime", pVal.Row - 1, Convert.ToString(0));
-        //						//UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						oDS_PS_PP049M.SetValue("U_YTime", pVal.Row - 1, Convert.ToString(Conversion.Val(oForm.Items.Item("BaseTime").Specific.Value)));
-        //						//UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						oDS_PS_PP049M.SetValue("U_TTime", pVal.Row - 1, Convert.ToString(Conversion.Val(oForm.Items.Item("BaseTime").Specific.Value)));
-        //					} else {
-        //						//UPGRADE_WARNING: oMat02.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						if (Conversion.Val(oMat02.Columns.Item("NStart").Cells.Item(pVal.Row).Specific.Value) <= Conversion.Val(oMat02.Columns.Item("NEnd").Cells.Item(pVal.Row).Specific.Value)) {
-        //							//UPGRADE_WARNING: oMat02.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //							Time = Conversion.Val(oMat02.Columns.Item("NEnd").Cells.Item(pVal.Row).Specific.Value) - Conversion.Val(oMat02.Columns.Item("NStart").Cells.Item(pVal.Row).Specific.Value);
-        //						} else {
-        //							//UPGRADE_WARNING: oMat02.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //							Time = (2400 - Conversion.Val(oMat02.Columns.Item("NStart").Cells.Item(pVal.Row).Specific.Value)) + Conversion.Val(oMat02.Columns.Item("NEnd").Cells.Item(pVal.Row).Specific.Value);
-        //						}
-        //						Hour_Renamed = Conversion.Fix(Time / 100);
-        //						//UPGRADE_WARNING: Mod에 새 동작이 있습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-        //						Minute_Renamed = Time % 100;
-        //						Time = Hour_Renamed;
-        //						if (Minute_Renamed > 0) {
-        //							Time = Time + 0.5;
-        //						}
-        //						oDS_PS_PP049M.SetValue("U_NTime", pVal.Row - 1, Convert.ToString(Time));
-        //						//UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						oDS_PS_PP049M.SetValue("U_YTime", pVal.Row - 1, Convert.ToString(Conversion.Val(oForm.Items.Item("BaseTime").Specific.Value) - Time));
-        //						//UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						oDS_PS_PP049M.SetValue("U_TTime", pVal.Row - 1, Convert.ToString(Conversion.Val(oForm.Items.Item("BaseTime").Specific.Value) - Time));
-        //					}
-        //				} else if (pVal.ColUID == "NEnd") {
-        //					//UPGRADE_WARNING: oMat02.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					oDS_PS_PP049M.SetValue("U_" + pVal.ColUID, pVal.Row - 1, Convert.ToString(Conversion.Val(oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
-        //					//UPGRADE_WARNING: oMat02.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					if (Conversion.Val(oMat02.Columns.Item("NStart").Cells.Item(pVal.Row).Specific.Value) == 0 | Conversion.Val(oMat02.Columns.Item("NEnd").Cells.Item(pVal.Row).Specific.Value) == 0) {
-        //						oDS_PS_PP049M.SetValue("U_NTime", pVal.Row - 1, Convert.ToString(0));
-        //						//UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						oDS_PS_PP049M.SetValue("U_YTime", pVal.Row - 1, Convert.ToString(Conversion.Val(oForm.Items.Item("BaseTime").Specific.Value)));
-        //						//UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						oDS_PS_PP049M.SetValue("U_TTime", pVal.Row - 1, Convert.ToString(Conversion.Val(oForm.Items.Item("BaseTime").Specific.Value)));
-        //					} else {
-        //						//UPGRADE_WARNING: oMat02.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						if (Conversion.Val(oMat02.Columns.Item("NStart").Cells.Item(pVal.Row).Specific.Value) <= Conversion.Val(oMat02.Columns.Item("NEnd").Cells.Item(pVal.Row).Specific.Value)) {
-        //							//UPGRADE_WARNING: oMat02.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //							Time = Conversion.Val(oMat02.Columns.Item("NEnd").Cells.Item(pVal.Row).Specific.Value) - Conversion.Val(oMat02.Columns.Item("NStart").Cells.Item(pVal.Row).Specific.Value);
-        //						} else {
-        //							//UPGRADE_WARNING: oMat02.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //							Time = (2400 - Conversion.Val(oMat02.Columns.Item("NStart").Cells.Item(pVal.Row).Specific.Value)) + Conversion.Val(oMat02.Columns.Item("NEnd").Cells.Item(pVal.Row).Specific.Value);
-        //						}
-        //						Hour_Renamed = Conversion.Fix(Time / 100);
-        //						//UPGRADE_WARNING: Mod에 새 동작이 있습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"'
-        //						Minute_Renamed = Time % 100;
-        //						Time = Hour_Renamed;
-        //						if (Minute_Renamed > 0) {
-        //							Time = Time + 0.5;
-        //						}
-        //						oDS_PS_PP049M.SetValue("U_NTime", pVal.Row - 1, Convert.ToString(Time));
-        //						//UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						oDS_PS_PP049M.SetValue("U_YTime", pVal.Row - 1, Convert.ToString(Conversion.Val(oForm.Items.Item("BaseTime").Specific.Value) - Time));
-        //						//UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //						oDS_PS_PP049M.SetValue("U_TTime", pVal.Row - 1, Convert.ToString(Conversion.Val(oForm.Items.Item("BaseTime").Specific.Value) - Time));
-        //					}
-        //				} else if (pVal.ColUID == "YTime") {
-        //					//UPGRADE_WARNING: oMat02.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					oDS_PS_PP049M.SetValue("U_" + pVal.ColUID, pVal.Row - 1, Convert.ToString(Conversion.Val(oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
-        //					//UPGRADE_WARNING: oMat02.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					oDS_PS_PP049M.SetValue("U_TTime", pVal.Row - 1, Convert.ToString(Conversion.Val(oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value)));
-        //				} else {
-        //					//UPGRADE_WARNING: oMat02.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					oDS_PS_PP049M.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
-        //				}
-        //			} else if ((pVal.ItemUID == "Mat03")) {
-        //				if ((pVal.ColUID == "FailCode")) {
-        //					//UPGRADE_WARNING: oMat03.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					oDS_PS_PP049N.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat03.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
-        //					//UPGRADE_WARNING: oMat03.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					//UPGRADE_WARNING: MDC_PS_Common.GetValue() 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					oDS_PS_PP049N.SetValue("U_FailName", pVal.Row - 1, MDC_PS_Common.GetValue("SELECT U_SmalName FROM [@PS_PP003L] WHERE U_SmalCode = '" + oMat03.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value + "'", 0, 1));
-        //				} else {
-        //					//UPGRADE_WARNING: oMat03.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					oDS_PS_PP049N.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat03.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
-        //				}
-        //			} else {
-        //				if ((pVal.ItemUID == "DocEntry")) {
-        //					//UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					oDS_PS_PP049H.SetValue(pVal.ItemUID, 0, oForm.Items.Item(pVal.ItemUID).Specific.Value);
-        //				} else if ((pVal.ItemUID == "BaseTime")) {
-        //					//UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					oDS_PS_PP049H.SetValue("U_" + pVal.ItemUID, 0, Convert.ToString(Conversion.Val(oForm.Items.Item(pVal.ItemUID).Specific.Value)));
-        //				} else if ((pVal.ItemUID == "OrdMgNum")) {
-        //					//UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					oDS_PS_PP049H.SetValue("U_" + pVal.ItemUID, 0, oForm.Items.Item(pVal.ItemUID).Specific.Value);
-        //					if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE | oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE) {
-        //						PS_PP049_LoadOrderInfo();
-        //					}
-        //				} else if ((pVal.ItemUID == "ItemCode")) {
-        //					//UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					oDS_PS_PP049H.SetValue("U_" + pVal.ItemUID, 0, oForm.Items.Item(pVal.ItemUID).Specific.Value);
-        //					oMat01.Clear();
-        //					oMat01.FlushToDataSource();
-        //					oMat01.LoadFromDataSource();
-        //					PS_PP049_AddMatrixRow01(0, ref true);
-        //					oMat02.Clear();
-        //					oMat02.FlushToDataSource();
-        //					oMat02.LoadFromDataSource();
-        //					PS_PP049_AddMatrixRow02(0, ref true);
-        //					oMat03.Clear();
-        //					oMat03.FlushToDataSource();
-        //					oMat03.LoadFromDataSource();
-
-        //				} else if ((pVal.ItemUID == "UseMCode")) {
-
-        //					//UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					Query01 = "EXEC PS_PP049_98 '" + oForm.Items.Item("UseMCode").Specific.Value;
-
-        //					RecordSet01.DoQuery(Query01);
-
-        //					//UPGRADE_WARNING: oForm.Items(UseMName).Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					oForm.Items.Item("UseMName").Specific.Value = Strings.Trim(RecordSet01.Fields.Item(0).Value);
-
-        //				} else {
-        //					//UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					oDS_PS_PP049H.SetValue("U_" + pVal.ItemUID, 0, oForm.Items.Item(pVal.ItemUID).Specific.Value);
-        //				}
-        //			}
-        //			oMat01.LoadFromDataSource();
-        //			oMat01.AutoResizeColumns();
-        //			oMat02.LoadFromDataSource();
-        //			oMat02.AutoResizeColumns();
-        //			oMat03.LoadFromDataSource();
-        //			oMat03.AutoResizeColumns();
-        //			oForm.Update();
-        //			if (pVal.ItemUID == "Mat01") {
-        //				oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-        //			} else if (pVal.ItemUID == "Mat02") {
-        //				oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-        //			} else if (pVal.ItemUID == "Mat03") {
-        //				oMat03.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-        //			} else {
-        //				oForm.Items.Item(pVal.ItemUID).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-        //			}
-        //		}
-        //		//oMat01.Columns("BatchNum").Cells(pVal.Row + 1).Click ct_Regular
-        //	} else if (pVal.BeforeAction == false) {
-        //		//        If pVal.ItemUID = "Mat01" Then
-        //		//            If pVal.ColUID = "BatchNum" Then
-        //		//                If oMat01.Columns("CItemCod").Cells(pVal.Row).Specific.Value = "" Then
-        //		//                    oMat01.Columns("BatchNum").Cells(pVal.Row).Specific.Value = ""
-        //		//                Else
-        //		//
-        //		//                End If
-        //		//            End If
-        //		//        End If
-        //	}
-        //	oForm.Freeze(false);
-        //	return;
-        //	Raise_EVENT_VALIDATE_Exit:
-        //	//UPGRADE_NOTE: RecordSet01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        //	RecordSet01 = null;
-        //	return;
-        //	Raise_EVENT_VALIDATE_Error:
-        //	oForm.Freeze(false);
-        //	//    ProgBar01.Value = 100
-        //	//    ProgBar01.Stop
-        //	//    Set ProgBar01 = Nothing
-        //	if (ReturnValue == "E1") {
-        //		//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //		SubMain.Sbo_Application.SetStatusBarMessage("배치번호 재고없음 : " + oMat01.Columns.Item("BatchNum").Cells.Item(pVal.Row).Specific.Value, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-        //	} else if (ReturnValue == "E3") {
-        //		SubMain.Sbo_Application.SetStatusBarMessage("배치번호 선입선출 오류 : " + BatchNumErr + " 선입고된 배치번호입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-        //	} else if (ReturnValue == "E4") {
-        //		//UPGRADE_WARNING: oMat01.Columns().Cells().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //		SubMain.Sbo_Application.SetStatusBarMessage("원재료 매칭 오류 : " + oMat01.Columns.Item("BatchNum").Cells.Item(pVal.Row).Specific.Value + " - " + "재고없음", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-
-        //	} else {
-        //		SubMain.Sbo_Application.SetStatusBarMessage("Raise_EVENT_VALIDATE_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-
-        //	}
-        //}
-        #endregion
 
         #region Raise_EVENT_MATRIX_LOAD
         //private void Raise_EVENT_MATRIX_LOAD(ref object FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)

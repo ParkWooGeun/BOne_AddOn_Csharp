@@ -511,7 +511,7 @@ namespace PSH_BOne_AddOn
         /// 출고
         /// </summary>
         /// <returns></returns>
-        private bool PS_MM138_Add_InventoryGenExit()
+        private bool PS_MM138_Add_InventoryGenEntry()
         {
             bool returnValue = false;
             int i;
@@ -537,26 +537,12 @@ namespace PSH_BOne_AddOn
                 oDIObject.UserFields.Fields.Item("U_OrdTyp").Value = "30";
                 oDIObject.UserFields.Fields.Item("U_CardCode").Value = oForm.Items.Item("CardCode").Specific.Value;
                 oDIObject.UserFields.Fields.Item("U_CardName").Value = oForm.Items.Item("CardName").Specific.Value;
-                for (i = 1; i <= oMat01.VisualRowCount - 1; i++)
-                {
-                    oDIObject.Lines.Add();
-                    oDIObject.Lines.SetCurrentLine(j);
-                    oDIObject.Lines.ItemCode = oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.Value;
-                    oDIObject.Lines.WarehouseCode = "10" + oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
-                    oDIObject.Lines.Quantity = Convert.ToDouble(oMat01.Columns.Item("Qty").Cells.Item(i).Specific.Value);
-                    ////부품,멀티인경우 배치를 선택
-                    //if (oMat01.Columns.Item("OrdGbn").Cells.Item(i).Specific.Selected.Value == "102" || oMat01.Columns.Item("OrdGbn").Cells.Item(i).Specific.Selected.Value == "104" || oMat01.Columns.Item("OrdGbn").Cells.Item(i).Specific.Selected.Value == "111")
-                    //{
-                    //    //배치사용품목이면
-                    //    if (dataHelpClass.GetItem_ManBtchNum(oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.Value) == "Y")
-                    //    {
-                    //        oDIObject.Lines.BatchNumbers.BatchNumber = oMat01.Columns.Item("BatchNum").Cells.Item(i).Specific.Value;
-                    //        oDIObject.Lines.BatchNumbers.Quantity = float.Parse(oMat01.Columns.Item("Qty").Cells.Item(i).Specific.Value);
-                    //        oDIObject.Lines.BatchNumbers.Add();
-                    //    }
-                    //    j += 1;
-                    //}
-                }
+                oDIObject.Lines.ItemCode = oForm.Items.Item("ItemCode").Specific.Value;
+                oDIObject.Lines.WarehouseCode = "10" + oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+                oDIObject.Lines.Quantity = Convert.ToDouble(oForm.Items.Item("Qty").Specific.Value);
+
+                oDIObject.Comments = "포장 외주 입고(" + oDS_PS_MM138H.GetValue("DocEntry", 0).ToString().Trim() + ")_PS_MM138";
+               
                 RetVal = oDIObject.Add();
 
                 if (RetVal != 0)
@@ -602,7 +588,7 @@ namespace PSH_BOne_AddOn
         ///  입고(취소)
         /// </summary>
         /// <returns></returns>
-        private bool PS_MM138_Add_InventoryGenEntry()
+        private bool PS_MM138_Add_InventoryGenExit()
         {
             bool returnValue = false;
             int i;
@@ -630,26 +616,12 @@ namespace PSH_BOne_AddOn
                 oDIObject.UserFields.Fields.Item("U_CardName").Value = oForm.Items.Item("CardName").Specific.Value;
                 oDIObject.UserFields.Fields.Item("U_OrdTyp").Value = "30";
 
-                for (i = 1; i <= oMat01.VisualRowCount - 1; i++)
-                {
-                    oDIObject.Lines.Add();
-                    oDIObject.Lines.SetCurrentLine(j);
-                    oDIObject.Lines.ItemCode = oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.Value;
-                    oDIObject.Lines.WarehouseCode = "10" + oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
-                    oDIObject.Lines.Quantity = Convert.ToDouble(oMat01.Columns.Item("Qty").Cells.Item(i).Specific.Value);
-                    ////부품,멀티인경우 배치를 선택
-                    //if (oMat01.Columns.Item("OrdGbn").Cells.Item(i).Specific.Selected.Value == "102" || oMat01.Columns.Item("OrdGbn").Cells.Item(i).Specific.Selected.Value == "104" || oMat01.Columns.Item("OrdGbn").Cells.Item(i).Specific.Selected.Value == "111")
-                    //{
-                    //    //배치사용품목이면
-                    //    if (dataHelpClass.GetItem_ManBtchNum(oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.Value) == "Y")
-                    //    {
-                    //        oDIObject.Lines.BatchNumbers.BatchNumber = oMat01.Columns.Item("BatchNum").Cells.Item(i).Specific.Value;
-                    //        oDIObject.Lines.BatchNumbers.Quantity = float.Parse(oMat01.Columns.Item("Qty").Cells.Item(i).Specific.Value);
-                    //        oDIObject.Lines.BatchNumbers.Add();
-                    //    }
-                    //    j += 1;
-                    //}
-                }
+                oDIObject.Lines.ItemCode = oForm.Items.Item("ItemCode").Specific.Value;
+                oDIObject.Lines.WarehouseCode = "10" + oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+                oDIObject.Lines.Quantity = Convert.ToDouble(oForm.Items.Item("Qty").Specific.Value);
+
+                oDIObject.Comments = "포장 외주 입고 취소(" + oDS_PS_MM138H.GetValue("DocEntry", 0).ToString().Trim() + ")_PS_MM138";
+
                 RetVal = oDIObject.Add();
 
                 if (RetVal != 0)
@@ -882,7 +854,7 @@ namespace PSH_BOne_AddOn
                             }
 
                             //문서만 생성할때 막음 시작 주석
-                            if (PS_MM138_Add_InventoryGenExit() == false)
+                            if (PS_MM138_Add_InventoryGenEntry() == false)
                             {
                                 BubbleEvent = false;
                                 return;
@@ -891,27 +863,27 @@ namespace PSH_BOne_AddOn
 
                             PS_MM138_Delete_EmptyRow();
                         }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-                        {
-                            if (PS_MM138_HeaderSpaceLineDel() == false)
-                            {
-                                BubbleEvent = false;
-                                return;
-                            }
-                            //입고문서가 생성안되었을때 DI처리
-                            if (string.IsNullOrEmpty(oForm.Items.Item("OIGNNo").Specific.Value.ToString().Trim()))
-                            {
-                                if (PS_MM138_Add_InventoryGenExit() == false)
-                                {
-                                    BubbleEvent = false;
-                                    return;
-                                }
-                            }
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
-                        {
+                        //else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
+                        //{
+                        //    if (PS_MM138_HeaderSpaceLineDel() == false)
+                        //    {
+                        //        BubbleEvent = false;
+                        //        return;
+                        //    }
+                        //    //입고문서가 생성안되었을때 DI처리
+                        //    if (string.IsNullOrEmpty(oForm.Items.Item("OIGNNo").Specific.Value.ToString().Trim()))
+                        //    {
+                        //        if (PS_MM138_Add_InventoryGenEntry() == false)
+                        //        {
+                        //            BubbleEvent = false;
+                        //            return;
+                        //        }
+                        //    }
+                        //}
+                        //else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
+                        //{
 
-                        }
+                        //}
                     }
                 }
                 else if (pVal.BeforeAction == false)
@@ -1290,7 +1262,7 @@ namespace PSH_BOne_AddOn
                                             BubbleEvent = false;
                                             return;
                                         }
-                                        if (PS_MM138_Add_InventoryGenEntry() == false)
+                                        if (PS_MM138_Add_InventoryGenExit() == false)
                                         {
                                             BubbleEvent = false;
                                             return;

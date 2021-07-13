@@ -356,7 +356,7 @@ namespace PSH_BOne_AddOn
             string errCode = string.Empty; 
             string errDiMsg = string.Empty;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-            SAPbobsCOM.Documents oDIObject = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry);
+            SAPbobsCOM.Documents oDIObject = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenExit);
 
             try
             {
@@ -439,10 +439,10 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// PS_PP084_DI_API03
+        /// PS_PP084_Add_InventoryGenEntry
         /// </summary>
         /// <returns></returns>
-        private bool PS_PP084_InventoryGenEntry()
+        private bool PS_PP084_Add_InventoryGenEntry()
         {
             bool returnValue = true;
             int i;
@@ -453,7 +453,7 @@ namespace PSH_BOne_AddOn
             string errCode = string.Empty; 
             string errDiMsg = string.Empty;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-            SAPbobsCOM.Documents oDIObject = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenExit);
+            SAPbobsCOM.Documents oDIObject = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry);
 
             try
             {
@@ -2033,7 +2033,7 @@ namespace PSH_BOne_AddOn
                                 return;
                             }
 
-                            if (PS_PP084_InventoryGenEntry() == false)
+                            if (PS_PP084_Add_InventoryGenEntry() == false)
                             {
                                 BubbleEvent = false;
                                 return;

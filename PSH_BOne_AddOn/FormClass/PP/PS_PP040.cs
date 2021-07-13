@@ -1762,7 +1762,7 @@ namespace PSH_BOne_AddOn
 
                     DI_oInventoryGenExit.DocDate = Convert.ToDateTime(DocDate);
                     DI_oInventoryGenExit.TaxDate = Convert.ToDateTime(DocDate);
-                    DI_oInventoryGenExit.Comments = "원재료 불출 등록(" + DocNum + ") 출고";
+                    DI_oInventoryGenExit.Comments = "원재료 불출 등록(" + DocNum + ") 출고_PS_PP040";
 
                     j = 0;
                     for (i = 0; i <= oMat01.VisualRowCount - 1; i++)
@@ -1938,7 +1938,7 @@ namespace PSH_BOne_AddOn
 
                     DI_oInventoryGenEntry.DocDate = Convert.ToDateTime(DocDate);
                     DI_oInventoryGenEntry.TaxDate = Convert.ToDateTime(DocDate);
-                    DI_oInventoryGenEntry.Comments = "원재료 불출 등록 출고 취소 (" + DocNum + ") 입고";
+                    DI_oInventoryGenEntry.Comments = "원재료 불출 등록 출고 취소 (" + DocNum + ") 입고_PS_PP040";
                     DI_oInventoryGenEntry.UserFields.Fields.Item("U_CancDoc").Value = OIGEDoc; //입고취소 문서번호
 
                     j = 0;

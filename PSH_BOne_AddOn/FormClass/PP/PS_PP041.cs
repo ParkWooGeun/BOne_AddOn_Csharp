@@ -1869,7 +1869,7 @@ namespace PSH_BOne_AddOn
                 //Header
                 DI_oInventoryGenExit.DocDate = Convert.ToDateTime(dataHelpClass.ConvertDateType(oForm.Items.Item("DocDate").Specific.Value, "-"));
                 DI_oInventoryGenExit.TaxDate = Convert.ToDateTime(dataHelpClass.ConvertDateType(oForm.Items.Item("DocDate").Specific.Value, "-"));
-                DI_oInventoryGenExit.Comments = "작업일보등록(" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + ") 출고";
+                DI_oInventoryGenExit.Comments = "작업일보등록(" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + ") 출고_PS_PP041";
 
                 //Line
                 for (oRow = 0; oRow <= oDS_PS_PP041L.Size - 1; oRow++)
@@ -2051,7 +2051,7 @@ namespace PSH_BOne_AddOn
                 //Header
                 DI_oInventoryGenEntry.DocDate = Convert.ToDateTime(dataHelpClass.ConvertDateType(oForm.Items.Item("DocDate").Specific.Value, "-"));
                 DI_oInventoryGenEntry.TaxDate = Convert.ToDateTime(dataHelpClass.ConvertDateType(oForm.Items.Item("DocDate").Specific.Value, "-"));
-                DI_oInventoryGenEntry.Comments = "작업일보등록(" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + ") 출고 취소";
+                DI_oInventoryGenEntry.Comments = "작업일보등록(" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + ") 출고 취소_PS_PP041";
                 DI_oInventoryGenEntry.UserFields.Fields.Item("U_CtrlType").Value = "C";
                 DI_oInventoryGenEntry.UserFields.Fields.Item("U_CancDoc").Value = oDS_PS_PP041L.GetValue("U_OutDoc", 0); //불출취소시 관리유형(취소) 원재료 입고현황과 구분을 하기위함
 

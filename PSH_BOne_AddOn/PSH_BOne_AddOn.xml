@@ -13254,7 +13254,7 @@
             <param name="ObjectType"></param>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP049.Add_oInventoryGenExit(System.Int16)">
+        <member name="M:PSH_BOne_AddOn.PS_PP049.PS_PP049_Add_oInventoryGenExit(System.Int16)">
             <summary>
             출고 DI API(원재료 출고용)
             </summary>
@@ -13361,6 +13361,14 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP049.Raise_EVENT_FORM_ACTIVATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            FORM_ACTIVATE 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_PP049.Raise_EVENT_FORM_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_RESIZE 이벤트
@@ -13376,6 +13384,22 @@
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP049.Raise_EVENT_ROW_DELETE(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            행삭제 체크 메소드(Raise_FormMenuEvent 에서 사용)
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP049.Raise_EVENT_RECORD_MOVE(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            네비게이션 메소드(Raise_FormMenuEvent 에서 사용)
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_PP049.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>
@@ -13396,30 +13420,6 @@
         <member name="M:PSH_BOne_AddOn.PS_PP049.Raise_EVENT_FORM_DATA_LOAD(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
             <summary>
             FORM_DATA_LOAD 이벤트
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP049.Raise_EVENT_FORM_DATA_ADD(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            FORM_DATA_ADD 이벤트
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP049.Raise_EVENT_FORM_DATA_UPDATE(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            FORM_DATA_UPDATE 이벤트
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP049.Raise_EVENT_FORM_DATA_DELETE(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            FORM_DATA_DELETE 이벤트
             </summary>
             <param name="FormUID"></param>
             <param name="BusinessObjectInfo"></param>

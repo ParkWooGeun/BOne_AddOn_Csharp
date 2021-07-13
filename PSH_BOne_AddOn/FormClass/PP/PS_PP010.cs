@@ -53,9 +53,9 @@ namespace PSH_BOne_AddOn
 				oForm.Freeze(true);
 				PS_PP010_CreateItems();
 				PS_PP010_SetComboBox();
-				PS_PP010_AddMatrixRow(0, true);
-				PS_PP010_LoadCaption();
-				PS_PP010_EnableFormItem();
+				//PS_PP010_AddMatrixRow(0, true);
+				//PS_PP010_LoadCaption();
+				//PS_PP010_EnableFormItem();
 
 				oForm.EnableMenu("1283", false); //삭제
 				oForm.EnableMenu("1286", false); //닫기
@@ -88,17 +88,53 @@ namespace PSH_BOne_AddOn
                 oMat01 = oForm.Items.Item("Mat01").Specific;
                 oMat01.AutoResizeColumns();
 
+                //사업장
+                oForm.DataSources.UserDataSources.Add("BPLId", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
+                oForm.Items.Item("BPLId").Specific.DataBind.SetBound(true, "", "BPLId");
+
+                //품목대분류
+                oForm.DataSources.UserDataSources.Add("ItmBSort", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 3);
+                oForm.Items.Item("ItmBSort").Specific.DataBind.SetBound(true, "", "ItmBSort");
+
+                //작업구분
+                oForm.DataSources.UserDataSources.Add("WorkGbn", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 2);
+                oForm.Items.Item("WorkGbn").Specific.DataBind.SetBound(true, "", "WorkGbn");
+
+                //고객
+                oForm.DataSources.UserDataSources.Add("CardCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
+                oForm.Items.Item("CardCode").Specific.DataBind.SetBound(true, "", "CardCode");
+
+                //고객명
+                oForm.DataSources.UserDataSources.Add("CardName", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
+                oForm.Items.Item("CardName").Specific.DataBind.SetBound(true, "", "CardName");
+
+                //품목코드
+                oForm.DataSources.UserDataSources.Add("ItemCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
+                oForm.Items.Item("ItemCode").Specific.DataBind.SetBound(true, "", "ItemCode");
+
+                //품목명
+                oForm.DataSources.UserDataSources.Add("ItemName", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
+                oForm.Items.Item("ItemName").Specific.DataBind.SetBound(true, "", "ItemName");
+
+                //생산요청일자(시작)
                 oForm.DataSources.UserDataSources.Add("RegDateFr", SAPbouiCOM.BoDataType.dt_DATE, 8);
                 oForm.Items.Item("RegDateFr").Specific.DataBind.SetBound(true, "", "RegDateFr");
 
+                //생산요청일자(종료)
                 oForm.DataSources.UserDataSources.Add("RegDateTo", SAPbouiCOM.BoDataType.dt_DATE, 8);
                 oForm.Items.Item("RegDateTo").Specific.DataBind.SetBound(true, "", "RegDateTo");
 
+                //생산의뢰일자(시작)
                 oForm.DataSources.UserDataSources.Add("PuDateFr", SAPbouiCOM.BoDataType.dt_DATE, 8);
                 oForm.Items.Item("PuDateFr").Specific.DataBind.SetBound(true, "", "PuDateFr");
 
+                //생산의뢰일자(종료)
                 oForm.DataSources.UserDataSources.Add("PuDateTo", SAPbouiCOM.BoDataType.dt_DATE, 8);
                 oForm.Items.Item("PuDateTo").Specific.DataBind.SetBound(true, "", "PuDateTo");
+
+                //작명
+                oForm.DataSources.UserDataSources.Add("JakName", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
+                oForm.Items.Item("JakName").Specific.DataBind.SetBound(true, "", "JakName");
             }
             catch(Exception ex)
             {
@@ -132,7 +168,6 @@ namespace PSH_BOne_AddOn
                 oRecordSet01.DoQuery(sQry);
                 while (!oRecordSet01.EoF)
                 {
-                    oForm.Items.Item("ItmBSort").Specific.ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
                     oMat01.Columns.Item("ItmBSort").ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
                     oRecordSet01.MoveNext();
                 }
@@ -1266,7 +1301,8 @@ namespace PSH_BOne_AddOn
                                 sSeq -= 1;
                             }
                             
-                            if (oForm.Items.Item("BPLId").Specific.Value == "2")
+                            //PS_PP010_SetComboBox 메서드 실행시 BPLId 콤보박스 바인딩 -> COMBO_SELECT 이벤트 발생 ItmBSort 콤보박스 바인딩
+                            if (oForm.Items.Item("BPLId").Specific.Selected.Value == "2")
                             {
                                 sQry = "SELECT Code, Name From [@PSH_ITMBSORT] Where Code in ('105', '106') Order by Code";
                             }
@@ -1298,7 +1334,6 @@ namespace PSH_BOne_AddOn
 
                     if (pVal.ItemUID == "WorkGbn" && oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                     {
-                        oForm.Freeze(true);
                         oMat01.Clear();
                         oMat01.FlushToDataSource();
                         oMat01.LoadFromDataSource();

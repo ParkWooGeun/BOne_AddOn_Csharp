@@ -532,7 +532,7 @@ namespace PSH_BOne_AddOn
 				}
 
 				WinTitle = "미납품현황 [PS_SD241_01]";
-				ReportName = "PS_SD241_01.RPT";
+				ReportName = "PS_SD241_01.rpt";
 
 				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
 				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();

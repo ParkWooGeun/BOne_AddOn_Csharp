@@ -514,8 +514,6 @@ namespace PSH_BOne_AddOn
         private bool PS_MM138_Add_InventoryGenEntry()
         {
             bool returnValue = false;
-            int i;
-            int j = 0;
             int RetVal;
             int errDiCode = 0;
             int ResultDocNum;
@@ -591,8 +589,6 @@ namespace PSH_BOne_AddOn
         private bool PS_MM138_Add_InventoryGenExit()
         {
             bool returnValue = false;
-            int i;
-            int j = 0;
             int RetVal;
             int errDiCode = 0;
             int ResultDocNum;

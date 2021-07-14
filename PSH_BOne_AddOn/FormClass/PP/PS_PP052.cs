@@ -899,10 +899,6 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if (ProgressBar01 != null)
-                {
-                    ProgressBar01.Stop();
-                }
                 if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
@@ -915,8 +911,12 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
             }
         }
 
@@ -1233,150 +1233,6 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// PS_PP052_DirectionValidateDocument
-        /// </summary>
-        private bool PS_PP052_DirectionValidateDocument(string DocEntry, string DocEntryNext, string Direction, string ObjectType)
-        {
-            bool functionReturnValue = false;
-            bool DoNext = true;
-            bool IsFirst = true;
-            string Query01 = string.Empty;
-            string Query02 = string.Empty;
-            string errMessage = string.Empty;
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            SAPbobsCOM.Recordset oRecordSet02 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-            try
-            {
-                while (DoNext == true)
-                {
-                    if (IsFirst != true)
-                    {
-                        //문서전체를 경유하고도 유효값을 찾지못했다면
-                        if (DocEntry == DocEntryNext)
-                        {
-                            errMessage = "유효한문서가 존재하지 않습니다.";
-                            throw new Exception();
-                        }
-                    }
-                    if (Direction == "Next")
-                    {
-                        Query01 = " SELECT TOP 1 DocEntry";
-                        Query01 += " FROM [" + ObjectType + "] Where DocEntry > ";
-                        Query01 += DocEntryNext;
-                        Query01 += " AND U_DocType = '10'";
-                        Query01 += " ORDER BY DocEntry ASC";
-                    }
-                    else if (Direction == "Prev")
-                    {
-                        Query01 = " SELECT TOP 1 DocEntry";
-                        Query01 += " FROM [" + ObjectType + "] Where DocEntry < ";
-                        Query01 += DocEntryNext;
-                        Query01 += " AND U_DocType = '10'";
-                        Query01 += " ORDER BY DocEntry DESC";
-                    }
-                    oRecordSet01.DoQuery(Query01);
-                    //해당문서가 마지막문서라면
-                    if (oRecordSet01.Fields.Item(0).Value == 0)
-                    {
-                        if (Direction == "Next")
-                        {
-                            Query02 = " SELECT TOP 1 DocEntry FROM [" + ObjectType + "]";
-                            Query02 += " WHERE U_DocType = '10'";
-                            Query02 += " ORDER BY DocEntry ASC";
-                        }
-                        else if (Direction == "Prev")
-                        {
-                            Query02 = " SELECT TOP 1 DocEntry FROM [" + ObjectType + "]";
-                            Query02 += " WHERE U_DocType = '10'";
-                            Query02 += " ORDER BY DocEntry DESC";
-                        }
-                        oRecordSet02.DoQuery(Query02);
-                        //문서가 아예 존재하지 않는다면
-                        if (oRecordSet02.RecordCount == 0)
-                        {
-                            errMessage = "유효한문서가 존재하지 않습니다.";
-                            throw new Exception();
-                        }
-                        else
-                        {
-                            if (Direction == "Next")
-                            {
-                                DocEntryNext = Convert.ToString(Convert.ToDouble(oRecordSet02.Fields.Item(0).Value) - 1);
-                                Query01 = " SELECT TOP 1 DocEntry";
-                                Query01 += " FROM [" + ObjectType + "] Where DocEntry > ";
-                                Query01 += DocEntryNext;
-                                Query01 += " AND U_DocType = '10'";
-                                Query01 += " ORDER BY DocEntry ASC";
-                                oRecordSet01.DoQuery(Query01);
-                            }
-                            else if (Direction == "Prev")
-                            {
-                                DocEntryNext = Convert.ToString(Convert.ToDouble(oRecordSet02.Fields.Item(0).Value) + 1);
-                                Query01 = " SELECT TOP 1 DocNum";
-                                Query01 += " FROM [" + ObjectType + "] Where DocEntry < ";
-                                Query01 += DocEntryNext;
-                                Query01 += " AND U_DocType = '10'";
-                                Query01 += " ORDER BY DocEntry DESC";
-                                oRecordSet01.DoQuery(Query01);
-                            }
-                        }
-                    }
-                    DoNext = false;
-                    if (Direction == "Next")
-                    {
-                        DocEntryNext = Convert.ToString(Convert.ToDouble(oRecordSet01.Fields.Item(0).Value) - 1);
-                    }
-                    else if (Direction == "Prev")
-                    {
-                        DocEntryNext = Convert.ToString(Convert.ToDouble(oRecordSet01.Fields.Item(0).Value) + 1);
-                    }
-                    IsFirst = false;
-                }
-                if (DocEntry == DocEntryNext)
-                {
-                    PS_PP052_FormItemEnabled();
-                }
-                else
-                {
-                    oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
-                    PS_PP052_FormItemEnabled();
-                    if (oForm.Items.Item("DocEntry").Enabled == true)
-                    {
-                        if (Direction == "Next")
-                        {
-                            oForm.Items.Item("DocEntry").Specific.Value = Convert.ToString(Convert.ToDouble(DocEntryNext) + 1);
-                        }
-                        else if (Direction == "Prev")
-                        {
-                            oForm.Items.Item("DocEntry").Specific.Value = Convert.ToString(Convert.ToDouble(DocEntryNext) - 1);
-                        }
-                        oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    }
-                    return functionReturnValue;
-                }
-                functionReturnValue = true;
-            }
-            catch (Exception ex)
-            {
-                if (errMessage != string.Empty)
-                {
-                    PSH_Globals.SBO_Application.MessageBox(errMessage);
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-            }
-            finally
-            {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet02);
-            }
-            return functionReturnValue;
-        }
-
-        /// <summary>
         /// PS_PP052_OrderInfoLoad
         /// </summary>
         private void PS_PP052_OrderInfoLoad()
@@ -1477,7 +1333,14 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                if (errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
             }
             finally
             {
@@ -3042,7 +2905,14 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                if (errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                }
                 BubbleEvent = false;
             }
             finally
@@ -3182,7 +3052,6 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_DOUBLE_CLICK(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-
             try
             {
                 if (pVal.Before_Action == true)
@@ -3296,7 +3165,7 @@ namespace PSH_BOne_AddOn
         {
             int i = 0;
             int j;
-            bool Exist = false;
+            bool Exist;
             string errMessage = string.Empty;
             string ClickCode = string.Empty;
             string type = string.Empty;

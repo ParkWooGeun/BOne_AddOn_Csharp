@@ -291,6 +291,7 @@ namespace PSH_BOne_AddOn
 
                 if (oRecordSet01.RecordCount == 0)
                 {
+                    oForm.Items.Item("Mat01").Enabled = false;
                     errMessage = "결과가 존재하지 않습니다.";
                     throw new Exception();
                 }
@@ -325,8 +326,8 @@ namespace PSH_BOne_AddOn
                     oDS_PS_PP036L.SetValue("U_ColReg11", i, oRecordSet01.Fields.Item("LineId").Value);
 
                     oRecordSet01.MoveNext();
-                    ProgressBar01.Value = ProgressBar01.Value + 1;
-                    ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
+                    ProgressBar01.Value += 1;
+                    ProgressBar01.Text += "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
                 oMat01.LoadFromDataSource();
                 oMat01.AutoResizeColumns();
@@ -335,7 +336,6 @@ namespace PSH_BOne_AddOn
             {
                 if (errMessage != string.Empty)
                 {
-                    oForm.Items.Item("Mat01").Enabled = false;
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
                 }
                 else
@@ -522,8 +522,7 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.Before_Action == true)
                 {
-                    dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "Mat01", "CntcCode");
-                    //사용자값활성
+                    dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "Mat01", "CntcCode"); //사용자값활성
                     if (pVal.CharPressed == 9)
                     {
                         if (pVal.ItemUID == "Mat01")

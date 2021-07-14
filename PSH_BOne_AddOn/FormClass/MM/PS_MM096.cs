@@ -1249,19 +1249,19 @@ namespace PSH_BOne_AddOn
                                 PS_PP043.LoadForm(oMat02.Columns.Item("DocEntry").Cells.Item(pVal.Row).Specific.String);
                                 BubbleEvent = false;
                             }
-                            //else if (oMat02.Columns.Item("WorkGbn").Cells.Item(pVal.Row).Specific.Value == "30")
-                            //{
-                            //    PS_MM138 PS_MM138 = new PS_MM138();
-                            //    PS_MM138.LoadForm(oMat02.Columns.Item("DocEntry").Cells.Item(pVal.Row).Specific.String);
-                            //    BubbleEvent = false;
-                            //}
-                            //else if (oMat02.Columns.Item("WorkGbn").Cells.Item(pVal.Row).Specific.Value == "40")
-                            //{
-                            //    PS_PP083 PS_PP083 = new PS_PP083();
-                            //    PS_PP083.LoadForm(oMat02.Columns.Item("DocEntry").Cells.Item(pVal.Row).Specific.String);
-                            //    BubbleEvent = false;
+                            else if (oMat02.Columns.Item("WorkGbn").Cells.Item(pVal.Row).Specific.Value == "30")
+                            {
+                                PS_MM138 PS_MM138 = new PS_MM138();
+                                PS_MM138.LoadForm(oMat02.Columns.Item("DocEntry").Cells.Item(pVal.Row).Specific.String);
+                                BubbleEvent = false;
+                            }
+                            else if (oMat02.Columns.Item("WorkGbn").Cells.Item(pVal.Row).Specific.Value == "40")
+                            {
+                                PS_PP083 PS_PP083 = new PS_PP083();
+                                PS_PP083.LoadForm(oMat02.Columns.Item("DocEntry").Cells.Item(pVal.Row).Specific.String);
+                                BubbleEvent = false;
 
-                            //}
+                            }
                         }
                     }
                 }

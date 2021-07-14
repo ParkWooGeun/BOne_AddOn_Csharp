@@ -51,11 +51,11 @@ namespace PSH_BOne_AddOn
 				ComboBox_Setting();
 				Initialization();
 
-				oForm.EnableMenu(("1283"), false);              // 삭제
-				oForm.EnableMenu(("1286"), false);              // 닫기
-				oForm.EnableMenu(("1287"), false);              // 복제
-				oForm.EnableMenu(("1284"), true);               // 취소
-				oForm.EnableMenu(("1293"), false);              // 행삭제
+				oForm.EnableMenu("1283", false); //삭제
+				oForm.EnableMenu("1286", false); //닫기
+				oForm.EnableMenu("1287", false); //복제
+				oForm.EnableMenu("1284", true); //취소
+				oForm.EnableMenu("1293", false); //행삭제
 			}
 			catch (Exception ex)
 			{
@@ -103,7 +103,7 @@ namespace PSH_BOne_AddOn
 				// 사업장
 				sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
 				oRecordSet.DoQuery(sQry);
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("Location").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
@@ -113,9 +113,6 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("Gubun").Specific.ValidValues.Add("2", "검사제품");
 				oForm.Items.Item("Gubun").Specific.ValidValues.Add("3", "미검사제품");
 				oForm.Items.Item("Gubun").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-
-				//커서를 첫번째 ITEM으로 지정
-				oForm.ActiveItem = "Location";
 			}
 			catch (Exception ex)
 			{

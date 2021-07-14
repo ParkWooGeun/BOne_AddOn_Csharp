@@ -41740,19 +41740,37 @@
             </summary>
             <param name="oFormDocEntry01"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD241.CreateItems">
+        <member name="M:PSH_BOne_AddOn.PS_SD241.PS_SD241_CreateItems">
             <summary>
-            CreateItems
+            PS_SD241_CreateItems
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD241.ComboBox_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_SD241.PS_SD241_SetComboBox">
             <summary>
-            ComboBox_Setting
+            PS_SD241_SetComboBox
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD241.Initialization">
+        <member name="M:PSH_BOne_AddOn.PS_SD241.PS_SD241_Initialize">
             <summary>
-            Initialization
+            PS_SD241_Initialize
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD241.PS_SD241_FlushToItemValue(System.String,System.Int32,System.String)">
+            <summary>
+            FlushToItemValue
+            </summary>
+            <param name="oUID"></param>
+            <param name="oRow"></param>
+            <param name="oCol"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD241.PS_SD241_PrintReport">
+            <summary>
+            PS_SD241_PrintReport
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD241.PS_SD241_MTX01">
+            <summary>
+            PS_SD241_MTX01
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD241.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -41802,24 +41820,6 @@
             <param name="FormUID"></param>
             <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD241.FlushToItemValue(System.String,System.Int32,System.String)">
-            <summary>
-            FlushToItemValue
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD241.Print_Query">
-            <summary>
-            Print_Query
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD241.PS_SD241_MTX01">
-            <summary>
-            PS_SD241_MTX01
-            </summary>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_SD250">
             <summary>

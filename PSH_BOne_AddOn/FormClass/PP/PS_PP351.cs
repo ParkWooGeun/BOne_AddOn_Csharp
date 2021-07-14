@@ -111,20 +111,6 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
 				}
-
-				// 출력구분
-				oForm.DataSources.UserDataSources.Add("Rad01", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
-				oForm.DataSources.UserDataSources.Add("Rad02", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
-				oForm.Items.Item("Rad01").Specific.DataBind.SetBound(true, "", "Rad01");
-				oForm.Items.Item("Rad02").Specific.DataBind.SetBound(true, "", "Rad02");
-
-				oForm.Items.Item("Rad01").Specific.ValOn = "1";
-				oForm.Items.Item("Rad01").Specific.ValOff = "0";
-				oForm.Items.Item("Rad01").Specific.Selected = true;
-
-				oForm.Items.Item("Rad02").Specific.ValOn = "2";
-				oForm.Items.Item("Rad02").Specific.ValOff = "0";
-				oForm.Items.Item("Rad02").Specific.GroupWith(("Rad01"));
 			}
 			catch (Exception ex)
 			{

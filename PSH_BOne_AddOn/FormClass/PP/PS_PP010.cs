@@ -161,13 +161,14 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
                     oRecordSet01.MoveNext();
                 }
-                oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
+                oForm.DataSources.UserDataSources.Item("BPLId").ValueEx = dataHelpClass.User_BPLID(); //COMBO_SELECT 이벤트 미발생
 
                 //품목대분류
                 sQry = "SELECT Code, Name From [@PSH_ITMBSORT] Where Code in ('105', '106') Order by Code";
                 oRecordSet01.DoQuery(sQry);
                 while (!oRecordSet01.EoF)
                 {
+                    oForm.Items.Item("ItmBSort").Specific.ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
                     oMat01.Columns.Item("ItmBSort").ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
                     oRecordSet01.MoveNext();
                 }
@@ -1301,7 +1302,6 @@ namespace PSH_BOne_AddOn
                                 sSeq -= 1;
                             }
                             
-                            //PS_PP010_SetComboBox 메서드 실행시 BPLId 콤보박스 바인딩 -> COMBO_SELECT 이벤트 발생 ItmBSort 콤보박스 바인딩
                             if (oForm.Items.Item("BPLId").Specific.Selected.Value == "2")
                             {
                                 sQry = "SELECT Code, Name From [@PSH_ITMBSORT] Where Code in ('105', '106') Order by Code";

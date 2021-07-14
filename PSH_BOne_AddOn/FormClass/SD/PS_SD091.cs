@@ -309,7 +309,14 @@ namespace PSH_BOne_AddOn
                     oForm.EnableMenu("1281", true); //찾기
                     oForm.EnableMenu("1282", false); //추가
                     oForm.EnableMenu("1293", true);
-                    oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
+
+                    string userBPLID = dataHelpClass.User_BPLID();
+
+                    if (userBPLID == "1" || userBPLID == "4")
+                    {
+                        oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
+                    }
+                    
                     oForm.Items.Item("CntcCode").Specific.Value = dataHelpClass.User_MSTCOD();
                     oForm.Items.Item("DocEntry").Enabled = false;
                     oForm.Items.Item("Btn01").Enabled = false;

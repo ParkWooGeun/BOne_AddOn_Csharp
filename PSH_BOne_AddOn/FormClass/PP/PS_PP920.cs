@@ -70,7 +70,6 @@ namespace PSH_BOne_AddOn
 				oForm.Update();
 				oForm.Freeze(false);
 				oForm.Visible = true;
-				oForm.Items.Item("OrdNum").Click();
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oXmlDoc); //메모리 해제
 			}
 		}

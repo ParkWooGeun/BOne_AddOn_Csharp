@@ -120,7 +120,10 @@ namespace PSH_BOne_AddOn
 
                 oDS_PS_SD090H.SetValue("U_DocDate", 0, DateTime.Now.ToString("yyyyMMdd"));
 
-                dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL Where BPLId = '1' Or BPLId = '4' order by BPLId", dataHelpClass.User_BPLID(), false, false);
+                string userTempBPLID = dataHelpClass.User_BPLID();
+                string userBPLID = (userTempBPLID == "1" || userTempBPLID == "4") ? userTempBPLID : "1";
+
+                dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL Where BPLId = '1' Or BPLId = '4' order by BPLId", userBPLID, false, false);
             }
             catch (Exception ex)
             {

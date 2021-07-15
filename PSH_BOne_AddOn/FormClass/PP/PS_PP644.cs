@@ -131,9 +131,6 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("Div").Specific.ValidValues.Add("1", "작업일보기준");
 				oForm.Items.Item("Div").Specific.ValidValues.Add("2", "작업지시발행기준");
 				oForm.Items.Item("Div").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-
-				////커서를 첫번째 ITEM으로 지정
-				oForm.ActiveItem = "BPLId";
 			}
 			catch (Exception ex)
 			{

@@ -112,11 +112,6 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
 				}
-
-				//V-MILL포함 여부
-				oForm.Items.Item("Gubun").Specific.ValidValues.Add("Y", "V-MILL포함");
-				oForm.Items.Item("Gubun").Specific.ValidValues.Add("N", "V-MILL제외");
-				oForm.Items.Item("Gubun").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 			}
 			catch (Exception ex)
 			{

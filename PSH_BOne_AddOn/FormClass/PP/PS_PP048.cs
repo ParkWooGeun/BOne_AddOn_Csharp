@@ -532,7 +532,7 @@ namespace PSH_BOne_AddOn
         /// PS_PP084_DI_API01
         /// </summary>
         /// <returns></returns>
-        private bool PS_PP048_DI_API01()
+        private bool PS_PP048_Add_InventoryGenEntry()
         {
             bool returnValue = true;
             int i;
@@ -555,6 +555,7 @@ namespace PSH_BOne_AddOn
                 oMat01.FlushToDataSource();
 
                 oDIObject.DocDate = DateTime.ParseExact(oForm.Items.Item("DocDate").Specific.Value, "yyyyMMdd", null);
+                oDIObject.Comments = "스크랩등록 (" + oDS_PS_PP048H.GetValue("DocEntry", 0).ToString().Trim() + ") 입고_PS_PP048";
                 for (i = 1; i <= oMat01.VisualRowCount; i++)
                 {
                     oDIObject.Lines.Add();
@@ -608,7 +609,7 @@ namespace PSH_BOne_AddOn
         /// PS_PP084_DI_API03
         /// </summary>
         /// <returns></returns>
-        private bool PS_PP048_DI_API03()
+        private bool PS_PP048_Add_InventoryGenExit()
         {
             bool returnValue = true;
             int i;
@@ -631,6 +632,7 @@ namespace PSH_BOne_AddOn
                 oMat01.FlushToDataSource();
 
                 oDIObject.DocDate = DateTime.ParseExact(oForm.Items.Item("DocDate").Specific.Value, "yyyyMMdd", null);
+                oDIObject.Comments = "스크랩등록 취소 (" + oDS_PS_PP048H.GetValue("DocEntry", 0).ToString().Trim() + ") 입고_PS_PP048";
                 oDIObject.UserFields.Fields.Item("U_CancDoc").Value = oForm.Items.Item("OIGNNo").Specific.Value.ToString().Trim();
 
                 for (i = 1; i <= oMat01.VisualRowCount; i++)
@@ -909,7 +911,7 @@ namespace PSH_BOne_AddOn
                             }
                             if (oForm.Items.Item("Div").Specific.Value.ToString().Trim() == "10")
                             {
-                                if (PS_PP048_DI_API01() == false)
+                                if (PS_PP048_Add_InventoryGenEntry() == false)
                                 {
                                     PS_PP048_AddMatrixRow(oMat01.VisualRowCount, false);
                                     BubbleEvent = false;
@@ -1629,7 +1631,7 @@ namespace PSH_BOne_AddOn
                             }
                             if (oForm.Items.Item("Div").Specific.Value.ToString().Trim() == "10")
                             {
-                                if (PS_PP048_DI_API03() == false)
+                                if (PS_PP048_Add_InventoryGenExit() == false)
                                 {
                                     BubbleEvent = false;
                                     return;

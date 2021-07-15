@@ -25,7 +25,7 @@
 //////****************************************************************************
 
 
-//		public string oFormUniqueID;
+//		private string oFormUniqueID;
 //		public SAPbouiCOM.Form oForm;
 //		private SAPbobsCOM.Recordset sRecordset;
 //		private SAPbouiCOM.Matrix oMat1;
@@ -349,7 +349,7 @@
 ////*******************************************************************
 //// .srf 파일로부터 폼을 로드한다.
 ////*******************************************************************
-//		public void LoadForm()
+//		private void LoadForm()
 //		{
 //			 // ERROR: Not supported in C#: OnErrorStatement
 
@@ -412,7 +412,7 @@
 ////*******************************************************************
 ////// ItemEventHander
 ////*******************************************************************
-//		public void Raise_FormItemEvent(ref object FormUID, ref SAPbouiCOM.ItemEvent pval, ref bool BubbleEvent)
+//		private void Raise_FormItemEvent(ref object FormUID, ref SAPbouiCOM.ItemEvent pval, ref bool BubbleEvent)
 //		{
 
 //			string sQry = null;
@@ -522,7 +522,7 @@
 ////*******************************************************************
 ////// MenuEventHander
 ////*******************************************************************
-//		public void Raise_FormMenuEvent(ref string FormUID, ref SAPbouiCOM.IMenuEvent pval, ref bool BubbleEvent)
+//		private void Raise_FormMenuEvent(ref string FormUID, ref SAPbouiCOM.IMenuEvent pval, ref bool BubbleEvent)
 //		{
 
 //			if (pval.BeforeAction == true) {
@@ -545,7 +545,7 @@
 //			return;
 //		}
 
-//		public void Raise_FormDataEvent(ref string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
+//		private void Raise_FormDataEvent(ref string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
 //		{
 //			int i = 0;
 //			string sQry = null;

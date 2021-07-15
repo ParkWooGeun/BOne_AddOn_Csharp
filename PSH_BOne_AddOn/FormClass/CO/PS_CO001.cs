@@ -19,8 +19,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// Form 호출
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -51,7 +51,7 @@ namespace PSH_BOne_AddOn
                 PS_CO001_CreateItems();
                 PS_CO001_ComboBox_Setting();
                 PS_CO001_Initial_Setting();
-                PS_CO001_SetDocument(oFormDocEntry01);
+                PS_CO001_SetDocument(oFormDocEntry);
                 PS_CO001_FormResize();
                 PS_CO001_LoadCaption();
                 PS_CO001_FormItemEnabled();
@@ -176,12 +176,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// SetDocument
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PS_CO001_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PS_CO001_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PS_CO001_FormItemEnabled();
                 }

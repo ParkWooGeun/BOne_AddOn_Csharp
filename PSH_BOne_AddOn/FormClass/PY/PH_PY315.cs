@@ -22,8 +22,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -53,7 +53,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY315_CreateItems();
                 PH_PY315_EnableMenus();
-                PH_PY315_SetDocument(oFormDocEntry01);
+                PH_PY315_SetDocument(oFormDocEntry);
             }
             catch (Exception ex)
             {
@@ -140,12 +140,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY315_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY315_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY315_FormItemEnabled();
                     //Call PH_PY315_AddMatrixRow(0, True) '//UDO방식일때
@@ -154,7 +154,7 @@ namespace PSH_BOne_AddOn
                 {
                     //oForm.Mode = fm_FIND_MODE
                     //PH_PY315_FormItemEnabled
-                    //oForm.Items("DocEntry").Specific.Value = oFormDocEntry01
+                    //oForm.Items("DocEntry").Specific.Value = oFormDocEntry
                     //oForm.Items("1").Click ct_Regular
                 }
             }

@@ -9,7 +9,7 @@ namespace PSH_BOne_AddOn
 	/// </summary>
 	internal class PS_SD956_01 : PSH_BaseClass
 	{
-		public string oFormUniqueID;
+		private string oFormUniqueID;
 		public SAPbouiCOM.Grid oGrid;
 
 		public SAPbouiCOM.DataTable oDS_PS_SD956_01A;
@@ -92,7 +92,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// PS_SD956_01_ComboBox_Setting
 		/// </summary>
-		public void PS_SD956_01_ComboBox_Setting()
+		private void PS_SD956_01_ComboBox_Setting()
 		{
 			string BPLID;
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();

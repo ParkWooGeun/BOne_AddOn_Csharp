@@ -21,8 +21,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			int i;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -56,7 +56,7 @@ namespace PSH_BOne_AddOn
 				PS_PP070_CreateItems();
 				PS_PP070_ComboBox_Setting();
 				PS_PP070_EnableMenus();
-				PS_PP070_SetDocument(oFormDocEntry01);
+				PS_PP070_SetDocument(oFormDocEntry);
 			}
 			catch (Exception ex)
 			{
@@ -133,12 +133,12 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// PS_PP070_SetDocument
 		/// </summary>
-		/// <param name="oFromDocEntry01"></param>
-		private void PS_PP070_SetDocument(string oFromDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		private void PS_PP070_SetDocument(string oFormDocEntry)
 		{
 			try
 			{
-				if ((string.IsNullOrEmpty(oFromDocEntry01)))
+				if ((string.IsNullOrEmpty(oFormDocEntry)))
 				{
 					PS_PP070_FormItemEnabled();
 					PS_PP070_AddMatrixRow(0, true); //UDO방식일때

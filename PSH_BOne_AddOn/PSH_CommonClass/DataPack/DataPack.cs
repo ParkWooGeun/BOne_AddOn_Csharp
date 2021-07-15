@@ -798,7 +798,7 @@ namespace PSH_BOne_AddOn.Database.Pack
         {
             return ToOleDbParameters(true);
         }
-        
+
         /// <summary>
         /// 기존에 이미 생성된 OleDbParameter[]에 DataPack의 내용을 OleDbParameter[]로
         /// 만들고 이를 추가시킨다.
@@ -995,4 +995,3 @@ namespace PSH_BOne_AddOn.Database.Pack
         #endregion
     }
 }
-

@@ -531,8 +531,11 @@ namespace PSH_BOne_AddOn
 			{
 				oGrid01.AutoResizeColumns();
 				oForm.Update();
-				ProgressBar01.Stop();
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				if (ProgressBar01 != null)
+				{
+					ProgressBar01.Stop();
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				}
 				oForm.Freeze(false);
 			}
 		}
@@ -544,7 +547,6 @@ namespace PSH_BOne_AddOn
 		{
 			string sQry;
 			string errMessage = String.Empty;
-
 			string BPLID;    //사업장
 			string FrDt;     //기간(Fr)
 			string ToDt;     //기간(To)
@@ -608,8 +610,11 @@ namespace PSH_BOne_AddOn
 			{
 				oGrid02.AutoResizeColumns();
 				oForm.Update();
-				ProgressBar01.Stop();
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				if (ProgressBar01 != null)
+				{
+					ProgressBar01.Stop();
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				}
 				oForm.Freeze(false);
 			}
 		}
@@ -621,7 +626,6 @@ namespace PSH_BOne_AddOn
 		{
 			string sQry;
 			string errMessage = String.Empty;
-
 			string BPLID;    //사업장
 			string FrDt;     //기간(Fr)
 			string ToDt;     //기간(To)
@@ -683,8 +687,11 @@ namespace PSH_BOne_AddOn
 			{
 				oGrid03.AutoResizeColumns();
 				oForm.Update();
-				ProgressBar01.Stop();
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				if (ProgressBar01 != null)
+				{
+					ProgressBar01.Stop();
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				}
 				oForm.Freeze(false);
 			}
 		}
@@ -697,7 +704,6 @@ namespace PSH_BOne_AddOn
 		{
 			string WinTitle;
 			string ReportName;
-			
 			string BPLID;	 //사업장
 			string FrDt;	 //기간(Fr)
 			string ToDt;	 //기간(To)

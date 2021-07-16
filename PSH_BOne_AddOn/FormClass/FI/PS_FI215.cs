@@ -382,8 +382,6 @@ namespace PSH_BOne_AddOn
 			}
 			catch (Exception ex)
 			{
-				ProgressBar01.Stop();
-
 				if (ErrNum == 1)
 				{
 					PSH_Globals.SBO_Application.StatusBar.SetText("결과가 존재하지 않습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
@@ -401,7 +399,6 @@ namespace PSH_BOne_AddOn
 					ProgressBar01.Stop();
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
 				}
-				
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 		}

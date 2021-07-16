@@ -286,8 +286,11 @@ namespace PSH_BOne_AddOn
 			{
 				oGrid01.AutoResizeColumns();
 				oForm.Update();
-				ProgressBar01.Stop();
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				if (ProgressBar01 != null)
+				{
+					ProgressBar01.Stop();
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				}
 				oForm.Freeze(false);
 			}
 		}
@@ -356,8 +359,11 @@ namespace PSH_BOne_AddOn
 			{
 				oGrid02.AutoResizeColumns();
 				oForm.Update();
-				ProgressBar01.Stop();
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				if (ProgressBar01 != null)
+				{
+					ProgressBar01.Stop();
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				}
 				oForm.Freeze(false);
 			}
 		}
@@ -419,8 +425,11 @@ namespace PSH_BOne_AddOn
 			{
 				oGrid03.AutoResizeColumns();
 				oForm.Update();
-				ProgressBar01.Stop();
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				if (ProgressBar01 != null)
+				{
+					ProgressBar01.Stop();
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				}
 				oForm.Freeze(false);
 			}
 		}
@@ -432,7 +441,6 @@ namespace PSH_BOne_AddOn
 		{
 			string sQry;
 			string errMessage = string.Empty;
-
 			string CntcCode;
 			string BPLID;
 			string FrMt;
@@ -489,8 +497,11 @@ namespace PSH_BOne_AddOn
 			{
 				oGrid04.AutoResizeColumns();
 				oForm.Update();
-				ProgressBar01.Stop();
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				if (ProgressBar01 != null)
+				{
+					ProgressBar01.Stop();
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				}
 				oForm.Freeze(false);
 			}
 		}
@@ -554,8 +565,11 @@ namespace PSH_BOne_AddOn
 			{
 				oGrid05.AutoResizeColumns();
 				oForm.Update();
-				ProgressBar01.Stop();
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				if (ProgressBar01 != null)
+				{
+					ProgressBar01.Stop();
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				}
 				oForm.Freeze(false);
 				PSH_Globals.SBO_Application.MessageBox("조회 완료.");
 			}

@@ -654,7 +654,6 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
-
                 if (ProgressBar01 != null)
                 {
                     ProgressBar01.Stop();

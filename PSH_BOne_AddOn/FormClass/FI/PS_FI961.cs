@@ -405,7 +405,6 @@ namespace PSH_BOne_AddOn
 					ProgressBar01.Stop();
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
 				}
-				
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 		}
@@ -505,7 +504,6 @@ namespace PSH_BOne_AddOn
 					ProgressBar01.Stop();
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
 				}
-				
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 		}

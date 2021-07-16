@@ -704,7 +704,11 @@ namespace PSH_BOne_AddOn
             finally
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
             }
 
             return functionReturnValue;

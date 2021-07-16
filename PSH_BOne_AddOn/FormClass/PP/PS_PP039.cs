@@ -248,7 +248,6 @@ namespace PSH_BOne_AddOn
                 {
                     oGrid01.AutoResizeColumns();
                 }
-
                 oForm.Items.Item("Opt02").Top = oForm.Height / 2 + 10;
                 oForm.Items.Item("Static93").Top = oForm.Height / 2 + 10;
                 oForm.Items.Item("Static93").Left = oForm.Items.Item("Opt02").Width + 955;
@@ -280,8 +279,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                //행추가여부
-                if (RowIserted == false)
+                if (RowIserted == false) //행추가여부
                 {
                     oDS_PS_PP039L.InsertRecord(oRow);
                 }
@@ -324,24 +322,24 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
                 ProgressBar01.Text = "조회중!";
-                BPLID = oForm.Items.Item("BPLID").Specific.Value.ToString().Trim();       //사업장
-                OrdGbn = oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim();     //작업구분
-                FrDt = oForm.Items.Item("FrDt").Specific.Value.ToString().Trim();         //지시일자(Fr)
-                ToDt = oForm.Items.Item("ToDt").Specific.Value.ToString().Trim();         //지시일자(To)
+                BPLID = oForm.Items.Item("BPLID").Specific.Value.ToString().Trim(); //사업장
+                OrdGbn = oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim(); //작업구분
+                FrDt = oForm.Items.Item("FrDt").Specific.Value.ToString().Trim(); //지시일자(Fr)
+                ToDt = oForm.Items.Item("ToDt").Specific.Value.ToString().Trim(); //지시일자(To)
                 CntcCode = oForm.Items.Item("CntcCode").Specific.Value.ToString().Trim(); //담당자
-                OrdNum = oForm.Items.Item("OrdNum").Specific.Value.ToString().Trim();     //작번
-                OrdSub1 = oForm.Items.Item("OrdSub1").Specific.Value.ToString().Trim();   //서브작번1
-                OrdSub2 = oForm.Items.Item("OrdSub2").Specific.Value.ToString().Trim();   //서브작번2
+                OrdNum = oForm.Items.Item("OrdNum").Specific.Value.ToString().Trim(); //작번
+                OrdSub1 = oForm.Items.Item("OrdSub1").Specific.Value.ToString().Trim(); //서브작번1
+                OrdSub2 = oForm.Items.Item("OrdSub2").Specific.Value.ToString().Trim(); //서브작번2
 
                 Query01 = "         EXEC PS_PP039_01 '";
-                Query01 += BPLID + "','";     //사업장
-                Query01 += OrdGbn + "','";    //작업구분
-                Query01 += FrDt + "','";      //지시일자(Fr)
-                Query01 += ToDt + "','";      //지시일자(To)
-                Query01 += CntcCode + "','";  //담당자
-                Query01 += OrdNum + "','";    //작번
-                Query01 += OrdSub1 + "','";   //서브작번1
-                Query01 += OrdSub2 + "'";     //서브작번2
+                Query01 += BPLID + "','"; //사업장
+                Query01 += OrdGbn + "','"; //작업구분
+                Query01 += FrDt + "','"; //지시일자(Fr)
+                Query01 += ToDt + "','"; //지시일자(To)
+                Query01 += CntcCode + "','"; //담당자
+                Query01 += OrdNum + "','"; //작번
+                Query01 += OrdSub1 + "','"; //서브작번1
+                Query01 += OrdSub2 + "'"; //서브작번2
 
                 oGrid01.DataTable.Clear();
                 oForm.DataSources.DataTables.Item("DataTable").ExecuteQuery(Query01);
@@ -356,7 +354,6 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-
                 if (errMessage != null)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
@@ -396,13 +393,13 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
                 ProgressBar01.Text = "조회중!";
-                DocEntry = oGrid01.DataTable.Columns.Item("문서번호").Cells.Item(pRow).Value.ToString().Trim();                //그리드에서 선택한 작업지시등록 문서번호
+                DocEntry = oGrid01.DataTable.Columns.Item("문서번호").Cells.Item(pRow).Value.ToString().Trim(); //그리드에서 선택한 작업지시등록 문서번호
                 FullOrdNum = oGrid01.DataTable.Columns.Item("작번").Cells.Item(pRow).Value.ToString().Trim() + "-" + oGrid01.DataTable.Columns.Item("서브작번1").Cells.Item(pRow).Value.ToString().Trim() + "-" + oGrid01.DataTable.Columns.Item("서브작번2").Cells.Item(pRow).Value.ToString().Trim();
                 //그리드에서 선택한 작번(전체작번)
 
-                oForm.Items.Item("MainEntry").Specific.Value = DocEntry;          //그리드에서 선택한 행의 작업지시 문서번호 레이블에 저장
-                oForm.Items.Item("GridRow").Specific.Value = pRow;                //그리드에서 선택한 행의 행번호
-                oForm.Items.Item("FullOrdNum").Specific.Value = FullOrdNum;       //그리드에서 선택한 작번(전체작번)
+                oForm.Items.Item("MainEntry").Specific.Value = DocEntry; //그리드에서 선택한 행의 작업지시 문서번호 레이블에 저장
+                oForm.Items.Item("GridRow").Specific.Value = pRow; //그리드에서 선택한 행의 행번호
+                oForm.Items.Item("FullOrdNum").Specific.Value = FullOrdNum; //그리드에서 선택한 작번(전체작번)
 
                 sQry = "         EXEC [PS_PP039_02] '";
                 sQry += DocEntry + "'";
@@ -526,7 +523,6 @@ namespace PSH_BOne_AddOn
                 Query01 += "  FROM      [@PS_MM005H] ";
                 Query01 += " WHERE     U_PP030DL = '" + PP030DL + "'";
                 Query01 += "           AND U_OrdType = '10'";
-                //원자재 구매요청만 조회
 
                 oRecordSet01.DoQuery(Query01);
 
@@ -605,7 +601,7 @@ namespace PSH_BOne_AddOn
         private bool PS_PP039_AddData()
         {
             bool functionReturnValue = false;
-            short loopCount;
+            int loopCount;
             string sQry;
             string Sequence;       //순번
             string CpBCode;        //공정대분류
@@ -614,7 +610,6 @@ namespace PSH_BOne_AddOn
             string CpName;         //중분류명
             string StdHour;        //표준공수
             string Unit;           //단위
-            double CpPrice;        //공정금액
             string ReDate;         //완료요구일
             string WorkGbn;        //작업구분
             string ReWorkYN;       //재작업여부
@@ -632,6 +627,7 @@ namespace PSH_BOne_AddOn
             string MainEntry;      //작업지시문서번호
             string BPLID;          //사업장코드
             string FullOrdNum;      //전체작번
+            double CpPrice;        //공정금액
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -646,55 +642,55 @@ namespace PSH_BOne_AddOn
                 {
                     if (oDS_PS_PP039L.GetValue("U_ColReg01", loopCount).ToString().Trim() == "Y")
                     {
-                        Sequence = oDS_PS_PP039L.GetValue("U_ColReg02", loopCount).ToString().Trim();                  //순번
-                        CpBCode =  oDS_PS_PP039L.GetValue("U_ColReg03", loopCount).ToString().Trim();                  //공정대분류
-                        CpBName =  oDS_PS_PP039L.GetValue("U_ColReg04", loopCount).ToString().Trim();                  //대분류명
-                        CpCode =   oDS_PS_PP039L.GetValue("U_ColReg05", loopCount).ToString().Trim();                  //공정중분류
-                        CpName =   oDS_PS_PP039L.GetValue("U_ColReg06", loopCount).ToString().Trim();                  //중분류명
-                        StdHour =  oDS_PS_PP039L.GetValue("U_ColQty01", loopCount).ToString().Trim();                  //표준공수
-                        Unit =     oDS_PS_PP039L.GetValue("U_ColReg08", loopCount).ToString().Trim();                  //단위
+                        Sequence = oDS_PS_PP039L.GetValue("U_ColReg02", loopCount).ToString().Trim(); //순번
+                        CpBCode =  oDS_PS_PP039L.GetValue("U_ColReg03", loopCount).ToString().Trim(); //공정대분류
+                        CpBName =  oDS_PS_PP039L.GetValue("U_ColReg04", loopCount).ToString().Trim(); //대분류명
+                        CpCode =   oDS_PS_PP039L.GetValue("U_ColReg05", loopCount).ToString().Trim(); //공정중분류
+                        CpName =   oDS_PS_PP039L.GetValue("U_ColReg06", loopCount).ToString().Trim(); //중분류명
+                        StdHour =  oDS_PS_PP039L.GetValue("U_ColQty01", loopCount).ToString().Trim(); //표준공수
+                        Unit =     oDS_PS_PP039L.GetValue("U_ColReg08", loopCount).ToString().Trim(); //단위
                         CpPrice = Convert.ToDouble(oDS_PS_PP039L.GetValue("U_ColPrc01", loopCount).ToString().Trim()); //공정금액
-                        ReDate =   oDS_PS_PP039L.GetValue("U_ColDt01", loopCount).ToString().Trim();                   //완료요구일
-                        WorkGbn =  oDS_PS_PP039L.GetValue("U_ColReg11", loopCount).ToString().Trim();                  //작업구분
-                        ReWorkYN = oDS_PS_PP039L.GetValue("U_ColReg12", loopCount).ToString().Trim();                  //재작업여부
-                        ResultYN = oDS_PS_PP039L.GetValue("U_ColReg13", loopCount).ToString().Trim();                  //실적여부
-                        ReportYN = oDS_PS_PP039L.GetValue("U_ColReg14", loopCount).ToString().Trim();                  //일보여부
-                        FailCode = oDS_PS_PP039L.GetValue("U_ColReg15", loopCount).ToString().Trim();                  //재작업사유
-                        FailName = oDS_PS_PP039L.GetValue("U_ColReg16", loopCount).ToString().Trim();                  //재작업사유명
-                        WorkYN =  oDS_PS_PP039L.GetValue("U_ColReg17", loopCount).ToString().Trim();                   //작업여부
-                        DocEntry = oDS_PS_PP039L.GetValue("U_ColNum01", loopCount).ToString().Trim();                  //DocEntry
-                        LineId = oDS_PS_PP039L.GetValue("U_ColNum02", loopCount).ToString().Trim();                    //LineId
-                        VisOrder = oDS_PS_PP039L.GetValue("U_ColNum03", loopCount).ToString().Trim();                  //VisOrder
-                        Object_Renamed = oDS_PS_PP039L.GetValue("U_ColReg18", loopCount).ToString().Trim();            //Object
-                        LogInst = oDS_PS_PP039L.GetValue("U_ColReg19", loopCount).ToString().Trim();                   //LogInst
-                        LineNum = oDS_PS_PP039L.GetValue("U_ColNum04", loopCount).ToString().Trim();                   //U_LineNum
+                        ReDate =   oDS_PS_PP039L.GetValue("U_ColDt01", loopCount).ToString().Trim(); //완료요구일
+                        WorkGbn =  oDS_PS_PP039L.GetValue("U_ColReg11", loopCount).ToString().Trim(); //작업구분
+                        ReWorkYN = oDS_PS_PP039L.GetValue("U_ColReg12", loopCount).ToString().Trim(); //재작업여부
+                        ResultYN = oDS_PS_PP039L.GetValue("U_ColReg13", loopCount).ToString().Trim(); //실적여부
+                        ReportYN = oDS_PS_PP039L.GetValue("U_ColReg14", loopCount).ToString().Trim(); //일보여부
+                        FailCode = oDS_PS_PP039L.GetValue("U_ColReg15", loopCount).ToString().Trim(); //재작업사유
+                        FailName = oDS_PS_PP039L.GetValue("U_ColReg16", loopCount).ToString().Trim(); //재작업사유명
+                        WorkYN =  oDS_PS_PP039L.GetValue("U_ColReg17", loopCount).ToString().Trim(); //작업여부
+                        DocEntry = oDS_PS_PP039L.GetValue("U_ColNum01", loopCount).ToString().Trim(); //DocEntry
+                        LineId = oDS_PS_PP039L.GetValue("U_ColNum02", loopCount).ToString().Trim(); //LineId
+                        VisOrder = oDS_PS_PP039L.GetValue("U_ColNum03", loopCount).ToString().Trim(); //VisOrder
+                        Object_Renamed = oDS_PS_PP039L.GetValue("U_ColReg18", loopCount).ToString().Trim(); //Object
+                        LogInst = oDS_PS_PP039L.GetValue("U_ColReg19", loopCount).ToString().Trim(); //LogInst
+                        LineNum = oDS_PS_PP039L.GetValue("U_ColNum04", loopCount).ToString().Trim(); //U_LineNum
 
                         sQry = "                EXEC [PS_PP039_03] ";
-                        sQry += "'" + Sequence + "',";      //순번
-                        sQry += "'" + CpBCode + "',";       //공정대분류
-                        sQry += "'" + CpBName + "',";       //대분류명
-                        sQry += "'" + CpCode + "',";        //공정중분류
-                        sQry += "'" + CpName + "',";        //중분류명
-                        sQry += "'" + StdHour + "',";       //표준공수
-                        sQry += "'" + Unit + "',";          //단위
-                        sQry += "'" + CpPrice + "',";       //공정금액
-                        sQry += "'" + ReDate + "',";        //완료요구일
-                        sQry += "'" + WorkGbn + "',";       //작업구분
-                        sQry += "'" + ReWorkYN + "',";      //재작업여부
-                        sQry += "'" + ResultYN + "',";      //실적여부
-                        sQry += "'" + ReportYN + "',";      //일보여부
-                        sQry += "'" + FailCode + "',";      //재작업사유
-                        sQry += "'" + FailName + "',";      //재작업사유명
-                        sQry += "'" + WorkYN + "',";        //작업여부
-                        sQry += "'" + DocEntry + "',";      //DocEntry
-                        sQry += "'" + LineId + "',";        //LineID
-                        sQry += "'" + VisOrder + "',";      //VisOrder
+                        sQry += "'" + Sequence + "',"; //순번
+                        sQry += "'" + CpBCode + "',"; //공정대분류
+                        sQry += "'" + CpBName + "',"; //대분류명
+                        sQry += "'" + CpCode + "',"; //공정중분류
+                        sQry += "'" + CpName + "',"; //중분류명
+                        sQry += "'" + StdHour + "',"; //표준공수
+                        sQry += "'" + Unit + "',"; //단위
+                        sQry += "'" + CpPrice + "',"; //공정금액
+                        sQry += "'" + ReDate + "',"; //완료요구일
+                        sQry += "'" + WorkGbn + "',"; //작업구분
+                        sQry += "'" + ReWorkYN + "',"; //재작업여부
+                        sQry += "'" + ResultYN + "',"; //실적여부
+                        sQry += "'" + ReportYN + "',"; //일보여부
+                        sQry += "'" + FailCode + "',"; //재작업사유
+                        sQry += "'" + FailName + "',"; //재작업사유명
+                        sQry += "'" + WorkYN + "',"; //작업여부
+                        sQry += "'" + DocEntry + "',"; //DocEntry
+                        sQry += "'" + LineId + "',"; //LineID
+                        sQry += "'" + VisOrder + "',"; //VisOrder
                         sQry += "'" + Object_Renamed + "',";//Object
-                        sQry += "'" + LogInst + "',";       //LogInst
-                        sQry += "'" + LineNum + "',";       //LineNum
-                        sQry += "'" + MainEntry + "',";     //선택한 작업지시문서번호
-                        sQry += "'" + BPLID + "',";         //사업장코드
-                        sQry += "'" + FullOrdNum + "'";     //전체작번
+                        sQry += "'" + LogInst + "',"; //LogInst
+                        sQry += "'" + LineNum + "',"; //LineNum
+                        sQry += "'" + MainEntry + "',"; //선택한 작업지시문서번호
+                        sQry += "'" + BPLID + "',"; //사업장코드
+                        sQry += "'" + FullOrdNum + "'"; //전체작번
 
                         oRecordSet01.DoQuery(sQry);
                     }
@@ -742,9 +738,9 @@ namespace PSH_BOne_AddOn
                         DocEntry = oDS_PS_PP039L.GetValue("U_ColNum01", loopCount).ToString().Trim();//문서번호
                         LineId = oDS_PS_PP039L.GetValue("U_ColNum02", loopCount).ToString().Trim();  //라인번호
 
-                        sQry = "EXEC [PS_PP039_05] ";        //외주제작청구되었는지 체크
+                        sQry = "EXEC [PS_PP039_05] "; //외주제작청구되었는지 체크
                         sQry += "'" + DocEntry + "',"; //문서번호
-                        sQry += "'" + LineId + "'";    //라인번호
+                        sQry += "'" + LineId + "'"; //라인번호
                         oRecordSet01.DoQuery(sQry);
 
                         if (oRecordSet01.Fields.Item("CNT").Value > 0)
@@ -1186,8 +1182,7 @@ namespace PSH_BOne_AddOn
                     }
                     else if (pVal.ItemUID == "BtnAdd")
                     {
-                        //필수 입력 사항 체크
-                        if (PS_PP039_DataValidCheck() == false)
+                        if (PS_PP039_DataValidCheck() == false)//필수 입력 사항 체크
                         {
                             BubbleEvent = false;
                             return;
@@ -1459,6 +1454,7 @@ namespace PSH_BOne_AddOn
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid01);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_PP039L);
                 }
             }
             catch (Exception ex)

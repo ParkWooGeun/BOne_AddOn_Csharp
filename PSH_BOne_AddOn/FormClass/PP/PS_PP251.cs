@@ -321,8 +321,11 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
-				ProgressBar01.Stop();
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				if (ProgressBar01 != null)
+				{
+					ProgressBar01.Stop();
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				}
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 				oForm.Freeze(false);
 			}
@@ -399,8 +402,11 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
-				ProgressBar01.Stop();
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				if (ProgressBar01 != null)
+				{
+					ProgressBar01.Stop();
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				}
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 		}

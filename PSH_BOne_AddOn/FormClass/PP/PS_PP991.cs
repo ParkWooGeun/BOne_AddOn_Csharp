@@ -446,8 +446,11 @@ namespace PSH_BOne_AddOn
 			{
 				oGrid01.AutoResizeColumns();
 				oForm.Update();
-				ProgressBar01.Stop();
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				if (ProgressBar01 != null)
+				{
+					ProgressBar01.Stop();
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				}
 				oForm.Freeze(false);
 			}
 		}
@@ -516,8 +519,11 @@ namespace PSH_BOne_AddOn
 			{
 				oGrid02.AutoResizeColumns();
 				oForm.Update();
-				ProgressBar01.Stop();
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				if (ProgressBar01 != null)
+				{
+					ProgressBar01.Stop();
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				}
 				oForm.Freeze(false);
 			}
 		}
@@ -603,8 +609,11 @@ namespace PSH_BOne_AddOn
 			{
 				oMat01.LoadFromDataSource();
 				oMat01.AutoResizeColumns();
-				ProgressBar01.Stop();
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				if (ProgressBar01 != null)
+				{
+					ProgressBar01.Stop();
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				}
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 				oForm.Freeze(false);
 			}
@@ -660,8 +669,11 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
-				ProgressBar01.Stop();
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				if (ProgressBar01 != null)
+				{
+					ProgressBar01.Stop();
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				}
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 				oForm.Freeze(false);
 			}
@@ -705,8 +717,11 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
-				ProgressBar01.Stop();
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				if (ProgressBar01 != null)
+				{
+					ProgressBar01.Stop();
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				}
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 		}

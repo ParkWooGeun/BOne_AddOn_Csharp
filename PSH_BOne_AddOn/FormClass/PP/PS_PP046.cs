@@ -252,9 +252,12 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
-				ProgressBar01.Stop();
+				if (ProgressBar01 != null)
+				{
+					ProgressBar01.Stop();
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				}
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01); //메모리 해제
 				oForm.Freeze(false);
 			}
 		}

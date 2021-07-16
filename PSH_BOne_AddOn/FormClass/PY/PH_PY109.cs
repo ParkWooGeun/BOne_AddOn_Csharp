@@ -1072,7 +1072,6 @@ namespace PSH_BOne_AddOn
                     ProgressBar01.Stop();
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
                 }
-
                 xlapp.Quit();
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(xlRow);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(xlRange);

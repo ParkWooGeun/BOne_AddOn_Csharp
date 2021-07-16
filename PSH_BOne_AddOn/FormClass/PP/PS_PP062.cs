@@ -269,8 +269,11 @@ namespace PSH_BOne_AddOn
 			{
 				oGrid.AutoResizeColumns();
 				oForm.Update();
-				ProgressBar01.Stop();
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				if (ProgressBar01 != null)
+				{
+					ProgressBar01.Stop();
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				}
 				oForm.Freeze(false);
 			}
 		}
@@ -291,6 +294,7 @@ namespace PSH_BOne_AddOn
 			string WkCode;	 //작업자사번
 			string ClsCode;	 //반(설비코드기준)
 			string WorkGbn;	 //작업구분
+
 			try
 			{
 				BPLID = oForm.Items.Item("BPLID").Specific.Selected.Value.ToString().Trim();

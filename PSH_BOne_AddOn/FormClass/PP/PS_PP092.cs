@@ -538,10 +538,6 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if (ProgressBar01 != null)
-                {
-                    ProgressBar01.Stop();
-                }
                 if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
@@ -555,7 +551,11 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01); //메모리 해제
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
             }
         }
 

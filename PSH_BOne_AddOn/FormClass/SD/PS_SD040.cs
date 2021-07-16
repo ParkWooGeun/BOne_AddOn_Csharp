@@ -438,9 +438,16 @@ namespace PSH_BOne_AddOn
                     {
                         oForm.Items.Item("PriChange").Enabled = true;
                     }
+                    else if (oForm.Items.Item("Opt02").Specific.Selected == true)
+                    {
+                        oForm.Items.Item("Button03").Enabled = true;
+                        oForm.Items.Item("Button04").Enabled = true;
+                    }
                     else
                     {
                         oForm.Items.Item("PriChange").Enabled = false;
+                        oForm.Items.Item("Button03").Enabled = false;
+                        oForm.Items.Item("Button04").Enabled = true;
                     }
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
@@ -468,13 +475,20 @@ namespace PSH_BOne_AddOn
                     oMat01.Columns.Item("PackNo").Visible = true;
                     oMat01.Columns.Item("OrderNum").Visible = true;
 
-                    if (oForm.Items.Item("Opt03").Specific.Selected == true)
+                    if(oForm.Items.Item("Opt03").Specific.Selected == true)
                     {
                         oForm.Items.Item("PriChange").Enabled = true;
+                    }
+                    else if (oForm.Items.Item("Opt02").Specific.Selected == true)
+                    {
+                        oForm.Items.Item("Button03").Enabled = true;
+                        oForm.Items.Item("Button04").Enabled = true;
                     }
                     else
                     {
                         oForm.Items.Item("PriChange").Enabled = false;
+                        oForm.Items.Item("Button03").Enabled = false;
+                        oForm.Items.Item("Button04").Enabled = false;
                     }
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
@@ -506,7 +520,7 @@ namespace PSH_BOne_AddOn
                     oMat01.Columns.Item("Weight").Editable = false;
                     oMat01.Columns.Item("WhsCode").Editable = false;
                     oMat01.Columns.Item("Comments").Editable = false;
-                    
+
                     if (oForm.Items.Item("Opt03").Specific.Selected == true)
                     {
                         oForm.Items.Item("PriChange").Enabled = true;
@@ -519,10 +533,17 @@ namespace PSH_BOne_AddOn
                             oMat01.Columns.Item("Price").Editable = false;
                         }
                     }
+                    else if (oForm.Items.Item("Opt02").Specific.Selected == true)
+                    {
+                        oForm.Items.Item("Button03").Enabled = true;
+                        oForm.Items.Item("Button04").Enabled = true;
+                    }
                     else
                     {
                         oForm.Items.Item("PriChange").Enabled = false;
                         oMat01.Columns.Item("Price").Editable = false;
+                        oForm.Items.Item("Button03").Enabled = false;
+                        oForm.Items.Item("Button04").Enabled = false;
                     }
                 }
             }
@@ -995,16 +1016,16 @@ namespace PSH_BOne_AddOn
         /// 본사 데이터 전송
         /// </summary>
         /// <returns></returns>
-        private bool PS_SD040_TransmissionData()
+        private void PS_SD040_InterfaceB1toR3()
         {
-            bool returnValue = false;
             string Client; //클라이언트(운영용:210, 테스트용:710)
             string ServerIP; //서버IP(운영용:192.1.11.3, 테스트용:192.1.11.7)
             int i;
             int j;
+            string sQry = string.Empty;
             string errCode = string.Empty;
             string errMessage = string.Empty;
-
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             RfcDestination rfcDest = null;
             RfcRepository rfcRep = null;
@@ -1012,11 +1033,11 @@ namespace PSH_BOne_AddOn
             try
             {
                 oMat01.FlushToDataSource();
-                //Real
+                ////Real
                 Client = "210";
                 ServerIP = "192.1.11.3";
 
-                //Test
+                ////Test
                 //Client = "810";
                 //ServerIP = "192.1.11.7";
 
@@ -1033,58 +1054,71 @@ namespace PSH_BOne_AddOn
 
                 j = 1;
                 oTable.Insert();
-                for (i = 0; i <= oMat01.VisualRowCount -1; i++)
+                for (i = 0; i <= oMat01.VisualRowCount -2; i++)
                 {
-                    //SetValue 매개변수용 변수(변수Type이 맞지 않으면 매개변수 전달시 SetValue 메소드 오류발생, 아래와 같이 매개변수에 값 저장후 SetValue에 전달)
-                    string coilNo = oDS_PS_SD040L.GetValue("U_CoilNo", i).ToString().Trim();
-                    string docDate = oDS_PS_SD040H.GetValue("U_DocDate", 0).ToString().Trim();
-                    double weight = Convert.ToDouble(oDS_PS_SD040L.GetValue("U_Weight", i).ToString().Trim());
-                    double packWgt = Convert.ToDouble(oDS_PS_SD040L.GetValue("U_PackWgt", i).ToString().Trim());
-                    double totalWgt = Convert.ToDouble(oDS_PS_SD040L.GetValue("U_Weight", i)) + Convert.ToDouble(oDS_PS_SD040L.GetValue("U_PackWgt", i));
-
-                    oTable.SetValue("ZLOTNO", coilNo);
-                    oTable.SetValue("ZORGDT", docDate);
-                    oTable.SetValue("NTGEW", weight);
-                    oTable.SetValue("ZBOXWE", packWgt);
-                    oTable.SetValue("BRGEW", totalWgt);
-                    oTable.Append();
-
-                    if (oMat01.VisualRowCount == i + 1) //마지막에 실행
+                    if (oDS_PS_SD040L.GetValue("U_TransYN", i).ToString().Trim() != "Y")
                     {
-                        errCode = "2"; //SAP Function 실행 오류가 발생했을 때 에러코드로 처리하기 위해 이 위치에서 "2"를 대입
-                        oFunction.Invoke(rfcDest); //Function 실행
+                        //SetValue 매개변수용 변수(변수Type이 맞지 않으면 매개변수 전달시 SetValue 메소드 오류발생, 아래와 같이 매개변수에 값 저장후 SetValue에 전달)
+                        string coilNo = oDS_PS_SD040L.GetValue("U_CoilNo", i).ToString().Trim();
+                        string docDate = oDS_PS_SD040H.GetValue("U_DocDate", 0).ToString().Trim();
+                        double weight = Convert.ToDouble(oDS_PS_SD040L.GetValue("U_Weight", i).ToString().Trim());
+                        double packWgt = Convert.ToDouble(oDS_PS_SD040L.GetValue("U_PackWgt", i).ToString().Trim());
+                        double totalWgt = Convert.ToDouble(oDS_PS_SD040L.GetValue("U_Weight", i)) + Convert.ToDouble(oDS_PS_SD040L.GetValue("U_PackWgt", i));
 
-                        errMessage = oFunction.GetValue("E_MESSAGE").ToString();
+                        oTable.SetValue("ZLOTNO", coilNo);
+                        oTable.SetValue("ZORGDT", docDate);
+                        oTable.SetValue("NTGEW", weight);
+                        oTable.SetValue("ZBOXWE", packWgt);
+                        oTable.SetValue("BRGEW", totalWgt);
+                        oTable.Append();
 
-                        if (errMessage.Substring(0, 1) == "E")
+                        if (oMat01.VisualRowCount == i + 2) //마지막에 실행
                         {
-                            errCode = "3";
-                            throw new Exception();
+                            errCode = "2"; //SAP Function 실행 오류가 발생했을 때 에러코드로 처리하기 위해 이 위치에서 "2"를 대입
+                            oFunction.Invoke(rfcDest); //Function 실행
+
+                            errMessage = oFunction.GetValue("E_MESSAGE").ToString();
+
+                            if (errMessage.Substring(0, 1) == "E")
+                            {
+                                sQry = "Update [@PS_SD040L] set U_TransYN ='E' where DocEntry ='" + oDS_PS_SD040L.GetValue("DocEntry", i).ToString().Trim() + "' and U_PackNo ='"+ oDS_PS_SD040L.GetValue("U_PackNo", i).ToString().Trim() + "'";
+                                oRecordSet01.DoQuery(sQry);
+
+                                PSH_Globals.SBO_Application.MessageBox("패킹번호 [" + oDS_PS_SD040L.GetValue("U_PackNo", i).ToString().Trim() + "] 오류 :" + errMessage);
+                            }
+                            else
+                            {
+                                sQry = "Update [@PS_SD040L] set U_TransYN ='Y' where DocEntry ='" + oDS_PS_SD040L.GetValue("DocEntry", i).ToString().Trim() + "' and U_PackNo ='" + oDS_PS_SD040L.GetValue("U_PackNo", i).ToString().Trim() + "'";
+                                oRecordSet01.DoQuery(sQry);
+                            }
                         }
-                    }
-                    else if (oDS_PS_SD040L.GetValue("U_PackNo", i).ToString().Trim() != oDS_PS_SD040L.GetValue("U_PackNo", i + 1).ToString().Trim())
-                    {
-                        errCode = "2"; //SAP Function 실행 오류가 발생했을 때 에러코드로 처리하기 위해 이 위치에서 "2"를 대입
-                        oFunction.Invoke(rfcDest); //Function 실행
-
-                        errMessage = oFunction.GetValue("E_MESSAGE").ToString();
-
-                        if (errMessage.Substring(0, 1) == "E")
+                        else if (oDS_PS_SD040L.GetValue("U_PackNo", i).ToString().Trim() != oDS_PS_SD040L.GetValue("U_PackNo", i + 1).ToString().Trim())
                         {
-                            errCode = "3";
-                            throw new Exception();
-                        }
-                        oTable.Clear();
-                        oTable.Insert();
-                        j = 0;
-                    }
+                            errCode = "2"; //SAP Function 실행 오류가 발생했을 때 에러코드로 처리하기 위해 이 위치에서 "2"를 대입
+                            oFunction.Invoke(rfcDest); //Function 실행
 
-                    oDS_PS_SD040L.SetValue("U_TransYN", i, "Y");
-                    oMat01.LoadFromDataSource();
-                    j += 1;
+                            errMessage = oFunction.GetValue("E_MESSAGE").ToString();
+
+                            if (errMessage.Substring(0, 1) == "E")
+                            {
+                                sQry = "Update [@PS_SD040L] set U_TransYN ='E' where DocEntry ='" + oDS_PS_SD040L.GetValue("DocEntry", i).ToString().Trim() + "' and U_PackNo ='" + oDS_PS_SD040L.GetValue("U_PackNo", i).ToString().Trim() + "'";
+                                oRecordSet01.DoQuery(sQry);
+
+                                PSH_Globals.SBO_Application.MessageBox("패킹번호 [" + oDS_PS_SD040L.GetValue("U_PackNo", i).ToString().Trim() + "] 오류 :" +  errMessage);
+                            }
+                            else
+                            {
+                                sQry = "Update [@PS_SD040L] set U_TransYN ='Y' where DocEntry ='" + oDS_PS_SD040L.GetValue("DocEntry", i).ToString().Trim() + "' and U_PackNo ='" + oDS_PS_SD040L.GetValue("U_PackNo", i).ToString().Trim() + "'";
+                                oRecordSet01.DoQuery(sQry);
+                            }
+                            oTable.Clear();
+                            oTable.Insert();
+                            j = 0;
+                        }
+                        j += 1;
+                    }
                 }
-
-                returnValue = true;
+                PSH_Globals.SBO_Application.MessageBox("R3 인터페이스 완료!");
             }
             catch(Exception ex)
             {
@@ -1107,9 +1141,8 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
-
-            return returnValue;
         }
 
         /// <summary>
@@ -1518,15 +1551,7 @@ namespace PSH_BOne_AddOn
 
                 if (PSH_Globals.oCompany.InTransaction == true)
                 {
-                    if (PS_SD040_TransmissionData() == true)
-                    {
-                        PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
-                    }
-                    else
-                    {
-                        errCode = "3";
-                        throw new Exception();
-                    }
+                    PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
                 }
 
                 returnValue = true;
@@ -1545,10 +1570,6 @@ namespace PSH_BOne_AddOn
                 else if (errCode == "2")
                 {
                     PSH_Globals.SBO_Application.MessageBox("현재월의 전기기간이 잠겼습니다. 회계부서에 문의하세요.");
-                }
-                else if (errCode == "3")
-                {
-                    //PS_SD040_TransmissionData에서 이미 오류메시지 처리, 현재 메소드에서는 처리 불필요
                 }
                 else
                 {
@@ -2254,6 +2275,46 @@ namespace PSH_BOne_AddOn
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                         {
                             if (oForm.Items.Item("Opt03").Specific.Selected == true) //분말일경우
+                            {
+                                System.Threading.Thread thread = new System.Threading.Thread(PS_SD040_Print_Report03);
+                                thread.SetApartmentState(System.Threading.ApartmentState.STA);
+                                thread.Start();
+                            }
+                            else
+                            {
+                                System.Threading.Thread thread = new System.Threading.Thread(() => PS_SD040_Print_Report02("N"));
+                                thread.SetApartmentState(System.Threading.ApartmentState.STA);
+                                thread.Start();
+                            }
+                        }
+                    }
+                    else if (pVal.ItemUID == "Button04") //B1 to R3 데이터 인터페이스
+                    {
+                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+                        {
+                        }
+                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
+                        {
+                        }
+                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
+                        {
+                            if (oForm.Items.Item("Opt02").Specific.Selected == true) //분말일경우
+                            {
+                                PS_SD040_InterfaceB1toR3();
+                            }
+                        }
+                    }
+                    else if (pVal.ItemUID == "Button05") // 멀티 매트릭스 내 R3 전송 오류 메시지 초기화
+                    {
+                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+                        {
+                        }
+                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
+                        {
+                        }
+                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
+                        {
+                            if (oForm.Items.Item("Opt02").Specific.Selected == true) //분말일경우
                             {
                                 System.Threading.Thread thread = new System.Threading.Thread(PS_SD040_Print_Report03);
                                 thread.SetApartmentState(System.Threading.ApartmentState.STA);

@@ -611,8 +611,10 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.EventType == SAPbouiCOM.BoEventTypes.et_FORM_LOAD)
                     {
-                        if (pVal.FormTypeEx == "")
+                        if (pVal.FormTypeEx == "150")
                         {
+                            pBaseClass = new PS_S150();
+                            pBaseClass.LoadForm(pVal.FormUID);
                         }
 
                         //{

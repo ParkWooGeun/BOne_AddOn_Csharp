@@ -17,8 +17,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// Form 호출
 		/// </summary>
-		/// <param name="oFromDocEntry01"></param>
-		public override void LoadForm(string oFromDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			int i;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -51,7 +51,7 @@ namespace PSH_BOne_AddOn
 
 				CreateItems();
 				ComboBox_Setting();
-				SetDocument(oFromDocEntry01);
+				SetDocument(oFormDocEntry);
 
 				oForm.EnableMenu("1293", true); // 행삭제
 				oForm.EnableMenu("1287", true); // 복제
@@ -127,12 +127,12 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// SetDocument
 		/// </summary>
-		/// <param name="oFromDocEntry01"></param>
-		private void SetDocument(string oFromDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		private void SetDocument(string oFormDocEntry)
 		{
 			try
 			{
-				if (string.IsNullOrEmpty(oFromDocEntry01))
+				if (string.IsNullOrEmpty(oFormDocEntry))
 				{
 					FormItemEnabled();
 					AddMatrixRow(0, true);
@@ -141,7 +141,7 @@ namespace PSH_BOne_AddOn
 				{
 					oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
 					FormItemEnabled();
-					oForm.Items.Item("Code").Specific.VALUE = oFromDocEntry01;
+					oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry;
 					oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 				}
 			}

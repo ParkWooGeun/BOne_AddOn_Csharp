@@ -25,8 +25,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFromDocEntry01"></param>
-        public override void LoadForm(string oFromDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -59,7 +59,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PS_PP032_CreateItems();
                 PS_PP032_EnableMenus();
-                PS_PP032_SetDocument(oFromDocEntry01);
+                PS_PP032_SetDocument(oFormDocEntry);
             }
             catch (Exception ex)
             {
@@ -114,12 +114,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// SetDocument
         /// </summary>
-        /// <param name="oFromDocEntry01">DocEntry</param>
-        private void PS_PP032_SetDocument(string oFromDocEntry01)
+        /// <param name="oFormDocEntry">DocEntry</param>
+        private void PS_PP032_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFromDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PS_PP032_FormItemEnabled();
                     PS_PP032_AddMatrixRow(0, true);

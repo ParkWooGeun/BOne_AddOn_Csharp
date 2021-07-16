@@ -23,8 +23,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// Form 호출
 		/// </summary>
-		/// <param name="oFromDocEntry01"></param>
-		public override void LoadForm(string oFromDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			int i;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -58,7 +58,7 @@ namespace PSH_BOne_AddOn
 				PS_PP284_ComboBox_Setting();
 				PS_PP284_Initial_Setting();
 				PS_PP284_EnableMenus();
-				PS_PP284_SetDocument(oFromDocEntry01);
+				PS_PP284_SetDocument(oFormDocEntry);
 
 				oForm.EnableMenu(("1283"), false);  // 삭제
 				oForm.EnableMenu(("1287"), true);   // 복제
@@ -167,12 +167,12 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// PS_PP284_SetDocument
 		/// </summary>
-		/// <param name="oFromDocEntry01"></param>
-		private void PS_PP284_SetDocument(string oFromDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		private void PS_PP284_SetDocument(string oFormDocEntry)
 		{
 			try
 			{
-				if (string.IsNullOrEmpty(oFromDocEntry01))
+				if (string.IsNullOrEmpty(oFormDocEntry))
 				{
 					PS_PP284_FormItemEnabled();
 					PS_PP284_AddMatrixRow(0, true); //UDO방식일때

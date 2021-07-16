@@ -10,7 +10,7 @@ namespace PSH_BOne_AddOn
 	/// </summary>
 	internal class PS_SD956 : PSH_BaseClass
 	{
-		public string oFormUniqueID;
+		private string oFormUniqueID;
 		public SAPbouiCOM.Grid oGrid01;
 		public SAPbouiCOM.Grid oGrid02;
 		public SAPbouiCOM.Grid oGrid03;
@@ -28,8 +28,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			int i;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -153,7 +153,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// PS_SD956_ComboBox_Setting
 		/// </summary>
-		public void PS_SD956_ComboBox_Setting()
+		private void PS_SD956_ComboBox_Setting()
 		{
 			string sQry;
 			string BPLID;
@@ -1106,7 +1106,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// PS_SD956_GetProductionDetail  생산세부정보 조회
 		/// </summary>
-		public void PS_SD956_GetProductionDetail()
+		private void PS_SD956_GetProductionDetail()
 		{
 			short loopCount;
 			string ItemCode = String.Empty;
@@ -1144,7 +1144,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// PS_SD956_GetPurchaseDetail  구매세부정보 조회
 		/// </summary>
-		public void PS_SD956_GetPurchaseDetail()
+		private void PS_SD956_GetPurchaseDetail()
 		{
 			short loopCount;
 			string ItemCode = String.Empty;
@@ -1182,7 +1182,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// PS_SD956_GetAccountingDetail  회계세부정보 조회
 		/// </summary>
-		public void PS_SD956_GetAccountingDetail()
+		private void PS_SD956_GetAccountingDetail()
 		{
 			short loopCount;
 			string ItemCode = String.Empty;

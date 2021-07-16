@@ -17,8 +17,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			int i;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -164,7 +164,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// Initialization
 		/// </summary>
-		public void Initialization()
+		private void Initialization()
 		{
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 

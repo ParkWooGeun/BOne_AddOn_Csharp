@@ -42,7 +42,7 @@ namespace PSH_BOne_AddOn
         {
         }
 
-        //		public void LoadForm(ref SAPbouiCOM.Form oForm02 = null, string oItemUID02 = "", string oColUID02 = "", int oColRow02 = 0, string oTradeType02 = "")
+        //		private void LoadForm(ref SAPbouiCOM.Form oForm02 = null, string oItemUID02 = "", string oColUID02 = "", int oColRow02 = 0, string oTradeType02 = "")
         //		{
         //			 // ERROR: Not supported in C#: OnErrorStatement
 
@@ -104,7 +104,7 @@ namespace PSH_BOne_AddOn
         //			SubMain.Sbo_Application.SetStatusBarMessage("Form_Load Error:" + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
         //		}
 
-        //		public void Raise_ItemEvent(ref object FormUID, ref SAPbouiCOM.ItemEvent pval, ref bool BubbleEvent)
+        //		private void Raise_ItemEvent(ref object FormUID, ref SAPbouiCOM.ItemEvent pval, ref bool BubbleEvent)
         //		{
         //			 // ERROR: Not supported in C#: OnErrorStatement
 
@@ -177,7 +177,7 @@ namespace PSH_BOne_AddOn
         //		}
 
 
-        //		public void Raise_MenuEvent(ref string FormUID, ref SAPbouiCOM.IMenuEvent pval, ref bool BubbleEvent)
+        //		private void Raise_MenuEvent(ref string FormUID, ref SAPbouiCOM.IMenuEvent pval, ref bool BubbleEvent)
         //		{
         //			 // ERROR: Not supported in C#: OnErrorStatement
 
@@ -241,7 +241,7 @@ namespace PSH_BOne_AddOn
         //			SubMain.Sbo_Application.SetStatusBarMessage("Raise_MenuEvent_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
         //		}
 
-        //		public void Raise_FormDataEvent(ref string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
+        //		private void Raise_FormDataEvent(ref string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
         //		{
         //			 // ERROR: Not supported in C#: OnErrorStatement
 
@@ -283,7 +283,7 @@ namespace PSH_BOne_AddOn
         //			SubMain.Sbo_Application.SetStatusBarMessage("Raise_FormDataEvent_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
         //		}
 
-        //		public void Raise_RightClickEvent(ref string FormUID, ref SAPbouiCOM.ContextMenuInfo pval, ref bool BubbleEvent)
+        //		private void Raise_RightClickEvent(ref string FormUID, ref SAPbouiCOM.ContextMenuInfo pval, ref bool BubbleEvent)
         //		{
         //			 // ERROR: Not supported in C#: OnErrorStatement
 
@@ -879,7 +879,7 @@ namespace PSH_BOne_AddOn
         //			return functionReturnValue;
         //		}
 
-        //		public void PS_SM020_ComboBox_Setting()
+        //		private void PS_SM020_ComboBox_Setting()
         //		{
         //			 // ERROR: Not supported in C#: OnErrorStatement
 
@@ -938,7 +938,7 @@ namespace PSH_BOne_AddOn
         //			SubMain.Sbo_Application.SetStatusBarMessage("PS_SM020_ComboBox_Setting_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
         //		}
 
-        //		public void PS_SM020_CF_ChooseFromList()
+        //		private void PS_SM020_CF_ChooseFromList()
         //		{
         //			 // ERROR: Not supported in C#: OnErrorStatement
 
@@ -974,7 +974,7 @@ namespace PSH_BOne_AddOn
         //			SubMain.Sbo_Application.SetStatusBarMessage("PS_SM020_CF_ChooseFromList_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
         //		}
 
-        //		public void PS_SM020_FormItemEnabled()
+        //		private void PS_SM020_FormItemEnabled()
         //		{
         //			 // ERROR: Not supported in C#: OnErrorStatement
 
@@ -994,7 +994,7 @@ namespace PSH_BOne_AddOn
         //			SubMain.Sbo_Application.SetStatusBarMessage("PS_SM020_FormItemEnabled_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
         //		}
 
-        //		public void PS_SM020_AddMatrixRow(int oRow, ref bool RowIserted = false)
+        //		private void PS_SM020_AddMatrixRow(int oRow, ref bool RowIserted = false)
         //		{
         //			 // ERROR: Not supported in C#: OnErrorStatement
 
@@ -1013,7 +1013,7 @@ namespace PSH_BOne_AddOn
         //			SubMain.Sbo_Application.SetStatusBarMessage("PS_SM020_AddMatrixRow_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
         //		}
 
-        //		public void PS_SM020_FormClear()
+        //		private void PS_SM020_FormClear()
         //		{
         //			 // ERROR: Not supported in C#: OnErrorStatement
 

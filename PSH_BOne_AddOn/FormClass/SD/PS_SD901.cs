@@ -1,5 +1,6 @@
 ﻿using System;
 using SAPbouiCOM;
+
 namespace PSH_BOne_AddOn
 {
 	/// <summary>
@@ -7,13 +8,13 @@ namespace PSH_BOne_AddOn
 	/// </summary>
 	internal class PS_SD901 : PSH_BaseClass
 	{
-		public string oFormUniqueID01;
+		private string oFormUniqueID;
 
 		/// <summary>
 		/// Form 호출
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			int i;
 			MSXML2.DOMDocument oXmlDoc01 = new MSXML2.DOMDocument();
@@ -32,18 +33,15 @@ namespace PSH_BOne_AddOn
 					oXmlDoc01.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
 				}
 
-				oFormUniqueID01 = "PS_SD901_" + SubMain.Get_TotalFormsCount();
-				SubMain.Add_Forms(this, oFormUniqueID01, "PS_SD901");
+				oFormUniqueID = "PS_SD901_" + SubMain.Get_TotalFormsCount();
+				SubMain.Add_Forms(this, oFormUniqueID, "PS_SD901");
 				PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc01.xml.ToString());
-				oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID01);
+				oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
 				oForm.SupportedModes = -1;
 				oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 
 				oForm.Freeze(true);
-				CreateItems();
-				ComboBox_Setting();
-				Initialization();
 			}
 			catch (Exception ex)
 			{
@@ -55,6 +53,76 @@ namespace PSH_BOne_AddOn
 				oForm.Freeze(false);
 				oForm.Visible = true;
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oXmlDoc01); //메모리 해제
+			}
+		}
+
+		/// <summary>
+		/// 수주처 변경
+		/// </summary>
+		private void PS_SD901_Update()
+		{
+			int ErrNum = 0;
+			string sQry;
+
+			string ORDRNo;
+			string ItemCode;
+			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+			try
+			{
+				ORDRNo = oForm.Items.Item("ORDRNo").Specific.VALUE.ToString().Trim();
+				ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
+
+				if (string.IsNullOrEmpty(ORDRNo))
+				{
+					ErrNum = 1;
+					throw new Exception();
+				}
+
+				if (string.IsNullOrEmpty(ItemCode))
+				{
+					ErrNum = 2;
+					throw new Exception();
+				}
+
+				//판매오더, 작번 check
+				sQry = "SELECT 'X' FROM [ORDR] a Inner Join [RDR1] b On a.DocEntry = b.DocEntry Inner join [OITM]  c On b.ItemCode = c.ItemCode And c.U_ItmBsort In ('105','106') WHERE a.DocEntry = '" + ORDRNo + "' And b.ItemCode = '" + ItemCode + "'";
+				oRecordSet.DoQuery(sQry);
+
+				if (oRecordSet.RecordCount == 0)
+				{
+					ErrNum = 3;
+					throw new Exception();
+				}
+
+				//조회조건문
+				sQry = "EXEC [PS_SD901_01] '" + ORDRNo + "', '" + ItemCode + "'";
+				oRecordSet.DoQuery(sQry);
+
+				PSH_Globals.SBO_Application.MessageBox("변경처리가 완료되었습니다.");
+			}
+			catch (Exception ex)
+			{
+				if (ErrNum == 1)
+				{
+					PSH_Globals.SBO_Application.StatusBar.SetText("판매오더 번호가 없습니다. 확인해 주세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+				}
+				else if (ErrNum == 2)
+				{
+					PSH_Globals.SBO_Application.StatusBar.SetText("품목코드(작지)번호가 없습니다. 확인해 주세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+				}
+				else if (ErrNum == 3)
+				{
+					PSH_Globals.SBO_Application.StatusBar.SetText("판매오더가 없거나 판매오더에 해당작번이 없습니다. 확인바랍니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+				}
+				else
+				{
+					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+				}
+			}
+			finally
+			{
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 		}
 
@@ -154,7 +222,7 @@ namespace PSH_BOne_AddOn
 				{
 					if (pVal.ItemUID == "Button01")
 					{
-						SAVE();
+						PS_SD901_Update();
 					}
 				}
 				else if (pVal.BeforeAction == false)
@@ -185,7 +253,7 @@ namespace PSH_BOne_AddOn
 				}
 				else if (pVal.BeforeAction == false)
 				{
-					SubMain.Remove_Forms(oFormUniqueID01);
+					SubMain.Remove_Forms(oFormUniqueID);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
 				}
 			}
@@ -195,234 +263,6 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
-			}
-		}
-
-		/// <summary>
-		/// Raise_FormMenuEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="pval"></param>
-		/// <param name="BubbleEvent"></param>
-		public void Raise_FormMenuEvent(ref string FormUID, ref SAPbouiCOM.IMenuEvent pval, ref bool BubbleEvent)
-		{
-			try
-			{
-				if (pval.BeforeAction == true)
-				{
-					switch (pval.MenuUID)
-					{
-						case "1284":							//취소
-							break;
-						case "1286":							//닫기
-							break;
-						case "1293":							//행삭제
-							break;
-						case "1281":							//찾기
-							break;
-						case "1282":							//추가
-							break;
-						case "1288":
-						case "1289":
-						case "1290":
-						case "1291":							//레코드이동버튼
-							break;
-					}
-				}
-				else if (pval.BeforeAction == false)
-				{
-					switch (pval.MenuUID)
-					{
-						case "1284":							//취소
-							break;
-						case "1286":							//닫기
-							break;
-						case "1293":							//행삭제
-							break;
-						case "1281":							//찾기
-							break;
-						case "1282":							//추가
-							break;
-						case "1288":
-						case "1289":
-						case "1290":
-						case "1291":							//레코드이동버튼
-							break;
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-			}
-		}
-
-		/// <summary>
-		/// Raise_FormDataEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="BusinessObjectInfo"></param>
-		/// <param name="BubbleEvent"></param>
-		public void Raise_FormDataEvent(ref string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
-		{
-			try
-			{
-				if (BusinessObjectInfo.BeforeAction == true)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:							//33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:							//34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:						//35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:						//36
-							break;
-					}
-				}
-				else if (BusinessObjectInfo.BeforeAction == false)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:							//33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:							//34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:						//35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:						//36
-							break;
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-			}
-		}
-
-		/// <summary>
-		/// CreateItems
-		/// </summary>
-		private void CreateItems()
-		{
-			try
-			{
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-			}
-		}
-
-		/// <summary>
-		/// ComboBox_Setting
-		/// </summary>
-		public void ComboBox_Setting()
-		{
-			try
-			{
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-			}
-		}
-
-		/// <summary>
-		/// Initialization
-		/// </summary>
-		public void Initialization()
-		{
-			try
-			{
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-			}
-		}
-
-		private void SAVE()
-		{
-			int ErrNum = 0;
-			string sQry;
-
-			string ORDRNo;
-			string ItemCode;
-			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-			try
-			{
-				ORDRNo = oForm.Items.Item("ORDRNo").Specific.VALUE.ToString().Trim();
-				ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
-
-				if (string.IsNullOrEmpty(ORDRNo))
-				{
-					ErrNum = 1;
-					throw new Exception();
-				}
-
-				if (string.IsNullOrEmpty(ItemCode))
-				{
-					ErrNum = 2;
-					throw new Exception();
-				}
-
-				//판매오더, 작번 check
-				sQry = "SELECT 'X' FROM [ORDR] a Inner Join [RDR1] b On a.DocEntry = b.DocEntry Inner join [OITM]  c On b.ItemCode = c.ItemCode And c.U_ItmBsort In ('105','106') WHERE a.DocEntry = '" + ORDRNo + "' And b.ItemCode = '" + ItemCode + "'";
-				oRecordSet.DoQuery(sQry);
-
-				if (oRecordSet.RecordCount == 0)
-				{
-					ErrNum = 3;
-					throw new Exception();
-				}
-
-				//조회조건문
-				sQry = "EXEC [PS_SD901_01] '" + ORDRNo + "', '" + ItemCode + "'";
-				oRecordSet.DoQuery(sQry);
-
-				PSH_Globals.SBO_Application.MessageBox("변경처리가 완료되었습니다.");
-			}
-			catch (Exception ex)
-			{
-				if (ErrNum == 1)
-				{
-					PSH_Globals.SBO_Application.StatusBar.SetText("판매오더 번호가 없습니다.  확인해 주세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-				}
-				else if (ErrNum == 2)
-				{
-					PSH_Globals.SBO_Application.StatusBar.SetText("품목코드(작지)번호가 없습니다.  확인해 주세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-				}
-				else if (ErrNum == 3)
-				{
-					PSH_Globals.SBO_Application.StatusBar.SetText("판매오더가 없거나 판매오더에 해당작번이 없습니다. 확인바랍니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-				}
-				else
-				{
-					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-				}
-			}
-			finally
-			{
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 		}
 	}

@@ -11,7 +11,7 @@
         {
         }
 
-        public virtual void LoadForm(string oFormDocEntry01)
+        public virtual void LoadForm(string oFormDocEntry)
         {
         }
 

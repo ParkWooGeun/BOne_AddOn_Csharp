@@ -12,7 +12,7 @@ namespace PSH_BOne_AddOn
 	/// </summary>
 	internal class PS_SD380 : PSH_BaseClass
 	{
-		public string oFormUniqueID;
+		private string oFormUniqueID;
 
 		private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
 		private string oLastColUID01;  //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
@@ -21,10 +21,9 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
-			int i = 0;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
 			try
@@ -35,7 +34,7 @@ namespace PSH_BOne_AddOn
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
 
 				//매트릭스의 타이틀높이와 셀높이를 고정
-				for (i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
+				for (int i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
 				{
 					oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight")[i - 1].nodeValue = 20;
 					oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
@@ -53,7 +52,7 @@ namespace PSH_BOne_AddOn
 				oForm.Freeze(true);
 
 				PS_SD380_CreateItems();
-				PS_SD380_ComboBox_Setting();
+				PS_SD380_SetComboBox();
 			}
 			catch (Exception ex)
 			{
@@ -93,9 +92,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_SD380_ComboBox_Setting
+		/// PS_SD380_SetComboBox
 		/// </summary>
-		public void PS_SD380_ComboBox_Setting()
+		private void PS_SD380_SetComboBox()
 		{
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -113,6 +112,52 @@ namespace PSH_BOne_AddOn
 			finally
 			{
 				oForm.Freeze(false);
+			}
+		}
+
+		/// <summary>
+		/// PS_SD380_Print_Report01
+		/// </summary>
+		[STAThread]
+		private void PS_SD380_Print_Report01()
+		{
+			string WinTitle;
+			string ReportName;
+			string BPLId;
+			string PackingFr;
+			string PackingTo;
+
+			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+
+			try
+			{
+				BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+				PackingFr = oForm.Items.Item("PACKNOFR").Specific.Value.ToString().Trim();
+				PackingTo = oForm.Items.Item("PACKNOTO").Specific.Value.ToString().Trim();
+
+				WinTitle = "[PS_SD380_10] 레포트";
+				ReportName = "PS_SD380_10.rpt";
+
+				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
+				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
+
+				// Formula 수식필드
+				dataPackFormula.Add(new PSH_DataPackClass("@PackingFr", PackingFr));
+				dataPackFormula.Add(new PSH_DataPackClass("@PackingTo", PackingTo));
+
+				// Parameter
+				dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLId));
+				dataPackParameter.Add(new PSH_DataPackClass("@FrPackNo", PackingFr));
+				dataPackParameter.Add(new PSH_DataPackClass("@ToPackNo", PackingTo));
+
+				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+			{
 			}
 		}
 
@@ -407,100 +452,6 @@ namespace PSH_BOne_AddOn
 							break;
 					}
 				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-			}
-		}
-
-		/// <summary>
-		/// FormDataEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="BusinessObjectInfo"></param>
-		/// <param name="BubbleEvent"></param>
-		public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
-		{
-			try
-			{
-				if (BusinessObjectInfo.BeforeAction == true)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:							//33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:							//34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:						//35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:						//36
-							break;
-					}
-				}
-				else if (BusinessObjectInfo.BeforeAction == false)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:							//33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:							//34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:						//35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:						//36
-							break;
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-			}
-		}
-
-		/// <summary>
-		/// PS_SD380_Print_Report01
-		/// </summary>
-		[STAThread]
-		private void PS_SD380_Print_Report01()
-		{
-			string WinTitle;
-			string ReportName;
-			string BPLId;
-			string PackingFr;
-			string PackingTo;
-
-			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
-
-			try
-			{
-				BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
-				PackingFr = oForm.Items.Item("PACKNOFR").Specific.Value.ToString().Trim();
-				PackingTo = oForm.Items.Item("PACKNOTO").Specific.Value.ToString().Trim();
-
-				WinTitle = "[PS_SD380_10] 레포트";
-				ReportName = "PS_SD380_10.rpt";
-
-				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
-				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
-
-				// Formula 수식필드
-				dataPackFormula.Add(new PSH_DataPackClass("@PackingFr", PackingFr));
-				dataPackFormula.Add(new PSH_DataPackClass("@PackingTo", PackingTo));
-
-				// Parameter
-				dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLId));
-				dataPackParameter.Add(new PSH_DataPackClass("@FrPackNo", PackingFr));
-				dataPackParameter.Add(new PSH_DataPackClass("@ToPackNo", PackingTo));
-
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
 			}
 			catch (Exception ex)
 			{

@@ -10,7 +10,7 @@ namespace PSH_BOne_AddOn
 	/// </summary>
 	internal class PS_PP900 : PSH_BaseClass
 	{
-		public string oFormUniqueID;
+		private string oFormUniqueID;
 		public SAPbouiCOM.Matrix oMat01;
 		public SAPbouiCOM.Matrix oMat02;
 		private SAPbouiCOM.DBDataSource oDS_PS_PP900H;  //등록헤더
@@ -24,8 +24,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			int i;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -153,7 +153,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// PS_PP900_ComboBox_Setting
 		/// </summary>
-		public void PS_PP900_ComboBox_Setting()
+		private void PS_PP900_ComboBox_Setting()
 		{
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -206,7 +206,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// PS_PP900_Initial_Setting
 		/// </summary>
-		public void PS_PP900_Initial_Setting()
+		private void PS_PP900_Initial_Setting()
 		{
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -754,7 +754,7 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		/// <param name="oRow"></param>
 		/// <param name="RowIserted"></param>
-		public void PS_PP900_AddMatrixRow(int oRow, bool RowIserted)
+		private void PS_PP900_AddMatrixRow(int oRow, bool RowIserted)
 		{
 			try
 			{

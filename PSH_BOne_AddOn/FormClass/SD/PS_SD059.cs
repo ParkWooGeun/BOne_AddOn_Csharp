@@ -16,8 +16,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			int i;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -51,7 +51,7 @@ namespace PSH_BOne_AddOn
 				PS_SD059_CreateItems();
 				PS_SD059_ComboBox_Setting();
 				PS_SD059_EnableMenus();
-				PS_SD059_SetDocument(oFormDocEntry01);
+				PS_SD059_SetDocument(oFormDocEntry);
 
 				oForm.EnableMenu("1283", true);				//// 삭제
 				oForm.EnableMenu("1287", true);				//// 복제

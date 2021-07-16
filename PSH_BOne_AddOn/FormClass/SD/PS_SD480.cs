@@ -12,13 +12,13 @@ namespace PSH_BOne_AddOn
 	/// </summary>
 	internal class PS_SD480 : PSH_BaseClass
 	{
-		public string oFormUniqueID;
+		private string oFormUniqueID;
 
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			int i;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -100,7 +100,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// PS_SD480_ComboBox_Setting
 		/// </summary>
-		public void PS_SD480_ComboBox_Setting()
+		private void PS_SD480_ComboBox_Setting()
 		{
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -138,7 +138,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// PS_SD480_Initial_Setting
 		/// </summary>
-		public void PS_SD480_Initial_Setting()
+		private void PS_SD480_Initial_Setting()
 		{
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 

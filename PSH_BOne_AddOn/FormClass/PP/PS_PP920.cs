@@ -10,7 +10,7 @@ namespace PSH_BOne_AddOn
 	/// </summary>
 	internal class PS_PP920 : PSH_BaseClass
 	{
-		public string oFormUniqueID;
+		private string oFormUniqueID;
 		public SAPbouiCOM.Matrix oMat;
 		private SAPbouiCOM.DBDataSource oDS_PS_PP920H; //등록헤더
 		private SAPbouiCOM.DBDataSource oDS_PS_PP920L; //등록라인
@@ -18,8 +18,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// Form 호출
 		/// </summary>
-		/// <param name="oFromDocEntry01"></param>
-		public override void LoadForm(string oFromDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			int i;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();

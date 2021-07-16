@@ -24,8 +24,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			int i;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -59,7 +59,7 @@ namespace PSH_BOne_AddOn
 				PS_PP561_CreateItems();
 				PS_PP561_ComboBox_Setting();
 				PS_PP561_EnableMenus();
-				PS_PP561_SetDocument(oFormDocEntry01);
+				PS_PP561_SetDocument(oFormDocEntry);
 
 				oForm.Items.Item("OrdNum").Click();
 			}
@@ -143,12 +143,12 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// PS_PP561_SetDocument
 		/// </summary>
-		/// <param name="oFromDocEntry01"></param>
-		private void PS_PP561_SetDocument(string oFromDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		private void PS_PP561_SetDocument(string oFormDocEntry)
 		{
 			try
 			{
-				if (string.IsNullOrEmpty(oFromDocEntry01))
+				if (string.IsNullOrEmpty(oFormDocEntry))
 				{
 					PS_PP561_FormItemEnabled();
 					PS_PP561_AddMatrixRow(0, true); //UDO방식일때
@@ -240,7 +240,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// PS_PP561_FormClear
 		/// </summary>
-		public void PS_PP561_FormClear()
+		private void PS_PP561_FormClear()
 		{
 			string DocEntry;
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();

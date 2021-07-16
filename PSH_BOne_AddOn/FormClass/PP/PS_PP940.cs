@@ -26,8 +26,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFromDocEntry01"></param>
-        public override void LoadForm(string oFromDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -61,7 +61,7 @@ namespace PSH_BOne_AddOn
                 PS_PP940_CreateItems();
                 PS_PP940_ComboBox_Setting();
                 PS_PP940_EnableMenus();
-                PS_PP940_SetDocument(oFromDocEntry01);
+                PS_PP940_SetDocument(oFormDocEntry);
             }
             catch (Exception ex)
             {
@@ -140,12 +140,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// SetDocument
         /// </summary>
-        /// <param name="oFromDocEntry01">DocEntry</param>
-        private void PS_PP940_SetDocument(string oFromDocEntry01)
+        /// <param name="oFormDocEntry">DocEntry</param>
+        private void PS_PP940_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFromDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PS_PP940_FormItemEnabled();
                     PS_PP940_AddMatrixRow(0, true);

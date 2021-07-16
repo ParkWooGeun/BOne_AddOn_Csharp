@@ -218,7 +218,7 @@ namespace PSH_BOne_AddOn.Data
             functionReturnValue = true;
             return functionReturnValue;
         }
-        
+
         /// <summary>
         /// ComboBox 데이터 채우기
         /// </summary>
@@ -302,7 +302,7 @@ namespace PSH_BOne_AddOn.Data
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(fRecordset);
             }
         }
-        
+
         /// <summary>
         /// 화면 컨트롤 설정
         /// </summary>

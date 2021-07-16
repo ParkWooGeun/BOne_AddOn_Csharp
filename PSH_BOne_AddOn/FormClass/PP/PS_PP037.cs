@@ -17,8 +17,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			int i;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -50,7 +50,7 @@ namespace PSH_BOne_AddOn
 				PS_PP037_CreateItems();
 				PS_PP037_ComboBox_Setting();
 				PS_PP037_Initial_Setting();
-				PS_PP037_SetDocument(oFormDocEntry01);
+				PS_PP037_SetDocument(oFormDocEntry);
 			}
 			catch (Exception ex)
 			{
@@ -132,19 +132,19 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// PS_PP037_SetDocument
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		private void PS_PP037_SetDocument(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		private void PS_PP037_SetDocument(string oFormDocEntry)
 		{
 			try
 			{
-				if ((string.IsNullOrEmpty(oFormDocEntry01)))
+				if ((string.IsNullOrEmpty(oFormDocEntry)))
 				{
 					PS_PP037_AddMatrixRow(0, true); //UDO방식일때
 				}
 				else
 				{
 					oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
-					oForm.Items.Item("DocEntry").Specific.VALUE = oFormDocEntry01;
+					oForm.Items.Item("DocEntry").Specific.VALUE = oFormDocEntry;
 					oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 				}
 			}

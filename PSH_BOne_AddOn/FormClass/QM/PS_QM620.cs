@@ -20,18 +20,18 @@ namespace PSH_BOne_AddOn
 		/// LoadForm
 		/// </summary>
 		/// <param name="oYM01"></param>
-		/// <param name="oFormDocEntry01"></param>
-		public void LoadForm(string oYM01, string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public void LoadForm(string oYM01, string oFormDocEntry)
 		{
-			this.MainLoadForm(oYM01, oFormDocEntry01);
+			this.MainLoadForm(oYM01, oFormDocEntry);
 		}
 
-		public override void LoadForm(string oFormDocEntry01)
+		public override void LoadForm(string oFormDocEntry)
 		{
-			this.MainLoadForm("", oFormDocEntry01);
+			this.MainLoadForm("", oFormDocEntry);
 		}
 
-		private void MainLoadForm(string oYM01, string oFormDocEntry01)
+		private void MainLoadForm(string oYM01, string oFormDocEntry)
 		{
 			int i;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -64,10 +64,10 @@ namespace PSH_BOne_AddOn
 				CreateItems();
 				ComboBox_Setting();
 
-				oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry01;
+				oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry;
 				oForm.Items.Item("YYYYMM").Specific.Value = oYM01;
 
-				if (!string.IsNullOrEmpty(oFormDocEntry01))
+				if (!string.IsNullOrEmpty(oFormDocEntry))
 				{
 					oForm.Items.Item("Gubun").Specific.Select("2", SAPbouiCOM.BoSearchKey.psk_ByValue);
 				}

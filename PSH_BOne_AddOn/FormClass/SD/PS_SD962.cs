@@ -12,15 +12,15 @@ namespace PSH_BOne_AddOn
 	/// </summary>
 	internal class PS_SD962 : PSH_BaseClass
 	{
-		public string oFormUniqueID;
+		private string oFormUniqueID;
 		public SAPbouiCOM.Grid oGrid;
 		public SAPbouiCOM.DataTable oDS_PS_SD962A;
 
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			int i;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -121,7 +121,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// PS_SD962_ComboBox_Setting
 		/// </summary>
-		public void PS_SD962_ComboBox_Setting()
+		private void PS_SD962_ComboBox_Setting()
 		{
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 

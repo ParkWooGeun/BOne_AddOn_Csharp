@@ -12,13 +12,13 @@ namespace PSH_BOne_AddOn
 	/// </summary>
 	internal class PS_SD285 : PSH_BaseClass
 	{
-		public string oFormUniqueID;
+		private string oFormUniqueID;
 
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			int i;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -103,7 +103,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// PS_SD285_ComboBox_Setting
 		/// </summary>
-		public void PS_SD285_ComboBox_Setting()
+		private void PS_SD285_ComboBox_Setting()
 		{
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -135,7 +135,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// PS_SD285_Initial_Setting
 		/// </summary>
-		public void PS_SD285_Initial_Setting()
+		private void PS_SD285_Initial_Setting()
 		{
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -149,6 +149,123 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
+			}
+		}
+
+		/// <summary>
+		/// PS_SD285_DataValidCheck
+		/// </summary>
+		/// <returns></returns>
+		private bool PS_SD285_DataValidCheck()
+		{
+			bool functionReturnValue = false;
+			int ErrNum = 0;
+
+			try
+			{
+				if (string.IsNullOrEmpty(oForm.Items.Item("DocDateFr").Specific.value.ToString().Trim()))
+				{
+					ErrNum = 1;
+					throw new Exception();
+				}
+				if (string.IsNullOrEmpty(oForm.Items.Item("DocDateTo").Specific.value.ToString().Trim()))
+				{
+					ErrNum = 2;
+					throw new Exception();
+				}
+				functionReturnValue = true;
+			}
+			catch (Exception ex)
+			{
+				if (ErrNum == 1)
+				{
+					PSH_Globals.SBO_Application.SetStatusBarMessage("조회일자 Fr은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+					oForm.Items.Item("DocDateFr").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+				}
+				else if (ErrNum == 2)
+				{
+					PSH_Globals.SBO_Application.SetStatusBarMessage("조회일자 To는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+					oForm.Items.Item("DocDateTo").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+				}
+				else
+				{
+					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+				}
+			}
+			finally
+			{
+			}
+			return functionReturnValue;
+		}
+
+		/// <summary>
+		/// PS_SD285_Print_Report01
+		/// </summary>
+		[STAThread]
+		private void PS_SD285_Print_Report01()
+		{
+			string sQry;
+			string WinTitle;
+			string ReportName;
+			string BPLName;
+			string BPLId;
+			string ItmBsort;
+			string DocDateFr;
+			string DocDateTo;
+			string CardCode;
+			string IssueType;
+
+			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+
+			try
+			{
+				BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+				DocDateFr = oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim();
+				DocDateTo = oForm.Items.Item("DocDateTo").Specific.Value.ToString().Trim();
+				ItmBsort = oForm.Items.Item("ItmBsort").Specific.Value.ToString().Trim();
+				IssueType = oForm.Items.Item("IssueType").Specific.Value.ToString().Trim();
+				CardCode = oForm.Items.Item("CardCode").Specific.Value.ToString().Trim();
+
+				if (string.IsNullOrEmpty(BPLId))
+				{
+					BPLName = "전체";
+				}
+				else
+				{
+					sQry = "SELECT BPLName FROM [OBPL] WHERE BPLId = '" + BPLId + "'";
+					oRecordSet.DoQuery(sQry);
+					BPLName = oRecordSet.Fields.Item(0).Value;
+				}
+
+				WinTitle = "타계정출고현황(샘플,감모손) [PS_SD285]";
+				ReportName = "PS_SD285_01.rpt";
+
+				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
+				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
+
+				// Formula 수식필드
+				dataPackFormula.Add(new PSH_DataPackClass("@BPLId", BPLName));
+				dataPackFormula.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr.Substring(0, 4) + "-" + DocDateFr.Substring(4, 2) + "-" + DocDateFr.Substring(6, 2)));
+				dataPackFormula.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo.Substring(0, 4) + "-" + DocDateTo.Substring(4, 2) + "-" + DocDateTo.Substring(6, 2)));
+
+				// Parameter
+				dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLId));
+				dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr));
+				dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo));
+				dataPackParameter.Add(new PSH_DataPackClass("@CardCode", CardCode));
+				dataPackParameter.Add(new PSH_DataPackClass("@ItmBsort", ItmBsort));
+				dataPackParameter.Add(new PSH_DataPackClass("@IssueTyp", IssueType));
+
+				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+			{
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 		}
 
@@ -502,123 +619,6 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
-			}
-		}
-
-		/// <summary>
-		/// PS_SD285_DataValidCheck
-		/// </summary>
-		/// <returns></returns>
-		public bool PS_SD285_DataValidCheck()
-		{
-			bool functionReturnValue = false;
-			int ErrNum = 0;
-
-			try
-			{
-				if (string.IsNullOrEmpty(oForm.Items.Item("DocDateFr").Specific.value.ToString().Trim()))
-				{
-					ErrNum = 1;
-					throw new Exception();
-				}
-				if (string.IsNullOrEmpty(oForm.Items.Item("DocDateTo").Specific.value.ToString().Trim()))
-				{
-					ErrNum = 2;
-					throw new Exception();
-				}
-				functionReturnValue = true;
-			}
-			catch (Exception ex)
-			{
-				if (ErrNum == 1)
-				{
-					PSH_Globals.SBO_Application.SetStatusBarMessage("조회일자 Fr은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-					oForm.Items.Item("DocDateFr").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-				}
-				else if (ErrNum == 2)
-				{
-					PSH_Globals.SBO_Application.SetStatusBarMessage("조회일자 To는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-					oForm.Items.Item("DocDateTo").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-				}
-				else
-				{
-					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-				}
-			}
-			finally
-			{
-			}
-			return functionReturnValue;
-		}
-
-		/// <summary>
-		/// PS_SD285_Print_Report01
-		/// </summary>
-		[STAThread]
-		private void PS_SD285_Print_Report01()
-		{
-			string sQry;
-			string WinTitle;
-			string ReportName;
-			string BPLName;
-			string BPLId;
-			string ItmBsort;
-			string DocDateFr;
-			string DocDateTo;
-			string CardCode;
-			string IssueType;
-
-			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
-
-			try
-			{
-				BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
-				DocDateFr = oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim();
-				DocDateTo = oForm.Items.Item("DocDateTo").Specific.Value.ToString().Trim();
-				ItmBsort = oForm.Items.Item("ItmBsort").Specific.Value.ToString().Trim();
-				IssueType = oForm.Items.Item("IssueType").Specific.Value.ToString().Trim();
-				CardCode = oForm.Items.Item("CardCode").Specific.Value.ToString().Trim();
-
-				if (string.IsNullOrEmpty(BPLId))
-				{
-					BPLName = "전체";
-				}
-				else
-				{
-					sQry = "SELECT BPLName FROM [OBPL] WHERE BPLId = '" + BPLId + "'";
-					oRecordSet.DoQuery(sQry);
-					BPLName = oRecordSet.Fields.Item(0).Value;
-				}
-
-				WinTitle = "타계정출고현황(샘플,감모손) [PS_SD285]";
-				ReportName = "PS_SD285_01.rpt";
-
-				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
-				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
-
-				// Formula 수식필드
-				dataPackFormula.Add(new PSH_DataPackClass("@BPLId", BPLName));
-				dataPackFormula.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr.Substring(0, 4) + "-" + DocDateFr.Substring(4, 2) + "-" + DocDateFr.Substring(6, 2)));
-				dataPackFormula.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo.Substring(0, 4) + "-" + DocDateTo.Substring(4, 2) + "-" + DocDateTo.Substring(6, 2)));
-
-				// Parameter
-				dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLId));
-				dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr));
-				dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo));
-				dataPackParameter.Add(new PSH_DataPackClass("@CardCode", CardCode));
-				dataPackParameter.Add(new PSH_DataPackClass("@ItmBsort", ItmBsort));
-				dataPackParameter.Add(new PSH_DataPackClass("@IssueTyp", IssueType));
-
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 		}
 	}

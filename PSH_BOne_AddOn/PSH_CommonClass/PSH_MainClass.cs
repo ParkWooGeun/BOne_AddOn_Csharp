@@ -158,7 +158,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// ODBC 연결용 변수 초기화
         /// </summary>
-        public void Initialize_ODBC_Variable()
+        private void Initialize_ODBC_Variable()
         {
             string sQry;
             string ServerName;

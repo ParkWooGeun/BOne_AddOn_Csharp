@@ -22,8 +22,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -52,7 +52,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY202_CreateItems();
                 PH_PY202_EnableMenus();
-                PH_PY202_SetDocument(oFormDocEntry01);
+                PH_PY202_SetDocument(oFormDocEntry);
 
                 oForm.Items.Item("FrDate").Specific.Value = "20200101";
                 oForm.Items.Item("ToDate").Specific.Value = DateTime.Now.AddYears(7).ToString("yyyy") + "1231";
@@ -134,12 +134,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY202_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY202_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY202_FormItemEnabled();
                 }
@@ -147,7 +147,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY202_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }

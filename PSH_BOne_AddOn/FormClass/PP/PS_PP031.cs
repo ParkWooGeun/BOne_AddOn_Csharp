@@ -9,7 +9,7 @@ namespace PSH_BOne_AddOn
 	/// </summary>
 	internal class PS_PP031 : PSH_BaseClass
 	{
-		public string oFormUniqueID;
+		private string oFormUniqueID;
 		public SAPbouiCOM.Matrix oMat01;
 		public SAPbouiCOM.Matrix oMat02;
 		public SAPbouiCOM.Matrix oMat03;

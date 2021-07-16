@@ -140,7 +140,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         /// <param name="oRow"></param>
         /// <param name="RowIserted"></param>
-        public void PS_SD022_AddMatrixRow(int oRow, bool RowIserted)
+        private void PS_SD022_AddMatrixRow(int oRow, bool RowIserted)
         {
             try
             {

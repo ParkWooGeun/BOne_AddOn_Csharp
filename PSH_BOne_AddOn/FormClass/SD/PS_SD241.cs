@@ -12,14 +12,14 @@ namespace PSH_BOne_AddOn
 	/// </summary>
 	internal class PS_SD241 : PSH_BaseClass
 	{
-		public string oFormUniqueID;
+		private string oFormUniqueID;
 		public SAPbouiCOM.Grid oGrid;
 
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 

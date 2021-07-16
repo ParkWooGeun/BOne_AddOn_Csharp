@@ -12,13 +12,13 @@ namespace PSH_BOne_AddOn
 	/// </summary>
 	internal class PS_SD485 : PSH_BaseClass
 	{
-		public string oFormUniqueID;
+		private string oFormUniqueID;
 
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			int i;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -106,7 +106,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// ComboBox_Setting
 		/// </summary>
-		public void ComboBox_Setting()
+		private void ComboBox_Setting()
 		{
 			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);

@@ -10,7 +10,7 @@ namespace PSH_BOne_AddOn
 	/// </summary>
 	internal class PS_PP905 : PSH_BaseClass
 	{
-		public string oFormUniqueID;
+		private string oFormUniqueID;
 		public SAPbouiCOM.Matrix oMat01;
 		public SAPbouiCOM.Matrix oMat02;
 			
@@ -24,8 +24,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			int i;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -617,7 +617,7 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		/// <param name="oRow"></param>
 		/// <param name="RowIserted"></param>
-		public void PS_PP905_AddMatrixRow1(int oRow, bool RowIserted = false)
+		private void PS_PP905_AddMatrixRow1(int oRow, bool RowIserted = false)
 		{
 			try
 			{
@@ -646,7 +646,7 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		/// <param name="oRow"></param>
 		/// <param name="RowIserted"></param>
-		public void PS_PP905_AddMatrixRow2(int oRow, bool RowIserted = false)
+		private void PS_PP905_AddMatrixRow2(int oRow, bool RowIserted = false)
 		{
 			try
 			{

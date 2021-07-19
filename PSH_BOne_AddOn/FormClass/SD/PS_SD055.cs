@@ -11,14 +11,11 @@ namespace PSH_BOne_AddOn
 	{
 		private string oFormUniqueID;
 		private SAPbouiCOM.Matrix oMat;
-
 		private SAPbouiCOM.DBDataSource oDS_PS_SD055L; //등록라인
-
 		private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
 		private string oLastColUID01;  //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
 		private int oLastColRow01;     //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
-		private int oLast_Mode;
-
+		
 		/// <summary>
 		/// LoadForm
 		/// </summary>
@@ -54,17 +51,17 @@ namespace PSH_BOne_AddOn
 				oForm.Freeze(true);
 
 				PS_SD055_CreateItems();
-				PS_SD055_ComboBox_Setting();
-				PS_SD055_FormResize();
+				PS_SD055_SetComboBox();
+				PS_SD055_ResizeForm();
 				PS_SD055_LoadCaption();
-				PS_SD055_Initial_Setting();
+				PS_SD055_Initialize();
 
-				oForm.EnableMenu("1283", false);				//// 삭제
-				oForm.EnableMenu("1286", false);				//// 닫기
-				oForm.EnableMenu("1287", false);				//// 복제
-				oForm.EnableMenu("1285", false);				//// 복원
-				oForm.EnableMenu("1284", false);				//// 취소
-				oForm.EnableMenu("1293", false);				//// 행삭제
+				oForm.EnableMenu("1283", false); //삭제
+				oForm.EnableMenu("1286", false); //닫기
+				oForm.EnableMenu("1287", false); //복제
+				oForm.EnableMenu("1285", false); //복원
+				oForm.EnableMenu("1284", false); //취소
+				oForm.EnableMenu("1293", false); //행삭제
 				oForm.EnableMenu("1281", false);
 				oForm.EnableMenu("1282", true);
 			}
@@ -138,9 +135,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_SD055_ComboBox_Setting
+		/// PS_SD055_SetComboBox
 		/// </summary>
-		private void PS_SD055_ComboBox_Setting()
+		private void PS_SD055_SetComboBox()
 		{
 			string sQry;
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -185,9 +182,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_SD055_FormResize
+		/// PS_SD055_ResizeForm
 		/// </summary>
-		private void PS_SD055_FormResize()
+		private void PS_SD055_ResizeForm()
 		{
 			try
 			{
@@ -228,9 +225,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_SD055_Initial_Setting
+		/// PS_SD055_Initialize
 		/// </summary>
-		private void PS_SD055_Initial_Setting()
+		private void PS_SD055_Initialize()
 		{
 			try
 			{
@@ -265,7 +262,7 @@ namespace PSH_BOne_AddOn
 					if (oDS_PS_SD055L.GetValue("U_ColReg01", loopCount).ToString().Trim() == "N")
 					{
 						CheckType = "N";
-						break; // TODO: might not be correct. Was : Exit For
+						break;
 					}
 				}
 
@@ -415,7 +412,6 @@ namespace PSH_BOne_AddOn
 				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 			}
 		}
-
 
 		/// <summary>
 		/// PS_SD055_MTX01
@@ -596,16 +592,13 @@ namespace PSH_BOne_AddOn
 				}
 				else
 				{
-					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+					PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
 				}
 			}
 			finally
 			{
-				if (ProgressBar01 != null)
-				{
-					ProgressBar01.Stop();
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
-				}
+				ProgressBar01.Stop();
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 				oForm.Freeze(false);
 			}
@@ -671,7 +664,7 @@ namespace PSH_BOne_AddOn
 						Comment = oDS_PS_SD055L.GetValue("U_ColTxt01", loopCount).ToString().Trim();
 						Amount = Convert.ToDouble(oDS_PS_SD055L.GetValue("U_ColSum02", loopCount).ToString().Trim());
 
-						sQry = "         EXEC [PS_SD055_03] ";
+						sQry = "EXEC [PS_SD055_03] ";
 						sQry += "'" + StdYM + "',";
 						sQry += "'" + StdCnt + "',";
 						sQry += "'" + MM030HNo + "',";
@@ -847,6 +840,7 @@ namespace PSH_BOne_AddOn
                     break;
             }
 		}
+
 		/// <summary>
 		/// Raise_EVENT_ITEM_PRESSED
 		/// </summary>
@@ -870,7 +864,6 @@ namespace PSH_BOne_AddOn
 							}
 							oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 							PS_SD055_LoadCaption();
-							oLast_Mode = Convert.ToInt32(oForm.Mode);
 						}
 						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
 						{
@@ -1082,7 +1075,7 @@ namespace PSH_BOne_AddOn
 				}
 				else if (pVal.BeforeAction == false)
 				{
-					PS_SD055_FormResize();
+					PS_SD055_ResizeForm();
 				}
 			}
 			catch (Exception ex)
@@ -1175,7 +1168,7 @@ namespace PSH_BOne_AddOn
 						case "1281": //찾기
 							break;
 						case "1282": //추가
-									 //추가버튼 클릭시 메트릭스 insertrow
+							//추가버튼 클릭시 메트릭스 insertrow
 							oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 							BubbleEvent = false;
 							PS_SD055_LoadCaption();
@@ -1222,51 +1215,6 @@ namespace PSH_BOne_AddOn
 			finally
 			{
 				oForm.Freeze(false);
-			}
-		}
-
-		/// <summary>
-		/// FormDataEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="BusinessObjectInfo"></param>
-		/// <param name="BubbleEvent"></param>
-		public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
-		{
-			try
-			{
-				if (BusinessObjectInfo.BeforeAction == true)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
-							break;
-					}
-				}
-				else if (BusinessObjectInfo.BeforeAction == false)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
-							break;
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 			}
 		}
 	}

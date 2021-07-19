@@ -47,7 +47,7 @@ namespace PSH_BOne_AddOn
 				oForm.Freeze(true);
 
 				PS_SD052_CreateItems();
-				PS_SD052_ComboBox_Setting();
+				PS_SD052_SetComboBox();
 			}
 			catch (Exception ex)
 			{
@@ -143,9 +143,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_SD052_ComboBox_Setting
+		/// PS_SD052_SetComboBox
 		/// </summary>
-		private void PS_SD052_ComboBox_Setting()
+		private void PS_SD052_SetComboBox()
 		{
 			string sQry;
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -179,7 +179,7 @@ namespace PSH_BOne_AddOn
 				sQry += "             Name AS [Name]";
 				sQry += " FROM        [@PSH_ORDTYP]";
 				sQry += " WHERE       Code IN ('10','20','30','40')"; //4개 품의에 대해서만 조회
-				sQry += sQry + " ORDER BY    Code";
+				sQry += " ORDER BY    Code";
 				oForm.Items.Item("POType").Specific.ValidValues.Add("%", "전체");
 				dataHelpClass.Set_ComboList(oForm.Items.Item("POType").Specific, sQry, "", false, false);
 				oForm.Items.Item("POType").Specific.Select("%", SAPbouiCOM.BoSearchKey.psk_ByValue);
@@ -328,7 +328,7 @@ namespace PSH_BOne_AddOn
 				}
 				else
 				{
-					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+					PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
 				}
 			}
 			finally

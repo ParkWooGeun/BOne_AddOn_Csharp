@@ -51,8 +51,8 @@ namespace PSH_BOne_AddOn
 
 				oForm.Freeze(true);
 
-				CreateItems();
-				ComboBox_Setting();
+				PS_SD001_CreateItems();
+				PS_SD001_SetComboBox();
 												   
 				oForm.EnableMenu("1281", false); // 찾기
 				oForm.EnableMenu("1282", true);  // 추가
@@ -78,9 +78,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// CreateItems
+		/// PS_SD001_CreateItems
 		/// </summary>
-		private void CreateItems()
+		private void PS_SD001_CreateItems()
 		{
 			try
 			{
@@ -152,7 +152,10 @@ namespace PSH_BOne_AddOn
 			}
 		}
 
-		private void ComboBox_Setting()
+		/// <summary>
+		/// PS_SD001_SetComboBox
+		/// </summary>
+		private void PS_SD001_SetComboBox()
 		{
 			int loopCount;
 			string sQry;
@@ -202,9 +205,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// FormItem_Clear
+		/// PS_SD001_ClearFormItem
 		/// </summary>
-		private void FormItem_Clear()
+		private void PS_SD001_ClearFormItem()
 		{
 			try
 			{
@@ -229,11 +232,11 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// HeaderSpaceLineDel
+		/// PS_SD001_DelHeaderSpaceLine
 		/// </summary>
 		/// <param name="ItemUID"></param>
 		/// <returns></returns>
-		private bool HeaderSpaceLineDel(string ItemUID)
+		private bool PS_SD001_DelHeaderSpaceLine(string ItemUID)
 		{
 			bool functionReturnValue = false;
 			string errMessage = string.Empty;
@@ -323,21 +326,18 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// Create_Itemcode
+		/// PS_SD001_CreateItemCode
 		/// </summary>
 		/// <returns></returns>
-		private bool Create_Itemcode()
+		private bool PS_SD001_CreateItemCode()
 		{
 			bool functionReturnValue = false;
-
-			//SAPbobsCOM.Items oItem01;
 			int ErrCode;
 			string ErrMsg;
 			string ItemName;
 			int RetVal;
 
 			SAPbobsCOM.Items oItem01 = null;
-			//SAPbobsCOM.Items oItem01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oItems);
 			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
 			try
@@ -395,25 +395,21 @@ namespace PSH_BOne_AddOn
 			}
 			catch (Exception ex)
 			{
-				ProgressBar01.Stop();
 				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 			}
 			finally
 			{
-				if (ProgressBar01 != null)
-				{
-					ProgressBar01.Stop();
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
-				}
+				ProgressBar01.Stop();
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);				
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oItem01);
 			}
 			return functionReturnValue;
 		}
 
 		/// <summary>
-		/// Create_Form_Code
+		/// PS_SD001_CreateFormCode
 		/// </summary>
-		private void Create_Form_Code()
+		private void PS_SD001_CreateFormCode()
 		{
 			string errMessage = string.Empty;
 			string sQry;
@@ -440,7 +436,6 @@ namespace PSH_BOne_AddOn
 					{
 						sTxt = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 					}
-
 				}
 				else if (oForm.DataSources.UserDataSources.Item("RadioBtn").Value.ToString().Trim() == "B")
 				{
@@ -575,6 +570,7 @@ namespace PSH_BOne_AddOn
                     break;
             }
         }
+
 		/// <summary>
 		/// Raise_EVENT_ITEM_PRESSED
 		/// </summary>
@@ -591,18 +587,18 @@ namespace PSH_BOne_AddOn
 					{
 						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
 						{
-							if (HeaderSpaceLineDel(pVal.ItemUID) == false)
+							if (PS_SD001_DelHeaderSpaceLine(pVal.ItemUID) == false)
 							{
 								BubbleEvent = false;
 								return;
 							}
 
-							if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
+							if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 							{
-								if (Create_Itemcode() == true)
+								if (PS_SD001_CreateItemCode() == true)
 								{
 									PSH_Globals.SBO_Application.StatusBar.SetText("신규 자재 등록 작업을 성공하였습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
-									FormItem_Clear();
+									PS_SD001_ClearFormItem();
 								}
 								else
 								{
@@ -616,14 +612,14 @@ namespace PSH_BOne_AddOn
 					{
 						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 						{
-							if (HeaderSpaceLineDel(pVal.ItemUID) == false)
+							if (PS_SD001_DelHeaderSpaceLine(pVal.ItemUID) == false)
 							{
 								BubbleEvent = false;
 								return;
 							}
 							else
 							{
-								Create_Form_Code();
+								PS_SD001_CreateFormCode();
 							}
 						}
 					}

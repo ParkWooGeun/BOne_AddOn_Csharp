@@ -11,7 +11,6 @@ namespace PSH_BOne_AddOn
 	{
 		private string oFormUniqueID;
 		private SAPbouiCOM.DBDataSource oDS_PS_SD059H; //등록헤더
-		private SAPbouiCOM.BoFormMode oFormMode01;
 
 		/// <summary>
 		/// LoadForm
@@ -44,20 +43,20 @@ namespace PSH_BOne_AddOn
 
 				oForm.SupportedModes = -1;
 				oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
-				oForm.DataBrowser.BrowseBy = "DocEntry"; //UDO방식일때
+				oForm.DataBrowser.BrowseBy = "DocEntry";
 
 				oForm.Freeze(true);
 
 				PS_SD059_CreateItems();
-				PS_SD059_ComboBox_Setting();
+				PS_SD059_SetComboBox();
 				PS_SD059_EnableMenus();
 				PS_SD059_SetDocument(oFormDocEntry);
 
-				oForm.EnableMenu("1283", true);				//// 삭제
-				oForm.EnableMenu("1287", true);				//// 복제
-				oForm.EnableMenu("1286", false);				//// 닫기
-				oForm.EnableMenu("1284", false);				//// 취소
-				oForm.EnableMenu("1293", true);				//// 행삭제
+				oForm.EnableMenu("1283", true); //삭제
+				oForm.EnableMenu("1287", true); //복제
+				oForm.EnableMenu("1286", false); //닫기
+				oForm.EnableMenu("1284", false); //취소
+				oForm.EnableMenu("1293", true); //행삭제
 			}
 			catch (Exception ex)
 			{
@@ -88,9 +87,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_SD059_ComboBox_Setting
+		/// PS_SD059_SetComboBox
 		/// </summary>
-		private void PS_SD059_ComboBox_Setting()
+		private void PS_SD059_SetComboBox()
 		{
 			string sQry;
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -114,6 +113,7 @@ namespace PSH_BOne_AddOn
 				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 			}
 		}
+
 		/// <summary>
 		/// PS_SD059_EnableMenus
 		/// </summary>
@@ -373,6 +373,7 @@ namespace PSH_BOne_AddOn
                     break;
             }
 		}
+
 		/// <summary>
 		/// Raise_EVENT_ITEM_PRESSED
 		/// </summary>
@@ -394,7 +395,6 @@ namespace PSH_BOne_AddOn
 								BubbleEvent = false;
 								return;
 							}
-							oFormMode01 = oForm.Mode;
 						}
 						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
 						{
@@ -403,7 +403,6 @@ namespace PSH_BOne_AddOn
 								BubbleEvent = false;
 								return;
 							}
-							oFormMode01 = oForm.Mode;
 						}
 						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
 						{
@@ -591,51 +590,6 @@ namespace PSH_BOne_AddOn
 			finally
 			{
 				oForm.Freeze(false);
-			}
-		}
-
-		/// <summary>
-		/// FormDataEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="BusinessObjectInfo"></param>
-		/// <param name="BubbleEvent"></param>
-		public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
-		{
-			try
-			{
-				if (BusinessObjectInfo.BeforeAction == true)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
-							break;
-					}
-				}
-				else if (BusinessObjectInfo.BeforeAction == false)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
-							break;
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 			}
 		}
 	}

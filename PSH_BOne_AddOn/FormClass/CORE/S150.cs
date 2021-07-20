@@ -48,6 +48,9 @@ namespace PSH_BOne_AddOn.Core
         private void S150_CreateItems()
         {
             SAPbouiCOM.Item oItem;
+            SAPbouiCOM.Item oItem_ItmMsort;
+            SAPbouiCOM.Item oItem_Spec2;
+            SAPbouiCOM.Item oItem_Spec4;
             SAPbouiCOM.Item oCombo;
 
             try
@@ -59,6 +62,33 @@ namespace PSH_BOne_AddOn.Core
                 oItem.Height = oForm.Items.Item("10002052").Height;
                 oItem.Width = 80;
                 oItem.Specific.Caption = "코드사용여부";
+
+                oItem_ItmMsort = oForm.Items.Add("ItmMsort", SAPbouiCOM.BoFormItemTypes.it_EDIT);
+                oItem_ItmMsort.Left = 250;
+                oItem_ItmMsort.Top = oItem.Top + 23;
+                oItem_ItmMsort.Height = oItem.Height;
+                oItem_ItmMsort.Width = 80;
+                oItem_ItmMsort.Visible = false;
+                SAPbouiCOM.EditText oEdit_ItmMsort = oItem_ItmMsort.Specific;
+                oEdit_ItmMsort.DataBind.SetBound(true, "OITM", "U_ItmMsort");
+
+                oItem_Spec2 = oForm.Items.Add("Spec2", SAPbouiCOM.BoFormItemTypes.it_EDIT);
+                oItem_Spec2.Left = 250;
+                oItem_Spec2.Top = oItem.Top + 23;
+                oItem_Spec2.Height = oItem.Height;
+                oItem_Spec2.Width = 80;
+                oItem_Spec2.Visible = false;
+                SAPbouiCOM.EditText oEdit_Spec2 = oItem_Spec2.Specific;
+                oEdit_Spec2.DataBind.SetBound(true, "OITM", "U_Spec2");
+
+                oItem_Spec4 = oForm.Items.Add("Spec4", SAPbouiCOM.BoFormItemTypes.it_EDIT);
+                oItem_Spec4.Left = 250;
+                oItem_Spec4.Top = oItem.Top + 23;
+                oItem_Spec4.Height = oItem.Height;
+                oItem_Spec4.Width = 80;
+                oItem_Spec4.Visible = false;
+                SAPbouiCOM.EditText oEdit_Spec4 = oItem_Spec4.Specific;
+                oEdit_Spec4.DataBind.SetBound(true, "OITM", "U_Spec4");
 
                 oCombo = oForm.Items.Add("CheckYN", SAPbouiCOM.BoFormItemTypes.it_COMBO_BOX);
                 oCombo.Left = 120;
@@ -104,10 +134,10 @@ namespace PSH_BOne_AddOn.Core
         /// </summary>
         /// <returns></returns>
         private bool S150_DataValidCheck()
-        {
+        {       
             bool functionReturnValue = false;
+            double chknum;
             string errMessage = string.Empty;
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -115,6 +145,15 @@ namespace PSH_BOne_AddOn.Core
                 {
                     errMessage = "저장품(부자재)은 신규등록/갱신 할 수 없습니다.";
                     throw new Exception();
+                }
+                if (oForm.Items.Item("ItmMsort").Specific.Value == "30603") // 중분류가 봉일 경우 Spec2, Spec4 필드에 문자, 공백 불가 로직 추가
+                {
+                    if((double.TryParse(oForm.Items.Item("Spec2").Specific.Value, out chknum) == false || double.TryParse(oForm.Items.Item("Spec4").Specific.Value, out chknum) == false) || (string.IsNullOrEmpty(oForm.Items.Item("Spec2").Specific.Value.ToString().Trim()) || string.IsNullOrEmpty(oForm.Items.Item("Spec4").Specific.Value.ToString().Trim())))
+                    {
+                        errMessage = "오류 : 중분류 봉(30603)의 경우 규격2,4 필드에 문자, 공백 불가!\n";
+                        errMessage += "뷰 > 사용자정의필드를 선택하여 규격2,4필드를 숫자로 변경하세요.";
+                        throw new Exception();
+                    }
                 }
                 functionReturnValue = true;
             }
@@ -131,7 +170,6 @@ namespace PSH_BOne_AddOn.Core
             }
             finally
             {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
             return functionReturnValue;
         }

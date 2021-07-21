@@ -106,7 +106,6 @@ namespace PSH_BOne_AddOn
         private void PS_PP130_ComboBox_Setting()
         {
             string sQry;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -132,6 +131,10 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
         }
 
@@ -164,7 +167,6 @@ namespace PSH_BOne_AddOn
                 {
                     PS_PP130_FormItemEnabled();
                     PS_PP130_AddMatrixRow(0, true);
-                    //UDO방식일때
                 }
                 else
                 {
@@ -195,9 +197,7 @@ namespace PSH_BOne_AddOn
 
                     oForm.EnableMenu("1281", true); //찾기
                     oForm.EnableMenu("1282", false); //추가
-
                     oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
-
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
@@ -207,7 +207,6 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("Mat01").Enabled = false;
                     oForm.EnableMenu("1281", false); //찾기
                     oForm.EnableMenu("1282", true);  //추가
-
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
@@ -227,7 +226,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// 
+        /// PS_PP130_AddMatrixRow
         /// </summary>
         /// <param name="oRow">행 번호</param>
         /// <param name="RowIserted">행 추가 여부</param>
@@ -236,7 +235,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                //행추가여부
                 if (RowIserted == false)
                 {
                     oDS_PS_PP130L.InsertRecord(oRow);
@@ -268,7 +266,6 @@ namespace PSH_BOne_AddOn
             string Param03;
             string Param04;
             string errMessage = string.Empty;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -305,7 +302,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_PP130L.SetValue("U_COL01", i, oRecordSet01.Fields.Item(0).Value);
                     oDS_PS_PP130L.SetValue("U_COL02", i, oRecordSet01.Fields.Item(1).Value);
                     oRecordSet01.MoveNext();
-                    ProgressBar01.Value = ProgressBar01.Value + 1;
+                    ProgressBar01.Value += 1;
                     ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
                 oMat01.LoadFromDataSource();
@@ -376,45 +373,36 @@ namespace PSH_BOne_AddOn
                 {
                     PS_PP130_FormClear();
                 }
-
-                //사업장 미입력 시
                 if (string.IsNullOrEmpty(oForm.Items.Item("BPLId").Specific.Selected.Value))
                 {
                     errMessage = "사업장이 선택되지 않았습니다.";
                     throw new Exception();
                 }
-                //담당 미입력 시
                 if (string.IsNullOrEmpty(oForm.Items.Item("Part").Specific.Value))
                 {
                     errMessage = "담당이 선택되지 않았습니다.";
                     throw new Exception();
                 }
-                //품목대분류 미입력 시
                 if (string.IsNullOrEmpty(oForm.Items.Item("ItmBsort").Specific.Value))
                 {
                     errMessage = "품목대분류가 선택되지 않았습니다.";
                     throw new Exception();
                 }
-                //설비코드 미입력 시
                 if (string.IsNullOrEmpty(oForm.Items.Item("MachCode").Specific.Value))
                 {
                     errMessage = "설비코드가 입력되지 않았습니다.";
                     throw new Exception();
                 }
-                //설비명 미입력 시
                 if (string.IsNullOrEmpty(oForm.Items.Item("MachName").Specific.Value))
                 {
                     errMessage = "설비명이 입력되지 않았습니다.";
                     throw new Exception();
                 }
-
-                //라인정보 미입력 시
                 if (oMat01.VisualRowCount == 1)
                 {
                     errMessage = "라인이 존재하지 않습니다.";
                     throw new Exception();
                 }
-
                 for (i = 1; i <= oMat01.VisualRowCount - 1; i++)
                 {
                     if (string.IsNullOrEmpty(oMat01.Columns.Item("ItmMsort").Cells.Item(i).Specific.Value))
@@ -432,7 +420,6 @@ namespace PSH_BOne_AddOn
                 {
                     PS_PP130_FormClear();
                 }
-
                 functionReturnValue = true;
             }
             catch (Exception ex)
@@ -765,9 +752,9 @@ namespace PSH_BOne_AddOn
                             //금형코드
                             SBPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
                             sQry = "Select Code = '-', Name = '선택' Union All select Code = a.Code, Name = a.U_Item + ' [' +  U_CallSize + ']' from [@PS_PP190H] a Inner Join [@PS_PP190L] b On a.Code = b.Code ";
-                            sQry = sQry + " Where U_State = 'I' And a.U_ToolType = '3' ";
-                            sQry = sQry + " And Not exists (Select * from [@PS_PP190L] t Where a.Code = t.Code ";
-                            sQry = sQry + " And t.U_State = 'X') And a.U_BPLId = '" + SBPLID + "'";
+                            sQry += " Where U_State = 'I' And a.U_ToolType = '3' ";
+                            sQry += " And Not exists (Select * from [@PS_PP190L] t Where a.Code = t.Code ";
+                            sQry += " And t.U_State = 'X') And a.U_BPLId = '" + SBPLID + "'";
 
                             oRecordSet01.DoQuery(sQry);
                             while (!(oRecordSet01.EoF))
@@ -972,15 +959,15 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.Before_Action == true)
                 {
+                }
+                else if (pVal.Before_Action == false)
+                {
                     SubMain.Remove_Forms(oFormUniqueID);
 
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
-                }
-                else if (pVal.Before_Action == false)
-                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_PP130H);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_PP130L);
                 }
             }
             catch (Exception ex)

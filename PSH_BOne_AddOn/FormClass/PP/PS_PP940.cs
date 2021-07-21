@@ -126,6 +126,7 @@ namespace PSH_BOne_AddOn
         private void PS_PP940_EnableMenus()
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 oForm.EnableMenu("1283", true);
@@ -187,20 +188,16 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
-                    //각모드에따른 아이템설정
                     oForm.Items.Item("Code").Enabled = false;
                     oForm.Items.Item("Mat01").Enabled = true;
                     PS_PP940_FormClear();
                     oForm.EnableMenu("1281", true); //찾기
                     oForm.EnableMenu("1282", false); //추가
-
                     oForm.Items.Item("YM").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
                     oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
-
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
-                    //각모드에따른 아이템설정
                     oForm.Items.Item("Code").Specific.Value = "";
                     oForm.Items.Item("Code").Enabled = true;
                     oForm.Items.Item("Mat01").Enabled = false;
@@ -209,7 +206,6 @@ namespace PSH_BOne_AddOn
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
-                    //각모드에따른 아이템설정
                     oForm.Items.Item("Code").Enabled = false;
                     oForm.Items.Item("Mat01").Enabled = true;
                 }
@@ -234,7 +230,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                //행추가여부
                 if (RowIserted == false)
                 {
                     oDS_PS_PP940L.InsertRecord(oRow);
@@ -634,10 +629,8 @@ namespace PSH_BOne_AddOn
                                 BubbleEvent = false;
                                 return;
                             }
-                            //해야할일 작업
                             oDocEntry01 = oForm.Items.Item("Code").Specific.Value;
                             oFormMode01 = oForm.Mode;
-
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {
@@ -646,7 +639,6 @@ namespace PSH_BOne_AddOn
                                 BubbleEvent = false;
                                 return;
                             }
-                            //해야할일 작업
                             oDocEntry01 = oForm.Items.Item("Code").Specific.Value;
                             oFormMode01 = oForm.Mode;
                         }
@@ -660,7 +652,6 @@ namespace PSH_BOne_AddOn
                                     {
                                         PS_PP940_FormItemEnabled();
                                         PS_PP940_AddMatrixRow(0, true);
-                                        //UDO방식일때
                                     }
                                 }
                                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
@@ -885,7 +876,6 @@ namespace PSH_BOne_AddOn
                     {
                         if (pVal.ItemChanged == true)
                         {
-                            //매트릭스 컬럼 설정
                             PS_PP940_MatrixColumnSetting(oForm.Items.Item("YM").Specific.Value);
                         }
                     }
@@ -965,6 +955,7 @@ namespace PSH_BOne_AddOn
         private void Raise_EVENT_ROW_DELETE(string FormUID, SAPbouiCOM.IMenuEvent pVal, bool BubbleEvent)
         {
             int i;
+
             try
             {
                 if (oLastColRow01 > 0)
@@ -1057,7 +1048,6 @@ namespace PSH_BOne_AddOn
                         case "1289": //레코드이동(이전)
                         case "1290": //레코드이동(다음)
                         case "1291": //레코드이동(최종)
-                                     //레코드이동버튼
                             PS_PP940_FormItemEnabled();
                             PS_PP940_MatrixColumnSetting(oForm.Items.Item("YM").Specific.Value);
                             break;

@@ -106,11 +106,10 @@ namespace PSH_BOne_AddOn
             try
             {
                 //비용구분
-                sQry = " SELECT      T0.U_Minor, ";
-                sQry += "             T0.U_CdName";
-                sQry += " FROM        [@PS_SY001L] T0";
-                sQry += " WHERE       T0.Code = 'P210'";
-                sQry += "             AND T0.U_UseYN = 'Y'";
+                sQry = " SELECT T0.U_Minor,  T0.U_CdName";
+                sQry += " FROM [@PS_SY001L] T0";
+                sQry += " WHERE T0.Code = 'P210'";
+                sQry += "   AND T0.U_UseYN = 'Y'";
                 sQry += " ORDER BY    T0.U_Seq";
 
                 dataHelpClass.GP_MatrixSetMatComboList(oMat01.Columns.Item("AmtCls"), sQry ,"" ,"");
@@ -218,7 +217,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                //행추가여부
                 if (RowIserted == false)
                 {
                     oDS_PS_PP560L.InsertRecord(oRow);
@@ -256,7 +254,6 @@ namespace PSH_BOne_AddOn
         {
             int loopCount;
             string Query01;
-            string OrdNum;
             string errMessage = string.Empty;
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -264,11 +261,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                OrdNum = oForm.Items.Item("OrdNum").Specific.Value.ToString().Trim();
-
-                Query01 = "         EXEC [PS_PP560_01] '";
-                Query01 = Query01 + OrdNum + "'"; //작번
-
+                Query01 = "EXEC [PS_PP560_01] '" + oForm.Items.Item("OrdNum").Specific.Value.ToString().Trim() + "'"; //작번
                 oRecordSet01.DoQuery(Query01);
 
                 oMat01.Clear();
@@ -280,14 +273,12 @@ namespace PSH_BOne_AddOn
                     errMessage = "결과가 존재하지 않습니다.";
                     throw new Exception();
                 }
-
                 for (loopCount = 0; loopCount <= oRecordSet01.RecordCount - 1; loopCount++)
                 {
                     if (loopCount != 0)
                     {
                         oDS_PS_PP560L.InsertRecord(loopCount);
                     }
-
                     oDS_PS_PP560L.Offset = loopCount;
                     oDS_PS_PP560L.SetValue("U_LineNum", loopCount, Convert.ToString(loopCount + 1));
                     oDS_PS_PP560L.SetValue("U_AmtCls", loopCount, oRecordSet01.Fields.Item("AmtCls").Value);  //비용구분
@@ -316,7 +307,6 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-
                 if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
@@ -385,10 +375,10 @@ namespace PSH_BOne_AddOn
                 LineNum = pLineNum;
                 ColUID = pColUID;
 
-                sQry = "      EXEC [PS_PP560_91] '";
-                sQry = sQry + DocEntry + "','"; //문서번호
-                sQry = sQry + LineNum + "','"; //라인Num
-                sQry = sQry + ColUID + "'"; //컬럼ID
+                sQry = "EXEC [PS_PP560_91] '";
+                sQry += DocEntry + "','"; //문서번호
+                sQry += LineNum + "','"; //라인Num
+                sQry += ColUID + "'"; //컬럼ID
 
                 oRecordSet01.DoQuery(sQry);
 
@@ -491,16 +481,12 @@ namespace PSH_BOne_AddOn
         {
             bool functionReturnValue = false;
             string sQry;
-            string OrdNum;
             string errMessage = string.Empty;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
-                OrdNum = oForm.Items.Item("OrdNum").Specific.Value.ToString().Trim();
-
-                sQry = "      EXEC [PS_PP560_02] '";
-                sQry = sQry + OrdNum + "'"; //작번
+                sQry = " EXEC [PS_PP560_02] '"+ oForm.Items.Item("OrdNum").Specific.Value.ToString().Trim() + "'"; //작번
 
                 oRecordSet01.DoQuery(sQry);
 
@@ -593,14 +579,11 @@ namespace PSH_BOne_AddOn
                 {
                     PS_PP560_FormClear();
                 }
-                //작번 미입력 시
                 if (string.IsNullOrEmpty(oForm.Items.Item("OrdNum").Specific.Value))
                 {
                     errMessage = "작번을 입력하지 않았습니다.";
                     throw new Exception();
                 }
-
-                //라인정보 미입력 시
                 if (oMat01.VisualRowCount == 1)
                 {
                     errMessage = "라인이 존재하지 않습니다.";
@@ -646,11 +629,8 @@ namespace PSH_BOne_AddOn
                 }
                 else if (ValidateType == "행삭제")
                 {
-                    //행삭제전 행삭제가능여부검사
-                    //추가,수정모드일때행삭제가능검사
                     if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                     {
-                        //새로추가된 행인경우, 삭제하여도 무방하다
                         if (string.IsNullOrEmpty(oMat01.Columns.Item("LineNum").Cells.Item(oLastColRow01).Specific.Value))
                         {
                         }
@@ -871,7 +851,6 @@ namespace PSH_BOne_AddOn
                             }
                         }
                     }
-
                     if (pVal.ItemUID == "Mat01")
                     {
                         if (oForm.Mode != SAPbouiCOM.BoFormMode.fm_ADD_MODE)
@@ -987,7 +966,6 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemChanged == true)
                     {
-
                         if (pVal.ItemUID == "Mat01")
                         {
 
@@ -1120,7 +1098,6 @@ namespace PSH_BOne_AddOn
 
                             if (pVal.ColUID == "AmtCls")
                             {
-                                //비용구분을 선택하면
                                 if (oMat01.RowCount == pVal.Row && !string.IsNullOrEmpty(oDS_PS_PP560L.GetValue("U_AmtType", pVal.Row - 1).ToString().Trim()))
                                 {
                                     PS_PP560_AddMatrixRow(pVal.Row, false);
@@ -1138,10 +1115,8 @@ namespace PSH_BOne_AddOn
                             {
                                 PS_PP560_SUM("TrgtAmt");
                             }
-
                             oMat01.LoadFromDataSource();
                             oMat01.AutoResizeColumns();
-
                         }
                         else
                         {
@@ -1261,13 +1236,11 @@ namespace PSH_BOne_AddOn
                         {
                             oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value = i;
                         }
-
                         oMat01.FlushToDataSource();
                         oDS_PS_PP560L.RemoveRecord(oDS_PS_PP560L.Size - 1);
                         PS_PP560_SUM();
                         oMat01.LoadFromDataSource();
                         oForm.Update();
-
                         if (oMat01.RowCount == 0)
                         {
                             PS_PP560_AddMatrixRow(0, false);

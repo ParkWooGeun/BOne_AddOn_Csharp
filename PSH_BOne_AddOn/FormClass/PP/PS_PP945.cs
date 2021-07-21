@@ -255,7 +255,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                //행추가여부
                 if (RowIserted == false)
                 {
                     oDS_PS_PP945L.InsertRecord(oRow);
@@ -310,7 +309,6 @@ namespace PSH_BOne_AddOn
                     errMessage = "결과가 존재하지 않습니다.";
                     throw new Exception();
                 }
-
                 ProgressBar01.Text = " 조회시작";
                 for (i = 0; i <= oRecordSet01.RecordCount - 1; i++)
                 {
@@ -485,7 +483,6 @@ namespace PSH_BOne_AddOn
                 {
                     PS_PP945_FormClear();
                 }
-
                 //사업장 미입력 시
                 if (string.IsNullOrEmpty(oForm.Items.Item("BPLId").Specific.Selected.Value))
                 {
@@ -499,21 +496,18 @@ namespace PSH_BOne_AddOn
                     errMessage = "담당이 선택되지 않았습니다.";
                     throw new Exception();
                 }
-
                 //등록일자 미입력 시
                 if (string.IsNullOrEmpty(oForm.Items.Item("YM").Specific.Value))
                 {
                     errMessage = "등록일자를 선택하지 않았습니다.";
                     throw new Exception();
                 }
-
                 //라인정보 미입력 시
                 if (oMat01.VisualRowCount == 1)
                 {
                     errMessage = "라인이 존재하지 않습니다.";
                     throw new Exception();
                 }
-
                 for (i = 1; i <= oMat01.VisualRowCount - 1; i++)
                 {
                     if (string.IsNullOrEmpty(oMat01.Columns.Item("WorkType").Cells.Item(i).Specific.Value))
@@ -522,7 +516,6 @@ namespace PSH_BOne_AddOn
                         throw new Exception();
                     }
                 }
-
                 oMat01.FlushToDataSource();
                 oDS_PS_PP945L.RemoveRecord(oDS_PS_PP945L.Size - 1);
                 oMat01.LoadFromDataSource();

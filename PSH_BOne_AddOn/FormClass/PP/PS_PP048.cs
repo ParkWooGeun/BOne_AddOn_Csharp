@@ -520,7 +520,6 @@ namespace PSH_BOne_AddOn
 
                 if (errMessage != string.Empty)
                 {
-                    PSH_Globals.SBO_Application.MessageBox(errMessage);
                     if (type == "F")
                     {
                         PSH_Globals.SBO_Application.MessageBox(errMessage);

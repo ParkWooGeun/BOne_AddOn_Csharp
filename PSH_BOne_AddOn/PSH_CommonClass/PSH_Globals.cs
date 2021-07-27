@@ -39,22 +39,26 @@ namespace PSH_BOne_AddOn
         /// </summary>
         /// <param name="nameSpace">Namespace</param>
         /// <returns></returns>
-        public static List<Type> GetClasses(string nameSpace)
+        public static List<Type> GetClasses(string[] nameSpace)
         {
             List<Type> typeList = new List<Type>();
 
             foreach (Type t in System.Reflection.Assembly.GetExecutingAssembly().GetTypes())
             {
-                if (t.Namespace == nameSpace && !t.IsAbstract) //추상클래스, 인터페이스 제외
+                for (int i = 0; i < nameSpace.Length; i++)
                 {
-                    typeList.Add(t);
+                    if (t.Namespace == nameSpace[i] && !t.IsAbstract) //추상클래스, 인터페이스 제외
+                    {
+                        typeList.Add(t);
+                    }
                 }
             }
 
             return typeList;
         }
 
-        public static List<Type> classAllList = GetClasses("PSH_BOne_AddOn"); //Namespace 내의 모든 클래스 조회
+        static string[] nameSpace = { "PSH_BOne_AddOn", "PSH_BOne_AddOn.Core" }; //클래스목록에 포함할 Namespace배열
+        public static List<Type> classAllList = GetClasses(nameSpace); //클래스목록
     }
 
     public class ZPAY_g_EmpID

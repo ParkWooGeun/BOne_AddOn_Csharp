@@ -520,7 +520,6 @@ namespace PSH_BOne_AddOn
 
                 if (errMessage != string.Empty)
                 {
-                    PSH_Globals.SBO_Application.MessageBox(errMessage);
                     if (type == "F")
                     {
                         PSH_Globals.SBO_Application.MessageBox(errMessage);
@@ -750,7 +749,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_PP048L.SetValue("U_COL02", i, oRecordSet01.Fields.Item(1).Value);
                     oRecordSet01.MoveNext();
                     ProgressBar01.Value += 1;
-                    ProgressBar01.Text += "/" + oRecordSet01.RecordCount + "건 조회중...!";
+                    ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
                 oMat01.LoadFromDataSource();
                 oMat01.AutoResizeColumns();

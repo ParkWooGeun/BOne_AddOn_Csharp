@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <doc>
     <assembly>
         <name>PSH_BOne_AddOn</name>
@@ -5621,13 +5621,13 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM138.PS_MM138_Add_InventoryGenEntry">
             <summary>
-            출고
+            PS_MM138_Add_InventoryGenEntry
             </summary>
             <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM138.PS_MM138_Add_InventoryGenExit">
             <summary>
-             입고(취소)
+             PS_MM138_Add_InventoryGenExit
             </summary>
             <returns></returns>
         </member>
@@ -5941,7 +5941,7 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM095.PS_MM095_AddMatrixRow(System.Int32,System.Boolean)">
             <summary>
-            
+            PS_MM095_AddMatrixRow
             </summary>
             <param name="oRow">행 번호</param>
             <param name="RowIserted">행 추가 여부</param>
@@ -5958,12 +5958,12 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM095.PS_MM095_LoadData_Mat02(System.Int32)">
             <summary>
-            LoadData
+            PS_MM095_LoadData_Mat02
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM095.PS_MM095_Update_PP040L(System.String)">
             <summary>
-            LoadData
+            PS_MM095_Update_PP040L
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM095.PS_MM095_Add_oInventoryGenExit">
@@ -6440,7 +6440,7 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM096.PS_MM096_AddMatrixRow(System.Int32,System.Boolean)">
             <summary>
-            
+            PS_MM096_AddMatrixRow
             </summary>
             <param name="oRow">행 번호</param>
             <param name="RowIserted">행 추가 여부</param>
@@ -6457,12 +6457,12 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM096.PS_MM096_LoadData_Mat02">
             <summary>
-            LoadData
+            PS_MM096_LoadData_Mat02
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM096.PS_MM096_Update_PP040L(System.String)">
             <summary>
-            LoadData
+            PS_MM096_Update_PP040L
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM096.PS_MM096_Add_oInventoryGenExit">
@@ -10821,7 +10821,7 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_PP052.PS_PP052_Add_InventoryGenEntry">
             <summary>
-            PS_PP084_Add_InventoryGenEntry
+            PS_PP052_Add_InventoryGenEntry
             </summary>
             <returns></returns>
         </member>
@@ -14358,14 +14358,9 @@
             PS_PP081_MTX01
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP081.LoadData">
-            <summary>
-            LoadData
-            </summary>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_PP081.PS_PP081_Add_InventoryGenExit">
             <summary>
-            PS_PP081_DI_API01
+            PS_PP081_Add_InventoryGenExit
             </summary>
             <returns></returns>
         </member>
@@ -14580,13 +14575,13 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_PP083.PS_PP083_Add_InventoryGenExit">
             <summary>
-            PS_PP083_DI_API01
+            PS_PP083_Add_InventoryGenExit
             </summary>
             <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_PP083.PS_PP083_Add_InventoryGenEntry">
             <summary>
-            PS_PP083_DI_API03
+            PS_PP083_Add_InventoryGenEntry
             </summary>
             <returns></returns>
         </member>
@@ -15077,14 +15072,6 @@
         <member name="M:PSH_BOne_AddOn.PS_PP090.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_UNLOAD 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP090.Raise_EVENT_CHOOSE_FROM_LIST(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            CHOOSE_FROM_LIST 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -15943,6 +15930,118 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
+        <member name="T:PSH_BOne_AddOn.PS_PP095S">
+            <summary>
+            MG거래명세표등록
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP095S.LoadForm(SAPbouiCOM.Form,System.String,System.String,System.Int32,System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oForm02"></param>
+            <param name="oItemUID02"></param>
+            <param name="oColUID02"></param>
+            <param name="oColRow02"></param>
+            <param name="oBPLId02"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP095S.PS_PP095S_CreateItems">
+            <summary>
+            화면 Item 생성
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP095S.PS_PP095S_ComboBox_Setting">
+            <summary>
+            Combobox 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP095S.PS_PP095S_MTX01">
+            <summary>
+            PS_PP095S_MTX01
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP095S.PS_PP095S_FormClear">
+            <summary>
+            DocEntry 초기화
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP095S.PS_PP095S_SetBaseForm">
+            <summary>
+            PS_PP095S_etBaseForm
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP095S.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Form Item Event
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">pVal</param>
+            <param name="BubbleEvent">Bubble Event</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP095S.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            ITEM_PRESSED 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP095S.Raise_EVENT_KEY_DOWN(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            KEY_DOWN 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP095S.Raise_EVENT_GOT_FOCUS(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            GOT_FOCUS 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP095S.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            CLICK 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP095S.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            VALIDATE 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP095S.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            FORM_UNLOAD 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP095S.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_DOUBLE_CLICK 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP095S.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
+            <summary>
+            RightClickEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_PP096">
             <summary>
              출고계획
@@ -16072,7 +16171,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP120.UpdateToPP120H">
+        <member name="M:PSH_BOne_AddOn.PS_PP120.PS_PP120_UpdateToPP120H">
             <summary>
             PS_PP120_DocTotalSum
             </summary>
@@ -19156,7 +19255,7 @@
             모드에 따른 아이템 설정
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP918.LoadData">
+        <member name="M:PSH_BOne_AddOn.PS_PP918.PS_PP918_LoadData">
             <summary>
             PS_PP918_MTX01
             </summary>
@@ -21376,7 +21475,7 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_PP130.PS_PP130_AddMatrixRow(System.Int32,System.Boolean)">
             <summary>
-            
+            PS_PP130_AddMatrixRow
             </summary>
             <param name="oRow">행 번호</param>
             <param name="RowIserted">행 추가 여부</param>

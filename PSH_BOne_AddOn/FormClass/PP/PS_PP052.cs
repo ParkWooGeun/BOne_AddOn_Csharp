@@ -183,11 +183,10 @@ namespace PSH_BOne_AddOn
                 dataHelpClass.Set_ComboList(oForm.Items.Item("CardType").Specific, "SELECT U_Minor, U_CdName FROM [@PS_SY001L] WHERE Code = 'C100' ORDER BY Code", "", false, false);
                 oForm.Items.Item("CardType").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
-                sQry = "           SELECT      U_Minor,";
-                sQry += "                U_CdName";
-                sQry += " FROM       [@PS_SY001L]";
-                sQry += " WHERE      Code = 'P203'";
-                sQry += "                AND U_UseYN = 'Y'";
+                sQry =  " SELECT U_Minor, U_CdName";
+                sQry += " FROM [@PS_SY001L]";
+                sQry += " WHERE Code = 'P203'";
+                sQry += "   AND U_UseYN = 'Y'";
                 sQry += " ORDER BY  U_Seq";
             }
             catch (Exception ex)
@@ -323,7 +322,7 @@ namespace PSH_BOne_AddOn
 
                         if (oForm.Mode != SAPbouiCOM.BoFormMode.fm_ADD_MODE)//삭제된 행에 대한처리
                         {
-                            Query01 = "SELECT ";
+                            Query01 =  "SELECT ";
                             Query01 += " PS_PP040H.DocEntry,";
                             Query01 += " PS_PP040L.LineId,";
                             Query01 += " CONVERT(NVARCHAR,PS_PP040H.DocEntry) + '-' + CONVERT(NVARCHAR,PS_PP040L.LineId) AS DocInfo,";
@@ -851,10 +850,6 @@ namespace PSH_BOne_AddOn
         {
             int i;
             string Query01;
-            string Param01;
-            string Param02;
-            string Param03;
-            string Param04;
             string errMessage = string.Empty;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
@@ -863,11 +858,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                Param01 = oForm.Items.Item("Param01").Specific.Value.ToString().Trim();
-                Param02 = oForm.Items.Item("Param01").Specific.Value.ToString().Trim();
-                Param03 = oForm.Items.Item("Param01").Specific.Value.ToString().Trim();
-                Param04 = oForm.Items.Item("Param01").Specific.Value.ToString().Trim();
-
                 Query01 = "SELECT 10";
                 oRecordSet01.DoQuery(Query01);
 
@@ -968,16 +958,16 @@ namespace PSH_BOne_AddOn
                 {
                     PS_PP052_FormClear();
                 }
-
                 if (Convert.ToDouble(dataHelpClass.GetValue("select Count(*) from OFPR Where '" + oForm.Items.Item("DocDate").Specific.Value + "' between F_RefDate and T_RefDate And PeriodStat = 'Y'", 0, 1)) > 0)
                 {
                     errMessage = "해당일자는 전기기간이 잠겼습니다. 일자를 확인바랍니다.";
+                    type = "X";
                     throw new Exception();
                 }
-
                 else if (oForm.Items.Item("OrdType").Specific.Selected.Value != "10" && oForm.Items.Item("OrdType").Specific.Selected.Value != "20" && oForm.Items.Item("OrdType").Specific.Selected.Value != "50" && oForm.Items.Item("OrdType").Specific.Selected.Value != "60" && oForm.Items.Item("OrdType").Specific.Selected.Value != "70")
                 {
                     errMessage = "작업타입이 일반, PSMT지원, 조정, 설계가 아닙니다.";
+                    type = "X";
                     throw new Exception();
                 }
                 else if (string.IsNullOrEmpty(oForm.Items.Item("OrdNum").Specific.Value))
@@ -1453,7 +1443,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// PS_PP084_Add_InventoryGenEntry
+        /// PS_PP052_Add_InventoryGenEntry
         /// </summary>
         /// <returns></returns>
         private bool PS_PP052_Add_InventoryGenEntry()
@@ -1672,7 +1662,6 @@ namespace PSH_BOne_AddOn
             double tot_time;
             double UnitTime;
             double UnitRemainTime;
-            string vReturnValue;
             string errMessage = string.Empty;
 
             try
@@ -1721,8 +1710,7 @@ namespace PSH_BOne_AddOn
                         {
                             if (oMat01.VisualRowCount > 1)
                             {
-                                vReturnValue = Convert.ToString(PSH_Globals.SBO_Application.MessageBox("저장하지 않는 자료가 있습니다. 취소하시겠습니까?", 2, "&확인", "&취소"));
-                                if (vReturnValue == "2")
+                                if (PSH_Globals.SBO_Application.MessageBox("저장하지 않는 자료가 있습니다. 취소하시겠습니까?", 2, "&확인", "&취소") == 2)
                                 {
                                     BubbleEvent = false;
                                     return;
@@ -1821,9 +1809,6 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
-            }
-            finally
-            {
             }
         }
 
@@ -2981,6 +2966,9 @@ namespace PSH_BOne_AddOn
 
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat02);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat03);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat04);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_PP052H);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_PP052L);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_PP052M);
@@ -3372,15 +3360,11 @@ namespace PSH_BOne_AddOn
                     {
                         oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                         oForm.Items.Item("DocEntry").Enabled = true;
-                        Query01 = "  SELECT		ISNULL";
-                        Query01 += "            (";
-                        Query01 += "                MIN(DocEntry),";
-                        Query01 += "                (SELECT MIN(DocEntry) FROM [@PS_PP040H] WHERE U_DocType = '10' AND U_OrdGbn IN ('111','601'))";
-                        Query01 += "            )";
-                        Query01 += " FROM       [@PS_PP040H]";
-                        Query01 += " WHERE      U_DocType = '10'";
-                        Query01 += "            AND U_OrdGbn IN ('111','601')";
-                        Query01 += "            AND DocEntry > " + docEntry;
+                        Query01 = "  SELECT ISNULL( MIN(DocEntry), (SELECT MIN(DocEntry) FROM [@PS_PP040H] WHERE U_DocType = '10' AND U_OrdGbn IN ('111','601')))";
+                        Query01 += "   FROM [@PS_PP040H]";
+                        Query01 += " WHERE U_DocType = '10'";
+                        Query01 += " AND U_OrdGbn IN ('111','601')";
+                        Query01 += " AND DocEntry > " + docEntry;
 
                         oForm.Items.Item("DocEntry").Specific.Value = dataHelpClass.GetValue(Query01, 0, 1);
                         oForm.Items.Item("1").Enabled = true;
@@ -3407,15 +3391,11 @@ namespace PSH_BOne_AddOn
                     {
                         oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                         oForm.Items.Item("DocEntry").Enabled = true;
-                        Query01 = "  SELECT		ISNULL";
-                        Query01 += "            (";
-                        Query01 += "                MAX(DocEntry),";
-                        Query01 += "                (SELECT MAX(DocEntry) FROM [@PS_PP040H] WHERE U_DocType = '10' AND U_OrdGbn IN ('111','601'))";
-                        Query01 += "            )";
-                        Query01 += " FROM       [@PS_PP040H]";
-                        Query01 += " WHERE      U_DocType = '10'";
-                        Query01 += "            AND U_OrdGbn IN ('111','601')";
-                        Query01 += "            AND DocEntry < " + docEntry;
+                        Query01 = "  SELECT ISNULL(MAX(DocEntry),(SELECT MAX(DocEntry) FROM [@PS_PP040H] WHERE U_DocType = '10' AND U_OrdGbn IN ('111','601')))";
+                        Query01 += "   FROM [@PS_PP040H]";
+                        Query01 += " WHERE U_DocType = '10'";
+                        Query01 += " AND U_OrdGbn IN ('111','601')";
+                        Query01 += " AND DocEntry < " + docEntry;
 
                         oForm.Items.Item("DocEntry").Specific.Value = dataHelpClass.GetValue(Query01, 0, 1);
                         oForm.Items.Item("1").Enabled = true;
@@ -3427,10 +3407,10 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     oForm.Items.Item("DocEntry").Enabled = true;
-                    Query01 = "  SELECT     MIN(DocEntry)";
-                    Query01 += " FROM       [@PS_PP040H]";
-                    Query01 += " WHERE      U_DocType = '10'";
-                    Query01 += "            AND U_OrdGbn IN ('111','601')";
+                    Query01 = " SELECT MIN(DocEntry)";
+                    Query01 += "  FROM [@PS_PP040H]";
+                    Query01 += " WHERE U_DocType = '10'";
+                    Query01 += "   AND U_OrdGbn IN ('111','601')";
 
                     oForm.Items.Item("DocEntry").Specific.Value = dataHelpClass.GetValue(Query01, 0, 1);
                     oForm.Items.Item("1").Enabled = true;
@@ -3441,10 +3421,10 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     oForm.Items.Item("DocEntry").Enabled = true;
-                    Query01 = "  SELECT     MAX(DocEntry)";
-                    Query01 += " FROM       [@PS_PP040H]";
-                    Query01 += " WHERE      U_DocType = '10'";
-                    Query01 += "            AND U_OrdGbn IN ('111','601')";
+                    Query01 = " SELECT MAX(DocEntry)";
+                    Query01 += "  FROM [@PS_PP040H]";
+                    Query01 += " WHERE U_DocType = '10'";
+                    Query01 += "   AND U_OrdGbn IN ('111','601')";
 
                     oForm.Items.Item("DocEntry").Specific.Value = dataHelpClass.GetValue(Query01, 0, 1);
                     oForm.Items.Item("1").Enabled = true;

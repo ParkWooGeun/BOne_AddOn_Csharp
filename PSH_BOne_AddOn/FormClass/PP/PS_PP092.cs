@@ -162,8 +162,6 @@ namespace PSH_BOne_AddOn
                 }
                 else if (ValidateType == "행삭제")
                 {
-                    //행삭제전 행삭제가능여부검사
-                    //추가,수정모드일때행삭제가능검사
                     if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                     {
                         if (string.IsNullOrEmpty(oMat01.Columns.Item("LineNum").Cells.Item(oLastColRow01).Specific.Value))
@@ -176,12 +174,11 @@ namespace PSH_BOne_AddOn
                                 errMessage = "취소된문서는 수정할수 없습니다.";
                                 throw new Exception();
                             }
-                            //현재행의 수량체크
-                            Query01 = "";
-                            Query01 += " Select sum(Quantity) as Qty FROM OIBT ";
+                            Query01 = " Select sum(Quantity) as Qty FROM OIBT ";
                             Query01 += " WHERE ItemCode='" + oMat01.Columns.Item("ItemCode").Cells.Item(oLastColRow01).Specific.Value + "'";
                             Query01 += "       AND BatchNum='" + oMat01.Columns.Item("LotNo").Cells.Item(oLastColRow01).Specific.Value + "'";
                             oRecordSet01.DoQuery(Query01);
+
                             if (oRecordSet01.Fields.Item("Qty").Value <= 0)
                             {
                                 errMessage = "출하처리된 품목입니다. 삭제할수 없습니다.";
@@ -197,38 +194,34 @@ namespace PSH_BOne_AddOn
                         errMessage = "이미취소된문서입니다.";
                         throw new Exception();
                     }
-                    Query01 = "";
-                    Query01 = Query01 + " SELECT U_LotNo,U_ItemCode,U_PackNo FROM [@PS_PP092L] WHERE  DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'";
+                    Query01 = "SELECT U_LotNo,U_ItemCode,U_PackNo FROM [@PS_PP092L] WHERE  DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'";
                     oRecordSet01.DoQuery(Query01);
 
                     while (oRecordSet01.EoF == false)
                     {
-                        Query02 = "";
-                        Query02 += " SELECT Sum(Quantity) as Qty FROM OIBT ";
+                        Query02 = "SELECT Sum(Quantity) as Qty FROM OIBT ";
                         Query02 += " WHERE ItemCode = '" + oRecordSet01.Fields.Item("U_ItemCode").Value + "'";
                         Query02 += "       AND BatchNum='" + oRecordSet01.Fields.Item("U_LotNo").Value + "'";
                         oRecordSet02.DoQuery(Query02);
 
-                        //멀티는 일부가나갈수가 없다 수량이 없다면 출고된것으로 본다.
-                        if (oRecordSet02.Fields.Item("Qty").Value <= 0)
+                        
+                        if (oRecordSet02.Fields.Item("Qty").Value <= 0) //멀티는 일부가나갈수가 없다 수량이 없다면 출고된것으로 본다.
                         {
                             errMessage = "이미출고된품목이 있슴니다. 취소할수 없습니다.";
                             throw new Exception();
-                            //재고가 다 있다면 행별로 OBTN에 저장했던PackNo를 지워줘야한다.
+                            
                         }
-                        else
+                        else //재고가 다 있다면 행별로 OBTN에 저장했던PackNo를 지워줘야한다.
                         {
-                            Query03 = "";
-                            Query03 = Query03 + " SELECT U_LotNo,U_ItemCode,U_PackNo FROM [@PS_PP092L] WHERE  DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'";
+                            Query03 = "SELECT U_LotNo,U_ItemCode,U_PackNo FROM [@PS_PP092L] WHERE  DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'";
                             oRecordSet03.DoQuery(Query03);
+
                             while (oRecordSet03.EoF == false)
                             {
-                                Query04 = "";
-                                Query04 += " UPDATE OBTN SET U_PackNo=''";
+                                Query04 = "UPDATE OBTN SET U_PackNo=''";
                                 Query04 += " WHERE ItemCode = '" + oRecordSet01.Fields.Item("U_ItemCode").Value + "'";
                                 Query04 += "       AND DistNumber='" + oRecordSet01.Fields.Item("U_LotNo").Value + "'";
 
-                                //배치번호
                                 oRecordSet04.DoQuery(Query04);
                                 oRecordSet03.MoveNext();
                             }
@@ -276,8 +269,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                Query01 = "";
-                Query01 = Query01 + " Select U_ItemCode,U_LotNo from [@PS_PP092L] WHERE DocEntry='" + sDocNum + "' and U_PackNo= '" + sPackNum.ToString().Trim() + "'";
+                Query01 = "Select U_ItemCode,U_LotNo from [@PS_PP092L] WHERE DocEntry='" + sDocNum + "' and U_PackNo= '" + sPackNum.ToString().Trim() + "'";
                 oRecordSet01.DoQuery(Query01);
 
                 //아이템과 LOT번호는 고유함
@@ -319,7 +311,6 @@ namespace PSH_BOne_AddOn
         {
             int i;
             double SumWeight = 0;
-            string errMessage = string.Empty;
 
             try
             {
@@ -331,14 +322,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if (errMessage != string.Empty)
-                {
-                    PSH_Globals.SBO_Application.MessageBox(errMessage);
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-                }
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
         }
 
@@ -419,7 +403,6 @@ namespace PSH_BOne_AddOn
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
-                    Query01 = "";
                     Query01 = "Select Distinct Quantity FROM OIBT WHERE BatchNum = '" + oMat01.Columns.Item("LotNo").Cells.Item(1).Specific.Value + "'";
                     oRecordSet01.DoQuery(Query01);
 
@@ -462,7 +445,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                //행추가여부
                 if (RowIserted == false)
                 {
                     oDS_PS_PP092L.InsertRecord(oRow);
@@ -592,20 +574,25 @@ namespace PSH_BOne_AddOn
         private bool PS_PP092_DataValidCheck()
         {
             bool functionReturnValue = false;
-            int i;
+            int i = 0;
             string errMessage = string.Empty;
+            string ClickCode = string.Empty;
+            string type = string.Empty;
 
             try
             {
                 if (string.IsNullOrEmpty(oForm.Items.Item("InDate").Specific.Value))
                 {
                     errMessage = "작성일은 필수입니다.";
-                    oForm.Items.Item("InDate").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    ClickCode = "InDate";
+                    type = "F";
                     throw new Exception();
                 }
                 if (string.IsNullOrEmpty(oForm.Items.Item("CardCode").Specific.Value))
                 {
                     errMessage = "거래처는 필수입니다.";
+                    ClickCode = "CardCode";
+                    type = "F";
                     oForm.Items.Item("CardCode").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     throw new Exception();
                 }
@@ -613,6 +600,7 @@ namespace PSH_BOne_AddOn
                 if (oMat01.VisualRowCount == 0)
                 {
                     errMessage = "라인이 존재하지 않습니다.";
+                    type = "X";
                     throw new Exception();
                 }
                 else
@@ -621,6 +609,7 @@ namespace PSH_BOne_AddOn
                     if (string.IsNullOrEmpty(oMat01.Columns.Item("LotNo").Cells.Item(1).Specific.Value))
                     {
                         errMessage = "Matrix값이 한줄이상은 있어야합니다.";
+                        type = "X";
                         throw new Exception();
                     }
                 }
@@ -629,7 +618,8 @@ namespace PSH_BOne_AddOn
                     if (string.IsNullOrEmpty(oMat01.Columns.Item("OutGbn").Cells.Item(i).Specific.Value))
                     {
                         errMessage = "출고구분은 필수입니다.";
-                        oMat01.Columns.Item("OutGbn").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                        ClickCode = "OutGbn";
+                        type = "M";
                         throw new Exception();
                     }
                     else
@@ -639,14 +629,14 @@ namespace PSH_BOne_AddOn
                             if (string.IsNullOrEmpty(oMat01.Columns.Item("SD030Num").Cells.Item(i).Specific.Value))
                             {
                                 errMessage = "출하요청번호를 입력하셔야 합니다.";
-                                oMat01.Columns.Item("SD030Num").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                                ClickCode = "SD030Num";
+                                type = "M";
                                 throw new Exception();
                             }
                         }
                     }
                 }
                 oDS_PS_PP092L.RemoveRecord(oDS_PS_PP092L.Size - 1);
-                //UDO방식일때 저장되기전에(BeforeAction구문이 완결되기전) 한줄빼고 넣어주는 구문
                 oMat01.LoadFromDataSource();
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
@@ -658,11 +648,24 @@ namespace PSH_BOne_AddOn
             {
                 if (errMessage != string.Empty)
                 {
-                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                    if (type == "F")
+                    {
+                        PSH_Globals.SBO_Application.MessageBox(errMessage);
+                        oForm.Items.Item(ClickCode).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    }
+                    else if (type == "M")
+                    {
+                        PSH_Globals.SBO_Application.MessageBox(errMessage);
+                        oMat01.Columns.Item(ClickCode).Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    }
+                    else
+                    {
+                        PSH_Globals.SBO_Application.MessageBox(errMessage);
+                    }
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
             }
             return functionReturnValue;
@@ -945,18 +948,6 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.BeforeAction == true)
                 {
-                    if (pVal.ItemUID == "PS_PP092")
-                    {
-                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-                        {
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-                        {
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-                        {
-                        }
-                    }
                     if (pVal.ItemUID == "1")
                     {
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
@@ -999,15 +990,7 @@ namespace PSH_BOne_AddOn
                                 BubbleEvent = false;
                                 return;
                             }
-                            //해야할일 작업
                         }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-                        {
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
-                        {
-                        }
-                        //전기버튼클릭시
                     }
                     else if (pVal.ItemUID == "Btn_Prt")//국문
                     {
@@ -1036,18 +1019,6 @@ namespace PSH_BOne_AddOn
                 }
                 else if (pVal.BeforeAction == false)
                 {
-                    if (pVal.ItemUID == "PS_PP092")
-                    {
-                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-                        {
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-                        {
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-                        {
-                        }
-                    }
                     if (pVal.ItemUID == "1")
                     {
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
@@ -1056,8 +1027,6 @@ namespace PSH_BOne_AddOn
                             {
                                 PS_PP092_FormItemEnabled();
                                 PS_PP092_UpdateToPP092(sPackNo, sDocNum);
-                                //해당LOT품에대해서 OBTN테이블에 PACK번호를 업뎃해준다.
-
                                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
                                 PSH_Globals.SBO_Application.ActivateMenuItem("1291");
                             }
@@ -1109,7 +1078,6 @@ namespace PSH_BOne_AddOn
                                 BubbleEvent = false;
                             }
                         }
-
                         if (pVal.ItemUID == "CntcCode")
                         {
                             if (string.IsNullOrEmpty(oForm.Items.Item("CntcCode").Specific.Value))
@@ -1118,7 +1086,6 @@ namespace PSH_BOne_AddOn
                                 BubbleEvent = false;
                             }
                         }
-
                         if (pVal.ItemUID == "SD030Num")
                         {
                             if (string.IsNullOrEmpty(oForm.Items.Item("SD030Num").Specific.Value))
@@ -1127,7 +1094,7 @@ namespace PSH_BOne_AddOn
                                 BubbleEvent = false;
                             }
                         }
-                        //메트릭스에 질의연결이벤트
+                        
                         dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "Mat01", "LotNo"); //Lot번호
                         dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "Mat01", "SD030Num"); //출하요청번호
                         dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "Mat01", "InspNo"); //검사번호
@@ -1296,7 +1263,6 @@ namespace PSH_BOne_AddOn
                                 else
                                 {
                                     oDS_PS_PP092L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
-                                    //자기자신먼저 Flush처리
 
                                     if (oMat01.RowCount == pVal.Row && !string.IsNullOrEmpty(oDS_PS_PP092L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
                                     {
@@ -1327,7 +1293,6 @@ namespace PSH_BOne_AddOn
                             else if (pVal.ColUID == "SD030Num")
                             {
                                 oDS_PS_PP092L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
-                                //자기자신먼저 Flush처리
 
                                 Query01 = "Select DocEntry, LineId From [@PS_SD030L] ";
                                 Query01 += " Where CONVERT(VARCHAR,DocEntry) + '-' + CONVERT(VARCHAR,LineId) = '" + oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value + "'";
@@ -1366,7 +1331,7 @@ namespace PSH_BOne_AddOn
                             else if (pVal.ColUID == "InspNo")
                             {
                                 Query01 = "Select CardSeq = U_CardSeq From [@PS_QM008H] ";
-                                Query01 = Query01 + " Where Canceled = 'N' And U_InspNo = '" + oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value + "'";
+                                Query01 += " Where Canceled = 'N' And U_InspNo = '" + oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value + "'";
                                 oRecordSet01.DoQuery(Query01);
                                 if (oRecordSet01.RecordCount > 0)
                                 {
@@ -1396,7 +1361,7 @@ namespace PSH_BOne_AddOn
                             else if (pVal.ItemUID == "SD030Num")
                             {
                                 Query01 = "Select ItemCode = a.U_ItemCode, ItemName = a.U_ItemName, a.DocEntry, a.LineId , Weight = a.u_Weight, Gdate = Convert(Char(8),b.u_Docdate,112) From [@PS_SD030L] a inner join [@PS_SD030H] b on a.docentry = b.docentry  ";
-                                Query01 = Query01 + " Where CONVERT(VARCHAR,a.DocEntry) + '-' + CONVERT(VARCHAR,a.LineId) = '" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'";
+                                Query01 += " Where CONVERT(VARCHAR,a.DocEntry) + '-' + CONVERT(VARCHAR,a.LineId) = '" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'";
                                 oRecordSet01.DoQuery(Query01);
 
                                 if (oRecordSet01.RecordCount == 0)
@@ -1408,7 +1373,6 @@ namespace PSH_BOne_AddOn
                                     oForm.Items.Item("Weight").Specific.Value = "";
                                     oForm.Items.Item("Gdate").Specific.Value = "";
                                     oForm.Items.Item("SD030Num").Specific.Value = "";
-
                                 }
                                 else
                                 {
@@ -1550,11 +1514,10 @@ namespace PSH_BOne_AddOn
                         oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value = i; //행을 다시 순서대로정렬해서 행번에넣고(VisualCount값은 줄어든상태)
                     }
 
-                    //Matrix의 RowCount값 갯수도 줄어든 수만큼 갱신처리 해주며
                     oMat01.FlushToDataSource();
 
                     oDS_PS_PP092L.RemoveRecord(oDS_PS_PP092L.Size - 1);
-                    //줄어든 행수만큼 DataSources값 갱신한 뒤
+                    
                     oMat01.LoadFromDataSource();
                     //그후 다시 데이터소스를 읽어와 화면완성을 한다.
 

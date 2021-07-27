@@ -10,7 +10,7 @@ namespace PSH_BOne_AddOn
     internal class PS_PP918 : PSH_BaseClass
     {
         private string oFormUniqueID;
-        public SAPbouiCOM.Grid oGrid01;
+        private SAPbouiCOM.Grid oGrid01;
         private SAPbouiCOM.DBDataSource oDS_PS_PP918H; //등록헤더
 
         private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
@@ -81,10 +81,8 @@ namespace PSH_BOne_AddOn
         {
             try
             {
-                //디비데이터 소스 개체 할당
                 oDS_PS_PP918H = oForm.DataSources.DBDataSources.Item("@PS_PP918H");
 
-                // 메트릭스 개체 할당
                 oGrid01 = oForm.Items.Item("Grid01").Specific;
                 oForm.DataSources.DataTables.Add("PS_USERDS01");
             }
@@ -100,12 +98,10 @@ namespace PSH_BOne_AddOn
         private void PS_PP918_ComboBox_Setting()
         {
             string sQry;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
-                // 사업장
                 sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
                 oRecordSet01.DoQuery(sQry);
                 while (!(oRecordSet01.EoF))
@@ -113,8 +109,6 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
                     oRecordSet01.MoveNext();
                 }
-
-                // 인증
                 sQry = "SELECT Code, Name From [@PSH_MARK]";
                 oRecordSet01.DoQuery(sQry);
                 while (!(oRecordSet01.EoF))
@@ -122,8 +116,6 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("Mark").Specific.ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
                     oRecordSet01.MoveNext();
                 }
-
-                // 형태
                 sQry = "SELECT Code, Name From [@PSH_SHAPE]";
                 oRecordSet01.DoQuery(sQry);
                 while (!(oRecordSet01.EoF))
@@ -235,25 +227,22 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// PS_PP918_MTX01
         /// </summary>
-        private void LoadData()
+        private void PS_PP918_LoadData()
         {
             string errMessage = string.Empty;
             string sQry;
-            string BPLId;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
                 oForm.Freeze(true);
-                BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
-
                 sQry = "Select a.U_ItemCode As '제품코드', a.U_ItemName As '제품명', a.U_Size As '규격', b.Name As '인증', ";
                 sQry += "c.Name As '형태타입', a.U_MSize1 + ' X ' + a.U_MSize2 + ' X ' + a.U_MSize3 As '원자재규격', ";
                 sQry += "a.U_CutLen As '절단길이', a.U_CutQty As '절단본수', a.U_TQTy As '1 Table 수량', a.U_TWt As '1 Table 중량', ";
                 sQry += "a.U_TTime As '1 Table 시간', a.U_LTQTy As '1 Lot Table수', a.U_LQTy As '1 Lot 수량', a.U_LWt As '1 Lot 중량', ";
                 sQry += "a.U_LTime As '1 Lot 시간', a.U_Box As 'BOX' From [@PS_PP918H] a Left Join [@PSH_MARK] b On a.U_Mark = b.Code ";
-                sQry += "Left Join [@PSH_SHAPE] c On a.U_ItemType = c.Code Where U_BPLId = '" + BPLId + "' ";
+                sQry += "Left Join [@PSH_SHAPE] c On a.U_ItemType = c.Code Where U_BPLId = '" + oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() + "' ";
                 sQry += "Order by a.U_ItemName, a.U_Size, b.Name, c.Name";
 
                 oRecordSet01.DoQuery(sQry);
@@ -280,7 +269,7 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
         }
 
@@ -428,7 +417,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "1")
                     {
-                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE & pVal.Action_Success == true)
+                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE && pVal.Action_Success == true)
                         {
                             oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
                             PSH_Globals.SBO_Application.ActivateMenuItem("1282");
@@ -436,7 +425,7 @@ namespace PSH_BOne_AddOn
                     }
                     else if (pVal.ItemUID == "Btn01")
                     {
-                        LoadData();
+                        PS_PP918_LoadData();
                     }
                 }
             }
@@ -458,8 +447,6 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_KEY_DOWN(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
             try
             {
                 if (pVal.Before_Action == true)
@@ -547,14 +534,12 @@ namespace PSH_BOne_AddOn
                     {
                         if (pVal.ItemUID == "ItemCode")
                         {
-                            
                             sQry = "Select FrgnName, U_Size, U_Mark, U_ItemType From OITM Where ItemCode = '" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'";
                             oRecordSet01.DoQuery(sQry);
                             oForm.Items.Item("ItemName").Specific.Value = oRecordSet01.Fields.Item("FrgnName").Value.ToString().Trim();
                             oForm.Items.Item("Size").Specific.Value = oRecordSet01.Fields.Item("U_Size").Value.ToString().Trim();
                             oForm.Items.Item("Mark").Specific.Select(oRecordSet01.Fields.Item("U_Mark").Value.ToString().Trim());
                             oForm.Items.Item("ItemType").Specific.Select(oRecordSet01.Fields.Item("U_ItemType").Value.ToString().Trim());
-                            
                         }
                     }
                 }
@@ -587,9 +572,8 @@ namespace PSH_BOne_AddOn
                 else if (pVal.Before_Action == false)
                 {
                     SubMain.Remove_Forms(oFormUniqueID);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid01);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_PP918H);
-
                 }
             }
             catch (Exception ex)
@@ -650,8 +634,7 @@ namespace PSH_BOne_AddOn
                             PS_PP918_Initialization();
                             oForm.Freeze(false);
                             break;
-                        case "1282":
-                            //추가
+                        case "1282": //추가
                             oForm.Freeze(true);
                             PS_PP918_FormItemEnabled();
                             PS_PP918_Initialization();

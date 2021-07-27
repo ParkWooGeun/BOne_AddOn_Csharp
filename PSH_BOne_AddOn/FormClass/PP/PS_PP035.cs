@@ -120,14 +120,11 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.UserDataSources.Add("Size", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
                 oForm.Items.Item("Size").Specific.DataBind.SetBound(true, "", "Size");
 
-                //생산완료여부
                 oForm.DataSources.UserDataSources.Add("PrdYN", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
                 oForm.Items.Item("PrdYN").Specific.DataBind.SetBound(true, "", "PrdYN");
 
-                //작업상태변경_체크박스(2012.07.02 송명규 추가)
                 oForm.DataSources.UserDataSources.Add("ChkWCon", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
                 oForm.Items.Item("ChkWCon").Specific.DataBind.SetBound(true, "", "ChkWCon");
-
                 oForm.Items.Item("Mat01").Enabled = true;
             }
             catch (Exception ex)
@@ -166,20 +163,16 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("OrdGbn").Specific.Select("105", SAPbouiCOM.BoSearchKey.psk_ByDescription);
                 }
 
-                // 작지상태(matrix)
+                //작지상태(matrix)
                 dataHelpClass.Combo_ValidValues_Insert("PS_PP035", "oMat01", "Canceled", "N", "계획");
                 dataHelpClass.Combo_ValidValues_Insert("PS_PP035", "oMat01", "Canceled", "Y", "취소");
                 dataHelpClass.Combo_ValidValues_SetValueColumn(oMat01.Columns.Item("Canceled"), "PS_PP035", "oMat01", "Canceled", false);
                 dataHelpClass.Set_ComboList(oForm.Items.Item("Mark").Specific, "SELECT Code, Name FROM [@PSH_MARK] order by Code", "", false, true);
 
                 //작업상태(2012.06.30 송명규 추가)
-                sQry = "            SELECT      T1.U_Minor,";
-                sQry += "                 T1.U_CdName";
-                sQry += "  FROM       [@PS_SY001H] AS T0";
-                sQry += "                 INNER JOIN";
-                sQry += "                 [@PS_SY001L] AS T1";
-                sQry += "                     ON T0.Code = T1.Code";
-                sQry += "  WHERE      T1.Code = 'S003'";
+                sQry = "SELECT T1.U_Minor,T1.U_CdName";
+                sQry += " FROM [@PS_SY001H] AS T0 INNER JOIN [@PS_SY001L] AS T1 ON T0.Code = T1.Code";
+                sQry += " WHERE T1.Code = 'S003'";
 
                 oMat01.Columns.Item("WorkCon").ValidValues.Add("", "");
                 dataHelpClass.GP_MatrixSetMatComboList(oMat01.Columns.Item("WorkCon"), sQry,"","");
@@ -230,10 +223,22 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oCFLs);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oEdit);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oCFL);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oCFLCreationParams);
+                if(oCFLs != null)
+                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oCFLs);
+                }
+                if (oEdit != null)
+                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oEdit);
+                }
+                if (oCFL != null)
+                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oCFL);
+                }
+                if (oCFLCreationParams != null)
+                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oCFLCreationParams);
+                }
             }
         }
 
@@ -242,7 +247,6 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PS_PP035_EnableMenus()
         {
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
                 oForm.EnableMenu("1281", false);
@@ -263,7 +267,7 @@ namespace PSH_BOne_AddOn
             {
                 if (string.IsNullOrEmpty(oFormDocEntry))
                 {
-                    PS_PP035_AddMatrixRow(0, true);     //UDO방식일때
+                    PS_PP035_AddMatrixRow(0, true);
                 }
                 else
                 {
@@ -350,7 +354,7 @@ namespace PSH_BOne_AddOn
                     sQry = "DELETE Temp_LBG11";
                     oRecordSet01.DoQuery(sQry);
 
-                    // 조회화면에서 선택한 문서번호만 임시테이블에 삽입
+                    //조회화면에서 선택한 문서번호만 임시테이블에 삽입
                     oMat01.FlushToDataSource();
                     for (i = 0; i <= oMat01.VisualRowCount - 1; i++)
                     {
@@ -474,7 +478,7 @@ namespace PSH_BOne_AddOn
             string ItemName;
             string WorkCon;
             string QueryString;
-            string errMessage = null;
+            string errMessage = string.Empty;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -484,8 +488,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (oMat01.Columns.Item("CHK").Cells.Item(i).Specific.Checked == true)
                     {
-                        //작업상태만 변경 시 재고존재 체크 안함
-                        if (oForm.Items.Item("ChkWCon").Specific.Checked == true)
+                        if (oForm.Items.Item("ChkWCon").Specific.Checked == true)//작업상태만 변경 시 재고존재 체크 안함
                         {
                             Param01 = oMat01.Columns.Item("DocEntry").Cells.Item(i).Specific.VALUE;
                             WorkCon = oMat01.Columns.Item("WorkCon").Cells.Item(i).Specific.VALUE;
@@ -493,12 +496,9 @@ namespace PSH_BOne_AddOn
                             Query01 = "EXEC PS_PP035_80 '" + Param01 + "', '" + WorkCon + "'";
                             oRecordSet01.DoQuery(Query01);
                             PSH_Globals.SBO_Application.MessageBox("작업상태를 수정하였습니다.");
-                            //작업상태 이외의 데이터 수정 시는 재고 체크 필요
                         }
                         else
                         {
-                            //재고가 존재하면 닫기(종료) 불가 기능 추가(2012.01.11 송명규 추가)
-                            //멀티
                             if (oMat01.Columns.Item("OrdGbn").Cells.Item(i).Specific.VALUE.ToString().Trim() == "104")
                             {
                                 QueryString =  " SELECT Sum(a.Quantity * (Case When a.Direction = '0' Then 1 Else -1 End)) As Quantity";
@@ -508,13 +508,12 @@ namespace PSH_BOne_AddOn
                             }
                             else
                             {
-                                QueryString =  "SELECT      SUM(A.InQty) - SUM(A.OutQty) AS [StockQty]";
-                                QueryString += "  FROM       OINM AS A INNER JOIN OITM As B ON A.ItemCode = B.ItemCode";
-                                QueryString += "  WHERE      B.U_ItmBsort IN ('105','106')";
+                                QueryString =  "SELECT SUM(A.InQty) - SUM(A.OutQty) AS [StockQty]";
+                                QueryString += "  FROM OINM AS A INNER JOIN OITM As B ON A.ItemCode = B.ItemCode";
+                                QueryString += "  WHERE B.U_ItmBsort IN ('105','106')";
                                 QueryString += "    AND A.ItemCode = '" + oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.VALUE.ToString().Trim() + "'";
                                 QueryString += "  GROUP BY  A.ItemCode";
                             }
-
                             if ((string.IsNullOrEmpty(dataHelpClass.GetValue(QueryString, 0, 1)) ? 0 : Convert.ToInt32(dataHelpClass.GetValue(QueryString, 0, 1))) > 0)
                             {
                                 errMessage = i + "행의 작업지시는 현재 재고가 존재합니다. 처리할 수 없습니다.";
@@ -542,7 +541,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if (errMessage != null)
+                if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
                 }
@@ -553,6 +552,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
         }
 
@@ -945,9 +945,8 @@ namespace PSH_BOne_AddOn
                     }
                     if (pVal.ItemUID == "Btn02")
                     {
-                       PS_PP035_SetBaseForm();  //부모폼에입력
+                       PS_PP035_SetBaseForm();
                     }
-
                     if (pVal.ItemUID == "Btn03")
                     {
                         System.Threading.Thread thread = new System.Threading.Thread(Chk_Data1);
@@ -989,7 +988,7 @@ namespace PSH_BOne_AddOn
                 if (pVal.Before_Action == true)
                 {
                     dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "Mat01", "CntcCode");
-                    //사용자값활성
+
                     if (pVal.CharPressed == 9)
                     {
                         if (pVal.ItemUID == "Mat01")
@@ -1189,13 +1188,13 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.Before_Action == true)
                 {
+                }
+                else if (pVal.Before_Action == false)
+                {
                     SubMain.Remove_Forms(oFormUniqueID);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_PP035L);
-                }
-                else if (pVal.Before_Action == false)
-                {
                 }
             }
             catch (Exception ex)
@@ -1245,6 +1244,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oDataTable01);
             }
         }
 

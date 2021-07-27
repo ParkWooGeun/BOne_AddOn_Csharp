@@ -17,7 +17,6 @@ namespace PSH_BOne_AddOn
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
         private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
 
-        private string oDocEntry01;
         private int oMat01Row01;
 
         public SAPbouiCOM.Form oBaseForm01;
@@ -25,8 +24,6 @@ namespace PSH_BOne_AddOn
         public string oBaseColUID01;
         public int oBaseColRow01;
         public string oBaseBPLId01;
-
-        private SAPbouiCOM.BoFormMode oFormMode01;
 
         /// <summary>
         /// Form 호출
@@ -64,7 +61,6 @@ namespace PSH_BOne_AddOn
 
                 oForm.SupportedModes = -1;
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
-                oForm.DataBrowser.BrowseBy = "DocEntry";
 
                 oForm.Freeze(true);
                 oBaseForm01 = oForm02;
@@ -140,7 +136,6 @@ namespace PSH_BOne_AddOn
             string Param01;
             string Param02;
             string errMessage = string.Empty;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -252,15 +247,13 @@ namespace PSH_BOne_AddOn
             string Query01;
             double S_Weight = 0;
             string PackNo;
-            SAPbouiCOM.Matrix oBaseMat01 = null;
+            SAPbouiCOM.Matrix oBaseMat01 = oBaseForm01.Items.Item("Mat01").Specific;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
                 if (oBaseForm01.TypeEx == "PS_PP095")
-                {
-                    oBaseMat01 = oBaseForm01.Items.Item("Mat01").Specific;
-                    
+                {                    
                     for (i = 1; i <= oMat01.RowCount; i++)
                     {
                         if (oMat01.Columns.Item("CHK").Cells.Item(i).Specific.Checked == true)
@@ -269,7 +262,7 @@ namespace PSH_BOne_AddOn
 
                             Query01 = " SELECT LotNo    = b.U_LotNo";
                             Query01 += " FROM [@PS_PP090H] a INNER JOIN [@PS_PP090L] b ON a.DocEntry = b.DocEntry AND a.CanCeled = 'N'";
-                            Query01 = Convert.ToString(Convert.ToDouble(Query01 + " WHERE a.U_BPLId    = '") + oForm.Items.Item("BPLId").Specific.VALUE + Convert.ToDouble("'"));
+                            Query01 += " WHERE a.U_BPLId    = '" + oForm.Items.Item("BPLId").Specific.VALUE + "'";
                             Query01 += " AND a.U_PackNo = '" + PackNo + "'";
 
                             oRecordSet01.DoQuery(Query01);
@@ -277,18 +270,17 @@ namespace PSH_BOne_AddOn
                             for (j = 0; j <= oRecordSet01.RecordCount - 1; j++)
                             {
                                 oBaseMat01.Columns.Item("OrdNum").Cells.Item(oBaseColRow01).Specific.VALUE = oRecordSet01.Fields.Item(0).Value;
-
                                 oRecordSet01.MoveNext();
-                                oBaseColRow01 = oBaseColRow01 + 1;
+                                oBaseColRow01 += 1;
                             }
                         }
                     }
 
                     for (i = 1; i <= oBaseMat01.RowCount; i++)
                     {
-                        S_Weight += oBaseMat01.Columns.Item("Weight").Cells.Item(i).Specific.VALUE;
+                        S_Weight += Convert.ToDouble(oBaseMat01.Columns.Item("Weight").Cells.Item(i).Specific.VALUE);
                     }
-                    oBaseForm01.Items.Item("S_Weight").Specific.VALUE = S_Weight;
+                    oBaseForm01.Items.Item("S_Weight").Specific.VALUE = S_Weight.ToString().Trim();
                 }
             }
             catch (Exception ex)
@@ -298,6 +290,7 @@ namespace PSH_BOne_AddOn
             finally
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oBaseMat01);
             }
         }
 
@@ -609,7 +602,6 @@ namespace PSH_BOne_AddOn
                 {
                     SubMain.Remove_Forms(oFormUniqueID);
 
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_PP095SH);
                 }

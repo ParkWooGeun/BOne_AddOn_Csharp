@@ -437,6 +437,7 @@ namespace PSH_BOne_AddOn
                 {
                     PS_PP095_FormClear();
                 }
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
@@ -906,8 +907,9 @@ namespace PSH_BOne_AddOn
                         {
                             if (pVal.ColUID == "OrdNum")
                             {
-                                //ChildForm01.LoadForm(oForm, pVal.ItemUID, pVal.ColUID, pVal.Row, oForm.Items.Item("BPLId").Specific.Value);
-                                //BubbleEvent = false;
+                                PS_PP095S PS_PP095S = new PS_PP095S();
+                                PS_PP095S.LoadForm(oForm, pVal.ItemUID, pVal.ColUID, pVal.Row, oForm.Items.Item("BPLId").Specific.Value);
+                                BubbleEvent = false;
                             }
 
                         }

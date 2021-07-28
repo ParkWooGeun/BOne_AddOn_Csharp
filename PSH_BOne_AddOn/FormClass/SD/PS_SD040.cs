@@ -405,7 +405,6 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("Opt02").Enabled = true;
                     oForm.Items.Item("Opt03").Enabled = true;
                     oForm.Items.Item("Mat01").Enabled = true;
-
                     oMat01.AutoResizeColumns();
                     PS_SD040_SetDocEntry();
                     oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
@@ -433,6 +432,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("SumQty").Specific.Value = "0";
                     oForm.Items.Item("SumWeight").Specific.Value = "0";
                     oForm.Items.Item("HWeight").Specific.Value = "0";
+                    oForm.Items.Item("Button04").Enabled = false;
 
                     if (oForm.Items.Item("Opt03").Specific.Selected == true)
                     {
@@ -441,13 +441,11 @@ namespace PSH_BOne_AddOn
                     else if (oForm.Items.Item("Opt02").Specific.Selected == true)
                     {
                         oForm.Items.Item("Button03").Enabled = true;
-                        oForm.Items.Item("Button04").Enabled = true;
                     }
                     else
                     {
                         oForm.Items.Item("PriChange").Enabled = false;
                         oForm.Items.Item("Button03").Enabled = false;
-                        oForm.Items.Item("Button04").Enabled = true;
                     }
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
@@ -495,7 +493,6 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.EnableMenu("1281", true); //찾기
                     oForm.EnableMenu("1282", true); //추가
-                    
                     oForm.Items.Item("DocEntry").Enabled = false;
                     oForm.Items.Item("CardCode").Enabled = false;
                     oForm.Items.Item("DCardCod").Enabled = true;
@@ -523,6 +520,8 @@ namespace PSH_BOne_AddOn
 
                     if (oForm.Items.Item("Opt03").Specific.Selected == true)
                     {
+                        oForm.Items.Item("Button04").Enabled = false;
+                        oForm.Items.Item("Button03").Enabled = true;
                         oForm.Items.Item("PriChange").Enabled = true;
                         if (PSH_Globals.oCompany.UserName == "PSH93" || PSH_Globals.oCompany.UserName == "manager")
                         {
@@ -535,15 +534,16 @@ namespace PSH_BOne_AddOn
                     }
                     else if (oForm.Items.Item("Opt02").Specific.Selected == true)
                     {
-                        oForm.Items.Item("Button03").Enabled = true;
                         oForm.Items.Item("Button04").Enabled = true;
+                        oForm.Items.Item("Button03").Enabled = false;
+                        oForm.Items.Item("PriChange").Enabled = false;
                     }
                     else
                     {
                         oForm.Items.Item("PriChange").Enabled = false;
                         oMat01.Columns.Item("Price").Editable = false;
-                        oForm.Items.Item("Button03").Enabled = false;
                         oForm.Items.Item("Button04").Enabled = false;
+                        oForm.Items.Item("Button03").Enabled = true;
                     }
                 }
             }

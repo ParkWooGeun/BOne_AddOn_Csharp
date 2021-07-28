@@ -17,14 +17,14 @@ namespace PSH_BOne_AddOn
 		private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
 		private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
 		private int oMat01Row01;
-		
-		public SAPbouiCOM.Form oBaseForm01; //부모폼
-		public string oBaseItemUID01;
-		public string oBaseColUID01;
-		public int oBaseColRow01;
-		public string oBaseOrdGbn01; //작지구분
-		public string oBaseInputGbn01; //투입구분
-		public string oBaseBPLId;
+
+        private SAPbouiCOM.Form oBaseForm01; //부모폼
+        private string oBaseItemUID01;
+        private string oBaseColUID01;
+        private int oBaseColRow01;
+        private string oBaseOrdGbn01; //작지구분
+        private string oBaseInputGbn01; //투입구분
+        private string oBaseBPLId;
 		
 		/// <summary>
 		/// Form 호출

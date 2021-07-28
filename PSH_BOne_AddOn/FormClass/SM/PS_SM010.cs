@@ -21,10 +21,10 @@ namespace PSH_BOne_AddOn
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
         private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
 
-        public SAPbouiCOM.Form oBaseForm01;
-        public string oBaseItemUID01;
-        public string oBaseColUID01;
-        public int oBaseColRow01;
+        private SAPbouiCOM.Form oBaseForm01;
+        private string oBaseItemUID01;
+        private string oBaseColUID01;
+        private int oBaseColRow01;
 
         /// <summary>
         /// Form 호출

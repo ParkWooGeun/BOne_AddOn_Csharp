@@ -19,11 +19,11 @@ namespace PSH_BOne_AddOn
 
         private int oMat01Row01;
 
-        public SAPbouiCOM.Form oBaseForm01;
-        public string oBaseItemUID01;
-        public string oBaseColUID01;
-        public int oBaseColRow01;
-        public string oBaseBPLId01;
+        private SAPbouiCOM.Form oBaseForm01;
+        private string oBaseItemUID01;
+        private string oBaseColUID01;
+        private int oBaseColRow01;
+        private string oBaseBPLId01;
 
         /// <summary>
         /// Form 호출

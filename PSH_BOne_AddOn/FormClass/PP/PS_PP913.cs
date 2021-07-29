@@ -539,7 +539,7 @@ namespace PSH_BOne_AddOn
 					{
 						if (pVal.ItemUID == "CpCode")
 						{
-							if (string.IsNullOrEmpty(oForm.Items.Item("CpCode").Specific.VALUE))
+							if (string.IsNullOrEmpty(oForm.Items.Item("CpCode").Specific.Value))
 							{
 								PSH_Globals.SBO_Application.ActivateMenuItem("7425");
 								BubbleEvent = false;
@@ -547,7 +547,7 @@ namespace PSH_BOne_AddOn
 						}
 						if (pVal.ItemUID == "JsCode")
 						{
-							if (string.IsNullOrEmpty(oForm.Items.Item("JsCode").Specific.VALUE))
+							if (string.IsNullOrEmpty(oForm.Items.Item("JsCode").Specific.Value))
 							{
 								PSH_Globals.SBO_Application.ActivateMenuItem("7425");
 								BubbleEvent = false;
@@ -555,7 +555,7 @@ namespace PSH_BOne_AddOn
 						}
 						if (pVal.ItemUID == "NCode01")
 						{
-							if (string.IsNullOrEmpty(oForm.Items.Item("NCode01").Specific.VALUE))
+							if (string.IsNullOrEmpty(oForm.Items.Item("NCode01").Specific.Value))
 							{
 								PSH_Globals.SBO_Application.ActivateMenuItem("7425");
 								BubbleEvent = false;
@@ -563,7 +563,7 @@ namespace PSH_BOne_AddOn
 						}
 						if (pVal.ItemUID == "NCode02")
 						{
-							if (string.IsNullOrEmpty(oForm.Items.Item("NCode02").Specific.VALUE))
+							if (string.IsNullOrEmpty(oForm.Items.Item("NCode02").Specific.Value))
 							{
 								PSH_Globals.SBO_Application.ActivateMenuItem("7425");
 								BubbleEvent = false;
@@ -571,7 +571,7 @@ namespace PSH_BOne_AddOn
 						}
 						if (pVal.ItemUID == "NCode03")
 						{
-							if (string.IsNullOrEmpty(oForm.Items.Item("NCode03").Specific.VALUE))
+							if (string.IsNullOrEmpty(oForm.Items.Item("NCode03").Specific.Value))
 							{
 								PSH_Globals.SBO_Application.ActivateMenuItem("7425");
 								BubbleEvent = false;
@@ -579,7 +579,7 @@ namespace PSH_BOne_AddOn
 						}
 						if (pVal.ItemUID == "NCode04")
 						{
-							if (string.IsNullOrEmpty(oForm.Items.Item("NCode04").Specific.VALUE))
+							if (string.IsNullOrEmpty(oForm.Items.Item("NCode04").Specific.Value))
 							{
 								PSH_Globals.SBO_Application.ActivateMenuItem("7425");
 								BubbleEvent = false;

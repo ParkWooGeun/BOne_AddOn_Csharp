@@ -266,7 +266,7 @@ namespace PSH_BOne_AddOn
                 if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY204_FormItemEnabled();
-                    ////Call PH_PY021_AddMatrixRow(0, True) '//UDO방식일때
+                    ////Call PH_PY021_AddMatrixRow(0, True) '
                 }
                 else
                 {

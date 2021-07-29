@@ -88,12 +88,12 @@ namespace PSH_BOne_AddOn
 				//기준년월(시작)
 				oForm.DataSources.UserDataSources.Add("FrYM", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 6);
 				oForm.Items.Item("FrYM").Specific.DataBind.SetBound(true, "", "FrYM");
-				oForm.Items.Item("FrYM").Specific.VALUE = DateTime.Now.ToString("yyyyMM");
+				oForm.Items.Item("FrYM").Specific.Value = DateTime.Now.ToString("yyyyMM");
 
 				//기준년월(종료)
 				oForm.DataSources.UserDataSources.Add("ToYM", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 6);
 				oForm.Items.Item("ToYM").Specific.DataBind.SetBound(true, "", "ToYM");
-				oForm.Items.Item("ToYM").Specific.VALUE = DateTime.Now.ToString("yyyyMM");
+				oForm.Items.Item("ToYM").Specific.Value = DateTime.Now.ToString("yyyyMM");
 
 				//장비코드
 				oForm.DataSources.UserDataSources.Add("MachCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
@@ -202,7 +202,7 @@ namespace PSH_BOne_AddOn
 		private void PS_PP916_MTX01()
 		{
 			string sQry = string.Empty;
-			string errMessage = String.Empty;
+			string errMessage = string.Empty;
 
 			string BPLID;   //사업장
 			string OrdGbn;  //작업구분

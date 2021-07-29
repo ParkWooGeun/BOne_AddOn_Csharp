@@ -542,19 +542,19 @@ namespace PSH_BOne_AddOn
 					throw new Exception();
 				}
 
-				oForm.Items.Item("SjAmt").Specific.VALUE = oRecordSet.Fields.Item("SjAmt").Value.ToString().Trim();         //수주금액
-				oForm.Items.Item("MatAmt").Specific.VALUE = oRecordSet.Fields.Item("MatAmt").Value.ToString().Trim();       //자재비
-				oForm.Items.Item("GagongAmt").Specific.VALUE = oRecordSet.Fields.Item("GagongAmt").Value.ToString().Trim(); //자체가공비
-				oForm.Items.Item("OutgAmt").Specific.VALUE = oRecordSet.Fields.Item("OutgAmt").Value.ToString().Trim();     //외주가공비
-				oForm.Items.Item("OutmAmt").Specific.VALUE = oRecordSet.Fields.Item("OutmAmt").Value.ToString().Trim();     //외주제작비
-				oForm.Items.Item("DrawAmt").Specific.VALUE = oRecordSet.Fields.Item("DrawAmt").Value.ToString().Trim();     //설계비
-				oForm.Items.Item("Total").Specific.VALUE = oRecordSet.Fields.Item("Total").Value.ToString().Trim();         //계
-				oForm.Items.Item("PCYN").Specific.VALUE = oRecordSet.Fields.Item("PCYN").Value.ToString().Trim();           //생산완료여부
-				oForm.Items.Item("EndDate").Specific.VALUE = oRecordSet.Fields.Item("EndDate").Value.ToString().Trim();     //생산완료일자
-				oForm.Items.Item("SjDocDate").Specific.VALUE = oRecordSet.Fields.Item("SjDocDate").Value.ToString().Trim(); //수주일
-				oForm.Items.Item("WODate").Specific.VALUE = oRecordSet.Fields.Item("WODate").Value.ToString().Trim();       //작업지시일
-				oForm.Items.Item("SjDueDate").Specific.VALUE = oRecordSet.Fields.Item("SjDueDate").Value.ToString().Trim(); //납기일
-				oForm.Items.Item("OtCardNm").Specific.VALUE = oRecordSet.Fields.Item("OtCardNm").Value.ToString().Trim();   //협력업체명(외주제작)
+				oForm.Items.Item("SjAmt").Specific.Value = oRecordSet.Fields.Item("SjAmt").Value.ToString().Trim();         //수주금액
+				oForm.Items.Item("MatAmt").Specific.Value = oRecordSet.Fields.Item("MatAmt").Value.ToString().Trim();       //자재비
+				oForm.Items.Item("GagongAmt").Specific.Value = oRecordSet.Fields.Item("GagongAmt").Value.ToString().Trim(); //자체가공비
+				oForm.Items.Item("OutgAmt").Specific.Value = oRecordSet.Fields.Item("OutgAmt").Value.ToString().Trim();     //외주가공비
+				oForm.Items.Item("OutmAmt").Specific.Value = oRecordSet.Fields.Item("OutmAmt").Value.ToString().Trim();     //외주제작비
+				oForm.Items.Item("DrawAmt").Specific.Value = oRecordSet.Fields.Item("DrawAmt").Value.ToString().Trim();     //설계비
+				oForm.Items.Item("Total").Specific.Value = oRecordSet.Fields.Item("Total").Value.ToString().Trim();         //계
+				oForm.Items.Item("PCYN").Specific.Value = oRecordSet.Fields.Item("PCYN").Value.ToString().Trim();           //생산완료여부
+				oForm.Items.Item("EndDate").Specific.Value = oRecordSet.Fields.Item("EndDate").Value.ToString().Trim();     //생산완료일자
+				oForm.Items.Item("SjDocDate").Specific.Value = oRecordSet.Fields.Item("SjDocDate").Value.ToString().Trim(); //수주일
+				oForm.Items.Item("WODate").Specific.Value = oRecordSet.Fields.Item("WODate").Value.ToString().Trim();       //작업지시일
+				oForm.Items.Item("SjDueDate").Specific.Value = oRecordSet.Fields.Item("SjDueDate").Value.ToString().Trim(); //납기일
+				oForm.Items.Item("OtCardNm").Specific.Value = oRecordSet.Fields.Item("OtCardNm").Value.ToString().Trim();   //협력업체명(외주제작)
 			}
 			catch (Exception ex)
 			{
@@ -1112,8 +1112,8 @@ namespace PSH_BOne_AddOn
 					sQry += "          AND T0.U_SubNo2 = CASE WHEN '" + SubNo2 + "' = '' THEN '000' ELSE '" + SubNo2 + "' END";
 					oRecordSet.DoQuery(sQry);
 
-					oForm.Items.Item("ItemName").Specific.VALUE = oRecordSet.Fields.Item("ItemName").Value.ToString().Trim();
-					oForm.Items.Item("Spec").Specific.VALUE = oRecordSet.Fields.Item("Spec").Value.ToString().Trim();
+					oForm.Items.Item("ItemName").Specific.Value = oRecordSet.Fields.Item("ItemName").Value.ToString().Trim();
+					oForm.Items.Item("Spec").Specific.Value = oRecordSet.Fields.Item("Spec").Value.ToString().Trim();
 				}
 			}
 			catch (Exception ex)

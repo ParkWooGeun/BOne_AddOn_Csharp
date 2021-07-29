@@ -421,7 +421,7 @@ namespace PSH_BOne_AddOn
 					else if (pVal.ItemUID == "Link04")
 					{
 						PS_PP030 oTempClass = new PS_PP030();
-						oTempClass.LoadForm(oForm.Items.Item("WODocNum").Specific.VALUE.ToString().Trim());
+						oTempClass.LoadForm(oForm.Items.Item("WODocNum").Specific.Value.ToString().Trim());
 					}
 				}
 				else if (pVal.BeforeAction == false)
@@ -515,7 +515,7 @@ namespace PSH_BOne_AddOn
 			int ErrNum = 0;
 			string CpCode;
 			string ItemClass;
-			string ColName = String.Empty;
+			string ColName = string.Empty;
 
 			PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -534,7 +534,7 @@ namespace PSH_BOne_AddOn
 						}
 						else
 						{
-							CpCode = oMat01.Columns.Item("CpCode").Cells.Item(pVal.Row).Specific.VALUE;
+							CpCode = oMat01.Columns.Item("CpCode").Cells.Item(pVal.Row).Specific.Value;
 							ItemClass = codeHelpClass.Left(pVal.ColUID, 1);
 
 							//공정 열에서 더블클릭하면
@@ -549,8 +549,8 @@ namespace PSH_BOne_AddOn
 							}
 
 							oForm.Items.Item("Folder02").Specific.Select();		//작업지시정보 TAB 선택
-							oForm.Items.Item("CpCode").Specific.VALUE = oMat01.Columns.Item("CpCode").Cells.Item(pVal.Row).Specific.VALUE;
-							oForm.Items.Item("CpName").Specific.VALUE = oMat01.Columns.Item("CpName").Cells.Item(pVal.Row).Specific.VALUE;
+							oForm.Items.Item("CpCode").Specific.Value = oMat01.Columns.Item("CpCode").Cells.Item(pVal.Row).Specific.Value;
+							oForm.Items.Item("CpName").Specific.Value = oMat01.Columns.Item("CpName").Cells.Item(pVal.Row).Specific.Value;
 
 							if ( codeHelpClass.Left(pVal.ColUID, 1) == "M")
 							{
@@ -573,7 +573,7 @@ namespace PSH_BOne_AddOn
 								ColName = "몰드";
 							}
 
-							oForm.Items.Item("ItemClass").Specific.VALUE = ColName;
+							oForm.Items.Item("ItemClass").Specific.Value = ColName;
 						}
 					}
 				}

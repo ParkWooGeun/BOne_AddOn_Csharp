@@ -67,12 +67,12 @@ namespace PSH_BOne_AddOn
                 PS_MM138_FormClear();
                 PS_MM138_FormItemEnabled();
 
-                oForm.EnableMenu(("1283"), false); // 삭제
-                oForm.EnableMenu(("1285"), false); // 복원
-                oForm.EnableMenu(("1287"), true); // 복제
-                oForm.EnableMenu(("1286"), false); // 닫기
-                oForm.EnableMenu(("1284"), true); // 취소
-                oForm.EnableMenu(("1293"), false); // 행삭제
+                oForm.EnableMenu("1283", false); // 삭제
+                oForm.EnableMenu("1285", false); // 복원
+                oForm.EnableMenu("1287", true); // 복제
+                oForm.EnableMenu("1286", false); // 닫기
+                oForm.EnableMenu("1284", true); // 취소
+                oForm.EnableMenu("1293", false); // 행삭제
             }
             catch (Exception ex)
             {
@@ -341,7 +341,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("DocEntry").Enabled = false;
                     oMat01.Columns.Item("OutQty").Editable = true;
                     oMat01.Columns.Item("OutWt").Editable = true;
-                    oForm.EnableMenu(("1284"), true);
+                    oForm.EnableMenu("1284", true);
                 }
             }
             catch (Exception ex)
@@ -1186,7 +1186,7 @@ namespace PSH_BOne_AddOn
 
                                     if (Convert.ToDouble(oRecordSet01.Fields.Item(0).Value) <= 0)
                                     {
-                                        if (PSH_Globals.SBO_Application.MessageBox("정말로 취소하시겠습니까?", Convert.ToInt32("1"), "예", "아니오") != Convert.ToDouble("1"))
+                                        if (PSH_Globals.SBO_Application.MessageBox("정말로 취소하시겠습니까?", 1, "예", "아니오") != 1)
                                         {
                                             BubbleEvent = false;
                                             return;

@@ -630,7 +630,7 @@ namespace PSH_BOne_AddOn
 						else
 						{
 							oForm.Items.Item("Folder01").Specific.Select();	//작업지시정보 TAB 선택
-							PS_PP191_MTX02(oMat01.Columns.Item("Code").Cells.Item(pVal.Row).Specific.VALUE);
+							PS_PP191_MTX02(oMat01.Columns.Item("Code").Cells.Item(pVal.Row).Specific.Value);
 						}
 					}
 				}

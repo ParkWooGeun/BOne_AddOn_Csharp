@@ -48,7 +48,7 @@ namespace PSH_BOne_AddOn
 
 				oForm.SupportedModes = -1;
 				oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
-				oForm.DataBrowser.BrowseBy = "DocEntry"; //UDO방식일때
+				oForm.DataBrowser.BrowseBy = "DocEntry"; 
 
 				oForm.Freeze(true);
 
@@ -161,7 +161,7 @@ namespace PSH_BOne_AddOn
 				if (string.IsNullOrEmpty(oFormDocEntry))
 				{
 					PS_PP280_EnableFormItem();
-					PS_PP280_AddMatrixRow(0, true); //UDO방식일때
+					PS_PP280_AddMatrixRow(0, true); 
 				}
 				else
 				{
@@ -219,7 +219,7 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("BPLId").Enabled = true;
 					oForm.Items.Item("DocEntry").Enabled = false;
 					oForm.Items.Item("Mat01").Enabled = true;
-					PS_PP280_ClearForm(); //UDO방식
+					PS_PP280_ClearForm(); 
 					oForm.EnableMenu("1281", true);  //찾기
 					oForm.EnableMenu("1282", false); //추가
 
@@ -488,7 +488,7 @@ namespace PSH_BOne_AddOn
 							if (pVal.ActionSuccess == true)
 							{
 								PS_PP280_EnableFormItem();
-								PS_PP280_AddMatrixRow(0, true); //UDO방식일때
+								PS_PP280_AddMatrixRow(0, true); 
 							}
 						}
 						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
@@ -671,7 +671,7 @@ namespace PSH_BOne_AddOn
 				else if (pVal.BeforeAction == false)
 				{
 					PS_PP280_EnableFormItem();
-					PS_PP280_AddMatrixRow(oMat.VisualRowCount, false); //UDO방식
+					PS_PP280_AddMatrixRow(oMat.VisualRowCount, false); 
 				}
 			}
 			catch (Exception ex)
@@ -869,12 +869,12 @@ namespace PSH_BOne_AddOn
 							Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
 							break;
 						case "1281": //찾기
-							PS_PP280_EnableFormItem(); //UDO방식
+							PS_PP280_EnableFormItem(); 
 							oForm.Items.Item("DocEntry").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 							break;
 						case "1282": //추가
-							PS_PP280_EnableFormItem(); //UDO방식
-							PS_PP280_AddMatrixRow(0, true); //UDO방식
+							PS_PP280_EnableFormItem(); 
+							PS_PP280_AddMatrixRow(0, true); 
 							oForm.Items.Item("BPLId").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 							break;
 						case "1288": //레코드이동(최초)

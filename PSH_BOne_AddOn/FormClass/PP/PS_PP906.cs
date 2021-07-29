@@ -361,7 +361,7 @@ namespace PSH_BOne_AddOn
 				{
 					if (pVal.ItemUID == "Gubun")
 					{
-						if (oForm.Items.Item("Gubun").Specific.VALUE == "2")
+						if (oForm.Items.Item("Gubun").Specific.Value == "2")
 						{
 							oForm.Items.Item("Div").Enabled = false;
 						}

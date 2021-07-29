@@ -102,18 +102,18 @@ namespace PSH_BOne_AddOn
 			short ErrNum = 0;
 			try
 			{
-				if (string.IsNullOrEmpty(oForm.Items.Item("PartNo").Specific.VALUE.ToString().Trim()))
+				if (string.IsNullOrEmpty(oForm.Items.Item("PartNo").Specific.Value.ToString().Trim()))
 				{
 					ErrNum = 1;
 					throw new Exception();
 				}
 
-				if (string.IsNullOrEmpty(oForm.Items.Item("ModelNo").Specific.VALUE.ToString().Trim()))
+				if (string.IsNullOrEmpty(oForm.Items.Item("ModelNo").Specific.Value.ToString().Trim()))
 				{
 					ErrNum = 2;
 					throw new Exception();
 				}
-				if (string.IsNullOrEmpty(oForm.Items.Item("DataCode").Specific.VALUE.ToString().Trim()))
+				if (string.IsNullOrEmpty(oForm.Items.Item("DataCode").Specific.Value.ToString().Trim()))
 				{
 					ErrNum = 3;
 					throw new Exception();

@@ -125,9 +125,9 @@ namespace PSH_BOne_AddOn
 				oForm.DataSources.UserDataSources.Add("CmltYN", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 5);
 				oForm.Items.Item("CmltYN").Specific.DataBind.SetBound(true, "", "CmltYN");
 
-				oForm.Items.Item("FrYM").Specific.VALUE = DateTime.Now.AddMonths(-6).ToString("yyyyMM"); //6개월전
-				oForm.Items.Item("ToYM").Specific.VALUE = DateTime.Now.ToString("yyyyMM");
-				oForm.Items.Item("OrdAmt").Specific.VALUE = "100000000";
+				oForm.Items.Item("FrYM").Specific.Value = DateTime.Now.AddMonths(-6).ToString("yyyyMM"); //6개월전
+				oForm.Items.Item("ToYM").Specific.Value = DateTime.Now.ToString("yyyyMM");
+				oForm.Items.Item("OrdAmt").Specific.Value = "100000000";
 			}
 			catch (Exception ex)
 			{
@@ -183,12 +183,12 @@ namespace PSH_BOne_AddOn
 				switch (oUID)
 				{
 					case "CardCode":  //거래처
-						oForm.Items.Item("CardName").Specific.VALUE = dataHelpClass.Get_ReData("CardName", "CardCode", "[OCRD]", "'" + oForm.Items.Item("CardCode").Specific.Value.ToString().Trim() + "'", "");
+						oForm.Items.Item("CardName").Specific.Value = dataHelpClass.Get_ReData("CardName", "CardCode", "[OCRD]", "'" + oForm.Items.Item("CardCode").Specific.Value.ToString().Trim() + "'", "");
 						break;
 
 					case "ItemCode": //작번,규격
-						oForm.Items.Item("ItemName").Specific.VALUE = dataHelpClass.Get_ReData("FrgnName", "ItemCode", "[OITM]", "'" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'", "");
-						oForm.Items.Item("ItemSpec").Specific.VALUE = dataHelpClass.Get_ReData("U_Size", "ItemCode", "[OITM]", "'" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'", "");
+						oForm.Items.Item("ItemName").Specific.Value = dataHelpClass.Get_ReData("FrgnName", "ItemCode", "[OITM]", "'" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'", "");
+						oForm.Items.Item("ItemSpec").Specific.Value = dataHelpClass.Get_ReData("U_Size", "ItemCode", "[OITM]", "'" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'", "");
 						break;
 				}
 			}

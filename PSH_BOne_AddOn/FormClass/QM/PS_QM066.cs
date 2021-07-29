@@ -368,7 +368,7 @@ namespace PSH_BOne_AddOn
 				oMat.FlushToDataSource();
 
 				i = 0;
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oDS_PS_QM066L.InsertRecord(i);
 					oDS_PS_QM066L.SetValue("U_LineNum", i, Convert.ToString(i + 1));

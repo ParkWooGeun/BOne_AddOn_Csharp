@@ -223,11 +223,11 @@ namespace PSH_BOne_AddOn
 				switch (oUID)
 				{
 					case "CpCode": //공정
-						oForm.Items.Item("CpName").Specific.VALUE = dataHelpClass.Get_ReData("U_CpName", "U_CpCode", "[@PS_PP001L]", "'" + oForm.Items.Item("CpCode").Specific.Value.ToString().Trim() + "'", "");
+						oForm.Items.Item("CpName").Specific.Value = dataHelpClass.Get_ReData("U_CpName", "U_CpCode", "[@PS_PP001L]", "'" + oForm.Items.Item("CpCode").Specific.Value.ToString().Trim() + "'", "");
 						break;
 
 					case "CntcCode": //등록자
-						oForm.Items.Item("CntcName").Specific.VALUE = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("CntcCode").Specific.Value.ToString().Trim() + "'", "");
+						oForm.Items.Item("CntcName").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("CntcCode").Specific.Value.ToString().Trim() + "'", "");
 						break;
 				}
 
@@ -252,8 +252,8 @@ namespace PSH_BOne_AddOn
 
 					oRecordSet.DoQuery(sQry);
 
-					oForm.Items.Item("ItemName").Specific.VALUE = oRecordSet.Fields.Item("ItemName").Value.ToString().Trim();
-					oForm.Items.Item("ItemSpec").Specific.VALUE = oRecordSet.Fields.Item("ItemSpec").Value.ToString().Trim();
+					oForm.Items.Item("ItemName").Specific.Value = oRecordSet.Fields.Item("ItemName").Value.ToString().Trim();
+					oForm.Items.Item("ItemSpec").Specific.Value = oRecordSet.Fields.Item("ItemSpec").Value.ToString().Trim();
 				}
 			}
 			catch (Exception ex)

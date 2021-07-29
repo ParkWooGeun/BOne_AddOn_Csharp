@@ -480,7 +480,7 @@ namespace PSH_BOne_AddOn
                 Cnt = Convert.ToInt32(oRecordSet01.Fields.Item(0).Value);
                 if (Cnt > 0)
                 {
-                    if (PSH_Globals.SBO_Application.MessageBox(" 선택한라인을 삭제하시겠습니까? ?", Convert.ToInt32("2"), "예", "아니오") == Convert.ToDouble("1"))
+                    if (PSH_Globals.SBO_Application.MessageBox(" 선택한라인을 삭제하시겠습니까? ?", 2, "예", "아니오") == 1)
                     {
                         sQry = "Delete From [Z_PS_PP047] Where BPLId = '" + BPLID + "' And DocDate = '" + DocDate + "' And ItemCode = '" + ItemCode + "' And CpCode = '" + CpCode + "' And Seqno = " + Seqno + "";
                         oRecordSet01.DoQuery(sQry);
@@ -551,11 +551,11 @@ namespace PSH_BOne_AddOn
 
                 oForm.DataSources.UserDataSources.Item("ItemCode").Value = "";
                 oForm.DataSources.UserDataSources.Item("ItemName").Value = "";
-                oForm.DataSources.UserDataSources.Item("Seqno").Value = Convert.ToString(0);
+                oForm.DataSources.UserDataSources.Item("Seqno").Value = "0";
                 oForm.DataSources.UserDataSources.Item("FailCode").Value = "";
                 oForm.DataSources.UserDataSources.Item("FailName").Value = "";
 
-                oForm.DataSources.UserDataSources.Item("Weight").Value = Convert.ToString(0);
+                oForm.DataSources.UserDataSources.Item("Weight").Value = "0";
                 oForm.DataSources.UserDataSources.Item("Remark").Value = "";
 
                 oForm.DataSources.UserDataSources.Item("CpCode").Value = "";

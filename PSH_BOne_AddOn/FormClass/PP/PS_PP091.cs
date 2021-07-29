@@ -160,7 +160,7 @@ namespace PSH_BOne_AddOn
 					case "CntcCode":
 						sQry = "Select lastName + firstName From OHEM Where U_MSTCOD = '" + oForm.Items.Item("CntcCode").Specific.Value.ToString().Trim() + "'";
 						oRecordSet.DoQuery(sQry);
-						oForm.Items.Item("CntcName").Specific.VALUE = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+						oForm.Items.Item("CntcName").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 						break;
 				}
 			}

@@ -115,8 +115,8 @@ namespace PSH_BOne_AddOn
 				oForm.DataSources.UserDataSources.Add("WorkGbn", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 5);
 				oForm.Items.Item("WorkGbn").Specific.DataBind.SetBound(true, "", "WorkGbn");
 
-				oForm.Items.Item("FrDt").Specific.VALUE = DateTime.Now.ToString("yyyyMM") + "01";
-				oForm.Items.Item("ToDt").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
+				oForm.Items.Item("FrDt").Specific.Value = DateTime.Now.ToString("yyyyMM") + "01";
+				oForm.Items.Item("ToDt").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 
 			}
 			catch (Exception ex)
@@ -180,11 +180,11 @@ namespace PSH_BOne_AddOn
 				switch (oUID)
 				{
 					case "MachCode":
-						oForm.Items.Item("MachName").Specific.VALUE = dataHelpClass.Get_ReData("U_MachName", "U_MachCode", "[@PS_PP130H]", "'" + oForm.Items.Item("MachCode").Specific.Value.ToString().Trim() + "'", ""); //설비
+						oForm.Items.Item("MachName").Specific.Value = dataHelpClass.Get_ReData("U_MachName", "U_MachCode", "[@PS_PP130H]", "'" + oForm.Items.Item("MachCode").Specific.Value.ToString().Trim() + "'", ""); //설비
 						break;
 
 					case "WkCode":
-						oForm.Items.Item("WkName").Specific.VALUE = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("WkCode").Specific.Value.ToString().Trim() + "'", ""); //작업자
+						oForm.Items.Item("WkName").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("WkCode").Specific.Value.ToString().Trim() + "'", ""); //작업자
 						break;
 				}
 			}

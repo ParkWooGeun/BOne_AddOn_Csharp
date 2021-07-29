@@ -94,7 +94,7 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void ComboBox_Setting()
 		{
-			string sQry = String.Empty;
+			string sQry = string.Empty;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
@@ -114,7 +114,7 @@ namespace PSH_BOne_AddOn
 				sQry = "SELECT Code, Name From [@PSH_ITMBSORT] Order by Code";
 				oRecordSet.DoQuery(sQry);
 				oForm.Items.Item("ItmBsort").Specific.ValidValues.Add("001", "전체");
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("ItmBsort").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
@@ -187,16 +187,16 @@ namespace PSH_BOne_AddOn
 		[STAThread]
 		private void Print_Query()
 		{
-			string WinTitle = String.Empty;
-			string ReportName = String.Empty;
+			string WinTitle = string.Empty;
+			string ReportName = string.Empty;
 
-			string ItmGrp = String.Empty;
-			string ItmBsort = String.Empty;
-			string StrDate = String.Empty;
-			string EndDate = String.Empty;
-			string SItemCode = String.Empty;
-			string EITemCode = String.Empty;
-			string BPLID = String.Empty;
+			string ItmGrp = string.Empty;
+			string ItmBsort = string.Empty;
+			string StrDate = string.Empty;
+			string EndDate = string.Empty;
+			string SItemCode = string.Empty;
+			string EITemCode = string.Empty;
+			string BPLID = string.Empty;
 
 			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 

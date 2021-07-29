@@ -119,7 +119,7 @@ namespace PSH_BOne_AddOn
 				//기준년도
 				oForm.DataSources.UserDataSources.Add("StdYear", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 4);
 				oForm.Items.Item("StdYear").Specific.DataBind.SetBound(true, "", "StdYear");
-				oForm.Items.Item("StdYear").Specific.VALUE = DateTime.Now.ToString("yyyy");
+				oForm.Items.Item("StdYear").Specific.Value = DateTime.Now.ToString("yyyy");
 			}
 			catch (Exception ex)
 			{
@@ -324,7 +324,7 @@ namespace PSH_BOne_AddOn
 					case "MSTCOD":
 						sQry = "Select lastName + firstName From OHEM Where U_MSTCOD = '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "'";
 						oRecordSet.DoQuery(sQry);
-						oForm.Items.Item("MSTNAM").Specific.VALUE = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+						oForm.Items.Item("MSTNAM").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 						break;
 				}
 			}

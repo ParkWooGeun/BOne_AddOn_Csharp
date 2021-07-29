@@ -1749,7 +1749,7 @@ namespace PSH_BOne_AddOn
                 yyyy = oForm.Items.Item("Year").Specific.Value.Trim();
                 sabun = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
 
-                if (PSH_Globals.SBO_Application.MessageBox(" 선택한자료를 삭제하시겠습니까? ?", Convert.ToInt32("2"), "예", "아니오") == Convert.ToDouble("1"))
+                if (PSH_Globals.SBO_Application.MessageBox(" 선택한자료를 삭제하시겠습니까? ?", 2, "예", "아니오") == 1)
                 {
                     sQry = "Delete From [p_seoyhouse] Where saup = '" + saup + "' And yyyy = '" + yyyy + "' And sabun = '" + sabun + "'";
                     oRecordSet.DoQuery(sQry);

@@ -167,7 +167,7 @@ namespace PSH_BOne_AddOn
 				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
 					oForm.Items.Item("DocEntry").Enabled = false;
-					PS_SD059_FormClear(); //UDO방식
+					PS_SD059_FormClear(); 
 					oForm.EnableMenu("1281", true);	 //찾기
 					oForm.EnableMenu("1282", false); //추가
 				}
@@ -567,7 +567,7 @@ namespace PSH_BOne_AddOn
 							PS_SD059_FormItemEnabled();
 							break;
 						case "1282": //추가
-							PS_SD059_FormItemEnabled(); //UDO방식
+							PS_SD059_FormItemEnabled(); 
 							PS_SD059_Initial_Setting();
 							break;
 						case "1288": //레코드이동(최초)

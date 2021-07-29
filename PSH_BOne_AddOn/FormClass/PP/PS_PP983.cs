@@ -105,7 +105,7 @@ namespace PSH_BOne_AddOn
 				//기준년도
 				oForm.DataSources.UserDataSources.Add("StdYear", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 4);
 				oForm.Items.Item("StdYear").Specific.DataBind.SetBound(true, "", "StdYear");
-				oForm.Items.Item("StdYear").Specific.VALUE = DateTime.Now.ToString("yyyy");
+				oForm.Items.Item("StdYear").Specific.Value = DateTime.Now.ToString("yyyy");
 			}
 			catch (Exception ex)
 			{

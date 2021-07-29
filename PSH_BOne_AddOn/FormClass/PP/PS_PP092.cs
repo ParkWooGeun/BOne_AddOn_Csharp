@@ -684,7 +684,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                DocEntry = oForm.Items.Item("DocEntry").Specific.VALUE.ToString().Trim();
+                DocEntry = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim();
 
                 WinTitle = "[PS_QM008_10] 검사성적서 출력(한글)";
                 ReportName = "PS_QM008_10.rpt";
@@ -721,7 +721,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                DocEntry = oForm.Items.Item("DocEntry").Specific.VALUE.ToString().Trim();
+                DocEntry = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim();
 
                 WinTitle = "[PS_QM008_30] 검사성적서 출력(영문)";
                 ReportName = "PS_QM008_30.rpt";
@@ -758,7 +758,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                DocEntry = oForm.Items.Item("DocEntry").Specific.VALUE.ToString().Trim();
+                DocEntry = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim();
 
                 WinTitle = "[PS_QM008_20] 검사성적서 출력(중문)";
                 ReportName = "PS_QM008_20.rpt";
@@ -797,9 +797,9 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                BPLId = oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim();
-                DocEntry = oForm.Items.Item("DocEntry").Specific.VALUE.ToString().Trim();
-                Wgt = Convert.ToDouble(oForm.Items.Item("L_Wgt").Specific.VALUE);
+                BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+                DocEntry = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim();
+                Wgt = Convert.ToDouble(oForm.Items.Item("L_Wgt").Specific.Value);
 
                 WinTitle = "[PS_PP092_10] LABEL 출력";
                 ReportName = "PS_PP092_10.rpt";

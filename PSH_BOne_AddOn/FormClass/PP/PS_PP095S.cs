@@ -142,8 +142,8 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                Param01 = oForm.Items.Item("BPLId").Specific.Selected.VALUE;
-                Param02 = oForm.Items.Item("ItemCode").Specific.VALUE;
+                Param01 = oForm.Items.Item("BPLId").Specific.Selected.Value;
+                Param02 = oForm.Items.Item("ItemCode").Specific.Value;
 
                 Query01 = "EXEC PS_PP095S_01 '" + Param01 + "','" + Param02 + "'";
 
@@ -224,11 +224,11 @@ namespace PSH_BOne_AddOn
                 DocEntry = dataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PS_PP095S'", "");
                 if (Convert.ToDouble(DocEntry) == 0)
                 {
-                    oForm.Items.Item("DocEntry").Specific.VALUE = 1;
+                    oForm.Items.Item("DocEntry").Specific.Value = 1;
                 }
                 else
                 {
-                    oForm.Items.Item("DocEntry").Specific.VALUE = DocEntry;
+                    oForm.Items.Item("DocEntry").Specific.Value = DocEntry;
                 }
             }
             catch (Exception ex)
@@ -258,18 +258,18 @@ namespace PSH_BOne_AddOn
                     {
                         if (oMat01.Columns.Item("CHK").Cells.Item(i).Specific.Checked == true)
                         {
-                            PackNo = oMat01.Columns.Item("PackNo").Cells.Item(i).Specific.VALUE;
+                            PackNo = oMat01.Columns.Item("PackNo").Cells.Item(i).Specific.Value;
 
                             Query01 = " SELECT LotNo    = b.U_LotNo";
                             Query01 += " FROM [@PS_PP090H] a INNER JOIN [@PS_PP090L] b ON a.DocEntry = b.DocEntry AND a.CanCeled = 'N'";
-                            Query01 += " WHERE a.U_BPLId    = '" + oForm.Items.Item("BPLId").Specific.VALUE + "'";
+                            Query01 += " WHERE a.U_BPLId    = '" + oForm.Items.Item("BPLId").Specific.Value + "'";
                             Query01 += " AND a.U_PackNo = '" + PackNo + "'";
 
                             oRecordSet01.DoQuery(Query01);
 
                             for (j = 0; j <= oRecordSet01.RecordCount - 1; j++)
                             {
-                                oBaseMat01.Columns.Item("OrdNum").Cells.Item(oBaseColRow01).Specific.VALUE = oRecordSet01.Fields.Item(0).Value;
+                                oBaseMat01.Columns.Item("OrdNum").Cells.Item(oBaseColRow01).Specific.Value = oRecordSet01.Fields.Item(0).Value;
                                 oRecordSet01.MoveNext();
                                 oBaseColRow01 += 1;
                             }
@@ -278,9 +278,9 @@ namespace PSH_BOne_AddOn
 
                     for (i = 1; i <= oBaseMat01.RowCount; i++)
                     {
-                        S_Weight += Convert.ToDouble(oBaseMat01.Columns.Item("Weight").Cells.Item(i).Specific.VALUE);
+                        S_Weight += Convert.ToDouble(oBaseMat01.Columns.Item("Weight").Cells.Item(i).Specific.Value);
                     }
-                    oBaseForm01.Items.Item("S_Weight").Specific.VALUE = S_Weight.ToString().Trim();
+                    oBaseForm01.Items.Item("S_Weight").Specific.Value = S_Weight.ToString().Trim();
                 }
             }
             catch (Exception ex)

@@ -141,7 +141,7 @@ namespace PSH_BOne_AddOn
 				{
 					oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
 					PS_PP021_EnableFormItem();
-					oForm.Items.Item("Code").Specific.VALUE = oFormDocEntry;
+					oForm.Items.Item("Code").Specific.Value = oFormDocEntry;
 					oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 				}
 			}

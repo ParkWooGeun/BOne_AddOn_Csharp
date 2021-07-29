@@ -90,7 +90,7 @@ namespace PSH_BOne_AddOn
             string sQry;
             try
             {
-                //// 사업장
+                // 사업장
                 sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
                 oRecordSet01.DoQuery(sQry);
                 oForm.Items.Item("BPLId").Specific.ValidValues.Add("0", "전체 사업장");
@@ -313,7 +313,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                if (string.IsNullOrEmpty(oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim()))
                 {
                     errCode = "1";
                     throw new Exception();
@@ -372,7 +372,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 string sQry;
-                sQry = "Exec [PS_FI963_01] '" + oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim() + "','" + oForm.Items.Item("BeforeNm").Specific.VALUE.ToString().Trim() + "','" + oForm.Items.Item("AfterNm").Specific.VALUE.ToString().Trim() + "'";
+                sQry = "Exec [PS_FI963_01] '" + oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim() + "','" + oForm.Items.Item("BeforeNm").Specific.Value.ToString().Trim() + "','" + oForm.Items.Item("AfterNm").Specific.Value.ToString().Trim() + "'";
                 oRecordSet01.DoQuery(sQry);
 
                 PSH_Globals.SBO_Application.MessageBox("변경완료");

@@ -933,10 +933,10 @@ namespace PSH_BOne_AddOn
 							Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
 							break;
 						case "1281":							//찾기
-							oForm.DataBrowser.BrowseBy = "Code";			//UDO방식일때
+							oForm.DataBrowser.BrowseBy = "Code";			
 							break;
 						case "1282":							//추가
-							oForm.DataBrowser.BrowseBy = "Code";			//UDO방식일때
+							oForm.DataBrowser.BrowseBy = "Code";			
 							break;
 						case "1288":
 						case "1289":
@@ -957,11 +957,11 @@ namespace PSH_BOne_AddOn
 							Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
 							break;
 						case "1281":							//찾기
-							AddMatrixRow(0, true);					//UDO방식
-							oForm.DataBrowser.BrowseBy = "Code";	//UDO방식일때        '찾기버튼 클릭시 Matrix에 행 추가
+							AddMatrixRow(0, true);					
+							oForm.DataBrowser.BrowseBy = "Code";
 							break;
 						case "1282":							//추가
-							AddMatrixRow(0, true);					//UDO방식
+							AddMatrixRow(0, true);					
 							break;
 						case "1288":
 						case "1289":

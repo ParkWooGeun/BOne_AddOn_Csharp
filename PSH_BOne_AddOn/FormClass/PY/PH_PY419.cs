@@ -576,7 +576,7 @@ namespace PSH_BOne_AddOn
                         ErrNum = 3;
                         throw new Exception();
                     }
-                    if (PSH_Globals.SBO_Application.MessageBox(" 선택한사원('" + oForm.Items.Item("FullName").Specific.Value.ToString().Trim() + "')을 삭제하시겠습니까? ?", Convert.ToInt32("2"), "예", "아니오") == Convert.ToDouble("1"))
+                    if (PSH_Globals.SBO_Application.MessageBox(" 선택한사원('" + oForm.Items.Item("FullName").Specific.Value.ToString().Trim() + "')을 삭제하시겠습니까? ?", 2, "예", "아니오") == 1)
                     {
                         sQry = "Delete From [p_seoyst] Where saup = '" + CLTCOD + "' AND  yyyy = '" + Year + "' And sabun = '" + MSTCOD + "' ";
                         oRecordSet.DoQuery(sQry);

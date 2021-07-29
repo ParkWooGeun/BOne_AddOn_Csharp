@@ -237,14 +237,14 @@ namespace PSH_BOne_AddOn
 				oForm.DataSources.UserDataSources.Add("ItemType03", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 5);
 				oForm.Items.Item("ItemType03").Specific.DataBind.SetBound(true, "", "ItemType03");
 
-				oForm.Items.Item("FrDt01").Specific.VALUE = DateTime.Now.ToString("yyyyMM") + "01";
-				oForm.Items.Item("ToDt01").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
+				oForm.Items.Item("FrDt01").Specific.Value = DateTime.Now.ToString("yyyyMM") + "01";
+				oForm.Items.Item("ToDt01").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 
-				oForm.Items.Item("FrDt02").Specific.VALUE = DateTime.Now.ToString("yyyyMM") + "01";
-				oForm.Items.Item("ToDt02").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
+				oForm.Items.Item("FrDt02").Specific.Value = DateTime.Now.ToString("yyyyMM") + "01";
+				oForm.Items.Item("ToDt02").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 
-				oForm.Items.Item("FrDt03").Specific.VALUE = DateTime.Now.ToString("yyyyMM") + "01";
-				oForm.Items.Item("ToDt03").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
+				oForm.Items.Item("FrDt03").Specific.Value = DateTime.Now.ToString("yyyyMM") + "01";
+				oForm.Items.Item("ToDt03").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 			}
 			catch (Exception ex)
 			{
@@ -398,27 +398,27 @@ namespace PSH_BOne_AddOn
 			{
 				if (oUID == "CntcCode01")
 				{
-					oForm.Items.Item("CntcName01").Specific.VALUE = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item(oUID).Specific.Value.ToString().Trim() + "'", "");
+					oForm.Items.Item("CntcName01").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item(oUID).Specific.Value.ToString().Trim() + "'", "");
 				}
 				else if (oUID == "CntcCode02")
 				{
-					oForm.Items.Item("CntcName02").Specific.VALUE = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item(oUID).Specific.Value.ToString().Trim() + "'", "");
+					oForm.Items.Item("CntcName02").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item(oUID).Specific.Value.ToString().Trim() + "'", "");
 				}
 				else if (oUID == "CntcCode03")
 				{
-					oForm.Items.Item("CntcName03").Specific.VALUE = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item(oUID).Specific.Value.ToString().Trim() + "'", "");
+					oForm.Items.Item("CntcName03").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item(oUID).Specific.Value.ToString().Trim() + "'", "");
 				}
 				else if (oUID == "CpCode01")
 				{
-					oForm.Items.Item("CpName01").Specific.VALUE = dataHelpClass.Get_ReData("U_CpName", "U_CpCode", "[@PS_PP001L]", "'" + oForm.Items.Item(oUID).Specific.Value.ToString().Trim() + "'", "");
+					oForm.Items.Item("CpName01").Specific.Value = dataHelpClass.Get_ReData("U_CpName", "U_CpCode", "[@PS_PP001L]", "'" + oForm.Items.Item(oUID).Specific.Value.ToString().Trim() + "'", "");
 				}
 				else if (oUID == "CpCode02")
 				{
-					oForm.Items.Item("CpName02").Specific.VALUE = dataHelpClass.Get_ReData("U_CpName", "U_CpCode", "[@PS_PP001L]", "'" + oForm.Items.Item(oUID).Specific.Value.ToString().Trim() + "'", "");
+					oForm.Items.Item("CpName02").Specific.Value = dataHelpClass.Get_ReData("U_CpName", "U_CpCode", "[@PS_PP001L]", "'" + oForm.Items.Item(oUID).Specific.Value.ToString().Trim() + "'", "");
 				}
 				else if (oUID == "CpCode03")
 				{
-					oForm.Items.Item("CpName03").Specific.VALUE = dataHelpClass.Get_ReData("U_CpName", "U_CpCode", "[@PS_PP001L]", "'" + oForm.Items.Item(oUID).Specific.Value.ToString().Trim() + "'", "");
+					oForm.Items.Item("CpName03").Specific.Value = dataHelpClass.Get_ReData("U_CpName", "U_CpCode", "[@PS_PP001L]", "'" + oForm.Items.Item(oUID).Specific.Value.ToString().Trim() + "'", "");
 				}
 			}
 			catch (Exception ex)

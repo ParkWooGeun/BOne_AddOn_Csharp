@@ -49,10 +49,10 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PS_CO501_CreateItems();
 
-                oForm.EnableMenu("1283", true);                //// 제거
-                oForm.EnableMenu("1293", true);                //// 행삭제
-                oForm.EnableMenu("1287", true);                //// 복제
-                oForm.EnableMenu("1284", false);                //// 취소
+                oForm.EnableMenu("1283", true); // 제거
+                oForm.EnableMenu("1293", true); // 행삭제
+                oForm.EnableMenu("1287", true); // 복제
+                oForm.EnableMenu("1284", false); // 취소
 
                 PS_CO501_FormItemEnabled();
                 PS_CO501_FormClear();

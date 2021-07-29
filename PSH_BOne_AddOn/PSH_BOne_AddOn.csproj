@@ -551,9 +551,6 @@
     <Compile Include="FormClass\SM\PS_SM021.cs" />
     <Compile Include="FormClass\SM\PS_SM030.cs" />
     <Compile Include="PSH_CommonClass\AssemblyInfo.cs" />
-    <Compile Include="FormClass\PY\ClassModuleSTD.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="PSH_CommonClass\DataPack\DataPack.cs">
       <SubType>Component</SubType>
     </Compile>

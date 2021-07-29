@@ -62,11 +62,11 @@ namespace PSH_BOne_AddOn
                 PS_PP130_EnableMenus();
                 PS_PP130_SetDocument(oFormDocEntry);
 
-                oForm.EnableMenu(("1283"), true); // 삭제
-                oForm.EnableMenu(("1287"), true); // 복제
-                oForm.EnableMenu(("1286"), false);// 닫기
-                oForm.EnableMenu(("1284"), false);// 취소
-                oForm.EnableMenu(("1293"), true); // 행삭제
+                oForm.EnableMenu("1283", true); // 삭제
+                oForm.EnableMenu("1287", true); // 복제
+                oForm.EnableMenu("1286", false);// 닫기
+                oForm.EnableMenu("1284", false);// 취소
+                oForm.EnableMenu("1293", true); // 행삭제
             }
             catch (Exception ex)
             {
@@ -1066,12 +1066,12 @@ namespace PSH_BOne_AddOn
                             break;
                         case "1281": //찾기
                             PS_PP130_FormItemEnabled();
-                            //UDO방식
+                            
                             oForm.Items.Item("Part").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             break;
                         case "1282": //추가
                             PS_PP130_FormItemEnabled();
-                            //UDO방식
+                            
                             PS_PP130_AddMatrixRow(0, true);
                             break;
                         case "1288": //레코드이동(최초)

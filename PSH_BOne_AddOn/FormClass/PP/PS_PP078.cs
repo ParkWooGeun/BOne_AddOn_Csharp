@@ -384,7 +384,7 @@ namespace PSH_BOne_AddOn
 						oMat.LoadFromDataSource();
 						//Matrix에 Data 뿌려준다
 						j = 1;
-						while (!(oRecordSet.EoF))
+						while (!oRecordSet.EoF)
 						{
 							if (oDS_PS_PP077H.Size < j)
 							{

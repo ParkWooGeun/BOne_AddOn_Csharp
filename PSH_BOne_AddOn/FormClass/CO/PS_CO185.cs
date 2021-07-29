@@ -363,7 +363,7 @@ namespace PSH_BOne_AddOn
 		private void LoadData()
 		{
 			int i;
-			string sQry = String.Empty;
+			string sQry = string.Empty;
 			string iBPLId;
 
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);

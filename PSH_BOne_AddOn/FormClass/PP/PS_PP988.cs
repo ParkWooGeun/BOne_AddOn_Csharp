@@ -76,12 +76,12 @@ namespace PSH_BOne_AddOn
 				//기간(시작)
 				oForm.DataSources.UserDataSources.Add("FrDt", SAPbouiCOM.BoDataType.dt_DATE);
 				oForm.Items.Item("FrDt").Specific.DataBind.SetBound(true, "", "FrDt");
-				oForm.Items.Item("FrDt").Specific.VALUE = DateTime.Now.ToString("yyyyMM") + "01";
+				oForm.Items.Item("FrDt").Specific.Value = DateTime.Now.ToString("yyyyMM") + "01";
 
 				//기간(종료)
 				oForm.DataSources.UserDataSources.Add("ToDt", SAPbouiCOM.BoDataType.dt_DATE);
 				oForm.Items.Item("ToDt").Specific.DataBind.SetBound(true, "", "ToDt");
-				oForm.Items.Item("ToDt").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
+				oForm.Items.Item("ToDt").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 
 				//품목구분
 				oForm.DataSources.UserDataSources.Add("ItemType", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 5);
@@ -245,7 +245,7 @@ namespace PSH_BOne_AddOn
 						sQry = sQry + " WHERE       ItemCode = '" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'";
 						oRecordSet.DoQuery(sQry);
 
-						oForm.Items.Item("ItemName").Specific.VALUE = oRecordSet.Fields.Item("FrgnName").Value.ToString().Trim();
+						oForm.Items.Item("ItemName").Specific.Value = oRecordSet.Fields.Item("FrgnName").Value.ToString().Trim();
 						break;
 				}
 			}

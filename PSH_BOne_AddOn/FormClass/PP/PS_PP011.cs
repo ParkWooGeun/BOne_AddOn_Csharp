@@ -657,8 +657,8 @@ namespace PSH_BOne_AddOn
 							oForm.DataBrowser.BrowseBy = "Code";
 							break;
 						case "1282": //추가
-							oForm.DataBrowser.BrowseBy = "Code"; //UDO방식일때
-							PS_PP011_AddMatrixRow(0, true); //UDO방식
+							oForm.DataBrowser.BrowseBy = "Code"; 
+							PS_PP011_AddMatrixRow(0, true); 
 							break;
 						case "1285": //복원
 							break;
@@ -680,12 +680,12 @@ namespace PSH_BOne_AddOn
 						case "1286": //닫기
 							break;
 						case "1281": //찾기
-							PS_PP011_AddMatrixRow(0, true); //UDO방식
+							PS_PP011_AddMatrixRow(0, true); 
 							PS_PP011_EnableFormItem();
 							break;
 						case "1282": //추가
-							PS_PP011_EnableFormItem(); //UDO방식
-							PS_PP011_AddMatrixRow(0, true); //UDO방식
+							PS_PP011_EnableFormItem(); 
+							PS_PP011_AddMatrixRow(0, true); 
 							break;
 						case "1287": //복제
 							oDS_PS_PP011H.SetValue("Code", 0, "");

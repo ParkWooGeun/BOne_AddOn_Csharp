@@ -53,11 +53,11 @@ namespace PSH_BOne_AddOn
                 PS_PP730_ComboBox_Setting();
                 PS_PP730_Initial_Setting();
 
-                oForm.EnableMenu(("1283"), false);   //// 삭제
-                oForm.EnableMenu(("1286"), false);   //// 닫기
-                oForm.EnableMenu(("1287"), false);   //// 복제
-                oForm.EnableMenu(("1284"), true);    //// 취소
-                oForm.EnableMenu(("1293"), false);   //// 행삭제
+                oForm.EnableMenu("1283", false); // 삭제
+                oForm.EnableMenu("1286", false); // 닫기
+                oForm.EnableMenu("1287", false); // 복제
+                oForm.EnableMenu("1284", true); // 취소
+                oForm.EnableMenu("1293", false); // 행삭제
             }
             catch (Exception ex)
             {
@@ -103,7 +103,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                //// 사업장
+                // 사업장
                 sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
                 oRecordSet01.DoQuery(sQry);
                 while (!(oRecordSet01.EoF))

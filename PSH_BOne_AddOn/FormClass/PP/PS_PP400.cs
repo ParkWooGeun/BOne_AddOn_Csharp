@@ -281,14 +281,14 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("BPLID01").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
 				oForm.Items.Item("BPLID02").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
 
-				oForm.Items.Item("FrDt01").Specific.VALUE = DateTime.Now.ToString("yyyy") + "0101";
-				oForm.Items.Item("ToDt01").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
+				oForm.Items.Item("FrDt01").Specific.Value = DateTime.Now.ToString("yyyy") + "0101";
+				oForm.Items.Item("ToDt01").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 
-				oForm.Items.Item("FrDt02").Specific.VALUE = DateTime.Now.ToString("yyyyMM") + "01";
-				oForm.Items.Item("ToDt02").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
+				oForm.Items.Item("FrDt02").Specific.Value = DateTime.Now.ToString("yyyyMM") + "01";
+				oForm.Items.Item("ToDt02").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 
-				oForm.Items.Item("DMinuDay01").Specific.VALUE = "-10";
-				oForm.Items.Item("DPlusDay01").Specific.VALUE = "10";
+				oForm.Items.Item("DMinuDay01").Specific.Value = "-10";
+				oForm.Items.Item("DPlusDay01").Specific.Value = "10";
 
 				oForm.Items.Item("Folder01").Specific.Select();  //폼이 로드 될 때 Folder01이 선택됨
 			}
@@ -313,18 +313,18 @@ namespace PSH_BOne_AddOn
 				switch (oUID)
 				{
 					case "ItemCode01":
-						oForm.Items.Item("ItemName01").Specific.VALUE = dataHelpClass.Get_ReData("FrgnName", "ItemCode", "OITM", "'" + oForm.Items.Item("ItemCode01").Specific.Value.ToString().Trim() + "'", "");	//작번
-						oForm.Items.Item("ItemSpec01").Specific.VALUE = dataHelpClass.Get_ReData("U_Size", "ItemCode", "OITM", "'" + oForm.Items.Item("ItemCode01").Specific.Value.ToString().Trim() + "'", ""); //규격
+						oForm.Items.Item("ItemName01").Specific.Value = dataHelpClass.Get_ReData("FrgnName", "ItemCode", "OITM", "'" + oForm.Items.Item("ItemCode01").Specific.Value.ToString().Trim() + "'", "");	//작번
+						oForm.Items.Item("ItemSpec01").Specific.Value = dataHelpClass.Get_ReData("U_Size", "ItemCode", "OITM", "'" + oForm.Items.Item("ItemCode01").Specific.Value.ToString().Trim() + "'", ""); //규격
 						break;
 					case "CardCode01":
-						oForm.Items.Item("CardName01").Specific.VALUE = dataHelpClass.Get_ReData("CardName", "CardCode", "OCRD", "'" + oForm.Items.Item("CardCode01").Specific.Value.ToString().Trim() + "'", "");	//거래처
+						oForm.Items.Item("CardName01").Specific.Value = dataHelpClass.Get_ReData("CardName", "CardCode", "OCRD", "'" + oForm.Items.Item("CardCode01").Specific.Value.ToString().Trim() + "'", "");	//거래처
 						break;
 					case "ItemCode02":
-						oForm.Items.Item("ItemName02").Specific.VALUE = dataHelpClass.Get_ReData("FrgnName", "ItemCode", "OITM", "'" + oForm.Items.Item("ItemCode02").Specific.Value.ToString().Trim() + "'", "");  //작번
-						oForm.Items.Item("ItemSpec02").Specific.VALUE = dataHelpClass.Get_ReData("U_Size", "ItemCode", "OITM", "'" + oForm.Items.Item("ItemCode02").Specific.Value.ToString().Trim() + "'", "");  //규격
+						oForm.Items.Item("ItemName02").Specific.Value = dataHelpClass.Get_ReData("FrgnName", "ItemCode", "OITM", "'" + oForm.Items.Item("ItemCode02").Specific.Value.ToString().Trim() + "'", "");  //작번
+						oForm.Items.Item("ItemSpec02").Specific.Value = dataHelpClass.Get_ReData("U_Size", "ItemCode", "OITM", "'" + oForm.Items.Item("ItemCode02").Specific.Value.ToString().Trim() + "'", "");  //규격
 						break;
 					case "CardCode02":
-						oForm.Items.Item("CardName02").Specific.VALUE = dataHelpClass.Get_ReData("CardName", "CardCode", "OCRD", "'" + oForm.Items.Item("CardCode02").Specific.Value.ToString().Trim() + "'", "");  //거래처
+						oForm.Items.Item("CardName02").Specific.Value = dataHelpClass.Get_ReData("CardName", "CardCode", "OCRD", "'" + oForm.Items.Item("CardCode02").Specific.Value.ToString().Trim() + "'", "");  //거래처
 						break;
 				}
 			}

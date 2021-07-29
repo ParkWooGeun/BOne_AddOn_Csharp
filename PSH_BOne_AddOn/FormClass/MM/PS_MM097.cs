@@ -52,7 +52,7 @@ namespace PSH_BOne_AddOn
 
 				oForm.SupportedModes = -1;
 				oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
-				oForm.DataBrowser.BrowseBy = "Code"; //UDO방식일때
+				oForm.DataBrowser.BrowseBy = "Code"; 
 
 				PS_MM097_CreateItems();
 				PS_MM097_SetComboBox();
@@ -655,7 +655,7 @@ namespace PSH_BOne_AddOn
 								BubbleEvent = false;
 								return;
 							}
-							oForm.Items.Item("Code").Specific.VALUE = oForm.Items.Item("YM").Specific.Value.ToString().Trim() + oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+							oForm.Items.Item("Code").Specific.Value = oForm.Items.Item("YM").Specific.Value.ToString().Trim() + oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
 						}
 						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
 						{
@@ -882,11 +882,11 @@ namespace PSH_BOne_AddOn
 							Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
 							break;
 						case "1281": //찾기
-							oForm.DataBrowser.BrowseBy = "Code"; //UDO방식일때
+							oForm.DataBrowser.BrowseBy = "Code"; 
 							break;
 						case "1282": //추가
-							oForm.DataBrowser.BrowseBy = "Code"; //UDO방식일때
-							PS_MM097_AddMatrixRow(0, true); //UDO방식
+							oForm.DataBrowser.BrowseBy = "Code"; 
+							PS_MM097_AddMatrixRow(0, true); 
 							break;
 						case "1285": //복원
 							break;
@@ -909,12 +909,12 @@ namespace PSH_BOne_AddOn
 						case "1286": //닫기
 							break;
 						case "1281": //찾기
-							PS_MM097_AddMatrixRow(0, true); //UDO방식
+							PS_MM097_AddMatrixRow(0, true); 
 							PS_MM097_EnableFormItem();
 							break;
 						case "1282": //추가
-							PS_MM097_EnableFormItem(); //UDO방식
-							PS_MM097_AddMatrixRow(0, true); //UDO방식
+							PS_MM097_EnableFormItem(); 
+							PS_MM097_AddMatrixRow(0, true); 
 							break;
 						case "1287": //복제
 							oDS_PS_MM097H.SetValue("Code", 0, "");

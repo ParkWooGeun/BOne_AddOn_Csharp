@@ -246,7 +246,7 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void PS_FI215_FormClear()
 		{
-			string DocEntry = String.Empty;
+			string DocEntry = string.Empty;
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 			try
 			{
@@ -302,13 +302,13 @@ namespace PSH_BOne_AddOn
 			//메트릭스에 데이터 로드
 			int loopCount = 0;
 			int ErrNum = 0;
-			string sQry = String.Empty;
+			string sQry = string.Empty;
 
-			string BPLID = String.Empty;            //사업장
-			string FrDt = String.Empty;             //만기일시작
-			string ToDt = String.Empty;             //만기일종료
-			string CardCode = String.Empty;         //거래처
-			string DocStatus = String.Empty;        //문서상태
+			string BPLID = string.Empty;            //사업장
+			string FrDt = string.Empty;             //만기일시작
+			string ToDt = string.Empty;             //만기일종료
+			string CardCode = string.Empty;         //거래처
+			string DocStatus = string.Empty;        //문서상태
 
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
@@ -410,20 +410,20 @@ namespace PSH_BOne_AddOn
 		private void PS_FI215_Print_Report01()
 		{
 			// 안씀
-			string WinTitle = String.Empty;
-			string ReportName = String.Empty;
-			string sQry = String.Empty;
+			string WinTitle = string.Empty;
+			string ReportName = string.Empty;
+			string sQry = string.Empty;
 
-			string BPLID = String.Empty;            //사업장
-			string ItemClass = String.Empty;        //품목구분
-			string TradeType = String.Empty;        //거래형태
-			string FrDt = String.Empty;             //납기일시작
-			string ToDt = String.Empty;             //납기일종료
-			string CardCode = String.Empty;         //거래처
-			string ItemCode = String.Empty;         //품목코드(작번)
-			string DocStatus = String.Empty;        //문서상태
-			string Chk01 = String.Empty;            //미출고
-			string Chk02 = String.Empty;            //미납품
+			string BPLID = string.Empty;            //사업장
+			string ItemClass = string.Empty;        //품목구분
+			string TradeType = string.Empty;        //거래형태
+			string FrDt = string.Empty;             //납기일시작
+			string ToDt = string.Empty;             //납기일종료
+			string CardCode = string.Empty;         //거래처
+			string ItemCode = string.Empty;         //품목코드(작번)
+			string DocStatus = string.Empty;        //문서상태
+			string Chk01 = string.Empty;            //미출고
+			string Chk02 = string.Empty;            //미납품
 
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
@@ -739,7 +739,7 @@ namespace PSH_BOne_AddOn
 		/// <param name="BubbleEvent"></param>
 		private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
-			string sQry = String.Empty;
+			string sQry = string.Empty;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try

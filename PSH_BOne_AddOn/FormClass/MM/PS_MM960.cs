@@ -145,7 +145,7 @@ namespace PSH_BOne_AddOn
 		private bool PS_MM960_CheckDataValid()
 		{
 			bool functionReturnValue = false;
-			string errMessage = String.Empty;
+			string errMessage = string.Empty;
 
 			try
 			{

@@ -298,9 +298,9 @@ namespace PSH_BOne_AddOn
                 }
 
                 //합계금액 초기화
-                oDS_PS_PP560H.SetValue("U_TQuotAmt", 0, Convert.ToString(0));//견적금액
-                oDS_PS_PP560H.SetValue("U_TOrdAmt", 0, Convert.ToString(0)); //수주금액
-                oDS_PS_PP560H.SetValue("U_TTrgtAmt", 0, Convert.ToString(0));//목표금액
+                oDS_PS_PP560H.SetValue("U_TQuotAmt", 0, "0");//견적금액
+                oDS_PS_PP560H.SetValue("U_TOrdAmt", 0, "0"); //수주금액
+                oDS_PS_PP560H.SetValue("U_TTrgtAmt", 0, "0");//목표금액
 
                 oMat01.LoadFromDataSource();
                 oMat01.AutoResizeColumns();
@@ -785,7 +785,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {
-                            if (PSH_Globals.SBO_Application.MessageBox("계획금액은 등록 후 0원 이외의 금액에 대해서 수정이 불가능합니다. 정말로 저장하시겠습니까?", Convert.ToInt32("1"), "예", "아니오") == Convert.ToDouble("1"))
+                            if (PSH_Globals.SBO_Application.MessageBox("계획금액은 등록 후 0원 이외의 금액에 대해서 수정이 불가능합니다. 정말로 저장하시겠습니까?", 1, "예", "아니오") == 1)
                             {
                                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                                 {

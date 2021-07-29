@@ -48,7 +48,7 @@ namespace PSH_BOne_AddOn
 
 				oForm.SupportedModes = -1;
 				oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
-				oForm.DataBrowser.BrowseBy = "DocEntry"; //UDO방식일때
+				oForm.DataBrowser.BrowseBy = "DocEntry"; 
 
 				oForm.Freeze(true);
 
@@ -591,7 +591,7 @@ namespace PSH_BOne_AddOn
 							if (pVal.ActionSuccess == true)
 							{
 								PS_PP070_EnableFormItem();
-								PS_PP070_AddMatrixRow(0, true); //UDO방식일때
+								PS_PP070_AddMatrixRow(0, true); 
 							}
 						}
 						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
@@ -745,7 +745,7 @@ namespace PSH_BOne_AddOn
 									oDS_PS_PP070L.SetValue("U_CpQty", pVal.Row - 1, Convert.ToString(Convert.ToDouble(oRecordSet.Fields.Item("CpQty").Value.ToString().Trim())));
 									oDS_PS_PP070L.SetValue("U_CpWt", pVal.Row - 1, Convert.ToString(Convert.ToDouble(oRecordSet.Fields.Item("CpWt").Value.ToString().Trim())));
 									oDS_PS_PP070L.SetValue("U_SelQty", pVal.Row - 1, Convert.ToString(Convert.ToDouble(oRecordSet.Fields.Item("SelQty").Value.ToString().Trim())));
-									oDS_PS_PP070L.SetValue("U_SelWt", pVal.Row - 1, Convert.ToString(0));
+									oDS_PS_PP070L.SetValue("U_SelWt", pVal.Row - 1, "0");
 									oDS_PS_PP070L.SetValue("U_LineId", pVal.Row - 1, oRecordSet.Fields.Item("LineId").Value.ToString().Trim());
 									oRecordSet.MoveNext();
 								}
@@ -1020,7 +1020,7 @@ namespace PSH_BOne_AddOn
 									BubbleEvent = false;
 									return;
 								}
-								if (PSH_Globals.SBO_Application.MessageBox("정말로 취소하시겠습니까?", Convert.ToInt32("1"), "예", "아니오") != Convert.ToDouble("1"))
+								if (PSH_Globals.SBO_Application.MessageBox("정말로 취소하시겠습니까?", 1, "예", "아니오") != 1)
 								{
 									BubbleEvent = false;
 									return;

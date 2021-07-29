@@ -163,7 +163,7 @@ namespace PSH_BOne_AddOn
                 if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY678_FormItemEnabled();
-                    //Call PH_PY678_AddMatrixRow(0, True) '//UDO방식일때
+                    //Call PH_PY678_AddMatrixRow(0, True) '
                 }
                 else
                 {
@@ -892,7 +892,7 @@ namespace PSH_BOne_AddOn
                 else if (pVal.Before_Action == false)
                 {
                     PH_PY678_FormItemEnabled();
-                    //PH_PY678_AddMatrixRow(oMat01.VisualRowCount) '//UDO방식
+                    //PH_PY678_AddMatrixRow(oMat01.VisualRowCount) '
                 }
             }
             catch (Exception ex)

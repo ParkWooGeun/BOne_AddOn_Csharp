@@ -88,7 +88,7 @@ namespace PSH_BOne_AddOn
 				oForm.DataSources.UserDataSources.Add("YM", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 6);
 				oForm.Items.Item("YM").Specific.DataBind.SetBound(true, "", "YM");
 
-				oForm.Items.Item("YM").Specific.VALUE = DateTime.Now.ToString("yyyyMM");
+				oForm.Items.Item("YM").Specific.Value = DateTime.Now.ToString("yyyyMM");
 			}
 			catch (Exception ex)
 			{
@@ -447,10 +447,10 @@ namespace PSH_BOne_AddOn
 			{
 				oForm.Freeze(true);
 
-				BPLId = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
-				YM    = oForm.Items.Item("YM").Specific.VALUE.ToString().Trim();
-				Gubun = oForm.Items.Item("Gubun").Specific.Selected.VALUE.ToString().Trim();
-				PRT   = oForm.Items.Item("PRT").Specific.Selected.VALUE.ToString().Trim();
+				BPLId = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
+				YM    = oForm.Items.Item("YM").Specific.Value.ToString().Trim();
+				Gubun = oForm.Items.Item("Gubun").Specific.Selected.Value.ToString().Trim();
+				PRT   = oForm.Items.Item("PRT").Specific.Selected.Value.ToString().Trim();
 
 				if (PRT == "1")
 				{
@@ -566,10 +566,10 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				BPLId = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
-				YM = oForm.Items.Item("YM").Specific.VALUE.ToString().Trim();
-				Gubun = oForm.Items.Item("Gubun").Specific.VALUE.ToString().Trim();
-				PRT = oForm.Items.Item("PRT").Specific.VALUE.ToString().Trim();
+				BPLId = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
+				YM = oForm.Items.Item("YM").Specific.Value.ToString().Trim();
+				Gubun = oForm.Items.Item("Gubun").Specific.Value.ToString().Trim();
+				PRT = oForm.Items.Item("PRT").Specific.Value.ToString().Trim();
 
 				if (BPLId == "%")
 				{

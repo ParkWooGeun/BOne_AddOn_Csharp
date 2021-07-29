@@ -58,7 +58,7 @@ namespace PSH_BOne_AddOn
                 PS_PACKING_PD_ComboBox_Setting();
                 PS_PACKING_PD_FormItemEnabled();
 
-                oForm.EnableMenu(("1282"), true);
+                oForm.EnableMenu("1282", true);
             }
             catch (Exception ex)
             {
@@ -519,7 +519,7 @@ namespace PSH_BOne_AddOn
                 Cnt = oRecordSet01.Fields.Item(0).Value;
                 if (Cnt > 0)
                 {
-                    if (PSH_Globals.SBO_Application.MessageBox(" 선택한라인을 삭제하시겠습니까? ?", Convert.ToInt32("2"), "예", "아니오") == Convert.ToDouble("1"))
+                    if (PSH_Globals.SBO_Application.MessageBox(" 선택한라인을 삭제하시겠습니까? ?", 2, "예", "아니오") == 1)
                     {
                         sQry = "Delete From [Z_PACKING_PD] Where BPLId = '" + BPLID + "' And DocDate = '" + DocDate + "' And ItemCode = '" + ItemCode + "' And ItemName = '" + ItemName + "' And OrdNum = '" + OrdNum + "' And BatchNum = '" + BatchNum + "'";
                         oRecordSet01.DoQuery(sQry);

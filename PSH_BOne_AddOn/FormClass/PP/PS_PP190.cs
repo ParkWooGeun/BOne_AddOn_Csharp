@@ -94,7 +94,7 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("Chk").Specific.DataBind.SetBound(true, "", "Chk");
 				oForm.DataSources.UserDataSources.Item("Chk").Value = "N";	//미체크로 값을 주고 폼을 로드
 
-				oForm.Items.Item("Year").Specific.VALUE = DateTime.Now.ToString("yyyy");
+				oForm.Items.Item("Year").Specific.Value = DateTime.Now.ToString("yyyy");
 			}
 			catch (Exception ex)
 			{
@@ -851,7 +851,7 @@ namespace PSH_BOne_AddOn
 					{
 						for (i = 1; i <= oMat.VisualRowCount; i++)
 						{
-							oMat.Columns.Item("LineId").Cells.Item(i).Specific.VALUE = i;
+							oMat.Columns.Item("LineId").Cells.Item(i).Specific.Value = i;
 						}
 						oMat.FlushToDataSource();
 						oDS_PS_PP190L.RemoveRecord(oDS_PS_PP190L.Size - 1);
@@ -927,7 +927,7 @@ namespace PSH_BOne_AddOn
 							{
 								for (int i = 1; i <= oMat.VisualRowCount; i++)
 								{
-									oMat.Columns.Item("LineNum").Cells.Item(i).Specific.VALUE = i;
+									oMat.Columns.Item("LineNum").Cells.Item(i).Specific.Value = i;
 								}
 								oMat.FlushToDataSource();  // DBDataSource에 레코드가 한줄 더 생긴다.
 								oDS_PS_PP190L.RemoveRecord(oDS_PS_PP190L.Size - 1);	// 레코드 한 줄을 지운다.

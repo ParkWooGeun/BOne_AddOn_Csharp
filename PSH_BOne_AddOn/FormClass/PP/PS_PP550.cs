@@ -111,7 +111,7 @@ namespace PSH_BOne_AddOn
 				oForm.DataSources.UserDataSources.Add("StdYM02", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
 				oForm.Items.Item("StdYM02").Specific.DataBind.SetBound(true, "", "StdYM02");
 
-				oForm.Items.Item("StdYM02").Specific.VALUE = DateTime.Now.ToString("yyyyMM");
+				oForm.Items.Item("StdYM02").Specific.Value = DateTime.Now.ToString("yyyyMM");
 			}
 			catch (Exception ex)
 			{

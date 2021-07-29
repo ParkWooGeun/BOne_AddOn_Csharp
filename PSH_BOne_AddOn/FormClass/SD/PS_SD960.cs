@@ -85,7 +85,7 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("BPLId").Specific.DataBind.SetBound(true, "", "BPLId");
 				oForm.Items.Item("YM").Specific.DataBind.SetBound(true, "", "YM");
 
-				oForm.Items.Item("YM").Specific.VALUE = DateTime.Now.ToString("yyyyMM");
+				oForm.Items.Item("YM").Specific.Value = DateTime.Now.ToString("yyyyMM");
 			}
 			catch (Exception ex)
 			{
@@ -421,7 +421,7 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-				sQry = "EXEC PS_SD960_02 '" + oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim() + "', '" + oForm.Items.Item("YM").Specific.VALUE.ToString().Trim() + "'";
+				sQry = "EXEC PS_SD960_02 '" + oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("YM").Specific.Value.ToString().Trim() + "'";
 
 				oGrid.DataTable.Clear();
 				oDS_PS_SD960A.ExecuteQuery(sQry);

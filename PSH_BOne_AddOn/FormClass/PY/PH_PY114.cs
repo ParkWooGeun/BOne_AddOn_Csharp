@@ -286,7 +286,7 @@ namespace PSH_BOne_AddOn
                 //직위
                 sQry = "SELECT posID,name FROM [OHPS] ORDER BY posID";
                 oRecordSet.DoQuery(sQry);
-                while (!(oRecordSet.EoF))
+                while (!oRecordSet.EoF)
                 {
                     oMat2.Columns.Item("MSTSTP").ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
                     oRecordSet.MoveNext();

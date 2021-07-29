@@ -302,12 +302,12 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                if (string.IsNullOrEmpty(oForm.Items.Item("HtaxID").Specific.VALUE))
+                if (string.IsNullOrEmpty(oForm.Items.Item("HtaxID").Specific.Value))
                 {
                     errNum = 1;
                     throw new Exception();
                 }
-                else if (string.IsNullOrEmpty(oForm.Items.Item("DocDate").Specific.VALUE))
+                else if (string.IsNullOrEmpty(oForm.Items.Item("DocDate").Specific.Value))
                 {
                     errNum = 2;
                     throw new Exception();

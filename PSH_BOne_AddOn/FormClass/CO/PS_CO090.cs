@@ -46,8 +46,8 @@ namespace PSH_BOne_AddOn
 				oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 				oForm.DataBrowser.BrowseBy = "Code";				// UDO방식일때
 
-				oForm.EnableMenu(("1293"), true);				// 행삭제
-				oForm.EnableMenu(("1287"), true);				// 복제
+				oForm.EnableMenu("1293", true);				// 행삭제
+				oForm.EnableMenu("1287", true);				// 복제
 
 				oForm.Freeze(true);
 				CreateItems();

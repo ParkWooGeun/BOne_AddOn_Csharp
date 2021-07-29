@@ -135,8 +135,8 @@ namespace PSH_BOne_AddOn
 				oForm.DataSources.UserDataSources.Add("ItemSpec", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 200);
 				oForm.Items.Item("ItemSpec").Specific.DataBind.SetBound(true, "", "ItemSpec");
 
-				oForm.Items.Item("FrMt").Specific.VALUE = DateTime.Now.ToString("yyyyMM");
-				oForm.Items.Item("ToMt").Specific.VALUE = DateTime.Now.ToString("yyyyMM");
+				oForm.Items.Item("FrMt").Specific.Value = DateTime.Now.ToString("yyyyMM");
+				oForm.Items.Item("ToMt").Specific.Value = DateTime.Now.ToString("yyyyMM");
 			}
 			catch (Exception ex)
 			{
@@ -176,8 +176,8 @@ namespace PSH_BOne_AddOn
 				switch (oUID)
 				{
 					case "ItemCode":
-						oForm.Items.Item("ItemName").Specific.VALUE = dataHelpClass.Get_ReData("FrgnName", "ItemCode", "[OITM]", "'" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'", "");
-						oForm.Items.Item("ItemSpec").Specific.VALUE = dataHelpClass.Get_ReData("U_Size", "ItemCode", "[OITM]", "'" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'", "");
+						oForm.Items.Item("ItemName").Specific.Value = dataHelpClass.Get_ReData("FrgnName", "ItemCode", "[OITM]", "'" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'", "");
+						oForm.Items.Item("ItemSpec").Specific.Value = dataHelpClass.Get_ReData("U_Size", "ItemCode", "[OITM]", "'" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'", "");
 						break;
 				}
 			}

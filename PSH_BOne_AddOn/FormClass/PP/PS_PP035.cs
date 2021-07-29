@@ -272,7 +272,7 @@ namespace PSH_BOne_AddOn
                 else
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
-                    oForm.Items.Item("DocEntry").Specific.VALUE = oFormDocEntry;
+                    oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -345,7 +345,7 @@ namespace PSH_BOne_AddOn
                 List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
                 List<PSH_DataPackClass> dataPackSubReportParameter = new List<PSH_DataPackClass>();
 
-                if (oForm.Items.Item("OrdGbn").Specific.VALUE.ToString().Trim() == "105" || oForm.Items.Item("OrdGbn").Specific.VALUE.ToString().Trim() == "106")
+                if (oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim() == "105" || oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim() == "106")
                 {
                     WinTitle = "[PS_PP034] 공정작업지시서";
                     ReportName = "PS_PP035_04.rpt";
@@ -374,7 +374,7 @@ namespace PSH_BOne_AddOn
 
                     formHelpClass.CrystalReportOpen(dataPackParameter, dataPackSubReportParameter, WinTitle, ReportName);
                 }
-                else if (oForm.Items.Item("OrdGbn").Specific.VALUE.ToString().Trim() == "101" || oForm.Items.Item("OrdGbn").Specific.VALUE.ToString().Trim() == "102")
+                else if (oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim() == "101" || oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim() == "102")
                 {
                     WinTitle = "[PS_PP035] 작업지시서";
                     ReportName = "PS_PP035_05.rpt"; 
@@ -401,7 +401,7 @@ namespace PSH_BOne_AddOn
 
                     formHelpClass.CrystalReportOpen(dataPackParameter, dataPackSubReportParameter, WinTitle, ReportName);
                 }
-                else if (oForm.Items.Item("OrdGbn").Specific.VALUE.ToString().Trim() == "107")
+                else if (oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim() == "107")
                 {
                     WinTitle = "[PS_PP035] End Bearing  공정카드";
                     ReportName = "PS_PP035_06.rpt";
@@ -428,7 +428,7 @@ namespace PSH_BOne_AddOn
 
                     formHelpClass.CrystalReportOpen(dataPackParameter, dataPackSubReportParameter, WinTitle, ReportName);
                 }
-                else if (oForm.Items.Item("OrdGbn").Specific.VALUE.ToString().Trim() == "104")
+                else if (oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim() == "104")
                 {
                     WinTitle = "[PS_PP035] M/G 공정카드";
                     ReportName = "PS_PP035_07.rpt";
@@ -490,8 +490,8 @@ namespace PSH_BOne_AddOn
                     {
                         if (oForm.Items.Item("ChkWCon").Specific.Checked == true)//작업상태만 변경 시 재고존재 체크 안함
                         {
-                            Param01 = oMat01.Columns.Item("DocEntry").Cells.Item(i).Specific.VALUE;
-                            WorkCon = oMat01.Columns.Item("WorkCon").Cells.Item(i).Specific.VALUE;
+                            Param01 = oMat01.Columns.Item("DocEntry").Cells.Item(i).Specific.Value;
+                            WorkCon = oMat01.Columns.Item("WorkCon").Cells.Item(i).Specific.Value;
 
                             Query01 = "EXEC PS_PP035_80 '" + Param01 + "', '" + WorkCon + "'";
                             oRecordSet01.DoQuery(Query01);
@@ -499,19 +499,19 @@ namespace PSH_BOne_AddOn
                         }
                         else
                         {
-                            if (oMat01.Columns.Item("OrdGbn").Cells.Item(i).Specific.VALUE.ToString().Trim() == "104")
+                            if (oMat01.Columns.Item("OrdGbn").Cells.Item(i).Specific.Value.ToString().Trim() == "104")
                             {
                                 QueryString =  " SELECT Sum(a.Quantity * (Case When a.Direction = '0' Then 1 Else -1 End)) As Quantity";
                                 QueryString += "   FROM IBT1 a Inner Join  OITM b  On a.ItemCode = b.ItemCode And b.U_ItmBsort = '104'";
                                 QueryString += "  WHERE a.BaseType In ('59', '60')";
-                                QueryString += "    AND a.BatchNum = '" + oMat01.Columns.Item("OrdNum").Cells.Item(i).Specific.VALUE.ToString().Trim() + "'";
+                                QueryString += "    AND a.BatchNum = '" + oMat01.Columns.Item("OrdNum").Cells.Item(i).Specific.Value.ToString().Trim() + "'";
                             }
                             else
                             {
                                 QueryString =  "SELECT SUM(A.InQty) - SUM(A.OutQty) AS [StockQty]";
                                 QueryString += "  FROM OINM AS A INNER JOIN OITM As B ON A.ItemCode = B.ItemCode";
                                 QueryString += "  WHERE B.U_ItmBsort IN ('105','106')";
-                                QueryString += "    AND A.ItemCode = '" + oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.VALUE.ToString().Trim() + "'";
+                                QueryString += "    AND A.ItemCode = '" + oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.Value.ToString().Trim() + "'";
                                 QueryString += "  GROUP BY  A.ItemCode";
                             }
                             if ((string.IsNullOrEmpty(dataHelpClass.GetValue(QueryString, 0, 1)) ? 0 : Convert.ToInt32(dataHelpClass.GetValue(QueryString, 0, 1))) > 0)
@@ -521,15 +521,15 @@ namespace PSH_BOne_AddOn
                             }
                             else
                             {
-                                Param01 = oMat01.Columns.Item("DocEntry").Cells.Item(i).Specific.VALUE;
-                                Param02 = oMat01.Columns.Item("Canceled").Cells.Item(i).Specific.VALUE;
-                                Param03 = Convert.ToDouble(oMat01.Columns.Item("SelWt").Cells.Item(i).Specific.VALUE);
-                                Param04 = oMat01.Columns.Item("CntcCode").Cells.Item(i).Specific.VALUE;
-                                Param05 = oMat01.Columns.Item("CntcName").Cells.Item(i).Specific.VALUE;
-                                Param06 = oMat01.Columns.Item("DocDate").Cells.Item(i).Specific.VALUE;
-                                Param07 = oMat01.Columns.Item("DueDate").Cells.Item(i).Specific.VALUE;
-                                ItemCode = oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.VALUE.ToString().Trim();
-                                ItemName = dataHelpClass.Make_ItemName(oMat01.Columns.Item("ItemName").Cells.Item(i).Specific.VALUE.ToString().Trim());
+                                Param01 = oMat01.Columns.Item("DocEntry").Cells.Item(i).Specific.Value;
+                                Param02 = oMat01.Columns.Item("Canceled").Cells.Item(i).Specific.Value;
+                                Param03 = Convert.ToDouble(oMat01.Columns.Item("SelWt").Cells.Item(i).Specific.Value);
+                                Param04 = oMat01.Columns.Item("CntcCode").Cells.Item(i).Specific.Value;
+                                Param05 = oMat01.Columns.Item("CntcName").Cells.Item(i).Specific.Value;
+                                Param06 = oMat01.Columns.Item("DocDate").Cells.Item(i).Specific.Value;
+                                Param07 = oMat01.Columns.Item("DueDate").Cells.Item(i).Specific.Value;
+                                ItemCode = oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.Value.ToString().Trim();
+                                ItemName = dataHelpClass.Make_ItemName(oMat01.Columns.Item("ItemName").Cells.Item(i).Specific.Value.ToString().Trim());
 
                                 Query01 = "EXEC PS_PP035_02 '" + Param01 + "', '" + Param02 + "', '" + Param03 + "', '" + Param04 + "', '" + Param05 + "', '" + Param06 + "', '" + Param07 + "', '" + ItemCode + "', '" + ItemName + "'";
                                 oRecordSet01.DoQuery(Query01);
@@ -617,20 +617,20 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                Param01 = oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim(); ;
-                Param02 = oForm.Items.Item("Canceled").Specific.VALUE.ToString().Trim();
-                Param03 = oForm.Items.Item("OrdNum").Specific.VALUE.ToString().Trim();
-                Param04 = oForm.Items.Item("OrdGbn").Specific.VALUE.ToString().Trim();
-                Param05 = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
-                Param06 = oForm.Items.Item("WorkDtFr").Specific.VALUE.ToString().Trim();
-                Param07 = oForm.Items.Item("WorkDtTo").Specific.VALUE.ToString().Trim();
-                Param08 = oForm.Items.Item("FrgnName").Specific.VALUE.ToString().Trim();
-                Param09 = oForm.Items.Item("Size").Specific.VALUE.ToString().Trim();
-                Param10 = oForm.Items.Item("CardCode").Specific.VALUE.ToString().Trim();
-                Param11 = oForm.Items.Item("Mark").Specific.VALUE.ToString().Trim();
-                Param12 = oForm.Items.Item("OrdNum1").Specific.VALUE.ToString().Trim();
-                Param13 = oForm.Items.Item("TradeType").Specific.VALUE.ToString().Trim();
-                Param14 = oForm.Items.Item("PrdYN").Specific.VALUE.ToString().Trim();
+                Param01 = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(); ;
+                Param02 = oForm.Items.Item("Canceled").Specific.Value.ToString().Trim();
+                Param03 = oForm.Items.Item("OrdNum").Specific.Value.ToString().Trim();
+                Param04 = oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim();
+                Param05 = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
+                Param06 = oForm.Items.Item("WorkDtFr").Specific.Value.ToString().Trim();
+                Param07 = oForm.Items.Item("WorkDtTo").Specific.Value.ToString().Trim();
+                Param08 = oForm.Items.Item("FrgnName").Specific.Value.ToString().Trim();
+                Param09 = oForm.Items.Item("Size").Specific.Value.ToString().Trim();
+                Param10 = oForm.Items.Item("CardCode").Specific.Value.ToString().Trim();
+                Param11 = oForm.Items.Item("Mark").Specific.Value.ToString().Trim();
+                Param12 = oForm.Items.Item("OrdNum1").Specific.Value.ToString().Trim();
+                Param13 = oForm.Items.Item("TradeType").Specific.Value.ToString().Trim();
+                Param14 = oForm.Items.Item("PrdYN").Specific.Value.ToString().Trim();
 
                 if((Param03 + Param12 == "") && (Param06 + Param07 == ""))
                 {
@@ -806,11 +806,11 @@ namespace PSH_BOne_AddOn
                 DocEntry = dataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PS_PP035'", "");
                 if (Convert.ToDouble(DocEntry) == 0)
                 {
-                    oForm.Items.Item("DocEntry").Specific.VALUE = 1;
+                    oForm.Items.Item("DocEntry").Specific.Value = 1;
                 }
                 else
                 {
-                    oForm.Items.Item("DocEntry").Specific.VALUE = DocEntry;
+                    oForm.Items.Item("DocEntry").Specific.Value = DocEntry;
                 }
             }
             catch (Exception ex)
@@ -995,7 +995,7 @@ namespace PSH_BOne_AddOn
                         {
                             if (pVal.ColUID == "ItemCode")
                             {
-                                if (string.IsNullOrEmpty(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.VALUE))
+                                if (string.IsNullOrEmpty(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value))
                                 {
                                     PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                                     BubbleEvent = false;
@@ -1109,15 +1109,15 @@ namespace PSH_BOne_AddOn
                             }
                             else if (pVal.ColUID == "CntcCode")
                             {
-                                Query01 = "SELECT LastName, FirstName FROM [OHEM] WHERE EmpID = '" + oMat01.Columns.Item("CntcCode").Cells.Item(pVal.Row).Specific.VALUE.ToString().Trim() + "'";
+                                Query01 = "SELECT LastName, FirstName FROM [OHEM] WHERE EmpID = '" + oMat01.Columns.Item("CntcCode").Cells.Item(pVal.Row).Specific.Value.ToString().Trim() + "'";
                                 oRecordSet01.DoQuery(Query01);
-                                oMat01.Columns.Item("CntcName").Cells.Item(pVal.Row).Specific.VALUE = oRecordSet01.Fields.Item(0).Value.ToString().Trim() + oRecordSet01.Fields.Item(1).Value.ToString().Trim();
+                                oMat01.Columns.Item("CntcName").Cells.Item(pVal.Row).Specific.Value = oRecordSet01.Fields.Item(0).Value.ToString().Trim() + oRecordSet01.Fields.Item(1).Value.ToString().Trim();
                             }
                             else if (pVal.ColUID == "ItemCode")
                             {
-                                Query01 = "Select ItemName From OITM Where ItemCode = '" + oMat01.Columns.Item("ItemCode").Cells.Item(pVal.Row).Specific.VALUE.ToString().Trim() + "'";
+                                Query01 = "Select ItemName From OITM Where ItemCode = '" + oMat01.Columns.Item("ItemCode").Cells.Item(pVal.Row).Specific.Value.ToString().Trim() + "'";
                                 oRecordSet01.DoQuery(Query01);
-                                oMat01.Columns.Item("ItemName").Cells.Item(pVal.Row).Specific.VALUE = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
+                                oMat01.Columns.Item("ItemName").Cells.Item(pVal.Row).Specific.Value = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
                             }
                             else
                             {

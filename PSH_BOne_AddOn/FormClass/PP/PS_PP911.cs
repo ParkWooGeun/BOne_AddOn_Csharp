@@ -127,8 +127,8 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				BPLId = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
-				OrdNum = oForm.Items.Item("OrdNum").Specific.VALUE.ToString().Trim();
+				BPLId = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
+				OrdNum = oForm.Items.Item("OrdNum").Specific.Value.ToString().Trim();
 
 				if (string.IsNullOrEmpty(OrdNum))
 				{

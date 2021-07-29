@@ -72,12 +72,12 @@ namespace PSH_BOne_AddOn
 				ComboBox_Setting();
 				Initial_Setting();
 				FormItemEnabled();
-				FormClear(); //UDO방식일때
-				AddMatrixRow(0, oMat.RowCount, true); //UDO방식일때
-				oForm.EnableMenu(("1283"), true);   // 제거
-				oForm.EnableMenu(("1293"), true);   // 행삭제
-				oForm.EnableMenu(("1287"), true);   // 복제
-				oForm.EnableMenu(("1284"), false);  // 취소
+				FormClear(); 
+				AddMatrixRow(0, oMat.RowCount, true); 
+				oForm.EnableMenu("1283", true);   // 제거
+				oForm.EnableMenu("1293", true);   // 행삭제
+				oForm.EnableMenu("1287", true);   // 복제
+				oForm.EnableMenu("1284", false);  // 취소
 
 				if (!string.IsNullOrEmpty(oBaseItemCode01))
 				{
@@ -343,7 +343,7 @@ namespace PSH_BOne_AddOn
 
 							sQry = "Select ItemName From [OITM] Where ItemCode = '" + oMat.Columns.Item("MItemCod").Cells.Item(oRow).Specific.Value.ToString().Trim() + "'";
 							oRecordSet.DoQuery(sQry);
-							oMat.Columns.Item("MItemNam").Cells.Item(oRow).Specific.VALUE = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+							oMat.Columns.Item("MItemNam").Cells.Item(oRow).Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 							oMat.Columns.Item("MItemCod").Cells.Item(oRow).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 
 							oForm.Freeze(false);
@@ -768,7 +768,7 @@ namespace PSH_BOne_AddOn
 							{
 								for (i = 1; i <= oMat.VisualRowCount; i++)
 								{
-									oMat.Columns.Item("LineNum").Cells.Item(i).Specific.VALUE = i;
+									oMat.Columns.Item("LineNum").Cells.Item(i).Specific.Value = i;
 								}
 								oMat.FlushToDataSource(); // DBDataSource에 레코드가 한줄 더 생긴다.
 								oDS_PS_MM002L.RemoveRecord(oDS_PS_MM002L.Size - 1); // 레코드 한 줄을 지운다.

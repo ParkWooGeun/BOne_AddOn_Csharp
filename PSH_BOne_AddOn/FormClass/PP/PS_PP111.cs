@@ -83,7 +83,7 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue); // 아이디별 사업장 세팅
-				oForm.Items.Item("DocYM").Specific.VALUE = DateTime.Now.ToString("yyyyMM"); // 기본년월
+				oForm.Items.Item("DocYM").Specific.Value = DateTime.Now.ToString("yyyyMM"); // 기본년월
 			}
 			catch (Exception ex)
 			{

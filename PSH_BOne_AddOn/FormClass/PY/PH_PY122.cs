@@ -748,7 +748,7 @@ namespace PSH_BOne_AddOn
                             }
                             else
                             {
-                                while (!(oRecordSet.EoF))
+                                while (!oRecordSet.EoF)
                                 {
                                     oDS_PH_PY122B.SetValue("U_ARspName", pVal.Row - 1, oRecordSet.Fields.Item("U_CodeNm").Value.Trim());
                                     oRecordSet.MoveNext();

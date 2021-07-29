@@ -94,7 +94,7 @@ namespace PSH_BOne_AddOn
 				//기준년월
 				oForm.DataSources.UserDataSources.Add("StdYM", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 6);
 				oForm.Items.Item("StdYM").Specific.DataBind.SetBound(true, "", "StdYM");
-				oForm.Items.Item("StdYM").Specific.VALUE = DateTime.Now.ToString("yyyyMM");
+				oForm.Items.Item("StdYM").Specific.Value = DateTime.Now.ToString("yyyyMM");
 			}
 			catch (Exception ex)
 			{
@@ -117,8 +117,8 @@ namespace PSH_BOne_AddOn
 				switch (oUID)
 				{
 					case "OrdNum":
-						oForm.Items.Item("ItemName").Specific.VALUE = dataHelpClass.Get_ReData("FrgnName", "ItemCode", "[OITM]", "'" + oForm.Items.Item("OrdNum").Specific.Value.ToString().Trim() + "'", "");
-						oForm.Items.Item("ItemSpec").Specific.VALUE = dataHelpClass.Get_ReData("U_Size", "ItemCode", "[OITM]", "'" + oForm.Items.Item("OrdNum").Specific.Value.ToString().Trim() + "'", "");
+						oForm.Items.Item("ItemName").Specific.Value = dataHelpClass.Get_ReData("FrgnName", "ItemCode", "[OITM]", "'" + oForm.Items.Item("OrdNum").Specific.Value.ToString().Trim() + "'", "");
+						oForm.Items.Item("ItemSpec").Specific.Value = dataHelpClass.Get_ReData("U_Size", "ItemCode", "[OITM]", "'" + oForm.Items.Item("OrdNum").Specific.Value.ToString().Trim() + "'", "");
 						break;
 				}
 			}

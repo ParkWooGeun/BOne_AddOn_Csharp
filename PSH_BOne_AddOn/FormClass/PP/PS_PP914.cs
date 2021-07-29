@@ -106,7 +106,7 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("Rad02").Specific.ValOn = "B";
 				oForm.Items.Item("Rad02").Specific.ValOff = "0";
 				oForm.Items.Item("Rad02").Specific.DataBind.SetBound(true, "", "RadioBtn");
-				oForm.Items.Item("Rad02").Specific.GroupWith(("Rad01"));
+				oForm.Items.Item("Rad02").Specific.GroupWith("Rad01");
 
 				//공정별 비가동 집계
 				oForm.Items.Item("Rad03").Specific.ValOn = "C";

@@ -107,12 +107,12 @@ namespace PSH_BOne_AddOn
 				//기간(Fr)
 				oForm.DataSources.UserDataSources.Add("FrDt", SAPbouiCOM.BoDataType.dt_DATE);
 				oForm.Items.Item("FrDt").Specific.DataBind.SetBound(true, "", "FrDt");
-				oForm.Items.Item("FrDt").Specific.VALUE = DateTime.Now.ToString("yyyyMM") + "01";
+				oForm.Items.Item("FrDt").Specific.Value = DateTime.Now.ToString("yyyyMM") + "01";
 
 				//기간(To)
 				oForm.DataSources.UserDataSources.Add("ToDt", SAPbouiCOM.BoDataType.dt_DATE);
 				oForm.Items.Item("ToDt").Specific.DataBind.SetBound(true, "", "ToDt");
-				oForm.Items.Item("ToDt").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
+				oForm.Items.Item("ToDt").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 
 				//품목(작번)
 				oForm.DataSources.UserDataSources.Add("ItemCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
@@ -213,7 +213,7 @@ namespace PSH_BOne_AddOn
 						sQry += " FROM    OITM";
 						sQry += " WHERE   ItemCode = '" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'";
 						oRecordSet.DoQuery(sQry);
-						oForm.Items.Item("ItemName").Specific.VALUE = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+						oForm.Items.Item("ItemName").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 						break;
 
 					case "CpCode":
@@ -221,7 +221,7 @@ namespace PSH_BOne_AddOn
 						sQry += " FROM    [@PS_PP001L]";
 						sQry += " WHERE       U_CpCode = '" + oForm.Items.Item("CpCode").Specific.Value.ToString().Trim() + "'";
 						oRecordSet.DoQuery(sQry);
-						oForm.Items.Item("CpName").Specific.VALUE = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+						oForm.Items.Item("CpName").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 						break;
 
 					case "RspCode":

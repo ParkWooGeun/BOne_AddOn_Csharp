@@ -206,7 +206,7 @@ namespace PSH_BOne_AddOn
 				switch (oUID)
 				{
 					case "CardCode":
-						oForm.Items.Item("CardName").Specific.VALUE = dataHelpClass.Get_ReData("CardName", "CardCode", "[OCRD]", "'" + oForm.Items.Item("CardCode").Specific.VALUE + "'","");
+						oForm.Items.Item("CardName").Specific.Value = dataHelpClass.Get_ReData("CardName", "CardCode", "[OCRD]", "'" + oForm.Items.Item("CardCode").Specific.Value + "'","");
 						break;
 				}
 			}

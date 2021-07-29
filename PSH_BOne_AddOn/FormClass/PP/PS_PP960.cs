@@ -77,8 +77,8 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Rad01").Specific.DataBind.SetBound(true, "", "Rad01");
                 oForm.Items.Item("Rad02").Specific.DataBind.SetBound(true, "", "Rad02");
 
-                oForm.Items.Item("Fym").Specific.VALUE = DateTime.Now.ToString("yyyyMM");
-                oForm.Items.Item("Tym").Specific.VALUE = DateTime.Now.ToString("yyyyMM");
+                oForm.Items.Item("Fym").Specific.Value = DateTime.Now.ToString("yyyyMM");
+                oForm.Items.Item("Tym").Specific.Value = DateTime.Now.ToString("yyyyMM");
 
                 oForm.Items.Item("Rad01").Specific.ValOn = "10";
                 oForm.Items.Item("Rad01").Specific.ValOff = "0";

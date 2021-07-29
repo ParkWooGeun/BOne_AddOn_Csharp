@@ -1299,7 +1299,7 @@ namespace PSH_BOne_AddOn
                 payymd = oForm.Items.Item("payymd").Specific.Value;
 
                 
-                if (PSH_Globals.SBO_Application.MessageBox(" 선택한자료를 삭제하시겠습니까? ?", Convert.ToInt32("2"), "예", "아니오") == Convert.ToDouble("1"))
+                if (PSH_Globals.SBO_Application.MessageBox(" 선택한자료를 삭제하시겠습니까? ?", 2, "예", "아니오") == 1)
                 {
                     if (oDS_PH_PY405.Rows.Count > 0)
                     {

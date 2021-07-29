@@ -314,7 +314,7 @@ namespace PSH_BOne_AddOn
                 oMat01.AddRow();
                 oDS_PS_PP120L.Offset = oRow;
                 oDS_PS_PP120L.SetValue("U_LineNum", oRow, Convert.ToString(oRow + 1));
-                oDS_PS_PP120L.SetValue("U_ReHour", oRow, Convert.ToString(0));
+                oDS_PS_PP120L.SetValue("U_ReHour", oRow, "0");
                 oMat01.LoadFromDataSource();
             }
             catch (Exception ex)

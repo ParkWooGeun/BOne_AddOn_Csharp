@@ -50,11 +50,11 @@ namespace PSH_BOne_AddOn
 				CreateItems();
 				ComboBox_Setting();
 
-				oForm.EnableMenu(("1283"), false);              // 삭제
-				oForm.EnableMenu(("1286"), false);              // 닫기
-				oForm.EnableMenu(("1287"), false);              // 복제
-				oForm.EnableMenu(("1284"), true);               // 취소
-				oForm.EnableMenu(("1293"), false);              // 행삭제
+				oForm.EnableMenu("1283", false);              // 삭제
+				oForm.EnableMenu("1286", false);              // 닫기
+				oForm.EnableMenu("1287", false);              // 복제
+				oForm.EnableMenu("1284", true);               // 취소
+				oForm.EnableMenu("1293", false);              // 행삭제
 			}
 			catch (Exception ex)
 			{
@@ -92,7 +92,7 @@ namespace PSH_BOne_AddOn
 
 				oForm.Items.Item("Rad02").Specific.ValOn = "20";
 				oForm.Items.Item("Rad02").Specific.ValOff = "0";
-				oForm.Items.Item("Rad02").Specific.GroupWith(("Rad01"));
+				oForm.Items.Item("Rad02").Specific.GroupWith("Rad01");
 			}
 			catch (Exception ex)
 			{
@@ -117,7 +117,7 @@ namespace PSH_BOne_AddOn
 				sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
 				oRecordSet.DoQuery(sQry);
 				oForm.Items.Item("BPLId").Specific.ValidValues.Add("", "전체 사업장");
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
@@ -473,8 +473,8 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				BPLID = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
-				DocDate = oForm.Items.Item("DocDate").Specific.VALUE.ToString().Trim();
+				BPLID = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
+				DocDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
 
 				if (BPLID == "")
 				{

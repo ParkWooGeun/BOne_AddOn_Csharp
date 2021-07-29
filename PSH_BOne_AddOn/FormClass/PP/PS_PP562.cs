@@ -386,7 +386,7 @@ namespace PSH_BOne_AddOn
 				oForm.DataSources.UserDataSources.Item("OrdSub1").Value = "";	//서브작번1
 				oForm.DataSources.UserDataSources.Item("OrdSub2").Value = "";	//서브작번2
 				oForm.DataSources.UserDataSources.Item("OrdName").Value = "";	//작지명
-				oForm.DataSources.UserDataSources.Item("Amount").Value = Convert.ToString(0); //목표금액
+				oForm.DataSources.UserDataSources.Item("Amount").Value = "0"; //목표금액
 				oForm.DataSources.UserDataSources.Item("Comment").Value = "";	//비고
 				oForm.DataSources.UserDataSources.Item("BaseEntry").Value = "";	//기준문서번호
 				oForm.DataSources.UserDataSources.Item("BaseLine").Value = "";	//기준문서라인번호

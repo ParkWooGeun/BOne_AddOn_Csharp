@@ -246,9 +246,9 @@ namespace PSH_BOne_AddOn
 			{
 				oForm.Freeze(true);
 
-				BPLId = oForm.Items.Item("BPLID").Specific.Selected.VALUE.ToString().Trim();
-				FrDt = oForm.Items.Item("FrDt").Specific.VALUE.ToString().Trim();
-				ToDt = oForm.Items.Item("ToDt").Specific.VALUE.ToString().Trim();
+				BPLId = oForm.Items.Item("BPLID").Specific.Selected.Value.ToString().Trim();
+				FrDt = oForm.Items.Item("FrDt").Specific.Value.ToString().Trim();
+				ToDt = oForm.Items.Item("ToDt").Specific.Value.ToString().Trim();
 
 				sQry = " EXEC [PS_SD013_01] '";
 				sQry += BPLId + "','";
@@ -410,10 +410,10 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				BPLId = oForm.Items.Item("BPLID").Specific.Selected.VALUE.ToString().Trim();
+				BPLId = oForm.Items.Item("BPLID").Specific.Selected.Value.ToString().Trim();
 				Creator = PSH_Globals.SBO_Application.Company.UserName.ToString().Trim();
-				FrDt = oForm.Items.Item("FrDt").Specific.VALUE.ToString().Trim();
-				ToDt = oForm.Items.Item("ToDt").Specific.VALUE.ToString().Trim();
+				FrDt = oForm.Items.Item("FrDt").Specific.Value.ToString().Trim();
+				ToDt = oForm.Items.Item("ToDt").Specific.Value.ToString().Trim();
 
 				sQry = "  SELECT COUNT(*) AS [Cnt]";
 				sQry += " FROM  [@PS_SD013H] AS T0";
@@ -854,7 +854,7 @@ namespace PSH_BOne_AddOn
 							PS_SD013_EnableFormItem();
 							if (oMat.VisualRowCount > 0)
 							{
-								if (!string.IsNullOrEmpty(oMat.Columns.Item("AREntry").Cells.Item(oMat.VisualRowCount).Specific.VALUE))
+								if (!string.IsNullOrEmpty(oMat.Columns.Item("AREntry").Cells.Item(oMat.VisualRowCount).Specific.Value))
 								{
 									PS_SD013_AddMatrixRow(1, oMat.RowCount, true);
 								}

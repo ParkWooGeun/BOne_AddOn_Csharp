@@ -139,7 +139,7 @@ namespace PSH_BOne_AddOn
 			{
 				if (string.IsNullOrEmpty(oFormDocEntry))
 				{
-					PS_PP037_AddMatrixRow(0, true); //UDO방식일때
+					PS_PP037_AddMatrixRow(0, true); 
 				}
 				else
 				{

@@ -169,13 +169,13 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("WorkName03").Specific.DataBind.SetBound(true, "", "WorkName03");
 
 				//날짜기본SET
-				oForm.Items.Item("FrDt01").Specific.VALUE = DateTime.Now.ToString("yyyyMM") + "01";
-				oForm.Items.Item("ToDt01").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
+				oForm.Items.Item("FrDt01").Specific.Value = DateTime.Now.ToString("yyyyMM") + "01";
+				oForm.Items.Item("ToDt01").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 
-				oForm.Items.Item("FrDt02").Specific.VALUE = DateTime.Now.ToString("yyyyMM") + "01";
-				oForm.Items.Item("ToDt02").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
+				oForm.Items.Item("FrDt02").Specific.Value = DateTime.Now.ToString("yyyyMM") + "01";
+				oForm.Items.Item("ToDt02").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 
-				oForm.Items.Item("StdYM03").Specific.VALUE = DateTime.Now.ToString("yyyyMM");
+				oForm.Items.Item("StdYM03").Specific.Value = DateTime.Now.ToString("yyyyMM");
 			}
 			catch (Exception ex)
 			{
@@ -360,15 +360,15 @@ namespace PSH_BOne_AddOn
 						break;
 
 					case "WorkCode02":
-						oForm.Items.Item("WorkName02").Specific.VALUE = dataHelpClass.Get_ReData("U_FULLNAME", "U_MSTCOD", "[OHEM]", "'" + oForm.Items.Item("WorkCode02").Specific.Value.ToString().Trim() + "'", ""); //성명
+						oForm.Items.Item("WorkName02").Specific.Value = dataHelpClass.Get_ReData("U_FULLNAME", "U_MSTCOD", "[OHEM]", "'" + oForm.Items.Item("WorkCode02").Specific.Value.ToString().Trim() + "'", ""); //성명
 						break;
 
 					case "CsCpCode02":
-						oForm.Items.Item("CsCpName02").Specific.VALUE = dataHelpClass.Get_ReData("U_CdName", "U_Minor", "[@PS_SY001L]", "'" + oForm.Items.Item("CsCpCode02").Specific.Value.ToString().Trim() + "'", " AND Code = 'P005'");	//비가동명
+						oForm.Items.Item("CsCpName02").Specific.Value = dataHelpClass.Get_ReData("U_CdName", "U_Minor", "[@PS_SY001L]", "'" + oForm.Items.Item("CsCpCode02").Specific.Value.ToString().Trim() + "'", " AND Code = 'P005'");	//비가동명
 						break;
 
 					case "WorkCode03":
-						oForm.Items.Item("WorkName03").Specific.VALUE = dataHelpClass.Get_ReData("U_FULLNAME", "U_MSTCOD", "[OHEM]", "'" + oForm.Items.Item("WorkCode03").Specific.Value.ToString().Trim() + "'", ""); //성명
+						oForm.Items.Item("WorkName03").Specific.Value = dataHelpClass.Get_ReData("U_FULLNAME", "U_MSTCOD", "[OHEM]", "'" + oForm.Items.Item("WorkCode03").Specific.Value.ToString().Trim() + "'", ""); //성명
 						break;
 
 					case "BPLID03":

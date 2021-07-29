@@ -77,7 +77,7 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				if (string.IsNullOrEmpty(oForm.Items.Item("BatchNum").Specific.VALUE.ToString().Trim()))
+				if (string.IsNullOrEmpty(oForm.Items.Item("BatchNum").Specific.Value.ToString().Trim()))
 				{
 					ErrNum = 1;
 					throw new Exception();
@@ -114,8 +114,8 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				BatchNum = oForm.Items.Item("BatchNum").Specific.VALUE.ToString().Trim();
-				ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
+				BatchNum = oForm.Items.Item("BatchNum").Specific.Value.ToString().Trim();
+				ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
 
 				WinTitle = "[PS_PP325_01] 부품주문번호별출고현황";
 				ReportName = "PS_PP325_01.RPT";
@@ -313,7 +313,7 @@ namespace PSH_BOne_AddOn
 					{
 						if (pVal.ItemUID == "ItemCode")
 						{
-							sQry = "Select FrgnName  From OITM Where ItemCode = '" + oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim() + "'";
+							sQry = "Select FrgnName  From OITM Where ItemCode = '" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'";
 							oRecordSet.DoQuery(sQry);
 							oForm.Items.Item("ItemName").Specific.String = oRecordSet.Fields.Item("FrgnName").Value.ToString().Trim();
 						}

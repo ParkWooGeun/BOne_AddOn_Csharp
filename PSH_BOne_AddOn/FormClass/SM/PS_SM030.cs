@@ -307,7 +307,7 @@ namespace PSH_BOne_AddOn
 					oDS_PS_SM030H.SetValue("U_ColQty02", i, oRecordSet.Fields.Item("IsCommited").Value.ToString().Trim());
 					oDS_PS_SM030H.SetValue("U_ColQty03", i, oRecordSet.Fields.Item("OnOrder").Value.ToString().Trim());
 					oDS_PS_SM030H.SetValue("U_ColQty04", i, oRecordSet.Fields.Item("OnEnabled").Value.ToString().Trim());
-					oDS_PS_SM030H.SetValue("U_ColNum01", i, Convert.ToString(0));
+					oDS_PS_SM030H.SetValue("U_ColNum01", i, "0");
 
 					oRecordSet.MoveNext();
 					ProgressBar01.Value += 1;

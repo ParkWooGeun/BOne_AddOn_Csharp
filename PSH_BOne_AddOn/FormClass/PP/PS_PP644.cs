@@ -122,7 +122,7 @@ namespace PSH_BOne_AddOn
 
 				oForm.Items.Item("Rad02").Specific.ValOn = "20";
 				oForm.Items.Item("Rad02").Specific.ValOff = "0";
-				oForm.Items.Item("Rad02").Specific.GroupWith(("Rad01"));
+				oForm.Items.Item("Rad02").Specific.GroupWith("Rad01");
 
 				oForm.Items.Item("ItmBsort").Specific.ValidValues.Add("302", "원재료");
 				oForm.Items.Item("ItmBsort").Specific.ValidValues.Add("104", "제품");

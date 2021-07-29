@@ -271,7 +271,7 @@ namespace PSH_BOne_AddOn
 					oForm.EnableMenu("1281", true);  //찾기
 					oForm.EnableMenu("1282", false); //추가
 					oForm.Items.Item("Comments").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-					oForm.EnableMenu(("1293"), true); // 행삭제
+					oForm.EnableMenu("1293", true); // 행삭제
 					oForm.Items.Item("DocEntry").Enabled = false;
 					oForm.Items.Item("OutDoc").Enabled = false;
 					oForm.Items.Item("BOM_CHECK").Specific.Checked = true;
@@ -313,7 +313,7 @@ namespace PSH_BOne_AddOn
 				{
 					oForm.EnableMenu("1281", true);     //찾기
 					oForm.EnableMenu("1282", true);     //추가
-					oForm.EnableMenu(("1293"), true); // 행삭제
+					oForm.EnableMenu("1293", true); // 행삭제
 
 					if (oDS_PS_MM135H.GetValue("U_OKYNC", 0).ToString().Trim() == "C")
 					{

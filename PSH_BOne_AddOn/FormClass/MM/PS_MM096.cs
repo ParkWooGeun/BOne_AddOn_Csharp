@@ -65,11 +65,11 @@ namespace PSH_BOne_AddOn
                 PS_MM096_FormClear();
                 PS_MM096_FormItemEnabled();
 
-                oForm.EnableMenu(("1283"), false); // 삭제
-                oForm.EnableMenu(("1286"), false); // 닫기
-                oForm.EnableMenu(("1287"), false); // 복제
-                oForm.EnableMenu(("1284"), true); // 취소
-                oForm.EnableMenu(("1293"), true); // 행삭제
+                oForm.EnableMenu("1283", false); // 삭제
+                oForm.EnableMenu("1286", false); // 닫기
+                oForm.EnableMenu("1287", false); // 복제
+                oForm.EnableMenu("1284", true); // 취소
+                oForm.EnableMenu("1293", true); // 행삭제
             }
             catch (Exception ex)
             {
@@ -1396,8 +1396,8 @@ namespace PSH_BOne_AddOn
                                 WhsCode = oDS_PS_MM096L.GetValue("U_WhsCode", pVal.Row - 1).ToString().Trim();
                                 if (string.IsNullOrEmpty(WhsCode))
                                 {
-                                    oDS_PS_MM096L.SetValue("U_CQty", pVal.Row - 1, Convert.ToString(0));
-                                    oDS_PS_MM096L.SetValue("U_CWeight", pVal.Row - 1, Convert.ToString(0));
+                                    oDS_PS_MM096L.SetValue("U_CQty", pVal.Row - 1, "0");
+                                    oDS_PS_MM096L.SetValue("U_CWeight", pVal.Row - 1, "0");
                                     oMat01.LoadFromDataSource();
                                     oMat01.Columns.Item("WhsCode").Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                                     dataHelpClass.MDC_GF_Message("창고는 필수 선택입니다.", "E");

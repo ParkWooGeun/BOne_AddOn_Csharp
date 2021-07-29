@@ -715,7 +715,7 @@ namespace PSH_BOne_AddOn
 							{
 								for (int i = 0; i <= oMat.VisualRowCount - 1; i++)
 								{
-									oMat.Columns.Item("LineId").Cells.Item(i + 1).Specific.VALUE = i + 1;
+									oMat.Columns.Item("LineId").Cells.Item(i + 1).Specific.Value = i + 1;
 								}
 								oMat.FlushToDataSource();
 								oDS_PS_PP777L.RemoveRecord(oDS_PS_PP777L.Size - 1); // Mat1에 마지막라인(빈라인) 삭제

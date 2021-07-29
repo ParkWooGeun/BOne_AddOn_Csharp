@@ -17,7 +17,6 @@ namespace PSH_BOne_AddOn
 		private SAPbouiCOM.Matrix oMat02;
 		private SAPbouiCOM.DBDataSource oDS_PS_PP191L;
 		private SAPbouiCOM.DBDataSource oDS_PS_PP191M;
-
 		private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
 		private string oLastColUID01;  //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
 		private int oLastColRow01;     //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
@@ -57,8 +56,8 @@ namespace PSH_BOne_AddOn
 				oForm.Freeze(true);
 
 				PS_PP191_CreateItems();
-				PS_PP191_ComboBox_Setting();
-				PS_PP191_FormResize();
+				PS_PP191_SetComboBox();
+				PS_PP191_ResizeForm();
 			}
 			catch (Exception ex)
 			{
@@ -119,9 +118,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_PP191_ComboBox_Setting
+		/// PS_PP191_SetComboBox
 		/// </summary>
-		private void PS_PP191_ComboBox_Setting()
+		private void PS_PP191_SetComboBox()
 		{
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -175,9 +174,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_PP191_FormResize
+		/// PS_PP191_ResizeForm
 		/// </summary>
-		private void PS_PP191_FormResize()
+		private void PS_PP191_ResizeForm()
 		{
 			try
 			{
@@ -282,7 +281,7 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
-		        ProgressBar01.Stop();
+				ProgressBar01.Stop();
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 				oForm.Freeze(false);
@@ -364,10 +363,10 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_PP191_Print_Report01
+		/// PS_PP191_PrintReport
 		/// </summary>
 		[STAThread]
-		private void PS_PP191_Print_Report01()
+		private void PS_PP191_PrintReport()
 		{
 			string WinTitle;
 			string ReportName;
@@ -531,7 +530,7 @@ namespace PSH_BOne_AddOn
 					{
 						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 						{
-							System.Threading.Thread thread = new System.Threading.Thread(PS_PP191_Print_Report01);
+							System.Threading.Thread thread = new System.Threading.Thread(PS_PP191_PrintReport);
 							thread.SetApartmentState(System.Threading.ApartmentState.STA);
 							thread.Start();
 						}
@@ -544,11 +543,11 @@ namespace PSH_BOne_AddOn
 					{
 						oForm.PaneLevel = 1;
 					}
-					if (pVal.ItemUID == "Folder02")
+					else if (pVal.ItemUID == "Folder02")
 					{
 						oForm.PaneLevel = 2;
 					}
-					if (pVal.ItemUID == "Folder03")
+					else if (pVal.ItemUID == "Folder03")
 					{
 						oForm.PaneLevel = 3;
 					}
@@ -631,7 +630,7 @@ namespace PSH_BOne_AddOn
 						else
 						{
 							oForm.Items.Item("Folder01").Specific.Select();	//작업지시정보 TAB 선택
-							PS_PP191_MTX02(oMat01.Columns.Item("Code").Cells.Item(pVal.Row).Specific.VALUE);
+							PS_PP191_MTX02(oMat01.Columns.Item("Code").Cells.Item(pVal.Row).Specific.Value);
 						}
 					}
 				}
@@ -807,51 +806,6 @@ namespace PSH_BOne_AddOn
 							oDS_PS_PP191L.RemoveRecord(oDS_PS_PP191L.Size - 1);
 							oMat01.LoadFromDataSource();
 							oForm.Freeze(false);
-							break;
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-		}
-
-		/// <summary>
-		/// Raise_FormDataEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="BusinessObjectInfo"></param>
-		/// <param name="BubbleEvent"></param>
-		public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
-		{
-			try
-			{
-				if (BusinessObjectInfo.BeforeAction == true)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:    //33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:     //34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:  //35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:  //36
-							break;
-					}
-				}
-				else if (BusinessObjectInfo.BeforeAction == false)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:    //33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:     //34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:  //35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:  //36
 							break;
 					}
 				}

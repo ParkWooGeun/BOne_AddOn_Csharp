@@ -235,20 +235,15 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("CardType").Specific.ValidValues.Add("%", "전체");
                 dataHelpClass.Set_ComboList(oForm.Items.Item("CardType").Specific, "SELECT U_Minor, U_CdName FROM [@PS_SY001L] WHERE Code = 'C100' ORDER BY Code", "", false, false);
                 oForm.Items.Item("CardType").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-                //거래처구분_E
 
-                //품목구분_S
                 oForm.Items.Item("ItemClass").Specific.ValidValues.Add("%", "전체");
                 dataHelpClass.Set_ComboList(oForm.Items.Item("ItemClass").Specific, "SELECT U_Minor, U_CdName FROM [@PS_SY001L] WHERE Code = 'S002' ORDER BY Code", "", false, false);
                 oForm.Items.Item("ItemClass").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-                //품목구분_E
 
-                //생산완료여부_S
                 oForm.Items.Item("WCYN").Specific.ValidValues.Add("%", "전체");
                 oForm.Items.Item("WCYN").Specific.ValidValues.Add("B", "미완료");
                 oForm.Items.Item("WCYN").Specific.ValidValues.Add("C", "완료");
                 oForm.Items.Item("WCYN").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-                //생산완료여부_E
             }
             catch (Exception ex)
             {
@@ -305,14 +300,12 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                //행추가여부
                 if (RowIserted == false)
                 {
                     prmDataSource.InsertRecord(oRow);
                 }
                 prmMat.AddRow();
                 prmDataSource.Offset = oRow;
-                //    oDS_PS_PP362L.setValue "U_LineNum", oRow, oRow + 1
                 prmMat.LoadFromDataSource();
                 oForm.Freeze(false);
             }
@@ -333,17 +326,16 @@ namespace PSH_BOne_AddOn
         {
             int loopCount;
             string Query01;
-            string FrDt;      //작번등록년월(시작)
-            string ToDt;      //작번등록년월(종료)
-            string FrgnName;  //품명
-            string CardType;  //거래처구분
-            string SPEC;      //규격
+            string FrDt; //작번등록년월(시작)
+            string ToDt; //작번등록년월(종료)
+            string FrgnName; //품명
+            string CardType; //거래처구분
+            string SPEC; //규격
             string ItemClass; //품목구분
-            string WCYN;      //생산완료여부
-            string CardCode;  //거래처
-            string ItemCode;  //품목(작번)
+            string WCYN; //생산완료여부
+            string CardCode; //거래처
+            string ItemCode; //품목(작번)
             string errMessage = string.Empty;
-
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -410,10 +402,6 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if (ProgressBar01 != null)
-                {
-                    ProgressBar01.Stop();
-                }
                 if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
@@ -427,7 +415,11 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01); //메모리 해제
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
             }
         }
 
@@ -498,10 +490,6 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if (ProgressBar01 != null)
-                {
-                    ProgressBar01.Stop();
-                }
                 if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
@@ -515,11 +503,13 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01); //메모리 해제
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
             }
         }
-
-
 
         /// <summary>
         /// Function ID : PS_PP362_MTX03()
@@ -582,10 +572,6 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if (ProgressBar01 != null)
-                {
-                    ProgressBar01.Stop();
-                }
                 if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
@@ -599,7 +585,11 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01); //메모리 해제
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
             }
         }
 
@@ -665,10 +655,6 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if (ProgressBar01 != null)
-                {
-                    ProgressBar01.Stop();
-                }
                 if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
@@ -682,7 +668,11 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01); //메모리 해제
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
             }
         }
 
@@ -696,7 +686,6 @@ namespace PSH_BOne_AddOn
             int loopCount;
             string Query01;
             string errMessage = string.Empty;
-            
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -747,10 +736,6 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if (ProgressBar01 != null)
-                {
-                    ProgressBar01.Stop();
-                }
                 if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
@@ -764,7 +749,11 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01); //메모리 해제
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
             }
         }
 
@@ -834,10 +823,6 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if (ProgressBar01 != null)
-                {
-                    ProgressBar01.Stop();
-                }
                 if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
@@ -851,7 +836,11 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01); //메모리 해제
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
             }
         }
 
@@ -871,7 +860,6 @@ namespace PSH_BOne_AddOn
             int loopCount;
             string Query01;
             string errMessage = string.Empty;
-
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -914,10 +902,6 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if (ProgressBar01 != null)
-                {
-                    ProgressBar01.Stop();
-                }
                 if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
@@ -931,10 +915,13 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01); //메모리 해제
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
             }
         }
-
 
         /// <summary>
         /// PS_PP362_MTX08
@@ -952,7 +939,6 @@ namespace PSH_BOne_AddOn
             int loopCount = 0;
             string Query01 = null;
             string errMessage = string.Empty;
-
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -997,10 +983,6 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if (ProgressBar01 != null)
-                {
-                    ProgressBar01.Stop();
-                }
                 if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
@@ -1014,7 +996,11 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01); //메모리 해제
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
             }
         }
 
@@ -1064,7 +1050,6 @@ namespace PSH_BOne_AddOn
             string OrdNum;   //Main작번
             string OrdSub;   //Sub작번
             string CpCode;   //공정코드
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 
             try
@@ -1711,6 +1696,7 @@ namespace PSH_BOne_AddOn
                 {
                     SubMain.Remove_Forms(oFormUniqueID);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat02);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat03);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat04);
@@ -1930,9 +1916,7 @@ namespace PSH_BOne_AddOn
                         case "1290": //레코드이동(다음)
                         case "1291": //레코드이동(최종)
                             break;
-                        case "7169":
-                            //엑셀 내보내기
-
+                        case "7169": //엑셀 내보내기
                             //엑셀 내보내기 실행 시 매트릭스의 제일 마지막 행에 빈 행 추가
                             PS_PP362_AddMatrixRow(oMat01.VisualRowCount, oMat01, oDS_PS_PP362L, false); //Main작번
                             PS_PP362_AddMatrixRow(oMat02.VisualRowCount, oMat02, oDS_PS_PP362M, false); //Sub작번
@@ -1964,12 +1948,9 @@ namespace PSH_BOne_AddOn
                         case "1291": //레코드이동(최종)
                         case "1287": //복제
                             break;
-                        case "7169":
-                            //엑셀 내보내기
-
+                        case "7169": //엑셀 내보내기
                             //엑셀 내보내기 이후 처리
                             oForm.Freeze(true);
-                            
                             oDS_PS_PP362L.RemoveRecord(oDS_PS_PP362L.Size - 1); //MAIN작번
                             oMat01.LoadFromDataSource();
                             oDS_PS_PP362M.RemoveRecord(oDS_PS_PP362M.Size - 1); //Sub작번

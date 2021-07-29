@@ -169,7 +169,7 @@ namespace PSH_BOne_AddOn
 				switch (oUID)
 				{
 					case "CardCode":
-						sQry = "SELECT CardName FROM OCRD WHERE CardCode =  '" + oForm.Items.Item("CardCode").Specific.VALUE.ToString().Trim() + "'";
+						sQry = "SELECT CardName FROM OCRD WHERE CardCode =  '" + oForm.Items.Item("CardCode").Specific.Value.ToString().Trim() + "'";
 						oRecordSet.DoQuery(sQry);
 
 						oForm.Items.Item("CardName").Specific.String = oRecordSet.Fields.Item("CardName").Value.ToString().Trim();
@@ -206,10 +206,10 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				BPLId = oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim();
-				ItmBsort = oForm.Items.Item("ItmBsort").Specific.VALUE.ToString().Trim();
-				CardCode = oForm.Items.Item("CardCode").Specific.VALUE.ToString().Trim();
-				LotNo = oForm.Items.Item("LotNo").Specific.VALUE.ToString().Trim();
+				BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+				ItmBsort = oForm.Items.Item("ItmBsort").Specific.Value.ToString().Trim();
+				CardCode = oForm.Items.Item("CardCode").Specific.Value.ToString().Trim();
+				LotNo = oForm.Items.Item("LotNo").Specific.Value.ToString().Trim();
 
 				if (string.IsNullOrEmpty(CardCode))
 				{
@@ -277,10 +277,10 @@ namespace PSH_BOne_AddOn
 				oForm.Freeze(true);
 				ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
-				BPLId = oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim();
-				ItmBsort = oForm.Items.Item("ItmBsort").Specific.VALUE.ToString().Trim();
-				CardCode = oForm.Items.Item("CardCode").Specific.VALUE.ToString().Trim();
-				LotNo = oForm.Items.Item("LotNo").Specific.VALUE.ToString().Trim();
+				BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+				ItmBsort = oForm.Items.Item("ItmBsort").Specific.Value.ToString().Trim();
+				CardCode = oForm.Items.Item("CardCode").Specific.Value.ToString().Trim();
+				LotNo = oForm.Items.Item("LotNo").Specific.Value.ToString().Trim();
 
 				if (string.IsNullOrEmpty(CardCode))
 				{

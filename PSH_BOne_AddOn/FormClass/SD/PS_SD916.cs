@@ -50,11 +50,11 @@ namespace PSH_BOne_AddOn
 				CreateItems();
 				ComboBox_Setting();
 
-				oForm.EnableMenu(("1283"), false);              // 삭제
-				oForm.EnableMenu(("1286"), false);              // 닫기
-				oForm.EnableMenu(("1287"), false);              // 복제
-				oForm.EnableMenu(("1284"), true);               // 취소
-				oForm.EnableMenu(("1293"), false);              // 행삭제
+				oForm.EnableMenu("1283", false);              // 삭제
+				oForm.EnableMenu("1286", false);              // 닫기
+				oForm.EnableMenu("1287", false);              // 복제
+				oForm.EnableMenu("1284", true);               // 취소
+				oForm.EnableMenu("1293", false);              // 행삭제
 			}
 			catch (Exception ex)
 			{
@@ -103,7 +103,7 @@ namespace PSH_BOne_AddOn
 				sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
 				oRecordSet.DoQuery(sQry);
 				oForm.Items.Item("BPLId").Specific.ValidValues.Add("0", "전체 사업장");
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
@@ -447,7 +447,7 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				if (string.IsNullOrEmpty(oForm.Items.Item("StrDate").Specific.VALUE.ToString().Trim()))
+				if (string.IsNullOrEmpty(oForm.Items.Item("StrDate").Specific.Value.ToString().Trim()))
 				{
 					ErrNum = 1;
 					throw new Exception();
@@ -492,12 +492,12 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				StrDate = oForm.Items.Item("StrDate").Specific.VALUE.ToString().Trim();
-				EndDate = oForm.Items.Item("StrDate").Specific.VALUE.ToString().Trim();
+				StrDate = oForm.Items.Item("StrDate").Specific.Value.ToString().Trim();
+				EndDate = oForm.Items.Item("StrDate").Specific.Value.ToString().Trim();
 				StrDate = StrDate.Substring(0,6) + "01";
-				SCardCode = oForm.Items.Item("SCardCode").Specific.VALUE.ToString().Trim();
-				ECardCode = oForm.Items.Item("ECardCode").Specific.VALUE.ToString().Trim();
-				BPLId = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
+				SCardCode = oForm.Items.Item("SCardCode").Specific.Value.ToString().Trim();
+				ECardCode = oForm.Items.Item("ECardCode").Specific.Value.ToString().Trim();
+				BPLId = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
 
 				if (string.IsNullOrEmpty(StrDate))
 				{

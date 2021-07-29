@@ -306,7 +306,6 @@ namespace PSH_BOne_AddOn
                     ProgressBar01.Stop();
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
                 }
-
                 oForm.Update();
                 oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
@@ -988,8 +987,8 @@ namespace PSH_BOne_AddOn
                             sQry += " where 1 = 1";
                             sQry += "   and a.Canceled = 'N'";
                             sQry += "   and a.U_JdtCC = 'Y'";
-                            sQry += "   and a.U_YM = '" + oForm.Items.Item("YM").Specific.VALUE.ToString().Trim() + "'";
-                            sQry += "   and a.U_CLTCOD = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim() + "'";
+                            sQry += "   and a.U_YM = '" + oForm.Items.Item("YM").Specific.Value.ToString().Trim() + "'";
+                            sQry += "   and a.U_CLTCOD = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "'";
 
                             oRecordSet01.DoQuery(sQry);
 

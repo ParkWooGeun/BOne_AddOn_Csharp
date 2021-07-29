@@ -83,7 +83,7 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void ComboBox_Setting()
 		{
-			string sQry = String.Empty;
+			string sQry = string.Empty;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
@@ -366,11 +366,11 @@ namespace PSH_BOne_AddOn
 			{
 				if (pVal.Before_Action == true)
 				{
-					SubMain.Remove_Forms(oFormUniqueID01);
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
 				}
 				else if (pVal.Before_Action == false)
 				{
+					SubMain.Remove_Forms(oFormUniqueID01);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
 				}
 			}
 			catch (Exception ex)

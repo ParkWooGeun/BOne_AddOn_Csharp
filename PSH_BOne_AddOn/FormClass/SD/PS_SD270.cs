@@ -80,7 +80,7 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("DocDateFr").Specific.DataBind.SetBound(true, "", "DocDateFr");
 				oForm.Items.Item("ItemCode").Specific.DataBind.SetBound(true, "", "ItemCode");
 
-				oForm.Items.Item("DocDateFr").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
+				oForm.Items.Item("DocDateFr").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 			}
 			catch (Exception ex)
 			{
@@ -194,7 +194,7 @@ namespace PSH_BOne_AddOn
 			{
 				BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
 				DocDateFr = oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim();
-				ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
+				ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
 
 				WinTitle = "판매 미확정 현황 [PS_SD270]";
 				ReportName = "PS_SD270.rpt";

@@ -45,7 +45,7 @@ namespace PSH_BOne_AddOn
 
                 oForm.SupportedModes = -1;
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
-                //oForm.DataBrowser.BrowseBy="DocEntry" '//UDO방식일때
+                //oForm.DataBrowser.BrowseBy="DocEntry" '
 
                 oForm.Freeze(true);
                 PH_PY011_CreateItems();
@@ -140,7 +140,7 @@ namespace PSH_BOne_AddOn
                 if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY011_FormItemEnabled();
-                    //Call PH_PY011_AddMatrixRow(0, True) '//UDO방식일때
+                    //Call PH_PY011_AddMatrixRow(0, True) '
                 }
                 else
                 {

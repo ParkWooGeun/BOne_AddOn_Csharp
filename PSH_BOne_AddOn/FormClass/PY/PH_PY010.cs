@@ -82,7 +82,7 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.UserDataSources.Add("DocDateTo", SAPbouiCOM.BoDataType.dt_DATE, 8);
                 oForm.Items.Item("DocDateTo").Specific.DataBind.SetBound(true, "", "DocDateTo");
 
-                //// 사업장
+                // 사업장
                 oForm.Items.Item("CLTCOD").DisplayDesc = true;
 
                 sQry = "select Convert(char(8),GetDate(),112), Convert(char(8),DateAdd(dd, -1, GetDate()),112)";

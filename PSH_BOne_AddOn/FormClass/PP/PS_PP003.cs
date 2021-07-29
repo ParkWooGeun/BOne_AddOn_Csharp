@@ -799,7 +799,7 @@ namespace PSH_BOne_AddOn
                     {
                         for (int i = 1; i <= oMat01.VisualRowCount; i++)
                         {
-                            oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.VALUE = i;
+                            oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value = i;
                         }
                         oMat01.FlushToDataSource();
                         oDS_PS_PP003L.RemoveRecord(oDS_PS_PP003L.Size - 1);

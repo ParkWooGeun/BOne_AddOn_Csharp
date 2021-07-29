@@ -317,10 +317,9 @@ namespace PSH_BOne_AddOn
                 PP030DL = oDS_PS_PP038L.GetValue("U_ColNum01", pRow - 1) + "-" + oDS_PS_PP038L.GetValue("U_ColNum02", pRow - 1);
 
                 Query01 = "           SELECT    U_OKYN AS [OKYN]";
-                Query01 = Query01 + " FROM      [@PS_MM005H] ";
-                Query01 = Query01 + " WHERE     U_PP030DL = '" + PP030DL + "'";
-                Query01 = Query01 + "           AND U_OrdType = '10'";
-                //원자재 구매요청만 조회
+                Query01 += " FROM      [@PS_MM005H] ";
+                Query01 += " WHERE     U_PP030DL = '" + PP030DL + "'";
+                Query01 += "           AND U_OrdType = '10'";
 
                 oRecordSet01.DoQuery(Query01);
 
@@ -359,9 +358,9 @@ namespace PSH_BOne_AddOn
                 LineId = pLineID;
 
                 Query01 = "         EXEC PS_Z_Check_DupReq '";
-                Query01 = Query01 + DocEntry + "','";
-                Query01 = Query01 + ItemCode + "','";
-                Query01 = Query01 + LineId + "'";
+                Query01 += DocEntry + "','";
+                Query01 += ItemCode + "','";
+                Query01 += LineId + "'";
 
                 oRecordSet01.DoQuery(Query01);
 
@@ -446,14 +445,14 @@ namespace PSH_BOne_AddOn
                 OrdSub2 = oForm.Items.Item("OrdSub2").Specific.Value.ToString().Trim();   //서브작번2
 
                 Query01 = "         EXEC PS_PP038_01 '";
-                Query01 = Query01 + BPLId + "','";   //사업장
-                Query01 = Query01 + OrdGbn + "','";  //작업구분
-                Query01 = Query01 + FrDt + "','";    //지시일자(Fr)
-                Query01 = Query01 + ToDt + "','";    //지시일자(To)
-                Query01 = Query01 + CntcCode + "','";//담당자
-                Query01 = Query01 + OrdNum + "','";  //작번
-                Query01 = Query01 + OrdSub1 + "','"; //서브작번1
-                Query01 = Query01 + OrdSub2 + "'";   //서브작번2
+                Query01 += BPLId + "','";   //사업장
+                Query01 += OrdGbn + "','";  //작업구분
+                Query01 += FrDt + "','";    //지시일자(Fr)
+                Query01 += ToDt + "','";    //지시일자(To)
+                Query01 += CntcCode + "','";//담당자
+                Query01 += OrdNum + "','";  //작번
+                Query01 += OrdSub1 + "','"; //서브작번1
+                Query01 += OrdSub2 + "'";   //서브작번2
 
                 oGrid01.DataTable.Clear();
                 oForm.DataSources.DataTables.Item("DataTable").ExecuteQuery(Query01);
@@ -468,10 +467,6 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if (ProgressBar01 != null)
-                {
-                    ProgressBar01.Stop();
-                }
                 if (errMessage != null)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
@@ -483,9 +478,13 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01); //메모리 해제
+                }
                 oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01); //메모리 해제
             }
         }
 
@@ -568,17 +567,17 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if (ProgressBar01 != null)
-                {
-                    ProgressBar01.Stop();
-                }
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
             {
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01); //메모리 해제
+                }
                 oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01); //메모리 해제
             }
         }
 
@@ -1041,7 +1040,7 @@ namespace PSH_BOne_AddOn
                     }
                     else if (pVal.ItemUID == "BtnDel")
                     {
-                        if (PSH_Globals.SBO_Application.MessageBox("삭제 후에는 복구가 불가능합니다. 삭제하시겠습니까?", Convert.ToInt32("1"), "예", "아니오") == Convert.ToDouble("1"))
+                        if (PSH_Globals.SBO_Application.MessageBox("삭제 후에는 복구가 불가능합니다. 삭제하시겠습니까?", 1, "예", "아니오") == 1)
                         {
                             if (PS_PP038_DeleteData() == false)
                             {

@@ -604,7 +604,7 @@ namespace PSH_BOne_AddOn
                                 sQry += "           And LineNum = '" + oMat01.Columns.Item("RDR1No").Cells.Item(i).Specific.Value.ToString().Trim() + "'";
                                 oRecordSet01.DoQuery(sQry);
 
-                                RDR1Qty = Convert.ToDouble(oRecordSet01.Fields.Item(0).Value);
+                                RDR1Qty = Convert.ToDouble(oRecordSet01.Fields.Item(0).Value); //수주수량
 
                                 sQry = "  Select    ISNULL(Sum(a.U_PQty),0)";
                                 sQry += " From      [@PS_PP080L] a";
@@ -616,9 +616,9 @@ namespace PSH_BOne_AddOn
                                 sQry += "           And ISNULL(a.U_Check, 'N') = 'N'";
                                 oRecordSet01.DoQuery(sQry);
 
-                                PP080LQty = Convert.ToDouble(oRecordSet01.Fields.Item(0).Value) + Convert.ToDouble(oMat01.Columns.Item("PQty").Cells.Item(i).Specific.Value);
+                                PP080LQty = Convert.ToDouble(oRecordSet01.Fields.Item(0).Value) + Convert.ToDouble(oMat01.Columns.Item("PQty").Cells.Item(i).Specific.Value); //생산완료수량(집계)
 
-                                if (RDR1Qty >= PP080LQty)
+                                if (RDR1Qty == PP080LQty) //최종 생산완료시(수주량 대비 생산완료수량(집계)이 일치하는 경우)
                                 {
                                     //검수입고(원재료품의, 외주제작품의, 가공비품의)가 등록 되지 않으면 생산완료 등록 불가(2012.01.12 송명규 수정)
                                     sQry = "EXEC [PS_PP080_09] '" + oMat01.Columns.Item("PP030HNo").Cells.Item(i).Specific.Value.ToString().Trim() + "'";
@@ -667,8 +667,61 @@ namespace PSH_BOne_AddOn
                                     }
                                     //외주제작품의 일자 체크_E(2016.02.24 송명규 수정)
                                 }
-                                else if (RDR1Qty > PP080LQty) //수주량보다 완료량이 적은 경우 무조건 완료를 잡을 수 있게 한다.
-                                {   
+                                else if (RDR1Qty > PP080LQty) //수주량보다 완료량이 적은 경우(분할 생산완료)
+                                {
+                                    //※분할생산완료인 경우 해당 구매요청이 1건일 때는 모든 구매요청수량이 검수입고 완료되어야만 생산완료 등록 가능함
+                                    sQry = "EXEC [PS_PP080_11] '" + oMat01.Columns.Item("OrdNum").Cells.Item(i).Specific.Value.ToString().Trim() + "'"; //구매요청건수 조회
+                                    oRecordSet01.DoQuery(sQry);
+                
+                                    if (Convert.ToInt16(oRecordSet01.Fields.Item("CNT").Value) == 1) //구매요청 건수가 1건인 경우(1건 넘는경우 체크 회피)
+                                    {
+                                        //검수입고(원재료품의, 외주제작품의, 가공비품의)가 등록 되지 않으면 생산완료 등록 불가(2012.01.12 송명규 수정)
+                                        sQry = "EXEC [PS_PP080_09] '" + oMat01.Columns.Item("PP030HNo").Cells.Item(i).Specific.Value.ToString().Trim() + "'";
+                                        oRecordSet01.DoQuery(sQry);
+                                        if (Convert.ToDouble(oRecordSet01.Fields.Item(0).Value) > 0)
+                                        {
+                                            if (oRecordSet01.Fields.Item(1).Value == "10")
+                                            {
+                                                errMessage = "" + i + "번 라인 : 원재료품의가 모두 검수입고 되지 않았습니다. 확인해주세요.";
+                                                throw new Exception();
+                                            }
+                                            else if (oRecordSet01.Fields.Item(1).Value == "30")
+                                            {
+                                                errMessage = "" + i + "번 라인 : 가공비품의가 모두 검수입고 되지 않았습니다. 확인해주세요.";
+                                                throw new Exception();
+                                            }
+                                            else if (oRecordSet01.Fields.Item(1).Value == "40")
+                                            {
+                                                errMessage = "" + i + "번 라인 : 외주제작품의가 모두 검수입고 되지 않았습니다. 확인해주세요.";
+                                                throw new Exception();
+                                            }
+                                        }
+                                        //검수입고(원재료품의, 외주제작품의, 가공비품의)가 등록 되지 않으면 생산완료 등록 불가(2012.01.12 송명규 수정)
+
+                                        //검사여부등록 체크_S(2015.08.28 송명규 수정)
+                                        sQry = "EXEC [PS_PP080_10] '" + oMat01.Columns.Item("OrdNum").Cells.Item(i).Specific.Value.ToString().Trim() + "','" + oForm.Items.Item("DocDate").Specific.Value + "'";
+                                        oRecordSet01.DoQuery(sQry);
+
+                                        if (oRecordSet01.Fields.Item("ReturnValue").Value == "0") //검사등록되지 않음
+                                        {
+                                            errMessage = "" + i + "번 라인 : 검사등록이 되지 않았습니다. 확인해주세요.";
+                                            throw new Exception();
+                                        }
+                                        else if (oRecordSet01.Fields.Item("ReturnValue").Value == "1")
+                                        {
+                                            errMessage = "" + i + "번 라인 : 검사등록일자(" + oRecordSet01.Fields.Item("ChkDate").Value + ")보다 생산완료일자가 빠릅니다. 생산완료일자를 확인해주세요.";
+                                            throw new Exception();
+                                        }
+                                        //검사여부등록 체크_E(2015.08.28 송명규 수정)
+
+                                        //외주제작품의 일자 체크_S(2016.02.24 송명규 수정)
+                                        if (PS_PP080_CheckDate(oMat01.Columns.Item("PP030No").Cells.Item(i).Specific.Value) == false)
+                                        {
+                                            errMessage = i + "행 [" + oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.Value + "]의 생산완료일은 검수입고일과 같거나 늦어야합니다. 확인하십시오." + (char)13 + "해당 생산완료는 전체가 등록되지 않습니다.";
+                                            throw new Exception();
+                                        }
+                                        //외주제작품의 일자 체크_E(2016.02.24 송명규 수정)
+                                    }
                                 }
                                 else if (RDR1Qty < PP080LQty) //수주량보다 완료량이 많은 경우 무조건 완료를 잡을 수 없게 한다.
                                 {

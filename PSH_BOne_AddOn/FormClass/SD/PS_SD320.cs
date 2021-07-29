@@ -154,12 +154,12 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				BPLId = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
-				StrDate = oForm.Items.Item("StrDate").Specific.VALUE.ToString().Trim();
-				EndDate = oForm.Items.Item("EndDate").Specific.VALUE.ToString().Trim();
-				ItemGB = oForm.Items.Item("ItemGB").Specific.Selected.VALUE.ToString().Trim();
-				SItemCode = oForm.Items.Item("SItemCode").Specific.VALUE.ToString().Trim();
-				CardCode = oForm.Items.Item("CardCode").Specific.VALUE.ToString().Trim();
+				BPLId = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
+				StrDate = oForm.Items.Item("StrDate").Specific.Value.ToString().Trim();
+				EndDate = oForm.Items.Item("EndDate").Specific.Value.ToString().Trim();
+				ItemGB = oForm.Items.Item("ItemGB").Specific.Selected.Value.ToString().Trim();
+				SItemCode = oForm.Items.Item("SItemCode").Specific.Value.ToString().Trim();
+				CardCode = oForm.Items.Item("CardCode").Specific.Value.ToString().Trim();
 
 				if (BPLId == "0")
 				{

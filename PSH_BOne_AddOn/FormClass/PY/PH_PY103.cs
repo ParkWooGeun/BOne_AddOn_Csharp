@@ -119,7 +119,7 @@ namespace PSH_BOne_AddOn
                 oMat1.Columns.Item("ROUNDT").ValidValues.Add("C", "절상");
                 oMat1.Columns.Item("ROUNDT").DisplayDesc = true;
 
-                //// 단위
+                // 단위
                 oMat1.Columns.Item("LENGTH").ValidValues.Add("1", "원");
                 oMat1.Columns.Item("LENGTH").ValidValues.Add("10", "십원");
                 oMat1.Columns.Item("LENGTH").ValidValues.Add("100", "백원");

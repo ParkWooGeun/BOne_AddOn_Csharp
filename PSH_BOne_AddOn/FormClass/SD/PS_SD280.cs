@@ -84,8 +84,8 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("CardCode").Specific.DataBind.SetBound(true, "", "CardCode");
 				oForm.Items.Item("ItemCode").Specific.DataBind.SetBound(true, "", "ItemCode");
 
-				oForm.Items.Item("DocDateFr").Specific.VALUE = DateTime.Now.ToString("yyyyMM") + "01";
-				oForm.Items.Item("DocDateTo").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
+				oForm.Items.Item("DocDateFr").Specific.Value = DateTime.Now.ToString("yyyyMM") + "01";
+				oForm.Items.Item("DocDateTo").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 			}
 			catch (Exception ex)
 			{
@@ -217,11 +217,11 @@ namespace PSH_BOne_AddOn
 			{
 				BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
 				DocDateFr = oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim();
-				DocDateTo = oForm.Items.Item("DocDateTo").Specific.VALUE.ToString().Trim();
-				CardCode = oForm.Items.Item("CardCode").Specific.VALUE.ToString().Trim();
-				ItmBsort = oForm.Items.Item("ItmBsort").Specific.VALUE.ToString().Trim();
-				ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
-				ItemCate = oForm.Items.Item("ItemCate").Specific.VALUE.ToString().Trim();
+				DocDateTo = oForm.Items.Item("DocDateTo").Specific.Value.ToString().Trim();
+				CardCode = oForm.Items.Item("CardCode").Specific.Value.ToString().Trim();
+				ItmBsort = oForm.Items.Item("ItmBsort").Specific.Value.ToString().Trim();
+				ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
+				ItemCate = oForm.Items.Item("ItemCate").Specific.Value.ToString().Trim();
 
 				WinTitle = "제품출고조회 [PS_SD280]";
 				ReportName = "PS_SD280.rpt";
@@ -446,9 +446,9 @@ namespace PSH_BOne_AddOn
 					{
 						if (pVal.ItemUID == "CardCode")
 						{
-							sQry = "SELECT CardName, CardCode FROM [OCRD] WHERE CardCode = '" + oForm.Items.Item(pVal.ItemUID).Specific.VALUE.ToString().Trim() + "'";
+							sQry = "SELECT CardName, CardCode FROM [OCRD] WHERE CardCode = '" + oForm.Items.Item(pVal.ItemUID).Specific.Value.ToString().Trim() + "'";
 							oRecordSet.DoQuery(sQry);
-							oForm.Items.Item("CardName").Specific.VALUE = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+							oForm.Items.Item("CardName").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 						}
 						if (pVal.ItemUID == "ItemCode")
 						{

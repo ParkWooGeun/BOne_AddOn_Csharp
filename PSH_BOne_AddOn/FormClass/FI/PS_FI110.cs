@@ -47,11 +47,11 @@ namespace PSH_BOne_AddOn
 				CreateItems();
 				ComboBox_Setting();
 
-				oForm.EnableMenu(("1283"), false);				// 삭제
-				oForm.EnableMenu(("1286"), false);				// 닫기
-				oForm.EnableMenu(("1287"), false);				// 복제
-				oForm.EnableMenu(("1284"), false);				// 취소
-				oForm.EnableMenu(("1293"), false);              // 행삭제
+				oForm.EnableMenu("1283", false);				// 삭제
+				oForm.EnableMenu("1286", false);				// 닫기
+				oForm.EnableMenu("1287", false);				// 복제
+				oForm.EnableMenu("1284", false);				// 취소
+				oForm.EnableMenu("1293", false);              // 행삭제
 			}
 			catch (Exception ex)
 			{

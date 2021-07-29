@@ -91,7 +91,7 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void ComboBox_Setting()
 		{
-			string sQry = String.Empty;
+			string sQry = string.Empty;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
@@ -174,12 +174,12 @@ namespace PSH_BOne_AddOn
 		[STAThread]
 		private void Print_Query()
 		{
-			string WinTitle = String.Empty;
-			string ReportName = String.Empty;
+			string WinTitle = string.Empty;
+			string ReportName = string.Empty;
 
-			string Year_Renamed = String.Empty;
-			string BPLId = String.Empty;
-			string Option01 = String.Empty;
+			string Year_Renamed = string.Empty;
+			string BPLId = string.Empty;
+			string Option01 = string.Empty;
 
 			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 

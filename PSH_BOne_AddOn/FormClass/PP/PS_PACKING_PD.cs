@@ -14,7 +14,7 @@ namespace PSH_BOne_AddOn
     internal class PS_PACKING_PD : PSH_BaseClass
     {
         private string oFormUniqueID;
-        public SAPbouiCOM.Grid oGrid01;
+        private SAPbouiCOM.Grid oGrid01;
 
         private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
@@ -58,7 +58,7 @@ namespace PSH_BOne_AddOn
                 PS_PACKING_PD_ComboBox_Setting();
                 PS_PACKING_PD_FormItemEnabled();
 
-                oForm.EnableMenu(("1282"), true);
+                oForm.EnableMenu("1282", true);
             }
             catch (Exception ex)
             {
@@ -183,15 +183,12 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                //사업장콤보박스세팅
                 dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM [OBPL] ORDER BY BPLId", "", false, false);
                 oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
 
-                //포장단위
                 oForm.Items.Item("SaleType").Specific.ValidValues.Add("", "");
                 dataHelpClass.Set_ComboList(oForm.Items.Item("SaleType").Specific, "SELECT b.U_Minor, b.U_CdName FROM [@PS_SY001L] b Where b.Code = 'P212' and b.U_UseYN = 'Y' Order by U_Seq", "", false, false);
 
-                //포장단위
                 oForm.Items.Item("BoxDiv").Specific.ValidValues.Add("", "");
                 dataHelpClass.Set_ComboList(oForm.Items.Item("BoxDiv").Specific, "SELECT b.U_Minor, b.U_CdName FROM [@PS_SY001L] b Where b.Code = 'P204' and b.U_UseYN = 'Y' Order by U_Seq", "", false, false);
             }
@@ -250,35 +247,21 @@ namespace PSH_BOne_AddOn
         {
             string errMessage = string.Empty;
             string sQry;
-            string BPLID;
-            string DocDate;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
                 oForm.Freeze(true);
-                BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
-                DocDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
-
                 oGrid01.DataTable.Clear();
-
-                sQry = " EXEC [PS_PACKING_PD_01]  '" + BPLID + "', '" + DocDate + "'";
-
+                sQry = " EXEC [PS_PACKING_PD_01]  '" + oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("DocDate").Specific.Value.ToString().Trim() + "'";
+                
                 oGrid01.DataTable.ExecuteQuery(sQry);
-
                 oGrid01.AutoResizeColumns();
             }
             catch (Exception ex)
             {
-                if (errMessage != string.Empty)
-                {
-                    PSH_Globals.SBO_Application.MessageBox(errMessage);
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
             {
@@ -301,7 +284,6 @@ namespace PSH_BOne_AddOn
             string Param04;
             string Param05;
             string Param06;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -462,7 +444,6 @@ namespace PSH_BOne_AddOn
             string DocDate;
             string InspNo;
             string errMessage = string.Empty;
-            PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -487,14 +468,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if (errMessage != string.Empty)
-                {
-                    PSH_Globals.SBO_Application.MessageBox(errMessage);
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-                }
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
             finally
             {
@@ -545,8 +519,7 @@ namespace PSH_BOne_AddOn
                 Cnt = oRecordSet01.Fields.Item(0).Value;
                 if (Cnt > 0)
                 {
-
-                    if (PSH_Globals.SBO_Application.MessageBox(" 선택한라인을 삭제하시겠습니까? ?", Convert.ToInt32("2"), "예", "아니오") == Convert.ToDouble("1"))
+                    if (PSH_Globals.SBO_Application.MessageBox(" 선택한라인을 삭제하시겠습니까? ?", 2, "예", "아니오") == 1)
                     {
                         sQry = "Delete From [Z_PACKING_PD] Where BPLId = '" + BPLID + "' And DocDate = '" + DocDate + "' And ItemCode = '" + ItemCode + "' And ItemName = '" + ItemName + "' And OrdNum = '" + OrdNum + "' And BatchNum = '" + BatchNum + "'";
                         oRecordSet01.DoQuery(sQry);
@@ -606,7 +579,6 @@ namespace PSH_BOne_AddOn
             string sQry;
             double Boxkg;
             double Quantity;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -671,8 +643,6 @@ namespace PSH_BOne_AddOn
                     errMessage = "고객순번이 없습니다. 확인바랍니다.";
                     throw new Exception();
                 }
-
-                //이전배치번호가 있는것은 생산완료 대상이 아님. 이미생산되어있는 것을 재작업 한것임. '2016/04/16 N.G.Y
                 if (!string.IsNullOrEmpty(bBatchNum.ToString().Trim()))
                 {
                     PP080YN = "Y";
@@ -773,7 +743,6 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
         }
-
 
         /// <summary>
         /// 리포트 조회
@@ -970,7 +939,7 @@ namespace PSH_BOne_AddOn
                         }
                         else
                         {
-                            PSH_Globals.SBO_Application.SetStatusBarMessage("신규모드일때만 가능합니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                            PSH_Globals.SBO_Application.MessageBox("신규모드일때만 가능합니다.");
                         }
                     }
                 }
@@ -1014,7 +983,7 @@ namespace PSH_BOne_AddOn
                                 BubbleEvent = false;
                             }
                         }
-                        else if (pVal.ItemUID == "CardCode")//거래처코드
+                        else if (pVal.ItemUID == "CardCode") //거래처코드
                         {
                             if (string.IsNullOrEmpty(oForm.Items.Item("CardCode").Specific.Value))
                             {
@@ -1030,7 +999,6 @@ namespace PSH_BOne_AddOn
                                 BubbleEvent = false;
                             }
                         }
-                        
                         else if (pVal.ItemUID == "InspNo")//검사의뢰번호
                         {
                             if (string.IsNullOrEmpty(oForm.Items.Item("InspNo").Specific.Value))
@@ -1039,7 +1007,7 @@ namespace PSH_BOne_AddOn
                                 BubbleEvent = false;
                             }
                         }
-                        else if (pVal.ItemUID == "CardSeq")//고객순번
+                        else if (pVal.ItemUID == "CardSeq") //고객순번
                         {
                             if (string.IsNullOrEmpty(oForm.Items.Item("CardSeq").Specific.Value))
                             {
@@ -1192,16 +1160,6 @@ namespace PSH_BOne_AddOn
                         {
                             PS_PACKING_PD_MTX02(pVal.ItemUID, pVal.Row, pVal.ColUID);
                         }
-
-                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-                        {
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-                        {
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-                        {
-                        }
                     }
                 }
             }
@@ -1244,7 +1202,7 @@ namespace PSH_BOne_AddOn
                         if (pVal.ItemUID == "CntcCode")//사원명
                         {
                             oQuery = "SELECT FullName = U_FullName  ";
-                            oQuery = oQuery + "FROM [@PH_PY001A] WHERE Code = '" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'";
+                            oQuery += "FROM [@PH_PY001A] WHERE Code = '" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'";
                             oRecordSet01.DoQuery(oQuery);
                             oForm.Items.Item("CntcName").Specific.Value = oRecordSet01.Fields.Item("FullName").Value.ToString().Trim();
                         }

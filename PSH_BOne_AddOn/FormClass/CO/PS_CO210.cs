@@ -50,11 +50,11 @@ namespace PSH_BOne_AddOn
 
                 oForm.Freeze(true);
 
-                oForm.EnableMenu("1283", true);                //// 제거
-                oForm.EnableMenu("1293", true);                //// 행삭제
-                oForm.EnableMenu("1287", true);                //// 복제
-                oForm.EnableMenu("1284", false);                //// 취소
-                oForm.EnableMenu("1286", false);              //// 닫기
+                oForm.EnableMenu("1283", true); // 제거
+                oForm.EnableMenu("1293", true); // 행삭제
+                oForm.EnableMenu("1287", true); // 복제
+                oForm.EnableMenu("1284", false); // 취소
+                oForm.EnableMenu("1286", false); // 닫기
 
                 PS_CO210_CreateItems();
                 PS_CO210_AddMatrixRow(0, true);
@@ -167,22 +167,15 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-                //// 화면상의 메트릭스에 입력된 내용을 모두 디비데이터소스로 넘긴다
-                //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
                 oMat01.FlushToDataSource();
 
-                //// 라인
+                // 라인
                 if (oMat01.VisualRowCount <= 1)
                 {
                     ErrNum = 1;
                     throw new Exception();
                 }
 
-                //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-                //// 맨마지막에 데이터를 삭제하는 이유는 행을 추가 할경우에 디비데이터소스에
-                //// 이미 데이터가 들어가 있기 때문에 저장시에는 마지막 행(DB데이터 소스에)을 삭제한다
-                //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
                 if (oMat01.VisualRowCount > 0)
                 {
                     if (string.IsNullOrEmpty(oDS_PS_CO210L.GetValue("U_ItemCode", oMat01.VisualRowCount - 1)))
@@ -190,9 +183,7 @@ namespace PSH_BOne_AddOn
                         oDS_PS_CO210L.RemoveRecord(oMat01.VisualRowCount - 1);
                     }
                 }
-                //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-                //행을 삭제하였으니 DB데이터 소스를 다시 가져온다
-                //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+                
                 oMat01.LoadFromDataSource();
                 functionReturnValue = true;
             }

@@ -259,7 +259,7 @@ namespace PSH_BOne_AddOn
                     ProgressBar01.Stop();
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
                 }
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet01);
             }
         }
 
@@ -324,7 +324,7 @@ namespace PSH_BOne_AddOn
                     ProgressBar01.Stop();
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
                 }
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet01);
             }
 
             return returnValue;

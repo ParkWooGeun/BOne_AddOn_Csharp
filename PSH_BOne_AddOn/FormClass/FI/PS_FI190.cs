@@ -45,7 +45,7 @@ namespace PSH_BOne_AddOn
 				oForm.SupportedModes = -1;
 				oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 
-				// oForm.DataBrowser.BrowseBy="DocEntry" '//UDO방식일때
+				// oForm.DataBrowser.BrowseBy="DocEntry" '
 
 				oForm.Freeze(true);
 		
@@ -178,12 +178,12 @@ namespace PSH_BOne_AddOn
 		private void PS_FI190_MTX01()
 		{
 			int ErrNum = 0;
-			string Query01 = String.Empty;
+			string Query01 = string.Empty;
 
-			string BPLID = String.Empty;
-			string DocDateFr = String.Empty;
-			string DocDateTo = String.Empty;
-			string Div = String.Empty;
+			string BPLID = string.Empty;
+			string DocDateFr = string.Empty;
+			string DocDateTo = string.Empty;
+			string Div = string.Empty;
 
 			SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 

@@ -2073,8 +2073,6 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                ProgressBar01.Stop();
-
                 if (oForm.DataSources.UserDataSources.Item("Chk").Value.ToString().Trim() == "N")
                 {
                     PH_PY008_MTX01("A");
@@ -2085,7 +2083,11 @@ namespace PSH_BOne_AddOn
                 }
 
                 oForm.Freeze(false);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }
@@ -3818,10 +3820,13 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                ProgressBar01.Stop();
                 PH_PY008_MTX01("A");
                 oForm.Freeze(false);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }

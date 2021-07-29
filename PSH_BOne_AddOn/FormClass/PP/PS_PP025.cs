@@ -50,9 +50,9 @@ namespace PSH_BOne_AddOn
 
 				oForm.Freeze(true);
 
-				CreateItems();
-				ComboBox_Setting();
-				Initialization();
+				PS_PP025_CreateItems();
+				PS_PP025_SetComboBox();
+				PS_PP025_Initialize();
 
 				oForm.EnableMenu("1283", true);  // 삭제
 				oForm.EnableMenu("1287", true);  // 복제
@@ -75,9 +75,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// CreateItems
+		/// PS_PP025_CreateItems
 		/// </summary>
-		private void CreateItems()
+		private void PS_PP025_CreateItems()
 		{
 			try
 			{
@@ -96,9 +96,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// ComboBox_Setting
+		/// PS_PP025_SetComboBox
 		/// </summary>
-		private void ComboBox_Setting()
+		private void PS_PP025_SetComboBox()
 		{
 			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -108,7 +108,7 @@ namespace PSH_BOne_AddOn
 				// 사업장
 				sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
 				oRecordSet.DoQuery(sQry);
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
@@ -125,9 +125,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// Initialization
+		/// PS_PP025_Initialize
 		/// </summary>
-		private void Initialization()
+		private void PS_PP025_Initialize()
 		{
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -136,7 +136,7 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
 
 				oForm.Items.Item("YM").Specific.Value = DateTime.Now.ToString("yyyyMM");
-				Add_MatrixRow(0, true);
+				PS_PP025_AddMatrixRow(0, true);
 			}
 			catch (Exception ex)
 			{
@@ -145,11 +145,11 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// Add_MatrixRow
+		/// PS_PP025_AddMatrixRow
 		/// </summary>
 		/// <param name="oRow"></param>
 		/// <param name="RowIserted"></param>
-		private void Add_MatrixRow(int oRow, bool RowIserted)
+		private void PS_PP025_AddMatrixRow(int oRow, bool RowIserted)
 		{
 			try
 			{
@@ -169,10 +169,10 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// HeaderSpaceLineDel
+		/// PS_PP025_DelHeaderSpaceLine
 		/// </summary>
 		/// <returns></returns>
-		private bool HeaderSpaceLineDel()
+		private bool PS_PP025_DelHeaderSpaceLine()
 		{
 			bool functionReturnValue = false;
 			string errMessage = string.Empty;
@@ -314,7 +314,7 @@ namespace PSH_BOne_AddOn
 					{
 						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
 						{
-							if (HeaderSpaceLineDel() == false)
+							if (PS_PP025_DelHeaderSpaceLine() == false)
 							{
 								BubbleEvent = false;
 								return;
@@ -436,7 +436,7 @@ namespace PSH_BOne_AddOn
 								if ((pVal.Row == oMat.RowCount || oMat.VisualRowCount == 0) && !string.IsNullOrEmpty(oMat.Columns.Item("ItemCode").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()))
 								{
 									oMat.FlushToDataSource();
-									Add_MatrixRow(oMat.RowCount, false);
+									PS_PP025_AddMatrixRow(oMat.RowCount, false);
 									oMat.Columns.Item("ItemCode").Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 								}
 
@@ -598,7 +598,7 @@ namespace PSH_BOne_AddOn
 						case "1281": //찾기
 							break;
 						case "1282": //추가
-							Initialization();
+							PS_PP025_Initialize();
 							break;
 						case "1287": //복제
 							oDS_PS_PP025H.SetValue("Code", 0, "");

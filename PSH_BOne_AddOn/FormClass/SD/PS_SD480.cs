@@ -84,8 +84,8 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("SaleGbn").Specific.DataBind.SetBound(true, "", "SaleGbn");
 				oForm.Items.Item("ItmBsort").Specific.DataBind.SetBound(true, "", "ItmBsort");
 
-				oForm.Items.Item("DocDateFr").Specific.VALUE = DateTime.Now.ToString("yyyyMM") + "01";
-				oForm.Items.Item("DocDateTo").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
+				oForm.Items.Item("DocDateFr").Specific.Value = DateTime.Now.ToString("yyyyMM") + "01";
+				oForm.Items.Item("DocDateTo").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 			}
 			catch (Exception ex)
 			{

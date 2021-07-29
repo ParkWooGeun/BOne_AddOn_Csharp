@@ -86,8 +86,8 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("ItmBsort").Specific.DataBind.SetBound(true, "", "ItmBsort");
 				oForm.Items.Item("IssueType").Specific.DataBind.SetBound(true, "", "IssueType");
 
-				oForm.Items.Item("DocDateFr").Specific.VALUE = DateTime.Now.ToString("yyyyMM") + "01";
-				oForm.Items.Item("DocDateTo").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
+				oForm.Items.Item("DocDateFr").Specific.Value = DateTime.Now.ToString("yyyyMM") + "01";
+				oForm.Items.Item("DocDateTo").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 			}
 			catch (Exception ex)
 			{
@@ -461,9 +461,9 @@ namespace PSH_BOne_AddOn
 					{
 						if (pVal.ItemUID == "CardCode")
 						{
-							sQry = "SELECT CardName, CardCode FROM [OCRD] WHERE CardCode = '" + oForm.Items.Item(pVal.ItemUID).Specific.VALUE.ToString().Trim() + "'";
+							sQry = "SELECT CardName, CardCode FROM [OCRD] WHERE CardCode = '" + oForm.Items.Item(pVal.ItemUID).Specific.Value.ToString().Trim() + "'";
 							oRecordSet.DoQuery(sQry);
-							oForm.Items.Item("CardName").Specific.VALUE = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+							oForm.Items.Item("CardName").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 						}
 						oForm.Items.Item(pVal.ItemUID).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 					}

@@ -62,7 +62,7 @@ namespace PSH_BOne_AddOn
 
 				oForm.SupportedModes = -1;
 				oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
-				oForm.DataBrowser.BrowseBy = "DocEntry"; //UDO방식일때
+				oForm.DataBrowser.BrowseBy = "DocEntry"; 
 
 				oForm.Freeze(true);
 
@@ -183,7 +183,7 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("WorkTime").Specific.Value = pWorkTime; //시간
 					oForm.Items.Item("WorkNote").Specific.Value = pWorkNote; //작업내용
 
-					PS_PP061_AddMatrixRow(0, true); //UDO방식일때
+					PS_PP061_AddMatrixRow(0, true); 
 				}
 				else  //존재하면 FindMode
 				{
@@ -598,7 +598,7 @@ namespace PSH_BOne_AddOn
 							if (pVal.ActionSuccess == true)
 							{
 								PS_PP061_FormItemEnabled();
-								PS_PP061_AddMatrixRow(0, true); //UDO방식일때
+								PS_PP061_AddMatrixRow(0, true); 
 							}
 						}
 						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
@@ -964,8 +964,8 @@ namespace PSH_BOne_AddOn
 							PS_PP061_FormItemEnabled();
 							break;
 						case "1282": //추가
-							PS_PP061_FormItemEnabled(); //UDO방식
-							PS_PP061_AddMatrixRow(0, true); //UDO방식
+							PS_PP061_FormItemEnabled(); 
+							PS_PP061_AddMatrixRow(0, true); 
 							break;
 						case "1287": //복제
 							oDS_PS_PP061H.SetValue("DocEntry", 0, "");

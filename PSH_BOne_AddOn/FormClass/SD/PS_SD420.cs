@@ -51,11 +51,11 @@ namespace PSH_BOne_AddOn
 				ComboBox_Setting();
 				Initialization();
 
-				oForm.EnableMenu(("1283"), false);              // 삭제
-				oForm.EnableMenu(("1286"), false);              // 닫기
-				oForm.EnableMenu(("1287"), false);              // 복제
-				oForm.EnableMenu(("1284"), true);               // 취소
-				oForm.EnableMenu(("1293"), false);              // 행삭제
+				oForm.EnableMenu("1283", false);              // 삭제
+				oForm.EnableMenu("1286", false);              // 닫기
+				oForm.EnableMenu("1287", false);              // 복제
+				oForm.EnableMenu("1284", true);               // 취소
+				oForm.EnableMenu("1293", false);              // 행삭제
 			}
 			catch (Exception ex)
 			{
@@ -104,7 +104,7 @@ namespace PSH_BOne_AddOn
 				// 사업장
 				sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
 				oRecordSet.DoQuery(sQry);
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
@@ -114,7 +114,7 @@ namespace PSH_BOne_AddOn
 				sQry = "SELECT ItmsGrpCod, ItmsGrpNam From [OITB] where ItmsGrpCod in ('101','102')";
 				oRecordSet.DoQuery(sQry);
 				oForm.Items.Item("ItmGrp").Specific.ValidValues.Add("%", "전체");
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("ItmGrp").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
@@ -166,10 +166,10 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				BPLId = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
-				DocDateFr = oForm.Items.Item("DocDateFr").Specific.VALUE.ToString().Trim();
-				DocDateTo = oForm.Items.Item("DocDateTo").Specific.VALUE.ToString().Trim();
-				ItmGrp = oForm.Items.Item("ItmGrp").Specific.VALUE.ToString().Trim();
+				BPLId = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
+				DocDateFr = oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim();
+				DocDateTo = oForm.Items.Item("DocDateTo").Specific.Value.ToString().Trim();
+				ItmGrp = oForm.Items.Item("ItmGrp").Specific.Value.ToString().Trim();
 
 				if (string.IsNullOrEmpty(ItmGrp))
 				{

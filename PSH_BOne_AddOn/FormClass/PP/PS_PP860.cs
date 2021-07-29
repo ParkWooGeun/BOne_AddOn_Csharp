@@ -13,7 +13,6 @@ namespace PSH_BOne_AddOn
 		private string oFormUniqueID;
 		private SAPbouiCOM.Matrix oMat;
 		private SAPbouiCOM.DBDataSource oDS_PS_PP860H;
-
 		private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
 		private string oLastColUID01;  //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
 		private int oLastColRow01;     //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
@@ -202,7 +201,6 @@ namespace PSH_BOne_AddOn
 
 					for (loopCount = 0; loopCount <= DisableColumn - 1; loopCount++)
 					{
-
 						DisableColumnString = "D" + Convert.ToString(31 - loopCount);
 						oMat.Columns.Item(DisableColumnString).Editable = false; //해당월의 말일이 존재하지 않으면 막음
 					}
@@ -220,9 +218,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// LoadData 조회데이타 가져오기
+		/// PS_PP860_LoadData 조회데이타 가져오기
 		/// </summary>
-		private void LoadData()
+		private void PS_PP860_LoadData()
 		{
 			short i;
 			string sQry;
@@ -328,11 +326,11 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// Add_MatrixRow
+		/// PS_PP860_AddMatrixRow
 		/// </summary>
 		/// <param name="oRow"></param>
 		/// <param name="RowIserted"></param>
-		private void Add_MatrixRow(int oRow, bool RowIserted)
+		private void PS_PP860_AddMatrixRow(int oRow, bool RowIserted)
 		{
 			try
 			{
@@ -352,10 +350,10 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// HeaderSpaceLineDel
+		/// PS_PP860_DelHeaderSpaceLine
 		/// </summary>
 		/// <returns></returns>
-		private bool HeaderSpaceLineDel()
+		private bool PS_PP860_DelHeaderSpaceLine()
 		{
 			bool functionReturnValue = false;
 			string errMessage = string.Empty;
@@ -489,29 +487,17 @@ namespace PSH_BOne_AddOn
 				{
 					if (pVal.ItemUID == "Btn_ret")
 					{
-						if (HeaderSpaceLineDel() == false)
+						if (PS_PP860_DelHeaderSpaceLine() == false)
 						{
 							BubbleEvent = false;
 							return;
 						}
 						PS_PP860_MatrixColumnSetting(oForm.Items.Item("YYYYMM").Specific.Value + "01");
-						LoadData();
+						PS_PP860_LoadData();
 					}
 				}
 				else if (pVal.BeforeAction == false)
 				{
-					if (pVal.ItemUID == "PS_PP860")
-					{
-						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-						{
-						}
-						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-						{
-						}
-						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-						{
-						}
-					}
 				}
 			}
 			catch (Exception ex)
@@ -568,121 +554,9 @@ namespace PSH_BOne_AddOn
 				else if (pVal.Before_Action == false)
 				{
 					SubMain.Remove_Forms(oFormUniqueID);
-
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_PP860H);
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-		}
-
-		/// <summary>
-		/// FormMenuEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="pVal"></param>
-		/// <param name="BubbleEvent"></param>
-		public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
-		{
-			try
-			{
-				oForm.Freeze(true);
-				if (pVal.BeforeAction == true)
-				{
-					switch (pVal.MenuUID)
-					{
-						case "1284": //취소
-							break;
-						case "1286": //닫기
-							break;
-						case "1293": //행삭제
-							break;
-						case "1281": //찾기
-							break;
-						case "1282": //추가
-							break;
-						case "1288": //레코드이동(최초)
-						case "1289": //레코드이동(이전)
-						case "1290": //레코드이동(다음)
-						case "1291": //레코드이동(최종)
-							break;
-					}
-				}
-				else if (pVal.BeforeAction == false)
-				{
-					switch (pVal.MenuUID)
-					{
-						case "1284": //취소
-							break;
-						case "1286": //닫기
-							break;
-						case "1293": //행삭제
-							break;
-						case "1281": //찾기
-							break;
-						case "1282": //추가
-							break;
-						case "1288": //레코드이동(최초)
-						case "1289": //레코드이동(이전)
-						case "1290": //레코드이동(다음)
-						case "1291": //레코드이동(최종)
-							break;
-						case "1287": //복제
-							break;
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-				oForm.Freeze(false);
-			}
-		}
-
-		/// <summary>
-		/// FormDataEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="BusinessObjectInfo"></param>
-		/// <param name="BubbleEvent"></param>
-		public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
-		{
-			try
-			{
-				if (BusinessObjectInfo.BeforeAction == true)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
-							break;
-					}
-				}
-				else if (BusinessObjectInfo.BeforeAction == false)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
-							break;
-					}
 				}
 			}
 			catch (Exception ex)

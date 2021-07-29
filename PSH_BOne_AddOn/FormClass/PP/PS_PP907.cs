@@ -50,8 +50,8 @@ namespace PSH_BOne_AddOn
 				oForm.Freeze(true);
 
 				PS_PP907_CreateItems();
-				oForm.Items.Item("CntcCode").Specific.VALUE = prmCntcCode;
-				oForm.Items.Item("CntcName").Specific.VALUE = prmCntcName;
+				oForm.Items.Item("CntcCode").Specific.Value = prmCntcCode;
+				oForm.Items.Item("CntcName").Specific.Value = prmCntcName;
 
 				PS_PP907_MTX01(Convert.ToString(prmBPLId), prmCntcCode, prmFrDt, prmToDt);
 			}
@@ -94,7 +94,7 @@ namespace PSH_BOne_AddOn
 		{
 			string sQry;
 			short loopCount1;
-			string errMessage = String.Empty;
+			string errMessage = string.Empty;
 
 			string Param01;
 			string Param02;

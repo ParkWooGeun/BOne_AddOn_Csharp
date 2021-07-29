@@ -14,9 +14,7 @@ namespace PSH_BOne_AddOn
 	{
 		private string oFormUniqueID;
 		private SAPbouiCOM.Matrix oMat;
-			
 		private SAPbouiCOM.DBDataSource oDS_PS_SD058L; //등록라인
-
 		private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
 		private string oLastColUID01;  //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
 		private int oLastColRow01;     //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
@@ -56,9 +54,9 @@ namespace PSH_BOne_AddOn
 				oForm.Freeze(true);
 
 				PS_SD058_CreateItems();
-				PS_SD058_ComboBox_Setting();
-				PS_SD058_FormResize();
-				PS_SD058_Initial_Setting();
+				PS_SD058_SetComboBox();
+				PS_SD058_ResizeForm();
+				PS_SD058_Initialize();
 
 				oForm.EnableMenu("1283", false); // 삭제
 				oForm.EnableMenu("1286", false); // 닫기
@@ -129,9 +127,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_SD058_ComboBox_Setting
+		/// PS_SD058_SetComboBox
 		/// </summary>
-		private void PS_SD058_ComboBox_Setting()
+		private void PS_SD058_SetComboBox()
 		{
 			string sQry;
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -154,9 +152,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_SD058_Initial_Setting
+		/// PS_SD058_Initialize
 		/// </summary>
-		private void PS_SD058_Initial_Setting()
+		private void PS_SD058_Initialize()
 		{
 			try
 			{
@@ -171,9 +169,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_SD058_FormResize
+		/// PS_SD058_ResizeForm
 		/// </summary>
-		private void PS_SD058_FormResize()
+		private void PS_SD058_ResizeForm()
 		{
 			try
 			{
@@ -210,7 +208,6 @@ namespace PSH_BOne_AddOn
 					case "CardCode":
 						oForm.Items.Item("CardName").Specific.Value = dataHelpClass.Get_ReData("CardName", "CardCode", "[OCRD]", "'" + oForm.Items.Item(oUID).Specific.Value.ToString().Trim() + "'", "");
 						break;
-
 				}
 			}
 			catch (Exception ex)
@@ -276,7 +273,7 @@ namespace PSH_BOne_AddOn
 				OrdNum = oForm.Items.Item("OrdNum").Specific.Value.ToString().Trim();
 				CardCode = oForm.Items.Item("CardCode").Specific.Value.ToString().Trim();
 
-				sQry = "  EXEC [PS_SD058_01] '";
+				sQry = "EXEC [PS_SD058_01] '";
 				sQry += StdYM + "','";
 				sQry += StdAmt + "','";
 				sQry += OrdNum + "','";
@@ -336,8 +333,6 @@ namespace PSH_BOne_AddOn
 			}
 			catch (Exception ex)
 			{
-				ProgressBar01.Stop();  //stop 안하면 오래결림.
-
 				if (errMessage != string.Empty)
 				{
 					PSH_Globals.SBO_Application.MessageBox(errMessage);
@@ -357,10 +352,10 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_SD058_Print_Report01
+		/// PS_SD058_PrintReport
 		/// </summary>
 		[STAThread]
-		private void PS_SD058_Print_Report01()
+		private void PS_SD058_PrintReport()
 		{
 			string WinTitle;
 			string ReportName;
@@ -382,7 +377,6 @@ namespace PSH_BOne_AddOn
 				WinTitle = "[PS_SD058] 외주제작 관리 대상 업체";
 				ReportName = "PS_SD058_01.rpt";
 
-				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
 				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
 
 				// Formula 수식필드
@@ -393,7 +387,7 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@OrdNum", OrdNum));
 				dataPackParameter.Add(new PSH_DataPackClass("@CardCode", CardCode));
 
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
 			}
 			catch (Exception ex)
 			{
@@ -502,7 +496,7 @@ namespace PSH_BOne_AddOn
 					}
 					else if (pVal.ItemUID == "BtnPrint")
 					{
-						System.Threading.Thread thread = new System.Threading.Thread(PS_SD058_Print_Report01);
+						System.Threading.Thread thread = new System.Threading.Thread(PS_SD058_PrintReport);
 						thread.SetApartmentState(System.Threading.ApartmentState.STA);
 						thread.Start();
 					}
@@ -684,7 +678,7 @@ namespace PSH_BOne_AddOn
 				}
 				else if (pVal.BeforeAction == false)
 				{
-					PS_SD058_FormResize();
+					PS_SD058_ResizeForm();
 				}
 			}
 			catch (Exception ex)
@@ -827,51 +821,6 @@ namespace PSH_BOne_AddOn
 			finally
 			{
 				oForm.Freeze(false);
-			}
-		}
-
-		/// <summary>
-		/// FormDataEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="BusinessObjectInfo"></param>
-		/// <param name="BubbleEvent"></param>
-		public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
-		{
-			try
-			{
-				if (BusinessObjectInfo.BeforeAction == true)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
-							break;
-					}
-				}
-				else if (BusinessObjectInfo.BeforeAction == false)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
-							break;
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 			}
 		}
 	}

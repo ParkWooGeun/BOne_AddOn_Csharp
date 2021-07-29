@@ -108,7 +108,7 @@ namespace PSH_BOne_AddOn
         private void PS_FI030_ComboBox_Setting()
         {
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            string sQry = String.Empty;
+            string sQry = string.Empty;
             
             try
             {
@@ -421,13 +421,13 @@ namespace PSH_BOne_AddOn
         [STAThread]
         private void PS_FI030_Print_Report01()
         {
-            string WinTitle = String.Empty;
-            string ReportName = String.Empty;
-            string BPLId = String.Empty;
-            string SPmntDate = String.Empty;
-            string EPmntDate = String.Empty;
-            string SDueDate = String.Empty;
-            string EDueDate = String.Empty;
+            string WinTitle = string.Empty;
+            string ReportName = string.Empty;
+            string BPLId = string.Empty;
+            string SPmntDate = string.Empty;
+            string EPmntDate = string.Empty;
+            string SDueDate = string.Empty;
+            string EDueDate = string.Empty;
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
@@ -439,7 +439,7 @@ namespace PSH_BOne_AddOn
                 List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>(); //Parameter
                 List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
 
-                //// 조회조건문
+                // 조회조건문
                 SPmntDate = oForm.Items.Item("SPmntDate").Specific.Value.ToString().Trim();
                 EPmntDate = oForm.Items.Item("EPmntDate").Specific.Value.ToString().Trim();
                 SDueDate = oForm.Items.Item("SDueDate").Specific.Value.ToString().Trim();

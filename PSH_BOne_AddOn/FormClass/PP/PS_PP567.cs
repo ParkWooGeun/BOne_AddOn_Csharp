@@ -51,7 +51,7 @@ namespace PSH_BOne_AddOn
 				oForm.Freeze(true);
 
 				PS_PP567_CreateItems();
-				PS_PP567_ComboBox_Setting();
+				PS_PP567_SetComboBox();
 
 				oForm.Items.Item("BtnPrt01").Visible = false;
 				oForm.Items.Item("CardCode").Click();
@@ -125,9 +125,9 @@ namespace PSH_BOne_AddOn
 				oForm.DataSources.UserDataSources.Add("CmltYN", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 5);
 				oForm.Items.Item("CmltYN").Specific.DataBind.SetBound(true, "", "CmltYN");
 
-				oForm.Items.Item("FrYM").Specific.VALUE = DateTime.Now.AddMonths(-6).ToString("yyyyMM"); //6개월전
-				oForm.Items.Item("ToYM").Specific.VALUE = DateTime.Now.ToString("yyyyMM");
-				oForm.Items.Item("OrdAmt").Specific.VALUE = "100000000";
+				oForm.Items.Item("FrYM").Specific.Value = DateTime.Now.AddMonths(-6).ToString("yyyyMM"); //6개월전
+				oForm.Items.Item("ToYM").Specific.Value = DateTime.Now.ToString("yyyyMM");
+				oForm.Items.Item("OrdAmt").Specific.Value = "100000000";
 			}
 			catch (Exception ex)
 			{
@@ -136,9 +136,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_PP567_ComboBox_Setting
+		/// PS_PP567_SetComboBox
 		/// </summary>
-		private void PS_PP567_ComboBox_Setting()
+		private void PS_PP567_SetComboBox()
 		{
 			string sQry;
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -183,12 +183,12 @@ namespace PSH_BOne_AddOn
 				switch (oUID)
 				{
 					case "CardCode":  //거래처
-						oForm.Items.Item("CardName").Specific.VALUE = dataHelpClass.Get_ReData("CardName", "CardCode", "[OCRD]", "'" + oForm.Items.Item("CardCode").Specific.Value.ToString().Trim() + "'", "");
+						oForm.Items.Item("CardName").Specific.Value = dataHelpClass.Get_ReData("CardName", "CardCode", "[OCRD]", "'" + oForm.Items.Item("CardCode").Specific.Value.ToString().Trim() + "'", "");
 						break;
 
 					case "ItemCode": //작번,규격
-						oForm.Items.Item("ItemName").Specific.VALUE = dataHelpClass.Get_ReData("FrgnName", "ItemCode", "[OITM]", "'" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'", "");
-						oForm.Items.Item("ItemSpec").Specific.VALUE = dataHelpClass.Get_ReData("U_Size", "ItemCode", "[OITM]", "'" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'", "");
+						oForm.Items.Item("ItemName").Specific.Value = dataHelpClass.Get_ReData("FrgnName", "ItemCode", "[OITM]", "'" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'", "");
+						oForm.Items.Item("ItemSpec").Specific.Value = dataHelpClass.Get_ReData("U_Size", "ItemCode", "[OITM]", "'" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'", "");
 						break;
 				}
 			}
@@ -205,7 +205,6 @@ namespace PSH_BOne_AddOn
 		{
 			string sQry;
 			string errMessage = string.Empty;
-
 			string FrYM;	 //기준년월(시작)
 			string ToYM;	 //기준년월(종료)
 			string CardType; //거래처구분
@@ -214,7 +213,6 @@ namespace PSH_BOne_AddOn
 			string InOut;	 //자체/외주
 			double OrdAmt;	 //수주금액
 			string CmltYN;	 //생산완료
-
 			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 			try
 			{
@@ -239,7 +237,7 @@ namespace PSH_BOne_AddOn
 
 				ProgressBar01.Text = "조회 중...";
 
-				sQry = " EXEC PS_PP567_01 '";
+				sQry = "EXEC PS_PP567_01 '";
 				sQry += FrYM + "','";
 				sQry += ToYM + "','";
 				sQry += CardType + "','";
@@ -283,7 +281,11 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
-				oGrid.AutoResizeColumns();
+				if (oGrid.Rows.Count > 0)
+				{
+					oGrid.AutoResizeColumns();
+				}
+				
 				oForm.Update();
 				ProgressBar01.Stop();
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
@@ -292,14 +294,13 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_PP567_Print_Report01
+		/// PS_PP567_PrintReport01
 		/// </summary>
 		[STAThread]
-		private void PS_PP567_Print_Report01()
+		private void PS_PP567_PrintReport01()
 		{
 			string WinTitle;
 			string ReportName;
-
 			string FrYM;     //기준년월(시작)
 			string ToYM;     //기준년월(종료)
 			string CardType; //거래처구분
@@ -308,7 +309,6 @@ namespace PSH_BOne_AddOn
 			string InOut;    //자체/외주
 			double OrdAmt;   //수주금액
 			string CmltYN;   //생산완료
-
 			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 
 			try
@@ -333,7 +333,6 @@ namespace PSH_BOne_AddOn
 				WinTitle = "[PS_PP567] 레포트";
 				ReportName = "PS_PP567_01.rpt";
 
-				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
 				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
 
 				// Formula 수식필드
@@ -348,7 +347,7 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@OrdAmt", OrdAmt));
 				dataPackParameter.Add(new PSH_DataPackClass("@CmltYN", CmltYN));
 
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
 			}
 			catch (Exception ex)
 			{
@@ -357,14 +356,13 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_PP567_Print_Report02
+		/// PS_PP567_PrintReport02
 		/// </summary>
 		[STAThread]
-		private void PS_PP567_Print_Report02()
+		private void PS_PP567_PrintReport02()
 		{
 			string WinTitle;
 			string ReportName;
-
 			string FrYM;     //기준년월(시작)
 			string ToYM;     //기준년월(종료)
 			string CardType; //거래처구분
@@ -373,7 +371,6 @@ namespace PSH_BOne_AddOn
 			string InOut;    //자체/외주
 			double OrdAmt;   //수주금액
 			string CmltYN;   //생산완료
-
 			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 
 			try
@@ -398,7 +395,6 @@ namespace PSH_BOne_AddOn
 				WinTitle = "[PS_PP567] 레포트";
 				ReportName = "PS_PP567_02.rpt";
 
-				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
 				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
 
 				// Formula 수식필드
@@ -413,7 +409,7 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@OrdAmt", OrdAmt));
 				dataPackParameter.Add(new PSH_DataPackClass("@CmltYN", CmltYN));
 
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
 			}
 			catch (Exception ex)
 			{
@@ -527,7 +523,7 @@ namespace PSH_BOne_AddOn
 				{
 					if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 					{
-						System.Threading.Thread thread = new System.Threading.Thread(PS_PP567_Print_Report01);
+						System.Threading.Thread thread = new System.Threading.Thread(PS_PP567_PrintReport01);
 						thread.SetApartmentState(System.Threading.ApartmentState.STA);
 						thread.Start();
 					}
@@ -536,7 +532,7 @@ namespace PSH_BOne_AddOn
 				{
 					if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 					{
-						System.Threading.Thread thread = new System.Threading.Thread(PS_PP567_Print_Report02);
+						System.Threading.Thread thread = new System.Threading.Thread(PS_PP567_PrintReport02);
 						thread.SetApartmentState(System.Threading.ApartmentState.STA);
 						thread.Start();
 					}
@@ -659,114 +655,6 @@ namespace PSH_BOne_AddOn
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_PP567A);
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-		}
-
-		/// <summary>
-		/// FormMenuEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="pVal"></param>
-		/// <param name="BubbleEvent"></param>
-		public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
-		{
-			try
-			{
-				if (pVal.BeforeAction == true)
-				{
-					switch (pVal.MenuUID)
-					{
-						case "1284": //취소
-							break;
-						case "1286": //닫기
-							break;
-						case "1293": //행삭제
-							break;
-						case "1281": //찾기
-							break;
-						case "1282": //추가
-							break;
-						case "1285": //복원
-							break;
-						case "1288":
-						case "1289":
-						case "1290":
-						case "1291": //레코드이동버튼
-							break;
-					}
-				}
-				else if (pVal.BeforeAction == false)
-				{
-					switch (pVal.MenuUID)
-					{
-						case "1284": //취소
-							break;
-						case "1286": //닫기
-							break;
-						case "1285": //복원
-							break;
-						case "1293": //행삭제
-							break;
-						case "1281": //찾기
-							break;
-						case "1282": //추가
-							break;
-						case "1288":
-						case "1289":
-						case "1290":
-						case "1291": //레코드이동버튼
-							break;
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-		}
-
-		/// <summary>
-		/// Raise_FormDataEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="BusinessObjectInfo"></param>
-		/// <param name="BubbleEvent"></param>
-		public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
-		{
-			try
-			{
-				if (BusinessObjectInfo.BeforeAction == true)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:    //33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:     //34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:  //35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:  //36
-							break;
-					}
-				}
-				else if (BusinessObjectInfo.BeforeAction == false)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:    //33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:     //34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:  //35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:  //36
-							break;
-					}
 				}
 			}
 			catch (Exception ex)

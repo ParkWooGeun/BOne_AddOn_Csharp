@@ -81,7 +81,7 @@ namespace PSH_BOne_AddOn
                 sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P144' AND U_UseYN= 'Y'";
                 oRecordSet.DoQuery(sQry);
                 oForm.Items.Item("CLTCOD").Specific.ValidValues.Add("%", "전 사업장");
-                while (!(oRecordSet.EoF))
+                while (!oRecordSet.EoF)
                 {
                     oForm.Items.Item("CLTCOD").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.Trim(), oRecordSet.Fields.Item(1).Value.Trim());
                     oRecordSet.MoveNext();

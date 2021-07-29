@@ -101,7 +101,7 @@ namespace PSH_BOne_AddOn
 				sQry = "SELECT BPLId, BPLName From [OBPL] order by BPLId";
 				oRecordSet.DoQuery(sQry);
 				oForm.Items.Item("BPLId").Specific.ValidValues.Add("0", "전체 사업장");
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();

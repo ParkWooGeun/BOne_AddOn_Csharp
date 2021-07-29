@@ -82,8 +82,8 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("DocDateTo").Specific.DataBind.SetBound(true, "", "DocDateTo");
 				oForm.Items.Item("OverDt").Specific.DataBind.SetBound(true, "", "OverDt");
 
-				oForm.Items.Item("DocDateFr").Specific.VALUE = DateTime.Now.ToString("yyyyMM") + "01";
-				oForm.Items.Item("DocDateTo").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
+				oForm.Items.Item("DocDateFr").Specific.Value = DateTime.Now.ToString("yyyyMM") + "01";
+				oForm.Items.Item("DocDateTo").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 			}
 			catch (Exception ex)
 			{
@@ -205,8 +205,8 @@ namespace PSH_BOne_AddOn
 			{
 				BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
 				DocDateFr = oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim();
-				DocDateTo = oForm.Items.Item("DocDateTo").Specific.VALUE.ToString().Trim();
-				OverDt = oForm.Items.Item("OverDt").Specific.VALUE.ToString().Trim();
+				DocDateTo = oForm.Items.Item("DocDateTo").Specific.Value.ToString().Trim();
+				OverDt = oForm.Items.Item("OverDt").Specific.Value.ToString().Trim();
 
 				WinTitle = "[PS_SD295] 레포트";
 				ReportName = "PS_SD295_01.rpt";

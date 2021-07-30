@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <doc>
     <assembly>
         <name>PSH_BOne_AddOn</name>
@@ -36584,9 +36584,9 @@
             PS_SD051_CreateItems
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD051.PS_SD051_ComboBox_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_SD051.PS_SD051_SetComboBox">
             <summary>
-            PS_SD051_ComboBox_Setting
+            PS_SD051_SetComboBox
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD051.PS_SD051_EnableMenus">
@@ -36607,9 +36607,9 @@
             <param name="oRow"></param>
             <param name="RowIserted"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD051.PS_SD051_FormItemEnabled">
+        <member name="M:PSH_BOne_AddOn.PS_SD051.PS_SD051_EnableFormItem">
             <summary>
-            PS_SD051_FormItemEnabled
+            PS_SD051_EnableFormItem
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD051.PS_SD051_FormClear">
@@ -36617,16 +36617,11 @@
             PS_SD051_FormClear
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD051.PS_SD051_DataValidCheck">
+        <member name="M:PSH_BOne_AddOn.PS_SD051.PS_SD051_CheckDataValid">
             <summary>
-            PS_SD051_DataValidCheck
+            PS_SD051_CheckDataValid
             </summary>
             <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD051.PS_SD051_MTX01">
-            <summary>
-            PS_SD051_MTX01
-            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD051.PS_SD051_SUM(System.Int32)">
             <summary>
@@ -36726,14 +36721,6 @@
             </summary>
             <param name="FormUID"></param>
             <param name="pVal"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD051.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_SD052">
@@ -39830,26 +39817,26 @@
             <summary>
             LoadForm
             </summary>
-            <param name="oFormDocEntry"></param>
+            <param name="oFormDocEntry"></param>PS_SD285_SetComboBox
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD285.PS_SD285_CreateItems">
             <summary>
             PS_SD285_CreateItems
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD285.PS_SD285_ComboBox_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_SD285.PS_SD285_SetComboBox">
             <summary>
-            PS_SD285_ComboBox_Setting
+            PS_SD285_SetComboBox
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD285.PS_SD285_Initial_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_SD285.PS_SD285_Initialize">
             <summary>
-            PS_SD285_Initial_Setting
+            PS_SD285_Initialize
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD285.PS_SD285_DataValidCheck">
+        <member name="M:PSH_BOne_AddOn.PS_SD285.PS_SD285_CheckDataValid">
             <summary>
-            PS_SD285_DataValidCheck
+            PS_SD285_CheckDataValid
             </summary>
             <returns></returns>
         </member>
@@ -39896,22 +39883,6 @@
             </summary>
             <param name="FormUID"></param>
             <param name="pVal"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD285.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
-            <summary>
-            FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pVal"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD285.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_SD290">
@@ -40696,14 +40667,25 @@
             PS_SD477_CreateItems
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD477.PS_SD477_ComboBox_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_SD477.PS_SD477_SetComboBox">
             <summary>
-            PS_SD477_ComboBox_Setting
+            PS_SD477_SetComboBox
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD477.PS_SD477_Initial_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_SD477.PS_SD477_Initialize">
             <summary>
-            PS_SD477_Initial_Setting
+            PS_SD477_Initialize
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD477.PS_SD477_CheckDataValid">
+            <summary>
+            PS_SD477_CheckDataValid
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD477.PS_SD477_Print_Report01">
+            <summary>
+            PS_SD477_Print_Report01
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD477.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -40746,33 +40728,6 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD477.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
-            <summary>
-            FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pVal"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD477.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD477.PS_SD477_DataValidCheck">
-            <summary>
-            PS_SD477_DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD477.PS_SD477_Print_Report01">
-            <summary>
-            PS_SD477_Print_Report01
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PS_SD480">
             <summary>
             타계정출고현황(샘플,감모손)
@@ -40789,14 +40744,25 @@
             PS_SD480_CreateItems
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD480.PS_SD480_ComboBox_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_SD480.PS_SD480_SetComboBox">
             <summary>
-            PS_SD480_ComboBox_Setting
+            PS_SD480_SetComboBox
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD480.PS_SD480_Initial_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_SD480.PS_SD480_Initialize">
             <summary>
-            PS_SD480_Initial_Setting
+            PS_SD480_Initialize
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD480.PS_SD480_CheckDataValid">
+            <summary>
+            PS_SD480_CheckDataValid
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD480.PS_SD480_Print_Report01">
+            <summary>
+            PS_SD480_Print_Report01
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD480.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -40823,33 +40789,6 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD480.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
-            <summary>
-            FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pVal"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD480.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD480.PS_SD480_DataValidCheck">
-            <summary>
-            PS_SD480_DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD480.PS_SD480_Print_Report01">
-            <summary>
-            PS_SD480_Print_Report01
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PS_SD485">
             <summary>
             (포장)매출실적현황
@@ -40861,15 +40800,26 @@
             </summary>
             <param name="oFormDocEntry"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD485.CreateItems">
+        <member name="M:PSH_BOne_AddOn.PS_SD485.PS_SD485_CreateItems">
             <summary>
-            CreateItems
+            PS_SD485_CreateItems
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD485.ComboBox_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_SD485.PS_SD485_SetComboBox">
             <summary>
-            ComboBox_Setting
+            PS_SD485_SetComboBox
             </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD485.PS_SD485_PrintReport">
+            <summary>
+            PS_SD485_PrintReport
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD485.PS_SD485_CheckDataValid">
+            <summary>
+            PS_SD485_CheckDataValid
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD485.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -40895,33 +40845,6 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD485.HeaderSpaceLineDel">
-            <summary>
-            HeaderSpaceLineDel
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD485.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
-            <summary>
-            FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pVal"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD485.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD485.Print_Query">
-            <summary>
-            Print_Query
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PS_SD486">
             <summary>
             품목별판매현황
@@ -40938,14 +40861,25 @@
             PS_SD486_CreateItems
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD486.PS_SD486_ComboBox_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_SD486.PS_SD486_SetComboBox">
             <summary>
-            PS_SD486_ComboBox_Setting
+            PS_SD486_SetComboBox
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD486.PS_SD486_Initial_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_SD486.PS_SD486_Initialize">
             <summary>
-            PS_SD486_Initial_Setting
+            PS_SD486_Initialize
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD486.PS_SD486_CheckDataValid">
+            <summary>
+            PS_SD486_CheckDataValid
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD486.PS_SD486_Print_Report01">
+            <summary>
+            PS_SD486_Print_Report01
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD486.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -40987,33 +40921,6 @@
             <param name="FormUID"></param>
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD486.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
-            <summary>
-            FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pVal"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD486.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD486.PS_SD486_DataValidCheck">
-            <summary>
-            PS_SD486_DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD486.PS_SD486_Print_Report01">
-            <summary>
-            PS_SD486_Print_Report01
-            </summary>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_SD490">
              <summary>
@@ -41980,15 +41887,26 @@
             </summary>
             <param name="oFormDocEntry"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD912.CreateItems">
+        <member name="M:PSH_BOne_AddOn.PS_SD912.PS_SD912_CreateItems">
             <summary>
-            CreateItems
+            PS_SD912_CreateItems
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD912.ComboBox_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_SD912.PS_SD912_SetComboBox">
             <summary>
-            ComboBox_Setting
+            PS_SD912_SetComboBox
             </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD912.PS_SD912_PrintReport">
+            <summary>
+            PS_SD912_PrintReport
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD912.PS_SD912_CheckDataValid">
+            <summary>
+            PS_SD912_CheckDataValid
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD912.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -42021,33 +41939,6 @@
             <param name="FormUID"></param>
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD912.HeaderSpaceLineDel">
-            <summary>
-            HeaderSpaceLineDel
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD912.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
-            <summary>
-            FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pVal"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD912.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD912.Print_Query">
-            <summary>
-            Print_Query
-            </summary>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_SD913">
             <summary>
@@ -42531,9 +42422,27 @@
             PS_SD955_CreateItems
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD955.PS_SD955_ComboBox_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_SD955.PS_SD955_SetComboBox">
             <summary>
-            PS_SD955_ComboBox_Setting
+            PS_SD955_SetComboBox
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD955.PS_SD955_FlushToItemValue(System.String,System.Int32,System.String)">
+            <summary>
+            PS_SD955_FlushToItemValue
+            </summary>
+            <param name="oUID"></param>
+            <param name="oRow"></param>
+            <param name="oCol"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD955.PS_SD955_MTX01">
+            <summary>
+            PS_SD955_MTX01
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD955.PS_SD955_Print_Report01">
+            <summary>
+            PS_SD955_Print_Report01
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD955.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -42584,40 +42493,6 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD955.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
-            <summary>
-            FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pVal"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD955.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD955.PS_SD955_FlushToItemValue(System.String,System.Int32,System.String)">
-            <summary>
-            PS_SD955_FlushToItemValue
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD955.PS_SD955_MTX01">
-            <summary>
-            PS_SD955_MTX01
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD955.PS_SD955_Print_Report01">
-            <summary>
-            PS_SD955_Print_Report01
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PS_SD956">
             <summary>
             작번이력관리
@@ -42634,9 +42509,57 @@
             PS_SD956_CreateItems
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD956.PS_SD956_ComboBox_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_SD956.PS_SD956_SetComboBox">
             <summary>
-            PS_SD956_ComboBox_Setting
+            PS_SD956_SetComboBox
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD956.PS_SD956_FlushToItemValue(System.String,System.Int32,System.String)">
+            <summary>
+            PS_SD956_FlushToItemValue
+            </summary>
+            <param name="oUID"></param>
+            <param name="oRow"></param>
+            <param name="oCol"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD956.PS_SD956_MTX01">
+            <summary>
+            PS_SD956_MTX01  영업정보 조회
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD956.PS_SD956_MTX02">
+            <summary>
+            PS_SD956_MTX02  생산정보 조회
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD956.PS_SD956_MTX03">
+            <summary>
+            PS_SD956_MTX03  구매정보 조회
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD956.PS_SD956_MTX04">
+            <summary>
+            PS_SD956_MTX04  회계정보
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD956.PS_SD956_FormResize">
+            <summary>
+            PS_SD956_FormResize
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD956.PS_SD956_GetProductionDetail">
+            <summary>
+            PS_SD956_GetProductionDetail  생산세부정보 조회
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD956.PS_SD956_GetPurchaseDetail">
+            <summary>
+            PS_SD956_GetPurchaseDetail  구매세부정보 조회
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD956.PS_SD956_GetAccountingDetail">
+            <summary>
+            PS_SD956_GetAccountingDetail  회계세부정보 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD956.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -42705,75 +42628,11 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD956.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
-            
+            Raise_EVENT_FORM_UNLOAD
             </summary>
             <param name="FormUID"></param>
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD956.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
-            <summary>
-            FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pVal"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD956.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD956.PS_SD956_FlushToItemValue(System.String,System.Int32,System.String)">
-            <summary>
-            PS_SD956_FlushToItemValue
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD956.PS_SD956_MTX01">
-            <summary>
-            PS_SD956_MTX01  영업정보 조회
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD956.PS_SD956_MTX02">
-            <summary>
-            PS_SD956_MTX02  생산정보 조회
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD956.PS_SD956_MTX03">
-            <summary>
-            PS_SD956_MTX03  구매정보 조회
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD956.PS_SD956_MTX04">
-            <summary>
-            PS_SD956_MTX04  회계정보
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD956.PS_SD956_FormResize">
-            <summary>
-            PS_SD956_FormResize
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD956.PS_SD956_GetProductionDetail">
-            <summary>
-            PS_SD956_GetProductionDetail  생산세부정보 조회
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD956.PS_SD956_GetPurchaseDetail">
-            <summary>
-            PS_SD956_GetPurchaseDetail  구매세부정보 조회
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD956.PS_SD956_GetAccountingDetail">
-            <summary>
-            PS_SD956_GetAccountingDetail  회계세부정보 조회
-            </summary>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_SD956_01">
             <summary>
@@ -43007,14 +42866,25 @@
             PS_SD957_CreateItems
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD957.PS_SD957_ComboBox_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_SD957.PS_SD957_SetComboBox">
             <summary>
-            PS_SD957_ComboBox_Setting
+            PS_SD957_SetComboBox
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD957.PS_SD957_Initial_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_SD957.PS_SD957_Initialize">
             <summary>
-            PS_SD957_Initial_Setting
+            PS_SD957_Initialize
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD957.PS_SD957_CheckDataValid">
+            <summary>
+            PS_SD957_CheckDataValid
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD957.PS_SD957_Print_Report01">
+            <summary>
+            PS_SD957_Print_Report01
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD957.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -43049,33 +42919,6 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD957.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
-            <summary>
-            FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pVal"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD957.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD957.PS_SD957_DataValidCheck">
-            <summary>
-            PS_SD957_DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD957.PS_SD957_Print_Report01">
-            <summary>
-            PS_SD957_Print_Report01
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PS_SD958">
             <summary>
             거래처별 세분화별 수주실적(관계3사)
@@ -43092,14 +42935,25 @@
             PS_SD958_CreateItems
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD958.PS_SD958_ComboBox_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_SD958.PS_SD958_SetComboBox">
             <summary>
-            PS_SD958_ComboBox_Setting
+            PS_SD958_SetComboBox
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD958.PS_SD958_Initial_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_SD958.PS_SD958_Initialize">
             <summary>
-            PS_SD958_Initial_Setting
+            PS_SD958_Initialize
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD958.PS_SD958_CheckDataValid">
+            <summary>
+            PS_SD958_CheckDataValid
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD958.PS_SD958_Print_Report01">
+            <summary>
+            PS_SD958_Print_Report01
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD958.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -43134,33 +42988,6 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD958.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
-            <summary>
-            FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pVal"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD958.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD958.PS_SD958_DataValidCheck">
-            <summary>
-            PS_SD958_DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD958.PS_SD958_Print_Report01">
-            <summary>
-            PS_SD958_Print_Report01
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PS_SD960">
             <summary>
             거래처별월별채권현황
@@ -43177,9 +43004,19 @@
             PS_SD960_CreateItems
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD960.PS_SD960_ComboBox_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_SD960.PS_SD960_SetComboBox">
             <summary>
-            PS_SD960_ComboBox_Setting
+            PS_SD960_SetComboBox
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD960.PS_SD960_MTX01">
+            <summary>
+            PS_SD960_MTX01
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD960.PS_SD960_Print_Report01">
+            <summary>
+            PS_SD960_Print_Report01
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD960.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -43206,32 +43043,6 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD960.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
-            <summary>
-            FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pVal"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD960.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD960.PS_SD960_MTX01">
-            <summary>
-            PS_SD960_MTX01
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD960.PS_SD960_Print_Report01">
-            <summary>
-            PS_SD960_Print_Report01
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PS_SD961">
             <summary>
             거래처별연령분석
@@ -43248,9 +43059,19 @@
             PS_SD961_CreateItems
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD961.PS_SD961_ComboBox_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_SD961.PS_SD961_SetComboBox">
             <summary>
-            PS_SD961_ComboBox_Setting
+            PS_SD961_SetComboBox
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD961.PS_SD961_MTX01">
+            <summary>
+            PS_SD961_MTX01
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD961.PS_SD961_Print_Report01">
+            <summary>
+            PS_SD961_Print_Report01
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD961.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -43277,32 +43098,6 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD961.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
-            <summary>
-            FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pVal"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD961.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD961.PS_SD961_MTX01">
-            <summary>
-            PS_SD961_MTX01
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD961.PS_SD961_Print_Report01">
-            <summary>
-            PS_SD961_Print_Report01
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.PS_SD962">
             <summary>
             AR송장 VS 납품 조회
@@ -43319,9 +43114,27 @@
             PS_SD962_CreateItems
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD962.PS_SD962_ComboBox_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_SD962.PS_SD962_SetComboBox">
             <summary>
-            PS_SD962_ComboBox_Setting
+            PS_SD962_SetComboBox
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD962.PS_SD962_FlushToItemValue(System.String,System.Int32,System.String)">
+            <summary>
+            PS_SD962_FlushToItemValue
+            </summary>
+            <param name="oUID"></param>
+            <param name="oRow"></param>
+            <param name="oCol"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD962.PS_SD962_MTX01">
+            <summary>
+            PS_SD962_MTX01
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD962.PS_SD962_Print_Report01">
+            <summary>
+            PS_SD962_Print_Report01
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD962.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -43363,40 +43176,6 @@
             <param name="FormUID"></param>
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD962.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
-            <summary>
-            FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pVal"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD962.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD962.PS_SD962_FlushToItemValue(System.String,System.Int32,System.String)">
-            <summary>
-            PS_SD962_FlushToItemValue
-            </summary>
-            <param name="oUID"></param>
-            <param name="oRow"></param>
-            <param name="oCol"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD962.PS_SD962_MTX01">
-            <summary>
-            PS_SD962_MTX01
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD962.PS_SD962_Print_Report01">
-            <summary>
-            PS_SD962_Print_Report01
-            </summary>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_SM010">
             <summary>

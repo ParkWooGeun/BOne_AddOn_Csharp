@@ -1350,11 +1350,17 @@ namespace PSH_BOne_AddOn
             int RetVal;
             int Cnt;
             int errDiCode = 0;
+            string sQry;
+            string sQry02;
             string SDocEntry;
             string errCode = string.Empty;
             string errDiMsg = string.Empty;
+            double Price;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            PSH_CodeHelpClass codeHelpClss = new PSH_CodeHelpClass();
             SAPbobsCOM.Documents oDIObject = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenExit);
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset oRecordSet02 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -1373,12 +1379,37 @@ namespace PSH_BOne_AddOn
                 {
                     if ((oMat01.Columns.Item("CpCode").Cells.Item(i).Specific.Value == "CP80101" || oMat01.Columns.Item("CpCode").Cells.Item(i).Specific.Value == "CP80111") && !string.IsNullOrEmpty(oMat01.Columns.Item("CItemCod").Cells.Item(i).Specific.Value) && Convert.ToDouble(oMat01.Columns.Item("PQty").Cells.Item(i).Specific.Value) >= 0 && Convert.ToDouble(oMat01.Columns.Item("PWeight").Cells.Item(i).Specific.Value) != 0)
                     {
+                        sQry = "  SELECT PRICE";
+                        sQry += "   FROM OIVL a INNER JOIN OIGN b ON a.BASE_REF = b.DocEntry AND b.U_Comments = 'Convert Meterial'";
+                        sQry += "  WHERE a.ITEMCODE = '" + oMat01.Columns.Item("CItemCod").Cells.Item(i).Specific.Value + "'"; //CItemCod
+                        sQry += "   AND CONVERT(CHAR(6), a.DocDate,112) = '" + codeHelpClss.Left(oForm.Items.Item("DocDate").Specific.Value, 6) + "'";
+
+                        oRecordSet01.DoQuery(sQry);
+
+                        Price = Convert.ToString(oRecordSet01.Fields.Item(0).Value) == "" ? 0 : Convert.ToDouble(oRecordSet01.Fields.Item(0).Value);
+
+                        sQry02 = "select U_ItmBsort  from OITM where ItemCode ='" + oMat01.Columns.Item("CItemCod").Cells.Item(i).Specific.Value.ToString().Trim() + "'";
+                        oRecordSet02.DoQuery(sQry02);
+
                         oDIObject.Lines.Add();
                         oDIObject.Lines.SetCurrentLine(j);
                         oDIObject.Lines.ItemCode = oMat01.Columns.Item("CItemCod").Cells.Item(i).Specific.Value;
                         oDIObject.Lines.WarehouseCode = "101";
                         oDIObject.Lines.Quantity = float.Parse(oMat01.Columns.Item("PWeight").Cells.Item(i).Specific.Value);
                         oDIObject.Lines.UserFields.Fields.Item("U_Qty").Value = oMat01.Columns.Item("PQty").Cells.Item(i).Specific.Value;
+
+                        if (oRecordSet02.Fields.Item(0).Value == "501") //스크랩 품목일 경우 단가,금액 0
+                        {
+                            oDIObject.Lines.Price = 0;
+                            oDIObject.Lines.UnitPrice = 0;
+                            oDIObject.Lines.LineTotal = 0;
+                        }
+                        else if (oRecordSet01.RecordCount > 0) //제품원재료 변환 품목은 단가를 계산 후 입력
+                        {
+                            oDIObject.Lines.Price = Price;
+                            oDIObject.Lines.UnitPrice = Price;
+                            oDIObject.Lines.LineTotal = Price * Convert.ToDouble(oMat01.Columns.Item("PWeight").Cells.Item(i).Specific.Value);
+                        }
 
                         if (oMat01.Columns.Item("OrdGbn").Cells.Item(i).Specific.Selected.Value == "102" || oMat01.Columns.Item("OrdGbn").Cells.Item(i).Specific.Selected.Value == "104" || oMat01.Columns.Item("OrdGbn").Cells.Item(i).Specific.Selected.Value == "111")
                         {
@@ -1388,8 +1419,8 @@ namespace PSH_BOne_AddOn
                                 oDIObject.Lines.BatchNumbers.Quantity = float.Parse(oMat01.Columns.Item("YQty").Cells.Item(i).Specific.Value);
                                 oDIObject.Lines.BatchNumbers.Add();
                             }
-                            j += 1;
                         }
+                        j += 1;
                     }
                 }
                 RetVal = oDIObject.Add();
@@ -1454,12 +1485,16 @@ namespace PSH_BOne_AddOn
             int RetVal;
             int errDiCode = 0;
             string sQry;
+            string sQry02;
             string SDocEntry;
             string errCode = string.Empty;
             string errDiMsg = string.Empty;
+            double Price;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            PSH_CodeHelpClass codeHelpClss = new PSH_CodeHelpClass();
             SAPbobsCOM.Documents oDIObject = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset oRecordSet02 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -1478,12 +1513,37 @@ namespace PSH_BOne_AddOn
                 {
                     if ((oMat01.Columns.Item("CpCode").Cells.Item(i).Specific.Value == "CP80101" || oMat01.Columns.Item("CpCode").Cells.Item(i).Specific.Value == "CP80111") && !string.IsNullOrEmpty(oMat01.Columns.Item("CItemCod").Cells.Item(i).Specific.Value) && Convert.ToDouble(oMat01.Columns.Item("PQty").Cells.Item(i).Specific.Value) >= 0 && Convert.ToDouble(oMat01.Columns.Item("PWeight").Cells.Item(i).Specific.Value) != 0)
                     {
+                        sQry = "  SELECT PRICE";
+                        sQry += "   FROM OIVL a INNER JOIN OIGN b ON a.BASE_REF = b.DocEntry AND b.U_Comments = 'Convert Meterial'";
+                        sQry += "  WHERE a.ITEMCODE = '" + oMat01.Columns.Item("CItemCod").Cells.Item(i).Specific.Value + "'";
+                        sQry += "   AND CONVERT(CHAR(6), a.DocDate,112) = '" + codeHelpClss.Left(oForm.Items.Item("DocDate").Specific.Value, 6) + "'";
+
+                        oRecordSet01.DoQuery(sQry);
+
+                        Price = Convert.ToString(oRecordSet01.Fields.Item(0).Value) == "" ? 0 : Convert.ToDouble(oRecordSet01.Fields.Item(0).Value);
+
+                        sQry02 = "select U_ItmBsort  from OITM where ItemCode ='" + oMat01.Columns.Item("CItemCod").Cells.Item(i).Specific.Value.ToString().Trim() + "'";
+                        oRecordSet02.DoQuery(sQry02);
+
                         oDIObject.Lines.Add();
                         oDIObject.Lines.SetCurrentLine(j);
                         oDIObject.Lines.ItemCode = oMat01.Columns.Item("CItemCod").Cells.Item(i).Specific.Value;
                         oDIObject.Lines.WarehouseCode = "101";
                         oDIObject.Lines.Quantity = float.Parse(oMat01.Columns.Item("PWeight").Cells.Item(i).Specific.Value);
                         oDIObject.Lines.UserFields.Fields.Item("U_Qty").Value = oMat01.Columns.Item("PQty").Cells.Item(i).Specific.Value;
+
+                        if (oRecordSet02.Fields.Item(0).Value == "501") //스크랩 품목일 경우 단가,금액 0
+                        {
+                            oDIObject.Lines.Price = 0;
+                            oDIObject.Lines.UnitPrice = 0;
+                            oDIObject.Lines.LineTotal = 0;
+                        }
+                        else if (oRecordSet01.RecordCount > 0) //제품원재료 변환 품목은 단가를 계산 후 입력
+                        {
+                            oDIObject.Lines.Price = Price;
+                            oDIObject.Lines.UnitPrice = Price;
+                            oDIObject.Lines.LineTotal = Price * Convert.ToDouble(oMat01.Columns.Item("PWeight").Cells.Item(i).Specific.Value);
+                        }
 
                         if (oMat01.Columns.Item("OrdGbn").Cells.Item(i).Specific.Selected.Value == "102" || oMat01.Columns.Item("OrdGbn").Cells.Item(i).Specific.Selected.Value == "104" || oMat01.Columns.Item("OrdGbn").Cells.Item(i).Specific.Selected.Value == "111")
                         {
@@ -1493,8 +1553,8 @@ namespace PSH_BOne_AddOn
                                 oDIObject.Lines.BatchNumbers.Quantity = float.Parse(oMat01.Columns.Item("YQty").Cells.Item(i).Specific.Value);
                                 oDIObject.Lines.BatchNumbers.Add();
                             }
-                            j += 1;
                         }
+                        j += 1;
                     }
                 }
                 RetVal = oDIObject.Add();

@@ -287,8 +287,8 @@ namespace PSH_BOne_AddOn
                             oDIObject.Lines.BatchNumbers.Quantity = float.Parse(oMat01.Columns.Item("YQty").Cells.Item(i).Specific.Value);
                             oDIObject.Lines.BatchNumbers.Add();
                         }
-                        j += 1;
                     }
+                    j += 1;
                 }
                 RetVal = oDIObject.Add();
 
@@ -379,8 +379,8 @@ namespace PSH_BOne_AddOn
                             oDIObject.Lines.BatchNumbers.Quantity = float.Parse(oMat01.Columns.Item("YQty").Cells.Item(i).Specific.Value);
                             oDIObject.Lines.BatchNumbers.Add();
                         }
-                        j += 1;
                     }
+                    j += 1;
                 }
                 RetVal = oDIObject.Add();
 

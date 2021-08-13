@@ -951,7 +951,7 @@ namespace PSH_BOne_AddOn
 
                 oDIObject = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry);
                 oDIObject.DocDate = Convert.ToDateTime(dataHelpClass.ConvertDateType(oForm.Items.Item("DocDate").Specific.Value, "-"));
-                oDIObject.Comments = "생산완료 (" + oDS_PS_PP080H.GetValue("DocEntry", 0).ToString().Trim() + ") 입고";
+                oDIObject.Comments = "생산완료 (" + oDS_PS_PP080H.GetValue("DocEntry", 0).ToString().Trim() + ") 입고_PS_PP080";
                 for (i = 0; i < itemInfoList.Count; i++)
                 {
                     if (i != 0)
@@ -1102,7 +1102,7 @@ namespace PSH_BOne_AddOn
                 oDIObject = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenExit);
                 oDIObject.DocDate = Convert.ToDateTime(dataHelpClass.ConvertDateType(oForm.Items.Item("DocDate").Specific.Value, "-"));
                 oDIObject.UserFields.Fields.Item("U_CancDoc").Value = oForm.Items.Item("OIGNNo").Specific.Value.ToString().Trim();
-                oDIObject.Comments = "생산완료 (" + oDS_PS_PP080H.GetValue("DocEntry", 0).ToString().Trim() + ") 취소(출고)";
+                oDIObject.Comments = "생산완료 (" + oDS_PS_PP080H.GetValue("DocEntry", 0).ToString().Trim() + ") 취소(출고)_PS_PP080";
                 for (i = 0; i < itemInfoList.Count; i++)
                 {
                     if (i != 0)

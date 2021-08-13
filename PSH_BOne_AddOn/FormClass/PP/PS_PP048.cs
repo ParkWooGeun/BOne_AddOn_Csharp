@@ -570,7 +570,7 @@ namespace PSH_BOne_AddOn
                 oMat01.FlushToDataSource();
 
                 oDIObject.DocDate = DateTime.ParseExact(oForm.Items.Item("DocDate").Specific.Value, "yyyyMMdd", null);
-                oDIObject.Comments = "스크랩등록 (" + oDS_PS_PP048H.GetValue("DocEntry", 0).ToString().Trim() + ") 입고_PS_PP048";
+                oDIObject.Comments = "분말스크랩등록 (" + oDS_PS_PP048H.GetValue("DocEntry", 0).ToString().Trim() + ") 입고_PS_PP048";
                 for (i = 1; i <= oMat01.VisualRowCount; i++)
                 {
                     oDIObject.Lines.Add();
@@ -578,6 +578,10 @@ namespace PSH_BOne_AddOn
                     oDIObject.Lines.ItemCode = oMat01.Columns.Item("SItemCod").Cells.Item(i).Specific.Value;
                     oDIObject.Lines.WarehouseCode = oMat01.Columns.Item("WhsCode").Cells.Item(i).Specific.Value;
                     oDIObject.Lines.Quantity = float.Parse(oMat01.Columns.Item("ScrapWgt").Cells.Item(i).Specific.Value);
+                    oDIObject.Lines.UnitPrice = 0;
+                    oDIObject.Lines.Price = 0;
+                    oDIObject.Lines.LineTotal = 0;
+
                 }
                 RetVal = oDIObject.Add();
 
@@ -647,7 +651,7 @@ namespace PSH_BOne_AddOn
                 oMat01.FlushToDataSource();
 
                 oDIObject.DocDate = DateTime.ParseExact(oForm.Items.Item("DocDate").Specific.Value, "yyyyMMdd", null);
-                oDIObject.Comments = "스크랩등록 취소 (" + oDS_PS_PP048H.GetValue("DocEntry", 0).ToString().Trim() + ") 입고_PS_PP048";
+                oDIObject.Comments = "분말스크랩등록 취소 (" + oDS_PS_PP048H.GetValue("DocEntry", 0).ToString().Trim() + ") 출고_PS_PP048";
                 oDIObject.UserFields.Fields.Item("U_CancDoc").Value = oForm.Items.Item("OIGNNo").Specific.Value.ToString().Trim();
 
                 for (i = 1; i <= oMat01.VisualRowCount; i++)
@@ -661,6 +665,9 @@ namespace PSH_BOne_AddOn
                             oDIObject.Lines.ItemCode = oMat01.Columns.Item("SItemCod").Cells.Item(i).Specific.Value;
                             oDIObject.Lines.WarehouseCode = oMat01.Columns.Item("WhsCode").Cells.Item(i).Specific.Value;
                             oDIObject.Lines.Quantity = float.Parse(oMat01.Columns.Item("ScrapWgt").Cells.Item(i).Specific.Value);
+                            oDIObject.Lines.UnitPrice = 0;
+                            oDIObject.Lines.Price = 0;
+                            oDIObject.Lines.LineTotal = 0;
                         }
                     }
                 }
@@ -897,6 +904,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
+                oForm.Freeze(true);
                 if (pVal.BeforeAction == true)
                 {
                     if (pVal.ItemUID == "Link01")
@@ -971,6 +979,10 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                oForm.Freeze(true);
             }
         }
 

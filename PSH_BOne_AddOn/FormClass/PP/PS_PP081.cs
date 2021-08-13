@@ -264,7 +264,7 @@ namespace PSH_BOne_AddOn
         /// PS_PP081_Add_InventoryGenExit
         /// </summary>
         /// <returns></returns>
-        private bool PS_PP081_Add_InventoryGenExit()
+        private bool PS_PP081_Add_InventoryGenEntry()
         {
             bool returnValue = true;
             int i;
@@ -287,6 +287,7 @@ namespace PSH_BOne_AddOn
                 oMat01.FlushToDataSource();
 
                 oDIObject.DocDate = DateTime.ParseExact(oForm.Items.Item("DocDate").Specific.Value, "yyyyMMdd", null);
+                oDIObject.Comments = "부품생산완료등록 (" + oDS_PS_PP081H.GetValue("DocEntry", 0).ToString().Trim() + ") 입고 - PS_PP081 ";
 
                 for (i = 1; i <= oMat01.VisualRowCount; i++)
                 {
@@ -298,15 +299,14 @@ namespace PSH_BOne_AddOn
                     //부품,멀티인경우 배치를 선택
                     if (oMat01.Columns.Item("OrdGbn").Cells.Item(i).Specific.Selected.Value == "102" || oMat01.Columns.Item("OrdGbn").Cells.Item(i).Specific.Selected.Value == "104" || oMat01.Columns.Item("OrdGbn").Cells.Item(i).Specific.Selected.Value == "111")
                     {
-                        //배치사용품목이면
-                        if (dataHelpClass.GetItem_ManBtchNum(oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.Value) == "Y")
+                        if (dataHelpClass.GetItem_ManBtchNum(oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.Value) == "Y") //배치사용품목이면
                         {
                             oDIObject.Lines.BatchNumbers.BatchNumber = oMat01.Columns.Item("BatchNum").Cells.Item(i).Specific.Value;
                             oDIObject.Lines.BatchNumbers.Quantity = float.Parse(oMat01.Columns.Item("YQty").Cells.Item(i).Specific.Value);
                             oDIObject.Lines.BatchNumbers.Add();
                         }
-                        j += 1;
                     }
+                    j += 1;
                 }
                 RetVal = oDIObject.Add();
 
@@ -968,7 +968,7 @@ namespace PSH_BOne_AddOn
                                 return;
                             }
                             //Addon만등록 시 주석_S
-                            if (PS_PP081_Add_InventoryGenExit() == false)
+                            if (PS_PP081_Add_InventoryGenEntry() == false)
                             {
                                 PS_PP081_AddMatrixRow(oMat01.VisualRowCount, false);
                                 BubbleEvent = false;

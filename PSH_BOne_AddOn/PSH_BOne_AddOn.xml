@@ -41263,12 +41263,6 @@
             <param name="prmQuotDt">견적일자</param>
             <returns>견적번호</returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD600.PS_SD600_GetMaxDocEntry">
-            <summary>
-            가장 최근 등록된 문서번호 조회
-            </summary>
-            <returns>문서번호</returns>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_SD600.PS_SD600_Print_Report01">
             <summary>
             견적서 리포트 출력

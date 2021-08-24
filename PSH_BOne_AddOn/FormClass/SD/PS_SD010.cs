@@ -681,6 +681,11 @@ namespace PSH_BOne_AddOn
                     Query01 += ReGbn + "','"; //요청구분(계획생산요청, 수주생산요청)
                     Query01 += CardCode + "','"; //고객
                     Query01 += CardName + "','"; //고객명
+                    Query01 += BItemCD + "', '"; //원소재코드
+                    Query01 += BItemNM + "', '"; //원소재명
+                    Query01 += WCntcCD + "', '"; //생산담당사번
+                    Query01 += WCntcNM + "', '"; //생산담당성명
+                    Query01 += ReqCmt + "', '"; //구매요청비고
                     Query01 += Status + "'"; //상태
                     
                     if (ReGbn == "20") //수주생산요청일 때만 선행프로세스 대비 일자 체크

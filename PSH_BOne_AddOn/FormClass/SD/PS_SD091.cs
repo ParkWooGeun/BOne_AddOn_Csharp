@@ -881,6 +881,8 @@ namespace PSH_BOne_AddOn
 
             try
             {
+                oForm.Freeze(true);
+
                 if (pVal.Before_Action == true)
                 {
                     if (pVal.ItemChanged == true)
@@ -967,7 +969,7 @@ namespace PSH_BOne_AddOn
                             }
                             else if (pVal.ColUID == "Qty")
                             {
-                                if (oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value < 0)
+                                if (Convert.ToInt32(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value) < 0)
                                 {
                                     oDS_PS_SD091L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, "0");
                                 }
@@ -991,6 +993,11 @@ namespace PSH_BOne_AddOn
                             }
                             oForm.Items.Item("SumQty").Specific.Value = SumQty;
                             oForm.Items.Item("SumWeight").Specific.Value = SumWeight;
+
+                            oMat01.LoadFromDataSourceEx();
+                            oMat01.AutoResizeColumns();
+
+                            oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                         }
                         else
                         {
@@ -1010,9 +1017,7 @@ namespace PSH_BOne_AddOn
                                 oDS_PS_SD091H.SetValue("U_" + pVal.ItemUID, 0, oForm.Items.Item(pVal.ItemUID).Specific.Value);
                             }
                         }
-                        oMat01.LoadFromDataSource();
-                        oMat01.AutoResizeColumns();
-                        oForm.Update();
+
                     }
                 }
                 else if (pVal.Before_Action == false)
@@ -1026,6 +1031,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }

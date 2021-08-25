@@ -182,6 +182,7 @@ namespace PSH_BOne_AddOn
             string ItemCode; //작번
             string SaleCode; //사번
             string SaleName; //성명
+            string successMessage = string.Empty;
 
             SAPbouiCOM.ProgressBar ProgBar01 = null;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -201,8 +202,8 @@ namespace PSH_BOne_AddOn
                     SaleName = oDS_PS_SD020L.GetValue("U_ColReg05", i).ToString().Trim(); 
 
                     sQry = "EXEC [PS_SD020_02] ";
-                    sQry += ItemCode + "',"; //작번
-                    sQry += SaleCode + "',"; //사번
+                    sQry += ItemCode + "','"; //작번
+                    sQry += SaleCode + "','"; //사번
                     sQry += SaleName + "'"; //성명
 
                     oRecordSet01.DoQuery(sQry);
@@ -214,7 +215,7 @@ namespace PSH_BOne_AddOn
                 oMat01.LoadFromDataSource();
                 oMat01.AutoResizeColumns();
 
-                PSH_Globals.SBO_Application.StatusBar.SetText("저장 완료", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
+                successMessage = "저장 완료";
             }
             catch(Exception ex)
             {
@@ -222,11 +223,19 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                oForm.Freeze(false);
+
                 if (ProgBar01 != null)
                 {
                     ProgBar01.Stop();
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
                 }
+
+                if (successMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(successMessage, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
+                }
+
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
         }
@@ -318,6 +327,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_SD020L.SetValue("U_ColReg02", i, oRecordSet01.Fields.Item("ItemName").Value.ToString().Trim()); //품목명
                     oDS_PS_SD020L.SetValue("U_ColReg03", i, oRecordSet01.Fields.Item("Spec").Value.ToString().Trim()); //규격
                     oDS_PS_SD020L.SetValue("U_ColReg04", i, oRecordSet01.Fields.Item("SaleCode").Value.ToString().Trim()); //담당자사번
+                    oDS_PS_SD020L.SetValue("U_ColReg05", i, oRecordSet01.Fields.Item("SaleName").Value.ToString().Trim()); //담당자성명
 
                     oRecordSet01.MoveNext();
                     ProgBar01.Value += 1;
@@ -615,6 +625,8 @@ namespace PSH_BOne_AddOn
         {
             try
             {
+                oForm.Freeze(true);
+
                 if (pVal.Before_Action == true)
                 {
                     if (pVal.ItemChanged == true)
@@ -640,6 +652,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                oForm.Freeze(false);
             }
         }
 

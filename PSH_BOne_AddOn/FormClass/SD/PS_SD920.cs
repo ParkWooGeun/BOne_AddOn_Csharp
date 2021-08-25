@@ -3,6 +3,7 @@ using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 using System.Collections.Generic;
 using PSH_BOne_AddOn.Code;
+using System.Timers;
 
 namespace PSH_BOne_AddOn
 {
@@ -460,8 +461,14 @@ namespace PSH_BOne_AddOn
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             SAPbobsCOM.Recordset oRecordSet02 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
+            Timer timer = new Timer();
+
             try
             {
+                timer.Interval = 30000; //30초
+                timer.Elapsed += KeepAddOnConnection;
+                timer.Start();
+
                 PSH_Globals.oCompany.StartTransaction();
 
                 // 현재월의 전기기간 체크 후 잠겨있으면 DI API 미실행
@@ -511,7 +518,7 @@ namespace PSH_BOne_AddOn
                 }
                 
                 ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("반품 납품 생성!", itemInfoList.Count, false);
-
+                
                 string lclDocCur;
                 double lclDocRate;
                 string lclQuery;
@@ -873,6 +880,9 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                timer.Stop();
+                timer.Dispose();
+
                 if (DI_oReturns != null)
                 {
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(DI_oReturns);
@@ -894,6 +904,16 @@ namespace PSH_BOne_AddOn
             }
 
             return returnValue;
+        }
+
+        /// <summary>
+        /// AddOn 연결 유지용 Timer 이벤트
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void KeepAddOnConnection(object sender, ElapsedEventArgs e)
+        {
+            PSH_Globals.SBO_Application.RemoveWindowsMessage(BoWindowsMessageType.bo_WM_TIMER, true);
         }
 
         /// <summary>

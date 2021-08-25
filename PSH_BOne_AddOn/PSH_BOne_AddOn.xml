@@ -41263,12 +41263,6 @@
             <param name="prmQuotDt">견적일자</param>
             <returns>견적번호</returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD600.PS_SD600_GetMaxDocEntry">
-            <summary>
-            가장 최근 등록된 문서번호 조회
-            </summary>
-            <returns>문서번호</returns>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_SD600.PS_SD600_Print_Report01">
             <summary>
             견적서 리포트 출력
@@ -42239,6 +42233,13 @@
             반품, 납품 DI API
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD920.KeepAddOnConnection(System.Object,System.Timers.ElapsedEventArgs)">
+            <summary>
+            AddOn 연결 유지용 Timer 이벤트
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD920.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>

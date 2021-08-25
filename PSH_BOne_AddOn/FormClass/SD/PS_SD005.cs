@@ -507,6 +507,8 @@ namespace PSH_BOne_AddOn
 
             try
             {
+                oForm.Freeze(true);
+
                 if (pVal.Before_Action == true)
                 {
                 }
@@ -516,11 +518,9 @@ namespace PSH_BOne_AddOn
                     {
                         if (pVal.ItemUID == "CardCode") //거래처명조회
                         {
-                            oForm.Freeze(true);
                             sQry = "SELECT CardName FROM [OCRD] WHERE CardCode = '" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'";
                             oRecordSet01.DoQuery(sQry);
                             oForm.Items.Item("CardName").Specific.Value = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
-                            oForm.Freeze(false);
                         }
 
                         if (pVal.ItemUID == "Mat01")
@@ -541,7 +541,6 @@ namespace PSH_BOne_AddOn
                                 sQry += " Where     ItemCode = '" + oDS_PS_SD005L.GetValue("U_ItemCode", pVal.Row - 1).ToString().Trim() + "'";
                                 oRecordSet01.DoQuery(sQry);
 
-                                oForm.Freeze(true);
                                 oMat01.FlushToDataSource();
 
                                 if (oRecordSet01.RecordCount == 0)

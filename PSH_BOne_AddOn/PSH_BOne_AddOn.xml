@@ -13238,7 +13238,6 @@
             <param name="ObjectType"></param>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP049.Add_oInventoryGenExit(System.Int16)">
         <member name="M:PSH_BOne_AddOn.PS_PP049.PS_PP049_Add_oInventoryGenExit(System.Int16)">
             <summary>
             출고 DI API(원재료 출고용)
@@ -13246,7 +13245,6 @@
             <param name="ChkType"></param>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP049.Add_oInventoryGenEntry(System.Int16)">
         <member name="M:PSH_BOne_AddOn.PS_PP049.PS_PP049_Add_oInventoryGenEntry(System.Int16)">
             <summary>
             입고 DI API(원재료 입고용(출고 취소))
@@ -13371,9 +13369,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP049.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
-            <summary>
-            FormMenuEvent
         <member name="M:PSH_BOne_AddOn.PS_PP049.Raise_EVENT_ROW_DELETE(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>
             행삭제 체크 메소드(Raise_FormMenuEvent 에서 사용)
@@ -13382,33 +13377,6 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP049.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP049.Raise_EVENT_FORM_DATA_LOAD(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            FORM_DATA_LOAD 이벤트
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP049.Raise_EVENT_FORM_DATA_ADD(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            FORM_DATA_ADD 이벤트
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP049.Raise_EVENT_FORM_DATA_UPDATE(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            FORM_DATA_UPDATE 이벤트
         <member name="M:PSH_BOne_AddOn.PS_PP049.Raise_EVENT_RECORD_MOVE(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>
             네비게이션 메소드(Raise_FormMenuEvent 에서 사용)
@@ -13433,9 +13401,6 @@
             <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP049.Raise_EVENT_FORM_DATA_DELETE(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            FORM_DATA_DELETE 이벤트
         <member name="M:PSH_BOne_AddOn.PS_PP049.Raise_EVENT_FORM_DATA_LOAD(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
             <summary>
             FORM_DATA_LOAD 이벤트
@@ -31313,6 +31278,17 @@
             </summary>
             <param name="oFormDocEntry"></param>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP325.PS_PP325_CheckDataValid">
+            <summary>
+            PS_PP325_CheckDataValid
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP325.PS_PP325_PrintReport">
+            <summary>
+            PS_PP325_PrintReport
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_PP325.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event
@@ -31352,33 +31328,6 @@
             <param name="FormUID"></param>
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP325.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
-            <summary>
-            FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pVal"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP325.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP325.HeaderSpaceLineDel">
-            <summary>
-            HeaderSpaceLineDel
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP325.Print_Query">
-            <summary>
-            Print_Query
-            </summary>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_PP350">
             <summary>
@@ -41978,6 +41927,17 @@
             PS_SD285_Initial_Setting
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD285.PS_SD285_DataValidCheck">
+            <summary>
+            PS_SD285_DataValidCheck
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD285.PS_SD285_Print_Report01">
+            <summary>
+            PS_SD285_Print_Report01
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_SD285.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event
@@ -42033,17 +41993,6 @@
             <param name="FormUID"></param>
             <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD285.PS_SD285_DataValidCheck">
-            <summary>
-            PS_SD285_DataValidCheck
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD285.PS_SD285_Print_Report01">
-            <summary>
-            PS_SD285_Print_Report01
-            </summary>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_SD290">
             <summary>
@@ -44568,14 +44517,26 @@
             PS_SD950_CreateItems
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD950.PS_SD950_ComboBox_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_SD950.PS_SD950_SetComboBox">
             <summary>
-            PS_SD950_ComboBox_Setting
+            PS_SD950_SetComboBox
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD950.PS_SD950_Initial_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_SD950.PS_SD950_Initialize">
             <summary>
-            PS_SD950_Initial_Setting
+            PS_SD950_Initialize
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD950.PS_SD950_AddMatrixRow(System.Int32,System.Boolean)">
+            <summary>
+            PS_SD950_AddMatrixRow
+            </summary>
+            <param name="oRow"></param>
+            <param name="RowIserted"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD950.PS_SD950_MTX01">
+            <summary>
+            PS_SD950_MTX01
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD950.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -44633,26 +44594,6 @@
             <param name="FormUID"></param>
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD950.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            Raise_FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD950.PS_SD950_AddMatrixRow(System.Int32,System.Boolean)">
-            <summary>
-            PS_SD950_AddMatrixRow
-            </summary>
-            <param name="oRow"></param>
-            <param name="RowIserted"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD950.PS_SD950_MTX01">
-            <summary>
-            PS_SD950_MTX01
-            </summary>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_SD955">
             <summary>

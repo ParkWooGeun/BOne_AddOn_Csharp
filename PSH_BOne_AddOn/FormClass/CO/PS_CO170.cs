@@ -425,7 +425,7 @@ namespace PSH_BOne_AddOn
 							if (pVal.ActionSuccess == true)
 							{
 								PS_CO170_FormItemEnabled();
-								PS_CO170_AddMatrixRow(oMat01.RowCount, true);   //UDO방식일때
+								PS_CO170_AddMatrixRow(oMat01.RowCount, true);   
 							}
 						}
 						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)

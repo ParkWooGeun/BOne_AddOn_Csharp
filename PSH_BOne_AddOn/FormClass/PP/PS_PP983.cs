@@ -48,16 +48,16 @@ namespace PSH_BOne_AddOn
 				oForm.Freeze(true);
 
 				PS_PP983_CreateItems();
-				PS_PP983_ComboBox_Setting();
+				PS_PP983_SetComboBox();
 
-				oForm.EnableMenu(("1283"), false); // 삭제
-				oForm.EnableMenu(("1286"), false); // 닫기
-				oForm.EnableMenu(("1287"), false); // 복제
-				oForm.EnableMenu(("1285"), false); // 복원
-				oForm.EnableMenu(("1284"), true);  // 취소
-				oForm.EnableMenu(("1293"), false); // 행삭제
-				oForm.EnableMenu(("1281"), false);
-				oForm.EnableMenu(("1282"), true);
+				oForm.EnableMenu("1283", false); // 삭제
+				oForm.EnableMenu("1286", false); // 닫기
+				oForm.EnableMenu("1287", false); // 복제
+				oForm.EnableMenu("1285", false); // 복원
+				oForm.EnableMenu("1284", true);  // 취소
+				oForm.EnableMenu("1293", false); // 행삭제
+				oForm.EnableMenu("1281", false);
+				oForm.EnableMenu("1282", true);
 			}
 			catch (Exception ex)
 			{
@@ -105,7 +105,7 @@ namespace PSH_BOne_AddOn
 				//기준년도
 				oForm.DataSources.UserDataSources.Add("StdYear", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 4);
 				oForm.Items.Item("StdYear").Specific.DataBind.SetBound(true, "", "StdYear");
-				oForm.Items.Item("StdYear").Specific.VALUE = DateTime.Now.ToString("yyyy");
+				oForm.Items.Item("StdYear").Specific.Value = DateTime.Now.ToString("yyyy");
 			}
 			catch (Exception ex)
 			{
@@ -114,9 +114,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_PP983_ComboBox_Setting
+		/// PS_PP983_SetComboBox
 		/// </summary>
-		private void PS_PP983_ComboBox_Setting()
+		private void PS_PP983_SetComboBox()
 		{
 			string sQry;
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -162,9 +162,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_PP983_FormResize
+		/// PS_PP983_ResizeForm
 		/// </summary>
-		private void PS_PP983_FormResize()
+		private void PS_PP983_ResizeForm()
 		{
 			try
 			{
@@ -209,14 +209,12 @@ namespace PSH_BOne_AddOn
 		{
 			short i;
 			string sQry;
-			string errMessage = String.Empty;
-
+			string errMessage = string.Empty;
 			string BPLID ;	 //사업장
 			string ItmBSort; //품목대분류
 			string CardType; //거래처구분
 			string ItemType; //품목구분
 			string StdYear;  //기준년도
-
 			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -257,7 +255,6 @@ namespace PSH_BOne_AddOn
 
 					oMat.AddRow();
 					oDS_PS_PP983L.Offset = i;
-
 					oDS_PS_PP983L.SetValue("U_LineNum", i, Convert.ToString(i + 1));
 					oDS_PS_PP983L.SetValue("U_ColReg01", i, oRecordSet.Fields.Item("Class1").Value.ToString().Trim()); //구분
 					oDS_PS_PP983L.SetValue("U_ColReg02", i, oRecordSet.Fields.Item("Class2").Value.ToString().Trim()); //구분
@@ -302,10 +299,10 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_PP983_HeaderSpaceLineDel
+		/// PS_PP983_DelHeaderSpaceLine
 		/// </summary>
 		/// <returns></returns>
-		private bool PS_PP983_HeaderSpaceLineDel()
+		private bool PS_PP983_DelHeaderSpaceLine()
 		{
 			bool functionReturnValue = false;
 			string errMessage = string.Empty;
@@ -431,7 +428,7 @@ namespace PSH_BOne_AddOn
 				{
 					if (pVal.ItemUID == "BtnSearch")
 					{
-						if (PS_PP983_HeaderSpaceLineDel() == false)
+						if (PS_PP983_DelHeaderSpaceLine() == false)
 						{
 							BubbleEvent = false;
 							return;
@@ -467,7 +464,7 @@ namespace PSH_BOne_AddOn
 				}
 				else if (pVal.BeforeAction == false)
 				{
-					PS_PP983_FormResize();
+					PS_PP983_ResizeForm();
 				}
 			}
 			catch (Exception ex)
@@ -569,51 +566,6 @@ namespace PSH_BOne_AddOn
 							oDS_PS_PP983L.RemoveRecord(oDS_PS_PP983L.Size - 1);
 							oMat.LoadFromDataSource();
 							oForm.Freeze(false);
-							break;
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-		}
-
-		/// <summary>
-		/// Raise_FormDataEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="BusinessObjectInfo"></param>
-		/// <param name="BubbleEvent"></param>
-		public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
-		{
-			try
-			{
-				if (BusinessObjectInfo.BeforeAction == true)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:    //33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:     //34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:  //35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:  //36
-							break;
-					}
-				}
-				else if (BusinessObjectInfo.BeforeAction == false)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:    //33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:     //34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:  //35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:  //36
 							break;
 					}
 				}

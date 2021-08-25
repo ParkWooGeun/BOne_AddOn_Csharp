@@ -51,8 +51,8 @@ namespace PSH_BOne_AddOn
 
 				oForm.Freeze(true);
 
-				CreateItems();
-				ComboBox_Setting();
+				PS_PP361_CreateItems();
+				PS_PP361_SetComboBox();
 
 				oForm.EnableMenu("1283", false); // 삭제
 				oForm.EnableMenu("1286", false); // 닫기
@@ -74,9 +74,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// CreateItems
+		/// PS_PP361_CreateItems
 		/// </summary>
-		private void CreateItems()
+		private void PS_PP361_CreateItems()
 		{
 			try
 			{
@@ -106,9 +106,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// ComboBox_Setting
+		/// PS_PP361_SetComboBox
 		/// </summary>
-		private void ComboBox_Setting()
+		private void PS_PP361_SetComboBox()
 		{
 			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -126,7 +126,7 @@ namespace PSH_BOne_AddOn
 				oRecordSet.DoQuery(sQry);
 
 				oForm.Items.Item("ItemGB").Specific.ValidValues.Add("A", "전체");
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("ItemGB").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
@@ -161,10 +161,10 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// HeaderSpaceLineDel
+		/// PS_PP361_DelHeaderSpaceLine
 		/// </summary>
 		/// <returns></returns>
-		private bool HeaderSpaceLineDel()
+		private bool PS_PP361_DelHeaderSpaceLine()
 		{
 			bool functionReturnValue = false;
 			string errMessage = string.Empty;
@@ -208,10 +208,10 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// GridSetting
+		/// PS_PP361_SetGrid
 		/// </summary>
 		/// <param name="GridNo"></param>
-		private void GridSetting(string GridNo)
+		private void PS_PP361_SetGrid(string GridNo)
 		{
 			int i;
 
@@ -254,12 +254,12 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// Form_Resize
+		/// PS_PP361_ResizeForm
 		/// </summary>
 		/// <param name="FormUID"></param>
 		/// <param name="pVal"></param>
 		/// <param name="BubbleEvent"></param>
-		private void Form_Resize(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+		private void PS_PP361_ResizeForm(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
 			try
 			{
@@ -321,9 +321,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// Search_Grid01_Data
+		/// PS_PP361_SearchGrid01Data
 		/// </summary>
-		private void Search_Grid01_Data()
+		private void PS_PP361_SearchGrid01Data()
 		{
 			string sQry;
 			string SYYYYMM;  //작번등록년월 시작
@@ -387,7 +387,7 @@ namespace PSH_BOne_AddOn
 				oForm.DataSources.DataTables.Item("ZTEMP01").ExecuteQuery(sQry);
 				oGrid01.DataTable = oForm.DataSources.DataTables.Item("ZTEMP01");
 
-				GridSetting("Grid01");
+				PS_PP361_SetGrid("Grid01");
 			}
 			catch (Exception ex)
 			{
@@ -400,9 +400,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// Search_Grid02_Data
+		/// PS_PP361_SearchGrid02Data
 		/// </summary>
-		private void Search_Grid02_Data()
+		private void PS_PP361_SearchGrid02Data()
 		{
 			string sQry;
 			int i;
@@ -420,7 +420,7 @@ namespace PSH_BOne_AddOn
 						oGrid02.DataTable = oForm.DataSources.DataTables.Item("ZTEMP02");
 					}
 				}
-				GridSetting("Grid02");
+				PS_PP361_SetGrid("Grid02");
 			}
 			catch (Exception ex)
 			{
@@ -433,9 +433,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// Search_Grid03_Data
+		/// PS_PP361_SearchGrid03Data
 		/// </summary>
-		private void Search_Grid03_Data()
+		private void PS_PP361_SearchGrid03Data()
 		{
 			string sQry = string.Empty;
 			int i;
@@ -486,7 +486,7 @@ namespace PSH_BOne_AddOn
 					throw new Exception();
 				}
 
-				GridSetting("Grid03");
+				PS_PP361_SetGrid("Grid03");
 			}
 			catch (Exception ex)
 			{
@@ -506,10 +506,10 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// Print_Query
+		/// PS_PP361_PrintQuery1
 		/// </summary>
 		[STAThread]
-		private void Print_Query()
+		private void PS_PP361_PrintQuery1()
 		{
 			string WinTitle;
 			string ReportName;
@@ -588,10 +588,10 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// Print_Query1
+		/// PS_PP361_PrintQuery2
 		/// </summary>
 		[STAThread]
-		private void Print_Query1()
+		private void PS_PP361_PrintQuery2()
 		{
 			int i;
 			string WinTitle;
@@ -603,7 +603,6 @@ namespace PSH_BOne_AddOn
 				WinTitle = "[PS_PP361_02] SUB작번 List";
 				ReportName = "PS_PP361_02.RPT";
 
-				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
 				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
 
 				for (i = 0; i <= oGrid01.Rows.Count - 1; i++)
@@ -613,7 +612,7 @@ namespace PSH_BOne_AddOn
 						dataPackParameter.Add(new PSH_DataPackClass("@OrdNum", oGrid01.DataTable.GetValue(0, i).ToString().Trim()));
 					}
 				}
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
 			}
 			catch (Exception ex)
 			{
@@ -622,10 +621,10 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// Print_Query2
+		/// PS_PP361_PrintQuery3
 		/// </summary>
 		[STAThread]
-		private void Print_Query2()
+		private void PS_PP361_PrintQuery3()
 		{
 			int i = 0;
 			string WinTitle = string.Empty;
@@ -659,13 +658,12 @@ namespace PSH_BOne_AddOn
 					ReportName = "PS_PP361_07.RPT";
 				}
 
-				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
 				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
 
 				dataPackParameter.Add(new PSH_DataPackClass("@OrdNum", oGrid02.DataTable.GetValue(0, i).ToString().Trim()));
 				dataPackParameter.Add(new PSH_DataPackClass("@Sub1_2", oGrid02.DataTable.GetValue(1, i).ToString().Trim()));
 				
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
 			}
 			catch (Exception ex)
 			{
@@ -769,7 +767,7 @@ namespace PSH_BOne_AddOn
 				{
 					if (pVal.ItemUID == "Search")
 					{
-						if (HeaderSpaceLineDel() == false)
+						if (PS_PP361_DelHeaderSpaceLine() == false)
 						{
 							BubbleEvent = false;
 							return;
@@ -784,7 +782,7 @@ namespace PSH_BOne_AddOn
 							{
 								oGrid03.DataTable.Clear();
 							}
-							Search_Grid01_Data();
+							PS_PP361_SearchGrid01Data();
 							oForm.Items.Item("Selection").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 							oForm.Items.Item("SYYYYMM").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 						}
@@ -792,21 +790,21 @@ namespace PSH_BOne_AddOn
 
 					if (pVal.ItemUID == "Btn01")
 					{
-						System.Threading.Thread thread = new System.Threading.Thread(Print_Query);
+						System.Threading.Thread thread = new System.Threading.Thread(PS_PP361_PrintQuery1);
 						thread.SetApartmentState(System.Threading.ApartmentState.STA);
 						thread.Start();
 					}
 
 					if (pVal.ItemUID == "Btn02")
 					{
-						System.Threading.Thread thread = new System.Threading.Thread(Print_Query1);
+						System.Threading.Thread thread = new System.Threading.Thread(PS_PP361_PrintQuery2);
 						thread.SetApartmentState(System.Threading.ApartmentState.STA);
 						thread.Start();
 					}
 
 					if (pVal.ItemUID == "Btn03")
 					{
-						System.Threading.Thread thread = new System.Threading.Thread(Print_Query2);
+						System.Threading.Thread thread = new System.Threading.Thread(PS_PP361_PrintQuery3);
 						thread.SetApartmentState(System.Threading.ApartmentState.STA);
 						thread.Start();
 					}
@@ -869,23 +867,23 @@ namespace PSH_BOne_AddOn
 					{
 						if (oForm.Items.Item("Selection").Specific.Selected.Value.ToString().Trim() == "100")
 						{
-							Search_Grid03_Data();
+							PS_PP361_SearchGrid03Data();
 						}
 						if (oForm.Items.Item("Selection").Specific.Selected.Value.ToString().Trim() == "200")
 						{
-							Search_Grid03_Data();
+							PS_PP361_SearchGrid03Data();
 						}
 						if (oForm.Items.Item("Selection").Specific.Selected.Value.ToString().Trim() == "300")
 						{
-							Search_Grid03_Data();
+							PS_PP361_SearchGrid03Data();
 						}
 						if (oForm.Items.Item("Selection").Specific.Selected.Value.ToString().Trim() == "400")
 						{
-							Search_Grid03_Data();
+							PS_PP361_SearchGrid03Data();
 						}
 						if (oForm.Items.Item("Selection").Specific.Selected.Value.ToString().Trim() == "500")
 						{
-							Search_Grid03_Data();
+							PS_PP361_SearchGrid03Data();
 						}
 					}
 				}
@@ -922,7 +920,7 @@ namespace PSH_BOne_AddOn
 							oForm.Items.Item("Selection").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 							oForm.Items.Item("SYYYYMM").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 						}
-						Search_Grid02_Data();
+						PS_PP361_SearchGrid02Data();
 					}
 				}
 			}
@@ -986,7 +984,7 @@ namespace PSH_BOne_AddOn
 				}
 				else if (pVal.BeforeAction == false)
 				{
-					Form_Resize(FormUID, ref pVal, ref BubbleEvent);
+					PS_PP361_ResizeForm(FormUID, ref pVal, ref BubbleEvent);
 				}
 			}
 			catch (Exception ex)
@@ -1093,51 +1091,6 @@ namespace PSH_BOne_AddOn
 			finally
 			{
 				oForm.Freeze(false);
-			}
-		}
-
-		/// <summary>
-		/// FormDataEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="BusinessObjectInfo"></param>
-		/// <param name="BubbleEvent"></param>
-		public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
-		{
-			try
-			{
-				if (BusinessObjectInfo.BeforeAction == true)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
-							break;
-					}
-				}
-				else if (BusinessObjectInfo.BeforeAction == false)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
-							break;
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 			}
 		}
 	}

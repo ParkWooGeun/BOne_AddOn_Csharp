@@ -70,8 +70,8 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				ORDRNo = oForm.Items.Item("ORDRNo").Specific.VALUE.ToString().Trim();
-				ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
+				ORDRNo = oForm.Items.Item("ORDRNo").Specific.Value.ToString().Trim();
+				ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
 
 				if (string.IsNullOrEmpty(ORDRNo))
 				{

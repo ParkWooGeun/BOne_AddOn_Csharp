@@ -90,7 +90,7 @@ namespace PSH_BOne_AddOn
         private void PS_FI040_ComboBox_Setting()
         {
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            string sQry = String.Empty;
+            string sQry = string.Empty;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
@@ -132,17 +132,17 @@ namespace PSH_BOne_AddOn
         [STAThread]
         private void PS_FI040_Print_Report01()
         {
-            string WinTitle = String.Empty;
-            string ReportName = String.Empty;
-            string StrDate = String.Empty;
-            string EndDate = String.Empty;
-            string FrDate = String.Empty;
-            string ToDate = String.Empty;
-            string SCardCode = String.Empty;
-            string ECardCode = String.Empty;
-            string BPLId = String.Empty;
-            string Status = String.Empty;
-            string IssuePsn = String.Empty;
+            string WinTitle = string.Empty;
+            string ReportName = string.Empty;
+            string StrDate = string.Empty;
+            string EndDate = string.Empty;
+            string FrDate = string.Empty;
+            string ToDate = string.Empty;
+            string SCardCode = string.Empty;
+            string ECardCode = string.Empty;
+            string BPLId = string.Empty;
+            string Status = string.Empty;
+            string IssuePsn = string.Empty;
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();

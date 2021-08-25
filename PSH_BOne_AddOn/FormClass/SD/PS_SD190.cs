@@ -199,14 +199,14 @@ namespace PSH_BOne_AddOn
 				oForm.Freeze(true);
 				ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
-				Param01 = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
-				Param02 = oForm.Items.Item("DocDatefr").Specific.VALUE.ToString().Trim();
-				Param03 = oForm.Items.Item("DocDateto").Specific.VALUE.ToString().Trim();
-				Param04 = oForm.Items.Item("ItmBsort").Specific.Selected.VALUE.ToString().Trim();
-				Param05 = oForm.Items.Item("ItmMsort").Specific.Selected.VALUE.ToString().Trim();
-				Param06 = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
-				Param07 = oForm.Items.Item("ItemName").Specific.VALUE.ToString().Trim();
-				Param08 = oForm.Items.Item("Size").Specific.VALUE.ToString().Trim();
+				Param01 = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
+				Param02 = oForm.Items.Item("DocDatefr").Specific.Value.ToString().Trim();
+				Param03 = oForm.Items.Item("DocDateto").Specific.Value.ToString().Trim();
+				Param04 = oForm.Items.Item("ItmBsort").Specific.Selected.Value.ToString().Trim();
+				Param05 = oForm.Items.Item("ItmMsort").Specific.Selected.Value.ToString().Trim();
+				Param06 = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
+				Param07 = oForm.Items.Item("ItemName").Specific.Value.ToString().Trim();
+				Param08 = oForm.Items.Item("Size").Specific.Value.ToString().Trim();
 
 				sQry = "EXEC PS_SD190_01 '" + Param01 + "','" + Param02 + "','" + Param03 + "','" + Param04 + "','" + Param05 + "','" + Param06 + "','" + Param07 + "','" + Param08 + "'";
 
@@ -402,7 +402,7 @@ namespace PSH_BOne_AddOn
 							oForm.Items.Item("ItmMsort").Specific.ValidValues.Remove(0, SAPbouiCOM.BoSearchKey.psk_Index);
 						}
 
-						dataHelpClass.Set_ComboList(oForm.Items.Item("ItmMsort").Specific, "SELECT U_Code, U_CodeName FROM [@PSH_ITMMSORT] WHERE U_rCode = '" + oForm.Items.Item("ItmBsort").Specific.Selected.VALUE + "' ORDER BY U_Code", "", false, false);
+						dataHelpClass.Set_ComboList(oForm.Items.Item("ItmMsort").Specific, "SELECT U_Code, U_CodeName FROM [@PSH_ITMMSORT] WHERE U_rCode = '" + oForm.Items.Item("ItmBsort").Specific.Selected.Value + "' ORDER BY U_Code", "", false, false);
 
 						if (oForm.Items.Item("ItmMsort").Specific.ValidValues.Count > 0)
 						{

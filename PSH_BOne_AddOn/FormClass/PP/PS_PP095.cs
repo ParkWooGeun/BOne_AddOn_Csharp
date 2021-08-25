@@ -117,7 +117,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL order by BPLId", "1", false, false);
-                oForm.Items.Item("DocDate").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
+                oForm.Items.Item("DocDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 
                 dataHelpClass.Combo_ValidValues_Insert("PS_PS_PP095", "Gubun", "", "1", "내수");
                 dataHelpClass.Combo_ValidValues_Insert("PS_PS_PP095", "Gubun", "", "2", "수출");
@@ -171,7 +171,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PS_PP095_FormItemEnabled();
-                    oForm.Items.Item("DocEntry").Specific.VALUE = oFormDocEntry;
+                    oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -192,7 +192,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                sQry = "EXEC PS_PP095_10 '" + oForm.Items.Item("CardCode").Specific.VALUE + "'";
+                sQry = "EXEC PS_PP095_10 '" + oForm.Items.Item("CardCode").Specific.Value + "'";
 
                 oRecordSet01.DoQuery(sQry);
 
@@ -249,7 +249,7 @@ namespace PSH_BOne_AddOn
                     if (PackNo != PackNo2)
                     {
                         sQry = " EXEC [PS_PP095_13] ";
-                        sQry = sQry + "'" + PackNo + "'";
+                        sQry += "'" + PackNo + "'";
 
                         oRecordSet01.DoQuery(sQry);
                         result = oRecordSet01.Fields.Item("RESULT").Value;
@@ -271,7 +271,8 @@ namespace PSH_BOne_AddOn
                     // 최대값과 최소값 비교하여 참인지 거짓인지 비교
                     if (T_Weight > maxrange || T_Weight < minrange)
                     {
-                        errMessage = "";
+                        errMessage = "계근 중량을 한번더 확인하십시오.";
+                        throw new Exception();
                     }
                 }
                 functionReturnValue = true;
@@ -331,7 +332,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                if (RowIserted == false)  ////행추가여부
+                if (RowIserted == false)  //행추가여부
                 {
                     oDS_PS_PP095L.InsertRecord(oRow);
                 }
@@ -363,11 +364,11 @@ namespace PSH_BOne_AddOn
                 DocEntry = dataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PS_PP095'", "");
                 if (Convert.ToDouble(DocEntry) == 0)
                 {
-                    oForm.Items.Item("DocEntry").Specific.VALUE = 1;
+                    oForm.Items.Item("DocEntry").Specific.Value = 1;
                 }
                 else
                 {
-                    oForm.Items.Item("DocEntry").Specific.VALUE = DocEntry;
+                    oForm.Items.Item("DocEntry").Specific.Value = DocEntry;
                 }
             }
             catch (Exception ex)
@@ -391,12 +392,12 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                if (string.IsNullOrEmpty(oForm.Items.Item("CardCode").Specific.VALUE))
+                if (string.IsNullOrEmpty(oForm.Items.Item("CardCode").Specific.Value))
                 {
                     errMessage = "거래처코드는 필수입니다.";
                     throw new Exception();
                 }
-                else if (string.IsNullOrEmpty(oForm.Items.Item("DocDate").Specific.VALUE))
+                else if (string.IsNullOrEmpty(oForm.Items.Item("DocDate").Specific.Value))
                 {
                     errMessage = "전기일은 필수입니다.";
                     throw new Exception();
@@ -408,7 +409,7 @@ namespace PSH_BOne_AddOn
                 }
                 for (i = 1; i <= oMat01.VisualRowCount - 1; i++)
                 {
-                    if (string.IsNullOrEmpty(oMat01.Columns.Item("OrdNum").Cells.Item(i).Specific.VALUE))
+                    if (string.IsNullOrEmpty(oMat01.Columns.Item("OrdNum").Cells.Item(i).Specific.Value))
                     {
                         errMessage = "LOT-NO는 필수입니다.";
                         throw new Exception();
@@ -417,9 +418,9 @@ namespace PSH_BOne_AddOn
                     {
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                         {
-                            OrdNum = oMat01.Columns.Item("OrdNum").Cells.Item(i).Specific.VALUE;
+                            OrdNum = oMat01.Columns.Item("OrdNum").Cells.Item(i).Specific.Value;
                             Query01 = "select Cnt = Count(U_OrdNum) from [@PS_PP095H] a inner Join [@PS_PP095L] b On a.DocEntry = b.DocEntry and a.Canceled = 'N' ";
-                            Query01 = Query01 + " Where b.U_OrdNum = '" + OrdNum + "'";
+                            Query01 += " Where b.U_OrdNum = '" + OrdNum + "'";
                             oRecordSet01.DoQuery(Query01);
 
                             if (oRecordSet01.Fields.Item("Cnt").Value > 0)
@@ -436,6 +437,7 @@ namespace PSH_BOne_AddOn
                 {
                     PS_PP095_FormClear();
                 }
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
@@ -468,7 +470,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 WinTitle = "[PS_PP095] 거래명세서출력";
-                if (oForm.Items.Item("BPLId").Specific.Selected.VALUE == "2")
+                if (oForm.Items.Item("BPLId").Specific.Selected.Value == "2")
                 {
                     ReportName = "PS_PP095_05.rpt"; //부산사업장용
                 }
@@ -480,7 +482,7 @@ namespace PSH_BOne_AddOn
                 List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
 
                 //Parameter
-                dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", oForm.Items.Item("DocEntry").Specific.VALUE)); //사업장
+                dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", oForm.Items.Item("DocEntry").Specific.Value)); //사업장
 
                 formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
             }
@@ -508,7 +510,7 @@ namespace PSH_BOne_AddOn
                 List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
 
                 //Parameter
-                dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", oForm.Items.Item("DocEntry").Specific.VALUE)); //사업장
+                dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", oForm.Items.Item("DocEntry").Specific.Value)); //사업장
 
                 formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
             }
@@ -536,7 +538,7 @@ namespace PSH_BOne_AddOn
                 List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
 
                 //Parameter
-                dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", oForm.Items.Item("DocEntry").Specific.VALUE)); //사업장
+                dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", oForm.Items.Item("DocEntry").Specific.Value)); //사업장
 
                 formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
             }
@@ -566,7 +568,7 @@ namespace PSH_BOne_AddOn
             {
                 FilePath = "\\\\191.1.1.220\\B1_SHR\\QRCODE_PACKING";
 
-                sQry01 = "EXEC PS_PP095_99 '" + oForm.Items.Item("DocEntry").Specific.VALUE + "'";
+                sQry01 = "EXEC PS_PP095_99 '" + oForm.Items.Item("DocEntry").Specific.Value + "'";
                 oRecordSet01.DoQuery(sQry01);
 
                 for (i = 0; i <= oRecordSet01.RecordCount - 1; i++)
@@ -579,11 +581,11 @@ namespace PSH_BOne_AddOn
                     barcodeWriter.Write(oRecordSet01.Fields.Item(1).Value).Save(FilePath + "\\" + oRecordSet01.Fields.Item(0).Value + ".jpg", ImageFormat.Jpeg);
 
                     sQry02 = "Insert Into ZPS_PP095_QRCODE(DocEntry, PackNo) ";
-                    sQry02 = sQry02 + " Select '" + oForm.Items.Item("DocEntry").Specific.VALUE + "','" + oRecordSet01.Fields.Item(0).Value + "'";
+                    sQry02 += " Select '" + oForm.Items.Item("DocEntry").Specific.Value + "','" + oRecordSet01.Fields.Item(0).Value + "'";
                     oRecordSet02.DoQuery(sQry02);
 
                     sQry02 = "Update ZPS_PP095_QRCODE Set QRImg = (Select Bulkcolumn From OPENROWSET(BULK N'" + FilePath + "\\" + oRecordSet01.Fields.Item(0).Value + ".jpg', SINGLE_BLOB) As QRImg)";
-                    sQry02 = sQry02 + " Where DocEntry = '" + oForm.Items.Item("DocEntry").Specific.VALUE + "' And PackNo = '" + oRecordSet01.Fields.Item(0).Value + "'";
+                    sQry02 += " Where DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "' And PackNo = '" + oRecordSet01.Fields.Item(0).Value + "'";
                     oRecordSet02.DoQuery(sQry02);
 
                     oRecordSet01.MoveNext();
@@ -594,7 +596,7 @@ namespace PSH_BOne_AddOn
                 List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
 
                 //Parameter
-                dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", oForm.Items.Item("DocEntry").Specific.VALUE)); //사업장
+                dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", oForm.Items.Item("DocEntry").Specific.Value)); //사업장
 
                 formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
             }
@@ -801,10 +803,10 @@ namespace PSH_BOne_AddOn
                     }
                     if (pVal.ItemUID == "Button04")
                     {
-                        YM = codeHelpClass.Mid(oForm.Items.Item("DocDate").Specific.VALUE, 0, 4) + "-" + codeHelpClass.Mid(oForm.Items.Item("DocDate").Specific.VALUE, 4, 2);
+                        YM = codeHelpClass.Mid(oForm.Items.Item("DocDate").Specific.Value, 0, 4) + "-" + codeHelpClass.Mid(oForm.Items.Item("DocDate").Specific.Value, 4, 2);
 
                         PS_QM041 ChildForm01 = new PS_QM041();
-                        ChildForm01.LoadForm(YM, oForm.Items.Item("DocEntry").Specific.VALUE);
+                        ChildForm01.LoadForm(YM, oForm.Items.Item("DocEntry").Specific.Value);
                     }
                     if (pVal.ItemUID == "Button05")
                     {
@@ -817,7 +819,7 @@ namespace PSH_BOne_AddOn
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                         {
                             PS_MM004 PS_MM004 = new PS_MM004();
-                            PS_MM004.LoadForm("PS_PP095", oForm.Items.Item("DocEntry").Specific.VALUE);
+                            PS_MM004.LoadForm("PS_PP095", oForm.Items.Item("DocEntry").Specific.Value);
                             BubbleEvent = false;
                         }
                     }
@@ -838,10 +840,10 @@ namespace PSH_BOne_AddOn
                     }
                     if (pVal.ItemUID == "Button07")
                     {
-                        YM = codeHelpClass.Mid(oForm.Items.Item("DocDate").Specific.VALUE, 0, 4) + "-" + codeHelpClass.Mid(oForm.Items.Item("DocDate").Specific.VALUE, 4, 2);
+                        YM = codeHelpClass.Mid(oForm.Items.Item("DocDate").Specific.Value, 0, 4) + "-" + codeHelpClass.Mid(oForm.Items.Item("DocDate").Specific.Value, 4, 2);
 
                         PS_QM620 ChildForm01 = new PS_QM620(); 
-                        ChildForm01.LoadForm(YM, oForm.Items.Item("DocEntry").Specific.VALUE);
+                        ChildForm01.LoadForm(YM, oForm.Items.Item("DocEntry").Specific.Value);
                     }
                 }
                 else if (pVal.BeforeAction == false)
@@ -895,7 +897,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (pVal.ItemUID == "CardCode")
                         {
-                            if (string.IsNullOrEmpty(oForm.Items.Item("CardCode").Specific.VALUE))
+                            if (string.IsNullOrEmpty(oForm.Items.Item("CardCode").Specific.Value))
                             {
                                 PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                                 BubbleEvent = false;
@@ -905,8 +907,9 @@ namespace PSH_BOne_AddOn
                         {
                             if (pVal.ColUID == "OrdNum")
                             {
-                                //ChildForm01.LoadForm(oForm, pVal.ItemUID, pVal.ColUID, pVal.Row, oForm.Items.Item("BPLId").Specific.VALUE);
-                                //BubbleEvent = false;
+                                PS_PP095S PS_PP095S = new PS_PP095S();
+                                PS_PP095S.LoadForm(oForm, pVal.ItemUID, pVal.ColUID, pVal.Row, oForm.Items.Item("BPLId").Specific.Value);
+                                BubbleEvent = false;
                             }
 
                         }
@@ -1018,7 +1021,7 @@ namespace PSH_BOne_AddOn
                         {
                             if (pVal.ColUID == "OrdNum")
                             {
-                                if (string.IsNullOrEmpty(oMat01.Columns.Item("OrdNum").Cells.Item(pVal.Row).Specific.VALUE))
+                                if (string.IsNullOrEmpty(oMat01.Columns.Item("OrdNum").Cells.Item(pVal.Row).Specific.Value))
                                 {
                                     throw new Exception();
                                 }
@@ -1030,14 +1033,14 @@ namespace PSH_BOne_AddOn
                                 Query01 += " ProDate = B.U_ProDate ";
                                 Query01 += " FROM [@PS_PP090H] a INNER JOIN [@PS_PP090L] b ON a.DocEntry = b.DocEntry AND a.CanCeled = 'N' ";
                                 Query01 += " WHERE ";
-                                Query01 += " a.U_BPLId = '" + oForm.Items.Item("BPLId").Specific.VALUE + "'";
-                                Query01 += " AND b.U_LotNo = '" + oMat01.Columns.Item("OrdNum").Cells.Item(pVal.Row).Specific.VALUE + "'";
+                                Query01 += " a.U_BPLId = '" + oForm.Items.Item("BPLId").Specific.Value + "'";
+                                Query01 += " AND b.U_LotNo = '" + oMat01.Columns.Item("OrdNum").Cells.Item(pVal.Row).Specific.Value + "'";
 
                                 oRecordSet01.DoQuery(Query01);
 
                                 for (i = 0; i <= oRecordSet01.RecordCount - 1; i++)
                                 {
-                                    oDS_PS_PP095L.SetValue("U_OrdNum", pVal.Row - 1, oMat01.Columns.Item("OrdNum").Cells.Item(pVal.Row).Specific.VALUE);
+                                    oDS_PS_PP095L.SetValue("U_OrdNum", pVal.Row - 1, oMat01.Columns.Item("OrdNum").Cells.Item(pVal.Row).Specific.Value);
                                     oDS_PS_PP095L.SetValue("U_PackNo", pVal.Row - 1, oRecordSet01.Fields.Item("PackNo").Value);
                                     oDS_PS_PP095L.SetValue("U_ItemCode", pVal.Row - 1, oRecordSet01.Fields.Item("ItemCode").Value);
                                     oDS_PS_PP095L.SetValue("U_ItemName", pVal.Row - 1, oRecordSet01.Fields.Item("ItemName").Value);
@@ -1064,27 +1067,27 @@ namespace PSH_BOne_AddOn
                         {
                             if (pVal.ItemUID == "CntcCode")
                             {
-                                oDS_PS_PP095H.SetValue("U_" + pVal.ItemUID, 0, oForm.Items.Item(pVal.ItemUID).Specific.VALUE);
-                                oDS_PS_PP095H.SetValue("U_CntcName", 0, dataHelpClass.GetValue("SELECT LastName + FirstName FROM [OHEM] WHERE U_MSTCOD = '" + oForm.Items.Item(pVal.ItemUID).Specific.VALUE + "'", 0, 1));
+                                oDS_PS_PP095H.SetValue("U_" + pVal.ItemUID, 0, oForm.Items.Item(pVal.ItemUID).Specific.Value);
+                                oDS_PS_PP095H.SetValue("U_CntcName", 0, dataHelpClass.GetValue("SELECT LastName + FirstName FROM [OHEM] WHERE U_MSTCOD = '" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'", 0, 1));
                             }
                             if (pVal.ItemUID == "CardCode")
                             {
-                                oDS_PS_PP095H.SetValue("U_" + pVal.ItemUID, 0, oForm.Items.Item(pVal.ItemUID).Specific.VALUE);
-                                oDS_PS_PP095H.SetValue("U_CardName", 0, dataHelpClass.GetValue("select cardname from ocrd where cardcode = '" + oForm.Items.Item(pVal.ItemUID).Specific.VALUE + "'", 0, 1));
+                                oDS_PS_PP095H.SetValue("U_" + pVal.ItemUID, 0, oForm.Items.Item(pVal.ItemUID).Specific.Value);
+                                oDS_PS_PP095H.SetValue("U_CardName", 0, dataHelpClass.GetValue("select cardname from ocrd where cardcode = '" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'", 0, 1));
                             }
                             if (pVal.ItemUID == "TWeight")
                             {
-                                if (oForm.Items.Item("TWeight").Specific.VALUE > 0)
+                                if (oForm.Items.Item("TWeight").Specific.Value > 0)
                                 {
                                     if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                                     {
-                                        BoxWeight = System.Math.Round((Convert.ToDouble(oForm.Items.Item("TWeight").Specific.VALUE) - Convert.ToDouble(oForm.Items.Item("S_Weight").Specific.VALUE)) / Convert.ToDouble(oForm.Items.Item("BoxCnt").Specific.VALUE), 1);
-                                        oForm.Items.Item("Comments").Specific.VALUE = Convert.ToString(Convert.ToInt16(oForm.Items.Item("BoxCnt").Specific.VALUE)) + "EA X " + Convert.ToString(BoxWeight) + "Kg = " + Convert.ToString(Convert.ToDouble(oForm.Items.Item("TWeight").Specific.VALUE) - Convert.ToDouble(oForm.Items.Item("S_Weight").Specific.VALUE)) + " Kg";
+                                        BoxWeight = System.Math.Round((Convert.ToDouble(oForm.Items.Item("TWeight").Specific.Value) - Convert.ToDouble(oForm.Items.Item("S_Weight").Specific.Value)) / Convert.ToDouble(oForm.Items.Item("BoxCnt").Specific.Value), 1);
+                                        oForm.Items.Item("Comments").Specific.Value = Convert.ToString(Convert.ToInt16(oForm.Items.Item("BoxCnt").Specific.Value)) + "EA X " + Convert.ToString(BoxWeight) + "Kg = " + Convert.ToString(Convert.ToDouble(oForm.Items.Item("TWeight").Specific.Value) - Convert.ToDouble(oForm.Items.Item("S_Weight").Specific.Value)) + " Kg";
                                     }
                                 }
                                 else
                                 {
-                                    oForm.Items.Item("Comments").Specific.VALUE = "";
+                                    oForm.Items.Item("Comments").Specific.Value = "";
                                 }
                             }
                         }
@@ -1135,7 +1138,7 @@ namespace PSH_BOne_AddOn
                     PS_PP095_FormItemEnabled();
                     PS_PP095_AddMatrixRow(oMat01.VisualRowCount, false);
 
-                    PackNo = oMat01.Columns.Item("PackNo").Cells.Item(1).Specific.VALUE;
+                    PackNo = oMat01.Columns.Item("PackNo").Cells.Item(1).Specific.Value;
                     BoxCnt = 0;
                     PackNo2 = "0";
                     if (oMat01.VisualRowCount <= 100)
@@ -1143,7 +1146,7 @@ namespace PSH_BOne_AddOn
                         for (i = 0; i <= oMat01.VisualRowCount - 2; i++)
                         {
                             PackNo = oDS_PS_PP095L.GetValue("U_PackNo", i).ToString().Trim();
-                            S_Weight += Convert.ToDouble(oMat01.Columns.Item("Weight").Cells.Item(i + 1).Specific.VALUE);
+                            S_Weight += Convert.ToDouble(oMat01.Columns.Item("Weight").Cells.Item(i + 1).Specific.Value);
 
                             if (i == (oMat01.VisualRowCount - 1))
                             {
@@ -1157,7 +1160,7 @@ namespace PSH_BOne_AddOn
                             {
 
                                 sQry = " EXEC [PS_PP095_13] ";
-                                sQry = sQry + "'" + PackNo + "'";
+                                sQry += "'" + PackNo + "'";
 
                                 oRecordSet01.DoQuery(sQry);
 
@@ -1167,14 +1170,14 @@ namespace PSH_BOne_AddOn
                                 BoxCnt += 1;
                             }
                         }
-                        oForm.Items.Item("BoxCnt").Specific.VALUE = BoxCnt;
-                        oForm.Items.Item("S_Weight").Specific.VALUE = S_Weight;
-                        oForm.Items.Item("SS_Weight").Specific.VALUE = SS_Weight;
+                        oForm.Items.Item("BoxCnt").Specific.Value = BoxCnt;
+                        oForm.Items.Item("S_Weight").Specific.Value = S_Weight;
+                        oForm.Items.Item("SS_Weight").Specific.Value = SS_Weight;
                     }
                     else
                     {
-                        oForm.Items.Item("BoxCnt").Specific.VALUE = 0;
-                        oForm.Items.Item("S_Weight").Specific.VALUE = 0;
+                        oForm.Items.Item("BoxCnt").Specific.Value = 0;
+                        oForm.Items.Item("S_Weight").Specific.Value = 0;
                     }
                 }
             }
@@ -1274,7 +1277,7 @@ namespace PSH_BOne_AddOn
                 {
                     for (i = 1; i <= oMat01.VisualRowCount; i++)
                     {
-                        oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.VALUE = i;
+                        oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value = i;
                     }
                     oMat01.FlushToDataSource();
                     oDS_PS_PP095L.RemoveRecord(oDS_PS_PP095L.Size - 1);

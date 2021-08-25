@@ -504,7 +504,7 @@ namespace PSH_BOne_AddOn
 
                 PSH_Globals.oCompany.StartTransaction();
                 var _with1 = f_oJournalEntries;
-                //// 전표전체적용
+                // 전표전체적용
                 //.Series = "14"             '/ 시리즈:주요 분개개체번호
                 //.Series = MDC_SetMod.Get_Series_No("30")    '시리즈:주요 분개개체번호
                 _with1.JournalEntries.DueDate = Convert.ToDateTime(oDocDate);                //"04/26/2007"   '/ 만기일

@@ -22,7 +22,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
 		/// Form 호출
 		/// </summary>
-		public override void LoadForm()
+		public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -47,7 +47,7 @@ namespace PSH_BOne_AddOn
 
                 oForm.SupportedModes = -1;
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
-                //oForm.DataBrowser.BrowseBy="DocEntry" //UDO방식
+                //oForm.DataBrowser.BrowseBy="DocEntry" 
 
                 oForm.Freeze(true);
                 PS_SD603_CreateItems();
@@ -55,6 +55,8 @@ namespace PSH_BOne_AddOn
 
                 oForm.Items.Item("FrDt").Specific.Value = DateTime.Now.ToString("yyyyMM01");
                 oForm.Items.Item("ToDt").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
+
+                oForm.Items.Item("BtnPrint").Visible = false;
 
                 oForm.Items.Item("CardCode").Click();
             }
@@ -240,13 +242,12 @@ namespace PSH_BOne_AddOn
 
                 oGrid01.DataTable.Clear();
                 oDS_PS_SD603A.ExecuteQuery(Query01);
-                //oGrid01.DataTable = oForm.DataSources.DataTables.Item("DataTable")
 
                 oGrid01.Columns.Item(8).RightJustified = true;
                 oGrid01.Columns.Item(9).RightJustified = true;
                 oGrid01.Columns.Item(10).RightJustified = true;
 
-                if (oGrid01.Rows.Count == 0)
+                if (oGrid01.Rows.Count == 1)
                 {
                     errCode = "1";
                     throw new Exception();
@@ -464,7 +465,6 @@ namespace PSH_BOne_AddOn
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                         {
                         }
-
                     }
                     else if (pVal.ItemUID == "BtnPrint")
                     {

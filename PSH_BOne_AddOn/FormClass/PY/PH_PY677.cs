@@ -319,7 +319,7 @@ namespace PSH_BOne_AddOn
                 if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY677_FormItemEnabled();
-                    //Call PH_PY677_AddMatrixRow(0, True) '//UDO방식일때
+                    //Call PH_PY677_AddMatrixRow(0, True) '
                 }
                 else
                 {
@@ -1086,9 +1086,9 @@ namespace PSH_BOne_AddOn
             {
                 if (ProgressBar01 != null)
                 {
+                    ProgressBar01.Stop();
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
                 }
-
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
         }

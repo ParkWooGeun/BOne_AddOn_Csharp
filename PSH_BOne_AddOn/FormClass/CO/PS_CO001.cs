@@ -372,11 +372,14 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                oForm.Update();
-                ProgBar01.Stop();
+                oForm.Update();                
                 oForm.Freeze(false);
 
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                if (ProgBar01 != null)
+                {
+                    ProgBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                }
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet01);
             }
         }
@@ -632,19 +635,6 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.BeforeAction == true)
                 {
-                    if (pVal.ItemUID == "PS_CO001")
-                    {
-                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-                        {
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-                        {
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-                        {
-                        }
-                    }
-
                     if (pVal.ItemUID == "BtnAdd") //추가(수정) 버튼클릭
                     {
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)

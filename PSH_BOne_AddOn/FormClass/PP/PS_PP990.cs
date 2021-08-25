@@ -154,7 +154,7 @@ namespace PSH_BOne_AddOn
         private void PS_PP990_MTX01(string pBPLID, string pTeamCode, string pRspCode, string pClsCode, string pCardType, string pItemType, string pWCYN, string pDateStd, string pFrDt, string pToDt,        string pItemCode, string pCpCode, string pCpName, string pOrdGbn)
         {
             string sQry;
-            string errMessage = String.Empty;
+            string errMessage = string.Empty;
 
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
@@ -162,8 +162,8 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                oForm.Items.Item("CpCode").Specific.VALUE = pCpCode;
-                oForm.Items.Item("CpName").Specific.VALUE = pCpName;
+                oForm.Items.Item("CpCode").Specific.Value = pCpCode;
+                oForm.Items.Item("CpName").Specific.Value = pCpName;
 
                 ProgressBar01.Text = "조회 중...";
 
@@ -214,8 +214,11 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                ProgressBar01.Stop();
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
                 oForm.Freeze(false);
             }
         }

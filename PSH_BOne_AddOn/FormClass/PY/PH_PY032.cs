@@ -1190,7 +1190,7 @@ namespace PSH_BOne_AddOn
                     }
                     else if (pVal.ItemUID == "BtnDelete")
                     {
-                        if (PSH_Globals.SBO_Application.MessageBox("삭제 후에는 복구가 불가능합니다. 삭제하시겠습니까?", Convert.ToInt32("1"), "예", "아니오") == Convert.ToDouble("1"))
+                        if (PSH_Globals.SBO_Application.MessageBox("삭제 후에는 복구가 불가능합니다. 삭제하시겠습니까?", 1, "예", "아니오") == 1)
                         {
                             PH_PY032_DeleteData();
                             PH_PY032_FormReset();

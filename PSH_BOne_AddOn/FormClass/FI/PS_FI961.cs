@@ -258,7 +258,7 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void PS_FI961_FormClear()
 		{
-			string DocEntry = String.Empty;
+			string DocEntry = string.Empty;
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
 			try
@@ -314,7 +314,7 @@ namespace PSH_BOne_AddOn
 		{
 			int loopCount = 0;
 			int ErrNum = 0;
-			string sQry = String.Empty;
+			string sQry = string.Empty;
 
 			string BPLID = string.Empty;            //사업장
 			string FrDt = string.Empty;         //기간시작
@@ -405,7 +405,6 @@ namespace PSH_BOne_AddOn
 					ProgressBar01.Stop();
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
 				}
-				
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 		}
@@ -417,7 +416,7 @@ namespace PSH_BOne_AddOn
 		{
 			int loopCount = 0;
 			int ErrNum = 0;
-			string sQry = String.Empty;
+			string sQry = string.Empty;
 
 			string BPLID = string.Empty;            //사업장
 			string FrDt = string.Empty;         //기간시작
@@ -505,7 +504,6 @@ namespace PSH_BOne_AddOn
 					ProgressBar01.Stop();
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
 				}
-				
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 		}
@@ -806,7 +804,7 @@ namespace PSH_BOne_AddOn
 		/// <param name="BubbleEvent"></param>
 		private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
-			string sQry = String.Empty;
+			string sQry = string.Empty;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try

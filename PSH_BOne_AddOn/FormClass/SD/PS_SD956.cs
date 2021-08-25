@@ -1,7 +1,6 @@
-using System;
+﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
-using PSH_BOne_AddOn.Code;
 
 namespace PSH_BOne_AddOn
 {
@@ -11,16 +10,14 @@ namespace PSH_BOne_AddOn
 	internal class PS_SD956 : PSH_BaseClass
 	{
 		private string oFormUniqueID;
-		public SAPbouiCOM.Grid oGrid01;
-		public SAPbouiCOM.Grid oGrid02;
-		public SAPbouiCOM.Grid oGrid03;
-		public SAPbouiCOM.Grid oGrid04;
-
-		public SAPbouiCOM.DataTable oDS_PS_SD956A;
-		public SAPbouiCOM.DataTable oDS_PS_SD956B;
-		public SAPbouiCOM.DataTable oDS_PS_SD956C;
-		public SAPbouiCOM.DataTable oDS_PS_SD956D;
-			
+		private SAPbouiCOM.Grid oGrid01;
+		private SAPbouiCOM.Grid oGrid02;
+		private SAPbouiCOM.Grid oGrid03;
+		private SAPbouiCOM.Grid oGrid04;
+		private SAPbouiCOM.DataTable oDS_PS_SD956A;
+		private SAPbouiCOM.DataTable oDS_PS_SD956B;
+		private SAPbouiCOM.DataTable oDS_PS_SD956C;
+		private SAPbouiCOM.DataTable oDS_PS_SD956D;
 		private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
 		private string oLastColUID01;  //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
 		private int oLastColRow01;     //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
@@ -31,8 +28,8 @@ namespace PSH_BOne_AddOn
 		/// <param name="oFormDocEntry"></param>
 		public override void LoadForm(string oFormDocEntry)
 		{
-			int i;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
+
             try
             {
 				oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PS_SD956.srf");
@@ -41,7 +38,7 @@ namespace PSH_BOne_AddOn
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
 
                 //매트릭스의 타이틀높이와 셀높이를 고정
-                for (i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
+                for (int i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
                 {
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight")[i - 1].nodeValue = 20;
                     oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
@@ -59,7 +56,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
 
                 PS_SD956_CreateItems();
-                PS_SD956_ComboBox_Setting();
+                PS_SD956_SetComboBox();
             }
 			catch (Exception ex)
 			{
@@ -151,9 +148,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_SD956_ComboBox_Setting
+		/// PS_SD956_SetComboBox
 		/// </summary>
-		private void PS_SD956_ComboBox_Setting()
+		private void PS_SD956_SetComboBox()
 		{
 			string sQry;
 			string BPLID;
@@ -206,6 +203,525 @@ namespace PSH_BOne_AddOn
 			finally
 			{
 				oForm.Freeze(false);
+			}
+		}
+
+		/// <summary>
+		/// PS_SD956_FlushToItemValue
+		/// </summary>
+		/// <param name="oUID"></param>
+		/// <param name="oRow"></param>
+		/// <param name="oCol"></param>
+		private void PS_SD956_FlushToItemValue(string oUID, int oRow, string oCol)
+		{
+			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
+			try
+			{
+				switch (oUID)
+				{
+					case "ItemCode":
+						oForm.Items.Item("ItemName").Specific.VALUE = dataHelpClass.Get_ReData("FrgnName", "ItemCode", "[OITM]", "'" + oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim() + "'", "");
+						oForm.Items.Item("ItemSpec").Specific.VALUE = dataHelpClass.Get_ReData("U_Size", "ItemCode", "[OITM]", "'" + oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim() + "'", "");
+						break;
+				}
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+			{
+			}
+		}
+
+		/// <summary>
+		/// PS_SD956_MTX01  영업정보 조회
+		/// </summary>
+		private void PS_SD956_MTX01()
+		{
+			int ErrNum = 0;
+			string sQry;
+
+			string OrdFrDt;         //수주기간(Fr)
+			string OrdToDt;         //수주기간(To)
+			string CardType;        //거래처구분
+			string CardTeam;        //팀(거래처)
+			string ItemCode;        //작번
+			string ItemType;        //품목구분(장비/공구)
+			string YearPdYN;        //순환품(연간품)
+
+			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
+			try
+			{
+				oForm.Freeze(true);
+
+				OrdFrDt = oForm.Items.Item("OrdFrDt").Specific.VALUE.ToString().Trim();
+				OrdToDt = oForm.Items.Item("OrdToDt").Specific.VALUE.ToString().Trim();
+				CardType = oForm.Items.Item("CardType").Specific.VALUE.ToString().Trim();
+				CardTeam = oForm.Items.Item("CardTeam").Specific.VALUE.ToString().Trim();
+				ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
+				ItemType = oForm.Items.Item("ItemType").Specific.VALUE.ToString().Trim();
+				YearPdYN = oForm.Items.Item("YearPdYN").Specific.VALUE.ToString().Trim();
+
+				ProgressBar01.Text = "조회중...";
+
+				sQry = " EXEC PS_SD956_01 '";
+				sQry += OrdFrDt + "','";
+				sQry += OrdToDt + "','";
+				sQry += CardType + "','";
+				sQry += CardTeam + "','";
+				sQry += ItemCode + "','";
+				sQry += ItemType + "','";
+				sQry += YearPdYN + "'";
+
+				oGrid01.DataTable.Clear();
+				oDS_PS_SD956A.ExecuteQuery(sQry);
+
+				oGrid01.Columns.Item(5).RightJustified = true;
+				oGrid01.Columns.Item(6).RightJustified = true;
+				oGrid01.Columns.Item(12).RightJustified = true;
+				oGrid01.Columns.Item(14).RightJustified = true;
+				oGrid01.Columns.Item(16).RightJustified = true;
+				oGrid01.Columns.Item(17).RightJustified = true;
+				oGrid01.Columns.Item(18).RightJustified = true;
+
+				if (oGrid01.Rows.Count == 0)
+				{
+					ErrNum = 1;
+					throw new Exception();
+				}
+			}
+
+			catch (Exception ex)
+			{
+				if (ErrNum == 1)
+				{
+					dataHelpClass.MDC_GF_Message("결과가 존재하지 않습니다.", "W");
+				}
+				else
+				{
+					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+				}
+			}
+			finally
+			{
+				if (oGrid01.Rows.Count >= 1)
+				{
+					oGrid01.AutoResizeColumns();
+				}
+				
+				oForm.Update();
+				ProgressBar01.Stop();
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				oForm.Freeze(false);
+			}
+		}
+
+		/// <summary>
+		/// PS_SD956_MTX02  생산정보 조회
+		/// </summary>
+		private void PS_SD956_MTX02()
+		{
+			int ErrNum = 0;
+			string sQry;
+
+			string OrdFrDt;         //수주기간(Fr)
+			string OrdToDt;         //수주기간(To)
+			string CardType;        //거래처구분
+			string CardTeam;        //팀(거래처)
+			string ItemCode;        //작번
+			string ItemType;        //품목구분(장비/공구)
+			string YearPdYN;        //순환품(연간품)
+
+			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
+			try
+			{
+				oForm.Freeze(true);
+
+				OrdFrDt = oForm.Items.Item("OrdFrDt").Specific.VALUE.ToString().Trim();
+				OrdToDt = oForm.Items.Item("OrdToDt").Specific.VALUE.ToString().Trim();
+				CardType = oForm.Items.Item("CardType").Specific.VALUE.ToString().Trim();
+				CardTeam = oForm.Items.Item("CardTeam").Specific.VALUE.ToString().Trim();
+				ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
+				ItemType = oForm.Items.Item("ItemType").Specific.VALUE.ToString().Trim();
+				YearPdYN = oForm.Items.Item("YearPdYN").Specific.VALUE.ToString().Trim();
+
+				ProgressBar01.Text = "조회중...";
+
+				sQry = "EXEC PS_SD956_02 '";
+				sQry += OrdFrDt + "','";
+				sQry += OrdToDt + "','";
+				sQry += CardType + "','";
+				sQry += CardTeam + "','";
+				sQry += ItemCode + "','";
+				sQry += ItemType + "','";
+				sQry += YearPdYN + "'";
+
+				oGrid02.DataTable.Clear();
+				oDS_PS_SD956B.ExecuteQuery(sQry);
+
+				oGrid02.Columns.Item(10).RightJustified = true;
+				oGrid02.Columns.Item(14).RightJustified = true;
+
+				if (oGrid02.Rows.Count == 0)
+				{
+					ErrNum = 1;
+					throw new Exception();
+				}
+			}
+			catch (Exception ex)
+			{
+				if (ErrNum == 1)
+				{
+					dataHelpClass.MDC_GF_Message("결과가 존재하지 않습니다.", "W");
+				}
+				else
+				{
+					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+				}
+			}
+			finally
+			{
+				if (oGrid02.Rows.Count >= 1)
+				{
+					oGrid02.AutoResizeColumns();
+				}
+				
+				oForm.Update();
+				ProgressBar01.Stop();
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				oForm.Freeze(false);
+			}
+		}
+
+		/// <summary>
+		/// PS_SD956_MTX03  구매정보 조회
+		/// </summary>
+		private void PS_SD956_MTX03()
+		{
+			int ErrNum = 0;
+			string sQry;
+
+			string OrdFrDt;         //수주기간(Fr)
+			string OrdToDt;         //수주기간(To)
+			string CardType;        //거래처구분
+			string CardTeam;        //팀(거래처)
+			string ItemCode;        //작번
+			string ItemType;        //품목구분(장비/공구)
+			string YearPdYN;        //순환품(연간품)
+
+			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
+			try
+			{
+				oForm.Freeze(true);
+
+				OrdFrDt = oForm.Items.Item("OrdFrDt").Specific.VALUE.ToString().Trim();
+				OrdToDt = oForm.Items.Item("OrdToDt").Specific.VALUE.ToString().Trim();
+				CardType = oForm.Items.Item("CardType").Specific.VALUE.ToString().Trim();
+				CardTeam = oForm.Items.Item("CardTeam").Specific.VALUE.ToString().Trim();
+				ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
+				ItemType = oForm.Items.Item("ItemType").Specific.VALUE.ToString().Trim();
+				YearPdYN = oForm.Items.Item("YearPdYN").Specific.VALUE.ToString().Trim();
+
+				ProgressBar01.Text = "조회중...";
+
+				sQry = "EXEC PS_SD956_03 '";
+				sQry += OrdFrDt + "','";
+				sQry += OrdToDt + "','";
+				sQry += CardType + "','";
+				sQry += CardTeam + "','";
+				sQry += ItemCode + "','";
+				sQry += ItemType + "','";
+				sQry += YearPdYN + "'";
+
+				oGrid03.DataTable.Clear();
+				oDS_PS_SD956C.ExecuteQuery(sQry);
+
+				oGrid03.Columns.Item(7).RightJustified = true;
+				oGrid03.Columns.Item(10).RightJustified = true;
+				oGrid03.Columns.Item(13).RightJustified = true;
+				oGrid03.Columns.Item(14).RightJustified = true;
+				oGrid03.Columns.Item(15).RightJustified = true;
+				oGrid03.Columns.Item(18).RightJustified = true;
+				oGrid03.Columns.Item(21).RightJustified = true;
+
+				if (oGrid03.Rows.Count == 0)
+				{
+					ErrNum = 1;
+					throw new Exception();
+				}
+			}
+			catch (Exception ex)
+			{
+				if (ErrNum == 1)
+				{
+					dataHelpClass.MDC_GF_Message("결과가 존재하지 않습니다.", "W");
+				}
+				else
+				{
+					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+				}
+			}
+			finally
+			{
+				if (oGrid03.Rows.Count >= 1)
+				{
+					oGrid03.AutoResizeColumns();
+				}
+				
+				oForm.Update();
+				ProgressBar01.Stop();
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				oForm.Freeze(false);
+			}
+		}
+
+		/// <summary>
+		/// PS_SD956_MTX04  회계정보
+		/// </summary>
+		private void PS_SD956_MTX04()
+		{
+			int ErrNum = 0;
+			string sQry;
+
+			string OrdFrDt;         //수주기간(Fr)
+			string OrdToDt;         //수주기간(To)
+			string CardType;        //거래처구분
+			string CardTeam;        //팀(거래처)
+			string ItemCode;        //작번
+			string ItemType;        //품목구분(장비/공구)
+			string YearPdYN;        //순환품(연간품)
+
+			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
+			try
+			{
+				oForm.Freeze(true);
+
+				OrdFrDt = oForm.Items.Item("OrdFrDt").Specific.VALUE.ToString().Trim();
+				OrdToDt = oForm.Items.Item("OrdToDt").Specific.VALUE.ToString().Trim();
+				CardType = oForm.Items.Item("CardType").Specific.VALUE.ToString().Trim();
+				CardTeam = oForm.Items.Item("CardTeam").Specific.VALUE.ToString().Trim();
+				ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
+				ItemType = oForm.Items.Item("ItemType").Specific.VALUE.ToString().Trim();
+				YearPdYN = oForm.Items.Item("YearPdYN").Specific.VALUE.ToString().Trim();
+
+				ProgressBar01.Text = "조회중...";
+
+				sQry = "EXEC PS_SD956_04 '";
+				sQry += OrdFrDt + "','";
+				sQry += OrdToDt + "','";
+				sQry += CardType + "','";
+				sQry += CardTeam + "','";
+				sQry += ItemCode + "','";
+				sQry += ItemType + "','";
+				sQry += YearPdYN + "'";
+
+				oGrid04.DataTable.Clear();
+				oDS_PS_SD956D.ExecuteQuery(sQry);
+
+				oGrid04.Columns.Item(4).RightJustified = true;
+				oGrid04.Columns.Item(5).RightJustified = true;
+				oGrid04.Columns.Item(6).RightJustified = true;
+				oGrid04.Columns.Item(7).RightJustified = true;
+				oGrid04.Columns.Item(8).RightJustified = true;
+				oGrid04.Columns.Item(9).RightJustified = true;
+				oGrid04.Columns.Item(10).RightJustified = true;
+				oGrid04.Columns.Item(11).RightJustified = true;
+				oGrid04.Columns.Item(12).RightJustified = true;
+				oGrid04.Columns.Item(13).RightJustified = true;
+				oGrid04.Columns.Item(14).RightJustified = true;
+				oGrid04.Columns.Item(15).RightJustified = true;
+				oGrid04.Columns.Item(16).RightJustified = true;
+				oGrid04.Columns.Item(17).RightJustified = true;
+
+				if (oGrid04.Rows.Count == 0)
+				{
+					ErrNum = 1;
+					throw new Exception();
+				}
+			}
+			catch (Exception ex)
+			{
+				if (ErrNum == 1)
+				{
+					dataHelpClass.MDC_GF_Message("결과가 존재하지 않습니다.", "W");
+				}
+				else
+				{
+					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+				}
+			}
+			finally
+			{
+				if (oGrid04.Rows.Count >= 1)
+				{
+					oGrid04.AutoResizeColumns();
+				}
+				
+				oForm.Update();
+				ProgressBar01.Stop();
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				oForm.Freeze(false);
+			}
+		}
+
+		/// <summary>
+		/// PS_SD956_FormResize
+		/// </summary>
+		private void PS_SD956_FormResize()
+		{
+			try
+			{
+				//그룹박스 크기 동적 할당
+				oForm.Items.Item("GrpBox01").Height = oForm.Items.Item("Grid01").Height + 40;
+				oForm.Items.Item("GrpBox01").Width = oForm.Items.Item("Grid01").Width + 30;
+
+				if (oGrid01.Columns.Count > 0)
+				{
+					oGrid01.AutoResizeColumns();
+				}
+
+				if (oGrid02.Columns.Count > 0)
+				{
+					oGrid02.AutoResizeColumns();
+				}
+
+				if (oGrid03.Columns.Count > 0)
+				{
+					oGrid03.AutoResizeColumns();
+				}
+
+				if (oGrid04.Columns.Count > 0)
+				{
+					oGrid04.AutoResizeColumns();
+				}
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+			{
+			}
+		}
+
+		/// <summary>
+		/// PS_SD956_GetProductionDetail  생산세부정보 조회
+		/// </summary>
+		private void PS_SD956_GetProductionDetail()
+		{
+			short loopCount;
+			string ItemCode = string.Empty;
+			
+			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+			PS_SD956_01 oTempClass = new PS_SD956_01();
+
+			try
+			{
+				ProgressBar01.Text = "조회중...";
+
+				for (loopCount = 0; loopCount <= oGrid02.Rows.Count - 1; loopCount++)
+				{
+					if (oGrid02.Rows.IsSelected(loopCount) == true)
+					{
+						ItemCode = oGrid02.DataTable.GetValue(1, loopCount).ToString().Trim();
+					}
+				}
+
+				oTempClass.LoadForm(ItemCode);
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+			{
+				ProgressBar01.Stop();
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				oTempClass.oForm.Select();
+			}
+		}
+
+		/// <summary>
+		/// PS_SD956_GetPurchaseDetail  구매세부정보 조회
+		/// </summary>
+		private void PS_SD956_GetPurchaseDetail()
+		{
+			short loopCount;
+			string ItemCode = string.Empty;
+
+			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+			PS_SD956_02 oTempClass = new PS_SD956_02();
+
+			try
+			{
+				ProgressBar01.Text = "조회중...";
+
+				for (loopCount = 0; loopCount <= oGrid03.Rows.Count - 1; loopCount++)
+				{
+					if (oGrid03.Rows.IsSelected(loopCount) == true)
+					{
+						ItemCode = oGrid03.DataTable.GetValue(1, loopCount).ToString().Trim();
+					}
+				}
+
+				oTempClass.LoadForm(ItemCode);
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+			{
+				ProgressBar01.Stop();
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				oTempClass.oForm.Select();
+			}
+		}
+
+		/// <summary>
+		/// PS_SD956_GetAccountingDetail  회계세부정보 조회
+		/// </summary>
+		private void PS_SD956_GetAccountingDetail()
+		{
+			short loopCount;
+			string ItemCode = string.Empty;
+
+			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+			PS_SD956_03 oTempClass = new PS_SD956_03();
+
+			try
+			{
+				ProgressBar01.Text = "조회중...";
+
+				for (loopCount = 0; loopCount <= oGrid04.Rows.Count - 1; loopCount++)
+				{
+					if (oGrid04.Rows.IsSelected(loopCount) == true)
+					{
+						ItemCode = oGrid04.DataTable.GetValue(1, loopCount).ToString().Trim();
+					}
+				}
+
+				oTempClass.LoadForm(ItemCode);
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+			{
+				ProgressBar01.Stop();
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				oTempClass.oForm.Select();
 			}
 		}
 
@@ -279,10 +795,10 @@ namespace PSH_BOne_AddOn
 					{
 						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 						{
-							PS_SD956_MTX01();							//영업정보
-							PS_SD956_MTX02();							//생산정보
-							PS_SD956_MTX03();							//구매정보
-							PS_SD956_MTX04();							//회계정보
+							PS_SD956_MTX01(); //영업정보
+							PS_SD956_MTX02(); //생산정보
+							PS_SD956_MTX03(); //구매정보
+							PS_SD956_MTX04(); //회계정보
 						}
 						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
 						{
@@ -294,7 +810,6 @@ namespace PSH_BOne_AddOn
 				}
 				else if (pVal.BeforeAction == false)
 				{
-
 					if (pVal.ItemUID == "Folder01")
 					{
 						oForm.PaneLevel = 1;
@@ -310,18 +825,6 @@ namespace PSH_BOne_AddOn
 					if (pVal.ItemUID == "Folder04")
 					{
 						oForm.PaneLevel = 4;
-					}
-					if (pVal.ItemUID == "PS_SD956")
-					{
-						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-						{
-						}
-						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-						{
-						}
-						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-						{
-						}
 					}
 				}
 			}
@@ -382,7 +885,6 @@ namespace PSH_BOne_AddOn
 				{
 					PS_SD956_FlushToItemValue(pVal.ItemUID, pVal.Row, pVal.ColUID);
 				}
-
 			}
 			catch (Exception ex)
 			{
@@ -566,7 +1068,7 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// 
+		/// Raise_EVENT_FORM_UNLOAD
 		/// </summary>
 		/// <param name="FormUID"></param>
 		/// <param name="pVal"></param>
@@ -598,623 +1100,6 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
-			}
-		}
-
-		/// <summary>
-		/// FormMenuEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="pVal"></param>
-		/// <param name="BubbleEvent"></param>
-		public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
-		{
-			try
-			{
-				if (pVal.BeforeAction == true)
-				{
-					switch (pVal.MenuUID)
-					{
-						case "1284":                        //취소
-							break;
-						case "1286":                        //닫기
-							break;
-						case "1293":                        //행삭제
-							break;
-						case "1281":                        //찾기
-							break;
-						case "1282":                        //추가
-							break;
-						case "1288":
-						case "1289":
-						case "1290":
-						case "1291":                        //레코드이동버튼
-							break;
-					}
-				}
-				else if (pVal.BeforeAction == false)
-				{
-					switch (pVal.MenuUID)
-					{
-						case "1284":                        //취소
-							break;
-						case "1286":                        //닫기
-							break;
-						case "1293":                        //행삭제
-							break;
-						case "1281":                        //찾기
-							break;
-						case "1282":                        //추가
-							break;
-						case "1288":
-						case "1289":
-						case "1290":
-						case "1291":                        //레코드이동버튼
-							break;
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-			}
-		}
-
-		/// <summary>
-		/// Raise_FormDataEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="BusinessObjectInfo"></param>
-		/// <param name="BubbleEvent"></param>
-		public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
-		{
-			try
-			{
-				if (BusinessObjectInfo.BeforeAction == true)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:                         //33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:                          //34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:                       //35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:                       //36
-							break;
-					}
-				}
-				else if (BusinessObjectInfo.BeforeAction == false)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:                         //33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:                          //34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:                       //35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:                       //36
-							break;
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-			}
-		}
-
-		/// <summary>
-		/// PS_SD956_FlushToItemValue
-		/// </summary>
-		/// <param name="oUID"></param>
-		/// <param name="oRow"></param>
-		/// <param name="oCol"></param>
-		private void PS_SD956_FlushToItemValue(string oUID, int oRow, string oCol)
-		{
-			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
-			try
-			{
-				switch (oUID)
-				{
-					case "ItemCode":
-						oForm.Items.Item("ItemName").Specific.VALUE = dataHelpClass.Get_ReData("FrgnName", "ItemCode", "[OITM]", "'" + oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim() + "'", "");
-						oForm.Items.Item("ItemSpec").Specific.VALUE = dataHelpClass.Get_ReData("U_Size", "ItemCode", "[OITM]", "'" + oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim() + "'", "");
-						break;
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-			}
-		}
-
-		/// <summary>
-		/// PS_SD956_MTX01  영업정보 조회
-		/// </summary>
-		private void PS_SD956_MTX01()
-		{
-			int ErrNum = 0;
-			string sQry;
-
-			string OrdFrDt;			//수주기간(Fr)
-			string OrdToDt;			//수주기간(To)
-			string CardType;		//거래처구분
-			string CardTeam;		//팀(거래처)
-			string ItemCode;		//작번
-			string ItemType;		//품목구분(장비/공구)
-			string YearPdYN;        //순환품(연간품)
-
-			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
-
-			try
-			{
-				oForm.Freeze(true);
-
-				OrdFrDt = oForm.Items.Item("OrdFrDt").Specific.VALUE.ToString().Trim();
-				OrdToDt  = oForm.Items.Item("OrdToDt").Specific.VALUE.ToString().Trim();
-				CardType = oForm.Items.Item("CardType").Specific.VALUE.ToString().Trim();
-				CardTeam = oForm.Items.Item("CardTeam").Specific.VALUE.ToString().Trim();
-				ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
-				ItemType = oForm.Items.Item("ItemType").Specific.VALUE.ToString().Trim();
-				YearPdYN = oForm.Items.Item("YearPdYN").Specific.VALUE.ToString().Trim();
-
-				ProgressBar01.Text = "조회중...";
-
-				sQry = " EXEC PS_SD956_01 '";
-				sQry += OrdFrDt + "','";
-				sQry += OrdToDt + "','";
-				sQry += CardType + "','";
-				sQry += CardTeam + "','";
-				sQry += ItemCode + "','";
-				sQry += ItemType + "','";
-				sQry += YearPdYN + "'";
-
-				oGrid01.DataTable.Clear();
-				oDS_PS_SD956A.ExecuteQuery(sQry);
-
-				oGrid01.Columns.Item(5).RightJustified = true;
-				oGrid01.Columns.Item(6).RightJustified = true;
-				oGrid01.Columns.Item(12).RightJustified = true;
-				oGrid01.Columns.Item(14).RightJustified = true;
-				oGrid01.Columns.Item(16).RightJustified = true;
-				oGrid01.Columns.Item(17).RightJustified = true;
-				oGrid01.Columns.Item(18).RightJustified = true;
-
-				if (oGrid01.Rows.Count == 0)
-				{
-					ErrNum = 1;
-					throw new Exception();
-				}
-			}
-
-			catch (Exception ex)
-			{
-				if ( ErrNum == 1)
-                {
-					dataHelpClass.MDC_GF_Message("결과가 존재하지 않습니다.", "W");
-				}
-				else
-                {
-					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-				}
-			}
-			finally
-			{
-				oGrid01.AutoResizeColumns();
-				oForm.Update();
-				ProgressBar01.Stop();
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
-				oForm.Freeze(false);
-			}
-		}
-
-		/// <summary>
-		/// PS_SD956_MTX02  생산정보 조회
-		/// </summary>
-		private void PS_SD956_MTX02()
-		{
-			int ErrNum = 0;
-			string sQry;
-
-			string OrdFrDt;         //수주기간(Fr)
-			string OrdToDt;         //수주기간(To)
-			string CardType;        //거래처구분
-			string CardTeam;        //팀(거래처)
-			string ItemCode;        //작번
-			string ItemType;        //품목구분(장비/공구)
-			string YearPdYN;        //순환품(연간품)
-
-			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
-
-			try
-			{
-				oForm.Freeze(true);
-
-				OrdFrDt = oForm.Items.Item("OrdFrDt").Specific.VALUE.ToString().Trim();
-				OrdToDt = oForm.Items.Item("OrdToDt").Specific.VALUE.ToString().Trim();
-				CardType = oForm.Items.Item("CardType").Specific.VALUE.ToString().Trim();
-				CardTeam = oForm.Items.Item("CardTeam").Specific.VALUE.ToString().Trim();
-				ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
-				ItemType = oForm.Items.Item("ItemType").Specific.VALUE.ToString().Trim();
-				YearPdYN = oForm.Items.Item("YearPdYN").Specific.VALUE.ToString().Trim();
-
-				ProgressBar01.Text = "조회중...";
-
-				sQry = "       EXEC PS_SD956_02 '";
-				sQry += OrdFrDt + "','";
-				sQry += OrdToDt + "','";
-				sQry += CardType + "','";
-				sQry += CardTeam + "','";
-				sQry += ItemCode + "','";
-				sQry += ItemType + "','";
-				sQry += YearPdYN + "'";
-
-				oGrid02.DataTable.Clear();
-				oDS_PS_SD956B.ExecuteQuery(sQry);
-
-				oGrid02.Columns.Item(10).RightJustified = true;
-				oGrid02.Columns.Item(14).RightJustified = true;
-
-				if (oGrid02.Rows.Count == 0)
-				{
-					ErrNum = 1;
-					throw new Exception();
-				}
-			}
-			catch (Exception ex)
-			{
-				if (ErrNum == 1)
-				{
-					dataHelpClass.MDC_GF_Message("결과가 존재하지 않습니다.", "W");
-				}
-				else
-				{
-					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-				}
-			}
-			finally
-			{
-				oGrid02.AutoResizeColumns();
-				oForm.Update();
-				ProgressBar01.Stop();
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
-				oForm.Freeze(false);
-			}
-		}
-
-		/// <summary>
-		/// PS_SD956_MTX03  구매정보 조회
-		/// </summary>
-		private void PS_SD956_MTX03()
-		{
-			int ErrNum = 0;
-			string sQry;
-
-			string OrdFrDt;         //수주기간(Fr)
-			string OrdToDt;         //수주기간(To)
-			string CardType;        //거래처구분
-			string CardTeam;        //팀(거래처)
-			string ItemCode;        //작번
-			string ItemType;        //품목구분(장비/공구)
-			string YearPdYN;        //순환품(연간품)
-
-			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
-
-			try
-			{
-				oForm.Freeze(true);
-
-				OrdFrDt = oForm.Items.Item("OrdFrDt").Specific.VALUE.ToString().Trim();
-				OrdToDt = oForm.Items.Item("OrdToDt").Specific.VALUE.ToString().Trim();
-				CardType = oForm.Items.Item("CardType").Specific.VALUE.ToString().Trim();
-				CardTeam = oForm.Items.Item("CardTeam").Specific.VALUE.ToString().Trim();
-				ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
-				ItemType = oForm.Items.Item("ItemType").Specific.VALUE.ToString().Trim();
-				YearPdYN = oForm.Items.Item("YearPdYN").Specific.VALUE.ToString().Trim();
-
-				ProgressBar01.Text = "조회중...";
-
-				sQry = "       EXEC PS_SD956_03 '";
-				sQry += OrdFrDt + "','";
-				sQry += OrdToDt + "','";
-				sQry += CardType + "','";
-				sQry += CardTeam + "','";
-				sQry += ItemCode + "','";
-				sQry += ItemType + "','";
-				sQry += YearPdYN + "'";
-
-				oGrid03.DataTable.Clear();
-				oDS_PS_SD956C.ExecuteQuery(sQry);
-
-				oGrid03.Columns.Item(7).RightJustified = true;
-				oGrid03.Columns.Item(10).RightJustified = true;
-				oGrid03.Columns.Item(13).RightJustified = true;
-				oGrid03.Columns.Item(14).RightJustified = true;
-				oGrid03.Columns.Item(15).RightJustified = true;
-				oGrid03.Columns.Item(18).RightJustified = true;
-				oGrid03.Columns.Item(21).RightJustified = true;
-
-				if (oGrid03.Rows.Count == 0)
-				{
-					ErrNum = 1;
-					throw new Exception();
-				}
-			}
-			catch (Exception ex)
-			{
-				if (ErrNum == 1)
-				{
-					dataHelpClass.MDC_GF_Message("결과가 존재하지 않습니다.", "W");
-				}
-				else
-				{
-					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-				}
-			}
-			finally
-			{
-				oGrid03.AutoResizeColumns();
-				oForm.Update();
-				ProgressBar01.Stop();
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
-				oForm.Freeze(false);
-			}
-		}
-
-		/// <summary>
-		/// PS_SD956_MTX04  회계정보
-		/// </summary>
-		private void PS_SD956_MTX04()
-		{
-			int ErrNum = 0;
-			string sQry;
-
-			string OrdFrDt;         //수주기간(Fr)
-			string OrdToDt;         //수주기간(To)
-			string CardType;        //거래처구분
-			string CardTeam;        //팀(거래처)
-			string ItemCode;        //작번
-			string ItemType;        //품목구분(장비/공구)
-			string YearPdYN;        //순환품(연간품)
-
-			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
-
-			try
-			{
-				oForm.Freeze(true);
-
-				OrdFrDt = oForm.Items.Item("OrdFrDt").Specific.VALUE.ToString().Trim();
-				OrdToDt = oForm.Items.Item("OrdToDt").Specific.VALUE.ToString().Trim();
-				CardType = oForm.Items.Item("CardType").Specific.VALUE.ToString().Trim();
-				CardTeam = oForm.Items.Item("CardTeam").Specific.VALUE.ToString().Trim();
-				ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
-				ItemType = oForm.Items.Item("ItemType").Specific.VALUE.ToString().Trim();
-				YearPdYN = oForm.Items.Item("YearPdYN").Specific.VALUE.ToString().Trim();
-
-				ProgressBar01.Text = "조회중...";
-
-				sQry = "       EXEC PS_SD956_04 '";
-				sQry += OrdFrDt + "','";
-				sQry += OrdToDt + "','";
-				sQry += CardType + "','";
-				sQry += CardTeam + "','";
-				sQry += ItemCode + "','";
-				sQry += ItemType + "','";
-				sQry += YearPdYN + "'";
-
-				oGrid04.DataTable.Clear();
-				oDS_PS_SD956D.ExecuteQuery(sQry);
-
-				oGrid04.Columns.Item(4).RightJustified = true;
-				oGrid04.Columns.Item(5).RightJustified = true;
-				oGrid04.Columns.Item(6).RightJustified = true;
-				oGrid04.Columns.Item(7).RightJustified = true;
-				oGrid04.Columns.Item(8).RightJustified = true;
-				oGrid04.Columns.Item(9).RightJustified = true;
-				oGrid04.Columns.Item(10).RightJustified = true;
-				oGrid04.Columns.Item(11).RightJustified = true;
-				oGrid04.Columns.Item(12).RightJustified = true;
-				oGrid04.Columns.Item(13).RightJustified = true;
-				oGrid04.Columns.Item(14).RightJustified = true;
-				oGrid04.Columns.Item(15).RightJustified = true;
-				oGrid04.Columns.Item(16).RightJustified = true;
-				oGrid04.Columns.Item(17).RightJustified = true;
-
-				if (oGrid04.Rows.Count == 0)
-				{
-					ErrNum = 1;
-					throw new Exception();
-				}
-			}
-			catch (Exception ex)
-			{
-				if (ErrNum == 1)
-				{
-					dataHelpClass.MDC_GF_Message("결과가 존재하지 않습니다.", "W");
-				}
-				else
-				{
-					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-				}
-			}
-			finally
-			{
-				oGrid04.AutoResizeColumns();
-				oForm.Update();
-				ProgressBar01.Stop();
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
-				oForm.Freeze(false);
-			}
-		}
-
-		/// <summary>
-		/// PS_SD956_FormResize
-		/// </summary>
-		private void PS_SD956_FormResize()
-		{
-			try
-			{
-				//그룹박스 크기 동적 할당
-				oForm.Items.Item("GrpBox01").Height = oForm.Items.Item("Grid01").Height + 40;
-				oForm.Items.Item("GrpBox01").Width = oForm.Items.Item("Grid01").Width + 30;
-
-				if (oGrid01.Columns.Count > 0)
-				{
-					oGrid01.AutoResizeColumns();
-				}
-
-				if (oGrid02.Columns.Count > 0)
-				{
-					oGrid02.AutoResizeColumns();
-				}
-
-				if (oGrid03.Columns.Count > 0)
-				{
-					oGrid03.AutoResizeColumns();
-				}
-
-				if (oGrid04.Columns.Count > 0)
-				{
-					oGrid04.AutoResizeColumns();
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-			}
-		}
-
-		/// <summary>
-		/// PS_SD956_GetProductionDetail  생산세부정보 조회
-		/// </summary>
-		private void PS_SD956_GetProductionDetail()
-		{
-			short loopCount;
-			string ItemCode = String.Empty;
-
-			PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
-			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
-			PS_SD956_01 oTempClass = new PS_SD956_01();
-
-			try
-			{
-				ProgressBar01.Text = "조회중...";
-
-				for (loopCount = 0; loopCount <= oGrid02.Rows.Count - 1; loopCount++)
-				{
-					if (oGrid02.Rows.IsSelected(loopCount) == true)
-					{
-						ItemCode = oGrid02.DataTable.GetValue(1, loopCount).ToString().Trim();
-					}
-				}
-
-				oTempClass.LoadForm(ItemCode);
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-				ProgressBar01.Stop();
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
-				oTempClass.oForm.Select();
-			}
-		}
-
-		/// <summary>
-		/// PS_SD956_GetPurchaseDetail  구매세부정보 조회
-		/// </summary>
-		private void PS_SD956_GetPurchaseDetail()
-		{
-			short loopCount;
-			string ItemCode = String.Empty;
-
-			PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
-			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
-			PS_SD956_02 oTempClass = new PS_SD956_02();
-
-			try
-			{
-				ProgressBar01.Text = "조회중...";
-
-				for (loopCount = 0; loopCount <= oGrid03.Rows.Count - 1; loopCount++)
-				{
-					if (oGrid03.Rows.IsSelected(loopCount) == true)
-					{
-						ItemCode = oGrid03.DataTable.GetValue(1, loopCount).ToString().Trim();
-					}
-				}
-				
-				oTempClass.LoadForm(ItemCode);
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-				ProgressBar01.Stop();
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
-				oTempClass.oForm.Select();
-			}
-		}
-
-		/// <summary>
-		/// PS_SD956_GetAccountingDetail  회계세부정보 조회
-		/// </summary>
-		private void PS_SD956_GetAccountingDetail()
-		{
-			short loopCount;
-			string ItemCode = String.Empty;
-
-			PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
-			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
-			PS_SD956_03 oTempClass = new PS_SD956_03();
-
-			try
-			{
-				ProgressBar01.Text = "조회중...";
-
-				for (loopCount = 0; loopCount <= oGrid04.Rows.Count - 1; loopCount++)
-				{
-					if (oGrid04.Rows.IsSelected(loopCount) == true)
-					{
-
-						ItemCode = oGrid04.DataTable.GetValue(1, loopCount).ToString().Trim();
-					}
-				}
-				
-				oTempClass.LoadForm(ItemCode);
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-			finally
-			{
-                ProgressBar01.Stop();
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
-				oTempClass.oForm.Select();
 			}
 		}
 	}

@@ -575,6 +575,7 @@ namespace PSH_BOne_AddOn
         private string PS_SD600_MakeQutationNo(string prmBPLId, string prmQuotDt)
         {
             string sQry;
+            string returnValue = string.Empty;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -583,6 +584,8 @@ namespace PSH_BOne_AddOn
                 sQry += prmBPLId + "','"; //사업장
                 sQry += prmQuotDt + "'"; //견적일자
                 oRecordSet01.DoQuery(sQry);
+
+                returnValue = oRecordSet01.Fields.Item("QuotNo").Value;
             }
             catch(Exception ex)
             {
@@ -593,33 +596,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
 
-            return oRecordSet01.Fields.Item("QuotNo").Value;
-        }
-
-        /// <summary>
-        /// 가장 최근 등록된 문서번호 조회
-        /// </summary>
-        /// <returns>문서번호</returns>
-        private string PS_SD600_GetMaxDocEntry()
-        {
-            string sQry;
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-            try
-            {
-                sQry = "SELECT MAX(AutoKey) - 1 AS [MaxDocEntry] FROM ONNM WHERE ObjectCode = 'PS_SD600'";
-                oRecordSet.DoQuery(sQry);
-            }
-            catch(Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
-            }
-
-            return oRecordSet.Fields.Item("MaxDocEntry").Value;
+            return returnValue;
         }
 
         /// <summary>
@@ -1025,6 +1002,8 @@ namespace PSH_BOne_AddOn
 
             try
             {
+                oForm.Freeze(true);
+    
                 if (pVal.Before_Action == true)
                 {
                     if (pVal.ItemChanged == true)
@@ -1065,6 +1044,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                oForm.Freeze(false);
             }
         }
 

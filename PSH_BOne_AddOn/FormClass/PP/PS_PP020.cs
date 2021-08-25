@@ -165,7 +165,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("WorkGbn").Specific.ValidValues.Add("10", "영업");
                 oForm.Items.Item("WorkGbn").Specific.ValidValues.Add("20", "정비");
                 oForm.Items.Item("WorkGbn").Specific.ValidValues.Add("30", "멀티");
-                oForm.Items.Item("WorkGbn").Specific.ValidValues.Add("40", "신동");
+                oForm.Items.Item("WorkGbn").Specific.ValidValues.Add("40", "소재");
                 oForm.Items.Item("WorkGbn").Specific.ValidValues.Add("50", "R/D");
                 oForm.Items.Item("WorkGbn").Specific.ValidValues.Add("60", "견본");
                 oForm.Items.Item("WorkGbn").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
@@ -173,14 +173,14 @@ namespace PSH_BOne_AddOn
                 oMat01.Columns.Item("WorkGbn").ValidValues.Add("10", "영업");
                 oMat01.Columns.Item("WorkGbn").ValidValues.Add("20", "정비");
                 oMat01.Columns.Item("WorkGbn").ValidValues.Add("30", "멀티");
-                oMat01.Columns.Item("WorkGbn").ValidValues.Add("40", "신동");
+                oMat01.Columns.Item("WorkGbn").ValidValues.Add("40", "소재");
                 oMat01.Columns.Item("WorkGbn").ValidValues.Add("50", "R/D");
                 oMat01.Columns.Item("WorkGbn").ValidValues.Add("60", "견본");
 
                 oMat02.Columns.Item("WorkGbn").ValidValues.Add("10", "영업");
                 oMat02.Columns.Item("WorkGbn").ValidValues.Add("20", "정비");
                 oMat02.Columns.Item("WorkGbn").ValidValues.Add("30", "멀티");
-                oMat02.Columns.Item("WorkGbn").ValidValues.Add("40", "신동");
+                oMat02.Columns.Item("WorkGbn").ValidValues.Add("40", "소재");
                 oMat02.Columns.Item("WorkGbn").ValidValues.Add("50", "R/D");
                 oMat02.Columns.Item("WorkGbn").ValidValues.Add("60", "견본");
 

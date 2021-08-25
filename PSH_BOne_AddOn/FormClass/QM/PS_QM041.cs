@@ -76,11 +76,11 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("Gubun").Specific.Select("1", SAPbouiCOM.BoSearchKey.psk_ByValue);
 				}
 
-				oForm.EnableMenu(("1283"), false); // 삭제
-				oForm.EnableMenu(("1286"), false); // 닫기
-				oForm.EnableMenu(("1287"), false); // 복제
-				oForm.EnableMenu(("1284"), false); // 취소
-				oForm.EnableMenu(("1293"), false); // 행삭제
+				oForm.EnableMenu("1283", false); // 삭제
+				oForm.EnableMenu("1286", false); // 닫기
+				oForm.EnableMenu("1287", false); // 복제
+				oForm.EnableMenu("1284", false); // 취소
+				oForm.EnableMenu("1293", false); // 행삭제
 
 			}
 			catch (Exception ex)
@@ -136,7 +136,7 @@ namespace PSH_BOne_AddOn
 				// 사업장
 				sQry = "SELECT BPLId, BPLName From [OBPL] Where BPLId in ('1', '2') order by 1";
 				oRecordSet.DoQuery(sQry);
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
@@ -238,7 +238,7 @@ namespace PSH_BOne_AddOn
 				oMat.LoadFromDataSource();
 
 				j = 1;
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					if (oDS_PS_QM041L.Size < j)
 					{
@@ -629,10 +629,10 @@ namespace PSH_BOne_AddOn
 						case "1281": //찾기
 							break;
 						case "1282": //추가
-							oForm.Items.Item("DocEntry").Specific.VALUE = "";
+							oForm.Items.Item("DocEntry").Specific.Value = "";
 							oForm.Items.Item("Gubun").Specific.Select("1", SAPbouiCOM.BoSearchKey.psk_ByValue);
 							oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
-							oForm.Items.Item("YYYYMM").Specific.VALUE = DateTime.Now.ToString("yyyy-MM");
+							oForm.Items.Item("YYYYMM").Specific.Value = DateTime.Now.ToString("yyyy-MM");
 							break;
 						case "1288": //레코드이동(최초)
 						case "1289": //레코드이동(이전)

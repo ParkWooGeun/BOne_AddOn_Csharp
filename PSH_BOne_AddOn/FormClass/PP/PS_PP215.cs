@@ -50,15 +50,15 @@ namespace PSH_BOne_AddOn
 
 				oForm.Freeze(true);
 
-				CreateItems();
-				ComboBox_Setting();
-				Initialization();
+				PS_PP215_CreateItems();
+				PS_PP215_SetComboBox();
+				PS_PP215_Initialize();
 
-				oForm.EnableMenu(("1283"), true);  // 삭제
-				oForm.EnableMenu(("1287"), true);  // 복제
-				oForm.EnableMenu(("1286"), false); // 닫기
-				oForm.EnableMenu(("1284"), false); // 취소
-				oForm.EnableMenu(("1293"), true);  // 행삭제
+				oForm.EnableMenu("1283", true);  // 삭제
+				oForm.EnableMenu("1287", true);  // 복제
+				oForm.EnableMenu("1286", false); // 닫기
+				oForm.EnableMenu("1284", false); // 취소
+				oForm.EnableMenu("1293", true);  // 행삭제
 			}
 			catch (Exception ex)
 			{
@@ -74,9 +74,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// CreateItems
+		/// PS_PP215_CreateItems
 		/// </summary>
-		private void CreateItems()
+		private void PS_PP215_CreateItems()
 		{
 			try
 			{
@@ -103,9 +103,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// ComboBox_Setting
+		/// PS_PP215_SetComboBox
 		/// </summary>
-		private void ComboBox_Setting()
+		private void PS_PP215_SetComboBox()
 		{
 			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -115,7 +115,7 @@ namespace PSH_BOne_AddOn
 				// 사업장
 				sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
 				oRecordSet.DoQuery(sQry);
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
@@ -130,7 +130,7 @@ namespace PSH_BOne_AddOn
 				sQry += " Order by T1.CardFName";
 				oRecordSet.DoQuery(sQry);
 
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oMat.Columns.Item("CardCode").ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
@@ -147,9 +147,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// Initialization
+		/// PS_PP215_Initialize
 		/// </summary>
-		private void Initialization()
+		private void PS_PP215_Initialize()
 		{
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -158,7 +158,7 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
 
 				oForm.Items.Item("YM").Specific.Value = DateTime.Now.ToString("yyyyMM");
-				Add_MatrixRow(0, true);
+				PS_PP215_AddMatrixRow(0, true);
 			}
 			catch (Exception ex)
 			{
@@ -167,17 +167,17 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// Add_MatrixRow
+		/// PS_PP215_AddMatrixRow
 		/// </summary>
 		/// <param name="oRow"></param>
 		/// <param name="RowIserted"></param>
-		private void Add_MatrixRow(int oRow, bool RowIserted)
+		private void PS_PP215_AddMatrixRow(int oRow, bool RowIserted)
 		{
 			try
 			{
 				if (RowIserted == false)
 				{
-					oDS_PS_PP215L.InsertRecord((oRow));
+					oDS_PS_PP215L.InsertRecord(oRow);
 				}
 				oMat.AddRow();
 				oDS_PS_PP215L.Offset = oRow;
@@ -191,10 +191,10 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// HeaderSpaceLineDel
+		/// PS_PP215_DelHeaderSpaceLine
 		/// </summary>
 		/// <returns></returns>
-		private bool HeaderSpaceLineDel()
+		private bool PS_PP215_DelHeaderSpaceLine()
 		{
 			bool functionReturnValue = false;
 			string errMessage = string.Empty;
@@ -241,7 +241,6 @@ namespace PSH_BOne_AddOn
 			}
 			return functionReturnValue;
 		}
-
 
 		/// <summary>
 		/// Form Item Event
@@ -347,7 +346,7 @@ namespace PSH_BOne_AddOn
 					{
 						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
 						{
-							if (HeaderSpaceLineDel() == false)
+							if (PS_PP215_DelHeaderSpaceLine() == false)
 							{
 								BubbleEvent = false;
 								return;
@@ -445,7 +444,7 @@ namespace PSH_BOne_AddOn
 			string ItemCode;
 			string errMessage = string.Empty;
 
-			double rate_Renamed;
+			double rate;
 			double StdWgt;
 			double S_StdWgt = 0;
 			double S_Weight1 = 0;
@@ -478,15 +477,15 @@ namespace PSH_BOne_AddOn
 							oMat.FlushToDataSource();
 							if (pVal.ColUID == "StdWgt")
 							{
-								rate_Renamed = Convert.ToDouble(oForm.Items.Item("Rate").Specific.Value.ToString().Trim());
+								rate = Convert.ToDouble(oForm.Items.Item("Rate").Specific.Value.ToString().Trim());
 
-								if (rate_Renamed != 0)
+								if (rate != 0)
 								{
 									//기준수량변경시 초기화
 									oDS_PS_PP215L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().Trim());
 									oDS_PS_PP215L.SetValue("U_Weight1", pVal.Row - 1, oMat.Columns.Item("StdWgt").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()); //창원생산량
 									oDS_PS_PP215L.SetValue("U_Weight2", pVal.Row - 1, "0");	//부산생산량
-									oDS_PS_PP215L.SetValue("U_PWeight1", pVal.Row - 1, Convert.ToString(System.Math.Round(Convert.ToDouble(oMat.Columns.Item("StdWgt").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()) / rate_Renamed, 0))); //창원소요량
+									oDS_PS_PP215L.SetValue("U_PWeight1", pVal.Row - 1, Convert.ToString(System.Math.Round(Convert.ToDouble(oMat.Columns.Item("StdWgt").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()) / rate, 0))); //창원소요량
 									oDS_PS_PP215L.SetValue("U_PWeight2", pVal.Row - 1, "0"); //부산소요량
 								}
 								else
@@ -515,19 +514,19 @@ namespace PSH_BOne_AddOn
 							{
 								//창원생산중량 입력
 								StdWgt = Convert.ToDouble(oMat.Columns.Item("StdWgt").Cells.Item(pVal.Row).Specific.Value.ToString().Trim());
-								rate_Renamed = Convert.ToDouble(oForm.Items.Item("Rate").Specific.Value.ToString().Trim());
+								rate = Convert.ToDouble(oForm.Items.Item("Rate").Specific.Value.ToString().Trim());
 
-								if (rate_Renamed != 0)
+								if (rate != 0)
 								{
 									if (StdWgt > 0)
 									{
 										//창원원재료 소요량
 										oDS_PS_PP215L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().Trim());
-										oDS_PS_PP215L.SetValue("U_PWeight1", pVal.Row - 1, Convert.ToString(System.Math.Round(Convert.ToDouble(oMat.Columns.Item("Weight1").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()) / rate_Renamed, 0))); //창원소요량
+										oDS_PS_PP215L.SetValue("U_PWeight1", pVal.Row - 1, Convert.ToString(System.Math.Round(Convert.ToDouble(oMat.Columns.Item("Weight1").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()) / rate, 0))); //창원소요량
 
 										//기계중량은 기준중량 - 창원생산량
 										oDS_PS_PP215L.SetValue("U_Weight2", pVal.Row - 1, Convert.ToString(StdWgt - Convert.ToDouble(oMat.Columns.Item("Weight1").Cells.Item(pVal.Row).Specific.Value.ToString().Trim())));	//부산생산량
-										oDS_PS_PP215L.SetValue("U_PWeight2", pVal.Row - 1, Convert.ToString(System.Math.Round(Convert.ToDouble(StdWgt - Convert.ToDouble(oMat.Columns.Item("Weight1").Cells.Item(pVal.Row).Specific.Value.ToString().Trim())) / rate_Renamed, 0))); //부산소요량
+										oDS_PS_PP215L.SetValue("U_PWeight2", pVal.Row - 1, Convert.ToString(System.Math.Round(Convert.ToDouble(StdWgt - Convert.ToDouble(oMat.Columns.Item("Weight1").Cells.Item(pVal.Row).Specific.Value.ToString().Trim())) / rate, 0))); //부산소요량
 									}
 									else
 									{
@@ -561,13 +560,13 @@ namespace PSH_BOne_AddOn
 							}
 							else if (pVal.ColUID == "AWeight1")
 							{
-								rate_Renamed = Convert.ToDouble(oForm.Items.Item("Rate").Specific.Value.ToString().Trim());
+								rate = Convert.ToDouble(oForm.Items.Item("Rate").Specific.Value.ToString().Trim());
 
-								if (rate_Renamed != 0)
+								if (rate != 0)
 								{
 									//기준수량변경시 초기화
 									oDS_PS_PP215L.SetValue("U_StdWgt", pVal.Row - 1, Convert.ToString(Convert.ToDouble(oMat.Columns.Item("Weight1").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()) + Convert.ToDouble(oMat.Columns.Item("AWeight1").Cells.Item(pVal.Row).Specific.Value.ToString().Trim())));
-                                    oDS_PS_PP215L.SetValue("U_PWeight1", pVal.Row - 1, Convert.ToString(System.Math.Round((Convert.ToDouble(oMat.Columns.Item("Weight1").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()) + Convert.ToDouble(oMat.Columns.Item("AWeight1").Cells.Item(pVal.Row).Specific.Value.ToString().Trim())) / rate_Renamed, 0))); //창원소요량
+                                    oDS_PS_PP215L.SetValue("U_PWeight1", pVal.Row - 1, Convert.ToString(System.Math.Round((Convert.ToDouble(oMat.Columns.Item("Weight1").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()) + Convert.ToDouble(oMat.Columns.Item("AWeight1").Cells.Item(pVal.Row).Specific.Value.ToString().Trim())) / rate, 0))); //창원소요량
                                 }
                                 else
 								{
@@ -591,17 +590,17 @@ namespace PSH_BOne_AddOn
 							{
 								//부산생산중량 입력
 								StdWgt = Convert.ToDouble(oMat.Columns.Item("StdWgt").Cells.Item(pVal.Row).Specific.Value.ToString().Trim());
-								rate_Renamed = Convert.ToDouble(oForm.Items.Item("Rate").Specific.Value.ToString().Trim());
+								rate = Convert.ToDouble(oForm.Items.Item("Rate").Specific.Value.ToString().Trim());
 
-								if (rate_Renamed != 0)
+								if (rate != 0)
 								{
 									if (StdWgt > 0)
 									{
-										oDS_PS_PP215L.SetValue("U_PWeight2", pVal.Row - 1, Convert.ToString(System.Math.Round(Convert.ToDouble(oMat.Columns.Item("Weight2").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()) / rate_Renamed, 0))); //부산소요량
+										oDS_PS_PP215L.SetValue("U_PWeight2", pVal.Row - 1, Convert.ToString(System.Math.Round(Convert.ToDouble(oMat.Columns.Item("Weight2").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()) / rate, 0))); //부산소요량
 
 										//창원중량은 기준중량 - 부산생산량
 										oDS_PS_PP215L.SetValue("U_Weight1", pVal.Row - 1, Convert.ToString(StdWgt - Convert.ToDouble(oMat.Columns.Item("Weight2").Cells.Item(pVal.Row).Specific.Value.ToString().Trim())));
-										oDS_PS_PP215L.SetValue("U_PWeight1", pVal.Row - 1, Convert.ToString(System.Math.Round((StdWgt - Convert.ToDouble(oMat.Columns.Item("Weight2").Cells.Item(pVal.Row).Specific.Value.ToString().Trim())) / rate_Renamed, 0)));
+										oDS_PS_PP215L.SetValue("U_PWeight1", pVal.Row - 1, Convert.ToString(System.Math.Round((StdWgt - Convert.ToDouble(oMat.Columns.Item("Weight2").Cells.Item(pVal.Row).Specific.Value.ToString().Trim())) / rate, 0)));
 									}
 									else
 									{
@@ -637,7 +636,7 @@ namespace PSH_BOne_AddOn
 								if ((pVal.Row == oMat.RowCount || oMat.VisualRowCount == 0) && !string.IsNullOrEmpty(oMat.Columns.Item("ItemCode").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()))
 								{
 									oMat.FlushToDataSource();
-									Add_MatrixRow(oMat.RowCount, false);
+									PS_PP215_AddMatrixRow(oMat.RowCount, false);
 									oMat.Columns.Item("ItemCode").Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 								}
 
@@ -843,10 +842,10 @@ namespace PSH_BOne_AddOn
 						case "1286": //닫기
 							break;
 						case "1281": //찾기
-							Initialization();
+							PS_PP215_Initialize();
 							break;
 						case "1282": //추가
-							Initialization();
+							PS_PP215_Initialize();
 							break;
 						case "1287": //복제
 							oDS_PS_PP215H.SetValue("Code", 0, "");
@@ -889,51 +888,6 @@ namespace PSH_BOne_AddOn
 			finally
 			{
 				oForm.Freeze(false);
-			}
-		}
-
-		/// <summary>
-		/// FormDataEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="BusinessObjectInfo"></param>
-		/// <param name="BubbleEvent"></param>
-		public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
-		{
-			try
-			{
-				if (BusinessObjectInfo.BeforeAction == true)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
-							break;
-					}
-				}
-				else if (BusinessObjectInfo.BeforeAction == false)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
-							break;
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 			}
 		}
 	}

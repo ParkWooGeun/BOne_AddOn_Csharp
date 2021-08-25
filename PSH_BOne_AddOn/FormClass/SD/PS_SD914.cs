@@ -50,11 +50,11 @@ namespace PSH_BOne_AddOn
 				CreateItems();
 				ComboBox_Setting();
 
-				oForm.EnableMenu(("1283"), false);              // 삭제
-				oForm.EnableMenu(("1286"), false);              // 닫기
-				oForm.EnableMenu(("1287"), false);              // 복제
-				oForm.EnableMenu(("1284"), true);               // 취소
-				oForm.EnableMenu(("1293"), false);              // 행삭제
+				oForm.EnableMenu("1283", false);              // 삭제
+				oForm.EnableMenu("1286", false);              // 닫기
+				oForm.EnableMenu("1287", false);              // 복제
+				oForm.EnableMenu("1284", true);               // 취소
+				oForm.EnableMenu("1293", false);              // 행삭제
 			}
 			catch (Exception ex)
 			{
@@ -107,7 +107,7 @@ namespace PSH_BOne_AddOn
 				sQry = "SELECT BPLId, BPLName From [OBPL] order by BPLId";
 				oRecordSet.DoQuery(sQry);
 				oForm.Items.Item("BPLId").Specific.ValidValues.Add("0", "전체 사업장");
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
@@ -118,7 +118,7 @@ namespace PSH_BOne_AddOn
 				sQry = "SELECT Code, Name From [@PSH_ItmBSort] where Code in ('101','202')";
 				oRecordSet.DoQuery(sQry);
 				oForm.Items.Item("ItmBsort").Specific.ValidValues.Add("000", "휘팅전체");
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("ItmBsort").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
@@ -480,12 +480,12 @@ namespace PSH_BOne_AddOn
 					ErrNum = 2;
 					throw new Exception();
 				}
-				else if (oForm.Items.Item("StrDate").Specific.VALUE.ToString().Trim().Length != 7)
+				else if (oForm.Items.Item("StrDate").Specific.Value.ToString().Trim().Length != 7)
 				{
 					ErrNum = 3;
 					throw new Exception();
 				}
-				else if (oForm.Items.Item("EndDate").Specific.VALUE.ToString().Trim().Length != 7)
+				else if (oForm.Items.Item("EndDate").Specific.Value.ToString().Trim().Length != 7)
 				{
 					ErrNum = 4;
 					throw new Exception();
@@ -547,13 +547,13 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				ItmBsort = oForm.Items.Item("ItmBsort").Specific.Selected.VALUE.ToString().Trim();
-				ItmMsort = oForm.Items.Item("ItmMsort").Specific.VALUE.ToString().Trim();
-				StrDate = oForm.Items.Item("StrDate").Specific.VALUE.ToString().Trim();
-				EndDate = oForm.Items.Item("StrDate").Specific.VALUE.ToString().Trim();
-				Option01 = oForm.Items.Item("Option01").Specific.Selected.VALUE.ToString().Trim();
-				Option02 = oForm.Items.Item("Option02").Specific.Selected.VALUE.ToString().Trim();
-				BPLID    = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
+				ItmBsort = oForm.Items.Item("ItmBsort").Specific.Selected.Value.ToString().Trim();
+				ItmMsort = oForm.Items.Item("ItmMsort").Specific.Value.ToString().Trim();
+				StrDate = oForm.Items.Item("StrDate").Specific.Value.ToString().Trim();
+				EndDate = oForm.Items.Item("StrDate").Specific.Value.ToString().Trim();
+				Option01 = oForm.Items.Item("Option01").Specific.Selected.Value.ToString().Trim();
+				Option02 = oForm.Items.Item("Option02").Specific.Selected.Value.ToString().Trim();
+				BPLID    = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
 
 				if (ItmBsort == "000")
 				{

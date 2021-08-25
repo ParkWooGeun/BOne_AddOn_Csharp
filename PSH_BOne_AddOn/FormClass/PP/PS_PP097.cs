@@ -92,20 +92,17 @@ namespace PSH_BOne_AddOn
                 oMat02.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_NotSupported;
                 oMat02.AutoResizeColumns();
 
-                // 사업장_S
+                //사업장
                 oForm.DataSources.UserDataSources.Add("CardCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
                 oForm.Items.Item("CardCode").Specific.DataBind.SetBound(true, "", "CardCode");
-                //사업장_E
 
-                //금형구분_S
+                //금형구분
                 oForm.DataSources.UserDataSources.Add("InspNo", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
                 oForm.Items.Item("InspNo").Specific.DataBind.SetBound(true, "", "InspNo");
-                //금형구분_E
 
-                //구분_S
+                //구분
                 oForm.DataSources.UserDataSources.Add("ItemCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
                 oForm.Items.Item("ItemCode").Specific.DataBind.SetBound(true, "", "ItemCode");
-                //구분_E
 
                 oForm.DataSources.UserDataSources.Add("FrDate", SAPbouiCOM.BoDataType.dt_DATE); //1.조회시작일데이터소스생성
                 oForm.Items.Item("FrDate").Specific.DataBind.SetBound(true, "", "FrDate"); //2.조회시작일데이터바운드
@@ -168,11 +165,11 @@ namespace PSH_BOne_AddOn
         {
             int loopCount;
             string Query01;
-            string ItemCode;   //품목코드
-            string FrDate;     //날짜From
-            string ToDate;     //날짜To
-            string InspNo;     //검사의뢰번호
-            string CardCode ;  //거래처코드
+            string ItemCode; //품목코드
+            string FrDate; //날짜From
+            string ToDate; //날짜To
+            string InspNo; //검사의뢰번호
+            string CardCode; //거래처코드
             string errMessage = string.Empty;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass(); 
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -180,13 +177,13 @@ namespace PSH_BOne_AddOn
 
             try
             {
+                oForm.Freeze(true);
                 CardCode = oForm.Items.Item("CardCode").Specific.Value.ToString().Trim();
                 InspNo = oForm.Items.Item("InspNo").Specific.Value.ToString().Trim();
                 ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
                 FrDate = oForm.Items.Item("FrDate").Specific.Value.ToString().Trim();
                 ToDate = oForm.Items.Item("ToDate").Specific.Value.ToString().Trim();
-                oForm.Freeze(true);
-
+                
                 ProgressBar01.Text = "조회시작!";
                 
                 Query01 = "EXEC PS_PP097_01 '" + CardCode + "','" + ItemCode + "','" + FrDate + "','" + ToDate + "','" + InspNo + "'";
@@ -222,7 +219,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_PP097L.SetValue("U_ColReg06", loopCount, oRecordSet01.Fields.Item("QMYN").Value);            //품질확인
 
                     oRecordSet01.MoveNext();
-                    ProgressBar01.Value = ProgressBar01.Value + 1;
+                    ProgressBar01.Value += 1;
                     ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
                 oMat01.LoadFromDataSource();
@@ -230,10 +227,6 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if (ProgressBar01 != null)
-                {
-                    ProgressBar01.Stop();
-                }
                 if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
@@ -246,8 +239,12 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); 
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
             }
         }
 
@@ -754,7 +751,6 @@ namespace PSH_BOne_AddOn
                     {
                         if (pVal.Row == 0)
                         {
-                            //정렬
                             oMat01.Columns.Item(pVal.ColUID).TitleObject.Sortable = true;
                             oMat01.FlushToDataSource();
                         }

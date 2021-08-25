@@ -171,12 +171,12 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				BPLId = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
-				JakName = oForm.Items.Item("JakName").Specific.VALUE.ToString().Trim();
-				CardCode = oForm.Items.Item("CardCode").Specific.VALUE.ToString().Trim();
-				InDateFr = oForm.Items.Item("InDateFr").Specific.VALUE.ToString().Trim();
-				InDateTo = oForm.Items.Item("InDateTo").Specific.VALUE.ToString().Trim();
-				SalesTmYN = oForm.Items.Item("SalesTmYN").Specific.VALUE.ToString().Trim();
+				BPLId = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
+				JakName = oForm.Items.Item("JakName").Specific.Value.ToString().Trim();
+				CardCode = oForm.Items.Item("CardCode").Specific.Value.ToString().Trim();
+				InDateFr = oForm.Items.Item("InDateFr").Specific.Value.ToString().Trim();
+				InDateTo = oForm.Items.Item("InDateTo").Specific.Value.ToString().Trim();
+				SalesTmYN = oForm.Items.Item("SalesTmYN").Specific.Value.ToString().Trim();
 
 				if (string.IsNullOrEmpty(JakName))
 				{

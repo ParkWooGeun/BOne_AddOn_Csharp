@@ -1,6 +1,9 @@
 using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
+using PSH_BOne_AddOn.DataPack;
+using System.Collections.Generic;
+using PSH_BOne_AddOn.Form;
 
 namespace PSH_BOne_AddOn
 {
@@ -48,7 +51,7 @@ namespace PSH_BOne_AddOn
 				oForm.Freeze(true);
 
 				PS_PP062_CreateItems();
-				PS_PP062_ComboBox_Setting();
+				PS_PP062_SetComboBox();
 			}
 			catch (Exception ex)
 			{
@@ -112,8 +115,8 @@ namespace PSH_BOne_AddOn
 				oForm.DataSources.UserDataSources.Add("WorkGbn", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 5);
 				oForm.Items.Item("WorkGbn").Specific.DataBind.SetBound(true, "", "WorkGbn");
 
-				oForm.Items.Item("FrDt").Specific.VALUE = DateTime.Now.ToString("yyyyMM") + "01";
-				oForm.Items.Item("ToDt").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
+				oForm.Items.Item("FrDt").Specific.Value = DateTime.Now.ToString("yyyyMM") + "01";
+				oForm.Items.Item("ToDt").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 
 			}
 			catch (Exception ex)
@@ -123,9 +126,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_PP062_ComboBox_Setting
+		/// PS_PP062_SetComboBox
 		/// </summary>
-		private void PS_PP062_ComboBox_Setting()
+		private void PS_PP062_SetComboBox()
 		{
 			string sQry;
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -177,11 +180,11 @@ namespace PSH_BOne_AddOn
 				switch (oUID)
 				{
 					case "MachCode":
-						oForm.Items.Item("MachName").Specific.VALUE = dataHelpClass.Get_ReData("U_MachName", "U_MachCode", "[@PS_PP130H]", "'" + oForm.Items.Item("MachCode").Specific.Value.ToString().Trim() + "'", ""); //설비
+						oForm.Items.Item("MachName").Specific.Value = dataHelpClass.Get_ReData("U_MachName", "U_MachCode", "[@PS_PP130H]", "'" + oForm.Items.Item("MachCode").Specific.Value.ToString().Trim() + "'", ""); //설비
 						break;
 
 					case "WkCode":
-						oForm.Items.Item("WkName").Specific.VALUE = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("WkCode").Specific.Value.ToString().Trim() + "'", ""); //작업자
+						oForm.Items.Item("WkName").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("WkCode").Specific.Value.ToString().Trim() + "'", ""); //작업자
 						break;
 				}
 			}
@@ -197,8 +200,7 @@ namespace PSH_BOne_AddOn
 		private void PS_PP062_MTX01()
 		{
 			string sQry;
-			string errMessage = String.Empty;
-
+			string errMessage = string.Empty;
 			string BPLID;    //사업장
 			string FrDt;     //기간(Fr)
 			string ToDt;     //기간(To)
@@ -207,7 +209,6 @@ namespace PSH_BOne_AddOn
 			string WkCode;   //작업자사번
 			string ClsCode;  //반(설비코드기준)
 			string WorkGbn;  //작업구분
-
 			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
 			try
@@ -225,7 +226,7 @@ namespace PSH_BOne_AddOn
 
 				ProgressBar01.Text = "조회중...";
 
-				sQry = " EXEC PS_PP062_01 '";
+				sQry = "EXEC PS_PP062_01 '";
 				sQry += BPLID + "','";
 				sQry += FrDt + "','";
 				sQry += ToDt + "','";
@@ -276,9 +277,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_PP062_Print_Report01
+		/// PS_PP062_PrintReport
 		/// </summary>
-		private void PS_PP062_Print_Report01()
+		private void PS_PP062_PrintReport()
 		{
 			string WinTitle;
 			string ReportName;
@@ -290,7 +291,9 @@ namespace PSH_BOne_AddOn
 			string MachName; //설비명
 			string WkCode;	 //작업자사번
 			string ClsCode;	 //반(설비코드기준)
-			string WorkGbn;	 //작업구분
+			string WorkGbn;  //작업구분
+			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+
 			try
 			{
 				BPLID = oForm.Items.Item("BPLID").Specific.Selected.Value.ToString().Trim();
@@ -303,7 +306,23 @@ namespace PSH_BOne_AddOn
 				WorkGbn  = oForm.Items.Item("WorkGbn").Specific.Selected.Value.ToString().Trim();
 
 				WinTitle = "[PS_PP062] 레포트";
-				ReportName = "PS_PP062_01.rpt";  // 레포트 Procedure 없음
+				ReportName = "PS_PP062_01.rpt"; //리포트파일 구현 미완료(2021.07.29 현재)
+				//프로시저 : PS_PP062_51
+
+				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
+				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
+
+				// Parameter
+				dataPackParameter.Add(new PSH_DataPackClass("@BPLID", BPLID));
+				dataPackParameter.Add(new PSH_DataPackClass("@FrDt", FrDt));
+				dataPackParameter.Add(new PSH_DataPackClass("@ToDt", ToDt));
+				dataPackParameter.Add(new PSH_DataPackClass("@MachCode", MachCode));
+				dataPackParameter.Add(new PSH_DataPackClass("@MachName", MachName));
+				dataPackParameter.Add(new PSH_DataPackClass("@WkCode", WkCode));
+				dataPackParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode));
+				dataPackParameter.Add(new PSH_DataPackClass("@WorkGbn", WorkGbn));
+
+				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
 			}
 			catch (Exception ex)
 			{
@@ -416,7 +435,7 @@ namespace PSH_BOne_AddOn
 					{
 						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 						{
-							PS_PP062_Print_Report01();
+							PS_PP062_PrintReport();
 						}
 					}
 				}
@@ -539,114 +558,6 @@ namespace PSH_BOne_AddOn
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm); 
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_PP062A);
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-		}
-
-		/// <summary>
-		/// FormMenuEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="pVal"></param>
-		/// <param name="BubbleEvent"></param>
-		public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
-		{
-			try
-			{
-				if (pVal.BeforeAction == true)
-				{
-					switch (pVal.MenuUID)
-					{
-						case "1284": //취소
-							break;
-						case "1286": //닫기
-							break;
-						case "1293": //행삭제
-							break;
-						case "1281": //찾기
-							break;
-						case "1282": //추가
-							break;
-						case "1285": //복원
-							break;
-						case "1288":
-						case "1289":
-						case "1290":
-						case "1291": //레코드이동버튼
-							break;
-					}
-				}
-				else if (pVal.BeforeAction == false)
-				{
-					switch (pVal.MenuUID)
-					{
-						case "1284": //취소
-							break;
-						case "1286": //닫기
-							break;
-						case "1285": //복원
-							break;
-						case "1293": //행삭제
-							break;
-						case "1281": //찾기
-							break;
-						case "1282": //추가
-							break;
-						case "1288":
-						case "1289":
-						case "1290":
-						case "1291": //레코드이동버튼
-							break;
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-		}
-
-		/// <summary>
-		/// Raise_FormDataEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="BusinessObjectInfo"></param>
-		/// <param name="BubbleEvent"></param>
-		public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
-		{
-			try
-			{
-				if (BusinessObjectInfo.BeforeAction == true)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:    //33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:     //34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:  //35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:  //36
-							break;
-					}
-				}
-				else if (BusinessObjectInfo.BeforeAction == false)
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:    //33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:     //34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE:  //35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE:  //36
-							break;
-					}
 				}
 			}
 			catch (Exception ex)

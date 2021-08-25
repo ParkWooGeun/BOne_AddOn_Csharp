@@ -133,9 +133,9 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				BPLId = oForm.Items.Item("BPLId").Specific.Selected.VALUE.ToString().Trim();
-				SjDocNum = oForm.Items.Item("SjDocNum").Specific.VALUE.ToString().Trim();
-				ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
+				BPLId = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
+				SjDocNum = oForm.Items.Item("SjDocNum").Specific.Value.ToString().Trim();
+				ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
 
 				if (string.IsNullOrEmpty(SjDocNum))
 				{

@@ -62,11 +62,11 @@ namespace PSH_BOne_AddOn
                 PS_MM095_FormClear();
                 PS_MM095_FormItemEnabled();
 
-                oForm.EnableMenu(("1283"), false); // 삭제
-                oForm.EnableMenu(("1286"), false); // 닫기
-                oForm.EnableMenu(("1287"), false); // 복제
-                oForm.EnableMenu(("1284"), true); // 취소
-                oForm.EnableMenu(("1293"), true); // 행삭제
+                oForm.EnableMenu("1283", false); // 삭제
+                oForm.EnableMenu("1286", false); // 닫기
+                oForm.EnableMenu("1287", false); // 복제
+                oForm.EnableMenu("1284", true); // 취소
+                oForm.EnableMenu("1293", true); // 행삭제
             }
             catch (Exception ex)
             {
@@ -92,7 +92,6 @@ namespace PSH_BOne_AddOn
                 oDS_PS_MM095L = oForm.DataSources.DBDataSources.Item("@PS_MM095L");
                 oDS_PS_USERDS01 = oForm.DataSources.DBDataSources.Item("@PS_USERDS01");
 
-                // 메트릭스 개체 할당
                 oMat01 = oForm.Items.Item("Mat01").Specific;
                 oMat02 = oForm.Items.Item("Mat02").Specific;
 
@@ -113,7 +112,6 @@ namespace PSH_BOne_AddOn
         private void PS_MM095_ComboBox_Setting()
         {
             string sQry;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
@@ -124,7 +122,6 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
                     oRecordSet01.MoveNext();
                 }
-                //작업구분
                 oForm.Items.Item("OrdGbn").Specific.ValidValues.Add("-", "선택");
                 sQry = "SELECT Code, Name From [@PSH_ITMBSORT] Where Code in ('102', '602','111') And U_PudYN = 'Y' Order by Code";
                 oRecordSet01.DoQuery(sQry);
@@ -134,11 +131,9 @@ namespace PSH_BOne_AddOn
                     oRecordSet01.MoveNext();
                 }
 
-                //조회기준
                 oForm.Items.Item("Div").Specific.ValidValues.Add("1", "전체");
                 oForm.Items.Item("Div").Specific.ValidValues.Add("2", "기준일자");
 
-                //작업구분
                 oMat01.Columns.Item("WorkGbn").ValidValues.Add("10", "자가");
                 oMat01.Columns.Item("WorkGbn").ValidValues.Add("20", "정밀");
                 oMat01.Columns.Item("WorkGbn").ValidValues.Add("30", "외주");
@@ -199,7 +194,6 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
                 functionReturnValue = true;
-                return functionReturnValue;
             }
             catch (Exception ex)
             {
@@ -230,10 +224,10 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                // 라인
                 if (oMat01.VisualRowCount == 0)
                 {
                     errMessage = "라인 데이터가 없습니다. 확인하세요.";
+                    throw new Exception();
                 }
                 count = oMat01.VisualRowCount;
                 for (i = 0; i <= count - 1; i++)
@@ -287,7 +281,6 @@ namespace PSH_BOne_AddOn
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
                     oForm.Items.Item("DocNum").Enabled = false;
-
                     oForm.Items.Item("BPLId").Enabled = true;
                     oForm.Items.Item("OrdGbn").Enabled = true;
                     oForm.Items.Item("DocDate").Enabled = true;
@@ -308,7 +301,6 @@ namespace PSH_BOne_AddOn
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
                     oForm.Items.Item("DocNum").Enabled = false;
-
                     oForm.Items.Item("BPLId").Enabled = false;
                     oForm.Items.Item("OrdGbn").Enabled = false;
                     oForm.Items.Item("DocDate").Enabled = false;
@@ -328,7 +320,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// 
+        /// PS_MM095_AddMatrixRow
         /// </summary>
         /// <param name="oRow">행 번호</param>
         /// <param name="RowIserted">행 추가 여부</param>
@@ -394,7 +386,7 @@ namespace PSH_BOne_AddOn
             string DocDate;
             string Div;
             string errMessage = string.Empty;
-            SAPbouiCOM.ProgressBar ProgressBar01 = null;
+            SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -415,7 +407,6 @@ namespace PSH_BOne_AddOn
                     errMessage = "조회결과 없습니다. 확인하세요.";
                     throw new Exception();
                 }
-                ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
                 ProgressBar01.Text = "조회시작!";
                 oForm.Freeze(true);
                 for (i = 0; i <= oRecordSet01.RecordCount - 1; i++)
@@ -441,7 +432,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_MM095L.SetValue("U_CItemNam", i, oRecordSet01.Fields.Item("U_CItemNam").Value.ToString().Trim());
                     oDS_PS_MM095L.SetValue("U_CutCount", i, oRecordSet01.Fields.Item("U_CutCount").Value.ToString().Trim());
                     oDS_PS_MM095L.SetValue("U_IssueYN", i, oRecordSet01.Fields.Item("U_IssueYN").Value.ToString().Trim());
-                    oDS_PS_MM095L.SetValue("U_IssueQty", i, Convert.ToString(0));
+                    oDS_PS_MM095L.SetValue("U_IssueQty", i, "0");
                     oDS_PS_MM095L.SetValue("U_PreQty", i, oRecordSet01.Fields.Item("U_PreQty").Value.ToString().Trim());
                     oDS_PS_MM095L.SetValue("U_PreWt", i, oRecordSet01.Fields.Item("U_PreWt").Value.ToString().Trim());
                     oDS_PS_MM095L.SetValue("U_PP040Doc", i, oRecordSet01.Fields.Item("U_PP040Doc").Value.ToString().Trim());
@@ -456,10 +447,6 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if (ProgressBar01 != null)
-                {
-                    ProgressBar01.Stop();
-                }
                 if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
@@ -475,13 +462,14 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
                 if(ProgressBar01 != null)
                 {
+                    ProgressBar01.Stop();
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
                 }
             }
         }
 
         /// <summary>
-        /// LoadData
+        /// PS_MM095_LoadData_Mat02
         /// </summary>
         private void PS_MM095_LoadData_Mat02(int sRow)
         {
@@ -504,10 +492,10 @@ namespace PSH_BOne_AddOn
                 }
 
                 sQry = "Select a.U_ItemCod2, a.U_ItemNam2, b.WhsCode, c.WhsName, b.U_Qty, b.OnHand, ";
-                sQry = sQry + " UnWeight = Case When Isnull(a.U_UnWeight,0) = 0 Then 1 When a.U_UnWeight = 0 Then 1 Else a.U_UnWeight End ";
-                sQry = sQry + "From [@PS_PP005H] a Inner Join [OITW] b On a.U_ItemCod2 = b.ItemCode Inner Join [OWHS] c On b.WhsCode = c.WhsCode ";
-                sQry = sQry + "Where a.U_ItemCod1 = '" + ItemCode + "' And b.OnHand > 0";
-                sQry = sQry + " And a.U_ItemCod2 Like '" + CItemCod + "'";
+                sQry += " UnWeight = Case When Isnull(a.U_UnWeight,0) = 0 Then 1 When a.U_UnWeight = 0 Then 1 Else a.U_UnWeight End ";
+                sQry += "From [@PS_PP005H] a Inner Join [OITW] b On a.U_ItemCod2 = b.ItemCode Inner Join [OWHS] c On b.WhsCode = c.WhsCode ";
+                sQry += "Where a.U_ItemCod1 = '" + ItemCode + "' And b.OnHand > 0";
+                sQry += " And a.U_ItemCod2 Like '" + CItemCod + "'";
                 oRecordSet01.DoQuery(sQry);
 
                 oMat02.Clear();
@@ -549,10 +537,6 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if (ProgressBar01 != null)
-                {
-                    ProgressBar01.Stop();
-                }
                 if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
@@ -565,13 +549,17 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
             }
         }
 
         /// <summary>
-        /// LoadData
+        /// PS_MM095_Update_PP040L
         /// </summary>
         private void PS_MM095_Update_PP040L(string sStatus)
         {
@@ -656,7 +644,6 @@ namespace PSH_BOne_AddOn
                 oMat01.FlushToDataSource();
 
                 PS_MM095_FormClear();
-                //현재월의 전기기간 체크 후 잠겨있으면 DI API 미실행
                 if (dataHelpClass.Get_ReData("PeriodStat", "[NAME]", "OFPR", "'" + DateTime.Now.ToString("yyyy") + "-" + DateTime.Now.ToString("MM") + "'", "") == "Y")
                 {
                     errMessage = "현재월의 전기기간이 잠겼습니다. 회계부서에 문의하세요.";
@@ -764,7 +751,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oMat01.FlushToDataSource();
-                //현재월의 전기기간 체크 후 잠겨있으면 DI API 미실행
                 if (dataHelpClass.Get_ReData("PeriodStat", "[NAME]", "OFPR", "'" + DateTime.Now.ToString("yyyy") + "-" + DateTime.Now.ToString("MM") + "'", "") == "Y")
                 {
                     errMessage = "현재월의 전기기간이 잠겼습니다. 회계부서에 문의하세요.";
@@ -802,8 +788,6 @@ namespace PSH_BOne_AddOn
                             j += 1;
                         }
                     }
-
-                    // 완료
                     RetVal = DI_oInventoryGenEntry.Add();
                     if (0 != RetVal)
                     {
@@ -844,7 +828,6 @@ namespace PSH_BOne_AddOn
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(DI_oInventoryGenEntry);
                 }
             }
-
             return returnValue;
         }
 
@@ -1179,8 +1162,8 @@ namespace PSH_BOne_AddOn
                                 ItemCode = oDS_PS_MM095L.GetValue("U_CItemCod", pVal.Row - 1).ToString().Trim();
                                 if (string.IsNullOrEmpty(ItemCode))
                                 {
-                                    oDS_PS_MM095L.SetValue("U_IssueQty", pVal.Row - 1, Convert.ToString(0));
-                                    oDS_PS_MM095L.SetValue("U_IssueWt", pVal.Row - 1, Convert.ToString(0));
+                                    oDS_PS_MM095L.SetValue("U_IssueQty", pVal.Row - 1, "0");
+                                    oDS_PS_MM095L.SetValue("U_IssueWt", pVal.Row - 1, "0");
                                     oMat01.LoadFromDataSource();
                                     oMat01.Columns.Item("IssueQty").Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                                     dataHelpClass.MDC_GF_Message("불출할 원자재를 아래 매트릭스에서 먼저 선택해 주세요.", "E");
@@ -1210,8 +1193,8 @@ namespace PSH_BOne_AddOn
                                 ItemCode = oDS_PS_MM095L.GetValue("U_CItemCod", pVal.Row - 1).ToString().Trim();
                                 if (string.IsNullOrEmpty(ItemCode))
                                 {
-                                    oDS_PS_MM095L.SetValue("U_IssueQty", pVal.Row - 1, Convert.ToString(0));
-                                    oDS_PS_MM095L.SetValue("U_IssueWt", pVal.Row - 1, Convert.ToString(0));
+                                    oDS_PS_MM095L.SetValue("U_IssueQty", pVal.Row - 1, "0");
+                                    oDS_PS_MM095L.SetValue("U_IssueWt", pVal.Row - 1, "0");
                                     oMat01.LoadFromDataSource();
                                     oMat01.Columns.Item("IssueQty").Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                                     dataHelpClass.MDC_GF_Message("불출할 원자재를 아래 매트릭스에서 먼저 선택해 주세요.", "E");
@@ -1257,7 +1240,9 @@ namespace PSH_BOne_AddOn
 
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
-
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_MM095H);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_MM095L);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_USERDS01);
                 }
             }
             catch (Exception ex)
@@ -1314,7 +1299,7 @@ namespace PSH_BOne_AddOn
                             else
                             {
                                 //원재료 단중으로 계산
-                                oDS_PS_MM095L.SetValue("U_IssueQty", oClick_ColRow - 1, Convert.ToString(0));
+                                oDS_PS_MM095L.SetValue("U_IssueQty", oClick_ColRow - 1, "0");
                                 oDS_PS_MM095L.SetValue("U_IssueWt", oClick_ColRow - 1, Math.Round(Convert.ToDouble(oMat01.Columns.Item("PQty").Cells.Item(oClick_ColRow).Specific.Value) * Convert.ToDouble(oMat02.Columns.Item("UnWeight").Cells.Item(pVal.Row).Specific.Value), 2));
                             }
                             oMat01.LoadFromDataSource();
@@ -1454,7 +1439,6 @@ namespace PSH_BOne_AddOn
                     {
                         case "1284": //취소
                             PS_MM095_FormItemEnabled();
-                            //oForm.Items.Item("DocNum").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             break;
                         case "1286": //닫기
                             break;
@@ -1468,7 +1452,6 @@ namespace PSH_BOne_AddOn
 
                                 oMat01.FlushToDataSource();
                                 oDS_PS_MM095L.RemoveRecord(oDS_PS_MM095L.Size - 1);
-                                // Mat01에 마지막라인(빈라인) 삭제
                                 oMat01.Clear();
                                 oMat01.LoadFromDataSource();
                             }

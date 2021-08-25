@@ -90,11 +90,11 @@ namespace PSH_BOne_AddOn
         private void PS_FI070_ComboBox_Setting()
         {
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            string sQry = String.Empty;
+            string sQry = string.Empty;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
-                //// 사업장
+                // 사업장
                 sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
                 oRecordSet01.DoQuery(sQry);
                 oForm.Items.Item("BPLId").Specific.ValidValues.Add("0", "전체 사업장");
@@ -122,16 +122,16 @@ namespace PSH_BOne_AddOn
         [STAThread]
         private void PS_FI070_Print_Report01()
         {
-            string WinTitle = String.Empty;
-            string ReportName = String.Empty;
+            string WinTitle = string.Empty;
+            string ReportName = string.Empty;
 
-            string StrDate = String.Empty;
-            string EndDate = String.Empty;
-            string FrDate = String.Empty;
-            string ToDate = String.Empty;
-            string SCardCode = String.Empty;
-            string ECardCode = String.Empty;
-            string BPLId = String.Empty;
+            string StrDate = string.Empty;
+            string EndDate = string.Empty;
+            string FrDate = string.Empty;
+            string ToDate = string.Empty;
+            string SCardCode = string.Empty;
+            string ECardCode = string.Empty;
+            string BPLId = string.Empty;
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
@@ -143,7 +143,7 @@ namespace PSH_BOne_AddOn
                 List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>(); //Parameter
                 List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
 
-                //// 조회조건문
+                // 조회조건문
                 StrDate = oForm.Items.Item("StrDate").Specific.Value.ToString().Trim();
                 EndDate = oForm.Items.Item("EndDate").Specific.Value.ToString().Trim();
                 FrDate = oForm.Items.Item("FrDate").Specific.Value.ToString().Trim();

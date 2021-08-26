@@ -43202,6 +43202,20 @@
             </summary>
             <param name="oFormDocEntry"></param>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_SM010.LoadForm(SAPbouiCOM.Form,System.String,System.String,System.Int32)">
+            <summary>
+            Form 호출(다른 폼에서 호출)
+            </summary>
+            <param name="baseForm">기준 Form</param>
+            <param name="baseItemUID">기준 Form의 ItemUID</param>
+            <param name="baseColUID">기준 Form의 Matrix ColUID</param>
+            <param name="baseMatRow">기준 Form의 Matrix Row</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SM010.LoadForm">
+            <summary>
+            Form 호출
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_SM010.PS_SM010_CreateItems">
             <summary>
             화면 Item 생성

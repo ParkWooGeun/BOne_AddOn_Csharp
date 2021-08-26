@@ -220,8 +220,8 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("Chk02").Specific.Checked = true;
 
 				//날짜 설정
-				oForm.Items.Item("ToDt").Specific.Value = "";
-				oForm.Items.Item("FrDt").Specific.Value = "";
+				oForm.Items.Item("ToDt").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
+				oForm.Items.Item("FrDt").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 			}
 			catch (Exception ex)
 			{

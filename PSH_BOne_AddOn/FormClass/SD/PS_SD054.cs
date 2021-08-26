@@ -650,9 +650,9 @@ namespace PSH_BOne_AddOn
 						sQry += "'" + CntcCode + "'";
 						oRecordSet.DoQuery(sQry);
 					}
-					PSH_Globals.SBO_Application.StatusBar.SetText("등록 완료!", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
-					functionReturnValue = true;
 				}
+				PSH_Globals.SBO_Application.StatusBar.SetText("등록 완료!", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
+				functionReturnValue = true;
 			}
 			catch (Exception ex)
 			{

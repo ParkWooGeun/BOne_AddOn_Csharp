@@ -316,6 +316,10 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void PS_SD021_FormItemEnabled()
 		{
+			int i;
+			string sQry;
+			string BPLID;
+			string TeamCode;
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
 			try
@@ -348,6 +352,46 @@ namespace PSH_BOne_AddOn
 				{
 					oForm.Items.Item("DocEntry").Enabled = false;
 					oForm.Items.Item("Mat01").Enabled = true;
+
+					//사엽장예따른 콤보셋팅
+					BPLID = oForm.Items.Item("BPLID").Specific.Value.ToString().Trim();
+					//부서콤보세팅
+					if (oForm.Items.Item("TeamCode").Specific.ValidValues.Count > 0)
+					{
+						for (i = oForm.Items.Item("TeamCode").Specific.ValidValues.Count - 1; i >= 0; i += -1)
+						{
+							oForm.Items.Item("TeamCode").Specific.ValidValues.Remove(i, SAPbouiCOM.BoSearchKey.psk_Index);
+						}
+					}
+					oForm.Items.Item("TeamCode").Specific.ValidValues.Add("%", "전체");
+					sQry = "  SELECT	U_Code AS [Code],";
+					sQry += "           U_CodeNm As [Name]";
+					sQry += " FROM      [@PS_HR200L]";
+					sQry += " WHERE     Code = '1'";
+					sQry += "           AND U_UseYN = 'Y'";
+					sQry += "           AND U_Char2 = '" + BPLID + "'";
+					sQry += " ORDER BY  U_Seq";
+					dataHelpClass.Set_ComboList(oForm.Items.Item("TeamCode").Specific, sQry, "", false, false);
+
+					//담당콤보세팅
+					TeamCode = oForm.Items.Item("TeamCode").Specific.Value.ToString().Trim();
+
+					if (oForm.Items.Item("RspCode").Specific.ValidValues.Count > 0)
+					{
+						for (i = oForm.Items.Item("RspCode").Specific.ValidValues.Count - 1; i >= 0; i += -1)
+						{
+							oForm.Items.Item("RspCode").Specific.ValidValues.Remove(i, SAPbouiCOM.BoSearchKey.psk_Index);
+						}
+					}
+					oForm.Items.Item("RspCode").Specific.ValidValues.Add("%", "전체");
+					sQry = "  SELECT	U_Code AS [Code],";
+					sQry += "           U_CodeNm As [Name]";
+					sQry += " FROM      [@PS_HR200L]";
+					sQry += " WHERE     Code = '2'";
+					sQry += "           AND U_UseYN = 'Y'";
+					sQry += "           AND U_Char1 = '" + TeamCode + "'";
+					sQry += " ORDER BY  U_Seq";
+					dataHelpClass.Set_ComboList(oForm.Items.Item("RspCode").Specific, sQry, "", false, false);
 				}
 			}
 			catch (Exception ex)

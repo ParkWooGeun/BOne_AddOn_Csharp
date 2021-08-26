@@ -1818,7 +1818,7 @@ namespace PSH_BOne_AddOn
                                         }
                                     }
                                 }
-                                
+
                                 if (oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim() == "101")
                                 {
                                     query = "EXEC PS_PP070_04 '" + oMat01.Columns.Item("PP030No").Cells.Item(pVal.Row).Specific.Value + "'";
@@ -1848,7 +1848,7 @@ namespace PSH_BOne_AddOn
                                     oDS_PS_PP080L.SetValue("U_BPLId", pVal.Row - 1, RecordSet01.Fields.Item("BPLId").Value);
                                     oDS_PS_PP080L.SetValue("U_ItemCode", pVal.Row - 1, RecordSet01.Fields.Item("ItemCode").Value);
                                     oDS_PS_PP080L.SetValue("U_ItemName", pVal.Row - 1, RecordSet01.Fields.Item("ItemName").Value);
-                                    
+
                                     if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "104") //Multi일 경우만 온산 Lot 존재
                                     {
                                         oDS_PS_PP080L.SetValue("U_OnsanLot", pVal.Row - 1, RecordSet01.Fields.Item("OnsanLot").Value);
@@ -1867,13 +1867,6 @@ namespace PSH_BOne_AddOn
                                     oDS_PS_PP080L.SetValue("U_WhsName", pVal.Row - 1, RecordSet01.Fields.Item("WhsName").Value);
                                     oDS_PS_PP080L.SetValue("U_BatchNum", pVal.Row - 1, RecordSet01.Fields.Item("BatchNum").Value);
                                     oDS_PS_PP080L.SetValue("U_LineId", pVal.Row - 1, RecordSet01.Fields.Item("LineId").Value);
-
-                                    for (i = 0; i <= oMat01.VisualRowCount - 1; i++)
-                                    {
-                                        sumQty += Convert.ToDouble(oMat01.Columns.Item("YQty").Cells.Item(i + 1).Specific.Value); //합격수량 sum
-                                    }
-
-                                    oForm.Items.Item("SumQty").Specific.Value = Convert.ToString(sumQty);
                                 }
 
                                 if (oMat01.RowCount == pVal.Row && !string.IsNullOrEmpty(oDS_PS_PP080L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
@@ -1961,15 +1954,8 @@ namespace PSH_BOne_AddOn
                                         oDS_PS_PP080L.SetValue("U_NWeight", pVal.Row - 1, "0");
                                     }
                                 }
-                                
-                                oMat01.LoadFromDataSourceEx(); //Matrix Focus 고정
-                                
-                                for (i = 0; i <= oMat01.VisualRowCount - 1; i++)
-                                {
-                                    sumQty += Convert.ToDouble(oDS_PS_PP080L.GetValue("U_" + pVal.ColUID, i)); //합격수량 sum
-                                }
 
-                                oForm.Items.Item("SumQty").Specific.Value = Convert.ToString(sumQty);
+                                oMat01.LoadFromDataSourceEx(); //Matrix Focus 고정
                             }
                             else if (pVal.ColUID == "NQty")
                             {
@@ -2003,7 +1989,7 @@ namespace PSH_BOne_AddOn
                                     else
                                     {
                                         oDS_PS_PP080L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
-                                        
+
                                         if (oMat01.Columns.Item("OrdGbn").Cells.Item(pVal.Row).Specific.Value == "101") //휘팅
                                         {
                                             weight = Convert.ToDouble(dataHelpClass.GetValue("SELECT U_UnWeight  FROM [OITM] WHERE ItemCode = '" + oMat01.Columns.Item("ItemCode").Cells.Item(pVal.Row).Specific.Value + "'", 0, 1)) / 1000;
@@ -2023,13 +2009,6 @@ namespace PSH_BOne_AddOn
                                     }
                                 }
                                 oMat01.LoadFromDataSourceEx(); //Matrix Focus 고정
-
-                                for (i = 0; i <= oMat01.VisualRowCount - 1; i++)
-                                {
-                                    sumQty += Convert.ToDouble(oMat01.Columns.Item("YQty").Cells.Item(i + 1).Specific.Value); //합격수량 sum
-                                }
-
-                                oForm.Items.Item("SumQty").Specific.Value = Convert.ToString(sumQty);
                             }
                             else
                             {
@@ -2072,6 +2051,21 @@ namespace PSH_BOne_AddOn
                 }
                 else if (pVal.Before_Action == false)
                 {
+                    if (pVal.ItemChanged == true)
+                    {
+                        if (pVal.ItemUID == "Mat01")
+                        {
+                            if (pVal.ColUID == "PP030No" || pVal.ColUID == "PQty" || pVal.ColUID == "NQty")
+                            {
+                                for (i = 0; i <= oMat01.VisualRowCount - 2; i++) //빈행이 추가되었기 때문에 -2를 적용
+                                {
+                                    sumQty += Convert.ToDouble(oDS_PS_PP080L.GetValue("U_PQty", i)); //생산수량 SUM
+                                }
+
+                                oForm.Items.Item("SumQty").Specific.Value = Convert.ToString(sumQty);
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -2259,7 +2253,7 @@ namespace PSH_BOne_AddOn
                             
                             for (int i = 0; i <= oMat01.VisualRowCount - 1; i++)
                             {
-                                sumQty += Convert.ToDouble(oMat01.Columns.Item("YQty").Cells.Item(i + 1).Specific.Value); //합격수량 sum
+                                sumQty += Convert.ToDouble(oMat01.Columns.Item("PQty").Cells.Item(i + 1).Specific.Value); //생산수량 sum
                             }
 
                             oForm.Items.Item("SumQty").Specific.Value = Convert.ToString(sumQty);

@@ -23,17 +23,6 @@
         {
         }
 
-        ///// <summary>
-        ///// PS_SM010 Type 경우 사용됨
-        ///// </summary>
-        ///// <param name="Form"></param>
-        ///// <param name="ItemUID"></param>
-        ///// <param name="ColUID"></param>
-        ///// <param name="ColRow"></param>
-        //public virtual void LoadForm(SAPbouiCOM.Form Form, string ItemUID, string ColUID, int ColRow)
-        //{
-        //}
-
         public virtual void Raise_FormItemEvent(string FormUID, ref SAPbouiCOM.ItemEvent pval, ref bool BubbleEvent)
         {
         }

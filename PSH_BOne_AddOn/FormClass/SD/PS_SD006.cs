@@ -610,7 +610,6 @@ namespace PSH_BOne_AddOn
                     {
                         if (pVal.ItemUID == "CardCode") //거래처명조회
                         {
-                            
                             sQry = "SELECT CardName FROM [OCRD] WHERE CardCode = '" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'";
                             oRecordSet01.DoQuery(sQry);
                             oForm.Items.Item("CardName").Specific.Value = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
@@ -652,51 +651,51 @@ namespace PSH_BOne_AddOn
                             {
                                 if (pVal.ColUID == "Wgt1" || pVal.ColUID == "Prc1")
                                 {
-                                    oDS_PS_SD006L.SetValue("U_Amt1", pVal.Row - 1, Convert.ToDouble(oMat01.Columns.Item("Wgt1").Cells.Item(i + 1).Specific.Value) * Convert.ToDouble(oMat01.Columns.Item("Prc1").Cells.Item(i + 1).Specific.Value));
+                                    oDS_PS_SD006L.SetValue("U_Amt1", pVal.Row - 1, Convert.ToDouble(oMat01.Columns.Item("Wgt1").Cells.Item(pVal.Row).Specific.Value) * Convert.ToDouble(oMat01.Columns.Item("Prc1").Cells.Item(pVal.Row).Specific.Value));
                                 }
                                 else if (pVal.ColUID == "Wgt2" || pVal.ColUID == "Prc2")
                                 {
-                                    oDS_PS_SD006L.SetValue("U_Amt2", pVal.Row - 1, Convert.ToDouble(oMat01.Columns.Item("Wgt2").Cells.Item(i + 1).Specific.Value) * Convert.ToDouble(oMat01.Columns.Item("Prc2").Cells.Item(i + 1).Specific.Value));
+                                    oDS_PS_SD006L.SetValue("U_Amt2", pVal.Row - 1, Convert.ToDouble(oMat01.Columns.Item("Wgt2").Cells.Item(pVal.Row).Specific.Value) * Convert.ToDouble(oMat01.Columns.Item("Prc2").Cells.Item(pVal.Row).Specific.Value));
                                 }
                                 else if (pVal.ColUID == "Wgt3" || pVal.ColUID == "Prc3")
                                 {
-                                    oDS_PS_SD006L.SetValue("U_Amt3", pVal.Row - 1, Convert.ToDouble(oMat01.Columns.Item("Wgt3").Cells.Item(i + 1).Specific.Value) * Convert.ToDouble(oMat01.Columns.Item("Prc3").Cells.Item(i + 1).Specific.Value));
+                                    oDS_PS_SD006L.SetValue("U_Amt3", pVal.Row - 1, Convert.ToDouble(oMat01.Columns.Item("Wgt3").Cells.Item(pVal.Row).Specific.Value) * Convert.ToDouble(oMat01.Columns.Item("Prc3").Cells.Item(pVal.Row).Specific.Value));
                                 }
                                 else if (pVal.ColUID == "Wgt4" || pVal.ColUID == "Prc4")
                                 {
-                                    oDS_PS_SD006L.SetValue("U_Amt4", pVal.Row - 1, Convert.ToDouble(oMat01.Columns.Item("Wgt4").Cells.Item(i + 1).Specific.Value) * Convert.ToDouble(oMat01.Columns.Item("Prc4").Cells.Item(i + 1).Specific.Value));
+                                    oDS_PS_SD006L.SetValue("U_Amt4", pVal.Row - 1, Convert.ToDouble(oMat01.Columns.Item("Wgt4").Cells.Item(pVal.Row).Specific.Value) * Convert.ToDouble(oMat01.Columns.Item("Prc4").Cells.Item(pVal.Row).Specific.Value));
                                 }
                                 else if (pVal.ColUID == "Wgt5" || pVal.ColUID == "Prc5")
                                 {
-                                    oDS_PS_SD006L.SetValue("U_Amt5", pVal.Row - 1, Convert.ToDouble(oMat01.Columns.Item("Wgt5").Cells.Item(i + 1).Specific.Value) * Convert.ToDouble(oMat01.Columns.Item("Prc5").Cells.Item(i + 1).Specific.Value));
+                                    oDS_PS_SD006L.SetValue("U_Amt5", pVal.Row - 1, Convert.ToDouble(oMat01.Columns.Item("Wgt5").Cells.Item(pVal.Row).Specific.Value) * Convert.ToDouble(oMat01.Columns.Item("Prc5").Cells.Item(pVal.Row).Specific.Value));
                                 }
                                 else if (pVal.ColUID == "Wgt6" || pVal.ColUID == "Prc6")
                                 {
-                                    oDS_PS_SD006L.SetValue("U_Amt6", pVal.Row - 1, Convert.ToDouble(oMat01.Columns.Item("Wgt6").Cells.Item(i + 1).Specific.Value) * Convert.ToDouble(oMat01.Columns.Item("Prc6").Cells.Item(i + 1).Specific.Value));
+                                    oDS_PS_SD006L.SetValue("U_Amt6", pVal.Row - 1, Convert.ToDouble(oMat01.Columns.Item("Wgt6").Cells.Item(pVal.Row).Specific.Value) * Convert.ToDouble(oMat01.Columns.Item("Prc6").Cells.Item(pVal.Row).Specific.Value));
                                 }
                                 else if (pVal.ColUID == "Wgt7" || pVal.ColUID == "Prc7")
                                 {
-                                    oDS_PS_SD006L.SetValue("U_Amt7", pVal.Row - 1, Convert.ToDouble(oMat01.Columns.Item("Wgt7").Cells.Item(i + 1).Specific.Value) * Convert.ToDouble(oMat01.Columns.Item("Prc7").Cells.Item(i + 1).Specific.Value));
+                                    oDS_PS_SD006L.SetValue("U_Amt7", pVal.Row - 1, Convert.ToDouble(oMat01.Columns.Item("Wgt7").Cells.Item(pVal.Row).Specific.Value) * Convert.ToDouble(oMat01.Columns.Item("Prc7").Cells.Item(pVal.Row).Specific.Value));
                                 }
                                 else if (pVal.ColUID == "Wgt8" || pVal.ColUID == "Prc8")
                                 {
-                                    oDS_PS_SD006L.SetValue("U_Amt8", pVal.Row - 1, Convert.ToDouble(oMat01.Columns.Item("Wgt8").Cells.Item(i + 1).Specific.Value) * Convert.ToDouble(oMat01.Columns.Item("Prc8").Cells.Item(i + 1).Specific.Value));
+                                    oDS_PS_SD006L.SetValue("U_Amt8", pVal.Row - 1, Convert.ToDouble(oMat01.Columns.Item("Wgt8").Cells.Item(pVal.Row).Specific.Value) * Convert.ToDouble(oMat01.Columns.Item("Prc8").Cells.Item(pVal.Row).Specific.Value));
                                 }
                                 else if (pVal.ColUID == "Wgt9" || pVal.ColUID == "Prc9")
                                 {
-                                    oDS_PS_SD006L.SetValue("U_Amt9", pVal.Row - 1, Convert.ToDouble(oMat01.Columns.Item("Wgt9").Cells.Item(i + 1).Specific.Value) * Convert.ToDouble(oMat01.Columns.Item("Prc9").Cells.Item(i + 1).Specific.Value));
+                                    oDS_PS_SD006L.SetValue("U_Amt9", pVal.Row - 1, Convert.ToDouble(oMat01.Columns.Item("Wgt9").Cells.Item(pVal.Row).Specific.Value) * Convert.ToDouble(oMat01.Columns.Item("Prc9").Cells.Item(pVal.Row).Specific.Value));
                                 }
                                 else if (pVal.ColUID == "Wgt10" || pVal.ColUID == "Prc10")
                                 {
-                                    oDS_PS_SD006L.SetValue("U_Amt10", pVal.Row - 1, Convert.ToDouble(oMat01.Columns.Item("Wgt10").Cells.Item(i + 1).Specific.Value) * Convert.ToDouble(oMat01.Columns.Item("Prc10").Cells.Item(i + 1).Specific.Value));
+                                    oDS_PS_SD006L.SetValue("U_Amt10", pVal.Row - 1, Convert.ToDouble(oMat01.Columns.Item("Wgt10").Cells.Item(pVal.Row).Specific.Value) * Convert.ToDouble(oMat01.Columns.Item("Prc10").Cells.Item(pVal.Row).Specific.Value));
                                 }
                                 else if (pVal.ColUID == "Wgt11" || pVal.ColUID == "Prc11")
                                 {
-                                    oDS_PS_SD006L.SetValue("U_Amt11", pVal.Row - 1, Convert.ToDouble(oMat01.Columns.Item("Wgt11").Cells.Item(i + 1).Specific.Value) * Convert.ToDouble(oMat01.Columns.Item("Prc11").Cells.Item(i + 1).Specific.Value));
+                                    oDS_PS_SD006L.SetValue("U_Amt11", pVal.Row - 1, Convert.ToDouble(oMat01.Columns.Item("Wgt11").Cells.Item(pVal.Row).Specific.Value) * Convert.ToDouble(oMat01.Columns.Item("Prc11").Cells.Item(pVal.Row).Specific.Value));
                                 }
                                 else if (pVal.ColUID == "Wgt12" || pVal.ColUID == "Prc12")
                                 {
-                                    oDS_PS_SD006L.SetValue("U_Amt12", pVal.Row - 1, Convert.ToDouble(oMat01.Columns.Item("Wgt12").Cells.Item(i + 1).Specific.Value) * Convert.ToDouble(oMat01.Columns.Item("Prc12").Cells.Item(i + 1).Specific.Value));
+                                    oDS_PS_SD006L.SetValue("U_Amt12", pVal.Row - 1, Convert.ToDouble(oMat01.Columns.Item("Wgt12").Cells.Item(pVal.Row).Specific.Value) * Convert.ToDouble(oMat01.Columns.Item("Prc12").Cells.Item(pVal.Row).Specific.Value));
                                 }
 
                                 oMat01.LoadFromDataSourceEx();

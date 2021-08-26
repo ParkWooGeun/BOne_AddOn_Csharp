@@ -1152,77 +1152,80 @@ namespace PSH_BOne_AddOn
                             oForm.Items.Item("InWhCd").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
                         }
 
-                        docEntry = Convert.ToInt32(oMat01.Columns.Item("SD091HNo").Cells.Item(pVal.Row).Specific.Value.ToString().Split("-")[0]);
-                        lineID = Convert.ToInt32(oMat01.Columns.Item("SD091HNo").Cells.Item(pVal.Row).Specific.Value.ToString().Split("-")[1]);
-
-                        //작업요청
-                        if (pVal.ItemUID == "Mat01" && pVal.ColUID == "SD091HNo")
+                        //Matrix-작업요청
+                        if (pVal.ItemUID == "Mat01")
                         {
-                            sQry = "  SELECT    U_ItemCode,";
-                            sQry += "           U_ItemName,";
-                            sQry += "           U_ItemGu,";
-                            sQry += "           U_Qty,";
-                            sQry += "           U_Unweight,";
-                            sQry += "           U_Weight,";
-                            sQry += "           U_Comments,";
-                            sQry += "           U_ItmBsort,";
-                            sQry += "           U_ItmMsort,";
-                            sQry += "           U_Unit1,";
-                            sQry += "           U_Size,";
-                            sQry += "           U_ItemType,";
-                            sQry += "           U_Quality,";
-                            sQry += "           U_Mark,";
-                            sQry += "           U_CallSize,";
-                            sQry += "           U_SbasUnit ";
-                            sQry += " FROM      [@PS_SD091L]";
-                            sQry += " WHERE     DocEntry = '" + docEntry + "'";
-                            sQry += "           AND LineId = '" + lineID + "'";
-                            oRecordSet.DoQuery(sQry);
-                            oMat01.FlushToDataSource();
-                            oDS_PS_SD090L.SetValue("U_ItemCode", pVal.Row - 1, oRecordSet.Fields.Item(0).Value.ToString().Trim());
-                            oDS_PS_SD090L.SetValue("U_ItemName", pVal.Row - 1, oRecordSet.Fields.Item(1).Value.ToString().Trim());
-                            oDS_PS_SD090L.SetValue("U_ItemGu", pVal.Row - 1, oRecordSet.Fields.Item(2).Value.ToString().Trim());
-                            oDS_PS_SD090L.SetValue("U_Qty", pVal.Row - 1, oRecordSet.Fields.Item(3).Value.ToString().Trim());
-                            oDS_PS_SD090L.SetValue("U_Unweight", pVal.Row - 1, oRecordSet.Fields.Item(4).Value.ToString().Trim());
-                            oDS_PS_SD090L.SetValue("U_Weight", pVal.Row - 1, oRecordSet.Fields.Item(5).Value.ToString().Trim());
-                            oDS_PS_SD090L.SetValue("U_Comments", pVal.Row - 1, oRecordSet.Fields.Item(6).Value.ToString().Trim());
-                            oDS_PS_SD090L.SetValue("U_ItmBsort", pVal.Row - 1, oRecordSet.Fields.Item(7).Value.ToString().Trim());
-                            oDS_PS_SD090L.SetValue("U_ItmMsort", pVal.Row - 1, oRecordSet.Fields.Item(8).Value.ToString().Trim());
-                            oDS_PS_SD090L.SetValue("U_Unit1", pVal.Row - 1, oRecordSet.Fields.Item(9).Value.ToString().Trim());
-                            oDS_PS_SD090L.SetValue("U_Size", pVal.Row - 1, oRecordSet.Fields.Item(10).Value.ToString().Trim());
-                            oDS_PS_SD090L.SetValue("U_ItemType", pVal.Row - 1, oRecordSet.Fields.Item(11).Value.ToString().Trim());
-                            oDS_PS_SD090L.SetValue("U_Quality", pVal.Row - 1, oRecordSet.Fields.Item(12).Value.ToString().Trim());
-                            oDS_PS_SD090L.SetValue("U_Mark", pVal.Row - 1, oRecordSet.Fields.Item(13).Value.ToString().Trim());
-                            oDS_PS_SD090L.SetValue("U_CallSize", pVal.Row - 1, oRecordSet.Fields.Item(14).Value.ToString().Trim());
-                            oDS_PS_SD090L.SetValue("U_SbasUnit", pVal.Row - 1, oRecordSet.Fields.Item(15).Value.ToString().Trim());
-                            
-                            PS_SD090_AddMatrixRow(oMat01.VisualRowCount, false);
-                            for (int i = 1; i <= oMat01.VisualRowCount; i++)
+                            if (pVal.ColUID == "SD091HNo")
                             {
-                                if (string.IsNullOrEmpty(oDS_PS_SD090L.GetValue("U_SD091HNo", i - 1)))
-                                {
-                                    oDS_PS_SD090L.RemoveRecord(i - 1);
-                                    oMat01.LoadFromDataSource();
-                                }
-                            }
+                                docEntry = Convert.ToInt32(oMat01.Columns.Item("SD091HNo").Cells.Item(pVal.Row).Specific.Value.ToString().Split("-")[0]);
+                                lineID = Convert.ToInt32(oMat01.Columns.Item("SD091HNo").Cells.Item(pVal.Row).Specific.Value.ToString().Split("-")[1]);
 
-                            sQry = "Select U_OutWhCd, U_InWhCd From [@PS_SD091H] Where DocEntry = '" + docEntry + "'";
-                            oRecordSet.DoQuery(sQry);
-                            oDS_PS_SD090H.SetValue("U_OutWhCd", pVal.Row - 1, oRecordSet.Fields.Item(0).Value.ToString().Trim());
-                            oDS_PS_SD090H.SetValue("U_InWhCd", pVal.Row - 1, oRecordSet.Fields.Item(1).Value.ToString().Trim());
-                            
-                            for (int i = 0; i <= oMat01.VisualRowCount - 1; i++)
-                            {
-                                if (!string.IsNullOrEmpty(oMat01.Columns.Item("Qty").Cells.Item(i + 1).Specific.Value))
-                                {
-                                    SumQty += Convert.ToDouble(oMat01.Columns.Item("Qty").Cells.Item(i + 1).Specific.Value);
-                                }
-                                SumWeight += Convert.ToDouble(oMat01.Columns.Item("Weight").Cells.Item(i + 1).Specific.Value);
-                            }
-                            oForm.Items.Item("SumQty").Specific.Value = SumQty;
-                            oForm.Items.Item("SumWeight").Specific.Value = SumWeight;
+                                sQry = "  SELECT    U_ItemCode,";
+                                sQry += "           U_ItemName,";
+                                sQry += "           U_ItemGu,";
+                                sQry += "           U_Qty,";
+                                sQry += "           U_Unweight,";
+                                sQry += "           U_Weight,";
+                                sQry += "           U_Comments,";
+                                sQry += "           U_ItmBsort,";
+                                sQry += "           U_ItmMsort,";
+                                sQry += "           U_Unit1,";
+                                sQry += "           U_Size,";
+                                sQry += "           U_ItemType,";
+                                sQry += "           U_Quality,";
+                                sQry += "           U_Mark,";
+                                sQry += "           U_CallSize,";
+                                sQry += "           U_SbasUnit ";
+                                sQry += " FROM      [@PS_SD091L]";
+                                sQry += " WHERE     DocEntry = '" + docEntry + "'";
+                                sQry += "           AND LineId = '" + lineID + "'";
+                                oRecordSet.DoQuery(sQry);
+                                oMat01.FlushToDataSource();
+                                oDS_PS_SD090L.SetValue("U_ItemCode", pVal.Row - 1, oRecordSet.Fields.Item(0).Value.ToString().Trim());
+                                oDS_PS_SD090L.SetValue("U_ItemName", pVal.Row - 1, oRecordSet.Fields.Item(1).Value.ToString().Trim());
+                                oDS_PS_SD090L.SetValue("U_ItemGu", pVal.Row - 1, oRecordSet.Fields.Item(2).Value.ToString().Trim());
+                                oDS_PS_SD090L.SetValue("U_Qty", pVal.Row - 1, oRecordSet.Fields.Item(3).Value.ToString().Trim());
+                                oDS_PS_SD090L.SetValue("U_Unweight", pVal.Row - 1, oRecordSet.Fields.Item(4).Value.ToString().Trim());
+                                oDS_PS_SD090L.SetValue("U_Weight", pVal.Row - 1, oRecordSet.Fields.Item(5).Value.ToString().Trim());
+                                oDS_PS_SD090L.SetValue("U_Comments", pVal.Row - 1, oRecordSet.Fields.Item(6).Value.ToString().Trim());
+                                oDS_PS_SD090L.SetValue("U_ItmBsort", pVal.Row - 1, oRecordSet.Fields.Item(7).Value.ToString().Trim());
+                                oDS_PS_SD090L.SetValue("U_ItmMsort", pVal.Row - 1, oRecordSet.Fields.Item(8).Value.ToString().Trim());
+                                oDS_PS_SD090L.SetValue("U_Unit1", pVal.Row - 1, oRecordSet.Fields.Item(9).Value.ToString().Trim());
+                                oDS_PS_SD090L.SetValue("U_Size", pVal.Row - 1, oRecordSet.Fields.Item(10).Value.ToString().Trim());
+                                oDS_PS_SD090L.SetValue("U_ItemType", pVal.Row - 1, oRecordSet.Fields.Item(11).Value.ToString().Trim());
+                                oDS_PS_SD090L.SetValue("U_Quality", pVal.Row - 1, oRecordSet.Fields.Item(12).Value.ToString().Trim());
+                                oDS_PS_SD090L.SetValue("U_Mark", pVal.Row - 1, oRecordSet.Fields.Item(13).Value.ToString().Trim());
+                                oDS_PS_SD090L.SetValue("U_CallSize", pVal.Row - 1, oRecordSet.Fields.Item(14).Value.ToString().Trim());
+                                oDS_PS_SD090L.SetValue("U_SbasUnit", pVal.Row - 1, oRecordSet.Fields.Item(15).Value.ToString().Trim());
 
-                            PS_SD090_AddMatrixRow(oMat01.VisualRowCount, false);
+                                PS_SD090_AddMatrixRow(oMat01.VisualRowCount, false);
+                                for (int i = 1; i <= oMat01.VisualRowCount; i++)
+                                {
+                                    if (string.IsNullOrEmpty(oDS_PS_SD090L.GetValue("U_SD091HNo", i - 1)))
+                                    {
+                                        oDS_PS_SD090L.RemoveRecord(i - 1);
+                                        oMat01.LoadFromDataSource();
+                                    }
+                                }
+
+                                sQry = "Select U_OutWhCd, U_InWhCd From [@PS_SD091H] Where DocEntry = '" + docEntry + "'";
+                                oRecordSet.DoQuery(sQry);
+                                oDS_PS_SD090H.SetValue("U_OutWhCd", pVal.Row - 1, oRecordSet.Fields.Item(0).Value.ToString().Trim());
+                                oDS_PS_SD090H.SetValue("U_InWhCd", pVal.Row - 1, oRecordSet.Fields.Item(1).Value.ToString().Trim());
+
+                                for (int i = 0; i <= oMat01.VisualRowCount - 1; i++)
+                                {
+                                    if (!string.IsNullOrEmpty(oMat01.Columns.Item("Qty").Cells.Item(i + 1).Specific.Value))
+                                    {
+                                        SumQty += Convert.ToDouble(oMat01.Columns.Item("Qty").Cells.Item(i + 1).Specific.Value);
+                                    }
+                                    SumWeight += Convert.ToDouble(oMat01.Columns.Item("Weight").Cells.Item(i + 1).Specific.Value);
+                                }
+                                oForm.Items.Item("SumQty").Specific.Value = SumQty;
+                                oForm.Items.Item("SumWeight").Specific.Value = SumWeight;
+
+                                PS_SD090_AddMatrixRow(oMat01.VisualRowCount, false);
+                            }
                         }
                     }
                 }

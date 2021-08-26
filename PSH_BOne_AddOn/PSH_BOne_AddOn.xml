@@ -42234,6 +42234,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD920.KeepAddOnConnection(System.Object,System.Timers.ElapsedEventArgs)">
+            <summary>
+            AddOn 연결 유지용 Timer 이벤트
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_SD920.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event

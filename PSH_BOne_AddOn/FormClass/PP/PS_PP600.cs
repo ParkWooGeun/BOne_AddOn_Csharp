@@ -117,7 +117,7 @@ namespace PSH_BOne_AddOn
 
 				//대분류
 				oForm.Items.Item("ItMBsort").Specific.ValidValues.Add("0", "전체대분류");
-				sQry = "SELECT Code, Name From [@PSH_ItmBsort] ";
+				sQry = "SELECT Code, Name From [@PSH_ItmBsort] Where U_ItemType in ('108','109')";
 				oRecordSet.DoQuery(sQry);
 				while (!oRecordSet.EoF)
 				{

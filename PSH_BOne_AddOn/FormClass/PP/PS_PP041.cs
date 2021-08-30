@@ -381,6 +381,12 @@ namespace PSH_BOne_AddOn
                         {
                             if (oDS_PS_PP041H.GetValue("U_OrdGbn", 0).ToString().Trim() == "104") //멀티이면
                             {
+                                //MG 작업일보일 경우
+                                // 1. 기준작업지시등록 문서 생산완료 등록 여부 검사
+                                // 2. 다음 공정의 작업일보 등록 여부 검사
+                                // 3. 수정 가능 권한 보유 검사
+                                // 4. 위 내용들을 반복문을 통해서 구현 -> 행의 수만큼 조회시간 증
+
                                 query01 = "  SELECT     PS_PP040H.DocEntry,";
                                 query01 += "            PS_PP040L.LineId,";
                                 query01 += "            CONVERT(NVARCHAR,PS_PP040H.DocEntry) + '-' + CONVERT(NVARCHAR,PS_PP040L.LineId) AS DocInfo,";
@@ -396,25 +402,24 @@ namespace PSH_BOne_AddOn
                                 query01 += "            AND PS_PP040L.DocEntry = '" + oDS_PS_PP041H.GetValue("DocEntry", 0) + "'";
                                 RecordSet01.DoQuery(query01);
 
-                                if (oDS_PS_PP041H.GetValue("DocEntry", 0) != "2")
+                                string superUserYN = dataHelpClass.GetValue("select U_UseYN  from [@PS_SY001L] a where a.Code ='A007' and a.U_Minor ='PS_PP041' and a.U_RelCd = '" + PSH_Globals.oCompany.UserName + "'", 0, 1);
+
+                                if (oDS_PS_PP041H.GetValue("DocEntry", 0) != "2") //문서번호 2번은 제외(시스템 오픈 당시 입력한 Legacy Data)
                                 {
                                     for (int i = 0; i <= RecordSet01.RecordCount - 1; i++)
                                     {
-                                        if (RecordSet01.Fields.Item("OrdGbn").Value == "104") //멀티이면
+                                        if (RecordSet01.Fields.Item("OrdGbn").Value == "104") //멀티이면(위에서 이미 MG로 조건검사를 하기때문에 필요 없기는 하지만 성능에 영향이 없으므로 유지(2021.08.27 송명규))
                                         {
                                             string nextCpInfo = dataHelpClass.GetValue("EXEC PS_PP040_03 '" + RecordSet01.Fields.Item("OrdMgNum").Value + "'", 0, 1);
 
                                             if (dataHelpClass.GetValue("EXEC PS_PP040_05 '" + RecordSet01.Fields.Item("OrdMgNum").Value + "'", 0, 1) == "Y") //작업일보 실적 관리여부
                                             {
-                                                //실적, 문서의 타입필요
-                                                if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP080H] PS_PP080H LEFT JOIN [@PS_PP080L] PS_PP080L ON PS_PP080H.DocEntry = PS_PP080L.DocEntry WHERE Isnull(PS_PP080L.U_OIGENum,'') = '' AND PS_PP080L.U_PP030HNo = '" + RecordSet01.Fields.Item("PP030HNo").Value + "' AND PS_PP080L.U_PP030MNo = '" + RecordSet01.Fields.Item("PP030MNo").Value + "'", 0, 1)) > 0
-                                                   || oDS_PS_PP041H.GetValue("U_CpCode", 0).ToString().Trim() == "CP50101" //V-mill 투입시 Core문서가 생성됨으로 날짜 수정 못하도록 변경함. 황영수 20180911
-                                                   || (!string.IsNullOrEmpty(nextCpInfo) //다음공정의 작업일보 존재하면 수정불가능
-                                                        && Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND CONVERT(NVARCHAR,PS_PP040L.U_PP030HNo) + '-' + CONVERT(NVARCHAR,PS_PP040L.U_PP030MNo) = '" + nextCpInfo + "'", 0, 1)) > 0))
+                                                if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP080H] PS_PP080H LEFT JOIN [@PS_PP080L] PS_PP080L ON PS_PP080H.DocEntry = PS_PP080L.DocEntry WHERE Isnull(PS_PP080L.U_OIGENum,'') = '' AND PS_PP080L.U_PP030HNo = '" + RecordSet01.Fields.Item("PP030HNo").Value + "' AND PS_PP080L.U_PP030MNo = '" + RecordSet01.Fields.Item("PP030MNo").Value + "'", 0, 1)) > 0)
+                                                   //|| oDS_PS_PP041H.GetValue("U_CpCode", 0).ToString().Trim() == "CP50101" //V-mill 투입시 Core문서가 생성됨으로 날짜 수정 못하도록 변경함. 황영수 20180911
+                                                   //|| (!string.IsNullOrEmpty(nextCpInfo) //다음공정의 작업일보 존재하면 수정불가능
+                                                   //     && Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND CONVERT(NVARCHAR,PS_PP040L.U_PP030HNo) + '-' + CONVERT(NVARCHAR,PS_PP040L.U_PP030MNo) = '" + nextCpInfo + "'", 0, 1)) > 0))
                                                 {
                                                     //goto Continue_First;
-                                                    string superUserYN = dataHelpClass.GetValue("select U_UseYN  from [@PS_SY001L] a where a.Code ='A007' and a.U_Minor ='PS_PP041' and a.U_RelCd = '" + PSH_Globals.oCompany.UserName + "'", 0, 1);
-
                                                     oForm.Items.Item("Focus").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 
                                                     if (string.IsNullOrEmpty(superUserYN))
@@ -492,7 +497,7 @@ namespace PSH_BOne_AddOn
                             oForm.Items.Item("Mat03").Enabled = true;
                             oForm.Items.Item("Button01").Enabled = true;
                             oForm.Items.Item("1").Enabled = true;
-                            
+
                             oMat01.Columns.Item("BQty").Visible = false;
                             oMat01.Columns.Item("PSum").Visible = true;
                             oMat01.Columns.Item("PWeight").Visible = true;
@@ -2302,7 +2307,7 @@ namespace PSH_BOne_AddOn
                         {
                             if (oMat01.VisualRowCount > 1)
                             {
-                                if (PSH_Globals.SBO_Application.MessageBox("저장하지 않는 자료가 있습니다. 취소하시겠습니까?", 2, "&확인", "&취소") == 2)
+                                if (PSH_Globals.SBO_Application.MessageBox("저장하지 않은 자료가 있습니다. 취소하시겠습니까?", 2, "&확인", "&취소") == 2)
                                 {
                                     BubbleEvent = false;
                                 }
@@ -2381,7 +2386,6 @@ namespace PSH_BOne_AddOn
                                 {
                                     oFormMode01 = SAPbouiCOM.BoFormMode.fm_OK_MODE;
                                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
-                                    PS_PP041_FormItemEnabled();
                                     oForm.Items.Item("DocEntry").Specific.Value = oDocEntry01;
                                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                                 }

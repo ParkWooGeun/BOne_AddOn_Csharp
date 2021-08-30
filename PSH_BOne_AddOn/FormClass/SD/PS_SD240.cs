@@ -220,8 +220,8 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("Chk02").Specific.Checked = true;
 
 				//날짜 설정
-				oForm.Items.Item("ToDt").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
-				oForm.Items.Item("FrDt").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
+				oForm.Items.Item("ToDt").Specific.Value = "";
+				oForm.Items.Item("FrDt").Specific.Value = "";
 			}
 			catch (Exception ex)
 			{
@@ -429,8 +429,8 @@ namespace PSH_BOne_AddOn
 				BPLId = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
 				ItemClass = oForm.Items.Item("ItemClass").Specific.Selected.Value.ToString().Trim();
 				TradeType = oForm.Items.Item("TradeType").Specific.Selected.Value.ToString().Trim();
-				FrDt = oForm.Items.Item("FrDt").Specific.Value.ToString().Trim();
-				ToDt = oForm.Items.Item("ToDt").Specific.Value.ToString().Trim();
+				FrDt = oForm.Items.Item("FrDt").Specific.Value.ToString().Trim() == "" ? "19000101" : oForm.Items.Item("FrDt").Specific.Value.ToString().Trim();
+				ToDt = oForm.Items.Item("ToDt").Specific.Value.ToString().Trim() == "" ? "99991231" : oForm.Items.Item("ToDt").Specific.Value.ToString().Trim();
 				CardCode = oForm.Items.Item("CardCode").Specific.Value.ToString().Trim();
 				ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
 				DocStatus = oForm.Items.Item("DocStatus").Specific.Selected.Value.ToString().Trim();
@@ -518,8 +518,8 @@ namespace PSH_BOne_AddOn
 				BPLId = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
 				ItemClass = oForm.Items.Item("ItemClass").Specific.Selected.Value.ToString().Trim();
 				TradeType = oForm.Items.Item("TradeType").Specific.Selected.Value.ToString().Trim();
-				FrDt = oForm.Items.Item("FrDt").Specific.Value.ToString().Trim();
-				ToDt = oForm.Items.Item("ToDt").Specific.Value.ToString().Trim();
+				FrDt = oForm.Items.Item("FrDt").Specific.Value.ToString().Trim() == "" ? "19000101" : oForm.Items.Item("FrDt").Specific.Value.ToString().Trim();
+				ToDt = oForm.Items.Item("ToDt").Specific.Value.ToString().Trim() == "" ? "99991231" : oForm.Items.Item("ToDt").Specific.Value.ToString().Trim();
 				CardCode = oForm.Items.Item("CardCode").Specific.Value.ToString().Trim();
 				ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
 				DocStatus = oForm.Items.Item("DocStatus").Specific.Selected.Value.ToString().Trim();

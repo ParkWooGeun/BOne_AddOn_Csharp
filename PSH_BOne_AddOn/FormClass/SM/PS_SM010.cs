@@ -32,58 +32,30 @@ namespace PSH_BOne_AddOn
         /// <param name="oFormDocEntry"></param>
         public override void LoadForm(string oFormDocEntry)
         {
-            MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
-
-            try
-            {
-                oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PS_SM010.srf");
-                oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue = oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue + "_" + (SubMain.Get_TotalFormsCount());
-                oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
-                oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
-
-                for (int i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
-                {
-                    oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight")[i - 1].nodeValue = 20;
-                    oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
-                }
-
-                oFormUniqueID = "PS_SM010_" + SubMain.Get_TotalFormsCount();
-                SubMain.Add_Forms(this, oFormUniqueID, "PS_SM010");
-
-                string strXml = null;
-                strXml = oXmlDoc.xml.ToString();
-
-                PSH_Globals.SBO_Application.LoadBatchActions(strXml);
-                oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
-
-                oForm.SupportedModes = -1;
-                oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
-
-                oForm.Freeze(true);
-                PS_SM010_CreateItems();
-                PS_SM010_ComboBox_Setting();
-                PS_SM010_FormItemEnabled();
-
-                oForm.EnableMenu("1283", true); //삭제
-                oForm.EnableMenu("1287", true); //복제
-                oForm.EnableMenu("1286", false); //닫기
-                oForm.EnableMenu("1284", false); //취소
-                oForm.EnableMenu("1293", true); //행삭제
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-            }
-            finally
-            {
-                oForm.Update();
-                oForm.Freeze(false);
-                oForm.Visible = true;
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oXmlDoc); //메모리 해제
-            }
+            this.LoadForm();
         }
 
+        /// <summary>
+        /// Form 호출(다른 폼에서 호출)
+        /// </summary>
+        /// <param name="baseForm">기준 Form</param>
+        /// <param name="baseItemUID">기준 Form의 ItemUID</param>
+        /// <param name="baseColUID">기준 Form의 Matrix ColUID</param>
+        /// <param name="baseMatRow">기준 Form의 Matrix Row</param>
         public void LoadForm(SAPbouiCOM.Form baseForm, string baseItemUID, string baseColUID, int baseMatRow)
+        {
+            oBaseForm01 = baseForm;
+            oBaseItemUID01 = baseItemUID;
+            oBaseColUID01 = baseColUID;
+            oBaseColRow01 = baseMatRow;
+
+            this.LoadForm();
+        }
+
+        /// <summary>
+        /// Form 호출
+        /// </summary>
+        private new void LoadForm()
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -111,11 +83,6 @@ namespace PSH_BOne_AddOn
 
                 oForm.SupportedModes = -1;
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
-
-                oBaseForm01 = baseForm;
-                oBaseItemUID01 = baseItemUID;
-                oBaseColUID01 = baseColUID;
-                oBaseColRow01 = baseMatRow;
 
                 oForm.Freeze(true);
                 PS_SM010_CreateItems();
@@ -264,11 +231,21 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PS_SM010_FormItemEnabled()
         {
+            bool itemBSortYN = false;
+
             try
             {
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
-                    if (oBaseForm01.TypeEx != "PS_SD005" && oBaseForm01.TypeEx != "PS_SD006" && oBaseForm01.TypeEx != "PS_PP083") //거래처별 제품단가등록[PS_SD005], 판매계획등록[PS_SD006]가 아닐 경우만
+                    for (int i = 0; i < oBaseForm01.Items.Count; i++) //BaseForm에 ItmBSort가 있는 검사
+                    {
+                        if (oBaseForm01.Items.Item(i).UniqueID == "ItmBSort")
+                        {
+                            itemBSortYN = true;
+                        }
+                    }
+
+                    if (itemBSortYN == true) //BaseForm에 ItmBSort(품목대분류) 라는 컨트롤이 존재할 경우만 코드 연동
                     {
                         oForm.Items.Item("ItmBsort").Specific.Value = oBaseForm01.Items.Item("ItmBSort").Specific.Value; //BaseForm의 제품대분류 코드 연동
                     }

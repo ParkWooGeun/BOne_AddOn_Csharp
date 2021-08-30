@@ -1890,7 +1890,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (pVal.ColUID == "WorkCode")
                         {
-                            if (Convert.ToDouble(oForm.Items.Item("BaseTime").Specific.Value) == 0)
+                            if ((oForm.Items.Item("BaseTime").Specific.Value == "" ? 0 : Convert.ToDouble(oForm.Items.Item("BaseTime").Specific.Value)) == 0)
                             {
                                 errMessage = "기준시간을 입력하지 않았습니다.";
                                 messageType = BoStatusBarMessageType.smt_Warning;
@@ -2310,6 +2310,8 @@ namespace PSH_BOne_AddOn
 
             try
             {
+                oForm.Freeze(true);
+
                 if (pVal.Before_Action == true)
                 {
                     if (pVal.ItemChanged == true)
@@ -2777,6 +2779,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                oForm.Freeze(false) ;
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet01);
             }
         }

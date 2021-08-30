@@ -313,11 +313,6 @@ namespace PSH_BOne_AddOn
 					errMessage = "제품코드(작번)은 필수사항입니다. 확인하세요.";
 					throw new Exception();
 				}
-				if (Convert.ToDouble(oForm.Items.Item("Amt").Specific.Value.ToString().Trim()) == 0)
-                {
-					errMessage = "금액은 필수사항입니다. 확인하세요.";
-					throw new Exception();
-				}
 				functionReturnValue = true;
 			}
 			catch (Exception ex)

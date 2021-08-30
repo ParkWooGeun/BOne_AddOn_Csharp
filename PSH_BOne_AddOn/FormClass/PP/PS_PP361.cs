@@ -335,6 +335,7 @@ namespace PSH_BOne_AddOn
 			string Size;     //규격
 			string OrdNum;   //작번
 			string CardCode; //거래처코드
+			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
 			try
 			{
@@ -388,6 +389,7 @@ namespace PSH_BOne_AddOn
 				oGrid01.DataTable = oForm.DataSources.DataTables.Item("ZTEMP01");
 
 				PS_PP361_SetGrid("Grid01");
+				oGrid01.AutoResizeColumns();
 			}
 			catch (Exception ex)
 			{
@@ -395,6 +397,11 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
+				if (ProgressBar01 != null)
+				{
+					ProgressBar01.Stop();
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				}
 				oForm.Freeze(false);
 			}
 		}
@@ -406,6 +413,7 @@ namespace PSH_BOne_AddOn
 		{
 			string sQry;
 			int i;
+			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
 			try
 			{
@@ -421,6 +429,7 @@ namespace PSH_BOne_AddOn
 					}
 				}
 				PS_PP361_SetGrid("Grid02");
+				oGrid02.AutoResizeColumns();
 			}
 			catch (Exception ex)
 			{
@@ -428,6 +437,11 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
+				if (ProgressBar01 != null)
+				{
+					ProgressBar01.Stop();
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				}
 				oForm.Freeze(false);
 			}
 		}
@@ -441,6 +455,7 @@ namespace PSH_BOne_AddOn
 			int i;
 			int j;
 			string errMessage = string.Empty;
+			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
 			try
 			{
@@ -487,6 +502,7 @@ namespace PSH_BOne_AddOn
 				}
 
 				PS_PP361_SetGrid("Grid03");
+				oGrid03.AutoResizeColumns();
 			}
 			catch (Exception ex)
 			{
@@ -501,6 +517,11 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
+				if (ProgressBar01 != null)
+				{
+					ProgressBar01.Stop();
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				}
 				oForm.Freeze(false);
 			}
 		}

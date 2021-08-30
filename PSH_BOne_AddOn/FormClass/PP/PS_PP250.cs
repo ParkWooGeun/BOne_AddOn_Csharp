@@ -726,7 +726,7 @@ namespace PSH_BOne_AddOn
 		{
 			int loopCount;
 			string sQry;
-
+			string sucMessage = string.Empty;
 			string PP040Entry;	//일보문서번호
 			string PP040Line;	//일보라인번호
 			string WorkCls;     //작업상태
@@ -758,7 +758,7 @@ namespace PSH_BOne_AddOn
 						ProgressBar01.Text = ProgressBar01.Value + "/" + Convert.ToString(oMat01.VisualRowCount - 1) + "건 저장중...";
 					}
 				}
-				PSH_Globals.SBO_Application.StatusBar.SetText("저장 완료!", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
+				sucMessage = "저장 완료!";
 			}
 			catch (Exception ex)
 			{
@@ -769,6 +769,10 @@ namespace PSH_BOne_AddOn
 				ProgressBar01.Stop();
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+				if (sucMessage != string.Empty)
+				{
+					PSH_Globals.SBO_Application.StatusBar.SetText(sucMessage, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
+				}
 			}
 		}
 
@@ -779,7 +783,7 @@ namespace PSH_BOne_AddOn
 		{
 			int loopCount;
 			string sQry;
-
+			string sucMessage = string.Empty;
 			string MM005Entry;			//청구번호
 			string MM005RCode;			//청구사유
 			string MM005Reasn;          //세부사항
@@ -811,7 +815,7 @@ namespace PSH_BOne_AddOn
 						ProgressBar01.Text = ProgressBar01.Value + "/" + Convert.ToString(oMat02.VisualRowCount - 1) + "건 저장중...";
 					}
 				}
-				PSH_Globals.SBO_Application.StatusBar.SetText("저장 완료!", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
+				sucMessage = "저장 완료!";
 			}
 			catch (Exception ex)
 			{
@@ -822,6 +826,10 @@ namespace PSH_BOne_AddOn
 				ProgressBar01.Stop();
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+				if (sucMessage != string.Empty)
+				{
+					PSH_Globals.SBO_Application.StatusBar.SetText(sucMessage, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
+				}
 			}
 		}
 
@@ -832,7 +840,7 @@ namespace PSH_BOne_AddOn
 		{
 			int loopCount;
 			string sQry;
-
+			string sucMessage = string.Empty;
 			string DocEntry; //공용관리번호
 			string OrdNum;	 //작번
 			string ObjCls;   //공용목적구분
@@ -864,7 +872,7 @@ namespace PSH_BOne_AddOn
 						ProgressBar01.Text = ProgressBar01.Value + "/" + Convert.ToString(oMat03.VisualRowCount - 1) + "건 저장중...";
 					}
 				}
-				PSH_Globals.SBO_Application.StatusBar.SetText("저장 완료!", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
+				sucMessage = "저장 완료!";
 			}
 			catch (Exception ex)
 			{
@@ -875,6 +883,10 @@ namespace PSH_BOne_AddOn
 				ProgressBar01.Stop();
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+				if (sucMessage != string.Empty)
+				{
+					PSH_Globals.SBO_Application.StatusBar.SetText(sucMessage, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
+				}
 			}
 		}
 

@@ -150,6 +150,8 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Items.Item("DocType").Specific.Select("20", SAPbouiCOM.BoSearchKey.psk_ByValue);
                 }
+
+                oForm.Items.Item("Focus").Visible = false; //찾기 등으로 문서를 처음 열었을 경우 focus를 지정해줄 용도의 dummy 컨트롤
             }
             catch(Exception ex)
             {
@@ -379,104 +381,63 @@ namespace PSH_BOne_AddOn
                         }
                         else if (oDS_PS_PP041H.GetValue("U_OrdType", 0).ToString().Trim() == "10" || oDS_PS_PP041H.GetValue("U_OrdType", 0).ToString().Trim() == "50") //일반,조정
                         {
-                            if (oDS_PS_PP041H.GetValue("U_OrdGbn", 0).ToString().Trim() == "104") //멀티이면
+                            if (oDS_PS_PP041H.GetValue("U_OrdGbn", 0).ToString().Trim() == "104") //멀티
                             {
                                 //MG 작업일보일 경우
-                                // 1. 기준작업지시등록 문서 생산완료 등록 여부 검사
-                                // 2. 다음 공정의 작업일보 등록 여부 검사
-                                // 3. 수정 가능 권한 보유 검사
-                                // 4. 위 내용들을 반복문을 통해서 구현 -> 행의 수만큼 조회시간 증
+                                // 1. 작업일보 실적 관리 여부(필요 : X)
+                                // 2. 기준작업지시등록 문서 생산완료 등록 여부(필요 : O)
+                                // 3. 다음 공정의 작업일보 등록 여부(필요 : O)
+                                // 4. 수정 가능 권한 보유 여부(필요 : O)
+                                // 5. V-MILL 공정(필요 : O)
+                                // 6. 위 검사 결과 따라 화면 컨트롤 Enable 설정
+                                // 7. 위 내용들을 반복문을 통해서 구현 -> 행의 수만큼 조회시간 증가
+                                // 8. 로직 변경 : 위 5가지 조건 검사를 한번에 하거나 필요 없는 조건은 pass 하도록 수정
 
-                                query01 = "  SELECT     PS_PP040H.DocEntry,";
-                                query01 += "            PS_PP040L.LineId,";
-                                query01 += "            CONVERT(NVARCHAR,PS_PP040H.DocEntry) + '-' + CONVERT(NVARCHAR,PS_PP040L.LineId) AS DocInfo,";
-                                query01 += "            PS_PP040L.U_OrdGbn AS OrdGbn,";
-                                query01 += "            PS_PP040L.U_PP030HNo AS PP030HNo,";
-                                query01 += "            PS_PP040L.U_PP030MNo AS PP030MNo,";
-                                query01 += "            PS_PP040L.U_ordMgNum AS OrdMgNum";
-                                query01 += " FROM       [@PS_PP040H] PS_PP040H";
-                                query01 += "            LEFT JOIN";
-                                query01 += "            [@PS_PP040L] PS_PP040L";
-                                query01 += "                ON PS_PP040H.DocEntry = PS_PP040L.DocEntry ";
-                                query01 += " WHERE      PS_PP040H.Canceled = 'N'";
-                                query01 += "            AND PS_PP040L.DocEntry = '" + oDS_PS_PP041H.GetValue("DocEntry", 0) + "'";
+                                // ※ MG일경우 "다음 공정의 작업일보가 등록된 경우", "마지막 공정일 때 생산완료가 등록된 경우", "수정 가능 권한 여부", "V-MILL 공정 여부"에 따라 화면 컨트롤 Enable 설정 함
+
+                                string superUserYN = dataHelpClass.GetValue("SELECT U_UseYN FROM [@PS_SY001L] A WHERE A.Code = 'A007' AND A.U_Minor = 'PS_PP041' AND A.U_RelCd = '" + PSH_Globals.oCompany.UserName + "'", 0, 1); //수정 가능 권한 보유 여부
+
+                                query01 = "EXEC PS_PP041_50 '" + oDS_PS_PP041H.GetValue("DocEntry", 0) + "'"; //수정가능여부 프로시저
                                 RecordSet01.DoQuery(query01);
 
-                                string superUserYN = dataHelpClass.GetValue("select U_UseYN  from [@PS_SY001L] a where a.Code ='A007' and a.U_Minor ='PS_PP041' and a.U_RelCd = '" + PSH_Globals.oCompany.UserName + "'", 0, 1);
-
-                                if (oDS_PS_PP041H.GetValue("DocEntry", 0) != "2") //문서번호 2번은 제외(시스템 오픈 당시 입력한 Legacy Data)
+                                if 
+                                (
+                                    oDS_PS_PP041H.GetValue("U_CpCode", 0).ToString().Trim() == "CP50101" //V-MILL 공정
+                                    || RecordSet01.Fields.Item("RESULT").Value == "FALSE" //수정가능여부
+                                ) //수정불가(컨트롤 Enable = false) 조건 체크
                                 {
-                                    for (int i = 0; i <= RecordSet01.RecordCount - 1; i++)
+                                    oForm.Items.Item("Focus").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                                    oForm.Items.Item("DocEntry").Enabled = false;
+                                    oForm.Items.Item("UseMCode").Enabled = false;
+                                    oForm.Items.Item("MoldCode").Enabled = false;
+                                    oForm.Items.Item("DocDate").Enabled = false;
+                                    oForm.Items.Item("Mat01").Enabled = false;
+                                    oForm.Items.Item("Mat02").Enabled = false;
+                                    oForm.Items.Item("Mat03").Enabled = false;
+                                    oForm.Items.Item("Button01").Enabled = false;
+
+                                    if (string.IsNullOrEmpty(superUserYN))
                                     {
-                                        if (RecordSet01.Fields.Item("OrdGbn").Value == "104") //멀티이면(위에서 이미 MG로 조건검사를 하기때문에 필요 없기는 하지만 성능에 영향이 없으므로 유지(2021.08.27 송명규))
-                                        {
-                                            string nextCpInfo = dataHelpClass.GetValue("EXEC PS_PP040_03 '" + RecordSet01.Fields.Item("OrdMgNum").Value + "'", 0, 1);
-
-                                            if (dataHelpClass.GetValue("EXEC PS_PP040_05 '" + RecordSet01.Fields.Item("OrdMgNum").Value + "'", 0, 1) == "Y") //작업일보 실적 관리여부
-                                            {
-                                                if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP080H] PS_PP080H LEFT JOIN [@PS_PP080L] PS_PP080L ON PS_PP080H.DocEntry = PS_PP080L.DocEntry WHERE Isnull(PS_PP080L.U_OIGENum,'') = '' AND PS_PP080L.U_PP030HNo = '" + RecordSet01.Fields.Item("PP030HNo").Value + "' AND PS_PP080L.U_PP030MNo = '" + RecordSet01.Fields.Item("PP030MNo").Value + "'", 0, 1)) > 0)
-                                                   //|| oDS_PS_PP041H.GetValue("U_CpCode", 0).ToString().Trim() == "CP50101" //V-mill 투입시 Core문서가 생성됨으로 날짜 수정 못하도록 변경함. 황영수 20180911
-                                                   //|| (!string.IsNullOrEmpty(nextCpInfo) //다음공정의 작업일보 존재하면 수정불가능
-                                                   //     && Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND CONVERT(NVARCHAR,PS_PP040L.U_PP030HNo) + '-' + CONVERT(NVARCHAR,PS_PP040L.U_PP030MNo) = '" + nextCpInfo + "'", 0, 1)) > 0))
-                                                {
-                                                    //goto Continue_First;
-                                                    oForm.Items.Item("Focus").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-
-                                                    if (string.IsNullOrEmpty(superUserYN))
-                                                    {
-                                                        oForm.Items.Item("DocEntry").Enabled = false;
-                                                        oForm.Items.Item("UseMCode").Enabled = false;
-                                                        oForm.Items.Item("MoldCode").Enabled = false;
-                                                        oForm.Items.Item("DocDate").Enabled = false;
-                                                        oForm.Items.Item("Mat01").Enabled = false;
-                                                        oForm.Items.Item("Mat02").Enabled = false;
-                                                        oForm.Items.Item("Mat03").Enabled = false;
-                                                        oForm.Items.Item("Button01").Enabled = false;
-
-                                                        oForm.Items.Item("1").Enabled = false;
-                                                    }
-                                                    else if (superUserYN == "Y")
-                                                    {
-                                                        oForm.Items.Item("DocEntry").Enabled = false;
-                                                        oForm.Items.Item("UseMCode").Enabled = false;
-                                                        oForm.Items.Item("MoldCode").Enabled = false;
-                                                        oForm.Items.Item("DocDate").Enabled = false;
-                                                        oForm.Items.Item("Mat01").Enabled = true;
-                                                        oForm.Items.Item("Mat02").Enabled = false;
-                                                        oForm.Items.Item("Mat03").Enabled = false;
-                                                        oForm.Items.Item("Button01").Enabled = false;
-
-                                                        oForm.Items.Item("1").Enabled = true;
-                                                    }
-
-                                                    oMat01.Columns.Item("BQty").Visible = true;
-                                                    oMat01.Columns.Item("PSum").Visible = false;
-                                                    oMat01.Columns.Item("PWeight").Visible = false;
-                                                    oMat01.Columns.Item("YWeight").Visible = false;
-                                                    oMat01.Columns.Item("NWeight").Visible = false;
-                                                }
-                                            }
-                                        }
-                                        RecordSet01.MoveNext();
+                                        oForm.Items.Item("1").Enabled = false;
+                                    }
+                                    else if (superUserYN == "Y")
+                                    {
+                                        oForm.Items.Item("1").Enabled = true;
                                     }
                                 }
-
-                                oForm.Items.Item("Focus").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                                oForm.Items.Item("DocEntry").Enabled = false;
-                                oForm.Items.Item("UseMCode").Enabled = true;
-                                oForm.Items.Item("MoldCode").Enabled = false;
-                                oForm.Items.Item("DocDate").Enabled = true;
-                                oForm.Items.Item("Mat01").Enabled = true;
-                                oForm.Items.Item("Mat02").Enabled = true;
-                                oForm.Items.Item("Mat03").Enabled = true;
-                                oForm.Items.Item("Button01").Enabled = true;
-                                oForm.Items.Item("1").Enabled = true;
-
-                                oMat01.Columns.Item("BQty").Visible = true;
-                                oMat01.Columns.Item("PSum").Visible = false;
-                                oMat01.Columns.Item("PWeight").Visible = false;
-                                oMat01.Columns.Item("YWeight").Visible = false;
-                                oMat01.Columns.Item("NWeight").Visible = false;
+                                else
+                                {
+                                    oForm.Items.Item("Focus").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                                    oForm.Items.Item("DocEntry").Enabled = false;
+                                    oForm.Items.Item("UseMCode").Enabled = true;
+                                    oForm.Items.Item("MoldCode").Enabled = false;
+                                    oForm.Items.Item("DocDate").Enabled = true;
+                                    oForm.Items.Item("Mat01").Enabled = true;
+                                    oForm.Items.Item("Mat02").Enabled = true;
+                                    oForm.Items.Item("Mat03").Enabled = true;
+                                    oForm.Items.Item("Button01").Enabled = true;
+                                    oForm.Items.Item("1").Enabled = true;
+                                }
                             }
 
                             oMat01.Columns.Item("BQty").Visible = true;
@@ -792,9 +753,12 @@ namespace PSH_BOne_AddOn
                     //MG생산 생산수량, 불량수량 없이 스크랩만 발생할 수 없습니다.
                     if (oForm.Items.Item("SOrdGbn").Specific.Value.ToString().Trim() == "104")
                     {
-                        if (Convert.ToDouble(oMat01.Columns.Item("YQty").Cells.Item(i).Specific.Value) == 0 
-                            && Convert.ToDouble(oMat01.Columns.Item("NQty").Cells.Item(i).Specific.Value) == 0 
-                            && Convert.ToDouble(oMat01.Columns.Item("ScrapWt").Cells.Item(i).Specific.Value) > 0)
+                        if 
+                        (
+                            Convert.ToDouble(oMat01.Columns.Item("YQty").Cells.Item(i).Specific.Value) == 0 
+                         && Convert.ToDouble(oMat01.Columns.Item("NQty").Cells.Item(i).Specific.Value) == 0 
+                         && Convert.ToDouble(oMat01.Columns.Item("ScrapWt").Cells.Item(i).Specific.Value) > 0
+                        )
                         {
                             errMessage = "생산수량, 불량수량없이 스크랩이 발생할 수 없습니다.";
                             oMat01.Columns.Item("YQty").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -3679,7 +3643,6 @@ namespace PSH_BOne_AddOn
                 }
                 else if (pVal.Before_Action == false)
                 {
-                    PS_PP041_FormItemEnabled();
                     if (pVal.ItemUID == "Mat01")
                     {
                         PS_PP041_AddMatrixRow01(oMat01.VisualRowCount, false);
@@ -3694,6 +3657,8 @@ namespace PSH_BOne_AddOn
                     {
                         oMat03.AutoResizeColumns();
                     }
+
+                    PS_PP041_FormItemEnabled();
                 }
             }
             catch (Exception ex)

@@ -17823,9 +17823,9 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP285.Raise_EVENT_RESIZE(System.String,SAPbouiCOM.ItemEvent,System.Boolean)">
+        <member name="M:PSH_BOne_AddOn.PS_PP285.Raise_EVENT_FORM_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
-            Raise_EVENT_RESIZE
+            Raise_EVENT_FORM_RESIZE
             </summary>
             <param name="FormUID"></param>
             <param name="pVal"></param>

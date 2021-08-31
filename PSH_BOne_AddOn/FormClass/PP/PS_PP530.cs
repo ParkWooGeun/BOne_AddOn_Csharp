@@ -153,6 +153,7 @@ namespace PSH_BOne_AddOn
 
 				oGrid.AutoResizeColumns();
 				oForm.Update();
+				PSH_Globals.SBO_Application.StatusBar.SetText("조회 완료!", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
 			}
 			catch (Exception ex)
 			{

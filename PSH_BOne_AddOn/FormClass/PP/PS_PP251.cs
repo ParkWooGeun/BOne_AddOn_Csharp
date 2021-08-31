@@ -333,6 +333,7 @@ namespace PSH_BOne_AddOn
 		{
 			int loopCount;
 			string sQry;
+			string sucMessage = string.Empty;
 
 			string StdYM;	  //기준년월
 			string OrdNum;	  //품목코드
@@ -389,7 +390,7 @@ namespace PSH_BOne_AddOn
 						ProgressBar01.Text = ProgressBar01.Value + "/" + Convert.ToString(oMat01.VisualRowCount - 1) + "건 저장중...";
 					}
 				}
-				PSH_Globals.SBO_Application.StatusBar.SetText("저장 완료!", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
+				sucMessage = "저장 완료!";
 			}
 			catch (Exception ex)
 			{
@@ -400,6 +401,10 @@ namespace PSH_BOne_AddOn
 				ProgressBar01.Stop();
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+				if (sucMessage != string.Empty)
+				{
+					PSH_Globals.SBO_Application.StatusBar.SetText(sucMessage, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
+				}
 			}
 		}
 

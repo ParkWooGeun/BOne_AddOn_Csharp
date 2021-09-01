@@ -4490,14 +4490,12 @@ namespace PSH_BOne_AddOn
                                     case "F04":
                                     case "F05":
                                     case "D11":
-                                         
+
                                         //무단결근, 유계결근, 무급휴일, 휴업, 공상휴직, 병가(휴직), 신병휴직, 정직(유결), 가사휴직
                                         oForm.Items.Item("OffDate").Specific.Value = oForm.Items.Item("GetDate").Specific.Value;
                                         oForm.Items.Item("GetTime").Specific.Value = "0000";
                                         oForm.Items.Item("OffTime").Specific.Value = "0000";
-
                                         PH_PY008_Time_ReSet();
-
                                         oForm.Items.Item("Rotation").Specific.Value = 0;
                                         break;
                                         
@@ -4507,14 +4505,14 @@ namespace PSH_BOne_AddOn
                                     case "D06":
                                     case "D07":
                                     case "H05":
+                                    case "D12":
 
                                         //훈련, 경조휴가, 하기휴가, 특별휴가, 분만휴가, 조합활동
                                         oForm.Items.Item("GetTime").Specific.Value = "0000";
                                         oForm.Items.Item("OffTime").Specific.Value = "0000";
                                         PH_PY008_Time_ReSet();
                                         oForm.Items.Item("OffDate").Specific.Value = oForm.Items.Item("GetDate").Specific.Value;
-
-                                        oForm.Items.Item("Rotation").Specific.Value = 0;
+                                         oForm.Items.Item("Rotation").Specific.Value = 0;
                                         break;
                                         
                                     case "D02":

@@ -379,7 +379,6 @@ namespace PSH_BOne_AddOn
                         oMat01.Columns.Item("NWeight").Visible = true;
                     }
                 }
-
                 PS_PP080_SetVisibleItem(false);
                 oMat01.AutoResizeColumns();
             }
@@ -2088,11 +2087,11 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// MATRIX_LOAD 이벤트
+        /// Raise_EVENT_MATRIX_LOAD
         /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        /// <param name="FormUID"></param>
+        /// <param name="pVal"></param>
+        /// <param name="BubbleEvent"></param>
         private void Raise_EVENT_MATRIX_LOAD(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             double sumQty = 0;

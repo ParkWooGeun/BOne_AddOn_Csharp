@@ -425,6 +425,7 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oMat.FlushToDataSource();
+				oDS_PS_PP015L.RemoveRecord(oDS_PS_PP015L.Size - 1);
 
 				//라인
 				if (oMat.VisualRowCount == 0)
@@ -729,7 +730,6 @@ namespace PSH_BOne_AddOn
 							if (oLast_Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
 							{
 								PS_PP015_AddMatrixRow(oMat.RowCount, false);
-								oLast_Mode = (BoFormMode)100;
 							}
 							else if (oLast_Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
 							{
@@ -1032,9 +1032,20 @@ namespace PSH_BOne_AddOn
 								}
 								oMat.FlushToDataSource();
 								oDS_PS_PP015L.RemoveRecord(oDS_PS_PP015L.Size - 1); // Mat01에 마지막라인(빈라인) 삭제
-								oMat.Clear();
 								oMat.LoadFromDataSource();
-							}
+
+                                if (oMat.RowCount == 0)
+                                {
+                                    PS_PP015_AddMatrixRow(0, false);
+                                }
+                                else
+                                {
+                                    if (!string.IsNullOrEmpty(oDS_PS_PP015L.GetValue("U_ItemCode", oMat.RowCount - 1).ToString().Trim()))
+                                    {
+                                        PS_PP015_AddMatrixRow(oMat.RowCount, false);
+                                    }
+                                }
+                            }
 							break;
 						case "7169": //엑셀 내보내기
 							break;

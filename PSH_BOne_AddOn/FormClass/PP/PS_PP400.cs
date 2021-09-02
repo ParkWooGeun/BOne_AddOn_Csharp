@@ -456,6 +456,7 @@ namespace PSH_BOne_AddOn
 				oGrid01.Columns.Item(18).RightJustified = true;
 				oGrid01.Columns.Item(20).RightJustified = true;
 				oGrid01.Columns.Item(21).RightJustified = true;
+				oGrid01.Columns.Item(25).RightJustified = true;
 				oGrid01.Columns.Item(13).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125)); //잔여납기일, 노랑
 
 				if (oGrid01.Rows.Count == 0)

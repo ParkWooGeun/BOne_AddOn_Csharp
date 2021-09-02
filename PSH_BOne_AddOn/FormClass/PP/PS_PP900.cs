@@ -110,10 +110,12 @@ namespace PSH_BOne_AddOn
 				//작지등록일시작
 				oForm.DataSources.UserDataSources.Add("RgFrDt", SAPbouiCOM.BoDataType.dt_DATE);
 				oForm.Items.Item("RgFrDt").Specific.DataBind.SetBound(true, "", "RgFrDt");
+				oForm.Items.Item("RgFrDt").Specific.Value = DateTime.Now.ToString("yyyyMM01");
 
 				//작지등록일종료
 				oForm.DataSources.UserDataSources.Add("RgToDt", SAPbouiCOM.BoDataType.dt_DATE);
 				oForm.Items.Item("RgToDt").Specific.DataBind.SetBound(true, "", "RgToDt");
+				oForm.Items.Item("RgToDt").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 
 				//거래처코드
 				oForm.DataSources.UserDataSources.Add("CardCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
@@ -277,7 +279,7 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void PS_PP900_MTX01()
 		{
-			int ErrNum = 0;
+			string SucMessage = string.Empty;
 			int loopCount;
 			string sQry;
 
@@ -317,7 +319,7 @@ namespace PSH_BOne_AddOn
 				if (oRecordSet.RecordCount == 0)
 				{
 					oMat01.Clear();
-					ErrNum = 1;
+					SucMessage = "결과가 존재하지 않습니다.";
 					throw new Exception();
 				}
 
@@ -354,12 +356,13 @@ namespace PSH_BOne_AddOn
 				}
 				oMat01.LoadFromDataSource();
 				oMat01.AutoResizeColumns();
+				SucMessage = "조회 완료!";
 			}
 			catch (Exception ex)
 			{
-				if (ErrNum == 1)
+				if (SucMessage != string.Empty)
 				{
-					dataHelpClass.MDC_GF_Message("결과가 존재하지 않습니다.", "W");
+					// ProgressBar01.Stop다음으로....
 				}
 				else
 				{
@@ -372,6 +375,10 @@ namespace PSH_BOne_AddOn
 				ProgressBar01.Stop();
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
 				oForm.Freeze(false);
+				if (SucMessage != string.Empty)
+				{
+					PSH_Globals.SBO_Application.StatusBar.SetText(SucMessage, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
+				}
 			}
 		}
 
@@ -382,7 +389,7 @@ namespace PSH_BOne_AddOn
 		private void PS_PP900_MTX02(int prmDocEntry)
 		{
 			int loopCount;
-			int ErrNum = 0;
+			string SucMessage = string.Empty;
 			string sQry;
 
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -403,7 +410,7 @@ namespace PSH_BOne_AddOn
 				if (oRecordSet.RecordCount == 0)
 				{
 					oMat02.Clear();
-					ErrNum = 1;
+					SucMessage = "결과가 존재하지 않습니다.";
 					throw new Exception();
 				}
 
@@ -432,12 +439,13 @@ namespace PSH_BOne_AddOn
 				}
 				oMat02.LoadFromDataSource();
 				oMat02.AutoResizeColumns();
+				SucMessage = "조회 완료!";
 			}
 			catch (Exception ex)
 			{
-				if (ErrNum == 1)
+				if (SucMessage != string.Empty)
 				{
-					dataHelpClass.MDC_GF_Message("결과가 존재하지 않습니다.", "W");
+					// ProgressBar01.Stop다음으로..
 				}
 				else
 				{
@@ -450,6 +458,10 @@ namespace PSH_BOne_AddOn
 				ProgressBar01.Stop();
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
 				oForm.Freeze(false);
+				if (SucMessage != string.Empty)
+				{
+					PSH_Globals.SBO_Application.StatusBar.SetText(SucMessage, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
+				}
 			}
 		}
 

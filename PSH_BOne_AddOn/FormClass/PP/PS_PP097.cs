@@ -207,16 +207,16 @@ namespace PSH_BOne_AddOn
                         oDS_PS_PP097L.InsertRecord(loopCount);
                     }
                     oDS_PS_PP097L.Offset = loopCount;
-                    oDS_PS_PP097L.SetValue("U_LineNum", loopCount, Convert.ToString(loopCount + 1));                    //라인번호
-                    oDS_PS_PP097L.SetValue("U_ColReg01", loopCount, oRecordSet01.Fields.Item("CardName").Value);        //거래처명
-                    oDS_PS_PP097L.SetValue("U_ColReg02", loopCount, oRecordSet01.Fields.Item("InspNo").Value);          //검사의뢰번호
-                    oDS_PS_PP097L.SetValue("U_ColReg03", loopCount, oRecordSet01.Fields.Item("ItemCode").Value);        //아이템코드
-                    oDS_PS_PP097L.SetValue("U_ColReg04", loopCount, oRecordSet01.Fields.Item("ItemName").Value);        //아이템명
-                    oDS_PS_PP097L.SetValue("U_ColDt01", loopCount, oRecordSet01.Fields.Item("DocDate").Value);          //검사의뢰날짜
-                    oDS_PS_PP097L.SetValue("U_ColQty01", loopCount, oRecordSet01.Fields.Item("Weight").Value);          //검사중량
-                    oDS_PS_PP097L.SetValue("U_ColReg07", loopCount, oRecordSet01.Fields.Item("PASSYN").Value);          //합부판정
-                    oDS_PS_PP097L.SetValue("U_ColReg05", loopCount, oRecordSet01.Fields.Item("PPYN").Value);            //생산확인
-                    oDS_PS_PP097L.SetValue("U_ColReg06", loopCount, oRecordSet01.Fields.Item("QMYN").Value);            //품질확인
+                    oDS_PS_PP097L.SetValue("U_LineNum", loopCount, Convert.ToString(loopCount + 1)); //라인번호
+                    oDS_PS_PP097L.SetValue("U_ColReg01", loopCount, oRecordSet01.Fields.Item("CardName").Value); //거래처명
+                    oDS_PS_PP097L.SetValue("U_ColReg02", loopCount, oRecordSet01.Fields.Item("InspNo").Value); //검사의뢰번호
+                    oDS_PS_PP097L.SetValue("U_ColReg03", loopCount, oRecordSet01.Fields.Item("ItemCode").Value); //아이템코드
+                    oDS_PS_PP097L.SetValue("U_ColReg04", loopCount, oRecordSet01.Fields.Item("ItemName").Value); //아이템명
+                    oDS_PS_PP097L.SetValue("U_ColDt01", loopCount, oRecordSet01.Fields.Item("DocDate").Value); //검사의뢰날짜
+                    oDS_PS_PP097L.SetValue("U_ColQty01", loopCount, oRecordSet01.Fields.Item("Weight").Value); //검사중량
+                    oDS_PS_PP097L.SetValue("U_ColReg07", loopCount, oRecordSet01.Fields.Item("PASSYN").Value); //합부판정
+                    oDS_PS_PP097L.SetValue("U_ColReg05", loopCount, oRecordSet01.Fields.Item("PPYN").Value); //생산확인
+                    oDS_PS_PP097L.SetValue("U_ColReg06", loopCount, oRecordSet01.Fields.Item("QMYN").Value); //품질확인
 
                     oRecordSet01.MoveNext();
                     ProgressBar01.Value += 1;
@@ -470,6 +470,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
+                oForm.Freeze(true);
                 if (pVal.BeforeAction == true)
                 {
                     if (pVal.ItemUID == "BtnSearch")
@@ -478,7 +479,8 @@ namespace PSH_BOne_AddOn
                         {
                             oMat02.Clear();
                             oDS_PS_PP097M.Clear();
-
+                            oForm.Items.Item("Sintern").Specific.String = "";
+                            oForm.Items.Item("remark").Specific.String = "";
                             PS_PP097_MTX01();              //매트릭스에 데이터 로드
                         }
                     }
@@ -517,6 +519,7 @@ namespace PSH_BOne_AddOn
             finally
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+                oForm.Freeze(false);
             }
         }
 

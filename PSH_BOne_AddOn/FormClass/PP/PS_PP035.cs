@@ -767,7 +767,7 @@ namespace PSH_BOne_AddOn
                 }
                 oMat01.LoadFromDataSource();
                 oMat01.AutoResizeColumns();
-                dataHelpClass.MDC_GF_Message("조회를 성공하엿습니다.", "S");
+                dataHelpClass.MDC_GF_Message("조회완료!", "S");
             }
             catch (Exception ex)
             {

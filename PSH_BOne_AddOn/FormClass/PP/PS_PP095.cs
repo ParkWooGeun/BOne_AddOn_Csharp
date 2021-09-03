@@ -216,12 +216,12 @@ namespace PSH_BOne_AddOn
         {
             bool functionReturnValue = false;
             int i;
-            int result;
-            int result2;
-            int maxrange;
-            int minrange;
-            int T_Weight;
-            int S_Weight = 0;
+            double result;
+            double result2;
+            double maxrange;
+            double minrange;
+            double T_Weight;
+            double S_Weight = 0;
             string sQry;
             string TCHECK;
             string PackNo;
@@ -231,7 +231,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                T_Weight = Convert.ToInt32(oDS_PS_PP095H.GetValue("U_Tweight", 0));
+                T_Weight = Convert.ToDouble(oDS_PS_PP095H.GetValue("U_TWeight", 0));
                 TCHECK = oDS_PS_PP095H.GetValue("U_TCHECK", 0).ToString().Trim();
                 PackNo2 = "0";
 
@@ -252,7 +252,7 @@ namespace PSH_BOne_AddOn
                         sQry += "'" + PackNo + "'";
 
                         oRecordSet01.DoQuery(sQry);
-                        result = oRecordSet01.Fields.Item("RESULT").Value;
+                        result = Convert.ToDouble(oRecordSet01.Fields.Item("RESULT").Value);
 
                         S_Weight += result;
                     }
@@ -261,7 +261,7 @@ namespace PSH_BOne_AddOn
 
                 oRecordSet01.DoQuery(sQry);
 
-                result2 = Convert.ToInt32(oRecordSet01.Fields.Item(0).Value);
+                result2 = Convert.ToDouble(oRecordSet01.Fields.Item(0).Value);
 
                 maxrange = S_Weight + result2;
                 minrange = S_Weight - result2;
@@ -1077,12 +1077,13 @@ namespace PSH_BOne_AddOn
                             }
                             if (pVal.ItemUID == "TWeight")
                             {
-                                if (oForm.Items.Item("TWeight").Specific.Value > 0)
+                                if (Convert.ToDouble(oForm.Items.Item("TWeight").Specific.Value) > 0)
                                 {
                                     if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                                     {
                                         BoxWeight = System.Math.Round((Convert.ToDouble(oForm.Items.Item("TWeight").Specific.Value) - Convert.ToDouble(oForm.Items.Item("S_Weight").Specific.Value)) / Convert.ToDouble(oForm.Items.Item("BoxCnt").Specific.Value), 1);
-                                        oForm.Items.Item("Comments").Specific.Value = Convert.ToString(Convert.ToInt16(oForm.Items.Item("BoxCnt").Specific.Value)) + "EA X " + Convert.ToString(BoxWeight) + "Kg = " + Convert.ToString(Convert.ToDouble(oForm.Items.Item("TWeight").Specific.Value) - Convert.ToDouble(oForm.Items.Item("S_Weight").Specific.Value)) + " Kg";
+                                        //oForm.Items.Item("Comments").Specific.Value = Convert.ToString(Convert.ToInt16(oForm.Items.Item("BoxCnt").Specific.Value)) + "EA X " + Convert.ToString(BoxWeight) + "Kg = " + Convert.ToString(Convert.ToDouble(oForm.Items.Item("TWeight").Specific.Value) - Convert.ToDouble(oForm.Items.Item("S_Weight").Specific.Value)) + " Kg";
+                                        oForm.Items.Item("Comments").Specific.Value = Convert.ToString(Convert.ToInt32(oForm.Items.Item("BoxCnt").Specific.Value)) + "EA"; //Convert.ToString(Convert.ToInt16(oForm.Items.Item("BoxCnt").Specific.Value)) + "EA X " + Convert.ToString(BoxWeight) + "Kg = " + Convert.ToString(Convert.ToDouble(oForm.Items.Item("TWeight").Specific.Value) - Convert.ToDouble(oForm.Items.Item("S_Weight").Specific.Value)) + " Kg";
                                     }
                                 }
                                 else

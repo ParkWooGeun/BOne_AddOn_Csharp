@@ -313,7 +313,6 @@ namespace PSH_BOne_AddOn
                 oDS_PS_PP048L.Offset = oRow;
                 oDS_PS_PP048L.SetValue("U_LineNum", oRow, Convert.ToString(oRow + 1));
                 oMat01.LoadFromDataSource();
-                oForm.Freeze(false);
             }
             catch (Exception ex)
             {
@@ -332,9 +331,8 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP048_Validate(string ValidateType)
         {
-            bool functionReturnValue = true;
+            bool functionReturnValue = false;
             string errMessage = string.Empty;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
             {
@@ -355,10 +353,11 @@ namespace PSH_BOne_AddOn
                 else if (ValidateType == "취소")
                 {
                 }
+
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
-                functionReturnValue = false;
                 if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
@@ -554,10 +553,9 @@ namespace PSH_BOne_AddOn
             int j = 0;
             int RetVal;
             int errDiCode;
+            string errDiMsg;
             int ResultDocNum;
             string errMessage = string.Empty;
-            string errDiMsg = string.Empty;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Documents oDIObject = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry);
 
             try
@@ -715,73 +713,6 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oDIObject);
             }
             return returnValue;
-        }
-
-        /// <summary>
-        /// PS_PP048_MTX01
-        /// </summary>
-        private void PS_PP048_MTX01()
-        {
-            int i;
-            string Query01;
-            string errMessage = string.Empty;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-            SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false); 
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-            try
-            {
-                oForm.Freeze(true);
-                Query01 = "SELECT 10";
-                oRecordSet01.DoQuery(Query01);
-
-                oMat01.Clear();
-                oMat01.FlushToDataSource();
-                oMat01.LoadFromDataSource();
-
-                if (oRecordSet01.RecordCount == 0)
-                {
-                    errMessage = "결과가 존재하지 않습니다.";
-                    throw new Exception();
-                }
-                ProgressBar01.Text = "조회시작!";
-                for (i = 0; i <= oRecordSet01.RecordCount - 1; i++)
-                {
-                    if (i != 0)
-                    {
-                        oDS_PS_PP048L.InsertRecord(i);
-                    }
-                    oDS_PS_PP048L.Offset = i;
-                    oDS_PS_PP048L.SetValue("U_COL01", i, oRecordSet01.Fields.Item(0).Value);
-                    oDS_PS_PP048L.SetValue("U_COL02", i, oRecordSet01.Fields.Item(1).Value);
-                    oRecordSet01.MoveNext();
-                    ProgressBar01.Value += 1;
-                    ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
-                }
-                oMat01.LoadFromDataSource();
-                oMat01.AutoResizeColumns();
-            }
-            catch (Exception ex)
-            {
-                if (errMessage != string.Empty)
-                {
-                    PSH_Globals.SBO_Application.MessageBox(errMessage);
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-            }
-            finally
-            {
-                if (ProgressBar01 != null)
-                {
-                    ProgressBar01.Stop();
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01); //메모리 해제
-                }
-                oForm.Freeze(false);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
-            }
         }
 
         /// <summary>
@@ -982,7 +913,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                oForm.Freeze(true);
+                oForm.Freeze(false);
             }
         }
 
@@ -1083,13 +1014,12 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemChanged == true)
                     {
-                        oForm.Freeze(true);
                         if (pVal.ItemUID == "Mat01")
                         {
                             if (pVal.ColUID == "특정컬럼")
                             {
                                 oDS_PS_PP048L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Selected.Value);
-                                if (oMat01.RowCount == pVal.Row & !string.IsNullOrEmpty(oDS_PS_PP048L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
+                                if (oMat01.RowCount == pVal.Row && !string.IsNullOrEmpty(oDS_PS_PP048L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
                                 {
                                     PS_PP048_AddMatrixRow(pVal.Row, false);
                                 }
@@ -1162,7 +1092,6 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_CHOOSE_FROM_LIST(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbouiCOM.DataTable oDataTable01 = ((SAPbouiCOM.ChooseFromListEvent)pVal).SelectedObjects; //ItemEvent를 ChooseFromListEvent로 명시적 형변환 후 SelectedObjects 할당
 
             try
@@ -1254,7 +1183,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (pVal.Before_Action == false)
                 {
-                    if (pVal.ItemUID == "Mat01" & pVal.Row == 0 & pVal.ColUID == "Check")
+                    if (pVal.ItemUID == "Mat01" && pVal.Row == 0 && pVal.ColUID == "Check")
                     {
                         oForm.Freeze(true);
                         oMat01.FlushToDataSource();

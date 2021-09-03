@@ -155,7 +155,7 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
-				DocDateFr = oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim();
+				DocDateFr = oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim()  + "01";
 				DocDateTo = oForm.Items.Item("DocDateTo").Specific.Value.ToString().Trim();
 				ItmBsort = oForm.Items.Item("ItmBsort").Specific.Value.ToString().Trim();
 
@@ -168,7 +168,7 @@ namespace PSH_BOne_AddOn
 				oRecordSet.DoQuery(sQry);
 				BPLName = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 
-				sQry = "SELECT Name FROM [@PSH_ITMBSORT] WHERE CODE = '" + oForm.Items.Item("ItmBsort").Specific.Value.ToString().Trim() + "'";
+				sQry = "SELECT Name FROM [@PSH_ITMBSORT] WHERE CODE = '" + ItmBsort + "'";
 				oRecordSet.DoQuery(sQry);
 				BsortName = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 

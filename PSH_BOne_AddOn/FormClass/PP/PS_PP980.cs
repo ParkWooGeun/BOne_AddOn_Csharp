@@ -150,7 +150,6 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("ItemType").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
 				//일자기준
-				oForm.Items.Item("DateStd").Specific.ValidValues.Add("%", "선택");
 				oForm.Items.Item("DateStd").Specific.ValidValues.Add("1", "수주납기일");
 				oForm.Items.Item("DateStd").Specific.ValidValues.Add("2", "생산완료일");
 				oForm.Items.Item("DateStd").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);

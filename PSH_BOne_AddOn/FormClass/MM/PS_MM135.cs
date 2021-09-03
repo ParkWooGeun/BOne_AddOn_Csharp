@@ -1260,7 +1260,15 @@ namespace PSH_BOne_AddOn
 						{
 							if (pVal.ColUID == "ItemCode")
 							{
-								Qty = Convert.ToInt32(oForm.Items.Item("Qty").Specific.Value.ToString().Trim());
+								if (string.IsNullOrEmpty(oForm.Items.Item("Qty").Specific.Value.ToString().Trim()))
+								{
+									Qty = 0;
+								}
+								else
+								{
+									Qty = Convert.ToInt32(oForm.Items.Item("Qty").Specific.Value.ToString().Trim());
+								}
+
 								oDS_PS_MM135L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().Trim());
 								if (oMat.RowCount == pVal.Row && !string.IsNullOrEmpty(oDS_PS_MM135L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
 								{
@@ -1478,8 +1486,14 @@ namespace PSH_BOne_AddOn
 			}
 			finally
             {
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(oDataTable01);
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(oDataTable02);
+				if (oDataTable01 != null)
+				{
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDataTable01);
+				}
+				if (oDataTable02 != null)
+				{
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDataTable02);
+				}
 			}
 		}
 

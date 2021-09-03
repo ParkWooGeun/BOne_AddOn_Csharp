@@ -437,7 +437,7 @@ namespace PSH_BOne_AddOn
 				else if (pVal.BeforeAction == false)
 				{
 				}
-				if (pVal.ItemUID == "oMat")
+				if (pVal.ItemUID == "Mat01")
 				{
 					if (pVal.Row > 0)
 					{
@@ -893,6 +893,8 @@ namespace PSH_BOne_AddOn
 						case "1287":
 							oForm.Freeze(true);
 							oDS_PS_PP284H.SetValue("DocEntry", 0, "");
+							oDS_PS_PP284H.SetValue("Canceled", 0, "N");
+							oDS_PS_PP284H.SetValue("Status", 0, "O");
 							for (i = 0; i <= oMat.VisualRowCount - 1; i++)
 							{
 								oMat.FlushToDataSource();

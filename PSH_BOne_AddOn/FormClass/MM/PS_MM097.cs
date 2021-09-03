@@ -171,7 +171,7 @@ namespace PSH_BOne_AddOn
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
 				{
 					oForm.EnableMenu("1281", true); //찾기
-					oForm.Items.Item("Code").Enabled = false;
+					oForm.Items.Item("Code").Enabled = true;
 					oForm.Items.Item("YM").Enabled = true;
 					oForm.EnableMenu("1282", true); //추가
 				}
@@ -417,8 +417,6 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				oForm = PSH_Globals.SBO_Application.Forms.ActiveForm;
-
 				if (xlsh.UsedRange.Columns.Count <= 2)
 				{
 					errMessage = "항목이 없습니다.";
@@ -459,7 +457,7 @@ namespace PSH_BOne_AddOn
 					oDS_PS_MM097L.SetValue("U_LineNum", rowCount - 2, Convert.ToString(rowCount - 1));
 					oDS_PS_MM097L.SetValue("U_ItmType", rowCount - 2, Convert.ToString(r[1].Value)); //품목구분
 					oDS_PS_MM097L.SetValue("U_ItemCode", rowCount - 2, Convert.ToString(r[2].Value)); //품목코드
-					oDS_PS_MM097L.SetValue("U_Qty", rowCount - 2, Convert.ToString(r[4].Value)); //수량
+					oDS_PS_MM097L.SetValue("U_Qty", rowCount - 2, Convert.ToString(r[3].Value)); //수량
 
 					for (loopCount = 1; loopCount <= columnCount; loopCount++)
 					{
@@ -931,6 +929,13 @@ namespace PSH_BOne_AddOn
 						case "1290": //레코드이동(다음)
 						case "1291": //레코드이동(최종)
 							PS_MM097_EnableFormItem();
+							if (oMat.VisualRowCount > 0)
+							{
+								if (!string.IsNullOrEmpty(oMat.Columns.Item("ItmType").Cells.Item(oMat.VisualRowCount).Specific.Value.ToString().Trim()))
+								{
+									PS_MM097_AddMatrixRow(oMat.RowCount, false);
+								}
+							}
 							break;
 						case "1293": //행삭제
 							if (oMat.RowCount != oMat.VisualRowCount)

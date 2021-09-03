@@ -102,6 +102,7 @@ namespace PSH_BOne_AddOn
 
 				oForm.Items.Item("Div").Specific.ValidValues.Add("1", "원재료&재공&제품 재고리스트");
 				oForm.Items.Item("Div").Specific.ValidValues.Add("2", "2.포장 재고리스트");
+				oForm.Items.Item("Div").Specific.Select("1", SAPbouiCOM.BoSearchKey.psk_ByValue);
 			}
 			catch (Exception ex)
 			{
@@ -157,7 +158,7 @@ namespace PSH_BOne_AddOn
 			{
 				if (errMessage != string.Empty)
 				{
-					PSH_Globals.SBO_Application.MessageBox(errMessage);
+					//PSH_Globals.SBO_Application.MessageBox(errMessage);
 				}
 				else
 				{
@@ -171,6 +172,10 @@ namespace PSH_BOne_AddOn
 				ProgressBar01.Stop();
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
 				oForm.Freeze(false);
+				if (errMessage != string.Empty)  //Progress stop후 표시
+				{
+					PSH_Globals.SBO_Application.MessageBox(errMessage);
+				}
 			}
 		}
 

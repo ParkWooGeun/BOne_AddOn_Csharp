@@ -85,11 +85,26 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("DocDateTo").Specific.DataBind.SetBound(true, "", "DocDateTo");
 				oForm.DataSources.UserDataSources.Item("DocDateTo").Value = DateTime.Now.ToString("yyyyMMdd");
 
-				oForm.DataSources.UserDataSources.Add("chk", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
-				oForm.Items.Item("chk").Specific.DataBind.SetBound(true, "", "chk");
+				//라디오버튼
+				oForm.DataSources.UserDataSources.Add("Rad01", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
+				oForm.DataSources.UserDataSources.Add("Rad02", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
+				oForm.DataSources.UserDataSources.Add("Rad03", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
 
-				oForm.DataSources.UserDataSources.Add("chk1", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
-				oForm.Items.Item("chk1").Specific.DataBind.SetBound(true, "", "chk1");
+				oForm.Items.Item("Rad01").Specific.DataBind.SetBound(true, "", "Rad01");
+				oForm.Items.Item("Rad02").Specific.DataBind.SetBound(true, "", "Rad02");
+				oForm.Items.Item("Rad03").Specific.DataBind.SetBound(true, "", "Rad03");
+
+				oForm.Items.Item("Rad01").Specific.ValOn = "10";
+				oForm.Items.Item("Rad01").Specific.ValOff = "0";
+				oForm.Items.Item("Rad01").Specific.Selected = true;
+
+				oForm.Items.Item("Rad02").Specific.ValOn = "20";
+				oForm.Items.Item("Rad02").Specific.ValOff = "0";
+				oForm.Items.Item("Rad02").Specific.GroupWith("Rad01");
+
+				oForm.Items.Item("Rad03").Specific.ValOn = "30";
+				oForm.Items.Item("Rad03").Specific.ValOff = "0";
+				oForm.Items.Item("Rad03").Specific.GroupWith("Rad02");
 			}
 			catch (Exception ex)
 			{
@@ -168,17 +183,17 @@ namespace PSH_BOne_AddOn
 					BPLId = "%";
 				}
 
-				if (oForm.Items.Item("chk").Specific.Checked == false && oForm.Items.Item("chk1").Specific.Checked == false)
+				if (oForm.Items.Item("Rad01").Specific.Selected == true)
 				{
 					WinTitle = "[PS_PP636_01] 원재료 입고현황(집계)";
 					ReportName = "PS_PP636_01.RPT";
 				}
-				else if (oForm.Items.Item("chk").Specific.Checked == true && oForm.Items.Item("chk1").Specific.Checked == false)
+				else if (oForm.Items.Item("Rad02").Specific.Selected == true)
 				{
 					WinTitle = "[PS_PP100_01] 원재료 일자별 입고현황";
 					ReportName = "PS_PP100_01.RPT";
 				}
-				else if (oForm.Items.Item("chk").Specific.Checked == false && oForm.Items.Item("chk1").Specific.Checked == true)
+				else if (oForm.Items.Item("Rad03").Specific.Selected == true)
 				{
 					WinTitle = "[PS_PP705_01] 원재료 입고현황 세부내역";
 					ReportName = "PS_PP705_01.RPT";

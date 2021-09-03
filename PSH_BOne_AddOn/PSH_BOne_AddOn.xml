@@ -29055,11 +29055,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP048.PS_PP048_MTX01">
-            <summary>
-            PS_PP048_MTX01
-            </summary>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_PP048.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event

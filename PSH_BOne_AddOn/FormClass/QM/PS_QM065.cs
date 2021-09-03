@@ -719,6 +719,10 @@ namespace PSH_BOne_AddOn
 						case "1289": //레코드이동(이전)
 						case "1290": //레코드이동(다음)
 						case "1291": //레코드이동(최종)
+							if (oMat.VisualRowCount > 0)
+							{
+						 	    PS_QM065_AddMatrixRow(1, oMat.RowCount, false);
+							}
 							break;
 						case "1293": //행삭제
 							if (oMat.RowCount != oMat.VisualRowCount)

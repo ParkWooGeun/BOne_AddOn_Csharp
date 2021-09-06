@@ -42370,6 +42370,14 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD950.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_CLICK
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pval"></param>
+            <param name="BubbleEvent"></param>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_SD950.Raise_EVENT_KEY_DOWN(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Raise_EVENT_KEY_DOWN

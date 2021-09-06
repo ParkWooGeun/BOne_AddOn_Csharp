@@ -337,7 +337,7 @@ namespace PSH_BOne_AddOn
                     //Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
                     break;
                 case SAPbouiCOM.BoEventTypes.et_CLICK: //6
-                    //Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
+                    Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
                     break;
                 case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
                     Raise_EVENT_DOUBLE_CLICK(FormUID, ref pVal, ref BubbleEvent);
@@ -423,6 +423,36 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
+			}
+		}
+
+		/// <summary>
+		/// Raise_EVENT_CLICK
+		/// </summary>
+		/// <param name="FormUID"></param>
+		/// <param name="pval"></param>
+		/// <param name="BubbleEvent"></param>
+		private void Raise_EVENT_CLICK(string FormUID, ref SAPbouiCOM.ItemEvent pval, ref bool BubbleEvent)
+		{
+			try
+			{
+				if (pval.BeforeAction == true)
+				{
+					if (pval.ItemUID == "Mat01")
+					{
+						if (pval.Row > 0)
+						{
+							oMat.SelectRow(pval.Row, true, false);
+						}
+					}
+				}
+				else if (pval.BeforeAction == false)
+				{
+				}
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 			}
 		}
 

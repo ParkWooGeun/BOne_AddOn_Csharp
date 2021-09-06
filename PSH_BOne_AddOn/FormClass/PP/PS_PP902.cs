@@ -148,7 +148,7 @@ namespace PSH_BOne_AddOn
 				oForm.DataSources.DataTables.Item("DataTable").ExecuteQuery(sQry);
 				oGrid.DataTable = oForm.DataSources.DataTables.Item("DataTable");
 
-				if (oGrid.Rows.Count == 0)
+				if (oGrid.Rows.Count <= 1)
 				{
 					errMessage = "결과가 존재하지 않습니다.";
 					throw new Exception();

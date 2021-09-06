@@ -192,9 +192,9 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("Code").Enabled = true;
                     oForm.Items.Item("Name").Enabled = false;
                     oForm.Items.Item("Remark").Enabled = false;
-                    oMat01.Columns.Item("Minor").Editable = false;
-                    oMat01.Columns.Item("CdName").Editable = false;
-                    oMat01.Columns.Item("RelCd").Editable = false;
+                    oMat01.Columns.Item("Minor").Editable = true;
+                    oMat01.Columns.Item("CdName").Editable = true;
+                    oMat01.Columns.Item("RelCd").Editable = true;
 
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)

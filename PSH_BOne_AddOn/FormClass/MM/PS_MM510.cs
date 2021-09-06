@@ -463,9 +463,9 @@ namespace PSH_BOne_AddOn
                     {
                         if (!string.IsNullOrEmpty(oForm.Items.Item("DocEntry").Specific.Value))
                         {
-                            PS_MM007 PS_MM007 = new PS_MM007();
-                            PS_MM007.LoadForm(oForm.Items.Item("DocEntry").Specific.Value);
-                            BubbleEvent = false;
+                            //PS_MM007 PS_MM007 = new PS_MM007();
+                            //PS_MM007.LoadForm(oForm.Items.Item("DocEntry").Specific.Value);
+                            //BubbleEvent = false;
                         }
                     }
                 }

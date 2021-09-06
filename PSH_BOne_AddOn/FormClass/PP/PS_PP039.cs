@@ -1207,7 +1207,7 @@ namespace PSH_BOne_AddOn
                                 BubbleEvent = false;
                                 return;
                             }
-                            PS_PP039_MTX02(oForm.Items.Item("GridRow").Specific.Value);
+                            PS_PP039_MTX02(Convert.ToInt32(oForm.Items.Item("GridRow").Specific.Value));
                             PS_PP039_AddMatrixRow(oMat01.RowCount, false);
                         }
                         else

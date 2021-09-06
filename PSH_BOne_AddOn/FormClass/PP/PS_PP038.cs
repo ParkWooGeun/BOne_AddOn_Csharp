@@ -532,34 +532,34 @@ namespace PSH_BOne_AddOn
                     oMat01.AddRow();
                     oDS_PS_PP038L.Offset = i;
                     oDS_PS_PP038L.SetValue("U_LineNum", i, Convert.ToString(i + 1));
-                    oDS_PS_PP038L.SetValue("U_ColReg01", i, oRecordSet01.Fields.Item("Check").Value.ToString().Trim());         //선택
-                    oDS_PS_PP038L.SetValue("U_ColReg02", i, oRecordSet01.Fields.Item("InputGbn").Value.ToString().Trim());      //투입구분
-                    oDS_PS_PP038L.SetValue("U_ColReg03", i, oRecordSet01.Fields.Item("ItemCode").Value.ToString().Trim());      //품목코드
-                    oDS_PS_PP038L.SetValue("U_ColReg04", i, oRecordSet01.Fields.Item("ItemName").Value.ToString().Trim());      //품목이름
-                    oDS_PS_PP038L.SetValue("U_ColReg05", i, oRecordSet01.Fields.Item("ItemGpCd").Value.ToString().Trim());      //품목그룹
-                    oDS_PS_PP038L.SetValue("U_ColReg06", i, oRecordSet01.Fields.Item("BatchNum").Value.ToString().Trim());      //배치번호
-                    oDS_PS_PP038L.SetValue("U_ColReg07", i, oRecordSet01.Fields.Item("PartNo").Value.ToString().Trim());        //PartNo
-                    oDS_PS_PP038L.SetValue("U_ColQty01", i, oRecordSet01.Fields.Item("Weight").Value.ToString().Trim());        //중량
-                    oDS_PS_PP038L.SetValue("U_ColReg08", i, oRecordSet01.Fields.Item("Unit").Value.ToString().Trim());          //단위
-                    oDS_PS_PP038L.SetValue("U_ColDt01", i, oRecordSet01.Fields.Item("DueDate").Value.ToString("yyyyMMdd"));     //납기요구일
-                    oDS_PS_PP038L.SetValue("U_ColReg10", i, oRecordSet01.Fields.Item("CntcCode").Value.ToString().Trim());      //사번
-                    oDS_PS_PP038L.SetValue("U_ColReg11", i, oRecordSet01.Fields.Item("CntcName").Value.ToString().Trim());      //이름
-                    oDS_PS_PP038L.SetValue("U_ColDt02", i, oRecordSet01.Fields.Item("CGDate").Value.ToString("yyyyMMdd"));      //청구일자
-                    oDS_PS_PP038L.SetValue("U_ColReg13", i, oRecordSet01.Fields.Item("ProcType").Value.ToString().Trim());      //조달방식
-                    oDS_PS_PP038L.SetValue("U_ColReg15", i, oRecordSet01.Fields.Item("ImportYN").Value.ToString().Trim());      //수입품여부(2018.09.12 송명규, 김석태 과장 요청)
-                    oDS_PS_PP038L.SetValue("U_ColReg16", i, oRecordSet01.Fields.Item("EmergYN").Value.ToString().Trim());       //긴급여부(2018.09.12 송명규, 김석태 과장 요청)
-                    oDS_PS_PP038L.SetValue("U_ColReg20", i, oRecordSet01.Fields.Item("RCode").Value.ToString().Trim());         //재청구사유
-                    oDS_PS_PP038L.SetValue("U_ColReg21", i, oRecordSet01.Fields.Item("RName").Value.ToString().Trim());         //재청구사유내용
-                    oDS_PS_PP038L.SetValue("U_ColReg14", i, oRecordSet01.Fields.Item("Comments").Value.ToString().Trim());      //비고
-                    oDS_PS_PP038L.SetValue("U_ColNum01", i, oRecordSet01.Fields.Item("DocEntry").Value.ToString().Trim());      //DocEntry
-                    oDS_PS_PP038L.SetValue("U_ColNum02", i, oRecordSet01.Fields.Item("LineId").Value.ToString().Trim());        //LineId
-                    oDS_PS_PP038L.SetValue("U_ColNum03", i, oRecordSet01.Fields.Item("VisOrder").Value.ToString().Trim());      //VisOrder
-                    oDS_PS_PP038L.SetValue("U_ColReg18", i, oRecordSet01.Fields.Item("Object").Value.ToString().Trim());        //Object
-                    oDS_PS_PP038L.SetValue("U_ColReg19", i, oRecordSet01.Fields.Item("LogInst").Value.ToString().Trim());       //LogInst
-                    oDS_PS_PP038L.SetValue("U_ColNum04", i, oRecordSet01.Fields.Item("LineNum").Value.ToString().Trim());       //LineNum
+                    oDS_PS_PP038L.SetValue("U_ColReg01", i, oRecordSet01.Fields.Item("Check").Value.ToString().Trim()); //선택
+                    oDS_PS_PP038L.SetValue("U_ColReg02", i, oRecordSet01.Fields.Item("InputGbn").Value.ToString().Trim()); //투입구분
+                    oDS_PS_PP038L.SetValue("U_ColReg03", i, oRecordSet01.Fields.Item("ItemCode").Value.ToString().Trim()); //품목코드
+                    oDS_PS_PP038L.SetValue("U_ColReg04", i, oRecordSet01.Fields.Item("ItemName").Value.ToString().Trim()); //품목이름
+                    oDS_PS_PP038L.SetValue("U_ColReg05", i, oRecordSet01.Fields.Item("ItemGpCd").Value.ToString().Trim());  
+                    oDS_PS_PP038L.SetValue("U_ColReg06", i, oRecordSet01.Fields.Item("BatchNum").Value.ToString().Trim()); //배치번호
+                    oDS_PS_PP038L.SetValue("U_ColReg07", i, oRecordSet01.Fields.Item("PartNo").Value.ToString().Trim()); //PartNo
+                    oDS_PS_PP038L.SetValue("U_ColQty01", i, oRecordSet01.Fields.Item("Weight").Value.ToString().Trim()); //중량
+                    oDS_PS_PP038L.SetValue("U_ColReg08", i, oRecordSet01.Fields.Item("Unit").Value.ToString().Trim()); //단위
+                    oDS_PS_PP038L.SetValue("U_ColDt01", i, oRecordSet01.Fields.Item("DueDate").Value.ToString("yyyyMMdd")); //납기요구일
+                    oDS_PS_PP038L.SetValue("U_ColReg10", i, oRecordSet01.Fields.Item("CntcCode").Value.ToString().Trim()); //사번
+                    oDS_PS_PP038L.SetValue("U_ColReg11", i, oRecordSet01.Fields.Item("CntcName").Value.ToString().Trim()); //이름
+                    oDS_PS_PP038L.SetValue("U_ColDt02", i, oRecordSet01.Fields.Item("CGDate").Value.ToString("yyyyMMdd")); //청구일자
+                    oDS_PS_PP038L.SetValue("U_ColReg13", i, oRecordSet01.Fields.Item("ProcType").Value.ToString().Trim()); //조달방식
+                    oDS_PS_PP038L.SetValue("U_ColReg15", i, oRecordSet01.Fields.Item("ImportYN").Value.ToString().Trim()); //수입품여부(2018.09.12 송명규, 김석태 과장 요청)
+                    oDS_PS_PP038L.SetValue("U_ColReg16", i, oRecordSet01.Fields.Item("EmergYN").Value.ToString().Trim()); //긴급여부(2018.09.12 송명규, 김석태 과장 요청)
+                    oDS_PS_PP038L.SetValue("U_ColReg20", i, oRecordSet01.Fields.Item("RCode").Value.ToString().Trim()); //재청구사유
+                    oDS_PS_PP038L.SetValue("U_ColReg21", i, oRecordSet01.Fields.Item("RName").Value.ToString().Trim()); //재청구사유내용
+                    oDS_PS_PP038L.SetValue("U_ColReg14", i, oRecordSet01.Fields.Item("Comments").Value.ToString().Trim()); //비고
+                    oDS_PS_PP038L.SetValue("U_ColNum01", i, oRecordSet01.Fields.Item("DocEntry").Value.ToString().Trim()); //DocEntry
+                    oDS_PS_PP038L.SetValue("U_ColNum02", i, oRecordSet01.Fields.Item("LineId").Value.ToString().Trim()); //LineId
+                    oDS_PS_PP038L.SetValue("U_ColNum03", i, oRecordSet01.Fields.Item("VisOrder").Value.ToString().Trim()); //VisOrder
+                    oDS_PS_PP038L.SetValue("U_ColReg18", i, oRecordSet01.Fields.Item("Object").Value.ToString().Trim()); //Object
+                    oDS_PS_PP038L.SetValue("U_ColReg19", i, oRecordSet01.Fields.Item("LogInst").Value.ToString().Trim()); //LogInst
+                    oDS_PS_PP038L.SetValue("U_ColNum04", i, oRecordSet01.Fields.Item("LineNum").Value.ToString().Trim()); //LineNum
 
                     oRecordSet01.MoveNext();
-                    ProgressBar01.Value = ProgressBar01.Value + 1;
+                    ProgressBar01.Value += 1;
                     ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
                 oMat01.LoadFromDataSource();
@@ -699,6 +699,7 @@ namespace PSH_BOne_AddOn
                         oRecordSet01.DoQuery(sQry);
                     }
                 }
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
@@ -1034,9 +1035,9 @@ namespace PSH_BOne_AddOn
                             BubbleEvent = false;
                             return;
                         }
-                        PS_PP038_MTX02(oForm.Items.Item("GridRow").Specific.Value);
+                        PS_PP038_MTX02(Convert.ToInt32(oForm.Items.Item("GridRow").Specific.Value));
                         PS_PP038_AddMatrixRow(oMat01.RowCount, false);
-
+                        PSH_Globals.SBO_Application.MessageBox("수정완료");
                     }
                     else if (pVal.ItemUID == "BtnDel")
                     {
@@ -1047,11 +1048,9 @@ namespace PSH_BOne_AddOn
                                 BubbleEvent = false;
                                 return;
                             }
-                            PS_PP038_MTX02(oForm.Items.Item("GridRow").Specific.Value);
+                            PS_PP038_MTX02(Convert.ToInt32(oForm.Items.Item("GridRow").Specific.Value));
                             PS_PP038_AddMatrixRow(oMat01.RowCount, false);
-                        }
-                        else
-                        {
+                            PSH_Globals.SBO_Application.MessageBox("삭제완료");
                         }
                     }
                     else if (pVal.ItemUID == "Mat01" & pVal.ColUID == "Check" & pVal.Row > 0)

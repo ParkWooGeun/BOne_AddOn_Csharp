@@ -550,9 +550,9 @@ namespace PSH_BOne_AddOn
                     Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                //case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
-                //    Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
+                    Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                    break;
 
                 //case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD: //12
                 //    Raise_EVENT_DATASOURCE_LOAD(FormUID, ref pVal, ref BubbleEvent);
@@ -605,6 +605,35 @@ namespace PSH_BOne_AddOn
                 //case SAPbouiCOM.BoEventTypes.et_Drag: //39
                 //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
                 //    break;
+            }
+        }
+
+
+        /// <summary>
+        /// Raise_EVENT_MATRIX_LOAD
+        /// </summary>
+        /// <param name="FormUID"></param>
+        /// <param name="pVal"></param>
+        /// <param name="BubbleEvent"></param>
+        private void Raise_EVENT_MATRIX_LOAD(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            try
+            {
+                if (pVal.Before_Action == true)
+                {
+                }
+                else if (pVal.Before_Action == false)
+                {
+
+                    PS_PP940_AddMatrixRow(oMat01.VisualRowCount, false);
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
             }
         }
 

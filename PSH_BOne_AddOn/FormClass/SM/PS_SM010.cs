@@ -390,13 +390,11 @@ namespace PSH_BOne_AddOn
             int i = 0;
             int Today_Renamed;
             string sQry;
-            string sQry02;
             string ItemCode;
             string errMessage = string.Empty;
             SAPbouiCOM.Matrix oBaseMat01;
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            SAPbobsCOM.Recordset oRecordset02 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
                 if (oBaseForm01 == null)
@@ -444,10 +442,8 @@ namespace PSH_BOne_AddOn
                     sQry += " WHERE     ItemCode = '" + oGrid01.DataTable.Columns.Item("품목코드").Cells.Item(oGrid01.Rows.SelectedRows.Item(i, SAPbouiCOM.BoOrderType.ot_SelectionOrder)).Value + "'";
 
                     oRecordSet01.DoQuery(sQry);
-
-                    sQry02 = " Select convert(char(8),GetDate(),112) ";
-                    oRecordset02.DoQuery(sQry02);
-                    Today_Renamed = Convert.ToInt32(oRecordset02.Fields.Item(0).Value.ToString().Trim());
+                    
+                    Today_Renamed = Convert.ToInt32(DateTime.Now.ToString("yyyyMMdd"));
 
                     if (Today_Renamed >= 20150701)
                     {

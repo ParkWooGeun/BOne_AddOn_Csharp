@@ -436,10 +436,10 @@ namespace PSH_BOne_AddOn
                 else if (oBaseForm01.TypeEx == "PS_MM007")
                 {
                     sQry = "  SELECT    CASE";
-                    sQry += "               WHEN LEFT(U_ItmBsort, 1) = '4' THEN '20'";
-                    sQry += "               WHEN LEFT(U_ItmBsort, 1) = '3' THEN '10'";
-                    sQry += "               WHEN LEFT(U_ItmBsort, 1) = '2' THEN '50'";
-                    sQry += "           END";
+                    sQry += " WHEN LEFT(U_ItmBsort, 1) = '4' THEN '20'";
+                    sQry += " WHEN LEFT(U_ItmBsort, 1) = '3' THEN '10'";
+                    sQry += " WHEN LEFT(U_ItmBsort, 1) = '2' THEN '50'";
+                    sQry += " END";
                     sQry += " FROM      OITM";
                     sQry += " WHERE     ItemCode = '" + oGrid01.DataTable.Columns.Item("품목코드").Cells.Item(oGrid01.Rows.SelectedRows.Item(i, SAPbouiCOM.BoOrderType.ot_SelectionOrder)).Value + "'";
 
@@ -447,7 +447,7 @@ namespace PSH_BOne_AddOn
 
                     sQry02 = " Select convert(char(8),GetDate(),112) ";
                     oRecordset02.DoQuery(sQry02);
-                    Today_Renamed = oRecordset02.Fields.Item(0).Value.ToString().Trim();
+                    Today_Renamed = Convert.ToInt32(oRecordset02.Fields.Item(0).Value.ToString().Trim());
 
                     if (Today_Renamed >= 20150701)
                     {

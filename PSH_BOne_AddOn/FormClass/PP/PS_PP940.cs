@@ -376,7 +376,7 @@ namespace PSH_BOne_AddOn
                     errMessage = "등록일자를 선택하지 않았습니다.";
                     throw new Exception();
                 }
-                else if (string.IsNullOrEmpty(oForm.Items.Item("ItmBsort").Specific.Value))
+                else if (string.IsNullOrEmpty(oForm.Items.Item("ItmBSort").Specific.Value))
                 {
                     errMessage = "품목대분류를 입력하지 않았습니다.";
                     throw new Exception();
@@ -750,9 +750,9 @@ namespace PSH_BOne_AddOn
                             }
                         }
                     }
-                    if (string.IsNullOrEmpty(oForm.Items.Item("ItmBsort").Specific.Value))
+                    if (string.IsNullOrEmpty(oForm.Items.Item("ItmBSort").Specific.Value))
                     {
-                        dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "ItmBsort", ""); //품목대분류 포맷서치 적용
+                        dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "ItmBSort", ""); //품목대분류 포맷서치 적용
                     }
                 }
                 else if (pVal.Before_Action == false)
@@ -890,7 +890,7 @@ namespace PSH_BOne_AddOn
                         }
                         else
                         {
-                            if (pVal.ItemUID == "ItmBsort")
+                            if (pVal.ItemUID == "ItmBSort")
                             {
                                 oDS_PS_PP940H.SetValue("U_ItmBName", 0, dataHelpClass.Get_ReData("Name", "Code", "[@PSH_ITMBSORT]", "'" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'",""));
                             }

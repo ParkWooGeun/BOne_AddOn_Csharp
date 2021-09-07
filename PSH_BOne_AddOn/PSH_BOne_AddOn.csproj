@@ -195,7 +195,6 @@
     <Compile Include="FormClass\FI\PS_FI961.cs" />
     <Compile Include="FormClass\FI\PS_FI962.cs" />
     <Compile Include="FormClass\FX\PS_FX241.cs" />
-    <Compile Include="FormClass\MM\PS_MM007.cs" />
     <Compile Include="FormClass\MM\PS_MM510.cs" />
     <Compile Include="FormClass\MM\PS_MM031.cs" />
     <Compile Include="FormClass\MM\PS_MM010_S.cs" />
@@ -1339,7 +1338,6 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM510.srf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM007.srf" />
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM951.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM040.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM041.srf" />

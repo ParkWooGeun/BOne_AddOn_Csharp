@@ -152,11 +152,13 @@ namespace PSH_BOne_AddOn
             string Param06;
             string Param07;
             string Param08;
+            SAPbouiCOM.ProgressBar ProgBar01 = null; 
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
                 oForm.Freeze(true);
+                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회중!", 0, false);
                 Param01 = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
                 Param02 = oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim();
                 Param03 = oForm.Items.Item("DocDateTo").Specific.Value.ToString().Trim();
@@ -198,6 +200,10 @@ namespace PSH_BOne_AddOn
                 oForm.Update();
                 oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
+                if (ProgBar01 != null)
+                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                }
             }
         }
 
@@ -343,6 +349,8 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
+            SAPbouiCOM.ProgressBar ProgBar01 = null;
+
             try
             {
                 if (pVal.BeforeAction == true)
@@ -463,9 +471,9 @@ namespace PSH_BOne_AddOn
                     {
                         if (!string.IsNullOrEmpty(oForm.Items.Item("DocEntry").Specific.Value))
                         {
-                            PS_MM007 PS_MM007 = new PS_MM007();
-                            PS_MM007.LoadForm(oForm.Items.Item("DocEntry").Specific.Value);
-                            BubbleEvent = false;
+                            //PS_MM007 PS_MM007 = new PS_MM007();
+                            //PS_MM007.LoadForm(oForm.Items.Item("DocEntry").Specific.Value);
+                            //BubbleEvent = false;
                         }
                     }
                 }

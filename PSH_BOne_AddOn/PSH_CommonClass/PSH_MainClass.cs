@@ -5,7 +5,6 @@ using SAPbouiCOM;
 using Scripting;
 using PSH_BOne_AddOn.Code;
 using PSH_BOne_AddOn.Data;
-using PSH_BOne_AddOn.Core;
 
 namespace PSH_BOne_AddOn
 {

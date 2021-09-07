@@ -19,7 +19,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		public override void LoadForm()
+		public override void LoadForm(string oFormDocEntry)
 		{
 
 			int i;

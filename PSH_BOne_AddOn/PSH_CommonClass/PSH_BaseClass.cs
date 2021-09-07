@@ -7,19 +7,7 @@
     {
         public SAPbouiCOM.Form oForm;
 
-        public virtual void LoadForm()
-        {
-        }
-
         public virtual void LoadForm(string oFormDocEntry)
-        {
-        }
-
-        public virtual void VirtualFormItemEnabled()
-        {
-        }
-
-        public virtual void LoadForm(string FromDate, string ToDate, string BPLID, string StdDt, string TabID)
         {
         }
 
@@ -38,6 +26,5 @@
         public virtual void Raise_RightClickEvent(string FormUID, ref SAPbouiCOM.ContextMenuInfo pval, ref bool BubbleEvent)
         {
         }
-
     }
 }

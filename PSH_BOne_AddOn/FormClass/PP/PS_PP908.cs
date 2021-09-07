@@ -142,7 +142,7 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				PS_PP952 oTempClass = new PS_PP952();
-				oTempClass.LoadForm();
+				oTempClass.LoadForm("");
 			}
 			catch (Exception ex)
 			{

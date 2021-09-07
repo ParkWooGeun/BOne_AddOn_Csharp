@@ -490,9 +490,7 @@ namespace PSH_BOne_AddOn
 
                     oRecordSet01.DoQuery(sQry);
 
-                    sQry02 = " Select convert(char(8),GetDate(),112) ";
-                    oRecordset02.DoQuery(sQry02);
-                    Today_Renamed = oRecordset02.Fields.Item(0).Value.ToString().Trim();
+                    Today_Renamed = Convert.ToInt32(DateTime.Now.ToString("yyyyMMdd"));
 
                     if (oBaseForm01.Items.Item("OrdType").Specific.Value == "10" || oBaseForm01.Items.Item("OrdType").Specific.Value == "20" || oBaseForm01.Items.Item("OrdType").Specific.Value == "50")
                     {

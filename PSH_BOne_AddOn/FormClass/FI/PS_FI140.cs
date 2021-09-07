@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.DataPack;
@@ -17,7 +17,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		public override void LoadForm(string oFormDocEntry01)
+		public override void LoadForm(string oFormDocEntry)
 		{
 			int i = 0;
 			MSXML2.DOMDocument oXmlDoc01 = new MSXML2.DOMDocument();
@@ -47,11 +47,11 @@ namespace PSH_BOne_AddOn
 				CreateItems();
 				ComboBox_Setting();
 
-				oForm.EnableMenu(("1283"), false);				// 삭제
-				oForm.EnableMenu(("1286"), false);				// 닫기
-				oForm.EnableMenu(("1287"), false);				// 복제
-				oForm.EnableMenu(("1284"), false);				// 취소
-				oForm.EnableMenu(("1293"), false);              // 행삭제
+				oForm.EnableMenu("1283", false);				// 삭제
+				oForm.EnableMenu("1286", false);				// 닫기
+				oForm.EnableMenu("1287", false);				// 복제
+				oForm.EnableMenu("1284", false);				// 취소
+				oForm.EnableMenu("1293", false);              // 행삭제
 			}
 			catch (Exception ex)
 			{

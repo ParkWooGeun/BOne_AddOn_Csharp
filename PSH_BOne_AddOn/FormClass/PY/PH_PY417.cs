@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 
@@ -19,8 +19,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -47,13 +47,12 @@ namespace PSH_BOne_AddOn
 
                 oForm.SupportedModes = -1;
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
-                //oForm.DataBrowser.BrowseBy="DocEntry" '//UDO방식일때
+                //oForm.DataBrowser.BrowseBy="DocEntry"
 
                 oForm.Freeze(true);
                 PH_PY417_CreateItems();
                 PH_PY417_EnableMenus();
-                PH_PY417_SetDocument(oFormDocEntry01);
-
+                PH_PY417_SetDocument(oFormDocEntry);
             }
             catch (Exception ex)
             {
@@ -201,21 +200,20 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY417_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY417_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY417_FormItemEnabled();
-                    //Call PH_PY417_AddMatrixRow(0, True) '//UDO방식일때
                 }
                 else
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY417_FormItemEnabled();
-                    oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry01;
+                    oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -393,7 +391,7 @@ namespace PSH_BOne_AddOn
 
         /// <summary>
         /// PH_PY417_PY109_Update
-        /// /// </summary>
+        /// </summary>
         private void PH_PY417_PY109_Update()
         {
             string sQry = null;
@@ -458,7 +456,7 @@ namespace PSH_BOne_AddOn
 
         /// <summary>
         /// PH_PY417_PY109_Update
-        /// /// </summary>
+        /// </summary>
         private void PH_PY417_AddMatrixRow()
         {
             int oRow = 0;
@@ -527,7 +525,6 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(false);
             }
         }
-
         /// <summary>
         /// Form Item Event
         /// </summary>
@@ -863,7 +860,7 @@ namespace PSH_BOne_AddOn
                     }
                 }
                 oMat01.FlushToDataSource();
-                //// Matrix 마지막 행 삭제(DB 저장시)
+                // Matrix 마지막 행 삭제(DB 저장시)
                 if (oDS_PH_PY417B.Size > 1)
                 {
                     oDS_PH_PY417B.RemoveRecord((oDS_PH_PY417B.Size - 1));
@@ -1021,7 +1018,7 @@ namespace PSH_BOne_AddOn
         {
             string sQry = string.Empty;
             string StdYear = string.Empty;            //년도
-            string CLTCOD = String.Empty;            //사업장
+            string CLTCOD = string.Empty;            //사업장
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -1235,13 +1232,13 @@ namespace PSH_BOne_AddOn
                         //            Case "1293":
                         //                Call Raise_EVENT_ROW_DELETE(FormUID, pval, BubbleEvent)
                         case "1281":
-                            ////문서찾기
+                            //문서찾기
                             PH_PY417_FormItemEnabled();
                             PH_PY417_AddMatrixRow();
                             oForm.Items.Item("DocEntry").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             break;
                         case "1282":
-                            ////문서추가
+                            //문서추가
                             PH_PY417_FormItemEnabled();
                             PH_PY417_AddMatrixRow();
                             break;
@@ -1252,7 +1249,7 @@ namespace PSH_BOne_AddOn
                             PH_PY417_FormItemEnabled();
                             break;
                         case "1293":
-                            //// 행삭제
+                            // 행삭제
 
                             if (oMat01.RowCount != oMat01.VisualRowCount)
                             {

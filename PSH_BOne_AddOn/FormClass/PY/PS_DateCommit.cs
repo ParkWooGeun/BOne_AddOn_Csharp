@@ -19,7 +19,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면 호출
         /// </summary>
-        public override void LoadForm(string oFormDocEntry01)
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -685,7 +685,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 if (pVal.Before_Action == true)
-                {
+                {   
                 }
                 else if (pVal.Before_Action == false)
                 {

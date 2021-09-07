@@ -9,7 +9,7 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PS_CO920 : PSH_BaseClass
     {
-        public string oFormUniqueID;
+        private string oFormUniqueID;
         public SAPbouiCOM.Grid oGrid01;
         private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값       
@@ -18,8 +18,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 

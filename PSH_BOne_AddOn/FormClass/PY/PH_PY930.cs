@@ -12,12 +12,12 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PH_PY930 : PSH_BaseClass
     {
-        public string oFormUniqueID01;
+        private string oFormUniqueID01;
 
         /// <summary>
         /// 화면 호출
         /// </summary>
-        public override void LoadForm(string oFormDocEntry01)
+        public override void LoadForm(string oFormDocEntry)
         {
             int i = 0;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -133,7 +133,7 @@ namespace PSH_BOne_AddOn
         ///  <summary>
         ///  화면의 아이템 Enable 설정
         ///  </summary>
-        public void PH_PY930_FormItemEnabled()
+        private void PH_PY930_FormItemEnabled()
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
@@ -449,7 +449,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 if (pVal.Before_Action == true)
-                {
+                {   
                 }
                 else if (pVal.Before_Action == false)
                 {

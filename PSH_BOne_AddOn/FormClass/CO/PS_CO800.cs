@@ -24,8 +24,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -547,7 +547,7 @@ namespace PSH_BOne_AddOn
                 oMat01.FlushToDataSource();
 
                 j = 0;
-                oDIObjectFW.DocDate = DateTime.ParseExact(oForm.Items.Item("DocDate").Specific.VALUE, "yyyyMMdd", null);
+                oDIObjectFW.DocDate = DateTime.ParseExact(oForm.Items.Item("DocDate").Specific.Value, "yyyyMMdd", null);
                 oDIObjectFW.UserFields.Fields.Item("U_Comments").Value = "Convert Meterial";
 
                 for (i = 1; i < oMat01.VisualRowCount; i++)
@@ -580,7 +580,7 @@ namespace PSH_BOne_AddOn
                 }
 
                 j = 0;
-                oDIObjectRV.DocDate = DateTime.ParseExact(oForm.Items.Item("DocDate").Specific.VALUE, "yyyyMMdd", null);
+                oDIObjectRV.DocDate = DateTime.ParseExact(oForm.Items.Item("DocDate").Specific.Value, "yyyyMMdd", null);
                 oDIObjectRV.UserFields.Fields.Item("U_Comments").Value = "Convert Meterial";
                 for (i = 1; i < oMat01.VisualRowCount; i++)
                 {
@@ -689,8 +689,8 @@ namespace PSH_BOne_AddOn
                 oMat01.FlushToDataSource();
 
                 j = 0;
-                oDIObjectRV.DocDate = DateTime.ParseExact(oForm.Items.Item("DocDate").Specific.VALUE, "yyyyMMdd", null);
-                oDIObjectRV.UserFields.Fields.Item("U_CancDoc").Value = oForm.Items.Item("OIGEFw").Specific.VALUE;
+                oDIObjectRV.DocDate = DateTime.ParseExact(oForm.Items.Item("DocDate").Specific.Value, "yyyyMMdd", null);
+                oDIObjectRV.UserFields.Fields.Item("U_CancDoc").Value = oForm.Items.Item("OIGEFw").Specific.Value;
                 oDIObjectRV.UserFields.Fields.Item("U_Comments").Value = "Convert Meterial Reverse";
                 for (i = 1; i < oMat01.VisualRowCount; i++)
                 {
@@ -722,8 +722,8 @@ namespace PSH_BOne_AddOn
                 }
 
                 j = 0;
-                oDIObjectFW.DocDate = DateTime.ParseExact(oForm.Items.Item("DocDate").Specific.VALUE, "yyyyMMdd", null);
-                oDIObjectFW.UserFields.Fields.Item("U_CancDoc").Value = oForm.Items.Item("OIGNFw").Specific.VALUE;
+                oDIObjectFW.DocDate = DateTime.ParseExact(oForm.Items.Item("DocDate").Specific.Value, "yyyyMMdd", null);
+                oDIObjectFW.UserFields.Fields.Item("U_CancDoc").Value = oForm.Items.Item("OIGNFw").Specific.Value;
                 oDIObjectFW.UserFields.Fields.Item("U_Comments").Value = "Convert Meterial Reverse";
                 for (i = 1; i < oMat01.VisualRowCount; i++)
                 {
@@ -946,7 +946,7 @@ namespace PSH_BOne_AddOn
                     }
                     else if (pVal.ItemUID == "Btn03")
                     {
-                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE && oForm.Items.Item("ChFwYN").Specific.VALUE == "Y")
+                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE && oForm.Items.Item("ChFwYN").Specific.Value == "Y")
                         {
                             if (Cancel_oDIObject(1) == false)
                             {
@@ -1298,7 +1298,7 @@ namespace PSH_BOne_AddOn
                                     sQry = " SELECT ROUND(SUM(transValue)/(SUM(InQty)-SUM(OutQty)),0) AS PRICE";
                                     sQry += " FROM OINM";
                                     sQry += "  WHERE ITEMCODE ='" + oMat01.Columns.Item("ItemCode").Cells.Item(pVal.Row).Specific.Value + "'";
-                                    sQry += "AND DocDate <= DATEADD(d,-1,CONVERT(DATETIME,CONVERT(CHAR(6),DATEADD(m,0,'" + oForm.Items.Item("DocDate").Specific.VALUE + "'),112) + '01'))";
+                                    sQry += "AND DocDate <= DATEADD(d,-1,CONVERT(DATETIME,CONVERT(CHAR(6),DATEADD(m,0,'" + oForm.Items.Item("DocDate").Specific.Value + "'),112) + '01'))";
 
                                     oRecordSet01.DoQuery(sQry);
                                     price = oRecordSet01.Fields.Item(0).Value.ToString().Trim();

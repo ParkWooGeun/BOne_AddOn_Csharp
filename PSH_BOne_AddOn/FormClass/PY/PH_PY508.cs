@@ -23,8 +23,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -58,7 +58,7 @@ namespace PSH_BOne_AddOn
                 PH_PY508_FormItemEnabled();
                 PH_PY508_ComboBox_Setting(); //콤보박스 세팅
                 PH_PY508_EnableMenus();
-                PH_PY508_SetDocument(oFormDocEntry01);
+                PH_PY508_SetDocument(oFormDocEntry);
                 PH_PY508_FormResize();
                 PH_PY508_LoadCaption();
                 PH_PY508_FormReset(); //폼초기화 추가(2013.01.29 송명규)
@@ -300,12 +300,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY508_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY508_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY508_FormItemEnabled();
                 }
@@ -313,7 +313,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY508_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -407,7 +407,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면 초기화
         /// </summary>
-        public void PH_PY508_FormReset()
+        private void PH_PY508_FormReset()
         {
             SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -519,7 +519,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 데이터 조회
         /// </summary>
-        public void PH_PY508_MTX01()
+        private void PH_PY508_MTX01()
         {
             short i;
             short errNum = 0;
@@ -1382,7 +1382,7 @@ namespace PSH_BOne_AddOn
                     else if (pVal.ItemUID == "BtnDelete") //삭제
                     {
 
-                        if (PSH_Globals.SBO_Application.MessageBox("삭제 후에는 복구가 불가능합니다. 삭제하시겠습니까?", Convert.ToInt32("1"), "예", "아니오") == Convert.ToDouble("1"))
+                        if (PSH_Globals.SBO_Application.MessageBox("삭제 후에는 복구가 불가능합니다. 삭제하시겠습니까?", 1, "예", "아니오") == 1)
                         {
                             PH_PY508_DeleteData();
                             PH_PY508_FormReset();

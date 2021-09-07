@@ -25,7 +25,7 @@
 //////****************************************************************************
 
 
-//		public string oFormUniqueID;
+//		private string oFormUniqueID;
 //		public SAPbouiCOM.Form oForm;
 //		private SAPbobsCOM.Recordset sRecordset;
 //		private SAPbouiCOM.Matrix oMat1;
@@ -349,7 +349,7 @@
 ////*******************************************************************
 //// .srf 파일로부터 폼을 로드한다.
 ////*******************************************************************
-//		public void LoadForm()
+//		private void LoadForm()
 //		{
 //			 // ERROR: Not supported in C#: OnErrorStatement
 
@@ -384,13 +384,13 @@
 //			CreateItems();
 //			oForm.Freeze(false);
 
-//			oForm.EnableMenu(("1281"), false);
+//			oForm.EnableMenu("1281", false);
 //			/// 찾기
-//			oForm.EnableMenu(("1282"), true);
+//			oForm.EnableMenu("1282", true);
 //			/// 추가
-//			oForm.EnableMenu(("1284"), false);
+//			oForm.EnableMenu("1284", false);
 //			/// 취소
-//			oForm.EnableMenu(("1293"), false);
+//			oForm.EnableMenu("1293", false);
 //			/// 행삭제
 //			oForm.Update();
 //			oForm.Visible = true;
@@ -412,7 +412,7 @@
 ////*******************************************************************
 ////// ItemEventHander
 ////*******************************************************************
-//		public void Raise_FormItemEvent(ref object FormUID, ref SAPbouiCOM.ItemEvent pval, ref bool BubbleEvent)
+//		private void Raise_FormItemEvent(ref object FormUID, ref SAPbouiCOM.ItemEvent pval, ref bool BubbleEvent)
 //		{
 
 //			string sQry = null;
@@ -522,7 +522,7 @@
 ////*******************************************************************
 ////// MenuEventHander
 ////*******************************************************************
-//		public void Raise_FormMenuEvent(ref string FormUID, ref SAPbouiCOM.IMenuEvent pval, ref bool BubbleEvent)
+//		private void Raise_FormMenuEvent(ref string FormUID, ref SAPbouiCOM.IMenuEvent pval, ref bool BubbleEvent)
 //		{
 
 //			if (pval.BeforeAction == true) {
@@ -545,7 +545,7 @@
 //			return;
 //		}
 
-//		public void Raise_FormDataEvent(ref string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
+//		private void Raise_FormDataEvent(ref string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
 //		{
 //			int i = 0;
 //			string sQry = null;
@@ -914,7 +914,7 @@
 //			//UPGRADE_WARNING: oRecordSet.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			PSABUN = oRecordSet.Fields.Item("sabun").Value;
 
-//			while (!(oRecordSet.EoF)) {
+//			while (!oRecordSet.EoF) {
 
 //				//UPGRADE_WARNING: oRecordSet.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //				C_SAUP = oRecordSet.Fields.Item("saup").Value;
@@ -1055,7 +1055,7 @@
 //			oRecordSet.DoQuery(sQry);
 
 //			DCount = 0;
-//			while (!(oRecordSet.EoF)) {
+//			while (!oRecordSet.EoF) {
 
 //				//D RECORD MOVE
 //				DCount = DCount + 1;

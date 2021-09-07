@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 
@@ -18,11 +18,11 @@ namespace PSH_BOne_AddOn
         private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
         private int oSeq;
 
-        /// <summary>
-        /// Form 호출
-        /// </summary>
-        public override void LoadForm(string oFormDocEntry01)
-        {
+		/// <summary>
+		/// Form 호출
+		/// </summary>
+		public override void LoadForm(string oFormDocEntry)
+		{
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
 			try
@@ -60,7 +60,7 @@ namespace PSH_BOne_AddOn
 				oForm.EnableMenu("1287", true); //복제
 				oForm.EnableMenu("1284", true); //취소
 				oForm.EnableMenu("1293", true); //행삭제
-			}
+            }
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);

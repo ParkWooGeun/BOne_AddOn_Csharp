@@ -16,7 +16,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면 호출
         /// </summary>
-        public override void LoadForm(string oFormDocEntry01)
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -361,7 +361,7 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                if (PSH_Globals.SBO_Application.MessageBox(" 선택한자료를 삭제하시겠습니까? ?", Convert.ToInt32("2"), "예", "아니오") == Convert.ToDouble("1"))
+                if (PSH_Globals.SBO_Application.MessageBox(" 선택한자료를 삭제하시겠습니까? ?", 2, "예", "아니오") == 1)
                 {
                     if (oDS_PH_PY123.Rows.Count > 0)
                     {
@@ -740,7 +740,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 if (pVal.Before_Action == true)
-                {
+                {   
                 }
                 else if (pVal.Before_Action == false)
                 {

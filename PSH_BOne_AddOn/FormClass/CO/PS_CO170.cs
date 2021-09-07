@@ -20,8 +20,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			MSXML2.DOMDocument oXmlDoc01 = new MSXML2.DOMDocument();
 
@@ -425,7 +425,7 @@ namespace PSH_BOne_AddOn
 							if (pVal.ActionSuccess == true)
 							{
 								PS_CO170_FormItemEnabled();
-								PS_CO170_AddMatrixRow(oMat01.RowCount, true);   //UDO방식일때
+								PS_CO170_AddMatrixRow(oMat01.RowCount, true);   
 							}
 						}
 						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)

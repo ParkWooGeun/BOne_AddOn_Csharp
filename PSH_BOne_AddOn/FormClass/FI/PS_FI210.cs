@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.DataPack;
@@ -17,7 +17,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		public override void LoadForm(string oFormDocEntry01)
+		public override void LoadForm(string oFormDocEntry)
 		{
 			int i = 0;
 			MSXML2.DOMDocument oXmlDoc01 = new MSXML2.DOMDocument();
@@ -47,11 +47,11 @@ namespace PSH_BOne_AddOn
 				CreateItems();
 				ComboBox_Setting();
 
-				oForm.EnableMenu(("1283"), false);				// 삭제
-				oForm.EnableMenu(("1286"), false);				// 닫기
-				oForm.EnableMenu(("1287"), false);				// 복제
-				oForm.EnableMenu(("1284"), false);				// 취소
-				oForm.EnableMenu(("1293"), false);              // 행삭제
+				oForm.EnableMenu("1283", false);				// 삭제
+				oForm.EnableMenu("1286", false);				// 닫기
+				oForm.EnableMenu("1287", false);				// 복제
+				oForm.EnableMenu("1284", false);				// 취소
+				oForm.EnableMenu("1293", false);              // 행삭제
 			}
 			catch (Exception ex)
 			{
@@ -108,7 +108,7 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void ComboBox_Setting()
 		{
-			string sQry = String.Empty;
+			string sQry = string.Empty;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
@@ -126,7 +126,7 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("PrcCode").Specific.ValidValues.Add("0", "전체");
 				sQry = "Select PrcCode, PrcName From [OPRC] Where DimCode = '1' Order by PrcCode";
 				oRecordSet.DoQuery(sQry);
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("PrcCode").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
@@ -201,17 +201,17 @@ namespace PSH_BOne_AddOn
 		[STAThread]
 		private void Print_Query()
 		{
-			string WinTitle = String.Empty;
-			string ReportName = String.Empty;
-			string OptBtnValue = String.Empty;
+			string WinTitle = string.Empty;
+			string ReportName = string.Empty;
+			string OptBtnValue = string.Empty;
 
-			string YYYYMM = String.Empty;
-			string SAcctCode = String.Empty;
-			string EAcctCode = String.Empty;
-			string BPLId = String.Empty;
-			string PrcCode = String.Empty;
+			string YYYYMM = string.Empty;
+			string SAcctCode = string.Empty;
+			string EAcctCode = string.Empty;
+			string BPLId = string.Empty;
+			string PrcCode = string.Empty;
 
-			string sQry = String.Empty;
+			string sQry = string.Empty;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();

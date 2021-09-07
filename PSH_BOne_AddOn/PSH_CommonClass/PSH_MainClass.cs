@@ -159,7 +159,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// ODBC 연결용 변수 초기화
         /// </summary>
-        public void Initialize_ODBC_Variable()
+        private void Initialize_ODBC_Variable()
         {
             string sQry;
             string ServerName;
@@ -614,7 +614,7 @@ namespace PSH_BOne_AddOn
                     {
                         for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
                         {
-                            if (PSH_Globals.classAllList[i].Name == "S" + pVal.FormTypeEx) //접두어 "S" 포함
+                           if (PSH_Globals.classAllList[i].Name == "S" + pVal.FormTypeEx) //접두어 "S" 포함
                             {
                                 Type type = Type.GetType("PSH_BOne_AddOn.Core.S" + pVal.FormTypeEx); //Core폼과 동일한 클래스 Type 생성
                                 dynamic baseClass = Activator.CreateInstance(type); //Core폼과 동일한 클래스 Instance 생성

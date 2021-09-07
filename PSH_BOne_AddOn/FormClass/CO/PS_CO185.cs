@@ -19,8 +19,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			MSXML2.DOMDocument oXmlDoc01 = new MSXML2.DOMDocument();
 
@@ -363,7 +363,7 @@ namespace PSH_BOne_AddOn
 		private void LoadData()
 		{
 			int i;
-			string sQry = String.Empty;
+			string sQry = string.Empty;
 			string iBPLId;
 
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -742,10 +742,10 @@ namespace PSH_BOne_AddOn
 				{
 					SubMain.Remove_Forms(oFormUniqueID01);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO185H);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO185L);
-                }
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO185H);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO185L);
+				}
 			}
 			catch (Exception ex)
 			{

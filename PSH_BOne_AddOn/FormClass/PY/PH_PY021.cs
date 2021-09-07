@@ -19,8 +19,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -45,13 +45,13 @@ namespace PSH_BOne_AddOn
 
                 oForm.SupportedModes = -1;
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
-                //oForm.DataBrowser.BrowseBy="DocEntry" '//UDO방식일때
+                //oForm.DataBrowser.BrowseBy="DocEntry" '
 
                 oForm.Freeze(true);
                 PH_PY021_CreateItems();
                 PH_PY021_ComboBox_Setting();
                 PH_PY021_EnableMenus();
-                PH_PY021_SetDocument(oFormDocEntry01);
+                PH_PY021_SetDocument(oFormDocEntry);
                 PH_PY021_FormResize();
 
                 oForm.Items.Item("MSTCOD").Click(); //사번 포커스
@@ -182,21 +182,21 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY021_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY021_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY021_FormItemEnabled();
-                    ////Call PH_PY021_AddMatrixRow(0, True) '//UDO방식일때
+                    ////Call PH_PY021_AddMatrixRow(0, True) '
                 }
                 else
                 {
                     //        oForm.Mode = fm_FIND_MODE
                     //        Call PH_PY021_FormItemEnabled
-                    //        oForm.Items("DocEntry").Specific.Value = oFormDocEntry01
+                    //        oForm.Items("DocEntry").Specific.Value = oFormDocEntry
                     //        oForm.Items("1").Click ct_Regular
                 }
             }
@@ -1100,7 +1100,7 @@ namespace PSH_BOne_AddOn
                 else if (pVal.Before_Action == false)
                 {
                     PH_PY021_FormItemEnabled();
-                    //PH_PY021_AddMatrixRow(oMat01.VisualRowCount) '//UDO방식
+                    //PH_PY021_AddMatrixRow(oMat01.VisualRowCount) '
                 }
             }
             catch (Exception ex)

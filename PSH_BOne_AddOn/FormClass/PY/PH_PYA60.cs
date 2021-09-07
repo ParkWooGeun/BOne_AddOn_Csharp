@@ -12,12 +12,12 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PH_PYA60 : PSH_BaseClass
     {
-        public string oFormUniqueID01;
+        private string oFormUniqueID01;
 
         /// <summary>
         /// 화면 호출
         /// </summary>
-        public override void LoadForm(string oFormDocEntry01)
+        public override void LoadForm(string oFormDocEntry)
         {
             int i = 0;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -81,7 +81,7 @@ namespace PSH_BOne_AddOn
                 sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P144' AND U_UseYN= 'Y'";
                 oRecordSet.DoQuery(sQry);
                 oForm.Items.Item("CLTCOD").Specific.ValidValues.Add("%", "전 사업장");
-                while (!(oRecordSet.EoF))
+                while (!oRecordSet.EoF)
                 {
                     oForm.Items.Item("CLTCOD").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.Trim(), oRecordSet.Fields.Item(1).Value.Trim());
                     oRecordSet.MoveNext();
@@ -273,7 +273,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 if (pVal.Before_Action == true)
-                {
+                {   
                 }
                 else if (pVal.Before_Action == false)
                 {

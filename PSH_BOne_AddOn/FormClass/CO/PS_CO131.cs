@@ -12,13 +12,13 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PS_CO131 : PSH_BaseClass
     {
-        public string oFormUniqueID;
+        private string oFormUniqueID;
 
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -298,7 +298,6 @@ namespace PSH_BOne_AddOn
                     }
                     else if (pVal.ItemUID == "Btn01")
                     {
-
                         System.Threading.Thread thread = new System.Threading.Thread(PS_CO131_Print_Report01);
                         thread.SetApartmentState(System.Threading.ApartmentState.STA);
                         thread.Start();

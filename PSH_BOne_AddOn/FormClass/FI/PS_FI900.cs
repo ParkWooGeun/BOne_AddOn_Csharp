@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 
@@ -15,7 +15,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		public override void LoadForm(string oFormDocEntry01)
+		public override void LoadForm(string oFormDocEntry)
 		{
 			MSXML2.DOMDocument oXmlDoc01 = new MSXML2.DOMDocument();
 
@@ -41,10 +41,10 @@ namespace PSH_BOne_AddOn
 
 				oForm.Freeze(true);
 				CreateItems();
-				oForm.EnableMenu("1283", false);				//// 제거
-				oForm.EnableMenu("1284", false);				//// 취소
-				oForm.EnableMenu("1287", false);				//// 복원
-				oForm.EnableMenu("1293", false);                //// 행삭제
+				oForm.EnableMenu("1283", false); // 제거
+				oForm.EnableMenu("1284", false); // 취소
+				oForm.EnableMenu("1287", false); // 복원
+				oForm.EnableMenu("1293", false); // 행삭제
 			}
 			catch (Exception ex)
 			{
@@ -64,7 +64,7 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void CreateItems()
 		{
-			string sQry = String.Empty;
+			string sQry = string.Empty;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 

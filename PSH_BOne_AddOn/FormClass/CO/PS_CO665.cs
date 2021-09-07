@@ -19,8 +19,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -52,7 +52,7 @@ namespace PSH_BOne_AddOn
                 PS_CO665_ComboBox_Setting();
 
                 oForm.Items.Item("StdYear").Specific.Value = DateTime.Now.ToString("yyyy");
-			}
+            }
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);

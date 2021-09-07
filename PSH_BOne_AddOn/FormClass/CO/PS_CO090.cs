@@ -19,8 +19,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			MSXML2.DOMDocument oXmlDoc01 = new MSXML2.DOMDocument();
 
@@ -46,8 +46,8 @@ namespace PSH_BOne_AddOn
 				oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 				oForm.DataBrowser.BrowseBy = "Code";				// UDO방식일때
 
-				oForm.EnableMenu(("1293"), true);				// 행삭제
-				oForm.EnableMenu(("1287"), true);				// 복제
+				oForm.EnableMenu("1293", true);				// 행삭제
+				oForm.EnableMenu("1287", true);				// 복제
 
 				oForm.Freeze(true);
 				CreateItems();
@@ -845,10 +845,10 @@ namespace PSH_BOne_AddOn
 				{
 					SubMain.Remove_Forms(oFormUniqueID01);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO090H);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO090L);
-                }
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO090H);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO090L);
+				}
 			}
 			catch (Exception ex)
 			{

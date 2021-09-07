@@ -18,7 +18,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면 호출
         /// </summary>
-        public override void LoadForm(string oFormDocEntry01)
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -48,11 +48,11 @@ namespace PSH_BOne_AddOn
                 PS_CO130_CreateItems();
                 PS_CO130_ComboBox_Setting();
 
-                oForm.EnableMenu("1283", true);               //// 삭제
-                oForm.EnableMenu("1287", true);               //// 복제
-                oForm.EnableMenu("1286", false);              //// 닫기
-                oForm.EnableMenu("1284", false);              //// 취소
-                oForm.EnableMenu("1293", true);               //// 행삭제
+                oForm.EnableMenu("1283", true); // 삭제
+                oForm.EnableMenu("1287", true); // 복제
+                oForm.EnableMenu("1286", false); // 닫기
+                oForm.EnableMenu("1284", false); // 취소
+                oForm.EnableMenu("1293", true); // 행삭제
             }
             catch (Exception ex)
             {

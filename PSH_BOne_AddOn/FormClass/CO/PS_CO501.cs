@@ -18,8 +18,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -49,10 +49,10 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PS_CO501_CreateItems();
 
-                oForm.EnableMenu("1283", true);                //// 제거
-                oForm.EnableMenu("1293", true);                //// 행삭제
-                oForm.EnableMenu("1287", true);                //// 복제
-                oForm.EnableMenu("1284", false);                //// 취소
+                oForm.EnableMenu("1283", true); // 제거
+                oForm.EnableMenu("1293", true); // 행삭제
+                oForm.EnableMenu("1287", true); // 복제
+                oForm.EnableMenu("1284", false); // 취소
 
                 PS_CO501_FormItemEnabled();
                 PS_CO501_FormClear();
@@ -644,9 +644,9 @@ namespace PSH_BOne_AddOn
                             break;
                         case "1282": //추가
                             break;
-                        case "1288": //레코드이동(최초)
+                        case "1288": //레코드이동(다음)
                         case "1289": //레코드이동(이전)
-                        case "1290": //레코드이동(다음)
+                        case "1290": //레코드이동(최초)
                         case "1291": //레코드이동(최종)
                             break;
                     }
@@ -677,9 +677,9 @@ namespace PSH_BOne_AddOn
                             PS_CO501_FormClear();
                             oForm.Items.Item("ItmBsort").Click(SAPbouiCOM.BoCellClickType.ct_Collapsed);
                             break;
-                        case "1288": //레코드이동(최초)
+                        case "1288": //레코드이동(다음)
                         case "1289": //레코드이동(이전)
-                        case "1290": //레코드이동(다음)
+                        case "1290": //레코드이동(최초)
                         case "1291": //레코드이동(최종)
                             PS_CO501_FormItemEnabled();
                             break;

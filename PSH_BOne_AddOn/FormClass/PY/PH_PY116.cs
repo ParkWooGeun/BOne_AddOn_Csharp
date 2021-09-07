@@ -32,8 +32,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
             try
@@ -62,7 +62,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY116_CreateItems();
                 PH_PY116_EnableMenus();
-                PH_PY116_SetDocument(oFormDocEntry01);
+                PH_PY116_SetDocument(oFormDocEntry);
             }
             catch (Exception ex)
             {
@@ -131,12 +131,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY116_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY116_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY116_FormItemEnabled();
                     PH_PY116_AddMatrixRow();
@@ -145,7 +145,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY116_FormItemEnabled();
-                    oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry01;
+                    oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -504,7 +504,7 @@ namespace PSH_BOne_AddOn
 
                 PSH_Globals.oCompany.StartTransaction();
                 var _with1 = f_oJournalEntries;
-                //// 전표전체적용
+                // 전표전체적용
                 //.Series = "14"             '/ 시리즈:주요 분개개체번호
                 //.Series = MDC_SetMod.Get_Series_No("30")    '시리즈:주요 분개개체번호
                 _with1.JournalEntries.DueDate = Convert.ToDateTime(oDocDate);                //"04/26/2007"   '/ 만기일

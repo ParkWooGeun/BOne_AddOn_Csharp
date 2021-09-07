@@ -1,11 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.DataPack;
 using PSH_BOne_AddOn.Form;
-//using Microsoft.VisualBasic;
-
 
 namespace PSH_BOne_AddOn
 {
@@ -14,18 +12,16 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PH_PY405 : PSH_BaseClass
     {
-        public string oFormUniqueID01;
-
-        //'// 그리드 사용시
-        public SAPbouiCOM.Grid oGrid1;
-        public SAPbouiCOM.DataTable oDS_PH_PY405;
-        public SAPbouiCOM.Matrix oMat01;
+        private string oFormUniqueID01;
+        private SAPbouiCOM.Grid oGrid1;
+        private SAPbouiCOM.DataTable oDS_PH_PY405;
+        private SAPbouiCOM.Matrix oMat01;
         private SAPbouiCOM.DBDataSource oDS_PH_PY405L;
 
         /// <summary>
         /// 화면 호출
         /// </summary>
-        public override void LoadForm(string oFormDocEntry01)
+        public override void LoadForm(string oFormDocEntry)
         {
             int i = 0;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -326,8 +322,8 @@ namespace PSH_BOne_AddOn
                 {
                     SubMain.Remove_Forms(oFormUniqueID01);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid1);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid1);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY405);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY405L);
                 }
@@ -523,7 +519,6 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(false);
             }
         }
-
         /// <summary>
         /// ITEM_PRESSED 이벤트
         /// </summary>
@@ -1301,7 +1296,7 @@ namespace PSH_BOne_AddOn
                 payymd = oForm.Items.Item("payymd").Specific.Value;
 
                 
-                if (PSH_Globals.SBO_Application.MessageBox(" 선택한자료를 삭제하시겠습니까? ?", Convert.ToInt32("2"), "예", "아니오") == Convert.ToDouble("1"))
+                if (PSH_Globals.SBO_Application.MessageBox(" 선택한자료를 삭제하시겠습니까? ?", 2, "예", "아니오") == 1)
                 {
                     if (oDS_PH_PY405.Rows.Count > 0)
                     {

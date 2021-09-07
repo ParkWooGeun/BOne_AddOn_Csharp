@@ -18,8 +18,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -153,12 +153,12 @@ namespace PSH_BOne_AddOn
         private void PS_FX241_Print_Report01()
         {
 
-            string WinTitle = String.Empty;
-            string ReportName = String.Empty;
-            string BPLID = String.Empty;
-            string YM = String.Empty;
-            string Div = String.Empty;
-            string Gubun = String.Empty;
+            string WinTitle = string.Empty;
+            string ReportName = string.Empty;
+            string BPLID = string.Empty;
+            string YM = string.Empty;
+            string Div = string.Empty;
+            string Gubun = string.Empty;
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
@@ -168,7 +168,7 @@ namespace PSH_BOne_AddOn
             {
                 List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>(); //Parameter
                 List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
-                //// 조회조건문
+                // 조회조건문
                 BPLID = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
                 YM = codeHelpClass.Left(oForm.Items.Item("YM").Specific.Value.ToString().Trim(), 4) + codeHelpClass.Right(oForm.Items.Item("YM").Specific.Value.ToString().Trim(), 2);
                 Div = oForm.Items.Item("Div").Specific.Selected.Value.ToString().Trim();

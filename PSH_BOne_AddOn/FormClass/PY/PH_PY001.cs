@@ -54,8 +54,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -86,8 +86,7 @@ namespace PSH_BOne_AddOn
                 oForm.Visible = true;
                 PH_PY001_CreateItems();
                 PH_PY001_EnableMenus();
-                PH_PY001_SetDocument(oFormDocEntry01);
-                //PH_PY001_FormResize
+                PH_PY001_SetDocument(oFormDocEntry);
             }
             catch (Exception ex)
             {
@@ -509,7 +508,7 @@ namespace PSH_BOne_AddOn
                 }
                 oColumn.DisplayDesc = true;
 
-                //// 본인과의 관계
+                // 본인과의 관계
                 oColumn = oMat3.Columns.Item("FamGun");
                 sQry = " SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P121' AND U_UseYN = 'Y' ORDER BY CAST(U_Code AS NUMERIC) ";
                 oRecordSet.DoQuery(sQry);
@@ -1075,12 +1074,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY001_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY001_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY001_FormItemEnabled();
                     PH_PY001_AddMatrixRow();
@@ -1090,7 +1089,7 @@ namespace PSH_BOne_AddOn
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY001_FormItemEnabled();
 
-                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -2762,8 +2761,11 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                ProgressBar01.Stop();
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
                 oForm.Freeze(false);
             }

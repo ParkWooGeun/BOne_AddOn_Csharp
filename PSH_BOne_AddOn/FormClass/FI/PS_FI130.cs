@@ -17,7 +17,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		public override void LoadForm(string oFormDocEntry01)
+		public override void LoadForm(string oFormDocEntry)
 		{
 			int i = 0;
 			MSXML2.DOMDocument oXmlDoc01 = new MSXML2.DOMDocument();
@@ -347,11 +347,11 @@ namespace PSH_BOne_AddOn
 			{
 				if (pVal.Before_Action == true)
 				{
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm); //메모리 해제
-                    SubMain.Remove_Forms(oFormUniqueID01);
-                }
+				}
 				else if (pVal.Before_Action == false)
 				{
+					SubMain.Remove_Forms(oFormUniqueID01);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
 				}
 			}
 			catch (Exception ex)

@@ -122,7 +122,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Div").Specific.ValidValues.Add("12", "부자재 배부규칙 누락 체크(기계)");
                 oForm.Items.Item("Div").Specific.ValidValues.Add("13", "작업지시일자 VS 작업일보일자 확인(기계)");
                 oForm.Items.Item("Div").Specific.ValidValues.Add("14", "납품전기일 대비 송장전기일 비교");
-                oForm.Items.Item("Div").Specific.ValidValues.Add("15", "분말 원자료투입 체크(신동)");
+                oForm.Items.Item("Div").Specific.ValidValues.Add("15", "분말 원자료투입 체크(소재)");
                 oForm.Items.Item("Div").Specific.ValidValues.Add("16", "생산완료 오류체크");
                 oForm.Items.Item("Div").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 

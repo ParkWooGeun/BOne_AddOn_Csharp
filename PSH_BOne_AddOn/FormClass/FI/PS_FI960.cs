@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.DataPack;
 using System.Collections.Generic;
@@ -416,7 +416,7 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				if (pVal.Before_Action == true)
-				{
+				{	
 				}
 				else if (pVal.Before_Action == false)
 				{

@@ -4020,7 +4020,7 @@ namespace PSH_BOne_AddOn
                 //    break;
 
                 case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
-                    Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 //case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
@@ -4495,14 +4495,12 @@ namespace PSH_BOne_AddOn
                                     case "F04":
                                     case "F05":
                                     case "D11":
-                                         
+
                                         //무단결근, 유계결근, 무급휴일, 휴업, 공상휴직, 병가(휴직), 신병휴직, 정직(유결), 가사휴직
                                         oForm.Items.Item("OffDate").Specific.Value = oForm.Items.Item("GetDate").Specific.Value;
                                         oForm.Items.Item("GetTime").Specific.Value = "0000";
                                         oForm.Items.Item("OffTime").Specific.Value = "0000";
-
                                         PH_PY008_Time_ReSet();
-
                                         oForm.Items.Item("Rotation").Specific.Value = 0;
                                         break;
                                         
@@ -4512,14 +4510,14 @@ namespace PSH_BOne_AddOn
                                     case "D06":
                                     case "D07":
                                     case "H05":
+                                    case "D12":
 
                                         //훈련, 경조휴가, 하기휴가, 특별휴가, 분만휴가, 조합활동
                                         oForm.Items.Item("GetTime").Specific.Value = "0000";
                                         oForm.Items.Item("OffTime").Specific.Value = "0000";
                                         PH_PY008_Time_ReSet();
                                         oForm.Items.Item("OffDate").Specific.Value = oForm.Items.Item("GetDate").Specific.Value;
-
-                                        oForm.Items.Item("Rotation").Specific.Value = 0;
+                                         oForm.Items.Item("Rotation").Specific.Value = 0;
                                         break;
                                         
                                     case "D02":
@@ -5153,37 +5151,6 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// FORM_RESIZE 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_FORM_RESIZE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            try
-            {
-                if (pVal.Before_Action == true)
-                {
-                }
-                else if (pVal.Before_Action == false)
-                {
-                    oForm.Items.Item("79").Width = oForm.Items.Item("KUKGRD").Left + oForm.Items.Item("KUKGRD").Width - oForm.Items.Item("79").Left + 10;
-                    oForm.Items.Item("79").Height = oForm.Items.Item("80").Height;
-
-                    oForm.Items.Item("77").Width = oForm.Items.Item("BUYN20").Left + oForm.Items.Item("BUYN20").Width - oForm.Items.Item("77").Left + 16;
-                    oForm.Items.Item("77").Height = oForm.Items.Item("78").Height;
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-        }
-
-        /// <summary>
         /// FormMenuEvent
         /// </summary>
         /// <param name="FormUID"></param>
@@ -5347,7 +5314,7 @@ namespace PSH_BOne_AddOn
 
                 switch (pVal.ItemUID)
                 {
-                    case "Mat01":
+                    case "Grid01":
                         if (pVal.Row > 0)
                         {
                             oLastItemUID = pVal.ItemUID;
@@ -5361,7 +5328,6 @@ namespace PSH_BOne_AddOn
                         oLastColRow = 0;
                         break;
                 }
-
             }
             catch (Exception ex)
             {

@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
+﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
-using PSH_BOne_AddOn.DataPack;
-using PSH_BOne_AddOn.Form;
-using Microsoft.VisualBasic;
 
 namespace PSH_BOne_AddOn
 {
@@ -51,7 +47,7 @@ namespace PSH_BOne_AddOn
 
                 oForm.SupportedModes = -1;
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
-                //oForm.DataBrowser.BrowseBy="DocEntry" '
+                //oForm.DataBrowser.BrowseBy="DocEntry"
 
                 oForm.Freeze(true);
                 PH_PY417_CreateItems();
@@ -212,7 +208,6 @@ namespace PSH_BOne_AddOn
                 if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY417_FormItemEnabled();
-                    //Call PH_PY417_AddMatrixRow(0, True) '
                 }
                 else
                 {
@@ -431,15 +426,15 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    if (Conversion.Val(oRecordSet.Fields.Item(0).Value) == -1)
+                    if (Convert.ToInt32(oRecordSet.Fields.Item(0).Value) == -1)
                     {
                         PSH_Globals.SBO_Application.MessageBox("급여변동자료가 없습니다. 확인바랍니다");
                     }
-                    else if (Conversion.Val(oRecordSet.Fields.Item(0).Value) == 0)
+                    else if (Convert.ToInt32(oRecordSet.Fields.Item(0).Value) == 0)
                     {
                         PSH_Globals.SBO_Application.MessageBox("급여변동자료에 연말정산 징수자료를 업로드 하지 못했습니다.확인바랍니다");
                     }
-                    else if (Conversion.Val(oRecordSet.Fields.Item(0).Value) > 0)
+                    else if (Convert.ToInt32(oRecordSet.Fields.Item(0).Value) > 0)
                     {
                         PSH_Globals.SBO_Application.MessageBox("연말정산 연말정산 징수자료를 업로드 했습니다. 급여변동자료를 확인하세요");
                     }
@@ -476,7 +471,7 @@ namespace PSH_BOne_AddOn
 
                 if (oMat01.VisualRowCount > 0)
                 {
-                    if (!string.IsNullOrEmpty(Strings.Trim(oDS_PH_PY417B.GetValue("U_LineNum", oRow - 1))))
+                    if (!string.IsNullOrEmpty(oDS_PH_PY417B.GetValue("U_LineNum", oRow - 1).ToString().Trim()))
                     {
                         if (oDS_PH_PY417B.Size <= oMat01.VisualRowCount)
                         {
@@ -530,7 +525,6 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(false);
             }
         }
-
         /// <summary>
         /// Form Item Event
         /// </summary>
@@ -681,7 +675,7 @@ namespace PSH_BOne_AddOn
 
                             PH_PY417_MTX01();
 
-                            if (Conversion.Val(oForm.Items.Item("Total").Specific.Value) != 0)
+                            if (Convert.ToDouble(oForm.Items.Item("Total").Specific.Value) != 0)
                             {
                                 PH_PY417_PY109_Update();
                             }
@@ -843,21 +837,21 @@ namespace PSH_BOne_AddOn
 
                 if (oForm.DataSources.UserDataSources.Item("Check01").Value == "Y")
                 {
-                    if (string.IsNullOrEmpty(Strings.Trim(oForm.Items.Item("YM").Specific.Value)))
+                    if (string.IsNullOrEmpty(oForm.Items.Item("YM").Specific.Value.ToString().Trim()))
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("지급년월은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                         oForm.Items.Item("YM").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                         functionReturnValue = false;
                         return functionReturnValue;
                     }
-                    if (string.IsNullOrEmpty(Strings.Trim(oForm.Items.Item("JOBTYP").Specific.Value)))
+                    if (string.IsNullOrEmpty(oForm.Items.Item("JOBTYP").Specific.Value.ToString().Trim()))
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("지급종류는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                         oForm.Items.Item("JOBTYP").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                         functionReturnValue = false;
                         return functionReturnValue;
                     }
-                    if (string.IsNullOrEmpty(Strings.Trim(oForm.Items.Item("JOBGBN").Specific.Value)))
+                    if (string.IsNullOrEmpty(oForm.Items.Item("JOBGBN").Specific.Value.ToString().Trim()))
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("지급구분은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                         oForm.Items.Item("JOBGBN").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -865,7 +859,7 @@ namespace PSH_BOne_AddOn
                         return functionReturnValue;
                     }
                 }
-                    oMat01.FlushToDataSource();
+                oMat01.FlushToDataSource();
                 // Matrix 마지막 행 삭제(DB 저장시)
                 if (oDS_PH_PY417B.Size > 1)
                 {

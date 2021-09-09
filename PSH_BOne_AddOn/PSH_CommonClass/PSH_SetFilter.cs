@@ -360,7 +360,14 @@ namespace PSH_BOne_AddOn
                 {
                     if (arrayMethodInfo[i].Name == eventMethodName)
                     {
-                        eventFilter.AddEx(classType.Name);
+                        if (classType.Namespace == "PSH_BOne_AddOn.Core") //Core 폼인 경우
+                        {
+                            eventFilter.AddEx(classType.Name.Substring(1, classType.Name.Length - 1)); //접두어인 "S"를 제외한 전체 클래스 파일명(Core폼의 FormID)을 AddEx의 매개변수로 전달
+                        }
+                        else //순수 AddOn 품인 경우
+                        {
+                            eventFilter.AddEx(classType.Name); //클래스명 전체를 AddEx의 매개변수로 전달
+                        }
                     }
                 }
             }

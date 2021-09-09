@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.DataPack;
@@ -686,8 +686,8 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				if (pVal.Before_Action == true)
-				{
-				}
+				{   
+                }
 				else if (pVal.Before_Action == false)
 				{
 					SubMain.Remove_Forms(oFormUniqueID01);

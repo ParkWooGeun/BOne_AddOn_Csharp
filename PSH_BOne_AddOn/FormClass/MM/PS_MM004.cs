@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.Form;
@@ -23,7 +23,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 클래스내에서 공통으로 사용되는 폼 호출 메소드
         /// </summary>
-        private new void LoadForm()
+        private void LoadForm()
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 

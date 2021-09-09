@@ -1,7 +1,7 @@
 ﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
-using Microsoft.VisualBasic;
+using PSH_BOne_AddOn.Code;
 
 namespace PSH_BOne_AddOn
 {
@@ -271,14 +271,13 @@ namespace PSH_BOne_AddOn
                 // 문서추가
                 oForm.EnableMenu("1282", true);
 
-
-                if (string.IsNullOrEmpty(Strings.Trim(oForm.Items.Item("Year").Specific.Value)))
+                if (string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.Value.ToString().Trim()))
                 {
                     oForm.Items.Item("Year").Specific.Value = Convert.ToString(DateTime.Now.Year - 1);
                 }
 
-                if (string.IsNullOrEmpty(Strings.Trim(oForm.Items.Item("MSTCOD").Specific.Value)))
-                {
+                if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim()))
+               {
                     oForm.Items.Item("MSTCOD").Specific.Value = "";
                     oForm.Items.Item("FullName").Specific.Value = "";
                     oForm.Items.Item("TeamName").Specific.Value = "";
@@ -507,7 +506,6 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(false);
             }
         }
-
         /// <summary>
         /// ITEM_PRESSED 이벤트
         /// </summary>
@@ -720,11 +718,11 @@ namespace PSH_BOne_AddOn
                                 oDS_PH_PY402L.Offset = i;
 
                                 oDS_PH_PY402L.SetValue("U_LineNum", i, Convert.ToString(i + 1));
-                                oDS_PH_PY402L.SetValue("U_ColReg01", i, Strings.Trim(oRecordSet.Fields.Item("kname").Value));
-                                oDS_PH_PY402L.SetValue("U_ColReg02", i, Strings.Trim(oRecordSet.Fields.Item("juminno").Value));
-                                oDS_PH_PY402L.SetValue("U_ColReg03", i, Strings.Trim(oRecordSet.Fields.Item("birthymd").Value));
-                                oDS_PH_PY402L.SetValue("U_ColReg04", i, Strings.Trim(oRecordSet.Fields.Item("relatenm").Value));
-                                oDS_PH_PY402L.SetValue("U_ColReg05", i, Strings.Trim(oRecordSet.Fields.Item("addr").Value));
+                                oDS_PH_PY402L.SetValue("U_ColReg01", i, oRecordSet.Fields.Item("kname").Value.ToString().Trim());
+                                oDS_PH_PY402L.SetValue("U_ColReg02", i, oRecordSet.Fields.Item("juminno").Value.ToString().Trim());
+                                oDS_PH_PY402L.SetValue("U_ColReg03", i, oRecordSet.Fields.Item("birthymd").Value.ToString().Trim());
+                                oDS_PH_PY402L.SetValue("U_ColReg04", i, oRecordSet.Fields.Item("relatenm").Value.ToString().Trim());
+                                oDS_PH_PY402L.SetValue("U_ColReg05", i, oRecordSet.Fields.Item("addr").Value.ToString().Trim());
                                 oRecordSet.MoveNext();
                             }
 
@@ -829,7 +827,7 @@ namespace PSH_BOne_AddOn
                                 break;
 
                             case "FullName":
-                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
+                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                                 FullName = oForm.Items.Item("FullName").Specific.Value;
 
                                 sQry  = "Select Code,";
@@ -1022,28 +1020,30 @@ namespace PSH_BOne_AddOn
                             case "juminno":
                                 // 주민번호
                                 // 주민번호입력시 생년월일 생성
-                                if (Strings.Len(Strings.Trim(oForm.Items.Item("juminno").Specific.Value)) != 13)
+								if (oForm.Items.Item("juminno").Specific.Value.ToString().Trim().Length != 13)
                                 {
                                     oForm.Items.Item("birthymd").Specific.Value = "";
                                     PSH_Globals.SBO_Application.MessageBox("주민번호자릿수가 틀립니다. 확인하세요.");
                                 }
                                 else
                                 {
-                                    if (Strings.Mid(oForm.Items.Item("juminno").Specific.Value, 7, 1) == "1" || Strings.Mid(oForm.Items.Item("juminno").Specific.Value, 7, 1) == "2")
+                                    PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
+
+                                    if (codeHelpClass.Mid(oForm.Items.Item("juminno").Specific.Value, 7, 1) == "1" || codeHelpClass.Mid(oForm.Items.Item("juminno").Specific.Value, 7, 1) == "2")
                                     {
-                                        oForm.Items.Item("birthymd").Specific.Value = "19" + Strings.Mid(oForm.Items.Item("juminno").Specific.Value, 1, 6);
+                                        oForm.Items.Item("birthymd").Specific.Value = "19" + codeHelpClass.Mid(oForm.Items.Item("juminno").Specific.Value, 1, 6);
                                     }
-                                    else if (Strings.Mid(oForm.Items.Item("juminno").Specific.Value, 7, 1) == "3" || Strings.Mid(oForm.Items.Item("juminno").Specific.Value, 7, 1) == "4")
+                                    else if (codeHelpClass.Mid(oForm.Items.Item("juminno").Specific.Value, 7, 1) == "3" || codeHelpClass.Mid(oForm.Items.Item("juminno").Specific.Value, 7, 1) == "4")
                                     {
-                                        oForm.Items.Item("birthymd").Specific.Value = "20" + Strings.Mid(oForm.Items.Item("juminno").Specific.Value, 1, 6);
+                                        oForm.Items.Item("birthymd").Specific.Value = "20" + codeHelpClass.Mid(oForm.Items.Item("juminno").Specific.Value, 1, 6);
                                     }
-                                    else if (Strings.Mid(oForm.Items.Item("juminno").Specific.Value, 7, 1) == "5" || Strings.Mid(oForm.Items.Item("juminno").Specific.Value, 7, 1) == "6")
+                                    else if (codeHelpClass.Mid(oForm.Items.Item("juminno").Specific.Value, 7, 1) == "5" || codeHelpClass.Mid(oForm.Items.Item("juminno").Specific.Value, 7, 1) == "6")
                                     {
-                                        oForm.Items.Item("birthymd").Specific.Value = "19" + Strings.Mid(oForm.Items.Item("juminno").Specific.Value, 1, 6);
+                                        oForm.Items.Item("birthymd").Specific.Value = "19" + codeHelpClass.Mid(oForm.Items.Item("juminno").Specific.Value, 1, 6);
                                     }
-                                    else if (Strings.Mid(oForm.Items.Item("juminno").Specific.Value, 7, 1) == "7" || Strings.Mid(oForm.Items.Item("juminno").Specific.Value, 7, 1) == "8")
+                                    else if (codeHelpClass.Mid(oForm.Items.Item("juminno").Specific.Value, 7, 1) == "7" || codeHelpClass.Mid(oForm.Items.Item("juminno").Specific.Value, 7, 1) == "8")
                                     {
-                                        oForm.Items.Item("birthymd").Specific.Value = "20" + Strings.Mid(oForm.Items.Item("juminno").Specific.Value, 1, 6);
+                                        oForm.Items.Item("birthymd").Specific.Value = "20" + codeHelpClass.Mid(oForm.Items.Item("juminno").Specific.Value, 1, 6);
                                     }
                                 }
                                 break;
@@ -1072,20 +1072,20 @@ namespace PSH_BOne_AddOn
                                 }
                                 break;
                             case "ntsamt3":
-                                oForm.Items.Item("ntsamt").Specific.Value = Conversion.Val(oForm.Items.Item("ntsamt3").Specific.Value) + Conversion.Val(oForm.Items.Item("ntsamt47").Specific.Value) + Conversion.Val(oForm.Items.Item("ntsamt24").Specific.Value);
+                                oForm.Items.Item("ntsamt").Specific.Value = Convert.ToInt32(oForm.Items.Item("ntsamt3").Specific.Value) + Convert.ToInt32(oForm.Items.Item("ntsamt47").Specific.Value) + Convert.ToInt32(oForm.Items.Item("ntsamt24").Specific.Value);
                                 break;
                             case "ntsamt47":
-                                oForm.Items.Item("ntsamt").Specific.Value = Conversion.Val(oForm.Items.Item("ntsamt3").Specific.Value) + Conversion.Val(oForm.Items.Item("ntsamt47").Specific.Value) + Conversion.Val(oForm.Items.Item("ntsamt24").Specific.Value);
+                                oForm.Items.Item("ntsamt").Specific.Value = Convert.ToInt32(oForm.Items.Item("ntsamt3").Specific.Value) + Convert.ToInt32(oForm.Items.Item("ntsamt47").Specific.Value) + Convert.ToInt32(oForm.Items.Item("ntsamt24").Specific.Value);
                                 break;
                             case "ntsamt24":
-                                oForm.Items.Item("ntsamt").Specific.Value = Conversion.Val(oForm.Items.Item("ntsamt3").Specific.Value) + Conversion.Val(oForm.Items.Item("ntsamt47").Specific.Value) + Conversion.Val(oForm.Items.Item("ntsamt24").Specific.Value);
+                                oForm.Items.Item("ntsamt").Specific.Value = Convert.ToInt32(oForm.Items.Item("ntsamt3").Specific.Value) + Convert.ToInt32(oForm.Items.Item("ntsamt47").Specific.Value) + Convert.ToInt32(oForm.Items.Item("ntsamt24").Specific.Value);
                                 break;
 
                             //2018부터 도서공연사용분 총급여 7천만원 CHECK
                             case "bookpms3":
                                 //도서공연사용분
                                 //총급여액계산해서 7천만원이하는 0
-                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
+                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                                 YEAR_Renamed = oForm.Items.Item("Year").Specific.Value;
                                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value;
                                 bookAmt = 0;
@@ -1119,8 +1119,8 @@ namespace PSH_BOne_AddOn
                                 //7천기준
                                 if (bookAmt > 70000000)
                                 {
-                                    oForm.Items.Item("ntsamt3").Specific.Value = Conversion.Val(oForm.Items.Item("ntsamt3").Specific.Value) + Conversion.Val(oForm.Items.Item("bookpms3").Specific.Value);
-                                    oForm.Items.Item("ntsamt").Specific.Value += Conversion.Val(oForm.Items.Item("ntsamt3").Specific.Value);
+                                    oForm.Items.Item("ntsamt3").Specific.Value = Convert.ToInt32(oForm.Items.Item("ntsamt3").Specific.Value) + Convert.ToInt32(oForm.Items.Item("bookpms3").Specific.Value);
+                                    oForm.Items.Item("ntsamt").Specific.Value += Convert.ToInt32(oForm.Items.Item("ntsamt3").Specific.Value);
                                     oForm.Items.Item("bookpms3").Specific.Value = 0;
                                     PSH_Globals.SBO_Application.MessageBox("총급여 7천만원 초과자입니다. 일반금액에 합산하고 도서공연비는 0처리 합니다.");
                                 }
@@ -1128,7 +1128,7 @@ namespace PSH_BOne_AddOn
                             case "bookpms47":
                                 //도서공연사용분
                                 //총급여액계산해서 7천만원이하는 0
-                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
+                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                                 YEAR_Renamed = oForm.Items.Item("Year").Specific.Value;
                                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value;
                                 bookAmt = 0;
@@ -1162,8 +1162,8 @@ namespace PSH_BOne_AddOn
                                 //7천기준
                                 if (bookAmt > 70000000)
                                 {
-                                    oForm.Items.Item("ntsamt47").Specific.Value = Conversion.Val(oForm.Items.Item("ntsamt47").Specific.Value) + Conversion.Val(oForm.Items.Item("bookpms47").Specific.Value);
-                                    oForm.Items.Item("ntsamt").Specific.Value += Conversion.Val(oForm.Items.Item("ntsamt47").Specific.Value);
+                                    oForm.Items.Item("ntsamt47").Specific.Value = Convert.ToInt32(oForm.Items.Item("ntsamt47").Specific.Value) + Convert.ToInt32(oForm.Items.Item("bookpms47").Specific.Value);
+                                    oForm.Items.Item("ntsamt").Specific.Value += Convert.ToInt32(oForm.Items.Item("ntsamt47").Specific.Value);
                                     oForm.Items.Item("bookpms47").Specific.Value = 0;
                                     PSH_Globals.SBO_Application.MessageBox("총급여 7천만원 초과자입니다. 일반금액에 합산하고 도서공연비는 0처리 합니다.");
                                 }
@@ -1171,7 +1171,7 @@ namespace PSH_BOne_AddOn
                             case "bookpms":
                                 //도서공연사용분
                                 //총급여액계산해서 7천만원이하는 0
-                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
+                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                                 YEAR_Renamed = oForm.Items.Item("Year").Specific.Value;
                                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value;
                                 bookAmt = 0;
@@ -1205,8 +1205,8 @@ namespace PSH_BOne_AddOn
                                 //7천기준
                                 if (bookAmt > 70000000)
                                 {
-                                    oForm.Items.Item("ntsamt24").Specific.Value = Conversion.Val(oForm.Items.Item("ntsamt24").Specific.Value) + Conversion.Val(oForm.Items.Item("bookpms").Specific.Value);
-                                    oForm.Items.Item("ntsamt").Specific.Value += Conversion.Val(oForm.Items.Item("ntsamt24").Specific.Value);
+                                    oForm.Items.Item("ntsamt24").Specific.Value = Convert.ToInt32(oForm.Items.Item("ntsamt24").Specific.Value) + Convert.ToInt32(oForm.Items.Item("bookpms").Specific.Value);
+                                    oForm.Items.Item("ntsamt").Specific.Value += Convert.ToInt32(oForm.Items.Item("ntsamt24").Specific.Value);
                                     oForm.Items.Item("bookpms").Specific.Value = 0;
                                     PSH_Globals.SBO_Application.MessageBox("총급여 7천만원 초과자입니다. 일반금액에 합산하고 도서공연비는 0처리 합니다.");
                                 }
@@ -1425,22 +1425,21 @@ namespace PSH_BOne_AddOn
             Year = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
             MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value;
 
-
-            if (string.IsNullOrEmpty(Strings.Trim(CLTCOD)))
+            if (string.IsNullOrEmpty(CLTCOD))
             {
                 PSH_Globals.SBO_Application.SetStatusBarMessage("사업장이 없습니다. 확인바랍니다..", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                 oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 return; 
             }
 
-            if (string.IsNullOrEmpty(Strings.Trim(Year)))
+            if (string.IsNullOrEmpty(Year))
             {
                 PSH_Globals.SBO_Application.SetStatusBarMessage("년도가 없습니다. 확인바랍니다..", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                 oForm.Items.Item("Year").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 return;
             }
 
-            if (string.IsNullOrEmpty(Strings.Trim(MSTCOD)))
+            if (string.IsNullOrEmpty(MSTCOD))
             {
                 PSH_Globals.SBO_Application.SetStatusBarMessage("사번이 없습니다. 확인바랍니다..", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                 oForm.Items.Item("MSTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -1567,15 +1566,13 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                if (Strings.Trim(target) != "220" && !string.IsNullOrEmpty(Strings.Trim(hdcode)))
+                if (target != "220" && !string.IsNullOrEmpty(hdcode))
                 {
                     hdcode = "";
                 }
 
-                if (string.IsNullOrEmpty(Strings.Trim(juminno)) || (Div != "70"  && Conversion.Val(Amt) + Conversion.Val(ntsamt) + Conversion.Val(ntsamt3) + Conversion.Val(mart3) + Conversion.Val(trans3) + Conversion.Val(bookpms3)
-                                                                                                                                 + Conversion.Val(ntsamt47) + Conversion.Val(mart47) + Conversion.Val(trans47) + Conversion.Val(bookpms47)
-                                                                                                                                 + Conversion.Val(ntsamt24) + Conversion.Val(mart24) + Conversion.Val(trans24) + Conversion.Val(bookpms) == 0))
-                {                                             //기본공제제외자(70)  
+                if (string.IsNullOrEmpty(juminno) || (Div != "70"  && Amt + ntsamt + ntsamt3 + mart3 + trans3 + bookpms3 + ntsamt47 + mart47 + trans47 + bookpms47 + ntsamt24 + mart24 + trans24 + bookpms == 0)) //기본공제제외자(70)
+                {                                             
                     ErrNum = 5;
                     throw new Exception();
                 }
@@ -1585,10 +1582,10 @@ namespace PSH_BOne_AddOn
 
                 if (oRecordSet.RecordCount > 0)
                 {
-                    CheckDate1 = oRecordSet.Fields.Item(0).Value;
-                    CheckDate2 = oRecordSet.Fields.Item(1).Value;
+                    CheckDate1 = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+                    CheckDate2 = oRecordSet.Fields.Item(1).Value.ToString().Trim();
 
-                    if (!string.IsNullOrEmpty(Strings.Trim(CheckDate1)))
+                    if (!string.IsNullOrEmpty(CheckDate1))
                     {
                         if (relate == "05" || relate == "06" || relate == "07" || relate == "12" || relate == "13" || relate == "21" || relate == "22")
                         {
@@ -1607,7 +1604,7 @@ namespace PSH_BOne_AddOn
                         }
                     }
 
-                    if (!string.IsNullOrEmpty(Strings.Trim(CheckDate2)))
+                    if (!string.IsNullOrEmpty(CheckDate2))
                     {
                         if (relate == "03" || relate == "04" || relate == "08" || relate == "23")
                         {
@@ -1840,7 +1837,7 @@ namespace PSH_BOne_AddOn
                 COLNAM[14] = "도서공연";
                 COLNAM[15] = "합계금액";
 
-                for (i = 0; i <= Information.UBound(COLNAM); i++)
+                for (i = 0; i < COLNAM.Length; i++)
                 {
                     oGrid1.Columns.Item(i).TitleObject.Caption = COLNAM[i];
                     oGrid1.Columns.Item(i).Editable = false;

@@ -55,7 +55,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        private new void LoadForm()
+        private void LoadForm()
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -390,13 +390,11 @@ namespace PSH_BOne_AddOn
             int i = 0;
             int Today_Renamed;
             string sQry;
-            string sQry02;
             string ItemCode;
             string errMessage = string.Empty;
             SAPbouiCOM.Matrix oBaseMat01;
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            SAPbobsCOM.Recordset oRecordset02 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
                 if (oBaseForm01 == null)
@@ -436,18 +434,16 @@ namespace PSH_BOne_AddOn
                 else if (oBaseForm01.TypeEx == "PS_MM007")
                 {
                     sQry = "  SELECT    CASE";
-                    sQry += "               WHEN LEFT(U_ItmBsort, 1) = '4' THEN '20'";
-                    sQry += "               WHEN LEFT(U_ItmBsort, 1) = '3' THEN '10'";
-                    sQry += "               WHEN LEFT(U_ItmBsort, 1) = '2' THEN '50'";
-                    sQry += "           END";
+                    sQry += " WHEN LEFT(U_ItmBsort, 1) = '4' THEN '20'";
+                    sQry += " WHEN LEFT(U_ItmBsort, 1) = '3' THEN '10'";
+                    sQry += " WHEN LEFT(U_ItmBsort, 1) = '2' THEN '50'";
+                    sQry += " END";
                     sQry += " FROM      OITM";
                     sQry += " WHERE     ItemCode = '" + oGrid01.DataTable.Columns.Item("품목코드").Cells.Item(oGrid01.Rows.SelectedRows.Item(i, SAPbouiCOM.BoOrderType.ot_SelectionOrder)).Value + "'";
 
                     oRecordSet01.DoQuery(sQry);
-
-                    sQry02 = " Select convert(char(8),GetDate(),112) ";
-                    oRecordset02.DoQuery(sQry02);
-                    Today_Renamed = oRecordset02.Fields.Item(0).Value.ToString().Trim();
+                    
+                    Today_Renamed = Convert.ToInt32(DateTime.Now.ToString("yyyyMMdd"));
 
                     if (Today_Renamed >= 20150701)
                     {
@@ -494,9 +490,7 @@ namespace PSH_BOne_AddOn
 
                     oRecordSet01.DoQuery(sQry);
 
-                    sQry02 = " Select convert(char(8),GetDate(),112) ";
-                    oRecordset02.DoQuery(sQry02);
-                    Today_Renamed = oRecordset02.Fields.Item(0).Value.ToString().Trim();
+                    Today_Renamed = Convert.ToInt32(DateTime.Now.ToString("yyyyMMdd"));
 
                     if (oBaseForm01.Items.Item("OrdType").Specific.Value == "10" || oBaseForm01.Items.Item("OrdType").Specific.Value == "20" || oBaseForm01.Items.Item("OrdType").Specific.Value == "50")
                     {

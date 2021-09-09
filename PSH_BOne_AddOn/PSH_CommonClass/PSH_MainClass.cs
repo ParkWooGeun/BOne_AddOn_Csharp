@@ -611,17 +611,17 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.EventType == SAPbouiCOM.BoEventTypes.et_FORM_LOAD)
                     {
-                        if (pVal.FormTypeEx == "")
+                        for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
                         {
+                           if (PSH_Globals.classAllList[i].Name == "S" + pVal.FormTypeEx) //접두어 "S" 포함
+                            {
+                                Type type = Type.GetType("PSH_BOne_AddOn.Core.S" + pVal.FormTypeEx); //Core폼과 동일한 클래스 Type 생성
+                                dynamic baseClass = Activator.CreateInstance(type); //Core폼과 동일한 클래스 Instance 생성
+                                pBaseClass = baseClass; //PSH_BaseClass로 형변환
+                                pBaseClass.LoadForm(pVal.FormUID); //클래스의 LoadForm 호출
+                                break;
+                            }
                         }
-
-                        //{
-
-                        //    //case "60100":       //인사관리>사원마스터데이터 (사용자 정의 필드)
-                        //    //    pBaseClass = new SM60100();
-                        //    //    pBaseClass.LoadForm(pVal.FormUID);
-                        //    //    break;
-                        //}
                     }
                 }
                 return;
@@ -691,6 +691,7 @@ namespace PSH_BOne_AddOn
                 if (pVal.BeforeAction == true)
                 {
                     Create_USERForm(pVal, ref oTempClass);
+                    RecordSet01.DoQuery("EXEC Z_PS_FormCount '" + dataHelpClass.User_MSTCOD() + "','" + pVal.MenuUID + "'"); //Form 실행 횟수 저장
 
                     RecordSet01.DoQuery("EXEC Z_PS_FormType '" + pVal.MenuUID + "'");
 
@@ -719,7 +720,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (Strings.Left(FormUID, 2) == "F_")
                 {
-                    if (Check_ValidateForm(PSH_Globals.SBO_Application.Forms.ActiveForm.TypeEx))
+                    if (Check_ValidateForm("S" + PSH_Globals.SBO_Application.Forms.ActiveForm.TypeEx))
                     {
                         oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
                         oTempClass.Raise_FormMenuEvent(FormUID, ref pVal, ref BubbleEvent);
@@ -762,7 +763,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (Strings.Left(pVal.FormUID, 2) == "F_")
                 {
-                    if (Check_ValidateForm(pVal.FormTypeEx))
+                    if (Check_ValidateForm("S" + pVal.FormTypeEx))
                     {
                         oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
                         oTempClass.Raise_FormItemEvent(FormUID, ref pVal, ref BubbleEvent);
@@ -803,7 +804,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (Strings.Left(FormUID, 2) == "F_")
                 {
-                    if (Check_ValidateForm(BusinessObjectInfo.FormTypeEx))
+                    if (Check_ValidateForm("S" + BusinessObjectInfo.FormTypeEx))
                     {
                         oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
                         oTempClass.Raise_FormDataEvent(FormUID, ref BusinessObjectInfo, ref BubbleEvent);

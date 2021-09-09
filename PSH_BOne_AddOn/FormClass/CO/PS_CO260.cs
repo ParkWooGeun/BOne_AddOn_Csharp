@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 
@@ -20,7 +20,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// Form 호출
 		/// </summary>
-		public override void LoadForm()
+		public override void LoadForm(string oFormDocEntry)
 		{
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 

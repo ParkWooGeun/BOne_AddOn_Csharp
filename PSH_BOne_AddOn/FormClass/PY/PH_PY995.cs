@@ -16,7 +16,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        public override void LoadForm()
+        public override void LoadForm(string oFormDocEntry)
         {
             string strXml = string.Empty;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();

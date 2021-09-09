@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
+﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
-using PSH_BOne_AddOn.DataPack;
-using PSH_BOne_AddOn.Form;
-using Microsoft.VisualBasic;
 
 namespace PSH_BOne_AddOn
 {
@@ -214,12 +210,12 @@ namespace PSH_BOne_AddOn
 
                 oForm.EnableMenu("1282", true);      // 문서추가
 
-                if (string.IsNullOrEmpty(Strings.Trim(oForm.Items.Item("Year").Specific.Value)))
+                if (string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.Value.ToString().Trim()))
                 {
                     oForm.Items.Item("Year").Specific.Value = Convert.ToString(DateTime.Now.Year - 1);
                 }
 
-                if (string.IsNullOrEmpty(Strings.Trim(oForm.Items.Item("MSTCOD").Specific.Value)))
+                if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim()))
                 {
                     oForm.Items.Item("MSTCOD").Specific.Value = "";
                     oForm.Items.Item("FullName").Specific.Value = "";
@@ -475,7 +471,6 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(false);
             }
         }
-
         /// <summary>
         /// ITEM_PRESSED 이벤트
         /// </summary>
@@ -627,11 +622,11 @@ namespace PSH_BOne_AddOn
                                 oDS_PH_PY407L.Offset = i;
 
                                 oDS_PH_PY407L.SetValue("U_LineNum", i, Convert.ToString(i + 1));
-                                oDS_PH_PY407L.SetValue("U_ColReg01", i, Strings.Trim(oRecordSet.Fields.Item("kname").Value));
-                                oDS_PH_PY407L.SetValue("U_ColReg02", i, Strings.Trim(oRecordSet.Fields.Item("juminno").Value));
-                                oDS_PH_PY407L.SetValue("U_ColReg03", i, Strings.Trim(oRecordSet.Fields.Item("birthymd").Value));
-                                oDS_PH_PY407L.SetValue("U_ColReg04", i, Strings.Trim(oRecordSet.Fields.Item("relate").Value));
-                                oDS_PH_PY407L.SetValue("U_ColReg05", i, Strings.Trim(oRecordSet.Fields.Item("addr").Value));
+                                oDS_PH_PY407L.SetValue("U_ColReg01", i, oRecordSet.Fields.Item("kname").Value.ToString().Trim());
+                                oDS_PH_PY407L.SetValue("U_ColReg02", i, oRecordSet.Fields.Item("juminno").Value.ToString().Trim());
+                                oDS_PH_PY407L.SetValue("U_ColReg03", i, oRecordSet.Fields.Item("birthymd").Value.ToString().Trim());
+                                oDS_PH_PY407L.SetValue("U_ColReg04", i, oRecordSet.Fields.Item("relate").Value.ToString().Trim());
+                                oDS_PH_PY407L.SetValue("U_ColReg05", i, oRecordSet.Fields.Item("addr").Value.ToString().Trim());
                                 oRecordSet.MoveNext();
                             }
 
@@ -701,7 +696,7 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "MSTCOD":
-                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
+                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value;
 
                                 sQry = "  Select    Code,";
@@ -731,7 +726,7 @@ namespace PSH_BOne_AddOn
                                 oForm.Items.Item("ClsName").Specific.Value = oRecordSet.Fields.Item("ClsName").Value;
                                 break;
                             case "FullName":
-                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
+                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                                 FullName = oForm.Items.Item("FullName").Specific.Value;
 
                                 sQry = "  Select    Code,";
@@ -766,7 +761,7 @@ namespace PSH_BOne_AddOn
                             case "juminno":
                                 //주민번호
                                 //주민번호입력시 생년월일 생성
-                                if (Strings.Len(Strings.Trim(oForm.Items.Item("juminno").Specific.Value)) != 13)
+                                if (oForm.Items.Item("juminno").Specific.Value.ToString().Trim().Length != 13)
                                 {
                                     PSH_Globals.SBO_Application.MessageBox("주민번호자릿수가 틀립니다. 확인하세요.");
                                 }
@@ -814,7 +809,7 @@ namespace PSH_BOne_AddOn
                         {
                             oForm.Freeze(true);
 
-                            Param01 = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
+                            Param01 = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                             Param02 = oDS_PH_PY407A.Columns.Item("연도").Cells.Item(pVal.Row).Value;
                             Param03 = oDS_PH_PY407A.Columns.Item("사번").Cells.Item(pVal.Row).Value;
                             Param04 = oDS_PH_PY407A.Columns.Item("사업자번호").Cells.Item(pVal.Row).Value;
@@ -902,21 +897,21 @@ namespace PSH_BOne_AddOn
             MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value;
 
 
-            if (string.IsNullOrEmpty(Strings.Trim(CLTCOD)))
+            if (string.IsNullOrEmpty(CLTCOD))
             {
                 PSH_Globals.SBO_Application.SetStatusBarMessage("사업장이 없습니다. 확인바랍니다..", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                 oForm.Items.Item("Year").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 return;
             }
 
-            if (string.IsNullOrEmpty(Strings.Trim(Year)))
+            if (string.IsNullOrEmpty(Year))
             {
                 PSH_Globals.SBO_Application.SetStatusBarMessage("년도가 없습니다. 확인바랍니다..", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                 oForm.Items.Item("Year").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 return;
             }
 
-            if (string.IsNullOrEmpty(Strings.Trim(MSTCOD)))
+            if (string.IsNullOrEmpty(MSTCOD))
             {
                 PSH_Globals.SBO_Application.SetStatusBarMessage("사번이 없습니다. 확인바랍니다..", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                 oForm.Items.Item("Year").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -981,23 +976,23 @@ namespace PSH_BOne_AddOn
                 Amt = Convert.ToDouble(oForm.Items.Item("amt").Specific.Value);
                 jamt = Convert.ToDouble(oForm.Items.Item("jamt").Specific.Value);
                 
-                if (string.IsNullOrEmpty(Strings.Trim(yyyy)))
+                if (string.IsNullOrEmpty(yyyy))
                 {
                     PSH_Globals.SBO_Application.MessageBox("년도가 없습니다. 확인바랍니다..");
                     return;
                 }
 
-                if (string.IsNullOrEmpty(Strings.Trim(saup)))
+                if (string.IsNullOrEmpty(saup))
                 {
                     PSH_Globals.SBO_Application.MessageBox("사업장이 없습니다. 확인바랍니다..");
                     return;
                 }
-                if (string.IsNullOrEmpty(Strings.Trim(sabun)))
+                if (string.IsNullOrEmpty(sabun))
                 {
                     PSH_Globals.SBO_Application.MessageBox("사번이 없습니다. 확인바랍니다..");
                     return;
                 }
-                if (string.IsNullOrEmpty(Strings.Trim(juminno)) | (ntamt == 0 & Amt == 0))
+                if (string.IsNullOrEmpty(juminno) || (ntamt == 0 && Amt == 0))
                 {
                     PSH_Globals.SBO_Application.MessageBox("정상적인 자료가 아닙니다. 확인바랍니다..");
                     return;
@@ -1171,7 +1166,7 @@ namespace PSH_BOne_AddOn
                 COLNAM[13] = "사번";
                 COLNAM[14] = "사업장";
 
-                for (i = 0; i <= Information.UBound(COLNAM); i++)
+                for (i = 0; i < COLNAM.Length; i++)
                 {
                     oGrid1.Columns.Item(i).TitleObject.Caption = COLNAM[i];
                     oGrid1.Columns.Item(i).Editable = false;

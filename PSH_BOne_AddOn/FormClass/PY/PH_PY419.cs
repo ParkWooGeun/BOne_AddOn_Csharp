@@ -1,5 +1,4 @@
-using Microsoft.VisualBasic;
-using System;
+﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 
@@ -10,9 +9,10 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PH_PY419 : PSH_BaseClass
     {
-        private string oFormUniqueID01;
-        private SAPbouiCOM.Grid oGrid1;
-        private SAPbouiCOM.DataTable oDS_PH_PY419;
+        public string oFormUniqueID01;
+        public SAPbouiCOM.Grid oGrid1;
+        public SAPbouiCOM.DataTable oDS_PH_PY419;
+
         private string oLastItemUID;
         private string oLastColUID;
         private int oLastColRow;
@@ -440,7 +440,7 @@ namespace PSH_BOne_AddOn
                         {
 
                             case "MSTCOD":
-                                CLTCOD = Strings.Trim(oForm.Items.Item("CLTCOD").Specific.Value);
+                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value;
 
                                 sQry = "Select Code,";

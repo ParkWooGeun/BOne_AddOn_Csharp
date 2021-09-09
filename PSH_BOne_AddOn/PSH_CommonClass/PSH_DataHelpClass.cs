@@ -2013,6 +2013,36 @@ namespace PSH_BOne_AddOn.Data
         }
 
         /// <summary>
+        /// 아이디별 성명
+        /// </summary>
+        /// <returns></returns>
+        public string User_MSTNAM()
+        {
+            string functionReturnValue = null;
+            string sQry;
+
+            SAPbobsCOM.Recordset oRecordset01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                sQry = "Select U_FULLNAME From [OHEM] a Inner Join [OUSR] b On a.userId = b.USERID Where b.USER_CODE = '" + PSH_Globals.oCompany.UserName + "'";
+                oRecordset01.DoQuery(sQry);
+
+                functionReturnValue = oRecordset01.Fields.Item(0).Value.ToString().Trim();
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(GetType().Name + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordset01);
+            }
+
+            return functionReturnValue;
+        }
+
+        /// <summary>
         /// 주민등록번호/외국인등록번호 오류체크
         /// </summary>
         /// <param name="sID">검증하려는 번호</param>

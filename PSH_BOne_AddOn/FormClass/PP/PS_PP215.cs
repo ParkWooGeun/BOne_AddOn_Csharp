@@ -824,9 +824,9 @@ namespace PSH_BOne_AddOn
 							break;
 						case "1285": //복원
 							break;
-						case "1288": //레코드이동(최초)
+						case "1288": //레코드이동(다음)
 						case "1289": //레코드이동(이전)
-						case "1290": //레코드이동(다음)
+						case "1290": //레코드이동(최초)
 						case "1291": //레코드이동(최종)
 							break;
 						case "7169": //엑셀 내보내기
@@ -857,9 +857,9 @@ namespace PSH_BOne_AddOn
 								oMat.LoadFromDataSource();
 							}
 							break;
-						case "1288": //레코드이동(최초)
+						case "1288": //레코드이동(다음)
 						case "1289": //레코드이동(이전)
-						case "1290": //레코드이동(다음)
+						case "1290": //레코드이동(최초)
 						case "1291": //레코드이동(최종)
 							break;
 						case "1293": //행삭제

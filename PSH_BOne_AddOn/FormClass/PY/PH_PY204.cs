@@ -1010,7 +1010,7 @@ namespace PSH_BOne_AddOn
                         }
                         else if (oCol == "TeamCode")
                         {
-                            oDS_PH_PY204B.SetValue("U_ColReg07", oRow - 1, (oMat01.Columns.Item(oCol).Cells.Item(oRow).Specific.Value.ToString.Trim() == "9999" ? "전부서" : dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" + oMat01.Columns.Item(oCol).Cells.Item(oRow).Specific.Value.ToString().Trim() + "'", " AND Code = '1'"))); //부서
+                            oDS_PH_PY204B.SetValue("U_ColReg07", oRow - 1, (oMat01.Columns.Item(oCol).Cells.Item(oRow).Specific.Value.ToString().Trim() == "9999" ? "전부서" : dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" + oMat01.Columns.Item(oCol).Cells.Item(oRow).Specific.Value.ToString().Trim() + "'", " AND Code = '1'"))); //부서
                         }
                         else if (oCol == "RspCode")
                         {

@@ -1478,7 +1478,7 @@ namespace PSH_BOne_AddOn
                                         query01 += "            [@PS_PP030M] PS_PP030M";
                                         query01 += "                ON PS_PP030H.DocEntry = PS_PP030M.DocEntry";
                                         query01 += " WHERE      PS_PP030H.DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'";
-                                        query01 += " AND PS_PP030M.LineId = '" + oMat03.Columns.Item("LineId").Cells.Item(i).Specific.Value.ToString.Trim() + "'";
+                                        query01 += " AND PS_PP030M.LineId = '" + oMat03.Columns.Item("LineId").Cells.Item(i).Specific.Value.ToString().Trim() + "'";
                                         query01 += " AND PS_PP030H.Canceled = 'N'";
                                         RecordSet01.DoQuery(query01);
                                         if (RecordSet01.Fields.Item(0).Value == oMat03.Columns.Item("CpBCode").Cells.Item(i).Specific.Value 

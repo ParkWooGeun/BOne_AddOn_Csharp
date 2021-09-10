@@ -682,14 +682,11 @@ namespace PSH_BOne_AddOn
                 else if (pVal.Before_Action == false)
                 {
                     SubMain.Remove_Forms(oFormUniqueID);
-
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid1);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid2);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_SY010H);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_SY010L);
-
-    }
+                }
             }
             catch (Exception ex)
             {
@@ -770,9 +767,9 @@ namespace PSH_BOne_AddOn
                             break;
                         case "1282": //추가
                             break;
-                        case "1288": //레코드이동(최초)
+                        case "1288": //레코드이동(다음)
                         case "1289": //레코드이동(이전)
-                        case "1290": //레코드이동(다음)
+                        case "1290": //레코드이동(최초)
                         case "1291": //레코드이동(최종)
                             break;
                     }
@@ -790,9 +787,9 @@ namespace PSH_BOne_AddOn
                         case "1281": //찾기
                         case "1282": //추가
                             break;
-                        case "1288": //레코드이동(최초)
+                        case "1288": //레코드이동(다음)
                         case "1289": //레코드이동(이전)
-                        case "1290": //레코드이동(다음)
+                        case "1290": //레코드이동(최초)
                         case "1291": //레코드이동(최종)
                         case "1287": //복제
                             break;

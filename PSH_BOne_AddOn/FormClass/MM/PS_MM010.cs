@@ -1850,9 +1850,9 @@ namespace PSH_BOne_AddOn
                             break;
                         case "1282": //추가
                             break;
-                        case "1288": //레코드이동(최초)
+                        case "1288": //레코드이동(다음)
                         case "1289": //레코드이동(이전)
-                        case "1290": //레코드이동(다음)
+                        case "1290": //레코드이동(최초)
                         case "1291": //레코드이동(최종)
                             break;
                     }
@@ -1904,9 +1904,9 @@ namespace PSH_BOne_AddOn
                             oForm.Items.Item("SumQty").Specific.Value = 0;
                             oForm.Items.Item("SumWeight").Specific.Value = 0;
                             break;
-                        case "1288": //레코드이동(최초)
+                        case "1288": //레코드이동(다음)
                         case "1289": //레코드이동(이전)
-                        case "1290": //레코드이동(다음)
+                        case "1290": //레코드이동(최초)
                         case "1291": //레코드이동(최종)
                             PS_MM010_FormItemEnabled();
                             PS_MM010_FlushToItemValue("BPLId", 0, "");

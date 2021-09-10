@@ -2720,9 +2720,9 @@ namespace PSH_BOne_AddOn
                             break;
                         case "1282": //추가
                             break;
-                        case "1288": //레코드이동(최초)
+                        case "1288": //레코드이동(다음)
                         case "1289": //레코드이동(이전)
-                        case "1290": //레코드이동(다음)
+                        case "1290": //레코드이동(최초)
                         case "1291": //레코드이동(최종)
                             break;
                     }
@@ -2813,9 +2813,9 @@ namespace PSH_BOne_AddOn
                             PS_MM030_FormItemEnabled();
                             PS_MM030_FormClear();
                             break;
-                        case "1288": //레코드이동(최초)
+                        case "1288": //레코드이동(다음)
                         case "1289": //레코드이동(이전)
-                        case "1290": //레코드이동(다음)
+                        case "1290": //레코드이동(최초)
                         case "1291": //레코드이동(최종)
                             PS_MM030_FormItemEnabled();
                             oMat01.AutoResizeColumns();

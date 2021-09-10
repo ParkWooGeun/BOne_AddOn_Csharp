@@ -5818,55 +5818,54 @@
             </summary>
             <param name="oFormDocEntry"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_MM006.CreateItems">
+        <member name="M:PSH_BOne_AddOn.PS_MM006.PS_MM006_CreateItems">
             <summary>
-            CreateItems
+            PS_MM006_CreateItems
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_MM006.ComboBox_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_MM006.PS_MM006_SetComboBox">
             <summary>
-            ComboBox_Setting
+            PS_MM006_SetComboBox
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_MM006.Initialization">
+        <member name="M:PSH_BOne_AddOn.PS_MM006.PS_MM006_Initialize">
             <summary>
-            Initialization
+            PS_MM006_Initialize
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_MM006.LoadCaption">
+        <member name="M:PSH_BOne_AddOn.PS_MM006.PS_MM006_LoadCaption">
             <summary>
-            LoadCaption
+            PS_MM006_LoadCaption
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_MM006.FlushToItemValue(System.String,System.Int32,System.String)">
+        <member name="M:PSH_BOne_AddOn.PS_MM006.PS_MM006_FlushToItemValue(System.String,System.Int32,System.String)">
             <summary>
-            FlushToItemValue
+            PS_MM006_FlushToItemValue
             </summary>
             <param name="oUID"></param>
             <param name="oRow"></param>
             <param name="oCol"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_MM006.HeaderSpaceLineDel">
+        <member name="M:PSH_BOne_AddOn.PS_MM006.PS_MM006_DelHeaderSpaceLine">
             <summary>
-            HeaderSpaceLineDel
+            PS_MM006_DelHeaderSpaceLine
             </summary>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_MM006.Update_PurchaseDemand(SAPbouiCOM.ItemEvent@)">
+        <member name="M:PSH_BOne_AddOn.PS_MM006.PS_MM006_UpdatePurchaseDemand">
             <summary>
-            Update_PurchaseDemand
+            PS_MM006_UpdatePurchaseDemand
             </summary>
-            <param name="pVal"></param>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_MM006.LoadData">
+        <member name="M:PSH_BOne_AddOn.PS_MM006.PS_MM006_LoadData">
             <summary>
-            LoadData
+            PS_MM006_LoadData
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_MM006.TitleSetting(System.Int32)">
+        <member name="M:PSH_BOne_AddOn.PS_MM006.PS_MM006_SetTitle">
             <summary>
-            TitleSetting
+            PS_MM006_SetTitle
             </summary>
             <param name="iRow"></param>
         </member>

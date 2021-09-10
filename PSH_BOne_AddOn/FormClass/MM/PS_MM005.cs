@@ -994,6 +994,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(false);
                 if (ProgBar01 != null)
                 {
+                    ProgBar01.Stop();
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
                 }
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);

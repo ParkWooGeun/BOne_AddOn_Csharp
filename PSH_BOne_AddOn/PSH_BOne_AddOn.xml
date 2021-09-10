@@ -5711,12 +5711,12 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM005.PS_MM005_SetPreSearchData">
             <summary>
-            조회전 모드 변경시 조회조건 저장
+            모드 변경시 조회조건 저장
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM005.PS_MM005_GetPreSearchData">
             <summary>
-            조회후 모드 변경시 조회전 조건 값 할당
+            모드 변경시 조회전 저장한 조회조건값 각 컨트롤에 할당
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM005.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">

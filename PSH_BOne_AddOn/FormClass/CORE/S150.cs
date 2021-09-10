@@ -458,13 +458,13 @@ namespace PSH_BOne_AddOn.Core
                             {
                                 if (oForm.Items.Item("10002047").Specific.Value != "초기등록")
                                 {
-                                    if (BeMode == "2") // 업데이트시 마지막에 업데이트 일자 처리
+                                    if (BeMode == "fm_UPDATE_MODE") // 업데이트시 마지막에 업데이트 일자 처리
                                     {
                                         sQry = "update oitm set UpdateDate='" + FrDate + "', validFor = 'N', frozenFor    = 'Y', frozenFrom = '" + FrDate + "', frozenTo = '" + ToDate + "', FrozenComm = '업데이트됨' FROM OITM WHERE ITEMCODE ='" + ItemCode + "'";
                                         oRecordSet01.DoQuery(sQry);
                                         BeMode = "0";
                                     }
-                                    else if (BeMode == "3") // 신규추가시 마지막에 업데이트 일자 처리
+                                    else if (BeMode == "fm_ADD_MODE") // 신규추가시 마지막에 업데이트 일자 처리
                                     {
                                         sQry = "update oitm set UpdateDate='" + FrDate + "', validFor = 'N', frozenFor    = 'Y', frozenFrom = '" + FrDate + "', frozenTo = '" + ToDate + "', FrozenComm = '초기등록' FROM OITM WHERE ITEMCODE ='" + ItemCode + "'";
                                         oRecordSet01.DoQuery(sQry);

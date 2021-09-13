@@ -920,9 +920,9 @@ namespace PSH_BOne_AddOn
 								return;
 							}
 							break;
-						case "1288": //레코드이동(최초)
+						case "1288": //레코드이동(다음)
 						case "1289": //레코드이동(이전)
-						case "1290": //레코드이동(다음)
+						case "1290": //레코드이동(최초)
 						case "1291": //레코드이동(최종)
 							break;
 						case "7169": //엑셀 내보내기
@@ -964,9 +964,9 @@ namespace PSH_BOne_AddOn
 							oDS_PS_PP075H.SetValue("U_CntcCode", 0, dataHelpClass.User_MSTCOD());
 							PS_PP075_FlushToItemValue("CntcCode", 0, "");
 							break;
-						case "1288": //레코드이동(최초)
+						case "1288": //레코드이동(다음)
 						case "1289": //레코드이동(이전)
-						case "1290": //레코드이동(다음)
+						case "1290": //레코드이동(최초)
 						case "1291": //레코드이동(최종)
 							PS_PP075_EnableFormItem();
 							if (oMat.VisualRowCount > 0)

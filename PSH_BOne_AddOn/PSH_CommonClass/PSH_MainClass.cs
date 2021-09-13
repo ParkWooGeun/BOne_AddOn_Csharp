@@ -846,7 +846,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (Strings.Left(FormUID, 2) == "F_")
                 {
-                    if (Check_ValidateForm(PSH_Globals.SBO_Application.Forms.Item(eventInfo.FormUID).TypeEx))
+                    if (Check_ValidateForm("S" + PSH_Globals.SBO_Application.Forms.Item(eventInfo.FormUID).TypeEx))
                     {
                         oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
                         oTempClass.Raise_RightClickEvent(FormUID, ref eventInfo, ref BubbleEvent);

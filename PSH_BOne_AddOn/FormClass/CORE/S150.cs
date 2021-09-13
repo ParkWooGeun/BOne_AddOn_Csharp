@@ -62,6 +62,8 @@ namespace PSH_BOne_AddOn.Core
                 oItem.Height = oForm.Items.Item("10002052").Height;
                 oItem.Width = 80;
                 oItem.Specific.Caption = "코드사용여부";
+                oItem.FromPane = 6;
+                oItem.ToPane = 6;
 
                 oItem_ItmMsort = oForm.Items.Add("ItmMsort", SAPbouiCOM.BoFormItemTypes.it_EDIT);
                 oItem_ItmMsort.Left = 250;
@@ -99,6 +101,8 @@ namespace PSH_BOne_AddOn.Core
                 oCombo.Specific.ValidValues.Add("", "-");
                 oCombo.Specific.ValidValues.Add("Y", "사용");
                 oCombo.Specific.ValidValues.Add("N", "미사용");
+                oCombo.FromPane = 6;
+                oCombo.ToPane = 6;
             }
             catch (Exception ex)
             {
@@ -681,9 +685,9 @@ namespace PSH_BOne_AddOn.Core
                             break;
                         case "1282": //추가
                             break;
-                        case "1288": //레코드이동(최초)
+                        case "1288": //레코드이동(다음)
                         case "1289": //레코드이동(이전)
-                        case "1290": //레코드이동(다음)
+                        case "1290": //레코드이동(최초)
                         case "1291": //레코드이동(최종)
                             break;
                     }
@@ -704,9 +708,9 @@ namespace PSH_BOne_AddOn.Core
                         case "1282": //추가
                             S150_FormItemEnabled();
                             break;
-                        case "1288": //레코드이동(최초)
+                        case "1288": //레코드이동(다음)
                         case "1289": //레코드이동(이전)
-                        case "1290": //레코드이동(다음)
+                        case "1290": //레코드이동(최초)
                         case "1291": //레코드이동(최종)
                             S150_FormItemEnabled();
                             break;

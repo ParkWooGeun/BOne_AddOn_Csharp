@@ -268,7 +268,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP052_Validate(string ValidateType)
         {
-            bool functionReturnValue = true;
+            bool functionReturnValue = false;
             int i = 0;
             int j;
             string Query01;
@@ -393,6 +393,7 @@ namespace PSH_BOne_AddOn
                         throw new Exception();
                     }
                 }
+                functionReturnValue = true;
             }
             catch (Exception ex)
             {
@@ -3225,11 +3226,13 @@ namespace PSH_BOne_AddOn
                     if (oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim() == "111" && (oMat01.Columns.Item("CpCode").Cells.Item(oLastColRow01).Specific.Value.ToString().Trim() == "CP80111" || oMat01.Columns.Item("CpCode").Cells.Item(oLastColRow01).Specific.Value.ToString().Trim() == "CP80101"))
                     {
                         errMessage = "첫공정은 행삭제 할수 없습니다.";
+                        BubbleEvent = false;
                         throw new Exception();
                     }
                     else if (oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim() == "601" && (oMat01.Columns.Item("CpCode").Cells.Item(oLastColRow01).Specific.Value.ToString().Trim() == "CP80111" || oMat01.Columns.Item("CpCode").Cells.Item(oLastColRow01).Specific.Value.ToString().Trim() == "CP80101"))  //분말 첫번째 공정일 경우 오류
                     {
                         errMessage = "첫공정은 행삭제 할수 없습니다.";
+                        BubbleEvent = false;
                         throw new Exception();
                     }
                     if (oLastItemUID01 == "Mat01")
@@ -3262,9 +3265,9 @@ namespace PSH_BOne_AddOn
                         }
                         for (i = 1; i <= oMat03.VisualRowCount; i++)
                         {
-                            if (oMat03.Columns.Item("OLineNum").Cells.Item(i).Specific.Value != 1)
+                            if (Convert.ToInt32(oMat03.Columns.Item("OLineNum").Cells.Item(i).Specific.Value) != 1)
                             {
-                                oMat03.Columns.Item("OLineNum").Cells.Item(i).Specific.Value = oMat03.Columns.Item("OLineNum").Cells.Item(i).Specific.Value - 1;
+                                oMat03.Columns.Item("OLineNum").Cells.Item(i).Specific.Value = Convert.ToString(Convert.ToInt32(oMat03.Columns.Item("OLineNum").Cells.Item(i).Specific.Value) - 1);
                             }
                         }
                         oMat01.FlushToDataSource();

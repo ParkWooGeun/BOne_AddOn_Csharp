@@ -1874,7 +1874,6 @@ namespace PSH_BOne_AddOn
                             BubbleEvent = false;
                             return;
                         }
-                        //행삭제전 행삭제가능여부검사
                     }
                     else if (pVal.BeforeAction == false)
                     {

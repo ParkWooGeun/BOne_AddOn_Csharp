@@ -1060,7 +1060,7 @@ namespace PSH_BOne_AddOn
         /// <param name="FormUID">Form UID</param>
         /// <param name="pVal">ItemEvent 객체</param>
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_ROW_DELETE(string FormUID, SAPbouiCOM.IMenuEvent pVal, bool BubbleEvent)
+        private void Raise_EVENT_ROW_DELETE(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
             int i;
 
@@ -1076,9 +1076,8 @@ namespace PSH_BOne_AddOn
                             BubbleEvent = false;
                             return;
                         }
-                        //Matrix 행삭제후 다시 행번채번등처리
                     }
-                    else if (pVal.BeforeAction == false)
+                    else if (pVal.BeforeAction == false) //Matrix 행삭제후 다시 행번채번등처리
                     {
                         for (i = 1; i <= oMat01.VisualRowCount; i++)
                         {
@@ -1095,8 +1094,7 @@ namespace PSH_BOne_AddOn
                         }
                         else
                         {
-                            //현재행삭제한 행의PorNum값이 있는행지우면 넘어가고 없는 마지막행값지우면 한행추가
-                            if (!string.IsNullOrEmpty(oDS_PS_PP090L.GetValue("U_LotNo", oMat01.RowCount - 1).ToString().Trim()))
+                            if (!string.IsNullOrEmpty(oDS_PS_PP090L.GetValue("U_LotNo", oMat01.RowCount - 1).ToString().Trim())) //현재행삭제한 행의PorNum값이 있는행지우면 넘어가고 없는 마지막행값지우면 한행추가
                             {
                                 PS_PP090_AddMatrixRow(oMat01.RowCount, false);
                             }
@@ -1149,6 +1147,7 @@ namespace PSH_BOne_AddOn
                         case "1286": //닫기
                             break;
                         case "1293": //행삭제
+                            Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
                             break;
                         case "1281": //찾기
                             break;
@@ -1170,7 +1169,7 @@ namespace PSH_BOne_AddOn
                         case "1286": //닫기
                             break;
                         case "1293": //행삭제
-                            Raise_EVENT_ROW_DELETE(FormUID, pVal, BubbleEvent);
+                            Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
                             PS_PP090_Calc_SumWeight();
                             break;
                         case "1281": //찾기

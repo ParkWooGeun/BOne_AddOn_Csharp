@@ -224,7 +224,9 @@
     <Compile Include="FormClass\MM\PS_MM096.cs" />
     <Compile Include="FormClass\MM\PS_MM135.cs" />
     <Compile Include="FormClass\MM\PS_MM153.cs" />
+    <Compile Include="FormClass\MM\PS_MM180.cs" />
     <Compile Include="FormClass\MM\PS_MM200.cs" />
+    <Compile Include="FormClass\MM\PS_MM205.cs" />
     <Compile Include="FormClass\MM\PS_MM225.cs" />
     <Compile Include="FormClass\MM\PS_MM510.cs" />
     <Compile Include="FormClass\MM\PS_MM921.cs" />
@@ -484,6 +486,7 @@
     <Compile Include="FormClass\PY\PH_PYA90.cs" />
     <Compile Include="FormClass\PY\PS_DateChange.cs" />
     <Compile Include="FormClass\PY\PS_DateCommit.cs" />
+    <Compile Include="FormClass\QM\PS_QM005.cs" />
     <Compile Include="FormClass\QM\PS_QM041.cs" />
     <Compile Include="FormClass\QM\PS_QM060.cs" />
     <Compile Include="FormClass\QM\PS_QM065.cs" />

@@ -18,7 +18,7 @@ namespace PSH_BOne_AddOn
         private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
         private int oLastRightClickCgNum;
 		
-        //모드 변경에 따른 조회조건 저장용 클래스
+        //모드 변경시 조회조건 저장용 클래스
         private class SearchData
         {
             private string ordType;
@@ -806,7 +806,7 @@ namespace PSH_BOne_AddOn
 
                 oMat01.LoadFromDataSourceEx();
 
-                successMessage = "일괄수정 성공했습니다. 갱신버튼을 클릭하여 수정 완료하십시오.";
+                successMessage = "일괄수정 완료. 갱신버튼을 클릭하여 수정 완료하십시오.";
 
                 returnValue = true;
             }
@@ -1925,6 +1925,7 @@ namespace PSH_BOne_AddOn
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                         {
+                            oLastItemUID01 = pVal.ItemUID; //폼을 닫기전 최종 ItemUID 저장
                             oForm.Close();
                         }
                     }
@@ -2347,7 +2348,10 @@ namespace PSH_BOne_AddOn
                 else if (pVal.Before_Action == false)
                 {
                     SubMain.Remove_Forms(oFormUniqueID);
-                    //System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
+                    if (oLastItemUID01 != "Btn01") //확인 버튼을 클릭해서 Form을 닫을 경우 제외
+                    {
+                        System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
+                    }
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_MM005H);
                 }

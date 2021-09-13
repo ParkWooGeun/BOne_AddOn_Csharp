@@ -766,10 +766,13 @@ namespace PSH_BOne_AddOn
                 //여신한도초과 Check
                 if (oForm.Items.Item("CardCode").Specific.Value != "12532") //풍산은 체크안함
                 {
-                    if (PS_SD040_ValidateCreditLine() == false)
+                    if (oForm.Mode == BoFormMode.fm_ADD_MODE) //최초 추가 모드일 때만 체크
                     {
-                        errMessage = " ";
-                        throw new Exception();
+                        if (PS_SD040_ValidateCreditLine() == false)
+                        {
+                            errMessage = " ";
+                            throw new Exception();
+                        }
                     }
                 }
                 if (PS_SD040_Validate("검사") == false)
@@ -1022,7 +1025,7 @@ namespace PSH_BOne_AddOn
             string ServerIP; //서버IP(운영용:192.1.11.3, 테스트용:192.1.11.7)
             int i;
             int j;
-            string sQry = string.Empty;
+            string sQry;
             string errCode = string.Empty;
             string errMessage = string.Empty;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);

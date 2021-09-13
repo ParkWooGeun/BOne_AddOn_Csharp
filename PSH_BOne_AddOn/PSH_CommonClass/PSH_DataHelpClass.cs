@@ -3879,5 +3879,27 @@ namespace PSH_BOne_AddOn.Data
 
             return rfcDest;
         }
+
+        /// <summary>
+        /// 본사 R3 서버 정보 조회
+        /// </summary>
+        /// <returns>Array[0] : Client, Array[1] : ServerIP</returns>
+        public string[] GetR3ServerInfo()
+        {
+            string[] r3ServerInfo = new string[2];
+
+            if (GetValue("SELECT DB_NAME()", 0, 1) == "PSHDB") //운영용DB
+            {
+                r3ServerInfo[0] = GetValue("SELECT U_Client FROM [@PSH_R3INFO] WHERE Code = '1'", 0, 1); //Client(210)
+                r3ServerInfo[1] = GetValue("SELECT U_ServerIP FROM [@PSH_R3INFO] WHERE Code = '1'", 0, 1); //ServerIP(192.1.11.3)
+            }
+            else //그 외(테스트DB)
+            {
+                r3ServerInfo[0] = GetValue("SELECT U_Client FROM [@PSH_R3INFO] WHERE Code = '2'", 0, 1); //Client(810)
+                r3ServerInfo[1] = GetValue("SELECT U_ServerIP FROM [@PSH_R3INFO] WHERE Code = '2'", 0, 1); //ServerIP(192.1.11.7)
+            }
+
+            return r3ServerInfo;
+        }
     }
 }

@@ -5858,16 +5858,16 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_MM006.PS_MM006_LoadData">
+        <member name="M:PSH_BOne_AddOn.PS_MM006.PS_MM006_LoadData(System.String)">
             <summary>
-            PS_MM006_LoadData
+            메트릭스 데이터 조회
             </summary>
+            <param name="message">SetText 메시지</param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM006.PS_MM006_SetTitle">
             <summary>
             PS_MM006_SetTitle
             </summary>
-            <param name="iRow"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM006.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -8558,6 +8558,73 @@
             <param name="FormUID"></param>
             <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
+        </member>
+        <member name="T:PSH_BOne_AddOn.PS_MM180">
+            <summary>
+            입고(배치번호관리품목)
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM180.LoadForm(System.String)">
+            <summary>
+            LoadForm
+            </summary>
+            <param name="oFormDocEntry"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM180.PS_MM180_CreateItems">
+            <summary>
+            화면 Item 생성
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM180.PS_MM180_CF_ChooseFromList">
+            <summary>
+            ChooseFromList
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM180.PS_MM180_EnableMenus">
+            <summary>
+            EnableMenus
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM180.PS_MM180_SetDocument(System.String)">
+            <summary>
+            화면 초기화
+            </summary>
+            <param name="oFormDocEntry"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM180.PS_MM180_EnableFormItem">
+            <summary>
+            각모드에따른 아이템설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM180.PS_MM180_SetDocEntry">
+            <summary>
+            DocEntry 초기화
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM180.PS_MM180_AddMatrixRow(System.Int32,System.Boolean)">
+            <summary>
+            메트릭스 행추가
+            </summary>
+            <param name="oRow"></param>
+            <param name="RowIserted"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM180.PS_MM180_CheckDataValid">
+            <summary>
+            필수 입력 사항 체크
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM180.PS_MM180_Validate(System.String)">
+            <summary>
+            처리가능한 Action인지 검사
+            </summary>
+            <param name="ValidateType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM180.PS_MM180_CalculateSumQty">
+            <summary>
+            합계 계산
+            </summary>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_MM200">
             <summary>

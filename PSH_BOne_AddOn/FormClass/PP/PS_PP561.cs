@@ -128,7 +128,7 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				dataHelpClass.SetEnableMenus(oForm, false, false, false, true, false, true, true, true, true,	false, false, false, false, false, false, false);
+				dataHelpClass.SetEnableMenus(oForm, false, false, true, true, false, true, true, true, true,	false, false, false, false, false, false, false);
 			}
 			catch (Exception ex)
 			{
@@ -943,7 +943,7 @@ namespace PSH_BOne_AddOn
 		/// <param name="FormUID"></param>
 		/// <param name="pVal"></param>
 		/// <param name="BubbleEvent"></param>
-		private void Raise_EVENT_ROW_DELETE(string FormUID, SAPbouiCOM.IMenuEvent pVal, bool BubbleEvent)
+		private void Raise_EVENT_ROW_DELETE(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
 		{
 			int i;
 
@@ -1049,7 +1049,7 @@ namespace PSH_BOne_AddOn
 						case "1286": //닫기
 							break;
 						case "1293": //행삭제
-							Raise_EVENT_ROW_DELETE(FormUID, pVal, BubbleEvent);
+							Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
 							break;
 						case "1281": //찾기
 							break;
@@ -1075,7 +1075,7 @@ namespace PSH_BOne_AddOn
 						case "1285": //복원
 							break;
 						case "1293": //행삭제
-							Raise_EVENT_ROW_DELETE(FormUID, pVal, BubbleEvent);
+							Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
 							break;
 						case "1281": //찾기
 							PS_PP561_EnableFormItem(); 

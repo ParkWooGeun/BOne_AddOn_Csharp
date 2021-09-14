@@ -26,7 +26,7 @@ namespace PSH_BOne_AddOn.Core
                 oForm = PSH_Globals.SBO_Application.Forms.Item(formUID);
                 oFormUniqueID = formUID;
                 SubMain.Add_Forms(this, formUID, "S150");
-                
+
                 S150_CreateItems();
                 S150_FormItemEnabled();
             }
@@ -62,6 +62,8 @@ namespace PSH_BOne_AddOn.Core
                 oItem.Height = oForm.Items.Item("10002052").Height;
                 oItem.Width = 80;
                 oItem.Specific.Caption = "코드사용여부";
+                oItem.FromPane = 6;
+                oItem.ToPane = 6;
 
                 oItem_ItmMsort = oForm.Items.Add("ItmMsort", SAPbouiCOM.BoFormItemTypes.it_EDIT);
                 oItem_ItmMsort.Left = 250;
@@ -99,6 +101,8 @@ namespace PSH_BOne_AddOn.Core
                 oCombo.Specific.ValidValues.Add("", "-");
                 oCombo.Specific.ValidValues.Add("Y", "사용");
                 oCombo.Specific.ValidValues.Add("N", "미사용");
+                oCombo.FromPane = 6;
+                oCombo.ToPane = 6;
             }
             catch (Exception ex)
             {
@@ -134,7 +138,7 @@ namespace PSH_BOne_AddOn.Core
         /// </summary>
         /// <returns></returns>
         private bool S150_DataValidCheck()
-        {       
+        {
             bool functionReturnValue = false;
             double chknum;
             string errMessage = string.Empty;
@@ -148,7 +152,7 @@ namespace PSH_BOne_AddOn.Core
                 }
                 if (oForm.Items.Item("ItmMsort").Specific.Value == "30603") // 중분류가 봉일 경우 Spec2, Spec4 필드에 문자, 공백 불가 로직 추가
                 {
-                    if((double.TryParse(oForm.Items.Item("Spec2").Specific.Value, out chknum) == false || double.TryParse(oForm.Items.Item("Spec4").Specific.Value, out chknum) == false) || (string.IsNullOrEmpty(oForm.Items.Item("Spec2").Specific.Value.ToString().Trim()) || string.IsNullOrEmpty(oForm.Items.Item("Spec4").Specific.Value.ToString().Trim())))
+                    if ((double.TryParse(oForm.Items.Item("Spec2").Specific.Value, out chknum) == false || double.TryParse(oForm.Items.Item("Spec4").Specific.Value, out chknum) == false) || (string.IsNullOrEmpty(oForm.Items.Item("Spec2").Specific.Value.ToString().Trim()) || string.IsNullOrEmpty(oForm.Items.Item("Spec4").Specific.Value.ToString().Trim())))
                     {
                         errMessage = "오류 : 중분류 봉(30603)의 경우 규격2,4 필드에 문자, 공백 불가!\n";
                         errMessage += "뷰 > 사용자정의필드를 선택하여 규격2,4필드를 숫자로 변경하세요.";
@@ -454,13 +458,13 @@ namespace PSH_BOne_AddOn.Core
                             {
                                 if (oForm.Items.Item("10002047").Specific.Value != "초기등록")
                                 {
-                                    if (BeMode == "2") // 업데이트시 마지막에 업데이트 일자 처리
+                                    if (BeMode == "fm_UPDATE_MODE") // 업데이트시 마지막에 업데이트 일자 처리
                                     {
                                         sQry = "update oitm set UpdateDate='" + FrDate + "', validFor = 'N', frozenFor    = 'Y', frozenFrom = '" + FrDate + "', frozenTo = '" + ToDate + "', FrozenComm = '업데이트됨' FROM OITM WHERE ITEMCODE ='" + ItemCode + "'";
                                         oRecordSet01.DoQuery(sQry);
                                         BeMode = "0";
                                     }
-                                    else if (BeMode == "3") // 신규추가시 마지막에 업데이트 일자 처리
+                                    else if (BeMode == "fm_ADD_MODE") // 신규추가시 마지막에 업데이트 일자 처리
                                     {
                                         sQry = "update oitm set UpdateDate='" + FrDate + "', validFor = 'N', frozenFor    = 'Y', frozenFrom = '" + FrDate + "', frozenTo = '" + ToDate + "', FrozenComm = '초기등록' FROM OITM WHERE ITEMCODE ='" + ItemCode + "'";
                                         oRecordSet01.DoQuery(sQry);
@@ -583,8 +587,8 @@ namespace PSH_BOne_AddOn.Core
 
                         if (oRecordSet01.Fields.Item(0).Value == "M3")
                         {
-                            if ((oForm.Items.Item("39").Specific.Selected.Value.ToString().Trim() == "102") 
-                             || (oForm.Items.Item("39").Specific.Selected.Value.ToString().Trim() == "106") 
+                            if ((oForm.Items.Item("39").Specific.Selected.Value.ToString().Trim() == "102")
+                             || (oForm.Items.Item("39").Specific.Selected.Value.ToString().Trim() == "106")
                              || (oForm.Items.Item("39").Specific.Selected.Value.ToString().Trim() == "103"))
                             {
                                 errCode = 3;
@@ -593,8 +597,8 @@ namespace PSH_BOne_AddOn.Core
                         }
                         else if (oRecordSet01.Fields.Item(0).Value == "M2")
                         {
-                            if ((oForm.Items.Item("39").Specific.Selected.Value.ToString().Trim() == "101") 
-                             || (oForm.Items.Item("39").Specific.Selected.Value.ToString().Trim() == "104") 
+                            if ((oForm.Items.Item("39").Specific.Selected.Value.ToString().Trim() == "101")
+                             || (oForm.Items.Item("39").Specific.Selected.Value.ToString().Trim() == "104")
                              || (oForm.Items.Item("39").Specific.Selected.Value.ToString().Trim() == "105"))
                             {
                                 errCode = 3;
@@ -681,9 +685,9 @@ namespace PSH_BOne_AddOn.Core
                             break;
                         case "1282": //추가
                             break;
-                        case "1288": //레코드이동(최초)
+                        case "1288": //레코드이동(다음)
                         case "1289": //레코드이동(이전)
-                        case "1290": //레코드이동(다음)
+                        case "1290": //레코드이동(최초)
                         case "1291": //레코드이동(최종)
                             break;
                     }
@@ -704,14 +708,14 @@ namespace PSH_BOne_AddOn.Core
                         case "1282": //추가
                             S150_FormItemEnabled();
                             break;
-                        case "1288": //레코드이동(최초)
+                        case "1288": //레코드이동(다음)
                         case "1289": //레코드이동(이전)
-                        case "1290": //레코드이동(다음)
+                        case "1290": //레코드이동(최초)
                         case "1291": //레코드이동(최종)
                             S150_FormItemEnabled();
                             break;
                         case "1287": //복제
-							break;
+                            break;
                     }
                 }
             }

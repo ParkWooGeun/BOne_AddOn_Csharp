@@ -24,6 +24,8 @@ namespace PSH_BOne_AddOn.Core
             try
             {
                 oForm = PSH_Globals.SBO_Application.Forms.Item(formUID);
+                oForm.Freeze(true);
+
                 oFormUniqueID = formUID;
                 SubMain.Add_Forms(this, formUID, "S150");
                 
@@ -715,7 +717,7 @@ namespace PSH_BOne_AddOn.Core
                             S150_FormItemEnabled();
                             break;
                         case "1287": //복제
-							break;
+                            break;
                     }
                 }
             }

@@ -524,19 +524,19 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// 유효한 폼인지 검사
+        /// 유효한 폼인지 검사(Collection에 저장되어 있는 Form, 이벤트를 실행시켜야 하는 Form)
         /// </summary>
-        /// <param name="FormType"></param>
+        /// <param name="FormUID"></param>
         /// <returns></returns>
-        private bool Check_ValidateForm(string FormType)
+        private bool Check_ValidateForm(string FormUID)
         {
             bool functionReturnValue = false;
 
             try
             {
-                for (int i = 1; i <= PSH_Globals.FormTypeListCount; i++)
+                for (int i = 1; i <= PSH_Globals.ClassList.Count; i++)
                 {
-                    if (PSH_Globals.FormTypeList[i].ToString() == FormType)
+                    if (PSH_Globals.ClassList.Contains(FormUID))
                     {
                         functionReturnValue = true;
                         break;
@@ -705,7 +705,7 @@ namespace PSH_BOne_AddOn
 
                 if (Strings.Left(FormUID, 2) != "F_")
                 {
-                    if (Check_ValidateForm(PSH_Globals.SBO_Application.Forms.ActiveForm.TypeEx))
+                    if (Check_ValidateForm(FormUID))
                     {
                         oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
                         if (oTempClass.oForm == null)
@@ -720,7 +720,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (Strings.Left(FormUID, 2) == "F_")
                 {
-                    if (Check_ValidateForm("S" + PSH_Globals.SBO_Application.Forms.ActiveForm.TypeEx))
+                    if (Check_ValidateForm(FormUID))
                     {
                         oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
                         oTempClass.Raise_FormMenuEvent(FormUID, ref pVal, ref BubbleEvent);
@@ -744,11 +744,14 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                Create_SYSTEMForm(pVal, ref oTempClass);
+                if (pVal.BeforeAction == true)
+                {
+                    Create_SYSTEMForm(pVal, ref oTempClass);
+                }
 
                 if (Strings.Left(pVal.FormUID, 2) != "F_")
                 {
-                    if (Check_ValidateForm(pVal.FormTypeEx))
+                    if (Check_ValidateForm(FormUID))
                     {
                         oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
                         if (oTempClass.oForm == null)
@@ -763,7 +766,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (Strings.Left(pVal.FormUID, 2) == "F_")
                 {
-                    if (Check_ValidateForm("S" + pVal.FormTypeEx))
+                    if (Check_ValidateForm(FormUID))
                     {
                         oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
                         oTempClass.Raise_FormItemEvent(FormUID, ref pVal, ref BubbleEvent);
@@ -789,7 +792,7 @@ namespace PSH_BOne_AddOn
 
                 if (Strings.Left(FormUID, 2) != "F_")
                 {
-                    if (Check_ValidateForm(BusinessObjectInfo.FormTypeEx))
+                    if (Check_ValidateForm(FormUID))
                     {
                         oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
                         if (oTempClass.oForm == null)
@@ -804,7 +807,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (Strings.Left(FormUID, 2) == "F_")
                 {
-                    if (Check_ValidateForm("S" + BusinessObjectInfo.FormTypeEx))
+                    if (Check_ValidateForm(FormUID))
                     {
                         oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
                         oTempClass.Raise_FormDataEvent(FormUID, ref BusinessObjectInfo, ref BubbleEvent);
@@ -830,7 +833,7 @@ namespace PSH_BOne_AddOn
 
                 if (Strings.Left(FormUID, 2) != "F_")
                 {
-                    if (Check_ValidateForm(PSH_Globals.SBO_Application.Forms.Item(eventInfo.FormUID).TypeEx))
+                    if (Check_ValidateForm(FormUID))
                     {
                         oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
 
@@ -846,7 +849,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (Strings.Left(FormUID, 2) == "F_")
                 {
-                    if (Check_ValidateForm("S" + PSH_Globals.SBO_Application.Forms.Item(eventInfo.FormUID).TypeEx))
+                    if (Check_ValidateForm(FormUID))
                     {
                         oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
                         oTempClass.Raise_RightClickEvent(FormUID, ref eventInfo, ref BubbleEvent);

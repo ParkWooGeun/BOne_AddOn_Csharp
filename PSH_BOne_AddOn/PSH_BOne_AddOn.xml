@@ -115,6 +115,54 @@
             <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
         </member>
+        <member name="T:PSH_BOne_AddOn.Core.S721">
+            <summary>
+            입고
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Core.S721.LoadForm(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="formUID"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Core.S721.S721_CreateItems">
+            <summary>
+            화면 Item 생성
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Core.S721.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Form Item Event
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">pVal</param>
+            <param name="BubbleEvent">Bubble Event</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Core.S721.Raise_EVENT_KEY_DOWN(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            KEY_DOWN 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Core.S721.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            VALIDATE 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Core.S721.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            FORM_UNLOAD 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_CO800">
             <summary>
             제품 원재료 변환
@@ -70226,9 +70274,9 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PSH_MainClass.Check_ValidateForm(System.String)">
             <summary>
-            유효한 폼인지 검사
+            유효한 폼인지 검사(이벤트를 실행시켜야 하는 Form인지 검사)
             </summary>
-            <param name="FormType"></param>
+            <param name="FormUID"></param>
             <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PSH_MainClass.Create_USERForm(SAPbouiCOM.MenuEvent,PSH_BOne_AddOn.PSH_BaseClass@)">

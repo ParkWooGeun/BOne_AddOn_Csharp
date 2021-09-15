@@ -59,6 +59,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:PSH_BOne_AddOn.Core.S150.S150_SetAuthorityStatus">
+            <summary>
+            추가/수정 시 승인을 위한 상태 변경
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.Core.S150.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event

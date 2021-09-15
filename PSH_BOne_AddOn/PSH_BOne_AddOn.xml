@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <doc>
     <assembly>
         <name>PSH_BOne_AddOn</name>
@@ -9218,16 +9218,6 @@
             <param name="FormUID"></param>
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_MM180.PS_MM180_InterfaceB1toR3">
-            <summary>
-            본사 데이터 전송
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_MM180.PS_MM180_LoadBatchFromR3">
-            <summary>
-            1. Box No R3(울산사업장) 전송, 2. Lot No 회신, 3. Form Matrix에 출력
-            </summary>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_MM200">
             <summary>
@@ -39391,6 +39381,17 @@
             <param name="FormUID"></param>
             <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
+        </member>
+        <member name="T:PSH_BOne_AddOn.PS_QM903">
+            <summary>
+            외부실패비용 등록
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM903.LoadForm(System.String)">
+            <summary>
+            LoadForm
+            </summary>
+            <param name="oFormDocEntry"></param>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_SD001">
             <summary>

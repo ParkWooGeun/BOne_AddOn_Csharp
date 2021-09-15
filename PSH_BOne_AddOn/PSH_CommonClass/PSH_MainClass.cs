@@ -5,7 +5,6 @@ using SAPbouiCOM;
 using Scripting;
 using PSH_BOne_AddOn.Code;
 using PSH_BOne_AddOn.Data;
-using PSH_BOne_AddOn.Core;
 
 namespace PSH_BOne_AddOn
 {
@@ -159,13 +158,13 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// ODBC 연결용 변수 초기화
         /// </summary>
-        public void Initialize_ODBC_Variable()
+        private void Initialize_ODBC_Variable()
         {
             string sQry;
             string ServerName;
             SAPbobsCOM.Recordset oRecordSet = (SAPbobsCOM.Recordset)PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
-            
+
             ServerName = PSH_Globals.SBO_Application.Company.ServerName;
 
             sQry = "  SELECT      PARAM01 AS PARAM01,";
@@ -185,7 +184,8 @@ namespace PSH_BOne_AddOn
             {
                 //ODBC
                 //PSH_Globals.SP_ODBC_YN = Trim(oRecordset.Fields("Value01").Value)
-                if (codeHelpClass.Right(ServerName, 3) == "223"){
+                if (codeHelpClass.Right(ServerName, 3) == "223")
+                {
                     PSH_Globals.SP_ODBC_Name = "MDCERP";
                 }
                 else
@@ -259,7 +259,7 @@ namespace PSH_BOne_AddOn
                 }
                 //XML No 생성
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("XmlCreateYN_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
@@ -525,21 +525,21 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// 유효한 폼인지 검사
+        /// 유효한 폼인지 검사(Collection에 저장되어 있는 Form, 이벤트를 실행시켜야 하는 Form)
         /// </summary>
-        /// <param name="FormType"></param>
+        /// <param name="FormUID"></param>returnValue
         /// <returns></returns>
-        private bool Check_ValidateForm(string FormType)
+        private bool Check_ValidateForm(string FormUID)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
 
             try
             {
-                for (int i = 1; i <= PSH_Globals.FormTypeListCount; i++)
+                for (int i = 1; i <= PSH_Globals.ClassList.Count; i++)
                 {
-                    if (PSH_Globals.FormTypeList[i].ToString() == FormType)
+                    if (PSH_Globals.ClassList.Contains(FormUID) == true)
                     {
-                        functionReturnValue = true;
+                        returnValue = true;
                         break;
                     }
                 }
@@ -549,7 +549,7 @@ namespace PSH_BOne_AddOn
                 PSH_Globals.SBO_Application.StatusBar.SetText("Check_ValidateForm_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -588,7 +588,7 @@ namespace PSH_BOne_AddOn
             {
                 if (ProgBar01 != null)
                 {
-                    ProgBar01.Stop(); //MainMenu 클릭 후 화면이 열릴 때까지 Waiting 종료
+                    ProgBar01.Stop(); //MainMenu 클릭 후 화면이 열리면 Waiting 종료
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
                 }
 
@@ -625,7 +625,6 @@ namespace PSH_BOne_AddOn
                         }
                     }
                 }
-                return;
             }
             catch (Exception ex)
             {
@@ -694,38 +693,22 @@ namespace PSH_BOne_AddOn
                     Create_USERForm(pVal, ref oTempClass);
                     RecordSet01.DoQuery("EXEC Z_PS_FormCount '" + dataHelpClass.User_MSTCOD() + "','" + pVal.MenuUID + "'"); //Form 실행 횟수 저장
 
+                    //C#Migration완료 후 제거 요망_S
                     RecordSet01.DoQuery("EXEC Z_PS_FormType '" + pVal.MenuUID + "'");
 
                     if (RecordSet01.Fields.Item("FormType").Value == "H")
                     {
                         RecordSet01.DoQuery("EXEC Z_PS_FormCount '" + dataHelpClass.User_MSTCOD() + "','" + pVal.MenuUID + "'"); //Form 실행 횟수 저장
                     }
+                    //C#Migration완료 후 제거 요망_E
                 }
 
                 string FormUID = PSH_Globals.SBO_Application.Forms.ActiveForm.UniqueID;
 
-                if (Strings.Left(FormUID, 2) != "F_")
+                if (Check_ValidateForm(FormUID) == true)
                 {
-                    if (Check_ValidateForm(PSH_Globals.SBO_Application.Forms.ActiveForm.TypeEx))
-                    {
-                        oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
-                        if (oTempClass.oForm == null)
-                        {
-                            return;
-                        }
-                        else
-                        {
-                            oTempClass.Raise_FormMenuEvent(FormUID, ref pVal, ref BubbleEvent);
-                        }
-                    }
-                }
-                else if (Strings.Left(FormUID, 2) == "F_")
-                {
-                    if (Check_ValidateForm("S" + PSH_Globals.SBO_Application.Forms.ActiveForm.TypeEx))
-                    {
-                        oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
-                        oTempClass.Raise_FormMenuEvent(FormUID, ref pVal, ref BubbleEvent);
-                    }
+                    oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
+                    oTempClass.Raise_FormMenuEvent(FormUID, ref pVal, ref BubbleEvent);
                 }
             }
             catch (Exception ex)
@@ -745,32 +728,16 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                Create_SYSTEMForm(pVal, ref oTempClass);
+                if (pVal.BeforeAction == true)
+                {
+                    Create_SYSTEMForm(pVal, ref oTempClass);
+                }
 
-                if (Strings.Left(pVal.FormUID, 2) != "F_")
+                if (Check_ValidateForm(FormUID))
                 {
-                    if (Check_ValidateForm(pVal.FormTypeEx))
-                    {
-                        oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
-                        if (oTempClass.oForm == null)
-                        {
-                            return;
-                        }
-                        else
-                        {
-                            oTempClass.Raise_FormItemEvent(FormUID, ref pVal, ref BubbleEvent);
-                        }
-                    }
+                    oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
+                    oTempClass.Raise_FormItemEvent(FormUID, ref pVal, ref BubbleEvent);
                 }
-                else if (Strings.Left(pVal.FormUID, 2) == "F_")
-                {
-                    if (Check_ValidateForm("S" + pVal.FormTypeEx))
-                    {
-                        oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
-                        oTempClass.Raise_FormItemEvent(FormUID, ref pVal, ref BubbleEvent);
-                    }
-                }
-                return;
             }
             catch (Exception ex)
             {
@@ -788,30 +755,11 @@ namespace PSH_BOne_AddOn
             {
                 FormUID = BusinessObjectInfo.FormUID;
 
-                if (Strings.Left(FormUID, 2) != "F_")
+                if (Check_ValidateForm(FormUID))
                 {
-                    if (Check_ValidateForm(BusinessObjectInfo.FormTypeEx))
-                    {
-                        oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
-                        if (oTempClass.oForm == null)
-                        {
-                            return;
-                        }
-                        else
-                        {
-                            oTempClass.Raise_FormDataEvent(FormUID, ref BusinessObjectInfo, ref BubbleEvent);
-                        }
-                    }
+                    oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
+                    oTempClass.Raise_FormDataEvent(FormUID, ref BusinessObjectInfo, ref BubbleEvent);
                 }
-                else if (Strings.Left(FormUID, 2) == "F_")
-                {
-                    if (Check_ValidateForm("S" + BusinessObjectInfo.FormTypeEx))
-                    {
-                        oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
-                        oTempClass.Raise_FormDataEvent(FormUID, ref BusinessObjectInfo, ref BubbleEvent);
-                    }
-                }
-                return;
             }
             catch (Exception ex)
             {
@@ -829,31 +777,11 @@ namespace PSH_BOne_AddOn
             {
                 FormUID = eventInfo.FormUID;
 
-                if (Strings.Left(FormUID, 2) != "F_")
+                if (Check_ValidateForm(FormUID))
                 {
-                    if (Check_ValidateForm(PSH_Globals.SBO_Application.Forms.Item(eventInfo.FormUID).TypeEx))
-                    {
-                        oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
-
-                        if (oTempClass.oForm == null)
-                        {
-                            return;
-                        }
-                        else
-                        {
-                            oTempClass.Raise_RightClickEvent(FormUID, ref eventInfo, ref BubbleEvent);
-                        }
-                    }
+                    oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
+                    oTempClass.Raise_RightClickEvent(FormUID, ref eventInfo, ref BubbleEvent);
                 }
-                else if (Strings.Left(FormUID, 2) == "F_")
-                {
-                    if (Check_ValidateForm(PSH_Globals.SBO_Application.Forms.Item(eventInfo.FormUID).TypeEx))
-                    {
-                        oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
-                        oTempClass.Raise_RightClickEvent(FormUID, ref eventInfo, ref BubbleEvent);
-                    }
-                }
-                return;
             }
             catch (Exception ex)
             {

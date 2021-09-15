@@ -708,6 +708,10 @@ namespace PSH_BOne_AddOn
                 if (Check_ValidateForm(FormUID) == true)
                 {
                     oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
+                    if (oTempClass.oForm == null)
+                    {
+                        return;
+                    }
                     oTempClass.Raise_FormMenuEvent(FormUID, ref pVal, ref BubbleEvent);
                 }
             }
@@ -736,6 +740,10 @@ namespace PSH_BOne_AddOn
                 if (Check_ValidateForm(FormUID))
                 {
                     oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
+                    if (oTempClass.oForm == null)
+                    {
+                        return;
+                    }
                     oTempClass.Raise_FormItemEvent(FormUID, ref pVal, ref BubbleEvent);
                 }
             }
@@ -758,6 +766,10 @@ namespace PSH_BOne_AddOn
                 if (Check_ValidateForm(FormUID))
                 {
                     oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
+                    if (oTempClass.oForm == null)
+                    {
+                        return;
+                    }
                     oTempClass.Raise_FormDataEvent(FormUID, ref BusinessObjectInfo, ref BubbleEvent);
                 }
             }
@@ -780,6 +792,10 @@ namespace PSH_BOne_AddOn
                 if (Check_ValidateForm(FormUID))
                 {
                     oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[FormUID];
+                    if (oTempClass.oForm == null)
+                    {
+                        return;
+                    }
                     oTempClass.Raise_RightClickEvent(FormUID, ref eventInfo, ref BubbleEvent);
                 }
             }

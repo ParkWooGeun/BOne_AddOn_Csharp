@@ -3109,6 +3109,36 @@ namespace PSH_BOne_AddOn.Data
         }
 
         /// <summary>
+        /// 접속한 사용자의 팀코드 조회
+        /// </summary>
+        /// <returns>DeptCode</returns>
+        public string User_TeamCode()
+        {
+            string returnValue = string.Empty;
+            string sQry;
+
+            SAPbobsCOM.Recordset oRecordset01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                sQry = "Select U_TeamCode From [OHEM] a Inner Join [OUSR] b On a.userId = b.USERID Where USER_CODE = '"+ PSH_Globals.oCompany.UserName.Trim() + "'";
+                oRecordset01.DoQuery(sQry);
+
+                returnValue = oRecordset01.Fields.Item(0).Value.ToString().Trim();
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(GetType().Name + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordset01);
+            }
+
+            return returnValue;
+        }
+
+        /// <summary>
         /// 접속한 사용자의 담당코드 조회
         /// </summary>
         /// <returns>RspCode</returns>

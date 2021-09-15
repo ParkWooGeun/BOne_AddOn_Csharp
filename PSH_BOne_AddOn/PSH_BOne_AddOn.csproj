@@ -148,6 +148,7 @@
       <DependentUpon>FrmRPT_Viewer1.cs</DependentUpon>
     </Compile>
     <Compile Include="FormClass\CORE\S150.cs" />
+    <Compile Include="FormClass\CORE\S721.cs" />
     <Compile Include="FormClass\CO\PS_CO800.cs" />
     <Compile Include="FormClass\CO\PS_CO003.cs" />
     <Compile Include="FormClass\CO\PS_CO070.cs" />
@@ -488,6 +489,9 @@
     <Compile Include="FormClass\PY\PS_DateChange.cs" />
     <Compile Include="FormClass\PY\PS_DateCommit.cs" />
     <Compile Include="FormClass\QM\PS_QM005.cs" />
+    <Compile Include="FormClass\QM\PS_QM007.cs" />
+    <Compile Include="FormClass\QM\PS_QM010.cs" />
+    <Compile Include="FormClass\QM\PS_QM011.cs" />
     <Compile Include="FormClass\QM\PS_QM041.cs" />
     <Compile Include="FormClass\QM\PS_QM060.cs" />
     <Compile Include="FormClass\QM\PS_QM065.cs" />

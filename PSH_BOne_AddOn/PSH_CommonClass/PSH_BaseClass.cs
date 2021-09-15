@@ -11,11 +11,11 @@
         {
         }
 
-        public virtual void Raise_FormItemEvent(string FormUID, ref SAPbouiCOM.ItemEvent pval, ref bool BubbleEvent)
+        public virtual void Raise_FormItemEvent(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
         }
 
-        public virtual void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pval, ref bool BubbleEvent)
+        public virtual void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
         }
 
@@ -23,7 +23,7 @@
         {
         }
 
-        public virtual void Raise_RightClickEvent(string FormUID, ref SAPbouiCOM.ContextMenuInfo pval, ref bool BubbleEvent)
+        public virtual void Raise_RightClickEvent(string FormUID, ref SAPbouiCOM.ContextMenuInfo pVal, ref bool BubbleEvent)
         {
         }
     }

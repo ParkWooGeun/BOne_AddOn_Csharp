@@ -39393,6 +39393,21 @@
             </summary>
             <param name="oFormDocEntry"></param>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM903.PS_QM903_CreateItems">
+            <summary>
+            화면 Item 생성
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM903.PS_QM903_SetComboBox">
+            <summary>
+            콤보에 기본값설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM903.PS_QM903_SetDocEntry">
+            <summary>
+            DocEntry 초기화
+            </summary>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_SD001">
             <summary>
             기계공구,몰드 품목코드 등록

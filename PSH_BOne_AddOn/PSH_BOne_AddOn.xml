@@ -91,6 +91,14 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
+        <member name="M:PSH_BOne_AddOn.Core.S150.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            VALIDATE 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
         <member name="M:PSH_BOne_AddOn.Core.S150.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_UNLOAD 이벤트
@@ -70274,9 +70282,9 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PSH_MainClass.Check_ValidateForm(System.String)">
             <summary>
-            유효한 폼인지 검사(이벤트를 실행시켜야 하는 Form인지 검사)
+            유효한 폼인지 검사(Collection에 저장되어 있는 Form, 이벤트를 실행시켜야 하는 Form)
             </summary>
-            <param name="FormUID"></param>
+            <param name="FormUID"></param>returnValue
             <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PSH_MainClass.Create_USERForm(SAPbouiCOM.MenuEvent,PSH_BOne_AddOn.PSH_BaseClass@)">

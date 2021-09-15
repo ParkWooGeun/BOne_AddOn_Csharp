@@ -7118,7 +7118,7 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM090.PS_MM090_AddMatrixRow(System.Int32,System.Boolean)">
             <summary>
-            
+            PS_MM090_AddMatrixRow
             </summary>
             <param name="oRow">행 번호</param>
             <param name="RowIserted">행 추가 여부</param>
@@ -7138,6 +7138,16 @@
             필수 사항 check
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM090.PS_SMM090_Print_Report01">
+            <summary>
+            Report_Export
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM090.PS_SMM090_Print_Report02">
+            <summary>
+            PS_SMM090_Print_Report02
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM090.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -9020,6 +9030,21 @@
         <member name="M:PSH_BOne_AddOn.PS_MM180.PS_MM180_CalculateSumQty">
             <summary>
             합계 계산
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM180.PS_MM180_CreateBatch">
+            <summary>
+            Batch 생성
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM180.PS_MM180_InterfaceB1toR3">
+            <summary>
+            본사 데이터 전송
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM180.PS_MM180_LoadBatchFromR3">
+            <summary>
+            1. Box No R3(울산사업장) 전송, 2. Lot No 회신, 3. Form Matrix에 출력
             </summary>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_MM200">
@@ -49924,6 +49949,12 @@
             </summary>
             <returns>DeptCode</returns>
         </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.User_TeamCode">
+            <summary>
+            접속한 사용자의 팀코드 조회
+            </summary>
+            <returns>DeptCode</returns>
+        </member>
         <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.User_RspCode">
             <summary>
             접속한 사용자의 담당코드 조회
@@ -50060,6 +50091,12 @@
             <param name="pUser">UserID</param>
             <param name="pPassword">UserPassword</param>
             <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.GetR3ServerInfo">
+            <summary>
+            본사 R3 서버 정보 조회
+            </summary>
+            <returns>Array[0] : Client, Array[1] : ServerIP</returns>
         </member>
         <member name="T:PSH_BOne_AddOn.Form.PSH_FormHelpClass">
             <summary>

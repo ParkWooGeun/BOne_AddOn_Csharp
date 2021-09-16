@@ -130,13 +130,13 @@ namespace PSH_BOne_AddOn
 			{
 				if (string.IsNullOrEmpty(oFromDocEntry01))
 				{
-					FormItemEnabled();
-					AddMatrixRow(0, true);
+					PS_MM205_FormItemEnabled();
+					PS_MM205_AddMatrixRow(0, true);
 				}
 				else
 				{
 					oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
-					FormItemEnabled();
+					PS_MM205_FormItemEnabled();
 					oForm.Items.Item("Code").Specific.VALUE = oFromDocEntry01;
 					oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 				}

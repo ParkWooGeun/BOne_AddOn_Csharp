@@ -39557,6 +39557,51 @@
             <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
         </member>
+        <member name="T:PSH_BOne_AddOn.PS_QM600">
+            <summary>
+            멀티검사사양서등록(신)
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM600.LoadForm(System.String)">
+            <summary>
+            LoadForm
+            </summary>
+            <param name="oFormDocEntry"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM600.PS_QM600_CreateItems">
+            <summary>
+            화면 Item 생성
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM600.PS_QM600_SetComboBox">
+            <summary>
+            콤보에 기본값설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM600.PS_QM600_SetDocEntry">
+            <summary>
+            DocEntry 초기화
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM600.PS_QM600_AddMatrixRow(System.Int32,System.Boolean)">
+            <summary>
+            메트릭스 행추가
+            </summary>
+            <param name="oRow"></param>
+            <param name="RowIserted"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM600.PS_QM600_DelHeaderSpaceLine">
+            <summary>
+            필수입력사항 체크(헤더)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM600.PS_QM600_DelMatrixSpaceLine">
+            <summary>
+            필수입력사항 체크(라인)
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_QM620">
             <summary>
             검사성적서출력(신양식)
@@ -50684,11 +50729,11 @@
             <summary>
             콤보박스 바인딩
             </summary>
-            <param name="Lst"></param>
-            <param name="sSQL"></param>
-            <param name="TValue"></param>
-            <param name="Reset_Renamed"></param>
-            <param name="SetF"></param>
+            <param name="combo">콤보박스 컨트롤명</param>
+            <param name="query">쿼리</param>
+            <param name="defaultDescription">기본 선택 Description</param>
+            <param name="resetWhether">reset 여부</param>
+            <param name="voidInsertWhether">빈값 추가 여부</param>
         </member>
         <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.User_BPLID">
             <summary>

@@ -499,6 +499,7 @@
     <Compile Include="FormClass\QM\PS_QM066.cs" />
     <Compile Include="FormClass\QM\PS_QM067.cs" />
     <Compile Include="FormClass\QM\PS_QM101.cs" />
+    <Compile Include="FormClass\QM\PS_QM600.cs" />
     <Compile Include="FormClass\QM\PS_QM620.cs" />
     <Compile Include="FormClass\QM\PS_QM903.cs" />
     <Compile Include="FormClass\SD\PS_SD001.cs" />
@@ -2616,6 +2617,10 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM007.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM010.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM011.srf" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM101.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM600.srf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -48,10 +48,10 @@ namespace PSH_BOne_AddOn
 
 				oForm.Freeze(true);
 
-				CreateItems();
-				ComboBox_Setting();
-				Initialization();
-				LoadCaption();
+				PS_MM153_CreateItems();
+				PS_MM153_ComboBox_Setting();
+				PS_MM153_Initialization();
+				PS_MM153_LoadCaption();
 
 				oForm.EnableMenu("1281", false); // 찾기
 				oForm.EnableMenu("1282", false); // 추가
@@ -76,9 +76,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// CreateItems
+		/// PS_MM153_CreateItems
 		/// </summary>
-		private void CreateItems()
+		private void PS_MM153_CreateItems()
 		{
 			try
 			{
@@ -102,9 +102,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// ComboBox_Setting
+		/// PS_MM153_ComboBox_Setting
 		/// </summary>
-		private void ComboBox_Setting()
+		private void PS_MM153_ComboBox_Setting()
 		{
 			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -136,9 +136,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// Initialization
+		/// PS_MM153_Initialization
 		/// </summary>
-		private void Initialization()
+		private void PS_MM153_Initialization()
 		{
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -157,9 +157,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// LoadCaption
+		/// PS_MM153_LoadCaption
 		/// </summary>
-		private void LoadCaption()
+		private void PS_MM153_LoadCaption()
 		{
 			try
 			{
@@ -179,12 +179,12 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// FlushToItemValue
+		/// PS_MM153_FlushToItemValue
 		/// </summary>
 		/// <param name="oUID"></param>
 		/// <param name="oRow"></param>
 		/// <param name="oCol"></param>
-		private void FlushToItemValue(string oUID, int oRow, string oCol)
+		private void PS_MM153_FlushToItemValue(string oUID, int oRow, string oCol)
 		{
 			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -211,11 +211,11 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// Update_PurchaseDemand
+		/// PS_MM153_Update_PurchaseDemand
 		/// </summary>
 		/// <param name="pVal"></param>
 		/// <returns></returns>
-		private bool Update_PurchaseDemand(ref SAPbouiCOM.ItemEvent pVal)
+		private bool PS_MM153_Update_PurchaseDemand(ref SAPbouiCOM.ItemEvent pVal)
 		{
 			bool functionReturnValue = false;
 
@@ -279,9 +279,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// LoadData
+		/// PS_MM153_LoadData
 		/// </summary>
-		private void LoadData()
+		private void PS_MM153_LoadData()
 		{
 			string CardCode;
 			string BPLID;
@@ -329,7 +329,7 @@ namespace PSH_BOne_AddOn
 
 				oDS_PS_MM153H.ExecuteQuery(sQry);
 				iRow = oForm.DataSources.DataTables.Item(0).Rows.Count;
-				TitleSetting(iRow);
+				PS_MM153_TitleSetting(iRow);
 			}
 			catch (Exception ex)
 			{
@@ -344,10 +344,10 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// TitleSetting
+		/// PS_MM153_TitleSetting
 		/// </summary>
 		/// <param name="iRow"></param>
-		private void TitleSetting(int iRow)
+		private void PS_MM153_TitleSetting(int iRow)
 		{
 			int i;
 			int ColumnCnt;
@@ -495,14 +495,14 @@ namespace PSH_BOne_AddOn
 					{
 						if (oForm1_Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
 						{
-							if (Update_PurchaseDemand(ref pVal) == false)
+							if (PS_MM153_Update_PurchaseDemand(ref pVal) == false)
 							{
 								BubbleEvent = false;
 								return;
 							}
 
 							oForm1_Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
-							LoadCaption();
+							PS_MM153_LoadCaption();
 						}
 						else if (oForm1_Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
 						{
@@ -511,10 +511,10 @@ namespace PSH_BOne_AddOn
 					}
 					else if (pVal.ItemUID == "Btn02")
 					{
-						LoadData();
+						PS_MM153_LoadData();
 
 						oForm1_Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
-						LoadCaption();
+						PS_MM153_LoadCaption();
 					}
 					else if (pVal.ItemUID == "Btn03")
 					{
@@ -540,7 +540,7 @@ namespace PSH_BOne_AddOn
 							oForm.Freeze(false);
 						}
 						oForm1_Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
-						LoadCaption();
+						PS_MM153_LoadCaption();
 					}
 				}
 				else if (pVal.BeforeAction == false)
@@ -643,7 +643,7 @@ namespace PSH_BOne_AddOn
 							}
 						}
 						oForm1_Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
-						LoadCaption();
+						PS_MM153_LoadCaption();
 					}
 				}
 			}
@@ -683,11 +683,11 @@ namespace PSH_BOne_AddOn
 					{
 						if (pVal.ItemUID == "CntcCode")
 						{
-							FlushToItemValue(pVal.ItemUID, 0, "");
+							PS_MM153_FlushToItemValue(pVal.ItemUID, 0, "");
 						}
 						else if (pVal.ItemUID == "ItemCode")
 						{
-							FlushToItemValue(pVal.ItemUID, 0, "");
+							PS_MM153_FlushToItemValue(pVal.ItemUID, 0, "");
 						}
 						else if (pVal.ItemUID == "Grid01")
 						{
@@ -701,7 +701,7 @@ namespace PSH_BOne_AddOn
 							}
 
 							oForm1_Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
-							LoadCaption();
+							PS_MM153_LoadCaption();
 						}
 					}
 				}

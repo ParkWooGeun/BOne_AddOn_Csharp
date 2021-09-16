@@ -5,12 +5,14 @@ using PSH_BOne_AddOn.Data;
 namespace PSH_BOne_AddOn
 {
 	/// <summary>
-	/// 분말 검사사양서등록
+	/// 동분말 원재료 검사사양서 등록
 	/// </summary>
-	internal class PS_QM005 : PSH_BaseClass
+	internal class PS_QM110 : PSH_BaseClass
 	{
 		private string oFormUniqueID;
-		private SAPbouiCOM.DBDataSource oDS_PS_QM005H; //등록헤더
+		private SAPbouiCOM.Matrix oMat;
+		private SAPbouiCOM.DBDataSource oDS_PS_QM110H; //등록헤더
+		private SAPbouiCOM.DBDataSource oDS_PS_QM110L;  //등록라인
 
 		/// <summary>
 		/// Form 호출
@@ -23,37 +25,39 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PS_QM005.srf");
+				oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PS_QM110.srf");
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue = oXmlDoc.selectSingleNode("Application/forms/action/form/@uid").nodeValue + "_" + (SubMain.Get_TotalFormsCount());
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@top").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
 
+				//매트릭스의 타이틀높이와 셀높이를 고정
 				for (i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
 				{
 					oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight")[i - 1].nodeValue = 20;
 					oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
 				}
-				oFormUniqueID = "PS_QM005_" + SubMain.Get_TotalFormsCount();
-				SubMain.Add_Forms(this, oFormUniqueID, "PS_QM005");
+
+				oFormUniqueID = "PS_QM110_" + SubMain.Get_TotalFormsCount();
+				SubMain.Add_Forms(this, oFormUniqueID, "PS_QM110");
 
 				PSH_Globals.SBO_Application.LoadBatchActions(oXmlDoc.xml.ToString());
 				oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
 				oForm.SupportedModes = -1;
 				oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
-				oForm.DataBrowser.BrowseBy = "Code";
+				oForm.DataBrowser.BrowseBy = "DocEntry";
 
 				oForm.Freeze(true);
 
-				PS_QM005_CreateItems();
-				PS_QM005_ComboBox_Setting();
-				PS_QM005_FormClear();
+				PS_QM110_CreateItems();
+				PS_QM110_FormItemEnabled();
+				PS_QM110_FormClear();
+				PS_QM110_AddMatrixRow(0, oMat.RowCount, true);
 
-				oForm.EnableMenu("1283", true);  // 삭제
-				oForm.EnableMenu("1286", false); // 닫기
+				oForm.EnableMenu("1283", true);  // 제거
+				oForm.EnableMenu("1293", true);  // 행삭제
 				oForm.EnableMenu("1287", true);  // 복제
 				oForm.EnableMenu("1284", false); // 취소
-				oForm.EnableMenu("1293", false); // 행삭제
 			}
 			catch (Exception ex)
 			{
@@ -69,13 +73,15 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_QM005_CreateItems
+		/// PS_QM110_CreateItems
 		/// </summary>
-		private void PS_QM005_CreateItems()
+		private void PS_QM110_CreateItems()
 		{
 			try
 			{
-				oDS_PS_QM005H = oForm.DataSources.DBDataSources.Item("@PS_QM005H");
+				oDS_PS_QM110H = oForm.DataSources.DBDataSources.Item("@PS_QM110H");
+				oDS_PS_QM110L = oForm.DataSources.DBDataSources.Item("@PS_QM110L");
+				oMat = oForm.Items.Item("Mat01").Specific;
 			}
 			catch (Exception ex)
 			{
@@ -84,39 +90,34 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_QM005_ComboBox_Setting
+		/// PS_QM110_FormItemEnabled
 		/// </summary>
-		private void PS_QM005_ComboBox_Setting()
+		private void PS_QM110_FormItemEnabled()
 		{
 			try
 			{
-				oForm.Items.Item("P60Bal").Specific.ValidValues.Add("N", "Balance N");
-				oForm.Items.Item("P60Bal").Specific.ValidValues.Add("Y", "Balance Y");
-				oForm.Items.Item("P60Bal").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-
-				oForm.Items.Item("P80Bal").Specific.ValidValues.Add("N", "Balance N");
-				oForm.Items.Item("P80Bal").Specific.ValidValues.Add("Y", "Balance Y");
-				oForm.Items.Item("P80Bal").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-
-				oForm.Items.Item("P100Bal").Specific.ValidValues.Add("N", "Balance N");
-				oForm.Items.Item("P100Bal").Specific.ValidValues.Add("Y", "Balance Y");
-				oForm.Items.Item("P100Bal").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-
-				oForm.Items.Item("P140Bal").Specific.ValidValues.Add("N", "Balance N");
-				oForm.Items.Item("P140Bal").Specific.ValidValues.Add("Y", "Balance Y");
-				oForm.Items.Item("P140Bal").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-
-				oForm.Items.Item("P200Bal").Specific.ValidValues.Add("N", "Balance N");
-				oForm.Items.Item("P200Bal").Specific.ValidValues.Add("Y", "Balance Y");
-				oForm.Items.Item("P200Bal").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-
-				oForm.Items.Item("P325Bal").Specific.ValidValues.Add("N", "Balance N");
-				oForm.Items.Item("P325Bal").Specific.ValidValues.Add("Y", "Balance Y");
-				oForm.Items.Item("P325Bal").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-
-				oForm.Items.Item("M325Bal").Specific.ValidValues.Add("N", "Balance N");
-				oForm.Items.Item("M325Bal").Specific.ValidValues.Add("Y", "Balance Y");
-				oForm.Items.Item("M325Bal").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+				//각모드에따른 아이템설정
+				if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
+				{
+					oForm.Items.Item("ItemCode").Enabled = true;
+					oForm.Items.Item("ItemName").Enabled = true;
+					oForm.Items.Item("Size").Enabled = true;
+					oForm.Items.Item("Inspect").Enabled = true;
+				}
+				else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE))
+				{
+					oForm.Items.Item("ItemCode").Enabled = true;
+					oForm.Items.Item("ItemName").Enabled = true;
+					oForm.Items.Item("Size").Enabled = true;
+					oForm.Items.Item("Inspect").Enabled = true;
+				}
+				else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE))
+				{
+					oForm.Items.Item("ItemCode").Enabled = true;
+					oForm.Items.Item("ItemName").Enabled = true;
+					oForm.Items.Item("Size").Enabled = true;
+					oForm.Items.Item("Inspect").Enabled = true;
+				}
 			}
 			catch (Exception ex)
 			{
@@ -125,24 +126,27 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_QM005_FormClear
+		/// PS_QM110_FormClear
 		/// </summary>
-		private void PS_QM005_FormClear()
+		private void PS_QM110_FormClear()
 		{
 			string DocNum;
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
 			try
 			{
-				DocNum = dataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PS_QM005'", "");
+				DocNum = dataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PS_QM110'", "");
 				if (Convert.ToDouble(DocNum) == 0)
 				{
-					oForm.Items.Item("Code").Specific.Value = 1;
-					oDS_PS_QM005H.SetValue("Code", 0, "1");
+					oDS_PS_QM110H.SetValue("DocEntry", 0, "1");
+					oDS_PS_QM110H.SetValue("Code", 0, "1");
+					oDS_PS_QM110H.SetValue("Name", 0, "1");
 				}
 				else
 				{
-					oDS_PS_QM005H.SetValue("Code", 0, DocNum);
+					oDS_PS_QM110H.SetValue("DocEntry", 0, DocNum);
+					oDS_PS_QM110H.SetValue("Code", 0, DocNum);
+					oDS_PS_QM110H.SetValue("Name", 0, DocNum);
 				}
 			}
 			catch (Exception ex)
@@ -152,59 +156,26 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_QM005_FormItemEnabled
+		/// PS_QM110_AddMatrixRow
 		/// </summary>
-		private void PS_QM005_FormItemEnabled()
-		{
-			try
-			{
-				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
-				{
-					oForm.Items.Item("CardCode").Enabled = true;
-					oForm.Items.Item("ItemCode").Enabled = true;
-				}
-				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-				{
-					oForm.Items.Item("CardCode").Enabled = true;
-					oForm.Items.Item("ItemCode").Enabled = true;
-				}
-				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-				{
-					oForm.Items.Item("CardCode").Enabled = false;
-					oForm.Items.Item("ItemCode").Enabled = false;
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-			}
-		}
-
-		/// <summary>
-		/// PS_QM005_FlushToItemValue
-		/// </summary>
-		/// <param name="oUID"></param>
+		/// <param name="oSeq"></param>
 		/// <param name="oRow"></param>
-		/// <param name="oCol"></param>
-		private void PS_QM005_FlushToItemValue(string oUID, int oRow, string oCol)
+		/// <param name="RowIserted"></param>
+		private void PS_QM110_AddMatrixRow(int oSeq, int oRow, bool RowIserted)
 		{
-			string sQry;
-			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
 			try
 			{
-				switch (oUID)
+				switch (oSeq)
 				{
-					case "CardCode":
-						sQry = "select cardname from ocrd where cardtype='C' and cardcode = '" + oDS_PS_QM005H.GetValue("U_CardCode", 0).ToString().Trim() + "'";
-						oRecordSet.DoQuery(sQry);
-						oDS_PS_QM005H.SetValue("U_CardName", 0, oRecordSet.Fields.Item(0).Value.ToString().Trim());
+					case 0:
+						oMat.AddRow();
+						oDS_PS_QM110L.SetValue("U_LineNum", oRow, Convert.ToString(oRow + 1));
+						oMat.LoadFromDataSource();
 						break;
-
-					case "ItemCode":
-						sQry = "Select ItemName From OITM Where ItemCode = '" + oDS_PS_QM005H.GetValue("U_ItemCode", 0).ToString().Trim() + "'";
-						oRecordSet.DoQuery(sQry);
-						oDS_PS_QM005H.SetValue("U_ItemName", 0, oRecordSet.Fields.Item(0).Value.ToString().Trim());
+					case 1:
+						oDS_PS_QM110L.InsertRecord(oRow);
+						oDS_PS_QM110L.SetValue("U_LineNum", oRow, Convert.ToString(oRow + 1));
+						oMat.LoadFromDataSource();
 						break;
 				}
 			}
@@ -212,38 +183,34 @@ namespace PSH_BOne_AddOn
 			{
 				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 			}
-			finally
-			{
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
-			}
 		}
 
 		/// <summary>
-		/// PS_QM005_Check_Exist
+		/// PS_QM110_HeaderSpaceLineDel
 		/// </summary>
 		/// <returns></returns>
-		private bool PS_QM005_Check_Exist()
+		private bool PS_QM110_HeaderSpaceLineDel()
 		{
 			bool functionReturnValue = false;
-			string sQry;
-			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			string errMessage = string.Empty;
 
 			try
 			{
-				sQry = " select * from [@PS_QM005H] where U_CardCode = '" + oDS_PS_QM005H.GetValue("U_CardCode", 0).ToString().Trim() +"' ";
-				sQry += " and U_ItemCode = '" + oDS_PS_QM005H.GetValue("U_ItemCode", 0).ToString().Trim() + "'";
-				oRecordSet.DoQuery(sQry);
+				oForm.Freeze(true);
 
-				if (oRecordSet.RecordCount != 0)
-				{
-					errMessage = "이미 동일한 '고객 & 제품'이 존재합니다. 확인하여 주십시오.";
+				if (string.IsNullOrEmpty(oDS_PS_QM110H.GetValue("U_ItemCode", 0).ToString().Trim()))
+                {
+					errMessage = "제품코드는 필수입력 사항입니다. 확인하세요.";
 					throw new Exception();
 				}
-
+				if (string.IsNullOrEmpty(oDS_PS_QM110H.GetValue("U_Inspect", 0).ToString().Trim()))
+                {
+					errMessage = "검사방법은 필수입력 사항입니다. 확인하세요.";
+					throw new Exception();
+				}
+				
 				functionReturnValue = true;
 			}
-
 			catch (Exception ex)
 			{
 				if (errMessage != string.Empty)
@@ -252,14 +219,97 @@ namespace PSH_BOne_AddOn
 				}
 				else
 				{
-					PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + (char)13 + ex.Message);
+					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
+			}
+			finally
+            {
+				oForm.Freeze(false);
+			}
+			return functionReturnValue;
+		}
+
+		/// <summary>
+		/// PS_QM110_MatrixSpaceLineDel
+		/// </summary>
+		/// <returns></returns>
+		private bool PS_QM110_MatrixSpaceLineDel()
+		{
+			bool functionReturnValue = false;
+			string errMessage = string.Empty;
+
+			try
+			{
+				oForm.Freeze(true);
+
+				oMat.FlushToDataSource();
+
+				if (oMat.VisualRowCount <= 1)
+				{
+					errMessage = "라인 데이터가 없습니다. 확인하세요.";
+					throw new Exception();
+				}
+
+				if (oMat.VisualRowCount > 0)
+				{
+					if (string.IsNullOrEmpty(oDS_PS_QM110L.GetValue("U_InspItem", oMat.VisualRowCount - 1).ToString().Trim()))
+					{
+						oDS_PS_QM110L.RemoveRecord(oMat.VisualRowCount - 1);
+					}
+				}
+
+				oMat.LoadFromDataSource();
+				functionReturnValue = true;
+			}
+			catch (Exception ex)
+			{
+				if (errMessage != string.Empty)
+				{
+					PSH_Globals.SBO_Application.MessageBox(errMessage);
+				}
+				else
+				{
+					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+				}
+			}
+			finally
+			{
+				oForm.Freeze(false);
+			}
+			return functionReturnValue;
+		}
+
+		/// <summary>
+		/// PS_QM110_FlushToItemValue
+		/// </summary>
+		/// <param name="oUID"></param>
+		/// <param name="oRow"></param>
+		/// <param name="oCol"></param>
+		private void PS_QM110_FlushToItemValue(string oUID, int oRow, string oCol)
+		{
+			string sQry;
+			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+			try
+			{
+				switch (oUID)
+				{
+					case "ItemCode":
+						sQry = "Select FrgnName, U_Size From OITM Where ItemCode = '" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'";
+						oRecordSet.DoQuery(sQry);
+						oDS_PS_QM110H.SetValue("U_ItemName", 0, oRecordSet.Fields.Item(0).Value.ToString().Trim());
+						oDS_PS_QM110H.SetValue("U_Size", 0, oRecordSet.Fields.Item(1).Value.ToString().Trim());
+						break;
+				}
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 			}
 			finally
 			{
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
-			return functionReturnValue;
 		}
 
 		/// <summary>
@@ -275,9 +325,9 @@ namespace PSH_BOne_AddOn
 				case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED: //1
 					Raise_EVENT_ITEM_PRESSED(FormUID, ref pVal, ref BubbleEvent);
 					break;
-                case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
-                    Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
-                    break;
+				case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
+					Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
+					break;
                 case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
                     //Raise_EVENT_GOT_FOCUS(FormUID, ref pVal, ref BubbleEvent);
                     break;
@@ -303,13 +353,13 @@ namespace PSH_BOne_AddOn
                     Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
                     break;
                 case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
-                    //Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                    Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
                 case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD: //12
                     //Raise_EVENT_DATASOURCE_LOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
                 case SAPbouiCOM.BoEventTypes.et_FORM_LOAD: //16
-                    //Raise_EVENT_FORM_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                   // Raise_EVENT_FORM_LOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
                 case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD: //17
                     Raise_EVENT_FORM_UNLOAD(FormUID, ref pVal, ref BubbleEvent);
@@ -324,7 +374,7 @@ namespace PSH_BOne_AddOn
                     //Raise_EVENT_FORM_CLOSE(FormUID, ref pVal, ref BubbleEvent);
                     break;
                 case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
-                    //Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
+                    //Raise_EVENT_FORM_RESIZE(FormUID, pVal, BubbleEvent);
                     break;
                 case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
                     //Raise_EVENT_FORM_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
@@ -345,11 +395,11 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// ITEM_PRESSED 이벤트
+		/// Raise_EVENT_ITEM_PRESSED
 		/// </summary>
-		/// <param name="FormUID">Form UID</param>
-		/// <param name="pVal">ItemEvent 객체</param>
-		/// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+		/// <param name="FormUID"></param>
+		/// <param name="pVal"></param>
+		/// <param name="BubbleEvent"></param>
 		private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
 			try
@@ -358,12 +408,23 @@ namespace PSH_BOne_AddOn
 				{
 					if (pVal.ItemUID == "1")
 					{
-						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
 						{
-							if (PS_QM005_Check_Exist() == false)
+							if (PS_QM110_HeaderSpaceLineDel() == false)
 							{
 								BubbleEvent = false;
 								return;
+							}
+
+							if (PS_QM110_MatrixSpaceLineDel() == false)
+							{
+								BubbleEvent = false;
+								return;
+							}
+
+							if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+							{
+								PS_QM110_FormClear();
 							}
 						}
 					}
@@ -372,14 +433,15 @@ namespace PSH_BOne_AddOn
 				{
 					if (pVal.ItemUID == "1")
 					{
-						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE && pVal.Action_Success == true)
 						{
 							oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
 							PSH_Globals.SBO_Application.ActivateMenuItem("1282");
 						}
-						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
+						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE && pVal.Action_Success == false)
 						{
-							PS_QM005_FormItemEnabled();
+							PS_QM110_FormItemEnabled();
+							PS_QM110_AddMatrixRow(1, oMat.RowCount, true);
 						}
 					}
 				}
@@ -391,38 +453,30 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// KEY_DOWN 이벤트
+		/// Raise_EVENT_KEY_DOWN
 		/// </summary>
-		/// <param name="FormUID">Form UID</param>
-		/// <param name="pVal">ItemEvent 객체</param>
-		/// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+		/// <param name="FormUID"></param>
+		/// <param name="pVal"></param>
+		/// <param name="BubbleEvent"></param>
 		private void Raise_EVENT_KEY_DOWN(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
 			try
 			{
-				if (pVal.Before_Action == true)
+				if (pVal.BeforeAction == true)
 				{
 					if (pVal.CharPressed == 9)
 					{
-						if (pVal.ItemUID == "CardCode")
-						{
-							if (string.IsNullOrEmpty(oForm.Items.Item("CardCode").Specific.Value.ToString().Trim()))
-							{
-								PSH_Globals.SBO_Application.ActivateMenuItem("7425");
-								BubbleEvent = false;
-							}
-						}
 						if (pVal.ItemUID == "ItemCode")
 						{
 							if (string.IsNullOrEmpty(oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim()))
 							{
-								PS_SM010 ChildForm01 = new PS_SM010();
-								ChildForm01.LoadForm(oForm, pVal.ItemUID, pVal.ColUID, pVal.Row);
+								PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
+								BubbleEvent = false;
 							}
 						}
 					}
 				}
-				else if (pVal.Before_Action == false)
+				else if (pVal.BeforeAction == false)
 				{
 				}
 			}
@@ -433,25 +487,40 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// VALIDATE 이벤트
+		/// Raise_EVENT_VALIDATE
 		/// </summary>
-		/// <param name="FormUID">Form UID</param>
-		/// <param name="pVal">ItemEvent 객체</param>
-		/// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+		/// <param name="FormUID"></param>
+		/// <param name="pVal"></param>
+		/// <param name="BubbleEvent"></param>
 		private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
 			try
 			{
-				if (pVal.Before_Action == true)
+				oForm.Freeze(true);
+
+				if (pVal.BeforeAction == true)
 				{
 				}
-				else if (pVal.Before_Action == false)
+				else if (pVal.BeforeAction == false)
 				{
 					if (pVal.ItemChanged == true)
 					{
-						if (pVal.ItemUID == "CardCode" || pVal.ItemUID == "ItemCode")
+						if (pVal.ItemUID == "ItemCode")
 						{
-							PS_QM005_FlushToItemValue(pVal.ItemUID, 0, "");
+							PS_QM110_FlushToItemValue(pVal.ItemUID, 0, "");
+						}
+						else if (pVal.ItemUID == "Mat01")
+						{
+							oDS_PS_QM110L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().Trim());
+							if (oMat.RowCount == pVal.Row && !string.IsNullOrEmpty(oDS_PS_QM110L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
+							{
+								PS_QM110_AddMatrixRow(1, oMat.VisualRowCount, true);
+								oDS_PS_QM110L.SetValue("U_Seqno", pVal.Row - 1, oMat.Columns.Item("LineNum").Cells.Item(pVal.Row).Specific.Value.ToString().Trim());
+							}
+							oMat.LoadFromDataSource();
+							oMat.AutoResizeColumns();
+							oForm.Update();
+							oMat.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Click();
 						}
 					}
 				}
@@ -460,26 +529,56 @@ namespace PSH_BOne_AddOn
 			{
 				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 			}
+			finally
+			{
+				oForm.Freeze(false);
+			}
 		}
 
 		/// <summary>
-		/// FORM_UNLOAD 이벤트
+		/// Raise_EVENT_MATRIX_LOAD
 		/// </summary>
-		/// <param name="FormUID">Form UID</param>
-		/// <param name="pVal">ItemEvent 객체</param>
-		/// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+		/// <param name="FormUID"></param>
+		/// <param name="pVal"></param>
+		/// <param name="BubbleEvent"></param>
+		private void Raise_EVENT_MATRIX_LOAD(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+		{
+			try
+			{
+				if (pVal.BeforeAction == true)
+				{
+				}
+				else if (pVal.BeforeAction == false)
+				{
+					PS_QM110_AddMatrixRow(1, oMat.VisualRowCount, true);
+				}
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+		}
+
+		/// <summary>
+		/// Raise_EVENT_FORM_UNLOAD
+		/// </summary>
+		/// <param name="FormUID"></param>
+		/// <param name="pVal"></param>
+		/// <param name="BubbleEvent"></param>
 		private void Raise_EVENT_FORM_UNLOAD(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
 			try
 			{
-				if (pVal.Before_Action == true)
+				if (pVal.BeforeAction == true)
 				{
 				}
-				else if (pVal.Before_Action == false)
+				else if (pVal.BeforeAction == false)
 				{
 					SubMain.Remove_Forms(oFormUniqueID);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_QM005H);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_QM110H);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_QM110L);
 				}
 			}
 			catch (Exception ex)
@@ -514,10 +613,14 @@ namespace PSH_BOne_AddOn
 							break;
 						case "1282": //추가
 							break;
-						case "1288":
-						case "1289":
-						case "1290":
-						case "1291": //레코드이동버튼
+						case "1285": //복원
+							break;
+						case "1288": //레코드이동(다음)
+						case "1289": //레코드이동(이전)
+						case "1290": //레코드이동(최초)
+						case "1291": //레코드이동(최종)
+							break;
+						case "7169": //엑셀 내보내기
 							break;
 					}
 				}
@@ -529,31 +632,54 @@ namespace PSH_BOne_AddOn
 							break;
 						case "1286": //닫기
 							break;
-						case "1293": //행삭제
-							break;
 						case "1281": //찾기
-							PS_QM005_FormItemEnabled();
-							oForm.Items.Item("CardCode").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+							PS_QM110_FormItemEnabled();
 							break;
 						case "1282": //추가
-							PS_QM005_FormItemEnabled();
-							PS_QM005_FormClear();
-							oForm.Items.Item("CardCode").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+							PS_QM110_FormItemEnabled();
+							PS_QM110_FormClear();
+							PS_QM110_AddMatrixRow(0, oMat.RowCount, true);
+							oForm.Items.Item("ItemCode").Click(SAPbouiCOM.BoCellClickType.ct_Collapsed);
 							break;
 						case "1287": //복제
-							oDS_PS_QM005H.SetValue("U_CardCode", 0, "");
-							oDS_PS_QM005H.SetValue("U_CardName", 0, "");
-							oDS_PS_QM005H.SetValue("U_ItemCode", 0, "");
-							oDS_PS_QM005H.SetValue("U_ItemName", 0, "");
-							PS_QM005_FormItemEnabled();
-							PS_QM005_FormClear();
-							oForm.Items.Item("CardCode").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+							PS_QM110_FormClear();
+							oForm.Items.Item("ItemCode").Enabled = true;
+							for (int i = 0; i <= oMat.VisualRowCount - 1; i++)
+							{
+								oMat.FlushToDataSource();
+								oDS_PS_QM110L.SetValue("Code", i, "");
+								oMat.LoadFromDataSource();
+							}
 							break;
-						case "1288":
-						case "1289":
-						case "1290":
-						case "1291": //레코드이동버튼
-							PS_QM005_FormItemEnabled();
+						case "1288": //레코드이동(다음)
+						case "1289": //레코드이동(이전)
+						case "1290": //레코드이동(최초)
+						case "1291": //레코드이동(최종)
+							break;
+						case "1293": //행삭제
+							if (oMat.RowCount != oMat.VisualRowCount)
+							{
+								for (int i = 1; i <= oMat.VisualRowCount; i++)
+								{
+									oMat.Columns.Item("LineNum").Cells.Item(i).Specific.VALUE = i;
+								}
+								oMat.FlushToDataSource();
+								oDS_PS_QM110L.RemoveRecord(oDS_PS_QM110L.Size - 1);
+								oMat.LoadFromDataSource();
+								if (oMat.RowCount == 0)
+								{
+									PS_QM110_AddMatrixRow(1, 0, true);
+								}
+								else
+								{
+									if (!string.IsNullOrEmpty(oDS_PS_QM110L.GetValue("U_InspItem", oMat.RowCount - 1).ToString().Trim()))
+									{
+										PS_QM110_AddMatrixRow(1, oMat.RowCount, true);
+									}
+								}
+							}
+							break;
+						case "7169": //엑셀 내보내기
 							break;
 					}
 				}

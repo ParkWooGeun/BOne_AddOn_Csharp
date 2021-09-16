@@ -370,10 +370,10 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// Print_Report01
+		/// PS_MM110_Print_Report01
 		/// </summary>
 		[STAThread]
-		private void Print_Report01()
+		private void PS_MM110_Print_Report01()
 		{
 			string WinTitle;
 			string ReportName;
@@ -525,7 +525,7 @@ namespace PSH_BOne_AddOn
 					}
 					if (pval.ItemUID == "Button01")
 					{
-						System.Threading.Thread thread = new System.Threading.Thread(Print_Report01);
+						System.Threading.Thread thread = new System.Threading.Thread(PS_MM110_Print_Report01);
 						thread.SetApartmentState(System.Threading.ApartmentState.STA);
 						thread.Start();
 					}

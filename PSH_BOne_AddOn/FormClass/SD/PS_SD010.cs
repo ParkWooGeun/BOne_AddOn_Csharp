@@ -297,7 +297,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// 각모드에따른 아이템설정
+        /// 각 모드에 따른 아이템설정
         /// </summary>
         private void PS_SD010_EnableFormItem()
         {

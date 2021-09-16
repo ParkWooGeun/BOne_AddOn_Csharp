@@ -177,7 +177,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
-                    //각모드에따른 아이템설정
+                    //각 모드에 따른 아이템설정
                     oForm.Items.Item("Code").Enabled = true;
                     oForm.Items.Item("Name").Enabled = true;
                     oForm.Items.Item("Remark").Enabled = true;
@@ -188,7 +188,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
-                    //각모드에따른 아이템설정
+                    //각 모드에 따른 아이템설정
                     oForm.Items.Item("Code").Enabled = true;
                     oForm.Items.Item("Name").Enabled = false;
                     oForm.Items.Item("Remark").Enabled = false;
@@ -199,7 +199,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
-                    //각모드에따른 아이템설정
+                    //각 모드에 따른 아이템설정
                     oForm.Items.Item("Code").Enabled = true;
                     oForm.Items.Item("Name").Enabled = true;
                     oForm.Items.Item("Remark").Enabled = true;

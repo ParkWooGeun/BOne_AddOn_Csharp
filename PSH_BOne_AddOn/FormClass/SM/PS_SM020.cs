@@ -980,12 +980,12 @@ namespace PSH_BOne_AddOn
 
         //			oForm01.Freeze(true);
         //			if ((oForm01.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)) {
-        //				////각모드에따른 아이템설정
+        //				////각 모드에 따른 아이템설정
         //				////Call PS_SM020_FormClear '
         //			} else if ((oForm01.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)) {
-        //				////각모드에따른 아이템설정
+        //				////각 모드에 따른 아이템설정
         //			} else if ((oForm01.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)) {
-        //				////각모드에따른 아이템설정
+        //				////각 모드에 따른 아이템설정
         //			}
         //			oForm01.Freeze(false);
         //			return;

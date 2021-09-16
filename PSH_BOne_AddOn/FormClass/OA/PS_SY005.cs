@@ -203,7 +203,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
-                    //각모드에따른 아이템설정
+                    //각 모드에 따른 아이템설정
                     oForm.Items.Item("Code").Enabled = true;
                     oForm.Items.Item("Mat01").Enabled = true;
                     PS_SY005_FormClear();
@@ -213,7 +213,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
-                    //각모드에따른 아이템설정
+                    //각 모드에 따른 아이템설정
                     oForm.Items.Item("Code").Specific.Value = "";
                     oForm.Items.Item("Code").Enabled = true;
                     oForm.Items.Item("Mat01").Enabled = false;
@@ -223,7 +223,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
-                    //각모드에따른 아이템설정
+                    //각 모드에 따른 아이템설정
                     oForm.Items.Item("Code").Enabled = false;
                     oForm.Items.Item("Mat01").Enabled = true;
                 }

@@ -205,7 +205,7 @@ namespace PSH_BOne_AddOn
 			{
 				oForm.Freeze(true);
 
-				//각모드에따른 아이템설정
+				//각 모드에 따른 아이템설정
 				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
 					oForm.Items.Item("BPLId").Enabled = true;

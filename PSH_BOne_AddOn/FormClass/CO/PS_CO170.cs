@@ -129,7 +129,7 @@ namespace PSH_BOne_AddOn
 
 				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
-					// 각모드에따른 아이템설정
+					// 각 모드에 따른 아이템설정
 					oForm.Items.Item("BPLId").Enabled = true;
 					oForm.Items.Item("U_ItmBsort").Enabled = true;
 					oForm.Items.Item("ItmMsort").Enabled = true;

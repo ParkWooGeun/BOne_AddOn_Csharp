@@ -271,7 +271,7 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@ToDt", DateTime.ParseExact(ToDt, "yyyyMMdd", null)));
 				dataPackParameter.Add(new PSH_DataPackClass("@ItemCode", ItemCode));
 
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
 			}
 			catch (Exception ex)
 			{

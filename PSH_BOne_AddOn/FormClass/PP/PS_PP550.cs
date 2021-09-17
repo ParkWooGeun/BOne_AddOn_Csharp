@@ -347,7 +347,7 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode));
 				dataPackParameter.Add(new PSH_DataPackClass("@JIGTYP", JIGTYP));
 
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
 
 			}
 			catch (Exception ex)
@@ -390,7 +390,7 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@ItemType", ItemType));
 				dataPackParameter.Add(new PSH_DataPackClass("@StdYM", StdYM));
 
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
 			}
 			catch (Exception ex)
 			{

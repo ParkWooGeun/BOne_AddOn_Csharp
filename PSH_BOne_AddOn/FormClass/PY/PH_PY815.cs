@@ -226,7 +226,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@PAYTYP", PAYTYP)); //
                 dataPackParameter.Add(new PSH_DataPackClass("@GUBUN", GUBUN)); //출력구분
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
             catch (Exception ex)
             {

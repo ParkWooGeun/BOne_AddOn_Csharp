@@ -225,7 +225,7 @@ namespace PSH_BOne_AddOn
                 dataPackSubReportParameter.Add(new PSH_DataPackClass("@YY", YY, "PH_PY605_SUB1"));
                 dataPackSubReportParameter.Add(new PSH_DataPackClass("@Sabun", MSTCOD, "PH_PY605_SUB1"));
 
-                formHelpClass.CrystalReportOpen(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
+                formHelpClass.OpenCrystalReport(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
             }
             catch (Exception ex)
             {

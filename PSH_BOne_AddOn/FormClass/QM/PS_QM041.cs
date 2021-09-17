@@ -363,7 +363,7 @@ namespace PSH_BOne_AddOn
 				dataPackSubReportParameter.Add(new PSH_DataPackClass("@BPLId", BPLId, "PS_QM040_SUB_02"));
 				dataPackSubReportParameter.Add(new PSH_DataPackClass("@BPLId", BPLId, "PS_QM040_SUB_03"));
 
-				formHelpClass.CrystalReportOpen(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
+				formHelpClass.OpenCrystalReport(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
 			}
 			catch (Exception ex)
 			{

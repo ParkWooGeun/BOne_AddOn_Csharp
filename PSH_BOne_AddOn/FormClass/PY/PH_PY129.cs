@@ -446,7 +446,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD)); //사업장
                 dataPackParameter.Add(new PSH_DataPackClass("@CODE", Code)); //지급년월
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
             catch (Exception ex)
             {

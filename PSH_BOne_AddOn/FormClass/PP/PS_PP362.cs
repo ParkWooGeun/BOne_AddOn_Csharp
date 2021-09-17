@@ -1082,7 +1082,7 @@ namespace PSH_BOne_AddOn
                     dataPackParameter.Add(new PSH_DataPackClass("@CardCode", CardCode));
                     dataPackParameter.Add(new PSH_DataPackClass("@ItemCode", ItemCode));
 
-                    formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                    formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
                 }
                 else if (prmItemUID.ToString() == "Btn02")
                 {
@@ -1091,7 +1091,7 @@ namespace PSH_BOne_AddOn
                     ReportName = "PS_PP362_02.rpt";
                     dataPackParameter.Add(new PSH_DataPackClass("@OrdNum", OrdNum));
 
-                    formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                    formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
                 }
                 else if (prmItemUID.ToString() == "Btn03")
                 {
@@ -1102,7 +1102,7 @@ namespace PSH_BOne_AddOn
                     dataPackParameter.Add(new PSH_DataPackClass("@OrdNum", OrdNum));
                     dataPackParameter.Add(new PSH_DataPackClass("@Sub1_2", OrdSub));
 
-                    formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                    formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
                 }
                 else if (prmItemUID.ToString() == "Btn04")
                 {
@@ -1113,7 +1113,7 @@ namespace PSH_BOne_AddOn
                     dataPackParameter.Add(new PSH_DataPackClass("@OrdNum", OrdNum));
                     dataPackParameter.Add(new PSH_DataPackClass("@Sub1_2", OrdSub));
 
-                    formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                    formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
                 }
                 else if (prmItemUID.ToString() == "Btn05")
                 {
@@ -1124,7 +1124,7 @@ namespace PSH_BOne_AddOn
                     dataPackParameter.Add(new PSH_DataPackClass("@OrdNum", OrdNum));
                     dataPackParameter.Add(new PSH_DataPackClass("@Sub1_2", OrdSub));
 
-                    formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                    formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
                 }
                 else if (prmItemUID.ToString() == "Btn06")
                 {
@@ -1137,7 +1137,7 @@ namespace PSH_BOne_AddOn
                     dataPackParameter.Add(new PSH_DataPackClass("@Sub1_2", OrdSub));
                     dataPackParameter.Add(new PSH_DataPackClass("@CpCode", CpCode));
 
-                    formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                    formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
                 }
                 else if (prmItemUID.ToString() == "Btn07")
                 {
@@ -1148,7 +1148,7 @@ namespace PSH_BOne_AddOn
                     dataPackParameter.Add(new PSH_DataPackClass("@OrdNum", OrdNum));
                     dataPackParameter.Add(new PSH_DataPackClass("@Sub1_2", OrdSub));
 
-                    formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                    formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
                 }
                 else if (prmItemUID.ToString() == "Btn08")
                 {
@@ -1159,7 +1159,7 @@ namespace PSH_BOne_AddOn
                     dataPackParameter.Add(new PSH_DataPackClass("@OrdNum", OrdNum));
                     dataPackParameter.Add(new PSH_DataPackClass("@Sub1_2", OrdSub));
 
-                    formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                    formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
                 }
             }
             catch (Exception ex)

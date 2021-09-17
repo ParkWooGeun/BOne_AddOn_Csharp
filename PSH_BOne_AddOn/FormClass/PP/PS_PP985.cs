@@ -1169,7 +1169,7 @@ namespace PSH_BOne_AddOn
 				dataPackSubReportParameter.Add(new PSH_DataPackClass("@CntcCode", CntcCode, "PS_PP985_SUB_05"));
 				dataPackSubReportParameter.Add(new PSH_DataPackClass("@CntcCode", CntcCode, "PS_PP985_SUB_06"));
 
-				formHelpClass.CrystalReportOpen(dataPackParameter, dataPackSubReportParameter, WinTitle, ReportName);
+				formHelpClass.OpenCrystalReport(dataPackParameter, dataPackSubReportParameter, WinTitle, ReportName);
 			}
 			catch (Exception ex)
 			{

@@ -628,7 +628,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@QuotNo", quotNo)); //견적번호
                 dataPackParameter.Add(new PSH_DataPackClass("@SubYM", subYN)); //을병지 포함여부
                 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch (Exception ex)
             {

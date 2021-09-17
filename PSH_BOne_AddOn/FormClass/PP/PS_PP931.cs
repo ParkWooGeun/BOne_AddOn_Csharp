@@ -202,7 +202,7 @@ namespace PSH_BOne_AddOn
 					dataPackSubReportParameter.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr, "PS_PP931_SUB1"));
 					dataPackSubReportParameter.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo, "PS_PP931_SUB1"));
 
-					formHelpClass.CrystalReportOpen(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
+					formHelpClass.OpenCrystalReport(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
 				}
 				else if (oForm.DataSources.UserDataSources.Item("RadioBtn").Value == "B")
 				{
@@ -214,7 +214,7 @@ namespace PSH_BOne_AddOn
 					dataPackParameter.Add(new PSH_DataPackClass("@FromDate", DocDateFr));
 					dataPackParameter.Add(new PSH_DataPackClass("@ToDate", DocDateTo));
 
-					formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+					formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
 				}
 			}
 			catch (Exception ex)

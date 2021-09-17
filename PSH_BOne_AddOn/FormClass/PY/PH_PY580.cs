@@ -250,7 +250,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@GU", NojoYN));
                 dataPackParameter.Add(new PSH_DataPackClass("@ExpYN", ExpYN));
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
             catch (Exception ex)
             {

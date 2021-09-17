@@ -159,8 +159,8 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@YY", YY)); //년도
                 dataPackParameter.Add(new PSH_DataPackClass("@JIGTYP", JIGTYP)); //직원구분
 
-                //formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                //formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
             catch (Exception ex)
             {

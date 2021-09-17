@@ -178,7 +178,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@JOBTYP", JOBTYP)); //지급종류
                 dataPackParameter.Add(new PSH_DataPackClass("@JOBGBN", JOBGBN)); //지급구분
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula, 150);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula, 150);
             }
             catch (Exception ex)
             {

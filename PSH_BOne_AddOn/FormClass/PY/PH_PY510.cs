@@ -440,7 +440,7 @@ namespace PSH_BOne_AddOn
                 //Formula
                 dataPackFormula.Add(new PSH_DataPackClass("@CLTCOD", CLTName));
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
             catch (Exception ex)
             {

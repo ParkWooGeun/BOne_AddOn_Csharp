@@ -486,7 +486,7 @@ namespace PSH_BOne_AddOn
                 dataPackFormula.Add(new PSH_DataPackClass("@BPLId", dataHelpClass.Get_ReData("BPLName", "BPLId", "OBPL", BPLId, ""))); //사업장
                 dataPackFormula.Add(new PSH_DataPackClass("@SPmntDate", SPmntDate == "19000101" ? "All" : codeHelpClass.Left(SPmntDate, 4) + "-" + codeHelpClass.Mid(SPmntDate, 4, 2) + "-" + codeHelpClass.Right(SPmntDate, 2))); 
                 dataPackFormula.Add(new PSH_DataPackClass("@EPmntDate", EPmntDate == "21001231" ? "All" : codeHelpClass.Left(EPmntDate, 4) + "-" + codeHelpClass.Mid(EPmntDate, 4, 2) + "-" + codeHelpClass.Right(EPmntDate, 2))); 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
             catch (Exception ex)
             {

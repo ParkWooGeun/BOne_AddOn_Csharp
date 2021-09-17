@@ -178,7 +178,7 @@ namespace PSH_BOne_AddOn
                 dataPackSubReportParameter.Add(new PSH_DataPackClass("@MSTCOD", MSTCOD, "PH_PY695_SUB7"));
                 dataPackSubReportParameter.Add(new PSH_DataPackClass("@MSTCOD", MSTCOD, "PH_PY695_SUB8"));
 
-                formHelpClass.CrystalReportOpen(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
+                formHelpClass.OpenCrystalReport(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
             }
             catch (Exception ex)
             {

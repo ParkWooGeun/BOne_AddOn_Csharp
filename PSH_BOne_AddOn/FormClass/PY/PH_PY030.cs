@@ -1611,7 +1611,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@DestNo1", DestNo1));
                 dataPackParameter.Add(new PSH_DataPackClass("@DestNo2", DestNo2));
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch (Exception ex)
             {
@@ -1709,7 +1709,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@DestDiv", DestDiv));
                 dataPackParameter.Add(new PSH_DataPackClass("@Vehicle", Vehicle));
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch (Exception ex)
             {

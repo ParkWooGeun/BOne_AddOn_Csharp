@@ -117,7 +117,7 @@ namespace PSH_BOne_AddOn
                 //SubReport Parameter
                 dataPackSubReportParameter.Add(new PSH_DataPackClass("@DocDate", DocDate, "PH_PY540_SUB1"));
 
-                formHelpClass.CrystalReportOpen(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
+                formHelpClass.OpenCrystalReport(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
             }
             catch (Exception ex)
             {

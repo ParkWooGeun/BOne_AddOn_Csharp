@@ -134,7 +134,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr)); //기간(시작)
                 dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo)); //기간(종료)
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
             catch (Exception ex)
             {

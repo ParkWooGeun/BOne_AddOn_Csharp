@@ -411,7 +411,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@ToDt", ToDt)); //조회일자(종료)
                 dataPackParameter.Add(new PSH_DataPackClass("@PrtCls", PrtCls)); //그리드, 리포트 출력구분
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch (Exception ex)
             {

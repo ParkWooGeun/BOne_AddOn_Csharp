@@ -323,7 +323,7 @@ namespace PSH_BOne_AddOn
                     new PSH_DataPackClass("@SalesYN", SalesYN)
                 };
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch(Exception ex)
             {

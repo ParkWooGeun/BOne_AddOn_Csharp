@@ -177,7 +177,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@JIGBIL", JIGBIL)); //지급일자
                 dataPackParameter.Add(new PSH_DataPackClass("@JIGTYP", JIGTYP)); //직원구분
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula, 150);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula, 150);
             }
             catch (Exception ex)
             {

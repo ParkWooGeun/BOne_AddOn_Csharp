@@ -157,7 +157,7 @@ namespace PSH_BOne_AddOn
 				// Qry는 필요없는데 에러로안해 그냥하나 만듬
 				dataPackParameter.Add(new PSH_DataPackClass("@Gubun", Gubun));
 
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
 			}
 			catch (Exception ex)
 			{

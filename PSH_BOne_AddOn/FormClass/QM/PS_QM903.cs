@@ -772,25 +772,33 @@ namespace PSH_BOne_AddOn
                         case "1285": //복원
                             break;
                         case "1293": //행삭제
-                            if (oMat01.RowCount != oMat01.VisualRowCount)
+                            for (int i = 0; i <= oMat01.VisualRowCount - 1; i++)
                             {
-                                for (int i = 0; i <= oMat01.VisualRowCount - 1; i++)
-                                {
-                                    oMat01.Columns.Item("LineNum").Cells.Item(i + 1).Specific.Value = i + 1;
-                                }
-
-                                oMat01.FlushToDataSource();
-                                oDS_PS_QM903L.RemoveRecord(oDS_PS_QM903L.Size - 1);
-                                oMat01.Clear();
-                                oMat01.LoadFromDataSource();
+                                oMat01.Columns.Item("LineNum").Cells.Item(i + 1).Specific.Value = i + 1;
                             }
-                            break;
 
+                            oMat01.FlushToDataSource();
+                            oDS_PS_QM903L.RemoveRecord(oDS_PS_QM903L.Size - 1);
+                            oMat01.Clear();
+                            oMat01.LoadFromDataSource();
+
+                            if (oMat01.RowCount == 0)
+                            {
+                                PS_QM903_AddMatrixRow(0, false);
+                            }
+                            else
+                            {
+                                if (!string.IsNullOrEmpty(oDS_PS_QM903L.GetValue("U_ItmBsort", oMat01.RowCount - 1).ToString().Trim()))
+                                {
+                                    PS_QM903_AddMatrixRow(oMat01.RowCount, false);
+                                }
+                            }
+
+                            break;
                         case "1281": //찾기
                             PS_QM903_EnableFormItem();
                             oForm.Items.Item("DocEntry").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             break;
-
                         case "1282": //추가
                             PS_QM903_EnableFormItem();
                             PS_QM903_SetDocEntry();

@@ -1720,8 +1720,6 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_MM960_02.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_PP035_03_bak01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_PP035_03_bak02.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_PP035_04_20160205_bakup.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_PP035_04_bak.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_PP050_01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_PP051_01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_PP051_02.rpt" />

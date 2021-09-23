@@ -143,13 +143,12 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP092_Validate(string ValidateType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string Query01;
             string Query02;
             string Query03;
             string Query04;
             string errMessage = string.Empty;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             SAPbobsCOM.Recordset oRecordSet02 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             SAPbobsCOM.Recordset oRecordSet03 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -207,7 +206,7 @@ namespace PSH_BOne_AddOn
                         
                         if (oRecordSet02.Fields.Item("Qty").Value <= 0) //멀티는 일부가나갈수가 없다 수량이 없다면 출고된것으로 본다.
                         {
-                            errMessage = "이미출고된품목이 있슴니다. 취소할수 없습니다.";
+                            errMessage = "이미 출고된 품목이 있습니다. 취소할 수 없습니다.";
                             throw new Exception();
                             
                         }
@@ -229,7 +228,7 @@ namespace PSH_BOne_AddOn
                         oRecordSet01.MoveNext();
                     }
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -249,7 +248,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet03);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet04);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -260,7 +259,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP092_UpdateToPP092(string sPackNum, string sDocNum)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string errMessage = string.Empty;
             string Query01;
             string Query02;
@@ -300,7 +299,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet02);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -476,7 +475,6 @@ namespace PSH_BOne_AddOn
             string Param02;
             string Param03;
             string Param04;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -573,7 +571,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP092_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i = 0;
             string errMessage = string.Empty;
             string ClickCode = string.Empty;
@@ -642,7 +640,7 @@ namespace PSH_BOne_AddOn
                 {
                     PS_PP092_FormClear();
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -668,7 +666,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -1287,7 +1285,6 @@ namespace PSH_BOne_AddOn
                                         oDS_PS_PP092L.SetValue("U_InspNo", pVal.Row - 1, oRecordSet01.Fields.Item("InspNo").Value);
                                         oDS_PS_PP092L.SetValue("U_CardSeq", pVal.Row - 1, oRecordSet01.Fields.Item("CardSeq").Value);
                                     }
-
                                 }
                             }
                             else if (pVal.ColUID == "SD030Num")
@@ -1447,6 +1444,7 @@ namespace PSH_BOne_AddOn
 
                     PS_PP092_FormItemEnabled();
                     PS_PP092_AddMatrixRow(oMat01.VisualRowCount, false);
+                    oMat01.AutoResizeColumns();
                 }
             }
             catch (Exception ex)
@@ -1641,33 +1639,16 @@ namespace PSH_BOne_AddOn
         {
             try
             {
-                if (BusinessObjectInfo.BeforeAction == true)
+                switch (BusinessObjectInfo.EventType)
                 {
-                    switch (BusinessObjectInfo.EventType)
-                    {
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
-                            break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
-                            break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
-                            break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
-                            break;
-                    }
-                }
-                else if (BusinessObjectInfo.BeforeAction == false)
-                {
-                    switch (BusinessObjectInfo.EventType)
-                    {
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
-                            break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
-                            break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
-                            break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
-                            break;
-                    }
+                    case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
+                        break;
+                    case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
+                        break;
+                    case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
+                        break;
+                    case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
+                        break;
                 }
             }
             catch (Exception ex)

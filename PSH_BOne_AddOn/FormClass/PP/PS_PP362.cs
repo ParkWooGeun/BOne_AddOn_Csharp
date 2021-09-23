@@ -79,9 +79,9 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Update();
+                oForm.Items.Item("Folder01").Specific.Select();
                 oForm.Freeze(false);
                 oForm.Visible = true;
-                oForm.Items.Item("Folder01").Specific.Select();
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oXmlDoc); //메모리 해제
             }
         }

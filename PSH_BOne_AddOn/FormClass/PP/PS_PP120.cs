@@ -94,6 +94,8 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.UserDataSources.Item("ToDate").ValueEx = DateTime.Now.ToString("yyyyMMdd");
                 oForm.Items.Item("InDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
                 oForm.Items.Item("Acct").Specific.Value = "83102010";
+
+                oForm.Items.Item("empty").Visible = false;
             }
             catch (Exception ex)
             {

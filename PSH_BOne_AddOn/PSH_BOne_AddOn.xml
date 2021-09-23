@@ -50927,7 +50927,7 @@
         </member>
         <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.PSH_CF_DBDatasourceReturn(SAPbouiCOM.ItemEvent,System.String,System.String,System.String,System.String,System.Int16,System.String,System.String,System.String)">
             <summary>
-            CHOOSEFROMLIST의 값을 리턴(임시주석처리 2019.03.18 송명규), 주석해제하여 구현중(2019.05.03 이후, 송명규)
+            CHOOSEFROMLIST의 값을 리턴
             </summary>
             <param name="pVal">pVal</param>
             <param name="PSH_pFormUID">Fomr UID</param>
@@ -51448,22 +51448,6 @@
             </summary>
             <param name="ItemCode"></param>
             <param name="Weight"></param>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.RFC_Sender(System.String,System.String,System.String,System.String,System.Double,System.String,System.String,System.String,System.String,System.String)">
-            <summary>
-            R3 통신(실제 구현 할때 테스트 및 보완 필요, 2020.09.15 송명규)
-            </summary>
-            <param name="BPLId"></param>
-            <param name="ItemCode"></param>
-            <param name="ItemName"></param>
-            <param name="Size"></param>
-            <param name="Qty"></param>
-            <param name="Unit"></param>
-            <param name="RequestDate"></param>
-            <param name="DueDate"></param>
-            <param name="ItemType"></param>
-            <param name="RequestNo"></param>
             <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.Cal_KPI_Grade(System.Int16,System.Int16,System.String,System.String,System.String)">

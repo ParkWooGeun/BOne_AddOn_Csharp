@@ -484,7 +484,7 @@ namespace PSH_BOne_AddOn
                 //Parameter
                 dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", oForm.Items.Item("DocEntry").Specific.Value)); //사업장
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch (Exception ex)
             {
@@ -512,7 +512,7 @@ namespace PSH_BOne_AddOn
                 //Parameter
                 dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", oForm.Items.Item("DocEntry").Specific.Value)); //사업장
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch (Exception ex)
             {
@@ -540,7 +540,7 @@ namespace PSH_BOne_AddOn
                 //Parameter
                 dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", oForm.Items.Item("DocEntry").Specific.Value)); //사업장
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch (Exception ex)
             {
@@ -598,7 +598,7 @@ namespace PSH_BOne_AddOn
                 //Parameter
                 dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", oForm.Items.Item("DocEntry").Specific.Value)); //사업장
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch (Exception ex)
             {

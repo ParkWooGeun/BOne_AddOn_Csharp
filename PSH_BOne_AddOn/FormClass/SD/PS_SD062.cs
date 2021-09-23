@@ -210,7 +210,7 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@StdYear", StdYear));
 				dataPackParameter.Add(new PSH_DataPackClass("@ItemType", ItemType));
 
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
 			}
 			catch (Exception ex)
 			{

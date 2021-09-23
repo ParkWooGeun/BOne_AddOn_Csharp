@@ -199,7 +199,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@TYM", TYM)); //년월
                 dataPackParameter.Add(new PSH_DataPackClass("@GUBUN", OptBtnValue)); //조회기준
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
             catch (Exception ex)
             {

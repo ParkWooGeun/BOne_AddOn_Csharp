@@ -271,14 +271,14 @@ namespace PSH_BOne_AddOn
                     dataPackSubReportParameter.Add(new PSH_DataPackClass("@MRspCode", MRspCode, "PS_PP295_SUB1"));
                     dataPackSubReportParameter.Add(new PSH_DataPackClass("@Code1", Code1, "PS_PP295_SUB1"));
 
-                    formHelpClass.CrystalReportOpen(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
+                    formHelpClass.OpenCrystalReport(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
                 }
 				else
 				{
 					WinTitle = "[PS_PP295_05] 예방정비실적대장(상세)";
 					ReportName = "PS_PP295_05.RPT";
 
-					formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+					formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
 				}
 			}
 			catch (Exception ex)

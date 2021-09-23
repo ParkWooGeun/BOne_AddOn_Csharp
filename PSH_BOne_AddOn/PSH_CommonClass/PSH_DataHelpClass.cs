@@ -1901,22 +1901,22 @@ namespace PSH_BOne_AddOn.Data
         /// <summary>
         /// 콤보박스 바인딩
         /// </summary>
-        /// <param name="Lst"></param>
-        /// <param name="sSQL"></param>
-        /// <param name="TValue"></param>
-        /// <param name="Reset_Renamed"></param>
-        /// <param name="SetF"></param>
-        public void Set_ComboList(ComboBox Lst, string sSQL, string TValue, bool Reset_Renamed, bool SetF)
+        /// <param name="combo">콤보박스 컨트롤명</param>
+        /// <param name="query">쿼리</param>
+        /// <param name="defaultDescription">기본 선택 Description</param>
+        /// <param name="resetWhether">reset 여부</param>
+        /// <param name="voidInsertWhether">빈값 추가 여부</param>
+        public void Set_ComboList(ComboBox combo, string query, string defaultDescription, bool resetWhether, bool voidInsertWhether)
         {
             SAPbouiCOM.ComboBox ComBox = null;
             SAPbobsCOM.Recordset s_Recordset = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
-                s_Recordset.DoQuery(sSQL);
-                ComBox = Lst;
+                s_Recordset.DoQuery(query);
+                ComBox = combo;
 
-                if (Reset_Renamed == true)
+                if (resetWhether == true)
                 {
                     while (ComBox.ValidValues.Count > 0)
                     {
@@ -1924,7 +1924,7 @@ namespace PSH_BOne_AddOn.Data
                     }
                 }
 
-                if (SetF == true)
+                if (voidInsertWhether == true)
                 {
                     ComBox.ValidValues.Add("", "");
                 }
@@ -1932,13 +1932,12 @@ namespace PSH_BOne_AddOn.Data
                 while (!s_Recordset.EoF)
                 {
                     ComBox.ValidValues.Add(s_Recordset.Fields.Item(0).Value.ToString().Trim(), s_Recordset.Fields.Item(1).Value.ToString().Trim());
-                    //Value,Description
                     s_Recordset.MoveNext();
                 }
 
-                if (!string.IsNullOrEmpty(TValue))
+                if (!string.IsNullOrEmpty(defaultDescription))
                 {
-                    ComBox.Select(TValue, SAPbouiCOM.BoSearchKey.psk_ByDescription);
+                    ComBox.Select(defaultDescription, SAPbouiCOM.BoSearchKey.psk_ByDescription);
                 }
             }
             catch(Exception ex)

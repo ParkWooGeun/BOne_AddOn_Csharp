@@ -1038,7 +1038,7 @@ namespace PSH_BOne_AddOn
                     new PSH_DataPackClass("@UserSign", PSH_Globals.oCompany.UserSignature)
                 };
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch (Exception ex)
             {
@@ -1087,7 +1087,7 @@ namespace PSH_BOne_AddOn
                     new PSH_DataPackClass("@BPLName", oRecordSet01.Fields.Item(0).Value)
                 };
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
             catch (Exception ex)
             {
@@ -1130,7 +1130,7 @@ namespace PSH_BOne_AddOn
                     new PSH_DataPackClass("@BPLName", oRecordSet01.Fields.Item(0).Value)
                 };
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
             catch (Exception ex)
             {

@@ -162,7 +162,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@TYM", TYM)); //종료년월
                 dataPackParameter.Add(new PSH_DataPackClass("@DocDate", DocDate)); //근속기준일자
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
             catch (Exception ex)
             {

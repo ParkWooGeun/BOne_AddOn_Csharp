@@ -305,7 +305,7 @@ namespace PSH_BOne_AddOn
 
                 dataPackParameter.Add(new PSH_DataPackClass("@YM", YM)); //일자
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch (Exception ex)
             {

@@ -262,7 +262,7 @@ namespace PSH_BOne_AddOn
                 dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY565_SUB7"));
                 dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY565_SUB7"));
 
-                formHelpClass.CrystalReportOpen(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
+                formHelpClass.OpenCrystalReport(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
             }
             catch (Exception ex)
             {

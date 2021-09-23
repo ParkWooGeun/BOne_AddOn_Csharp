@@ -198,7 +198,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@TYM", TYM)); //사번
                 dataPackParameter.Add(new PSH_DataPackClass("@MSTCOD", MSTCOD)); //사번
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula, 150);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula, 150);
             }
             catch (Exception ex)
             {

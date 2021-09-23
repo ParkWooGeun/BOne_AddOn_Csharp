@@ -210,7 +210,7 @@ namespace PSH_BOne_AddOn
                     dataPackParameter.Add(new PSH_DataPackClass("@YY", YY)); //등록기간(시작)
                     dataPackParameter.Add(new PSH_DataPackClass("@MSTCOD", MSTCOD)); //등록기간(종료)
                 }
-                formHelpClass.CrystalReportOpen(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
+                formHelpClass.OpenCrystalReport(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
             }
             catch (Exception ex)
             {

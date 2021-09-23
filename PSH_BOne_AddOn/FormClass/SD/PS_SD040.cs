@@ -1888,7 +1888,7 @@ namespace PSH_BOne_AddOn
                     new PSH_DataPackClass("@UserSign", PSH_Globals.oCompany.UserSignature)
                 };
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch(Exception ex)
             {
@@ -1960,7 +1960,7 @@ namespace PSH_BOne_AddOn
                         new PSH_DataPackClass("@DocDate", dataHelpClass.ConvertDateType(oForm.Items.Item("DocDate").Specific.Value, "-")) //DocDate
                     };
 
-                    formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                    formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
                 }
                 else
                 {
@@ -1983,7 +1983,7 @@ namespace PSH_BOne_AddOn
                         new PSH_DataPackClass("@DocEntry", oForm.Items.Item("DocEntry").Specific.Value, "PS_SD220_SUB1") //DocEntry
                     };
 
-                    formHelpClass.CrystalReportOpen(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
+                    formHelpClass.OpenCrystalReport(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
                 }
             }
             catch (Exception ex)
@@ -2037,7 +2037,7 @@ namespace PSH_BOne_AddOn
                     new PSH_DataPackClass("@DocEntry", oForm.Items.Item("DocEntry").Specific.Value) //DocEntry
                 };
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch(Exception ex)
             {
@@ -2089,7 +2089,7 @@ namespace PSH_BOne_AddOn
                     new PSH_DataPackClass("@DocEntry", oForm.Items.Item("DocEntry").Specific.Value) //DocEntry
                 };
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch (Exception ex)
             {

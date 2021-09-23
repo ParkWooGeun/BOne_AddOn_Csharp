@@ -180,7 +180,7 @@ namespace PSH_BOne_AddOn
 					dataPackParameter.Add(new PSH_DataPackClass("@OrdNum", OrdNum));
 					dataPackParameter.Add(new PSH_DataPackClass("@BatchNum", BatchNum));
 
-					formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+					formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
 				}
 				else
                 {
@@ -196,7 +196,7 @@ namespace PSH_BOne_AddOn
 					dataPackSubReportParameter.Add(new PSH_DataPackClass("@BPLId", BPLId, "PS_QM620_SUB_06"));
 					dataPackSubReportParameter.Add(new PSH_DataPackClass("@BPLId", BPLId, "PS_QM620_SUB_07"));
 
-					formHelpClass.CrystalReportOpen(dataPackParameter, dataPackSubReportParameter, WinTitle, ReportName);
+					formHelpClass.OpenCrystalReport(dataPackParameter, dataPackSubReportParameter, WinTitle, ReportName);
 				}
 			}
 			catch (Exception ex)

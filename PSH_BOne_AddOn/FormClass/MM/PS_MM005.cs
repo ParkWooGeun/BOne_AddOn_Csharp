@@ -216,7 +216,6 @@ namespace PSH_BOne_AddOn
 
                 oMat01.Columns.Item("PP030DL").Editable = false;
                 oMat01.Columns.Item("ItemCode").Editable = true;
-
             }
             catch (Exception ex)
             {

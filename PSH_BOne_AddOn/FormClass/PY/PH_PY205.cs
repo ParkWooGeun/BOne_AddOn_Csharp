@@ -1012,7 +1012,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@EduOrg_", EduOrg)); //교육기관
                 dataPackParameter.Add(new PSH_DataPackClass("@CancelYN_", CancelYN)); //취소제외여부
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch(Exception ex)
             {
@@ -1066,7 +1066,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@ToMt_", ToMt)); //기준년월(종료)
                 dataPackParameter.Add(new PSH_DataPackClass("@Status_", Status)); //재직여부
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch(Exception ex)
             {
@@ -1141,7 +1141,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@EduOrg_", EduOrg)); //교육기관
                 dataPackParameter.Add(new PSH_DataPackClass("@CancelYN_", CancelYN)); //취소제외여부
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch (Exception ex)
             {

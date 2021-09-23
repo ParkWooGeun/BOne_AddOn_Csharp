@@ -283,10 +283,10 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// Chk_Data
+        /// 자주검사 CHECK SHEET 리포트 조회
         /// </summary>
         [STAThread]
-        private void Chk_Data()
+        private void PS_PP035_PrintReport01()
         {
             int i;
             string WinTitle;
@@ -314,7 +314,7 @@ namespace PSH_BOne_AddOn
                 WinTitle = "[PS_PP035] 자주검사 CHECK SHEET";
                 ReportName = "PS_PP035_03.rpt";
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName);
             }
             catch (Exception ex)
             {
@@ -327,10 +327,10 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// Chk_Data1
+        /// 공정작업지시서 리포트 조회
         /// </summary>
         [STAThread]
-        private void Chk_Data1()
+        private void PS_PP035_PrintReport02()
         {
             int i; 
             string WinTitle;
@@ -365,14 +365,16 @@ namespace PSH_BOne_AddOn
                             oRecordSet01.DoQuery(sQry);
                         }
                     }
-                    //Parameter
-                    dataPackParameter.Add(new PSH_DataPackClass("@Seq", "M"));
+                    ////Parameter
+                    //dataPackParameter.Add(new PSH_DataPackClass("@Seq", "M"));
 
-                    //SubReport Parameter
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@Seq", "S", "Sub_Report01"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@Seq", "E", "Sub_Report02"));
+                    ////SubReport Parameter
+                    //dataPackSubReportParameter.Add(new PSH_DataPackClass("@Seq", "S", "Sub_Report01"));
+                    //dataPackSubReportParameter.Add(new PSH_DataPackClass("@Seq", "E", "Sub_Report02"));
 
-                    formHelpClass.CrystalReportOpen(dataPackParameter, dataPackSubReportParameter, WinTitle, ReportName);
+                    //formHelpClass.OpenCrystalReport(dataPackParameter, dataPackSubReportParameter, WinTitle, ReportName);
+                    //formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
+                    formHelpClass.OpenCrystalReport(WinTitle, ReportName);
                 }
                 else if (oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim() == "101" || oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim() == "102")
                 {
@@ -399,7 +401,7 @@ namespace PSH_BOne_AddOn
                     //SubReport Parameter
                     dataPackSubReportParameter.Add(new PSH_DataPackClass("@Seq", "S", "Sub_Report01"));
 
-                    formHelpClass.CrystalReportOpen(dataPackParameter, dataPackSubReportParameter, WinTitle, ReportName);
+                    formHelpClass.OpenCrystalReport(dataPackParameter, dataPackSubReportParameter, WinTitle, ReportName);
                 }
                 else if (oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim() == "107")
                 {
@@ -426,7 +428,7 @@ namespace PSH_BOne_AddOn
                     //SubReport Parameter
                     dataPackSubReportParameter.Add(new PSH_DataPackClass("@Seq", "S", "Sub_Report01"));
 
-                    formHelpClass.CrystalReportOpen(dataPackParameter, dataPackSubReportParameter, WinTitle, ReportName);
+                    formHelpClass.OpenCrystalReport(dataPackParameter, dataPackSubReportParameter, WinTitle, ReportName);
                 }
                 else if (oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim() == "104")
                 {
@@ -447,7 +449,7 @@ namespace PSH_BOne_AddOn
                             oRecordSet01.DoQuery(sQry);
                         }
                     }
-                    formHelpClass.CrystalReportOpen(WinTitle, ReportName);
+                    formHelpClass.OpenCrystalReport(WinTitle, ReportName);
                 }
             }
             catch (Exception ex)
@@ -753,7 +755,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_PP035L.SetValue("U_ColReg15", i, oRecordSet01.Fields.Item("CpName").Value);
 
                     oRecordSet01.MoveNext();
-                    ProgressBar01.Value = ProgressBar01.Value + 1;
+                    ProgressBar01.Value += 1;
                     ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
 
@@ -949,13 +951,13 @@ namespace PSH_BOne_AddOn
                     }
                     if (pVal.ItemUID == "Btn03")
                     {
-                        System.Threading.Thread thread = new System.Threading.Thread(Chk_Data1);
+                        System.Threading.Thread thread = new System.Threading.Thread(PS_PP035_PrintReport02);
                         thread.SetApartmentState(System.Threading.ApartmentState.STA);
                         thread.Start();
                     }
                     if (pVal.ItemUID == "Btn04")
                     {
-                        System.Threading.Thread thread = new System.Threading.Thread(Chk_Data);
+                        System.Threading.Thread thread = new System.Threading.Thread(PS_PP035_PrintReport01);
                         thread.SetApartmentState(System.Threading.ApartmentState.STA);
                         thread.Start();
                     }

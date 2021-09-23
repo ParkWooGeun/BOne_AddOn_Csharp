@@ -205,7 +205,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@FJOBGBN", FJOBGBN)); //지급구분시작
                 dataPackParameter.Add(new PSH_DataPackClass("@TJOBGBN", TJOBGBN)); //지급구분종료
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
             catch (Exception ex)
             {

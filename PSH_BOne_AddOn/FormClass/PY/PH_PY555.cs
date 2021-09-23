@@ -190,7 +190,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@GNMUJO", GNMUJO)); //근무조
                 dataPackParameter.Add(new PSH_DataPackClass("@Chk", Chk)); //미출근자제외
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
             catch (Exception ex)
             {

@@ -321,7 +321,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@ToYM", ToYM));
                 dataPackParameter.Add(new PSH_DataPackClass("@CntcCode", CntcCode));
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
 
             }
             catch (Exception ex)

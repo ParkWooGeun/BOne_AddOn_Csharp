@@ -180,7 +180,7 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@PackingNo1", PackingNo1));
 				dataPackParameter.Add(new PSH_DataPackClass("@PackingNo2", PackingNo2));
 
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
 			}
 			catch (Exception ex)
 			{

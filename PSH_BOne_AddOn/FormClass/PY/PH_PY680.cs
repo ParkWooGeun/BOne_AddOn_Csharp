@@ -516,7 +516,7 @@ namespace PSH_BOne_AddOn
                 dataPackFormula.Add(new PSH_DataPackClass("@DocDateFr", dataHelpClass.ConvertDateType(DocDateFr, "-")));
                 dataPackFormula.Add(new PSH_DataPackClass("@DocDateTo", dataHelpClass.ConvertDateType(DocDateTo, "-")));
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
             catch (Exception ex)
             {

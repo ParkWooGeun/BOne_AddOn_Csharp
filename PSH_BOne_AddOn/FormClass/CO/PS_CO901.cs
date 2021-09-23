@@ -206,7 +206,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@StdYM", StdYM)); //일자
                 dataPackParameter.Add(new PSH_DataPackClass("@CntcCode", CntcCode)); //일자
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch (Exception ex)
             {

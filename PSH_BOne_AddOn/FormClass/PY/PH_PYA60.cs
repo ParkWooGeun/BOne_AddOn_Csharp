@@ -391,7 +391,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@Count", Count)); //등록기간(종료)
                 dataPackParameter.Add(new PSH_DataPackClass("@EntFeeYN", EntFeeYN)); //등록기간(종료)
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
             catch (Exception ex)
             {

@@ -126,7 +126,7 @@ namespace PSH_BOne_AddOn
 				dataPackSubReportParameter.Add(new PSH_DataPackClass("@StdDt", DateTime.ParseExact(DocDate, "yyyyMMdd", null), "PS_PP908_SUB_03"));
 				dataPackSubReportParameter.Add(new PSH_DataPackClass("@StdDt", DateTime.ParseExact(DocDate, "yyyyMMdd", null), "PS_PP908_SUB_04"));
 
-				formHelpClass.CrystalReportOpen(dataPackParameter, dataPackSubReportParameter, WinTitle, ReportName);
+				formHelpClass.OpenCrystalReport(dataPackParameter, dataPackSubReportParameter, WinTitle, ReportName);
 			}
 			catch (Exception ex)
 			{

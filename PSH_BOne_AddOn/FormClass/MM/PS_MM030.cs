@@ -1520,7 +1520,7 @@ namespace PSH_BOne_AddOn
                 // Parameter
                 dataPackParameter.Add(new PSH_DataPackClass("@DocNum", DocNum));
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch (Exception ex)
             {
@@ -1591,7 +1591,7 @@ namespace PSH_BOne_AddOn
                 // Parameter
                 dataPackParameter.Add(new PSH_DataPackClass("@DocNum", DocNum));
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
             catch (Exception ex)
             {

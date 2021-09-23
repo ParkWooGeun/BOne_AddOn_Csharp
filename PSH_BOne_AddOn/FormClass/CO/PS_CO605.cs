@@ -483,7 +483,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@ItmMsort", ItmMsort)); //ItmMsort
                 dataPackParameter.Add(new PSH_DataPackClass("@Class", "PS_MM209")); //Class
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
             catch(Exception ex)
             {

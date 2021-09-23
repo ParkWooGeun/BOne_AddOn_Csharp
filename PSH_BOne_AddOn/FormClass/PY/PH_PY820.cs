@@ -191,7 +191,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@JIGTYP", JIGTYP)); //년월
                 dataPackParameter.Add(new PSH_DataPackClass("@PAYTYP", PAYTYP)); //년월
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
             catch (Exception ex)
             {

@@ -536,7 +536,7 @@ namespace PSH_BOne_AddOn
 				dataPackSubReportParameter.Add(new PSH_DataPackClass("@QryCls", "2", "PS_PP981_SUB_01"));
 				dataPackSubReportParameter.Add(new PSH_DataPackClass("@ReportYN", "Y", "PS_PP981_SUB_01"));
 
-				formHelpClass.CrystalReportOpen(dataPackParameter, dataPackSubReportParameter, WinTitle, ReportName);
+				formHelpClass.OpenCrystalReport(dataPackParameter, dataPackSubReportParameter, WinTitle, ReportName);
 			}
 			catch (Exception ex)
 			{

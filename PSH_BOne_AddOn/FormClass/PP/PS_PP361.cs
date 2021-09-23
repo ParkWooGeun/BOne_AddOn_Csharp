@@ -600,7 +600,7 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@Size", Size));
 				dataPackParameter.Add(new PSH_DataPackClass("@OrdNum", OrdNum));
 
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
 			}
 			catch (Exception ex)
 			{
@@ -633,7 +633,7 @@ namespace PSH_BOne_AddOn
 						dataPackParameter.Add(new PSH_DataPackClass("@OrdNum", oGrid01.DataTable.GetValue(0, i).ToString().Trim()));
 					}
 				}
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
 			}
 			catch (Exception ex)
 			{
@@ -684,7 +684,7 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@OrdNum", oGrid02.DataTable.GetValue(0, i).ToString().Trim()));
 				dataPackParameter.Add(new PSH_DataPackClass("@Sub1_2", oGrid02.DataTable.GetValue(1, i).ToString().Trim()));
 				
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
 			}
 			catch (Exception ex)
 			{

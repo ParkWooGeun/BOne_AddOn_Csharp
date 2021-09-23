@@ -412,7 +412,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
-                    //각모드에따른 아이템설정
+                    //각 모드에 따른 아이템설정
                     oForm.EnableMenu("1281", false); //찾기
                     oForm.EnableMenu("1282", true); //추가
                     oForm.Items.Item("DocEntry").Enabled = true; //문서번호활성화
@@ -835,7 +835,7 @@ namespace PSH_BOne_AddOn
                 // Parameter
                 dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", DocEntry));
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch (Exception ex)
             {
@@ -873,7 +873,7 @@ namespace PSH_BOne_AddOn
                 // Parameter
                 dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", DocEntry));
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch (Exception ex)
             {

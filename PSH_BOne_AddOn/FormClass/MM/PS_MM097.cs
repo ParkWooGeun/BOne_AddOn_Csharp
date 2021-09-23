@@ -533,7 +533,7 @@ namespace PSH_BOne_AddOn
 				// Parameter
 				dataPackParameter.Add(new PSH_DataPackClass("@Code", Code));
 
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
 			}
 			catch (Exception ex)
 			{

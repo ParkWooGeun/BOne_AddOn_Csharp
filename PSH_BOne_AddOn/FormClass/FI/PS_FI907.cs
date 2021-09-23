@@ -181,7 +181,7 @@ namespace PSH_BOne_AddOn
                 dataPackFormula.Add(new PSH_DataPackClass("@StrDate", StrDate == "19000101" ? "All" : codeHelpClass.Left(StrDate, 4) + "-" + codeHelpClass.Mid(StrDate, 4, 2) + "-" + codeHelpClass.Right(StrDate, 2)));
                 dataPackFormula.Add(new PSH_DataPackClass("@EndDate", EndDate == "21001231" ? "All" : codeHelpClass.Left(EndDate, 4) + "-" + codeHelpClass.Mid(EndDate, 4, 2) + "-" + codeHelpClass.Right(EndDate, 2)));
                 dataPackFormula.Add(new PSH_DataPackClass("@BPLId", dataHelpClass.Get_ReData("BPLName", "BPLId", "OBPL", BPLId, "")));
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
             catch (Exception ex)
             {

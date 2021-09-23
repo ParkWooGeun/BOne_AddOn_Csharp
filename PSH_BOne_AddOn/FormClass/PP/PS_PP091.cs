@@ -329,7 +329,7 @@ namespace PSH_BOne_AddOn
 				// Formula 수식필드
 				// Parameter
 
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName);
+				formHelpClass.OpenCrystalReport(WinTitle, ReportName);
 			}
 			catch (Exception ex)
 			{
@@ -377,7 +377,7 @@ namespace PSH_BOne_AddOn
 				// Formula 수식필드
 				// Parameter
 
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName);
+				formHelpClass.OpenCrystalReport(WinTitle, ReportName);
 			}
 			catch (Exception ex)
 			{

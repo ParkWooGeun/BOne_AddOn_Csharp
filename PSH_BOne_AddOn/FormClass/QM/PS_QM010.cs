@@ -50,9 +50,9 @@ namespace PSH_BOne_AddOn
 
 				oForm.Freeze(true);
 
-				CreateItems();
-				ComboBox_Setting();
-				FormClear();
+				PS_QM010_CreateItems();
+				PS_QM010_ComboBox_Setting();
+				PS_QM010_FormClear();
 
 				oForm.EnableMenu("1283", true);  // 삭제
 				oForm.EnableMenu("1286", false); // 닫기
@@ -74,9 +74,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// CreateItems
+		/// PS_QM010_CreateItems
 		/// </summary>
-		private void CreateItems()
+		private void PS_QM010_CreateItems()
 		{
 			try
 			{
@@ -89,9 +89,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// ComboBox_Setting
+		/// PS_QM010_ComboBox_Setting
 		/// </summary>
-		private void ComboBox_Setting()
+		private void PS_QM010_ComboBox_Setting()
 		{
 			try
 			{
@@ -105,9 +105,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// FormClear
+		/// PS_QM010_FormClear
 		/// </summary>
-		private void FormClear()
+		private void PS_QM010_FormClear()
 		{
 			string DocNum;
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -132,9 +132,9 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// FormItemEnabled
+		/// PS_QM010_FormItemEnabled
 		/// </summary>
-		private void FormItemEnabled()
+		private void PS_QM010_FormItemEnabled()
 		{
 			try
 			{
@@ -170,12 +170,12 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// FlushToItemValue
+		/// PS_QM010_FlushToItemValue
 		/// </summary>
 		/// <param name="oUID"></param>
 		/// <param name="oRow"></param>
 		/// <param name="oCol"></param>
-		private void FlushToItemValue(string oUID, int oRow, string oCol)
+		private void PS_QM010_FlushToItemValue(string oUID, int oRow, string oCol)
 		{
 			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -207,10 +207,10 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// Check_Exist
+		/// PS_QM010_Check_Exist
 		/// </summary>
 		/// <returns></returns>
-		private bool Check_Exist()
+		private bool PS_QM010_Check_Exist()
 		{
 			bool functionReturnValue = false;
 			string sQry;
@@ -285,7 +285,7 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@CardCode", CardCode));
 				dataPackParameter.Add(new PSH_DataPackClass("@ItemCode", ItemCode));
 
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
 			}
 			catch (Exception ex)
 			{
@@ -391,7 +391,7 @@ namespace PSH_BOne_AddOn
 					{
 						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 						{
-							if (Check_Exist() == false)
+							if (PS_QM010_Check_Exist() == false)
 							{
 								BubbleEvent = false;
 								return;
@@ -410,7 +410,7 @@ namespace PSH_BOne_AddOn
 						}
 						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
 						{
-							FormItemEnabled();
+							PS_QM010_FormItemEnabled();
 						}
 					}
 					else if (pVal.ItemUID == "Btn03")
@@ -522,7 +522,7 @@ namespace PSH_BOne_AddOn
 					{
 						if (pVal.ItemUID == "CardCode" || pVal.ItemUID == "ItemCode")
 						{
-							FlushToItemValue(pVal.ItemUID, 0, "");
+							PS_QM010_FlushToItemValue(pVal.ItemUID, 0, "");
 						}
 					}
 				}
@@ -601,12 +601,12 @@ namespace PSH_BOne_AddOn
 						case "1286": //닫기
 							break;
 						case "1281": //찾기
-							FormItemEnabled();
+							PS_QM010_FormItemEnabled();
 							oForm.Items.Item("CardCode").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 							break;
 						case "1282": //추가
-							FormItemEnabled();
-							FormClear();
+							PS_QM010_FormItemEnabled();
+							PS_QM010_FormClear();
 							oForm.Items.Item("CardCode").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 							break;
 						case "1287": //복제
@@ -614,15 +614,15 @@ namespace PSH_BOne_AddOn
 							oDS_PS_QM010H.SetValue("U_CardName", 0, "");
 							oDS_PS_QM010H.SetValue("U_ItemCode", 0, "");
 							oDS_PS_QM010H.SetValue("U_ItemName", 0, "");
-							FormItemEnabled();
-							FormClear();
+							PS_QM010_FormItemEnabled();
+							PS_QM010_FormClear();
 							oForm.Items.Item("CardCode").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 							break;
 						case "1288":
 						case "1289":
 						case "1290":
 						case "1291": //레코드이동버튼
-							FormItemEnabled();
+							PS_QM010_FormItemEnabled();
 							break;
 						case "1293": //행삭제
 							break;

@@ -8777,12 +8777,12 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM096.PS_MM096_LoadData(System.Int32)">
             <summary>
-            LoadData
+            하단 매트릭스 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM096.PS_MM096_LoadData_Mat02">
             <summary>
-            PS_MM096_LoadData_Mat02
+            상단 매트릭스 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM096.PS_MM096_Update_PP040L(System.String)">
@@ -8882,13 +8882,21 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_MM096.Raise_EVENT_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_MM096.Raise_EVENT_FORM_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             RESIZE 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM096.Raise_EVENT_RECORD_MOVE(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            네비게이션 메소드(Raise_FormMenuEvent 에서 사용)
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM096.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>

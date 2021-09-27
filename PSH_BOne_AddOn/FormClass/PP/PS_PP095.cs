@@ -7,6 +7,9 @@ using PSH_BOne_AddOn.Form;
 using PSH_BOne_AddOn.DataPack;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
+using System.Collections;
+using System.Windows.Forms;
+using QRCoder;
 
 namespace PSH_BOne_AddOn
 {
@@ -559,7 +562,8 @@ namespace PSH_BOne_AddOn
             string ReportName;
             string sQry01;
             string sQry02;
-            string FilePath; 
+            string FilePath;
+            QRCoder.QRCodeGenerator QG = new QRCoder.QRCodeGenerator();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             SAPbobsCOM.Recordset oRecordSet02 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -570,15 +574,21 @@ namespace PSH_BOne_AddOn
 
                 sQry01 = "EXEC PS_PP095_99 '" + oForm.Items.Item("DocEntry").Specific.Value + "'";
                 oRecordSet01.DoQuery(sQry01);
-
+                
                 for (i = 0; i <= oRecordSet01.RecordCount - 1; i++)
                 {
-                    ZXing.BarcodeWriter barcodeWriter = new ZXing.BarcodeWriter();
-                    barcodeWriter.Format = ZXing.BarcodeFormat.QR_CODE;
-                    barcodeWriter.Options.Margin = 0; // 이미지여백
-                    barcodeWriter.Options.Width = 228; // 이미지 넓이
-                    barcodeWriter.Options.Height = 228; // 이미지 높이
-                    barcodeWriter.Write(oRecordSet01.Fields.Item(1).Value).Save(FilePath + "\\" + oRecordSet01.Fields.Item(0).Value + ".jpg", ImageFormat.Jpeg);
+                    if (string.IsNullOrEmpty(oRecordSet01.Fields.Item(1).Value))
+                    {
+                        System.IO.File.Copy(FilePath + "\\" + "null" + ".jpg", FilePath + "\\" + oRecordSet01.Fields.Item(0).Value + ".jpg", true);
+                    }
+                    else
+                    {
+                        var QrCodeData = QG.CreateQrCode(oRecordSet01.Fields.Item(1).Value, QRCoder.QRCodeGenerator.ECCLevel.H);
+                        var code = new QRCode(QrCodeData);
+                        var bitMap = code.GetGraphic(2, "#000000", "#FFFFFF", true);
+                        var actualFormat = new OptionSetter().GetImageFormat("Jpeg");
+                        bitMap.Save(FilePath + "\\" + oRecordSet01.Fields.Item(0).Value + ".jpg", actualFormat);
+                    }
 
                     sQry02 = "Insert Into ZPS_PP095_QRCODE(DocEntry, PackNo) ";
                     sQry02 += " Select '" + oForm.Items.Item("DocEntry").Specific.Value + "','" + oRecordSet01.Fields.Item(0).Value + "'";
@@ -603,6 +613,38 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+        }
+
+        public class OptionSetter
+        {
+            public QRCodeGenerator.ECCLevel GetECCLevel(string value)
+            {
+                QRCodeGenerator.ECCLevel level;
+
+                Enum.TryParse(value, out level);
+
+                return level;
+            }
+
+            public ImageFormat GetImageFormat(string value)
+            {
+                switch (value.ToLower())
+                {
+                    case "jpg":
+                        return ImageFormat.Jpeg;
+                    case "jpeg":
+                        return ImageFormat.Jpeg;
+                    case "gif":
+                        return ImageFormat.Gif;
+                    case "bmp":
+                        return ImageFormat.Bmp;
+                    case "tiff":
+                        return ImageFormat.Tiff;
+                    case "png":
+                    default:
+                        return ImageFormat.Png;
+                }
             }
         }
 
@@ -1082,8 +1124,7 @@ namespace PSH_BOne_AddOn
                                     if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                                     {
                                         BoxWeight = System.Math.Round((Convert.ToDouble(oForm.Items.Item("TWeight").Specific.Value) - Convert.ToDouble(oForm.Items.Item("S_Weight").Specific.Value)) / Convert.ToDouble(oForm.Items.Item("BoxCnt").Specific.Value), 1);
-                                        //oForm.Items.Item("Comments").Specific.Value = Convert.ToString(Convert.ToInt16(oForm.Items.Item("BoxCnt").Specific.Value)) + "EA X " + Convert.ToString(BoxWeight) + "Kg = " + Convert.ToString(Convert.ToDouble(oForm.Items.Item("TWeight").Specific.Value) - Convert.ToDouble(oForm.Items.Item("S_Weight").Specific.Value)) + " Kg";
-                                        oForm.Items.Item("Comments").Specific.Value = Convert.ToString(Convert.ToInt32(oForm.Items.Item("BoxCnt").Specific.Value)) + "EA"; //Convert.ToString(Convert.ToInt16(oForm.Items.Item("BoxCnt").Specific.Value)) + "EA X " + Convert.ToString(BoxWeight) + "Kg = " + Convert.ToString(Convert.ToDouble(oForm.Items.Item("TWeight").Specific.Value) - Convert.ToDouble(oForm.Items.Item("S_Weight").Specific.Value)) + " Kg";
+                                        oForm.Items.Item("Comments").Specific.Value = Convert.ToString(Convert.ToInt32(Convert.ToDouble(oForm.Items.Item("BoxCnt").Specific.Value))) + "EA X " + BoxWeight + "Kg = " + Convert.ToString(Convert.ToInt32(Convert.ToDouble(oForm.Items.Item("BoxCnt").Specific.Value) * BoxWeight)) + "Kg";
                                     }
                                 }
                                 else
@@ -1354,6 +1395,7 @@ namespace PSH_BOne_AddOn
                         case "1290": //레코드이동(최초)
                         case "1291": //레코드이동(최종)
                         case "1287": //복제
+                            oMat01.AutoResizeColumns();
                             break;
                     }
                 }

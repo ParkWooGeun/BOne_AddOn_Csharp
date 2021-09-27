@@ -1499,6 +1499,72 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
+        /// 처리가능한 Action인지 검사
+        /// </summary>
+        /// <param name="ValidateType"></param>
+        /// <returns></returns>
+        private bool PS_MM070_Validate(string ValidateType)
+        {
+            bool returnValue = false;
+            string errMessage = string.Empty;
+            SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                if (ValidateType == "수정")
+                {
+                }
+                else if (ValidateType == "행삭제")
+                {
+                    if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
+                    {
+                        if (string.IsNullOrEmpty(oMat01.Columns.Item("LineNum").Cells.Item(oLastColRow01).Specific.Value))
+                        {
+                        }
+                        else
+                        {
+                            if (oForm.Items.Item("Canceled").Specific.Value == "Y")
+                            {
+                                errMessage = "취소된 문서는 수정할수 없습니다.";
+                                throw new Exception();
+                            }
+                            else
+                            {
+                                errMessage = "등록된 문서는 행삭제할 수 없습니다. 취소 후 다시 등록하세요.";
+                                throw new Exception();
+                            }
+                        }
+                    }
+                }
+                else if (ValidateType == "취소")
+                {
+                    if (oForm.Items.Item("Canceled").Specific.Value == "Y")
+                    {
+                        errMessage = "이미 취소된 문서입니다.";
+                        throw new Exception();
+                    }
+                }
+                returnValue = true;
+            }
+            catch (Exception ex)
+            {
+                if (errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                }
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet01);
+            }
+            return returnValue;
+        }
+
+        /// <summary>
         /// Report_Export
         /// </summary>
         [STAThread]
@@ -1519,7 +1585,7 @@ namespace PSH_BOne_AddOn
 
                 dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", DocEntry));// Parameter
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch (Exception ex)
             {
@@ -2132,6 +2198,57 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
+        /// EVENT_ROW_DELETE
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_ROW_DELETE(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
+        {
+            try
+            {
+                int i = 0;
+                if (oLastColRow01 > 0)
+                {
+                    if (pVal.BeforeAction == true)//Matrix 행삭제전 행삭제가능여부검사타기
+                    {
+                        if (PS_MM070_Validate("행삭제") == false)
+                        {
+                            BubbleEvent = false;
+                            return;
+                        }
+                    }
+                    else if (pVal.BeforeAction == false)
+                    {
+                        for (i = 1; i <= oMat01.VisualRowCount; i++)
+                        {
+                            oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value = i;
+                        }
+                        oMat01.FlushToDataSource();
+                        oDS_PS_MM070L.RemoveRecord(oDS_PS_MM070L.Size - 1);
+                        oMat01.LoadFromDataSource();
+
+                        if (oMat01.RowCount == 0)
+                        {
+                            PS_MM070_AddMatrixRow(0, false);
+                        }
+                        else
+                        {
+                            if (!string.IsNullOrEmpty(oDS_PS_MM070L.GetValue("U_ItemName", oMat01.RowCount - 1).ToString().Trim()))
+                            {
+                                PS_MM070_AddMatrixRow(oMat01.RowCount, false);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+            }
+        }
+
+        /// <summary>
         /// FormMenuEvent
         /// </summary>
         /// <param name="FormUID"></param>
@@ -2144,7 +2261,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 if (pVal.BeforeAction == true)
                 {
                     switch (pVal.MenuUID)
@@ -2164,6 +2280,7 @@ namespace PSH_BOne_AddOn
                             }
                             break;
                         case "1293": //행삭제
+                            Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
                             break;
                         case "1281": //찾기
                             break;
@@ -2187,22 +2304,7 @@ namespace PSH_BOne_AddOn
                         case "1286": //닫기
                             break;
                         case "1293": //행삭제
-                            if (oMat01.RowCount != oMat01.VisualRowCount)
-                            {
-                                for (i = 0; i <= oMat01.VisualRowCount - 1; i++)
-                                {
-                                    oMat01.Columns.Item("LineNum").Cells.Item(i + 1).Specific.Value = i + 1;
-                                }
-                                oMat01.FlushToDataSource();
-                                oDS_PS_MM070L.RemoveRecord(oDS_PS_MM070L.Size - 1); // Mat01에 마지막라인(빈라인) 삭제
-                                oMat01.Clear();
-                                oMat01.LoadFromDataSource();
-
-                                if (!string.IsNullOrEmpty(oMat01.Columns.Item("GADocLin").Cells.Item(oMat01.RowCount).Specific.Value))
-                                {
-                                    PS_MM070_AddMatrixRow(oMat01.RowCount, false);
-                                }
-                            }
+                            Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
                             break;
                         case "1281": //찾기
                             PS_MM070_FormItemEnabled();

@@ -303,6 +303,13 @@ namespace PSH_BOne_AddOn
 					throw new Exception();
 				}
 
+				oGrid.Columns.Item(10).RightJustified = true;
+				oGrid.Columns.Item(11).RightJustified = true;
+				oGrid.Columns.Item(12).RightJustified = true;
+				oGrid.Columns.Item(13).RightJustified = true;
+				oGrid.Columns.Item(14).RightJustified = true;
+				oGrid.Columns.Item(15).RightJustified = true;
+
 				oGrid.AutoResizeColumns();
 				oForm.Update();
 			}

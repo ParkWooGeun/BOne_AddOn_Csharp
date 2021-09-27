@@ -8729,7 +8729,7 @@
         </member>
         <member name="T:PSH_BOne_AddOn.PS_MM096">
             <summary>
-            원자재 불출 등록(포장사업팀)
+            포장생산 원재료불출등록
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM096.LoadForm(System.String)">
@@ -8792,12 +8792,12 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM096.PS_MM096_LoadData(System.Int32)">
             <summary>
-            LoadData
+            하단 매트릭스 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM096.PS_MM096_LoadData_Mat02">
             <summary>
-            PS_MM096_LoadData_Mat02
+            상단 매트릭스 조회
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM096.PS_MM096_Update_PP040L(System.String)">
@@ -8881,6 +8881,14 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM096.Raise_EVENT_MATRIX_LOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            MATRIX_LOAD 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_MM096.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_UNLOAD 이벤트
@@ -8889,13 +8897,21 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_MM096.Raise_EVENT_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_MM096.Raise_EVENT_FORM_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             RESIZE 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM096.Raise_EVENT_RECORD_MOVE(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            네비게이션 메소드(Raise_FormMenuEvent 에서 사용)
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM096.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>
@@ -25130,11 +25146,6 @@
             </summary>
             <param name="oRow">행 번호</param>
             <param name="RowIserted">행 추가 여부</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP130.PS_PP130_MTX01">
-            <summary>
-            PS_PP130_MTX01
-            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_PP130.PS_PP130_FormClear">
             <summary>
@@ -51136,7 +51147,7 @@
         </member>
         <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.PSH_CF_DBDatasourceReturn(SAPbouiCOM.ItemEvent,System.String,System.String,System.String,System.String,System.Int16,System.String,System.String,System.String)">
             <summary>
-            CHOOSEFROMLIST의 값을 리턴(임시주석처리 2019.03.18 송명규), 주석해제하여 구현중(2019.05.03 이후, 송명규)
+            CHOOSEFROMLIST의 값을 리턴
             </summary>
             <param name="pVal">pVal</param>
             <param name="PSH_pFormUID">Fomr UID</param>
@@ -51657,22 +51668,6 @@
             </summary>
             <param name="ItemCode"></param>
             <param name="Weight"></param>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.RFC_Sender(System.String,System.String,System.String,System.String,System.Double,System.String,System.String,System.String,System.String,System.String)">
-            <summary>
-            R3 통신(실제 구현 할때 테스트 및 보완 필요, 2020.09.15 송명규)
-            </summary>
-            <param name="BPLId"></param>
-            <param name="ItemCode"></param>
-            <param name="ItemName"></param>
-            <param name="Size"></param>
-            <param name="Qty"></param>
-            <param name="Unit"></param>
-            <param name="RequestDate"></param>
-            <param name="DueDate"></param>
-            <param name="ItemType"></param>
-            <param name="RequestNo"></param>
             <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.Cal_KPI_Grade(System.Int16,System.Int16,System.String,System.String,System.String)">

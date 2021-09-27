@@ -1,6 +1,5 @@
 ﻿using System;
 using SAPbouiCOM;
-using PSH_BOne_AddOn.Code;
 using PSH_BOne_AddOn.Data;
 
 namespace PSH_BOne_AddOn
@@ -1203,7 +1202,8 @@ namespace PSH_BOne_AddOn
 
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
-
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_MM100H);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_MM100L);
                 }
             }
             catch (Exception ex)

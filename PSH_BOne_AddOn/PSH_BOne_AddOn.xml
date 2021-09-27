@@ -7208,6 +7208,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM070.PS_MM070_Validate(System.String)">
+            <summary>
+            처리가능한 Action인지 검사
+            </summary>
+            <param name="ValidateType"></param>
+            <returns></returns>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_MM070.PS_MM070_Print_Report01">
             <summary>
             Report_Export
@@ -7280,6 +7287,14 @@
         <member name="M:PSH_BOne_AddOn.PS_MM070.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_UNLOAD 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM070.Raise_EVENT_ROW_DELETE(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            EVENT_ROW_DELETE
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>

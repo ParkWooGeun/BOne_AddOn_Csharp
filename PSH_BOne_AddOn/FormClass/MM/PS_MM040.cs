@@ -21,8 +21,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFromDocEntry01"></param>
-        public override void LoadForm(string oFromDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -180,7 +180,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_MM040_HeaderSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string errMessage = string.Empty;
 
             try
@@ -190,7 +190,7 @@ namespace PSH_BOne_AddOn
                     errMessage = "사업장은 필수입력 사항입니다. 확인하세요.";
                     throw new Exception();
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -203,7 +203,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -212,7 +212,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_MM040_MatrixSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string errMessage = string.Empty;
 
             try
@@ -238,7 +238,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -247,7 +247,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_MM040_Display_MatrixData()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int sCnt;
             string sQry;
             string Purchase;
@@ -348,7 +348,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -357,7 +357,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_MM040_Update_PO()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
             string sQry;
             string errMessage = string.Empty;
@@ -400,7 +400,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
                 oForm.Freeze(false);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

@@ -453,7 +453,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP552_SaveData02()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			short loopCount;
 			string sQry;
 			string MainOrdNum;	//작번
@@ -500,7 +500,7 @@ namespace PSH_BOne_AddOn
 				}
 
 				PSH_Globals.SBO_Application.MessageBox("등록 완료!");
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -512,7 +512,7 @@ namespace PSH_BOne_AddOn
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -521,7 +521,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP552_SaveData03()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			short loopCount;
 			string sQry;
 			string MainOrdNum;  //작번
@@ -566,7 +566,7 @@ namespace PSH_BOne_AddOn
 				}
 
 				PSH_Globals.SBO_Application.MessageBox("등록 완료!");
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -578,7 +578,7 @@ namespace PSH_BOne_AddOn
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -587,7 +587,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP552_DeleteData01()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			short loopCount;
 			string sQry;
 			string errMessage = string.Empty;
@@ -632,7 +632,7 @@ namespace PSH_BOne_AddOn
 					}
 				}
 				PSH_Globals.SBO_Application.MessageBox("삭제 완료!");
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -651,7 +651,7 @@ namespace PSH_BOne_AddOn
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 				oForm.Freeze(false);
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -661,7 +661,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP552_CheckAfterStatus(int pRow)
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			string sQry;
 			string MainOrdNum;  //작번
 			string SubOrdNum01; //서브작번1
@@ -692,7 +692,7 @@ namespace PSH_BOne_AddOn
 
 				if (oRecordSet.Fields.Item("AfterStatusYN").Value == "Y")
 				{
-					functionReturnValue = true;
+					returnValue = true;
 				}
 			}
 			catch (Exception ex)
@@ -703,7 +703,7 @@ namespace PSH_BOne_AddOn
 			{
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>

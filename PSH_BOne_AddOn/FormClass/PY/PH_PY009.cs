@@ -327,7 +327,7 @@ namespace PSH_BOne_AddOn
         /// <returns>성공여부</returns>
         private bool PH_PY009_Check_DataValid()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
 
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -339,7 +339,7 @@ namespace PSH_BOne_AddOn
                 else
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("라인 데이터가 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 oMat01.FlushToDataSource();
@@ -351,7 +351,7 @@ namespace PSH_BOne_AddOn
 
                 oMat01.LoadFromDataSource();
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -362,7 +362,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -372,7 +372,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY009_Validate(string ValidateType)
         {
-            bool functionReturnValue = true;
+            bool returnValue = true;
             string errCode = string.Empty;
 
             SAPbouiCOM.EditText oText = oForm.Items.Item("DocEntry").Specific;
@@ -415,7 +415,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oText);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -558,7 +558,7 @@ namespace PSH_BOne_AddOn
         /// <returns>성공여부</returns>
         private bool PH_PY009_Save_Data()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
 
             int loopCount;
             string sQry;
@@ -616,7 +616,7 @@ namespace PSH_BOne_AddOn
                         ProgressBar01.Text = ProgressBar01.Value + "/" + (oMat01.VisualRowCount - 1) + "건 저장중...!";
                     }
 
-                    functionReturnValue = true;
+                    returnValue = true;
 
                     PSH_Globals.SBO_Application.StatusBar.SetText("근태기찰 데이터가 입력 되었습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
                 }
@@ -635,7 +635,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

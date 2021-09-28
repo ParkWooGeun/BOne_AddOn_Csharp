@@ -221,8 +221,8 @@ namespace PSH_BOne_AddOn
 				switch (oUID)
 				{
 					case "ItemCode":
-						oForm.Items.Item("ItemName").Specific.VALUE = dataHelpClass.Get_ReData("FrgnName", "ItemCode", "[OITM]", "'" + oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim() + "'", "");
-						oForm.Items.Item("ItemSpec").Specific.VALUE = dataHelpClass.Get_ReData("U_Size", "ItemCode", "[OITM]", "'" + oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim() + "'", "");
+						oForm.Items.Item("ItemName").Specific.Value = dataHelpClass.Get_ReData("FrgnName", "ItemCode", "[OITM]", "'" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'", "");
+						oForm.Items.Item("ItemSpec").Specific.Value = dataHelpClass.Get_ReData("U_Size", "ItemCode", "[OITM]", "'" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'", "");
 						break;
 				}
 			}
@@ -258,13 +258,13 @@ namespace PSH_BOne_AddOn
 			{
 				oForm.Freeze(true);
 
-				OrdFrDt = oForm.Items.Item("OrdFrDt").Specific.VALUE.ToString().Trim();
-				OrdToDt = oForm.Items.Item("OrdToDt").Specific.VALUE.ToString().Trim();
-				CardType = oForm.Items.Item("CardType").Specific.VALUE.ToString().Trim();
-				CardTeam = oForm.Items.Item("CardTeam").Specific.VALUE.ToString().Trim();
-				ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
-				ItemType = oForm.Items.Item("ItemType").Specific.VALUE.ToString().Trim();
-				YearPdYN = oForm.Items.Item("YearPdYN").Specific.VALUE.ToString().Trim();
+				OrdFrDt = oForm.Items.Item("OrdFrDt").Specific.Value.ToString().Trim();
+				OrdToDt = oForm.Items.Item("OrdToDt").Specific.Value.ToString().Trim();
+				CardType = oForm.Items.Item("CardType").Specific.Value.ToString().Trim();
+				CardTeam = oForm.Items.Item("CardTeam").Specific.Value.ToString().Trim();
+				ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
+				ItemType = oForm.Items.Item("ItemType").Specific.Value.ToString().Trim();
+				YearPdYN = oForm.Items.Item("YearPdYN").Specific.Value.ToString().Trim();
 
 				ProgressBar01.Text = "조회중...";
 
@@ -343,13 +343,13 @@ namespace PSH_BOne_AddOn
 			{
 				oForm.Freeze(true);
 
-				OrdFrDt = oForm.Items.Item("OrdFrDt").Specific.VALUE.ToString().Trim();
-				OrdToDt = oForm.Items.Item("OrdToDt").Specific.VALUE.ToString().Trim();
-				CardType = oForm.Items.Item("CardType").Specific.VALUE.ToString().Trim();
-				CardTeam = oForm.Items.Item("CardTeam").Specific.VALUE.ToString().Trim();
-				ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
-				ItemType = oForm.Items.Item("ItemType").Specific.VALUE.ToString().Trim();
-				YearPdYN = oForm.Items.Item("YearPdYN").Specific.VALUE.ToString().Trim();
+				OrdFrDt = oForm.Items.Item("OrdFrDt").Specific.Value.ToString().Trim();
+				OrdToDt = oForm.Items.Item("OrdToDt").Specific.Value.ToString().Trim();
+				CardType = oForm.Items.Item("CardType").Specific.Value.ToString().Trim();
+				CardTeam = oForm.Items.Item("CardTeam").Specific.Value.ToString().Trim();
+				ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
+				ItemType = oForm.Items.Item("ItemType").Specific.Value.ToString().Trim();
+				YearPdYN = oForm.Items.Item("YearPdYN").Specific.Value.ToString().Trim();
 
 				ProgressBar01.Text = "조회중...";
 
@@ -422,13 +422,13 @@ namespace PSH_BOne_AddOn
 			{
 				oForm.Freeze(true);
 
-				OrdFrDt = oForm.Items.Item("OrdFrDt").Specific.VALUE.ToString().Trim();
-				OrdToDt = oForm.Items.Item("OrdToDt").Specific.VALUE.ToString().Trim();
-				CardType = oForm.Items.Item("CardType").Specific.VALUE.ToString().Trim();
-				CardTeam = oForm.Items.Item("CardTeam").Specific.VALUE.ToString().Trim();
-				ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
-				ItemType = oForm.Items.Item("ItemType").Specific.VALUE.ToString().Trim();
-				YearPdYN = oForm.Items.Item("YearPdYN").Specific.VALUE.ToString().Trim();
+				OrdFrDt = oForm.Items.Item("OrdFrDt").Specific.Value.ToString().Trim();
+				OrdToDt = oForm.Items.Item("OrdToDt").Specific.Value.ToString().Trim();
+				CardType = oForm.Items.Item("CardType").Specific.Value.ToString().Trim();
+				CardTeam = oForm.Items.Item("CardTeam").Specific.Value.ToString().Trim();
+				ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
+				ItemType = oForm.Items.Item("ItemType").Specific.Value.ToString().Trim();
+				YearPdYN = oForm.Items.Item("YearPdYN").Specific.Value.ToString().Trim();
 
 				ProgressBar01.Text = "조회중...";
 
@@ -506,13 +506,13 @@ namespace PSH_BOne_AddOn
 			{
 				oForm.Freeze(true);
 
-				OrdFrDt = oForm.Items.Item("OrdFrDt").Specific.VALUE.ToString().Trim();
-				OrdToDt = oForm.Items.Item("OrdToDt").Specific.VALUE.ToString().Trim();
-				CardType = oForm.Items.Item("CardType").Specific.VALUE.ToString().Trim();
-				CardTeam = oForm.Items.Item("CardTeam").Specific.VALUE.ToString().Trim();
-				ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
-				ItemType = oForm.Items.Item("ItemType").Specific.VALUE.ToString().Trim();
-				YearPdYN = oForm.Items.Item("YearPdYN").Specific.VALUE.ToString().Trim();
+				OrdFrDt = oForm.Items.Item("OrdFrDt").Specific.Value.ToString().Trim();
+				OrdToDt = oForm.Items.Item("OrdToDt").Specific.Value.ToString().Trim();
+				CardType = oForm.Items.Item("CardType").Specific.Value.ToString().Trim();
+				CardTeam = oForm.Items.Item("CardTeam").Specific.Value.ToString().Trim();
+				ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
+				ItemType = oForm.Items.Item("ItemType").Specific.Value.ToString().Trim();
+				YearPdYN = oForm.Items.Item("YearPdYN").Specific.Value.ToString().Trim();
 
 				ProgressBar01.Text = "조회중...";
 

@@ -367,7 +367,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP081_Validate(string ValidateType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
             string Query01;
             string OIGNNo;
@@ -422,7 +422,7 @@ namespace PSH_BOne_AddOn
                         throw new Exception();
                     }
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }            
             catch (Exception ex)
             {
@@ -439,7 +439,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -628,7 +628,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP081_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i = 0;
             string BPLID;
             string OrdGbn;
@@ -731,15 +731,15 @@ namespace PSH_BOne_AddOn
                             if (string.IsNullOrEmpty(oMat01.Columns.Item("BatchNum").Cells.Item(i).Specific.Value))
                             {
                                 PSH_Globals.SBO_Application.SetStatusBarMessage("부품,멀티작업은 배치번호가 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                                functionReturnValue = false;
-                                return functionReturnValue;
+                                returnValue = false;
+                                return returnValue;
                             }
                         }
                     }
                     if (PS_PP081_Validate("검사01") == false)
                     {
-                        functionReturnValue = false;
-                        return functionReturnValue; //체크필요.
+                        returnValue = false;
+                        return returnValue; //체크필요.
                     }
                 }
                 oDS_PS_PP081L.RemoveRecord(oDS_PS_PP081L.Size - 1);
@@ -748,7 +748,7 @@ namespace PSH_BOne_AddOn
                 {
                     PS_PP081_FormClear();
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -774,7 +774,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

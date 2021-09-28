@@ -229,7 +229,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_CO170_DataValidCheck()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			int i;
 			int ErrNum = 0;
 
@@ -274,7 +274,7 @@ namespace PSH_BOne_AddOn
 				{
 				}
 
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -304,7 +304,7 @@ namespace PSH_BOne_AddOn
 				}
 			}
 
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>

@@ -292,7 +292,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP282_CheckDataValid()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 
 			int i;
 			int j;
@@ -360,7 +360,7 @@ namespace PSH_BOne_AddOn
 					PS_PP282_ClearForm();
 				}
 
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -373,7 +373,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>

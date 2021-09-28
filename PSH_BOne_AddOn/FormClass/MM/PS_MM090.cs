@@ -25,8 +25,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFromDocEntry01"></param>
-        public override void LoadForm(string oFromDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -60,7 +60,7 @@ namespace PSH_BOne_AddOn
                 PS_MM090_CreateItems();
                 PS_MM090_ComboBox_Setting();
                 PS_MM090_EnableMenus();
-                PS_MM090_SetDocument(oFromDocEntry01);
+                PS_MM090_SetDocument(oFormDocEntry);
 
                 oForm.EnableMenu(("1287"), true);// 복제
             }
@@ -338,12 +338,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// SetDocument
         /// </summary>
-        /// <param name="oFromDocEntry01">DocEntry</param>
-        private void PS_MM090_SetDocument(string oFromDocEntry01)
+        /// <param name="oFormDocEntry">DocEntry</param>
+        private void PS_MM090_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFromDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PS_MM090_FormItemEnabled();
                     PS_MM090_AddMatrixRow(0, true);
@@ -628,7 +628,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_MM090_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i = 0;
             string errMessage = string.Empty;
             string ClickCode = string.Empty;
@@ -782,7 +782,7 @@ namespace PSH_BOne_AddOn
                 {
                     PS_MM090_FormClear();
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -809,7 +809,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

@@ -220,7 +220,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY108_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -230,7 +230,7 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 //상여율
@@ -238,7 +238,7 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("상여율은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("BNSRAT").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 //상여계산 방법
@@ -246,7 +246,7 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("상여계산방법은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("BNSCAL").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 //상여지급 주기
@@ -254,7 +254,7 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("상여지급 주기필수이며, 0 ~ 12개월 범위 이내이어야 합니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("BNSMON").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 oDS_PH_PY108A.SetValue("Code", 0, oDS_PH_PY108A.GetValue("U_CLTCOD", 0).ToString().Trim() + oDS_PH_PY108A.GetValue("U_JOBGBN", 0).ToString().Trim());
@@ -265,11 +265,11 @@ namespace PSH_BOne_AddOn
                     if (dataHelpClass.Value_ChkYn("[@PH_PY108A]", "Code", "'" + oDS_PH_PY108A.GetValue("Code", 0).ToString().Trim() + "'", "") == false)
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("이미 저장되어져 있는 헤더의 내용과 일치합니다", SAPbouiCOM.BoMessageTime.bmt_Short);
-                        return functionReturnValue;
+                        return returnValue;
                     }
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -280,7 +280,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

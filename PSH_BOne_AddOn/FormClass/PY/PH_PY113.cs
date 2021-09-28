@@ -269,7 +269,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY113_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -279,7 +279,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (PSH_Globals.SBO_Application.MessageBox("이미 분개된 자료입니다. 다시 분개하시겠습니까?", 1, "예", "아니오") == 2)
                     {
-                        return functionReturnValue;
+                        return returnValue;
                     }
                 }
 
@@ -293,35 +293,35 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("전기일은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("DOCDATE").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 if (Convert.ToDouble(oDS_PH_PY113A.GetValue("U_TOTDEB", 0).ToString().Trim()) == 0)
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("차변합계가 0입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("TOTDEB").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 if (Convert.ToDouble(oDS_PH_PY113A.GetValue("U_TOTCRE", 0).ToString().Trim()) == 0)
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("대변합계가 0입니다. ", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("TOTCRE").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 if (oDS_PH_PY113A.GetValue("U_TOTDEB", 0).ToString().Trim() != oDS_PH_PY113A.GetValue("U_TOTCRE", 0).ToString().Trim())
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("차변과 대변금액이 일치하지 않습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("Code").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 if (oDS_PH_PY113A.GetValue("U_TOTDEB", 0).ToString().Trim() != oDS_PH_PY113A.GetValue("U_TOTPAY", 0).ToString().Trim())
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("차변과 총지급액이 일치하지 않습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("Code").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 if (oMat1.VisualRowCount > 1)
@@ -332,28 +332,28 @@ namespace PSH_BOne_AddOn
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("계정과목코드 필수입니다", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("U_AcctCode").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            return functionReturnValue;
+                            return returnValue;
                         }
 
                         if (Convert.ToInt32(oMat1.Columns.Item("U_Debit").Cells.Item(i).Specific.Value) == 0)
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("차변금액이 0 입니다", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("U_Debit").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            return functionReturnValue;
+                            return returnValue;
                         }
 
                         if (Convert.ToInt32(oMat1.Columns.Item("U_Credit").Cells.Item(i).Specific.Value) == 0)
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("대변금액이 0 입니다", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("U_Credit").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            return functionReturnValue;
+                            return returnValue;
                         }
                     }
                 }
                 else
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("분개 자료가 없습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 oMat1.FlushToDataSource();
@@ -363,7 +363,7 @@ namespace PSH_BOne_AddOn
                 }
                 oMat1.LoadFromDataSource();
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -374,7 +374,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -384,7 +384,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY113_Validate(string ValidateType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short ErrNumm = 0;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -408,7 +408,7 @@ namespace PSH_BOne_AddOn
 
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -425,7 +425,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -631,7 +631,7 @@ namespace PSH_BOne_AddOn
         private bool Execution_Process()
         {
             string sQry;
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short ErrNum = 0;
             int i;
             PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -709,7 +709,7 @@ namespace PSH_BOne_AddOn
 
                 PSH_Globals.SBO_Application.StatusBar.SetText("작업을 완료하였습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -735,7 +735,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

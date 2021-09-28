@@ -437,7 +437,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP120_DocTotalSum()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
             double sDocTotal = 0;
 
@@ -456,7 +456,7 @@ namespace PSH_BOne_AddOn
             finally
             {
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -513,7 +513,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP120_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i = 0;
             string errMessage = string.Empty;
             string ClickCode = string.Empty;
@@ -594,7 +594,7 @@ namespace PSH_BOne_AddOn
                 {
                     PS_PP120_FormClear();
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -624,7 +624,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
 

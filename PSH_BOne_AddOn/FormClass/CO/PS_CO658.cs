@@ -291,7 +291,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_CO658_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i = 0;
             string errCode = string.Empty;
 
@@ -339,7 +339,7 @@ namespace PSH_BOne_AddOn
                 oDS_PS_CO658L.RemoveRecord(oDS_PS_CO658L.Size - 1);
                 oMat01.LoadFromDataSource();
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -375,7 +375,7 @@ namespace PSH_BOne_AddOn
 
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

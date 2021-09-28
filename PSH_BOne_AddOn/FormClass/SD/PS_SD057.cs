@@ -350,7 +350,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_SD057_CheckBeforeSearch(string pItemUID)
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			string errMessage = string.Empty;
 
 			try
@@ -381,7 +381,7 @@ namespace PSH_BOne_AddOn
 						throw new Exception();
 					}
 				}
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -394,7 +394,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -573,7 +573,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_SD057_AddData()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 
 			int loopCount;
 			string sQry;
@@ -633,7 +633,7 @@ namespace PSH_BOne_AddOn
 				}
 
 				PSH_Globals.SBO_Application.StatusBar.SetText("등록 완료!", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -643,7 +643,7 @@ namespace PSH_BOne_AddOn
 			{
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
-            return functionReturnValue;
+            return returnValue;
 		}
 
 		/// <summary>

@@ -175,7 +175,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PP_PS945_CheckWorkType(int pRow)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int loopCount;
 
             try
@@ -186,18 +186,18 @@ namespace PSH_BOne_AddOn
                     {
                         if (oMat01.Columns.Item("WorkType").Cells.Item(pRow).Specific.Value == oMat01.Columns.Item("WorkType").Cells.Item(loopCount + 1).Specific.Value)
                         {
-                            functionReturnValue = false;
-                            return functionReturnValue;
+                            returnValue = false;
+                            return returnValue;
                         }
                     }
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -474,13 +474,13 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP945_DataValidCheck()
         {
-            bool functionReturnValue;
+            bool returnValue;
             int i;
             string errMessage = string.Empty;
 
             try
             {
-                functionReturnValue = false;
+                returnValue = false;
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
                     PS_PP945_FormClear();
@@ -526,11 +526,11 @@ namespace PSH_BOne_AddOn
                 {
                     PS_PP945_FormClear();
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
-                functionReturnValue = false;
+                returnValue = false;
                 if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
@@ -540,7 +540,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

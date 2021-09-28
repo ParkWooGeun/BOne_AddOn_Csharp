@@ -704,7 +704,7 @@ namespace PSH_BOne_AddOn
         /// <returns>성공:true, 실패:false</returns>
         private bool PH_PY508_UpdateData()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string sQry;
 
             int DocEntry; //관리번호
@@ -750,7 +750,7 @@ namespace PSH_BOne_AddOn
                 if (string.IsNullOrEmpty(Convert.ToString(DocEntry).Trim()))
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("수정할 항목이 없습니다. 수정하실려면 항목을 선택하세요!", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 sQry = "EXEC [PH_PY508_03] '";
@@ -774,7 +774,7 @@ namespace PSH_BOne_AddOn
 
                 RecordSet01.DoQuery(sQry);
 
-                functionReturnValue = true;
+                returnValue = true;
                 PSH_Globals.SBO_Application.StatusBar.SetText("수정 완료!", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
             }
             catch (Exception ex)
@@ -786,7 +786,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet01);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -795,7 +795,7 @@ namespace PSH_BOne_AddOn
         /// <returns>성공:true, 실패:false</returns>
         private bool PH_PY508_AddData()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string sQry;
 
             int DocEntry; //관리번호
@@ -875,7 +875,7 @@ namespace PSH_BOne_AddOn
 
                 RecordSet02.DoQuery(sQry);
 
-                functionReturnValue = true;
+                returnValue = true;
                 PSH_Globals.SBO_Application.StatusBar.SetText("등록 완료!", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
             }
             catch(Exception ex)
@@ -888,7 +888,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet02);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -897,7 +897,7 @@ namespace PSH_BOne_AddOn
         /// <returns>True:필수입력사항을 모두 입력, Fasle:필수입력사항 중 하나라도 입력하지 않았음</returns>
         private bool PH_PY508_HeaderSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
             
             try
@@ -953,7 +953,7 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch(Exception ex)
             {
@@ -1013,7 +1013,7 @@ namespace PSH_BOne_AddOn
                 }
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

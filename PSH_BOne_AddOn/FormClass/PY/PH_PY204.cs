@@ -576,7 +576,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY204_AddData()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
 
             short i;
             string sQry;
@@ -698,7 +698,7 @@ namespace PSH_BOne_AddOn
 
                 PSH_Globals.SBO_Application.StatusBar.SetText("저장 완료!", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -717,7 +717,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet01);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -802,7 +802,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY204_MatrixSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i = 0;
             short ErrNum = 0;
 
@@ -861,7 +861,7 @@ namespace PSH_BOne_AddOn
                     }
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -903,7 +903,7 @@ namespace PSH_BOne_AddOn
                 }
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

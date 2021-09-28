@@ -99,7 +99,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY505_Validate(string ValidateType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string errCode = string.Empty;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -121,7 +121,7 @@ namespace PSH_BOne_AddOn
                 {
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -135,7 +135,7 @@ namespace PSH_BOne_AddOn
                 }
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

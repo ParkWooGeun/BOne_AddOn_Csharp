@@ -149,12 +149,12 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_CO520_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
 
             try
             {
                 PS_CO520_FormClear();
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -164,7 +164,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

@@ -805,7 +805,7 @@ namespace PSH_BOne_AddOn
 
         //		private bool PS_SM020_CreateItems()
         //		{
-        //			bool functionReturnValue = false;
+        //			bool returnValue = false;
         //			 // ERROR: Not supported in C#: OnErrorStatement
 
         //			oForm01.Freeze(true);
@@ -870,13 +870,13 @@ namespace PSH_BOne_AddOn
         //			//UPGRADE_NOTE: oRecordSet01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordSet01 = null;
         //			oForm01.Freeze(false);
-        //			return functionReturnValue;
+        //			return returnValue;
         //			PS_SM020_CreateItems_Error:
         //			//UPGRADE_NOTE: oRecordSet01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordSet01 = null;
         //			oForm01.Freeze(false);
         //			SubMain.Sbo_Application.SetStatusBarMessage("PS_SM020_CreateItems_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
 
         //		private void PS_SM020_ComboBox_Setting()
@@ -1049,7 +1049,7 @@ namespace PSH_BOne_AddOn
 
         //		public bool PS_SM020_DataValidCheck()
         //		{
-        //			bool functionReturnValue = false;
+        //			bool returnValue = false;
         //			 // ERROR: Not supported in C#: OnErrorStatement
 
         //			int i = 0;
@@ -1075,10 +1075,10 @@ namespace PSH_BOne_AddOn
         //			//    Call oDS_SM020L.RemoveRecord(oDS_SM020L.Size - 1)
         //			//    Call oMat01.LoadFromDataSource
         //			PS_SM020_FormClear();
-        //			return functionReturnValue;
+        //			return returnValue;
         //			PS_SM020_DataValidCheck_Error:
         //			SubMain.Sbo_Application.SetStatusBarMessage("PS_SM020_DataValidCheck_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
 
         //		private void PS_SM020_MTX01()

@@ -289,7 +289,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP070_CheckDataValid()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			int i;
 			string errMessage = string.Empty;
 
@@ -331,7 +331,7 @@ namespace PSH_BOne_AddOn
 
 				if (PS_PP070_Validate("검사01") == false)
 				{
-					return functionReturnValue;
+					return returnValue;
 				}
 
 				oDS_PS_PP070L.RemoveRecord(oDS_PS_PP070L.Size - 1);
@@ -340,7 +340,7 @@ namespace PSH_BOne_AddOn
 				{
 					PS_PP070_ClearForm();
 				}
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -353,7 +353,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -363,7 +363,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP070_Validate(string ValidateType)
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			bool Exist;
 
 			int i;
@@ -445,7 +445,7 @@ namespace PSH_BOne_AddOn
 					}
 				}
 
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -462,7 +462,7 @@ namespace PSH_BOne_AddOn
             {
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>

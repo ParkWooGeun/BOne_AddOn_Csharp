@@ -294,7 +294,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP060_DelHeaderSpaceLine()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			string errMessage = string.Empty;
 
 			try
@@ -326,7 +326,7 @@ namespace PSH_BOne_AddOn
 					errMessage = "문서구분은 필수사항입니다. 확인하세요.";
 					throw new Exception();
 				}
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -339,7 +339,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -348,7 +348,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP060_DelMatrixSpaceLine()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			string errMessage = string.Empty;
 			int i;
 			// 헤드사항을 입력
@@ -414,7 +414,7 @@ namespace PSH_BOne_AddOn
 				}
 				//메트릭스의 값변경후 선언
 				oMat.LoadFromDataSource();
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -427,7 +427,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -735,7 +735,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP060_UpdateData(ref SAPbouiCOM.ItemEvent pVal)
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 
 			int i;
 			int j = 0;
@@ -844,7 +844,7 @@ namespace PSH_BOne_AddOn
 			{
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -855,7 +855,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP060_AddData(ref SAPbouiCOM.ItemEvent pVal)
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 
 			int i;
 			string sQry;
@@ -978,7 +978,7 @@ namespace PSH_BOne_AddOn
 				}
 
 				PSH_Globals.SBO_Application.StatusBar.SetText("작업외 공수등록 완료!", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -988,7 +988,7 @@ namespace PSH_BOne_AddOn
 			{
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>

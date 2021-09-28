@@ -436,7 +436,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_SD021_DataValidCheck()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			int i;
 			string errMessage = string.Empty;
 
@@ -495,7 +495,7 @@ namespace PSH_BOne_AddOn
 					PS_SD021_FormClear();
 				}
 
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -508,7 +508,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + (char)13 + ex.Message);
 				}
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -518,7 +518,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_SD021_DataExistCheck(string pMode)
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			string sQry;
 			string errMessage = string.Empty;
 
@@ -555,7 +555,7 @@ namespace PSH_BOne_AddOn
 					throw new Exception();
 				}
 
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -572,7 +572,7 @@ namespace PSH_BOne_AddOn
             {
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>

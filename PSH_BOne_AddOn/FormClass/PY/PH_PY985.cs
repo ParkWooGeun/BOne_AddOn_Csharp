@@ -98,7 +98,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool File_Create()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             
             short errNum = 0;
             string stringSpace = string.Empty;
@@ -129,7 +129,7 @@ namespace PSH_BOne_AddOn
                 FileSystem.FileClose(1);
 
                 PSH_Globals.SBO_Application.StatusBar.SetText("전산매체수록이 정상적으로 완료되었습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch(Exception ex)
             {
@@ -148,7 +148,7 @@ namespace PSH_BOne_AddOn
                 }
             }
             
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool File_Create_A_record(string pcltcod, string pStdYear, string phTaxID, string pdocDate)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
             string sQry = string.Empty;
             string saup = string.Empty;
@@ -263,7 +263,7 @@ namespace PSH_BOne_AddOn
                     }
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch(Exception ex)
             {
@@ -288,7 +288,7 @@ namespace PSH_BOne_AddOn
                 }
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -297,7 +297,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool HeaderSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
 
             try
@@ -313,7 +313,7 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch(Exception ex)
             {
@@ -334,7 +334,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

@@ -230,7 +230,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_QM065_DelHeaderSpaceLine()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			string errMessage = string.Empty;
 
 			try
@@ -248,7 +248,7 @@ namespace PSH_BOne_AddOn
 					errMessage = "중분류는 필수입력 사항입니다. 확인하세요.";
 					throw new Exception();
 				}
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -265,7 +265,7 @@ namespace PSH_BOne_AddOn
 			{
 				oForm.Freeze(false);
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -274,7 +274,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_QM065_DelMatrixSpaceLine()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			string errMessage = string.Empty;
 
 			try
@@ -296,7 +296,7 @@ namespace PSH_BOne_AddOn
 					}
 				}
 				oMat.LoadFromDataSource();
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -313,7 +313,7 @@ namespace PSH_BOne_AddOn
 			{
 				oForm.Freeze(false);
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>

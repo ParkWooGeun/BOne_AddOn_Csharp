@@ -478,7 +478,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private bool PS_PP039_CheckBeforeSearch()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string errMessage = string.Empty;
             try
             {
@@ -488,7 +488,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("OrdGbn").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     throw new Exception();
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -501,7 +501,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -511,7 +511,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP039_CheckOKYN(int pRow)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string PP030DL;
             string Query01;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -528,11 +528,11 @@ namespace PSH_BOne_AddOn
 
                 if (oRecordSet01.Fields.Item("OKYN").Value == "Y")
                 {
-                    functionReturnValue = true;
+                    returnValue = true;
                 }
                 else
                 {
-                    functionReturnValue = false;
+                    returnValue = false;
                 }
             }
             catch (Exception ex)
@@ -543,7 +543,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -555,7 +555,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP039_Check_DupReq(string pDocEntry, string pItemCode, string pLineID)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string Query01;
             string DocEntry;
             string ItemCode;
@@ -577,11 +577,11 @@ namespace PSH_BOne_AddOn
 
                 if (oRecordSet01.Fields.Item("ReturnValue").Value == "false")
                 {
-                    functionReturnValue = false;
+                    returnValue = false;
                 }
                 else
                 {
-                    functionReturnValue = true;
+                    returnValue = true;
                 }
             }
             catch (Exception ex)
@@ -592,7 +592,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -600,7 +600,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private bool PS_PP039_AddData()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int loopCount;
             string sQry;
             string Sequence;       //순번
@@ -696,7 +696,7 @@ namespace PSH_BOne_AddOn
                     }
                 }
                 PSH_Globals.SBO_Application.MessageBox("등록완료!");
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -706,7 +706,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -714,7 +714,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private bool PS_PP039_DeleteData()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short loopCount;
             string sQry;
             string DocEntry;//문서번호
@@ -767,7 +767,7 @@ namespace PSH_BOne_AddOn
                     }
                 }
                 PSH_Globals.SBO_Application.MessageBox("삭제 완료!");
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -784,7 +784,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -819,7 +819,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP039_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int loopCount;
             string CpBCode;  //공정대분류
             string CpCode;   //공정중분류              
@@ -881,7 +881,7 @@ namespace PSH_BOne_AddOn
                         }
                     }
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -897,7 +897,7 @@ namespace PSH_BOne_AddOn
             finally
             {
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

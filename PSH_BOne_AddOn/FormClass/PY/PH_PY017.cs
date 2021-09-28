@@ -309,7 +309,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY017_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string errCode = string.Empty;
 
             try
@@ -332,7 +332,7 @@ namespace PSH_BOne_AddOn
                 oDS_PH_PY017A.SetValue("Code", 0, tCode);
                 oDS_PH_PY017A.SetValue("Name", 0, tCode);
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -345,7 +345,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -530,7 +530,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY017_Validate(string ValidateType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
 
             short ErrNumm = 0;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -550,7 +550,7 @@ namespace PSH_BOne_AddOn
                 else if (ValidateType == "취소")
                 {
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -563,7 +563,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -948,8 +948,8 @@ namespace PSH_BOne_AddOn
                             sQry += "   and a.U_JdtCC = 'Y'";
                             sQry += "   and a.U_JobTyp = 1";
                             sQry += "   and a.U_JobGBN = 1";
-                            sQry += "   and a.U_YM = '" + oForm.Items.Item("YM").Specific.VALUE.ToString().Trim() + "'";
-                            sQry += "   and a.U_CLTCOD = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim() + "'";
+                            sQry += "   and a.U_YM = '" + oForm.Items.Item("YM").Specific.Value.ToString().Trim() + "'";
+                            sQry += "   and a.U_CLTCOD = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "'";
 
                             oRecordSet01.DoQuery(sQry);
 

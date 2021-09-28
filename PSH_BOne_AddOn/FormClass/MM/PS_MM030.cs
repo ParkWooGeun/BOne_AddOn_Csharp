@@ -42,8 +42,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFromDocEntry01"></param>
-        public override void LoadForm(string oFromDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -71,10 +71,10 @@ namespace PSH_BOne_AddOn
 
                 oForm.SupportedModes = -1;
                 oForm.DataBrowser.BrowseBy = "DocNum"; //화면키값(화면에서 유일키값을 담고 있는 아이템의 Uid값)
-                oDocNum = oFromDocEntry01;
+                oDocNum = oFormDocEntry;
 
                 oForm.Freeze(true);
-                if (!string.IsNullOrEmpty(oFromDocEntry01))
+                if (!string.IsNullOrEmpty(oFormDocEntry))
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                 }
@@ -104,10 +104,10 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Update();
                 oForm.Freeze(false);
-                if (!string.IsNullOrEmpty(oFromDocEntry01))
+                if (!string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PS_MM030_FormItemEnabled();
-                    oForm.Items.Item("DocNum").Specific.VALUE = oFromDocEntry01;
+                    oForm.Items.Item("DocNum").Specific.Value = oFormDocEntry;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
                 else
@@ -821,7 +821,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_MM030_HeaderSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string errMessage = string.Empty;
 
             try
@@ -866,7 +866,7 @@ namespace PSH_BOne_AddOn
                     errMessage = "문서 상태가 취소입니다. 수정할 수 없습니다.";
                     throw new Exception();
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -879,7 +879,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -888,7 +888,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_MM030_MatrixSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
             string errMessage = string.Empty;
 
@@ -930,12 +930,12 @@ namespace PSH_BOne_AddOn
                     }
                     else if (PS_MM030_CheckDate(oMat01.Columns.Item("PQDocNum").Cells.Item(i + 1).Specific.Value) == false) //구매견적과 일자 체크
                     {
-                        errMessage = i + 1 + "행 [" + oMat01.Columns.Item("ItemCode").Cells.Item(i + 1).Specific.VALUE + "]의 구매품의일은 구매견적일과 같거나 늦어야합니다. 확인하십시오. 해당 품의는 전체가 등록되지 않습니다";
+                        errMessage = i + 1 + "행 [" + oMat01.Columns.Item("ItemCode").Cells.Item(i + 1).Specific.Value + "]의 구매품의일은 구매견적일과 같거나 늦어야합니다. 확인하십시오. 해당 품의는 전체가 등록되지 않습니다";
                         throw new Exception();
                     }
                 }
                 oMat01.LoadFromDataSource();
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -948,7 +948,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -991,7 +991,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_MM030_oPurchaseOrders_Add()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
             int RetVal;
             int errDICode;
@@ -1143,7 +1143,7 @@ namespace PSH_BOne_AddOn
 
                         PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
                     }
-                    functionReturnValue = true;
+                    returnValue = true;
                 }
             }
             catch (Exception ex)
@@ -1167,7 +1167,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet02);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(DI_oPurchaseOrders);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -1176,7 +1176,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_MM030_oPurchaseOrders_Update()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i; ;
             int errDICode;
             int RetVal;
@@ -1298,7 +1298,7 @@ namespace PSH_BOne_AddOn
                         throw new Exception();
                     }
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -1316,7 +1316,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(DI_oPurchaseOrders);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -1325,7 +1325,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_MM030_oPurchaseOrders_Cancel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int RetVal;
             int errDICode;
             string errDIMsg;
@@ -1354,7 +1354,7 @@ namespace PSH_BOne_AddOn
                         throw new Exception();
                     }
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -1371,7 +1371,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(DI_oPurchaseOrders);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -1380,7 +1380,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_MM030_oPurchaseOrders_Close()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int RetVal;
             int errDICode;
             string errDIMsg;
@@ -1425,7 +1425,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(DI_oPurchaseOrders);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -1434,7 +1434,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_MM030_oPurchaseOrders_LineDelete(int pLineNum)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int RetVal;
             int errDICode = 0;
             string errDIMsg = string.Empty;
@@ -1483,7 +1483,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(DI_oPurchaseOrders);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -1501,8 +1501,8 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                DocNum = oForm.Items.Item("DocNum").Specific.VALUE.ToString().Trim();
-                BPLId = oForm.Items.Item("BPLId").Specific.VALUE.ToString().Trim();
+                DocNum = oForm.Items.Item("DocNum").Specific.Value.ToString().Trim();
+                BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
 
                 WinTitle = "주문서 [PS_MM030_01]";
 
@@ -1551,8 +1551,8 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                DocNum = oForm.Items.Item("DocNum").Specific.VALUE.ToString().Trim();
-                Purchase = oForm.Items.Item("Purchase").Specific.VALUE.ToString().Trim();
+                DocNum = oForm.Items.Item("DocNum").Specific.Value.ToString().Trim();
+                Purchase = oForm.Items.Item("Purchase").Specific.Value.ToString().Trim();
                 WinTitle = "품의서 [PS_MM030_02]";
                 ReportName = "PS_MM030_02.rpt";
 
@@ -1612,7 +1612,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_MM030_Check_Purchase_Type(int prmPQDocNum, string prmPOType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string sQry;
             string errMessage = string.Empty;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -1627,11 +1627,11 @@ namespace PSH_BOne_AddOn
 
                 if (oRecordSet01.Fields.Item("U_Purchase").Value == prmPOType)
                 {
-                    functionReturnValue = true;
+                    returnValue = true;
                 }
                 else
                 {
-                    functionReturnValue = false;
+                    returnValue = false;
                 }
             }
             catch (Exception ex)
@@ -1645,7 +1645,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -1654,7 +1654,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_MM030_CheckDate(string pBaseEntry)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string Query01;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -1670,11 +1670,11 @@ namespace PSH_BOne_AddOn
 
                 if (oRecordSet01.Fields.Item("ReturnValue").Value == "False")
                 {
-                    functionReturnValue = false;
+                    returnValue = false;
                 }
                 else
                 {
-                    functionReturnValue = true;
+                    returnValue = true;
                 }
             }
             catch (Exception ex)
@@ -1685,7 +1685,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -1740,7 +1740,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_MM030_LineDelete_Possible(string pDocEntry, string pLineID)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string QueryStr01;
             string errMessage = string.Empty;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -1760,11 +1760,11 @@ namespace PSH_BOne_AddOn
 
                 if (oRecordSet01.Fields.Item("Cnt").Value > 0)
                 {
-                    functionReturnValue = false; //삭제 불가
+                    returnValue = false; //삭제 불가
                 }
                 else
                 {
-                    functionReturnValue = true; //삭제 가능
+                    returnValue = true; //삭제 가능
                 }
             }
             catch (Exception ex)
@@ -1782,7 +1782,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -1837,7 +1837,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_MM030_TotalAmount_Compare()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             double DocTotal;
             double EAmount1;
             double EAmount2;
@@ -1900,11 +1900,11 @@ namespace PSH_BOne_AddOn
                 }
                 if (DocTotal <= MinAmount2)
                 {
-                    functionReturnValue = true;
+                    returnValue = true;
                 }
                 else
                 {
-                    functionReturnValue = false;
+                    returnValue = false;
                 }
             }
             catch (Exception ex)
@@ -1918,7 +1918,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         // 차후 메일 전송에 대한 이슈가 있을 경우 해당사항을 개발진행해야함.
@@ -1928,7 +1928,7 @@ namespace PSH_BOne_AddOn
         ///// <returns></returns>
         //private string PS_MM030_SendMail()
         //{
-        //    string functionReturnValue = string.Empty;
+        //    string returnValue = string.Empty;
         //    string errMessage = string.Empty;900
         //    Microsoft.Office.Interop.Outlook.Application objOutlook = default(Microsoft.Office.Interop.Outlook.Application);
         //    Microsoft.Office.Interop.Outlook.MailItem objMail = default(Microsoft.Office.Interop.Outlook.MailItem);
@@ -1981,7 +1981,7 @@ namespace PSH_BOne_AddOn
 
         //    }
 
-        //    return functionReturnValue;
+        //    return returnValue;
         //}
 
         /// <summary>

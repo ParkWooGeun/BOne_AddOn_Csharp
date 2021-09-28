@@ -340,7 +340,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP400_DelHeaderSpaceLine()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			string errMessage = string.Empty;
 
 			try
@@ -360,7 +360,7 @@ namespace PSH_BOne_AddOn
 					errMessage = "품목분류코드를 확인하여 주십시오.";
 					throw new Exception();
 				}
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -374,7 +374,7 @@ namespace PSH_BOne_AddOn
 				}
 			}
 
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>

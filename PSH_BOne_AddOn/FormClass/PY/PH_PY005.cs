@@ -304,7 +304,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY005_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -318,32 +318,32 @@ namespace PSH_BOne_AddOn
                     {
                         PSH_Globals.SBO_Application.StatusBar.SetText("이미 저장되어져 있는 코드가 존재합니다", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                         oForm.Items.Item("CLTCode").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                        return functionReturnValue;
+                        return returnValue;
                     }
                 }
                 if (string.IsNullOrEmpty(oDS_PH_PY005A.GetValue("U_BusNum", 0).Trim()))
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("사업자번호는 필수입니다. 입력하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     oForm.Items.Item("BusNum").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
                 else if (dataHelpClass.Value_ChkYn("[@PH_PY005A]", "U_BusNum", "'" + oDS_PH_PY005A.GetValue("U_BusNum", 0).Trim() + "'", " AND Code <> '" + oForm.Items.Item("Code").Specific.Value + "'") == false)
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("사업자번호가 중복되었습니다. 확인하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     oForm.Items.Item("BusNum").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
                 if (string.IsNullOrEmpty(oDS_PH_PY005A.GetValue("U_BUSTYP", 0).Trim()))
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("납세자구분은 필수입니다. 선택하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     oForm.Items.Item("BUSTYP").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
                 if (string.IsNullOrEmpty(oDS_PH_PY005A.GetValue("U_SINTYP", 0).Trim()))
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("원천신고구분은 필수입니다. 선택하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     oForm.Items.Item("SINTYP").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 if (string.IsNullOrEmpty(oDS_PH_PY005A.GetValue("U_WCHCLT", 0).Trim()))
@@ -367,27 +367,27 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("사원번호 구성 체계는 필수입니다. 선택하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     oForm.Items.Item("AutoChk").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 if (string.IsNullOrEmpty(oDS_PH_PY005A.GetValue("U_EmpTLen", 0).Trim()))
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("사원번호 자릿수는 필수입니다. 선택하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     oForm.Items.Item("EmpTLen").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
                 if (string.IsNullOrEmpty(oDS_PH_PY005A.GetValue("U_EmpType", 0).Trim()))
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("결재란 수는 필수입니다. 선택하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     oForm.Items.Item("EmpType").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 // Code & Name 생성
                 oDS_PH_PY005A.SetValue("Code", 0, oDS_PH_PY005A.GetValue("U_CLTCode", 0).Trim());
                 oDS_PH_PY005A.SetValue("NAME", 0, oDS_PH_PY005A.GetValue("U_CLTName", 0).Trim());
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -398,7 +398,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -408,7 +408,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY005_Validate(string ValidateType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string errCode = string.Empty;
             
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -434,7 +434,7 @@ namespace PSH_BOne_AddOn
 
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -448,7 +448,7 @@ namespace PSH_BOne_AddOn
                 }
             }
             
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

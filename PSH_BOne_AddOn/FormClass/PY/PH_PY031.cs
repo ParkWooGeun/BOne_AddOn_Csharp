@@ -452,7 +452,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY031_UpdateData()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string sQry;
             int DocEntry;                      // 관리번호
             string CLTCOD;            // 사업장
@@ -562,7 +562,7 @@ namespace PSH_BOne_AddOn
                 oRecordSet01.DoQuery(sQry);
                 dataHelpClass.MDC_GF_Message("수정 완료!", "S");
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -573,7 +573,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -581,7 +581,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private bool PH_PY031_AddData()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string sQry;
             int DocEntry;                      // 관리번호
             string CLTCOD;            // 사업장
@@ -699,7 +699,7 @@ namespace PSH_BOne_AddOn
 
                 oRecordSet02.DoQuery(sQry);
                 dataHelpClass.MDC_GF_Message("등록 완료!", "S");
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -711,7 +711,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet02);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -720,7 +720,7 @@ namespace PSH_BOne_AddOn
         /// <returns>True:필수입력사항을 모두 입력, Fasle:필수입력사항 중 하나라도 입력하지 않았음</returns>
         private bool PH_PY031_HeaderSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int ErrNum = 0;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -752,7 +752,7 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -790,7 +790,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

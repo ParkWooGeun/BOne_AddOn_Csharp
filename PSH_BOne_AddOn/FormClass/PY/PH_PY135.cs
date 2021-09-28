@@ -320,7 +320,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY135_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errCode = 0;
 
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -358,7 +358,7 @@ namespace PSH_BOne_AddOn
                 }
                 oMat01.LoadFromDataSource();
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -386,7 +386,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -527,7 +527,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY135_Create_oJournalEntries(int ChkType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
             string errCode = string.Empty;
             int errDiCode = 0;
@@ -635,7 +635,7 @@ namespace PSH_BOne_AddOn
                 oDS_PH_PY135A.SetValue("U_JdtNo", 0, sTransId);
                 oDS_PH_PY135A.SetValue("U_JdtCC", 0, sCC);
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -659,7 +659,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oJournal);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -669,7 +669,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY135_Cancel_oJournalEntries(int ChkType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int RetVal;
             string errCode = string.Empty;
             int errDiCode = 0;
@@ -734,7 +734,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Btn03").Enabled = false;
 
                 dataHelpClass.MDC_GF_Message("성공적으로 분개취소되었습니다.", "S");
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -762,7 +762,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

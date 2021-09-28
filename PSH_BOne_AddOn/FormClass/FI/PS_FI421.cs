@@ -307,7 +307,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_FI421_UpdateData()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 
 			short DocEntry = 0;
 			string SerialNo = string.Empty;			//일련번호
@@ -365,7 +365,7 @@ namespace PSH_BOne_AddOn
 				oRecordSet.DoQuery(sQry);
 
 				PSH_Globals.SBO_Application.MessageBox("수정 완료!");
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -376,7 +376,7 @@ namespace PSH_BOne_AddOn
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 			
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -385,7 +385,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_FI421_AddData()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 
 			string sQry = string.Empty;
 
@@ -451,7 +451,7 @@ namespace PSH_BOne_AddOn
 				oRecordSet.DoQuery(sQry);
 
 				PSH_Globals.SBO_Application.MessageBox("등록 완료!");
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -462,7 +462,7 @@ namespace PSH_BOne_AddOn
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 			
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -471,7 +471,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_FI421_HeaderSpaceLineDel()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 
 			int ErrNum = 0;
 
@@ -501,7 +501,7 @@ namespace PSH_BOne_AddOn
 					ErrNum = 5;
 					throw new Exception();
 				}
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -531,7 +531,7 @@ namespace PSH_BOne_AddOn
 				}
 			}
 
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>

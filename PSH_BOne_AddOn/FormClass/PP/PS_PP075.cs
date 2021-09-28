@@ -373,7 +373,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP075_DelHeaderSpaceLine()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			string errMessage = string.Empty;
 
 			try
@@ -407,7 +407,7 @@ namespace PSH_BOne_AddOn
 					errMessage = "이동등록번호는 필수사항입니다. 확인하여 주십시오.";
 					throw new Exception();
 				}
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -420,7 +420,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -429,7 +429,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP075_DelMatrixSpaceLine()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			int i;
 			string errMessage = string.Empty;
 
@@ -461,7 +461,7 @@ namespace PSH_BOne_AddOn
 				}
 				oMat.LoadFromDataSource();
 
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -475,7 +475,7 @@ namespace PSH_BOne_AddOn
 				}
 			}
 
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -485,7 +485,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP075_UpDatePP070(string A_B)
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			int i;
 			string DocEntry;
 			string LineId;
@@ -545,7 +545,7 @@ namespace PSH_BOne_AddOn
 						}
 						break;
 				}
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -562,7 +562,7 @@ namespace PSH_BOne_AddOn
 			{
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>

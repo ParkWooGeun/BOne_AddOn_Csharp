@@ -384,7 +384,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP034_CheckHeadData()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			string errMessage = string.Empty;
 
 			try
@@ -401,7 +401,7 @@ namespace PSH_BOne_AddOn
 					throw new Exception();
 				}
 
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -414,7 +414,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -423,7 +423,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP034_CheckLineData()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 
 			int loopCount;
 			string errMessage = string.Empty;
@@ -508,7 +508,7 @@ namespace PSH_BOne_AddOn
 				}
 				oMat.LoadFromDataSource();
 
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -521,7 +521,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -530,7 +530,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP034_CheckDuplicationDBData()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 
 			short loopCount;
 			string sQry;
@@ -564,7 +564,7 @@ namespace PSH_BOne_AddOn
 						throw new Exception();
 					}
 				}
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -581,7 +581,7 @@ namespace PSH_BOne_AddOn
 			{
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -593,7 +593,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP034_CheckDuplicationMatrixData(string pOrdNum, string pOrdSub1, string pOrdSub2)
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 
 			int loopCount;
 			string OrdNum;
@@ -616,7 +616,7 @@ namespace PSH_BOne_AddOn
 						throw new Exception();
 					}
 				}
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -629,7 +629,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -639,7 +639,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP034_CheckDocDate()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 
 			string sQry;
 			int loopCount;
@@ -675,7 +675,7 @@ namespace PSH_BOne_AddOn
 						throw new Exception();
 					}
 				}
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -688,7 +688,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -698,7 +698,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private string PS_PP034_CheckValidItemCode(string pItemCode)
 		{
-			string functionReturnValue = string.Empty;
+			string returnValue = string.Empty;
 			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -712,15 +712,15 @@ namespace PSH_BOne_AddOn
 
 				if (oRecordSet.Fields.Item("frozenTo").Value.ToString().Trim() == "2999-12-31" && oRecordSet.Fields.Item("frozenFor").Value.ToString().Trim() == "Y")
 				{
-					functionReturnValue = "UnAuthorized"; //미승인
+					returnValue = "UnAuthorized"; //미승인
 				}
 				else if (oRecordSet.Fields.Item("frozenTo").Value.ToString().Trim() == "2899-12-31" && oRecordSet.Fields.Item("frozenFor").Value.ToString().Trim() == "Y")
 				{
-					functionReturnValue = "UnUsed"; //미사용
+					returnValue = "UnUsed"; //미사용
 				}
 				else
 				{
-					functionReturnValue = "Authorized"; //승인
+					returnValue = "Authorized"; //승인
 				}
 			}
 			catch (Exception ex)
@@ -731,7 +731,7 @@ namespace PSH_BOne_AddOn
 			{
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>

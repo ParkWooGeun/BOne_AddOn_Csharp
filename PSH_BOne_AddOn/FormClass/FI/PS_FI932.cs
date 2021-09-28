@@ -289,7 +289,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool HeaderSpaceLineDel()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			int ErrNum = 0;
 
 			try
@@ -344,7 +344,7 @@ namespace PSH_BOne_AddOn
 					ErrNum = 10;
 					throw new Exception();
 				}
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -394,7 +394,7 @@ namespace PSH_BOne_AddOn
 				}
 			}
 
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -403,7 +403,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool MatrixSpaceLineDel()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 
 			int i = 0;
 			short ErrNum = 0;
@@ -442,7 +442,7 @@ namespace PSH_BOne_AddOn
 
 				oMat01.LoadFromDataSource();
 
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -460,7 +460,7 @@ namespace PSH_BOne_AddOn
 				}
 			}
 
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>

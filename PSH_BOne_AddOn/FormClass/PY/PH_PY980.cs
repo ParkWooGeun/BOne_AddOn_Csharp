@@ -170,7 +170,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool File_Create()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
             string stringSpace = string.Empty;
             string CLTCOD = string.Empty;
@@ -221,7 +221,7 @@ namespace PSH_BOne_AddOn
                 FileSystem.FileClose(1);
 
                 PSH_Globals.SBO_Application.StatusBar.SetText("전산매체수록이 정상적으로 완료되었습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -251,7 +251,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -260,7 +260,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool File_Create_A_record(string pCLTCOD, string pyyyy, string pHtaxID, string pTeamName, string pDname, string pDtel, string pDocDate)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
             string sQry = string.Empty;
             string saup = string.Empty;
@@ -340,7 +340,7 @@ namespace PSH_BOne_AddOn
 
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -359,7 +359,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -368,7 +368,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool File_Create_B_record(string pCLTCOD, string pyyyy)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
             string sQry = string.Empty;
 
@@ -432,7 +432,7 @@ namespace PSH_BOne_AddOn
 
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -451,7 +451,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -460,7 +460,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool File_Create_C_record(string pCLTCOD, string pyyyy)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
             string sQry = string.Empty;
             string c_SAUP = string.Empty;
@@ -997,7 +997,7 @@ namespace PSH_BOne_AddOn
                     }
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -1045,7 +1045,7 @@ namespace PSH_BOne_AddOn
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -1054,7 +1054,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool File_Create_D_record(string psaup, string pyyyy, string psabun, string pC004)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
             string sQry = string.Empty;
 
@@ -1233,7 +1233,7 @@ namespace PSH_BOne_AddOn
                     }
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -1252,7 +1252,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -1261,7 +1261,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool File_Create_E_record(string psaup, string pyyyy, string psabun, string pC004)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
             int i = 0;
             int BUYCNT = 0;
@@ -1575,7 +1575,7 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -1594,7 +1594,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -1603,7 +1603,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool File_Create_F_record(string psaup, string pyyyy, string psabun, string pC004)
         {
-            bool functionReturnValue = true;  // 기본을 TRUE 로
+            bool returnValue = true;  // 기본을 TRUE 로
             int i = 0;
             int sCNT = 0;
             int rCNT = 0;
@@ -1712,7 +1712,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                functionReturnValue = false;
+                returnValue = false;
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 FileSystem.FileClose(1);
             }
@@ -1721,7 +1721,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -1730,7 +1730,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool File_Create_G_record(string psaup, string pyyyy, string psabun, string pC004)
         {
-            bool functionReturnValue = true;  // 기본을 TRUE 로
+            bool returnValue = true;  // 기본을 TRUE 로
             string sQry = string.Empty;
 
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
@@ -1941,7 +1941,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                functionReturnValue = false;
+                returnValue = false;
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 FileSystem.FileClose(1);
             }
@@ -1950,7 +1950,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -1959,7 +1959,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool File_Create_H_record(string psaup, string pyyyy, string psabun, string pC004)
         {
-            bool functionReturnValue = true;  // 기본을 TRUE 로
+            bool returnValue = true;  // 기본을 TRUE 로
             int hCnt = 0;
             string sQry = string.Empty;
 
@@ -2029,7 +2029,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                functionReturnValue = false;
+                returnValue = false;
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 FileSystem.FileClose(1);
             }
@@ -2038,7 +2038,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -2047,7 +2047,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool File_Create_I_record(string psaup, string pyyyy, string psabun, string pC004)
         {
-            bool functionReturnValue = true;  // 기본을 TRUE 로
+            bool returnValue = true;  // 기본을 TRUE 로
             int iCnt = 0;
             string sQry = string.Empty;
 
@@ -2121,7 +2121,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                functionReturnValue = false;
+                returnValue = false;
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 FileSystem.FileClose(1);
             }
@@ -2130,7 +2130,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -2139,7 +2139,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool HeaderSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
 
             try
@@ -2170,7 +2170,7 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -2203,7 +2203,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

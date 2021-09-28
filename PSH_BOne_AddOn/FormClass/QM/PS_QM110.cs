@@ -191,7 +191,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_QM110_HeaderSpaceLineDel()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			string errMessage = string.Empty;
 
 			try
@@ -209,7 +209,7 @@ namespace PSH_BOne_AddOn
 					throw new Exception();
 				}
 				
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -226,7 +226,7 @@ namespace PSH_BOne_AddOn
             {
 				oForm.Freeze(false);
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -235,7 +235,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_QM110_MatrixSpaceLineDel()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			string errMessage = string.Empty;
 
 			try
@@ -259,7 +259,7 @@ namespace PSH_BOne_AddOn
 				}
 
 				oMat.LoadFromDataSource();
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -276,7 +276,7 @@ namespace PSH_BOne_AddOn
 			{
 				oForm.Freeze(false);
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -338,7 +338,7 @@ namespace PSH_BOne_AddOn
                     //Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
                     break;
                 case SAPbouiCOM.BoEventTypes.et_CLICK: //6
-                    //Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
+                    Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
                     break;
                 case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
                     //Raise_EVENT_DOUBLE_CLICK(FormUID, ref pVal, ref BubbleEvent);
@@ -487,6 +487,39 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
+		/// CLICK 이벤트
+		/// </summary>
+		/// <param name="FormUID">Form UID</param>
+		/// <param name="pVal">ItemEvent 객체</param>
+		/// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+		private void Raise_EVENT_CLICK(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+		{
+			try
+			{
+				if (pVal.Before_Action == true)
+				{
+					if (pVal.ItemUID == "Mat01")
+					{
+						if (pVal.Row > 0)
+						{
+							oMat.SelectRow(pVal.Row, true, false);
+						}
+					}
+				}
+				else if (pVal.Before_Action == false)
+				{
+				}
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+			{
+			}
+		}
+
+		/// <summary>
 		/// Raise_EVENT_VALIDATE
 		/// </summary>
 		/// <param name="FormUID"></param>
@@ -551,6 +584,7 @@ namespace PSH_BOne_AddOn
 				else if (pVal.BeforeAction == false)
 				{
 					PS_QM110_AddMatrixRow(1, oMat.VisualRowCount, true);
+					oMat.AutoResizeColumns();
 				}
 			}
 			catch (Exception ex)
@@ -661,7 +695,7 @@ namespace PSH_BOne_AddOn
 							{
 								for (int i = 1; i <= oMat.VisualRowCount; i++)
 								{
-									oMat.Columns.Item("LineNum").Cells.Item(i).Specific.VALUE = i;
+									oMat.Columns.Item("LineNum").Cells.Item(i).Specific.Value = i;
 								}
 								oMat.FlushToDataSource();
 								oDS_PS_QM110L.RemoveRecord(oDS_PS_QM110L.Size - 1);

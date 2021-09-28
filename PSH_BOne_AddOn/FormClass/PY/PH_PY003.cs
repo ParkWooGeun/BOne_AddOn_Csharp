@@ -269,7 +269,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY003_DataValidCheck(string ChkYN)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
 
             int i = 0;
             short errNum = 0;
@@ -339,11 +339,11 @@ namespace PSH_BOne_AddOn
                     }
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch(Exception ex)
             {
-                functionReturnValue = false;
+                returnValue = false;
 
                 if (errNum == 1)
                 {
@@ -382,7 +382,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -391,7 +391,7 @@ namespace PSH_BOne_AddOn
         /// <returns>생성성공:true, 실패:false</returns>
         private bool PH_PY003_Create_MonthData()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int cnt;
             int i;
             string STRDAT;
@@ -488,7 +488,7 @@ namespace PSH_BOne_AddOn
 
                 PSH_Globals.SBO_Application.StatusBar.SetText("작업을 완료하였습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
                 oMat1.AutoResizeColumns();
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch(Exception ex)
             {
@@ -499,7 +499,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(false);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

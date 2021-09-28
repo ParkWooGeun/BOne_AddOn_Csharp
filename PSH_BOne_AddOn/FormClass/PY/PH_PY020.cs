@@ -224,7 +224,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY020_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -233,10 +233,10 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -247,7 +247,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -286,7 +286,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY020_DataSave()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
             string sQry;
             string CLTCOD;
@@ -307,7 +307,7 @@ namespace PSH_BOne_AddOn
                     }
                     PH_PY020_DataFind();
                     PSH_Globals.SBO_Application.SetStatusBarMessage("작업내용이 변경되었습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, false);
-                    functionReturnValue = true;
+                    returnValue = true;
                 }
                 else
                 {
@@ -323,7 +323,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

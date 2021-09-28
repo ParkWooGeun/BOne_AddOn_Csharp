@@ -345,8 +345,8 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PYA70_DataValidCheck()
         {
-            bool functionReturnValue = false;
-            functionReturnValue = false;
+            bool returnValue = false;
+            returnValue = false;
 
             try
             {
@@ -355,8 +355,8 @@ namespace PSH_BOne_AddOn
                 //{
                 //    PSH_Globals.SBO_Application.SetStatusBarMessage("사원번호는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                 //    oForm.Items.Item("MSTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                //    functionReturnValue = true;
-                //    return functionReturnValue;
+                //    returnValue = true;
+                //    return returnValue;
                 //}
 
             }
@@ -369,7 +369,7 @@ namespace PSH_BOne_AddOn
 
             }
 
-            return functionReturnValue;
+            return returnValue;
 
         }
 

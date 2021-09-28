@@ -86,8 +86,8 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("ItemName").Specific.DataBind.SetBound(true, "", "ItemName");
 				oForm.Items.Item("Size").Specific.DataBind.SetBound(true, "", "Size");
 
-				oForm.Items.Item("DocDateFr").Specific.VALUE = DateTime.Now.ToString("yyyyMM") + "01";
-				oForm.Items.Item("DocDateTo").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
+				oForm.Items.Item("DocDateFr").Specific.Value = DateTime.Now.ToString("yyyyMM") + "01";
+				oForm.Items.Item("DocDateTo").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 			}
 			catch (Exception ex)
 			{
@@ -162,7 +162,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_SD477_CheckDataValid()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			int ErrNum = 0;
 
 			try
@@ -177,7 +177,7 @@ namespace PSH_BOne_AddOn
 					ErrNum = 2;
 					throw new Exception();
 				}
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -199,7 +199,7 @@ namespace PSH_BOne_AddOn
 			finally
 			{
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -227,7 +227,7 @@ namespace PSH_BOne_AddOn
 				BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
 				ItemBsort = oForm.Items.Item("ItemBsort").Specific.Value.ToString().Trim();
 				DocDateFr = oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim();
-				DocDateTo = oForm.Items.Item("DocDateTo").Specific.VALUE.ToString().Trim();
+				DocDateTo = oForm.Items.Item("DocDateTo").Specific.Value.ToString().Trim();
 				ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
 				Size = oForm.Items.Item("Size").Specific.Value.ToString().Trim();
 
@@ -454,9 +454,9 @@ namespace PSH_BOne_AddOn
 					{
 						if (pVal.ItemUID == "ItemCode")
 						{
-							sQry = "SELECT ItemName, ItemCode FROM [OITM] WHERE ItemCode = '" + oForm.Items.Item(pVal.ItemUID).Specific.VALUE.ToString().Trim() + "'";
+							sQry = "SELECT ItemName, ItemCode FROM [OITM] WHERE ItemCode = '" + oForm.Items.Item(pVal.ItemUID).Specific.Value.ToString().Trim() + "'";
 							oRecordSet.DoQuery(sQry);
-							oForm.Items.Item("ItemName").Specific.VALUE = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+							oForm.Items.Item("ItemName").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 						}
 						oForm.Items.Item(pVal.ItemUID).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 					}

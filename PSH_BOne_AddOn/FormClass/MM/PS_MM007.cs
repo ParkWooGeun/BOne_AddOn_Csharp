@@ -22,8 +22,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFromDocEntry01"></param>
-        public override void LoadForm(string oFromDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -53,7 +53,7 @@ namespace PSH_BOne_AddOn
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
                 oForm.DataBrowser.BrowseBy = "DocNum";
 
-                if (!string.IsNullOrEmpty(oFromDocEntry01))
+                if (!string.IsNullOrEmpty(oFormDocEntry))
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                 }
@@ -71,10 +71,10 @@ namespace PSH_BOne_AddOn
                 oForm.EnableMenu("1284", true); // 취소
                 oForm.EnableMenu("1293", true); // 행삭제
 
-                if (!string.IsNullOrEmpty(oFromDocEntry01))
+                if (!string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PS_MM007_FormItemEnabled();
-                    oForm.Items.Item("DocNum").Specific.Value = oFromDocEntry01;
+                    oForm.Items.Item("DocNum").Specific.Value = oFormDocEntry;
                     oForm.Items.Item("CntcCode").Specific.Value = "";
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
@@ -176,7 +176,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_MM007_HeaderSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string errMessage = string.Empty;
 
             try
@@ -206,7 +206,7 @@ namespace PSH_BOne_AddOn
                     errMessage = "전기일은 필수사항입니다. 확인하세요.";
                     throw new Exception();
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -219,7 +219,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -228,7 +228,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_MM007_MatrixSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
             string sQry;
             string ReqNo;
@@ -321,7 +321,7 @@ namespace PSH_BOne_AddOn
                     }
                 }
                 oMat01.LoadFromDataSource();
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -338,7 +338,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -971,7 +971,7 @@ namespace PSH_BOne_AddOn
                             }
                             else if (pVal.ColUID == "MATNR")
                             {
-                                if (string.IsNullOrEmpty(oMat01.Columns.Item("MATNR").Cells.Item(pVal.Row).Specific.VALUE))
+                                if (string.IsNullOrEmpty(oMat01.Columns.Item("MATNR").Cells.Item(pVal.Row).Specific.Value))
                                 {
                                     PS_SM010 PS_SM010 = new PS_SM010();
                                     PS_SM010.LoadForm(oForm, pVal.ItemUID, pVal.ColUID, pVal.Row);

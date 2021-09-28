@@ -317,7 +317,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP777_DelHeaderSpaceLine()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			string errMessage = string.Empty;
 
 			try
@@ -342,7 +342,7 @@ namespace PSH_BOne_AddOn
 					errMessage = "작성일자는 필수사항입니다. 확인하여 주십시오.";
 					throw new Exception();
 				}
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -355,7 +355,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -364,7 +364,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP777_DelMatrixSpaceLine()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			string errMessage = string.Empty;
 			int i;
 
@@ -402,7 +402,7 @@ namespace PSH_BOne_AddOn
 				}
 				//행을 삭제하였으니 DB데이터 소스를 다시 가져온다
 				oMat.LoadFromDataSource();
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -415,7 +415,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>

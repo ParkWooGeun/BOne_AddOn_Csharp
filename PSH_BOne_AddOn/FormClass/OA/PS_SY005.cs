@@ -26,8 +26,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFromDocEntry01"></param>
-        public override void LoadForm(string oFromDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -61,7 +61,7 @@ namespace PSH_BOne_AddOn
                 PS_SY005_CreateItems();
                 PS_SY005_ComboBox_Setting();
                 PS_SY005_EnableMenus();
-                PS_SY005_SetDocument(oFromDocEntry01);
+                PS_SY005_SetDocument(oFormDocEntry);
                 oMat01.AutoResizeColumns();
 
                 oForm.EnableMenu("1283", true); //삭제
@@ -173,12 +173,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// SetDocument
         /// </summary>
-        /// <param name="oFromDocEntry01">DocEntry</param>
-        private void PS_SY005_SetDocument(string oFromDocEntry01)
+        /// <param name="oFormDocEntry">DocEntry</param>
+        private void PS_SY005_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFromDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PS_SY005_FormItemEnabled();
                     PS_SY005_AddMatrixRow(0, true);
@@ -376,7 +376,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_SY005_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
             string errMessage = string.Empty;
             try
@@ -411,7 +411,7 @@ namespace PSH_BOne_AddOn
                 {
                     PS_SY005_FormClear();
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -424,7 +424,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

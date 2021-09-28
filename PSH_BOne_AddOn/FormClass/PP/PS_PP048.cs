@@ -331,7 +331,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP048_Validate(string ValidateType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string errMessage = string.Empty;
 
             try
@@ -354,7 +354,7 @@ namespace PSH_BOne_AddOn
                 {
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -367,7 +367,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -405,7 +405,7 @@ namespace PSH_BOne_AddOn
             string errMessage = string.Empty;
             string ClickCode = string.Empty;
             string type = string.Empty;
-            bool functionReturnValue = true;
+            bool returnValue = true;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
@@ -503,8 +503,8 @@ namespace PSH_BOne_AddOn
                 }
                 if (PS_PP048_Validate("검사01") == false)
                 {
-                    functionReturnValue = false;
-                    return functionReturnValue;
+                    returnValue = false;
+                    return returnValue;
                 }
                 oDS_PS_PP048L.RemoveRecord(oDS_PS_PP048L.Size - 1);
                 oMat01.LoadFromDataSource();
@@ -515,7 +515,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                functionReturnValue = false;
+                returnValue = false;
 
                 if (errMessage != string.Empty)
                 {
@@ -539,7 +539,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

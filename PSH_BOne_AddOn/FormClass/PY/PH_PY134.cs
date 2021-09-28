@@ -246,7 +246,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY134_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             
             try
             {
@@ -254,7 +254,7 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
                 
                 oDS_PH_PY134A.SetValue("Code", 0, oDS_PH_PY134A.GetValue("U_FrDate", 0).ToString().Trim().Substring(0, 6) + oDS_PH_PY134A.GetValue("U_CLTCOD", 0).ToString().Trim());
@@ -267,7 +267,7 @@ namespace PSH_BOne_AddOn
                 }
                 oMat1.LoadFromDataSource();
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -277,7 +277,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

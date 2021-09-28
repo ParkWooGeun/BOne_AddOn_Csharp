@@ -189,7 +189,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private string PS_PP095_Check_QRCode_PrintYN()
         {
-            string functionReturnValue = "E";
+            string returnValue = "E";
             string sQry;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -199,7 +199,7 @@ namespace PSH_BOne_AddOn
 
                 oRecordSet01.DoQuery(sQry);
 
-                functionReturnValue = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
+                returnValue = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
             }
             catch (Exception ex)
             {
@@ -209,7 +209,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -217,7 +217,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private bool PS_PP095_Weight_Check()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
             double result;
             double result2;
@@ -278,7 +278,7 @@ namespace PSH_BOne_AddOn
                         throw new Exception();
                     }
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -295,7 +295,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -386,7 +386,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP095_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string errMessage = string.Empty;
             int i;
             string OrdNum;
@@ -440,7 +440,7 @@ namespace PSH_BOne_AddOn
                 {
                     PS_PP095_FormClear();
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -457,7 +457,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

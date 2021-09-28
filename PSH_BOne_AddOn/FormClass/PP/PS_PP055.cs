@@ -345,7 +345,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP055_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
             string errMessage = string.Empty;
 
@@ -385,7 +385,7 @@ namespace PSH_BOne_AddOn
                 {
                     PS_PP055_FormClear();
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -398,7 +398,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

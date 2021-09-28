@@ -388,7 +388,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY109_DataValidCheck(string ItemUID)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             
@@ -398,35 +398,35 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 if (string.IsNullOrEmpty(oDS_PH_PY109A.GetValue("U_YM", 0).Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("귀속년월은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("YM").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 if (string.IsNullOrEmpty(oDS_PH_PY109A.GetValue("U_JOBTYP", 0).Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("지급종류는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("JOBTYP").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 if (string.IsNullOrEmpty(oDS_PH_PY109A.GetValue("U_JOBGBN", 0).Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("지급구분은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("JOBGBN").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 if (string.IsNullOrEmpty(oDS_PH_PY109A.GetValue("U_JOBTRG", 0).Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("지급대상은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("JOBTRG").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 oDS_PH_PY109A.SetValue("Code", 0, oDS_PH_PY109A.GetValue("U_CLTCOD", 0).Trim() + codeHelpClass.Right(oDS_PH_PY109A.GetValue("U_YM", 0).Trim(), 4) + oDS_PH_PY109A.GetValue("U_JOBTYP", 0).Trim() + oDS_PH_PY109A.GetValue("U_JOBGBN", 0).Trim() + oDS_PH_PY109A.GetValue("U_JOBTRG", 0).Trim());
@@ -437,7 +437,7 @@ namespace PSH_BOne_AddOn
                     if (!string.IsNullOrEmpty(dataHelpClass.Get_ReData("Code", "Code", "[@PH_PY109A]", "'" + oDS_PH_PY109A.GetValue("COde", 0).Trim() + "'", "")))
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("이미 저장되어져 있는 헤더의 내용과 일치합니다", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                        return functionReturnValue;
+                        return returnValue;
                     }
                 }
                 else if (ItemUID == "Btn_Set")
@@ -445,7 +445,7 @@ namespace PSH_BOne_AddOn
                     if (!string.IsNullOrEmpty(dataHelpClass.Get_ReData("Code", "Code", "[@PH_PY109A]", "'" + oDS_PH_PY109A.GetValue("COde", 0).Trim() + "'", "")))
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("이미 저장되어져 있는 헤더의 내용과 일치합니다", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                        return functionReturnValue;
+                        return returnValue;
                     }
                 }
 
@@ -461,12 +461,12 @@ namespace PSH_BOne_AddOn
                     else
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("라인이 존재하지 않습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                        return functionReturnValue;
+                        return returnValue;
                     }
                 }
                 oMat1.LoadFromDataSource();
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -477,7 +477,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

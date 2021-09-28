@@ -123,7 +123,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP090_UpdateToPP090(string sPackNum, string sDocNum)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string errMessage = string.Empty; 
             string Query01;
             string Query02;
@@ -157,7 +157,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -166,7 +166,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP090_Calc_SumWeight()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
             double SumWeight = 0;
             string errMessage = string.Empty;
@@ -190,7 +190,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -435,7 +435,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP090_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string errMessage = string.Empty;
 
             try
@@ -464,7 +464,7 @@ namespace PSH_BOne_AddOn
                 {
                     PS_PP090_FormClear();
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -480,7 +480,7 @@ namespace PSH_BOne_AddOn
             finally
             {
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

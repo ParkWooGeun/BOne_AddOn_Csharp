@@ -20,8 +20,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFromDocEntry01"></param>
-        public override void LoadForm(string oFromDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -117,7 +117,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_SY002_Updatedata(SAPbouiCOM.ItemEvent pval)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string sQry;
             string UserID;
             string PRTYN;
@@ -152,7 +152,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

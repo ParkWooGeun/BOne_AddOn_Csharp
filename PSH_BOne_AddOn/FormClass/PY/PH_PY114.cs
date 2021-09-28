@@ -408,7 +408,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY114_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
             int k;
             string DocNum;
@@ -439,7 +439,7 @@ namespace PSH_BOne_AddOn
                 if (!string.IsNullOrEmpty(DocNum.ToString().Trim()) & oDS_PH_PY114A.GetValue("Code", 0).ToString().Trim() != DocNum.ToString().Trim())
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("기존의 데이터가 있습니다. 확인하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
-                    return functionReturnValue;
+                    return returnValue;
                 }
                 //라인체크
                 oMat1.FlushToDataSource();
@@ -448,7 +448,7 @@ namespace PSH_BOne_AddOn
                 if (oMat1.RowCount == 1)
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("입력할 데이터가 없습니다. 입력하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
-                    return functionReturnValue;
+                    return returnValue;
                 }
                 for (i = 0; i <= oMat1.VisualRowCount - 2; i++)
                 {
@@ -457,7 +457,7 @@ namespace PSH_BOne_AddOn
                     {
                         PSH_Globals.SBO_Application.StatusBar.SetText("코드는 필수입니다. 입력하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                         oMat1.Columns.Item("Col4").Cells.Item(i + 1).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                        return functionReturnValue;
+                        return returnValue;
                     }
                     else
                     {
@@ -469,7 +469,7 @@ namespace PSH_BOne_AddOn
                             {
                                 PSH_Globals.SBO_Application.StatusBar.SetText("내용이 중복입력되었습니다. 확인하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                                 oMat1.Columns.Item("Col1").Cells.Item(i + 1).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                                return functionReturnValue;
+                                return returnValue;
                             }
                         }
                     }
@@ -486,7 +486,7 @@ namespace PSH_BOne_AddOn
                             {
                                 PSH_Globals.SBO_Application.StatusBar.SetText("직위는 필수입니다. 입력하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                                 oMat2.Columns.Item("Col2").Cells.Item(i + 1).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                                return functionReturnValue;
+                                return returnValue;
                             }
                             else
                             {
@@ -498,7 +498,7 @@ namespace PSH_BOne_AddOn
                                     {
                                         PSH_Globals.SBO_Application.StatusBar.SetText("임원누진 내용이 중복입력되었습니다. 확인하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                                         oMat2.Columns.Item("Col2").Cells.Item(i + 1).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                                        return functionReturnValue;
+                                        return returnValue;
                                     }
                                 }
                             }
@@ -513,7 +513,7 @@ namespace PSH_BOne_AddOn
                 oMat1.LoadFromDataSource();
                 oMat2.LoadFromDataSource();
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -523,7 +523,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -533,7 +533,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY114_Validate(string ValidateType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int ErrNumm = 0;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -558,7 +558,7 @@ namespace PSH_BOne_AddOn
 
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -575,7 +575,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -823,7 +823,7 @@ namespace PSH_BOne_AddOn
         private string Exist_YN(string STDDAT)
         {
             string sQry;
-            string functionReturnValue = string.Empty;
+            string returnValue = string.Empty;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -833,18 +833,18 @@ namespace PSH_BOne_AddOn
 
                 if (string.IsNullOrEmpty(oRecordSet.Fields.Item(0).Value.ToString().Trim()))
                 {
-                    functionReturnValue = "";
+                    returnValue = "";
                 }
                 else
                 {
-                    functionReturnValue = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+                    returnValue = oRecordSet.Fields.Item(0).Value.ToString().Trim();
                 }
             }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("Exist_YN_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

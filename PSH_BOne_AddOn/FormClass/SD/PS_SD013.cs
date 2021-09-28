@@ -323,7 +323,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_SD013_HeaderSpaceLineDel()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			short ErrNum = 0;
 
 			try
@@ -334,7 +334,7 @@ namespace PSH_BOne_AddOn
 					throw new Exception();
 				}
 
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -350,7 +350,7 @@ namespace PSH_BOne_AddOn
 			finally
 			{
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -359,7 +359,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_SD013_MatrixSpaceLineDel()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			short ErrNum = 0;
 
 			try
@@ -374,7 +374,7 @@ namespace PSH_BOne_AddOn
 
 				oDS_PS_SD013L.RemoveRecord(oDS_PS_SD013L.Size - 1);
 				oMat.LoadFromDataSource();
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -390,7 +390,7 @@ namespace PSH_BOne_AddOn
 			finally
 			{
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -399,7 +399,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_SD013_CheckDataDuplication()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			string sQry;
 			string BPLId;
 			string Creator;
@@ -427,11 +427,11 @@ namespace PSH_BOne_AddOn
 
 				if (oRecordSet.Fields.Item("Cnt").Value >= 1)
 				{
-					functionReturnValue = false;
+					returnValue = false;
 				}
 				else
 				{
-					functionReturnValue = true;
+					returnValue = true;
 				}
 			}
 			catch (Exception ex)
@@ -442,7 +442,7 @@ namespace PSH_BOne_AddOn
 			{
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>

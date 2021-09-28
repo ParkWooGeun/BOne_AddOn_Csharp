@@ -167,7 +167,7 @@ namespace PSH_BOne_AddOn.Core
                     if((double.TryParse(oForm.Items.Item("Spec2").Specific.Value, out chknum) == false || double.TryParse(oForm.Items.Item("Spec4").Specific.Value, out chknum) == false) || (string.IsNullOrEmpty(oForm.Items.Item("Spec2").Specific.Value.ToString().Trim()) || string.IsNullOrEmpty(oForm.Items.Item("Spec4").Specific.Value.ToString().Trim())))
                     {
                         errMessage = "오류 : 중분류 봉(30603)의 경우 규격2,4 필드에 문자, 공백 불가!\n";
-                        errMessage += "뷰 > 사용자정의필드를 선택하여 규격2,4필드를 숫자로 변경하세요.";
+                        errMessage += "뷰 > 사용자정의필드를 선택하여 규격2,4 필드를 숫자로 변경하세요.";
                         throw new Exception();
                     }
                 }

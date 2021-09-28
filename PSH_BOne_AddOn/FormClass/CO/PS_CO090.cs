@@ -166,7 +166,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool MatrixSpaceLineDel()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			int i;
 			int ErrNum = 0;
 
@@ -217,7 +217,7 @@ namespace PSH_BOne_AddOn
 				}
 				// 행을 삭제하였으니 DB데이터 소스를 다시 가져온다
 				oMat01.LoadFromDataSource();
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -247,7 +247,7 @@ namespace PSH_BOne_AddOn
 				}
 			}
 
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -256,7 +256,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool HeaderSpaceLineDel()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			int ErrNum = 0;
 
 			try
@@ -282,7 +282,7 @@ namespace PSH_BOne_AddOn
 					throw new Exception();
 				}
 				
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -308,7 +308,7 @@ namespace PSH_BOne_AddOn
 				}
 			}
 
-			return functionReturnValue;
+			return returnValue;
 		}
 		
 		/// <summary>

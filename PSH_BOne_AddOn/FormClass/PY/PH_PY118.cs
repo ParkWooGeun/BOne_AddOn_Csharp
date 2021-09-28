@@ -765,7 +765,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool Execution_Process()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string sQry;
             short errNum = 0;
             int i = 0;
@@ -885,7 +885,7 @@ namespace PSH_BOne_AddOn
 
                 //End
                 PSH_Globals.SBO_Application.StatusBar.SetText("작업을 완료하였습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch(Exception ex)
             {   
@@ -912,7 +912,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

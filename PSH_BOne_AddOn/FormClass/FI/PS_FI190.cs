@@ -157,7 +157,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_FI190_DataValidCheck()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			try
 			{
 				PS_FI190_FormClear();
@@ -169,7 +169,7 @@ namespace PSH_BOne_AddOn
 			finally
 			{
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>

@@ -865,8 +865,8 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.SetStatusBarMessage("년도가 없습니다. 확인바랍니다..", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                 oForm.Items.Item("Year").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                //functionReturnValue = false;
-                return; //functionReturnValue;
+                //returnValue = false;
+                return; //returnValue;
             }
 
             try

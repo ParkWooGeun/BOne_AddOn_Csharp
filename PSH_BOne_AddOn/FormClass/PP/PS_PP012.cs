@@ -262,7 +262,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP012_UpdateData()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 
 			int loopCount;
 			string sQry;
@@ -303,7 +303,7 @@ namespace PSH_BOne_AddOn
 				}
 
 				PSH_Globals.SBO_Application.StatusBar.SetText("수정완료!", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -315,7 +315,7 @@ namespace PSH_BOne_AddOn
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>

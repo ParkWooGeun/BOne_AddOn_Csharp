@@ -268,7 +268,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP052_Validate(string ValidateType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i = 0;
             int j;
             string Query01;
@@ -393,7 +393,7 @@ namespace PSH_BOne_AddOn
                         throw new Exception();
                     }
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -423,7 +423,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -943,7 +943,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP052_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i = 0;
             int j;
             double FailQty;
@@ -1110,8 +1110,8 @@ namespace PSH_BOne_AddOn
 
                 if (PS_PP052_Validate("검사01") == false)
                 {
-                    functionReturnValue = false;
-                    return functionReturnValue;
+                    returnValue = false;
+                    return returnValue;
                 }
                 oDS_PS_PP052L.RemoveRecord(oDS_PS_PP052L.Size - 1);
                 oMat01.LoadFromDataSource();
@@ -1122,7 +1122,7 @@ namespace PSH_BOne_AddOn
                 {
                     PS_PP052_FormClear();
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -1152,7 +1152,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -1182,7 +1182,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private bool PS_PP052_FindValidateDocument(string ObjectType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string Query01;
             string DocEntry;
             string errMessage = string.Empty;
@@ -1203,7 +1203,7 @@ namespace PSH_BOne_AddOn
                     errMessage = "작업일보등록(공정)문서 이거나 존재하지 않는 문서입니다.";
                     throw new Exception();
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -1220,7 +1220,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

@@ -243,7 +243,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_QM055_HeaderSpaceLineDel()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			string errMessage = string.Empty;
 
 			try
@@ -261,7 +261,7 @@ namespace PSH_BOne_AddOn
 					throw new Exception();
 				}
 				
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -278,7 +278,7 @@ namespace PSH_BOne_AddOn
             {
 				oForm.Freeze(false);
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -287,7 +287,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_QM055_MatrixSpaceLineDel()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			string errMessage = string.Empty;
 
 			try
@@ -311,7 +311,7 @@ namespace PSH_BOne_AddOn
 				}
 
 				oMat.LoadFromDataSource();
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -328,7 +328,7 @@ namespace PSH_BOne_AddOn
 			{
 				oForm.Freeze(false);
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -630,6 +630,7 @@ namespace PSH_BOne_AddOn
 				else if (pVal.BeforeAction == false)
 				{
 					PS_QM055_AddMatrixRow(1, oMat.VisualRowCount, true);
+					oMat.AutoResizeColumns();
 				}
 			}
 			catch (Exception ex)
@@ -740,7 +741,7 @@ namespace PSH_BOne_AddOn
 							{
 								for (int i = 1; i <= oMat.VisualRowCount; i++)
 								{
-									oMat.Columns.Item("LineNum").Cells.Item(i).Specific.VALUE = i;
+									oMat.Columns.Item("LineNum").Cells.Item(i).Specific.Value = i;
 								}
 								oMat.FlushToDataSource();
 								// DBDataSource에 레코드가 한줄 더 생긴다.

@@ -217,7 +217,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_MM153_Update_PurchaseDemand(ref SAPbouiCOM.ItemEvent pVal)
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 
 			int i;
 			string DocNo;
@@ -264,7 +264,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText("데이터가 존재하지 않습니다.!", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 
-				functionReturnValue = true;
+				returnValue = true;
 				oForm1_Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
 			}
 			catch (Exception ex)
@@ -275,7 +275,7 @@ namespace PSH_BOne_AddOn
 			{
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -330,6 +330,8 @@ namespace PSH_BOne_AddOn
 				oDS_PS_MM153H.ExecuteQuery(sQry);
 				iRow = oForm.DataSources.DataTables.Item(0).Rows.Count;
 				PS_MM153_TitleSetting(iRow);
+
+				oGrid.Columns.Item(6).RightJustified = true;
 			}
 			catch (Exception ex)
 			{

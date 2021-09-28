@@ -152,7 +152,7 @@ namespace PSH_BOne_AddOn
 				switch (oUID)
 				{
 					case "ItemCode": //품목코드
-						oForm.DataSources.UserDataSources.Item("ItemName").Value = dataHelpClass.Get_ReData("ItemName", "ItemCode", "OITM", "'" + oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim() + "'", "");
+						oForm.DataSources.UserDataSources.Item("ItemName").Value = dataHelpClass.Get_ReData("ItemName", "ItemCode", "OITM", "'" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'", "");
 						break;
 				}
 			}
@@ -184,10 +184,10 @@ namespace PSH_BOne_AddOn
 			{
 				oForm.Freeze(true);
 
-				BPLID = oForm.Items.Item("BPLID").Specific.Selected.VALUE.ToString().Trim();
-				FrDt = oForm.Items.Item("FrDt").Specific.VALUE.ToString().Trim();
-				ToDt = oForm.Items.Item("ToDt").Specific.VALUE.ToString().Trim();
-				ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
+				BPLID = oForm.Items.Item("BPLID").Specific.Selected.Value.ToString().Trim();
+				FrDt = oForm.Items.Item("FrDt").Specific.Value.ToString().Trim();
+				ToDt = oForm.Items.Item("ToDt").Specific.Value.ToString().Trim();
+				ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
 
 				ProgressBar01.Text = "조회중...";
 
@@ -253,10 +253,10 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				BPLID = oForm.Items.Item("BPLID").Specific.Selected.VALUE.ToString().Trim();
-				FrDt = oForm.Items.Item("FrDt").Specific.VALUE.ToString().Trim();
-				ToDt = oForm.Items.Item("ToDt").Specific.VALUE.ToString().Trim();
-				ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
+				BPLID = oForm.Items.Item("BPLID").Specific.Selected.Value.ToString().Trim();
+				FrDt = oForm.Items.Item("FrDt").Specific.Value.ToString().Trim();
+				ToDt = oForm.Items.Item("ToDt").Specific.Value.ToString().Trim();
+				ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
 
 				WinTitle = "[PS_SD962] 레포트";
 				ReportName = "PS_SD962_01.rpt";

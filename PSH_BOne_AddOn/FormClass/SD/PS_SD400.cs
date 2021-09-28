@@ -156,7 +156,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_SD400_CheckDataValid()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			int ErrNum = 0;
 
 			try
@@ -171,7 +171,7 @@ namespace PSH_BOne_AddOn
 					ErrNum = 2;
 					throw new Exception();
 				}
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -193,7 +193,7 @@ namespace PSH_BOne_AddOn
 			finally
 			{
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>

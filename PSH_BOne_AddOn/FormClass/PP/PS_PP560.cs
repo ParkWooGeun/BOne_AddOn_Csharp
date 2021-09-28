@@ -479,7 +479,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP560_DuplicateCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string sQry;
             string errMessage = string.Empty;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -495,7 +495,7 @@ namespace PSH_BOne_AddOn
                     errMessage = "해당 작번은 이미 등록되어 있습니다. 확인하세요.";
                     throw new Exception();
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -512,7 +512,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -521,7 +521,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private int PS_PP560_MatrixMaxColumnValue()
         {
-            int functionReturnValue = 0;
+            int returnValue = 0;
             int loopCount;
             int LargeValue;
             int MaxValue = 0;
@@ -548,7 +548,7 @@ namespace PSH_BOne_AddOn
                         }
                     }
                 }
-                functionReturnValue = MaxValue;
+                returnValue = MaxValue;
             }
             catch (Exception ex)
             {
@@ -561,7 +561,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -570,7 +570,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP560_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string errMessage = string.Empty;
 
             try
@@ -597,7 +597,7 @@ namespace PSH_BOne_AddOn
                 {
                     PS_PP560_FormClear();
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -610,7 +610,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -620,7 +620,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP560_Validate(string ValidateType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string errMessage = string.Empty;
             try
             {
@@ -656,7 +656,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

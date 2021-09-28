@@ -813,7 +813,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         public bool PH_PY417_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
@@ -822,8 +822,8 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    functionReturnValue = false;
-                    return functionReturnValue;
+                    returnValue = false;
+                    return returnValue;
                 }
 
                 // 년도
@@ -831,8 +831,8 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("년도는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("StdYear").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    functionReturnValue = false;
-                    return functionReturnValue;
+                    returnValue = false;
+                    return returnValue;
                 }
 
                 if (oForm.DataSources.UserDataSources.Item("Check01").Value == "Y")
@@ -841,22 +841,22 @@ namespace PSH_BOne_AddOn
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("지급년월은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                         oForm.Items.Item("YM").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                        functionReturnValue = false;
-                        return functionReturnValue;
+                        returnValue = false;
+                        return returnValue;
                     }
                     if (string.IsNullOrEmpty(oForm.Items.Item("JOBTYP").Specific.Value.ToString().Trim()))
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("지급종류는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                         oForm.Items.Item("JOBTYP").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                        functionReturnValue = false;
-                        return functionReturnValue;
+                        returnValue = false;
+                        return returnValue;
                     }
                     if (string.IsNullOrEmpty(oForm.Items.Item("JOBGBN").Specific.Value.ToString().Trim()))
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("지급구분은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                         oForm.Items.Item("JOBGBN").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                        functionReturnValue = false;
-                        return functionReturnValue;
+                        returnValue = false;
+                        return returnValue;
                     }
                 }
                 oMat01.FlushToDataSource();
@@ -868,14 +868,14 @@ namespace PSH_BOne_AddOn
 
                 oMat01.LoadFromDataSource();
 
-                functionReturnValue = true;
-                return functionReturnValue;
+                returnValue = true;
+                return returnValue;
             }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY417_DataValidCheck_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                functionReturnValue = false;
-                return functionReturnValue;
+                returnValue = false;
+                return returnValue;
             }
             finally
             {

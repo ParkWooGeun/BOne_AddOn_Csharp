@@ -596,7 +596,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY677_UpdateData()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
 
             int i;
             string sQry;
@@ -736,7 +736,7 @@ namespace PSH_BOne_AddOn
                 }
                 PSH_Globals.SBO_Application.StatusBar.SetText("수정 완료", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -748,7 +748,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet01);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -1869,7 +1869,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private double PH_PY677_hhmm_Calc(double mTime, string pWorkType = "")
         {
-            double functionReturnValue = 0;
+            double returnValue = 0;
             int hh;
             double MM;
             double Ret;
@@ -1913,7 +1913,7 @@ namespace PSH_BOne_AddOn
                     Ret = 4;
                 }
 
-                functionReturnValue = Ret;
+                returnValue = Ret;
             }
             catch (Exception ex)
             {
@@ -1923,7 +1923,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

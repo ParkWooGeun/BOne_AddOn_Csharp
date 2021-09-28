@@ -134,7 +134,7 @@ namespace PSH_BOne_AddOn
 				if (string.IsNullOrEmpty(oFormDocEntry))
 				{
 					PS_SD051_EnableFormItem();
-					PS_SD051_AddMatrixRow(0, true); //UDO방식일때
+					PS_SD051_AddMatrixRow(0, true);
 				}
 				else
 				{
@@ -273,7 +273,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_SD051_CheckDataValid()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			int i;
 			string errMessage = string.Empty;
 
@@ -323,7 +323,7 @@ namespace PSH_BOne_AddOn
 					PS_SD051_FormClear();
 				}
 
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -336,7 +336,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -564,7 +564,7 @@ namespace PSH_BOne_AddOn
 							if (pVal.ActionSuccess == true)
 							{
 								PS_SD051_EnableFormItem();
-								PS_SD051_AddMatrixRow(0, true); //UDO방식일때
+								PS_SD051_AddMatrixRow(0, true);
 
 								//이력저장
 								sQry = "EXEC [PS_Table_history] '";
@@ -782,7 +782,7 @@ namespace PSH_BOne_AddOn
 				else if (pVal.BeforeAction == false)
 				{
 					PS_SD051_EnableFormItem();
-					PS_SD051_AddMatrixRow(oMat.VisualRowCount, false); //UDO방식
+					PS_SD051_AddMatrixRow(oMat.VisualRowCount, false); 
 					oMat.AutoResizeColumns();
 				}
 			}

@@ -357,7 +357,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP940_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string errMessage = string.Empty;
 
             try
@@ -393,7 +393,7 @@ namespace PSH_BOne_AddOn
                 {
                     PS_PP940_FormClear();
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -409,7 +409,7 @@ namespace PSH_BOne_AddOn
             finally
             {
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

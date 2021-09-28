@@ -331,7 +331,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY136_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errCode = 0;
 
             try
@@ -367,7 +367,7 @@ namespace PSH_BOne_AddOn
                 }
                 oMat1.LoadFromDataSource();
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -404,7 +404,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

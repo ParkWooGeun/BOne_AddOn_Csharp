@@ -526,7 +526,7 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private bool PS_MM135_CheckDataValid()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			int i;
 			string errMessage = string.Empty;
 
@@ -581,7 +581,7 @@ namespace PSH_BOne_AddOn
 				{
 					PS_MM135_ClearForm();
 				}
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -594,7 +594,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -604,7 +604,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_MM135_CanceloStockTrans(int ChkType)
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			SAPbobsCOM.StockTransfer oStockTrans = null;
 			string ErrMsg;
 			string DocEntry;
@@ -644,7 +644,7 @@ namespace PSH_BOne_AddOn
 						PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
 					}
 				}
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -670,7 +670,7 @@ namespace PSH_BOne_AddOn
 				}
             }
 
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -679,7 +679,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_MM135_CheckDataInsert()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			string sQry;
 			string oDate;
 			string oOutDoc;
@@ -722,7 +722,7 @@ namespace PSH_BOne_AddOn
 				}
 				oMat.LoadFromDataSource();
 
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -732,7 +732,7 @@ namespace PSH_BOne_AddOn
             {
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -742,7 +742,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_MM135_Validate(string ValidateType)
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 
 			string errMessage = string.Empty;
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -763,7 +763,7 @@ namespace PSH_BOne_AddOn
 						throw new Exception();
 					}
 				}
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -776,7 +776,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>

@@ -554,7 +554,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP084_Validate(string ValidateType)
         {
-            bool functionReturnValue = true;
+            bool returnValue = true;
             string errMessage = string.Empty; 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -580,7 +580,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                functionReturnValue = false;
+                returnValue = false;
                 if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
@@ -590,7 +590,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -783,7 +783,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_PP084_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i = 0 ;
             string sQry;
             string errMessage = string.Empty;
@@ -934,8 +934,8 @@ namespace PSH_BOne_AddOn
                 }
                 if (PS_PP084_Validate("검사01") == false)
                 {
-                    functionReturnValue = false;
-                    return functionReturnValue; //체크필요.
+                    returnValue = false;
+                    return returnValue; //체크필요.
                 }
                 oDS_PS_PP084L.RemoveRecord(oDS_PS_PP084L.Size - 1);
                 oMat01.LoadFromDataSource();
@@ -943,7 +943,7 @@ namespace PSH_BOne_AddOn
                 {
                     PS_PP084_FormClear();
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -973,7 +973,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

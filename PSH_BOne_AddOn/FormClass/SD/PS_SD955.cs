@@ -111,7 +111,7 @@ namespace PSH_BOne_AddOn
 				oForm.DataSources.UserDataSources.Add("InOut", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 5);
 				oForm.Items.Item("InOut").Specific.DataBind.SetBound(true, "", "InOut");
 
-				oForm.Items.Item("StdYM").Specific.VALUE = DateTime.Now.ToString("yyyyMM");
+				oForm.Items.Item("StdYM").Specific.Value = DateTime.Now.ToString("yyyyMM");
 			}
 			catch (Exception ex)
 			{
@@ -167,12 +167,12 @@ namespace PSH_BOne_AddOn
 				switch (oUID)
 				{
 					case "CardCode":
-						oForm.Items.Item("CardName").Specific.VALUE = dataHelpClass.Get_ReData("CardName", "CardCode", "[OCRD]", "'" + oForm.Items.Item("CardCode").Specific.VALUE.ToString().Trim() + "'", "");
+						oForm.Items.Item("CardName").Specific.Value = dataHelpClass.Get_ReData("CardName", "CardCode", "[OCRD]", "'" + oForm.Items.Item("CardCode").Specific.Value.ToString().Trim() + "'", "");
 						break;
 
 					case "ItemCode":
-						oForm.Items.Item("ItemName").Specific.VALUE = dataHelpClass.Get_ReData("FrgnName", "ItemCode", "[OITM]", "'" + oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim() + "'", "");
-						oForm.Items.Item("ItemSpec").Specific.VALUE = dataHelpClass.Get_ReData("U_Size", "ItemCode", "[OITM]", "'" + oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim() + "'", "");
+						oForm.Items.Item("ItemName").Specific.Value = dataHelpClass.Get_ReData("FrgnName", "ItemCode", "[OITM]", "'" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'", "");
+						oForm.Items.Item("ItemSpec").Specific.Value = dataHelpClass.Get_ReData("U_Size", "ItemCode", "[OITM]", "'" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'", "");
 						break;
 				}
 			}
@@ -206,11 +206,11 @@ namespace PSH_BOne_AddOn
 			{
 				oForm.Freeze(true);
 
-				BPLID = oForm.Items.Item("BPLID").Specific.Selected.VALUE.ToString().Trim();
-				StdYM = oForm.Items.Item("StdYM").Specific.VALUE.ToString().Trim();
-				CardCode = oForm.Items.Item("CardCode").Specific.VALUE.ToString().Trim();
-				ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
-				InOut = oForm.Items.Item("InOut").Specific.Selected.VALUE.ToString().Trim();
+				BPLID = oForm.Items.Item("BPLID").Specific.Selected.Value.ToString().Trim();
+				StdYM = oForm.Items.Item("StdYM").Specific.Value.ToString().Trim();
+				CardCode = oForm.Items.Item("CardCode").Specific.Value.ToString().Trim();
+				ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
+				InOut = oForm.Items.Item("InOut").Specific.Selected.Value.ToString().Trim();
 
 				ProgressBar01.Text = "조회중...";
 
@@ -281,11 +281,11 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				BPLID = oForm.Items.Item("BPLID").Specific.Selected.VALUE.ToString().Trim();
-				StdYM = oForm.Items.Item("StdYM").Specific.VALUE.ToString().Trim();
-				CardCode = oForm.Items.Item("CardCode").Specific.VALUE.ToString().Trim();
-				ItemCode = oForm.Items.Item("ItemCode").Specific.VALUE.ToString().Trim();
-				InOut = oForm.Items.Item("InOut").Specific.Selected.VALUE.ToString().Trim();
+				BPLID = oForm.Items.Item("BPLID").Specific.Selected.Value.ToString().Trim();
+				StdYM = oForm.Items.Item("StdYM").Specific.Value.ToString().Trim();
+				CardCode = oForm.Items.Item("CardCode").Specific.Value.ToString().Trim();
+				ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
+				InOut = oForm.Items.Item("InOut").Specific.Selected.Value.ToString().Trim();
 
 
 				WinTitle = "[PS_SD955] 레포트";

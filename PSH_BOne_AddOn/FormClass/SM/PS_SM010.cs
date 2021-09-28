@@ -649,7 +649,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_SM010_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string errMessage = string.Empty;
             try
             {
@@ -670,7 +670,7 @@ namespace PSH_BOne_AddOn
             {
 
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

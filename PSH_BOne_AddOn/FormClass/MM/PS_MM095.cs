@@ -173,7 +173,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_MM095_HeaderSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string errMessage = string.Empty;
 
             try
@@ -193,7 +193,7 @@ namespace PSH_BOne_AddOn
                     errMessage = "전기일은 필수사항입니다. 확인하세요.";
                     throw new Exception();
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -206,7 +206,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -215,7 +215,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_MM095_MatrixSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
             int j = 0;
             int count;
@@ -251,7 +251,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_MM095L.SetValue("U_LineNum", i, Convert.ToString(i + 1));
                 }
                 oMat01.LoadFromDataSource();
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -268,7 +268,7 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(false);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

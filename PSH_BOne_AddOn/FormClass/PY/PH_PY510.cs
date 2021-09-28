@@ -245,7 +245,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY510_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             
             short ErrNum = 0;
             string sQry = string.Empty;
@@ -259,11 +259,11 @@ namespace PSH_BOne_AddOn
                     ErrNum = 1;
                     throw new Exception();
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch(Exception ex)
             {
-                functionReturnValue = false;
+                returnValue = false;
                 if (ErrNum == 1)
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("사업장은 필수입니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
@@ -277,7 +277,7 @@ namespace PSH_BOne_AddOn
             finally
             {
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

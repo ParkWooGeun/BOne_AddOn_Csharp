@@ -282,7 +282,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY106_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string sQry;
             string ExistYN = string.Empty;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -293,37 +293,37 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("사업장은 필수입니다. 입력하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
                 if (string.IsNullOrEmpty(oDS_PH_PY106A.GetValue("U_YM", 0).ToString().Trim()))
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("작업연월은 필수입니다. 입력하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     oForm.Items.Item("YM").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
                 if (string.IsNullOrEmpty(oDS_PH_PY106A.GetValue("U_PAYTYP", 0).ToString().Trim()))
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("급여형태는 필수입니다. 입력하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     oForm.Items.Item("PAYTYP").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
                 if (string.IsNullOrEmpty(oDS_PH_PY106A.GetValue("U_GNSGBN", 0).ToString().Trim()))
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("근속일계산기준은 필수입니다. 입력하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     oForm.Items.Item("GNSGBN").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
                 if (string.IsNullOrEmpty(oDS_PH_PY106A.GetValue("U_BNSLEN", 0).ToString().Trim()))
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("상여 계산단위는 필수입니다. 입력하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     oForm.Items.Item("BNSLEN").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
                 if (string.IsNullOrEmpty(oDS_PH_PY106A.GetValue("U_BNSRND", 0).ToString().Trim()))
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("상여 끝전처리는 필수입니다. 입력하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     oForm.Items.Item("BNSRND").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 //Code & Name 생성
@@ -348,7 +348,7 @@ namespace PSH_BOne_AddOn
                     }
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -359,7 +359,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -369,7 +369,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY106_Validate(string ValidateType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short ErrNumm = 0;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -394,7 +394,7 @@ namespace PSH_BOne_AddOn
 
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -411,7 +411,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -569,7 +569,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool MatrixSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
 
             int iRow;
             int kRow;
@@ -642,7 +642,7 @@ namespace PSH_BOne_AddOn
 
                 oDS_PH_PY106B.RemoveRecord(oDS_PH_PY106B.Size - 1);
                 oMat01.LoadFromDataSource();
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -683,7 +683,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

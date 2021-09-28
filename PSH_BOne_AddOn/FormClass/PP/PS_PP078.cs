@@ -160,7 +160,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP078_DelMatrixSpaceLine()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			int i;
 			int j = 0;
 			string errMessage = string.Empty;
@@ -195,7 +195,7 @@ namespace PSH_BOne_AddOn
 					throw new Exception();
 				}
 				oMat.LoadFromDataSource();
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -208,7 +208,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -432,7 +432,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP078_InsertoInventoryGenExit(int ChkType)
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			//출고 DI
 			SAPbobsCOM.Documents DI_oInventoryGenExit = null; //재고입고 문서 객체
 			int RetVal;
@@ -505,7 +505,7 @@ namespace PSH_BOne_AddOn
 				}
 
 				PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -524,7 +524,7 @@ namespace PSH_BOne_AddOn
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 				oForm.Freeze(false);
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -536,7 +536,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP078_SaveData(string A_B, bool Cancel, int pValRow)
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 
 			string sQry;
 			int i;
@@ -631,13 +631,13 @@ namespace PSH_BOne_AddOn
 									oRecordSet.DoQuery(sQry);
 
 									// 1회 Loopping 후 exit
-									functionReturnValue = true;
-									return functionReturnValue;
+									returnValue = true;
+									return returnValue;
 							}
 						}
 					}
 				}
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -654,7 +654,7 @@ namespace PSH_BOne_AddOn
 			{
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -664,7 +664,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_PP078_UpdatePS_PP040(int pValRow)
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 
 			int i;
 			string sQry;
@@ -681,11 +681,11 @@ namespace PSH_BOne_AddOn
 						oRecordSet.DoQuery(sQry);
 
 						//1회 Loopping 후 exit
-						functionReturnValue = true;
-						return functionReturnValue;
+						returnValue = true;
+						return returnValue;
 					}
 				}
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -695,7 +695,7 @@ namespace PSH_BOne_AddOn
 			{
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>

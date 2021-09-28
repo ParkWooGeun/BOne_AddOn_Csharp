@@ -916,10 +916,13 @@ namespace PSH_BOne_AddOn
             string afterDIDocNum;
             string BaseLot;
             SAPbobsCOM.Documents oDIObject = null;
+            SAPbouiCOM.ProgressBar ProgBar01 = null;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
             {
+                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
                 PSH_Globals.oCompany.StartTransaction();
 
                 //현재월의 전기기간 체크 후 잠겨있으면 DI API 미실행
@@ -1023,6 +1026,12 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                if (ProgBar01 != null)
+                {
+                    ProgBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                }
+
                 if (oDIObject != null)
                 {
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDIObject);

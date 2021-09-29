@@ -648,11 +648,11 @@ namespace PSH_BOne_AddOn
         private bool PS_PP040_DataValidCheck()
         {
             bool returnValue = false;
-            int i = 0;
+            int i;
             int j;
             int failQty = 0;
             string sQry;
-            string errCode = string.Empty;
+            string errMessage = string.Empty;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
@@ -664,45 +664,46 @@ namespace PSH_BOne_AddOn
 
                 if (Convert.ToInt32(dataHelpClass.GetValue("select Count(*) from OFPR Where '" + oForm.Items.Item("DocDate").Specific.Value + "' between F_RefDate and T_RefDate And PeriodStat = 'Y'", 0, 1)) > 0)
                 {
-                    errCode = "1";
+                    errMessage = "해당일자는 전기기간이 잠겼습니다. 일자를 확인바랍니다.";
                     throw new Exception();
                 }
 
                 if (oForm.Items.Item("OrdType").Specific.Selected.Value != "10" && oForm.Items.Item("OrdType").Specific.Selected.Value != "20" && oForm.Items.Item("OrdType").Specific.Selected.Value != "50" && oForm.Items.Item("OrdType").Specific.Selected.Value != "60" && oForm.Items.Item("OrdType").Specific.Selected.Value != "70")
                 {
-                    errCode = "2";
+                    errMessage = "작업타입이 일반, PSMT지원, 조정, 설계가 아닙니다.";
                     throw new Exception();
                 }
 
                 if (string.IsNullOrEmpty(oForm.Items.Item("OrdNum").Specific.Value))
                 {
-                    errCode = "3";
+                    errMessage = "작지번호는 필수입니다.";
+                    oForm.Items.Item("OrdNum").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     throw new Exception();
                 }
 
                 if (oMat01.VisualRowCount == 1)
                 {
-                    errCode = "4";
+                    errMessage = "공정정보 라인이 존재하지 않습니다.";
                     throw new Exception();
                 }
 
                 if (oMat02.VisualRowCount == 1)
                 {
-                    errCode = "5";
+                    errMessage = "작업자정보 라인이 존재하지 않습니다.";
                     throw new Exception();
                 }
 
                 //마감상태 체크_S(2017.11.23 송명규 추가)
                 if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(), oForm.Items.Item("DocDate").Specific.Value, oForm.TypeEx) == false)
                 {
-                    errCode = "6";
+                    errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 작업일보일자를 확인하고, 회계부서로 문의하세요.";
                     throw new Exception();
                 }
                 //마감상태 체크_E(2017.11.23 송명규 추가)
 
                 if (oMat03.VisualRowCount == 0)
                 {
-                    errCode = "7";
+                    errMessage = "불량정보 라인이 존재하지 않습니다.";
                     throw new Exception();
                 }
 
@@ -710,14 +711,16 @@ namespace PSH_BOne_AddOn
                 {
                     if (string.IsNullOrEmpty(oMat01.Columns.Item("OrdMgNum").Cells.Item(i).Specific.Value))
                     {
-                        errCode = "8";
+                        errMessage = "작지문서번호는 필수입니다.";
+                        oMat01.Columns.Item("OrdMgNum").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                         throw new Exception();
                     }
                     else if (oForm.Items.Item("OrdType").Specific.Value.ToString().Trim() != "50" && oForm.Items.Item("OrdType").Specific.Value.ToString().Trim() != "60")
                     {
                         if (Convert.ToDouble(oMat01.Columns.Item("PQty").Cells.Item(i).Specific.Value) <= 0)
                         {
-                            errCode = "9";
+                            errMessage = "생산수량은 필수입니다.";
+                            oMat01.Columns.Item("PQty").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             throw new Exception();
                         }
                     }
@@ -725,7 +728,8 @@ namespace PSH_BOne_AddOn
                     {
                         if (Convert.ToDouble(oMat01.Columns.Item("WorkTime").Cells.Item(i).Specific.Value) <= 0)
                         {
-                            errCode = "10";
+                            errMessage = "실동시간은 필수입니다.";
+                            oMat01.Columns.Item("WorkTime").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             throw new Exception();
                         }
                     }
@@ -733,7 +737,8 @@ namespace PSH_BOne_AddOn
                     {
                         if (oMat01.Columns.Item("CompltYN").Cells.Item(i).Specific.Value.ToString().Trim() == "%")
                         {
-                            errCode = "11";
+                            errMessage = "작업구분이 기계공구, 몰드일경우는 작업완료여부가 필수입니다. 확인하십시오.";
+                            oMat01.Columns.Item("CompltYN").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             throw new Exception();
                         }
                     }
@@ -744,12 +749,14 @@ namespace PSH_BOne_AddOn
                         //불량코드 입력 여부 check
                         if (Convert.ToDouble(oMat03.Columns.Item("FailQty").Cells.Item(j).Specific.Value) != 0 && string.IsNullOrEmpty(oMat03.Columns.Item("FailCode").Cells.Item(j).Specific.Value.ToString().Trim()))
                         {
-                            errCode = "12";
+                            errMessage = "불량수량이 입력되었을 때는 불량코드는 필수입니다.";
+                            oMat03.Columns.Item("FailCode").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             throw new Exception();
                         }
                         else if (Convert.ToDouble(oMat03.Columns.Item("FailQty").Cells.Item(j).Specific.Value) == 0 && !string.IsNullOrEmpty(oMat03.Columns.Item("FailCode").Cells.Item(j).Specific.Value.ToString().Trim()))
                         {
-                            errCode = "13";
+                            errMessage = "불량코드를 확인하세요.";
+                            oMat03.Columns.Item("FailCode").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             throw new Exception();
                         }
 
@@ -776,7 +783,7 @@ namespace PSH_BOne_AddOn
 
                                 if (dataHelpClass.GetValue(sQry, 0, 1) != "2600")
                                 {
-                                    errCode = "14";
+                                    errMessage = "기계사업부 품질팀만 등록 및 수정이 가능합니다.";
                                     throw new Exception();
                                 }
                             }
@@ -787,7 +794,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (Convert.ToDouble(oMat01.Columns.Item("NQty").Cells.Item(i).Specific.Value) != failQty)
                         {
-                            errCode = "15";
+                            errMessage = "공정리스트의 불량수량과 불량정보의 불량수량이 일치하지 않습니다.";
                             throw new Exception();
                         }
                     }
@@ -796,20 +803,28 @@ namespace PSH_BOne_AddOn
                     {
                         if (Convert.ToInt32(oMat01.Columns.Item("Sequence").Cells.Item(i).Specific.Value) == 1 && string.IsNullOrEmpty(oMat01.Columns.Item("CItemCod").Cells.Item(i).Specific.Value.ToString().Trim()))
                         {
-                            errCode = "16";
+                            errMessage = "공정 사용 원재료코드가 없습니다. 사용 원재료를 선택해 주세요.";
                             throw new Exception();
                         }
                     }
                 }
 
-                //비가동코드와 비가동시간 체크(2012.06.14 송명규 추가)_S
+                //작업자 테이블 필수 정보 체크
                 for (i = 1; i <= oMat02.VisualRowCount - 1; i++)
                 {
+                    if (string.IsNullOrEmpty(oMat02.Columns.Item("WorkCode").Cells.Item(i).Specific.Value))
+                    {
+                        errMessage = "작업자 사번이 없습니다.";
+                        oMat02.Columns.Item("WorkCode").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                        throw new Exception();
+                    }
+
                     if (!string.IsNullOrEmpty(oMat02.Columns.Item("NCode").Cells.Item(i).Specific.Value))
                     {
                         if (string.IsNullOrEmpty(oMat02.Columns.Item("NTime").Cells.Item(i).Specific.Value))
                         {
-                            errCode = "17";
+                            errMessage = "비가동코드가 입력되었을 때는 비가동시간은 필수입니다.";
+                            oMat02.Columns.Item("NTime").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             throw new Exception();
                         }
                     }
@@ -818,16 +833,16 @@ namespace PSH_BOne_AddOn
                     {
                         if (string.IsNullOrEmpty(oMat02.Columns.Item("NCode").Cells.Item(i).Specific.Value))
                         {
-                            errCode = "18";
+                            errMessage = "비가동시간이 입력되었을 때는 비가동코드는 필수입니다.";
+                            oMat02.Columns.Item("NCode").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             throw new Exception();
                         }
                     }
                 }
-                //비가동코드와 비가동시간 체크(2012.06.14 송명규 추가)_E
 
                 if (PS_PP040_Validate("검사01") == false)
                 {
-                    errCode = "19";
+                    errMessage = "";
                     throw new Exception();
                 }
 
@@ -840,93 +855,17 @@ namespace PSH_BOne_AddOn
             }
             catch(Exception ex)
             {
-                if (errCode == "1")
+                if (errMessage != string.Empty)
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("해당일자는 전기기간이 잠겼습니다. 일자를 확인바랍니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
                 }
-                else if (errCode == "2")
+                else if (errMessage == "")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("작업타입이 일반, PSMT지원, 조정, 설계가 아닙니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "3")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("작지번호는 필수입니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    oForm.Items.Item("OrdNum").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                }
-                else if (errCode == "4")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("공정정보 라인이 존재하지 않습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "5")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("작업자정보 라인이 존재하지 않습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "6")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 작업일보일자를 확인하고, 회계부서로 문의하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "7")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("불량정보 라인이 존재하지 않습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "8")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("작지문서번호는 필수입니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    oMat01.Columns.Item("OrdMgNum").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                }
-                else if (errCode == "9")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("생산수량은 필수입니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    oMat01.Columns.Item("PQty").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                }
-                else if (errCode == "10")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("실동시간은 필수입니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    oMat01.Columns.Item("WorkTime").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                }
-                else if (errCode == "11")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("작업구분이 기계공구, 몰드일경우는 작업완료여부가 필수입니다. 확인하십시오.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    oMat01.Columns.Item("CompltYN").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                }
-                else if (errCode == "12")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("불량수량이 입력되었을 때는 불량코드는 필수입니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    oMat03.Columns.Item("FailCode").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                }
-                else if (errCode == "13")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("불량코드를 확인하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    oMat03.Columns.Item("FailCode").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                }
-                else if (errCode == "14")
-                {
-                    PSH_Globals.SBO_Application.MessageBox("기계사업부 품질팀만 등록 및 수정이 가능합니다.");
-                }
-                else if (errCode == "15")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("공정리스트의 불량수량과 불량정보의 불량수량이 일치하지 않습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "16")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("공정 사용 원재료코드가 없습니다. 사용 원재료를 선택해 주세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "17")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("비가동코드가 입력되었을 때는 비가동시간은 필수입니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    oMat02.Columns.Item("NTime").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                }
-                else if (errCode == "18")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("비가동시간이 입력되었을 때는 비가동코드는 필수입니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    oMat02.Columns.Item("NCode").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                }
-                else if (errCode == "19") //PS_PP040_Validate("검사01") == false 인 경우 : PS_PP040_Validate 메소드에서 에러 메시지 출력
-                {
+                    //처리 없음
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + (char)13 + ex.Message);
                 }
             }
             finally

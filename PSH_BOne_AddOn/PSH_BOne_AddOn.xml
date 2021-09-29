@@ -71885,11 +71885,6 @@
             <param name="pVal"></param>
             <param name="pBaseClass"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PSH_MainClass.TerminateApplication">
-            <summary>
-            생성된 폼 클래스 해제(사용안함:exe 메모리 해제 안됨, 2018.12.03 송명규)
-            </summary>
-        </member>
         <member name="T:PSH_BOne_AddOn.SubMain">
             <summary>
             최초 실행 클래스

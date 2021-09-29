@@ -631,26 +631,6 @@ namespace PSH_BOne_AddOn
             }
         }
 
-        /// <summary>
-        /// 생성된 폼 클래스 해제(사용안함:exe 메모리 해제 안됨, 2018.12.03 송명규)
-        /// </summary>
-        private void TerminateApplication()
-        {
-            int i;
-            PSH_BaseClass oTempClass = new PSH_BaseClass();
-
-            if (PSH_Globals.ClassList.Count > 0)
-            {
-                for (i = 0; i <= PSH_Globals.ClassList.Count - 1; i++)
-                {
-                    oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[i];
-                    PSH_Globals.ClassList.Remove(i);
-                }
-            }
-
-            PSH_Globals.oCompany.Disconnect();
-        }
-
         #region 이벤트
 
         private void SBO_Application_AppEvent(SAPbouiCOM.BoAppEventTypes EventType)

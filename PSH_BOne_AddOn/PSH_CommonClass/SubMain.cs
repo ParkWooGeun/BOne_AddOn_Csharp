@@ -28,7 +28,7 @@ namespace PSH_BOne_AddOn
         /// <param name="cObject"></param>
         /// <param name="oFormUid"></param>
         /// <param name="oFormTypeEx"></param>
-        public static void Add_Forms(object cObject, string oFormUid, object oFormTypeEx = null)
+        public static void Add_Forms(object cObject, string oFormUid, object oFormTypeEx)
         {
             PSH_Globals.ClassList.Add(cObject, oFormUid);
             PSH_Globals.FormTotalCount += 1;

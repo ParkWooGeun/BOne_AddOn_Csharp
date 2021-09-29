@@ -96,12 +96,10 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				// 사업장
-				dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName From [OBPL] order by 1", "", false, false);
-				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
+				dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName From [OBPL] order by 1", dataHelpClass.User_BPLID(), false, false); // 사업장
 
 				oForm.Items.Item("Div").Specific.ValidValues.Add("1", "원재료&재공&제품 재고리스트");
-				oForm.Items.Item("Div").Specific.ValidValues.Add("2", "2.포장 재고리스트");
+				oForm.Items.Item("Div").Specific.ValidValues.Add("2", "포장 재고리스트");
 				oForm.Items.Item("Div").Specific.Select("1", SAPbouiCOM.BoSearchKey.psk_ByValue);
 			}
 			catch (Exception ex)
@@ -117,6 +115,7 @@ namespace PSH_BOne_AddOn
 		{
 			string sQry = string.Empty;
 			string errMessage = string.Empty;
+			string successMessage = string.Empty;
 			string BPLId;
 			string DocDateFr;
 			string DocDateTo;
@@ -130,9 +129,7 @@ namespace PSH_BOne_AddOn
 				BPLId = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
 				DocDateFr = oForm.Items.Item("DocDatefr").Specific.Value.ToString().Trim();
 				DocDateTo = oForm.Items.Item("DocDateto").Specific.Value.ToString().Trim();
-				Div       = oForm.Items.Item("Div").Specific.Selected.Value.ToString().Trim();
-
-				ProgressBar01.Text = "조회중...";
+				Div = oForm.Items.Item("Div").Specific.Selected.Value.ToString().Trim();
 
 				if (Div == "1")
 				{
@@ -153,12 +150,26 @@ namespace PSH_BOne_AddOn
 					errMessage = "결과가 존재하지 않습니다.";
 					throw new Exception();
 				}
+				else 
+				{
+					if (Div == "1")
+					{
+						oGrid.Columns.Item(7).RightJustified = true; //중량
+					}
+					else if (Div == "2")
+					{
+						oGrid.Columns.Item(6).RightJustified = true; //중량
+                    }
+
+					oGrid.AutoResizeColumns();
+					successMessage = "조회 완료";
+				}
 			}
 			catch (Exception ex)
 			{
 				if (errMessage != string.Empty)
 				{
-					//PSH_Globals.SBO_Application.MessageBox(errMessage);
+					PSH_Globals.SBO_Application.MessageBox(errMessage);
 				}
 				else
 				{
@@ -167,14 +178,14 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
-				oGrid.AutoResizeColumns();
-				oForm.Update();
 				ProgressBar01.Stop();
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+
 				oForm.Freeze(false);
-				if (errMessage != string.Empty)  //Progress stop후 표시
+
+				if (successMessage != string.Empty)
 				{
-					PSH_Globals.SBO_Application.MessageBox(errMessage);
+					PSH_Globals.SBO_Application.StatusBar.SetText(successMessage, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
 				}
 			}
 		}

@@ -515,6 +515,7 @@ namespace PSH_BOne_AddOn
 
 				WinTitle = "[PS_PP909] 레포트";
 				ReportName = "PS_PP909_02.rpt";
+				//프로시저 : PS_PP909_53
 
 				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
 

@@ -123,6 +123,9 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.UserDataSources.Add("ChkWCon", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
                 oForm.Items.Item("ChkWCon").Specific.DataBind.SetBound(true, "", "ChkWCon");
                 oForm.Items.Item("Mat01").Enabled = true;
+
+                oForm.DataSources.UserDataSources.Item("WorkDtFr").Value = DateTime.Now.AddMonths(-6).ToString("yyyyMM") + "01"; ;
+                oForm.DataSources.UserDataSources.Item("WorkDtTo").Value = DateTime.Now.ToString("yyyyMMdd");
             }
             catch (Exception ex)
             {
@@ -621,7 +624,7 @@ namespace PSH_BOne_AddOn
                 Param13 = oForm.Items.Item("TradeType").Specific.Value.ToString().Trim();
                 Param14 = oForm.Items.Item("PrdYN").Specific.Value.ToString().Trim();
 
-                if((Param03 + Param12 == "") && (Param06 + Param07 == ""))
+                if ((Param03 + Param12 == "") && (Param06 + Param07 == ""))
                 {
                     errMessage = "작지관리번호나 지시일자 필수입니다.";
                     throw new Exception();

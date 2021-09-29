@@ -851,7 +851,14 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                if(errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                }
             }
             finally
             {
@@ -1272,14 +1279,13 @@ namespace PSH_BOne_AddOn
                     {
                         DI_oPurchaseReturns.DocType = SAPbobsCOM.BoDocumentTypes.dDocument_Service;
 
-                        while (!(oRecordSet01.EoF))
+                        while (!oRecordSet01.EoF)
                         {
                             if (i > 0)
                             {
                                 DI_oPurchaseReturns.Lines.Add();
                             }
                             DI_oPurchaseReturns.Lines.SetCurrentLine(i);
-
                             DI_oPurchaseReturns.Lines.ItemDescription = oRecordSet01.Fields.Item("Dscription").Value.ToString().Trim();
                             DI_oPurchaseReturns.Lines.LineTotal = Convert.ToDouble(oRecordSet01.Fields.Item("LineTotal").Value.ToString().Trim());
                             DI_oPurchaseReturns.Lines.VatGroup = oRecordSet01.Fields.Item("VatGroup").Value.ToString().Trim();
@@ -1289,11 +1295,9 @@ namespace PSH_BOne_AddOn
                             DI_oPurchaseReturns.Lines.UserFields.Fields.Item("U_sUnit").Value = oRecordSet01.Fields.Item("U_sUnit").Value.ToString().Trim();
                             DI_oPurchaseReturns.Lines.UserFields.Fields.Item("U_sQty").Value = oRecordSet01.Fields.Item("U_sQty").Value.ToString().Trim();
                             DI_oPurchaseReturns.Lines.UserFields.Fields.Item("U_sWeight").Value = oRecordSet01.Fields.Item("U_sWeight").Value.ToString().Trim();
-
                             DI_oPurchaseReturns.Lines.BaseType = Convert.ToInt32(oRecordSet01.Fields.Item("ObjType").Value.ToString().Trim());
                             DI_oPurchaseReturns.Lines.BaseEntry = Convert.ToInt32(oRecordSet01.Fields.Item("DocEntry").Value.ToString().Trim());
                             DI_oPurchaseReturns.Lines.BaseLine = Convert.ToInt32(oRecordSet01.Fields.Item("LineNum").Value.ToString().Trim());
-
                             i += 1;
                             oRecordSet01.MoveNext();
                         }
@@ -1301,7 +1305,7 @@ namespace PSH_BOne_AddOn
                     else
                     {
                         DI_oPurchaseReturns.DocType = SAPbobsCOM.BoDocumentTypes.dDocument_Items;
-                        while (!(oRecordSet01.EoF))
+                        while (!oRecordSet01.EoF)
                         {
                             if (i > 0)
                             {
@@ -1711,7 +1715,7 @@ namespace PSH_BOne_AddOn
         {
             int i;
             int j;
-            string A;
+            string batchNum;
             string vReturnValue;
 
             try
@@ -1734,13 +1738,13 @@ namespace PSH_BOne_AddOn
                             }
                             for (i = 0; i <= oMat01.VisualRowCount - 1; i++)
                             {
-                                A = oMat01.Columns.Item("BatchNum").Cells.Item(i + 1).Specific.Value;
+                                batchNum = oMat01.Columns.Item("BatchNum").Cells.Item(i + 1).Specific.Value;
                                 for (j = 0; j <= oMat01.VisualRowCount - 1; j++)
                                 {
-                                    if (i != j && A == oMat01.Columns.Item("BatchNum").Cells.Item(j + 1).Specific.Value && !string.IsNullOrEmpty(oMat01.Columns.Item("BatchNum").Cells.Item(j + 1).Specific.Value))
+                                    if (i != j && batchNum == oMat01.Columns.Item("BatchNum").Cells.Item(j + 1).Specific.Value && !string.IsNullOrEmpty(oMat01.Columns.Item("BatchNum").Cells.Item(j + 1).Specific.Value))
                                     {
                                         PSH_Globals.SBO_Application.MessageBox("중복");
-                                        oMat01.Columns.Item("BatchNum").Cells.Item(j + 1).Specific.Value = Convert.ToDouble(A) + 1;
+                                        oMat01.Columns.Item("BatchNum").Cells.Item(j + 1).Specific.Value = Convert.ToDouble(batchNum) + 1;
                                     }
                                 }
                             }
@@ -1942,9 +1946,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-            }
-            finally
-            {
             }
         }
 
@@ -2192,9 +2193,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
-            finally
-            {
-            }
         }
 
         /// <summary>
@@ -2256,8 +2254,6 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
-            int i;
-
             try
             {
                 oForm.Freeze(true);

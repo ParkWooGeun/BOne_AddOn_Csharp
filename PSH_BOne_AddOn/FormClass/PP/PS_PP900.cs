@@ -1,7 +1,6 @@
 using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
-using PSH_BOne_AddOn.Code;
 
 namespace PSH_BOne_AddOn
 {
@@ -280,6 +279,7 @@ namespace PSH_BOne_AddOn
 		private void PS_PP900_MTX01()
 		{
 			string SucMessage = string.Empty;
+			string errMessage = string.Empty;
 			int loopCount;
 			string sQry;
 
@@ -292,7 +292,6 @@ namespace PSH_BOne_AddOn
 			string ItemCode;        //품목코드
 			string PrdYN;           //생산완료여부
 
-			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", 0, false);
 
@@ -319,7 +318,7 @@ namespace PSH_BOne_AddOn
 				if (oRecordSet.RecordCount == 0)
 				{
 					oMat01.Clear();
-					SucMessage = "결과가 존재하지 않습니다.";
+					errMessage = "결과가 존재하지 않습니다.";
 					throw new Exception();
 				}
 
@@ -360,9 +359,9 @@ namespace PSH_BOne_AddOn
 			}
 			catch (Exception ex)
 			{
-				if (SucMessage != string.Empty)
+				if (errMessage != string.Empty)
 				{
-					// ProgressBar01.Stop다음으로....
+					PSH_Globals.SBO_Application.MessageBox(errMessage);
 				}
 				else
 				{
@@ -390,9 +389,9 @@ namespace PSH_BOne_AddOn
 		{
 			int loopCount;
 			string SucMessage = string.Empty;
+			string errMessage = string.Empty;
 			string sQry;
 
-			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", 0, false);
 
@@ -410,7 +409,7 @@ namespace PSH_BOne_AddOn
 				if (oRecordSet.RecordCount == 0)
 				{
 					oMat02.Clear();
-					SucMessage = "결과가 존재하지 않습니다.";
+					errMessage = "결과가 존재하지 않습니다.";
 					throw new Exception();
 				}
 
@@ -443,9 +442,9 @@ namespace PSH_BOne_AddOn
 			}
 			catch (Exception ex)
 			{
-				if (SucMessage != string.Empty)
+				if (errMessage != string.Empty)
 				{
-					// ProgressBar01.Stop다음으로..
+					PSH_Globals.SBO_Application.MessageBox(errMessage);
 				}
 				else
 				{

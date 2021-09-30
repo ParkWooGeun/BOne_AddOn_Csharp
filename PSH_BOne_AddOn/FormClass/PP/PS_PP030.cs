@@ -698,7 +698,7 @@ namespace PSH_BOne_AddOn
         private bool PS_PP030_DataValidCheck()
         {
             bool returnValue = false;
-            string errCode = string.Empty;
+            string errMessage = string.Empty;
             int i = 0;
             int Lot104Exsits;
             string query01;
@@ -715,32 +715,38 @@ namespace PSH_BOne_AddOn
 
                 if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "선택")
                 {
-                    errCode = "1";
+                    errMessage = "작지구분은 필수입니다.";
+                    oForm.Items.Item("OrdGbn").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     throw new Exception();
                 }
                 else if (oForm.Items.Item("BPLId").Specific.Selected.Value == "선택")
                 {
-                    errCode = "2";
+                    errMessage = "사업장은 필수입니다.";
+                    oForm.Items.Item("BPLId").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     throw new Exception();
                 }
                 else if (string.IsNullOrEmpty(oForm.Items.Item("OrdNum").Specific.Value) || string.IsNullOrEmpty(oForm.Items.Item("OrdSub1").Specific.Value) || string.IsNullOrEmpty(oForm.Items.Item("OrdSub2").Specific.Value))
                 {
-                    errCode = "3";
+                    errMessage = "작지번호는 필수입니다.";
+                    oForm.Items.Item("OrdMgNum").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     throw new Exception();
                 }
                 else if (string.IsNullOrEmpty(oForm.Items.Item("DocDate").Specific.Value))
                 {
-                    errCode = "4";
+                    errMessage = "지시일자는 필수입니다.";
+                    oForm.Items.Item("DocDate").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     throw new Exception();
                 }
                 else if (string.IsNullOrEmpty(oForm.Items.Item("ItemCode").Specific.Value))
                 {
-                    errCode = "5";
+                    errMessage = "품목코드는 필수입니다.";
+                    oForm.Items.Item("ItemCode").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     throw new Exception();
                 }
                 else if (Convert.ToDouble(oForm.Items.Item("SelWt").Specific.Value) <= 0)
                 {
-                    errCode = "6";
+                    errMessage = "지시수,중량이 올바르지 않습니다.";
+                    oForm.Items.Item("SelWt").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     throw new Exception();
                 }
 
@@ -751,8 +757,8 @@ namespace PSH_BOne_AddOn
                     RecordSet01.DoQuery(query01);
                     if (RecordSet01.Fields.Item(0).Value == 1)
                     {
-                        errCode = "7";
                         baseItemWeight = RecordSet01.Fields.Item(1).Value;
+                        errMessage = "원재료 사용량을 초과하였습니다. 담당자에게 문의하세요. (" + baseItemWeight + " kg)";
                         throw new Exception();
                     }
 
@@ -764,20 +770,18 @@ namespace PSH_BOne_AddOn
                     {
                         if (oMat02.VisualRowCount <= 1)
                         {
-                            errCode = "8";
+                            errMessage = "투입자재라인이 존재하지 않습니다.";
                             throw new Exception();
                         }
                     }
                 }
                 else if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "105")
                 {
-
                     if (PS_PP030_CheckDate() == false)
                     {
-                        errCode = "9";
+                        errMessage = "작업지시등록일은 작번등록일과 같거나 늦어야합니다. 확인하십시오.";
                         throw new Exception();
                     }
-
                 }
                 else if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "101") //휘팅일경우
                 {
@@ -785,7 +789,7 @@ namespace PSH_BOne_AddOn
 
                 if (oMat03.VisualRowCount <= 1)
                 {
-                    errCode = "10";
+                    errMessage = "공정리스트 라인이 존재하지 않습니다.";
                     throw new Exception();
                 }
 
@@ -793,17 +797,19 @@ namespace PSH_BOne_AddOn
                 {
                     if (oMat02.Columns.Item("InputGbn").Cells.Item(i).Specific.Selected == null)
                     {
-                        errCode = "11";
+                        errMessage = "투입구분은 필수입니다.";
+                        oMat02.Columns.Item("InputGbn").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                         throw new Exception();
                     }
                     else if (string.IsNullOrEmpty(oMat02.Columns.Item("ItemCode").Cells.Item(i).Specific.Value))
                     {
-                        errCode = "12";
+                        errMessage = "품목은 필수입니다.";
+                        oMat02.Columns.Item("ItemCode").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                         throw new Exception();
                     }
                     else if (oMat02.Columns.Item("ItemGpCd").Cells.Item(i).Specific.Selected == null)
                     {
-                        errCode = "13";
+                        errMessage = "품목그룹은 필수입니다.";
                         throw new Exception();
                     }
                     else if (oForm.Items.Item("OrdGbn").Specific.Selected.Value != "104"
@@ -813,7 +819,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (oMat02.VisualRowCount > 2)
                         {
-                            errCode = "14";
+                            errMessage = "해당작지는 투입자재 한품목만 입력가능합니다.";
                             throw new Exception();
                         }
                     }
@@ -821,12 +827,14 @@ namespace PSH_BOne_AddOn
                     {
                         if (oMat02.Columns.Item("ProcType").Cells.Item(i).Specific.Selected == null)
                         {
-                            errCode = "15";
+                            errMessage = "조달방식은 필수입니다.";
+                            oMat02.Columns.Item("ProcType").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             throw new Exception();
                         }
                         else if (Convert.ToDouble(oMat02.Columns.Item("Weight").Cells.Item(i).Specific.Value) <= 0)
                         {
-                            errCode = "16";
+                            errMessage = "수/중량은 필수입니다.";
+                            oMat02.Columns.Item("Weight").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             throw new Exception();
                         }
 
@@ -834,7 +842,8 @@ namespace PSH_BOne_AddOn
                         {
                             if (oMat02.Columns.Item("RCode").Cells.Item(i).Specific.Selected == null)
                             {
-                                errCode = "17";
+                                errMessage = i + "행의 원재료 청구가 중복되어 재청구사유를 필수로 입력하여야 합니다.";
+                                oMat02.Columns.Item("RCode").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                                 throw new Exception();
                             }
                         }
@@ -843,12 +852,12 @@ namespace PSH_BOne_AddOn
                     {
                         if (Convert.ToDouble(oMat02.Columns.Item("Weight").Cells.Item(i).Specific.Value) <= 0)
                         {
-                            errCode = "18";
+                            errMessage = "수/중량은 필수입니다.";
                             throw new Exception();
                         }
                         if (string.IsNullOrEmpty(oMat02.Columns.Item("BatchNum").Cells.Item(i).Specific.Value))
                         {
-                            errCode = "19";
+                            errMessage = "배치번호는 필수입니다.";
                             throw new Exception();
                         }
                     }
@@ -858,31 +867,33 @@ namespace PSH_BOne_AddOn
                 {
                     if (string.IsNullOrEmpty(oMat03.Columns.Item("CpBCode").Cells.Item(i).Specific.Value))
                     {
-                        errCode = "20";
+                        errMessage = "공정대분류는 필수입니다.";
+                        oMat03.Columns.Item("CpBCode").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                         throw new Exception();
                     }
                     else if (string.IsNullOrEmpty(oMat03.Columns.Item("CpCode").Cells.Item(i).Specific.Value))
                     {
-                        errCode = "21";
+                        errMessage = "공정중분류는 필수입니다.";
+                        oMat03.Columns.Item("CpCode").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                         throw new Exception();
                     }
                 }
 
                 if (PS_PP030_Validate("검사01") == false)
                 {
-                    errCode = "22";
+                    errMessage = "";
                     throw new Exception();
                 }
 
                 if (PS_PP030_Validate("검사02") == false)
                 {
-                    errCode = "23";
+                    errMessage = "";
                     throw new Exception();
                 }
 
                 if (PS_PP030_Validate("검사03") == false)
                 {
-                    errCode = "24";
+                    errMessage = "";
                     throw new Exception();
                 }
 
@@ -895,118 +906,17 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if (errCode == "1")
+                if (errMessage != string.Empty)
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("작지구분은 필수입니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    oForm.Items.Item("OrdGbn").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
                 }
-                else if (errCode == "2")
+                else if (errMessage == "")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("사업장은 필수입니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    oForm.Items.Item("BPLId").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                }
-                else if (errCode == "3")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("작지번호는 필수입니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    oForm.Items.Item("OrdMgNum").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                }
-                else if (errCode == "4")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("지시일자는 필수입니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    oForm.Items.Item("DocDate").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                }
-                else if (errCode == "5")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("품목코드는 필수입니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    oForm.Items.Item("ItemCode").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                }
-                else if (errCode == "6")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("지시수,중량이 올바르지 않습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    oForm.Items.Item("SelWt").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                }
-                else if (errCode == "7")
-                {
-                    PSH_Globals.SBO_Application.MessageBox("원재료 사용량을 초과하였습니다. 담당자에게 문의하세요. (" + baseItemWeight + " kg)");
-                }
-                else if (errCode == "8")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("투입자재라인이 존재하지 않습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "9")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("작업지시등록일은 작번등록일과 같거나 늦어야합니다. 확인하십시오.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "10")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("공정리스트 라인이 존재하지 않습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "11")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("투입구분은 필수입니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    oMat02.Columns.Item("InputGbn").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                }
-                else if (errCode == "12")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("품목은 필수입니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    oMat02.Columns.Item("ItemCode").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                }
-                else if (errCode == "13")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("품목그룹은 필수입니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "14")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("해당작지는 투입자재 한품목만 입력가능합니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "15")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("조달방식은 필수입니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    oMat02.Columns.Item("ProcType").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                }
-                else if (errCode == "16")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("수,중량은 필수입니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    oMat02.Columns.Item("Weight").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                }
-                else if (errCode == "17")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(i + "행의 원재료 청구가 중복되어 재청구사유를 필수로 입력하여야 합니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    oMat02.Columns.Item("RCode").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                }
-                else if (errCode == "18")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("수,중량은 필수입니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "19")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("배치번호는 필수입니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "20")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("공정대분류는 필수입니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    oMat03.Columns.Item("CpBCode").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                }
-                else if (errCode == "21")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("공정중분류는 필수입니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    oMat03.Columns.Item("CpCode").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                }
-                else if (errCode == "22")
-                {
-                    //PS_PP030_Validate에서 에러 출력
-                }
-                else if (errCode == "23")
-                {
-                    //PS_PP030_Validate에서 에러 출력
-                }
-                else if (errCode == "24")
-                {
-                    //PS_PP030_Validate에서 에러 출력
+                    //처리 안함
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + (char)13 + ex.Message);
                 }
             }
             finally
@@ -1115,7 +1025,7 @@ namespace PSH_BOne_AddOn
             int j;
             string query01;
             bool Exist;
-            string errCode = string.Empty;
+            string errMessage = string.Empty;
             SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -1123,7 +1033,7 @@ namespace PSH_BOne_AddOn
             {
                 if (dataHelpClass.GetValue("SELECT Canceled FROM [@PS_PP030H] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "Y")
                 {
-                    errCode = "취소";
+                    errMessage = "이미 취소된 문서입니다. 처리할 수 없습니다.";
                     throw new Exception();
                 }
                 
@@ -1153,10 +1063,10 @@ namespace PSH_BOne_AddOn
                                     Exist = true;
                                     if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "105" || oForm.Items.Item("OrdGbn").Specific.Selected.Value == "106") //몰드,기계공구
                                     {
-                                        //DB상에는 청구이고 매트릭스의 조달방법이 잔재로 변경된경우 수정할수 없다.
+                                        //DB상에는 청구이고 매트릭스의 조달방법이 잔재로 변경된경우 수정불가
                                         if (RecordSet01.Fields.Item(2).Value == "10" && oMat02.Columns.Item("ProcType").Cells.Item(j).Specific.Selected.Value != "10")
                                         {
-                                            errCode = "구매요청";
+                                            errMessage = "구매요청 등록된 행입니다. 처리할 수 없습니다.";
                                             throw new Exception();
                                         }
                                     }
@@ -1166,12 +1076,11 @@ namespace PSH_BOne_AddOn
                         
                         if (Exist == false) //삭제된 행중 구매요청에 아직 존재하면 수정불가
                         {
-                            
                             if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "105" || oForm.Items.Item("OrdGbn").Specific.Selected.Value == "106") //몰드,기계공구
                             {
                                 if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] WHERE U_OrdType = '10' AND Canceled = 'N' AND U_PP030HNo = '" + RecordSet01.Fields.Item(0).Value + "' AND U_PP030LNo = '" + RecordSet01.Fields.Item(1).Value + "'", 0, 1)) > 0)
                                 {
-                                    errCode = "구매요청";
+                                    errMessage = "구매요청 등록된 행입니다. 처리할 수 없습니다.";
                                     throw new Exception();
                                 }
                             }
@@ -1180,11 +1089,10 @@ namespace PSH_BOne_AddOn
                             {
                                 if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + RecordSet01.Fields.Item(0).Value + "'", 0, 1)) > 0)
                                 {
-                                    errCode = "작업일보";
+                                    errMessage = "작업일보 등록된 행입니다. 처리할 수 없습니다.";
                                     throw new Exception();
                                 }
                             }
-                            //휘팅,부품은 삭제 체크 불필요
                         }
                         RecordSet01.MoveNext();
                     }
@@ -1237,7 +1145,7 @@ namespace PSH_BOne_AddOn
                                     }
                                     else
                                     {
-                                        errCode = "작업일보";
+                                        errMessage = "작업일보 등록된 행입니다. 처리할 수 없습니다.";
                                         throw new Exception();
                                     }
                                 }
@@ -1293,7 +1201,7 @@ namespace PSH_BOne_AddOn
                                         }
                                         else
                                         {
-                                            errCode = "구매요청";
+                                            errMessage = "구매요청 등록된 행입니다. 처리할 수 없습니다.";
                                             throw new Exception();
                                         }
                                     }
@@ -1343,7 +1251,7 @@ namespace PSH_BOne_AddOn
                             {
                                 if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM130H] PS_MM130H LEFT JOIN [@PS_MM130L] PS_MM130L ON PS_MM130H.DocEntry = PS_MM130L.DocEntry WHERE PS_MM130H.Canceled = 'N' AND PS_MM130L.U_PP030HNo = '" + RecordSet01.Fields.Item(0).Value + "' AND PS_MM130L.U_PP030MNo = '" + RecordSet01.Fields.Item(1).Value + "'", 0, 1)) > 0)
                                 {
-                                    errCode = "외주반출";
+                                    errMessage = "외주반출 등록된 행입니다. 처리할 수 없습니다.";
                                     throw new Exception();
                                 }
                             }
@@ -1353,7 +1261,7 @@ namespace PSH_BOne_AddOn
                             {
                                 if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] PS_MM005H WHERE PS_MM005H.U_OrdType in ('30','40') AND PS_MM005H.Canceled = 'N' AND PS_MM005H.U_PP030DL = '" + RecordSet01.Fields.Item(0).Value + "-" + RecordSet01.Fields.Item(1).Value + "'", 0, 1)) > 0)
                                 {
-                                    errCode = "외주청구";
+                                    errMessage = "외주청구 등록된 행입니다. 처리할 수 없습니다.";
                                     throw new Exception();
                                 }
                             }
@@ -1401,7 +1309,7 @@ namespace PSH_BOne_AddOn
                                     else
                                     {
                                         oMat03.SelectRow(i, true, false);
-                                        errCode = "작업일보";
+                                        errMessage = "작업일보 등록된 행입니다. 처리할 수 없습니다.";
                                         throw new Exception();
                                     }
                                 }
@@ -1409,7 +1317,6 @@ namespace PSH_BOne_AddOn
 
                             if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "101")
                             {
-                                
                                 if (oMat03.Columns.Item("WorkGbn").Cells.Item(i).Specific.Selected.Value == "10") //자가인 행은 제외
                                 {
                                 }
@@ -1446,7 +1353,7 @@ namespace PSH_BOne_AddOn
                                         else
                                         {
                                             oMat03.SelectRow(i, true, false);
-                                            errCode = "외주반출";
+                                            errMessage = "외주반출 등록된 행입니다. 처리할 수 없습니다.";
                                             throw new Exception();
                                         }
                                     }
@@ -1492,7 +1399,7 @@ namespace PSH_BOne_AddOn
                                         else
                                         {
                                             oMat03.SelectRow(i, true, false);
-                                            errCode = "외주청구";
+                                            errMessage = "외주청구 등록된 행입니다. 처리할 수 없습니다.";
                                             throw new Exception();
                                         }
                                     }
@@ -1514,7 +1421,7 @@ namespace PSH_BOne_AddOn
                         {
                             if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                             {
-                                errCode = "작업일보";
+                                errMessage = "작업일보 등록된 행입니다. 처리할 수 없습니다.";
                                 throw new Exception();
                             }
                         }
@@ -1522,7 +1429,7 @@ namespace PSH_BOne_AddOn
                         {
                             if (dataHelpClass.GetValue("SELECT U_OKYN FROM [@PS_MM005H] WHERE U_OrdType = '10' AND Canceled = 'N' AND U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND U_PP030LNo = '" + oMat02.Columns.Item("LineId").Cells.Item(oMat02Row02).Specific.Value.ToString().Trim() + "'", 0, 1) == "Y")
                             {
-                                errCode = "구매요청";
+                                errMessage = "구매요청 등록된 행입니다. 처리할 수 없습니다.";
                                 throw new Exception();
                             }
                         }
@@ -1540,7 +1447,7 @@ namespace PSH_BOne_AddOn
                         {
                             if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                             {
-                                errCode = "작업일보";
+                                errMessage = "작업일보 등록된 행입니다. 처리할 수 없습니다.";
                                 throw new Exception();
                             }
                         }
@@ -1548,7 +1455,7 @@ namespace PSH_BOne_AddOn
                         {
                             if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] WHERE U_OrdType = '10' AND Canceled = 'N' AND U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND U_PP030LNo = '" + oMat02.Columns.Item("LineId").Cells.Item(oMat02Row02).Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                             {
-                                errCode = "구매요청";
+                                errMessage = "구매요청 등록된 행입니다. 처리할 수 없습니다.";
                                 throw new Exception();
                             }
                         }
@@ -1566,7 +1473,7 @@ namespace PSH_BOne_AddOn
                         {
                             if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND PS_PP040L.U_PP030MNo = '" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                             {
-                                errCode = "작업일보";
+                                errMessage = "작업일보 등록된 행입니다. 처리할 수 없습니다.";
                                 throw new Exception();
                             }
                         }
@@ -1576,7 +1483,7 @@ namespace PSH_BOne_AddOn
                         {
                             if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM130H] PS_MM130H LEFT JOIN [@PS_MM130L] PS_MM130L ON PS_MM130H.DocEntry = PS_MM130L.DocEntry WHERE PS_MM130H.Canceled = 'N' AND PS_MM130L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND PS_MM130L.U_PP030MNo = '" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                             {
-                                errCode = "외주반출";
+                                errMessage = "외주반출 등록된 행입니다. 처리할 수 없습니다.";
                                 throw new Exception();
                             }
                         }
@@ -1586,7 +1493,7 @@ namespace PSH_BOne_AddOn
                         {
                             if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] PS_MM005H WHERE U_OrdType IN ('30','40') AND PS_MM005H.Canceled = 'N' AND PS_MM005H.U_PP030DL = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "-" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                             {
-                                errCode = "외주청구";
+                                errMessage = "외주청구 등록된 행입니다. 처리할 수 없습니다.";
                                 throw new Exception();
                             }
                         }
@@ -1602,7 +1509,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND PS_PP040L.U_PP030MNo = '" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                         {
-                            errCode = "작업일보";
+                            errMessage = "작업일보 등록된 행입니다. 처리할 수 없습니다.";
                             throw new Exception();
                         }
 
@@ -1611,7 +1518,7 @@ namespace PSH_BOne_AddOn
                         {
                             if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM130H] PS_MM130H LEFT JOIN [@PS_MM130L] PS_MM130L ON PS_MM130H.DocEntry = PS_MM130L.DocEntry WHERE PS_MM130H.Canceled = 'N' AND PS_MM130L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND PS_MM130L.U_PP030MNo = '" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                             {
-                                errCode = "외주반출";
+                                errMessage = "외주반출 등록된 행입니다. 처리할 수 없습니다.";
                                 throw new Exception();
                             }
                         }
@@ -1621,7 +1528,7 @@ namespace PSH_BOne_AddOn
                         {
                             if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] PS_MM005H WHERE U_OrdType IN ('30','40') AND PS_MM005H.Canceled = 'N' AND PS_MM005H.U_PP030DL = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "-" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                             {
-                                errCode = "외주청구";
+                                errMessage = "외주청구 등록된 행입니다. 처리할 수 없습니다.";
                                 throw new Exception();
                             }
                         }
@@ -1637,7 +1544,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND PS_PP040L.U_PP030MNo = '" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                         {
-                            errCode = "작업일보";
+                            errMessage = "작업일보 등록된 행입니다. 처리할 수 없습니다.";
                             throw new Exception();
                         }
 
@@ -1646,7 +1553,7 @@ namespace PSH_BOne_AddOn
                         {
                             if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM130H] PS_MM130H LEFT JOIN [@PS_MM130L] PS_MM130L ON PS_MM130H.DocEntry = PS_MM130L.DocEntry WHERE PS_MM130H.Canceled = 'N' AND PS_MM130L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' AND PS_MM130L.U_PP030MNo = '" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                             {
-                                errCode = "외주반출";
+                                errMessage = "외주반출 등록된 행입니다. 처리할 수 없습니다.";
                                 throw new Exception();
                             }
                         }
@@ -1656,7 +1563,7 @@ namespace PSH_BOne_AddOn
                         {
                             if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] PS_MM005H WHERE U_OrdType IN ('30','40) AND PS_MM005H.Canceled = 'N' AND PS_MM005H.U_PP030DL = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "-" + oMat03.Columns.Item("LineId").Cells.Item(oMat03Row03).Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                             {
-                                errCode = "외주청구";
+                                errMessage = "외주청구 등록된 행입니다. 처리할 수 없습니다.";
                                 throw new Exception();
                             }
                         }
@@ -1666,7 +1573,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (dataHelpClass.GetValue("SELECT Canceled FROM [@PS_PP030H] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "Y")
                     {
-                        errCode = "취소";
+                        errMessage = "이미 취소된 문서입니다. 처리할 수 없습니다.";
                         throw new Exception();
                     }
                     
@@ -1674,14 +1581,14 @@ namespace PSH_BOne_AddOn
                     {
                         if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] WHERE U_OrdType = '10' AND Canceled = 'N' AND U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value + "' AND U_OKYN = 'Y'", 0, 1)) > 0)
                         {
-                            errCode = "구매요청";
+                            errMessage = "구매요청 등록된 행입니다. 처리할 수 없습니다.";
                             throw new Exception();
                         }
                     }
 
                     if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1)) > 0)
                     {
-                        errCode = "";
+                        errMessage = "";
                         throw new Exception();
                     }
 
@@ -1690,7 +1597,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM130H] PS_MM130H LEFT JOIN [@PS_MM130L] PS_MM130L ON PS_MM130H.DocEntry = PS_MM130L.DocEntry WHERE PS_MM130H.Canceled = 'N' AND PS_MM130L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                         {
-                            errCode = "외주반출";
+                            errMessage = "외주반출 등록된 행입니다. 처리할 수 없습니다.";
                             throw new Exception();
                         }
                     }
@@ -1701,7 +1608,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_MM005H] PS_MM005H WHERE U_OrdType IN ('30','40') AND PS_MM005H.Canceled = 'N' AND U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
                         {
-                            errCode = "외주청구";
+                            errMessage = "외주청구 등록된 행입니다. 처리할 수 없습니다.";
                             throw new Exception();
                         }
                     }
@@ -1711,7 +1618,7 @@ namespace PSH_BOne_AddOn
                     //닫기가능유무검사
                     if (dataHelpClass.GetValue("SELECT Status FROM [@PS_PP030H] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "C")
                     {
-                        errCode = "닫기";
+                        errMessage = "이미 닫기(종료)된 문서입니다. 처리할 수 없습니다.";
                         throw new Exception();
                     }
 
@@ -1727,7 +1634,7 @@ namespace PSH_BOne_AddOn
 
                     if (Convert.ToDouble(dataHelpClass.GetValue(query01, 0, 1)) > 0)
                     {
-                        errCode = "재고";
+                        errMessage = "재고가 존재하는 문서입니다. 처리할 수 없습니다.";
                         throw new Exception();
                     }
                 }
@@ -1736,37 +1643,17 @@ namespace PSH_BOne_AddOn
             }
             catch(Exception ex)
             {
-                if (errCode == "구매요청")
+                if (errMessage != string.Empty)
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("구매요청 등록된 행입니다. 처리할 수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
                 }
-                else if (errCode == "외주반출")
+                else if (errMessage == "")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("외주반출 등록된 행입니다. 처리할 수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "외주청구")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("외주청구 등록된 행입니다. 처리할 수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "작업일보")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("작업일보 등록된 행입니다. 처리할 수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "취소")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("이미 취소된 문서입니다. 처리할 수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "닫기")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("이미 닫기(종료)된 문서입니다. 처리할 수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errCode == "재고")
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("재고가 존재하는 문서입니다. 처리할 수 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    //처리 안함
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + (char)13 + ex.Message);
                 }
             }
             finally
@@ -2326,7 +2213,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                query01 = "   SELECT '" +   DocEntry + "',";
+                query01 = "  SELECT '" +   DocEntry + "',";
                 query01 += "'" +           DocEntry + "',";
                 query01 += "               PS_PP030L.U_ItemCode,";
                 query01 += "               PS_PP030L.U_ItemName,";
@@ -2809,9 +2696,9 @@ namespace PSH_BOne_AddOn
                 case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
                     Raise_EVENT_GOT_FOCUS(FormUID, ref pVal, ref BubbleEvent);
                     break;
-                //case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
-                //    //Raise_EVENT_LOST_FOCUS(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
+                    //Raise_EVENT_LOST_FOCUS(FormUID, ref pVal, ref BubbleEvent);
+                    break;
                 case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
                     Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
                     break;
@@ -2886,8 +2773,6 @@ namespace PSH_BOne_AddOn
             string oOrdGbn01;
             short li_Cnt;
             short li_LineId;
-            //object lChildForm = null; //팝업창 호출 용 변수(2012.04.12 송명규)
-
             SAPbobsCOM.Recordset RecordSet01 = null;
             SAPbouiCOM.ProgressBar ProgBar01 = null;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -4107,7 +3992,7 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_MATRIX_LOAD(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            int i;            
+            int i;
 
             try
             {

@@ -398,8 +398,8 @@ namespace PSH_BOne_AddOn
 
                     oForm.Items.Item("OrdGbn").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
                     oForm.Items.Item("BPLId").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-                    oForm.Items.Item("DocDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd"); //Microsoft.VisualBasic.Compatibility.VB6.Support.Format(DateAndTime.Today, "YYYYMMDD");
-                    oForm.Items.Item("DueDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd"); //Microsoft.VisualBasic.Compatibility.VB6.Support.Format(DateAndTime.Today, "YYYYMMDD");
+                    oForm.Items.Item("DocDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
+                    oForm.Items.Item("DueDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
                     oForm.Items.Item("SItemCod").Specific.Value = "";
                     oForm.Items.Item("SCardCod").Specific.Value = "";
                     oForm.Items.Item("OrdMgNum").Specific.Value = "";
@@ -407,7 +407,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("OrdSub1").Specific.Value = "";
                     oForm.Items.Item("OrdSub2").Specific.Value = "";
                     oForm.Items.Item("BasicGub").Specific.Select(1, SAPbouiCOM.BoSearchKey.psk_Index);
-                    oForm.Items.Item("OrdMgNum").Specific.Value = DateTime.Now.ToString("yyyyMMdd"); //Microsoft.VisualBasic.Compatibility.VB6.Support.Format(DateAndTime.Today, "YYYYMMDD");
+                    oForm.Items.Item("OrdMgNum").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
                     oForm.Items.Item("CntcCode").Specific.Value = dataHelpClass.User_MSTCOD();
                     oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
                     oForm.Items.Item("Total").Specific.Value = "0";
@@ -699,10 +699,10 @@ namespace PSH_BOne_AddOn
         {
             bool returnValue = false;
             string errMessage = string.Empty;
-            int i = 0;
+            int i;
             int Lot104Exsits;
             string query01;
-            double baseItemWeight = 0;
+            double baseItemWeight;
             SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
 
@@ -1339,7 +1339,7 @@ namespace PSH_BOne_AddOn
                                         query01 += "                ON PS_PP030H.DocEntry = PS_PP030M.DocEntry";
                                         query01 += " WHERE      PS_PP030H.DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'";
                                         query01 += "            AND PS_PP030M.LineId = '" + oMat03.Columns.Item("LineId").Cells.Item(i).Specific.Value.ToString().Trim() + "'";
-                                        query01 += " AND PS_PP030H.Canceled = 'N'";
+                                        query01 += "            AND PS_PP030H.Canceled = 'N'";
                                         RecordSet01.DoQuery(query01);
 
                                         if (RecordSet01.Fields.Item(0).Value == oMat03.Columns.Item("CpBCode").Cells.Item(i).Specific.Value 
@@ -1385,8 +1385,8 @@ namespace PSH_BOne_AddOn
                                         query01 += "            [@PS_PP030M] PS_PP030M";
                                         query01 += "                ON PS_PP030H.DocEntry = PS_PP030M.DocEntry";
                                         query01 += " WHERE      PS_PP030H.DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'";
-                                        query01 += " AND PS_PP030M.LineId = '" + oMat03.Columns.Item("LineId").Cells.Item(i).Specific.Value.ToString().Trim() + "'";
-                                        query01 += " AND PS_PP030H.Canceled = 'N'";
+                                        query01 += "            AND PS_PP030M.LineId = '" + oMat03.Columns.Item("LineId").Cells.Item(i).Specific.Value.ToString().Trim() + "'";
+                                        query01 += "            AND PS_PP030H.Canceled = 'N'";
                                         RecordSet01.DoQuery(query01);
                                         if (RecordSet01.Fields.Item(0).Value == oMat03.Columns.Item("CpBCode").Cells.Item(i).Specific.Value 
                                          && RecordSet01.Fields.Item(1).Value == oMat03.Columns.Item("CpCode").Cells.Item(i).Specific.Value 
@@ -3132,6 +3132,7 @@ namespace PSH_BOne_AddOn
                         oLastColUID01 = "";
                         oLastColRow01 = 0;
                     }
+
                     if (pVal.ItemUID == "Mat01")
                     {
                         if (pVal.Row > 0)

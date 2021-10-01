@@ -1906,6 +1906,24 @@ namespace PSH_BOne_AddOn
                 }
                 else if (pVal.Before_Action == false)
                 {
+                    if (pVal.CharPressed == 38) //방향키(↑)
+                    {
+                        if (pVal.Row > 1 && pVal.Row <= oMat01.VisualRowCount)
+                        {
+                            oForm.Freeze(true);
+                            oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row - 1).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                            oForm.Freeze(false);
+                        }
+                    }
+                    else if (pVal.CharPressed == 40) //방향키(↓)
+                    {
+                        if (pVal.Row > 0 && pVal.Row < oMat01.VisualRowCount)
+                        {
+                            oForm.Freeze(true);
+                            oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row + 1).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                            oForm.Freeze(false);
+                        }
+                    }
                 }
             }
             catch (Exception ex)

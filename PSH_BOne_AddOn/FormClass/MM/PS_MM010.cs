@@ -75,11 +75,11 @@ namespace PSH_BOne_AddOn
                 PS_MM010_FormClear();
                 PS_MM010_Add_MatrixRow(0, true);
 
-                oForm.EnableMenu(("1283"), false); // 삭제
-                oForm.EnableMenu(("1286"), true); // 닫기
-                oForm.EnableMenu(("1287"), false); // 복제
-                oForm.EnableMenu(("1284"), true); // 취소
-                oForm.EnableMenu(("1293"), true); // 행삭제
+                oForm.EnableMenu("1283", false); // 삭제
+                oForm.EnableMenu("1286", true); // 닫기
+                oForm.EnableMenu("1287", false); // 복제
+                oForm.EnableMenu("1284", true); // 취소
+                oForm.EnableMenu("1293", true); // 행삭제
             }
             catch (Exception ex)
             {
@@ -498,7 +498,6 @@ namespace PSH_BOne_AddOn
 
                 WinTitle = "[PS_MM010]" + "견적의뢰서(결재)";
                 ReportName = "PS_MM010_01.RPT";
-
 
                 if (Purchase == "10")
                 {

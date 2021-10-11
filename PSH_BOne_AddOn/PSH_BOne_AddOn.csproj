@@ -205,6 +205,7 @@
     <Compile Include="FormClass\FI\PS_FI961.cs" />
     <Compile Include="FormClass\FI\PS_FI962.cs" />
     <Compile Include="FormClass\FX\PS_FX241.cs" />
+    <Compile Include="FormClass\MM\PS_MM007.cs" />
     <Compile Include="FormClass\MM\PS_MM005.cs" />
     <Compile Include="FormClass\MM\PS_MM006.cs" />
     <Compile Include="FormClass\MM\PS_MM007.cs" />
@@ -1945,6 +1946,30 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="PSH_BOne_AddOn\Menu_KOR.xml" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SY001.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SY005.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SY010.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SY002.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM010_S.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM510.srf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM007.srf" />
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM951.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM040.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM041.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM010.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM030.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY135.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY136.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY400.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY420.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY526.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY998.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY999.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PYA80.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PYA90.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SM030.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP092.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD035.srf" />
@@ -2138,6 +2163,29 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SM010.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP940.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP362.srf" />
+    <Content Include="PSH_BOne_AddOn\Menu_KOR.xml" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SY001.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SY005.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SY010.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SY002.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM010_S.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM510.srf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM951.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM040.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM041.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM010.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM030.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY135.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY136.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY400.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY420.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY526.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY998.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY999.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PYA80.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PYA90.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO606.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO920.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO921.srf" />

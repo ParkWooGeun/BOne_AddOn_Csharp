@@ -164,7 +164,7 @@ namespace PSH_BOne_AddOn
             string ServerName;
             SAPbobsCOM.Recordset oRecordSet = (SAPbobsCOM.Recordset)PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
-            
+
             ServerName = PSH_Globals.SBO_Application.Company.ServerName;
 
             sQry = "  SELECT      PARAM01 AS PARAM01,";
@@ -184,7 +184,8 @@ namespace PSH_BOne_AddOn
             {
                 //ODBC
                 //PSH_Globals.SP_ODBC_YN = Trim(oRecordset.Fields("Value01").Value)
-                if (codeHelpClass.Right(ServerName, 3) == "223"){
+                if (codeHelpClass.Right(ServerName, 3) == "223")
+                {
                     PSH_Globals.SP_ODBC_Name = "MDCERP";
                 }
                 else
@@ -258,7 +259,7 @@ namespace PSH_BOne_AddOn
                 }
                 //XML No »ý¼º
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("XmlCreateYN_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }

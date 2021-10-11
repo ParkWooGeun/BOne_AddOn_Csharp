@@ -59,6 +59,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:PSH_BOne_AddOn.Core.S150.S150_SetAuthorityStatus">
+            <summary>
+            추가/수정 시 승인을 위한 상태 변경
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.Core.S150.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event
@@ -86,6 +91,14 @@
         <member name="M:PSH_BOne_AddOn.Core.S150.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             CLICK 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Core.S150.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            VALIDATE 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
@@ -6152,7 +6165,7 @@
             <summary>
             Form 호출
             </summary>
-            <param name="oFromDocEntry01"></param>
+            <param name="oFormDocEntry"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM010.PS_MM010_CreateItems">
             <summary>
@@ -6193,12 +6206,12 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM010.PS_MM010_Print_Report01">
             <summary>
-            Report_Export
+            견적의뢰서 출력
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM010.PS_MM010_Print_Report02">
             <summary>
-            Report_Export
+            견적의뢰서(구매요청서) 출력
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM010.PS_MM010_FormItemEnabled">
@@ -35638,9 +35651,9 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PSH_MainClass.Check_ValidateForm(System.String)">
             <summary>
-            유효한 폼인지 검사
+            유효한 폼인지 검사(Collection에 저장되어 있는 Form, 이벤트를 실행시켜야 하는 Form)
             </summary>
-            <param name="FormType"></param>
+            <param name="FormUID"></param>returnValue
             <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PSH_MainClass.Create_USERForm(SAPbouiCOM.MenuEvent,PSH_BOne_AddOn.PSH_BaseClass@)">

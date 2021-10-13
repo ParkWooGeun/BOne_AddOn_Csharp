@@ -271,7 +271,7 @@ namespace PSH_BOne_AddOn
         /// <param name="RequestDate"></param>
         /// <param name="DueDate"></param>
         /// <param name="ItemType"></param>
-        /// <param name="RequestNo"></param>
+        /// <param name="RequestNo"></param>PS_RFC_Sender
         /// <param name="BEDNR"></param>
         /// <param name="i"></param>
         /// <param name="LastRow"></param>
@@ -290,7 +290,7 @@ namespace PSH_BOne_AddOn
             string errCode = string.Empty;
             RfcDestination rfcDest = null;
             RfcRepository rfcRep = null;
-            IRfcFunction oFunction = null;
+            IRfcFunction oFunction;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
@@ -382,7 +382,7 @@ namespace PSH_BOne_AddOn
                 oFunction.SetValue("I_BEDNR", BEDNR); //구매담당자(전화번호)
                 oFunction.SetValue("I_BSART", Rotate); //순환품 구매요청
 
-                errCode = "1"; // 아래 invoke 오류 체크를 위한 변수대입
+                errCode = "E1"; // 아래 invoke 오류 체크를 위한 변수대입
                 oFunction.Invoke(rfcDest); //Function 실행
                 errCode = string.Empty;// 이상 없을 경우 초기화
                 if (string.IsNullOrEmpty(oFunction.GetValue("E_MESSAGE").ToString()))
@@ -425,7 +425,7 @@ namespace PSH_BOne_AddOn
                             oFunction.SetValue("I_WERKS", WERKS); //사업장
                             oFunction.SetValue("I_FILENAME", FileName);
 
-                            errCode = "2"; //ZMM_INTF_GROUP_FILE 함수호출 체크를 위한 변수값 대입
+                            errCode = "E2"; //ZMM_INTF_GROUP_FILE 함수호출 체크를 위한 변수값 대입
                             oFunction.Invoke(rfcDest); //Function 실행
                             errCode = string.Empty; // 이상 없을 경우 초기화
 
@@ -467,20 +467,6 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                if (rfcDest != null)
-                {
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(rfcDest);
-                }
-
-                if (rfcRep != null)
-                {
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(rfcRep);
-                }
-                
-                if (oFunction != null)
-                {
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oFunction);
-                }
             }
             return returnValue;
         }
@@ -607,27 +593,6 @@ namespace PSH_BOne_AddOn
                             oForm.Items.Item("Purchase").Enabled = false;
                             oForm.Items.Item("DocDate").Enabled = true;
                             oForm.Items.Item("Mat01").Enabled = true;
-                        }
-                        else if (oDS_PS_MM010H.GetValue("U_PQType", 0).ToString().Trim() == "20")
-                        {
-                            if (oDS_PS_MM010H.GetValue("U_RFCAdms", 0).ToString().Trim() == "Y")
-                            {
-                                oForm.Items.Item("BPLId").Enabled = false;
-                                oForm.Items.Item("CntcCode").Enabled = false;
-                                oForm.Items.Item("PQType").Enabled = false;
-                                oForm.Items.Item("Purchase").Enabled = false;
-                                oForm.Items.Item("DocDate").Enabled = false;
-                                oForm.Items.Item("Mat01").Enabled = false;
-                            }
-                            else
-                            {
-                                oForm.Items.Item("BPLId").Enabled = true;
-                                oForm.Items.Item("CntcCode").Enabled = true;
-                                oForm.Items.Item("PQType").Enabled = true;
-                                oForm.Items.Item("Purchase").Enabled = true;
-                                oForm.Items.Item("DocDate").Enabled = true;
-                                oForm.Items.Item("Mat01").Enabled = true;
-                            }
                         }
                     }
                     else  //문서상태:닫기(취소)
@@ -1100,36 +1065,36 @@ namespace PSH_BOne_AddOn
                 case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD: //17
                     Raise_EVENT_FORM_UNLOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
-                //case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: //18
-                //    Raise_EVENT_FORM_ACTIVATE(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-                //case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE: //19
-                //    Raise_EVENT_FORM_DEACTIVATE(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-                //case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE: //20
-                //    Raise_EVENT_FORM_CLOSE(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-                //case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
-                //    Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-                //case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
-                //    Raise_EVENT_FORM_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-                //case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
-                //    Raise_EVENT_FORM_MENU_HILIGHT(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-                //case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
-                //    Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-                //case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED: //37
-                //    Raise_EVENT_PICKER_CLICKED(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-                //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
-                //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-                //case SAPbouiCOM.BoEventTypes.et_Drag: //39
-                //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: //18
+                    //    Raise_EVENT_FORM_ACTIVATE(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE: //19
+                    //    Raise_EVENT_FORM_DEACTIVATE(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE: //20
+                    //    Raise_EVENT_FORM_CLOSE(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
+                    //    Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
+                    //    Raise_EVENT_FORM_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
+                    //    Raise_EVENT_FORM_MENU_HILIGHT(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
+                    //    Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED: //37
+                    //    Raise_EVENT_PICKER_CLICKED(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
+                    //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_Drag: //39
+                    //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
             }
         }
 
@@ -1235,7 +1200,6 @@ namespace PSH_BOne_AddOn
                                         FileName = oDS_PS_MM010L.GetValue("U_FILENAME", i).ToString().Trim();
                                         Dir_Renamed = oDS_PS_MM010L.GetValue("U_Dir", i).ToString().Trim();
                                         ItmBsort = oDS_PS_MM010L.GetValue("U_ItemGpCd", i).ToString().Trim();
-
 
                                         //고정자산품의(60), 상품품의(50)
                                         if (oDS_PS_MM010H.GetValue("U_Purchase", 0).ToString().Trim() == "60" || oDS_PS_MM010H.GetValue("U_Purchase", 0).ToString().Trim() == "50")

@@ -1937,7 +1937,6 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_SD220_50.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_SD220_51.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_SD600_01.rpt" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EXT_Form\FileListBoxForm.resX">

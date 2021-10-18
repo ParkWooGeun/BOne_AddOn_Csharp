@@ -20,8 +20,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -51,7 +51,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY007_CreateItems();
                 PH_PY007_EnableMenus();
-                PH_PY007_SetDocument(oFormDocEntry01);
+                PH_PY007_SetDocument(oFormDocEntry);
             }
             catch (Exception ex)
             {
@@ -129,12 +129,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY007_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY007_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY007_FormItemEnabled();
                 }
@@ -142,7 +142,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY007_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -299,7 +299,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY007_DataValidCheck(string ChkYN)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string sQry;
             string tCode;
 
@@ -313,7 +313,7 @@ namespace PSH_BOne_AddOn
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                         oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                        return functionReturnValue;
+                        return returnValue;
                     }
                 }
 
@@ -321,7 +321,7 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("년은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("Year").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 // 코드,이름 저장
@@ -338,7 +338,7 @@ namespace PSH_BOne_AddOn
                     if (oRecordSet.RecordCount > 0)
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("이미 데이터가 존재합니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                        return functionReturnValue;
+                        return returnValue;
                     }
                 }
 
@@ -347,11 +347,11 @@ namespace PSH_BOne_AddOn
                     if (oMat1.VisualRowCount == 0)
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("데이터가 없습니다. 월력생성을 하기바랍니다", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                        return functionReturnValue;
+                        return returnValue;
                     }
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -361,7 +361,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -411,7 +411,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY007_Validate(string ValidateType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string errCode = string.Empty;
             
             PSH_DataHelpClass DataHelpClass = new PSH_DataHelpClass();
@@ -449,7 +449,7 @@ namespace PSH_BOne_AddOn
                 }
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -767,6 +767,9 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.Before_Action == true)
                 {   
+                }
+                else if (pVal.Before_Action == false)
+                {
                 }
                 else if (pVal.Before_Action == false)
                 {

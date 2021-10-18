@@ -224,7 +224,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         public bool PH_PY420_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string sQry;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
@@ -233,31 +233,31 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.MessageBox("사업장은 필수입니다.");
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    functionReturnValue = false;
-                    return functionReturnValue;
+                    returnValue = false;
+                    return returnValue;
                 }
                 // 년도
                 if (string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.MessageBox("년도는 필수입니다.");
                     oForm.Items.Item("Year").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    functionReturnValue = false;
-                    return functionReturnValue;
+                    returnValue = false;
+                    return returnValue;
                 }
                 // 분기
                 if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.MessageBox("사번은 필수입니다.");
                     oForm.Items.Item("MSTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    functionReturnValue = false;
-                    return functionReturnValue;
+                    returnValue = false;
+                    return returnValue;
                 }
                 if (string.IsNullOrEmpty(oForm.Items.Item("FullName").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.MessageBox("이름은 필수입니다.");
                     oForm.Items.Item("FullName").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    functionReturnValue = false;
-                    return functionReturnValue;
+                    returnValue = false;
+                    return returnValue;
                 }
                 sQry = "select count(*)  from [p_seoybase] where div in (10) and yyyy = '"+ oForm.Items.Item("Year").Specific.Value.Trim()  + "' and sabun ='"+ oForm.Items.Item("MSTCOD").Specific.Value.Trim() + "'";
                 oRecordSet.DoQuery(sQry);
@@ -271,11 +271,11 @@ namespace PSH_BOne_AddOn
                     text += "먼저 등록후 PDF 업로드 실행하세요.";
 
                     PSH_Globals.SBO_Application.MessageBox(text);
-                    functionReturnValue = false;
-                    return functionReturnValue;
+                    returnValue = false;
+                    return returnValue;
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -285,7 +285,7 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -293,9 +293,9 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private bool PH_PY420_PDFtoTable_insert()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
 
-            functionReturnValue = false;
+            returnValue = false;
             string sQry;
             string oFilePath;
             string mstcode;
@@ -317,7 +317,7 @@ namespace PSH_BOne_AddOn
                 sQry += "BULK '" + oFilePath + mstcode + "_PDFtoXML.xml', SINGLE_BLOB) AS x";
 
                 oRecordSet.DoQuery(sQry);
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -326,7 +326,7 @@ namespace PSH_BOne_AddOn
             finally
             {
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

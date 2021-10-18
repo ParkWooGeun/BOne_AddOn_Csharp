@@ -44,7 +44,7 @@ namespace PSH_BOne_AddOn
         #region GetValue (구현완료)
         //		public static object GetValue(string Query01, int FieldCount = 0, int RecordCount = 0)
         //		{
-        //			object functionReturnValue = null;
+        //			object returnValue = null;
         //			int i = 0;
         //			SAPbobsCOM.Recordset RecordSet01 = null;
         //			RecordSet01 = SubMain.Sbo_Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -57,16 +57,16 @@ namespace PSH_BOne_AddOn
         //				for (i = 1; i <= RecordCount; i++) {
         //					//UPGRADE_WARNING: RecordSet01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
         //					//UPGRADE_WARNING: GetValue 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //					functionReturnValue = RecordSet01.Fields.Item(FieldCount).Value;
+        //					returnValue = RecordSet01.Fields.Item(FieldCount).Value;
         //					RecordSet01.MoveNext();
         //				}
         //			} else {
         //				//UPGRADE_WARNING: GetValue 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				functionReturnValue = "";
+        //				returnValue = "";
         //			}
         //			//UPGRADE_NOTE: RecordSet01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			RecordSet01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
@@ -137,210 +137,210 @@ namespace PSH_BOne_AddOn
         #region GetItem_UnWeight (구현필요, 완료 2020.09.14)
         //		public static string GetItem_UnWeight(string ItemCode)
         //		{
-        //			string functionReturnValue = null;
+        //			string returnValue = null;
         //			string Query01 = null;
         //			SAPbobsCOM.Recordset RecordSet01 = null;
         //			RecordSet01 = SubMain.Sbo_Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
         //			Query01 = "SELECT U_UnWeight FROM [OITM] WHERE ItemCode = '" + ItemCode + "'";
         //			RecordSet01.DoQuery(Query01);
         //			if ((RecordSet01.RecordCount == 0)) {
-        //				functionReturnValue = "";
+        //				returnValue = "";
         //			} else {
         //				//UPGRADE_WARNING: RecordSet01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				functionReturnValue = RecordSet01.Fields.Item(0).Value;
+        //				returnValue = RecordSet01.Fields.Item(0).Value;
         //			}
         //			//UPGRADE_NOTE: RecordSet01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			RecordSet01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
         #region GetItem_ItmBsort (구현필요, 완료 2020.09.14)
         //		public static string GetItem_ItmBsort(string ItemCode)
         //		{
-        //			string functionReturnValue = null;
+        //			string returnValue = null;
         //			string Query01 = null;
         //			SAPbobsCOM.Recordset RecordSet01 = null;
         //			RecordSet01 = SubMain.Sbo_Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
         //			Query01 = "SELECT U_ItmBsort FROM [OITM] WHERE ItemCode = '" + ItemCode + "'";
         //			RecordSet01.DoQuery(Query01);
         //			if ((RecordSet01.RecordCount == 0)) {
-        //				functionReturnValue = "";
+        //				returnValue = "";
         //			} else {
         //				//UPGRADE_WARNING: RecordSet01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				functionReturnValue = RecordSet01.Fields.Item(0).Value;
+        //				returnValue = RecordSet01.Fields.Item(0).Value;
         //			}
         //			//UPGRADE_NOTE: RecordSet01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			RecordSet01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
         #region GetItem_SbasUnit (구현필요, 완료 2020.09.14)
         //		public static string GetItem_SbasUnit(string ItemCode)
         //		{
-        //			string functionReturnValue = null;
+        //			string returnValue = null;
         //			string Query01 = null;
         //			SAPbobsCOM.Recordset RecordSet01 = null;
         //			RecordSet01 = SubMain.Sbo_Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
         //			Query01 = "SELECT U_SBasUnit FROM [OITM] WHERE ItemCode = '" + ItemCode + "'";
         //			RecordSet01.DoQuery(Query01);
         //			if ((RecordSet01.RecordCount == 0)) {
-        //				functionReturnValue = "";
+        //				returnValue = "";
         //			} else {
         //				//UPGRADE_WARNING: RecordSet01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				functionReturnValue = RecordSet01.Fields.Item(0).Value;
+        //				returnValue = RecordSet01.Fields.Item(0).Value;
         //			}
         //			//UPGRADE_NOTE: RecordSet01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			RecordSet01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
         #region GetItem_ObasUnit (구현필요, 완료 2020.09.14)
         //		public static string GetItem_ObasUnit(string ItemCode)
         //		{
-        //			string functionReturnValue = null;
+        //			string returnValue = null;
         //			string Query01 = null;
         //			SAPbobsCOM.Recordset RecordSet01 = null;
         //			RecordSet01 = SubMain.Sbo_Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
         //			Query01 = "SELECT U_OBasUnit FROM [OITM] WHERE ItemCode = '" + ItemCode + "'";
         //			RecordSet01.DoQuery(Query01);
         //			if ((RecordSet01.RecordCount == 0)) {
-        //				functionReturnValue = "";
+        //				returnValue = "";
         //			} else {
         //				//UPGRADE_WARNING: RecordSet01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				functionReturnValue = RecordSet01.Fields.Item(0).Value;
+        //				returnValue = RecordSet01.Fields.Item(0).Value;
         //			}
         //			//UPGRADE_NOTE: RecordSet01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			RecordSet01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
         #region GetItem_Unit1 (구현필요, 완료 2020.09.14)
         //		public static string GetItem_Unit1(string ItemCode)
         //		{
-        //			string functionReturnValue = null;
+        //			string returnValue = null;
         //			string Query01 = null;
         //			SAPbobsCOM.Recordset RecordSet01 = null;
         //			RecordSet01 = SubMain.Sbo_Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
         //			Query01 = "SELECT U_UnitQ1 FROM [OITM] WHERE ItemCode = '" + ItemCode + "'";
         //			RecordSet01.DoQuery(Query01);
         //			if ((RecordSet01.RecordCount == 0)) {
-        //				functionReturnValue = "";
+        //				returnValue = "";
         //			} else {
         //				//UPGRADE_WARNING: RecordSet01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				functionReturnValue = RecordSet01.Fields.Item(0).Value;
+        //				returnValue = RecordSet01.Fields.Item(0).Value;
         //			}
         //			//UPGRADE_NOTE: RecordSet01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			RecordSet01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
         #region GetItem_Spec1 (구현필요, 완료 2020.09.14)
         //		public static string GetItem_Spec1(string ItemCode)
         //		{
-        //			string functionReturnValue = null;
+        //			string returnValue = null;
         //			string Query01 = null;
         //			SAPbobsCOM.Recordset RecordSet01 = null;
         //			RecordSet01 = SubMain.Sbo_Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
         //			Query01 = "SELECT U_Spec1 FROM [OITM] WHERE ItemCode = '" + ItemCode + "'";
         //			RecordSet01.DoQuery(Query01);
         //			if ((RecordSet01.RecordCount == 0)) {
-        //				functionReturnValue = "";
+        //				returnValue = "";
         //			} else {
         //				//UPGRADE_WARNING: RecordSet01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				functionReturnValue = RecordSet01.Fields.Item(0).Value;
+        //				returnValue = RecordSet01.Fields.Item(0).Value;
         //			}
         //			//UPGRADE_NOTE: RecordSet01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			RecordSet01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
         #region GetItem_Spec2 (구현필요, 완료 2020.09.14)
         //		public static string GetItem_Spec2(string ItemCode)
         //		{
-        //			string functionReturnValue = null;
+        //			string returnValue = null;
         //			string Query01 = null;
         //			SAPbobsCOM.Recordset RecordSet01 = null;
         //			RecordSet01 = SubMain.Sbo_Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
         //			Query01 = "SELECT U_Spec2 FROM [OITM] WHERE ItemCode = '" + ItemCode + "'";
         //			RecordSet01.DoQuery(Query01);
         //			if ((RecordSet01.RecordCount == 0)) {
-        //				functionReturnValue = "";
+        //				returnValue = "";
         //			} else {
         //				//UPGRADE_WARNING: RecordSet01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				functionReturnValue = RecordSet01.Fields.Item(0).Value;
+        //				returnValue = RecordSet01.Fields.Item(0).Value;
         //			}
         //			//UPGRADE_NOTE: RecordSet01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			RecordSet01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
         #region GetItem_Spec3 (구현필요, 완료 2020.09.14)
         //		public static string GetItem_Spec3(string ItemCode)
         //		{
-        //			string functionReturnValue = null;
+        //			string returnValue = null;
         //			string Query01 = null;
         //			SAPbobsCOM.Recordset RecordSet01 = null;
         //			RecordSet01 = SubMain.Sbo_Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
         //			Query01 = "SELECT U_Spec3 FROM [OITM] WHERE ItemCode = '" + ItemCode + "'";
         //			RecordSet01.DoQuery(Query01);
         //			if ((RecordSet01.RecordCount == 0)) {
-        //				functionReturnValue = "";
+        //				returnValue = "";
         //			} else {
         //				//UPGRADE_WARNING: RecordSet01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				functionReturnValue = RecordSet01.Fields.Item(0).Value;
+        //				returnValue = RecordSet01.Fields.Item(0).Value;
         //			}
         //			//UPGRADE_NOTE: RecordSet01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			RecordSet01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
         #region GetItem_ManBtchNum (구현필요, 완료 2020.09.14)
         //		public static string GetItem_ManBtchNum(string ItemCode)
         //		{
-        //			string functionReturnValue = null;
+        //			string returnValue = null;
         //			string Query01 = null;
         //			SAPbobsCOM.Recordset RecordSet01 = null;
         //			RecordSet01 = SubMain.Sbo_Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
         //			Query01 = "SELECT ManBtchNum FROM [OITM] WHERE ItemCode = '" + ItemCode + "'";
         //			RecordSet01.DoQuery(Query01);
         //			if ((RecordSet01.RecordCount == 0)) {
-        //				functionReturnValue = "";
+        //				returnValue = "";
         //			} else {
         //				//UPGRADE_WARNING: RecordSet01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				functionReturnValue = RecordSet01.Fields.Item(0).Value;
+        //				returnValue = RecordSet01.Fields.Item(0).Value;
         //			}
         //			//UPGRADE_NOTE: RecordSet01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			RecordSet01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
         #region GetItem_TradeType (구현필요, 완료 2020.09.14)
         //		public static string GetItem_TradeType(string ItemCode)
         //		{
-        //			string functionReturnValue = null;
+        //			string returnValue = null;
         //			string Query01 = null;
         //			SAPbobsCOM.Recordset RecordSet01 = null;
         //			RecordSet01 = SubMain.Sbo_Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
         //			Query01 = "SELECT U_TradeType FROM [OITM] WHERE ItemCode = '" + ItemCode + "'";
         //			RecordSet01.DoQuery(Query01);
         //			if ((RecordSet01.RecordCount == 0)) {
-        //				functionReturnValue = "";
+        //				returnValue = "";
         //			} else {
         //				//UPGRADE_WARNING: RecordSet01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				functionReturnValue = RecordSet01.Fields.Item(0).Value;
+        //				returnValue = RecordSet01.Fields.Item(0).Value;
         //			}
         //			//UPGRADE_NOTE: RecordSet01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			RecordSet01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
@@ -441,7 +441,7 @@ namespace PSH_BOne_AddOn
         //		// 아이템 네임에 작은 따옴표 추가	
         //		public static string Make_ItemName(string ItemName)
         //		{
-        //			string functionReturnValue = null;
+        //			string returnValue = null;
         //			 // ERROR: Not supported in C#: OnErrorStatement
 
         //			int i = 0;
@@ -455,13 +455,13 @@ namespace PSH_BOne_AddOn
         //				}
         //			}
 
-        //			functionReturnValue = Strings.Trim(TempItemName);
-        //			return functionReturnValue;
+        //			returnValue = Strings.Trim(TempItemName);
+        //			return returnValue;
         //			Make_ItemName_Error:
         //			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //			TempItemName = "";
         //			MDC_Com.MDC_GF_Message(ref "User_BPLId_Error:" + Err().Number + " - " + Err().Description, ref "E");
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
@@ -469,7 +469,7 @@ namespace PSH_BOne_AddOn
         //		// 아이디별 사업장 선택
         //		public static string User_BPLId()
         //		{
-        //			string functionReturnValue = null;
+        //			string returnValue = null;
         //			 // ERROR: Not supported in C#: OnErrorStatement
 
         //			string sQry = null;
@@ -480,17 +480,17 @@ namespace PSH_BOne_AddOn
         //			sQry = "Select Branch From [OUSR] Where USER_CODE = '" + Strings.Trim(SubMain.Sbo_Company.UserName) + "'";
         //			oRecordset01.DoQuery(sQry);
 
-        //			functionReturnValue = Strings.Trim(oRecordset01.Fields.Item(0).Value);
+        //			returnValue = Strings.Trim(oRecordset01.Fields.Item(0).Value);
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //			User_BPLId_Error:
         //			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			functionReturnValue = "0";
+        //			returnValue = "0";
         //			MDC_Com.MDC_GF_Message(ref "User_BPLId_Error:" + Err().Number + " - " + Err().Description, ref "E");
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
@@ -498,7 +498,7 @@ namespace PSH_BOne_AddOn
         //		// 아이디별 창고 선택 [기본창고 1, 외주가공 8, 임가공 9]
         //		public static string User_WhsCode(string Gbn)
         //		{
-        //			string functionReturnValue = null;
+        //			string returnValue = null;
         //			 // ERROR: Not supported in C#: OnErrorStatement
 
         //			string sQry = null;
@@ -510,17 +510,17 @@ namespace PSH_BOne_AddOn
         //			sQry = sQry + "And LEFT(WhsCode, 1) = '" + Gbn + "' And RIGHT(a.WhsCode, 2) = RIGHT(b.DfltsGroup, 2)";
         //			oRecordset01.DoQuery(sQry);
 
-        //			functionReturnValue = Strings.Trim(oRecordset01.Fields.Item(0).Value);
+        //			returnValue = Strings.Trim(oRecordset01.Fields.Item(0).Value);
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //			User_WhsCode_Error:
         //			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			functionReturnValue = "0";
+        //			returnValue = "0";
         //			MDC_Com.MDC_GF_Message(ref "User_WhsCode_Error:" + Err().Number + " - " + Err().Description, ref "E");
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
@@ -528,7 +528,7 @@ namespace PSH_BOne_AddOn
         //		// 아이디별 사번 선택
         //		public static string User_MSTCOD()
         //		{
-        //			string functionReturnValue = null;
+        //			string returnValue = null;
         //			 // ERROR: Not supported in C#: OnErrorStatement
 
         //			string sQry = null;
@@ -540,18 +540,18 @@ namespace PSH_BOne_AddOn
         //          Id = b.USERID Where b.USER_CODE = '" + Strings.Trim(SubMain.Sbo_Company.UserName) + "'";
         //			oRecordset01.DoQuery(sQry);
 
-        //			functionReturnValue = Strings.Trim(oRecordset01.Fields.Item(0).Value);
+        //			returnValue = Strings.Trim(oRecordset01.Fields.Item(0).Value);
 
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //			User_MSTCOD_Error:
         //			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			functionReturnValue = "0";
+        //			returnValue = "0";
         //			MDC_Com.MDC_GF_Message(ref "User_MSTCOD_Error:" + Err().Number + " - " + Err().Description, ref "E");
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
@@ -559,7 +559,7 @@ namespace PSH_BOne_AddOn
         //		// 아이디별 부서 선택
         //		public static string User_DeptCode()
         //		{
-        //			string functionReturnValue = null;
+        //			string returnValue = null;
         //			 // ERROR: Not supported in C#: OnErrorStatement
 
         //			string sQry = null;
@@ -570,24 +570,24 @@ namespace PSH_BOne_AddOn
         //			sQry = "Select dept From [OHEM] a Inner Join [OUSR] b On a.userId = b.USERID Where USER_CODE = '" + Strings.Trim(SubMain.Sbo_Company.UserName) + "'";
         //			oRecordset01.DoQuery(sQry);
 
-        //			functionReturnValue = Strings.Trim(oRecordset01.Fields.Item(0).Value);
+        //			returnValue = Strings.Trim(oRecordset01.Fields.Item(0).Value);
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //			User_DeptCode_Error:
         //			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			functionReturnValue = "0";
+        //			returnValue = "0";
         //			MDC_Com.MDC_GF_Message(ref "User_DeptCode_Error:" + Err().Number + " - " + Err().Description, ref "E");
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
         #region User_TeamCode (구현필요, 완료 2020.09.15)
         //		public static string User_TeamCode()
         //		{
-        //			string functionReturnValue = null;
+        //			string returnValue = null;
         //			//******************************************************************************
         //			//Function ID : User_TeamCode()
         //			//해당모듈    : MDC_PS_Common
@@ -607,24 +607,24 @@ namespace PSH_BOne_AddOn
         //			sQry = "Select U_TeamCode From [OHEM] a Inner Join [OUSR] b On a.userId = b.USERID Where USER_CODE = '" + Strings.Trim(SubMain.Sbo_Company.UserName) + "'";
         //			oRecordset01.DoQuery(sQry);
 
-        //			functionReturnValue = Strings.Trim(oRecordset01.Fields.Item(0).Value);
+        //			returnValue = Strings.Trim(oRecordset01.Fields.Item(0).Value);
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //			User_TeamCode_Error:
 
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			functionReturnValue = "0";
+        //			returnValue = "0";
         //			MDC_Com.MDC_GF_Message(ref "User_TeamCode_Error:" + Err().Number + " - " + Err().Description, ref "E");
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
         #region User_RspCode (구현필요, 완료 2020.09.15)
         //		public static string User_RspCode()
         //		{
-        //			string functionReturnValue = null;
+        //			string returnValue = null;
         //			//******************************************************************************
         //			//Function ID : User_RspCode()
         //			//해당모듈    : MDC_PS_Common
@@ -644,24 +644,24 @@ namespace PSH_BOne_AddOn
         //			sQry = "Select U_RspCode From [OHEM] a Inner Join [OUSR] b On a.userId = b.USERID Where USER_CODE = '" + Strings.Trim(SubMain.Sbo_Company.UserName) + "'";
         //			oRecordset01.DoQuery(sQry);
 
-        //			functionReturnValue = Strings.Trim(oRecordset01.Fields.Item(0).Value);
+        //			returnValue = Strings.Trim(oRecordset01.Fields.Item(0).Value);
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //			User_RspCode_Error:
 
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			functionReturnValue = "0";
+        //			returnValue = "0";
         //			MDC_Com.MDC_GF_Message(ref "User_RspCode_Error:" + Err().Number + " - " + Err().Description, ref "E");
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
         #region User_ClsCode (구현필요, 완료 2020.09.15)
         //		public static string User_ClsCode()
         //		{
-        //			string functionReturnValue = null;
+        //			string returnValue = null;
         //			//******************************************************************************
         //			//Function ID : User_ClsCode()
         //			//해당모듈    : MDC_PS_Common
@@ -681,24 +681,24 @@ namespace PSH_BOne_AddOn
         //			sQry = "Select U_ClsCode From [OHEM] a Inner Join [OUSR] b On a.userId = b.USERID Where USER_CODE = '" + Strings.Trim(SubMain.Sbo_Company.UserName) + "'";
         //			oRecordset01.DoQuery(sQry);
 
-        //			functionReturnValue = Strings.Trim(oRecordset01.Fields.Item(0).Value);
+        //			returnValue = Strings.Trim(oRecordset01.Fields.Item(0).Value);
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //			User_ClsCode_Error:
 
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			functionReturnValue = "0";
+        //			returnValue = "0";
         //			MDC_Com.MDC_GF_Message(ref "User_ClsCode_Error:" + Err().Number + " - " + Err().Description, ref "E");
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
         #region User_SuperUserYN (구현필요, 완료 2020.09.15)
         //		public static string User_SuperUserYN()
         //		{
-        //			string functionReturnValue = null;
+        //			string returnValue = null;
         //			//******************************************************************************
         //			//Function ID : User_SuperUserYN()
         //			//해당모듈    : MDC_PS_Common
@@ -721,24 +721,24 @@ namespace PSH_BOne_AddOn
 
         //			oRecordset01.DoQuery(sQry);
 
-        //			functionReturnValue = Strings.Trim(oRecordset01.Fields.Item(0).Value);
+        //			returnValue = Strings.Trim(oRecordset01.Fields.Item(0).Value);
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //			User_SuperUserYN_Error:
 
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			functionReturnValue = "0";
+        //			returnValue = "0";
         //			MDC_Com.MDC_GF_Message(ref "User_SuperUserYN_Error:" + Err().Number + " - " + Err().Description, ref "E");
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
         #region Future_Date_Check (구현필요, 완료 2020.09.15)
         //		public static string Future_Date_Check(string inputdate)
         //		{
-        //			string functionReturnValue = null;
+        //			string returnValue = null;
         //			//******************************************************************************
         //			//Function ID : Future_Date_Check()
         //			//해당모듈    : MDC_PS_Common
@@ -760,24 +760,24 @@ namespace PSH_BOne_AddOn
 
         //			oRecordset01.DoQuery(sQry);
 
-        //			functionReturnValue = Strings.Trim(oRecordset01.Fields.Item(0).Value);
+        //			returnValue = Strings.Trim(oRecordset01.Fields.Item(0).Value);
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //			Future_Date_Check_Error:
 
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			functionReturnValue = "0";
+        //			returnValue = "0";
         //			MDC_Com.MDC_GF_Message(ref "User_SuperUserYN_Error:" + Err().Number + " - " + Err().Description, ref "E");
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
         #region User_MainJob (구현필요, 완료 2020.09.15)
         //		public static string User_MainJob()
         //		{
-        //			string functionReturnValue = null;
+        //			string returnValue = null;
         //			//******************************************************************************
         //			//Function ID : User_MainJob()
         //			//해당모듈    : MDC_PS_Common
@@ -803,24 +803,24 @@ namespace PSH_BOne_AddOn
 
         //			oRecordset01.DoQuery(sQry);
 
-        //			functionReturnValue = Strings.Trim(oRecordset01.Fields.Item(0).Value);
+        //			returnValue = Strings.Trim(oRecordset01.Fields.Item(0).Value);
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //			User_MainJob_Error:
 
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			functionReturnValue = "";
+        //			returnValue = "";
         //			MDC_Com.MDC_GF_Message(ref "User_MainJob_Error:" + Err().Number + " - " + Err().Description, ref "E");
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
         #region Calculate_Weight (구현필요, 완료 2020.09.15)
         //		public static double Calculate_Weight(string ItemCode, int Qty, string BPLId)
         //		{
-        //			double functionReturnValue = 0;
+        //			double returnValue = 0;
         //			 // ERROR: Not supported in C#: OnErrorStatement
 
 
@@ -846,28 +846,28 @@ namespace PSH_BOne_AddOn
         //			}
 
         //			if (BPLId == "3" | BPLId == "5") {
-        //				functionReturnValue = System.Math.Round(ReturnValue, 2);
+        //				returnValue = System.Math.Round(ReturnValue, 2);
         //			} else {
-        //				functionReturnValue = System.Math.Round(ReturnValue, 0);
+        //				returnValue = System.Math.Round(ReturnValue, 0);
         //			}
 
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //			Calculate_Weight_Error:
 
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			functionReturnValue = 0;
+        //			returnValue = 0;
         //			MDC_Com.MDC_GF_Message(ref "Calculate_Weight_Error:" + Err().Number + " - " + Err().Description, ref "E");
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
         #region Calculate_Qty (구현필요, 완료 2020.09.15)
         //		public static int Calculate_Qty(string ItemCode, int Weight)
         //		{
-        //			int functionReturnValue = 0;
+        //			int returnValue = 0;
         //			 // ERROR: Not supported in C#: OnErrorStatement
 
 
@@ -904,17 +904,17 @@ namespace PSH_BOne_AddOn
         //				ReturnValue = 0;
         //			}
 
-        //			functionReturnValue = System.Math.Round(ReturnValue, 0);
+        //			returnValue = System.Math.Round(ReturnValue, 0);
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //			Calculate_Qty_Error:
 
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			functionReturnValue = 0;
+        //			returnValue = 0;
         //			MDC_Com.MDC_GF_Message(ref "Calculate_Qty_Error:" + Err().Number + " - " + Err().Description, ref "E");
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
@@ -922,7 +922,7 @@ namespace PSH_BOne_AddOn
         //		public static string RFC_Sender(string BPLId, string ItemCode, string ItemName, string Size, double Qty, string Unit, string RequestDate, string DueDate, string ItemType, string RequestNo,
         //		int i, int LastRow)
         //		{
-        //			string functionReturnValue = null;
+        //			string returnValue = null;
         //			 // ERROR: Not supported in C#: OnErrorStatement
 
 
@@ -1022,10 +1022,10 @@ namespace PSH_BOne_AddOn
         //				}
         //			}
 
-        //			functionReturnValue = ReturnValue;
+        //			returnValue = ReturnValue;
         //			//UPGRADE_NOTE: oFunction01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oFunction01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //			RFC_Sender_Exit:
         //			//UPGRADE_WARNING: oSapConnection01.Connection 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
         //			if ((MDC_Globals.oSapConnection01.Connection != null)) {
@@ -1036,10 +1036,10 @@ namespace PSH_BOne_AddOn
         //					MDC_Globals.oSapConnection01 = null;
         //				}
         //			}
-        //			functionReturnValue = "";
+        //			returnValue = "";
         //			//UPGRADE_NOTE: oFunction01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oFunction01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //			RFC_Sender_Error:
         //			//UPGRADE_WARNING: oSapConnection01.Connection 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
         //			if ((MDC_Globals.oSapConnection01.Connection != null)) {
@@ -1050,18 +1050,18 @@ namespace PSH_BOne_AddOn
         //					MDC_Globals.oSapConnection01 = null;
         //				}
         //			}
-        //			functionReturnValue = "";
+        //			returnValue = "";
         //			//UPGRADE_NOTE: oFunction01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oFunction01 = null;
         //			SubMain.Sbo_Application.SetStatusBarMessage("RFC_Sender_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
         #region Cal_KPI_Grade (구현필요, 완료 2020.09.15)
         //		public static string Cal_KPI_Grade(short prmBaseEntry, short prmBaseLine, string prmTableName, string prmResult, string prmMonth)
         //		{
-        //			string functionReturnValue = null;
+        //			string returnValue = null;
         //			//******************************************************************************
         //			//Function ID : Cal_KPI_Grade()
         //			//해당모듈    : MDC_PS_Common
@@ -1085,19 +1085,19 @@ namespace PSH_BOne_AddOn
         //			oRecordset01.DoQuery(sQry);
 
         //			//UPGRADE_WARNING: oRecordset01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //			functionReturnValue = oRecordset01.Fields.Item("Grade").Value;
+        //			returnValue = oRecordset01.Fields.Item("Grade").Value;
 
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //			Cal_KPI_Grade_Error:
 
 
-        //			functionReturnValue = "";
+        //			returnValue = "";
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
         //			SubMain.Sbo_Application.SetStatusBarMessage("Cal_KPI_Grade_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-        //			return functionReturnValue;
+        //			return returnValue;
 
         //		}
         #endregion
@@ -1105,7 +1105,7 @@ namespace PSH_BOne_AddOn
         #region Cal_KPI_Score (구현필요, 완료 2020.09.15)
         //		public static double Cal_KPI_Score(string prmKPIGrade)
         //		{
-        //			double functionReturnValue = 0;
+        //			double returnValue = 0;
         //			//******************************************************************************
         //			//Function ID : Cal_KPI_Score()
         //			//해당모듈    : MDC_PS_Common
@@ -1148,18 +1148,18 @@ namespace PSH_BOne_AddOn
 
         //			}
 
-        //			functionReturnValue = KPI_Score;
+        //			returnValue = KPI_Score;
 
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //			Cal_KPI_Score_Error:
 
 
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
         //			SubMain.Sbo_Application.SetStatusBarMessage("Cal_KPI_Score_Error " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-        //			return functionReturnValue;
+        //			return returnValue;
 
         //		}
         #endregion
@@ -1167,7 +1167,7 @@ namespace PSH_BOne_AddOn
         #region Cal_KPI_AchieveRate (구현필요, 완료 2020.09.15)
         //		public static double Cal_KPI_AchieveRate(short prmBasEntry, short prmBasLine, string prmDocType, string prmRslt)
         //		{
-        //			double functionReturnValue = 0;
+        //			double returnValue = 0;
         //			//******************************************************************************
         //			//Function ID : Cal_KPI_AchieveRate()
         //			//해당모듈    : MDC_PS_Common
@@ -1189,18 +1189,18 @@ namespace PSH_BOne_AddOn
         //			oRecordset01.DoQuery(sQry);
 
         //			//UPGRADE_WARNING: oRecordset01.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //			functionReturnValue = oRecordset01.Fields.Item("AchieveRate").Value;
+        //			returnValue = oRecordset01.Fields.Item("AchieveRate").Value;
 
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //			Cal_KPI_AchieveRate_Error:
 
 
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
         //			SubMain.Sbo_Application.SetStatusBarMessage("Cal_KPI_AchieveRate_Error " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-        //			return functionReturnValue;
+        //			return returnValue;
 
         //		}
         #endregion
@@ -1208,7 +1208,7 @@ namespace PSH_BOne_AddOn
         #region Check_Finish_Status (구현필요, 완료 2020.09.15)
         //		public static bool Check_Finish_Status(string prmBPLId, string prmDocDate, object prmFormTypeEx)
         //		{
-        //			bool functionReturnValue = false;
+        //			bool returnValue = false;
         //			//******************************************************************************
         //			//Function ID : Check_Finish_Status()
         //			//해당모듈    : MDC_PS_Common
@@ -1238,29 +1238,29 @@ namespace PSH_BOne_AddOn
         //			CheckFinishStatus = oRecordset01.Fields.Item("ReturnValue").Value;
 
         //			if (CheckFinishStatus == "True") {
-        //				functionReturnValue = true;
+        //				returnValue = true;
         //			} else {
-        //				functionReturnValue = false;
+        //				returnValue = false;
         //			}
 
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			return functionReturnValue;
+        //			return returnValue;
         //			Check_Finish_Status_Error:
 
 
         //			//UPGRADE_NOTE: oRecordset01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
         //			oRecordset01 = null;
-        //			functionReturnValue = false;
+        //			returnValue = false;
         //			SubMain.Sbo_Application.SetStatusBarMessage("Check_Finish_Status_Error " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-        //			return functionReturnValue;
+        //			return returnValue;
         //		}
         #endregion
 
         #region Split_String (구현불필요, C#의 Split메소드 사용)
         //		public static string Split_String(string pSplitString, string pSeparateChar, short pIndex)
         //		{
-        //			string functionReturnValue = null;
+        //			string returnValue = null;
         //			//******************************************************************************
         //			//Function ID : Split_String()
         //			//해당모듈    : MDC_PS_Common
@@ -1279,18 +1279,18 @@ namespace PSH_BOne_AddOn
 
         //			if (pIndex > 0 & pIndex - 1 <= Information.UBound(StringTemp)) {
         //				//UPGRADE_WARNING: StringTemp() 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //				functionReturnValue = StringTemp(pIndex - 1);
+        //				returnValue = StringTemp(pIndex - 1);
         //			} else {
-        //				functionReturnValue = "";
+        //				returnValue = "";
         //			}
-        //			return functionReturnValue;
+        //			return returnValue;
         //			Split_String_Error:
 
 
 
-        //			functionReturnValue = "";
+        //			returnValue = "";
         //			SubMain.Sbo_Application.SetStatusBarMessage("Split_String_Error " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-        //			return functionReturnValue;
+        //			return returnValue;
 
         //		}
         #endregion

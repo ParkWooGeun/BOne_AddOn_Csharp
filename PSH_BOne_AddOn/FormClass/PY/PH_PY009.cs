@@ -20,8 +20,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01">문서번호</param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry">문서번호</param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -51,7 +51,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY009_Create_Items();
                 PH_PY009_Enable_Menus();
-                PH_PY009_Set_Form(oFormDocEntry01);
+                PH_PY009_Set_Form(oFormDocEntry);
             }
             catch (Exception ex)
             {
@@ -123,14 +123,14 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면(Form) 초기화(Set)
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY009_Set_Form(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY009_Set_Form(string oFormDocEntry)
         {
             SAPbouiCOM.EditText oText = (SAPbouiCOM.EditText)oForm.Items.Item("Code").Specific;
 
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY009_Enable_FormItem();
                     PH_PY009_Add_MatrixRow();
@@ -139,7 +139,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY009_Enable_FormItem();
-                    oText.Value = oFormDocEntry01;
+                    oText.Value = oFormDocEntry;
 
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
@@ -327,7 +327,7 @@ namespace PSH_BOne_AddOn
         /// <returns>성공여부</returns>
         private bool PH_PY009_Check_DataValid()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
 
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -339,7 +339,7 @@ namespace PSH_BOne_AddOn
                 else
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("라인 데이터가 없습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 oMat01.FlushToDataSource();
@@ -351,7 +351,7 @@ namespace PSH_BOne_AddOn
 
                 oMat01.LoadFromDataSource();
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -362,7 +362,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -372,7 +372,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY009_Validate(string ValidateType)
         {
-            bool functionReturnValue = true;
+            bool returnValue = true;
             string errCode = string.Empty;
 
             SAPbouiCOM.EditText oText = oForm.Items.Item("DocEntry").Specific;
@@ -415,7 +415,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oText);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -539,14 +539,15 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(xlwbs);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(xlapp);
 
-                ProgressBar01.Stop();
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
-
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
                 if (sucessFlag == true)
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("엑셀 Loding 완료", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
                 }
-
                 oForm.Freeze(false);
             }
         }
@@ -557,7 +558,7 @@ namespace PSH_BOne_AddOn
         /// <returns>성공여부</returns>
         private bool PH_PY009_Save_Data()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
 
             int loopCount;
             string sQry;
@@ -615,7 +616,7 @@ namespace PSH_BOne_AddOn
                         ProgressBar01.Text = ProgressBar01.Value + "/" + (oMat01.VisualRowCount - 1) + "건 저장중...!";
                     }
 
-                    functionReturnValue = true;
+                    returnValue = true;
 
                     PSH_Globals.SBO_Application.StatusBar.SetText("근태기찰 데이터가 입력 되었습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
                 }
@@ -626,12 +627,15 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                ProgressBar01.Stop();
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01); //메모리 해제
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -982,7 +986,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 if (pVal.BeforeAction == true)
-                {
+                {   
                 }
                 else if (pVal.BeforeAction == false)
                 {

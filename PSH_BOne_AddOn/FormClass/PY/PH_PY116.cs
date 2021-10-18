@@ -32,8 +32,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
             try
@@ -62,7 +62,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY116_CreateItems();
                 PH_PY116_EnableMenus();
-                PH_PY116_SetDocument(oFormDocEntry01);
+                PH_PY116_SetDocument(oFormDocEntry);
             }
             catch (Exception ex)
             {
@@ -131,12 +131,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY116_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY116_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY116_FormItemEnabled();
                     PH_PY116_AddMatrixRow();
@@ -145,7 +145,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY116_FormItemEnabled();
-                    oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry01;
+                    oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -247,7 +247,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY116_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
 
             try
@@ -256,7 +256,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (PSH_Globals.SBO_Application.MessageBox("이미 분개된 자료입니다. 다시 분개하시겠습니까?", 1, "예", "아니오") == 2)
                     {
-                        return functionReturnValue;
+                        return returnValue;
                     }
                 }
 
@@ -267,28 +267,28 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("전기일은 필수입니다. 입력하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("DOCDATE").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 if (oForm.Items.Item("TOTDEB").Specific.Value == 0 & oForm.Items.Item("TOTCRE").Specific.Value)
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("금액이 0 입니다. 확인하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("TOTDEB").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 if (oForm.Items.Item("TOTDEB").Specific.Value != oForm.Items.Item("TOTCRE").Specific.Value)
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("차변과 대변금액이 일치하지 않습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("Code").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 if (oForm.Items.Item("TOTDEB").Specific.Value != oForm.Items.Item("TOTPAY").Specific.Value)
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("차변과 총지급액이 일치하지 않습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("Code").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 oMat1.FlushToDataSource();
@@ -302,20 +302,20 @@ namespace PSH_BOne_AddOn
                         {
                             PSH_Globals.SBO_Application.StatusBar.SetText("계정 코드는 필수입니다. 입력하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                             oMat1.Columns.Item("AcctCode").Cells.Item(i + 1).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            return functionReturnValue;
+                            return returnValue;
                         }
                         else if (!string.IsNullOrEmpty(oDS_PH_PY116B.GetValue("U_AcctCode", i).ToString().Trim()) && (Convert.ToDouble(oDS_PH_PY116B.GetValue("U_Debit", i)) == 0 && Convert.ToDouble(oDS_PH_PY116B.GetValue("U_Credit", i)) == 0))
                         {
                             PSH_Globals.SBO_Application.StatusBar.SetText("차변과 대변금액이 0 입니다. 확인하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                             oMat1.Columns.Item("AcctCode").Cells.Item(i + 1).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            return functionReturnValue;
+                            return returnValue;
                         }
                     }
                 }
                 else
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("분개 자료가 없습니다. 확인하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 oMat1.FlushToDataSource();
@@ -325,7 +325,7 @@ namespace PSH_BOne_AddOn
                 }
                 oMat1.LoadFromDataSource();
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -335,7 +335,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -345,7 +345,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY116_Validate(string ValidateType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short ErrNumm = 0;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -369,7 +369,7 @@ namespace PSH_BOne_AddOn
 
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -386,7 +386,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -504,7 +504,7 @@ namespace PSH_BOne_AddOn
 
                 PSH_Globals.oCompany.StartTransaction();
                 var _with1 = f_oJournalEntries;
-                //// 전표전체적용
+                // 전표전체적용
                 //.Series = "14"             '/ 시리즈:주요 분개개체번호
                 //.Series = MDC_SetMod.Get_Series_No("30")    '시리즈:주요 분개개체번호
                 _with1.JournalEntries.DueDate = Convert.ToDateTime(oDocDate);                //"04/26/2007"   '/ 만기일
@@ -613,7 +613,7 @@ namespace PSH_BOne_AddOn
         private bool Execution_Process()
         {
             string sQry;
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short ErrNum = 0;
             int i;
 
@@ -704,7 +704,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("TOTCRE").Specific.Value = oTOTCRE;
 
                 PSH_Globals.SBO_Application.StatusBar.SetText("작업을 완료하였습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -726,7 +726,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using SAPbouiCOM;
 
 namespace PSH_BOne_AddOn
@@ -19,7 +19,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// Form 호출
 		/// </summary>
-		public override void LoadForm(string oFormDocEntry01)
+		public override void LoadForm(string oFormDocEntry)
 		{
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -56,7 +56,7 @@ namespace PSH_BOne_AddOn
 				oForm.EnableMenu("1286", false); //닫기
 				oForm.EnableMenu("1284", false); //취소
 				oForm.EnableMenu("1293", true); //행삭제
-			}
+            }
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);

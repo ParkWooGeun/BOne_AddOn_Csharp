@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.DataPack;
@@ -18,7 +18,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		public override void LoadForm(string oFormDocEntry01)
+		public override void LoadForm(string oFormDocEntry)
 		{
 			MSXML2.DOMDocument oXmlDoc01 = new MSXML2.DOMDocument();
 
@@ -91,7 +91,7 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void ComboBox_Setting()
 		{
-			string sQry = String.Empty;
+			string sQry = string.Empty;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
@@ -131,7 +131,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool HeaderSpaceLineDel()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			short ErrNum = 0;
 
 			try
@@ -148,7 +148,7 @@ namespace PSH_BOne_AddOn
 					throw new Exception();
 				}
 
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -165,7 +165,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -174,12 +174,12 @@ namespace PSH_BOne_AddOn
 		[STAThread]
 		private void Print_Query()
 		{
-			string WinTitle = String.Empty;
-			string ReportName = String.Empty;
+			string WinTitle = string.Empty;
+			string ReportName = string.Empty;
 
-			string Year_Renamed = String.Empty;
-			string BPLId = String.Empty;
-			string Option01 = String.Empty;
+			string Year_Renamed = string.Empty;
+			string BPLId = string.Empty;
+			string Option01 = string.Empty;
 
 			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 
@@ -213,7 +213,7 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLId));
 				dataPackParameter.Add(new PSH_DataPackClass("@Option01", Option01));
 
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
 			}
 			catch (Exception ex)
 			{

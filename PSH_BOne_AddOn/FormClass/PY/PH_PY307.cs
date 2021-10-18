@@ -22,8 +22,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -53,7 +53,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY307_CreateItems();
                 PH_PY307_EnableMenus();
-                PH_PY307_SetDocument(oFormDocEntry01);
+                PH_PY307_SetDocument(oFormDocEntry);
             }
             catch (Exception ex)
             {
@@ -160,12 +160,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY307_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY307_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY307_FormItemEnabled();
                     //PH_PY307_AddMatrixRow(0, true)
@@ -174,7 +174,7 @@ namespace PSH_BOne_AddOn
                 {
                     //oForm.Mode = fm_FIND_MODE
                     //PH_PY307_FormItemEnabled
-                    //oForm.Items("DocEntry").Specific.Value = oFormDocEntry01
+                    //oForm.Items("DocEntry").Specific.Value = oFormDocEntry
                     //oForm.Items("1").Click ct_Regular
                 }
             }
@@ -465,7 +465,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode));
                 dataPackParameter.Add(new PSH_DataPackClass("@EntFeeYN", EntFeeYN));
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
             catch (Exception ex)
             {
@@ -482,7 +482,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY307_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
 
             try
             {
@@ -490,7 +490,7 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 // 년도
@@ -498,7 +498,7 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("년도는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("StdYear").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 // 분기
@@ -506,10 +506,10 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("분기는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("Quarter").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -519,7 +519,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

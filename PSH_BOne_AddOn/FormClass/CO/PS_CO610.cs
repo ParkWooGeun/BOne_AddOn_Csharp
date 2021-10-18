@@ -24,8 +24,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// Form 호출
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -67,7 +67,7 @@ namespace PSH_BOne_AddOn
 				oForm.EnableMenu("1287", true); // 복제
 				oForm.EnableMenu("1284", true); // 취소
 				oForm.EnableMenu("1293", true); // 행삭제
-			}
+            }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
@@ -827,7 +827,7 @@ namespace PSH_BOne_AddOn
                 //Parameter
                 dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", DocEntry)); //문서번호
                 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch(Exception ex)
             {

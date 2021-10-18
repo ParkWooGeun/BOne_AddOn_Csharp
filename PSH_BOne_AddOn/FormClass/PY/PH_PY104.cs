@@ -22,7 +22,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면 호출
         /// </summary>
-        public override void LoadForm(string oFormDocEntry01)
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -51,7 +51,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY104_CreateItems();
                 PH_PY104_EnableMenus();
-                PH_PY104_SetDocument(oFormDocEntry01);
+                PH_PY104_SetDocument(oFormDocEntry);
             }
             catch (Exception ex)
             {
@@ -169,11 +169,11 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// PH_PY104_SetDocument
         /// </summary>
-        private void PH_PY104_SetDocument(string oFormDocEntry01)
+        private void PH_PY104_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if ((string.IsNullOrEmpty(oFormDocEntry01)))
+                if ((string.IsNullOrEmpty(oFormDocEntry)))
                 {
                     PH_PY104_FormItemEnabled();
                 }
@@ -181,7 +181,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY104_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -318,7 +318,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY104_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
             int j = 0;
 
@@ -345,17 +345,17 @@ namespace PSH_BOne_AddOn
                 if (j == 0)
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("선택된 수당, 공제 데이터가 없습니다", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -365,7 +365,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -520,7 +520,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY104_DataCopy()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
             int j;
             int First;
@@ -586,7 +586,7 @@ namespace PSH_BOne_AddOn
                 else
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("선택된 필드의 전체 값 복사가 완료되었습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
-                    functionReturnValue = true;
+                    returnValue = true;
                 }
             }
             catch (Exception ex)
@@ -601,11 +601,10 @@ namespace PSH_BOne_AddOn
                     ProgressBar01.Stop();
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
                 }
-
                 oForm.Freeze(false);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -614,7 +613,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY104_DataSave()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
             int j;
             string sQry;
@@ -654,7 +653,7 @@ namespace PSH_BOne_AddOn
                             PSH_Globals.SBO_Application.SetStatusBarMessage("[" + oDS_PH_PY104_02.GetValue("CODE", i).ToString().Trim() + "] 의 수당,공제 데이터가 갱신중입니다..", SAPbouiCOM.BoMessageTime.bmt_Short, false);
                         }
                     }
-                    functionReturnValue = true;
+                    returnValue = true;
                     PSH_Globals.SBO_Application.SetStatusBarMessage("수당,공제 데이터가 갱신 되었습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, false);
                 }
                 else
@@ -671,7 +670,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

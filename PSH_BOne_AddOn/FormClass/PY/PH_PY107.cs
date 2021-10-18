@@ -20,8 +20,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -51,7 +51,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY107_CreateItems();
                 PH_PY107_EnableMenus();
-                PH_PY107_SetDocument(oFormDocEntry01);
+                PH_PY107_SetDocument(oFormDocEntry);
             }
             catch (Exception ex)
             {
@@ -196,12 +196,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY107_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY107_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY107_FormItemEnabled();
                     PH_PY107_AddMatrixRow();
@@ -211,7 +211,7 @@ namespace PSH_BOne_AddOn
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY107_FormItemEnabled();
 
-                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -279,7 +279,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY107_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
             int k;
             string Chk_Data;
@@ -292,14 +292,14 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("적용년도는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("YM").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 if (string.IsNullOrEmpty(oDS_PH_PY107A.GetValue("U_INPDAY", 0).Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("월급직일수계산은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("INPDAY").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
                 // Code & Name 생성
                 oDS_PH_PY107A.SetValue("Code", 0, oDS_PH_PY107A.GetValue("U_CLTCOD", 0).Trim() + oDS_PH_PY107A.GetValue("U_YM", 0).Trim());
@@ -310,7 +310,7 @@ namespace PSH_BOne_AddOn
                     if (dataHelpClass.Value_ChkYn("[@PH_PY107A]", "Code", "'" + oDS_PH_PY107A.GetValue("Code", 0).Trim() + "'".Trim(), "") == false)
                     {
                         PSH_Globals.SBO_Application.StatusBar.SetText("이미 저장되어져 있는 헤더의 내용과 일치합니다", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
-                        return functionReturnValue;
+                        return returnValue;
                     }
                 }
 
@@ -324,63 +324,63 @@ namespace PSH_BOne_AddOn
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("지급구분은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("PAYSEL").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            return functionReturnValue;
+                            return returnValue;
                         }
                         // 시작월
                         if (string.IsNullOrEmpty(oMat1.Columns.Item("STRMON").Cells.Item(i).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("시작월은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("STRMON").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            return functionReturnValue;
+                            return returnValue;
                         }
                         // 시작일
                         if (string.IsNullOrEmpty(oMat1.Columns.Item("STRDAY").Cells.Item(i).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("시작일은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("STRDAY").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            return functionReturnValue;
+                            return returnValue;
                         }
                         // 지급월
                         if (string.IsNullOrEmpty(oMat1.Columns.Item("JIGMON").Cells.Item(i).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("지급월은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("JIGMON").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            return functionReturnValue;
+                            return returnValue;
                         }
                         // 지급일
                         if (string.IsNullOrEmpty(oMat1.Columns.Item("JIGDAY").Cells.Item(i).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("지급일은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("JIGDAY").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            return functionReturnValue;
+                            return returnValue;
                         }
                         // 상여한도월
                         if (string.IsNullOrEmpty(oMat1.Columns.Item("BNSEMM").Cells.Item(i).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("상여한도월은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("BNSEMM").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            return functionReturnValue;
+                            return returnValue;
                         }
                         // 상여한도일
                         if (string.IsNullOrEmpty(oMat1.Columns.Item("BNSEDD").Cells.Item(i).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("상여한도일은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("BNSEDD").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            return functionReturnValue;
+                            return returnValue;
                         }
                         // 급여한도월
                         if (string.IsNullOrEmpty(oMat1.Columns.Item("PAYEMM").Cells.Item(i).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("급여한도월은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("PAYEMM").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            return functionReturnValue;
+                            return returnValue;
                         }
                         // 급여한도일
                         if (string.IsNullOrEmpty(oMat1.Columns.Item("PAYEDD").Cells.Item(i).Specific.Value))
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("급여한도일은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("PAYEDD").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            return functionReturnValue;
+                            return returnValue;
                         }
 
                         //중복체크
@@ -392,7 +392,7 @@ namespace PSH_BOne_AddOn
                             {
                                 PSH_Globals.SBO_Application.SetStatusBarMessage("내용이 중복입력되었습니다. 확인하여 주십시오.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                                 oMat1.Columns.Item("PAYSEL").Cells.Item(k + 1).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                                return functionReturnValue;
+                                return returnValue;
                             }
                         }
                     }
@@ -400,7 +400,7 @@ namespace PSH_BOne_AddOn
                 else
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("라인 데이터가 없습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 oMat1.FlushToDataSource();
@@ -410,7 +410,7 @@ namespace PSH_BOne_AddOn
                 }
                 oMat1.LoadFromDataSource();
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -420,7 +420,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

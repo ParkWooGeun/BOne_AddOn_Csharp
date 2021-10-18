@@ -1,4 +1,4 @@
-using Microsoft.VisualBasic;
+﻿using Microsoft.VisualBasic;
 using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
@@ -24,7 +24,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        public override void LoadForm(string oFormDocEntry01)
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -138,7 +138,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool File_Create()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
             string stringSpace;
 
@@ -185,7 +185,7 @@ namespace PSH_BOne_AddOn
                 FileSystem.FileClose(1);
 
                 PSH_Globals.SBO_Application.StatusBar.SetText("전산매체수록이 정상적으로 완료되었습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -212,7 +212,7 @@ namespace PSH_BOne_AddOn
                 }
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -221,7 +221,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool File_Create_A_record()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
             string sQry;
             string saup;
@@ -289,7 +289,7 @@ namespace PSH_BOne_AddOn
 
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -308,7 +308,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -317,7 +317,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool File_Create_B_record()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
             string sQry;
 
@@ -372,7 +372,7 @@ namespace PSH_BOne_AddOn
                     FileSystem.PrintLine(1, B001 + B002 + B003 + B004 + B005 + B006 + B007 + B008 + B009 + B010 + B011 + B012 + B013 + B014);
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -391,7 +391,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -400,7 +400,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool File_Create_C_record()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
             string sQry;
             int NEWCNT; //일련번호
@@ -472,7 +472,7 @@ namespace PSH_BOne_AddOn
                     }
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -494,11 +494,10 @@ namespace PSH_BOne_AddOn
                     ProgressBar01.Stop();
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
                 }
-
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -507,7 +506,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool HeaderSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
 
             try
@@ -538,7 +537,7 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -571,7 +570,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -782,7 +781,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 if (pVal.Before_Action == true)
-                {
+                {   
                 }
                 else if (pVal.Before_Action == false)
                 {

@@ -25,8 +25,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
             try
@@ -56,7 +56,7 @@ namespace PSH_BOne_AddOn
                 PH_PY030_CreateItems();
                 PH_PY030_ComboBox_Setting();
                 PH_PY030_EnableMenus();
-                PH_PY030_SetDocument(oFormDocEntry01);
+                PH_PY030_SetDocument(oFormDocEntry);
                 PH_PY030_FormResize();
                 PH_PY030_LoadCaption();
                 PH_PY030_FormItemEnabled();
@@ -472,7 +472,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY030_UpdateData()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
 
             string sQry;
             int DocEntry; // 관리번호
@@ -546,7 +546,7 @@ namespace PSH_BOne_AddOn
                 if (string.IsNullOrEmpty(Convert.ToString(DocEntry).Trim()))
                 {
                     dataHelpClass.MDC_GF_Message("수정할 항목이 없습니다. 수정하실려면 항목을 선택하세요!", "E");
-                    functionReturnValue = false;
+                    returnValue = false;
                     throw new Exception();
                 }
 
@@ -584,19 +584,19 @@ namespace PSH_BOne_AddOn
 
                 oRecordSet01.DoQuery(sQry);
                 dataHelpClass.MDC_GF_Message("수정 완료!", "S");
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY030_UpdateData_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                return functionReturnValue;
+                return returnValue;
             }
             finally
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -604,7 +604,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private bool PH_PY030_AddData()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int DocEntry;
             string sQry;
             string CLTCOD; // 사업장
@@ -722,12 +722,12 @@ namespace PSH_BOne_AddOn
 
                 oRecordSet02.DoQuery(sQry);
                 dataHelpClass.MDC_GF_Message("등록 완료!", "S");
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY030_AddData_Error:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                return functionReturnValue;
+                return returnValue;
             }
             finally
             {
@@ -735,7 +735,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet02);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -744,7 +744,7 @@ namespace PSH_BOne_AddOn
         /// <returns>True:필수입력사항을 모두 입력, Fasle:필수입력사항 중 하나라도 입력하지 않았음</returns>
         private bool PH_PY030_HeaderSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int ErrNum = 0;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -786,7 +786,7 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -834,7 +834,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -1212,12 +1212,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY030_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY030_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY030_FormItemEnabled();
                 }
@@ -1611,7 +1611,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@DestNo1", DestNo1));
                 dataPackParameter.Add(new PSH_DataPackClass("@DestNo2", DestNo2));
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch (Exception ex)
             {
@@ -1709,7 +1709,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@DestDiv", DestDiv));
                 dataPackParameter.Add(new PSH_DataPackClass("@Vehicle", Vehicle));
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch (Exception ex)
             {

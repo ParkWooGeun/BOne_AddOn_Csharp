@@ -17,7 +17,7 @@
 //////  Desc           : 출장등록
 //////********************************************************************************
 
-//		public string oFormUniqueID;
+//		private string oFormUniqueID;
 //		public SAPbouiCOM.Form oForm;
 
 //		public SAPbouiCOM.Matrix oMat1;
@@ -32,7 +32,7 @@
 //			//이전 출장구분 값 저장용(전역변수)
 //		string DestDivValue;
 
-//		public void LoadForm(string oFormDocEntry01 = "")
+//		private void LoadForm(string oFormDocEntry = "")
 //		{
 
 //			int i = 0;
@@ -61,7 +61,7 @@
 //			oForm.Freeze(true);
 //			PH_PY012_CreateItems();
 //			PH_PY012_EnableMenus();
-//			PH_PY012_SetDocument(oFormDocEntry01);
+//			PH_PY012_SetDocument(oFormDocEntry);
 //			//    Call PH_PY012_FormResize
 
 //			oForm.Update();
@@ -84,7 +84,7 @@
 
 //		private bool PH_PY012_CreateItems()
 //		{
-//			bool functionReturnValue = false;
+//			bool returnValue = false;
 
 //			string sQry = null;
 //			int i = 0;
@@ -192,7 +192,7 @@
 //			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oRecordSet = null;
 //			oForm.Freeze(false);
-//			return functionReturnValue;
+//			return returnValue;
 //			PH_PY012_CreateItems_Error:
 
 //			//UPGRADE_NOTE: oEdit 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
@@ -207,7 +207,7 @@
 //			oRecordSet = null;
 //			oForm.Freeze(false);
 //			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY012_CreateItems_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-//			return functionReturnValue;
+//			return returnValue;
 //		}
 
 //		private void PH_PY012_EnableMenus()
@@ -233,19 +233,19 @@
 //			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY012_EnableMenus_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
 //		}
 
-//		private void PH_PY012_SetDocument(string oFormDocEntry01)
+//		private void PH_PY012_SetDocument(string oFormDocEntry)
 //		{
 //			 // ERROR: Not supported in C#: OnErrorStatement
 
 
-//			if ((string.IsNullOrEmpty(oFormDocEntry01))) {
+//			if ((string.IsNullOrEmpty(oFormDocEntry))) {
 //				PH_PY012_FormItemEnabled();
 //				PH_PY012_AddMatrixRow();
 //			} else {
 //				oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
 //				PH_PY012_FormItemEnabled();
 //				//UPGRADE_WARNING: oForm.Items().Specific.Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry01;
+//				oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry;
 //				oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 //			}
 //			return;
@@ -254,7 +254,7 @@
 //			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY012_SetDocument_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
 //		}
 
-//		public void PH_PY012_FormItemEnabled()
+//		private void PH_PY012_FormItemEnabled()
 //		{
 //			 // ERROR: Not supported in C#: OnErrorStatement
 
@@ -309,7 +309,7 @@
 //			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY012_FormItemEnabled_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
 //		}
 
-//		public void Raise_FormItemEvent(ref object FormUID, ref SAPbouiCOM.ItemEvent pval, ref bool BubbleEvent)
+//		private void Raise_FormItemEvent(ref object FormUID, ref SAPbouiCOM.ItemEvent pval, ref bool BubbleEvent)
 //		{
 //			 // ERROR: Not supported in C#: OnErrorStatement
 
@@ -967,7 +967,7 @@
 //			MDC_Globals.Sbo_Application.SetStatusBarMessage("Raise_ItemEvent_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
 //		}
 
-//		public void Raise_FormMenuEvent(ref string FormUID, ref SAPbouiCOM.IMenuEvent pval, ref bool BubbleEvent)
+//		private void Raise_FormMenuEvent(ref string FormUID, ref SAPbouiCOM.IMenuEvent pval, ref bool BubbleEvent)
 //		{
 //			int i = 0;
 //			 // ERROR: Not supported in C#: OnErrorStatement
@@ -1085,7 +1085,7 @@
 //			MDC_Globals.Sbo_Application.SetStatusBarMessage("Raise_MenuEvent_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
 //		}
 
-//		public void Raise_FormDataEvent(ref string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
+//		private void Raise_FormDataEvent(ref string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
 //		{
 
 //			 // ERROR: Not supported in C#: OnErrorStatement
@@ -1130,7 +1130,7 @@
 
 //		}
 
-//		public void Raise_RightClickEvent(ref string FormUID, ref SAPbouiCOM.ContextMenuInfo pval, ref bool BubbleEvent)
+//		private void Raise_RightClickEvent(ref string FormUID, ref SAPbouiCOM.ContextMenuInfo pval, ref bool BubbleEvent)
 //		{
 
 //			 // ERROR: Not supported in C#: OnErrorStatement
@@ -1159,7 +1159,7 @@
 //			MDC_Globals.Sbo_Application.SetStatusBarMessage("Raise_RightClickEvent_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
 //		}
 
-//		public void PH_PY012_AddMatrixRow()
+//		private void PH_PY012_AddMatrixRow()
 //		{
 //			int oRow = 0;
 
@@ -1343,7 +1343,7 @@
 //			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY012_AddMatrixRow_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
 //		}
 
-//		public void PH_PY012_FormClear()
+//		private void PH_PY012_FormClear()
 //		{
 //			 // ERROR: Not supported in C#: OnErrorStatement
 
@@ -1570,10 +1570,10 @@
 
 //		public bool PH_PY012_DataValidCheck()
 //		{
-//			bool functionReturnValue = false;
+//			bool returnValue = false;
 //			 // ERROR: Not supported in C#: OnErrorStatement
 
-//			functionReturnValue = false;
+//			returnValue = false;
 //			int i = 0;
 //			string sQry = null;
 //			SAPbobsCOM.Recordset oRecordSet = null;
@@ -1584,32 +1584,32 @@
 //			if (string.IsNullOrEmpty(Strings.Trim(oDS_PH_PY012A.GetValue("U_CLTCOD", 0)))) {
 //				MDC_Globals.Sbo_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
 //				oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-//				functionReturnValue = false;
-//				return functionReturnValue;
+//				returnValue = false;
+//				return returnValue;
 //			}
 
 //			//사원
 //			if (string.IsNullOrEmpty(Strings.Trim(oDS_PH_PY012A.GetValue("U_MSTCOD", 0)))) {
 //				MDC_Globals.Sbo_Application.SetStatusBarMessage("사원정보는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
 //				oForm.Items.Item("MSTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-//				functionReturnValue = false;
-//				return functionReturnValue;
+//				returnValue = false;
+//				return returnValue;
 //			}
 
 //			//기간(From)
 //			if (string.IsNullOrEmpty(Strings.Trim(oDS_PH_PY012A.GetValue("U_FrDate", 0)))) {
 //				MDC_Globals.Sbo_Application.SetStatusBarMessage("기간 시작은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
 //				oForm.Items.Item("FrDate").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-//				functionReturnValue = false;
-//				return functionReturnValue;
+//				returnValue = false;
+//				return returnValue;
 //			}
 
 //			//기간(To)
 //			if (string.IsNullOrEmpty(Strings.Trim(oDS_PH_PY012A.GetValue("U_ToDate", 0)))) {
 //				MDC_Globals.Sbo_Application.SetStatusBarMessage("기간 종료는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
 //				oForm.Items.Item("ToDate").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-//				functionReturnValue = false;
-//				return functionReturnValue;
+//				returnValue = false;
+//				return returnValue;
 //			}
 
 //			//라인
@@ -1651,8 +1651,8 @@
 //				}
 //			} else {
 //				MDC_Globals.Sbo_Application.SetStatusBarMessage("라인 데이터가 없습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-//				functionReturnValue = false;
-//				return functionReturnValue;
+//				returnValue = false;
+//				return returnValue;
 //			}
 
 //			oMat1.FlushToDataSource();
@@ -1662,19 +1662,19 @@
 
 //			oMat1.LoadFromDataSource();
 
-//			functionReturnValue = true;
+//			returnValue = true;
 
 //			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oRecordSet = null;
-//			return functionReturnValue;
+//			return returnValue;
 //			PH_PY012_DataValidCheck_Error:
 
 
 //			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oRecordSet = null;
-//			functionReturnValue = false;
+//			returnValue = false;
 //			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY012_DataValidCheck_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-//			return functionReturnValue;
+//			return returnValue;
 //		}
 
 //		private void PH_PY012_MTX01()
@@ -1764,10 +1764,10 @@
 
 //		public bool PH_PY012_Validate(string ValidateType)
 //		{
-//			bool functionReturnValue = false;
+//			bool returnValue = false;
 //			 // ERROR: Not supported in C#: OnErrorStatement
 
-//			functionReturnValue = true;
+//			returnValue = true;
 //			object i = null;
 //			int j = 0;
 //			string sQry = null;
@@ -1778,7 +1778,7 @@
 //			//UPGRADE_WARNING: MDC_Company_Common.GetValue(SELECT Canceled FROM [PH_PY012A] WHERE DocEntry = ' & oForm.Items(DocEntry).Specific.Value & ', 0, 1) 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			if (MDC_Company_Common.GetValue("SELECT Canceled FROM [@PH_PY012A] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1) == "Y") {
 //				MDC_Globals.Sbo_Application.SetStatusBarMessage("해당문서는 다른사용자에 의해 취소되었습니다. 작업을 진행할수 없습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-//				functionReturnValue = false;
+//				returnValue = false;
 //				goto PH_PY012_Validate_Exit;
 //			}
 //			//
@@ -1791,20 +1791,20 @@
 //			}
 //			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oRecordSet = null;
-//			return functionReturnValue;
+//			return returnValue;
 //			PH_PY012_Validate_Exit:
 //			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oRecordSet = null;
-//			return functionReturnValue;
+//			return returnValue;
 //			PH_PY012_Validate_Error:
-//			functionReturnValue = false;
+//			returnValue = false;
 //			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY012_Validate_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-//			return functionReturnValue;
+//			return returnValue;
 //		}
 
 //		private double PH_PY012_GetFuelPrc(string pBPLId, string pStdYear, string pStdMonth, string pFuelType)
 //		{
-//			double functionReturnValue = 0;
+//			double returnValue = 0;
 //			//******************************************************************************
 //			//Function ID : PH_PY012_GetFuelPrc()
 //			//해당모듈 : PH_PY012
@@ -1841,23 +1841,23 @@
 //			//휘발유
 //			if (pFuelType == "1") {
 //				//UPGRADE_WARNING: oRecordSet.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				functionReturnValue = oRecordSet.Fields.Item("Gasoline").Value;
+//				returnValue = oRecordSet.Fields.Item("Gasoline").Value;
 //			//가스
 //			} else if (pFuelType == "2") {
 //				//UPGRADE_WARNING: oRecordSet.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				functionReturnValue = oRecordSet.Fields.Item("LPG").Value;
+//				returnValue = oRecordSet.Fields.Item("LPG").Value;
 //			//경유
 //			} else if (pFuelType == "3") {
 //				//UPGRADE_WARNING: oRecordSet.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-//				functionReturnValue = oRecordSet.Fields.Item("Diesel").Value;
+//				returnValue = oRecordSet.Fields.Item("Diesel").Value;
 //			}
-//			return functionReturnValue;
+//			return returnValue;
 //			PH_PY012_GetFuelPrc_Error:
 
 //			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oRecordSet = null;
 //			MDC_Globals.Sbo_Application.SetStatusBarMessage("PH_PY012_GetFuelPrc_Error: " + Err().Number + " - " + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, true);
-//			return functionReturnValue;
+//			return returnValue;
 //		}
 
 //		private void PH_PY012_CalculateTotalExp(short pRow)

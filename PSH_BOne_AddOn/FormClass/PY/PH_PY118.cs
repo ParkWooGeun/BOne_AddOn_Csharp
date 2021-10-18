@@ -50,8 +50,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -81,7 +81,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY118_CreateItems();
                 PH_PY118_EnableMenus();
-                PH_PY118_SetDocument(oFormDocEntry01);
+                PH_PY118_SetDocument(oFormDocEntry);
             }
             catch(Exception ex)
             {
@@ -243,12 +243,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면(Form) 초기화(Set)
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY118_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY118_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY118_FormItemEnabled();
                     //PH_PY118_AddMatrixRow();
@@ -257,7 +257,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY118_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -765,7 +765,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool Execution_Process()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string sQry;
             short errNum = 0;
             int i = 0;
@@ -885,7 +885,7 @@ namespace PSH_BOne_AddOn
 
                 //End
                 PSH_Globals.SBO_Application.StatusBar.SetText("작업을 완료하였습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch(Exception ex)
             {   
@@ -912,7 +912,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

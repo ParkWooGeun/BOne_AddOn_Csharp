@@ -20,8 +20,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -51,7 +51,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY130_CreateItems();
                 PH_PY130_EnableMenus();
-                PH_PY130_SetDocument(oFormDocEntry01);
+                PH_PY130_SetDocument(oFormDocEntry);
             }
             catch (Exception ex)
             {
@@ -168,12 +168,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY130_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY130_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY130_FormItemEnabled();
                 }
@@ -181,7 +181,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY130_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -241,7 +241,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY130_DataValidCheck(string ChkYN)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
             string sQry;
             string tCode;
@@ -255,7 +255,7 @@ namespace PSH_BOne_AddOn
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("지급구분은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                         oForm.Items.Item("JOBGBN").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                        return functionReturnValue;
+                        return returnValue;
                     }
                 }
 
@@ -263,14 +263,14 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("년월은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("YM").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 if (string.IsNullOrEmpty(oDS_PH_PY130A.GetValue("U_Number", 0).ToString().Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("회차는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("Number").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 //코드,이름 저장
@@ -287,7 +287,7 @@ namespace PSH_BOne_AddOn
                     if (oRecordSet.RecordCount > 0)
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("이미 데이터가 존재합니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                        return functionReturnValue;
+                        return returnValue;
                     }
                 }
 
@@ -296,7 +296,7 @@ namespace PSH_BOne_AddOn
                     if (oMat1.VisualRowCount == 0)
                     {
                         PSH_Globals.SBO_Application.SetStatusBarMessage("데이터가 없습니다. 자료생성을 하기바랍니다", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                        return functionReturnValue;
+                        return returnValue;
                     }
 
                     for (i = 1; i <= oMat1.VisualRowCount - 1; i++)
@@ -306,7 +306,7 @@ namespace PSH_BOne_AddOn
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("등급은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat1.Columns.Item("Grade").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            return functionReturnValue;
+                            return returnValue;
                         }
                     }
                 }
@@ -314,7 +314,7 @@ namespace PSH_BOne_AddOn
                 {
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -325,7 +325,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -333,7 +333,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private bool PH_PY130_Create_Data()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
             string sQry;
             string errCode = string.Empty;
@@ -392,7 +392,7 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(false);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -402,7 +402,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY130_Validate(string ValidateType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short ErrNumm = 0;
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -424,7 +424,7 @@ namespace PSH_BOne_AddOn
                 {
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -441,7 +441,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

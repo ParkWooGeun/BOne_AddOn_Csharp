@@ -20,8 +20,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -52,7 +52,7 @@ namespace PSH_BOne_AddOn
                 PH_PY135_CreateItems();
                 PH_PY135_ComboBox_Setting();
                 PH_PY135_EnableMenus();
-                PH_PY135_SetDocument(oFormDocEntry01);
+                PH_PY135_SetDocument(oFormDocEntry);
                 PH_PY135_FormResize();
                 PH_PY135_FormItemEnabled();
             }
@@ -160,12 +160,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY135_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY135_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY135_FormItemEnabled();
                     PH_PY135_AddMatrixRow();
@@ -174,7 +174,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY135_FormItemEnabled();
-                    oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry01;
+                    oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -320,7 +320,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY135_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errCode = 0;
 
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -358,7 +358,7 @@ namespace PSH_BOne_AddOn
                 }
                 oMat01.LoadFromDataSource();
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -386,7 +386,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -495,7 +495,6 @@ namespace PSH_BOne_AddOn
                     ProgressBar01.Stop();
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
                 }
-                
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
                 oForm.Freeze(false);
             }
@@ -528,7 +527,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY135_Create_oJournalEntries(int ChkType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
             string errCode = string.Empty;
             int errDiCode = 0;
@@ -636,7 +635,7 @@ namespace PSH_BOne_AddOn
                 oDS_PH_PY135A.SetValue("U_JdtNo", 0, sTransId);
                 oDS_PH_PY135A.SetValue("U_JdtCC", 0, sCC);
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -660,7 +659,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oJournal);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -670,7 +669,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY135_Cancel_oJournalEntries(int ChkType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int RetVal;
             string errCode = string.Empty;
             int errDiCode = 0;
@@ -735,7 +734,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Btn03").Enabled = false;
 
                 dataHelpClass.MDC_GF_Message("성공적으로 분개취소되었습니다.", "S");
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -763,7 +762,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

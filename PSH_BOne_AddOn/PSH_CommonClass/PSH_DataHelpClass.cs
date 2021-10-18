@@ -5,8 +5,6 @@ using SAP.Middleware.Connector;
 using PSH_BOne_AddOn.Code;
 using System.IO;
 
-using System.Web;
-
 namespace PSH_BOne_AddOn.Data
 {
     /// <summary>
@@ -27,7 +25,7 @@ namespace PSH_BOne_AddOn.Data
         {
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
-            string functionReturnValue = string.Empty;
+            string returnValue = string.Empty;
             string sQry;
 
             sQry = "  SELECT " + pReColumn + " ";
@@ -45,7 +43,7 @@ namespace PSH_BOne_AddOn.Data
                 
                 while (!oRecordSet.EoF)
                 {
-                    functionReturnValue = oRecordSet.Fields.Item(0).Value.ToString();
+                    returnValue = oRecordSet.Fields.Item(0).Value.ToString();
                     oRecordSet.MoveNext();
                 }
             }
@@ -58,11 +56,11 @@ namespace PSH_BOne_AddOn.Data
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
-        /// CHOOSEFROMLIST의 값을 리턴(임시주석처리 2019.03.18 송명규), 주석해제하여 구현중(2019.05.03 이후, 송명규)
+        /// CHOOSEFROMLIST의 값을 리턴
         /// </summary>
         /// <param name="pVal">pVal</param>
         /// <param name="PSH_pFormUID">Fomr UID</param>
@@ -115,7 +113,7 @@ namespace PSH_BOne_AddOn.Data
                     {
                         if (!string.IsNullOrEmpty(PSH_pSeqNoUDS))
                         {
-                            PSH_oDBTable.InsertRecord((PSH_pRow + PSH_jLooper - 1));
+                            PSH_oDBTable.InsertRecord(PSH_pRow + PSH_jLooper - 1);
                             PSH_oDBTable.Offset = PSH_pRow + PSH_jLooper - 1;
                             PSH_oDBTable.SetValue(PSH_pSeqNoUDS, PSH_pRow + PSH_jLooper - 1, Convert.ToString(PSH_pRow + PSH_jLooper));
                         }
@@ -194,35 +192,36 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public bool ChkYearMonth(string YearMon)
         {
-            bool functionReturnValue;
+            bool returnValue;
             string oYear;
             string oMonth;
 
             if (YearMon.Length < 6)
             {
-                functionReturnValue = false;
-                return functionReturnValue;
+                returnValue = false;
+                return returnValue;
             }
 
-            oYear = YearMon.Substring(0, 4); //Strings.Mid(YearMon, 1, 4);
+            oYear = YearMon.Substring(0, 4);
 
             if (Convert.ToInt16(oYear) < 2000 || Convert.ToInt16(oYear) > 3000)
             {
-                functionReturnValue = false;
-                return functionReturnValue;
+                returnValue = false;
+                return returnValue;
             }
 
-            oMonth = YearMon.Substring(4, 2); //Strings.Mid(YearMon, 5, 2);
+            oMonth = YearMon.Substring(4, 2);
 
             if (Convert.ToInt16(oMonth) < 1 || Convert.ToInt16(oMonth) > 12)
             {
-                functionReturnValue = false;
-                return functionReturnValue;
+                returnValue = false;
+                return returnValue;
             }
-            functionReturnValue = true;
-            return functionReturnValue;
+
+            returnValue = true;
+            return returnValue;
         }
-        
+
         /// <summary>
         /// ComboBox 데이터 채우기
         /// </summary>
@@ -367,7 +366,7 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public bool Value_ChkYn(string Tablename, string ColumnName, string Key_Str, string And_Line)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string sSQL;
             int Count_Chk;
 
@@ -390,17 +389,17 @@ namespace PSH_BOne_AddOn.Data
                     if (Count_Chk > 0)
                     {
                         //기존에 같은 키값으로 데이터 존재
-                        functionReturnValue = false;
+                        returnValue = false;
                     }
                     else
                     {
                         //존재하지 않는값
-                        functionReturnValue = true;
+                        returnValue = true;
                     }
                 }
                 else
                 {
-                    functionReturnValue = true;
+                    returnValue = true;
                 }
             }
             catch(Exception ex)
@@ -412,7 +411,7 @@ namespace PSH_BOne_AddOn.Data
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(s_Recordset);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -422,15 +421,8 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public ZPAY_g_EmpID Get_EmpID_InFo(string EmpCode)
         {
-            //ZPAY_g_EmpID functionReturnValue = default(ZPAY_g_EmpID);
-            ///// 사원순번 조회  /
-            //ZPAY_g_EmpID F_EmpID = default(ZPAY_g_EmpID);
-
             ZPAY_g_EmpID F_EmpID = new ZPAY_g_EmpID();
-
-            //SAPbobsCOM.Recordset Rs = new SAPbobsCOM.Recordset();
             string Sql;
-
             SAPbobsCOM.Recordset Rs = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -562,7 +554,7 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public bool Get_PayLockInfo(string sJOBYMM, string sJOBTYP, string sJOBGBN, string sPAYSEL)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string sQry;
 
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -590,15 +582,15 @@ namespace PSH_BOne_AddOn.Data
 
                 if (oRecordSet.RecordCount == 0)
                 {
-                    functionReturnValue = false;
+                    returnValue = false;
                 }
                 else if (oRecordSet.Fields.Item(0).Value == "N")
                 {
-                    functionReturnValue = false;
+                    returnValue = false;
                 }
                 else
                 {
-                    functionReturnValue = true;
+                    returnValue = true;
                 }
             }
             catch(Exception ex)
@@ -610,7 +602,7 @@ namespace PSH_BOne_AddOn.Data
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
             
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -672,15 +664,15 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public int RInt(double Dub, short oPnt, string Rtype)
         {
-            int functionReturnValue = 0;
+            int returnValue = 0;
             double Rub = 0;
             double Cub = 0;
             short Pnt;
 
             if (Dub == 0)
             {
-                functionReturnValue = 0;
-                return functionReturnValue;
+                returnValue = 0;
+                return returnValue;
             }
 
             Pnt = Convert.ToInt16(oPnt);
@@ -708,20 +700,17 @@ namespace PSH_BOne_AddOn.Data
             switch (Rtype.Trim())
             {//기존VB6.0 소스코드의 Int 함수는 정수부분만 return 하기 때문에 결과적으로는 모든 수를 버림하는 결과가 나옴(2019.12.09 송명규)
                 case "R":
-                    functionReturnValue = Convert.ToInt32(Math.Truncate((Dub + Rub) / Pnt) * Pnt);
-                    //Int((Dub + Rub) / Pnt) * Pnt
+                    returnValue = Convert.ToInt32(Math.Truncate((Dub + Rub) / Pnt) * Pnt);
                     break;
                 case "C":
-                    functionReturnValue = Convert.ToInt32(Math.Truncate((Dub + Cub) / Pnt) * Pnt);
-                    //Int((Dub + Cub) / Pnt) * Pnt
+                    returnValue = Convert.ToInt32(Math.Truncate((Dub + Cub) / Pnt) * Pnt);
                     break;
                 case "F":
-                    functionReturnValue = Convert.ToInt32(Math.Truncate(Dub / Pnt) * Pnt);
-                    //Int(Dub / Pnt) * Pnt
+                    returnValue = Convert.ToInt32(Math.Truncate(Dub / Pnt) * Pnt);
                     break;
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -820,7 +809,7 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public object Get_GabGunSe_Table(ref double GABGUN, ref double JUMINN, double oINCOME, short oInWON, short oChlWON, string JOBYMM, double oKUKAMT, string PAY_001)
         {
-            object functionReturnValue = null;
+            object returnValue = null;
             string sQry;
 
             double WK_INCOME;
@@ -836,8 +825,8 @@ namespace PSH_BOne_AddOn.Data
                 //총지급액
                 if (oINCOME <= 0)
                 {
-                    functionReturnValue = "과세금액이 0보다 작거나 같습니다. 확인하여 주세요.";
-                    return functionReturnValue;
+                    returnValue = "과세금액이 0보다 작거나 같습니다. 확인하여 주세요.";
+                    return returnValue;
                 }
 
                 WK_INCOME = oINCOME;
@@ -927,7 +916,7 @@ namespace PSH_BOne_AddOn.Data
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(Rs);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -945,7 +934,7 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public object Get_GabGunSe(ref double GABGUN, ref double JUMINN, double oINCOME, short oInWON, short oChlWON, string JOBYMM, double oKUKAMT, string PAY_001)
         {
-            object functionReturnValue = null;
+            object returnValue = null;
             string sQry;
 
             double WS_INCOME;
@@ -966,8 +955,8 @@ namespace PSH_BOne_AddOn.Data
                 // 총지급액
                 if (oINCOME <= 0)
                 {
-                    functionReturnValue = "과세금액이 0보다 작거나 같습니다. 확인하여 주세요.";
-                    return functionReturnValue;
+                    returnValue = "과세금액이 0보다 작거나 같습니다. 확인하여 주세요.";
+                    return returnValue;
                 }
 
                 //  간이세액조견표 구간 평균값을 사용할 경우
@@ -1356,7 +1345,7 @@ namespace PSH_BOne_AddOn.Data
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(Rs);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -1373,7 +1362,7 @@ namespace PSH_BOne_AddOn.Data
             //일자 Format의 유효성확인이 필요할까? 주석처리(2019.05.10 송명규)
             //if (Information.IsDate(Microsoft.VisualBasic.Compatibility.VB6.Support.Format(StrDate, "0000-00-00")) == false || Information.IsDate(Microsoft.VisualBasic.Compatibility.VB6.Support.Format(EndDate, "0000-00-00")) == false)
             //{
-            //    return functionReturnValue;
+            //    return returnValue;
             //}
 
             TimeSpan timeDiff = ENDDAT - STRDAT; //TimeSpan을 이용해서 일자 차이 구함
@@ -1389,27 +1378,27 @@ namespace PSH_BOne_AddOn.Data
         public string Lday(string YMM)
         {
             //기존 VB6.0 로직_S
-            //object functionReturnValue = null;
+            //object returnValue = null;
 
             //switch (true)
             //{
             //    case Information.IsDate(Microsoft.VisualBasic.Compatibility.VB6.Support.Format(Strings.Mid(YMM, 1, 6) + "31", "0000-00-00")):
-            //        functionReturnValue = "31";
+            //        returnValue = "31";
             //        break;
             //    case Information.IsDate(Microsoft.VisualBasic.Compatibility.VB6.Support.Format(Strings.Mid(YMM, 1, 6) + "30", "0000-00-00")):
-            //        functionReturnValue = "30";
+            //        returnValue = "30";
             //        break;
             //    case Information.IsDate(Microsoft.VisualBasic.Compatibility.VB6.Support.Format(Strings.Mid(YMM, 1, 6) + "29", "0000-00-00")):
-            //        functionReturnValue = "29";
+            //        returnValue = "29";
             //        break;
             //    case Information.IsDate(Microsoft.VisualBasic.Compatibility.VB6.Support.Format(Strings.Mid(YMM, 1, 6) + "28", "0000-00-00")):
-            //        functionReturnValue = "28";
+            //        returnValue = "28";
             //        break;
             //    default:
-            //        functionReturnValue = Strings.Space(0);
+            //        returnValue = Strings.Space(0);
             //        break;
             //}
-            //return functionReturnValue;
+            //return returnValue;
             //기존 VB6.0 로직_E
 
             return DateTime.DaysInMonth(Convert.ToInt16(YMM.Substring(0, 4)), Convert.ToInt16(YMM.Substring(4, 2))).ToString(); //한줄로 끝
@@ -1422,7 +1411,7 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public string CreateFolder(string FileName)
         {
-            string functionReturnValue = null;
+            string returnValue = null;
 
             Scripting.FileSystemObject fs = new Scripting.FileSystemObject();
 
@@ -1433,41 +1422,15 @@ namespace PSH_BOne_AddOn.Data
                     fs.CreateFolder(FileName);
                 }
 
-                functionReturnValue = "";
+                returnValue = "";
             }
             catch(Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(GetType().Name + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             
-            return functionReturnValue;
+            return returnValue;
         }
-
-        #region sStr 메소드(한글을 2Byte로 변환) 미사용
-        ///// <summary>
-        ///// 한글을 2Byte로 변환
-        ///// 사용금지
-        ///// </summary>
-        ///// <param name="GetStr"></param>
-        ///// <returns></returns>
-        //public string sStr(string GetStr)
-        //{
-        //    string returnValue = string.Empty;
-        //    //임시주석_S
-        //    //returnValue = Microsoft.VisualBasic.Strings.Left(Microsoft.VisualBasic.Strings.StrConv(GetStr, vbFromUnicode), Microsoft.VisualBasic.Strings.Len(GetStr));
-        //    //returnValue = Microsoft.VisualBasic.Strings.Left(Microsoft.VisualBasic.Strings.StrConv(returnValue, vbUnicode), Microsoft.VisualBasic.Strings.Len(GetStr));
-        //    //임시주석_E
-
-        //    if (Microsoft.VisualBasic.Strings.Asc(Microsoft.VisualBasic.Strings.Right(returnValue, 1)) == 0)
-        //    {
-        //        //임시주석_S
-        //        //Microsoft.VisualBasic.Strings.Mid(returnValue, Microsoft.VisualBasic.Strings.Len(returnValue), 1) = Microsoft.VisualBasic.Strings.Space(1);
-        //        //임시주석_E
-        //    }
-
-        //    return returnValue;
-        //}
-        #endregion
 
         /// <summary>
         /// 에드온 폼을 운영관리에서 적용한 기본 색으로 바탕색변경
@@ -1546,7 +1509,7 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public string Get_UserName(string oUserSign)
         {
-            string functionReturnValue = string.Empty;
+            string returnValue = string.Empty;
             string sQry;
 
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -1560,18 +1523,18 @@ namespace PSH_BOne_AddOn.Data
                     oRecordSet.DoQuery(sQry);
                     while (!oRecordSet.EoF)
                     {
-                        functionReturnValue = oRecordSet.Fields.Item(0).Value;
+                        returnValue = oRecordSet.Fields.Item(0).Value;
                         oRecordSet.MoveNext();
                     }
 
-                    if (string.IsNullOrEmpty(functionReturnValue.Trim()))
+                    if (string.IsNullOrEmpty(returnValue.Trim()))
                     {
-                        functionReturnValue = "";
+                        returnValue = "";
                     }
                 }
                 else
                 {
-                    functionReturnValue = "";
+                    returnValue = "";
                 }
             }
             catch (Exception ex)
@@ -1583,7 +1546,7 @@ namespace PSH_BOne_AddOn.Data
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -1594,24 +1557,24 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public string Month_LastDay(string JOBDAT)
         {
-            //string functionReturnValue = null;
+            //string returnValue = null;
             
             //switch (true)
             //{
             //    case Information.IsDate(Microsoft.VisualBasic.Compatibility.VB6.Support.Format(JOBDAT + "31", "0000-00-00")):
-            //        functionReturnValue = Convert.ToString(31);
+            //        returnValue = Convert.ToString(31);
             //        break;
             //    case Information.IsDate(Microsoft.VisualBasic.Compatibility.VB6.Support.Format(JOBDAT + "30", "0000-00-00")):
-            //        functionReturnValue = Convert.ToString(30);
+            //        returnValue = Convert.ToString(30);
             //        break;
             //    case Information.IsDate(Microsoft.VisualBasic.Compatibility.VB6.Support.Format(JOBDAT + "29", "0000-00-00")):
-            //        functionReturnValue = Convert.ToString(29);
+            //        returnValue = Convert.ToString(29);
             //        break;
             //    case Information.IsDate(Microsoft.VisualBasic.Compatibility.VB6.Support.Format(JOBDAT + "28", "0000-00-00")):
-            //        functionReturnValue = Convert.ToString(28);
+            //        returnValue = Convert.ToString(28);
             //        break;
             //}
-            //return functionReturnValue;
+            //return returnValue;
 
             return DateTime.DaysInMonth(Convert.ToInt16(JOBDAT.Substring(0, 4)), Convert.ToInt16(JOBDAT.Substring(4, 2))).ToString(); //한줄로 끝
         }
@@ -1626,12 +1589,12 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public bool TableFieldCheck(string sTable, string sField1, string sField2)
         {
-            bool functionReturnValue;
+            bool returnValue;
             string sQry;
 
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
-            functionReturnValue = false;
+            returnValue = false;
 
             sQry = "SELECT * FROM sysobjects WHERE name = '" + sTable + "' AND xtype='U'";
             oRecordSet.DoQuery(sQry);
@@ -1639,7 +1602,7 @@ namespace PSH_BOne_AddOn.Data
             if (oRecordSet.RecordCount == 0)
             {
                 PSH_Globals.SBO_Application.SetStatusBarMessage("입력하신 [" + sTable + "테이블이 존재 하지 않습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                return functionReturnValue;
+                return returnValue;
             }
 
             sQry = "select * from INFORMATION_SCHEMA.COLUMNS where table_name='" + sTable + "' and column_name= '" + sField1 + "'";
@@ -1647,7 +1610,7 @@ namespace PSH_BOne_AddOn.Data
             if (oRecordSet.RecordCount == 0)
             {
                 PSH_Globals.SBO_Application.SetStatusBarMessage("입력하신 [" + sField1 + "] 필드명이 존재 하지 않습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                return functionReturnValue;
+                return returnValue;
             }
 
             sQry = "select * from INFORMATION_SCHEMA.COLUMNS where table_name='" + sTable + "' and column_name= '" + sField2 + "'";
@@ -1655,11 +1618,11 @@ namespace PSH_BOne_AddOn.Data
             if (oRecordSet.RecordCount == 0)
             {
                 PSH_Globals.SBO_Application.SetStatusBarMessage("입력하신 [" + sField2 + "] 필드명이 존재 하지 않습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                return functionReturnValue;
+                return returnValue;
             }
 
-            functionReturnValue = true;
-            return functionReturnValue;
+            returnValue = true;
+            return returnValue;
         }
 
         /// <summary>
@@ -1754,7 +1717,7 @@ namespace PSH_BOne_AddOn.Data
                     {
                         oCombo.ValidValues.Add("", "-");
                     }
-                } //false
+                }
                 else
                 {
                     sQry = "SELECT Code, Name FROM [@PH_PY005A] ";
@@ -1903,22 +1866,22 @@ namespace PSH_BOne_AddOn.Data
         /// <summary>
         /// 콤보박스 바인딩
         /// </summary>
-        /// <param name="Lst"></param>
-        /// <param name="sSQL"></param>
-        /// <param name="TValue"></param>
-        /// <param name="Reset_Renamed"></param>
-        /// <param name="SetF"></param>
-        public void Set_ComboList(ComboBox Lst, string sSQL, string TValue, bool Reset_Renamed, bool SetF)
+        /// <param name="combo">콤보박스 컨트롤명</param>
+        /// <param name="query">쿼리</param>
+        /// <param name="defaultDescription">기본 선택 Description</param>
+        /// <param name="resetWhether">reset 여부</param>
+        /// <param name="voidInsertWhether">빈값 추가 여부</param>
+        public void Set_ComboList(ComboBox combo, string query, string defaultDescription, bool resetWhether, bool voidInsertWhether)
         {
             SAPbouiCOM.ComboBox ComBox = null;
             SAPbobsCOM.Recordset s_Recordset = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
-                s_Recordset.DoQuery(sSQL);
-                ComBox = Lst;
+                s_Recordset.DoQuery(query);
+                ComBox = combo;
 
-                if (Reset_Renamed == true)
+                if (resetWhether == true)
                 {
                     while (ComBox.ValidValues.Count > 0)
                     {
@@ -1926,7 +1889,7 @@ namespace PSH_BOne_AddOn.Data
                     }
                 }
 
-                if (SetF == true)
+                if (voidInsertWhether == true)
                 {
                     ComBox.ValidValues.Add("", "");
                 }
@@ -1934,13 +1897,12 @@ namespace PSH_BOne_AddOn.Data
                 while (!s_Recordset.EoF)
                 {
                     ComBox.ValidValues.Add(s_Recordset.Fields.Item(0).Value.ToString().Trim(), s_Recordset.Fields.Item(1).Value.ToString().Trim());
-                    //Value,Description
                     s_Recordset.MoveNext();
                 }
 
-                if (!string.IsNullOrEmpty(TValue))
+                if (!string.IsNullOrEmpty(defaultDescription))
                 {
-                    ComBox.Select(TValue, SAPbouiCOM.BoSearchKey.psk_ByDescription);
+                    ComBox.Select(defaultDescription, SAPbouiCOM.BoSearchKey.psk_ByDescription);
                 }
             }
             catch(Exception ex)
@@ -1960,7 +1922,7 @@ namespace PSH_BOne_AddOn.Data
         /// <returns>사업장</returns>
         public string User_BPLID()
         {
-            string functionReturnValue = string.Empty;
+            string returnValue = string.Empty;
             string sQry;
 
             SAPbobsCOM.Recordset ooRecordset01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -1970,7 +1932,7 @@ namespace PSH_BOne_AddOn.Data
                 sQry = "Select Branch From [OUSR] Where USER_CODE = '" + PSH_Globals.oCompany.UserName.ToString().Trim() + "'";
                 ooRecordset01.DoQuery(sQry);
 
-                functionReturnValue = ooRecordset01.Fields.Item(0).Value.ToString().Trim();
+                returnValue = ooRecordset01.Fields.Item(0).Value.ToString().Trim();
             }
             catch(Exception ex)
             {
@@ -1981,7 +1943,7 @@ namespace PSH_BOne_AddOn.Data
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(ooRecordset01);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -1990,7 +1952,7 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public string User_MSTCOD()
         {
-            string functionReturnValue = null;
+            string returnValue = null;
             string sQry;
 
             SAPbobsCOM.Recordset oRecordset01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -2000,7 +1962,7 @@ namespace PSH_BOne_AddOn.Data
                 sQry = "Select U_MSTCOD From [OHEM] a Inner Join [OUSR] b On a.userId = b.USERID Where b.USER_CODE = '" + PSH_Globals.oCompany.UserName + "'";
                 oRecordset01.DoQuery(sQry);
 
-                functionReturnValue = oRecordset01.Fields.Item(0).Value.ToString().Trim();
+                returnValue = oRecordset01.Fields.Item(0).Value.ToString().Trim();
             }
             catch(Exception ex)
             {
@@ -2011,7 +1973,37 @@ namespace PSH_BOne_AddOn.Data
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordset01);
             }
 
-            return functionReturnValue;
+            return returnValue;
+        }
+
+        /// <summary>
+        /// 아이디별 성명
+        /// </summary>
+        /// <returns></returns>
+        public string User_MSTNAM()
+        {
+            string returnValue = null;
+            string sQry;
+
+            SAPbobsCOM.Recordset oRecordset01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                sQry = "Select U_FULLNAME From [OHEM] a Inner Join [OUSR] b On a.userId = b.USERID Where b.USER_CODE = '" + PSH_Globals.oCompany.UserName + "'";
+                oRecordset01.DoQuery(sQry);
+
+                returnValue = oRecordset01.Fields.Item(0).Value.ToString().Trim();
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(GetType().Name + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordset01);
+            }
+
+            return returnValue;
         }
 
         /// <summary>
@@ -2022,7 +2014,7 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public bool GovIDCheck(string sID)
         {
-            bool functionReturnValue;
+            bool returnValue;
             string Weight;
             int Total;
             int chk;
@@ -2031,12 +2023,12 @@ namespace PSH_BOne_AddOn.Data
             int Dt;
             int Wt;
 
-            functionReturnValue = false;
+            returnValue = false;
 
             sID = sID.Trim();
             if (string.IsNullOrEmpty(sID))
             {
-                return functionReturnValue;
+                return returnValue;
             }
 
             if (sID.Substring(6, 1) == "-")
@@ -2046,13 +2038,13 @@ namespace PSH_BOne_AddOn.Data
                 
             if (sID.Length != 13)
             {
-                return functionReturnValue;
+                return returnValue;
             }
 
             //성별구분코드(1,2,3,4:내국인, 5,6,7,8:외국인)
             if (Convert.ToInt16(sID.Substring(6, 1)) < 1 || Convert.ToInt16(sID.Substring(6, 1)) > 8)
             {
-                return functionReturnValue;
+                return returnValue;
             }
                 
             //검증코드
@@ -2066,7 +2058,7 @@ namespace PSH_BOne_AddOn.Data
                     //등록기관번호검증
                     if (Convert.ToInt16(sID.Substring(7, 2)) % 2 != 0)
                     {
-                        return functionReturnValue;
+                        return returnValue;
                     }
                     break;
             }
@@ -2107,8 +2099,8 @@ namespace PSH_BOne_AddOn.Data
                     break;
             }
 
-            functionReturnValue = (Rmn == chk ? true : false);
-            return functionReturnValue;
+            returnValue = (Rmn == chk ? true : false);
+            return returnValue;
         }
 
         /// <summary>
@@ -2120,7 +2112,7 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public string GetValue(string sQry, int FieldCount, int RecordCount)
         {
-            string functionReturnValue = string.Empty;
+            string returnValue = string.Empty;
             int i;
 
             SAPbobsCOM.Recordset oRecordset = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -2137,13 +2129,13 @@ namespace PSH_BOne_AddOn.Data
                     }
                     for (i = 1; i <= RecordCount; i++)
                     {
-                        functionReturnValue = Convert.ToString(oRecordset.Fields.Item(FieldCount).Value);
+                        returnValue = Convert.ToString(oRecordset.Fields.Item(FieldCount).Value);
                         oRecordset.MoveNext();
                     }
                 }
                 else
                 {
-                    functionReturnValue = "";
+                    returnValue = "";
                 }
             }
             catch(Exception ex)
@@ -2155,7 +2147,7 @@ namespace PSH_BOne_AddOn.Data
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordset);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -2193,7 +2185,7 @@ namespace PSH_BOne_AddOn.Data
             {
                 if (pVal.ItemUID == ItemUID)
                 {
-                    if (pVal.CharPressed == Convert.ToInt16("9"))
+                    if (pVal.CharPressed == 9)
                     {
                         if (string.IsNullOrEmpty(oForm01.Items.Item(ItemUID).Specific.Value))
                         {
@@ -2209,7 +2201,7 @@ namespace PSH_BOne_AddOn.Data
                 {
                     if (pVal.ColUID == ColumnUID)
                     {
-                        if (pVal.CharPressed == Convert.ToInt16("9"))
+                        if (pVal.CharPressed == 9)
                         {
                             if (string.IsNullOrEmpty(oForm01.Items.Item(ItemUID).Specific.Columns(ColumnUID).Cells(pVal.Row).Specific.Value))
                             {
@@ -2236,7 +2228,7 @@ namespace PSH_BOne_AddOn.Data
             {
                 if (pVal.ItemUID == ItemUID)
                 {
-                    if (pVal.CharPressed == Convert.ToInt16("9"))
+                    if (pVal.CharPressed == 9)
                     {
                         if (string.IsNullOrEmpty(oForm01.Items.Item(ItemUID).Specific.Value))
                         {
@@ -2257,7 +2249,7 @@ namespace PSH_BOne_AddOn.Data
                 {
                     if (pVal.ColUID == ColumnUID)
                     {
-                        if (pVal.CharPressed == Convert.ToDouble("9"))
+                        if (pVal.CharPressed == 9)
                         {
                             if (string.IsNullOrEmpty(oForm01.Items.Item(ItemUID).Specific.Columns(ColumnUID).Cells(pVal.Row).Specific.Value))
                             {
@@ -2448,7 +2440,7 @@ namespace PSH_BOne_AddOn.Data
                 {
                     for (i = 1; i <= Combo.ValidValues.Count; i++)
                     {
-                        Combo.ValidValues.Remove((0));
+                        Combo.ValidValues.Remove(0);
                     }
                     if (EmptyValue == true)
                     {
@@ -2478,7 +2470,7 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public string GetItem_UnWeight(string ItemCode)
         {
-            string functionReturnValue = string.Empty;
+            string returnValue = string.Empty;
             string Query01;
 
             SAPbobsCOM.Recordset oRecordset01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -2490,11 +2482,11 @@ namespace PSH_BOne_AddOn.Data
 
                 if (oRecordset01.RecordCount == 0)
                 {
-                    functionReturnValue = "";
+                    returnValue = "";
                 }
                 else
                 {
-                    functionReturnValue = oRecordset01.Fields.Item(0).Value;
+                    returnValue = oRecordset01.Fields.Item(0).Value;
                 }
             }
             catch(Exception ex)
@@ -2506,7 +2498,7 @@ namespace PSH_BOne_AddOn.Data
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordset01);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -2516,7 +2508,7 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public string GetItem_ItmBsort(string ItemCode)
         {
-            string functionReturnValue = string.Empty;
+            string returnValue = string.Empty;
             string Query01;
 
             SAPbobsCOM.Recordset oRecordset01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -2528,11 +2520,11 @@ namespace PSH_BOne_AddOn.Data
 
                 if (oRecordset01.RecordCount == 0)
                 {
-                    functionReturnValue = "";
+                    returnValue = "";
                 }
                 else
                 {
-                    functionReturnValue = oRecordset01.Fields.Item(0).Value;
+                    returnValue = oRecordset01.Fields.Item(0).Value;
                 }
             }
             catch(Exception ex)
@@ -2544,7 +2536,7 @@ namespace PSH_BOne_AddOn.Data
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordset01);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -2554,7 +2546,7 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public string GetItem_SbasUnit(string ItemCode)
         {
-            string functionReturnValue = string.Empty;
+            string returnValue = string.Empty;
             string Query01;
 
             SAPbobsCOM.Recordset oRecordset01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -2566,11 +2558,11 @@ namespace PSH_BOne_AddOn.Data
 
                 if (oRecordset01.RecordCount == 0)
                 {
-                    functionReturnValue = "";
+                    returnValue = "";
                 }
                 else
                 {
-                    functionReturnValue = oRecordset01.Fields.Item(0).Value;
+                    returnValue = oRecordset01.Fields.Item(0).Value;
                 }
             }
             catch(Exception ex)
@@ -2582,7 +2574,7 @@ namespace PSH_BOne_AddOn.Data
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordset01);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -2592,7 +2584,7 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public string GetItem_ObasUnit(string ItemCode)
         {
-            string functionReturnValue = string.Empty;
+            string returnValue = string.Empty;
             string Query01;
 
             SAPbobsCOM.Recordset oRecordset01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -2604,11 +2596,11 @@ namespace PSH_BOne_AddOn.Data
 
                 if (oRecordset01.RecordCount == 0)
                 {
-                    functionReturnValue = "";
+                    returnValue = "";
                 }
                 else
                 {
-                    functionReturnValue = oRecordset01.Fields.Item(0).Value;
+                    returnValue = oRecordset01.Fields.Item(0).Value;
                 }
             }
             catch(Exception ex)
@@ -2620,7 +2612,7 @@ namespace PSH_BOne_AddOn.Data
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordset01);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -2630,7 +2622,7 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public string GetItem_Unit1(string ItemCode)
         {
-            string functionReturnValue = string.Empty;
+            string returnValue = string.Empty;
             string Query01;
 
             SAPbobsCOM.Recordset oRecordset01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -2642,11 +2634,11 @@ namespace PSH_BOne_AddOn.Data
 
                 if (oRecordset01.RecordCount == 0)
                 {
-                    functionReturnValue = "";
+                    returnValue = "";
                 }
                 else
                 {
-                    functionReturnValue = oRecordset01.Fields.Item(0).Value;
+                    returnValue = oRecordset01.Fields.Item(0).Value;
                 }
             }
             catch(Exception ex)
@@ -2658,7 +2650,7 @@ namespace PSH_BOne_AddOn.Data
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordset01);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
             
         /// <summary>
@@ -2668,7 +2660,7 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public string GetItem_Spec1(string ItemCode)
         {
-            string functionReturnValue = string.Empty;
+            string returnValue = string.Empty;
             string Query01;
 
             SAPbobsCOM.Recordset oRecordset01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -2680,11 +2672,11 @@ namespace PSH_BOne_AddOn.Data
 
                 if (oRecordset01.RecordCount == 0)
                 {
-                    functionReturnValue = "";
+                    returnValue = "";
                 }
                 else
                 {
-                    functionReturnValue = oRecordset01.Fields.Item(0).Value;
+                    returnValue = oRecordset01.Fields.Item(0).Value;
                 }
             }
             catch(Exception ex)
@@ -2696,7 +2688,7 @@ namespace PSH_BOne_AddOn.Data
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordset01);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -2706,7 +2698,7 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public string GetItem_Spec2(string ItemCode)
         {
-            string functionReturnValue = null;
+            string returnValue = null;
             string Query01;
 
             SAPbobsCOM.Recordset oRecordset01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -2718,11 +2710,11 @@ namespace PSH_BOne_AddOn.Data
 
                 if (oRecordset01.RecordCount == 0)
                 {
-                    functionReturnValue = "";
+                    returnValue = "";
                 }
                 else
                 {
-                    functionReturnValue = oRecordset01.Fields.Item(0).Value;
+                    returnValue = oRecordset01.Fields.Item(0).Value;
                 }
             }
             catch(Exception ex)
@@ -2734,7 +2726,7 @@ namespace PSH_BOne_AddOn.Data
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordset01);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -2744,7 +2736,7 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public string GetItem_Spec3(string ItemCode)
         {
-            string functionReturnValue = string.Empty;
+            string returnValue = string.Empty;
             string Query01;
 
             SAPbobsCOM.Recordset oRecordset01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -2756,11 +2748,11 @@ namespace PSH_BOne_AddOn.Data
 
                 if (oRecordset01.RecordCount == 0)
                 {
-                    functionReturnValue = "";
+                    returnValue = "";
                 }
                 else
                 {
-                    functionReturnValue = oRecordset01.Fields.Item(0).Value;
+                    returnValue = oRecordset01.Fields.Item(0).Value;
                 }
             }
             catch(Exception ex)
@@ -2772,7 +2764,7 @@ namespace PSH_BOne_AddOn.Data
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordset01);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -2782,7 +2774,7 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public string GetItem_ManBtchNum(string ItemCode)
         {
-            string functionReturnValue = string.Empty;
+            string returnValue = string.Empty;
             string Query01;
 
             SAPbobsCOM.Recordset oRecordset01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -2794,11 +2786,11 @@ namespace PSH_BOne_AddOn.Data
 
                 if (oRecordset01.RecordCount == 0)
                 {
-                    functionReturnValue = "";
+                    returnValue = "";
                 }
                 else
                 {
-                    functionReturnValue = oRecordset01.Fields.Item(0).Value;
+                    returnValue = oRecordset01.Fields.Item(0).Value;
                 }
             }
             catch(Exception ex)
@@ -2810,7 +2802,7 @@ namespace PSH_BOne_AddOn.Data
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordset01);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -2820,7 +2812,7 @@ namespace PSH_BOne_AddOn.Data
         /// <returns></returns>
         public string GetItem_TradeType(string ItemCode)
         {
-            string functionReturnValue = string.Empty;
+            string returnValue = string.Empty;
             string Query01;
 
             SAPbobsCOM.Recordset oRecordset01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -2832,11 +2824,11 @@ namespace PSH_BOne_AddOn.Data
 
                 if (oRecordset01.RecordCount == 0)
                 {
-                    functionReturnValue = "";
+                    returnValue = "";
                 }
                 else
                 {
-                    functionReturnValue = oRecordset01.Fields.Item(0).Value;
+                    returnValue = oRecordset01.Fields.Item(0).Value;
                 }
             }
             catch(Exception ex)
@@ -2848,7 +2840,7 @@ namespace PSH_BOne_AddOn.Data
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordset01);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -2893,7 +2885,7 @@ namespace PSH_BOne_AddOn.Data
                         BaseEntry = oMat01.Columns.Item("45").Cells.Item(i).Specific.Value;
                         BaseLine = oMat01.Columns.Item("46").Cells.Item(i).Specific.Value;
                         
-                        if (BaseType == "17") ////판매오더
+                        if (BaseType == "17") //판매오더
                         {
                             BaseTable = "RDR";
                         }
@@ -2916,7 +2908,6 @@ namespace PSH_BOne_AddOn.Data
                         else if (BaseType == "14") //AR대변메모
                         {
                             BaseTable = "RIN";
-                            
                         }
                         else if (BaseType == "22") //구매오더
                         {
@@ -3077,6 +3068,36 @@ namespace PSH_BOne_AddOn.Data
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordset01);
             }
             
+            return returnValue;
+        }
+
+        /// <summary>
+        /// 접속한 사용자의 팀코드 조회
+        /// </summary>
+        /// <returns>DeptCode</returns>
+        public string User_TeamCode()
+        {
+            string returnValue = string.Empty;
+            string sQry;
+
+            SAPbobsCOM.Recordset oRecordset01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                sQry = "Select U_TeamCode From [OHEM] a Inner Join [OUSR] b On a.userId = b.USERID Where USER_CODE = '"+ PSH_Globals.oCompany.UserName.Trim() + "'";
+                oRecordset01.DoQuery(sQry);
+
+                returnValue = oRecordset01.Fields.Item(0).Value.ToString().Trim();
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(GetType().Name + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordset01);
+            }
+
             return returnValue;
         }
 
@@ -3408,172 +3429,6 @@ namespace PSH_BOne_AddOn.Data
         }
 
         /// <summary>
-        /// R3 통신(실제 구현 할때 테스트 및 보완 필요, 2020.09.15 송명규)
-        /// </summary>
-        /// <param name="BPLId"></param>
-        /// <param name="ItemCode"></param>
-        /// <param name="ItemName"></param>
-        /// <param name="Size"></param>
-        /// <param name="Qty"></param>
-        /// <param name="Unit"></param>
-        /// <param name="RequestDate"></param>
-        /// <param name="DueDate"></param>
-        /// <param name="ItemType"></param>
-        /// <param name="RequestNo"></param>
-        /// <returns></returns>
-        public string RFC_Sender(string BPLId, string ItemCode, string ItemName, string Size, double Qty, string Unit, string RequestDate, string DueDate, string ItemType, string RequestNo)
-        {
-            string returnValue = string.Empty;
-            string tempReturnValue;
-            string WERKS;
-            string errCode = string.Empty;
-            string errMessage = string.Empty;
-
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-            RfcConfigParameters rfc = new RfcConfigParameters();
-            
-            //if (i == 0)
-            //{
-            //rfc.Add(RfcConfigParameters.Name, "");
-            rfc.Add(RfcConfigParameters.AppServerHost, "192.1.1.217");  //서버IP
-            //rfc.Add(RfcConfigParameters.AppServerHost, "192.1.11.7");  //테스트
-            rfc.Add(RfcConfigParameters.SystemNumber, "00");
-            rfc.Add(RfcConfigParameters.User, "ifuser");   //사용자ID
-            rfc.Add(RfcConfigParameters.Password, "pdauser");  //사용자 패스워드
-            rfc.Add(RfcConfigParameters.Client, "210");
-            rfc.Add(RfcConfigParameters.Language, "KO");
-            rfc.Add(RfcConfigParameters.PoolSize, "5");
-
-            //rfc.Add(RfcConfigParameters.MaxPoolSize, "10");
-            //rfc.Add(RfcConfigParameters.IdleTimeout, "500");
-            RfcDestination rfcDest = RfcDestinationManager.GetDestination(rfc);
-            RfcRepository rfcRep = rfcDest.Repository;
-
-            //PSH_Globals.oSapConnection01 = Interaction.CreateObject("SAP.Functions");
-            //PSH_Globals.oSapConnection01.Connection.User = "ifuser";
-            //PSH_Globals.oSapConnection01.Connection.Password = "pdauser";
-            ////oSapConnection01.Connection.client = "710"
-            //PSH_Globals.oSapConnection01.Connection.Client = "210";
-            ////oSapConnection01.Connection.ApplicationServer = "192.1.11.7"
-            //PSH_Globals.oSapConnection01.Connection.ApplicationServer = "192.1.1.217";
-            //PSH_Globals.oSapConnection01.Connection.Language = "KO";
-            //PSH_Globals.oSapConnection01.Connection.SystemNumber = "00";
-
-            //if (!PSH_Globals.oSapConnection01.Connection.Logon(0, true))
-            //{
-            //    errCode = "1";
-            //    throw new Exception();
-            //}
-
-            IRfcFunction oFunction01 = rfcRep.CreateFunction("ZMM_INTF_GROUP");
-            //}
-
-            try
-            {
-                if (Convert.ToDouble(BPLId) == 1)
-                {
-                    WERKS = "9200";
-                }
-                else if (Convert.ToDouble(BPLId) == 2)
-                {
-                    WERKS = "9300";
-                }
-                else
-                {
-                    WERKS = "9200";
-                }
-
-                oFunction01.SetValue("I_WERKS", WERKS); //플랜트 홀딩스 창원 9200, 홀딩스 부산 9300
-                oFunction01.SetValue("I_MATNR", ItemCode); //자재코드 char(18)
-                oFunction01.SetValue("I_MAKTX", ItemName); //자재내역 char(40)
-                oFunction01.SetValue("I_WRKST", Size); //자재규격 char(48)
-                oFunction01.SetValue("I_MENGE", Qty); //구매요청수량 dec(13,3)
-                oFunction01.SetValue("I_MEINS", Unit); //단위 char(3)
-                oFunction01.SetValue("I_BADAT", RequestDate); //구매요청일 char(8)
-                oFunction01.SetValue("I_LFDAT", DueDate); //납품일 char(8)
-                oFunction01.SetValue("I_MATKL", ItemType); //자재그룹 char(9)
-                oFunction01.SetValue("I_ZBANFN", RequestNo); //구매요청번호
-
-                oFunction01.Invoke(rfcDest);
-                
-                errMessage = oFunction01.GetValue("E_MESSAGE").ToString();
-
-                if (string.IsNullOrEmpty(errMessage)) //에러메시지
-                {
-                    tempReturnValue = oFunction01.GetString("E_BANFN").ToString() + "/" + oFunction01.GetString("E_BNFPO").ToString(); //통합구매요청번호, 통합구매요청 품목번호
-                }
-                else
-                {
-                    errCode = "1";
-                    throw new Exception();
-                    //MDC_Com.MDC_GF_Message(ref oFunction01.Imports("E_MESSAGE").Value, ref "E");
-                    //goto RFC_Sender_Exit;
-                }
-
-                //oFunction01.Exports("I_WERKS") = WERKS; //플랜트 홀딩스 창원 9200, 홀딩스 부산 9300
-                //oFunction01.Exports("I_MATNR") = ItemCode; //자재코드 char(18)
-                //oFunction01.Exports("I_MAKTX") = ItemName; //자재내역 char(40)
-                //oFunction01.Exports("I_WRKST") = Size; //자재규격 char(48)
-                //oFunction01.Exports("I_MENGE") = Qty; //구매요청수량 dec(13,3)
-                //oFunction01.Exports("I_MEINS") = Unit; //단위 char(3)
-                //oFunction01.Exports("I_BADAT") = RequestDate; //구매요청일 char(8)
-                //oFunction01.Exports("I_LFDAT") = DueDate; //납품일 char(8)
-                //oFunction01.Exports("I_MATKL") = ItemType; //자재그룹 char(9)
-                //oFunction01.Exports("I_ZBANFN") = RequestNo; //구매요청번호
-
-                //if (!(oFunction01.Call))
-                //{
-                //    errCode = "2";
-                //    throw new Exception();
-                //    //MDC_Com.MDC_GF_Message(ref "안강(R/3)서버 함수호출중 오류발생", ref "E");
-                //    //goto RFC_Sender_Exit;
-                //}
-                //else
-                //{
-                //    if ((string.IsNullOrEmpty(oFunction01.Imports("E_MESSAGE").Value))) //에러메시지
-                //    {
-                //        tempReturnValue = oFunction01.Imports("E_BANFN").Value + "/" + oFunction01.Imports("E_BNFPO").Value; ////통합구매요청번호 '//통합구매요청 품목번호
-                //    }
-                //    else
-                //    {
-                //        errCode = "3";
-                //        throw new Exception();
-                //        //MDC_Com.MDC_GF_Message(ref oFunction01.Imports("E_MESSAGE").Value, ref "E");
-                //        //goto RFC_Sender_Exit;
-                //    }
-                //}
-
-                returnValue = tempReturnValue;
-            }
-            catch (Exception ex)
-            {
-                if (errCode == "1")
-                {
-                    dataHelpClass.MDC_GF_Message(errMessage, "E");
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(GetType().Name + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-            }
-            finally
-            {
-                //if ((PSH_Globals.oSapConnection01.Connection != null))
-                //{
-                //    if (i == LastRow)
-                //    {
-                //        PSH_Globals.oSapConnection01.Connection.Logoff();
-                //        PSH_Globals.oSapConnection01 = null;
-                //    }
-                //}
-
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oFunction01);
-            }
-
-            return returnValue;
-        }
-
-        /// <summary>
         /// KPI 평가등급 계산
         /// </summary>
         /// <param name="prmBaseEntry">KPI목표문서번호</param>
@@ -3760,8 +3615,6 @@ namespace PSH_BOne_AddOn.Data
         public bool SAPConnection(ref RfcDestination rfcDest, ref RfcRepository rfcRep, string pName, string pAppServerHost, string pClient, string pUser, string pPassword)
         {
             bool returnValue;
-            //RfcDestination rfcDest;
-            //RfcRepository rfcRep;
 
             try
             {
@@ -3850,6 +3703,28 @@ namespace PSH_BOne_AddOn.Data
             RfcDestination rfcDest = RfcDestinationManager.GetDestination(rfc);
 
             return rfcDest;
+        }
+
+        /// <summary>
+        /// 본사 R3 서버 정보 조회
+        /// </summary>
+        /// <returns>Array[0] : Client, Array[1] : ServerIP</returns>
+        public string[] GetR3ServerInfo()
+        {
+            string[] r3ServerInfo = new string[2];
+
+            if (GetValue("SELECT DB_NAME()", 0, 1) == "PSHDB") //운영용DB
+            {
+                r3ServerInfo[0] = GetValue("SELECT U_Client FROM [@PSH_R3INFO] WHERE Code = '1'", 0, 1); //Client(210)
+                r3ServerInfo[1] = GetValue("SELECT U_ServerIP FROM [@PSH_R3INFO] WHERE Code = '1'", 0, 1); //ServerIP(192.1.11.3)
+            }
+            else //그 외(테스트DB)
+            {
+                r3ServerInfo[0] = GetValue("SELECT U_Client FROM [@PSH_R3INFO] WHERE Code = '2'", 0, 1); //Client(810)
+                r3ServerInfo[1] = GetValue("SELECT U_ServerIP FROM [@PSH_R3INFO] WHERE Code = '2'", 0, 1); //ServerIP(192.1.11.7)
+            }
+
+            return r3ServerInfo;
         }
     }
 }

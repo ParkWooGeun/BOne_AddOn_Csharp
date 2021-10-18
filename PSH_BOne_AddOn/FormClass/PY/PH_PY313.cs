@@ -19,8 +19,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -50,7 +50,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY313_CreateItems();
                 PH_PY313_EnableMenus();
-                PH_PY313_SetDocument(oFormDocEntry01);
+                PH_PY313_SetDocument(oFormDocEntry);
             }
             catch (Exception ex)
             {
@@ -150,21 +150,21 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY313_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY313_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY313_FormItemEnabled();
-                    //Call PH_PY313_AddMatrixRow(0, True) '//UDO방식일때
+                    //Call PH_PY313_AddMatrixRow(0, True) '
                 }
                 else
                 {
                     //oForm.Mode = fm_FIND_MODE
                     //PH_PY313_FormItemEnabled
-                    //oForm.Items("DocEntry").Specific.Value = oFormDocEntry01
+                    //oForm.Items("DocEntry").Specific.Value = oFormDocEntry
                     //oForm.Items("1").Click ct_Regular
                 }
             }
@@ -344,7 +344,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY313_AddData()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int loopCount;
             string sQry;
             
@@ -384,7 +384,7 @@ namespace PSH_BOne_AddOn
                     oRecordSet.DoQuery(sQry);
                 }
                 oMat01.LoadFromDataSource();
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -395,7 +395,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(false);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -404,7 +404,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY313_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
 
             try
             {
@@ -412,17 +412,17 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 if (string.IsNullOrEmpty(oForm.Items.Item("RpmtDate").Specific.Value.Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("상환일자는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("RpmtDate").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -432,7 +432,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

@@ -21,8 +21,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			MSXML2.DOMDocument oXmlDoc01 = new MSXML2.DOMDocument();
 
@@ -51,9 +51,9 @@ namespace PSH_BOne_AddOn
 				PS_FI961_CreateItems();
 				PS_FI961_ComboBox_Setting();
 				PS_FI961_Initial_Setting();
-				PS_FI961_SetDocument(oFormDocEntry01);
+				PS_FI961_SetDocument(oFormDocEntry);
 
-				oForm.Items.Item("Folder01").Specific.Select();				//폼이 로드 될 때 Folder01이 선택됨
+				oForm.Items.Item("Folder01").Specific.Select();             //폼이 로드 될 때 Folder01이 선택됨
 			}
 			catch (Exception ex)
 			{
@@ -258,7 +258,7 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void PS_FI961_FormClear()
 		{
-			string DocEntry = String.Empty;
+			string DocEntry = string.Empty;
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
 			try
@@ -285,12 +285,12 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// PS_FI961_SetDocument
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		private void PS_FI961_SetDocument(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		private void PS_FI961_SetDocument(string oFormDocEntry)
 		{
 			try
 			{
-				if (string.IsNullOrEmpty(oFormDocEntry01))
+				if (string.IsNullOrEmpty(oFormDocEntry))
 				{
 					PS_FI961_FormItemEnabled();
 				}
@@ -314,7 +314,7 @@ namespace PSH_BOne_AddOn
 		{
 			int loopCount = 0;
 			int ErrNum = 0;
-			string sQry = String.Empty;
+			string sQry = string.Empty;
 
 			string BPLID = string.Empty;            //사업장
 			string FrDt = string.Empty;         //기간시작
@@ -405,7 +405,6 @@ namespace PSH_BOne_AddOn
 					ProgressBar01.Stop();
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
 				}
-				
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 		}
@@ -417,7 +416,7 @@ namespace PSH_BOne_AddOn
 		{
 			int loopCount = 0;
 			int ErrNum = 0;
-			string sQry = String.Empty;
+			string sQry = string.Empty;
 
 			string BPLID = string.Empty;            //사업장
 			string FrDt = string.Empty;         //기간시작
@@ -505,7 +504,6 @@ namespace PSH_BOne_AddOn
 					ProgressBar01.Stop();
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
 				}
-				
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 		}
@@ -806,7 +804,7 @@ namespace PSH_BOne_AddOn
 		/// <param name="BubbleEvent"></param>
 		private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
-			string sQry = String.Empty;
+			string sQry = string.Empty;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try

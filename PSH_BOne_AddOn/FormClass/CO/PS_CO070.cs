@@ -20,8 +20,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			MSXML2.DOMDocument oXmlDoc01 = new MSXML2.DOMDocument();
 
@@ -166,7 +166,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool MatrixSpaceLineDel()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			int ErrNum = 0;
 
 			try
@@ -186,7 +186,7 @@ namespace PSH_BOne_AddOn
 					}
 				}
 				oMat01.LoadFromDataSource();
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -200,7 +200,7 @@ namespace PSH_BOne_AddOn
 				}
 			}
 
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -209,7 +209,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool HeaderSpaceLineDel()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			int ErrNum = 0;
 
 			try
@@ -230,7 +230,7 @@ namespace PSH_BOne_AddOn
 					throw new Exception();
 				}
 				PSH_Globals.SBO_Application.MessageBox("정상등록 되었습니다.");
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -251,7 +251,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -838,10 +838,10 @@ namespace PSH_BOne_AddOn
                 {
 					SubMain.Remove_Forms(oFormUniqueID01);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO070H);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO070L);
-                }
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO070H);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO070L);
+				}
 			}
 			catch (Exception ex)
 			{
@@ -933,10 +933,10 @@ namespace PSH_BOne_AddOn
 							Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
 							break;
 						case "1281":							//찾기
-							oForm.DataBrowser.BrowseBy = "Code";			//UDO방식일때
+							oForm.DataBrowser.BrowseBy = "Code";			
 							break;
 						case "1282":							//추가
-							oForm.DataBrowser.BrowseBy = "Code";			//UDO방식일때
+							oForm.DataBrowser.BrowseBy = "Code";			
 							break;
 						case "1288":
 						case "1289":
@@ -957,11 +957,11 @@ namespace PSH_BOne_AddOn
 							Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
 							break;
 						case "1281":							//찾기
-							AddMatrixRow(0, true);					//UDO방식
-							oForm.DataBrowser.BrowseBy = "Code";	//UDO방식일때        '찾기버튼 클릭시 Matrix에 행 추가
+							AddMatrixRow(0, true);					
+							oForm.DataBrowser.BrowseBy = "Code";
 							break;
 						case "1282":							//추가
-							AddMatrixRow(0, true);					//UDO방식
+							AddMatrixRow(0, true);					
 							break;
 						case "1288":
 						case "1289":

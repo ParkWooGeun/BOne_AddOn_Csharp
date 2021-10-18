@@ -20,8 +20,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -50,11 +50,11 @@ namespace PSH_BOne_AddOn
 
                 oForm.Freeze(true);
 
-                oForm.EnableMenu("1283", true);                //// 제거
-                oForm.EnableMenu("1293", true);                //// 행삭제
-                oForm.EnableMenu("1287", true);                //// 복제
-                oForm.EnableMenu("1284", false);                //// 취소
-                oForm.EnableMenu("1286", false);              //// 닫기
+                oForm.EnableMenu("1283", true); // 제거
+                oForm.EnableMenu("1293", true); // 행삭제
+                oForm.EnableMenu("1287", true); // 복제
+                oForm.EnableMenu("1284", false); // 취소
+                oForm.EnableMenu("1286", false); // 닫기
 
                 PS_CO210_CreateItems();
                 PS_CO210_AddMatrixRow(0, true);
@@ -125,7 +125,7 @@ namespace PSH_BOne_AddOn
         /// <returns>True:필수입력사항을 모두 입력, Fasle:필수입력사항 중 하나라도 입력하지 않았음</returns>
         private bool PS_CO210_HeaderSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short ErrNum = 0;
 
             try
@@ -135,7 +135,7 @@ namespace PSH_BOne_AddOn
                     ErrNum = 1;
                     throw new Exception();
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -151,7 +151,7 @@ namespace PSH_BOne_AddOn
             finally
             {
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -160,29 +160,22 @@ namespace PSH_BOne_AddOn
         /// <returns>True:필수입력사항을 모두 입력, Fasle:필수입력사항 중 하나라도 입력하지 않았음</returns>
         private bool PS_CO210_MatrixSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short ErrNum = 0;
 
             try
             {
                 oForm.Freeze(true);
 
-                //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-                //// 화면상의 메트릭스에 입력된 내용을 모두 디비데이터소스로 넘긴다
-                //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
                 oMat01.FlushToDataSource();
 
-                //// 라인
+                // 라인
                 if (oMat01.VisualRowCount <= 1)
                 {
                     ErrNum = 1;
                     throw new Exception();
                 }
 
-                //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-                //// 맨마지막에 데이터를 삭제하는 이유는 행을 추가 할경우에 디비데이터소스에
-                //// 이미 데이터가 들어가 있기 때문에 저장시에는 마지막 행(DB데이터 소스에)을 삭제한다
-                //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
                 if (oMat01.VisualRowCount > 0)
                 {
                     if (string.IsNullOrEmpty(oDS_PS_CO210L.GetValue("U_ItemCode", oMat01.VisualRowCount - 1)))
@@ -190,11 +183,9 @@ namespace PSH_BOne_AddOn
                         oDS_PS_CO210L.RemoveRecord(oMat01.VisualRowCount - 1);
                     }
                 }
-                //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-                //행을 삭제하였으니 DB데이터 소스를 다시 가져온다
-                //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+                
                 oMat01.LoadFromDataSource();
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -212,7 +203,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(false);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -314,7 +305,7 @@ namespace PSH_BOne_AddOn
 
                 dataPackParameter.Add(new PSH_DataPackClass("@YM", YM)); //일자
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch (Exception ex)
             {

@@ -19,8 +19,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -51,7 +51,7 @@ namespace PSH_BOne_AddOn
                 PH_PY204_CreateItems();
                 PH_PY204_ComboBox_Setting();
                 PH_PY204_EnableMenus();
-                PH_PY204_SetDocument(oFormDocEntry01);
+                PH_PY204_SetDocument(oFormDocEntry);
                 PH_PY204_FormResize();
                 PH_PY204_Add_MatrixRow(0, true);
                 PH_PY204_LoadCaption();
@@ -258,21 +258,21 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY204_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY204_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY204_FormItemEnabled();
-                    ////Call PH_PY021_AddMatrixRow(0, True) '//UDO방식일때
+                    ////Call PH_PY021_AddMatrixRow(0, True) '
                 }
                 else
                 {
                     //        oForm.Mode = fm_FIND_MODE
                     //        Call PH_PY204_FormItemEnabled
-                    //        oForm.Items("DocEntry").Specific.Value = oFormDocEntry01
+                    //        oForm.Items("DocEntry").Specific.Value = oFormDocEntry
                     //        oForm.Items("1").Click ct_Regular
                 }
             }
@@ -576,7 +576,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY204_AddData()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
 
             short i;
             string sQry;
@@ -698,7 +698,7 @@ namespace PSH_BOne_AddOn
 
                 PSH_Globals.SBO_Application.StatusBar.SetText("저장 완료!", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -717,7 +717,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet01);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -802,7 +802,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY204_MatrixSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i = 0;
             short ErrNum = 0;
 
@@ -861,7 +861,7 @@ namespace PSH_BOne_AddOn
                     }
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -903,7 +903,7 @@ namespace PSH_BOne_AddOn
                 }
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -1010,7 +1010,7 @@ namespace PSH_BOne_AddOn
                         }
                         else if (oCol == "TeamCode")
                         {
-                            oDS_PH_PY204B.SetValue("U_ColReg07", oRow - 1, (oMat01.Columns.Item(oCol).Cells.Item(oRow).Specific.Value.ToString.Trim() == "9999" ? "전부서" : dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" + oMat01.Columns.Item(oCol).Cells.Item(oRow).Specific.Value.ToString().Trim() + "'", " AND Code = '1'"))); //부서
+                            oDS_PH_PY204B.SetValue("U_ColReg07", oRow - 1, (oMat01.Columns.Item(oCol).Cells.Item(oRow).Specific.Value.ToString().Trim() == "9999" ? "전부서" : dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" + oMat01.Columns.Item(oCol).Cells.Item(oRow).Specific.Value.ToString().Trim() + "'", " AND Code = '1'"))); //부서
                         }
                         else if (oCol == "RspCode")
                         {
@@ -1277,14 +1277,15 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(xlwbs);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(xlapp);
 
-                ProgressBar01.Stop();
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
-
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
                 if (sucessFlag == true)
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("엑셀 Loding 완료", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
                 }
-
                 oForm.Freeze(false);
             }
         }

@@ -18,8 +18,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -196,7 +196,7 @@ namespace PSH_BOne_AddOn
         /// <returns>True:필수입력사항을 모두 입력, Fasle:필수입력사항 중 하나라도 입력하지 않았음</returns>
         private bool PS_CO503_HeaderSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short ErrNum = 0;
 
             try
@@ -206,7 +206,7 @@ namespace PSH_BOne_AddOn
                     ErrNum = 1;
                     throw new Exception();
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -223,7 +223,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -232,7 +232,7 @@ namespace PSH_BOne_AddOn
         /// <returns>True:필수입력사항을 모두 입력, Fasle:필수입력사항 중 하나라도 입력하지 않았음</returns>
         private bool PS_CO503_MatrixSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short ErrNum = 0;
 
             try
@@ -255,7 +255,7 @@ namespace PSH_BOne_AddOn
                 }
 
                 oMat01.LoadFromDataSource();
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -273,7 +273,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(false);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

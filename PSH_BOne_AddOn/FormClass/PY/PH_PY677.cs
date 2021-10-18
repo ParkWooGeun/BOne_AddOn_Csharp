@@ -20,8 +20,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -51,7 +51,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY677_CreateItems();
                 PH_PY677_EnableMenus();
-                PH_PY677_SetDocument(oFormDocEntry01);
+                PH_PY677_SetDocument(oFormDocEntry);
                 PH_PY677_FormResize();
 
                 oForm.Items.Item("MSTCOD").Click(); //사번 포커스
@@ -311,21 +311,21 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY677_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY677_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY677_FormItemEnabled();
-                    //Call PH_PY677_AddMatrixRow(0, True) '//UDO방식일때
+                    //Call PH_PY677_AddMatrixRow(0, True) '
                 }
                 else
                 {
                     //        oForm.Mode = fm_FIND_MODE
                     //        Call PH_PY677_FormItemEnabled
-                    //        oForm.Items("DocEntry").Specific.Value = oFormDocEntry01
+                    //        oForm.Items("DocEntry").Specific.Value = oFormDocEntry
                     //        oForm.Items("1").Click ct_Regular
                 }
             }
@@ -596,7 +596,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY677_UpdateData()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
 
             int i;
             string sQry;
@@ -736,7 +736,7 @@ namespace PSH_BOne_AddOn
                 }
                 PSH_Globals.SBO_Application.StatusBar.SetText("수정 완료", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -748,7 +748,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet01);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -1086,9 +1086,9 @@ namespace PSH_BOne_AddOn
             {
                 if (ProgressBar01 != null)
                 {
+                    ProgressBar01.Stop();
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
                 }
-
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
         }
@@ -1869,7 +1869,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private double PH_PY677_hhmm_Calc(double mTime, string pWorkType = "")
         {
-            double functionReturnValue = 0;
+            double returnValue = 0;
             int hh;
             double MM;
             double Ret;
@@ -1913,7 +1913,7 @@ namespace PSH_BOne_AddOn
                     Ret = 4;
                 }
 
-                functionReturnValue = Ret;
+                returnValue = Ret;
             }
             catch (Exception ex)
             {
@@ -1923,7 +1923,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -2395,7 +2395,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 if (pVal.Before_Action == true)
-                {
+                {   
                 }
                 else if (pVal.Before_Action == false)
                 {

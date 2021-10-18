@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.DataPack;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		public override void LoadForm(string oFormDocEntry01)
+		public override void LoadForm(string oFormDocEntry)
 		{
 			MSXML2.DOMDocument oXmlDoc01 = new MSXML2.DOMDocument();
 
@@ -127,7 +127,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool HeaderSpaceLineDel()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			int ErrNum = 0;
 
 			try
@@ -147,7 +147,7 @@ namespace PSH_BOne_AddOn
 					ErrNum = 3;
 					throw new Exception();
 				}
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -169,7 +169,7 @@ namespace PSH_BOne_AddOn
 				}
 			}
 
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -238,7 +238,7 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@ECardCode", ECardCode));
 				dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLId));
 
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
 			}
 			catch (Exception ex)
 			{

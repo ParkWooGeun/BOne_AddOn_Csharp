@@ -28,8 +28,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// Form 호출
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -63,8 +63,8 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("FrDt01").Specific.Value = DateTime.Now.ToString("yyyy0101");
 				oForm.Items.Item("ToDt01").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 				
-				oForm.Items.Item("Folder01").Specific.Select();				
-			}
+				oForm.Items.Item("Folder01").Specific.Select();
+            }
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
@@ -411,7 +411,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@ToDt", ToDt)); //조회일자(종료)
                 dataPackParameter.Add(new PSH_DataPackClass("@PrtCls", PrtCls)); //그리드, 리포트 출력구분
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch (Exception ex)
             {

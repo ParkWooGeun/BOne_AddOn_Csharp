@@ -21,7 +21,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// 화면 호출
 		/// </summary>
-		public override void LoadForm(string oFromDocEntry01)
+		public override void LoadForm(string oFormDocEntry)
 		{
 			int i;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -50,14 +50,14 @@ namespace PSH_BOne_AddOn
 
 				oForm.SupportedModes = -1;
 				oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
-				oForm.DataBrowser.BrowseBy = "DocEntry"; //UDO방식일때
+				oForm.DataBrowser.BrowseBy = "DocEntry";
 
 				oForm.Freeze(true);
 
 				PS_QM060_CreateItems();
 				PS_QM060_ComboBox_Setting();
 				PS_QM060_EnableMenus();
-				PS_QM060_SetDocument(oFromDocEntry01);
+				PS_QM060_SetDocument(oFormDocEntry);
 			}
 			catch (Exception ex)
 			{
@@ -139,15 +139,15 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// PS_QM060_SetDocument
 		/// </summary>
-		/// <param name="oFromDocEntry01"></param>
-		private void PS_QM060_SetDocument(string oFromDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		private void PS_QM060_SetDocument(string oFormDocEntry)
 		{
 			try
 			{
-				if ((string.IsNullOrEmpty(oFromDocEntry01)))
+				if (string.IsNullOrEmpty(oFormDocEntry))
 				{
 					PS_QM060_FormItemEnabled();
-					PS_QM060_AddMatrixRow(0, true); //UDO방식일때
+					PS_QM060_AddMatrixRow(0, true);
 				}
 				else
 				{
@@ -174,7 +174,7 @@ namespace PSH_BOne_AddOn
 				{
 					oForm.Items.Item("DocEntry").Enabled = false;
 					oForm.Items.Item("Mat01").Enabled = true;
-			    	PS_QM060_FormClear(); //UDO방식
+			    	PS_QM060_FormClear(); 
 					oForm.EnableMenu("1281", true);	 //찾기
 					oForm.EnableMenu("1282", false); //추가
 				}
@@ -265,7 +265,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_QM060_DataValidCheck()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			string errMessage = string.Empty;
 
 			try
@@ -287,7 +287,7 @@ namespace PSH_BOne_AddOn
 					PS_QM060_FormClear();
 				}
 
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -300,7 +300,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 			}
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -429,7 +429,7 @@ namespace PSH_BOne_AddOn
 							if (pVal.ActionSuccess == true)
 							{
 								PS_QM060_FormItemEnabled();
-								PS_QM060_AddMatrixRow(oMat.RowCount, true); //UDO방식일때
+								PS_QM060_AddMatrixRow(oMat.RowCount, true);
 							}
 						}
 						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
@@ -764,7 +764,7 @@ namespace PSH_BOne_AddOn
 				else if (pVal.BeforeAction == false)
 				{
 					PS_QM060_FormItemEnabled();
-					PS_QM060_AddMatrixRow(oMat.VisualRowCount, false); //UDO방식
+					PS_QM060_AddMatrixRow(oMat.VisualRowCount, false); 
 				}
 			}
 			catch (Exception ex)
@@ -948,9 +948,9 @@ namespace PSH_BOne_AddOn
 							break;
 						case "1285": //복원
 							break;
-						case "1288": //레코드이동(최초)
+						case "1288": //레코드이동(다음)
 						case "1289": //레코드이동(이전)
-						case "1290": //레코드이동(다음)
+						case "1290": //레코드이동(최초)
 						case "1291": //레코드이동(최종)
 							break;
 						case "7169": //엑셀 내보내기
@@ -969,14 +969,14 @@ namespace PSH_BOne_AddOn
 							PS_QM060_FormItemEnabled();
 							break;
 						case "1282": //추가
-							PS_QM060_FormItemEnabled(); //UDO방식
+							PS_QM060_FormItemEnabled(); 
 							PS_QM060_AddMatrixRow(0, true);
 							break;
 						case "1287": //복제
 							break;
-						case "1288": //레코드이동(최초)
+						case "1288": //레코드이동(다음)
 						case "1289": //레코드이동(이전)
-						case "1290": //레코드이동(다음)
+						case "1290": //레코드이동(최초)
 						case "1291": //레코드이동(최종)
 							PS_QM060_FormItemEnabled();
 							break;

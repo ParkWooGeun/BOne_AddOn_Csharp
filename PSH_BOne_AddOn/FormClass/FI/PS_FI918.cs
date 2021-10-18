@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.DataPack;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		public override void LoadForm(string oFormDocEntry01)
+		public override void LoadForm(string oFormDocEntry)
 		{
 			int i = 0;
 			MSXML2.DOMDocument oXmlDoc01 = new MSXML2.DOMDocument();
@@ -94,7 +94,7 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void ComboBox_Setting()
 		{
-			string sQry = String.Empty;
+			string sQry = string.Empty;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
@@ -114,7 +114,7 @@ namespace PSH_BOne_AddOn
 				sQry = "SELECT Code, Name From [@PSH_ITMBSORT] Order by Code";
 				oRecordSet.DoQuery(sQry);
 				oForm.Items.Item("ItmBsort").Specific.ValidValues.Add("001", "전체");
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("ItmBsort").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
@@ -144,7 +144,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool HeaderSpaceLineDel()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			int ErrNum = 0;
 
 			try
@@ -160,7 +160,7 @@ namespace PSH_BOne_AddOn
 					throw new Exception();
 				}
 
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -178,7 +178,7 @@ namespace PSH_BOne_AddOn
 				}
 			}
 
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -187,16 +187,16 @@ namespace PSH_BOne_AddOn
 		[STAThread]
 		private void Print_Query()
 		{
-			string WinTitle = String.Empty;
-			string ReportName = String.Empty;
+			string WinTitle = string.Empty;
+			string ReportName = string.Empty;
 
-			string ItmGrp = String.Empty;
-			string ItmBsort = String.Empty;
-			string StrDate = String.Empty;
-			string EndDate = String.Empty;
-			string SItemCode = String.Empty;
-			string EITemCode = String.Empty;
-			string BPLID = String.Empty;
+			string ItmGrp = string.Empty;
+			string ItmBsort = string.Empty;
+			string StrDate = string.Empty;
+			string EndDate = string.Empty;
+			string SItemCode = string.Empty;
+			string EITemCode = string.Empty;
+			string BPLID = string.Empty;
 
 			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 
@@ -263,7 +263,7 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@FrDate", DateTime.ParseExact(StrDate, "yyyyMMdd", null)));
 				dataPackParameter.Add(new PSH_DataPackClass("@ToDate", DateTime.ParseExact(EndDate, "yyyyMMdd", null)));
 
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
 			}
 			catch (Exception ex)
 			{

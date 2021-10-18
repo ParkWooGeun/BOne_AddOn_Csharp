@@ -25,8 +25,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFromDocEntry01"></param>
-        public override void LoadForm(string oFromDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -101,7 +101,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_SY001_HeaderSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string errMessage = string.Empty;
 
             try
@@ -111,7 +111,7 @@ namespace PSH_BOne_AddOn
                     errMessage = "대분류 코드 또는 대분류 명은 필수입력 사항입니다. 확인하세요.";
                     throw new Exception();
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -124,7 +124,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PS_SY001_MatrixSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string errMessage = string.Empty;
 
             try
@@ -151,7 +151,7 @@ namespace PSH_BOne_AddOn
                     }
                 }
                 oMat01.LoadFromDataSource();
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -164,7 +164,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
-                    //각모드에따른 아이템설정
+                    //각 모드에 따른 아이템설정
                     oForm.Items.Item("Code").Enabled = true;
                     oForm.Items.Item("Name").Enabled = true;
                     oForm.Items.Item("Remark").Enabled = true;
@@ -188,7 +188,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
-                    //각모드에따른 아이템설정
+                    //각 모드에 따른 아이템설정
                     oForm.Items.Item("Code").Enabled = true;
                     oForm.Items.Item("Name").Enabled = false;
                     oForm.Items.Item("Remark").Enabled = false;
@@ -199,7 +199,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
-                    //각모드에따른 아이템설정
+                    //각 모드에 따른 아이템설정
                     oForm.Items.Item("Code").Enabled = true;
                     oForm.Items.Item("Name").Enabled = true;
                     oForm.Items.Item("Remark").Enabled = true;
@@ -648,9 +648,9 @@ namespace PSH_BOne_AddOn
                             break;
                         case "1282": //추가
                             break;
-                        case "1288": //레코드이동(최초)
+                        case "1288": //레코드이동(다음)
                         case "1289": //레코드이동(이전)
-                        case "1290": //레코드이동(다음)
+                        case "1290": //레코드이동(최초)
                         case "1291": //레코드이동(최종)
                             break;
                     }
@@ -697,9 +697,9 @@ namespace PSH_BOne_AddOn
                             PS_SY001_AddMatrixRow(0, oMat01.RowCount, true);
                             oForm.Items.Item("Code").Click(SAPbouiCOM.BoCellClickType.ct_Collapsed);
                             break;
-                        case "1288": //레코드이동(최초)
+                        case "1288": //레코드이동(다음)
                         case "1289": //레코드이동(이전)
-                        case "1290": //레코드이동(다음)
+                        case "1290": //레코드이동(최초)
                         case "1291": //레코드이동(최종)
                                      //레코드이동버튼
                             PS_SY001_FormItemEnabled();

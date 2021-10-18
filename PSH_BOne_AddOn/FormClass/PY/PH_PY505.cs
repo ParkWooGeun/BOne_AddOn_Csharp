@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
@@ -20,8 +20,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -51,7 +51,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY505_CreateItems();
                 PH_PY505_EnableMenus();
-                PH_PY505_SetDocument(oFormDocEntry01);
+                PH_PY505_SetDocument(oFormDocEntry);
             }
             catch (Exception ex)
             {
@@ -99,7 +99,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY505_Validate(string ValidateType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string errCode = string.Empty;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -121,7 +121,7 @@ namespace PSH_BOne_AddOn
                 {
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -135,7 +135,7 @@ namespace PSH_BOne_AddOn
                 }
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -176,7 +176,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr)); //등록기간(시작)
                 dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo)); //등록기간(종료)
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
             catch (Exception ex)
             {
@@ -254,12 +254,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY505_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY505_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY505_FormItemEnabled();
                     //PH_PY505_AddMatrixRow();
@@ -268,7 +268,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY505_FormItemEnabled();                    
-                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -554,7 +554,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 if (pVal.Before_Action == true)
-                {   
+                {
                 }
                 else if (pVal.Before_Action == false)
                 {

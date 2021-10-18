@@ -13,13 +13,13 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PS_FI080 : PSH_BaseClass
     {
-        public string oFormUniqueID;
+        private string oFormUniqueID;
 
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -92,11 +92,11 @@ namespace PSH_BOne_AddOn
         private void PS_FI080_ComboBox_Setting()
         {
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            string sQry = String.Empty;
+            string sQry = string.Empty;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
-                //// 사업장
+                // 사업장
                 sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
                 oRecordSet01.DoQuery(sQry);
                 oForm.Items.Item("BPLId").Specific.ValidValues.Add("0", "전체 사업장");
@@ -126,12 +126,12 @@ namespace PSH_BOne_AddOn
         [STAThread]
         private void PS_FI080_Print_Report01()
         {
-            string WinTitle = String.Empty;
-            string ReportName = String.Empty;
+            string WinTitle = string.Empty;
+            string ReportName = string.Empty;
 
-            string StrDate = String.Empty;
-            string EndDate = String.Empty;
-            string BPLId = String.Empty;
+            string StrDate = string.Empty;
+            string EndDate = string.Empty;
+            string BPLId = string.Empty;
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
@@ -143,7 +143,7 @@ namespace PSH_BOne_AddOn
                 List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>(); //Parameter
                 List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
 
-                //// 조회조건문
+                // 조회조건문
                 StrDate = oForm.Items.Item("StrDate").Specific.Value.ToString().Trim();
                 EndDate = oForm.Items.Item("EndDate").Specific.Value.ToString().Trim();
                 BPLId = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
@@ -168,7 +168,7 @@ namespace PSH_BOne_AddOn
                 dataPackFormula.Add(new PSH_DataPackClass("@StrDate", StrDate == "19000101" ? "All" : codeHelpClass.Left(StrDate, 4) + "-" + codeHelpClass.Mid(StrDate, 4, 2) + "-" + codeHelpClass.Right(StrDate, 2)));
                 dataPackFormula.Add(new PSH_DataPackClass("@EndDate", EndDate == "21001231" ? "All" : codeHelpClass.Left(EndDate, 4) + "-" + codeHelpClass.Mid(EndDate, 4, 2) + "-" + codeHelpClass.Right(EndDate, 2)));
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
             catch (Exception ex)
             {

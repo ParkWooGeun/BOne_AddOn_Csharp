@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 
@@ -20,7 +20,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 사업장정보등록
         /// </summary>
-        public override void LoadForm(string oFormDocEntry01)
+        public override void LoadForm(string oFormDocEntry)
         {
             int i = 0;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -52,7 +52,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY419_CreateItems();
                 PH_PY419_EnableMenus();
-                PH_PY419_SetDocument(oFormDocEntry01);
+                PH_PY419_SetDocument(oFormDocEntry);
             }
             catch (Exception ex)
             {
@@ -129,12 +129,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY419_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY419_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY419_FormItemEnabled();
                 }
@@ -142,7 +142,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY419_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -209,7 +209,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 if (pVal.Before_Action == true)
-                {
+                {   
                 }
                 else if (pVal.Before_Action == false)
                 {
@@ -576,7 +576,7 @@ namespace PSH_BOne_AddOn
                         ErrNum = 3;
                         throw new Exception();
                     }
-                    if (PSH_Globals.SBO_Application.MessageBox(" 선택한사원('" + oForm.Items.Item("FullName").Specific.Value.ToString().Trim() + "')을 삭제하시겠습니까? ?", Convert.ToInt32("2"), "예", "아니오") == Convert.ToDouble("1"))
+                    if (PSH_Globals.SBO_Application.MessageBox(" 선택한사원('" + oForm.Items.Item("FullName").Specific.Value.ToString().Trim() + "')을 삭제하시겠습니까? ?", 2, "예", "아니오") == 1)
                     {
                         sQry = "Delete From [p_seoyst] Where saup = '" + CLTCOD + "' AND  yyyy = '" + Year + "' And sabun = '" + MSTCOD + "' ";
                         oRecordSet.DoQuery(sQry);

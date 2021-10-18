@@ -19,8 +19,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFromDocEntry01"></param>
-        public override void LoadForm(string oFromDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -50,7 +50,7 @@ namespace PSH_BOne_AddOn
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
 
                 oForm.Freeze(true);
-                PS_MM010_S_Load_Data(oFromDocEntry01);
+                PS_MM010_S_Load_Data(oFormDocEntry);
 
                 oForm.EnableMenu(("1283"), false); // 삭제
                 oForm.EnableMenu(("1286"), false); // 닫기
@@ -74,7 +74,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면 Item 생성
         /// </summary>
-        private void PS_MM010_S_Load_Data(string oFromDocEntry01)
+        private void PS_MM010_S_Load_Data(string oFormDocEntry)
         {
             string sQry = string.Empty;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -83,19 +83,19 @@ namespace PSH_BOne_AddOn
             {
                 sQry = "SELECT a.U_CgNum, a.U_ItemCode, a.U_ItemName, a.U_Weight, a.U_DocDate, a.U_DueDate, a.U_UseDept, a.U_Note, a.U_Comments ";
                 sQry += "FROM [@PS_MM005H] a ";
-                sQry += "WHERE a.U_CgNum = '" + oFromDocEntry01 + "'";
+                sQry += "WHERE a.U_CgNum = '" + oFormDocEntry + "'";
 
                 oRecordSet01.DoQuery(sQry);
 
-                oForm.Items.Item("CgNum").Specific.VALUE = oRecordSet01.Fields.Item(0).Value;
-                oForm.Items.Item("ItemCode").Specific.VALUE = oRecordSet01.Fields.Item(1).Value;
-                oForm.Items.Item("ItemName").Specific.VALUE = oRecordSet01.Fields.Item(2).Value;
-                oForm.Items.Item("Weight").Specific.VALUE = oRecordSet01.Fields.Item(3).Value;
-                oForm.Items.Item("DocDate").Specific.VALUE = oRecordSet01.Fields.Item(4).Value;
-                oForm.Items.Item("DueDate").Specific.VALUE = oRecordSet01.Fields.Item(5).Value;
-                oForm.Items.Item("UseDept").Specific.VALUE = oRecordSet01.Fields.Item(6).Value;
-                oForm.Items.Item("Note").Specific.VALUE = oRecordSet01.Fields.Item(7).Value;
-                oForm.Items.Item("Comments").Specific.VALUE = oRecordSet01.Fields.Item(8).Value;
+                oForm.Items.Item("CgNum").Specific.Value = oRecordSet01.Fields.Item(0).Value;
+                oForm.Items.Item("ItemCode").Specific.Value = oRecordSet01.Fields.Item(1).Value;
+                oForm.Items.Item("ItemName").Specific.Value = oRecordSet01.Fields.Item(2).Value;
+                oForm.Items.Item("Weight").Specific.Value = oRecordSet01.Fields.Item(3).Value;
+                oForm.Items.Item("DocDate").Specific.Value = oRecordSet01.Fields.Item(4).Value;
+                oForm.Items.Item("DueDate").Specific.Value = oRecordSet01.Fields.Item(5).Value;
+                oForm.Items.Item("UseDept").Specific.Value = oRecordSet01.Fields.Item(6).Value;
+                oForm.Items.Item("Note").Specific.Value = oRecordSet01.Fields.Item(7).Value;
+                oForm.Items.Item("Comments").Specific.Value = oRecordSet01.Fields.Item(8).Value;
             }
             catch (Exception ex)
             {
@@ -264,9 +264,9 @@ namespace PSH_BOne_AddOn
                             break;
                         case "1282": //추가
                             break;
-                        case "1288": //레코드이동(최초)
+                        case "1288": //레코드이동(다음)
                         case "1289": //레코드이동(이전)
-                        case "1290": //레코드이동(다음)
+                        case "1290": //레코드이동(최초)
                         case "1291": //레코드이동(최종)
                             break;
                     }
@@ -284,9 +284,9 @@ namespace PSH_BOne_AddOn
                         case "1281": //찾기
                         case "1282": //추가
                             break;
-                        case "1288": //레코드이동(최초)
+                        case "1288": //레코드이동(다음)
                         case "1289": //레코드이동(이전)
-                        case "1290": //레코드이동(다음)
+                        case "1290": //레코드이동(최초)
                         case "1291": //레코드이동(최종)
                         case "1287": //복제
                             break;

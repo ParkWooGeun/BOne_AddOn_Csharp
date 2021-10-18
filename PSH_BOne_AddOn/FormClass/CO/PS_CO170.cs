@@ -20,8 +20,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			MSXML2.DOMDocument oXmlDoc01 = new MSXML2.DOMDocument();
 
@@ -129,7 +129,7 @@ namespace PSH_BOne_AddOn
 
 				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
-					// 각모드에따른 아이템설정
+					// 각 모드에 따른 아이템설정
 					oForm.Items.Item("BPLId").Enabled = true;
 					oForm.Items.Item("U_ItmBsort").Enabled = true;
 					oForm.Items.Item("ItmMsort").Enabled = true;
@@ -229,7 +229,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_CO170_DataValidCheck()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			int i;
 			int ErrNum = 0;
 
@@ -274,7 +274,7 @@ namespace PSH_BOne_AddOn
 				{
 				}
 
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -304,7 +304,7 @@ namespace PSH_BOne_AddOn
 				}
 			}
 
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -425,7 +425,7 @@ namespace PSH_BOne_AddOn
 							if (pVal.ActionSuccess == true)
 							{
 								PS_CO170_FormItemEnabled();
-								PS_CO170_AddMatrixRow(oMat01.RowCount, true);   //UDO방식일때
+								PS_CO170_AddMatrixRow(oMat01.RowCount, true);   
 							}
 						}
 						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)

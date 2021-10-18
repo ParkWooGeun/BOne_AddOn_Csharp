@@ -94,8 +94,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -126,7 +126,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY115_CreateItems();
                 PH_PY115_EnableMenus();
-                PH_PY115_SetDocument(oFormDocEntry01);
+                PH_PY115_SetDocument(oFormDocEntry);
             }
             catch (Exception ex)
             {
@@ -238,12 +238,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면(Form) 초기화(Set)
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY115_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY115_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (oFormDocEntry01 == "")
+                if (oFormDocEntry == "")
                 {
                     PH_PY115_FormItemEnabled();
                     PH_PY115_AddMatrixRow();
@@ -252,7 +252,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY115_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -3811,6 +3811,7 @@ namespace PSH_BOne_AddOn
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat1);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY115A);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PH_PY115B);
                 }
             }
             catch (Exception ex)

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.DataPack;
@@ -17,8 +17,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			int i = 0;
 			MSXML2.DOMDocument oXmlDoc01 = new MSXML2.DOMDocument();
@@ -249,7 +249,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool HeaderSpaceLineDel()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			short ErrNum = 0;
 			try
 			{
@@ -265,7 +265,7 @@ namespace PSH_BOne_AddOn
 					throw new Exception();
 				}
 
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -281,10 +281,10 @@ namespace PSH_BOne_AddOn
 				{
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
-				functionReturnValue = false;
+				returnValue = false;
 			}
 
-			return functionReturnValue;
+			return returnValue;
 
 		}
 
@@ -410,7 +410,7 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@Level5", Level5));
 				dataPackParameter.Add(new PSH_DataPackClass("@DateCls", DateCls));
 
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
 
 			}
 			catch (Exception ex)

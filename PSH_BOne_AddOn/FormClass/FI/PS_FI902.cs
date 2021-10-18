@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using SAPbouiCOM;
 
 namespace PSH_BOne_AddOn
@@ -13,7 +13,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		public override void LoadForm(string oFormDocEntry01)
+		public override void LoadForm(string oFormDocEntry)
 		{
 			MSXML2.DOMDocument oXmlDoc01 = new MSXML2.DOMDocument();
 

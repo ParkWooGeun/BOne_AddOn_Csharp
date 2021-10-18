@@ -20,8 +20,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
             
@@ -52,7 +52,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY004_CreateItems();
                 PH_PY004_EnableMenus();
-                PH_PY004_SetDocument(oFormDocEntry01);
+                PH_PY004_SetDocument(oFormDocEntry);
             }
             catch (Exception ex)
             {
@@ -147,12 +147,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY004_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY004_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY004_FormItemEnabled();
                 }
@@ -160,7 +160,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY004_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -225,7 +225,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY004_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
             
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -238,7 +238,7 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch(Exception ex)
             {
@@ -257,7 +257,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -304,7 +304,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY004_DataChange()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
             string ShiftDat;
             short errNum = 0;
@@ -338,7 +338,7 @@ namespace PSH_BOne_AddOn
                             throw new Exception();
                         }
                     }
-                    functionReturnValue = true;
+                    returnValue = true;
                 }
                 else
                 {
@@ -362,7 +362,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(false);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -371,7 +371,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY004_DataInit()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i = 0;
             string ShiftDat;
             short errNum = 0;
@@ -392,7 +392,7 @@ namespace PSH_BOne_AddOn
                         {
                             oDS_PH_PY004.Columns.Item("GNMUJO").Cells.Item(i).Value = codeHelpClass.Left(oDS_PH_PY004.Columns.Item("GNMUJO").Cells.Item(i).Value, 1) + "1";
                         }
-                        functionReturnValue = true;
+                        returnValue = true;
                     }
                     else
                     {
@@ -422,7 +422,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(false);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -431,7 +431,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY004_DataSave()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
             string sQry;
             short errNum = 0;
@@ -466,7 +466,7 @@ namespace PSH_BOne_AddOn
                         else
                         {
                             PSH_Globals.SBO_Application.StatusBar.SetText("근무조가 변경되었습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
-                            functionReturnValue = true;
+                            returnValue = true;
                         }
                     }
                 }
@@ -496,7 +496,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -506,7 +506,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY004_OHEM_DI_UPDATE(int iRow)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int errDiCode = 0;
             string errDiMsg = string.Empty;
             string sQry;
@@ -544,7 +544,7 @@ namespace PSH_BOne_AddOn
                     }
                     else
                     {
-                        functionReturnValue = true;
+                        returnValue = true;
                         PSH_Globals.SBO_Application.SetStatusBarMessage(oDS_PH_PY004.Columns.Item("Code").Cells.Item(iRow).Value.ToString().Trim() + "근무조가 갱신되었습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, false);
                     }
                 }
@@ -570,7 +570,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oOHEM); //메모리 해제
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

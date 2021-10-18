@@ -12,11 +12,11 @@ namespace PSH_BOne_AddOn
     internal class PH_PY995 : PSH_BaseClass
     {
         public string oFormUniqueID01;
-
+        
         /// <summary>
         /// Form 호출
         /// </summary>
-        public override void LoadForm(string oFormDocEntry01)
+        public override void LoadForm(string oFormDocEntry)
         {
             string strXml = string.Empty;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -119,7 +119,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool File_Create()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
             string stringSpace = string.Empty;
             string CLTCOD = string.Empty;
@@ -167,7 +167,7 @@ namespace PSH_BOne_AddOn
                 FileSystem.FileClose(1);
 
                 PSH_Globals.SBO_Application.StatusBar.SetText("전산매체수록이 정상적으로 완료되었습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -194,7 +194,7 @@ namespace PSH_BOne_AddOn
                 }
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -203,7 +203,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool File_Create_A_record(string pCLTCOD, string pHtaxID, string pTeamName, string pDname, string pDtel, string pDocDate)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
             string sQry = string.Empty;
             string saup = string.Empty;
@@ -276,7 +276,7 @@ namespace PSH_BOne_AddOn
                     FileSystem.PrintLine(1, A001 + A002 + A003 + A004 + A005 + A006 + A007 + A008 + A009 + A010 + A011 + A012 + A013 + A014 + A015 + A016);
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -295,7 +295,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -304,7 +304,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool File_Create_B_record(string pCLTCOD, string pyyyy)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
             string sQry = string.Empty;
 
@@ -380,7 +380,7 @@ namespace PSH_BOne_AddOn
                                           + B015_1 + B015_2 + B016_1 + B016_2 + B017_1 + B017_2 + B018_1 + B018_2 + B019);
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -399,7 +399,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -408,7 +408,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool File_Create_C_record(string pCLTCOD, string pyyyy)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
             string sQry = string.Empty;
             string C_SAUP = string.Empty;
@@ -682,7 +682,7 @@ namespace PSH_BOne_AddOn
                     }
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -704,10 +704,14 @@ namespace PSH_BOne_AddOn
             finally
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -716,7 +720,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool File_Create_D_record(string psaup, string pyyyy, string psabun, string pC004)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
             string sQry = string.Empty;
 
@@ -779,7 +783,7 @@ namespace PSH_BOne_AddOn
                     }
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -798,7 +802,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -807,38 +811,38 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool HeaderSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
 
             try
             {
-                if (string.IsNullOrEmpty(oForm.Items.Item("HtaxID").Specific.VALUE))
+                if (string.IsNullOrEmpty(oForm.Items.Item("HtaxID").Specific.Value))
                 {
                     errNum = 1;
                     throw new Exception();
                 }
-                else if (string.IsNullOrEmpty(oForm.Items.Item("TeamName").Specific.VALUE))
+                else if (string.IsNullOrEmpty(oForm.Items.Item("TeamName").Specific.Value))
                 {
                     errNum = 2;
                     throw new Exception();
                 }
-                else if (string.IsNullOrEmpty(oForm.Items.Item("Dname").Specific.VALUE))
+                else if (string.IsNullOrEmpty(oForm.Items.Item("Dname").Specific.Value))
                 {
                     errNum = 3;
                     throw new Exception();
                 }
-                else if (string.IsNullOrEmpty(oForm.Items.Item("Dtel").Specific.VALUE))
+                else if (string.IsNullOrEmpty(oForm.Items.Item("Dtel").Specific.Value))
                 {
                     errNum = 4;
                     throw new Exception();
                 }
-                else if (string.IsNullOrEmpty(oForm.Items.Item("DocDate").Specific.VALUE))
+                else if (string.IsNullOrEmpty(oForm.Items.Item("DocDate").Specific.Value))
                 {
                     errNum = 5;
                     throw new Exception();
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -871,7 +875,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -983,7 +987,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 if (pVal.Before_Action == true)
-                {
+                {   
                 }
                 else if (pVal.Before_Action == false)
                 {

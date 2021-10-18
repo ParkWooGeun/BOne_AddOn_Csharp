@@ -766,10 +766,13 @@ namespace PSH_BOne_AddOn
                 //여신한도초과 Check
                 if (oForm.Items.Item("CardCode").Specific.Value != "12532") //풍산은 체크안함
                 {
-                    if (PS_SD040_ValidateCreditLine() == false)
+                    if (oForm.Mode == BoFormMode.fm_ADD_MODE) //최초 추가 모드일 때만 체크
                     {
-                        errMessage = " ";
-                        throw new Exception();
+                        if (PS_SD040_ValidateCreditLine() == false)
+                        {
+                            errMessage = " ";
+                            throw new Exception();
+                        }
                     }
                 }
                 if (PS_SD040_Validate("검사") == false)
@@ -1022,7 +1025,7 @@ namespace PSH_BOne_AddOn
             string ServerIP; //서버IP(운영용:192.1.11.3, 테스트용:192.1.11.7)
             int i;
             int j;
-            string sQry = string.Empty;
+            string sQry;
             string errCode = string.Empty;
             string errMessage = string.Empty;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -1885,11 +1888,11 @@ namespace PSH_BOne_AddOn
                     new PSH_DataPackClass("@UserSign", PSH_Globals.oCompany.UserSignature)
                 };
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch(Exception ex)
             {
-                if (errMessage != null)
+                if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
                 }
@@ -1957,7 +1960,7 @@ namespace PSH_BOne_AddOn
                         new PSH_DataPackClass("@DocDate", dataHelpClass.ConvertDateType(oForm.Items.Item("DocDate").Specific.Value, "-")) //DocDate
                     };
 
-                    formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                    formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
                 }
                 else
                 {
@@ -1980,12 +1983,12 @@ namespace PSH_BOne_AddOn
                         new PSH_DataPackClass("@DocEntry", oForm.Items.Item("DocEntry").Specific.Value, "PS_SD220_SUB1") //DocEntry
                     };
 
-                    formHelpClass.CrystalReportOpen(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
+                    formHelpClass.OpenCrystalReport(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
                 }
             }
             catch (Exception ex)
             {
-                if (errMessage != null)
+                if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
                 }
@@ -2034,11 +2037,11 @@ namespace PSH_BOne_AddOn
                     new PSH_DataPackClass("@DocEntry", oForm.Items.Item("DocEntry").Specific.Value) //DocEntry
                 };
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch(Exception ex)
             {
-                if (errMessage != null)
+                if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
                 }
@@ -2086,11 +2089,11 @@ namespace PSH_BOne_AddOn
                     new PSH_DataPackClass("@DocEntry", oForm.Items.Item("DocEntry").Specific.Value) //DocEntry
                 };
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch (Exception ex)
             {
-                if (errMessage != null)
+                if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
                 }

@@ -614,7 +614,7 @@ namespace PSH_BOne_AddOn
                     {
                         for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
                         {
-                            if (PSH_Globals.classAllList[i].Name == "S" + pVal.FormTypeEx) //접두어 "S" 포함
+                           if (PSH_Globals.classAllList[i].Name == "S" + pVal.FormTypeEx) //접두어 "S" 포함
                             {
                                 Type type = Type.GetType("PSH_BOne_AddOn.Core.S" + pVal.FormTypeEx); //Core폼과 동일한 클래스 Type 생성
                                 dynamic baseClass = Activator.CreateInstance(type); //Core폼과 동일한 클래스 Instance 생성
@@ -630,26 +630,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.SetStatusBarMessage("Create_SYSTEMForm_Error: " + ex.Message, BoMessageTime.bmt_Short, true);
             }
-        }
-
-        /// <summary>
-        /// 생성된 폼 클래스 해제(사용안함:exe 메모리 해제 안됨, 2018.12.03 송명규)
-        /// </summary>
-        private void TerminateApplication()
-        {
-            int i;
-            PSH_BaseClass oTempClass = new PSH_BaseClass();
-
-            if (PSH_Globals.ClassList.Count > 0)
-            {
-                for (i = 0; i <= PSH_Globals.ClassList.Count - 1; i++)
-                {
-                    oTempClass = (PSH_BaseClass)PSH_Globals.ClassList[i];
-                    PSH_Globals.ClassList.Remove(i);
-                }
-            }
-
-            PSH_Globals.oCompany.Disconnect();
         }
 
         #region 이벤트

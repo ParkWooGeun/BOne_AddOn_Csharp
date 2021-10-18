@@ -20,8 +20,8 @@ namespace PSH_BOne_AddOn
     /// <summary>
     /// Form 호출
     /// </summary>
-    /// <param name="oFormDocEntry01"></param>
-    public override void LoadForm(string oFormDocEntry01)
+    /// <param name="oFormDocEntry"></param>
+    public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -52,7 +52,7 @@ namespace PSH_BOne_AddOn
                 PH_PY034_CreateItems();
                 PH_PY034_ComboBox_Setting();
                 PH_PY034_EnableMenus();
-                PH_PY034_SetDocument(oFormDocEntry01);
+                PH_PY034_SetDocument(oFormDocEntry);
                 PH_PY034_FormResize();
                 PH_PY034_FormItemEnabled();
             }
@@ -143,12 +143,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY034_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY034_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY034_FormItemEnabled();
                     PH_PY034_AddMatrixRow();
@@ -157,7 +157,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY034_FormItemEnabled();
-                    oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry01;
+                    oForm.Items.Item("DocEntry").Specific.Value = oFormDocEntry;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -300,7 +300,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY034_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int i;
 
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -311,7 +311,7 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 //팀
@@ -319,7 +319,7 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("팀정보는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("TeamCode").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 //기간(시작)
@@ -327,7 +327,7 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("기간(시작) 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("FrDt").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 //기간(종료)
@@ -335,7 +335,7 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("기간(종료)는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("ToDt").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 //라인
@@ -348,7 +348,7 @@ namespace PSH_BOne_AddOn
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("배부규칙은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat01.Columns.Item("ProfCode").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            return functionReturnValue;
+                            return returnValue;
                         }
 
                         //적요
@@ -356,14 +356,14 @@ namespace PSH_BOne_AddOn
                         {
                             PSH_Globals.SBO_Application.SetStatusBarMessage("적요는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                             oMat01.Columns.Item("LineMemo").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            return functionReturnValue;
+                            return returnValue;
                         }
                     }
                 }
                 else
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("라인 데이터가 없습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
                 oMat01.FlushToDataSource();
@@ -373,7 +373,7 @@ namespace PSH_BOne_AddOn
                 }
                 oMat01.LoadFromDataSource();
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -384,7 +384,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -483,7 +483,6 @@ namespace PSH_BOne_AddOn
                     ProgressBar01.Stop();
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
                 }
-
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
                 oForm.Freeze(false);
             }
@@ -515,7 +514,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY034_Create_oJournalEntries(int ChkType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
 
             int i;
             int ErrCode = 0;
@@ -612,7 +611,7 @@ namespace PSH_BOne_AddOn
                 oDS_PH_PY034A.SetValue("U_JdtNo", 0, sTransId);
                 oDS_PH_PY034A.SetValue("U_JdtCC", 0, sCC);
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -636,7 +635,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oJournal);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -646,7 +645,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY034_Cancel_oJournalEntries(int ChkType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int ErrCode = 0;
             int RetVal;
             string ErrMsg = string.Empty;
@@ -657,6 +656,7 @@ namespace PSH_BOne_AddOn
 
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             SAPbobsCOM.JournalEntries oJournal = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oJournalEntries);
+
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
@@ -711,7 +711,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Btn03").Enabled = false;
 
                 dataHelpClass.MDC_GF_Message("성공적으로 분개취소되었습니다.", "S");
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -735,7 +735,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

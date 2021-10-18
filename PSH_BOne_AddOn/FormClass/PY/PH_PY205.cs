@@ -26,8 +26,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -58,7 +58,7 @@ namespace PSH_BOne_AddOn
                 PH_PY205_ComboBox_Setting();
                 PH_PY205_EnableMenus();
                 oForm.Items.Item("Folder01").Specific.Select(); //폼이 로드 될 때 Folder01이 선택됨
-                PH_PY205_SetDocument(oFormDocEntry01);
+                PH_PY205_SetDocument(oFormDocEntry);
 
                 oForm.DataSources.UserDataSources.Item("StdYear01").Value = DateTime.Now.ToString("yyyy"); //기준년도
                 oForm.DataSources.UserDataSources.Item("CancelYN01").Value = "Y";
@@ -371,12 +371,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY205_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY205_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY205_FormItemEnabled();
                 }
@@ -384,7 +384,7 @@ namespace PSH_BOne_AddOn
                 {
                     //oForm.Mode = fm_FIND_MODE
                     PH_PY205_FormItemEnabled();
-                    //oForm.Items("Code").Specific.Value = oFormDocEntry01
+                    //oForm.Items("Code").Specific.Value = oFormDocEntry
                     //oForm.Items("1").CLICK ct_Regular
                 }
             }
@@ -648,7 +648,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY205_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short ErrNum = 0;
 
             try
@@ -659,7 +659,7 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch(Exception ex)
             {
@@ -674,7 +674,7 @@ namespace PSH_BOne_AddOn
                 }
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -684,7 +684,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY205_Validate(string ValidateType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short ErrNumm = 0;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -709,7 +709,7 @@ namespace PSH_BOne_AddOn
 
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -726,7 +726,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -1012,7 +1012,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@EduOrg_", EduOrg)); //교육기관
                 dataPackParameter.Add(new PSH_DataPackClass("@CancelYN_", CancelYN)); //취소제외여부
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch(Exception ex)
             {
@@ -1066,7 +1066,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@ToMt_", ToMt)); //기준년월(종료)
                 dataPackParameter.Add(new PSH_DataPackClass("@Status_", Status)); //재직여부
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch(Exception ex)
             {
@@ -1141,7 +1141,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@EduOrg_", EduOrg)); //교육기관
                 dataPackParameter.Add(new PSH_DataPackClass("@CancelYN_", CancelYN)); //취소제외여부
 
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch (Exception ex)
             {

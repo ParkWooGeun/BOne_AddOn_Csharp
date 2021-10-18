@@ -25,7 +25,7 @@
 //////****************************************************************************
 
 
-//		public string oFormUniqueID;
+//		private string oFormUniqueID;
 //		public SAPbouiCOM.Form oForm;
 //		private SAPbobsCOM.Recordset sRecordset;
 //		private SAPbouiCOM.Matrix oMat1;
@@ -349,7 +349,7 @@
 ////*******************************************************************
 //// .srf 파일로부터 폼을 로드한다.
 ////*******************************************************************
-//		public void LoadForm()
+//		private void LoadForm()
 //		{
 //			 // ERROR: Not supported in C#: OnErrorStatement
 
@@ -384,13 +384,13 @@
 //			CreateItems();
 //			oForm.Freeze(false);
 
-//			oForm.EnableMenu(("1281"), false);
+//			oForm.EnableMenu("1281", false);
 //			/// 찾기
-//			oForm.EnableMenu(("1282"), true);
+//			oForm.EnableMenu("1282", true);
 //			/// 추가
-//			oForm.EnableMenu(("1284"), false);
+//			oForm.EnableMenu("1284", false);
 //			/// 취소
-//			oForm.EnableMenu(("1293"), false);
+//			oForm.EnableMenu("1293", false);
 //			/// 행삭제
 //			oForm.Update();
 //			oForm.Visible = true;
@@ -412,7 +412,7 @@
 ////*******************************************************************
 ////// ItemEventHander
 ////*******************************************************************
-//		public void Raise_FormItemEvent(ref object FormUID, ref SAPbouiCOM.ItemEvent pval, ref bool BubbleEvent)
+//		private void Raise_FormItemEvent(ref object FormUID, ref SAPbouiCOM.ItemEvent pval, ref bool BubbleEvent)
 //		{
 
 //			string sQry = null;
@@ -522,7 +522,7 @@
 ////*******************************************************************
 ////// MenuEventHander
 ////*******************************************************************
-//		public void Raise_FormMenuEvent(ref string FormUID, ref SAPbouiCOM.IMenuEvent pval, ref bool BubbleEvent)
+//		private void Raise_FormMenuEvent(ref string FormUID, ref SAPbouiCOM.IMenuEvent pval, ref bool BubbleEvent)
 //		{
 
 //			if (pval.BeforeAction == true) {
@@ -545,7 +545,7 @@
 //			return;
 //		}
 
-//		public void Raise_FormDataEvent(ref string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
+//		private void Raise_FormDataEvent(ref string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
 //		{
 //			int i = 0;
 //			string sQry = null;
@@ -629,7 +629,7 @@
 
 //		private bool File_Create()
 //		{
-//			bool functionReturnValue = false;
+//			bool returnValue = false;
 //			 // ERROR: Not supported in C#: OnErrorStatement
 
 //			short ErrNum = 0;
@@ -683,10 +683,10 @@
 //			FileSystem.FileClose(1);
 
 //			MDC_Globals.Sbo_Application.StatusBar.SetText("전산매체수록이 정상적으로 완료되었습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
-//			functionReturnValue = true;
+//			returnValue = true;
 //			//UPGRADE_NOTE: sRecordset 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			sRecordset = null;
-//			return functionReturnValue;
+//			return returnValue;
 //			Error_Message:
 //			/////////////////////////////////////////////////////////////////////////////////////////////////////////
 //			//UPGRADE_NOTE: sRecordset 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
@@ -702,12 +702,12 @@
 //			} else {
 //				MDC_Globals.Sbo_Application.StatusBar.SetText("File_Create 실행 중 오류가 발생했습니다." + Strings.Space(10) + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
 //			}
-//			functionReturnValue = false;
-//			return functionReturnValue;
+//			returnValue = false;
+//			return returnValue;
 //		}
 //		private bool File_Create_A_record()
 //		{
-//			bool functionReturnValue = false;
+//			bool returnValue = false;
 //			 // ERROR: Not supported in C#: OnErrorStatement
 
 //			short ErrNum = 0;
@@ -779,13 +779,13 @@
 //			}
 
 //			if (Convert.ToBoolean(CheckA) == false) {
-//				functionReturnValue = true;
+//				returnValue = true;
 //			} else {
-//				functionReturnValue = false;
+//				returnValue = false;
 //			}
 //			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oRecordSet = null;
-//			return functionReturnValue;
+//			return returnValue;
 //			Error_Message:
 //			/////////////////////////////////////////////////////////////////////////////////////////////////////////
 //			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
@@ -797,14 +797,14 @@
 //				Matrix_AddRow("A레코드오류: " + Err().Description, ref false, ref true);
 //			}
 
-//			functionReturnValue = false;
-//			return functionReturnValue;
+//			returnValue = false;
+//			return returnValue;
 
 //		}
 
 //		private short File_Create_B_record()
 //		{
-//			short functionReturnValue = 0;
+//			short returnValue = 0;
 //			 // ERROR: Not supported in C#: OnErrorStatement
 
 //			short ErrNum = 0;
@@ -854,14 +854,14 @@
 //			}
 
 //			if (Convert.ToBoolean(CheckB) == false) {
-//				functionReturnValue = true;
+//				returnValue = true;
 //			} else {
-//				functionReturnValue = false;
+//				returnValue = false;
 //			}
 
 //			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oRecordSet = null;
-//			return functionReturnValue;
+//			return returnValue;
 //			Error_Message:
 //			/////////////////////////////////////////////////////////////////////////////////////////////////////////
 //			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
@@ -869,18 +869,18 @@
 
 //			if (ErrNum == 1) {
 //				MDC_Globals.Sbo_Application.StatusBar.SetText("B레코드가 존재하지 않습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
-//				functionReturnValue = 1;
+//				returnValue = 1;
 //			} else {
 //				Matrix_AddRow("B레코드오류: " + Err().Description, false);
-//				functionReturnValue = 1;
+//				returnValue = 1;
 //			}
-//			return functionReturnValue;
+//			return returnValue;
 
 //		}
 
 //		private bool File_Create_C_record()
 //		{
-//			bool functionReturnValue = false;
+//			bool returnValue = false;
 //			 // ERROR: Not supported in C#: OnErrorStatement
 
 //			short ErrNum = 0;
@@ -914,7 +914,7 @@
 //			//UPGRADE_WARNING: oRecordSet.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //			PSABUN = oRecordSet.Fields.Item("sabun").Value;
 
-//			while (!(oRecordSet.EoF)) {
+//			while (!oRecordSet.EoF) {
 
 //				//UPGRADE_WARNING: oRecordSet.Fields().Value 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
 //				C_SAUP = oRecordSet.Fields.Item("saup").Value;
@@ -1009,13 +1009,13 @@
 
 
 //			if (Convert.ToBoolean(CheckC) == false) {
-//				functionReturnValue = true;
+//				returnValue = true;
 //			} else {
-//				functionReturnValue = false;
+//				returnValue = false;
 //			}
 //			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oRecordSet = null;
-//			return functionReturnValue;
+//			return returnValue;
 //			Error_Message:
 //			/////////////////////////////////////////////////////////////////////////////////////////////////////////
 //			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
@@ -1028,13 +1028,13 @@
 //			} else {
 //				Matrix_AddRow("C레코드오류: " + Err().Description, false);
 //			}
-//			functionReturnValue = false;
-//			return functionReturnValue;
+//			returnValue = false;
+//			return returnValue;
 //		}
 
 //		private bool File_Create_D_record()
 //		{
-//			bool functionReturnValue = false;
+//			bool returnValue = false;
 //			 // ERROR: Not supported in C#: OnErrorStatement
 
 //			short ErrNum = 0;
@@ -1055,7 +1055,7 @@
 //			oRecordSet.DoQuery(sQry);
 
 //			DCount = 0;
-//			while (!(oRecordSet.EoF)) {
+//			while (!oRecordSet.EoF) {
 
 //				//D RECORD MOVE
 //				DCount = DCount + 1;
@@ -1100,13 +1100,13 @@
 //			}
 
 //			if (Convert.ToBoolean(CheckD) == false) {
-//				functionReturnValue = true;
+//				returnValue = true;
 //			} else {
-//				functionReturnValue = false;
+//				returnValue = false;
 //			}
 //			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
 //			oRecordSet = null;
-//			return functionReturnValue;
+//			return returnValue;
 //			Error_Message:
 //			/////////////////////////////////////////////////////////////////////////////////////////////////////////
 //			//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
@@ -1117,8 +1117,8 @@
 //			} else {
 //				Matrix_AddRow("D레코드오류: " + Err().Description, false);
 //			}
-//			functionReturnValue = false;
-//			return functionReturnValue;
+//			returnValue = false;
+//			return returnValue;
 //		}
 
 
@@ -1139,7 +1139,7 @@
 ////화면변수 CHECK
 //		private bool HeaderSpaceLineDel()
 //		{
-//			bool functionReturnValue = false;
+//			bool returnValue = false;
 //			 // ERROR: Not supported in C#: OnErrorStatement
 
 //			short ErrNum = 0;
@@ -1168,8 +1168,8 @@
 //				goto HeaderSpaceLineDel;
 //			}
 
-//			functionReturnValue = true;
-//			return functionReturnValue;
+//			returnValue = true;
+//			return returnValue;
 //			HeaderSpaceLineDel:
 //			///'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 //			if (ErrNum == 1) {
@@ -1186,8 +1186,8 @@
 //				MDC_Globals.Sbo_Application.StatusBar.SetText("HeaderSpaceLineDel 실행 중 오류가 발생했습니다." + Strings.Space(10) + Err().Description, SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
 //			}
 
-//			functionReturnValue = false;
-//			return functionReturnValue;
+//			returnValue = false;
+//			return returnValue;
 //		}
 //	}
 //}

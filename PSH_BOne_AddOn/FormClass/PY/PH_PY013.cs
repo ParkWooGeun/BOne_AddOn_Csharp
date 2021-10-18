@@ -14,7 +14,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면 호출
         /// </summary>
-        public override void LoadForm(string oFormDocEntry01)
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -116,7 +116,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY013_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
 
             try
             {
@@ -124,10 +124,10 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사업장은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CLTCOD").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return functionReturnValue;
+                    return returnValue;
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -137,7 +137,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY013_DataSave()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
 
             string CLTCOD;
             string DocDateFr;
@@ -164,7 +164,7 @@ namespace PSH_BOne_AddOn
                 sQry = "EXEC PS_Z_DangerCodeAdd '" + CLTCOD + "','" + DocDateFr + "','" + DocDateTo + "'";
                 oRecordSet.DoQuery(sQry);
 
-                functionReturnValue = true;
+                returnValue = true;
                 PSH_Globals.SBO_Application.MessageBox("위해코드가 저장되었습니다.");
             }
             catch (Exception ex)
@@ -176,7 +176,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

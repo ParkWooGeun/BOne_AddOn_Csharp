@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.DataPack;
@@ -17,7 +17,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		public override void LoadForm(string oFormDocEntry01)
+		public override void LoadForm(string oFormDocEntry)
 		{
 			MSXML2.DOMDocument oXmlDoc01 = new MSXML2.DOMDocument();
 
@@ -89,7 +89,7 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void ComboBox_Setting()
 		{
-			string sQry = String.Empty;
+			string sQry = string.Empty;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
@@ -142,7 +142,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool HeaderSpaceLineDel()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 
 			int ErrNum = 0;
 
@@ -155,7 +155,7 @@ namespace PSH_BOne_AddOn
 					throw new Exception();
 				}
 
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -169,7 +169,7 @@ namespace PSH_BOne_AddOn
 				}
 			}
 
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -178,17 +178,17 @@ namespace PSH_BOne_AddOn
 		[STAThread]
 		private void Print_Report01()
 		{
-			string WinTitle = String.Empty;
-			string ReportName = String.Empty;
+			string WinTitle = string.Empty;
+			string ReportName = string.Empty;
 
-			string BPLId = String.Empty;
-			string DocDateFr = String.Empty;
-			string DocDateTo = String.Empty;
-			string Level5 = String.Empty;
-			string Level6 = String.Empty;
+			string BPLId = string.Empty;
+			string DocDateFr = string.Empty;
+			string DocDateTo = string.Empty;
+			string Level5 = string.Empty;
+			string Level6 = string.Empty;
 
-			string BPLName = String.Empty;
-			string sQry = String.Empty;
+			string BPLName = string.Empty;
+			string sQry = string.Empty;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -245,7 +245,7 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@Level5", Level5));
 				dataPackParameter.Add(new PSH_DataPackClass("@Level6", Level6));
 
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
 			}
 			catch (Exception ex)
 			{

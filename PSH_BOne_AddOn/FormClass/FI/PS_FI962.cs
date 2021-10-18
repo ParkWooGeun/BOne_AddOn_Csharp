@@ -92,7 +92,7 @@ namespace PSH_BOne_AddOn
 		private void PS_FI962_MTX01(string prmBPLId, string prmFrDt, string prmToDt, string prmAccount)
 		{
 			int ErrNum = 0;
-			string sQry = String.Empty;
+			string sQry = string.Empty;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try

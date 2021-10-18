@@ -18,7 +18,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면 호출
         /// </summary>
-        public override void LoadForm(string oFormDocEntry01)
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -48,11 +48,11 @@ namespace PSH_BOne_AddOn
                 PS_CO130_CreateItems();
                 PS_CO130_ComboBox_Setting();
 
-                oForm.EnableMenu("1283", true);               //// 삭제
-                oForm.EnableMenu("1287", true);               //// 복제
-                oForm.EnableMenu("1286", false);              //// 닫기
-                oForm.EnableMenu("1284", false);              //// 취소
-                oForm.EnableMenu("1293", true);               //// 행삭제
+                oForm.EnableMenu("1283", true); // 삭제
+                oForm.EnableMenu("1287", true); // 복제
+                oForm.EnableMenu("1286", false); // 닫기
+                oForm.EnableMenu("1284", false); // 취소
+                oForm.EnableMenu("1293", true); // 행삭제
             }
             catch (Exception ex)
             {
@@ -280,7 +280,7 @@ namespace PSH_BOne_AddOn
         /// <returns>True:필수입력사항을 모두 입력, Fasle:필수입력사항 중 하나라도 입력하지 않았음</returns>
         private bool PS_CO130_HeaderSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short ErrNum = 0;
 
             try
@@ -296,7 +296,7 @@ namespace PSH_BOne_AddOn
                     ErrNum = 2;
                     throw new Exception();
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -317,7 +317,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -326,7 +326,7 @@ namespace PSH_BOne_AddOn
         /// <returns>True:필수입력사항을 모두 입력, Fasle:필수입력사항 중 하나라도 입력하지 않았음</returns>
         private bool PS_CO130_MatrixSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short ErrNum = 0;
 
             try
@@ -340,7 +340,7 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
                 oMat01.LoadFromDataSource();
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -357,7 +357,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

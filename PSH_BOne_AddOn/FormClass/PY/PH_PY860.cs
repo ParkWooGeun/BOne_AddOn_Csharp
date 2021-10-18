@@ -19,8 +19,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -50,7 +50,7 @@ namespace PSH_BOne_AddOn
                 PH_PY860_CreateItems();
                 PH_PY860_ComboBox_Setting();
                 PH_PY860_EnableMenus();
-                PH_PY860_SetDocument(oFormDocEntry01);
+                PH_PY860_SetDocument(oFormDocEntry);
             }
             catch (Exception ex)
             {
@@ -153,12 +153,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY860_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY860_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY860_FormItemEnabled();
                 }
@@ -166,7 +166,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY860_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -241,7 +241,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY860_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
 
             try
@@ -253,7 +253,7 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -270,7 +270,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -279,7 +279,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY860_Validate(string ValidateType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -306,7 +306,7 @@ namespace PSH_BOne_AddOn
 
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -324,7 +324,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -621,7 +621,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 if (pVal.Before_Action == true)
-                {
+                {   
                 }
                 else if (pVal.Before_Action == false)
                 {

@@ -22,8 +22,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -53,7 +53,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY132_CreateItems();
                 PH_PY132_EnableMenus();
-                PH_PY132_SetDocument(oFormDocEntry01);
+                PH_PY132_SetDocument(oFormDocEntry);
             }
             catch (Exception ex)
             {
@@ -193,12 +193,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY132_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY132_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY132_FormItemEnabled();
                     PH_PY132_AddMatrixRow();
@@ -207,7 +207,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY132_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -273,7 +273,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY132_Validate(string ValidateType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int ErrNum = 0;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -296,7 +296,7 @@ namespace PSH_BOne_AddOn
                 {
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -311,7 +311,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -361,7 +361,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY132_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int ErrNum = 0;
             string oBNSRAT;
             string oJIGBIL;
@@ -420,7 +420,7 @@ namespace PSH_BOne_AddOn
                 }
                 oMat1.LoadFromDataSource();
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -454,7 +454,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -463,7 +463,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool Pay_Calc()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             int ErrNum = 0;
 
             string YM;
@@ -495,7 +495,7 @@ namespace PSH_BOne_AddOn
                     }
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -512,7 +512,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

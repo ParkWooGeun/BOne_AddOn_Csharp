@@ -13,7 +13,10 @@ namespace PSH_BOne_AddOn
     {
         public string oFormUniqueID01;
 
-        public override void LoadForm(string oFormDocEntry01)
+        /// <summary>
+        /// Form 호출
+        /// </summary>
+        public override void LoadForm(string oFormDocEntry)
         {
             string strXml = string.Empty;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -95,7 +98,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool File_Create()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             
             short errNum = 0;
             string stringSpace = string.Empty;
@@ -126,7 +129,7 @@ namespace PSH_BOne_AddOn
                 FileSystem.FileClose(1);
 
                 PSH_Globals.SBO_Application.StatusBar.SetText("전산매체수록이 정상적으로 완료되었습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch(Exception ex)
             {
@@ -145,7 +148,7 @@ namespace PSH_BOne_AddOn
                 }
             }
             
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -154,7 +157,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool File_Create_A_record(string pcltcod, string pStdYear, string phTaxID, string pdocDate)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
             string sQry = string.Empty;
             string saup = string.Empty;
@@ -260,7 +263,7 @@ namespace PSH_BOne_AddOn
                     }
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch(Exception ex)
             {
@@ -278,10 +281,14 @@ namespace PSH_BOne_AddOn
             finally
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                if (ProgressBar01 != null)
+                {
+                    ProgressBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -290,23 +297,23 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool HeaderSpaceLineDel()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             short errNum = 0;
 
             try
             {
-                if (string.IsNullOrEmpty(oForm.Items.Item("HtaxID").Specific.VALUE))
+                if (string.IsNullOrEmpty(oForm.Items.Item("HtaxID").Specific.Value))
                 {
                     errNum = 1;
                     throw new Exception();
                 }
-                else if (string.IsNullOrEmpty(oForm.Items.Item("DocDate").Specific.VALUE))
+                else if (string.IsNullOrEmpty(oForm.Items.Item("DocDate").Specific.Value))
                 {
                     errNum = 2;
                     throw new Exception();
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch(Exception ex)
             {
@@ -327,7 +334,7 @@ namespace PSH_BOne_AddOn
             {
             }
 
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>

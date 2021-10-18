@@ -81,7 +81,7 @@ namespace PSH_BOne_AddOn
 
         public string OpenDialog(System.Windows.Forms.Form Form1, string Filter_String, string Title, string InitDir)
         {
-            string functionReturnValue = null;
+            string returnValue = null;
 
             int A = 0;
 
@@ -107,13 +107,13 @@ namespace PSH_BOne_AddOn
 
             if ((A != 0))
             {
-                functionReturnValue = Strings.Trim(ofn.lpstrFile);
+                returnValue = Strings.Trim(ofn.lpstrFile);
             }
             else
             {
-                functionReturnValue = "";
+                returnValue = "";
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         private void FileListBoxForm_Load(System.Object eventSender, System.EventArgs eventArgs)

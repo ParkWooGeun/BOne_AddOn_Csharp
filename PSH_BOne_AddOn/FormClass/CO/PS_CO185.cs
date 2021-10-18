@@ -19,8 +19,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			MSXML2.DOMDocument oXmlDoc01 = new MSXML2.DOMDocument();
 
@@ -165,7 +165,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool MatrixSpaceLineDel()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			int i;
 			int ErrNum = 0;
 
@@ -200,7 +200,7 @@ namespace PSH_BOne_AddOn
 					oDS_PS_CO185L.RemoveRecord(oMat01.VisualRowCount - 1);
 				}
 				oMat01.LoadFromDataSource();
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -222,7 +222,7 @@ namespace PSH_BOne_AddOn
 				}
 			}
 
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -231,7 +231,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool HeaderSpaceLineDel()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			int ErrNum = 0;
 
 			try
@@ -252,7 +252,7 @@ namespace PSH_BOne_AddOn
 					throw new Exception();
 				}
 
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -274,7 +274,7 @@ namespace PSH_BOne_AddOn
 				}
 			}
 
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -363,7 +363,7 @@ namespace PSH_BOne_AddOn
 		private void LoadData()
 		{
 			int i;
-			string sQry = String.Empty;
+			string sQry = string.Empty;
 			string iBPLId;
 
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -742,10 +742,10 @@ namespace PSH_BOne_AddOn
 				{
 					SubMain.Remove_Forms(oFormUniqueID01);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO185H);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO185L);
-                }
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO185H);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO185L);
+				}
 			}
 			catch (Exception ex)
 			{

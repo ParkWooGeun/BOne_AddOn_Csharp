@@ -164,7 +164,7 @@ namespace PSH_BOne_AddOn.Database
         /// <summary>
         /// 연결 종료
         /// </summary>
-        public void Close()
+        private void Close()
         {
             if (cn != null)
             {

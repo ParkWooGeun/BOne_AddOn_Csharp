@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 
@@ -9,7 +9,7 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PH_PY017 : PSH_BaseClass
     {
-        public string oFormUniqueID;
+        private string oFormUniqueID;
         public SAPbouiCOM.Matrix oMat1;
         private SAPbouiCOM.DBDataSource oDS_PH_PY017A;
         private SAPbouiCOM.DBDataSource oDS_PH_PY017B;
@@ -20,8 +20,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -51,8 +51,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PH_PY017_CreateItems();
                 PH_PY017_EnableMenus();
-                PH_PY017_SetDocument(oFormDocEntry01);
-                oForm.Update();
+                PH_PY017_SetDocument(oFormDocEntry);
             }
             catch (Exception ex)
             {
@@ -121,12 +120,12 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면세팅
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        private void PH_PY017_SetDocument(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        private void PH_PY017_SetDocument(string oFormDocEntry)
         {
             try
             {
-                if (string.IsNullOrEmpty(oFormDocEntry01))
+                if (string.IsNullOrEmpty(oFormDocEntry))
                 {
                     PH_PY017_FormItemEnabled();
                     PH_PY017_AddMatrixRow();
@@ -135,7 +134,7 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                     PH_PY017_FormItemEnabled();
-                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry01;
+                    oForm.Items.Item("Code").Specific.Value = oFormDocEntry;
                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
             }
@@ -310,7 +309,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY017_DataValidCheck()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string errCode = string.Empty;
 
             try
@@ -333,7 +332,7 @@ namespace PSH_BOne_AddOn
                 oDS_PH_PY017A.SetValue("Code", 0, tCode);
                 oDS_PH_PY017A.SetValue("Name", 0, tCode);
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -346,7 +345,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -531,7 +530,7 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private bool PH_PY017_Validate(string ValidateType)
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
 
             short ErrNumm = 0;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -551,7 +550,7 @@ namespace PSH_BOne_AddOn
                 else if (ValidateType == "취소")
                 {
                 }
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -564,7 +563,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -949,8 +948,8 @@ namespace PSH_BOne_AddOn
                             sQry += "   and a.U_JdtCC = 'Y'";
                             sQry += "   and a.U_JobTyp = 1";
                             sQry += "   and a.U_JobGBN = 1";
-                            sQry += "   and a.U_YM = '" + oForm.Items.Item("YM").Specific.VALUE.ToString().Trim() + "'";
-                            sQry += "   and a.U_CLTCOD = '" + oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim() + "'";
+                            sQry += "   and a.U_YM = '" + oForm.Items.Item("YM").Specific.Value.ToString().Trim() + "'";
+                            sQry += "   and a.U_CLTCOD = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "'";
 
                             oRecordSet01.DoQuery(sQry);
 

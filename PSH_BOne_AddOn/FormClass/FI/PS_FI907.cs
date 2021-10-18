@@ -18,8 +18,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFormDocEntry01"></param>
-        public override void LoadForm(string oFormDocEntry01)
+        /// <param name="oFormDocEntry"></param>
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -89,7 +89,7 @@ namespace PSH_BOne_AddOn
         private void PS_FI907_ComboBox_Setting()
         {
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            string sQry = String.Empty;
+            string sQry = string.Empty;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
@@ -123,14 +123,14 @@ namespace PSH_BOne_AddOn
         [STAThread]
         private void PS_FI907_Print_Report01()
         {
-            string WinTitle = String.Empty;
-            string ReportName = String.Empty;
+            string WinTitle = string.Empty;
+            string ReportName = string.Empty;
 
-            string StrDate = String.Empty;
-            string EndDate = String.Empty;
-            string SCardCode = String.Empty;
-            string ECardCode = String.Empty;
-            string BPLId = String.Empty;
+            string StrDate = string.Empty;
+            string EndDate = string.Empty;
+            string SCardCode = string.Empty;
+            string ECardCode = string.Empty;
+            string BPLId = string.Empty;
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
@@ -142,7 +142,7 @@ namespace PSH_BOne_AddOn
                 List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>(); //Parameter
                 List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
 
-                //// 조회조건문
+                // 조회조건문
                 StrDate = oForm.Items.Item("StrDate").Specific.Value.ToString().Trim();
                 EndDate = oForm.Items.Item("EndDate").Specific.Value.ToString().Trim();
                 SCardCode = oForm.Items.Item("SCardCode").Specific.Value.ToString().Trim();
@@ -181,7 +181,7 @@ namespace PSH_BOne_AddOn
                 dataPackFormula.Add(new PSH_DataPackClass("@StrDate", StrDate == "19000101" ? "All" : codeHelpClass.Left(StrDate, 4) + "-" + codeHelpClass.Mid(StrDate, 4, 2) + "-" + codeHelpClass.Right(StrDate, 2)));
                 dataPackFormula.Add(new PSH_DataPackClass("@EndDate", EndDate == "21001231" ? "All" : codeHelpClass.Left(EndDate, 4) + "-" + codeHelpClass.Mid(EndDate, 4, 2) + "-" + codeHelpClass.Right(EndDate, 2)));
                 dataPackFormula.Add(new PSH_DataPackClass("@BPLId", dataHelpClass.Get_ReData("BPLName", "BPLId", "OBPL", BPLId, "")));
-                formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
             catch (Exception ex)
             {
@@ -390,7 +390,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 if (pVal.Before_Action == true)
-                {   
+                {
                 }
                 else if (pVal.Before_Action == false)
                 {

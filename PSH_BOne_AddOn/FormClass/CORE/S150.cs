@@ -11,8 +11,9 @@ namespace PSH_BOne_AddOn.Core
     {
         private string oFormUniqueID;
         private string itemCode;
-        private string frDate;
-        private string toDate;
+        //private string frDate;
+        //private string toDate;
+        private string chkValue;
         private BoFormMode formMode; //Form.Mode 저장
 
         /// <summary>
@@ -28,7 +29,7 @@ namespace PSH_BOne_AddOn.Core
 
                 oFormUniqueID = formUID;
                 SubMain.Add_Forms(this, formUID, "S150");
-
+                
                 S150_CreateItems();
                 S150_FormItemEnabled();
             }
@@ -125,9 +126,14 @@ namespace PSH_BOne_AddOn.Core
                 oForm.Items.Item("10002050").Enabled = false; //활성(라디오)
                 oForm.Items.Item("10002051").Enabled = false; //비활성(라디오)
                 oForm.Items.Item("10002052").Enabled = false; //고급(라디오)
-                oForm.Items.Item("10002045").Enabled = false; //시작(비)(일자)
-                oForm.Items.Item("10002042").Enabled = false; //종료(비)(일자)
-                oForm.Items.Item("10002047").Enabled = false; //비고(텍스트)
+
+                oForm.Items.Item("10002045").Enabled = false; //시작(비활성)(일자)
+                oForm.Items.Item("10002042").Enabled = false; //종료(비활성)(일자)
+                oForm.Items.Item("10002047").Enabled = false; //비고(비활성)(텍스트)
+
+                oForm.Items.Item("10002038").Enabled = false; //시작(활성)(일자)
+                oForm.Items.Item("10002041").Enabled = false; //종료(활성)(일자)
+                oForm.Items.Item("10002048").Enabled = false; //비고(활성)(텍스트)
             }
             catch (Exception ex)
             {
@@ -135,7 +141,6 @@ namespace PSH_BOne_AddOn.Core
             }
             finally
             {
-                oForm.Update();
             }
         }
 
@@ -144,8 +149,8 @@ namespace PSH_BOne_AddOn.Core
         /// </summary>
         /// <returns></returns>
         private bool S150_DataValidCheck()
-        {
-            bool functionReturnValue = false;
+        {       
+            bool returnValue = false;
             double chknum;
             string errMessage = string.Empty;
 
@@ -156,16 +161,32 @@ namespace PSH_BOne_AddOn.Core
                     errMessage = "저장품(부자재)은 신규등록/갱신 할 수 없습니다.";
                     throw new Exception();
                 }
+
                 if (oForm.Items.Item("ItmMsort").Specific.Value == "30603") // 중분류가 봉일 경우 Spec2, Spec4 필드에 문자, 공백 불가 로직 추가
                 {
-                    if ((double.TryParse(oForm.Items.Item("Spec2").Specific.Value, out chknum) == false || double.TryParse(oForm.Items.Item("Spec4").Specific.Value, out chknum) == false) || (string.IsNullOrEmpty(oForm.Items.Item("Spec2").Specific.Value.ToString().Trim()) || string.IsNullOrEmpty(oForm.Items.Item("Spec4").Specific.Value.ToString().Trim())))
+                    if((double.TryParse(oForm.Items.Item("Spec2").Specific.Value, out chknum) == false || double.TryParse(oForm.Items.Item("Spec4").Specific.Value, out chknum) == false) || (string.IsNullOrEmpty(oForm.Items.Item("Spec2").Specific.Value.ToString().Trim()) || string.IsNullOrEmpty(oForm.Items.Item("Spec4").Specific.Value.ToString().Trim())))
                     {
                         errMessage = "오류 : 중분류 봉(30603)의 경우 규격2,4 필드에 문자, 공백 불가!\n";
-                        errMessage += "뷰 > 사용자정의필드를 선택하여 규격2,4필드를 숫자로 변경하세요.";
+                        errMessage += "뷰 > 사용자정의필드를 선택하여 규격2,4 필드를 숫자로 변경하세요.";
                         throw new Exception();
                     }
                 }
-                functionReturnValue = true;
+
+                if (oForm.Items.Item("10002047").Specific.Value == "미사용") //비활성 라디오버튼의 비고가 "미사용"이면
+                {
+                    if (oForm.Items.Item("CheckYN").Specific.Value != "Y") //사용 선택은 가능
+                    {
+                        errMessage = "미사용 상태에서는 수정할 수 없습니다.";
+                        throw new Exception();
+                    }
+                }
+                else if (oForm.Items.Item("10002047").Specific.Value.ToString().Trim() != "" && oForm.Items.Item("10002047").Specific.Value.ToString().Trim().Split('-')[1] == "승인필요") //승인전이면
+                {
+                    errMessage = "승인전 상태에서는 수정할 수 없습니다.";
+                    throw new Exception();
+                }
+
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -181,7 +202,7 @@ namespace PSH_BOne_AddOn.Core
             finally
             {
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -190,7 +211,7 @@ namespace PSH_BOne_AddOn.Core
         /// <returns></returns>
         private bool S150_Power_Check()
         {
-            bool functionReturnValue = false;
+            bool returnValue = false;
             string sQry;
             string errMessage = string.Empty;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -206,7 +227,7 @@ namespace PSH_BOne_AddOn.Core
                     throw new Exception();
                 }
 
-                functionReturnValue = true;
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -223,7 +244,7 @@ namespace PSH_BOne_AddOn.Core
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
-            return functionReturnValue;
+            return returnValue;
         }
 
         /// <summary>
@@ -232,31 +253,64 @@ namespace PSH_BOne_AddOn.Core
         private void S150_SetAuthorityStatus()
         {
             string sQry;
+            string message = string.Empty;
+            string frDate;
+            string toDate = string.Empty;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
-                if (oForm.Items.Item("10002051").Specific.Selected == false) //비활성 라디오
+                frDate = DateTime.Now.ToString("yyyyMMdd");
+
+                if (formMode == BoFormMode.fm_UPDATE_MODE || formMode == BoFormMode.fm_ADD_MODE) //추가/수정 모드에서만 동작
                 {
-                    if (oForm.Items.Item("10002047").Specific.Value != "초기등록") //비고
+                    if (formMode == BoFormMode.fm_ADD_MODE) //추가(최초등록)
                     {
-                        if (formMode == BoFormMode.fm_UPDATE_MODE || formMode == BoFormMode.fm_ADD_MODE)
+                        toDate = "29991231";
+                        message = "최초등록-승인필요";
+                    }
+                    else if (formMode == BoFormMode.fm_UPDATE_MODE) //수정(수정등록, 사용등록)
+                    {
+                        if (chkValue == "") //사용여부-미선택
                         {
-                            string message = (formMode == BoFormMode.fm_UPDATE_MODE) ? "업데이트됨" : "초기등록";
-
-                            sQry = "  UPDATE    OITM";
-                            sQry += " SET       UpdateDate = '" + frDate + "',";
-                            sQry += "           validFor = 'N',";
-                            sQry += "           frozenFor = 'Y',";
-                            sQry += "           frozenFrom = '" + frDate + "',";
-                            sQry += "           frozenTo = '" + toDate + "',";
-                            sQry += "           FrozenComm = '" + message + "'";
-                            sQry += " FROM      OITM";
-                            sQry += " WHERE     ItemCode = '" + itemCode + "'";
-
-                            oRecordSet.DoQuery(sQry);
+                            if (oForm.Items.Item("10002050").Specific.Selected == true) //활성 라디오 버튼 선택된 경우 (승인후)
+                            {
+                                toDate = "29991231";
+                                message = "수정등록-승인필요";
+                                oForm.Items.Item("10002051").Enabled = true; //비활성(라디오)
+                                oForm.Items.Item("10002051").Specific.Selected = true;
+                                oForm.Items.Item("10002051").Enabled = false; //비활성(라디오)
+                            }
+                        }
+                        else if (chkValue == "Y") //사용여부-사용
+                        {
+                            toDate = "29991231";
+                            message = "사용등록-승인필요";
+                            oForm.Items.Item("10002051").Enabled = true; //비활성(라디오)
+                            oForm.Items.Item("10002051").Specific.Selected = true;
+                            oForm.Items.Item("10002051").Enabled = false; //비활성(라디오)
+                        }
+                        else if (chkValue == "N") //사용여부-미사용
+                        {
+                            toDate = "28991231";
+                            message = "미사용";
+                            oForm.Items.Item("10002051").Enabled = true; //비활성(라디오)
+                            oForm.Items.Item("10002051").Specific.Selected = true;
+                            oForm.Items.Item("10002051").Enabled = false; //비활성(라디오)
                         }
                     }
+
+                    sQry = "  UPDATE    OITM";
+                    sQry += " SET       UpdateDate = '" + frDate + "',";
+                    sQry += "           validFor = 'N',";
+                    sQry += "           frozenFor = 'Y',";
+                    sQry += "           frozenFrom = '" + frDate + "',";
+                    sQry += "           frozenTo = '" + toDate + "',";
+                    sQry += "           FrozenComm = '" + message + "'";
+                    sQry += " FROM      OITM";
+                    sQry += " WHERE     ItemCode = '" + itemCode + "'";
+
+                    oRecordSet.DoQuery(sQry);
                 }
             }
             catch (Exception ex)
@@ -405,8 +459,7 @@ namespace PSH_BOne_AddOn.Core
 
                             //추가,수정 후 BeforeAction == false로 전달할 데이터_S
                             itemCode = oForm.Items.Item("5").Specific.Value;
-                            frDate = DateTime.Now.ToString("yyyyMMdd");
-                            toDate = oForm.Items.Item("CheckYN").Specific.Value.ToString().Trim() == "N" ? "28991231" : "29991231";
+                            chkValue = oForm.Items.Item("CheckYN").Specific.Value.ToString().Trim();
                             //추가,수정 후 BeforeAction == false로 전달할 데이터_E
                             oForm.Items.Item("CheckYN").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
                         }
@@ -422,7 +475,7 @@ namespace PSH_BOne_AddOn.Core
                     if (pVal.ItemUID == "1")
                     {
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-                        {
+                        {   
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                         {
@@ -482,38 +535,41 @@ namespace PSH_BOne_AddOn.Core
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_COMBO_SELECT(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
+            string errMessage = string.Empty;
+
             try
             {
                 oForm.Freeze(true);
                 if (pVal.Before_Action == true)
-                {
+                {   
                 }
                 else if (pVal.Before_Action == false)
                 {
                     if (oForm.Items.Item("CheckYN").Specific.Value.ToString().Trim() == "Y")
                     {
-                        oForm.Items.Item("10002050").Enabled = true; //활성
-                        oForm.Items.Item("10002050").Specific.Selected = true;
-                        oForm.Items.Item("10002050").Enabled = false; //활성
-                        oForm.Items.Item("10002051").Enabled = false; //비활성
-                        oForm.Items.Item("10002052").Enabled = false; //고급
-                    }
-                    else if (oForm.Items.Item("CheckYN").Specific.Value.ToString().Trim() == "N")
-                    {
-                        oForm.Items.Item("10002051").Enabled = true; //비활성
-                        oForm.Items.Item("10002051").Specific.Selected = true;
-                        oForm.Items.Item("10002050").Enabled = false; //활성
-                        oForm.Items.Item("10002051").Enabled = false; //비활성
-                        oForm.Items.Item("10002052").Enabled = false;  //고급
+                        if (oForm.Items.Item("10002047").Specific.Value != "미사용")
+                        {
+                            errMessage = "선택 불가";
+                            oForm.Items.Item("CheckYN").Specific.Select("0", SAPbouiCOM.BoSearchKey.psk_Index); //기본값
+                            throw new Exception();
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                if (errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                }
             }
             finally
             {
+                S150_FormItemEnabled();
                 oForm.Freeze(false);
             }
         }
@@ -545,8 +601,8 @@ namespace PSH_BOne_AddOn.Core
 
                         if (oRecordSet01.Fields.Item(0).Value == "M3")
                         {
-                            if ((oForm.Items.Item("39").Specific.Selected.Value.ToString().Trim() == "102")
-                             || (oForm.Items.Item("39").Specific.Selected.Value.ToString().Trim() == "106")
+                            if ((oForm.Items.Item("39").Specific.Selected.Value.ToString().Trim() == "102") 
+                             || (oForm.Items.Item("39").Specific.Selected.Value.ToString().Trim() == "106") 
                              || (oForm.Items.Item("39").Specific.Selected.Value.ToString().Trim() == "103"))
                             {
                                 errCode = 3;
@@ -555,8 +611,8 @@ namespace PSH_BOne_AddOn.Core
                         }
                         else if (oRecordSet01.Fields.Item(0).Value == "M2")
                         {
-                            if ((oForm.Items.Item("39").Specific.Selected.Value.ToString().Trim() == "101")
-                             || (oForm.Items.Item("39").Specific.Selected.Value.ToString().Trim() == "104")
+                            if ((oForm.Items.Item("39").Specific.Selected.Value.ToString().Trim() == "101") 
+                             || (oForm.Items.Item("39").Specific.Selected.Value.ToString().Trim() == "104") 
                              || (oForm.Items.Item("39").Specific.Selected.Value.ToString().Trim() == "105"))
                             {
                                 errCode = 3;
@@ -603,7 +659,7 @@ namespace PSH_BOne_AddOn.Core
                 oForm.Freeze(true);
 
                 if (pVal.Before_Action == true)
-                {
+                {   
                 }
                 else if (pVal.Before_Action == false)
                 {

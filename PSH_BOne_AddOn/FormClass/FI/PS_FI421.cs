@@ -24,8 +24,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			MSXML2.DOMDocument oXmlDoc01 = new MSXML2.DOMDocument();
 			
@@ -307,7 +307,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_FI421_UpdateData()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 
 			short DocEntry = 0;
 			string SerialNo = string.Empty;			//일련번호
@@ -365,7 +365,7 @@ namespace PSH_BOne_AddOn
 				oRecordSet.DoQuery(sQry);
 
 				PSH_Globals.SBO_Application.MessageBox("수정 완료!");
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -376,7 +376,7 @@ namespace PSH_BOne_AddOn
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 			
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -385,7 +385,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_FI421_AddData()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 
 			string sQry = string.Empty;
 
@@ -451,7 +451,7 @@ namespace PSH_BOne_AddOn
 				oRecordSet.DoQuery(sQry);
 
 				PSH_Globals.SBO_Application.MessageBox("등록 완료!");
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -462,7 +462,7 @@ namespace PSH_BOne_AddOn
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 			
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -471,7 +471,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_FI421_HeaderSpaceLineDel()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 
 			int ErrNum = 0;
 
@@ -501,7 +501,7 @@ namespace PSH_BOne_AddOn
 					ErrNum = 5;
 					throw new Exception();
 				}
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -531,7 +531,7 @@ namespace PSH_BOne_AddOn
 				}
 			}
 
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -667,12 +667,12 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
-				oForm.EnableMenu("1283", false);              //// 삭제
-				oForm.EnableMenu("1286", false);              //// 닫기
-				oForm.EnableMenu("1287", false);              //// 복제
-				oForm.EnableMenu("1285", false);              //// 복원
-				oForm.EnableMenu("1284", true);               //// 취소
-				oForm.EnableMenu("1293", false);              //// 행삭제
+				oForm.EnableMenu("1283", false); // 삭제
+				oForm.EnableMenu("1286", false); // 닫기
+				oForm.EnableMenu("1287", false); // 복제
+				oForm.EnableMenu("1285", false); // 복원
+				oForm.EnableMenu("1284", true);  // 취소
+				oForm.EnableMenu("1293", false); // 행삭제
 				oForm.EnableMenu("1281", false);
 				oForm.EnableMenu("1282", true);
 			}
@@ -825,7 +825,7 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLID));
 				dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", DocEntry));
 
-				formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
 
 			}
 			catch (Exception ex)
@@ -962,7 +962,7 @@ namespace PSH_BOne_AddOn
 					}
 					else if (pVal.ItemUID == "BtnDelete")  //삭제
 					{
-						if (PSH_Globals.SBO_Application.MessageBox("삭제 후에는 복구가 불가능합니다. 삭제하시겠습니까?", Convert.ToInt32("1"), "예", "아니오") == Convert.ToDouble("1"))
+						if (PSH_Globals.SBO_Application.MessageBox("삭제 후에는 복구가 불가능합니다. 삭제하시겠습니까?", 1, "예", "아니오") == 1)
 						{
 							PS_FI421_DeleteData();
 							PS_FI421_FormReset();

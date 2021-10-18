@@ -9,16 +9,12 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PH_PY413 : PSH_BaseClass
     {
-        public string oFormUniqueID01;
-
-        //  그리드 사용시
-        // public SAPbouiCOM.Grid oGrid1;
-        // public SAPbouiCOM.DataTable oDS_PH_PY413;
+        private string oFormUniqueID01;
 
         /// <summary>
         /// 화면 호출
         /// </summary>
-        public override void LoadForm(string oFormDocEntry01)
+        public override void LoadForm(string oFormDocEntry)
         {
             int i = 0;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -1748,7 +1744,7 @@ namespace PSH_BOne_AddOn
                 yyyy = oForm.Items.Item("Year").Specific.Value.Trim();
                 sabun = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
 
-                if (PSH_Globals.SBO_Application.MessageBox(" 선택한자료를 삭제하시겠습니까? ?", Convert.ToInt32("2"), "예", "아니오") == Convert.ToDouble("1"))
+                if (PSH_Globals.SBO_Application.MessageBox(" 선택한자료를 삭제하시겠습니까? ?", 2, "예", "아니오") == 1)
                 {
                     sQry = "Delete From [p_seoyhouse] Where saup = '" + saup + "' And yyyy = '" + yyyy + "' And sabun = '" + sabun + "'";
                     oRecordSet.DoQuery(sQry);

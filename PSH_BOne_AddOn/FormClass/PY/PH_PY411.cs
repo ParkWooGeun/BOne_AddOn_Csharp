@@ -10,16 +10,14 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PH_PY411 : PSH_BaseClass
     {
-        public string oFormUniqueID01;
-
-        //'// 그리드 사용시
-        public SAPbouiCOM.Grid oGrid1;
-        public SAPbouiCOM.DataTable oDS_PH_PY411;
+        private string oFormUniqueID01;
+        private SAPbouiCOM.Grid oGrid1;
+        private SAPbouiCOM.DataTable oDS_PH_PY411;
 
         /// <summary>
         /// 화면 호출
         /// </summary>
-        public override void LoadForm(string oFromDocEntry01)
+        public override void LoadForm(string oFormDocEntry)
         {
             int i = 0;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -203,20 +201,20 @@ namespace PSH_BOne_AddOn
 
                 oForm.EnableMenu("1282", true);      // 문서추가
 
-                if (string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.VALUE.ToString().Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.Value.ToString().Trim()))
                 {
-                    oForm.Items.Item("Year").Specific.VALUE = Convert.ToString(DateTime.Now.Year - 1);
+                    oForm.Items.Item("Year").Specific.Value = Convert.ToString(DateTime.Now.Year - 1);
                 }
-                oForm.Items.Item("seqn").Specific.VALUE = "";
+                oForm.Items.Item("seqn").Specific.Value = "";
                 oForm.Items.Item("gubun").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-                oForm.Items.Item("tyyyy").Specific.VALUE = "";
+                oForm.Items.Item("tyyyy").Specific.Value = "";
                 oForm.Items.Item("tgubun").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-                oForm.Items.Item("bcode").Specific.VALUE = "";
-                oForm.Items.Item("bname").Specific.VALUE = "";
-                oForm.Items.Item("bnum").Specific.VALUE = "";
-                oForm.Items.Item("yuncha").Specific.VALUE = 0;
-                oForm.Items.Item("amt").Specific.VALUE = 0;
-                oForm.Items.Item("gamt").Specific.VALUE = 0;
+                oForm.Items.Item("bcode").Specific.Value = "";
+                oForm.Items.Item("bname").Specific.Value = "";
+                oForm.Items.Item("bnum").Specific.Value = "";
+                oForm.Items.Item("yuncha").Specific.Value = 0;
+                oForm.Items.Item("amt").Specific.Value = 0;
+                oForm.Items.Item("gamt").Specific.Value = 0;
 
                 oForm.Items.Item("amt").Enabled = true;
                 ////Key set
@@ -249,7 +247,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 if (pVal.Before_Action == true)
-                {
+                {   
                 }
                 else if (pVal.Before_Action == false)
                 {
@@ -423,7 +421,7 @@ namespace PSH_BOne_AddOn
                     }
                     if (pVal.ItemUID == "Btn01")  // 저장
                     {
-                        yyyy = oForm.Items.Item("Year").Specific.VALUE;
+                        yyyy = oForm.Items.Item("Year").Specific.Value;
                         sQry = "select b.U_UseYN from [@PS_HR200L] b where b.code ='87' and b.u_code ='" + yyyy + "'";
                         oRecordSet.DoQuery(sQry);
 
@@ -440,7 +438,7 @@ namespace PSH_BOne_AddOn
                     if (pVal.ItemUID == "Btn_del")  // 삭제
                     {
 
-                        yyyy = oForm.Items.Item("Year").Specific.VALUE;
+                        yyyy = oForm.Items.Item("Year").Specific.Value;
                         sQry = "select b.U_UseYN from [@PS_HR200L] b where b.code ='87' and b.u_code ='" + yyyy + "'";
                         oRecordSet.DoQuery(sQry);
 
@@ -488,9 +486,9 @@ namespace PSH_BOne_AddOn
                     {
                         if (pVal.ItemUID == "gubun")
                         {
-                            oForm.Items.Item("amt").Specific.VALUE = 0;
-                            oForm.Items.Item("gamt").Specific.VALUE = 0;
-                            Gubun = oForm.Items.Item("gubun").Specific.VALUE.Trim();
+                            oForm.Items.Item("amt").Specific.Value = 0;
+                            oForm.Items.Item("gamt").Specific.Value = 0;
+                            Gubun = oForm.Items.Item("gubun").Specific.Value.Trim();
                             oForm.ActiveItem = "bcode";
 
                             switch (Gubun)
@@ -555,8 +553,8 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "MSTCOD":
-                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
-                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.VALUE.Trim();
+                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
 
                                 sQry  = "Select Code,";
                                 sQry += " FullName = U_FullName,";
@@ -580,14 +578,14 @@ namespace PSH_BOne_AddOn
                                 oRecordSet.DoQuery(sQry);
 
                                 oForm.DataSources.UserDataSources.Item("FullName").Value = oRecordSet.Fields.Item("FullName").Value;
-                                oForm.Items.Item("FullName").Specific.VALUE = oRecordSet.Fields.Item("FullName").Value;
-                                oForm.Items.Item("TeamName").Specific.VALUE = oRecordSet.Fields.Item("TeamName").Value;
-                                oForm.Items.Item("RspName").Specific.VALUE = oRecordSet.Fields.Item("RspName").Value;
-                                oForm.Items.Item("ClsName").Specific.VALUE = oRecordSet.Fields.Item("ClsName").Value;
+                                oForm.Items.Item("FullName").Specific.Value = oRecordSet.Fields.Item("FullName").Value;
+                                oForm.Items.Item("TeamName").Specific.Value = oRecordSet.Fields.Item("TeamName").Value;
+                                oForm.Items.Item("RspName").Specific.Value = oRecordSet.Fields.Item("RspName").Value;
+                                oForm.Items.Item("ClsName").Specific.Value = oRecordSet.Fields.Item("ClsName").Value;
                                 break;
                             case "FullName":
-                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
-                                FullName = oForm.Items.Item("FullName").Specific.VALUE.Trim();
+                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                                FullName = oForm.Items.Item("FullName").Specific.Value.Trim();
 
                                 sQry  = "Select Code,";
                                 sQry += " FullName = U_FullName,";
@@ -612,12 +610,12 @@ namespace PSH_BOne_AddOn
                                 oRecordSet.DoQuery(sQry);
 
                                 oForm.DataSources.UserDataSources.Item("MSTCOD").Value = oRecordSet.Fields.Item("Code").Value;
-                                oForm.Items.Item("TeamName").Specific.VALUE = oRecordSet.Fields.Item("TeamName").Value;
-                                oForm.Items.Item("RspName").Specific.VALUE = oRecordSet.Fields.Item("RspName").Value;
-                                oForm.Items.Item("ClsName").Specific.VALUE = oRecordSet.Fields.Item("ClsName").Value;
+                                oForm.Items.Item("TeamName").Specific.Value = oRecordSet.Fields.Item("TeamName").Value;
+                                oForm.Items.Item("RspName").Specific.Value = oRecordSet.Fields.Item("RspName").Value;
+                                oForm.Items.Item("ClsName").Specific.Value = oRecordSet.Fields.Item("ClsName").Value;
                                 break;
                             case "bcode":
-                                bcode = oForm.Items.Item("bcode").Specific.VALUE.Trim();
+                                bcode = oForm.Items.Item("bcode").Specific.Value.Trim();
                                 sQry  = "Select Code,";
                                 sQry += " CodeName = U_CodeNm ";
                                 sQry += " From [@PS_HR200L]";
@@ -626,18 +624,18 @@ namespace PSH_BOne_AddOn
 
                                 oRecordSet.DoQuery(sQry);
 
-                                oForm.Items.Item("bname").Specific.VALUE = oRecordSet.Fields.Item("CodeName").Value;
+                                oForm.Items.Item("bname").Specific.Value = oRecordSet.Fields.Item("CodeName").Value;
                                 break;
 
                             case "amt":
-                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
-                                yyyy = oForm.Items.Item("Year").Specific.VALUE.ToString().Trim();
-                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.VALUE.ToString().Trim();
-                                seqn = oForm.Items.Item("seqn").Specific.VALUE.ToString().Trim();
+                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                                yyyy = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
+                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
+                                seqn = oForm.Items.Item("seqn").Specific.Value.ToString().Trim();
                                 amt = 0;
                                 gamt = 0;
                                 
-                                Gubun = oForm.Items.Item("gubun").Specific.VALUE.ToString().Trim();
+                                Gubun = oForm.Items.Item("gubun").Specific.Value.ToString().Trim();
 
                                 switch (Gubun)
                                 {
@@ -648,7 +646,7 @@ namespace PSH_BOne_AddOn
 
                                         // 총급여액계산해서 5,500 이하는 15% 아니면 12%
                                         // 2020년 50세이상 공제한도 확대(3년한시 2022.12.31까지)
-                                        sQry = " Exec PH_PY411 '" + CLTCOD + "', '" + yyyy + "','" + MSTCOD + "','" + Gubun + "'," + oForm.Items.Item("amt").Specific.VALUE;
+                                        sQry = " Exec PH_PY411 '" + CLTCOD + "', '" + yyyy + "','" + MSTCOD + "','" + Gubun + "'," + oForm.Items.Item("amt").Specific.Value;
                                         oRecordSet.DoQuery(sQry);
                                         gamt = oRecordSet.Fields.Item(0).Value;  // 불입금액
                                         samt = oRecordSet.Fields.Item(1).Value;  // 총급여액(과세대상)
@@ -657,15 +655,15 @@ namespace PSH_BOne_AddOn
                                         if (samt <= 55000000)
                                         {
                                             amt = System.Math.Round(gamt * 0.15, 0); // 15%
-                                            oForm.Items.Item("gamt").Specific.VALUE = amt;
+                                            oForm.Items.Item("gamt").Specific.Value = amt;
                                         }
                                         else
                                         {
                                             amt = System.Math.Round(gamt * 0.12, 0); // 12%
-                                            oForm.Items.Item("gamt").Specific.VALUE = amt;
+                                            oForm.Items.Item("gamt").Specific.Value = amt;
                                         }
-                                        oForm.Items.Item("amt").Specific.VALUE = gamt;
-                                        oForm.Items.Item("Age").Specific.VALUE = oRecordSet.Fields.Item(2).Value.ToString().Trim() + " 세" ;
+                                        oForm.Items.Item("amt").Specific.Value = gamt;
+                                        oForm.Items.Item("Age").Specific.Value = oRecordSet.Fields.Item(2).Value.ToString().Trim() + " 세" ;
                                         break;
 
                                     case "21":
@@ -674,20 +672,20 @@ namespace PSH_BOne_AddOn
                                         oRecordSet.DoQuery(sQry);
                                         gamt = oRecordSet.Fields.Item(0).Value;
 
-                                        amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.VALUE) * 0.4, 0);
+                                        amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.Value) * 0.4, 0);
 
                                         if (gamt + amt > 720000)
                                         {
-                                            oForm.Items.Item("gamt").Specific.VALUE = 720000 - gamt;
+                                            oForm.Items.Item("gamt").Specific.Value = 720000 - gamt;
                                         }
                                         else
                                         {
-                                            oForm.Items.Item("gamt").Specific.VALUE = amt;
+                                            oForm.Items.Item("gamt").Specific.Value = amt;
                                         }
 
-                                        if (Convert.ToDouble(oForm.Items.Item("gamt").Specific.VALUE) < 0)
+                                        if (Convert.ToDouble(oForm.Items.Item("gamt").Specific.Value) < 0)
                                         {
-                                            oForm.Items.Item("gamt").Specific.VALUE = 0;
+                                            oForm.Items.Item("gamt").Specific.Value = 0;
                                         }
                                         break;
 
@@ -699,20 +697,20 @@ namespace PSH_BOne_AddOn
                                         oRecordSet.DoQuery(sQry);
                                         gamt = oRecordSet.Fields.Item(0).Value;
 
-                                        amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.VALUE) * 0.4, 0);
+                                        amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.Value) * 0.4, 0);
 
                                         if (gamt + amt > 960000)
                                         {
-                                            oForm.Items.Item("gamt").Specific.VALUE = 960000 - gamt;
+                                            oForm.Items.Item("gamt").Specific.Value = 960000 - gamt;
                                         }
                                         else
                                         {
-                                            oForm.Items.Item("gamt").Specific.VALUE = amt;
+                                            oForm.Items.Item("gamt").Specific.Value = amt;
                                         }
 
-                                        if (Convert.ToDouble(oForm.Items.Item("gamt").Specific.VALUE) < 0)
+                                        if (Convert.ToDouble(oForm.Items.Item("gamt").Specific.Value) < 0)
                                         {
-                                            oForm.Items.Item("gamt").Specific.VALUE = 0;
+                                            oForm.Items.Item("gamt").Specific.Value = 0;
                                         }
                                         break;
 
@@ -722,20 +720,20 @@ namespace PSH_BOne_AddOn
                                         oRecordSet.DoQuery(sQry);
                                         gamt = oRecordSet.Fields.Item(0).Value;
 
-                                        amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.VALUE) * 0.4, 0);
+                                        amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.Value) * 0.4, 0);
 
                                         if (gamt + amt > 2400000)
                                         {
-                                            oForm.Items.Item("gamt").Specific.VALUE = 2400000 - gamt;
+                                            oForm.Items.Item("gamt").Specific.Value = 2400000 - gamt;
                                         }
                                         else
                                         {
-                                            oForm.Items.Item("gamt").Specific.VALUE = amt;
+                                            oForm.Items.Item("gamt").Specific.Value = amt;
                                         }
 
-                                        if (Convert.ToDouble(oForm.Items.Item("gamt").Specific.VALUE) < 0)
+                                        if (Convert.ToDouble(oForm.Items.Item("gamt").Specific.Value) < 0)
                                         {
-                                            oForm.Items.Item("gamt").Specific.VALUE = 0;
+                                            oForm.Items.Item("gamt").Specific.Value = 0;
                                         }
                                         break;
 
@@ -747,14 +745,14 @@ namespace PSH_BOne_AddOn
                                         //우리회사는해당사항이 없음 ..   있을시 계산필요
 
                                         //기본 10%만 계산
-                                        amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.VALUE) * 0.1, 0);
+                                        amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.Value) * 0.1, 0);
 
                                         //종합(근로)소득금액의 50%한도 계산이 필요함........이상태에서는 어려움
-                                        oForm.Items.Item("gamt").Specific.VALUE = amt;
+                                        oForm.Items.Item("gamt").Specific.Value = amt;
 
-                                        if (Convert.ToDouble(oForm.Items.Item("gamt").Specific.VALUE) < 0)
+                                        if (Convert.ToDouble(oForm.Items.Item("gamt").Specific.Value) < 0)
                                         {
-                                            oForm.Items.Item("gamt").Specific.VALUE = 0;
+                                            oForm.Items.Item("gamt").Specific.Value = 0;
                                         }
                                         break;
                                 }
@@ -810,16 +808,16 @@ namespace PSH_BOne_AddOn
 
                             if ((oRecordSet.RecordCount == 0))
                             {
-                                oForm.Items.Item("seqn").Specific.VALUE = "";
+                                oForm.Items.Item("seqn").Specific.Value = "";
                                 oForm.Items.Item("gubun").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-                                oForm.Items.Item("tyyyy").Specific.VALUE = "";
+                                oForm.Items.Item("tyyyy").Specific.Value = "";
                                 oForm.Items.Item("tgubun").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-                                oForm.Items.Item("bcode").Specific.VALUE = "";
-                                oForm.Items.Item("bname").Specific.VALUE = "";
-                                oForm.Items.Item("bnum").Specific.VALUE = "";
-                                oForm.Items.Item("yuncha").Specific.VALUE = 0;
-                                oForm.Items.Item("amt").Specific.VALUE = 0;
-                                oForm.Items.Item("gamt").Specific.VALUE = 0;
+                                oForm.Items.Item("bcode").Specific.Value = "";
+                                oForm.Items.Item("bname").Specific.Value = "";
+                                oForm.Items.Item("bnum").Specific.Value = "";
+                                oForm.Items.Item("yuncha").Specific.Value = 0;
+                                oForm.Items.Item("amt").Specific.Value = 0;
+                                oForm.Items.Item("gamt").Specific.Value = 0;
 
                                 PSH_Globals.SBO_Application.MessageBox("결과가 존재하지 않습니다.");
 
@@ -949,19 +947,19 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                saup = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
-                yyyy = oForm.Items.Item("Year").Specific.VALUE.ToString().Trim();
-                sabun = oForm.Items.Item("MSTCOD").Specific.VALUE.ToString().Trim();
-                seqn = oForm.Items.Item("seqn").Specific.VALUE.ToString().Trim();
-                Gubun = oForm.Items.Item("gubun").Specific.VALUE.ToString().Trim();
-                tyyyy = oForm.Items.Item("tyyyy").Specific.VALUE.ToString().Trim();
-                tgubun = oForm.Items.Item("tgubun").Specific.VALUE.ToString().Trim();
-                bcode = oForm.Items.Item("bcode").Specific.VALUE.ToString().Trim();
-                bname = oForm.Items.Item("bname").Specific.VALUE.ToString().Trim();
-                bnum = oForm.Items.Item("bnum").Specific.VALUE.ToString().Trim();
-                yuncha = Convert.ToDouble(oForm.Items.Item("yuncha").Specific.VALUE);
-                Amt = Convert.ToDouble(oForm.Items.Item("amt").Specific.VALUE);
-                gamt = Convert.ToDouble(oForm.Items.Item("gamt").Specific.VALUE);
+                saup = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                yyyy = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
+                sabun = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
+                seqn = oForm.Items.Item("seqn").Specific.Value.ToString().Trim();
+                Gubun = oForm.Items.Item("gubun").Specific.Value.ToString().Trim();
+                tyyyy = oForm.Items.Item("tyyyy").Specific.Value.ToString().Trim();
+                tgubun = oForm.Items.Item("tgubun").Specific.Value.ToString().Trim();
+                bcode = oForm.Items.Item("bcode").Specific.Value.ToString().Trim();
+                bname = oForm.Items.Item("bname").Specific.Value.ToString().Trim();
+                bnum = oForm.Items.Item("bnum").Specific.Value.ToString().Trim();
+                yuncha = Convert.ToDouble(oForm.Items.Item("yuncha").Specific.Value);
+                Amt = Convert.ToDouble(oForm.Items.Item("amt").Specific.Value);
+                gamt = Convert.ToDouble(oForm.Items.Item("gamt").Specific.Value);
 
                 if (string.IsNullOrEmpty(yyyy))
                 {
@@ -1062,12 +1060,12 @@ namespace PSH_BOne_AddOn
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
                     PH_PY411_DataFind();
                 }
-                oForm.Items.Item("Age").Specific.VALUE = "";
+                oForm.Items.Item("Age").Specific.Value = "";
                 oGrid1.AutoResizeColumns();
             }
             catch (Exception ex)
             {
-                oForm.Items.Item("Age").Specific.VALUE = "";
+                oForm.Items.Item("Age").Specific.Value = "";
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
@@ -1095,12 +1093,12 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                saup = oForm.Items.Item("CLTCOD").Specific.VALUE.ToString().Trim();
-                yyyy = oForm.Items.Item("Year").Specific.VALUE.ToString().Trim();
-                sabun = oForm.Items.Item("MSTCOD").Specific.VALUE.ToString().Trim();
-                seqn = oForm.Items.Item("seqn").Specific.VALUE;
+                saup = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                yyyy = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
+                sabun = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
+                seqn = oForm.Items.Item("seqn").Specific.Value;
 
-                if (PSH_Globals.SBO_Application.MessageBox(" 선택한자료를 삭제하시겠습니까? ?", Convert.ToInt32("2"), "예", "아니오") == Convert.ToDouble("1"))
+                if (PSH_Globals.SBO_Application.MessageBox(" 선택한자료를 삭제하시겠습니까? ?", 2, "예", "아니오") == 1)
                 {
                     if (oDS_PH_PY411.Rows.Count > 0)
                     {

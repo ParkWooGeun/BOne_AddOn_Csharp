@@ -17,7 +17,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 화면 호출
         /// </summary>
-        public override void LoadForm(string oFormDocEntry01)
+        public override void LoadForm(string oFormDocEntry)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -196,7 +196,7 @@ namespace PSH_BOne_AddOn
                     dataPackParameter.Add(new PSH_DataPackClass("@FYM", FYM)); //시작년월
                     dataPackParameter.Add(new PSH_DataPackClass("@TYM", TYM)); //종료년월
 
-                    formHelpClass.CrystalReportOpen(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
+                    formHelpClass.OpenCrystalReport(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
                 }
                 else if (OptBtnValue == "2")  // PH_PY825_05.rpt
                 {
@@ -208,7 +208,7 @@ namespace PSH_BOne_AddOn
                     dataPackParameter.Add(new PSH_DataPackClass("@FYM", FYM)); //시작년월
                     dataPackParameter.Add(new PSH_DataPackClass("@TYM", TYM)); //종료년월
 
-                    formHelpClass.CrystalReportOpen(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
+                    formHelpClass.OpenCrystalReport(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
                 }
                 else // PH_PY825_07
                 {
@@ -219,7 +219,7 @@ namespace PSH_BOne_AddOn
                     dataPackParameter.Add(new PSH_DataPackClass("@TYM", TYM)); //종료년월
                     dataPackParameter.Add(new PSH_DataPackClass("@StdDt", StdDt)); // 기준일자
 
-                    formHelpClass.CrystalReportOpen(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+                    formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
                 }
             }
             catch (Exception ex)

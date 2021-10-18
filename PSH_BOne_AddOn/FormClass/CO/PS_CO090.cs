@@ -19,8 +19,8 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// LoadForm
 		/// </summary>
-		/// <param name="oFormDocEntry01"></param>
-		public override void LoadForm(string oFormDocEntry01)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
 		{
 			MSXML2.DOMDocument oXmlDoc01 = new MSXML2.DOMDocument();
 
@@ -46,8 +46,8 @@ namespace PSH_BOne_AddOn
 				oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 				oForm.DataBrowser.BrowseBy = "Code";				// UDO방식일때
 
-				oForm.EnableMenu(("1293"), true);				// 행삭제
-				oForm.EnableMenu(("1287"), true);				// 복제
+				oForm.EnableMenu("1293", true);				// 행삭제
+				oForm.EnableMenu("1287", true);				// 복제
 
 				oForm.Freeze(true);
 				CreateItems();
@@ -166,7 +166,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool MatrixSpaceLineDel()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			int i;
 			int ErrNum = 0;
 
@@ -217,7 +217,7 @@ namespace PSH_BOne_AddOn
 				}
 				// 행을 삭제하였으니 DB데이터 소스를 다시 가져온다
 				oMat01.LoadFromDataSource();
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -247,7 +247,7 @@ namespace PSH_BOne_AddOn
 				}
 			}
 
-			return functionReturnValue;
+			return returnValue;
 		}
 
 		/// <summary>
@@ -256,7 +256,7 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool HeaderSpaceLineDel()
 		{
-			bool functionReturnValue = false;
+			bool returnValue = false;
 			int ErrNum = 0;
 
 			try
@@ -282,7 +282,7 @@ namespace PSH_BOne_AddOn
 					throw new Exception();
 				}
 				
-				functionReturnValue = true;
+				returnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -308,7 +308,7 @@ namespace PSH_BOne_AddOn
 				}
 			}
 
-			return functionReturnValue;
+			return returnValue;
 		}
 		
 		/// <summary>
@@ -845,10 +845,10 @@ namespace PSH_BOne_AddOn
 				{
 					SubMain.Remove_Forms(oFormUniqueID01);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO090H);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO090L);
-                }
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO090H);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_CO090L);
+				}
 			}
 			catch (Exception ex)
 			{

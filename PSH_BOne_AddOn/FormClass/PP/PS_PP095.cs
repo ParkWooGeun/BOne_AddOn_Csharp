@@ -10,8 +10,6 @@ using System.Drawing.Imaging;
 using System.Collections;
 using System.Windows.Forms;
 using QRCoder;
-using System.Drawing.Printing;
-using System.Runtime.InteropServices;
 
 namespace PSH_BOne_AddOn
 {
@@ -28,8 +26,7 @@ namespace PSH_BOne_AddOn
         private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
         private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
-        [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern bool SetDefaultPrinter(string Name);
+
 
         /// <summary>
         /// Form 호출
@@ -535,14 +532,10 @@ namespace PSH_BOne_AddOn
         {
             string WinTitle;
             string ReportName;
-            string defaultPrint = GetDefaultPrinter();
-            string ChangePrint = "Label Print";
-            PrintDocument printDocument = new PrintDocument();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 
             try
             {
-                SetDefaultPrinter(ChangePrint);
                 WinTitle = "[PS_PP095_03] PACKING라벨출력";
                 ReportName = "PS_PP095_03.rpt";
 
@@ -551,8 +544,7 @@ namespace PSH_BOne_AddOn
                 //Parameter
                 dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", oForm.Items.Item("DocEntry").Specific.Value)); //사업장
 
-                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
-                SetDefaultPrinter(defaultPrint);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, "Y");
             }
             catch (Exception ex)
             {
@@ -560,17 +552,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                SetDefaultPrinter(defaultPrint);
             }
-        }
-        /// <summary>
-        /// GetDefaultPrinter
-        /// </summary>
-        /// <returns></returns>
-        private string GetDefaultPrinter()
-        {
-            PrintDocument printDocument = new PrintDocument();
-            return printDocument.PrinterSettings.PrinterName;
         }
 
         /// <summary>
@@ -585,9 +567,6 @@ namespace PSH_BOne_AddOn
             string sQry01;
             string sQry02;
             string FilePath;
-            string defaultPrint = GetDefaultPrinter();
-            string ChangePrint = "Label Print";
-            PrintDocument printDocument = new PrintDocument();
             QRCoder.QRCodeGenerator QG = new QRCoder.QRCodeGenerator();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -600,7 +579,6 @@ namespace PSH_BOne_AddOn
                 sQry01 = "EXEC PS_PP095_99 '" + oForm.Items.Item("DocEntry").Specific.Value + "'";
                 oRecordSet01.DoQuery(sQry01);
 
-                SetDefaultPrinter(ChangePrint);
                 for (i = 0; i <= oRecordSet01.RecordCount - 1; i++)
                 {
                     if (string.IsNullOrEmpty(oRecordSet01.Fields.Item(1).Value))
@@ -634,16 +612,12 @@ namespace PSH_BOne_AddOn
                 //Parameter
                 dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", oForm.Items.Item("DocEntry").Specific.Value)); //사업장
 
-                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, "Y");
                 
             }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-                SetDefaultPrinter(defaultPrint);
             }
         }
 

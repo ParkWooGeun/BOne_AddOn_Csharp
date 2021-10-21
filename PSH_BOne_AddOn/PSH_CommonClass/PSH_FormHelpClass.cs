@@ -2,6 +2,8 @@
 using CrystalDecisions.CrystalReports.Engine;
 using System.Collections.Generic;
 using PSH_BOne_AddOn.DataPack;
+using System.Drawing.Printing;
+using System.Runtime.InteropServices;
 
 namespace PSH_BOne_AddOn.Form
 {
@@ -10,6 +12,9 @@ namespace PSH_BOne_AddOn.Form
     /// </summary>
     public class PSH_FormHelpClass
     {
+        [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern bool SetDefaultPrinter(string Name);
+        public static string defaultPrint;
         #region 기본 리포트 구현
 
         /// <summary>
@@ -57,7 +62,7 @@ namespace PSH_BOne_AddOn.Form
                 rPT_Viewer1.Dispose();
             }
         }
-
+        
         /// <summary>
         /// 크리스탈 리포트 호출 (Parameter 추가)
         /// </summary>
@@ -96,6 +101,71 @@ namespace PSH_BOne_AddOn.Form
                 ProgBar01 = null;
 
                 rPT_Viewer1.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                ProgBar01.Stop();
+                throw ex;
+            }
+            finally
+            {
+                reportDocument.Close();
+                reportDocument.Dispose();
+
+                rPT_Viewer1.ReportViewer.ReportSource = null;
+                rPT_Viewer1.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// 크리스탈 리포트 호출 (ChangPrint 추가)
+        /// </summary>
+        /// <param name="pRptTitle"></param>
+        /// <param name="pRptName"></param>
+        /// <param name="pRptParameters"></param>
+        /// <param name="changPrint">사용시 'Y'</param>
+        public void OpenCrystalReport(string pRptTitle, string pRptName, List<PSH_DataPackClass> pRptParameters, string changPrint)
+        {
+            PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1 rPT_Viewer1 = new PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1();
+            ReportDocument reportDocument = new ReportDocument();
+
+            SAPbouiCOM.ProgressBar ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
+            int loopCount;
+            string ChangePrint = "Label Print";
+            PrintDocument printDocument = new PrintDocument();
+
+            try
+            {
+                defaultPrint = GetDefaultPrinter();
+                SetDefaultPrinter(ChangePrint);
+                reportDocument.Load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Report + "\\" + pRptName);
+
+                reportDocument.DataSourceConnections[0].IntegratedSecurity = false;
+                reportDocument.DataSourceConnections[0].SetConnection(PSH_Globals.SP_ODBC_IP, PSH_Globals.SP_ODBC_DBName, PSH_Globals.SP_ODBC_ID, PSH_Globals.SP_ODBC_PW); //데이터베이스 서버 접속
+
+                for (loopCount = 0; loopCount <= pRptParameters.Count - 1; loopCount++)
+                {
+                    reportDocument.SetParameterValue(pRptParameters[loopCount].Code.ToString(), pRptParameters[loopCount].Value);
+                }
+
+                rPT_Viewer1.ReportViewer.ReportSource = reportDocument;
+                rPT_Viewer1.ReportViewer.Refresh();
+                rPT_Viewer1.ReportViewer.Zoom(100);
+
+                rPT_Viewer1.Text = pRptTitle;
+
+                ProgBar01.Value = 100;
+                ProgBar01.Stop();
+                ProgBar01 = null;
+
+                rPT_Viewer1.ShowDialog();
+
+                if (PSH_FormHelpClass.defaultPrint != string.Empty)
+                {
+                    PSH_FormHelpClass.SetDefaultPrinter(PSH_FormHelpClass.defaultPrint);
+                    PSH_FormHelpClass.defaultPrint = string.Empty;
+                }
             }
             catch (Exception ex)
             {
@@ -300,6 +370,16 @@ namespace PSH_BOne_AddOn.Form
                 rPT_Viewer1.ReportViewer.ReportSource = null;
                 rPT_Viewer1.Dispose();
             }
+        }
+
+        /// <summary>
+        /// GetDefaultPrinter
+        /// </summary>
+        /// <returns></returns>
+        private string GetDefaultPrinter()
+        {
+            PrintDocument printDocument = new PrintDocument();
+            return printDocument.PrinterSettings.PrinterName;
         }
 
         #endregion

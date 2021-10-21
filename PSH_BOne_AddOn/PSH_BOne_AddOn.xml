@@ -18519,12 +18519,6 @@
             PS_PP095_Print_Report03 리포트 조회
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP095.GetDefaultPrinter">
-            <summary>
-            GetDefaultPrinter
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_PP095.PS_PP095_Print_Report04">
             <summary>
             PS_PP095_Print_Report04
@@ -51869,6 +51863,15 @@
             <param name="pRptName">리포트 파일(rpt) 명</param>
             <param name="pRptParameters">리포트로 전달할 Parameter</param>
         </member>
+        <member name="M:PSH_BOne_AddOn.Form.PSH_FormHelpClass.OpenCrystalReport(System.String,System.String,System.Collections.Generic.List{PSH_BOne_AddOn.DataPack.PSH_DataPackClass},System.String)">
+            <summary>
+            크리스탈 리포트 호출 (ChangPrint 추가)
+            </summary>
+            <param name="pRptTitle"></param>
+            <param name="pRptName"></param>
+            <param name="pRptParameters"></param>
+            <param name="changPrint">사용시 'Y'</param>
+        </member>
         <member name="M:PSH_BOne_AddOn.Form.PSH_FormHelpClass.OpenCrystalReport(System.String,System.String,System.Collections.Generic.List{PSH_BOne_AddOn.DataPack.PSH_DataPackClass},System.Int32)">
             <summary>
             크리스탈 리포트 호출 (Parameter, 비율 추가)
@@ -51896,6 +51899,12 @@
             <param name="pRptParameters">리포트로 전달할 Parameter</param>
             <param name="pRptFormulas">리포트로 전달할 Formula</param>
             <param name="pZoomRate">리포트 비율</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Form.PSH_FormHelpClass.GetDefaultPrinter">
+            <summary>
+            GetDefaultPrinter
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.Form.PSH_FormHelpClass.OpenCrystalReport(System.Collections.Generic.List{PSH_BOne_AddOn.DataPack.PSH_DataPackClass},System.Collections.Generic.List{PSH_BOne_AddOn.DataPack.PSH_DataPackClass},System.String,System.String)">
             <summary>

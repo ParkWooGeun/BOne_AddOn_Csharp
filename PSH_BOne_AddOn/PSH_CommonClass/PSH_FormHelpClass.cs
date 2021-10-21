@@ -16,7 +16,7 @@ namespace PSH_BOne_AddOn.Form
         public static extern bool SetDefaultPrinter(string Name);
         public static string defaultPrint;
         #region 기본 리포트 구현
-
+        
         /// <summary>
         /// 크리스탈 리포트 호출 (기본)
         /// </summary>
@@ -160,12 +160,6 @@ namespace PSH_BOne_AddOn.Form
                 ProgBar01 = null;
 
                 rPT_Viewer1.ShowDialog();
-
-                if (PSH_FormHelpClass.defaultPrint != string.Empty)
-                {
-                    PSH_FormHelpClass.SetDefaultPrinter(PSH_FormHelpClass.defaultPrint);
-                    PSH_FormHelpClass.defaultPrint = string.Empty;
-                }
             }
             catch (Exception ex)
             {

@@ -23,7 +23,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 클래스내에서 공통으로 사용되는 폼 호출 메소드
         /// </summary>
-        private void LoadForm()
+        private new void LoadForm()
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -107,7 +107,9 @@ namespace PSH_BOne_AddOn
         public void LoadForm(string oFormName, string oFormDocEntry)
         {
             string sQry;
+            string sQry2;
             SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset RecordSet02 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -156,7 +158,7 @@ namespace PSH_BOne_AddOn
                                 }
                             }
 
-                            sQry = "Select U_TranCard, U_TranCode, U_Tonnage, U_Destin, U_DocDate From [@PS_SD040H] Where DocEntry = '" + oFormDocEntry + "'";
+                            sQry = "Select U_TranCard, U_TranCode, U_Tonnage, U_Destin, U_DocDate, U_CardCode From [@PS_SD040H] Where DocEntry = '" + oFormDocEntry + "'";
                             RecordSet01.DoQuery(sQry);
 
                             if (RecordSet01.RecordCount > 0)
@@ -168,8 +170,19 @@ namespace PSH_BOne_AddOn
 
                                 oForm.Items.Item("DocDate").Specific.Value = RecordSet01.Fields.Item(4).Value.ToString("yyyyMMdd");
                                 oForm.Items.Item("SDocDateF").Specific.Value = RecordSet01.Fields.Item(4).Value.ToString("yyyyMMdd");
+
+                                sQry2 = "select isnull(U_locCode,'') from OCRD Where cardcode ='" + RecordSet01.Fields.Item(5).Value + "'";
+                                RecordSet02.DoQuery(sQry2);
+                                if (RecordSet02.Fields.Item(0).Value == "")
+                                {
+                                    oForm.Items.Item("LocCode").Specific.Value = "07";
+                                }
+                                else
+                                {
+                                    oForm.Items.Item("LocCode").Specific.Value = RecordSet02.Fields.Item(0).Value.ToString().Trim();
+                                }
                             }
-                            oForm.Items.Item("LocCode").Specific.Value = "07";
+
                         }
                         else if (oFormName == "PS_PP095")
                         {
@@ -250,9 +263,11 @@ namespace PSH_BOne_AddOn
 
                 oForm.DataSources.UserDataSources.Add("SDocDateF", SAPbouiCOM.BoDataType.dt_DATE, 8);
                 oForm.Items.Item("SDocDateF").Specific.DataBind.SetBound(true, "", "SDocDateF");
+                oForm.Items.Item("SDocDateF").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 
                 oForm.DataSources.UserDataSources.Add("SDocDateT", SAPbouiCOM.BoDataType.dt_DATE, 8);
                 oForm.Items.Item("SDocDateT").Specific.DataBind.SetBound(true, "", "SDocDateT");
+                oForm.Items.Item("SDocDateT").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 
                 oForm.DataSources.UserDataSources.Add("SBPLId", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 5);
                 oForm.Items.Item("SBPLId").Specific.DataBind.SetBound(true, "", "SBPLId");
@@ -272,7 +287,7 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.UserDataSources.Add("STonnage", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("STonnage").Specific.DataBind.SetBound(true, "", "STonnage");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
@@ -302,7 +317,7 @@ namespace PSH_BOne_AddOn
                 {
                     oDS_PS_MM004H.SetValue("DocEntry", 0, Convert.ToString(Convert.ToDouble(docEntry) + 1));
                 }
-                
+
                 //==========기준정보==========
                 oDS_PS_MM004H.SetValue("U_DocDate", 0, DateTime.Now.ToString("yyyyMMdd")); //일자
                 oDS_PS_MM004H.SetValue("U_ItmBsort", 0, ""); //품목분류
@@ -331,8 +346,6 @@ namespace PSH_BOne_AddOn
                 //==========조회정보==========
                 if (mode != "U") //업데이트모드일때는 조회정보 초기화 안함(수정한 자료 조회)
                 {
-                    oForm.Items.Item("SDocDateF").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
-                    oForm.Items.Item("SDocDateT").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
                     oForm.Items.Item("SLocCode").Specific.Select("", SAPbouiCOM.BoSearchKey.psk_ByValue); //운송지역
                     oForm.Items.Item("SWay").Specific.Select("", SAPbouiCOM.BoSearchKey.psk_ByValue); //편도/회로
                     oForm.Items.Item("STonnage").Specific.Select("", SAPbouiCOM.BoSearchKey.psk_ByValue); //차종(톤수)
@@ -342,7 +355,7 @@ namespace PSH_BOne_AddOn
 
                 oForm.Items.Item("ItmBsort").Click();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
@@ -439,7 +452,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("BtnDelete").Enabled = true;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
@@ -470,7 +483,7 @@ namespace PSH_BOne_AddOn
                 sQry += "           U_ItmBsort,";
                 sQry += "           U_ItmBName,";
                 sQry += "           U_LocCode,";
-                sQry +="            U_LocName,";
+                sQry += "            U_LocName,";
                 sQry += "           U_Way,";
                 sQry += "           U_SectionF,";
                 sQry += "           U_SectionT,";
@@ -520,7 +533,7 @@ namespace PSH_BOne_AddOn
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
                 PS_MM004_LoadCaption();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
@@ -549,7 +562,7 @@ namespace PSH_BOne_AddOn
                 oDS_PS_MM004H.SetValue("U_LineNum", oRow, Convert.ToString(oRow + 1));
                 oMat01.LoadFromDataSource();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
@@ -575,10 +588,14 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("SDocDateF").Specific.Value = oForm.Items.Item("DocDate").Specific.Value;
                         oForm.Items.Item("SDocDateT").Specific.Value = oForm.Items.Item("DocDate").Specific.Value;
                         break;
+                    case "SectionT":
+                        oForm.Items.Item("Destin").Specific.Value = oForm.Items.Item("SectionT").Specific.Value;
+                        break;
                     case "ItmBsort": //품목분류
                         sQry = "Select Name From [@PSH_ITMBSORT] Where Code = '" + oForm.Items.Item("ItmBsort").Specific.Value.ToString().Trim() + "'";
                         oRecordSet01.DoQuery(sQry);
                         oForm.Items.Item("ItmBName").Specific.Value = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
+                        oForm.Items.Item("ItemName").Specific.Value = oForm.Items.Item("ItmBName").Specific.Value.ToString().Trim();
 
                         if (!string.IsNullOrEmpty(oForm.Items.Item("ObjType").Specific.Value.ToString().Trim()))
                         {
@@ -609,7 +626,7 @@ namespace PSH_BOne_AddOn
                         }
 
                         TWeight = Convert.ToDouble(oForm.Items.Item("TWeight").Specific.Value);
-                        
+
                         if (TWeight > 0) //총계근중량으로 운송비 다시계산
                         {
                             sQry = "  Select    Amt = Isnull(b.U_Amt,0)";
@@ -640,7 +657,7 @@ namespace PSH_BOne_AddOn
                         TWeight = Convert.ToDouble(oForm.Items.Item("TWeight").Specific.Value); //MM095 총중량 구간으로 금액 Select
                         if (TWeight > 0) //총계근중량으로 운송비 다시계산
                         {
-                            sQry = "  Select    Amt = Isnull(b.U_Amt,0)";
+                            sQry = "  Select    Ton = b.U_Tonnage,Amt = Isnull(b.U_Amt,0)";
                             sQry += " From      [@PS_MM003H] a";
                             sQry += "           Inner Join";
                             sQry += "           [@PS_MM003L] b";
@@ -652,11 +669,13 @@ namespace PSH_BOne_AddOn
 
                             if (oForm.Items.Item("Way").Specific.Value.ToString().Trim() == "10")
                             {
-                                oForm.Items.Item("Amt").Specific.Value = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
+                                oForm.Items.Item("Amt").Specific.Value = oRecordSet01.Fields.Item(1).Value.ToString().Trim();
+                                oForm.Items.Item("Tonnage").Specific.Value = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
                             }
                             else if (oForm.Items.Item("Way").Specific.Value.ToString().Trim() == "20")
                             {
-                                oForm.Items.Item("Amt").Specific.Value = Convert.ToString(Convert.ToDouble(oRecordSet01.Fields.Item(0).Value) * 0.8);
+                                oForm.Items.Item("Amt").Specific.Value = Convert.ToString(Convert.ToDouble(oRecordSet01.Fields.Item(1).Value) * 0.8);
+                                oForm.Items.Item("Tonnage").Specific.Value = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
                             }
                         }
                         break;
@@ -763,7 +782,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_MM004L.SetValue("U_ColReg13", i, oRecordSet01.Fields.Item("ItemName").Value.ToString().Trim()); //품명
                     oDS_PS_MM004L.SetValue("U_ColNum01", i, oRecordSet01.Fields.Item("Weight").Value.ToString().Trim()); //운송량
                     oDS_PS_MM004L.SetValue("U_ColSum01", i, oRecordSet01.Fields.Item("TotAmt").Value.ToString().Trim()); //금액
-                    oDS_PS_MM004L.SetValue("U_ColReg15", i, oRecordSet01.Fields.Item("PassYN").Value.ToString().Trim()); 
+                    oDS_PS_MM004L.SetValue("U_ColReg15", i, oRecordSet01.Fields.Item("PassYN").Value.ToString().Trim());
                     oDS_PS_MM004L.SetValue("U_ColReg16", i, oRecordSet01.Fields.Item("Comments").Value.ToString().Trim()); //비고
 
                     oRecordSet01.MoveNext();
@@ -774,9 +793,9 @@ namespace PSH_BOne_AddOn
                 oMat01.LoadFromDataSource();
                 oMat01.AutoResizeColumns();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                if (errMessage != string.Empty) 
+                if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
                 }
@@ -831,7 +850,7 @@ namespace PSH_BOne_AddOn
 
                 PSH_Globals.SBO_Application.StatusBar.SetText("삭제 완료", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 if (errMessage != string.Empty)
                 {
@@ -940,7 +959,7 @@ namespace PSH_BOne_AddOn
                 PSH_Globals.SBO_Application.StatusBar.SetText("수정 완료!", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
                 returnValue = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 if (errMessage != string.Empty)
                 {
@@ -1064,7 +1083,7 @@ namespace PSH_BOne_AddOn
                 PSH_Globals.SBO_Application.StatusBar.SetText("등록 완료!", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
                 returnValue = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 if (errMessage != string.Empty)
                 {
@@ -1080,7 +1099,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet01);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet02);
             }
-    
+
             return returnValue;
         }
 
@@ -1146,7 +1165,7 @@ namespace PSH_BOne_AddOn
 
                 returnValue = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 if (errMessage != string.Empty)
                 {
@@ -1157,7 +1176,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + (char)13 + ex.Message);
                 }
             }
-            
+
             return returnValue;
         }
 
@@ -1184,7 +1203,7 @@ namespace PSH_BOne_AddOn
 
                 formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + (char)13 + ex.Message);
             }
@@ -1605,6 +1624,17 @@ namespace PSH_BOne_AddOn
                     if (pVal.ItemChanged == true)
                     {
                         PS_MM004_FlushToItemValue(pVal.ItemUID, 0, "");
+                        if (pVal.ItemUID == "ItmBsort")
+                        {
+
+                            oForm.Items.Item("SItmBsort").Specific.Select(oForm.Items.Item("ItmBsort").Specific.Value, SAPbouiCOM.BoSearchKey.psk_ByValue); //운송지역
+                            //oForm.Items.Item("SItmBsort").Specific.Value = oForm.Items.Item("ItmBsort").Specific.Value;
+                            oForm.Items.Item("ItemName").Specific.Value = oForm.Items.Item("ItmBName").Specific.Value;
+                        }
+                        else if (pVal.ItemUID == "SectionT")
+                        {
+                            oForm.Items.Item("Destin").Specific.Value = oForm.Items.Item("SectionT").Specific.Value;
+                        }
                     }
                 }
                 else if (pVal.Before_Action == false)

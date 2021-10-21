@@ -27,6 +27,7 @@ namespace PSH_BOne_AddOn
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
         private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
 
+
         /// <summary>
         /// Form 호출
         /// </summary>
@@ -543,11 +544,14 @@ namespace PSH_BOne_AddOn
                 //Parameter
                 dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", oForm.Items.Item("DocEntry").Specific.Value)); //사업장
 
-                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, "Y");
             }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
             }
         }
 
@@ -574,7 +578,7 @@ namespace PSH_BOne_AddOn
 
                 sQry01 = "EXEC PS_PP095_99 '" + oForm.Items.Item("DocEntry").Specific.Value + "'";
                 oRecordSet01.DoQuery(sQry01);
-                
+
                 for (i = 0; i <= oRecordSet01.RecordCount - 1; i++)
                 {
                     if (string.IsNullOrEmpty(oRecordSet01.Fields.Item(1).Value))
@@ -608,7 +612,8 @@ namespace PSH_BOne_AddOn
                 //Parameter
                 dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", oForm.Items.Item("DocEntry").Specific.Value)); //사업장
 
-                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, "Y");
+                
             }
             catch (Exception ex)
             {

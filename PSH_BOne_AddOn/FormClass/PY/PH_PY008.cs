@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.Code;
@@ -83,9 +83,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 oGrid1 = oForm.Items.Item("Grid01").Specific;
-
                 oForm.DataSources.DataTables.Add("PH_PY008");
 
                 oGrid1.DataTable = oForm.DataSources.DataTables.Item("PH_PY008");
@@ -451,7 +449,6 @@ namespace PSH_BOne_AddOn
             int i;
             string CLTCOD;
             string sPosDate;
-
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -611,14 +608,13 @@ namespace PSH_BOne_AddOn
             string sQry;
             string returnValue = string.Empty;
             short errNum = 0;
-
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
                 sQry = "SELECT U_WorkType From [@PH_PY003B] Where U_Date = '" + pDate + "'";
-
                 oRecordSet.DoQuery(sQry);
+                
                 if (oRecordSet.RecordCount > 0)
                 {
                     returnValue = oRecordSet.Fields.Item(0).Value.ToString().Trim();
@@ -644,7 +640,6 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
-
             return returnValue;
         }
 
@@ -658,7 +653,6 @@ namespace PSH_BOne_AddOn
             int j;
             string sQry;
             string[] COLNAM = new string[30];
-
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -829,7 +823,6 @@ namespace PSH_BOne_AddOn
                             break;
                     }
                 }
-
                 oGrid1.AutoResizeColumns();
             }
             catch (Exception ex)
@@ -862,14 +855,13 @@ namespace PSH_BOne_AddOn
             string Param06;
             string Param07;
             string Param08;
-
             SAPbouiCOM.ProgressBar ProgBar01 = null;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
                 oForm.Freeze(true);
+                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
                 Param01 = oForm.Items.Item("SCLTCOD").Specific.Value.ToString().Trim();
                 Param02 = oForm.Items.Item("SPosDate").Specific.Value.ToString().Trim();
@@ -938,12 +930,13 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                oForm.Update();
-                ProgBar01.Value = 100;
-                ProgBar01.Stop();
+                if (ProgBar01 != null)
+                {
+                    ProgBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                }
                 oForm.Freeze(false);
-
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                oForm.Update();
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }
@@ -963,7 +956,6 @@ namespace PSH_BOne_AddOn
             string Param01;
             string Param02;
             string Param03;
-
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -1208,7 +1200,6 @@ namespace PSH_BOne_AddOn
         private string PH_PY008_DaySelect(string pDate)
         {
             string returnValue = string.Empty;
-
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
@@ -1243,7 +1234,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
-
             return returnValue;
         }
 
@@ -1258,7 +1248,6 @@ namespace PSH_BOne_AddOn
             string CLTCOD; // 사업장
             string retunValue = string.Empty;
             short errNum = 0;
-
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -1371,19 +1360,15 @@ namespace PSH_BOne_AddOn
             string PAYTYP; //급여형태 2:월급제
             string Comment; //비고(2013.11.19 송명규 추가)
             string BPLID2; //근무지사업장(2018.10.01 송명규 추가)
-
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
-
             SAPbouiCOM.ProgressBar ProgressBar01 = null;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
                 oForm.Freeze(true);
-
                 ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
-
                 RotateYN = "N"; //야간교대조 인정 초기값 N
 
                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
@@ -2144,7 +2129,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 CLTCOD = oForm.Items.Item("SCLTCOD").Specific.Value;
 
                 if (oForm.Items.Item("SDay").Specific.Value == "일")
@@ -3454,7 +3438,6 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }
@@ -3577,7 +3560,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 CLTCOD = oForm.Items.Item("SCLTCOD").Specific.Value;
                 sPosDate = oForm.Items.Item("SPosDate").Specific.Value;
 
@@ -3845,14 +3827,13 @@ namespace PSH_BOne_AddOn
             string todaytm;
             string returnValue = string.Empty;
             short errNum = 0;
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);    
+            
             try
             {
                 //안강사업장은 제외
                 if (oForm.Items.Item("SCLTCOD").Specific.Value != "3")
                 {
-
-
                     if (oForm.Items.Item("WorkType").Specific.Value.Trim() == "") // 근태구분 등록체크
                     {
                         returnValue = "N";
@@ -3941,7 +3922,6 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
@@ -4057,10 +4037,9 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            oForm.Freeze(true);
-
             try
             {
+                oForm.Freeze(true);
                 if (pVal.BeforeAction == true)
                 {
 
@@ -4849,13 +4828,11 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "SPosDate":
-
-                                oForm.Freeze(true);
+                                
                                 PH_PY008_ChDate_Set();
                                 PH_PY008_Time_ReSet(); //시간 reset
 
                                 oForm.Items.Item("SShiftDat").Specific.Value = "";
-                                oForm.Freeze(false);
                                 break;
 
                             case "PosDate":

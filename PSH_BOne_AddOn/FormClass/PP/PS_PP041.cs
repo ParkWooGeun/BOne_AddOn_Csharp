@@ -303,7 +303,7 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("DocType").Specific.Select("20", SAPbouiCOM.BoSearchKey.psk_ByValue);
                     }
 
-                    oForm.Items.Item("DocDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
+                    oForm.Items.Item("DocDate").Specific.Value = DateTime.Now.AddDays(-1).ToString("yyyyMMdd");
                     oForm.Items.Item("SBPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
@@ -515,7 +515,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 if (RowIserted == false)
                 {
                     oDS_PS_PP041L.InsertRecord(oRow);
@@ -545,7 +544,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 if (RowIserted == false)
                 {
                     oDS_PS_PP041M.InsertRecord(oRow);
@@ -575,7 +573,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 if (RowIserted == false)
                 {
                     oDS_PS_PP041N.InsertRecord(oRow);
@@ -2298,7 +2295,7 @@ namespace PSH_BOne_AddOn
                         {
                             for (int i = 1; i <= oMat02.VisualRowCount - 1; i++)
                             {
-                                totTime += Convert.ToDouble(oMat02.Columns.Item("YTime").Cells.Item(i).Specific.Value);
+                                totTime += Convert.ToDouble(string.IsNullOrEmpty(oMat02.Columns.Item("YTime").Cells.Item(i).Specific.Value) == true ? "0" : oMat02.Columns.Item("YTime").Cells.Item(i).Specific.Value);
                             }
 
                             if (totTime > 0)
@@ -3053,6 +3050,7 @@ namespace PSH_BOne_AddOn
                                                     {
                                                         if (oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() == "1")
                                                         {
+                                                            double neeee = RecordSet01.Fields.Item("BQty").Value;
                                                             //S&D에 생산 포장라벨 중량 자동 표시 (창원사업장)
                                                             oDS_PS_PP041L.SetValue("U_PQty", pVal.Row - 1, RecordSet01.Fields.Item("PackWg").Value);
                                                             oDS_PS_PP041L.SetValue("U_YQty", pVal.Row - 1, RecordSet01.Fields.Item("PackWg").Value);

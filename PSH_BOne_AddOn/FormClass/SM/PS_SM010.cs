@@ -920,6 +920,8 @@ namespace PSH_BOne_AddOn
                             oQuery01 = "SELECT Name FROM [@PSH_ITMBSORT] WHERE Code = '" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'";
                             oRecordSet01.DoQuery(oQuery01);
                             oForm.Items.Item("ItmBName").Specific.Value = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
+                            oForm.Items.Item("ItmMsort").Specific.Value = "";
+                            oForm.Items.Item("ItmMName").Specific.Value = "";
                         }
                         else if (pVal.ItemUID == "ItmMsort")
                         {

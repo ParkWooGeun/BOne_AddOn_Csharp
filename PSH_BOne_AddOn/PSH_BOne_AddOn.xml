@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <doc>
     <assembly>
         <name>PSH_BOne_AddOn</name>
@@ -12379,38 +12379,6 @@
             <summary>
             필수 사항 check
             </summary>
-            <param name="BPLId"></param>
-            <param name="ItmBsort"></param>
-            <param name="ItemCode"></param>
-            <param name="ItemName"></param>
-            <param name="Size"></param>
-            <param name="Qty"></param>
-            <param name="Unit"></param>
-            <param name="RequestDate"></param>
-            <param name="DueDate"></param>
-            <param name="ItemType"></param>
-            <param name="RequestNo"></param>
-            <param name="BEDNR"></param>
-            <param name="i"></param>
-            <param name="LastRow"></param>
-            <param name="FileName"></param>
-            <param name="dir"></param>
-            <param name="BPLId"></param>
-            <param name="ItmBsort"></param>
-            <param name="ItemCode"></param>
-            <param name="ItemName"></param>
-            <param name="Size"></param>
-            <param name="Qty"></param>
-            <param name="Unit"></param>
-            <param name="RequestDate"></param>
-            <param name="DueDate"></param>
-            <param name="ItemType"></param>
-            <param name="RequestNo"></param>PS_RFC_Sender
-            <param name="BEDNR"></param>
-            <param name="i"></param>
-            <param name="LastRow"></param>
-            <param name="FileName"></param>
-            <param name="dir"></param>
             <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_CO510.PS_CO510_MTX01">
@@ -51895,6 +51863,15 @@
             <param name="pRptName">리포트 파일(rpt) 명</param>
             <param name="pRptParameters">리포트로 전달할 Parameter</param>
         </member>
+        <member name="M:PSH_BOne_AddOn.Form.PSH_FormHelpClass.OpenCrystalReport(System.String,System.String,System.Collections.Generic.List{PSH_BOne_AddOn.DataPack.PSH_DataPackClass},System.String)">
+            <summary>
+            크리스탈 리포트 호출 (ChangPrint 추가)
+            </summary>
+            <param name="pRptTitle"></param>
+            <param name="pRptName"></param>
+            <param name="pRptParameters"></param>
+            <param name="changPrint">사용시 'Y'</param>
+        </member>
         <member name="M:PSH_BOne_AddOn.Form.PSH_FormHelpClass.OpenCrystalReport(System.String,System.String,System.Collections.Generic.List{PSH_BOne_AddOn.DataPack.PSH_DataPackClass},System.Int32)">
             <summary>
             크리스탈 리포트 호출 (Parameter, 비율 추가)
@@ -51922,6 +51899,12 @@
             <param name="pRptParameters">리포트로 전달할 Parameter</param>
             <param name="pRptFormulas">리포트로 전달할 Formula</param>
             <param name="pZoomRate">리포트 비율</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Form.PSH_FormHelpClass.GetDefaultPrinter">
+            <summary>
+            GetDefaultPrinter
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.Form.PSH_FormHelpClass.OpenCrystalReport(System.Collections.Generic.List{PSH_BOne_AddOn.DataPack.PSH_DataPackClass},System.Collections.Generic.List{PSH_BOne_AddOn.DataPack.PSH_DataPackClass},System.String,System.String)">
             <summary>

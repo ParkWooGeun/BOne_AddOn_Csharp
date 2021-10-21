@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PSH_BOne_AddOn.Form;
+using System;
 using System.Windows.Forms;
 
 namespace PSH_BOne_AddOn.EXT_Form
@@ -20,10 +21,18 @@ namespace PSH_BOne_AddOn.EXT_Form
 
         private void FrmRPT_Viewer1_Activated(object sender, EventArgs e)
         {
-            if(this.Created == true)
+
+          //  PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+            if (this.Created == true)
             {
                 this.Activate(); //리포트뷰어용 Form의 활성화 및 포커스 이동(화면 제일 위에 띄우기)
                 //this.WindowState = FormWindowState.Maximized; //시작시 폼 최대화
+            }
+
+            if (PSH_FormHelpClass.defaultPrint !=  string.Empty)
+            {
+                PSH_FormHelpClass.SetDefaultPrinter(PSH_FormHelpClass.defaultPrint);
+                PSH_FormHelpClass.defaultPrint = string.Empty;
             }
         }
 

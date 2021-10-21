@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <doc>
     <assembly>
         <name>PSH_BOne_AddOn</name>
@@ -12379,38 +12379,6 @@
             <summary>
             필수 사항 check
             </summary>
-            <param name="BPLId"></param>
-            <param name="ItmBsort"></param>
-            <param name="ItemCode"></param>
-            <param name="ItemName"></param>
-            <param name="Size"></param>
-            <param name="Qty"></param>
-            <param name="Unit"></param>
-            <param name="RequestDate"></param>
-            <param name="DueDate"></param>
-            <param name="ItemType"></param>
-            <param name="RequestNo"></param>
-            <param name="BEDNR"></param>
-            <param name="i"></param>
-            <param name="LastRow"></param>
-            <param name="FileName"></param>
-            <param name="dir"></param>
-            <param name="BPLId"></param>
-            <param name="ItmBsort"></param>
-            <param name="ItemCode"></param>
-            <param name="ItemName"></param>
-            <param name="Size"></param>
-            <param name="Qty"></param>
-            <param name="Unit"></param>
-            <param name="RequestDate"></param>
-            <param name="DueDate"></param>
-            <param name="ItemType"></param>
-            <param name="RequestNo"></param>PS_RFC_Sender
-            <param name="BEDNR"></param>
-            <param name="i"></param>
-            <param name="LastRow"></param>
-            <param name="FileName"></param>
-            <param name="dir"></param>
             <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_CO510.PS_CO510_MTX01">
@@ -18550,6 +18518,12 @@
             <summary>
             PS_PP095_Print_Report03 리포트 조회
             </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP095.GetDefaultPrinter">
+            <summary>
+            GetDefaultPrinter
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_PP095.PS_PP095_Print_Report04">
             <summary>

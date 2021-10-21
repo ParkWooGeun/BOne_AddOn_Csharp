@@ -331,6 +331,8 @@ namespace PSH_BOne_AddOn
                 //==========조회정보==========
                 if (mode != "U") //업데이트모드일때는 조회정보 초기화 안함(수정한 자료 조회)
                 {
+                    oForm.Items.Item("SDocDateF").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
+                    oForm.Items.Item("SDocDateT").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
                     oForm.Items.Item("SLocCode").Specific.Select("", SAPbouiCOM.BoSearchKey.psk_ByValue); //운송지역
                     oForm.Items.Item("SWay").Specific.Select("", SAPbouiCOM.BoSearchKey.psk_ByValue); //편도/회로
                     oForm.Items.Item("STonnage").Specific.Select("", SAPbouiCOM.BoSearchKey.psk_ByValue); //차종(톤수)

@@ -499,13 +499,13 @@ namespace PSH_BOne_AddOn
 						{
 							sQry = "SELECT BPLName, BPLId FROM [OBPL] WHERE BPLid = '" + oForm.Items.Item(pval.ItemUID).Specific.Value.ToString().Trim() + "'";
 							oRecordSet.DoQuery(sQry);
-							oForm.Items.Item("BPLName").Specific.Value = oRecordSet.Fields.Item(0).Value.String().Trim();
+							oForm.Items.Item("BPLName").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 						}
 						else if (pval.ItemUID == "CardCode")
 						{
 							sQry = "SELECT CardName, CardCode FROM [OCRD] WHERE CardCode = '" + oForm.Items.Item(pval.ItemUID).Specific.Value.ToString().Trim() + "'";
 							oRecordSet.DoQuery(sQry);
-							oForm.Items.Item("CardName").Specific.Value = oRecordSet.Fields.Item(0).Value.String().Trim();
+							oForm.Items.Item("CardName").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 						}
 						oForm.Items.Item(pval.ItemUID).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 					}

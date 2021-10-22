@@ -32577,18 +32577,16 @@
             <param name="ObjectType"></param>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP041.PS_PP041_InsertoInventoryGenExit(System.Int16)">
+        <member name="M:PSH_BOne_AddOn.PS_PP041.PS_PP041_InsertoInventoryGenExit">
             <summary>
             출고 DI(멀티,엔드베어링의 경우 첫공정이면서 처음 작업일보 등록시 투입자재를 출고 시킨다.)
             </summary>
-            <param name="ChkType"></param>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP041.PS_PP041_InsertoInventoryGenEntry(System.Int16)">
+        <member name="M:PSH_BOne_AddOn.PS_PP041.PS_PP041_InsertoInventoryGenEntry">
             <summary>
             입고DI(출고 취소)
             </summary>
-            <param name="ChkType"></param>
             <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_PP041.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">

@@ -660,7 +660,7 @@ namespace PSH_BOne_AddOn
                             
                                 sQry = "Select Sum(OnHand) From OITW Where ItemCode = '" + oMat01.Columns.Item("ItemCode").Cells.Item(oRow).Specific.Value.ToString().Trim() + "'";
                                 oRecordSet01.DoQuery(sQry);
-                                oMat01.Columns.Item("IvQty").Cells.Item(oRow).Specific.Value = dataHelpClass.Calculate_Qty(oMat01.Columns.Item("ItemCode").Cells.Item(oRow).Specific.Value.ToString().Trim(), Convert.ToInt32(oRecordSet01.Fields.Item(0).Value.ToString().Trim()));
+                                oMat01.Columns.Item("IvQty").Cells.Item(oRow).Specific.Value = dataHelpClass.Calculate_Qty(oMat01.Columns.Item("ItemCode").Cells.Item(oRow).Specific.Value.ToString().Trim(), Convert.ToInt32(Convert.ToDouble(oRecordSet01.Fields.Item(0).Value.ToString().Trim())));
                                 oMat01.Columns.Item("IvWeight").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
                             }
 

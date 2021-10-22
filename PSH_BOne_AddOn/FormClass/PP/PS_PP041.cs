@@ -1764,9 +1764,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 출고 DI(멀티,엔드베어링의 경우 첫공정이면서 처음 작업일보 등록시 투입자재를 출고 시킨다.)
         /// </summary>
-        /// <param name="ChkType"></param>
         /// <returns></returns>
-        private bool PS_PP041_InsertoInventoryGenExit(short ChkType)
+        private bool PS_PP041_InsertoInventoryGenExit()
         {
             bool returnValue = false;
             string errCode = string.Empty;
@@ -1784,6 +1783,10 @@ namespace PSH_BOne_AddOn
 
             try
             {
+                if (PSH_Globals.oCompany.InTransaction == true)
+                {
+                    PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack);
+                }
                 PSH_Globals.oCompany.StartTransaction();
 
                 //현재월의 전기기간 체크 후 잠겨있으면 DI API 미실행
@@ -1900,11 +1903,6 @@ namespace PSH_BOne_AddOn
                     errCode = "1";
                     throw new Exception();
                 }
-
-                if (ChkType != 2)
-                {
-                    PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack);
-                }
                 else
                 {
                     PSH_Globals.oCompany.GetNewObjectCode(out afterDIDocNum);
@@ -1926,8 +1924,10 @@ namespace PSH_BOne_AddOn
                         }
                     }
                     oMat01.LoadFromDataSource();
-
-                    PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
+                    if (PSH_Globals.oCompany.InTransaction == true)
+                    {
+                        PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
+                    }
                 }
 
                 returnValue = true;
@@ -1967,9 +1967,8 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 입고DI(출고 취소)
         /// </summary>
-        /// <param name="ChkType"></param>
         /// <returns></returns>
-        private bool PS_PP041_InsertoInventoryGenEntry(short ChkType)
+        private bool PS_PP041_InsertoInventoryGenEntry()
         {
             bool returnValue = false;
             string errCode = string.Empty;
@@ -1987,6 +1986,10 @@ namespace PSH_BOne_AddOn
 
             try
             {
+                if (PSH_Globals.oCompany.InTransaction == true)
+                {
+                    PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack);
+                }
                 PSH_Globals.oCompany.StartTransaction();
 
                 //현재월의 전기기간 체크 후 잠겨있으면 DI API 미실행
@@ -2061,11 +2064,6 @@ namespace PSH_BOne_AddOn
                     errCode = "1";
                     throw new Exception();
                 }
-
-                if (ChkType != 2)
-                {
-                    PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack);
-                }
                 else
                 {
                     PSH_Globals.oCompany.GetNewObjectCode(out afterDIDocNum);
@@ -2085,8 +2083,10 @@ namespace PSH_BOne_AddOn
                         }
                     }
                     oMat01.LoadFromDataSource();
-
-                    PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
+                    if (PSH_Globals.oCompany.InTransaction == true)
+                    {
+                        PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
+                    }
                 }
 
                 returnValue = true;
@@ -2237,7 +2237,7 @@ namespace PSH_BOne_AddOn
                             }
 
                             //원재료 불출없이 추가시 주석 시작
-                            if (PS_PP041_InsertoInventoryGenExit(2) == false)
+                            if (PS_PP041_InsertoInventoryGenExit() == false)
                             {
                                 BubbleEvent = false;
                                 return;
@@ -4052,7 +4052,7 @@ namespace PSH_BOne_AddOn
                                     BubbleEvent = false;
                                     return;
                                 }
-                                if (PS_PP041_InsertoInventoryGenEntry(2) == false)
+                                if (PS_PP041_InsertoInventoryGenEntry() == false)
                                 {
                                     BubbleEvent = false;
                                     return;

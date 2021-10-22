@@ -2486,7 +2486,7 @@ namespace PSH_BOne_AddOn.Data
                 }
                 else
                 {
-                    returnValue = oRecordset01.Fields.Item(0).Value;
+                    returnValue = oRecordset01.Fields.Item(0).Value.ToString().Trim();
                 }
             }
             catch(Exception ex)

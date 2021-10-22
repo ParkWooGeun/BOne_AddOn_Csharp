@@ -811,7 +811,7 @@ namespace PSH_BOne_AddOn
                     errCode = "2"; //SAP Function 실행 오류가 발생했을 때 에러코드로 처리하기 위해 이 위치에서 "2"를 대입
                     oFunction.Invoke(rfcDest); //Function 실행
 
-                    if (oFunction.GetValue("E_MESSAGE").ToString() != "S") //리턴 메시지가 "S(성공)"이 아니면
+                    if (oFunction.GetValue("E_MESSAGE").ToString() != "" && oFunction.GetValue("E_MESSAGE").ToString() != "S") //리턴 메시지가 "S(성공)"이 아니면
                     {
                         errCode = "3";
                         errMessage = oFunction.GetValue("E_MESSAGE").ToString();
@@ -1086,6 +1086,7 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
+                oMat01.LoadFromDataSource();
                 if (dataHelpClass.Get_ReData("U_ItmBsort", "ItemCode", "[OITM]", "'" + MainItemCode + "'", "") == "302") //멀티 원소재일 경우
                 {
                     if (PS_MM180_InterfaceB1toR3() == true) //본사 데이터 전송
@@ -1103,7 +1104,6 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
                 }
 
-                oMat01.LoadFromDataSource();
                 oMat01.AutoResizeColumns();
 
                 returnValue = true;
@@ -1383,6 +1383,7 @@ namespace PSH_BOne_AddOn
         {
             try
             {
+                oForm.Freeze(true);
                 if (pVal.BeforeAction == true)
                 {
                     if (pVal.ItemUID == "Button01")
@@ -1496,6 +1497,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                oForm.Freeze(false);
             }
         }
 

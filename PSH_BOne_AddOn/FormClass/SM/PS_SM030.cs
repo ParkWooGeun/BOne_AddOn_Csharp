@@ -1154,6 +1154,9 @@ namespace PSH_BOne_AddOn
 									}
 									else if (dataHelpClass.GetItem_SbasUnit(ItemCode01) == "202") //KG단중
 									{
+										string temp01 = oMat02.Columns.Item("SelQty").Cells.Item(pVal.Row).Specific.Value.ToString().Trim();
+										string temp02 = dataHelpClass.GetItem_UnWeight(ItemCode01);
+
 										oMat02.Columns.Item("SelWeight").Cells.Item(pVal.Row).Specific.Value = System.Math.Round(Convert.ToDouble(oMat02.Columns.Item("SelQty").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()) * Convert.ToDouble(dataHelpClass.GetItem_UnWeight(ItemCode01)) / 1000, 2);
 									}
 									else if (dataHelpClass.GetItem_SbasUnit(ItemCode01) == "203") //KG입력
@@ -1229,11 +1232,11 @@ namespace PSH_BOne_AddOn
 				{
 					oForm.Items.Item("Mat01").Top = 70;
 					oForm.Items.Item("Mat01").Height = (oForm.Height / 2) - 70;
-					oForm.Items.Item("Mat01").Left = 7;
+					oForm.Items.Item("Mat01").Left = 10;
 					oForm.Items.Item("Mat01").Width = oForm.Width - 21;
 					oForm.Items.Item("Mat02").Top = (oForm.Height / 2) + 10;
-					oForm.Items.Item("Mat02").Height = (oForm.Height / 2) - 75;
-					oForm.Items.Item("Mat02").Left = 7;
+					oForm.Items.Item("Mat02").Height = (oForm.Height / 2) - 80;
+					oForm.Items.Item("Mat02").Left = 10;
 					oForm.Items.Item("Mat02").Width = oForm.Width - 21;
 				}
 			}

@@ -1906,7 +1906,6 @@ namespace PSH_BOne_AddOn
                 else
                 {
                     PSH_Globals.oCompany.GetNewObjectCode(out afterDIDocNum);
-
                     i = 1;
                     for (oRow = 0; oRow <= oDS_PS_PP041L.Size - 1; oRow++)
                     {
@@ -1923,11 +1922,12 @@ namespace PSH_BOne_AddOn
                             }
                         }
                     }
-                    oMat01.LoadFromDataSource();
-                    if (PSH_Globals.oCompany.InTransaction == true)
-                    {
-                        PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
-                    }
+                }
+
+                oMat01.LoadFromDataSource();
+                if (PSH_Globals.oCompany.InTransaction == true)
+                {
+                    PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
                 }
 
                 returnValue = true;
@@ -2082,13 +2082,13 @@ namespace PSH_BOne_AddOn
                             i += 1;
                         }
                     }
-                    oMat01.LoadFromDataSource();
-                    if (PSH_Globals.oCompany.InTransaction == true)
-                    {
-                        PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
-                    }
                 }
 
+                oMat01.LoadFromDataSource();
+                if (PSH_Globals.oCompany.InTransaction == true)
+                {
+                    PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
+                }
                 returnValue = true;
             }
             catch (Exception ex)

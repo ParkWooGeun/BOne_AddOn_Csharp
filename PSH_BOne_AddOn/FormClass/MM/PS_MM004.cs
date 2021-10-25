@@ -186,19 +186,20 @@ namespace PSH_BOne_AddOn
                         }
                         else if (oFormName == "PS_PP095")
                         {
+                            
                             sQry = "Select U_Destin, U_Section, U_Tonnage, U_TranCard, U_TranCode, U_TWeight, U_DocDate From [@PS_PP095H] Where DocEntry = '" + oFormDocEntry + "'";
                             RecordSet01.DoQuery(sQry);
 
                             if (RecordSet01.RecordCount > 0)
                             {
-                                oForm.Items.Item("Destin").Specific.Value = RecordSet01.Fields.Item(0).Value.ToString().Trim();
-                                oForm.Items.Item("SectionT").Specific.Value = RecordSet01.Fields.Item(1).Value.ToString().Trim();
-                                oForm.Items.Item("Tonnage").Specific.Value = RecordSet01.Fields.Item(2).Value.ToString().Trim();
-                                oForm.Items.Item("TranCard").Specific.Value = RecordSet01.Fields.Item(3).Value.ToString().Trim();
-                                oForm.Items.Item("TranCode").Specific.Value = RecordSet01.Fields.Item(4).Value.ToString().Trim();
-                                oForm.Items.Item("TWeight").Specific.Value = RecordSet01.Fields.Item(5).Value.ToString().Trim();
-                                oForm.Items.Item("DocDate").Specific.Value = RecordSet01.Fields.Item(6).Value.ToString("yyyyMMdd");
-                                oForm.Items.Item("SDocDateF").Specific.Value = RecordSet01.Fields.Item(6).Value.ToString("yyyyMMdd");
+                                oDS_PS_MM004H.SetValue("U_Destin", 0, RecordSet01.Fields.Item("U_Destin").Value.ToString().Trim());
+                                oDS_PS_MM004H.SetValue("U_SectionT", 0, RecordSet01.Fields.Item("U_Section").Value.ToString().Trim());
+                                oDS_PS_MM004H.SetValue("U_Tonnage", 0, RecordSet01.Fields.Item("U_Tonnage").Value.ToString().Trim());
+                                oDS_PS_MM004H.SetValue("U_TranCard", 0, RecordSet01.Fields.Item("U_TranCard").Value.ToString().Trim());
+                                oDS_PS_MM004H.SetValue("U_TranCode", 0, RecordSet01.Fields.Item("U_TranCode").Value.ToString().Trim());
+                                oDS_PS_MM004H.SetValue("U_TWeight", 0, RecordSet01.Fields.Item("U_TWeight").Value.ToString().Trim());
+                                oDS_PS_MM004H.SetValue("U_DocDate", 0, RecordSet01.Fields.Item("U_DocDate").Value.ToString("yyyyMMdd").Trim());
+                                oForm.Items.Item("SDocDateF").Specific.Value = RecordSet01.Fields.Item("U_DocDate").Value.ToString("yyyyMMdd");
                             }
 
                             oForm.Items.Item("ItmBsort").Specific.Value = "104";

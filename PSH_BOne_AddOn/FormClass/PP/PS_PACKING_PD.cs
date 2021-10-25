@@ -474,7 +474,6 @@ namespace PSH_BOne_AddOn
             finally
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
-                oForm.Update();
             }
         }
 
@@ -790,7 +789,7 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@BatchNum", Param06));
                 dataPackParameter.Add(new PSH_DataPackClass("@CardCode", Param07));
 
-                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, "Y");
             }
             catch (Exception ex)
             {

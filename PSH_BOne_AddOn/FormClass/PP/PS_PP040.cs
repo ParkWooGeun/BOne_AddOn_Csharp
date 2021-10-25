@@ -1654,7 +1654,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         /// <param name="ChkType"></param>
         /// <returns></returns>
-        private bool PS_PP040_AddoInventoryGenExit(short ChkType)
+        private bool PS_PP040_AddoInventoryGenExit()
         {
             bool returnValue = false;
             string errCode = string.Empty;
@@ -1763,12 +1763,7 @@ namespace PSH_BOne_AddOn
                             throw new Exception();
                         }
                     }
-
-                    if (ChkType == 1)
-                    {
-                        PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack);
-                    }
-                    else if (ChkType == 2)
+                    else
                     {
                         PSH_Globals.oCompany.GetNewObjectCode(out SDocEntry);
                         Cnt = 1;
@@ -1782,9 +1777,11 @@ namespace PSH_BOne_AddOn
                                 Cnt += 1;
                             }
                         }
-
                         oMat01.LoadFromDataSource();
-                        PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
+                        if (PSH_Globals.oCompany.InTransaction == true)
+                        {
+                            PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
+                        }
                     }
                 }
 
@@ -1827,7 +1824,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         /// <param name="ChkType"></param>
         /// <returns></returns>
-        private bool PS_PP040_AddoInventoryGenEntry(short ChkType)
+        private bool PS_PP040_AddoInventoryGenEntry()
         {
             bool returnValue = false;
             string errCode = string.Empty;
@@ -1856,6 +1853,10 @@ namespace PSH_BOne_AddOn
 
             try
             {
+                if (PSH_Globals.oCompany.InTransaction == true)
+                {
+                    PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack);
+                }
                 PSH_Globals.oCompany.StartTransaction();
 
                 //현재월의 전기기간 체크 후 잠겨있으면 DI API 미실행
@@ -1899,21 +1900,21 @@ namespace PSH_BOne_AddOn
                         IssueWt = Convert.ToDouble(oMat01.Columns.Item("PWeight").Cells.Item(i + 1).Specific.Value);
                         CpCode = oMat01.Columns.Item("CpCode").Cells.Item(i + 1).Specific.Value.ToString().Trim();
                         Price = Convert.ToString(oRecordSet.Fields.Item(0).Value) == "" ? 0 : Convert.ToDouble(oRecordSet.Fields.Item(0).Value);
-                        
+
                         WhsCode = "101";
-                        
+
                         if ((CpCode == "CP80101" || CpCode == "CP80111") && !string.IsNullOrEmpty(CItemCod) && IssueQty >= 0 && IssueWt != 0 && !string.IsNullOrEmpty(WhsCode))
                         {
                             if (j > 0)
                             {
                                 DI_oInventoryGenEntry.Lines.Add();
-                            }   
+                            }
                             DI_oInventoryGenEntry.Lines.SetCurrentLine(j);
                             DI_oInventoryGenEntry.Lines.ItemCode = CItemCod;
                             DI_oInventoryGenEntry.Lines.WarehouseCode = WhsCode;
                             DI_oInventoryGenEntry.Lines.Quantity = IssueWt;
                             DI_oInventoryGenEntry.Lines.UserFields.Fields.Item("U_Qty").Value = IssueQty;
-                            
+
                             if (oRecordSet.EoF) //제품원재료 변환 품목은 단가를 계산 후 입력
                             {
                             }
@@ -1940,28 +1941,25 @@ namespace PSH_BOne_AddOn
                             throw new Exception();
                         }
                     }
-
-                    if (ChkType == 1)
-                    {
-                        PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack);
-                    }
-                    else if (ChkType == 2)
+                    else
                     {
                         PSH_Globals.oCompany.GetNewObjectCode(out SDocEntry);
+                        oMat01.LoadFromDataSource();
+
+                        if (PSH_Globals.oCompany.InTransaction == true)
+                        {
+                            PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
+                        }
+
+                        sQry = "  UPDATE    [@PS_PP040L]";
+                        sQry += " SET       U_OutDocC = '" + SDocEntry + "',";
+                        sQry += "           U_OutLinC = U_OutLin";
+                        sQry += " FROM      [@PS_PP040L]";
+                        sQry += " WHERE     U_CpCode in ('CP80101','CP80111')";
+                        sQry += "           AND DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'";
+                        oRecordSet.DoQuery(sQry);
                     }
-                    
-                    oMat01.LoadFromDataSource();
-                    PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
-
-                    sQry = "  UPDATE    [@PS_PP040L]";
-                    sQry += " SET       U_OutDocC = '" + SDocEntry + "',";
-                    sQry += "           U_OutLinC = U_OutLin";
-                    sQry += " FROM      [@PS_PP040L]";
-                    sQry += " WHERE     U_CpCode in ('CP80101','CP80111')";
-                    sQry += "           AND DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'";
-                    oRecordSet.DoQuery(sQry);
                 }
-
                 returnValue = true;
             }
             catch(Exception ex)
@@ -2107,7 +2105,7 @@ namespace PSH_BOne_AddOn
 
                             if (oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim() == "111" || oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim() == "601") // 분말 첫번째 공정 투입시 원자재 불출로직 추가(황영수 20181101)
                             {
-                                if (PS_PP040_AddoInventoryGenExit(2) == false)
+                                if (PS_PP040_AddoInventoryGenExit() == false)
                                 {
                                     BubbleEvent = false;
                                     return;
@@ -3931,7 +3929,7 @@ namespace PSH_BOne_AddOn
                                 }
                                 if (oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim() == "111" || oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim() == "601")
                                 {
-                                    if (PS_PP040_AddoInventoryGenEntry(2) == false)
+                                    if (PS_PP040_AddoInventoryGenEntry() == false)
                                     {
                                         BubbleEvent = false;
                                         return;

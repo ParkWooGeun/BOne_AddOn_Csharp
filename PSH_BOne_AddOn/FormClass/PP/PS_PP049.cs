@@ -1551,7 +1551,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         /// <param name="ChkType"></param>
         /// <returns></returns>
-        private bool PS_PP049_Add_oInventoryGenExit(short ChkType)
+        private bool PS_PP049_Add_oInventoryGenExit()
         {
             bool returnValue = false;
             string errCode = string.Empty;
@@ -1579,6 +1579,10 @@ namespace PSH_BOne_AddOn
 
             try
             {
+                if (PSH_Globals.oCompany.InTransaction == true)
+                {
+                    PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack);
+                }
                 PSH_Globals.oCompany.StartTransaction();
 
                 //현재월의 전기기간 체크 후 잠겨있으면 DI API 미실행
@@ -1660,12 +1664,7 @@ namespace PSH_BOne_AddOn
                             throw new Exception();
                         }
                     }
-
-                    if (ChkType == 1)
-                    {
-                        PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack);
-                    }
-                    else if (ChkType == 2)
+                    else
                     {
                         PSH_Globals.oCompany.GetNewObjectCode(out SDocEntry);
                         Cnt = 1;
@@ -1681,7 +1680,10 @@ namespace PSH_BOne_AddOn
                         }
 
                         oMat01.LoadFromDataSource();
-                        PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
+                        if (PSH_Globals.oCompany.InTransaction == true)
+                        {
+                            PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
+                        }
                     }
                 }
 
@@ -1724,7 +1726,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         /// <param name="ChkType"></param>
         /// <returns></returns>
-        private bool PS_PP049_Add_oInventoryGenEntry(short ChkType)
+        private bool PS_PP049_Add_oInventoryGenEntry()
         {
             bool returnValue = false;
             string errCode = string.Empty;
@@ -1753,6 +1755,10 @@ namespace PSH_BOne_AddOn
 
             try
             {
+                if (PSH_Globals.oCompany.InTransaction == true)
+                {
+                    PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack);
+                }
                 PSH_Globals.oCompany.StartTransaction();
 
                 //현재월의 전기기간 체크 후 잠겨있으면 DI API 미실행
@@ -1837,26 +1843,24 @@ namespace PSH_BOne_AddOn
                             throw new Exception();
                         }
                     }
-
-                    if (ChkType == 1)
-                    {
-                        PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack);
-                    }
-                    else if (ChkType == 2)
+                    else
                     {
                         PSH_Globals.oCompany.GetNewObjectCode(out SDocEntry);
+
+                        oMat01.LoadFromDataSource();
+                        if (PSH_Globals.oCompany.InTransaction == true)
+                        {
+                            PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
+
+                            sQry = "  UPDATE    [@PS_PP040L]";
+                            sQry += " SET       U_OutDocC = '" + SDocEntry + "',";
+                            sQry += "           U_OutLinC = U_OutLin";
+                            sQry += " FROM      [@PS_PP040L]";
+                            sQry += " WHERE     U_CpCode in ('CP80101','CP80111')";
+                            sQry += "           AND DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'";
+                            oRecordSet.DoQuery(sQry);
+                        }
                     }
-
-                    oMat01.LoadFromDataSource();
-                    PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
-
-                    sQry = "  UPDATE    [@PS_PP040L]";
-                    sQry += " SET       U_OutDocC = '" + SDocEntry + "',";
-                    sQry += "           U_OutLinC = U_OutLin";
-                    sQry += " FROM      [@PS_PP040L]";
-                    sQry += " WHERE     U_CpCode in ('CP80101','CP80111')";
-                    sQry += "           AND DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'";
-                    oRecordSet.DoQuery(sQry);
                 }
 
                 returnValue = true;
@@ -2093,7 +2097,7 @@ namespace PSH_BOne_AddOn
                             
                             if (oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim() == "111" || oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim() == "601") // 분말 첫번째 공정 투입시 원자재 불출로직 추가(황영수 20181101)
                             {
-                                if (PS_PP049_Add_oInventoryGenExit(2) == false)
+                                if (PS_PP049_Add_oInventoryGenExit() == false)
                                 {
                                     BubbleEvent = false;
                                     return;
@@ -3856,7 +3860,7 @@ namespace PSH_BOne_AddOn
                                 }
                                 if (oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim() == "111" || oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim() == "601")
                                 {
-                                    if (PS_PP049_Add_oInventoryGenEntry(2) == false)
+                                    if (PS_PP049_Add_oInventoryGenEntry() == false)
                                     {
                                         BubbleEvent = false;
                                         return;

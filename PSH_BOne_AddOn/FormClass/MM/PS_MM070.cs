@@ -691,7 +691,7 @@ namespace PSH_BOne_AddOn
                                 return;
                             }
 
-                            oForm.Items.Item("DueDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd"); //납품일(헤더)
+                            oForm.Items.Item("DueDate").Specific.Value = oRecordSet01.Fields.Item("U_DocDate").Value.ToString("yyyyMMdd").Trim();
 
                             //매트릭스에 데이터를 직접 바인딩하면 이벤트가 실행되기 때문에 DataSource로 바인딩하는 방식으로 수정(2011.11.22 송명규)
                             oDS_PS_MM070L.SetValue("U_ItemCode", oRow - 1, oRecordSet01.Fields.Item("U_ItemCode").Value.ToString().Trim()); //품목코드

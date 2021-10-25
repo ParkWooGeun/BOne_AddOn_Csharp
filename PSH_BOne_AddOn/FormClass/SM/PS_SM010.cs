@@ -237,11 +237,14 @@ namespace PSH_BOne_AddOn
             {
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
-                    for (int i = 0; i < oBaseForm01.Items.Count; i++) //BaseForm에 ItmBSort가 있는 검사
+                    if (oBaseForm01 != null) 
                     {
-                        if (oBaseForm01.Items.Item(i).UniqueID == "ItmBSort")
+                        for (int i = 0; i < oBaseForm01.Items.Count; i++) //BaseForm에 ItmBSort가 있는지 검사
                         {
-                            itemBSortYN = true;
+                            if (oBaseForm01.Items.Item(i).UniqueID == "ItmBSort")
+                            {
+                                itemBSortYN = true;
+                            }
                         }
                     }
 

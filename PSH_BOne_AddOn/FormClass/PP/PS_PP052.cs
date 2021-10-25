@@ -1572,13 +1572,13 @@ namespace PSH_BOne_AddOn
                 else
                 {
                     PSH_Globals.oCompany.GetNewObjectCode(out SDocEntry);
-                    oMat01.LoadFromDataSource();
 
                     sQry = "Update [@PS_PP040L] set U_OutDocC = '" + SDocEntry + "', U_OutLinC = U_OutLin";
                     sQry = sQry + " From [@PS_PP040L] where 1=1 and u_cpcode in ('CP80101','CP80111') and docentry = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "' ";
                     oRecordSet01.DoQuery(sQry);
                 }
 
+                oMat01.LoadFromDataSource();
                 if (PSH_Globals.oCompany.InTransaction == true)
                 {
                     PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);

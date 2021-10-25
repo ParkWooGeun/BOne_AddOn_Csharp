@@ -16873,14 +16873,14 @@
             <param name="ObjectType"></param>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP049.PS_PP049_Add_oInventoryGenExit">
+        <member name="M:PSH_BOne_AddOn.PS_PP049.PS_PP049_Add_oInventoryGenExit(System.Int16)">
             <summary>
             출고 DI API(원재료 출고용)
             </summary>
             <param name="ChkType"></param>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP049.PS_PP049_Add_oInventoryGenEntry">
+        <member name="M:PSH_BOne_AddOn.PS_PP049.PS_PP049_Add_oInventoryGenEntry(System.Int16)">
             <summary>
             입고 DI API(원재료 입고용(출고 취소))
             </summary>
@@ -34465,14 +34465,14 @@
             <param name="ObjectType"></param>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP040.PS_PP040_AddoInventoryGenExit">
+        <member name="M:PSH_BOne_AddOn.PS_PP040.PS_PP040_AddoInventoryGenExit(System.Int16)">
             <summary>
             출고 DI API(원재료 출고용)
             </summary>
             <param name="ChkType"></param>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP040.PS_PP040_AddoInventoryGenEntry">
+        <member name="M:PSH_BOne_AddOn.PS_PP040.PS_PP040_AddoInventoryGenEntry(System.Int16)">
             <summary>
             입고 DI API(원재료 입고용(출고 취소))
             </summary>

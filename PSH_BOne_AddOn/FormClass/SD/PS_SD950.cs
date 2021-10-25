@@ -540,9 +540,9 @@ namespace PSH_BOne_AddOn
 					{
 						if (pVal.ItemUID == "CardCode")
 						{
-							sQry = "SELECT CardName, CardCode FROM [OCRD] WHERE CardCode = '" + oForm.Items.Item(pVal.ItemUID).Specific.Value.String().Trim() + "'";
+							sQry = "SELECT CardName, CardCode FROM [OCRD] WHERE CardCode = '" + oForm.Items.Item(pVal.ItemUID).Specific.Value.ToString().Trim() + "'";
 							oRecordSet.DoQuery(sQry);
-							oForm.Items.Item("CardName").Specific.Value = oRecordSet.Fields.Item(0).Value.String().Trim();
+							oForm.Items.Item("CardName").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 						}
 
 						oForm.Items.Item(pVal.ItemUID).Click(SAPbouiCOM.BoCellClickType.ct_Regular);

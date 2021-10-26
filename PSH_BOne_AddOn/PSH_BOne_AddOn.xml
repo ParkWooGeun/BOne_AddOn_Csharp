@@ -16873,11 +16873,11 @@
             <param name="ObjectType"></param>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP049.PS_PP049_Add_oInventoryGenExit(System.Int16)">
+        <member name="M:PSH_BOne_AddOn.PS_PP049.PS_PP049_Add_oInventoryGenExit">
             <summary>
+            
             출고 DI API(원재료 출고용)
             </summary>
-            <param name="ChkType"></param>
             <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_PP049.PS_PP049_Add_oInventoryGenEntry">
@@ -18438,6 +18438,48 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
+        <member name="T:PSH_BOne_AddOn.PS_PP092S">
+            <summary>
+            패킹화면 라벨 출력
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP092S.LoadForm(System.String,System.String,System.String)">
+            <summary>
+            LoadForm
+            </summary>
+            <param name="PackNo"></param>
+            <param name="InspNo"></param>
+            <param name="MDate"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP092S.PS_PP092S_PrintReport">
+            <summary>
+            PS_PP995_PrintReport
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP092S.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Form Item Event
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">pVal</param>
+            <param name="BubbleEvent">Bubble Event</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP092S.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_ITEM_PRESSED
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP092S.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_FORM_UNLOAD
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_PP095">
             <summary>
             M/G거래명세표등록
@@ -19148,11 +19190,6 @@
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_PP092.PS_PP092_Print_Report03">
-            <summary>
-            리포트 조회
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP092.PS_PP092_Print_Report02">
             <summary>
             리포트 조회
             </summary>

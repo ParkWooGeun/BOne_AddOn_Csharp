@@ -1828,7 +1828,8 @@ namespace PSH_BOne_AddOn
                 if (Cnt < 1)
                 {
                     returnValue = true;
-                    return returnValue;
+                    errCode = "0";
+                    throw new Exception();
                 }
                 
                 DI_oInventoryGenExit = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenExit); //문서타입(입고)
@@ -1947,6 +1948,9 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.MessageBox("현재월의 전기기간이 잠겼습니다. 회계부서에 문의하세요.");
                 }
+                else if (errCode == "0")
+                {
+                }
                 else
                 {
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + (char)13 + ex.Message);
@@ -2010,7 +2014,8 @@ namespace PSH_BOne_AddOn
                 if (Cnt < 1)
                 {
                     returnValue = true;
-                    return returnValue;
+                    errCode = "0";
+                    throw new Exception();
                 }
 
                 DI_oInventoryGenEntry = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry); //문서타입(입고)
@@ -2105,6 +2110,9 @@ namespace PSH_BOne_AddOn
                 else if (errCode == "2")
                 {
                     PSH_Globals.SBO_Application.MessageBox("현재월의 전기기간이 잠겼습니다. 회계부서에 문의하세요.");
+                }
+                else if (errCode == "0")
+                {
                 }
                 else
                 {

@@ -16873,11 +16873,11 @@
             <param name="ObjectType"></param>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP049.PS_PP049_Add_oInventoryGenExit(System.Int16)">
+        <member name="M:PSH_BOne_AddOn.PS_PP049.PS_PP049_Add_oInventoryGenExit">
             <summary>
+            
             출고 DI API(원재료 출고용)
             </summary>
-            <param name="ChkType"></param>
             <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_PP049.PS_PP049_Add_oInventoryGenEntry">

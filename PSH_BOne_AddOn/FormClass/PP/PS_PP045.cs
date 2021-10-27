@@ -384,7 +384,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_USERDS01.Offset = i;
 
                     oDS_PS_USERDS01.SetValue("U_LineNum", i, Convert.ToString(i + 1));
-                    oDS_PS_USERDS01.SetValue("U_ColDt01", i, DateTime.Now.ToString("yyyyMMdd"));
+                    oDS_PS_USERDS01.SetValue("U_ColDt01", i, oRecordSet01.Fields.Item("DocDate").Value.ToString("yyyyMMdd"));
                     oDS_PS_USERDS01.SetValue("U_ColReg01", i, oRecordSet01.Fields.Item("DocEntry").Value.ToString().Trim());
                     oDS_PS_USERDS01.SetValue("U_ColReg02", i, oRecordSet01.Fields.Item("BPLId").Value.ToString().Trim());
                     oDS_PS_USERDS01.SetValue("U_ColReg03", i, oRecordSet01.Fields.Item("OrdType").Value.ToString().Trim());

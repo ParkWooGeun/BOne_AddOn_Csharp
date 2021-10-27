@@ -1828,7 +1828,8 @@ namespace PSH_BOne_AddOn
                 if (Cnt < 1)
                 {
                     returnValue = true;
-                    return returnValue;
+                    errCode = "0";
+                    throw new Exception();
                 }
                 
                 DI_oInventoryGenExit = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenExit); //문서타입(입고)
@@ -1906,7 +1907,6 @@ namespace PSH_BOne_AddOn
                 else
                 {
                     PSH_Globals.oCompany.GetNewObjectCode(out afterDIDocNum);
-
                     i = 1;
                     for (oRow = 0; oRow <= oDS_PS_PP041L.Size - 1; oRow++)
                     {
@@ -1923,11 +1923,12 @@ namespace PSH_BOne_AddOn
                             }
                         }
                     }
-                    oMat01.LoadFromDataSource();
-                    if (PSH_Globals.oCompany.InTransaction == true)
-                    {
-                        PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
-                    }
+                }
+
+                oMat01.LoadFromDataSource();
+                if (PSH_Globals.oCompany.InTransaction == true)
+                {
+                    PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
                 }
 
                 returnValue = true;
@@ -1946,6 +1947,9 @@ namespace PSH_BOne_AddOn
                 else if (errCode == "2")
                 {
                     PSH_Globals.SBO_Application.MessageBox("현재월의 전기기간이 잠겼습니다. 회계부서에 문의하세요.");
+                }
+                else if (errCode == "0")
+                {
                 }
                 else
                 {
@@ -2010,7 +2014,8 @@ namespace PSH_BOne_AddOn
                 if (Cnt < 1)
                 {
                     returnValue = true;
-                    return returnValue;
+                    errCode = "0";
+                    throw new Exception();
                 }
 
                 DI_oInventoryGenEntry = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry); //문서타입(입고)
@@ -2082,13 +2087,13 @@ namespace PSH_BOne_AddOn
                             i += 1;
                         }
                     }
-                    oMat01.LoadFromDataSource();
-                    if (PSH_Globals.oCompany.InTransaction == true)
-                    {
-                        PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
-                    }
                 }
 
+                oMat01.LoadFromDataSource();
+                if (PSH_Globals.oCompany.InTransaction == true)
+                {
+                    PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
+                }
                 returnValue = true;
             }
             catch (Exception ex)
@@ -2105,6 +2110,9 @@ namespace PSH_BOne_AddOn
                 else if (errCode == "2")
                 {
                     PSH_Globals.SBO_Application.MessageBox("현재월의 전기기간이 잠겼습니다. 회계부서에 문의하세요.");
+                }
+                else if (errCode == "0")
+                {
                 }
                 else
                 {

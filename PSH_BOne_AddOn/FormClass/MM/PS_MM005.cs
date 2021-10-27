@@ -793,13 +793,14 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                int matRowCount = (oForm.Mode == BoFormMode.fm_ADD_MODE) ? oMat01.VisualRowCount - 2 : oMat01.VisualRowCount - 1;
+                int matRowCount = (oForm.Mode == BoFormMode.fm_ADD_MODE) ? oMat01.VisualRowCount - 3 : oMat01.VisualRowCount - 2; 
                 
                 oMat01.FlushToDataSource();
 
                 for (int i = 0; i <= matRowCount; i++)
                 {
-                    oDS_PS_MM005H.SetValue("U_UseDept", i + 1, oDS_PS_MM005H.GetValue("U_UseDept", 0).ToString().Trim()); //사용처
+                    //선택한 첫행은 제외시킨 뒤 그 다음행부터 수정 +1한 이유
+                    oDS_PS_MM005H.SetValue("U_UseDept", i + 1, oDS_PS_MM005H.GetValue("U_UseDept", 0).ToString().Trim()); //사용처 
                     oDS_PS_MM005H.SetValue("U_DueDate", i + 1, oDS_PS_MM005H.GetValue("U_DueDate", 0).ToString().Trim()); //납품일자
                 }
 
@@ -1952,7 +1953,10 @@ namespace PSH_BOne_AddOn
                         }
 
                         PS_MM005_SetPreSearchData();
-                        oForm.Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
+                        if(oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
+                        {
+                            oForm.Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
+                        }
                         PS_MM005_GetPreSearchData();
                         PS_MM005_LoadCaption();
                     }

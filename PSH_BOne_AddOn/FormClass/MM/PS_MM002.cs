@@ -99,7 +99,7 @@ namespace PSH_BOne_AddOn
 				if (!string.IsNullOrEmpty(oBaseItemCode01))
 				{
 					oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-				}`
+				}
 			}
 			catch (Exception ex)
 			{

@@ -304,13 +304,14 @@ namespace PSH_BOne_AddOn
 			string sQry;
 			string MItemCod;
 			int Qty;
-			decimal Calculate_Weight;
+			double Calculate_Weight;
 			string vReturnValue;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
 			try
 			{
+				oForm.Freeze(true);
 				switch (oUID)
 				{
 					case "ItemCode":
@@ -366,19 +367,15 @@ namespace PSH_BOne_AddOn
 						}
 						else if (oCol == "Qty")
 						{
-							oForm.Freeze(true);
-
 							oMat.FlushToDataSource();
-							MItemCod = oDS_PS_MM002L.GetValue("U_MItemCod", oRow - 1).ToString().Trim();
-							Qty = Convert.ToInt32(oDS_PS_MM002L.GetValue("U_Qty", oRow - 1));
+							MItemCod = oDS_PS_MM002L.GetValue("U_MItemCod", oRow -1).ToString().Trim();
+							Qty = Convert.ToInt32(Convert.ToDouble(oDS_PS_MM002L.GetValue("U_Qty", oRow -1)));
 
 							Calculate_Weight = dataHelpClass.Calculate_Weight(MItemCod, Qty, oForm.Items.Item("BPLId").Specific.Value.ToString().Trim());
 							oDS_PS_MM002L.SetValue("U_Weight", oRow - 1, Convert.ToString(Calculate_Weight)); //이론중량
 
 							oMat.LoadFromDataSource();
 							oMat.Columns.Item("Qty").Cells.Item(oRow).Click();
-
-							oForm.Freeze(false);
 						}
 						break;
 				}
@@ -389,6 +386,7 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
+				oForm.Freeze(false);
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 		}

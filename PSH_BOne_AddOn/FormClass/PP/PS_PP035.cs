@@ -85,7 +85,6 @@ namespace PSH_BOne_AddOn
 
                 oForm.DataSources.UserDataSources.Add("BPLId", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
                 oForm.Items.Item("BPLId").Specific.DataBind.SetBound(true, "", "BPLId");
-                oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
 
                 oForm.DataSources.UserDataSources.Add("Canceled", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
                 oForm.Items.Item("Canceled").Specific.DataBind.SetBound(true, "", "Canceled");
@@ -144,7 +143,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 // 사업장
-                dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL order by BPLId",  "1",  false,  false);
+                dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL order by BPLId", dataHelpClass.User_BPLID(),  false,  false);
 
                 // 작지상태
                 dataHelpClass.Combo_ValidValues_Insert("PS_PP035", "Canceled", "", "N", "계획");

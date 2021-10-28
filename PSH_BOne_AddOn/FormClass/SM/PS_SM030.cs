@@ -16,10 +16,6 @@ namespace PSH_BOne_AddOn
 		private SAPbouiCOM.DBDataSource oDS_PS_SM030L;  //등록라인
 
 		//부모폼
-		private SAPbouiCOM.Form oBaseForm01;
-		private string oBaseItemUID01;
-		private string oBaseColUID01;
-		private int oBaseColRow01;
 		private string oBaseItemCode01;
 		private string oLastItemUID01;  //클래스에서 선택한 마지막 아이템 Uid값
 		private string oLastColUID01;   //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
@@ -27,15 +23,41 @@ namespace PSH_BOne_AddOn
 		private int oMat01Row01;
 		private int oMat02Row02;
 
+		private SAPbouiCOM.Form oBaseForm01;
+		private string oBaseItemUID01;
+		private string oBaseColUID01;
+		private int oBaseColRow01;
+
+
 		/// <summary>
-		/// LoadForm
+		/// Form 호출
 		/// </summary>
-		/// <param name="oForm02"></param>
-		/// <param name="oItemUID02"></param>
-		/// <param name="oColUID02"></param>
-		/// <param name="oColRow02"></param>
-		/// <param name="oItemCode02"></param>
-		public void LoadForm(SAPbouiCOM.Form oForm02, string oItemUID02, string oColUID02, int oColRow02, string oItemCode02)
+		/// <param name="oFormDocEntry"></param>
+		public override void LoadForm(string oFormDocEntry)
+		{
+			this.LoadForm();
+		}
+
+		/// <summary>
+		/// Form 호출(다른 폼에서 호출)
+		/// </summary>
+		/// <param name="baseForm">기준 Form</param>
+		/// <param name="baseItemUID">기준 Form의 ItemUID</param>
+		/// <param name="baseColUID">기준 Form의 Matrix ColUID</param>
+		/// <param name="baseMatRow">기준 Form의 Matrix Row</param>
+		public void LoadForm(SAPbouiCOM.Form baseForm, string baseItemUID, string baseColUID, int baseMatRow, string baseItemCode)
+		{
+			oBaseForm01 = baseForm;
+			oBaseItemUID01 = baseItemUID;
+			oBaseColUID01 = baseColUID;
+			oBaseColRow01 = baseMatRow;
+			oBaseItemCode01 = baseItemCode;
+
+			this.LoadForm();
+
+		}
+
+		private void LoadForm()
 		{
 			int i;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -64,12 +86,6 @@ namespace PSH_BOne_AddOn
 				oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 
 				oForm.Freeze(true);
-
-				oBaseForm01 = oForm02;
-				oBaseItemUID01 = oItemUID02;
-				oBaseColUID01 = oColUID02;
-				oBaseColRow01 = oColRow02;
-				oBaseItemCode01 = oItemCode02;
 
 				PS_SM030_CreateItems();
 				PS_SM030_ComboBox_Setting();

@@ -2863,7 +2863,6 @@ namespace PSH_BOne_AddOn
             string errCode = string.Empty;
             SAPbouiCOM.ProgressBar ProgBar01 = null;
             SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
@@ -2895,8 +2894,9 @@ namespace PSH_BOne_AddOn
 
                                         if (ordType == "10" || ordType == "50" || ordType == "60" || ordType == "70") //작업타입이 일반,조정,설계
                                         {
-                                            //작지문서헤더번호가 일치하지 않으면
-                                            if (oForm.Items.Item("PP030HNo").Specific.Value != codeHelpClass.Mid(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value, 0, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().IndexOf("-")))
+                                            string ordDocEntry = oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().Split('-')[0]; //공정정보 매트릭스의 현재 행 작지문서번호
+
+                                            if (oForm.Items.Item("PP030HNo").Specific.Value != ordDocEntry) //작지문서헤더번호가 일치하지 않으면
                                             {
                                                 oDS_PS_PP040L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, "");
                                             }
@@ -2904,7 +2904,6 @@ namespace PSH_BOne_AddOn
                                             {
                                                 if (oForm.Items.Item("BPLId").Specific.Selected.Value != "1")
                                                 {
-
                                                     for (i = 1; i <= oMat01.RowCount; i++) //신동사업부를 제외한 사업부만 체크
                                                     {
                                                         if (oMat01.Columns.Item("OrdMgNum").Cells.Item(i).Specific.Value == oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value && i != pVal.Row) //현재 입력한 값이 이미 입력되어 있는경우
@@ -2918,7 +2917,7 @@ namespace PSH_BOne_AddOn
 
                                                     //생산완료등록이 완료된 작번인지 체크(수량으로 비교, 2012.08.27 송명규 추가)_S
                                                     query01 = "EXEC PS_PP040_90 '";
-                                                    query01 += codeHelpClass.Mid(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value, 0, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().IndexOf("-")) + "'";
+                                                    query01 += ordDocEntry + "'";
                                                     RecordSet01.DoQuery(query01);
                                                     string WkCmDt = RecordSet01.Fields.Item("WkCmDt").Value;
 
@@ -2939,7 +2938,7 @@ namespace PSH_BOne_AddOn
 
                                                     //판매완료등록 체크_S(2015.07.14 송명규 추가)
                                                     query01 = "EXEC PS_PP040_91 '";
-                                                    query01 += codeHelpClass.Mid(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value, 0, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().IndexOf("-")) + "','";
+                                                    query01 += ordDocEntry + "','";
                                                     query01 += oDS_PS_PP040H.GetValue("U_DocDate", 0) + "'";
                                                     RecordSet01.DoQuery(query01);
                                                     string OINV_Dt = RecordSet01.Fields.Item("OINV_Dt").Value;

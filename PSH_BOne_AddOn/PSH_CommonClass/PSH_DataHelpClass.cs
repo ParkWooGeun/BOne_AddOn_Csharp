@@ -3599,6 +3599,34 @@ namespace PSH_BOne_AddOn.Data
             return returnValue;
         }
 
+        /// <summary>
+        /// Null or empty 체크
+        /// </summary>
+        /// <param name="checkData">체크 대상</param>
+        /// <param name="reValue">"" null 일경우 반환 값</param>
+        /// <returns></returns>
+        public string CheckIsNull(string checkData, string reValue)
+        {
+            string returnValue = string.Empty;
+
+            try
+            {
+                if (string.IsNullOrEmpty(checkData) == true)
+                {
+                    returnValue = reValue;
+                }
+                else
+                {
+                    returnValue = checkData;
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(GetType().Name + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            return returnValue;
+        }
+
         #endregion MDC_PS_Common 클래스 메소드 구현_E
 
         /// <summary>

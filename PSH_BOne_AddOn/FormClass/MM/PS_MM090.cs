@@ -189,7 +189,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 oMat01.FlushToDataSource();
-                l_Qty = Convert.ToDouble(!string.IsNullOrEmpty(oMat01.Columns.Item("Qty").Cells.Item(pRowID).Specific.Value));
+                l_Qty = Convert.ToDouble(string.IsNullOrEmpty(oMat01.Columns.Item("Qty").Cells.Item(pRowID).Specific.Value) == true ? "0" : oMat01.Columns.Item("Qty").Cells.Item(pRowID).Specific.Value);
                 l_Price = Convert.ToDouble(oMat01.Columns.Item("Price").Cells.Item(pRowID).Specific.Value);
                 l_Amount = Convert.ToDouble(oMat01.Columns.Item("Amt").Cells.Item(pRowID).Specific.Value);
 

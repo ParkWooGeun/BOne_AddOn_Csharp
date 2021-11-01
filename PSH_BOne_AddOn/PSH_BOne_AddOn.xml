@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <doc>
     <assembly>
         <name>PSH_BOne_AddOn</name>
@@ -12379,38 +12379,6 @@
             <summary>
             필수 사항 check
             </summary>
-            <param name="BPLId"></param>
-            <param name="ItmBsort"></param>
-            <param name="ItemCode"></param>
-            <param name="ItemName"></param>
-            <param name="Size"></param>
-            <param name="Qty"></param>
-            <param name="Unit"></param>
-            <param name="RequestDate"></param>
-            <param name="DueDate"></param>
-            <param name="ItemType"></param>
-            <param name="RequestNo"></param>
-            <param name="BEDNR"></param>
-            <param name="i"></param>
-            <param name="LastRow"></param>
-            <param name="FileName"></param>
-            <param name="dir"></param>
-            <param name="BPLId"></param>
-            <param name="ItmBsort"></param>
-            <param name="ItemCode"></param>
-            <param name="ItemName"></param>
-            <param name="Size"></param>
-            <param name="Qty"></param>
-            <param name="Unit"></param>
-            <param name="RequestDate"></param>
-            <param name="DueDate"></param>
-            <param name="ItemType"></param>
-            <param name="RequestNo"></param>PS_RFC_Sender
-            <param name="BEDNR"></param>
-            <param name="i"></param>
-            <param name="LastRow"></param>
-            <param name="FileName"></param>
-            <param name="dir"></param>
             <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_CO510.PS_CO510_MTX01">
@@ -14423,6 +14391,352 @@
         <member name="M:PSH_BOne_AddOn.PS_SY010.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
             <summary>
             RightClickEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="T:PSH_BOne_AddOn.PS_PP272">
+            <summary>
+            계량기별전력사용량등록
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP272.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFormDocEntry"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP272.PS_PP272_CreateItems">
+            <summary>
+            PS_PP272_CreateItems
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP272.PS_PP272_SetComboBox">
+            <summary>
+            PS_PP272_SetComboBox
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP272.PS_PP272_EnableFormItem">
+            <summary>
+            PS_PP272_EnableFormItem
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP272.PS_PP272_ClearForm">
+            <summary>
+            PS_PP272_ClearForm
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP272.PS_PP272_AddMatrixRow(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            PS_PP272_AddMatrixRow
+            </summary>
+            <param name="oSeq"></param>
+            <param name="oRow"></param>
+            <param name="RowIserted"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP272.PS_PP272_DelHeaderSpaceLine">
+            <summary>
+            PS_PP272_DelHeaderSpaceLine
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP272.PS_PP272_DelMatrixSpaceLine">
+            <summary>
+            PS_PP272_DelMatrixSpaceLine
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP272.PS_PP272_FlushToItemValue(System.String,System.String,System.Int32,System.String)">
+            <summary>
+            PS_PP272_FlushToItemValue
+            </summary>
+            <param name="oUID"></param>
+            <param name="oCID"></param>
+            <param name="oRow"></param>
+            <param name="oCol"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP272.PS_PP272_DataSet">
+            <summary>
+            PS_PP272_DataSet
+            기본자료 Load
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP272.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Form Item Event
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">pVal</param>
+            <param name="BubbleEvent">Bubble Event</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP272.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_ITEM_PRESSED
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP272.Raise_EVENT_KEY_DOWN(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_KEY_DOWN
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP272.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_VALIDATE
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP272.Raise_EVENT_MATRIX_LOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_MATRIX_LOAD
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP272.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_FORM_UNLOAD
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP272.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            FormMenuEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="T:PSH_BOne_AddOn.PS_PP271">
+            <summary>
+            전력계량기코드등록
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP271.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFormDocEntry"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP271.PS_PP271_CreateItems">
+            <summary>
+            PS_PP271_CreateItems
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP271.PS_PP271_SetComboBox">
+            <summary>
+            PS_PP271_SetComboBox
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP271.PS_PP271_EnableFormItem">
+            <summary>
+            PS_PP271_EnableFormItem
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP271.PS_PP271_ClearForm">
+            <summary>
+            PS_PP271_ClearForm
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP271.PS_PP271_AddMatrixRow(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            PS_PP271_AddMatrixRow
+            </summary>
+            <param name="oSeq"></param>
+            <param name="oRow"></param>
+            <param name="RowIserted"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP271.PS_PP271_DelHeaderSpaceLine">
+            <summary>
+            PS_PP271_DelHeaderSpaceLine
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP271.PS_PP271_DelMatrixSpaceLine">
+            <summary>
+            PS_PP271_DelMatrixSpaceLine
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP271.PS_PP271_FlushToItemValue(System.String,System.String,System.Int32,System.String)">
+            <summary>
+            PS_PP271_FlushToItemValue
+            </summary>
+            <param name="oUID"></param>
+            <param name="oCID"></param>
+            <param name="oRow"></param>
+            <param name="oCol"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP271.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Form Item Event
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">pVal</param>
+            <param name="BubbleEvent">Bubble Event</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP271.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_ITEM_PRESSED
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP271.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_VALIDATE
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP271.Raise_EVENT_MATRIX_LOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_MATRIX_LOAD
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP271.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_FORM_UNLOAD
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP271.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            FormMenuEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="T:PSH_BOne_AddOn.PS_PP270">
+            <summary>
+            전력계량기코드등록
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP270.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFormDocEntry"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP270.PS_PP270_CreateItems">
+            <summary>
+            PS_PP270_CreateItems
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP270.PS_PP270_SetComboBox">
+            <summary>
+            PS_PP270_SetComboBox
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP270.PS_PP270_EnableFormItem">
+            <summary>
+            PS_PP270_EnableFormItem
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP270.PS_PP270_ClearForm">
+            <summary>
+            PS_PP270_ClearForm
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP270.PS_PP270_AddMatrixRow(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            PS_PP270_AddMatrixRow
+            </summary>
+            <param name="oSeq"></param>
+            <param name="oRow"></param>
+            <param name="RowIserted"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP270.PS_PP270_DelHeaderSpaceLine">
+            <summary>
+            PS_PP270_DelHeaderSpaceLine
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP270.PS_PP270_DelMatrixSpaceLine">
+            <summary>
+            PS_PP270_DelMatrixSpaceLine
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP270.PS_PP270_FlushToItemValue(System.String,System.String,System.Int32,System.String)">
+            <summary>
+            PS_PP270_FlushToItemValue
+            </summary>
+            <param name="oUID"></param>
+            <param name="oCID"></param>
+            <param name="oRow"></param>
+            <param name="oCol"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP270.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Form Item Event
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">pVal</param>
+            <param name="BubbleEvent">Bubble Event</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP270.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_ITEM_PRESSED
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP270.Raise_EVENT_KEY_DOWN(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_KEY_DOWN
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP270.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_VALIDATE
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP270.Raise_EVENT_MATRIX_LOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_MATRIX_LOAD
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP270.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_FORM_UNLOAD
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP270.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            FormMenuEvent
             </summary>
             <param name="FormUID"></param>
             <param name="pVal"></param>

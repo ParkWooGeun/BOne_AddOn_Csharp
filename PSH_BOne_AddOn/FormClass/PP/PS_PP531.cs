@@ -334,8 +334,8 @@ namespace PSH_BOne_AddOn
 		[STAThread]
 		private void PS_PP531_Print_Report01()
 		{
-			string WinTitle = null;
-			string ReportName = null;
+			string WinTitle = string.Empty;
+			string ReportName = string.Empty;
 
 			string BPLId;       //사업장
 			string StdYM;       //기준년월
@@ -369,7 +369,6 @@ namespace PSH_BOne_AddOn
 					ReportName = "PS_PP531_02.rpt";
 				}
 
-				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
 				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
 
 				// Formula 수식필드
@@ -381,7 +380,7 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@ItemClass", ItemClass));
 				dataPackParameter.Add(new PSH_DataPackClass("@SrchRslt", SrchRslt));
 
-				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
 			}
 			catch (Exception ex)
 			{
@@ -716,33 +715,16 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
-				if ((BusinessObjectInfo.BeforeAction == true))
+				switch (BusinessObjectInfo.EventType)
 				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:   //33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:    //34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
-							break;
-					}
-				}
-				else if ((BusinessObjectInfo.BeforeAction == false))
-				{
-					switch (BusinessObjectInfo.EventType)
-					{
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:   //33
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:    //34
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
-							break;
-						case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
-							break;
-					}
+					case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD:   //33
+						break;
+					case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD:    //34
+						break;
+					case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
+						break;
+					case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
+						break;
 				}
 			}
 			catch (Exception ex)

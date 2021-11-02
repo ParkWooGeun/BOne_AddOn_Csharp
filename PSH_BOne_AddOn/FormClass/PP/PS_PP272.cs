@@ -276,17 +276,7 @@ namespace PSH_BOne_AddOn
 
 				if (oMat.VisualRowCount > 0)
 				{
-					for (i = 0; i <= oMat.VisualRowCount - 2; i++)
-					{
-						oDS_PS_PP272L.Offset = i;
-						if (string.IsNullOrEmpty(oDS_PS_PP272L.GetValue("U_AUsed", i).ToString().Trim()))
-                        {
-							errMessage = "사용량은 필수입니다. 확인하세요.";
-							throw new Exception();
-						}
-					}
-
-					if (string.IsNullOrEmpty(oDS_PS_PP272L.GetValue("U_AUsed", oMat.VisualRowCount - 1)))
+					if (string.IsNullOrEmpty(oDS_PS_PP272L.GetValue("U_Gauge", oMat.VisualRowCount - 1)))
 					{
 						oDS_PS_PP272L.RemoveRecord(oMat.VisualRowCount - 1);
 					}
@@ -863,7 +853,7 @@ namespace PSH_BOne_AddOn
 								}
 								else
 								{
-									if (!string.IsNullOrEmpty(oDS_PS_PP272L.GetValue("U_Guage", oMat.RowCount - 1).ToString().Trim()))
+									if (!string.IsNullOrEmpty(oDS_PS_PP272L.GetValue("U_Gauge", oMat.RowCount - 1).ToString().Trim()))
 									{
 										PS_PP272_AddMatrixRow(1, oMat.RowCount, true);
 									}

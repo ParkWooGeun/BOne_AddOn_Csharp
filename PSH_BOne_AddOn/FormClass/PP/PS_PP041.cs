@@ -644,14 +644,26 @@ namespace PSH_BOne_AddOn
             int i;
             int j;
             double FailQty;
+            double sumNQy = 0;
+            double sumFailQry = 0;
             string errMessage = string.Empty;
+            SAPbouiCOM.ProgressBar ProgBar01 = null;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
             {
+                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
                     PS_PP041_FormClear();
+                }
+
+                //마감상태 체크
+                if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(), oForm.Items.Item("DocDate").Specific.Value, oForm.TypeEx) == false)
+                {
+                    errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다." + (char)13 + "작업일보일자를 확인하고, 회계부서로 문의하세요.";
+                    throw new Exception();
                 }
 
                 for (i = 1; i <= oMat02.VisualRowCount - 1; i++)
@@ -671,7 +683,7 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                if (oForm.Items.Item("OrdType").Specific.Selected.Value != "10" & oForm.Items.Item("OrdType").Specific.Selected.Value != "50")
+                if (oForm.Items.Item("OrdType").Specific.Selected.Value != "10" && oForm.Items.Item("OrdType").Specific.Selected.Value != "50")
                 {
                     errMessage = "작업타입이 일반,조정이 아닙니다.";
                     throw new Exception();
@@ -714,11 +726,17 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                //마감상태 체크
-                if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(), oForm.Items.Item("DocDate").Specific.Value, oForm.TypeEx) == false)
+                for (j = 1; j <= oMat03.VisualRowCount; j++)
                 {
-                    errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다." + (char)13 + "작업일보일자를 확인하고, 회계부서로 문의하세요.";
-                    throw new Exception();
+                    //불량코드를 입력했는지 check
+                    if (Convert.ToDouble(oMat03.Columns.Item("FailQty").Cells.Item(j).Specific.Value) != 0 && string.IsNullOrEmpty(oMat03.Columns.Item("FailCode").Cells.Item(j).Specific.Value))
+                    {
+                        errMessage = "불량수량이 입력되었을 때는 불량코드는 필수입니다.";
+                        oMat03.Columns.Item("FailCode").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                        throw new Exception();
+                        
+                    }
+                    sumFailQry += Convert.ToDouble(oMat03.Columns.Item("FailQty").Cells.Item(j).Specific.Value);
                 }
 
                 for (i = 1; i <= oMat01.VisualRowCount - 1; i++)
@@ -745,12 +763,8 @@ namespace PSH_BOne_AddOn
                             oMat01.Columns.Item("MachCode").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             throw new Exception();
                         }
-                    }
 
-                    //MG생산 생산수량, 불량수량 없이 스크랩만 발생할 수 없습니다.
-                    if (oForm.Items.Item("SOrdGbn").Specific.Value.ToString().Trim() == "104")
-                    {
-                        if 
+                        if  //MG생산 생산수량, 불량수량 없이 스크랩만 발생할 수 없습니다.
                         (
                             Convert.ToDouble(oMat01.Columns.Item("YQty").Cells.Item(i).Specific.Value) == 0 
                          && Convert.ToDouble(oMat01.Columns.Item("NQty").Cells.Item(i).Specific.Value) == 0 
@@ -784,28 +798,28 @@ namespace PSH_BOne_AddOn
                             throw new Exception();
                         }
                     }
+                    sumNQy += Convert.ToDouble(oMat01.Columns.Item("NQty").Cells.Item(i).Specific.Value);
+                }
 
-                    FailQty = 0;
-                    for (j = 1; j <= oMat03.VisualRowCount; j++)
+                if (sumNQy != sumFailQry)
+                {
+                    
+                    for(i = 1; i <= oMat01.VisualRowCount -1; i++)
                     {
-                        //불량코드를 입력했는지 check
-                        if (Convert.ToDouble(oMat03.Columns.Item("FailQty").Cells.Item(j).Specific.Value) != 0 & string.IsNullOrEmpty(oMat03.Columns.Item("FailCode").Cells.Item(j).Specific.Value))
+                        FailQty = 0;
+                        for (j = 1; j <= oMat03.VisualRowCount; j++)
                         {
-                            errMessage = "불량수량이 입력되었을 때는 불량코드는 필수입니다.";
-                            oMat03.Columns.Item("FailCode").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                            if (oMat01.Columns.Item("OrdMgNum").Cells.Item(i).Specific.Value == oMat03.Columns.Item("OrdMgNum").Cells.Item(j).Specific.Value)
+                            {
+                                FailQty += Convert.ToDouble(oMat03.Columns.Item("FailQty").Cells.Item(j).Specific.Value);
+                            }
+                        }
+
+                        if (Convert.ToDouble(oMat01.Columns.Item("NQty").Cells.Item(i).Specific.Value) != FailQty)
+                        {
+                            errMessage = "공정리스트의 불량수량과 불량정보의 불량수량이 일치하지 않습니다.";
                             throw new Exception();
                         }
-
-                        if (oMat01.Columns.Item("OrdMgNum").Cells.Item(i).Specific.Value == oMat03.Columns.Item("OrdMgNum").Cells.Item(j).Specific.Value)
-                        {
-                            FailQty += Convert.ToDouble(oMat03.Columns.Item("FailQty").Cells.Item(j).Specific.Value);
-                        }
-                    }
-
-                    if (Convert.ToDouble(oMat01.Columns.Item("NQty").Cells.Item(i).Specific.Value) != FailQty)
-                    {
-                        errMessage = "공정리스트의 불량수량과 불량정보의 불량수량이 일치하지 않습니다.";
-                        throw new Exception();
                     }
                 }
 
@@ -897,6 +911,11 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                if (ProgBar01 != null)
+                {
+                    ProgBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                }
             }
 
             return returnValue;
@@ -2224,18 +2243,14 @@ namespace PSH_BOne_AddOn
             double totTime = 0;
             double unitTime;
             double unitRemainTime;
-            SAPbouiCOM.ProgressBar ProgBar01 = null;
 
             try
             {
                 oForm.Freeze(true);
-
                 if (pVal.BeforeAction == true)
                 {
                     if (pVal.ItemUID == "1")
                     {
-                        ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
-
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                         {
                             if (PS_PP041_DataValidCheck() == false)
@@ -2370,12 +2385,6 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                if (ProgBar01 != null)
-                {
-                    ProgBar01.Stop();
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
-                }
-
                 oForm.Freeze(false);
             }
         }
@@ -2448,7 +2457,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (pVal.ColUID == "WorkCode")
                         {
-                            if (Convert.ToDouble(oForm.Items.Item("BaseTime").Specific.Value) == 0)
+                            if (Convert.ToDouble(dataHelpClass.CheckIsNull(oForm.Items.Item("BaseTime").Specific.Value, "0")) == 0)
                             {
                                 errMessage = "기준시간을 입력하지 않았습니다.";
                                 messageType = BoStatusBarMessageType.smt_Warning;
@@ -2508,7 +2517,7 @@ namespace PSH_BOne_AddOn
             {
                 if (errMessage != string.Empty)
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(errMessage, BoMessageTime.bmt_Short, messageType);
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
                 }
                 else
                 {
@@ -3803,6 +3812,14 @@ namespace PSH_BOne_AddOn
                             oMat01.FlushToDataSource();
                             oDS_PS_PP041L.RemoveRecord(oDS_PS_PP041L.Size - 1);
                             oMat01.LoadFromDataSource();
+
+                            for (i = 1; i <= oMat03.VisualRowCount; i++)
+                            {
+                                oMat03.Columns.Item("LineNum").Cells.Item(i).Specific.Value = i;
+                            }
+
+                            oMat03.FlushToDataSource();
+                            oMat03.LoadFromDataSource();
 
                             if (oMat01.RowCount == 0)
                             {

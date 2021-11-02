@@ -1754,6 +1754,7 @@ namespace PSH_BOne_AddOn
                                 vReturnValue = Convert.ToString(PSH_Globals.SBO_Application.MessageBox("납품일보다 검수일이 빠릅니다. 계속하겠습니까?", 1, "&확인", "&취소"));
                                 if (Convert.ToDouble(vReturnValue) == 1)
                                 {
+                                    //검수입고 문서만 등록 시 주석처리_S
                                     if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                                     {
                                         if (PS_MM070_Add_oPurchaseDeliveryNotes() == false)
@@ -1762,6 +1763,7 @@ namespace PSH_BOne_AddOn
                                             return;
                                         }
                                     }
+                                    //검수입고 문서만 등록 시 주석처리_E
                                     oQEYesNo = oForm.Items.Item("QEYesNo").Specific.Value.ToString().Trim();
                                     oPurchase = oForm.Items.Item("Purchase").Specific.Value.ToString().Trim();
                                 }
@@ -1773,6 +1775,7 @@ namespace PSH_BOne_AddOn
                             }
                             else
                             {
+                                //검수입고 문서만 등록 시 주석처리_S
                                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                                 {
                                     if (PS_MM070_Add_oPurchaseDeliveryNotes() == false)
@@ -1781,6 +1784,7 @@ namespace PSH_BOne_AddOn
                                         return;
                                     }
                                 }
+                                //검수입고 문서만 등록 시 주석처리_E
                             }
                         }
                         PS_MM070_Delete_EmptyRow(); //검수입고 문서만 등록 시 이 행은 주석 제외

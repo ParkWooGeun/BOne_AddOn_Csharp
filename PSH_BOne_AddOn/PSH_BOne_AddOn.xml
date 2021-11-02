@@ -51820,6 +51820,14 @@
             <param name="prmFormTypeEx">화면타입(UID)</param>
             <returns></returns>
         </member>
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.CheckIsNull(System.String,System.String)">
+            <summary>
+            Null or empty 체크
+            </summary>
+            <param name="checkData">체크 대상</param>
+            <param name="reValue">"" null 일경우 반환 값</param>
+            <returns></returns>
+        </member>
         <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.SAPConnection(SAP.Middleware.Connector.RfcDestination@,SAP.Middleware.Connector.RfcRepository@,System.String,System.String,System.String,System.String,System.String)">
             <summary>
             SAPConnection

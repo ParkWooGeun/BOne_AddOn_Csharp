@@ -1407,8 +1407,11 @@ namespace PSH_BOne_AddOn
                 else if (ValidateType == "수정01") //수정전 수정가능여부검사
                 {
                     if (oForm.Items.Item("OrdType").Specific.Selected.Value == "10") //작업타입이 일반인경우
-                    {   
-                        if (string.IsNullOrEmpty(oMat01.Columns.Item("LineId").Cells.Item(oMat01Row01).Specific.Value))
+                    {
+                        //oMat01.VisualRowCount가 1인 경우는 최초 행추가이므로 빈문자열("") 반환, 그게 아닐경우만 Matrix의 LineID 반환(matrix index 오류 처리)
+                        string tempLineID = oMat01.VisualRowCount == 1 ? "" : oMat01.Columns.Item("LineId").Cells.Item(oMat01Row01).Specific.Value;
+
+                        if (string.IsNullOrEmpty(tempLineID)) //새로 추가된 행인경우
                         {
                             //새로추가된 행인경우 수정가능
                         }
@@ -3121,12 +3124,14 @@ namespace PSH_BOne_AddOn
                                                 {
                                                     //엔드베어링 생산수량 구하기
                                                     ordMgNum = oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().Trim();
+                                                    SAPbobsCOM.Recordset recordSetTemp = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
                                                     query01 = "EXEC [PS_PP041_03] '" + oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value + "'";
-                                                    RecordSet01.DoQuery(query01);
+                                                    recordSetTemp.DoQuery(query01);
 
-                                                    oDS_PS_PP041L.SetValue("U_PQty", pVal.Row - 1, RecordSet01.Fields.Item(0).Value);
-                                                    oDS_PS_PP041L.SetValue("U_YQty", pVal.Row - 1, RecordSet01.Fields.Item(0).Value);
+                                                    oDS_PS_PP041L.SetValue("U_PQty", pVal.Row - 1, recordSetTemp.Fields.Item(0).Value);
+                                                    oDS_PS_PP041L.SetValue("U_YQty", pVal.Row - 1, recordSetTemp.Fields.Item(0).Value);
                                                     oDS_PS_PP041L.SetValue("U_WorkTime", pVal.Row - 1, "0");
+                                                    System.Runtime.InteropServices.Marshal.ReleaseComObject(recordSetTemp);
                                                 }
 
                                                 oDS_PS_PP041L.SetValue("U_PWeight", pVal.Row - 1, "0");

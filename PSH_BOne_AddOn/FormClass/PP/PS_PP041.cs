@@ -1274,9 +1274,9 @@ namespace PSH_BOne_AddOn
                                 }
                                 else
                                 {
-                                    prevDate = dataHelpClass.GetValue("SELECT Max(PS_PP040H.U_DocDate) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040L.U_ordMgNum = '" + prevCpInfo + "' AND PS_PP040H.DocEntry <> '" + oForm.Items.Item("DocEntry").Specific.Value + "' AND PS_PP040H.Canceled = 'N'", 0, 1);
+                                    prevDate = Convert.ToDateTime(dataHelpClass.GetValue("SELECT Max(PS_PP040H.U_DocDate) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040L.U_ordMgNum = '" + prevCpInfo + "' AND PS_PP040H.DocEntry <> '" + oForm.Items.Item("DocEntry").Specific.Value + "' AND PS_PP040H.Canceled = 'N'", 0, 1));
 
-                                    if (oForm.Items.Item("DocDate").Specific.Value < prevDate)
+                                    if (DateTime.ParseExact(oForm.Items.Item("DocDate").Specific.Value, "yyyyMMdd", null) < prevDate)
                                     {
                                         errMessage = "현공정의 일자가 선행공정의 일자보다 빠릅니다. 확인바랍니다.";
                                         oMat01.SelectRow(i, true, false);

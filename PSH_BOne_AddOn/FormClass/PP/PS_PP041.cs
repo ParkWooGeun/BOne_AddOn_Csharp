@@ -1407,8 +1407,11 @@ namespace PSH_BOne_AddOn
                 else if (ValidateType == "수정01") //수정전 수정가능여부검사
                 {
                     if (oForm.Items.Item("OrdType").Specific.Selected.Value == "10") //작업타입이 일반인경우
-                    {   
-                        if (string.IsNullOrEmpty(oMat01.Columns.Item("LineId").Cells.Item(oMat01Row01).Specific.Value))
+                    {
+                        //oMat01.VisualRowCount가 1인 경우는 최초 행추가이므로 빈문자열("") 반환, 그게 아닐경우만 Matrix의 LineID 반환(matrix index 오류 처리)
+                        string tempLineID = oMat01.VisualRowCount == 1 ? "" : oMat01.Columns.Item("LineId").Cells.Item(oMat01Row01).Specific.Value;
+
+                        if (string.IsNullOrEmpty(tempLineID)) //새로 추가된 행인경우
                         {
                             //새로추가된 행인경우 수정가능
                         }

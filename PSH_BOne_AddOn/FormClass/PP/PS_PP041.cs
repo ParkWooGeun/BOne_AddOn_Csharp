@@ -3121,12 +3121,14 @@ namespace PSH_BOne_AddOn
                                                 {
                                                     //엔드베어링 생산수량 구하기
                                                     ordMgNum = oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().Trim();
+                                                    SAPbobsCOM.Recordset recordSetTemp = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
                                                     query01 = "EXEC [PS_PP041_03] '" + oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value + "'";
-                                                    RecordSet01.DoQuery(query01);
+                                                    recordSetTemp.DoQuery(query01);
 
-                                                    oDS_PS_PP041L.SetValue("U_PQty", pVal.Row - 1, RecordSet01.Fields.Item(0).Value);
-                                                    oDS_PS_PP041L.SetValue("U_YQty", pVal.Row - 1, RecordSet01.Fields.Item(0).Value);
+                                                    oDS_PS_PP041L.SetValue("U_PQty", pVal.Row - 1, recordSetTemp.Fields.Item(0).Value);
+                                                    oDS_PS_PP041L.SetValue("U_YQty", pVal.Row - 1, recordSetTemp.Fields.Item(0).Value);
                                                     oDS_PS_PP041L.SetValue("U_WorkTime", pVal.Row - 1, "0");
+                                                    System.Runtime.InteropServices.Marshal.ReleaseComObject(recordSetTemp);
                                                 }
 
                                                 oDS_PS_PP041L.SetValue("U_PWeight", pVal.Row - 1, "0");

@@ -173,6 +173,7 @@ namespace PSH_BOne_AddOn
                 dataHelpClass.Combo_ValidValues_Insert("PS_PP040", "OrdType", "", "50", "일반조정");
                 dataHelpClass.Combo_ValidValues_Insert("PS_PP040", "OrdType", "", "60", "외주조정");
                 dataHelpClass.Combo_ValidValues_Insert("PS_PP040", "OrdType", "", "70", "설계시간");
+                dataHelpClass.Combo_ValidValues_Insert("PS_PP040", "OrdType", "", "80", "외주제작지원");
                 dataHelpClass.Combo_ValidValues_SetValueItem(oForm.Items.Item("OrdType").Specific, "PS_PP040", "OrdType", false);
 
                 dataHelpClass.Combo_ValidValues_Insert("PS_PP040", "DocType", "", "10", "작지기준");
@@ -668,17 +669,25 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                if (oForm.Items.Item("OrdType").Specific.Selected.Value != "10" && oForm.Items.Item("OrdType").Specific.Selected.Value != "20" && oForm.Items.Item("OrdType").Specific.Selected.Value != "50" && oForm.Items.Item("OrdType").Specific.Selected.Value != "60" && oForm.Items.Item("OrdType").Specific.Selected.Value != "70")
+                if (oForm.Items.Item("OrdType").Specific.Selected.Value != "10" 
+                 && oForm.Items.Item("OrdType").Specific.Selected.Value != "20" 
+                 && oForm.Items.Item("OrdType").Specific.Selected.Value != "50" 
+                 && oForm.Items.Item("OrdType").Specific.Selected.Value != "60" 
+                 && oForm.Items.Item("OrdType").Specific.Selected.Value != "70"
+                 && oForm.Items.Item("OrdType").Specific.Selected.Value != "80")
                 {
-                    errMessage = "작업타입이 일반, PSMT지원, 조정, 설계가 아닙니다.";
+                    errMessage = "작업타입이 일반, PSMT지원, 조정, 설계, 외주제작지원이 아닙니다.";
                     throw new Exception();
                 }
 
-                if (string.IsNullOrEmpty(oForm.Items.Item("OrdNum").Specific.Value))
+                if (oForm.Items.Item("OrdType").Specific.Selected.Value != "80") //외주제작지원은 헤더 작지번호 불필요
                 {
-                    errMessage = "작지번호는 필수입니다.";
-                    oForm.Items.Item("OrdNum").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    throw new Exception();
+                    if (string.IsNullOrEmpty(oForm.Items.Item("OrdNum").Specific.Value))
+                    {
+                        errMessage = "작지번호는 필수입니다.";
+                        oForm.Items.Item("OrdNum").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                        throw new Exception();
+                    }
                 }
 
                 if (oMat01.VisualRowCount == 1)
@@ -687,10 +696,13 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                if (oMat02.VisualRowCount == 1)
+                if (oForm.Items.Item("OrdType").Specific.Selected.Value != "80") //외주제작지원은 작업자 정보 불필요
                 {
-                    errMessage = "작업자정보 라인이 존재하지 않습니다.";
-                    throw new Exception();
+                    if (oMat02.VisualRowCount == 1)
+                    {
+                        errMessage = "작업자정보 라인이 존재하지 않습니다.";
+                        throw new Exception();
+                    }
                 }
 
                 //마감상태 체크_S(2017.11.23 송명규 추가)
@@ -715,7 +727,9 @@ namespace PSH_BOne_AddOn
                         oMat01.Columns.Item("OrdMgNum").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                         throw new Exception();
                     }
-                    else if (oForm.Items.Item("OrdType").Specific.Value.ToString().Trim() != "50" && oForm.Items.Item("OrdType").Specific.Value.ToString().Trim() != "60")
+                    else if (oForm.Items.Item("OrdType").Specific.Value.ToString().Trim() != "50" 
+                          && oForm.Items.Item("OrdType").Specific.Value.ToString().Trim() != "60"
+                          && oForm.Items.Item("OrdType").Specific.Value.ToString().Trim() != "80")
                     {
                         if (Convert.ToDouble(oMat01.Columns.Item("PQty").Cells.Item(i).Specific.Value) <= 0)
                         {
@@ -724,7 +738,10 @@ namespace PSH_BOne_AddOn
                             throw new Exception();
                         }
                     }
-                    else if (oForm.Items.Item("OrdType").Specific.Value.ToString().Trim() != "50" && oForm.Items.Item("OrdType").Specific.Value.ToString().Trim() != "60" && oForm.Items.Item("OrdType").Specific.Value.ToString().Trim() != "70")
+                    else if (oForm.Items.Item("OrdType").Specific.Value.ToString().Trim() != "50" 
+                          && oForm.Items.Item("OrdType").Specific.Value.ToString().Trim() != "60" 
+                          && oForm.Items.Item("OrdType").Specific.Value.ToString().Trim() != "70"
+                          && oForm.Items.Item("OrdType").Specific.Value.ToString().Trim() != "80")
                     {
                         if (Convert.ToDouble(oMat01.Columns.Item("WorkTime").Cells.Item(i).Specific.Value) <= 0)
                         {
@@ -735,11 +752,14 @@ namespace PSH_BOne_AddOn
                     }
                     else if (oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim() == "105" || oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim() == "106") //작업완료여부(2012.02.02. 송명규 추가)(기계공구, 몰드일 경우만 작업완료여부 필수 체크)
                     {
-                        if (oMat01.Columns.Item("CompltYN").Cells.Item(i).Specific.Value.ToString().Trim() == "%")
+                        if (oForm.Items.Item("OrdType").Specific.Value.ToString().Trim() != "80")
                         {
-                            errMessage = "작업구분이 기계공구, 몰드일경우는 작업완료여부가 필수입니다. 확인하십시오.";
-                            oMat01.Columns.Item("CompltYN").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            throw new Exception();
+                            if (oMat01.Columns.Item("CompltYN").Cells.Item(i).Specific.Value.ToString().Trim() == "%")
+                            {
+                                errMessage = "작업구분이 기계공구, 몰드일경우는 작업완료여부가 필수입니다. 확인하십시오.";
+                                oMat01.Columns.Item("CompltYN").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                                throw new Exception();
+                            }
                         }
                     }
 
@@ -1257,7 +1277,7 @@ namespace PSH_BOne_AddOn
                     if (oForm.Items.Item("OrdType").Specific.Selected.Value.ToString().Trim() == "10") //작업타입이 일반인경우
                     {
                         //oMat01.VisualRowCount가 1인 경우는 최초 행추가이므로 빈문자열("") 반환, 그게 아닐경우만 Matrix의 LineID 반환(matrix index 오류 처리)
-                        string tempLineID = oMat01.VisualRowCount == 1 ? "" : oMat01.Columns.Item("LineId").Cells.Item(oMat01Row01).Specific.Value; 
+                        string tempLineID = oMat01.VisualRowCount == 1 ? "" : oMat01.Columns.Item("LineId").Cells.Item(oMat01Row01).Specific.Value;
 
                         if (string.IsNullOrEmpty(tempLineID)) //새로 추가된 행인경우
                         {
@@ -2245,7 +2265,7 @@ namespace PSH_BOne_AddOn
                     {
                         string ordType = oForm.Items.Item("OrdType").Specific.Selected.Value.ToString().Trim();
 
-                        if (ordType == "10" || ordType == "50" || ordType == "60") //작업타입이 일반,조정일때
+                        if (ordType == "10" || ordType == "50" || ordType == "60") //작업타입이 일반,조정
                         {
                             dataHelpClass.ActiveUserDefineValueAlways(ref oForm, ref pVal, ref BubbleEvent, "OrdMgNum", "");
                         }
@@ -2257,7 +2277,7 @@ namespace PSH_BOne_AddOn
                         {
                             string ordType = oForm.Items.Item("OrdType").Specific.Selected.Value.ToString().Trim();
 
-                            if (ordType == "10" || ordType == "50" || ordType == "60" || ordType == "70") //일반,조정, 설계
+                            if (ordType == "10" || ordType == "50" || ordType == "60" || ordType == "70") //일반,조정,설계
                             {
                                 if (oForm.Items.Item("OrdGbn").Specific.Selected.Value.ToString().Trim() == "선택")
                                 {
@@ -2326,6 +2346,27 @@ namespace PSH_BOne_AddOn
                             }
                             else if (ordType == "40") //실적
                             {
+                            }
+                            else if (ordType == "80") //외주제작지원
+                            {
+                                if (oForm.Items.Item("OrdGbn").Specific.Selected.Value.ToString().Trim() == "선택")
+                                {
+                                    PSH_Globals.SBO_Application.StatusBar.SetText("작업구분이 선택되지 않았습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Warning);
+                                    oForm.Items.Item("OrdGbn").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                                    BubbleEvent = false;
+                                    return;
+                                }
+                                else if (oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim() == "선택")
+                                {
+                                    PSH_Globals.SBO_Application.StatusBar.SetText("사업장이 선택되지 않았습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Warning);
+                                    oForm.Items.Item("BPLId").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                                    BubbleEvent = false;
+                                    return;
+                                }
+                                else
+                                {
+                                    dataHelpClass.ActiveUserDefineValueAlways(ref oForm, ref pVal, ref BubbleEvent, "Mat01", "OrdMgNum");
+                                }
                             }
                         }
                     }
@@ -2566,6 +2607,10 @@ namespace PSH_BOne_AddOn
                                     oForm.Items.Item("OrdGbn").Enabled = false;
                                     oForm.Items.Item("BPLId").Enabled = false;
                                     oForm.Items.Item("ItemCode").Enabled = false;
+                                }
+                                else if (itemUID == "80") //외주제작지원
+                                {
+                                    oForm.Items.Item("OrdGbn").Enabled = true;
                                 }
 
                                 oForm.Items.Item("OrdGbn").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
@@ -2886,14 +2931,79 @@ namespace PSH_BOne_AddOn
                                 {
                                     ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
-                                    if (string.IsNullOrEmpty(oForm.Items.Item("OrdNum").Specific.Value)) //작지번호에 값이 없으면 작업지시가 불러오기전
+                                    string ordType = oForm.Items.Item("OrdType").Specific.Selected.Value.ToString().Trim();
+
+                                    if (string.IsNullOrEmpty(oForm.Items.Item("OrdNum").Specific.Value)) //작지번호(헤더)에 값이 없으면
                                     {
-                                        oDS_PS_PP040L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, "");
+                                        if (ordType == "80")
+                                        {
+                                            query01 = "EXEC PS_PP040_01 '";
+                                            query01 += oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value + "','";
+                                            query01 += oForm.Items.Item("OrdType").Specific.Selected.Value + "'";
+                                            RecordSet01.DoQuery(query01);
+                                            if (RecordSet01.RecordCount == 0)
+                                            {
+                                                oDS_PS_PP040L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, "");
+                                            }
+                                            else
+                                            {
+                                                oDS_PS_PP040L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, RecordSet01.Fields.Item("OrdMgNum").Value);
+                                                oDS_PS_PP040L.SetValue("U_Sequence", pVal.Row - 1, RecordSet01.Fields.Item("Sequence").Value);
+                                                oDS_PS_PP040L.SetValue("U_CpCode", pVal.Row - 1, RecordSet01.Fields.Item("CpCode").Value);
+                                                oDS_PS_PP040L.SetValue("U_CpName", pVal.Row - 1, RecordSet01.Fields.Item("CpName").Value);
+                                                oDS_PS_PP040L.SetValue("U_OrdGbn", pVal.Row - 1, RecordSet01.Fields.Item("OrdGbn").Value);
+                                                oDS_PS_PP040L.SetValue("U_BPLId", pVal.Row - 1, RecordSet01.Fields.Item("BPLId").Value);
+                                                oDS_PS_PP040L.SetValue("U_ItemCode", pVal.Row - 1, RecordSet01.Fields.Item("ItemCode").Value);
+                                                oDS_PS_PP040L.SetValue("U_ItemName", pVal.Row - 1, RecordSet01.Fields.Item("ItemName").Value);
+                                                oDS_PS_PP040L.SetValue("U_OrdNum", pVal.Row - 1, RecordSet01.Fields.Item("OrdNum").Value);
+                                                oDS_PS_PP040L.SetValue("U_OrdSub1", pVal.Row - 1, RecordSet01.Fields.Item("OrdSub1").Value);
+                                                oDS_PS_PP040L.SetValue("U_OrdSub2", pVal.Row - 1, RecordSet01.Fields.Item("OrdSub2").Value);
+                                                oDS_PS_PP040L.SetValue("U_PP030HNo", pVal.Row - 1, RecordSet01.Fields.Item("PP030HNo").Value);
+                                                oDS_PS_PP040L.SetValue("U_PP030MNo", pVal.Row - 1, RecordSet01.Fields.Item("PP030MNo").Value);
+                                                oDS_PS_PP040L.SetValue("U_SelWt", pVal.Row - 1, RecordSet01.Fields.Item("SelWt").Value);
+                                                oDS_PS_PP040L.SetValue("U_PSum", pVal.Row - 1, RecordSet01.Fields.Item("PSum").Value);
+                                                oDS_PS_PP040L.SetValue("U_BQty", pVal.Row - 1, RecordSet01.Fields.Item("BQty").Value);
+                                                oDS_PS_PP040L.SetValue("U_PQty", pVal.Row - 1, "0");
+                                                oDS_PS_PP040L.SetValue("U_PWeight", pVal.Row - 1, "0");
+                                                oDS_PS_PP040L.SetValue("U_YQty", pVal.Row - 1, "0");
+                                                oDS_PS_PP040L.SetValue("U_YWeight", pVal.Row - 1, "0");
+                                                oDS_PS_PP040L.SetValue("U_NQty", pVal.Row - 1, "0");
+                                                oDS_PS_PP040L.SetValue("U_NWeight", pVal.Row - 1, "0");
+                                                oDS_PS_PP040L.SetValue("U_ScrapWt", pVal.Row - 1, "0");
+                                                oDS_PS_PP040L.SetValue("U_WorkTime", pVal.Row - 1, "0");
+                                                oDS_PS_PP040L.SetValue("U_LineId", pVal.Row - 1, "");
+
+                                                //설비코드,명 Reset
+                                                oDS_PS_PP040L.SetValue("U_MachCode", pVal.Row - 1, "");
+                                                oDS_PS_PP040L.SetValue("U_MachName", pVal.Row - 1, "");
+
+                                                if (oMat03.VisualRowCount == 0) //불량코드테이블
+                                                {
+                                                    PS_PP040_AddMatrixRow03(0, true);
+                                                }
+                                                else
+                                                {
+                                                    PS_PP040_AddMatrixRow03(oMat03.VisualRowCount, false);
+                                                }
+
+                                                oDS_PS_PP040N.SetValue("U_OrdMgNum", oMat03.VisualRowCount - 1, RecordSet01.Fields.Item("OrdMgNum").Value);
+                                                oDS_PS_PP040N.SetValue("U_CpCode", oMat03.VisualRowCount - 1, RecordSet01.Fields.Item("CpCode").Value);
+                                                oDS_PS_PP040N.SetValue("U_CpName", oMat03.VisualRowCount - 1, RecordSet01.Fields.Item("CpName").Value);
+                                                oDS_PS_PP040N.SetValue("U_OLineNum", oMat03.VisualRowCount - 1, Convert.ToString(pVal.Row));
+
+                                                if (oMat01.RowCount == pVal.Row && !string.IsNullOrEmpty(oDS_PS_PP040L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
+                                                {
+                                                    PS_PP040_AddMatrixRow01(pVal.Row, false);
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            oDS_PS_PP040L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, "");
+                                        }
                                     }
                                     else //작업지시가 선택된상태
                                     {
-                                        string ordType = oForm.Items.Item("OrdType").Specific.Selected.Value.ToString().Trim();
-
                                         if (ordType == "10" || ordType == "50" || ordType == "60" || ordType == "70") //작업타입이 일반,조정,설계
                                         {
                                             string ordDocEntry = oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().Split('-')[0]; //공정정보 매트릭스의 현재 행 작지문서번호

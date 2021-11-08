@@ -435,7 +435,10 @@ namespace PSH_BOne_AddOn
                         }
                     }
                 }
-                oDS_PS_PP095L.RemoveRecord(oDS_PS_PP095L.Size - 1);
+                if (string.IsNullOrEmpty(oMat01.Columns.Item("OrdNum").Cells.Item(oMat01.VisualRowCount).Specific.Value))
+                {
+                    oDS_PS_PP095L.RemoveRecord(oDS_PS_PP095L.Size - 1);
+                }
                 oMat01.LoadFromDataSource();
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {

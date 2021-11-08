@@ -53,7 +53,7 @@ namespace PSH_BOne_AddOn
                 PSH_Globals.SBO_Application.LoadBatchActions(strXml);
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
-                oForm.SupportedModes = -1; 
+                oForm.SupportedModes = -1;
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
                 oForm.DataBrowser.BrowseBy = "DocEntry";
 
@@ -382,7 +382,7 @@ namespace PSH_BOne_AddOn
                 DocEntry = dataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PS_PP048'", "");
                 if (Convert.ToDouble(DocEntry) == 0)
                 {
-                     oForm.Items.Item("DocEntry").Specific.Value = 1;
+                    oForm.Items.Item("DocEntry").Specific.Value = 1;
                 }
                 else
                 {
@@ -579,7 +579,7 @@ namespace PSH_BOne_AddOn
                     oDIObject.Lines.UnitPrice = 0;
                     oDIObject.Lines.Price = 0;
                     oDIObject.Lines.LineTotal = 0;
-
+                    j += 1;
                 }
                 RetVal = oDIObject.Add();
 
@@ -666,6 +666,7 @@ namespace PSH_BOne_AddOn
                             oDIObject.Lines.UnitPrice = 0;
                             oDIObject.Lines.Price = 0;
                             oDIObject.Lines.LineTotal = 0;
+                            j += 1;
                         }
                     }
                 }
@@ -682,10 +683,13 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
                     ResultDocNum = Convert.ToInt32(PSH_Globals.oCompany.GetNewObjectKey());
+
+                    j = 0;
                     for (i = 1; i <= oMat01.VisualRowCount; i++)
                     {
-                        dataHelpClass.DoQuery("UPDATE [@PS_PP048L] SET U_OIGENum = '" + ResultDocNum + "', U_IGE1Num = '" + i + "', U_Check = 'Y' WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "' And LineId = '" + oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value + "'");
+                        dataHelpClass.DoQuery("UPDATE [@PS_PP048L] SET U_OIGENum = '" + ResultDocNum + "', U_IGE1Num = '" + j + "', U_Check = 'Y' WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "' And LineId = '" + oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value + "'");
                         dataHelpClass.DoQuery("UPDATE [@PS_PP040L] SET U_ScrapWt = 0 WHERE DocEntry = '" + oForm.Items.Item("PP040No").Specific.Value + "' And LineId = '" + oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value + "'");//부품 실적추가분 취소처리 => 수량을 0으로 처리
+                        j += 1;
                     }
                 }
                 oMat01.LoadFromDataSource();
@@ -1342,7 +1346,7 @@ namespace PSH_BOne_AddOn
                                 }
                                 else
                                 {
-                                    oDS_PS_PP048H.SetValue("U_ItemName", 0, dataHelpClass.Get_ReData("ItemName", "ItemCode", "[OITM]", "'" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'",""));
+                                    oDS_PS_PP048H.SetValue("U_ItemName", 0, dataHelpClass.Get_ReData("ItemName", "ItemCode", "[OITM]", "'" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'", ""));
                                 }
                             }
                             else if (pVal.ItemUID == "CntcCode")
@@ -1494,7 +1498,7 @@ namespace PSH_BOne_AddOn
                         oMat01.LoadFromDataSource();
                         if (oMat01.RowCount == 0)
                         {
-                            PS_PP048_AddMatrixRow(0,false);
+                            PS_PP048_AddMatrixRow(0, false);
                         }
                         else
                         {
@@ -1549,7 +1553,7 @@ namespace PSH_BOne_AddOn
                             }
                             if (RowCounter == 0)
                             {
-                                dataHelpClass.MDC_GF_Message( "취소할 항목을 선택해주세요.", "W");
+                                dataHelpClass.MDC_GF_Message("취소할 항목을 선택해주세요.", "W");
                                 BubbleEvent = false;
                                 return;
                             }
@@ -1581,7 +1585,7 @@ namespace PSH_BOne_AddOn
                         case "1286": //닫기
                             break;
                         case "1293": //행삭제
-                            Raise_EVENT_ROW_DELETE( FormUID, ref pVal, ref BubbleEvent);
+                            Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
                             break;
                         case "1281": //찾기
                             break;

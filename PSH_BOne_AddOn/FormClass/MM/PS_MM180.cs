@@ -499,7 +499,11 @@ namespace PSH_BOne_AddOn
                         }
                     }
                 }
-                oDS_PS_MM180L.RemoveRecord(oDS_PS_MM180L.Size - 1);
+
+                if (string.IsNullOrEmpty(oMat01.Columns.Item("BatchNum").Cells.Item(oMat01.VisualRowCount).Specific.Value))
+                {
+                    oDS_PS_MM180L.RemoveRecord(oDS_PS_MM180L.Size - 1);
+                }
                 oMat01.LoadFromDataSource();
 
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
@@ -783,6 +787,7 @@ namespace PSH_BOne_AddOn
             string errMessage = string.Empty;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             RfcDestination rfcDest = null;
             RfcRepository rfcRep = null;
 
@@ -811,7 +816,7 @@ namespace PSH_BOne_AddOn
                     errCode = "2"; //SAP Function 실행 오류가 발생했을 때 에러코드로 처리하기 위해 이 위치에서 "2"를 대입
                     oFunction.Invoke(rfcDest); //Function 실행
 
-                    if (oFunction.GetValue("E_MESSAGE").ToString() != "" && oFunction.GetValue("E_MESSAGE").ToString() != "S") //리턴 메시지가 "S(성공)"이 아니면
+                    if (oFunction.GetValue("E_MESSAGE").ToString().Trim() != "" && codeHelpClass.Left(oFunction.GetValue("E_MESSAGE").ToString().Trim(),1) != "S") //리턴 메시지가 "S(성공)"이 아니면
                     {
                         errCode = "3";
                         errMessage = oFunction.GetValue("E_MESSAGE").ToString();

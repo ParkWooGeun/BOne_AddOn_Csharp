@@ -271,6 +271,7 @@
     <Compile Include="FormClass\OA\PS_SY002.cs" />
     <Compile Include="FormClass\OA\PS_SY005.cs" />
     <Compile Include="FormClass\OA\PS_SY010.cs" />
+    <Compile Include="FormClass\PP\PS_PP275.cs" />
     <Compile Include="FormClass\PP\PS_PP272.cs" />
     <Compile Include="FormClass\PP\PS_PP271.cs" />
     <Compile Include="FormClass\PP\PS_PP270.cs" />

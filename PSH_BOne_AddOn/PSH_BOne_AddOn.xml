@@ -9617,6 +9617,40 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
+        <member name="T:PSH_BOne_AddOn.PS_MM204">
+            <summary>
+            검수현황
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM204.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFormDocEntry"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM204.PS_MM204_CreateItems">
+            <summary>
+            CreateItems
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM204.PS_MM204_SetComboBox">
+            <summary>
+            ComboBox 기본값설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM204.PS_MM204_FlushToItemValue(System.String,System.Int32,System.String)">
+            <summary>
+            FlushToItemValue
+            </summary>
+            <param name="oUID"></param>
+            <param name="oRow"></param>
+            <param name="oCol"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM204.PS_MM204_PrintReport">
+            <summary>
+            리포트 조회
+            </summary>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_MM205">
             <summary>
             년간재공수불등록

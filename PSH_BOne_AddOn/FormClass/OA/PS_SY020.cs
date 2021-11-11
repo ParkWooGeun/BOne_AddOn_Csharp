@@ -75,8 +75,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-				//기간
-
 				oGrid01 = oForm.Items.Item("Grid01").Specific;
 
 				oForm.DataSources.UserDataSources.Add("DocDatefr", SAPbouiCOM.BoDataType.dt_DATE, 10);
@@ -107,10 +105,8 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM [OBPL] order by BPLId", "", false, false);
 				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
-
 			}
 			catch (Exception ex)
 			{
@@ -223,26 +219,26 @@ namespace PSH_BOne_AddOn
 					case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: // 7
 						//Raise_EVENT_DOUBLE_CLICK(FormUID, ref pVal, ref BubbleEvent);
 						break;
-					case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED:                // 8
+					case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED: // 8
 						//Raise_EVENT_MATRIX_LINK_PRESSED(FormUID, ref pVal, ref BubbleEvent);
 						break;
-					case SAPbouiCOM.BoEventTypes.et_VALIDATE:     // 10
+					case SAPbouiCOM.BoEventTypes.et_VALIDATE: // 10
 						//Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
 						break;
-					case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD:  // 11
+					case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: // 11
 						//Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
 						break;
-					case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD:  // 17
+					case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD: // 17
 						Raise_EVENT_FORM_UNLOAD(FormUID, ref pVal, ref BubbleEvent);
 						break;
-					case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE:                      // 18
+					case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: // 18
 						break;
-					case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE:                    // 19
+					case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE: // 19
 						break;
 					case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE:  // 20
 						//Raise_EVENT_RESIZE(FormUID, ref pVal, ref BubbleEvent);
 						break;
-					case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST:                   // 27
+					case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: // 27
 						//Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
 						break;
 				}

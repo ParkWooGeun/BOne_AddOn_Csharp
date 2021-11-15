@@ -16655,13 +16655,12 @@
             PS_PP034_SetItemsData
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP034.PS_PP034_AddMatrixRow(System.Int32,System.Boolean,System.String)">
+        <member name="M:PSH_BOne_AddOn.PS_PP034.PS_PP034_AddMatrixRow(System.Int32,System.Boolean)">
             <summary>
             PS_PP034_AddMatrixRow
             </summary>
             <param name="oRow"></param>
             <param name="RowIserted"></param>
-            <param name="ItemUID"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_PP034.PS_PP034_SetComboBox">
             <summary>

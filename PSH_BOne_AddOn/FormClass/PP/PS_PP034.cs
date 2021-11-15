@@ -12,7 +12,6 @@ namespace PSH_BOne_AddOn
 		private string oFormUniqueID;
 		private SAPbouiCOM.Matrix oMat;
 		private SAPbouiCOM.DBDataSource oDS_PS_PP034L;
-		private int oLast_ColRow;
 
 		/// <summary>
 		/// Form 호출
@@ -20,7 +19,6 @@ namespace PSH_BOne_AddOn
 		/// <param name="oFormDocEntry"></param>
 		public override void LoadForm(string oFormDocEntry)
 		{
-			int i;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
 			try
@@ -31,7 +29,7 @@ namespace PSH_BOne_AddOn
 				oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue = Convert.ToInt32(oXmlDoc.selectSingleNode("Application/forms/action/form/@left").nodeValue.ToString()) + (SubMain.Get_CurrentFormsCount() * 10);
 
 				//매트릭스의 타이틀높이와 셀높이를 고정
-				for (i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
+				for (int i = 1; i <= (oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight").length); i++)
 				{
 					oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@titleHeight")[i - 1].nodeValue = 20;
 					oXmlDoc.selectNodes("Application/forms/action/form/items/action/item/specific/@cellHeight")[i - 1].nodeValue = 16;
@@ -50,7 +48,7 @@ namespace PSH_BOne_AddOn
 
 				PS_PP034_SetItems();
 				PS_PP034_SetItemsData();
-				PS_PP034_AddMatrixRow(0, true, "");
+				PS_PP034_AddMatrixRow(0, true);
 				PS_PP034_SetComboBox();
 				PS_PP034_EnableMenu();
 				PS_PP034_EnableFormItem();
@@ -64,7 +62,7 @@ namespace PSH_BOne_AddOn
 				oForm.Update();
 				oForm.Freeze(false);
 				oForm.Visible = true;
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(oXmlDoc); //메모리 해제
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(oXmlDoc);
 			}
 		}
 
@@ -120,8 +118,7 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		/// <param name="oRow"></param>
 		/// <param name="RowIserted"></param>
-		/// <param name="ItemUID"></param>
-		private void PS_PP034_AddMatrixRow(int oRow, bool RowIserted, string ItemUID)
+		private void PS_PP034_AddMatrixRow(int oRow, bool RowIserted)
 		{
 			try
 			{
@@ -263,50 +260,51 @@ namespace PSH_BOne_AddOn
 					sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code = '" + oForm.Items.Item("CntcCode").Specific.Value.ToString().Trim() + "'";
 					oRecordSet.DoQuery(sQry);
 					oForm.Items.Item("CntcName").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
-
 				}
 				else if (oUID == "Mat01")
 				{
-					if (oCol == "OrdNum")
+					if (oCol == "OrdNum" && oMat.Columns.Item("OrdNum").Cells.Item(oRow).Specific.Value.ToString().Trim() != "")
 					{
 						oMat.FlushToDataSource();
 
 						if (PS_PP034_CheckDuplicationMatrixData(oDS_PS_PP034L.GetValue("U_ColReg01", oRow - 1).ToString().Trim(), "00", "000") == false)
 						{
-							errMessage = "1"; //아무것도 안함
+							errMessage = "1";
+                            oDS_PS_PP034L.SetValue("U_ColReg01", oRow - 1, ""); //작번
+							oMat.LoadFromDataSource();
 							throw new Exception();
 						}
 
 						sQry = "PS_PP034_01 '";
-						sQry += oDS_PS_PP034L.GetValue("U_ColReg01", oRow - 1).ToString().Trim() +"'";
+						sQry += oDS_PS_PP034L.GetValue("U_ColReg01", oRow - 1).ToString().Trim() + "'";
 						oRecordSet.DoQuery(sQry);
 
 						oDS_PS_PP034L.SetValue("U_ColReg01", oRow - 1, oDS_PS_PP034L.GetValue("U_ColReg01", oRow - 1).ToString().Trim()); //작번
-						oDS_PS_PP034L.SetValue("U_ColReg02", oRow - 1, "00");	//서브작번1
-						oDS_PS_PP034L.SetValue("U_ColReg03", oRow - 1, "000");	//서브작번2
+						oDS_PS_PP034L.SetValue("U_ColReg02", oRow - 1, "00"); //서브작번1
+						oDS_PS_PP034L.SetValue("U_ColReg03", oRow - 1, "000"); //서브작번2
 						oDS_PS_PP034L.SetValue("U_ColReg04", oRow - 1, oRecordSet.Fields.Item("BaseType").Value.ToString().Trim()); //기준문서구분
-						oDS_PS_PP034L.SetValue("U_ColReg05", oRow - 1, oRecordSet.Fields.Item("BaseNum").Value.ToString().Trim());	//기준문서번호
-						oDS_PS_PP034L.SetValue("U_ColReg06", oRow - 1, oRecordSet.Fields.Item("OrdGbn").Value.ToString().Trim());   //작업구분
+						oDS_PS_PP034L.SetValue("U_ColReg05", oRow - 1, oRecordSet.Fields.Item("BaseNum").Value.ToString().Trim()); //기준문서번호
+						oDS_PS_PP034L.SetValue("U_ColReg06", oRow - 1, oRecordSet.Fields.Item("OrdGbn").Value.ToString().Trim()); //작업구분
 						oDS_PS_PP034L.SetValue("U_ColDt01", oRow - 1, Convert.ToDateTime(oRecordSet.Fields.Item("DocDate").Value.ToString().Trim()).ToString("yyyyMMdd")); //지시일자
-						oDS_PS_PP034L.SetValue("U_ColDt02", oRow - 1, Convert.ToDateTime(oRecordSet.Fields.Item("DueDate").Value.ToString().Trim()).ToString("yyyyMMdd")); //지시일자//완료일자
+						oDS_PS_PP034L.SetValue("U_ColDt02", oRow - 1, Convert.ToDateTime(oRecordSet.Fields.Item("DueDate").Value.ToString().Trim()).ToString("yyyyMMdd")); //완료일자
 						oDS_PS_PP034L.SetValue("U_ColDt03", oRow - 1, Convert.ToDateTime(oRecordSet.Fields.Item("PP020Dt").Value.ToString().Trim()).ToString("yyyyMMdd")); //작번등록일자
 						oDS_PS_PP034L.SetValue("U_ColReg09", oRow - 1, oRecordSet.Fields.Item("ItemCode").Value.ToString().Trim());	//제품코드
 						oDS_PS_PP034L.SetValue("U_ColReg10", oRow - 1, oRecordSet.Fields.Item("ItemName").Value.ToString().Trim());	//제품명
-						oDS_PS_PP034L.SetValue("U_ColReg11", oRow - 1, oRecordSet.Fields.Item("SjNum").Value.ToString().Trim());	//수주번호
-						oDS_PS_PP034L.SetValue("U_ColReg12", oRow - 1, oRecordSet.Fields.Item("SjLine").Value.ToString().Trim());	//수주라인
-						oDS_PS_PP034L.SetValue("U_ColReg13", oRow - 1, oRecordSet.Fields.Item("JakMyung").Value.ToString().Trim());	//작번이름
-						oDS_PS_PP034L.SetValue("U_ColQty01", oRow - 1, oRecordSet.Fields.Item("ReqWt").Value.ToString().Trim());	//요청수량(중량)
-						oDS_PS_PP034L.SetValue("U_ColQty02", oRow - 1, oRecordSet.Fields.Item("SelWt").Value.ToString().Trim());	//지시수량(중량)
-						oDS_PS_PP034L.SetValue("U_ColReg16", oRow - 1, oRecordSet.Fields.Item("Comments").Value.ToString().Trim());	//특이사항
-						oDS_PS_PP034L.SetValue("U_ColReg17", oRow - 1, oRecordSet.Fields.Item("JakSize").Value.ToString().Trim());	//규격
-						oDS_PS_PP034L.SetValue("U_ColReg18", oRow - 1, oRecordSet.Fields.Item("JakUnit").Value.ToString().Trim());	//단위
-						oDS_PS_PP034L.SetValue("U_ColQty03", oRow - 1, oRecordSet.Fields.Item("ReqQty").Value.ToString().Trim());	//구매청구수량
+						oDS_PS_PP034L.SetValue("U_ColReg11", oRow - 1, oRecordSet.Fields.Item("SjNum").Value.ToString().Trim()); //수주번호
+						oDS_PS_PP034L.SetValue("U_ColReg12", oRow - 1, oRecordSet.Fields.Item("SjLine").Value.ToString().Trim()); //수주라인
+						oDS_PS_PP034L.SetValue("U_ColReg13", oRow - 1, oRecordSet.Fields.Item("JakMyung").Value.ToString().Trim()); //작번이름
+						oDS_PS_PP034L.SetValue("U_ColQty01", oRow - 1, oRecordSet.Fields.Item("ReqWt").Value.ToString().Trim()); //요청수량(중량)
+						oDS_PS_PP034L.SetValue("U_ColQty02", oRow - 1, oRecordSet.Fields.Item("SelWt").Value.ToString().Trim()); //지시수량(중량)
+						oDS_PS_PP034L.SetValue("U_ColReg16", oRow - 1, oRecordSet.Fields.Item("Comments").Value.ToString().Trim()); //특이사항
+						oDS_PS_PP034L.SetValue("U_ColReg17", oRow - 1, oRecordSet.Fields.Item("JakSize").Value.ToString().Trim()); //규격
+						oDS_PS_PP034L.SetValue("U_ColReg18", oRow - 1, oRecordSet.Fields.Item("JakUnit").Value.ToString().Trim()); //단위
+						oDS_PS_PP034L.SetValue("U_ColQty03", oRow - 1, oRecordSet.Fields.Item("ReqQty").Value.ToString().Trim()); //구매청구수량
 						oDS_PS_PP034L.SetValue("U_ColReg19", oRow - 1, oRecordSet.Fields.Item("ReqUnit").Value.ToString().Trim());  //구매청구단위
 						oDS_PS_PP034L.SetValue("U_ColDt04", oRow - 1, Convert.ToDateTime(oRecordSet.Fields.Item("ReqDt").Value.ToString().Trim()).ToString("yyyyMMdd")); //구매청구납기
 
 						if (oMat.RowCount == oRow && !string.IsNullOrEmpty(oDS_PS_PP034L.GetValue("U_ColReg01", oRow - 1).ToString().Trim()))
 						{
-							PS_PP034_AddMatrixRow(oRow, false, "");
+							PS_PP034_AddMatrixRow(oRow, false);
 						}
 
 						oMat.LoadFromDataSource();
@@ -314,7 +312,6 @@ namespace PSH_BOne_AddOn
 					}
 					else if (oCol == "OrdSub1" || oCol == "OrdSub2")
 					{
-
 						oMat.FlushToDataSource();
 
 						sQry = "PS_PP034_02 '";
@@ -326,23 +323,23 @@ namespace PSH_BOne_AddOn
 						oDS_PS_PP034L.SetValue("U_ColReg02", oRow - 1, oDS_PS_PP034L.GetValue("U_ColReg02", oRow - 1).ToString().Trim()); //서브작번1
 						oDS_PS_PP034L.SetValue("U_ColReg03", oRow - 1, oDS_PS_PP034L.GetValue("U_ColReg03", oRow - 1).ToString().Trim()); //서브작번2
 						oDS_PS_PP034L.SetValue("U_ColReg04", oRow - 1, oRecordSet.Fields.Item("BaseType").Value.ToString().Trim()); //기준문서구분
-						oDS_PS_PP034L.SetValue("U_ColReg05", oRow - 1, oRecordSet.Fields.Item("BaseNum").Value.ToString().Trim());	//기준문서번호
-						oDS_PS_PP034L.SetValue("U_ColReg06", oRow - 1, oRecordSet.Fields.Item("OrdGbn").Value.ToString().Trim());   //작업구분
+						oDS_PS_PP034L.SetValue("U_ColReg05", oRow - 1, oRecordSet.Fields.Item("BaseNum").Value.ToString().Trim()); //기준문서번호
+						oDS_PS_PP034L.SetValue("U_ColReg06", oRow - 1, oRecordSet.Fields.Item("OrdGbn").Value.ToString().Trim()); //작업구분
 						oDS_PS_PP034L.SetValue("U_ColDt01", oRow - 1, Convert.ToDateTime(oRecordSet.Fields.Item("DocDate").Value.ToString().Trim()).ToString("yyyyMMdd")); //지시일자
 						oDS_PS_PP034L.SetValue("U_ColDt02", oRow - 1, Convert.ToDateTime(oRecordSet.Fields.Item("DueDate").Value.ToString().Trim()).ToString("yyyyMMdd")); //완료일자
 						oDS_PS_PP034L.SetValue("U_ColDt03", oRow - 1, Convert.ToDateTime(oRecordSet.Fields.Item("PP020Dt").Value.ToString().Trim()).ToString("yyyyMMdd")); //작번등록일자
 						oDS_PS_PP034L.SetValue("U_ColReg09", oRow - 1, oRecordSet.Fields.Item("ItemCode").Value.ToString().Trim()); //제품코드
 						oDS_PS_PP034L.SetValue("U_ColReg10", oRow - 1, oRecordSet.Fields.Item("ItemName").Value.ToString().Trim()); //제품명
-						oDS_PS_PP034L.SetValue("U_ColReg11", oRow - 1, oRecordSet.Fields.Item("SjNum").Value.ToString().Trim());	//수주번호
-						oDS_PS_PP034L.SetValue("U_ColReg12", oRow - 1, oRecordSet.Fields.Item("SjLine").Value.ToString().Trim());	//수주라인
+						oDS_PS_PP034L.SetValue("U_ColReg11", oRow - 1, oRecordSet.Fields.Item("SjNum").Value.ToString().Trim()); //수주번호
+						oDS_PS_PP034L.SetValue("U_ColReg12", oRow - 1, oRecordSet.Fields.Item("SjLine").Value.ToString().Trim()); //수주라인
 						oDS_PS_PP034L.SetValue("U_ColReg13", oRow - 1, oRecordSet.Fields.Item("JakMyung").Value.ToString().Trim()); //작번이름
-						oDS_PS_PP034L.SetValue("U_ColQty01", oRow - 1, oRecordSet.Fields.Item("ReqWt").Value.ToString().Trim());	//요청수량(중량)
-						oDS_PS_PP034L.SetValue("U_ColQty02", oRow - 1, oRecordSet.Fields.Item("SelWt").Value.ToString().Trim());	//지시수량(중량)
+						oDS_PS_PP034L.SetValue("U_ColQty01", oRow - 1, oRecordSet.Fields.Item("ReqWt").Value.ToString().Trim()); //요청수량(중량)
+						oDS_PS_PP034L.SetValue("U_ColQty02", oRow - 1, oRecordSet.Fields.Item("SelWt").Value.ToString().Trim()); //지시수량(중량)
 						oDS_PS_PP034L.SetValue("U_ColReg16", oRow - 1, oRecordSet.Fields.Item("Comments").Value.ToString().Trim()); //특이사항
-						oDS_PS_PP034L.SetValue("U_ColReg17", oRow - 1, oRecordSet.Fields.Item("JakSize").Value.ToString().Trim());	//규격
-						oDS_PS_PP034L.SetValue("U_ColReg18", oRow - 1, oRecordSet.Fields.Item("JakUnit").Value.ToString().Trim());	//단위
-						oDS_PS_PP034L.SetValue("U_ColQty03", oRow - 1, oRecordSet.Fields.Item("ReqQty").Value.ToString().Trim());	//구매청구수량
-						oDS_PS_PP034L.SetValue("U_ColReg19", oRow - 1, oRecordSet.Fields.Item("ReqUnit").Value.ToString().Trim());  //구매청구단위
+						oDS_PS_PP034L.SetValue("U_ColReg17", oRow - 1, oRecordSet.Fields.Item("JakSize").Value.ToString().Trim()); //규격
+						oDS_PS_PP034L.SetValue("U_ColReg18", oRow - 1, oRecordSet.Fields.Item("JakUnit").Value.ToString().Trim()); //단위
+						oDS_PS_PP034L.SetValue("U_ColQty03", oRow - 1, oRecordSet.Fields.Item("ReqQty").Value.ToString().Trim()); //구매청구수량
+						oDS_PS_PP034L.SetValue("U_ColReg19", oRow - 1, oRecordSet.Fields.Item("ReqUnit").Value.ToString().Trim()); //구매청구단위
 						oDS_PS_PP034L.SetValue("U_ColDt04", oRow - 1, Convert.ToDateTime(oRecordSet.Fields.Item("ReqDt").Value.ToString().Trim()).ToString("yyyyMMdd")); //구매청구납기
 
 						oMat.LoadFromDataSource();
@@ -364,7 +361,7 @@ namespace PSH_BOne_AddOn
 			{
 				if (errMessage == "1")
 				{
-					//PSH_Globals.SBO_Application.MessageBox(errMessage);
+					//Exception 미처리
 				}
 				else
 				{
@@ -414,6 +411,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 			}
+
 			return returnValue;
 		}
 
@@ -424,7 +422,6 @@ namespace PSH_BOne_AddOn
 		private bool PS_PP034_CheckLineData()
 		{
 			bool returnValue = false;
-
 			int loopCount;
 			string errMessage = string.Empty;
 
@@ -521,6 +518,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 			}
+
 			return returnValue;
 		}
 
@@ -531,14 +529,12 @@ namespace PSH_BOne_AddOn
 		private bool PS_PP034_CheckDuplicationDBData()
 		{
 			bool returnValue = false;
-
 			short loopCount;
 			string sQry;
 			string OrdNum;
 			string OrdSub1;
 			string OrdSub2;
 			string errMessage = string.Empty;
-
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
@@ -564,6 +560,7 @@ namespace PSH_BOne_AddOn
 						throw new Exception();
 					}
 				}
+
 				returnValue = true;
 			}
 			catch (Exception ex)
@@ -581,6 +578,7 @@ namespace PSH_BOne_AddOn
 			{
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
+
 			return returnValue;
 		}
 
@@ -594,7 +592,6 @@ namespace PSH_BOne_AddOn
 		private bool PS_PP034_CheckDuplicationMatrixData(string pOrdNum, string pOrdSub1, string pOrdSub2)
 		{
 			bool returnValue = false;
-
 			int loopCount;
 			string OrdNum;
 			string OrdSub1;
@@ -616,6 +613,7 @@ namespace PSH_BOne_AddOn
 						throw new Exception();
 					}
 				}
+
 				returnValue = true;
 			}
 			catch (Exception ex)
@@ -629,6 +627,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 			}
+
 			return returnValue;
 		}
 
@@ -640,7 +639,6 @@ namespace PSH_BOne_AddOn
 		private bool PS_PP034_CheckDocDate()
 		{
 			bool returnValue = false;
-
 			string sQry;
 			int loopCount;
 			string BaseEntry;
@@ -658,7 +656,6 @@ namespace PSH_BOne_AddOn
 
 				for (loopCount = 0; loopCount <= oMat.VisualRowCount - 2; loopCount++)
 				{
-
 					BaseEntry = oDS_PS_PP034L.GetValue("U_ColReg05", loopCount).ToString().Trim();
 					CurDocDate = oDS_PS_PP034L.GetValue("U_ColDt01", loopCount).ToString().Trim();
 
@@ -675,6 +672,7 @@ namespace PSH_BOne_AddOn
 						throw new Exception();
 					}
 				}
+
 				returnValue = true;
 			}
 			catch (Exception ex)
@@ -688,6 +686,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 			}
+
 			return returnValue;
 		}
 
@@ -731,6 +730,7 @@ namespace PSH_BOne_AddOn
 			{
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
+
 			return returnValue;
 		}
 
@@ -742,35 +742,36 @@ namespace PSH_BOne_AddOn
 		{
 			int loopCount;
 			string sQry;
+			string successMessage = string.Empty;
 
-			string OrdNum;   //작번
-			string OrdSub1;  //서브작번1
-			string OrdSub2;  //서브작번2
+			string OrdNum; //작번
+			string OrdSub1; //서브작번1
+			string OrdSub2; //서브작번2
 			string BaseType; //기준문서구분
-			string baseNum;  //기준문서번호
-			string OrdGbn;   //작업구분
-			string DocDate;  //지시일자
-			string DueDate;  //완료일자
+			string baseNum; //기준문서번호
+			string OrdGbn; //작업구분
+			string DocDate; //지시일자
+			string DueDate; //완료일자
 			string ItemCode; //제품코드
 			string ItemName; //제품명
-			string sjNum;    //수주번호
-			string sjLine;   //수주라인
+			string sjNum; //수주번호
+			string sjLine; //수주라인
 			string JakMyung; //작번이름
-			double reqWt;    //요청수량(중량)
-			double selWt;    //지시수량(중량)
+			double reqWt; //요청수량(중량)
+			double selWt; //지시수량(중량)
 			string Comments; //특이사항
-			string JakSize;  //규격
-			string JakUnit;  //단위
-			string BPLId;    //사업장코드
+			string JakSize; //규격
+			string JakUnit; //단위
+			string BPLId; //사업장코드
 			string UserSign; //UserSign
-			string UserID;   //UserID
+			string UserID; //UserID
 			string CntcCode; //사번
 			string CntcName; //성명
 
 			//구매요청 등록 변수
-			double ReqQty;  //구매청구수량
+			double ReqQty; //구매청구수량
 			string reqUnit; //구매청구단위
-			string reqDt;   //구매청구납기
+			string reqDt; //구매청구납기
 			string outCode; //외주사유코드
 			string outNote; //외주사유내용
 			string reqNote; //구매청구비고
@@ -851,14 +852,19 @@ namespace PSH_BOne_AddOn
 					ProgressBar01.Text = ProgressBar01.Value + "/" + Convert.ToString(oMat.VisualRowCount - 1) + "건 저장중...!";
 				}
 
-				PSH_Globals.SBO_Application.StatusBar.SetText("처리 완료!", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
+				successMessage = "처리 완료!";
 			}
 			catch (Exception ex)
 			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
 			}
 			finally
 			{
+				if (successMessage != string.Empty)
+				{
+					PSH_Globals.SBO_Application.StatusBar.SetText(successMessage, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
+				}
+
 				ProgressBar01.Stop();
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
@@ -984,6 +990,7 @@ namespace PSH_BOne_AddOn
 							BubbleEvent = false;
 							return;
 						}
+
 						PS_PP034_AddData(); //필수 입력 조건 모두 만족하면 데이터 입력
 					}
 				}
@@ -993,7 +1000,7 @@ namespace PSH_BOne_AddOn
 					{
 						oMat.Clear(); //추가 후 Matrix 초기화
 						oMat.FlushToDataSource();
-						PS_PP034_AddMatrixRow(0, true, "");
+						PS_PP034_AddMatrixRow(0, true);
 					}
 				}
 			}
@@ -1053,7 +1060,6 @@ namespace PSH_BOne_AddOn
 						if (pVal.Row > 0)
 						{
 							oMat.SelectRow(pVal.Row, true, false);
-							oLast_ColRow = pVal.Row;
 						}
 					}
 				}
@@ -1171,7 +1177,7 @@ namespace PSH_BOne_AddOn
 							break;
 						case "1282": //추가
 							PS_PP034_EnableFormItem();
-							PS_PP034_AddMatrixRow(0, true, "");
+							PS_PP034_AddMatrixRow(0, true);
 							break;
 						case "1287": //복제
 							break;

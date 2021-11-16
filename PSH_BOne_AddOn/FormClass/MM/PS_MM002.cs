@@ -796,6 +796,8 @@ namespace PSH_BOne_AddOn
 								oDS_PS_MM002L.SetValue("Code", i, "");
 								oMat.LoadFromDataSource();
 							}
+							PS_MM002_FormItemEnabled();
+							PS_MM002_AddMatrixRow(1, oMat.RowCount, true);
 							oForm.Freeze(false);
 							break;
 						case "1288":

@@ -12,7 +12,7 @@ namespace PSH_BOne_AddOn
         private string oFormUniqueID;
         private SAPbouiCOM.Matrix oMat01;
         private SAPbouiCOM.Matrix oMat02;
-        private SAPbouiCOM.DBDataSource oDS_PS_PP020H; //등록헤더
+        private SAPbouiCOM.DBDataSource oDS_PS_PP020H;
         private SAPbouiCOM.DBDataSource oDS_PS_TEMPTABLE;
         private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
@@ -537,40 +537,38 @@ namespace PSH_BOne_AddOn
                                 oRecordSet01.DoQuery(sQry);
                             }
 
-                            oMat01.Columns.Item("SubNo1").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item("U_SubNo1").Value.ToString().Trim();
-                            oMat01.Columns.Item("SubNo2").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item("U_SubNo2").Value.ToString().Trim();
-                            oMat01.Columns.Item("RegNum").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item("U_RegNum").Value.ToString().Trim();
-                            oMat01.Columns.Item("ItemCode").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item("U_ItemCode").Value.ToString().Trim();
-                            oMat01.Columns.Item("ItemName").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item("U_ItemName").Value.ToString().Trim();
-                            oMat01.Columns.Item("Material").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item("U_Material").Value.ToString().Trim();
-                            oMat01.Columns.Item("Unit").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item("SalUnitMsr").Value.ToString().Trim();
-                            oMat01.Columns.Item("Size").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item("U_Size").Value.ToString().Trim();
-                            oMat01.Columns.Item("ItmBSort").Cells.Item(oRow).Specific.Select(oRecordSet01.Fields.Item("U_ItmBSort").Value.ToString().Trim(), SAPbouiCOM.BoSearchKey.psk_ByValue);
-                            oMat01.Columns.Item("SjDocNum").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item("U_SjDocNum").Value.ToString().Trim();
-                            oMat01.Columns.Item("SjLinNum").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item("U_SjLinNum").Value.ToString().Trim();
-                            oMat01.Columns.Item("CardCode").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item("U_CardCode").Value.ToString().Trim();
-                            oMat01.Columns.Item("CardName").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item("U_CardName").Value.ToString().Trim();
-                            oMat01.Columns.Item("ShipCode").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item("U_ShipCode").Value.ToString().Trim();
-                            oMat01.Columns.Item("ShipName").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item("U_ShipName").Value.ToString().Trim();
-                            oMat01.Columns.Item("InOutGbn").Cells.Item(oRow).Specific.Select("%", SAPbouiCOM.BoSearchKey.psk_ByValue);
-                            oMat01.Columns.Item("JakDate").Cells.Item(oRow).Specific.Value = DateTime.Now.ToString("yyyyMMdd");
-                            oMat01.Columns.Item("ProDate").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item("U_ProDate").Value.ToString("yyyyMMdd");
-                            oMat01.Columns.Item("ReDate").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item("U_SjDuDate").Value.ToString("yyyyMMdd");
-                            oMat01.Columns.Item("SjWeight").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item("U_SjWeight").Value.ToString().Trim();
-                            oMat01.Columns.Item("SjDcDate").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item("U_SjDcDate").Value.ToString("yyyyMMdd");
-                            oMat01.Columns.Item("SjDuDate").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item("U_SjDuDate").Value.ToString("yyyyMMdd");
-                            oMat01.Columns.Item("SlePrice").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item("U_SlePrice").Value.ToString().Trim();
-                            oMat01.Columns.Item("WorkGbn").Cells.Item(oRow).Specific.Select(oRecordSet01.Fields.Item("U_WorkGbn").Value.ToString().Trim(), SAPbouiCOM.BoSearchKey.psk_ByValue);
-                            oMat01.Columns.Item("PP010Doc").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item("DocEntry").Value.ToString().Trim();
-                            oMat01.Columns.Item("ReqCod").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item("U_ReqCod").Value.ToString().Trim();
-                            oMat01.Columns.Item("WrWeight").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item("U_ReWeight").Value.ToString().Trim();
-                            oMat01.Columns.Item("YearPdYN").Cells.Item(oRow).Specific.Select("N", SAPbouiCOM.BoSearchKey.psk_ByValue);
+                            oDS_PS_PP020H.SetValue("U_SubNo1", oRow - 1, oRecordSet01.Fields.Item("U_SubNo1").Value.ToString().Trim()); //서브작번1
+                            oDS_PS_PP020H.SetValue("U_SubNo2", oRow - 1, oRecordSet01.Fields.Item("U_SubNo2").Value.ToString().Trim()); //서브작번2
+                            oDS_PS_PP020H.SetValue("U_RegNum", oRow - 1, oRecordSet01.Fields.Item("U_RegNum").Value.ToString().Trim()); //생산요청번호
+                            oDS_PS_PP020H.SetValue("U_ItemCode", oRow - 1, oRecordSet01.Fields.Item("U_ItemCode").Value.ToString().Trim()); //제품코드
+                            oDS_PS_PP020H.SetValue("U_ItemName", oRow - 1, oRecordSet01.Fields.Item("U_ItemName").Value.ToString().Trim()); //제품이름
+                            oDS_PS_PP020H.SetValue("U_Material", oRow - 1, oRecordSet01.Fields.Item("U_Material").Value.ToString().Trim()); //재질
+                            oDS_PS_PP020H.SetValue("U_Unit", oRow - 1, oRecordSet01.Fields.Item("SalUnitMsr").Value.ToString().Trim()); //단위
+                            oDS_PS_PP020H.SetValue("U_Size", oRow - 1, oRecordSet01.Fields.Item("U_Size").Value.ToString().Trim()); //규격
+                            oDS_PS_PP020H.SetValue("U_ItmBSort", oRow - 1, oRecordSet01.Fields.Item("U_ItmBSort").Value.ToString().Trim()); //품목대분류
+                            oDS_PS_PP020H.SetValue("U_SjDocNum", oRow - 1, oRecordSet01.Fields.Item("U_SjDocNum").Value.ToString().Trim()); //수주번호
+                            oDS_PS_PP020H.SetValue("U_SjLinNum", oRow - 1, oRecordSet01.Fields.Item("U_SjLinNum").Value.ToString().Trim()); //수주행
+                            oDS_PS_PP020H.SetValue("U_CardCode", oRow - 1, oRecordSet01.Fields.Item("U_CardCode").Value.ToString().Trim()); //거래처코드
+                            oDS_PS_PP020H.SetValue("U_CardName", oRow - 1, oRecordSet01.Fields.Item("U_CardName").Value.ToString().Trim()); //거래처명
+                            oDS_PS_PP020H.SetValue("U_ShipCode", oRow - 1, oRecordSet01.Fields.Item("U_ShipCode").Value.ToString().Trim()); //납품처코드
+                            oDS_PS_PP020H.SetValue("U_ShipName", oRow - 1, oRecordSet01.Fields.Item("U_ShipName").Value.ToString().Trim()); //납품처명
+                            oDS_PS_PP020H.SetValue("U_InOutGbn", oRow - 1, "%"); //자체/외주 구분
+                            oDS_PS_PP020H.SetValue("U_JakDate", oRow - 1, DateTime.Now.ToString("yyyyMMdd")); //작번등록일
+                            oDS_PS_PP020H.SetValue("U_ProDate", oRow - 1, oRecordSet01.Fields.Item("U_ProDate").Value.ToString("yyyyMMdd")); //작업지시일
+                            oDS_PS_PP020H.SetValue("U_ReDate", oRow - 1, oRecordSet01.Fields.Item("U_SjDuDate").Value.ToString("yyyyMMdd")); //완료요구일
+                            oDS_PS_PP020H.SetValue("U_WrWeight", oRow - 1, oRecordSet01.Fields.Item("U_ReWeight").Value.ToString().Trim()); //작업중량
+                            oDS_PS_PP020H.SetValue("U_SjWeight", oRow - 1, oRecordSet01.Fields.Item("U_SjWeight").Value.ToString().Trim()); //수주중량
+                            oDS_PS_PP020H.SetValue("U_SjDcDate", oRow - 1, oRecordSet01.Fields.Item("U_SjDcDate").Value.ToString("yyyyMMdd")); //수주일
+                            oDS_PS_PP020H.SetValue("U_SjDuDate", oRow - 1, oRecordSet01.Fields.Item("U_SjDuDate").Value.ToString("yyyyMMdd")); //납기일
+                            oDS_PS_PP020H.SetValue("U_SlePrice", oRow - 1, oRecordSet01.Fields.Item("U_SlePrice").Value.ToString().Trim()); //영업금액
+                            oDS_PS_PP020H.SetValue("U_WorkGbn", oRow - 1, oRecordSet01.Fields.Item("U_WorkGbn").Value.ToString().Trim()); //작업구분
+                            oDS_PS_PP020H.SetValue("U_YearPdYN", oRow - 1, "N"); //연간품여부
+                            oDS_PS_PP020H.SetValue("U_PP010Doc", oRow - 1, oRecordSet01.Fields.Item("DocEntry").Value.ToString().Trim()); //생산의뢰문서번호
+                            oDS_PS_PP020H.SetValue("U_ReqCod", oRow - 1, oRecordSet01.Fields.Item("U_ReqCod").Value.ToString().Trim()); //담당자사번
+                            oDS_PS_PP020H.SetValue("U_ReqNam", oRow - 1, dataHelpClass.GetValue("Select lastName + firstName From OHEM Where U_MSTCOD = '" + dataHelpClass.User_MSTCOD() + "'", 0, 1)); //담당자성명
 
-                            sQry = "Select lastName + firstName From OHEM Where U_MSTCOD = '" + dataHelpClass.User_MSTCOD() + "'";
-                            oRecordSet01.DoQuery(sQry);
-                            oMat01.Columns.Item("ReqNam").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
+                            oMat01.LoadFromDataSource();
 
-                            oMat01.Columns.Item("Comments").Cells.Item(oRow).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             oForm.Freeze(false);
                         }
                         else if (oCol == "ItemCode")

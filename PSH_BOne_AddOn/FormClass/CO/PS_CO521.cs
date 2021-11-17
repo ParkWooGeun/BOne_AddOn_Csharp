@@ -51,13 +51,6 @@ namespace PSH_BOne_AddOn
                 PS_CO521_SetComboBox();
                 PS_CO521_EnableMenus();
                 PS_CO521_SetDocument(oFormDocEntry);
-
-                //oForm.EnableMenu("1283", false); //삭제
-                //oForm.EnableMenu("1287", true); //복제
-                //oForm.EnableMenu("1286", false); //닫기
-                //oForm.EnableMenu("1284", true); //취소
-                //oForm.EnableMenu("1293", true); //행삭제
-                //oForm.EnableMenu("1299", false); //행닫기
             }
             catch (Exception ex)
             {

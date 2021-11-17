@@ -14430,14 +14430,6 @@
             <param name="pVal">pVal</param>
             <param name="BubbleEvent">Bubble Event</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP275.Raise_EVENT_GOT_FOCUS(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_GOT_FOCUS 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_PP275.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Raise_EVENT_ITEM_PRESSED

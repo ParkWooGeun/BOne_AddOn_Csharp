@@ -150,6 +150,7 @@
     </Compile>
     <Compile Include="FormClass\CORE\S150.cs" />
     <Compile Include="FormClass\CORE\S721.cs" />
+    <Compile Include="FormClass\CO\PS_CO521.cs" />
     <Compile Include="FormClass\CO\PS_CO800.cs" />
     <Compile Include="FormClass\CO\PS_CO003.cs" />
     <Compile Include="FormClass\CO\PS_CO070.cs" />

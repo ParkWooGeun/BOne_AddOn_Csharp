@@ -51,6 +51,8 @@ namespace PSH_BOne_AddOn
                 PS_CO521_SetComboBox();
                 PS_CO521_EnableMenus();
                 PS_CO521_SetDocument(oFormDocEntry);
+                oForm.Items.Item("StdYM").Specific.Value = DateTime.Now.AddMonths(-1).ToString("yyyyMM");
+                oForm.Items.Item("Comments").Click(BoCellClickType.ct_Regular);
             }
             catch (Exception ex)
             {

@@ -76,6 +76,7 @@ namespace PSH_BOne_AddOn
         private void PS_PP035_CreateItems()
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 oDS_PS_PP035L = oForm.DataSources.DBDataSources.Item("@PS_USERDS01");
@@ -123,8 +124,11 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("ChkWCon").Specific.DataBind.SetBound(true, "", "ChkWCon");
                 oForm.Items.Item("Mat01").Enabled = true;
 
-                oForm.DataSources.UserDataSources.Item("WorkDtFr").Value = DateTime.Now.AddMonths(-6).ToString("yyyyMM") + "01"; ;
-                oForm.DataSources.UserDataSources.Item("WorkDtTo").Value = DateTime.Now.ToString("yyyyMMdd");
+                if (dataHelpClass.User_BPLID() == "2")
+                {
+                    oForm.DataSources.UserDataSources.Item("WorkDtFr").Value = DateTime.Now.AddMonths(-6).ToString("yyyyMM") + "01"; ;
+                    oForm.DataSources.UserDataSources.Item("WorkDtTo").Value = DateTime.Now.ToString("yyyyMMdd");
+                }
             }
             catch (Exception ex)
             {

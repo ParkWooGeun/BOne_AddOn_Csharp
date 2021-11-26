@@ -90,15 +90,57 @@ namespace PSH_BOne_AddOn
 				oMat = oForm.Items.Item("Mat01").Specific;
 				oMat.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_NotSupported;
 				oMat.AutoResizeColumns();
-				oMat.Columns.Item("DocNum").Visible = false; //DocNum Hidden 처리(2015.01.27 송명규)
+				oMat.Columns.Item("DocNum").Visible = false;
 
-				//유저데이타 속성 선언 날짜형식
+				//사업장
+				oForm.DataSources.UserDataSources.Add("BPLId", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
+				oForm.Items.Item("BPLId").Specific.DataBind.SetBound(true, "", "BPLId");
+
+				//공정구분
+				oForm.DataSources.UserDataSources.Add("CpGbn", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 5);
+				oForm.Items.Item("CpGbn").Specific.DataBind.SetBound(true, "", "CpGbn");
+
+				//문서구분
+				oForm.DataSources.UserDataSources.Add("OrdType", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 5);
+				oForm.Items.Item("OrdType").Specific.DataBind.SetBound(true, "", "OrdType");
+
+				//금형코드(코드)
+				oForm.DataSources.UserDataSources.Add("ItmBsort", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 50);
+				oForm.Items.Item("ItmBsort").Specific.DataBind.SetBound(true, "", "ItmBsort");
+
+				//금형코드(명)
+				oForm.DataSources.UserDataSources.Add("ItmName", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
+				oForm.Items.Item("ItmName").Specific.DataBind.SetBound(true, "", "ItmName");
+
+				//사원코드(코드)
+				oForm.DataSources.UserDataSources.Add("CntcCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 50);
+				oForm.Items.Item("CntcCode").Specific.DataBind.SetBound(true, "", "CntcCode");
+
+				//사원코드(명)
+				oForm.DataSources.UserDataSources.Add("CntcName", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
+				oForm.Items.Item("CntcName").Specific.DataBind.SetBound(true, "", "CntcName");
+
+				//작업구분
+				oForm.DataSources.UserDataSources.Add("WorkGbn", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 5);
+				oForm.Items.Item("WorkGbn").Specific.DataBind.SetBound(true, "", "WorkGbn");
+
+				//공정코드(ComboBox)
+				oForm.DataSources.UserDataSources.Add("CpCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
+				oForm.Items.Item("CpCode").Specific.DataBind.SetBound(true, "", "CpCode");
+
+				//공정명
+				oForm.DataSources.UserDataSources.Add("CpName", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 50);
+				oForm.Items.Item("CpName").Specific.DataBind.SetBound(true, "", "CpName");
+
+				//등록일자(FR)
 				oForm.DataSources.UserDataSources.Add("DocDateFr", SAPbouiCOM.BoDataType.dt_DATE, 8);
-				oForm.DataSources.UserDataSources.Add("DocDateTo", SAPbouiCOM.BoDataType.dt_DATE, 8);
 				oForm.Items.Item("DocDateFr").Specific.DataBind.SetBound(true, "", "DocDateFr");
+
+				//등록일자(TO)
+				oForm.DataSources.UserDataSources.Add("DocDateTo", SAPbouiCOM.BoDataType.dt_DATE, 8);				
 				oForm.Items.Item("DocDateTo").Specific.DataBind.SetBound(true, "", "DocDateTo");
 
-				//일자 Set
+				//등록일자 초기화
 				oForm.Items.Item("DocDateFr").Specific.Value = DateTime.Now.AddDays(-1).ToString("yyyyMMdd"); 
 				oForm.Items.Item("DocDateTo").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 
@@ -121,32 +163,31 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL order by BPLId", "1", false, false);
-				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
+				dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL order by BPLId", dataHelpClass.User_BPLID(), false, false);
 
 				oForm.Items.Item("WorkGbn").Specific.ValidValues.Add("", "");
-				dataHelpClass.Set_ComboList(oForm.Items.Item("WorkGbn").Specific, "select Code, Name from [@PSH_ITMBSORT] Where U_PudYN = 'Y' order by Code", "101", false, false);
+				dataHelpClass.Set_ComboList(oForm.Items.Item("WorkGbn").Specific, "select Code, Name from [@PSH_ITMBSORT] Where U_PudYN = 'Y' order by Code", "", false, false);
 
 				oForm.Items.Item("OrdType").Specific.ValidValues.Add("10", "실동");
 				oForm.Items.Item("OrdType").Specific.ValidValues.Add("20", "비가동");
 				oForm.Items.Item("OrdType").Specific.Select("0", SAPbouiCOM.BoSearchKey.psk_Index);
 
 				//공정구분 입력(시스템코드로 수정, 2014.11.18 송명규)
-				sQry = "    SELECT      U_Minor,";
-				sQry += "                U_CdName";
-				sQry += " FROM       [@PS_SY001L]";
+				sQry = "  SELECT	U_Minor,";
+				sQry += "           U_CdName";
+				sQry += " FROM      [@PS_SY001L]";
 				sQry += " WHERE     Code = 'P206'";
-				sQry += "                AND U_UseYN = 'Y'";
+				sQry += "           AND U_UseYN = 'Y'";
 				sQry += " ORDER BY  U_Seq";
 				oForm.Items.Item("CpGbn").Specific.ValidValues.Add("%", "선택");
 				dataHelpClass.Set_ComboList(oForm.Items.Item("CpGbn").Specific, sQry, "", false, false);
 				oForm.Items.Item("CpGbn").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
-				sQry = "    SELECT      U_Minor,";
-				sQry += "                U_CdName";
-				sQry += " FROM       [@PS_SY001L]";
+				sQry = "  SELECT	U_Minor,";
+				sQry += "           U_CdName";
+				sQry += " FROM      [@PS_SY001L]";
 				sQry += " WHERE     Code = 'P206'";
-				sQry += "                AND U_UseYN = 'Y'";
+				sQry += "           AND U_UseYN = 'Y'";
 				sQry += " ORDER BY  U_Seq";
 				dataHelpClass.GP_MatrixSetMatComboList(oMat.Columns.Item("CpGbn"), sQry, "", "");
 
@@ -351,7 +392,6 @@ namespace PSH_BOne_AddOn
 			bool returnValue = false;
 			string errMessage = string.Empty;
 			int i;
-			// 헤드사항을 입력
 			string CpName;
 			string CpGbn;
 			string OrdType;
@@ -368,7 +408,6 @@ namespace PSH_BOne_AddOn
 				CpName = oForm.Items.Item("CpName").Specific.Value.ToString().Trim();
 				WorkGbn = oForm.Items.Item("WorkGbn").Specific.Value.ToString().Trim();
 
-				//메트릭스 읽을때 선언
 				oMat.FlushToDataSource();
 
 				for (i = 0; i <= oMat.VisualRowCount - 2; i++)
@@ -379,7 +418,7 @@ namespace PSH_BOne_AddOn
 					}
 				}
 				oMat.LoadFromDataSource();
-				// 라인
+
 				if (oMat.VisualRowCount == 0)
 				{
 					errMessage = "라인 데이터가 없습니다. 확인하세요.";
@@ -412,8 +451,9 @@ namespace PSH_BOne_AddOn
 						}
 					}
 				}
-				//메트릭스의 값변경후 선언
+
 				oMat.LoadFromDataSource();
+
 				returnValue = true;
 			}
 			catch (Exception ex)
@@ -427,6 +467,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 				}
 			}
+
 			return returnValue;
 		}
 
@@ -467,17 +508,20 @@ namespace PSH_BOne_AddOn
 							{
 								PS_PP060_AddMatrixRow(oRow, false);
 							}
+
+							oMat.Columns.Item(oCol).Cells.Item(oRow).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 						}
 						else if (oCol == "FixCode")
 						{
-							sQry = "    SELECT       U_FixName AS [FixName],";
-							sQry += "                 U_TempChr1 As FixCode2";
-							sQry += " FROM        [@PS_FX005H]";
-							sQry += " WHERE       U_FixCode + '-' + U_SubCode = '" + oMat.Columns.Item("FixCode").Cells.Item(oRow).Specific.Value.ToString().Trim() + "'";
+							sQry = "  SELECT	U_FixName AS [FixName],";
+							sQry += "           U_TempChr1 As FixCode2";
+							sQry += " FROM      [@PS_FX005H]";
+							sQry += " WHERE     U_FixCode + '-' + U_SubCode = '" + oMat.Columns.Item("FixCode").Cells.Item(oRow).Specific.Value.ToString().Trim() + "'";
 							oRecordSet.DoQuery(sQry);
 
 							oMat.Columns.Item("FixName").Cells.Item(oRow).Specific.Value = oRecordSet.Fields.Item("FixName").Value.ToString().Trim();
 							oMat.Columns.Item("FixCode2").Cells.Item(oRow).Specific.Value = oRecordSet.Fields.Item("FixCode2").Value.ToString().Trim();
+
 							oMat.FlushToDataSource();
 						}
 						oMat.AutoResizeColumns();
@@ -1255,7 +1299,6 @@ namespace PSH_BOne_AddOn
 		{
 			int i;
 			string sQry;
-
 			int sCount;
 			int sSeq;
 			string sCode = string.Empty;
@@ -1360,7 +1403,6 @@ namespace PSH_BOne_AddOn
 									sCode = "%";
 									SCpCode = "%";
 									break;
-
 								case "107":
 									sCode = "CP101";
 									SCpCode = "%";
@@ -1380,24 +1422,19 @@ namespace PSH_BOne_AddOn
 
 							switch (oForm.Items.Item("CpGbn").Specific.Value.ToString().Trim())
 							{
-								case "10":
-									//v-mill
+								case "10": //v-mill
 									SCpCode = "CP50101";
 									break;
-								case "20":
-									// 콤보박스에 값을 지정 멀티게이지-외경연삭일때는 FRM공정을 SD380
+								case "20": // 콤보박스에 값을 지정 멀티게이지-외경연삭일때는 FRM공정을 SD380
 									SCpCode = "CP50104";
 									break;
-								case "30":
-									// 콤보박스에 값을 지정 멀티게이지-포장일때는 FRM공정을 SD380
+								case "30": // 콤보박스에 값을 지정 멀티게이지-포장일때는 FRM공정을 SD380
 									SCpCode = "CP50107";
 									break;
-								case "40":
-									//휘팅바렐
+								case "40": //휘팅바렐
 									SCpCode = "CP30112";
 									break;
-								case "50":
-									//휘팅포장
+								case "50": //휘팅포장
 									SCpCode = "CP30114";
 									break;
 								case "60":
@@ -1406,8 +1443,7 @@ namespace PSH_BOne_AddOn
 									oForm.Items.Item("CpCode").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 									break;
 								default:
-									// 콤보박스에 첫데이타를 SD380로
-									oForm.Items.Item("CpCode").Specific.Select(1, SAPbouiCOM.BoSearchKey.psk_Index);
+									oForm.Items.Item("CpCode").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 									SCpCode = oForm.Items.Item("CpCode").Specific.Value.ToString().Trim();
 
 									sQry = "SELECT U_CpName From [@PS_PP001L] Where U_CpCode = '" + SCpCode + "' Order by Code";
@@ -1417,7 +1453,8 @@ namespace PSH_BOne_AddOn
 									break;
 							}
 
-							if (oForm.Items.Item("CpGbn").Specific.Value.ToString().Trim() != "60" && oForm.Items.Item("CpGbn").Specific.Value.ToString().Trim() != "70" 
+							if (oForm.Items.Item("CpGbn").Specific.Value.ToString().Trim() != "60" 
+                                && oForm.Items.Item("CpGbn").Specific.Value.ToString().Trim() != "70" 
 								&& oForm.Items.Item("CpGbn").Specific.Value.ToString().Trim() != "80")
 							{
 								oForm.Items.Item("CpCode").Specific.Select(SCpCode, SAPbouiCOM.BoSearchKey.psk_ByValue);
@@ -1483,10 +1520,7 @@ namespace PSH_BOne_AddOn
 				{
 					if (pVal.ItemUID == "Mat01")
 					{
-						if (pVal.Row == -1)
-						{
-						}
-						else
+						if (pVal.Row != -1)
 						{
 							PS_PP060_OpenItemRegist(pVal.Row);
 						}
@@ -1541,6 +1575,7 @@ namespace PSH_BOne_AddOn
 							{
 								PS_PP060_FlushToItemValue(pVal.ItemUID, pVal.Row, pVal.ColUID);
 							}
+
 							if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 							{
 							}
@@ -1625,8 +1660,6 @@ namespace PSH_BOne_AddOn
 		/// <param name="BubbleEvent"></param>
 		private void Raise_EVENT_ROW_DELETE(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
 		{
-			int i;
-
 			try
 			{
 				if (oLastColRow01 > 0)
@@ -1636,7 +1669,7 @@ namespace PSH_BOne_AddOn
 					}
 					else if (pVal.BeforeAction == false)
 					{
-						for (i = 1; i <= oMat.VisualRowCount; i++)
+						for (int i = 1; i <= oMat.VisualRowCount; i++)
 						{
 							oMat.Columns.Item("LineNum").Cells.Item(i).Specific.Value = i;
 						}

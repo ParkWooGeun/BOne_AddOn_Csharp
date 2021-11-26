@@ -1,6 +1,7 @@
-﻿using PSH_BOne_AddOn.Data;
+﻿using System;
 using SAPbouiCOM;
-using System;
+using PSH_BOne_AddOn.Code;
+using PSH_BOne_AddOn.Data;
 using System.Collections.Generic;
 
 namespace PSH_BOne_AddOn
@@ -273,10 +274,14 @@ namespace PSH_BOne_AddOn
                 oDS_PS_SY015A.ExecuteQuery(sQry);
                 iRow = oForm.DataSources.DataTables.Item(0).Rows.Count;
                 PS_SY015_TitleSetting(iRow);
-
-                for(i = 0; i < oGrid1.Rows.Count; i++)
+                if(oForm.Items.Item("pFSGubun").Specific.value == "A")
                 {
-                    temp.Add(oGrid1.DataTable.Columns.Item("uniqueID").Cells.Item(i).Value + "_" + oGrid1.DataTable.Columns.Item("UserID").Cells.Item(i).Value + "_" + oGrid1.DataTable.Columns.Item("AuthType").Cells.Item(i).Value);
+                    temp.Clear();
+                    for (i = 0; i < oGrid1.Rows.Count; i++)
+                    {
+                        temp.Add(oGrid1.DataTable.Columns.Item("uniqueID").Cells.Item(i).Value + "_" + oGrid1.DataTable.Columns.Item("UserID").Cells.Item(i).Value + "_" + oGrid1.DataTable.Columns.Item("AuthType").Cells.Item(i).Value);
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -393,18 +398,21 @@ namespace PSH_BOne_AddOn
             string pUniqueID;
             string Sequence;
             string AuthType;
+            string beValue;
+            string afValue;
+            string beCode;
             string errMessage = string.Empty;
+            PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
                 oForm.Freeze(true);
-
-                if (PSH_Globals.SBO_Application.MessageBox("데이터 입력하시겠습니까?", 2, "Yes", "No") == 2)
-                {
-                    errMessage = "입력 취소 되었습니다.";
-                    throw new Exception();
-                }
+                //if (PSH_Globals.SBO_Application.MessageBox("데이터 입력하시겠습니까?", 2, "Yes", "No") == 2)
+                //{
+                //    errMessage = "입력 취소 되었습니다.";
+                //    throw new Exception();
+                //}
                 
                 if(oForm.Items.Item("pFSGubun").Specific.Value.ToString().Trim()  != "A")
                 {
@@ -451,13 +459,59 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    for(i = 0; i < oGrid1.Rows.Count; i++)
+                    if(string.IsNullOrEmpty(oForm.Items.Item("refData").Specific.value))
+                    {
+                        errMessage = "관련근거 입력은 필수 입니다.";
+                        throw new Exception();
+                    }
+                    for (i = 0; i < oGrid1.Rows.Count; i++)
                     {
                         if(temp[i] != oGrid1.DataTable.Columns.Item("uniqueID").Cells.Item(i).Value + "_" + oGrid1.DataTable.Columns.Item("UserID").Cells.Item(i).Value + "_" + oGrid1.DataTable.Columns.Item("AuthType").Cells.Item(i).Value)
                         {
+                            sQry = "";
                             sQry = "EXEC PS_SY015_03 'A', '', '', '', '', '" + oGrid1.DataTable.Columns.Item("UserID").Cells.Item(i).Value + "', '', '', '', '', '";
                             sQry += oGrid1.DataTable.Columns.Item("seq").Cells.Item(i).Value + "', '', '" + oGrid1.DataTable.Columns.Item("AuthType").Cells.Item(i).Value + "', '" + PSH_Globals.oCompany.UserName + "'";
-                            oDS_PS_SY015A.ExecuteQuery(sQry);
+                            oRecordSet01.DoQuery(sQry);
+
+                            if (oGrid1.DataTable.Columns.Item("AuthType").Cells.Item(i).Value == "R") {
+                                afValue = "읽기 전용";
+                            }
+                            else if (oGrid1.DataTable.Columns.Item("AuthType").Cells.Item(i).Value == "Y")
+                            {
+                                afValue = "권한 있음";
+                            }
+                            else if (oGrid1.DataTable.Columns.Item("AuthType").Cells.Item(i).Value == "N")
+                            {
+                                afValue = "권한 없음";
+                            }
+                            else
+                            {
+                                afValue = "해당 없음";
+                            }
+
+                            beCode = codeHelpClass.Right(temp[i], 1);
+                            if (beCode == "R")
+                            {
+                                beValue = "읽기 전용";
+                            }
+                            else if (beCode == "Y")
+                            {
+                                beValue = "권한 있음";
+                            }
+                            else if (beCode == "N")
+                            {
+                                beValue = "권한 없음";
+                            }
+                            else
+                            {
+                                beValue = "해당 없음";
+                            }
+
+                            sQry = "";
+                            sQry = "insert into PS_SY021 SELECT 'A','" + oGrid1.DataTable.Columns.Item("UserID").Cells.Item(i).Value + "','" + oGrid1.DataTable.Columns.Item("string").Cells.Item(i).Value + "^" + beValue + "','";
+                            sQry += afValue + "','" + PSH_Globals.oCompany.UserSignature + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + oForm.Items.Item("refData").Specific.value +"'";
+                            oRecordSet01.DoQuery(sQry);
+
                         }
                     }
                 }
@@ -504,10 +558,10 @@ namespace PSH_BOne_AddOn
                             oGrid1.Columns.Item(i).Type = SAPbouiCOM.BoGridColumnType.gct_ComboBox;
                             oComboCol = (SAPbouiCOM.ComboBoxColumn)oGrid1.Columns.Item("AuthType");
 
-                            oComboCol.ValidValues.Add("Y", "부여");
-                            oComboCol.ValidValues.Add("N", "회수");
-                            oComboCol.ValidValues.Add("-", "미부여");
-                            oComboCol.ValidValues.Add("R", "읽기전용");
+                            oComboCol.ValidValues.Add("Y", "권한 있음");
+                            oComboCol.ValidValues.Add("N", "권한 없음");
+                            oComboCol.ValidValues.Add("-", "해당 없음");
+                            oComboCol.ValidValues.Add("R", "읽기 전용");
 
                             oComboCol.DisplayType = SAPbouiCOM.BoComboDisplayType.cdt_Description;
                             break;
@@ -766,8 +820,11 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
+            SAPbouiCOM.ProgressBar ProgBar01 = null;
+
             try
             {
+                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("처리중....", 0, false);
                 if (pVal.BeforeAction == true)
                 {
                     if (pVal.ItemUID == "Btn_Find")
@@ -820,6 +877,14 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_ITEM_PRESSED_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                if (ProgBar01 != null)
+                {
+                    ProgBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                }
             }
         }
 

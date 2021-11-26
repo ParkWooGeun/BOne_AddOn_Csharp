@@ -118,8 +118,18 @@ namespace PSH_BOne_AddOn.Core
                     }
                     for (i = 0; i < s230.RegUserID.Count; i++)
                     {
-                        sQry = "Insert into PS_SY020 SELECT 'C','" + s230.RegUserID[i] + "','" + addString + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + PSH_Globals.oCompany.UserSignature.ToString() + "','" + oForm.Items.Item("refEdit").Specific.Value.ToString().Trim() +"'";
+                        sQry = "Insert into PS_SY020 SELECT 'C','" + s230.RegUserID[i] + "','" + addString + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + PSH_Globals.oCompany.UserSignature.ToString() + "','" + oForm.Items.Item("refEdit").Specific.Value.ToString().Trim() + "','N'";
                         oRecordSet01.DoQuery(sQry);
+                        if (oForm.Items.Item("refEdit").Specific.Value.ToString().Trim() != "초기등록")
+                        {
+                            sQry = "Exec PS_SY020_02 '" + s230.RegUserID[i] + "'";
+                            oRecordSet01.DoQuery(sQry);
+                        }
+                        else
+                        {
+                            sQry = "UPDATE PS_SY020 set Status = 'Y' WHERE UserID ='" + s230.RegUserID[i] + "'";
+                            oRecordSet01.DoQuery(sQry);
+                        }
                     }
                     s230.RegUserID.Clear();
                 }
@@ -130,8 +140,19 @@ namespace PSH_BOne_AddOn.Core
                     {
                         addString += oMat01.Columns.Item("1").Cells.Item(i).Specific.Value + "^" + oMat01.Columns.Item("2").Cells.Item(i).Specific.Value + "`";//1
                     }
-                    sQry = "Insert into PS_SY020 SELECT 'C','" + cUserID + "','" + addString + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + PSH_Globals.oCompany.UserSignature.ToString() + "','" + oForm.Items.Item("refEdit").Specific.Value.ToString().Trim() + "'";
+                    sQry = "Insert into PS_SY020 SELECT 'C','" + cUserID + "','" + addString + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + PSH_Globals.oCompany.UserSignature.ToString() + "','" + oForm.Items.Item("refEdit").Specific.Value.ToString().Trim() + "','N'";
                     oRecordSet01.DoQuery(sQry);
+
+                    if (oForm.Items.Item("refEdit").Specific.Value.ToString().Trim() != "초기등록")
+                    {
+                        sQry = "Exec PS_SY020_02 '" + cUserID + "'";
+                        oRecordSet01.DoQuery(sQry);
+                    }
+                    else
+                    {
+                        sQry = "UPDATE PS_SY020 set Status = 'Y' WHERE UserID ='" + cUserID + "'";
+                        oRecordSet01.DoQuery(sQry);
+                    }
                 }
             returnValue = true;
             }

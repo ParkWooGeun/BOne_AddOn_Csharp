@@ -283,7 +283,8 @@ namespace PSH_BOne_AddOn
             string AfType;
             string NowLevel;
             string AfLevel;
-            string NowSeq;gg
+            string NowSeq;
+            string AfSeq;
             string XmlString;
 
             string oFilePath;

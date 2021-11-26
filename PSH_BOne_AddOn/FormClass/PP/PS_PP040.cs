@@ -2250,8 +2250,7 @@ namespace PSH_BOne_AddOn
                             dataHelpClass.ActiveUserDefineValueAlways(ref oForm, ref pVal, ref BubbleEvent, "OrdMgNum", "");
                         }
                     }
-
-                    if (pVal.ItemUID == "Mat01")
+                    else if (pVal.ItemUID == "Mat01")
                     {
                         if (pVal.ColUID == "OrdMgNum")
                         {
@@ -2912,6 +2911,7 @@ namespace PSH_BOne_AddOn
                                                         {
                                                             PSH_Globals.SBO_Application.MessageBox("이미 입력한 공정입니다.");
                                                             oDS_PS_PP040L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, "");
+                                                            oMat01.LoadFromDataSourceEx();
                                                             errCode = "1";
                                                             throw new Exception();
                                                         }
@@ -2925,13 +2925,14 @@ namespace PSH_BOne_AddOn
 
                                                     if (RecordSet01.Fields.Item("Return").Value == "1") //생산완료수량이 작업지시수량만큼 모두 등록이 되었다면
                                                     {
-                                                        if (PSH_Globals.SBO_Application.MessageBox("생산완료가 모두 등록된 작번(완료일자:" + WkCmDt + ")입니다. 계속 진행하시겠습니까?", 1, "예", "아니오") == 1)
+                                                        if (PSH_Globals.SBO_Application.MessageBox("생산완료가 모두 등록된 작번(완료일자:" + WkCmDt + ")입니다." + (char)13 + "계속 진행하시겠습니까?", 1, "예", "아니오") == 1)
                                                         {
                                                             //계속 진행시에는 해당 작업지시문서번호 등록
                                                         }
                                                         else
                                                         {
                                                             oDS_PS_PP040L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, "");
+                                                            oMat01.LoadFromDataSourceEx();
                                                             errCode = "1";
                                                             throw new Exception();
                                                         }
@@ -2947,8 +2948,9 @@ namespace PSH_BOne_AddOn
 
                                                     if (RecordSet01.Fields.Item("Return").Value == "1") //판매확정수량이 판매오더수량만큼 모두 등록이 되었다면
                                                     {
-                                                        PSH_Globals.SBO_Application.MessageBox("판매완료(최종일자:" + OINV_Dt + ")된 작번입니다. 등록이 불가능합니다.", 1, "확인");
+                                                        PSH_Globals.SBO_Application.MessageBox("판매완료(최종일자:" + OINV_Dt + ")된 작번입니다." + (char)13 + "등록이 불가능합니다.", 1, "확인");
                                                         oDS_PS_PP040L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, "");
+                                                        oMat01.LoadFromDataSourceEx();
                                                         errCode = "1";
                                                         throw new Exception();
                                                     }
@@ -3437,7 +3439,7 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);                    
                 }
 
                 BubbleEvent = false;

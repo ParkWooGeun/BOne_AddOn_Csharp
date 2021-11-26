@@ -129,35 +129,30 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				Gubun    = oForm.Items.Item("Gubun").Specific.Value.ToString().Trim();
+				Gubun = oForm.Items.Item("Gubun").Specific.Value.ToString().Trim();
 				ItemName = oForm.Items.Item("ItemName").Specific.Value.ToString().Trim();
-				Gwgt     = oForm.Items.Item("Gwgt").Specific.Value.ToString().Trim();
-				Nwgt     = oForm.Items.Item("Nwgt").Specific.Value.ToString().Trim();
-				MDate    = oForm.Items.Item("MDate").Specific.Value.ToString().Trim();
-				Lot      = oForm.Items.Item("Lot").Specific.Value.ToString().Trim();
-				Title    = oForm.Items.Item("Title").Specific.Value.ToString().Trim();
+				Gwgt = oForm.Items.Item("Gwgt").Specific.Value.ToString().Trim();
+				Nwgt = oForm.Items.Item("Nwgt").Specific.Value.ToString().Trim();
+				MDate = oForm.Items.Item("MDate").Specific.Value.ToString().Trim();
+				Lot = oForm.Items.Item("Lot").Specific.Value.ToString().Trim();
+				Title = oForm.Items.Item("Title").Specific.Value.ToString().Trim();
 
 				WinTitle = "분말LABEL출력[PS_PP995_01]";
 				ReportName = "PS_PP995_01.RPT";
 
-				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
 				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
 
-				// Formula 수식필드
-				dataPackFormula.Add(new PSH_DataPackClass("@Gubun", Gubun));
-				dataPackFormula.Add(new PSH_DataPackClass("@ItemName", ItemName));
-				dataPackFormula.Add(new PSH_DataPackClass("@Gwgt", Gwgt));
-				dataPackFormula.Add(new PSH_DataPackClass("@Nwgt", Nwgt));
-				dataPackFormula.Add(new PSH_DataPackClass("@MDate", MDate.Substring(0, 4) + "-" + MDate.Substring(4, 2) + "-" + MDate.Substring(6, 2)));
-				dataPackFormula.Add(new PSH_DataPackClass("@Lot", Lot));
-				dataPackFormula.Add(new PSH_DataPackClass("@Title", Title));
-				dataPackFormula.Add(new PSH_DataPackClass("@BarCode", Lot));
-
-				// Parameter
-				// Qry는 필요없는데 에러로안해 그냥하나 만듬
+                // Parameter
 				dataPackParameter.Add(new PSH_DataPackClass("@Gubun", Gubun));
+				dataPackParameter.Add(new PSH_DataPackClass("@ItemName", ItemName));
+				dataPackParameter.Add(new PSH_DataPackClass("@Gwgt", Gwgt));
+				dataPackParameter.Add(new PSH_DataPackClass("@Nwgt", Nwgt));
+				dataPackParameter.Add(new PSH_DataPackClass("@MDate", MDate.Substring(0, 4) + "-" + MDate.Substring(4, 2) + "-" + MDate.Substring(6, 2)));
+				dataPackParameter.Add(new PSH_DataPackClass("@Lot", Lot));
+				dataPackParameter.Add(new PSH_DataPackClass("@Title", Title));
+				dataPackParameter.Add(new PSH_DataPackClass("@BarCode", Lot));
 
-				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, "Y");
 			}
 			catch (Exception ex)
 			{

@@ -37550,6 +37550,56 @@
             <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
         </member>
+        <member name="T:PSH_BOne_AddOn.PH_PYB10">
+            <summary>
+            복지포인트 사용내역
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PYB10.LoadForm(System.String)">
+            <summary>
+            화면 호출
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PYB10.PH_PYB10_CreateItems">
+            <summary>
+            화면 Item 생성
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PYB10.PH_PYB10_FormItemEnabled">
+            <summary>
+            화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PYB10.PH_PYB10_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PYB10.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_FormItemEvent
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">이벤트 </param>
+            <param name="BubbleEvent">Bubble Event</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PYB10.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            ITEM_PRESSED 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PYB10.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            FORM_UNLOAD 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY998">
             <summary>
             사용자 권한 조회(화면별)

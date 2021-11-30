@@ -21,19 +21,17 @@ namespace PSH_BOne_AddOn
         private SAPbouiCOM.Matrix oMat06;
         private SAPbouiCOM.Matrix oMat07;
         private SAPbouiCOM.Matrix oMat08;
-
-        private SAPbouiCOM.DBDataSource oDS_PS_PP362L;        //라인(Sub작번)
-        private SAPbouiCOM.DBDataSource oDS_PS_PP362M;        //라인(자재비내역)
-        private SAPbouiCOM.DBDataSource oDS_PS_PP362N;        //라인(설계비내역)
-        private SAPbouiCOM.DBDataSource oDS_PS_PP362O;        //라인(자체가공비내역_공정별내역)
-        private SAPbouiCOM.DBDataSource oDS_PS_PP362P;        //라인(자체가공비내역_작업자별내역)
-        private SAPbouiCOM.DBDataSource oDS_PS_PP362Q;       //라인(외주가공비내역)
-        private SAPbouiCOM.DBDataSource oDS_PS_PP362R;        //라인(외주제작비내역)
+        private SAPbouiCOM.DBDataSource oDS_PS_PP362L; //라인(Sub작번)
+        private SAPbouiCOM.DBDataSource oDS_PS_PP362M; //라인(자재비내역)
+        private SAPbouiCOM.DBDataSource oDS_PS_PP362N; //라인(설계비내역)
+        private SAPbouiCOM.DBDataSource oDS_PS_PP362O; //라인(자체가공비내역_공정별내역)
+        private SAPbouiCOM.DBDataSource oDS_PS_PP362P; //라인(자체가공비내역_작업자별내역)
+        private SAPbouiCOM.DBDataSource oDS_PS_PP362Q; //라인(외주가공비내역)
+        private SAPbouiCOM.DBDataSource oDS_PS_PP362R; //라인(외주제작비내역)
         private SAPbouiCOM.DBDataSource oDS_PS_PP362S;
-       
-        private string oLastItemUID01;       //클래스에서 선택한 마지막 아이템 Uid값
-        private string oLastColUID01;        //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
-        private int oLastColRow01;           //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
+        private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
+        private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
+        private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
 
         /// <summary>
         /// Form 호출
@@ -70,7 +68,7 @@ namespace PSH_BOne_AddOn
 
                 oForm.Freeze(true);
                 PS_PP362_CreateItems();
-                PS_PP362_ComboBox_Setting();
+                PS_PP362_SetComboBox();
             }
             catch (Exception ex)
             {
@@ -82,7 +80,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Folder01").Specific.Select();
                 oForm.Freeze(false);
                 oForm.Visible = true;
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oXmlDoc); //메모리 해제
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oXmlDoc);
             }
         }
 
@@ -208,11 +206,11 @@ namespace PSH_BOne_AddOn
                 //공정코드_E
 
                 //자체가공비내역_공정별내역 Matrix의 필드 Hidden
-                oMat05.Columns.Item("ReTime").Visible = false;                //수정공수
-                oMat05.Columns.Item("CpCode").Visible = false;                //공정코드
-                oMat05.Columns.Item("OrdNum").Visible = false;                //작번
-                oMat05.Columns.Item("Sub1_2").Visible = false;                //서브작번
-                oMat05.Columns.Item("Class").Visible = false;                //공정완료여부(2012.08.06 송명규 수정)
+                oMat05.Columns.Item("ReTime").Visible = false; //수정공수
+                oMat05.Columns.Item("CpCode").Visible = false; //공정코드
+                oMat05.Columns.Item("OrdNum").Visible = false; //작번
+                oMat05.Columns.Item("Sub1_2").Visible = false; //서브작번
+                oMat05.Columns.Item("Class").Visible = false; //공정완료여부(2012.08.06 송명규 수정)
 
                 //자체가공비내역의 공정코드 필드 Hidden
                 oForm.Items.Item("CpCode").Visible = false;
@@ -226,7 +224,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// Combobox 설정
         /// </summary>
-        private void PS_PP362_ComboBox_Setting()
+        private void PS_PP362_SetComboBox()
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
@@ -254,7 +252,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// FormResize
         /// </summary>
-        private void PS_PP362_FormResize()
+        private void PS_PP362_ResizeForm()
         {
             try
             {
@@ -324,7 +322,6 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PS_PP362_MTX01()
         {
-            int loopCount;
             string Query01;
             string FrDt; //작번등록년월(시작)
             string ToDt; //작번등록년월(종료)
@@ -336,11 +333,13 @@ namespace PSH_BOne_AddOn
             string CardCode; //거래처
             string ItemCode; //품목(작번)
             string errMessage = string.Empty;
-            SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+            SAPbouiCOM.ProgressBar ProgressBar01 = null;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
+                ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
                 FrDt = oForm.Items.Item("FrDt").Specific.Value.ToString().Trim();
                 ToDt = oForm.Items.Item("ToDt").Specific.Value.ToString().Trim();
                 FrgnName = (string.IsNullOrEmpty(oForm.Items.Item("FrgnName").Specific.Value) ? "%" : oForm.Items.Item("FrgnName").Specific.Value);
@@ -351,7 +350,6 @@ namespace PSH_BOne_AddOn
                 CardCode = (string.IsNullOrEmpty(oForm.Items.Item("CardCode").Specific.Value) ? "%" : oForm.Items.Item("CardCode").Specific.Value);
                 ItemCode = (string.IsNullOrEmpty(oForm.Items.Item("ItemCode").Specific.Value) ? "%" : oForm.Items.Item("ItemCode").Specific.Value);
 
-                ProgressBar01.Text = "조회시작!"; //쿼리를 실행할 때 부터 프로그레스 시작
                 oForm.Freeze(true);
                 Query01 = "EXEC PS_PP362_01 '" + FrDt + "','" + ToDt + "','" + FrgnName + "','" + CardType + "','" + SPEC + "','" + ItemClass + "','" + WCYN + "','" + CardCode + "','" + ItemCode + "'";
                 oRecordSet01.DoQuery(Query01);
@@ -366,32 +364,33 @@ namespace PSH_BOne_AddOn
                     errMessage = "결과가 존재하지 않습니다.";
                     throw new Exception();
                 }
-                for (loopCount = 0; loopCount <= oRecordSet01.RecordCount - 1; loopCount++)
+
+                for (int loopCount = 0; loopCount <= oRecordSet01.RecordCount - 1; loopCount++)
                 {
                     if (loopCount != 0)
                     {
                         oDS_PS_PP362L.InsertRecord(loopCount);
                     }
                     oDS_PS_PP362L.Offset = loopCount;
-                    oDS_PS_PP362L.SetValue("U_LineNum", loopCount, Convert.ToString(loopCount + 1));             //라인번호
-                    oDS_PS_PP362L.SetValue("U_ColReg01", loopCount, oRecordSet01.Fields.Item("OrdNum").Value);   //작번
+                    oDS_PS_PP362L.SetValue("U_LineNum", loopCount, Convert.ToString(loopCount + 1)); //라인번호
+                    oDS_PS_PP362L.SetValue("U_ColReg01", loopCount, oRecordSet01.Fields.Item("OrdNum").Value); //작번
                     oDS_PS_PP362L.SetValue("U_ColReg02", loopCount, oRecordSet01.Fields.Item("CardName").Value); //납품처
                     oDS_PS_PP362L.SetValue("U_ColReg03", loopCount, oRecordSet01.Fields.Item("ItemCode").Value); //품목
                     oDS_PS_PP362L.SetValue("U_ColReg04", loopCount, oRecordSet01.Fields.Item("ItemName").Value); //품목명
-                    oDS_PS_PP362L.SetValue("U_ColReg05", loopCount, oRecordSet01.Fields.Item("Spec").Value);     //규격
-                    oDS_PS_PP362L.SetValue("U_ColReg06", loopCount, oRecordSet01.Fields.Item("Unit").Value);     //단위
+                    oDS_PS_PP362L.SetValue("U_ColReg05", loopCount, oRecordSet01.Fields.Item("Spec").Value); //규격
+                    oDS_PS_PP362L.SetValue("U_ColReg06", loopCount, oRecordSet01.Fields.Item("Unit").Value); //단위
                     oDS_PS_PP362L.SetValue("U_ColSum01", loopCount, oRecordSet01.Fields.Item("Quantity").Value); //수량
-                    oDS_PS_PP362L.SetValue("U_ColSum02", loopCount, oRecordSet01.Fields.Item("MatAmt").Value);   //자재비
-                    oDS_PS_PP362L.SetValue("U_ColSum03", loopCount, oRecordSet01.Fields.Item("DrawAmt").Value);  //설계비
-                    oDS_PS_PP362L.SetValue("U_ColSum04", loopCount, oRecordSet01.Fields.Item("GagongAmt").Value);//자체가공비
-                    oDS_PS_PP362L.SetValue("U_ColSum05", loopCount, oRecordSet01.Fields.Item("OutgAmt").Value);  //외주가공비
-                    oDS_PS_PP362L.SetValue("U_ColSum06", loopCount, oRecordSet01.Fields.Item("OutmAmt").Value);  //외주제작비
-                    oDS_PS_PP362L.SetValue("U_ColSum07", loopCount, oRecordSet01.Fields.Item("Total").Value);    //계
-                    oDS_PS_PP362L.SetValue("U_ColSum08", loopCount, oRecordSet01.Fields.Item("SjAmt").Value);    //수주금액
-                    oDS_PS_PP362L.SetValue("U_ColReg15", loopCount, oRecordSet01.Fields.Item("DocDate").Value);  //수주일자
+                    oDS_PS_PP362L.SetValue("U_ColSum02", loopCount, oRecordSet01.Fields.Item("MatAmt").Value); //자재비
+                    oDS_PS_PP362L.SetValue("U_ColSum03", loopCount, oRecordSet01.Fields.Item("DrawAmt").Value); //설계비
+                    oDS_PS_PP362L.SetValue("U_ColSum04", loopCount, oRecordSet01.Fields.Item("GagongAmt").Value); //자체가공비
+                    oDS_PS_PP362L.SetValue("U_ColSum05", loopCount, oRecordSet01.Fields.Item("OutgAmt").Value); //외주가공비
+                    oDS_PS_PP362L.SetValue("U_ColSum06", loopCount, oRecordSet01.Fields.Item("OutmAmt").Value); //외주제작비
+                    oDS_PS_PP362L.SetValue("U_ColSum07", loopCount, oRecordSet01.Fields.Item("Total").Value); //계
+                    oDS_PS_PP362L.SetValue("U_ColSum08", loopCount, oRecordSet01.Fields.Item("SjAmt").Value); //수주금액
+                    oDS_PS_PP362L.SetValue("U_ColReg15", loopCount, oRecordSet01.Fields.Item("DocDate").Value); //수주일자
                     oDS_PS_PP362L.SetValue("U_ColReg16", loopCount, oRecordSet01.Fields.Item("ShipDate").Value); //납기일자
-                    oDS_PS_PP362L.SetValue("U_ColReg17", loopCount, oRecordSet01.Fields.Item("EndDate").Value);  //완료일자
-                    oDS_PS_PP362L.SetValue("U_ColReg18", loopCount, oRecordSet01.Fields.Item("YesNo").Value);    //완료구분
+                    oDS_PS_PP362L.SetValue("U_ColReg17", loopCount, oRecordSet01.Fields.Item("EndDate").Value); //완료일자
+                    oDS_PS_PP362L.SetValue("U_ColReg18", loopCount, oRecordSet01.Fields.Item("YesNo").Value); //완료구분
 
                     oRecordSet01.MoveNext();
                     ProgressBar01.Value += 1;
@@ -414,7 +413,7 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
                 if (ProgressBar01 != null)
                 {
                     ProgressBar01.Stop();
@@ -434,14 +433,15 @@ namespace PSH_BOne_AddOn
         /// <param name="prmOrdNum"></param>
         private void PS_PP362_MTX02(string prmOrdNum)
         {
-            int loopCount;
             string Query01;
             string errMessage = string.Empty;
-            SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+            SAPbouiCOM.ProgressBar ProgressBar01 = null;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
+                ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
                 oForm.Freeze(true);
                 Query01 = "EXEC PS_PP362_02 '" + prmOrdNum + "'";
                 oRecordSet01.DoQuery(Query01);
@@ -456,7 +456,8 @@ namespace PSH_BOne_AddOn
                     errMessage = "결과가 존재하지 않습니다.";
                     throw new Exception();
                 }
-                for (loopCount = 0; loopCount <= oRecordSet01.RecordCount - 1; loopCount++)
+
+                for (int loopCount = 0; loopCount <= oRecordSet01.RecordCount - 1; loopCount++)
                 {
                     if (loopCount != 0)
                     {
@@ -464,21 +465,21 @@ namespace PSH_BOne_AddOn
                     }
                     oDS_PS_PP362M.Offset = loopCount;
 
-                    oDS_PS_PP362M.SetValue("U_LineNum", loopCount, Convert.ToString(loopCount + 1));             //라인번호
-                    oDS_PS_PP362M.SetValue("U_ColReg01", loopCount, oRecordSet01.Fields.Item("OrdNum").Value);   //작번
-                    oDS_PS_PP362M.SetValue("U_ColReg02", loopCount, oRecordSet01.Fields.Item("OrdSub").Value);   //Sub작번
+                    oDS_PS_PP362M.SetValue("U_LineNum", loopCount, Convert.ToString(loopCount + 1)); //라인번호
+                    oDS_PS_PP362M.SetValue("U_ColReg01", loopCount, oRecordSet01.Fields.Item("OrdNum").Value); //작번
+                    oDS_PS_PP362M.SetValue("U_ColReg02", loopCount, oRecordSet01.Fields.Item("OrdSub").Value); //Sub작번
                     oDS_PS_PP362M.SetValue("U_ColReg03", loopCount, oRecordSet01.Fields.Item("ItemCode").Value); //품목
                     oDS_PS_PP362M.SetValue("U_ColReg04", loopCount, oRecordSet01.Fields.Item("ItemName").Value); //품목명
-                    oDS_PS_PP362M.SetValue("U_ColReg05", loopCount, oRecordSet01.Fields.Item("Spec").Value);     //규격
-                    oDS_PS_PP362M.SetValue("U_ColReg06", loopCount, oRecordSet01.Fields.Item("Unit").Value);     //단위
+                    oDS_PS_PP362M.SetValue("U_ColReg05", loopCount, oRecordSet01.Fields.Item("Spec").Value); //규격
+                    oDS_PS_PP362M.SetValue("U_ColReg06", loopCount, oRecordSet01.Fields.Item("Unit").Value); //단위
                     oDS_PS_PP362M.SetValue("U_ColSum01", loopCount, oRecordSet01.Fields.Item("Quantity").Value); //수량
-                    oDS_PS_PP362M.SetValue("U_ColSum02", loopCount, oRecordSet01.Fields.Item("MatAmt").Value);   //자재비
-                    oDS_PS_PP362M.SetValue("U_ColSum03", loopCount, oRecordSet01.Fields.Item("DrawAmt").Value);  //설계비
-                    oDS_PS_PP362M.SetValue("U_ColSum04", loopCount, oRecordSet01.Fields.Item("GagongAmt").Value);//자체가공비
-                    oDS_PS_PP362M.SetValue("U_ColSum05", loopCount, oRecordSet01.Fields.Item("OutgAmt").Value);  //외주가공비
-                    oDS_PS_PP362M.SetValue("U_ColSum06", loopCount, oRecordSet01.Fields.Item("OutmAmt").Value);  //외주제작비
-                    oDS_PS_PP362M.SetValue("U_ColSum07", loopCount, oRecordSet01.Fields.Item("Total").Value);    //계
-                    oDS_PS_PP362M.SetValue("U_ColSum08", loopCount, oRecordSet01.Fields.Item("SjAmt").Value);    //수주금액
+                    oDS_PS_PP362M.SetValue("U_ColSum02", loopCount, oRecordSet01.Fields.Item("MatAmt").Value); //자재비
+                    oDS_PS_PP362M.SetValue("U_ColSum03", loopCount, oRecordSet01.Fields.Item("DrawAmt").Value); //설계비
+                    oDS_PS_PP362M.SetValue("U_ColSum04", loopCount, oRecordSet01.Fields.Item("GagongAmt").Value); //자체가공비
+                    oDS_PS_PP362M.SetValue("U_ColSum05", loopCount, oRecordSet01.Fields.Item("OutgAmt").Value); //외주가공비
+                    oDS_PS_PP362M.SetValue("U_ColSum06", loopCount, oRecordSet01.Fields.Item("OutmAmt").Value); //외주제작비
+                    oDS_PS_PP362M.SetValue("U_ColSum07", loopCount, oRecordSet01.Fields.Item("Total").Value); //계
+                    oDS_PS_PP362M.SetValue("U_ColSum08", loopCount, oRecordSet01.Fields.Item("SjAmt").Value); //수주금액
                     oDS_PS_PP362M.SetValue("U_ColReg15", loopCount, oRecordSet01.Fields.Item("PP030HNo").Value); //작지등록No
 
                     oRecordSet01.MoveNext();
@@ -502,7 +503,7 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
                 if (ProgressBar01 != null)
                 {
                     ProgressBar01.Stop();
@@ -523,52 +524,52 @@ namespace PSH_BOne_AddOn
         /// <param name="prmOrdSub"></param>
         private void PS_PP362_MTX03(string prmOrdNum, string prmOrdSub)
         {
-            int loopCount;
             string Query01;
             string errMessage = string.Empty;
-            SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+            //SAPbouiCOM.ProgressBar ProgressBar01 = null;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
-                oForm.Freeze(true);
+                //ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
+                //oForm.Freeze(true);
                 Query01 = "EXEC PS_PP362_03 '" + prmOrdNum + "','" + prmOrdSub + "'";
                 oRecordSet01.DoQuery(Query01);
 
-                ProgressBar01.Text = "조회시작!";
                 oMat03.Clear();
                 oMat03.FlushToDataSource();
                 oMat03.LoadFromDataSource();
 
-                if (oRecordSet01.RecordCount == 0)
-                {
-                    oMat01.Clear();
-                    errMessage = "결과가 존재하지 않습니다.";
-                    throw new Exception();
-                }
+                //if (oRecordSet01.RecordCount == 0)
+                //{
+                //    oMat01.Clear();
+                //    errMessage = "결과가 존재하지 않습니다.";
+                //    throw new Exception();
+                //}
 
-                for (loopCount = 0; loopCount <= oRecordSet01.RecordCount - 1; loopCount++)
+                for (int loopCount = 0; loopCount <= oRecordSet01.RecordCount - 1; loopCount++)
                 {
                     if (loopCount != 0)
                     {
                         oDS_PS_PP362N.InsertRecord(loopCount);
                     }
                     oDS_PS_PP362N.Offset = loopCount;
-                    oDS_PS_PP362N.SetValue("U_LineNum", loopCount, Convert.ToString(loopCount + 1));              //라인번호
-                    oDS_PS_PP362N.SetValue("U_ColReg01", loopCount, oRecordSet01.Fields.Item("Purchase").Value);  //구분
-                    oDS_PS_PP362N.SetValue("U_ColReg02", loopCount, oRecordSet01.Fields.Item("PurchaseNm").Value);//구분명
-                    oDS_PS_PP362N.SetValue("U_ColReg03", loopCount, oRecordSet01.Fields.Item("OrdNum").Value);    //작번
-                    oDS_PS_PP362N.SetValue("U_ColReg04", loopCount, oRecordSet01.Fields.Item("ItemCode").Value);  //품목코드
-                    oDS_PS_PP362N.SetValue("U_ColReg05", loopCount, oRecordSet01.Fields.Item("ItemName").Value);  //품명
-                    oDS_PS_PP362N.SetValue("U_ColSum01", loopCount, oRecordSet01.Fields.Item("MatAmt").Value);    //자재비
+                    oDS_PS_PP362N.SetValue("U_LineNum", loopCount, Convert.ToString(loopCount + 1)); //라인번호
+                    oDS_PS_PP362N.SetValue("U_ColReg01", loopCount, oRecordSet01.Fields.Item("Purchase").Value); //구분
+                    oDS_PS_PP362N.SetValue("U_ColReg02", loopCount, oRecordSet01.Fields.Item("PurchaseNm").Value); //구분명
+                    oDS_PS_PP362N.SetValue("U_ColReg03", loopCount, oRecordSet01.Fields.Item("OrdNum").Value); //작번
+                    oDS_PS_PP362N.SetValue("U_ColReg04", loopCount, oRecordSet01.Fields.Item("ItemCode").Value); //품목코드
+                    oDS_PS_PP362N.SetValue("U_ColReg05", loopCount, oRecordSet01.Fields.Item("ItemName").Value); //품명
+                    oDS_PS_PP362N.SetValue("U_ColSum01", loopCount, oRecordSet01.Fields.Item("MatAmt").Value); //자재비
 
                     oRecordSet01.MoveNext();
-                    ProgressBar01.Value += 1;
-                    ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
+                    //ProgressBar01.Value += 1;
+                    //ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
+
                 oMat03.LoadFromDataSource();
                 oMat03.AutoResizeColumns();
-
             }
             catch (Exception ex)
             {
@@ -583,13 +584,13 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                oForm.Freeze(false);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
-                if (ProgressBar01 != null)
-                {
-                    ProgressBar01.Stop();
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
-                }
+                //oForm.Freeze(false);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+                //if (ProgressBar01 != null)
+                //{
+                //    ProgressBar01.Stop();
+                //    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                //}
             }
         }
 
@@ -606,50 +607,51 @@ namespace PSH_BOne_AddOn
         /// <param name="prmOrdSub"></param>
         private void PS_PP362_MTX04(string prmOrdNum, string prmOrdSub)
         {
-            int loopCount;
             string Query01;
             string errMessage = string.Empty;
-
-            SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+            //SAPbouiCOM.ProgressBar ProgressBar01 = null;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
-                oForm.Freeze(true);
+                //ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
+                //oForm.Freeze(true);
                 Query01 = "EXEC PS_PP362_04 '" + prmOrdNum + "','" + prmOrdSub + "'";
                 oRecordSet01.DoQuery(Query01);
 
-                ProgressBar01.Text = "조회시작!";
                 oMat04.Clear();
                 oMat04.FlushToDataSource();
                 oMat04.LoadFromDataSource();
 
-                if (oRecordSet01.RecordCount == 0)
-                {
-                    oMat01.Clear();
-                    errMessage = "결과가 존재하지 않습니다.";
-                    throw new Exception();
-                }
-                for (loopCount = 0; loopCount <= oRecordSet01.RecordCount - 1; loopCount++)
+                //if (oRecordSet01.RecordCount == 0)
+                //{
+                //    oMat01.Clear();
+                //    errMessage = "결과가 존재하지 않습니다.";
+                //    throw new Exception();
+                //}
+
+                for (int loopCount = 0; loopCount <= oRecordSet01.RecordCount - 1; loopCount++)
                 {
                     if (loopCount != 0)
                     {
                         oDS_PS_PP362O.InsertRecord(loopCount);
                     }
                     oDS_PS_PP362O.Offset = loopCount;
-                    oDS_PS_PP362O.SetValue("U_LineNum", loopCount, Convert.ToString(loopCount + 1));             //라인번호
-                    oDS_PS_PP362O.SetValue("U_ColReg01", loopCount, oRecordSet01.Fields.Item("DocDate").Value);  //일자
+                    oDS_PS_PP362O.SetValue("U_LineNum", loopCount, Convert.ToString(loopCount + 1)); //라인번호
+                    oDS_PS_PP362O.SetValue("U_ColReg01", loopCount, oRecordSet01.Fields.Item("DocDate").Value); //일자
                     oDS_PS_PP362O.SetValue("U_ColReg02", loopCount, oRecordSet01.Fields.Item("WorkCode").Value); //작업자코드
                     oDS_PS_PP362O.SetValue("U_ColReg03", loopCount, oRecordSet01.Fields.Item("WorkName").Value); //작업자명
-                    oDS_PS_PP362O.SetValue("U_ColReg04", loopCount, oRecordSet01.Fields.Item("CpCode").Value);   //공정코드
-                    oDS_PS_PP362O.SetValue("U_ColReg05", loopCount, oRecordSet01.Fields.Item("CpName").Value);   //공정명
-                    oDS_PS_PP362O.SetValue("U_ColReg06", loopCount, oRecordSet01.Fields.Item("PQty").Value);     //도면매수
-                    oDS_PS_PP362O.SetValue("U_ColSum01", loopCount, oRecordSet01.Fields.Item("Amt").Value);      //설계비
+                    oDS_PS_PP362O.SetValue("U_ColReg04", loopCount, oRecordSet01.Fields.Item("CpCode").Value); //공정코드
+                    oDS_PS_PP362O.SetValue("U_ColReg05", loopCount, oRecordSet01.Fields.Item("CpName").Value); //공정명
+                    oDS_PS_PP362O.SetValue("U_ColReg06", loopCount, oRecordSet01.Fields.Item("PQty").Value); //도면매수
+                    oDS_PS_PP362O.SetValue("U_ColSum01", loopCount, oRecordSet01.Fields.Item("Amt").Value); //설계비
 
                     oRecordSet01.MoveNext();
-                    ProgressBar01.Value += 1;
-                    ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
+                    //ProgressBar01.Value += 1;
+                    //ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
+
                 oMat04.LoadFromDataSource();
                 oMat04.AutoResizeColumns();
             }
@@ -666,13 +668,13 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                oForm.Freeze(false);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
-                if (ProgressBar01 != null)
-                {
-                    ProgressBar01.Stop();
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
-                }
+                //oForm.Freeze(false);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+                //if (ProgressBar01 != null)
+                //{
+                //    ProgressBar01.Stop();
+                //    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                //}
             }
         }
 
@@ -683,18 +685,18 @@ namespace PSH_BOne_AddOn
         /// <param name="prmOrdSub"></param>
         private void PS_PP362_MTX05(string prmOrdNum, string prmOrdSub)
         {
-            int loopCount;
             string Query01;
             string errMessage = string.Empty;
-            SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+            //SAPbouiCOM.ProgressBar ProgressBar01 = null;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
-                oForm.Freeze(true);
+                //ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
+                //oForm.Freeze(true);
                 Query01 = "EXEC PS_PP362_05 '" + prmOrdNum + "','" + prmOrdSub + "'";
                 oRecordSet01.DoQuery(Query01);
-                ProgressBar01.Text = "조회시작!";
 
                 oMat05.Clear();
                 oMat05.FlushToDataSource();
@@ -706,31 +708,33 @@ namespace PSH_BOne_AddOn
                     errMessage = "결과가 존재하지 않습니다.";
                     throw new Exception();
                 }
-                for (loopCount = 0; loopCount <= oRecordSet01.RecordCount - 1; loopCount++)
+
+                for (int loopCount = 0; loopCount <= oRecordSet01.RecordCount - 1; loopCount++)
                 {
                     if (loopCount != 0)
                     {
                         oDS_PS_PP362P.InsertRecord(loopCount);
                     }
                     oDS_PS_PP362P.Offset = loopCount;
-                    oDS_PS_PP362P.SetValue("U_LineNum", loopCount, Convert.ToString(loopCount + 1));              //라인번호
-                    oDS_PS_PP362P.SetValue("U_ColReg01", loopCount, oRecordSet01.Fields.Item("CpName").Value);    //공정명
-                    oDS_PS_PP362P.SetValue("U_ColReg02", loopCount, oRecordSet01.Fields.Item("StdTime").Value);   //표준공수
-                    oDS_PS_PP362P.SetValue("U_ColReg03", loopCount, oRecordSet01.Fields.Item("WkTime").Value);    //실동공수
-                    oDS_PS_PP362P.SetValue("U_ColReg04", loopCount, oRecordSet01.Fields.Item("ReTime").Value);    //수정공수
-                    oDS_PS_PP362P.SetValue("U_ColSum01", loopCount, oRecordSet01.Fields.Item("Amt").Value);       //가공비(실동)
-                    oDS_PS_PP362P.SetValue("U_ColReg06", loopCount, oRecordSet01.Fields.Item("Class").Value);     //구분
-                    oDS_PS_PP362P.SetValue("U_ColReg07", loopCount, oRecordSet01.Fields.Item("CompltDt").Value);  //완료요구일
+                    oDS_PS_PP362P.SetValue("U_LineNum", loopCount, Convert.ToString(loopCount + 1)); //라인번호
+                    oDS_PS_PP362P.SetValue("U_ColReg01", loopCount, oRecordSet01.Fields.Item("CpName").Value); //공정명
+                    oDS_PS_PP362P.SetValue("U_ColReg02", loopCount, oRecordSet01.Fields.Item("StdTime").Value); //표준공수
+                    oDS_PS_PP362P.SetValue("U_ColReg03", loopCount, oRecordSet01.Fields.Item("WkTime").Value); //실동공수
+                    oDS_PS_PP362P.SetValue("U_ColReg04", loopCount, oRecordSet01.Fields.Item("ReTime").Value); //수정공수
+                    oDS_PS_PP362P.SetValue("U_ColSum01", loopCount, oRecordSet01.Fields.Item("Amt").Value); //가공비(실동)
+                    oDS_PS_PP362P.SetValue("U_ColReg06", loopCount, oRecordSet01.Fields.Item("Class").Value); //구분
+                    oDS_PS_PP362P.SetValue("U_ColReg07", loopCount, oRecordSet01.Fields.Item("CompltDt").Value); //완료요구일
                     oDS_PS_PP362P.SetValue("U_ColReg08", loopCount, oRecordSet01.Fields.Item("FirstWkDt").Value); //최초작업
-                    oDS_PS_PP362P.SetValue("U_ColReg09", loopCount, oRecordSet01.Fields.Item("LastWkDt").Value);  //최종작업
-                    oDS_PS_PP362P.SetValue("U_ColReg10", loopCount, oRecordSet01.Fields.Item("CpCode").Value);    //공정코드
-                    oDS_PS_PP362P.SetValue("U_ColReg11", loopCount, oRecordSet01.Fields.Item("OrdNum").Value);    //작번
-                    oDS_PS_PP362P.SetValue("U_ColReg12", loopCount, oRecordSet01.Fields.Item("Sub1_2").Value);    //서브작번
+                    oDS_PS_PP362P.SetValue("U_ColReg09", loopCount, oRecordSet01.Fields.Item("LastWkDt").Value); //최종작업
+                    oDS_PS_PP362P.SetValue("U_ColReg10", loopCount, oRecordSet01.Fields.Item("CpCode").Value); //공정코드
+                    oDS_PS_PP362P.SetValue("U_ColReg11", loopCount, oRecordSet01.Fields.Item("OrdNum").Value); //작번
+                    oDS_PS_PP362P.SetValue("U_ColReg12", loopCount, oRecordSet01.Fields.Item("Sub1_2").Value); //서브작번
 
                     oRecordSet01.MoveNext();
-                    ProgressBar01.Value += 1;
-                    ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
+                    //ProgressBar01.Value += 1;
+                    //ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
+
                 oMat05.LoadFromDataSource();
                 oMat05.AutoResizeColumns();
             }
@@ -747,13 +751,13 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                oForm.Freeze(false);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
-                if (ProgressBar01 != null)
-                {
-                    ProgressBar01.Stop();
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
-                }
+                //oForm.Freeze(false);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+                //if (ProgressBar01 != null)
+                //{
+                //    ProgressBar01.Stop();
+                //    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                //}
             }
         }
 
@@ -771,18 +775,18 @@ namespace PSH_BOne_AddOn
         /// <param name="prmCpCode"></param>
         private void PS_PP362_MTX06(string prmOrdNum, string prmOrdSub, string prmCpCode)
         {
-            int loopCount;
             string Query01;
             string errMessage = string.Empty;
-            SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+            SAPbouiCOM.ProgressBar ProgressBar01 = null;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
+                ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
                 oForm.Freeze(true);
                 Query01 = "EXEC PS_PP362_06 '" + prmOrdNum + "','" + prmOrdSub + "','" + prmCpCode + "'";
                 oRecordSet01.DoQuery(Query01);
-                ProgressBar01.Text = "조회시작!";
 
                 oMat06.Clear();
                 oMat06.FlushToDataSource();
@@ -794,30 +798,32 @@ namespace PSH_BOne_AddOn
                     errMessage = "결과가 존재하지 않습니다.";
                     throw new Exception();
                 }
-                for (loopCount = 0; loopCount <= oRecordSet01.RecordCount - 1; loopCount++)
+
+                for (int loopCount = 0; loopCount <= oRecordSet01.RecordCount - 1; loopCount++)
                 {
                     if (loopCount != 0)
                     {
                         oDS_PS_PP362Q.InsertRecord(loopCount);
                     }
                     oDS_PS_PP362Q.Offset = loopCount;
-                    oDS_PS_PP362Q.SetValue("U_LineNum", loopCount, Convert.ToString(loopCount + 1));            //라인번호
-                    oDS_PS_PP362Q.SetValue("U_ColReg01", loopCount, oRecordSet01.Fields.Item("WorkDt").Value);  //작업일자
+                    oDS_PS_PP362Q.SetValue("U_LineNum", loopCount, Convert.ToString(loopCount + 1)); //라인번호
+                    oDS_PS_PP362Q.SetValue("U_ColReg01", loopCount, oRecordSet01.Fields.Item("WorkDt").Value); //작업일자
                     oDS_PS_PP362Q.SetValue("U_ColReg02", loopCount, oRecordSet01.Fields.Item("EmpCode").Value); //사번
                     oDS_PS_PP362Q.SetValue("U_ColReg03", loopCount, oRecordSet01.Fields.Item("EmpName").Value); //성명
-                    oDS_PS_PP362Q.SetValue("U_ColQty01", loopCount, oRecordSet01.Fields.Item("WkTime").Value);  //공수
-                    oDS_PS_PP362Q.SetValue("U_ColReg05", loopCount, oRecordSet01.Fields.Item("Qty").Value);     //완료수량
-                    oDS_PS_PP362Q.SetValue("U_ColReg06", loopCount, oRecordSet01.Fields.Item("Price").Value);   //단가
-                    oDS_PS_PP362Q.SetValue("U_ColSum02", loopCount, oRecordSet01.Fields.Item("Amt").Value);     //금액(가공비)
-                    oDS_PS_PP362Q.SetValue("U_ColReg08", loopCount, oRecordSet01.Fields.Item("Class").Value);   //구분
-                    oDS_PS_PP362Q.SetValue("U_ColReg09", loopCount, oRecordSet01.Fields.Item("CpCode").Value);  //공정코드
-                    oDS_PS_PP362Q.SetValue("U_ColReg10", loopCount, oRecordSet01.Fields.Item("CpName").Value);  //공정명
-                    oDS_PS_PP362Q.SetValue("U_ColReg11", loopCount, oRecordSet01.Fields.Item("PP040HNo").Value);//작업일보번호
+                    oDS_PS_PP362Q.SetValue("U_ColQty01", loopCount, oRecordSet01.Fields.Item("WkTime").Value); //공수
+                    oDS_PS_PP362Q.SetValue("U_ColReg05", loopCount, oRecordSet01.Fields.Item("Qty").Value); //완료수량
+                    oDS_PS_PP362Q.SetValue("U_ColReg06", loopCount, oRecordSet01.Fields.Item("Price").Value); //단가
+                    oDS_PS_PP362Q.SetValue("U_ColSum02", loopCount, oRecordSet01.Fields.Item("Amt").Value); //금액(가공비)
+                    oDS_PS_PP362Q.SetValue("U_ColReg08", loopCount, oRecordSet01.Fields.Item("Class").Value); //구분
+                    oDS_PS_PP362Q.SetValue("U_ColReg09", loopCount, oRecordSet01.Fields.Item("CpCode").Value); //공정코드
+                    oDS_PS_PP362Q.SetValue("U_ColReg10", loopCount, oRecordSet01.Fields.Item("CpName").Value); //공정명
+                    oDS_PS_PP362Q.SetValue("U_ColReg11", loopCount, oRecordSet01.Fields.Item("PP040HNo").Value); //작업일보번호
 
                     oRecordSet01.MoveNext();
                     ProgressBar01.Value += 1;
                     ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
+
                 oMat06.LoadFromDataSource();
                 oMat06.AutoResizeColumns();
             }
@@ -835,7 +841,7 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
                 if (ProgressBar01 != null)
                 {
                     ProgressBar01.Stop();
@@ -857,46 +863,49 @@ namespace PSH_BOne_AddOn
         /// <param name="prmOrdSub"></param>
         private void PS_PP362_MTX07(string prmOrdNum, string prmOrdSub)
         {
-            int loopCount;
             string Query01;
             string errMessage = string.Empty;
-            SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+            //SAPbouiCOM.ProgressBar ProgressBar01 = null;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
-                oForm.Freeze(true);
+                //ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
+                //oForm.Freeze(true);
                 Query01 = "EXEC PS_PP362_07 '" + prmOrdNum + "','" + prmOrdSub + "'";
                 oRecordSet01.DoQuery(Query01);
-                ProgressBar01.Text = "조회시작!";
 
                 oMat07.Clear();
                 oMat07.FlushToDataSource();
                 oMat07.LoadFromDataSource();
-                if (oRecordSet01.RecordCount == 0)
-                {
-                    oMat01.Clear();
-                    errMessage = "결과가 존재하지 않습니다.";
-                    throw new Exception();
-                }
-                for (loopCount = 0; loopCount <= oRecordSet01.RecordCount - 1; loopCount++)
+
+                //if (oRecordSet01.RecordCount == 0)
+                //{
+                //    oMat01.Clear();
+                //    errMessage = "결과가 존재하지 않습니다.";
+                //    throw new Exception();
+                //}
+
+                for (int loopCount = 0; loopCount <= oRecordSet01.RecordCount - 1; loopCount++)
                 {
                     if (loopCount != 0)
                     {
                         oDS_PS_PP362R.InsertRecord(loopCount);
                     }
                     oDS_PS_PP362R.Offset = loopCount;
-                    oDS_PS_PP362R.SetValue("U_LineNum", loopCount, Convert.ToString(loopCount + 1));            //라인번호
-                    oDS_PS_PP362R.SetValue("U_ColReg01", loopCount, oRecordSet01.Fields.Item("CpCode").Value);  //공정코드
-                    oDS_PS_PP362R.SetValue("U_ColReg02", loopCount, oRecordSet01.Fields.Item("CpName").Value);  //공정명
-                    oDS_PS_PP362R.SetValue("U_ColReg03", loopCount, oRecordSet01.Fields.Item("OrdNum").Value);  //작번
-                    oDS_PS_PP362R.SetValue("U_ColReg04", loopCount, oRecordSet01.Fields.Item("ItemName").Value);//품명
-                    oDS_PS_PP362R.SetValue("U_ColSum01", loopCount, oRecordSet01.Fields.Item("Amt").Value);     //금액
+                    oDS_PS_PP362R.SetValue("U_LineNum", loopCount, Convert.ToString(loopCount + 1)); //라인번호
+                    oDS_PS_PP362R.SetValue("U_ColReg01", loopCount, oRecordSet01.Fields.Item("CpCode").Value); //공정코드
+                    oDS_PS_PP362R.SetValue("U_ColReg02", loopCount, oRecordSet01.Fields.Item("CpName").Value); //공정명
+                    oDS_PS_PP362R.SetValue("U_ColReg03", loopCount, oRecordSet01.Fields.Item("OrdNum").Value); //작번
+                    oDS_PS_PP362R.SetValue("U_ColReg04", loopCount, oRecordSet01.Fields.Item("ItemName").Value); //품명
+                    oDS_PS_PP362R.SetValue("U_ColSum01", loopCount, oRecordSet01.Fields.Item("Amt").Value); //금액
 
                     oRecordSet01.MoveNext();
-                    ProgressBar01.Value += 1;
-                    ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
+                    //ProgressBar01.Value += 1;
+                    //ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
+
                 oMat07.LoadFromDataSource();
                 oMat07.AutoResizeColumns();
             }
@@ -913,13 +922,13 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                oForm.Freeze(false);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
-                if (ProgressBar01 != null)
-                {
-                    ProgressBar01.Stop();
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
-                }
+                //oForm.Freeze(false);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+                //if (ProgressBar01 != null)
+                //{
+                //    ProgressBar01.Stop();
+                //    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                //}
             }
         }
 
@@ -936,18 +945,18 @@ namespace PSH_BOne_AddOn
         /// <param name="prmOrdSub"></param>
         private void PS_PP362_MTX08(string prmOrdNum, string prmOrdSub)
         {
-            int loopCount = 0;
-            string Query01 = null;
+            string Query01;
             string errMessage = string.Empty;
-            SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+            //SAPbouiCOM.ProgressBar ProgressBar01 = null;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
-                oForm.Freeze(true);
+                //ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
+                //oForm.Freeze(true);
                 Query01 = "EXEC PS_PP362_08 '" + prmOrdNum + "','" + prmOrdSub + "'";
                 oRecordSet01.DoQuery(Query01);
-                ProgressBar01.Text = "조회시작!";
 
                 oMat08.Clear();
                 oMat08.FlushToDataSource();
@@ -959,7 +968,8 @@ namespace PSH_BOne_AddOn
                     errMessage = "결과가 존재하지 않습니다.";
                     throw new Exception();
                 }
-                for (loopCount = 0; loopCount <= oRecordSet01.RecordCount - 1; loopCount++)
+
+                for (int loopCount = 0; loopCount <= oRecordSet01.RecordCount - 1; loopCount++)
                 {
                     if (loopCount != 0)
                     {
@@ -967,17 +977,18 @@ namespace PSH_BOne_AddOn
                     }
                     oDS_PS_PP362S.Offset = loopCount;
 
-                    oDS_PS_PP362S.SetValue("U_LineNum", loopCount, Convert.ToString(loopCount + 1));            //라인번호
-                    oDS_PS_PP362S.SetValue("U_ColReg01", loopCount, oRecordSet01.Fields.Item("CpCode").Value);  //공정코드
-                    oDS_PS_PP362S.SetValue("U_ColReg02", loopCount, oRecordSet01.Fields.Item("CpName").Value);  //공정명
-                    oDS_PS_PP362S.SetValue("U_ColReg03", loopCount, oRecordSet01.Fields.Item("OrdNum").Value);  //작번
-                    oDS_PS_PP362S.SetValue("U_ColReg04", loopCount, oRecordSet01.Fields.Item("ItemName").Value);//품명
-                    oDS_PS_PP362S.SetValue("U_ColSum01", loopCount, oRecordSet01.Fields.Item("Amt").Value);     //금액
+                    oDS_PS_PP362S.SetValue("U_LineNum", loopCount, Convert.ToString(loopCount + 1)); //라인번호
+                    oDS_PS_PP362S.SetValue("U_ColReg01", loopCount, oRecordSet01.Fields.Item("CpCode").Value); //공정코드
+                    oDS_PS_PP362S.SetValue("U_ColReg02", loopCount, oRecordSet01.Fields.Item("CpName").Value); //공정명
+                    oDS_PS_PP362S.SetValue("U_ColReg03", loopCount, oRecordSet01.Fields.Item("OrdNum").Value); //작번
+                    oDS_PS_PP362S.SetValue("U_ColReg04", loopCount, oRecordSet01.Fields.Item("ItemName").Value); //품명
+                    oDS_PS_PP362S.SetValue("U_ColSum01", loopCount, oRecordSet01.Fields.Item("Amt").Value); //금액
 
                     oRecordSet01.MoveNext();
-                    ProgressBar01.Value += 1;
-                    ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
+                    //ProgressBar01.Value += 1;
+                    //ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
+
                 oMat08.LoadFromDataSource();
                 oMat08.AutoResizeColumns();
             }
@@ -994,20 +1005,20 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                oForm.Freeze(false);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
-                if (ProgressBar01 != null)
-                {
-                    ProgressBar01.Stop();
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
-                }
+                //oForm.Freeze(false);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+                //if (ProgressBar01 != null)
+                //{
+                //    ProgressBar01.Stop();
+                //    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                //}
             }
         }
 
         /// <summary>
         /// DocEntry 초기화
         /// </summary>
-        private void PS_PP362_FormClear()
+        private void PS_PP362_SetDocEntry()
         {
             string DocEntry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -1034,22 +1045,22 @@ namespace PSH_BOne_AddOn
         /// 리포트 조회
         /// </summary>
         [STAThread]
-        private void PS_PP362_Print_Report(object prmItemUID)
+        private void PS_PP362_PrintReport(object prmItemUID)
         {
             string WinTitle;
             string ReportName;
-            string FrDt;     //작번등록년월(시작)
-            string ToDt;     //작번등록년월(종료)
+            string FrDt; //작번등록년월(시작)
+            string ToDt; //작번등록년월(종료)
             string FrgnName; //품명
             string CardType; //거래처구분
-            string SPEC;     //규격
-            string ItemClass;//품목구분
-            string WCYN;     //생산완료여부
+            string SPEC; //규격
+            string ItemClass; //품목구분
+            string WCYN; //생산완료여부
             string CardCode; //거래처
             string ItemCode; //품목(작번)
-            string OrdNum;   //Main작번
-            string OrdSub;   //Sub작번
-            string CpCode;   //공정코드
+            string OrdNum; //Main작번
+            string OrdSub; //Sub작번
+            string CpCode; //공정코드
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 
             try
@@ -1181,98 +1192,75 @@ namespace PSH_BOne_AddOn
                 case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED: //1
                     Raise_EVENT_ITEM_PRESSED(FormUID, ref pVal, ref BubbleEvent);
                     break;
-
                 case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
                     Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
                     break;
-
                 case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
                     Raise_EVENT_GOT_FOCUS(FormUID, ref pVal, ref BubbleEvent);
                     break;
-
-                //case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
-                //    Raise_EVENT_LOST_FOCUS(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-
-                //case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
-                //    Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-
+                case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
+                    //Raise_EVENT_LOST_FOCUS(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
+                    //Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
+                    break;
                 case SAPbouiCOM.BoEventTypes.et_CLICK: //6
                     Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
                     break;
-
                 case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
                     Raise_EVENT_DOUBLE_CLICK(FormUID, ref pVal, ref BubbleEvent);
                     break;
-
                 case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED: //8
                     Raise_EVENT_MATRIX_LINK_PRESSED(FormUID, ref pVal, ref BubbleEvent);
                     break;
-
-                //case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED: //9
-                //    Raise_EVENT_MATRIX_COLLAPSE_PRESSED(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-
+                case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED: //9
+                    //Raise_EVENT_MATRIX_COLLAPSE_PRESSED(FormUID, ref pVal, ref BubbleEvent);
+                    break;
                 case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
                     Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
                     break;
-
-                //case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
-                //    Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-
-                //case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD: //12
-                //    Raise_EVENT_DATASOURCE_LOAD(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-
-                //case SAPbouiCOM.BoEventTypes.et_FORM_LOAD: //16
-                //    Raise_EVENT_FORM_LOAD(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-
+                case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
+                    //Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD: //12
+                    //Raise_EVENT_DATASOURCE_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_FORM_LOAD: //16
+                    //Raise_EVENT_FORM_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                    break;
                 case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD: //17
                     Raise_EVENT_FORM_UNLOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
-
-                //case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: //18
-                //    Raise_EVENT_FORM_ACTIVATE(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-
-                //case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE: //19
-                //    Raise_EVENT_FORM_DEACTIVATE(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-
-                //case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE: //20
-                //    Raise_EVENT_FORM_CLOSE(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-
-                //case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
-                //    Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-
-                //case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
-                //    Raise_EVENT_FORM_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-
-                //case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
-                //    Raise_EVENT_FORM_MENU_HILIGHT(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-
-                //case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
-                //    Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-
-                //case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED: //37
-                //    Raise_EVENT_PICKER_CLICKED(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-
-                //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
-                //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-
-                //case SAPbouiCOM.BoEventTypes.et_Drag: //39
-                //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: //18
+                    //Raise_EVENT_FORM_ACTIVATE(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE: //19
+                    //Raise_EVENT_FORM_DEACTIVATE(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE: //20
+                    //Raise_EVENT_FORM_CLOSE(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
+                    Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
+                    //Raise_EVENT_FORM_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
+                    //Raise_EVENT_FORM_MENU_HILIGHT(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
+                    //Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED: //37
+                    //Raise_EVENT_PICKER_CLICKED(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
+                    //Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_Drag: //39
+                    //Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
+                    break;
             }
         }
 
@@ -1323,7 +1311,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                         {
-                            System.Threading.Thread thread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(PS_PP362_Print_Report));
+                            System.Threading.Thread thread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(PS_PP362_PrintReport));
                             thread.SetApartmentState(System.Threading.ApartmentState.STA);
                             thread.Start(pVal.ItemUID);
                         }
@@ -1331,36 +1319,34 @@ namespace PSH_BOne_AddOn
                 }
                 else if (pVal.BeforeAction == false)
                 {
-                    
                     if (pVal.ItemUID == "Folder01")//Folder01이 선택되었을 때
                     {
                         oForm.PaneLevel = 1;
                     }
-                    if (pVal.ItemUID == "Folder02")//Folder02가 선택되었을 때
+                    else if (pVal.ItemUID == "Folder02")//Folder02가 선택되었을 때
                     {
                         oForm.PaneLevel = 2;
                     }
-                    if (pVal.ItemUID == "Folder03")//Folder03이 선택되었을 때
+                    else if (pVal.ItemUID == "Folder03")//Folder03이 선택되었을 때
                     {
                         oForm.PaneLevel = 3;
                     }
-                    if (pVal.ItemUID == "Folder04") //Folder04이 선택되었을 때
+                    else if (pVal.ItemUID == "Folder04") //Folder04이 선택되었을 때
                     {
                         oForm.PaneLevel = 4;
                     }
-                    if (pVal.ItemUID == "Folder05") //Folder05이 선택되었을 때
+                    else if (pVal.ItemUID == "Folder05") //Folder05이 선택되었을 때
                     {
                         oForm.PaneLevel = 5;
                     }
-                    if (pVal.ItemUID == "Folder06") //Folder06이 선택되었을 때
+                    else if (pVal.ItemUID == "Folder06") //Folder06이 선택되었을 때
                     {
                         oForm.PaneLevel = 6;
                     }
-                    if (pVal.ItemUID == "Folder07") //Folder07이 선택되었을 때
+                    else if (pVal.ItemUID == "Folder07") //Folder07이 선택되었을 때
                     {
                         oForm.PaneLevel = 7;
                     }
-                    
                 }
             }
             catch (Exception ex)
@@ -1639,7 +1625,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
                 oForm.Freeze(false);
             }
         }
@@ -1659,7 +1645,7 @@ namespace PSH_BOne_AddOn
                     if (pVal.ItemUID == "Mat02")
                     {
                         PS_PP030 PS_PP030 = new PS_PP030();
-                        PS_PP030.LoadForm(oMat01.Columns.Item("PP030HNo").Cells.Item(pVal.Row).Specific.String);
+                        PS_PP030.LoadForm(oMat02.Columns.Item("PP030HNo").Cells.Item(pVal.Row).Specific.String);
                         BubbleEvent = false;
                     }
                     else if (pVal.ItemUID == "Mat06")
@@ -1728,6 +1714,8 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_DOUBLE_CLICK(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
+            SAPbouiCOM.ProgressBar progressBar = null;
+
             try
             {
                 if (pVal.Before_Action == true)
@@ -1758,7 +1746,7 @@ namespace PSH_BOne_AddOn
                             oMat08.Clear();
                             oDS_PS_PP362S.Clear();
 
-                            oForm.Items.Item("Folder02").Specific.Select();  //Sub작번 TAB 선택
+                            oForm.Items.Item("Folder02").Specific.Select(); //Sub작번 TAB 선택
                             PS_PP362_MTX02(oMat01.Columns.Item("OrdNum").Cells.Item(pVal.Row).Specific.Value);
                         }
                     }
@@ -1788,18 +1776,18 @@ namespace PSH_BOne_AddOn
                             oDS_PS_PP362R.Clear();
                             oMat08.Clear();
                             oDS_PS_PP362S.Clear();
-                            
-                            PS_PP362_MTX03(oMat02.Columns.Item("OrdNum").Cells.Item(pVal.Row).Specific.Value, oMat02.Columns.Item("OrdSub").Cells.Item(pVal.Row).Specific.Value);//자재비
-                            PS_PP362_MTX04(oMat02.Columns.Item("OrdNum").Cells.Item(pVal.Row).Specific.Value, oMat02.Columns.Item("OrdSub").Cells.Item(pVal.Row).Specific.Value);//설계비
-                            PS_PP362_MTX05(oMat02.Columns.Item("OrdNum").Cells.Item(pVal.Row).Specific.Value, oMat02.Columns.Item("OrdSub").Cells.Item(pVal.Row).Specific.Value);//자체가공비_공정별
-                            //자체가공비_작업자별
-                            PS_PP362_MTX07(oMat02.Columns.Item("OrdNum").Cells.Item(pVal.Row).Specific.Value, oMat02.Columns.Item("OrdSub").Cells.Item(pVal.Row).Specific.Value);//외주가공비
-                            PS_PP362_MTX08(oMat02.Columns.Item("OrdNum").Cells.Item(pVal.Row).Specific.Value, oMat02.Columns.Item("OrdSub").Cells.Item(pVal.Row).Specific.Value);//외주제작비
+
+                            progressBar = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
+                            PS_PP362_MTX03(oMat02.Columns.Item("OrdNum").Cells.Item(pVal.Row).Specific.Value, oMat02.Columns.Item("OrdSub").Cells.Item(pVal.Row).Specific.Value); //자재비
+                            PS_PP362_MTX04(oMat02.Columns.Item("OrdNum").Cells.Item(pVal.Row).Specific.Value, oMat02.Columns.Item("OrdSub").Cells.Item(pVal.Row).Specific.Value); //설계비
+                            PS_PP362_MTX05(oMat02.Columns.Item("OrdNum").Cells.Item(pVal.Row).Specific.Value, oMat02.Columns.Item("OrdSub").Cells.Item(pVal.Row).Specific.Value); //자체가공비_공정별
+                            PS_PP362_MTX07(oMat02.Columns.Item("OrdNum").Cells.Item(pVal.Row).Specific.Value, oMat02.Columns.Item("OrdSub").Cells.Item(pVal.Row).Specific.Value); //외주가공비
+                            PS_PP362_MTX08(oMat02.Columns.Item("OrdNum").Cells.Item(pVal.Row).Specific.Value, oMat02.Columns.Item("OrdSub").Cells.Item(pVal.Row).Specific.Value); //외주제작비
                         }
                     }
                     else if (pVal.ItemUID == "Mat03")
                     {
-
                         if (pVal.Row == 0)
                         {
                             oMat03.Columns.Item(pVal.ColUID).TitleObject.Sortable = true;
@@ -1860,6 +1848,14 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
+            finally
+            {
+                if (progressBar != null)
+                {
+                    progressBar.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(progressBar);
+                }
+            }
         }
 
         /// <summary>
@@ -1868,7 +1864,7 @@ namespace PSH_BOne_AddOn
         /// <param name="FormUID">Form UID</param>
         /// <param name="pVal">ItemEvent 객체</param>
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_RESIZE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        private void Raise_EVENT_FORM_RESIZE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             try
             {
@@ -1877,7 +1873,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (pVal.Before_Action == false)
                 {
-                    PS_PP362_FormResize();
+                    PS_PP362_ResizeForm();
                 }
             }
             catch (Exception ex)
@@ -1992,33 +1988,16 @@ namespace PSH_BOne_AddOn
         {
             try
             {
-                if (BusinessObjectInfo.BeforeAction == true)
+                switch (BusinessObjectInfo.EventType)
                 {
-                    switch (BusinessObjectInfo.EventType)
-                    {
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
-                            break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
-                            break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
-                            break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
-                            break;
-                    }
-                }
-                else if (BusinessObjectInfo.BeforeAction == false)
-                {
-                    switch (BusinessObjectInfo.EventType)
-                    {
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
-                            break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
-                            break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
-                            break;
-                        case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
-                            break;
-                    }
+                    case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
+                        break;
+                    case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
+                        break;
+                    case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
+                        break;
+                    case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
+                        break;
                 }
             }
             catch (Exception ex)

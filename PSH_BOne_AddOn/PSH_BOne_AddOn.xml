@@ -31842,12 +31842,12 @@
             화면 Item 생성
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP362.PS_PP362_ComboBox_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_PP362.PS_PP362_SetComboBox">
             <summary>
             Combobox 설정
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP362.PS_PP362_FormResize">
+        <member name="M:PSH_BOne_AddOn.PS_PP362.PS_PP362_ResizeForm">
             <summary>
             FormResize
             </summary>
@@ -31949,12 +31949,12 @@
             <param name="prmOrdNum"></param>
             <param name="prmOrdSub"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP362.PS_PP362_FormClear">
+        <member name="M:PSH_BOne_AddOn.PS_PP362.PS_PP362_SetDocEntry">
             <summary>
             DocEntry 초기화
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP362.PS_PP362_Print_Report(System.Object)">
+        <member name="M:PSH_BOne_AddOn.PS_PP362.PS_PP362_PrintReport(System.Object)">
             <summary>
             리포트 조회
             </summary>
@@ -32031,7 +32031,7 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP362.Raise_EVENT_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_PP362.Raise_EVENT_FORM_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             RESIZE 이벤트
             </summary>

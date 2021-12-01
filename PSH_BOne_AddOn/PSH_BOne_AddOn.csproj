@@ -482,7 +482,6 @@
     <Compile Include="FormClass\PP\ZPS_MGSCRAP.cs" />
     <Compile Include="FormClass\PY\PH_PY400.cs" />
     <Compile Include="FormClass\PY\PH_PY420.cs" />
-    <Compile Include="FormClass\PY\PH_PYB10.cs" />
     <Compile Include="FormClass\PY\PH_PY998.cs" />
     <Compile Include="FormClass\PY\PH_PY115.cs" />
     <Compile Include="FormClass\PY\PH_PY135.cs" />

@@ -1,7 +1,10 @@
 ﻿using System;
 using SAPbouiCOM;
+using System.Collections.Generic;
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.Code;
+using PSH_BOne_AddOn.DataPack;
+using PSH_BOne_AddOn.Form;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace PSH_BOne_AddOn
@@ -851,6 +854,44 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
+        /// 리포트 조회
+        /// </summary>
+        [STAThread]
+        private void PH_PY124_Print_Report01()
+        {
+            string WinTitle;
+            string ReportName;
+            string CLTCOD;
+            string YM;
+            PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+
+            try
+            {
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Selected.Value.ToString().Trim(); //사업장
+                YM = oForm.Items.Item("YM").Specific.Value.Trim(); //년월
+
+                WinTitle = "[PH_PY124] 복지포인트 사용내역";
+                ReportName = "PH_PY124_01.rpt";
+
+                List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
+                List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
+
+                //Formula
+                dataPackFormula.Add(new PSH_DataPackClass("@YM", YM.Substring(0, 4) + "-" + YM.Substring(4, 2)));
+
+                //Parameter
+                dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD));
+                dataPackParameter.Add(new PSH_DataPackClass("@YM", YM));
+
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+            }
+        }
+
+        /// <summary>
         /// Form Item Event
         /// </summary>
         /// <param name="FormUID">Form UID</param>
@@ -1017,14 +1058,17 @@ namespace PSH_BOne_AddOn
                             PSH_Globals.SBO_Application.SetStatusBarMessage("베네피아 자료가 없습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                         }
                     }
+                    if (pVal.ItemUID == "Btn_Print")
+                    {
+                        System.Threading.Thread thread = new System.Threading.Thread(PH_PY124_Print_Report01);
+                        thread.SetApartmentState(System.Threading.ApartmentState.STA);
+                        thread.Start();
+                    }
                 }
             }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_ITEM_PRESSED_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
             }
         }
 

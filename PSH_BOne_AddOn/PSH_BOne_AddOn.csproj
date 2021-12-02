@@ -2165,7 +2165,6 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY990.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY995.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY998.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY999.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PYA10.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PYA20.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PYA30.srf" />

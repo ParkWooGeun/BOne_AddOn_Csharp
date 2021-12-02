@@ -77,6 +77,24 @@ namespace PSH_BOne_AddOn.Core
                 oItem.Left = oForm.Items.Item("2").Left + 160;
                 oItem.Height = 14;
                 oItem.Width = 180;
+
+                oItem = oForm.Items.Add("MtypeL", SAPbouiCOM.BoFormItemTypes.it_STATIC);
+                oItem.Top = oForm.Items.Item("2").Top;
+                oItem.Left = oForm.Items.Item("refEdit").Left + 190;
+                oItem.Height = 14;
+                oItem.Width = 80;
+                oItem.LinkTo = "MType";
+                oItem.Specific.Caption = "변경타입";
+
+                oItem = oForm.Items.Add("MType", SAPbouiCOM.BoFormItemTypes.it_COMBO_BOX);
+                oItem.Top = oForm.Items.Item("2").Top;
+                oItem.Left = oForm.Items.Item("MtypeL").Left + 80;
+                oItem.Specific.ValidValues.Add("N", "신규");
+                oItem.Specific.ValidValues.Add("M", "변경");
+                oItem.Specific.ValidValues.Add("C", "부서이동");
+                oItem.Height = 14;
+                oItem.Width = 180;
+                oItem.DisplayDesc = true;
             }
             catch (Exception ex)
             {
@@ -103,7 +121,7 @@ namespace PSH_BOne_AddOn.Core
             try
             {
                 ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("저장중", 0, false);
-                if (s230.RegUserID.Count > 0)
+                if (s230.RegUserID.Count > 0) // 복제
                 {
                     oForm.Items.Item("13").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     for (i = 1; i <= oMat01.VisualRowCount; i++)
@@ -118,7 +136,8 @@ namespace PSH_BOne_AddOn.Core
                     }
                     for (i = 0; i < s230.RegUserID.Count; i++)
                     {
-                        sQry = "Insert into PS_SY020 SELECT 'C','" + s230.RegUserID[i] + "','" + addString + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + PSH_Globals.oCompany.UserSignature.ToString() + "','" + oForm.Items.Item("refEdit").Specific.Value.ToString().Trim() + "','N'";
+                        sQry = "Insert into PS_SY020 SELECT 'C','" + s230.RegUserID[i] + "','" + addString + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + PSH_Globals.oCompany.UserName.ToString() + "','";
+                        sQry += oForm.Items.Item("refEdit").Specific.Value.ToString().Trim() + "','N','"+ oForm.Items.Item("MType").Specific.Value +"'";
                         oRecordSet01.DoQuery(sQry);
                         if (oForm.Items.Item("refEdit").Specific.Value.ToString().Trim() != "초기등록")
                         {
@@ -133,14 +152,15 @@ namespace PSH_BOne_AddOn.Core
                     }
                     s230.RegUserID.Clear();
                 }
-                else
+                else 
                 {
                     oForm.Items.Item("13").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     for (i = 1; i <= oMat01.VisualRowCount; i++)
                     {
                         addString += oMat01.Columns.Item("1").Cells.Item(i).Specific.Value + "^" + oMat01.Columns.Item("2").Cells.Item(i).Specific.Value + "`";//1
                     }
-                    sQry = "Insert into PS_SY020 SELECT 'C','" + cUserID + "','" + addString + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + PSH_Globals.oCompany.UserSignature.ToString() + "','" + oForm.Items.Item("refEdit").Specific.Value.ToString().Trim() + "','N'";
+                    sQry = "Insert into PS_SY020 SELECT 'C','" + cUserID + "','" + addString + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + PSH_Globals.oCompany.UserName.ToString() + "','";
+                    sQry += oForm.Items.Item("refEdit").Specific.Value.ToString().Trim() + "','N','" + oForm.Items.Item("MType").Specific.Value + "'";
                     oRecordSet01.DoQuery(sQry);
 
                     if (oForm.Items.Item("refEdit").Specific.Value.ToString().Trim() != "초기등록")
@@ -271,7 +291,18 @@ namespace PSH_BOne_AddOn.Core
                 {
                     if (pVal.ItemUID == "1")
                     {
-                        if(!string.IsNullOrEmpty(oForm.Items.Item("refEdit").Specific.Value.ToString()))
+                        if (string.IsNullOrEmpty(oForm.Items.Item("refEdit").Specific.Value.ToString()))
+                        {
+                            errMessage = "관련근거는 필수 입력입니다";
+                            throw new Exception();
+                        }
+                        else if (string.IsNullOrEmpty(oForm.Items.Item("MType").Specific.Value.ToString()))
+                        {
+                            errMessage = "변경타입은 필수 입력입니다.";
+                            throw new Exception();
+                        }
+                        else
+                        {
                             if (S951_SaveLogData() == false)
                             {
                                 errMessage = "수정중 오류발생";
@@ -281,10 +312,6 @@ namespace PSH_BOne_AddOn.Core
                             {
                                 PSH_Globals.SBO_Application.MessageBox("수정완료");
                             }
-                        else
-                        {
-                            errMessage = "관련근거 필수입력입니다";
-                            throw new Exception();
                         }
                     }
                 }

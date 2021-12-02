@@ -476,7 +476,7 @@ namespace PSH_BOne_AddOn
                         else if ((Convert.ToDouble(NowType) == 2 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 2 && Convert.ToDouble(AfLevel) == 0))
                         {
                             XmlString += "</Menu></action></Menus></Menu></action></Menus></Menu>";
-                        }
+                        }   
                         else if ((Convert.ToDouble(NowType) == 2 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 1 && Convert.ToDouble(AfLevel) == 0))
                         {
                             XmlString += "</Menu></action></Menus></Menu>";

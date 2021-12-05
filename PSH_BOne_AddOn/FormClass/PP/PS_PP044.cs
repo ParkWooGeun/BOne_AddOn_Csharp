@@ -3485,9 +3485,11 @@ namespace PSH_BOne_AddOn
 
                             for (i = 1; i <= oMat03.VisualRowCount; i++)
                             {
-                                if (oMat03.Columns.Item("OLineNum").Cells.Item(i).Specific.Value != 1)
+                                int oLineNum = Convert.ToInt16(oMat03.Columns.Item("OLineNum").Cells.Item(i).Specific.Value.ToString().Trim() == "" ? 0 : oMat03.Columns.Item("OLineNum").Cells.Item(i).Specific.Value.ToString().Trim());
+
+                                if (oLineNum != 1 && oMat03.Columns.Item("OLineNum").Cells.Item(i).Specific.Value.ToString().Trim() != "")
                                 {
-                                    oMat03.Columns.Item("OLineNum").Cells.Item(i).Specific.Value = oMat03.Columns.Item("OLineNum").Cells.Item(i).Specific.Value - 1;
+                                    oMat03.Columns.Item("OLineNum").Cells.Item(i).Specific.Value = oLineNum - 1;
                                 }
                             }
 

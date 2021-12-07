@@ -59469,6 +59469,11 @@
             <param name="YM"></param>
             <returns></returns>
         </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY124.PH_PY124_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY124.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event

@@ -1,4 +1,4 @@
-ï»¿<?xml version="1.0" encoding="utf-8"?>
+ï»?<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -149,8 +149,10 @@
       <DependentUpon>FrmRPT_Viewer1.cs</DependentUpon>
     </Compile>
     <Compile Include="FormClass\CORE\S150.cs" />
+    <Compile Include="FormClass\CORE\S230.cs" />
     <Compile Include="FormClass\CORE\S721.cs" />
     <Compile Include="FormClass\CO\PS_CO521.cs" />
+    <Compile Include="FormClass\CORE\S951.cs" />
     <Compile Include="FormClass\CO\PS_CO800.cs" />
     <Compile Include="FormClass\CO\PS_CO003.cs" />
     <Compile Include="FormClass\CO\PS_CO070.cs" />
@@ -272,6 +274,7 @@
     <Compile Include="FormClass\OA\PS_SY002.cs" />
     <Compile Include="FormClass\OA\PS_SY005.cs" />
     <Compile Include="FormClass\OA\PS_SY010.cs" />
+    <Compile Include="FormClass\OA\PS_SY020.cs" />
     <Compile Include="FormClass\PP\PS_PP052.cs" />
     <Compile Include="FormClass\PP\PS_PP001.cs" />
     <Compile Include="FormClass\PP\PS_PP002.cs" />
@@ -488,7 +491,7 @@
     <Compile Include="FormClass\PY\PH_PY136.cs" />
     <Compile Include="FormClass\PY\PH_PY526.cs" />
     <Compile Include="FormClass\PY\PH_PY980.cs" />
-    <Compile Include="FormClass\PY\PH_PY999.cs" />
+    <Compile Include="FormClass\OA\PS_SY015.cs" />
     <Compile Include="FormClass\PY\PH_PYA80.cs" />
     <Compile Include="FormClass\PY\PH_PYA90.cs" />
     <Compile Include="FormClass\PY\PS_DateChange.cs" />
@@ -2175,7 +2178,6 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY990.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY995.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY998.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY999.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PYA10.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PYA20.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PYA30.srf" />

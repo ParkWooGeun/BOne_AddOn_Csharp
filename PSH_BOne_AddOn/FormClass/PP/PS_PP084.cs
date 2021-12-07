@@ -1,7 +1,7 @@
 ﻿using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
-using PSH_BOne_AddOn.Code;
+using System.Collections.Generic;
 
 namespace PSH_BOne_AddOn
 {
@@ -23,6 +23,13 @@ namespace PSH_BOne_AddOn
         private string oDocEntry;
         private string oStatus;
         private string oCanceled;
+
+        //DI API 연동용 내부 클래스
+        public class ItemInformation
+        {
+            public string BatchNum;
+            public int LineNum;
+        }
 
         /// <summary>
         /// Form 호출
@@ -369,6 +376,7 @@ namespace PSH_BOne_AddOn
                 oMat01.FlushToDataSource();
 
                 oDIObject.DocDate = DateTime.ParseExact(oForm.Items.Item("DocDate").Specific.Value, "yyyyMMdd", null);
+                oDIObject.Comments = "분말생산완료등록 (" + oDS_PS_PP084H.GetValue("DocEntry", 0).ToString().Trim() + ") 입고_PS_PP084";
 
                 for (i = 1; i <= oMat01.VisualRowCount; i++)
                 {
@@ -465,7 +473,10 @@ namespace PSH_BOne_AddOn
                 oMat01.FlushToDataSource();
 
                 oDIObject.DocDate = DateTime.ParseExact(oForm.Items.Item("DocDate").Specific.Value, "yyyyMMdd", null);
+                oDIObject.Comments = "분말생산완료등록 (" + oDS_PS_PP084H.GetValue("DocEntry", 0).ToString().Trim() + ") 입고취소_PS_PP084";
                 oDIObject.UserFields.Fields.Item("U_CancDoc").Value = oForm.Items.Item("OIGNNo").Specific.Value.ToString().Trim();
+
+                List<ItemInformation> itemInfoList = new List<ItemInformation>();
 
                 for (i = 1; i <= oMat01.VisualRowCount; i++)
                 {
@@ -473,6 +484,13 @@ namespace PSH_BOne_AddOn
                     {
                         if (oMat01.Columns.Item("Check").Cells.Item(i).Specific.Checked == true)
                         {
+                            ItemInformation itemInfo = new ItemInformation
+                            {
+                                BatchNum = oMat01.Columns.Item("BatchNum").Cells.Item(i).Specific.Value,
+                                LineNum = Convert.ToInt32(oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value)
+                            };
+                            itemInfoList.Add(itemInfo);
+
                             oDIObject.Lines.Add();
                             oDIObject.Lines.SetCurrentLine(j);
                             oDIObject.Lines.ItemCode = oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.Value;
@@ -506,18 +524,19 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
                     ResultDocNum = Convert.ToInt32(PSH_Globals.oCompany.GetNewObjectKey());
-                    for (i = 1; i <= oMat01.VisualRowCount; i++)
+                    //for (i = 0; i <= itemInfoList.Count; i++)
+                    for (i = 0; i < itemInfoList.Count; i++)
                     {
-                        dataHelpClass.DoQuery("UPDATE [@PS_PP080L] SET U_OIGENum = '" + ResultDocNum + "', U_IGE1Num = '" + i + "', U_Check = 'Y' WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "' And LineId = '" + oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value + "'");
+                        dataHelpClass.DoQuery("UPDATE [@PS_PP080L] SET U_OIGENum = '" + ResultDocNum + "', U_IGE1Num = '" + i + "', U_Check = 'Y' WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "' And LineId = '" + itemInfoList[i].LineNum + "'");
                         if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "111")
                         {
-                            dataHelpClass.DoQuery("UPDATE [@PS_PP040L] SET U_PQty = 0, U_PWeight = 0, U_YQty = 0, U_YWeight = 0 WHERE DocEntry = '" + oForm.Items.Item("PP040No").Specific.Value + "' And LineId = '" + oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value + "'");
-                            dataHelpClass.DoQuery("UPDATE [Z_PACKING_PD] SET PP080YN = 'N' WHERE BatchNum = '" + oMat01.Columns.Item("BatchNum").Cells.Item(i).Specific.Value + "'");
+                            dataHelpClass.DoQuery("UPDATE [@PS_PP040L] SET U_PQty = 0, U_PWeight = 0, U_YQty = 0, U_YWeight = 0 WHERE DocEntry = '" + oForm.Items.Item("PP040No").Specific.Value + "' And LineId = '" + itemInfoList[i].LineNum + "'");
+                            dataHelpClass.DoQuery("UPDATE [Z_PACKING_PD] SET PP080YN = 'N' WHERE BatchNum = '" + itemInfoList[i].BatchNum + "'");
                         }
                         //분말재공 실적추가분 취소처리 => 수량을 0으로 처리
                         if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "601")
                         {
-                            dataHelpClass.DoQuery("UPDATE [@PS_PP040L] SET U_PQty = 0, U_PWeight = 0, U_YQty = 0, U_YWeight = 0 WHERE DocEntry = '" + oForm.Items.Item("PP040No").Specific.Value + "' And LineId = '" + oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value + "'");
+                            dataHelpClass.DoQuery("UPDATE [@PS_PP040L] SET U_PQty = 0, U_PWeight = 0, U_YQty = 0, U_YWeight = 0 WHERE DocEntry = '" + oForm.Items.Item("PP040No").Specific.Value + "' And LineId = '" + itemInfoList[i].LineNum + "'");
                         }
                     }
                 }

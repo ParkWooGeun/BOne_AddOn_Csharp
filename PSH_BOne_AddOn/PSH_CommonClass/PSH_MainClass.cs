@@ -221,7 +221,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                Query01 = "select UniqueID from [Authority_Screen] where Gubun ='H' and updateYN ='Y'and UserID ='" + PSH_Globals.oCompany.UserName + "'";
+                Query01 = "select a.UniqueID from [Authority_Screen] a inner join [Authority_User] b on a.Seq = b.seq where  a.Gubun ='H' and  b.updateYN ='Y' and b.UserID ='" + PSH_Globals.oCompany.UserName + "'";
                 oRecordSet01.DoQuery(Query01);
 
                 //파일 폴더 생성
@@ -476,7 +476,7 @@ namespace PSH_BOne_AddOn
                         else if ((Convert.ToDouble(NowType) == 2 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 2 && Convert.ToDouble(AfLevel) == 0))
                         {
                             XmlString += "</Menu></action></Menus></Menu></action></Menus></Menu>";
-                        }
+                        }   
                         else if ((Convert.ToDouble(NowType) == 2 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 1 && Convert.ToDouble(AfLevel) == 0))
                         {
                             XmlString += "</Menu></action></Menus></Menu>";
@@ -499,7 +499,7 @@ namespace PSH_BOne_AddOn
                 UserID += "_Menu_KOR.xml";
                 xmldoc.save(oFilePath + UserID);
 
-                UpdateQry01 = "update [Authority_Screen] set UpdateYN ='N' where Gubun ='H' and updateYN ='Y'and UserID ='" + PSH_Globals.oCompany.UserName + "'";
+                UpdateQry01 = "update b set b.UpdateYN ='N' from [Authority_Screen] a inner join [Authority_User] b on a.Seq = b.seq where  a.Gubun ='H' and  b.updateYN ='Y' and b.UserID ='" + PSH_Globals.oCompany.UserName + "'";
                 oRecordSet01.DoQuery(UpdateQry01);
             }
             catch (Exception ex)

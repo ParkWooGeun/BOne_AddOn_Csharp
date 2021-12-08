@@ -149,14 +149,35 @@ namespace PSH_BOne_AddOn
 				{
 					oForm.Items.Item("DocEntry").Enabled = false;
 					oForm.Items.Item("IpdoChk").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index); //입도분포 Check여부
+					oForm.Items.Item("Mat01").Enabled = true;
+					oForm.Items.Item("CardSeq").Enabled = true;
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
 				{
 					oForm.Items.Item("DocEntry").Enabled = true;
+					oForm.Items.Item("CardSeq").Enabled = false;
+
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
 				{
 					oForm.Items.Item("DocEntry").Enabled = false;
+					oForm.Items.Item("CardSeq").Enabled = false;
+				}
+				if (oDS_PS_QM007H.GetValue("Status", 0) == "C")
+				{
+					oForm.Items.Item("Mat01").Enabled = false;
+					oForm.Items.Item("ItemCode").Enabled = false;
+					oForm.Items.Item("CardCode").Enabled = false;
+					oForm.Items.Item("IpdoChk").Enabled = false;
+					oForm.Items.Item("BPLId").Enabled = false;
+				}
+				else
+				{
+					oForm.Items.Item("Mat01").Enabled = true;
+					oForm.Items.Item("ItemCode").Enabled = true;
+					oForm.Items.Item("CardCode").Enabled = true;
+					oForm.Items.Item("IpdoChk").Enabled = true;
+					oForm.Items.Item("BPLId").Enabled = true;
 				}
 			}
 			catch (Exception ex)
@@ -233,9 +254,10 @@ namespace PSH_BOne_AddOn
 			string CardCode;
 			string ItemCode;
 			string CardSeq;
+			string version;
 			string sQry;
-			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			string errMessage = string.Empty;
+			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
 			{
@@ -261,7 +283,8 @@ namespace PSH_BOne_AddOn
 					ItemCode = oDS_PS_QM007H.GetValue("U_ItemCode", 0).ToString().Trim();
 					CardCode = oDS_PS_QM007H.GetValue("U_CardCode", 0).ToString().Trim();
 					CardSeq = oDS_PS_QM007H.GetValue("U_CardSeq", 0).ToString().Trim();
-					sQry = "Select Count(*) From [@PS_QM007H] Where U_ItemCode = '" + ItemCode + "' And U_CardCode = '" + CardCode + "' and U_CardSeq = '" + CardSeq + "'";
+				    version = oDS_PS_QM007H.GetValue("U_Version", 0).ToString().Trim();
+					sQry = "Select Count(*) From [@PS_QM007H] Where U_ItemCode = '" + ItemCode + "' And U_CardCode = '" + CardCode + "' and U_CardSeq = '" + CardSeq + "' and U_Version = '" + version + "'";
 					oRecordSet.DoQuery(sQry);
 
 					if (oRecordSet.Fields.Item(0).Value >= 1)
@@ -381,6 +404,47 @@ namespace PSH_BOne_AddOn
 			}
 		}
 
+
+		/// <summary>
+		/// PS_QM007_modifyingStatus
+		/// </summary>
+		/// <returns>새로운 버전으로 생성시 기존 버전은 종료처리</returns>
+		private bool PS_QM007_modifyingStatus()
+		{
+			bool returnValue = false;
+			string sQry;
+			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+			try
+			{
+				oForm.Freeze(true);
+				sQry = "Select * From [@PS_QM007H] where Canceled ='N' and U_ItemCode ='" + oForm.Items.Item("ItemCode").Specific.value;
+				sQry += "' and U_CardCode = '" + oForm.Items.Item("CardCode").Specific.value;
+				sQry += "' and U_CardSeq ='" + oForm.Items.Item("CardSeq").Specific.value + "'";
+				oRecordSet.DoQuery(sQry);
+
+				if(oRecordSet.RecordCount > 0)
+				{
+					sQry = "Update [@PS_QM007H] SET Status  = 'C', Canceled ='Y' , UpdateDate = Getdate() where U_ItemCode ='" + oForm.Items.Item("ItemCode").Specific.value;
+					sQry += "' and U_CardCode = '" + oForm.Items.Item("CardCode").Specific.value;
+					sQry += "' and U_CardSeq ='" + oForm.Items.Item("CardSeq").Specific.value;
+					sQry += "' and U_Version ='" + Convert.ToString(Convert.ToInt32(oForm.Items.Item("Version").Specific.value) -1) + "'";
+					oRecordSet.DoQuery(sQry);
+				}
+				returnValue = true;
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+			{
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+				oForm.Freeze(false);
+			}
+			return returnValue;
+		}
+
 		/// <summary>
 		/// Form Item Event
 		/// </summary>
@@ -495,6 +559,11 @@ namespace PSH_BOne_AddOn
 							{
 								PS_QM007_FormClear();
 							}
+							if(PS_QM007_modifyingStatus() == false)
+                            {
+								PSH_Globals.SBO_Application.MessageBox("기존버전 문서 닫기중 오류발생");
+								throw new Exception();
+                            }
 						}
 					}
 				}
@@ -749,11 +818,14 @@ namespace PSH_BOne_AddOn
 							PS_QM007_FormClear();
 							PS_QM007_Initial_Setting();
 							PS_QM007_AddMatrixRow(0, oMat.RowCount, true);
+							oForm.Items.Item("Version").Specific.value = 1;
 							oForm.Items.Item("ItemCode").Click(SAPbouiCOM.BoCellClickType.ct_Collapsed);
 							break;
 						case "1287": //복제
 							PS_QM007_FormClear();
 							oForm.Items.Item("ItemCode").Enabled = true;
+							oDS_PS_QM007H.SetValue("U_Version", 0, Convert.ToString(Convert.ToInt32(oForm.Items.Item("Version").Specific.value) + 1));
+							oDS_PS_QM007H.SetValue("UpdateDate", 0, "");
 							for (int i = 0; i <= oMat.VisualRowCount - 1; i++)
 							{
 								oMat.FlushToDataSource();

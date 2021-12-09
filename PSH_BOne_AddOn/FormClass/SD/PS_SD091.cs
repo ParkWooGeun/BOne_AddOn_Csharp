@@ -709,7 +709,7 @@ namespace PSH_BOne_AddOn
                         if (string.IsNullOrEmpty(oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value))
                         {
                             PS_SM020 tempForm = new PS_SM020();
-                            tempForm.LoadForm(oForm, pVal.ItemUID, pVal.ColUID, pVal.Row);
+                            tempForm.LoadForm(oForm, pVal.ItemUID, pVal.ColUID, pVal.Row, "");
                             PS_SD091_AddMatrixRow(0, true);
                             BubbleEvent = false;
                         }

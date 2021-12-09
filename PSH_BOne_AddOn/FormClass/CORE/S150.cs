@@ -104,6 +104,14 @@ namespace PSH_BOne_AddOn.Core
                 oCombo.Specific.ValidValues.Add("N", "미사용");
                 oCombo.FromPane = 6;
                 oCombo.ToPane = 6;
+
+                oItem = oForm.Items.Add("AddonText", SAPbouiCOM.BoFormItemTypes.it_STATIC);
+                oItem.Top = oForm.Items.Item("1").Top - 12;
+                oItem.Left = oForm.Items.Item("1").Left;
+                oItem.Height = 12;
+                oItem.Width = 120;
+                oItem.FontSize = 10;
+                oItem.Specific.Caption = "Addon running";
             }
             catch (Exception ex)
             {

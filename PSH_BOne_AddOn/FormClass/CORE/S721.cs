@@ -45,9 +45,18 @@ namespace PSH_BOne_AddOn.Core
         /// </summary>
         private void S721_CreateItems()
         {
+            SAPbouiCOM.Item oItem;
+
             try
             {
-                oForm.Freeze(true);
+                oItem = oForm.Items.Add("AddonText", SAPbouiCOM.BoFormItemTypes.it_STATIC);
+                oItem.Top = oForm.Items.Item("1").Top - 12;
+                oItem.Left = oForm.Items.Item("1").Left;
+                oItem.Height = 12;
+                oItem.Width = 120;
+                oItem.FontSize = 10;
+                oItem.Specific.Caption = "Addon running";
+
                 oMat01.Columns.Item("U_CardName").Editable = false;
             }
             catch (Exception ex)
@@ -56,7 +65,6 @@ namespace PSH_BOne_AddOn.Core
             }
             finally
             {
-                oForm.Freeze(false);
             }
         }
 

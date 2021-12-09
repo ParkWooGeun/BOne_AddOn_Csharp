@@ -52,16 +52,24 @@ namespace PSH_BOne_AddOn.Core
 
             try
             {
-                ////특정사용자만 출고 아이템 중량을 가져올 수 있도록 하기 위한 UserID TextBox 추가_S (2011.10.01 송명규)
-                //oItem = oForm.Items.Add("UserID", SAPbouiCOM.BoFormItemTypes.it_EDIT);
-                //oItem.Left = oForm.Items.Item("21").Left; //참조2(21) Item 기준
-                //oItem.Top = oForm.Items.Item("21").Top + oForm.Items.Item("21").Height + 1;
-                //oItem.Height = oForm.Items.Item("21").Height;
-                //oItem.Width = oForm.Items.Item("21").Width;
-                //oItem.Specific.Value = PSH_Globals.oCompany.UserName; //로그인한 사용자의 ID
-                //oForm.Items.Item("38").Click(SAPbouiCOM.BoCellClickType.ct_Regular); //증빙일로의 포커스 강제 이동
-                //oItem.Visible = false; //UserID 텍스트박스 숨김
-                ////특정사용자만 출고 아이템 중량을 가져올 수 있도록 하기 위한 UserID TextBox 추가_E (2011.10.01 송명규)
+                //특정사용자만 출고 아이템 중량을 가져올 수 있도록 하기 위한 UserID TextBox 추가_S (2011.10.01 송명규)
+                oItem = oForm.Items.Add("UserID", SAPbouiCOM.BoFormItemTypes.it_EDIT);
+                oItem.Left = oForm.Items.Item("21").Left; //참조2(21) Item 기준
+                oItem.Top = oForm.Items.Item("21").Top + oForm.Items.Item("21").Height + 1;
+                oItem.Height = oForm.Items.Item("21").Height;
+                oItem.Width = oForm.Items.Item("21").Width;
+                oItem.Specific.Value = PSH_Globals.oCompany.UserName; //로그인한 사용자의 ID
+                oForm.Items.Item("38").Click(SAPbouiCOM.BoCellClickType.ct_Regular); //증빙일로의 포커스 강제 이동
+                oItem.Visible = false; //UserID 텍스트박스 숨김
+                //특정사용자만 출고 아이템 중량을 가져올 수 있도록 하기 위한 UserID TextBox 추가_E (2011.10.01 송명규)
+
+                oItem = oForm.Items.Add("AddonText", SAPbouiCOM.BoFormItemTypes.it_STATIC);
+                oItem.Top = oForm.Items.Item("1").Top - 12;
+                oItem.Left = oForm.Items.Item("1").Left;
+                oItem.Height = 12;
+                oItem.Width = 120;
+                oItem.FontSize = 10;
+                oItem.Specific.Caption = "Addon running";
             }
             catch (Exception ex)
             {
@@ -317,8 +325,8 @@ namespace PSH_BOne_AddOn.Core
                         {
                             if (pVal.ColUID == "1") //품목코드
                             {
-                                //string tempQuery = "SELECT U_CdName AS [WhsCode] FROM [@PS_SY001L] WHERE Code = 'I002' AND U_Minor = '" + oForm.Items.Item("UserID").Specific.Value + "'";
-                                string tempQuery = "SELECT U_CdName AS [WhsCode] FROM [@PS_SY001L] WHERE Code = 'I002' AND U_Minor = '" + PSH_Globals.oCompany.UserName + "'";
+                                string tempQuery = "SELECT U_CdName AS [WhsCode] FROM [@PS_SY001L] WHERE Code = 'I002' AND U_Minor = '" + oForm.Items.Item("UserID").Specific.Value + "'";
+                                //string tempQuery = "SELECT U_CdName AS [WhsCode] FROM [@PS_SY001L] WHERE Code = 'I002' AND U_Minor = '" + PSH_Globals.oCompany.UserName + "'";
                                 oRecordSet.DoQuery(tempQuery);
                                 string outWshCode = oRecordSet.Fields.Item("WhsCode").Value.ToString().Trim(); //기계사업부 원재료 불출용 창고
                                 string baseWshCode = outWshCode == "" ? dataHelpClass.User_WhsCode("1") : outWshCode; //기계사업부 원재료 불출용 창고가 설정되지 않은 사용자는 기본 창고, 아니면 불출용 창고 코드로 설정;
@@ -399,8 +407,8 @@ namespace PSH_BOne_AddOn.Core
                             }
                             else if (pVal.ColUID == "9")
                             {
-                                //string tempQuery = "SELECT U_CdName AS [WhsCode] FROM [@PS_SY001L] WHERE Code = 'I002' AND U_Minor = '" + oForm.Items.Item("UserID").Specific.Value + "'";
-                                string tempQuery = "SELECT U_CdName AS [WhsCode] FROM [@PS_SY001L] WHERE Code = 'I002' AND U_Minor = '" + PSH_Globals.oCompany.UserName + "'";
+                                string tempQuery = "SELECT U_CdName AS [WhsCode] FROM [@PS_SY001L] WHERE Code = 'I002' AND U_Minor = '" + oForm.Items.Item("UserID").Specific.Value + "'";
+                                //string tempQuery = "SELECT U_CdName AS [WhsCode] FROM [@PS_SY001L] WHERE Code = 'I002' AND U_Minor = '" + PSH_Globals.oCompany.UserName + "'";
                                 oRecordSet.DoQuery(tempQuery);
                                 string outWshCode = oRecordSet.Fields.Item("WhsCode").Value.ToString().Trim(); //기계사업부 원재료 불출용 창고
                                 

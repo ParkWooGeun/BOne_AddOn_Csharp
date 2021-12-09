@@ -41,7 +41,6 @@ namespace PSH_BOne_AddOn.Core
             {
                 oForm.Update();
                 oForm.Freeze(false);
-                oForm.Visible = true;
             }
         }
 

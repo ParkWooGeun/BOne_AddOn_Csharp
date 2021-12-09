@@ -1,6 +1,5 @@
 using System;
 using SAPbouiCOM;
-using PSH_BOne_AddOn.Code;
 using PSH_BOne_AddOn.Data;
 
 namespace PSH_BOne_AddOn.Core
@@ -13,11 +12,11 @@ namespace PSH_BOne_AddOn.Core
 		private string oFormUniqueID;
 		private SAPbouiCOM.Matrix oMat01;
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="formUID"></param>
-		public override void LoadForm(string formUID)
+        /// <summary>
+        /// Form 호출
+        /// </summary>
+        /// <param name="formUID"></param>
+        public override void LoadForm(string formUID)
 		{
             try
             {
@@ -38,7 +37,6 @@ namespace PSH_BOne_AddOn.Core
             {
                 oForm.Update();
                 oForm.Freeze(false);
-                oForm.Visible = true;
             }
         }
 

@@ -170,6 +170,8 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("CardCode").Enabled = false;
 					oForm.Items.Item("IpdoChk").Enabled = false;
 					oForm.Items.Item("BPLId").Enabled = false;
+					oForm.Items.Item("Remark").Enabled = false;
+					oForm.Items.Item("Sintern").Enabled = false;
 				}
 				else
 				{
@@ -178,6 +180,8 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("CardCode").Enabled = true;
 					oForm.Items.Item("IpdoChk").Enabled = true;
 					oForm.Items.Item("BPLId").Enabled = true;
+					oForm.Items.Item("Remark").Enabled = true;
+					oForm.Items.Item("Sintern").Enabled = true;
 				}
 			}
 			catch (Exception ex)

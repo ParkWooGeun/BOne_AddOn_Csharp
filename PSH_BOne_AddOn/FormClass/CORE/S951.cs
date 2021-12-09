@@ -1,11 +1,8 @@
 ﻿using System;
 using SAPbouiCOM;
-using PSH_BOne_AddOn.Code;
-using System.Collections.Generic;
 
 namespace PSH_BOne_AddOn.Core
 {
-
     /// <summary>
     /// 일반 권한
     /// </summary>
@@ -40,7 +37,6 @@ namespace PSH_BOne_AddOn.Core
             {
                 oForm.Update();
                 oForm.Freeze(false);
-                oForm.Visible = true;
             }
         }
 

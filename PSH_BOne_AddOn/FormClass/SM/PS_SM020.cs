@@ -17,17 +17,14 @@ namespace PSH_BOne_AddOn
         private SAPbouiCOM.Matrix oMat02;
         private SAPbouiCOM.DBDataSource oDS_PS_SM020H; //등록헤더
         private SAPbouiCOM.DBDataSource oDS_PS_SM020L; //등록라인
-
         private SAPbouiCOM.Form oBaseForm;
         private string oBaseItemUID;
         private string oBaseColUID;
         private int oBaseColRow;
         private string oBaseTradeType;
-
         private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
         private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
-
         private int oMat01Row01;
         private int oMat02Row02;
 

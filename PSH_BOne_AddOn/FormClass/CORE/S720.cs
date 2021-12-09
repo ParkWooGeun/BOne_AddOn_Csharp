@@ -515,6 +515,7 @@ namespace PSH_BOne_AddOn.Core
                         case "1289":
                         case "1290":
                         case "1291": //레코드이동버튼
+                            oMat.AutoResizeColumns();
                             break;
                     }
                 }

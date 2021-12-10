@@ -49,11 +49,11 @@ namespace PSH_BOne_AddOn.Core
         /// </summary>
         private void S150_CreateItems()
         {
-            SAPbouiCOM.Item oItem;
-            SAPbouiCOM.Item oItem_ItmMsort;
-            SAPbouiCOM.Item oItem_Spec2;
-            SAPbouiCOM.Item oItem_Spec4;
-            SAPbouiCOM.Item oCombo;
+            SAPbouiCOM.Item oItem = null;
+            SAPbouiCOM.Item oItem_ItmMsort = null;
+            SAPbouiCOM.Item oItem_Spec2 = null;
+            SAPbouiCOM.Item oItem_Spec4 = null;
+            SAPbouiCOM.Item oCombo = null;
 
             try
             {
@@ -119,6 +119,11 @@ namespace PSH_BOne_AddOn.Core
             }
             finally
             {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oItem);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oItem_ItmMsort);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oItem_Spec2);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oItem_Spec4);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oCombo);
             }
         }
 

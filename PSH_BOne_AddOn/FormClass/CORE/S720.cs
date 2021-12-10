@@ -48,7 +48,7 @@ namespace PSH_BOne_AddOn.Core
         /// </summary>
         private void PS_S720_CreateItems()
         {
-            SAPbouiCOM.Item oItem;
+            SAPbouiCOM.Item oItem = null;
 
             try
             {
@@ -77,6 +77,7 @@ namespace PSH_BOne_AddOn.Core
             }
             finally
             {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oItem);
             }
         }
 

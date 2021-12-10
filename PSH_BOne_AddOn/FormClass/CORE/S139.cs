@@ -51,10 +51,10 @@ namespace PSH_BOne_AddOn.Core
         /// </summary>
         private void PS_S139_CreateItems()
         {
-            SAPbouiCOM.Item oNewITEM;
-            SAPbouiCOM.StaticText oStatic01;
-            SAPbouiCOM.ComboBox oCombo01;
-            SAPbouiCOM.EditText oEdit01;
+            SAPbouiCOM.Item oNewITEM = null;
+            SAPbouiCOM.StaticText oStatic01 = null;
+            SAPbouiCOM.ComboBox oCombo01 = null;
+            SAPbouiCOM.EditText oEdit01 = null;
 
             try
             {
@@ -143,6 +143,13 @@ namespace PSH_BOne_AddOn.Core
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oNewITEM);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oStatic01);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oCombo01);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oEdit01);
+            }
         }
 
         /// <summary>
@@ -220,8 +227,8 @@ namespace PSH_BOne_AddOn.Core
             string ItemCode;
             string Text;
             string SAmt;
-            double Amt = 0;
-            double OverAmt = 0;
+            double Amt;
+            double OverAmt;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -431,7 +438,6 @@ namespace PSH_BOne_AddOn.Core
                             //라인번호가 같고, 품목코드가 같으면 존재하는 행 , LineNum에 값이 존재하는지 확인필요(행삭제된 행인 경우 LineNum이 존재하지않음)
                             string tempLineNum = oMat01.Columns.Item("U_LineNum").Cells.Item(j).Specific.Value == "" ? "-1" : oMat01.Columns.Item("U_LineNum").Cells.Item(j).Specific.Value;
 
-                            //if (Convert.ToInt16(RecordSet01.Fields.Item(1).Value) == Convert.ToInt16(oMat01.Columns.Item("U_LineNum").Cells.Item(j).Specific.Value) && !string.IsNullOrEmpty(oMat01.Columns.Item("U_LineNum").Cells.Item(j).Specific.Value))
                             if (Convert.ToInt16(RecordSet01.Fields.Item(1).Value) == Convert.ToInt16(tempLineNum))
                             {
                                 Exist = true;
@@ -633,7 +639,7 @@ namespace PSH_BOne_AddOn.Core
                 if (oRecordSet03.RecordCount != 0)
                 {
                     l_WOEntry = oRecordSet03.Fields.Item(0).Value;
-                    errMessage = "작업지시가 존재하는 작번입니다. 작업지시를 먼저 닫기(종료)하십시오. 작업지시문서번호 : " + l_WOEntry;
+                    errMessage = "작업지시가 존재하는 작번입니다. 작업지시를 먼저 닫기(종료)하십시오. " + (char)13 + "작업지시문서번호 : " + l_WOEntry;
                     throw new Exception();
                 }
                 //작업지시가 존재하는지 검사_E
@@ -943,7 +949,7 @@ namespace PSH_BOne_AddOn.Core
                 }
                 else if (pVal.Before_Action == false)
                 {
-                    PSH_Globals.SBO_Application.Forms.GetForm("-" + oForm.Type, oForm.TypeCount).Update();
+                    PSH_Globals.SBO_Application.Forms.GetForm(oForm.Type.ToString(), oForm.TypeCount).Update();
                     if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                     {
                         PS_S139_EnableFormItem(true);
@@ -990,7 +996,7 @@ namespace PSH_BOne_AddOn.Core
                 }
                 else if (pVal.Before_Action == false)
                 {
-                    if ((pVal.ItemUID == "10000330"))
+                    if (pVal.ItemUID == "10000330")
                     {
                         if (pVal.ActionSuccess == true)
                         {
@@ -1169,11 +1175,9 @@ namespace PSH_BOne_AddOn.Core
                         {
                             oForm.Items.Item("DCardNam").Specific.Value = dataHelpClass.GetValue("SELECT CardName FROM OCRD WHERE CardCode = '" + oForm.Items.Item("DCardCod").Specific.Value + "'", 0, 1);
                         }
-
-                        PSH_Globals.SBO_Application.Forms.GetForm("-" + oForm.Type, oForm.TypeCount).Update();
                     }
 
-                    //PSH_Globals.SBO_Application.Forms.GetForm("-" + oForm.Type, oForm.TypeCount).Update();
+                    PSH_Globals.SBO_Application.Forms.GetForm(oForm.Type.ToString(), oForm.TypeCount).Update();
                 }
                 else if (pVal.Before_Action == false)
                 {

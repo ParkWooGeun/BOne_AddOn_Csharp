@@ -54,30 +54,26 @@ namespace PSH_BOne_AddOn.Core
         private void PS_S142_CreateItems()
         {
             SAPbouiCOM.Item oNewITEM = null;
-            SAPbouiCOM.StaticText oStatic01 = null;
-            SAPbouiCOM.ComboBox oCombo01 = null;
-
+            
             try
             {
                 oNewITEM = oForm.Items.Add("TradeType", SAPbouiCOM.BoFormItemTypes.it_COMBO_BOX);
                 oNewITEM.Left = oForm.Items.Item("2003").Left;
-                oNewITEM.Top = (oForm.Items.Item("2003").Top + oForm.Items.Item("2003").Height) + 1;
+                oNewITEM.Top = oForm.Items.Item("2003").Top + oForm.Items.Item("2003").Height + 1;
                 oNewITEM.Height = oForm.Items.Item("2003").Height;
                 oNewITEM.Width = oForm.Items.Item("2003").Width;
                 oNewITEM.DisplayDesc = true;
-                oCombo01 = oNewITEM.Specific;
-                oCombo01.DataBind.SetBound(true, "OPOR", "U_TradeType");
-                oCombo01.ValidValues.Add("1", "일반");
-                oCombo01.ValidValues.Add("2", "임가공");
+                oNewITEM.Specific.DataBind.SetBound(true, "OPOR", "U_TradeType");
+                oNewITEM.Specific.ValidValues.Add("1", "일반");
+                oNewITEM.Specific.ValidValues.Add("2", "임가공");
 
                 oNewITEM = oForm.Items.Add("Static01", SAPbouiCOM.BoFormItemTypes.it_STATIC);
                 oNewITEM.Left = oForm.Items.Item("2002").Left;
-                oNewITEM.Top = (oForm.Items.Item("2002").Top + oForm.Items.Item("2002").Height) + 1;
+                oNewITEM.Top = oForm.Items.Item("2002").Top + oForm.Items.Item("2002").Height + 1;
                 oNewITEM.Height = oForm.Items.Item("2002").Height;
                 oNewITEM.Width = oForm.Items.Item("2002").Width;
                 oNewITEM.LinkTo = "TradeType";
-                oStatic01 = oNewITEM.Specific;
-                oStatic01.Caption = "거래형태";
+                oNewITEM.Specific.Caption = "거래형태";
 
                 oNewITEM = oForm.Items.Add("AddonText", SAPbouiCOM.BoFormItemTypes.it_STATIC);
                 oNewITEM.Top = oForm.Items.Item("1").Top - 12;
@@ -94,8 +90,6 @@ namespace PSH_BOne_AddOn.Core
             finally
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oNewITEM);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oStatic01);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oCombo01);
             }
         }
 

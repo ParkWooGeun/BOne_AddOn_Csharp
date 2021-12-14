@@ -52,10 +52,7 @@ namespace PSH_BOne_AddOn.Core
         private void PS_S139_CreateItems()
         {
             SAPbouiCOM.Item oNewITEM = null;
-            SAPbouiCOM.StaticText oStatic01 = null;
-            SAPbouiCOM.ComboBox oCombo01 = null;
-            SAPbouiCOM.EditText oEdit01 = null;
-
+            
             try
             {
                 oNewITEM = oForm.Items.Add("TradeType", SAPbouiCOM.BoFormItemTypes.it_COMBO_BOX);
@@ -64,11 +61,10 @@ namespace PSH_BOne_AddOn.Core
                 oNewITEM.Height = oForm.Items.Item("2003").Height;
                 oNewITEM.Width = oForm.Items.Item("2003").Width;
                 oNewITEM.DisplayDesc = true;
-                oCombo01 = oNewITEM.Specific;
-                oCombo01.DataBind.SetBound(true, "ORDR", "U_TradeType");
-                oCombo01.ValidValues.Add("1", "일반");
-                oCombo01.ValidValues.Add("2", "임가공");
-                oCombo01.ValidValues.Add("3", "선생산");
+                oNewITEM.Specific.DataBind.SetBound(true, "ORDR", "U_TradeType");
+                oNewITEM.Specific.ValidValues.Add("1", "일반");
+                oNewITEM.Specific.ValidValues.Add("2", "임가공");
+                oNewITEM.Specific.ValidValues.Add("3", "선생산");
 
                 oNewITEM = oForm.Items.Add("Static01", SAPbouiCOM.BoFormItemTypes.it_STATIC);
                 oNewITEM.Left = oForm.Items.Item("2002").Left;
@@ -76,16 +72,14 @@ namespace PSH_BOne_AddOn.Core
                 oNewITEM.Height = oForm.Items.Item("2002").Height;
                 oNewITEM.Width = oForm.Items.Item("2002").Width;
                 oNewITEM.LinkTo = "TradeType";
-                oStatic01 = oNewITEM.Specific;
-                oStatic01.Caption = "거래형태";
+                oNewITEM.Specific.Caption = "거래형태";
 
                 oNewITEM = oForm.Items.Add("DCardCod", SAPbouiCOM.BoFormItemTypes.it_EDIT);
                 oNewITEM.Left = oForm.Items.Item("222").Left;
                 oNewITEM.Top = (oForm.Items.Item("222").Top + oForm.Items.Item("222").Height) + 1;
                 oNewITEM.Height = oForm.Items.Item("222").Height;
                 oNewITEM.Width = oForm.Items.Item("222").Width;
-                oEdit01 = oNewITEM.Specific;
-                oEdit01.DataBind.SetBound(true, "ORDR", "U_DCardCod");
+                oNewITEM.Specific.DataBind.SetBound(true, "ORDR", "U_DCardCod");
 
                 oNewITEM = oForm.Items.Add("Static03", SAPbouiCOM.BoFormItemTypes.it_STATIC);
                 oNewITEM.Left = oForm.Items.Item("230").Left;
@@ -93,8 +87,7 @@ namespace PSH_BOne_AddOn.Core
                 oNewITEM.Height = oForm.Items.Item("230").Height;
                 oNewITEM.Width = oForm.Items.Item("230").Width;
                 oNewITEM.LinkTo = "DCardCod";
-                oStatic01 = oNewITEM.Specific;
-                oStatic01.Caption = "납품처코드";
+                oNewITEM.Specific.Caption = "납품처코드";
 
                 oNewITEM = oForm.Items.Add("DCardNam", SAPbouiCOM.BoFormItemTypes.it_EDIT);
                 oNewITEM.Left = oForm.Items.Item("DCardCod").Left;
@@ -102,8 +95,7 @@ namespace PSH_BOne_AddOn.Core
                 oNewITEM.Height = oForm.Items.Item("DCardCod").Height;
                 oNewITEM.Width = oForm.Items.Item("DCardCod").Width;
                 oNewITEM.Enabled = false;
-                oEdit01 = oNewITEM.Specific;
-                oEdit01.DataBind.SetBound(true, "ORDR", "U_DCardNam");
+                oNewITEM.Specific.DataBind.SetBound(true, "ORDR", "U_DCardNam");
 
                 oNewITEM = oForm.Items.Add("Static04", SAPbouiCOM.BoFormItemTypes.it_STATIC);
                 oNewITEM.Left = oForm.Items.Item("Static03").Left;
@@ -111,16 +103,14 @@ namespace PSH_BOne_AddOn.Core
                 oNewITEM.Height = oForm.Items.Item("Static03").Height;
                 oNewITEM.Width = oForm.Items.Item("Static03").Width;
                 oNewITEM.LinkTo = "DCardNam";
-                oStatic01 = oNewITEM.Specific;
-                oStatic01.Caption = "납품처명";
+                oNewITEM.Specific.Caption = "납품처명";
 
                 oNewITEM = oForm.Items.Add("LotNo", SAPbouiCOM.BoFormItemTypes.it_EDIT);
                 oNewITEM.Left = oForm.Items.Item("DCardNam").Left;
                 oNewITEM.Top = (oForm.Items.Item("DCardNam").Top + oForm.Items.Item("DCardNam").Height) + 1;
                 oNewITEM.Height = oForm.Items.Item("DCardNam").Height;
                 oNewITEM.Width = oForm.Items.Item("DCardNam").Width;
-                oEdit01 = oNewITEM.Specific;
-                oEdit01.DataBind.SetBound(true, "ORDR", "U_LotNo");
+                oNewITEM.Specific.DataBind.SetBound(true, "ORDR", "U_LotNo");
 
                 oNewITEM = oForm.Items.Add("Static05", SAPbouiCOM.BoFormItemTypes.it_STATIC);
                 oNewITEM.Left = oForm.Items.Item("Static04").Left;
@@ -128,8 +118,7 @@ namespace PSH_BOne_AddOn.Core
                 oNewITEM.Height = oForm.Items.Item("Static04").Height;
                 oNewITEM.Width = oForm.Items.Item("Static04").Width;
                 oNewITEM.LinkTo = "LotNo";
-                oStatic01 = oNewITEM.Specific;
-                oStatic01.Caption = "업체수주번호";
+                oNewITEM.Specific.Caption = "업체수주번호";
 
                 oNewITEM = oForm.Items.Add("AddonText", SAPbouiCOM.BoFormItemTypes.it_STATIC);
                 oNewITEM.Top = oForm.Items.Item("1").Top - 12;
@@ -146,9 +135,6 @@ namespace PSH_BOne_AddOn.Core
             finally
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oNewITEM);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oStatic01);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oCombo01);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oEdit01);
             }
         }
 

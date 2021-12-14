@@ -1148,6 +1148,22 @@
             <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
         </member>
+        <member name="T:PSH_BOne_AddOn.Core.S179">
+            <summary>
+            AR대변메모
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Core.S179.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="formUID"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Core.S179.PS_S179_CreateItems">
+            <summary>
+            화면 Item 생성
+            </summary>
+        </member>
         <member name="T:PSH_BOne_AddOn.Core.S230">
             <summary>
             권한 복사

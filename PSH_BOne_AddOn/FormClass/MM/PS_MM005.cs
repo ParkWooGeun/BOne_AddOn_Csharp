@@ -1983,10 +1983,19 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_KEY_DOWN(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 if (pVal.Before_Action == true)
                 {
+                    if (pVal.ItemUID == "Mat01")
+                    {
+                        if (pVal.ColUID == "OutUnit")
+                        {
+                            dataHelpClass.ActiveUserDefineValueAlways(ref oForm, ref pVal, ref BubbleEvent, "Mat01", "OutUnit");
+                        }
+                    }
                     if (pVal.CharPressed == 9)
                     {
                         if (pVal.ItemUID == "CntcCode")
@@ -2061,6 +2070,7 @@ namespace PSH_BOne_AddOn
                                     BubbleEvent = false;
                                 }
                             }
+                           
                             else if (pVal.ColUID == "ProcCode")
                             {
                                 if (string.IsNullOrEmpty(oMat01.Columns.Item("ProcCode").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()))

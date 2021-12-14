@@ -414,17 +414,20 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("CpCode").Specific.ValidValues.Add("%", "전체");
 
                 sQry = "  SELECT	T1.U_ProcCode,";
-                sQry += "           T1.U_ProcName";
+                sQry += "           T2.U_CpName";
                 sQry += " FROM      [@PS_MM030H] AS T0";
                 sQry += "           INNER JOIN";
                 sQry += "           [@PS_MM030L] AS T1";
                 sQry += "               ON T0.DocEntry = T1.DocEntry";
+                sQry += "           LEFT JOIN";
+                sQry += "           [@PS_PP001L] AS T2";
+                sQry += "               ON T1.U_ProcCode = T2.U_CpCode";
                 sQry += " WHERE     T0.U_BPLId = '" + oForm.DataSources.UserDataSources.Item("BPLId").Value.ToString().Trim() + "'";
                 sQry += "           AND CONVERT(VARCHAR(4), T0.U_DocDate, 112) = '" + stdYear + "'";
                 sQry += "           AND ISNULL(T1.U_ProcCode, '') <> ''";
                 sQry += "           AND ISNULL(T1.U_ProcName, '') <> ''";
                 sQry += " GROUP BY  T1.U_ProcCode,";
-                sQry += "           T1.U_ProcName";
+                sQry += "           T2.U_CpName";
                 sQry += " ORDER BY  T1.U_ProcCode";
 
                 oRecordSet.DoQuery(sQry);

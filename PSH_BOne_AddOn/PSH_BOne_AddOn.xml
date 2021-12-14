@@ -49770,6 +49770,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD920.PS_SD920_UpdateData">
+            <summary>
+            SD920L 반품, 납품 문서번호 업데이트
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_SD920.KeepAddOnConnection(System.Object,System.Timers.ElapsedEventArgs)">
             <summary>
             AddOn 연결 유지용 Timer 이벤트
@@ -49804,6 +49809,14 @@
         <member name="M:PSH_BOne_AddOn.PS_SD920.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             CLICK 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD920.Raise_EVENT_KEY_DOWN(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            KEY_DOWN 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>

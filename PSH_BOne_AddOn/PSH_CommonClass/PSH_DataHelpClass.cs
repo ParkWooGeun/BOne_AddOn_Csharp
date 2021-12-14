@@ -2260,7 +2260,7 @@ namespace PSH_BOne_AddOn.Data
                         else
                         {
                             PSH_Globals.SBO_Application.ActivateMenuItem("7425");
-                            BubbleEvent = false;
+                                BubbleEvent = false;
                         }
                     }
                 }

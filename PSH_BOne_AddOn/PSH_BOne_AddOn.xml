@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <doc>
     <assembly>
         <name>PSH_BOne_AddOn</name>
@@ -39237,6 +39237,62 @@
         <member name="M:PSH_BOne_AddOn.PH_PY135.PH_PY135_CreateItems">
             <summary>
             화면 Item 생성
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY135.PH_PY135_ComboBox_Setting">
+            <summary>
+            콤보박스 Setting
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY135.PH_PY135_EnableMenus">
+            <summary>
+            메뉴 아이콘 Enable
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY135.PH_PY135_SetDocument(System.String)">
+            <summary>
+            화면세팅
+            </summary>
+            <param name="oFormDocEntry"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY135.PH_PY135_FormClear">
+            <summary>
+            DocEntry 초기화
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY135.PH_PY135_FormItemEnabled">
+            <summary>
+            화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY135.PH_PY135_FlushToItemValue(System.String,System.Int32,System.String)">
+            <summary>
+            FlushToItemValue(사용자의 Event에 따른 화면 Item의 유동적인 세팅)
+            </summary>
+            <param name="oUID"></param>
+            <param name="oRow"></param>
+            <param name="oCol"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY135.PH_PY135_DataValidCheck">
+            <summary>
+            DataValidCheck
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY135.PH_PY135_MTX01">
+            <summary>
+            PH_PY001_MTX01, 메트릭스에 데이터 로드
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY135.PH_PY135_FormResize">
+            <summary>
+            PH_PY135_FormResize
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY135.PH_PY135_Create_oJournalEntries(System.Int32)">
+            <summary>
+            PH_PY135_Create_oJournalEntries(분개)
             </summary>
             <returns></returns>
         </member>

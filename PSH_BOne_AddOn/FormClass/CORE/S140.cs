@@ -35,8 +35,8 @@ namespace PSH_BOne_AddOn.Core
 				oMat01 = oForm.Items.Item("38").Specific;
 				SubMain.Add_Forms(this, formUID, "S140");
 
-				PS_S140_CreateItems();
-				PS_S140_EnableFormItem(false);
+				S140_CreateItems();
+				S140_EnableFormItem(false);
 			}
 			catch (Exception ex)
 			{
@@ -52,7 +52,7 @@ namespace PSH_BOne_AddOn.Core
         /// <summary>
         /// 화면 Item 생성
         /// </summary>
-        private void PS_S140_CreateItems()
+        private void S140_CreateItems()
         {
             SAPbouiCOM.Item oNewITEM = null;
 
@@ -166,7 +166,7 @@ namespace PSH_BOne_AddOn.Core
         /// 각 모드에 따른 아이템설정
         /// </summary>
         /// <param name="Status"></param>
-        private void PS_S140_EnableFormItem(bool Status)
+        private void S140_EnableFormItem(bool Status)
         {
             try
             {
@@ -213,7 +213,7 @@ namespace PSH_BOne_AddOn.Core
         /// 필수 사항 check
         /// </summary>
         /// <returns></returns>
-        private bool PS_S140_CheckDataValid()
+        private bool S140_CheckDataValid()
         {
             string errMessage = string.Empty;
             bool returnValue = false;
@@ -329,7 +329,7 @@ namespace PSH_BOne_AddOn.Core
         /// 리포트 출력
         /// </summary>
         [STAThread]
-        private void PS_S140_PrintReport()
+        private void S140_PrintReport()
         {
             string WinTitle;
             string ReportName = string.Empty;
@@ -343,7 +343,7 @@ namespace PSH_BOne_AddOn.Core
                 
                 if (oForm.Items.Item("Combo01").Specific.Selected.Value.ToString().Trim() == "01")
                 {
-                    ReportName = "PS_S140_01.rpt";
+                    ReportName = "S140_01.rpt";
                     //프로시저 : PS_SD140_01
                 }
 
@@ -474,7 +474,7 @@ namespace PSH_BOne_AddOn.Core
                     {
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                         {
-                            if (PS_S140_CheckDataValid() == false)
+                            if (S140_CheckDataValid() == false)
                             {
                                 BubbleEvent = false;
                                 return;
@@ -482,7 +482,7 @@ namespace PSH_BOne_AddOn.Core
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {
-                            if (PS_S140_CheckDataValid() == false)
+                            if (S140_CheckDataValid() == false)
                             {
                                 BubbleEvent = false;
                                 return;
@@ -504,7 +504,7 @@ namespace PSH_BOne_AddOn.Core
                         {
                             if (oForm.Items.Item("Combo01").Specific.Selected != null)
                             {
-                                System.Threading.Thread thread = new System.Threading.Thread(PS_S140_PrintReport);
+                                System.Threading.Thread thread = new System.Threading.Thread(S140_PrintReport);
                                 thread.SetApartmentState(System.Threading.ApartmentState.STA);
                                 thread.Start();
                             }
@@ -519,14 +519,14 @@ namespace PSH_BOne_AddOn.Core
                         {
                             if (pVal.ActionSuccess == true)
                             {
-                                PS_S140_EnableFormItem(false);
+                                S140_EnableFormItem(false);
                             }
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {
                             if (pVal.ActionSuccess == true)
                             {
-                                PS_S140_EnableFormItem(false);
+                                S140_EnableFormItem(false);
                             }
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
@@ -659,7 +659,7 @@ namespace PSH_BOne_AddOn.Core
 
                     if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                     {
-                        PS_S140_EnableFormItem(true);
+                        S140_EnableFormItem(true);
                     }
                 }
             }
@@ -847,7 +847,7 @@ namespace PSH_BOne_AddOn.Core
                 }
                 else if (pVal.Before_Action == false)
                 {
-                    PS_S140_EnableFormItem(true);
+                    S140_EnableFormItem(true);
                 }
             }
             catch (Exception ex)
@@ -1029,17 +1029,17 @@ namespace PSH_BOne_AddOn.Core
                             Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
                             break;
                         case "1281": //찾기
-                            PS_S140_EnableFormItem(false);
+                            S140_EnableFormItem(false);
                             break;
                         case "1282": //추가
-                            PS_S140_EnableFormItem(false);
+                            S140_EnableFormItem(false);
                             break;
                         case "1288":
                         case "1289":
                         case "1290":
                         case "1291": //레코드이동버튼
                             oMat01.AutoResizeColumns();
-                            PS_S140_EnableFormItem(false);
+                            S140_EnableFormItem(false);
                             break;
                     }
                 }

@@ -30,7 +30,7 @@ namespace PSH_BOne_AddOn.Core
 				oMat = oForm.Items.Item("13").Specific;
 				SubMain.Add_Forms(this, formUID, "S720");
 
-                PS_S720_CreateItems();
+                S720_CreateItems();
             }
 			catch (Exception ex)
 			{
@@ -46,7 +46,7 @@ namespace PSH_BOne_AddOn.Core
         /// <summary>
         /// 화면 Item 생성
         /// </summary>
-        private void PS_S720_CreateItems()
+        private void S720_CreateItems()
         {
             SAPbouiCOM.Item oItem = null;
 
@@ -85,7 +85,7 @@ namespace PSH_BOne_AddOn.Core
         /// 필수 사항 check
         /// </summary>
         /// <returns></returns>
-        private bool PS_S720_CheckDataValid()
+        private bool S720_CheckDataValid()
         {
             bool returnValue = false;
             string errMessage = string.Empty;
@@ -218,7 +218,7 @@ namespace PSH_BOne_AddOn.Core
                     {
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                         {
-                            if (PS_S720_CheckDataValid() == false)
+                            if (S720_CheckDataValid() == false)
                             {
                                 BubbleEvent = false;
                                 return;
@@ -226,7 +226,7 @@ namespace PSH_BOne_AddOn.Core
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {
-                            if (PS_S720_CheckDataValid() == false)
+                            if (S720_CheckDataValid() == false)
                             {
                                 BubbleEvent = false;
                                 return;
@@ -416,7 +416,7 @@ namespace PSH_BOne_AddOn.Core
                                 if (outWshCode != "") //기계사업부 원재료 불출용 창고 설정이 되어 있는 사용자일경우
                                 {
                                     //총계를 계산하지 않고, AP송장의 총계를 조회
-                                    sQry = "EXEC PS_S720_01 '" + oMat.Columns.Item("1").Cells.Item(pVal.Row).Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("9").Specific.Value.ToString().Trim() + "'";
+                                    sQry = "EXEC S720_01 '" + oMat.Columns.Item("1").Cells.Item(pVal.Row).Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("9").Specific.Value.ToString().Trim() + "'";
                                     oRecordSet.DoQuery(sQry);
                                     oMat.Columns.Item("14").Cells.Item(pVal.Row).Specific.Value = oRecordSet.Fields.Item("LineTotal").Value.ToString().Trim();
                                 }

@@ -34,8 +34,8 @@ namespace PSH_BOne_AddOn.Core
 				oMat02 = oForm.Items.Item("39").Specific; //서비스 매트릭스
 				SubMain.Add_Forms(this, formUID, "S143");
 
-				PS_S143_CreateItems();
-				PS_S143_EnableFormItem(false);
+				S143_CreateItems();
+				S143_EnableFormItem(false);
 			}
 			catch (Exception ex)
 			{
@@ -51,7 +51,7 @@ namespace PSH_BOne_AddOn.Core
         /// <summary>
         /// 화면 Item 생성
         /// </summary>
-        private void PS_S143_CreateItems()
+        private void S143_CreateItems()
         {
             SAPbouiCOM.Item oNewITEM = null;
             
@@ -97,7 +97,7 @@ namespace PSH_BOne_AddOn.Core
         /// 각 모드에 따른 아이템설정
         /// </summary>
         /// <param name="Status"></param>
-        private void PS_S143_EnableFormItem(bool Status)
+        private void S143_EnableFormItem(bool Status)
         {
             try
             {
@@ -132,7 +132,7 @@ namespace PSH_BOne_AddOn.Core
         /// 필수 사항 check
         /// </summary>
         /// <returns></returns>
-        private bool PS_S143_CheckDataValid()
+        private bool S143_CheckDataValid()
         {
             bool returnValue = false;
             string errMessage = string.Empty;
@@ -337,7 +337,7 @@ namespace PSH_BOne_AddOn.Core
                     {
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                         {
-                            if (PS_S143_CheckDataValid() == false)
+                            if (S143_CheckDataValid() == false)
                             {
                                 BubbleEvent = false;
                                 return;
@@ -345,7 +345,7 @@ namespace PSH_BOne_AddOn.Core
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {
-                            if (PS_S143_CheckDataValid() == false)
+                            if (S143_CheckDataValid() == false)
                             {
                                 BubbleEvent = false;
                                 return;
@@ -363,7 +363,7 @@ namespace PSH_BOne_AddOn.Core
                         {
                             if (pVal.ActionSuccess == true)
                             {
-                                PS_S143_EnableFormItem(false);
+                                S143_EnableFormItem(false);
                             }
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
@@ -373,7 +373,7 @@ namespace PSH_BOne_AddOn.Core
                         {
                             if (pVal.ActionSuccess == true)
                             {
-                                PS_S143_EnableFormItem(false);
+                                S143_EnableFormItem(false);
                             }
                         }
                     }
@@ -497,7 +497,7 @@ namespace PSH_BOne_AddOn.Core
                 {
                     if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                     {
-                        PS_S143_EnableFormItem(true);
+                        S143_EnableFormItem(true);
                     }
                 }
             }
@@ -862,10 +862,10 @@ namespace PSH_BOne_AddOn.Core
                             Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
                             break;
                         case "1281": //찾기
-                            PS_S143_EnableFormItem(false);
+                            S143_EnableFormItem(false);
                             break;
                         case "1282": //추가
-                            PS_S143_EnableFormItem(false);
+                            S143_EnableFormItem(false);
                             break;
                         case "1288":
                         case "1289":
@@ -873,7 +873,7 @@ namespace PSH_BOne_AddOn.Core
                         case "1291": //레코드이동버튼
                             oMat01.AutoResizeColumns();
                             oMat02.AutoResizeColumns();
-                            PS_S143_EnableFormItem(false);
+                            S143_EnableFormItem(false);
                             break;
                     }
                 }

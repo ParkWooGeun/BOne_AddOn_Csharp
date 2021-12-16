@@ -32,8 +32,8 @@ namespace PSH_BOne_AddOn.Core
 				oMat01 = oForm.Items.Item("38").Specific;
 				SubMain.Add_Forms(this, formUID, "S139");
 
-                PS_S139_CreateItems();
-                PS_S139_EnableFormItem(false);
+                S139_CreateItems();
+                S139_EnableFormItem(false);
             }
 			catch (Exception ex)
 			{
@@ -49,7 +49,7 @@ namespace PSH_BOne_AddOn.Core
         /// <summary>
         /// 화면 Item 생성
         /// </summary>
-        private void PS_S139_CreateItems()
+        private void S139_CreateItems()
         {
             SAPbouiCOM.Item oNewITEM = null;
             
@@ -142,7 +142,7 @@ namespace PSH_BOne_AddOn.Core
         /// 각 모드에 따른 아이템설정
         /// </summary>
         /// <param name="Status"></param>
-        private void PS_S139_EnableFormItem(bool Status)
+        private void S139_EnableFormItem(bool Status)
         {
             try
             {
@@ -202,7 +202,7 @@ namespace PSH_BOne_AddOn.Core
         /// </summary>
         /// <param name="FormMode"></param>
         /// <returns></returns>
-        private bool PS_S139_CheckDataValid(SAPbouiCOM.BoFormMode FormMode)
+        private bool S139_CheckDataValid(SAPbouiCOM.BoFormMode FormMode)
         {
             bool returnValue = false;
             string errMessage = string.Empty;
@@ -341,7 +341,7 @@ namespace PSH_BOne_AddOn.Core
 
                 if (FormMode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                 {
-                    if (PS_S139_CheckValidate("검사") == false)
+                    if (S139_CheckValidate("검사") == false)
                     {
                         returnValue = false;
                         return returnValue;
@@ -375,7 +375,7 @@ namespace PSH_BOne_AddOn.Core
         /// </summary>
         /// <param name="ValidateType"></param>
         /// <returns></returns>
-        private bool PS_S139_CheckValidate(string ValidateType)
+        private bool S139_CheckValidate(string ValidateType)
         {
             string errMessage = string.Empty;
             bool returnValue = false;
@@ -575,7 +575,7 @@ namespace PSH_BOne_AddOn.Core
         /// 기계사업부 작번닫기
         /// </summary>
         /// <param name="p_Row"></param>
-        private void PS_S139_CancelORDR(int p_Row)
+        private void S139_CancelORDR(int p_Row)
         {
             //short l_ErrNum = 0;
             string errMessage = string.Empty;
@@ -757,7 +757,7 @@ namespace PSH_BOne_AddOn.Core
                     {
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                         {
-                            if (PS_S139_CheckDataValid(oForm.Mode) == false)
+                            if (S139_CheckDataValid(oForm.Mode) == false)
                             {
                                 BubbleEvent = false;
                                 return;
@@ -765,7 +765,7 @@ namespace PSH_BOne_AddOn.Core
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {
-                            if (PS_S139_CheckDataValid(oForm.Mode) == false)
+                            if (S139_CheckDataValid(oForm.Mode) == false)
                             {
                                 BubbleEvent = false;
                                 return;
@@ -784,7 +784,7 @@ namespace PSH_BOne_AddOn.Core
                         {
                             if (pVal.ActionSuccess == true)
                             {
-                                PS_S139_EnableFormItem(false);
+                                S139_EnableFormItem(false);
                             }
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
@@ -794,7 +794,7 @@ namespace PSH_BOne_AddOn.Core
                         {
                             if (pVal.ActionSuccess == true)
                             {
-                                PS_S139_EnableFormItem(false);
+                                S139_EnableFormItem(false);
                             }
                         }
                     }
@@ -828,7 +828,7 @@ namespace PSH_BOne_AddOn.Core
 
                     if (pVal.ItemUID == "38")
                     {
-                        if (PS_S139_CheckValidate("수정") == false)
+                        if (S139_CheckValidate("수정") == false)
                         {
                             BubbleEvent = false;
                             return;
@@ -925,7 +925,7 @@ namespace PSH_BOne_AddOn.Core
                 {
                     if (pVal.ItemUID == "38")
                     {
-                        if (PS_S139_CheckValidate("수정") == false)
+                        if (S139_CheckValidate("수정") == false)
                         {
                             BubbleEvent = false;
                             oForm.Freeze(false);
@@ -938,7 +938,7 @@ namespace PSH_BOne_AddOn.Core
                     PSH_Globals.SBO_Application.Forms.GetForm(oForm.Type.ToString(), oForm.TypeCount).Update();
                     if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                     {
-                        PS_S139_EnableFormItem(true);
+                        S139_EnableFormItem(true);
                     }
                 }
             }
@@ -1169,7 +1169,7 @@ namespace PSH_BOne_AddOn.Core
                 {
                     if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                     {
-                        PS_S139_EnableFormItem(true);
+                        S139_EnableFormItem(true);
                     }
                 }
             }
@@ -1288,7 +1288,7 @@ namespace PSH_BOne_AddOn.Core
                 {
                     if (pVal.BeforeAction == true)
                     {
-                        if (PS_S139_CheckValidate("행삭제") == false)
+                        if (S139_CheckValidate("행삭제") == false)
                         {
                             BubbleEvent = false;
                             return;
@@ -1329,14 +1329,14 @@ namespace PSH_BOne_AddOn.Core
                     switch (pVal.MenuUID)
                     {
                         case "1284": //취소
-                            if (PS_S139_CheckValidate("취소") == false)
+                            if (S139_CheckValidate("취소") == false)
                             {
                                 BubbleEvent = false;
                                 return;
                             }
                             break;
                         case "1286": //닫기
-                            if (PS_S139_CheckValidate("닫기") == false)
+                            if (S139_CheckValidate("닫기") == false)
                             {
                                 BubbleEvent = false;
                                 return;
@@ -1355,7 +1355,7 @@ namespace PSH_BOne_AddOn.Core
                         case "1291": //레코드이동버튼
                             break;
                         case "CancelORDR": //작번 닫기(종료)
-                            PS_S139_CancelORDR(oLastColRow01);
+                            S139_CancelORDR(oLastColRow01);
                             break;
                     }
                 }
@@ -1371,17 +1371,17 @@ namespace PSH_BOne_AddOn.Core
                             Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
                             break;
                         case "1281": //찾기
-                            PS_S139_EnableFormItem(false);
+                            S139_EnableFormItem(false);
                             break;
                         case "1282": //추가
-                            PS_S139_EnableFormItem(false);
+                            S139_EnableFormItem(false);
                             break;
                         case "1288":
                         case "1289":
                         case "1290":
                         case "1291": //레코드이동버튼
                             oMat01.AutoResizeColumns();
-                            PS_S139_EnableFormItem(false);
+                            S139_EnableFormItem(false);
                             break;
                     }
                 }

@@ -350,8 +350,8 @@ namespace PSH_BOne_AddOn.Core
 
                 if (oForm.Items.Item("Combo01").Specific.Selected.Value.ToString().Trim() == "01")
                 {
-                    ReportName = "S149_01.rpt";
-                    //프로시저 : PS_SD149_01
+                    ReportName = "PS_S149_01.rpt";
+                    //프로시저 : PS_S149_01
                 }
 
                 List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>

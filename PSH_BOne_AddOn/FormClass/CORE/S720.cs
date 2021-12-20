@@ -269,10 +269,13 @@ namespace PSH_BOne_AddOn.Core
                         {
                             if (pVal.CharPressed == 9)
                             {
-                                PS_SM020 tempForm = new PS_SM020();
-                                tempForm.LoadForm(oForm, pVal.ItemUID, pVal.ColUID, oMat.VisualRowCount, "");
-                                BubbleEvent = false;
-                                return;
+                                if (string.IsNullOrEmpty(oMat.Columns.Item("1").Cells.Item(pVal.Row).Specific.Value))
+                                {
+                                    PS_SM020 tempForm = new PS_SM020();
+                                    tempForm.LoadForm(oForm, pVal.ItemUID, pVal.ColUID, oMat.VisualRowCount, "");
+                                    BubbleEvent = false;
+                                    return;
+                                }
                             }
                         }
                         else if (pVal.ColUID == "U_CardCode") //거래처코드
@@ -326,8 +329,7 @@ namespace PSH_BOne_AddOn.Core
                         {
                             if (pVal.ColUID == "1") //품목코드
                             {
-                                string tempQuery = "SELECT U_CdName AS [WhsCode] FROM [@PS_SY001L] WHERE Code = 'I002' AND U_Minor = '" + oForm.Items.Item("UserID").Specific.Value + "'";
-                                //string tempQuery = "SELECT U_CdName AS [WhsCode] FROM [@PS_SY001L] WHERE Code = 'I002' AND U_Minor = '" + PSH_Globals.oCompany.UserName + "'";
+                                string tempQuery = "SELECT U_CdName AS [WhsCode] FROM [@PS_SY001L] WHERE Code = 'I002' AND U_Minor = '" + oForm.Items.Item("UserID").Specific.Value + "' AND U_UseYN = 'Y'";
                                 oRecordSet.DoQuery(tempQuery);
                                 string outWshCode = oRecordSet.Fields.Item("WhsCode").Value.ToString().Trim(); //기계사업부 원재료 불출용 창고
                                 string baseWshCode = outWshCode == "" ? dataHelpClass.User_WhsCode("1") : outWshCode; //기계사업부 원재료 불출용 창고가 설정되지 않은 사용자는 기본 창고, 아니면 불출용 창고 코드로 설정;
@@ -408,15 +410,14 @@ namespace PSH_BOne_AddOn.Core
                             }
                             else if (pVal.ColUID == "9")
                             {
-                                string tempQuery = "SELECT U_CdName AS [WhsCode] FROM [@PS_SY001L] WHERE Code = 'I002' AND U_Minor = '" + oForm.Items.Item("UserID").Specific.Value + "'";
-                                //string tempQuery = "SELECT U_CdName AS [WhsCode] FROM [@PS_SY001L] WHERE Code = 'I002' AND U_Minor = '" + PSH_Globals.oCompany.UserName + "'";
+                                string tempQuery = "SELECT U_CdName AS [WhsCode] FROM [@PS_SY001L] WHERE Code = 'I002' AND U_Minor = '" + oForm.Items.Item("UserID").Specific.Value + "' AND U_UseYN = 'Y'";
                                 oRecordSet.DoQuery(tempQuery);
                                 string outWshCode = oRecordSet.Fields.Item("WhsCode").Value.ToString().Trim(); //기계사업부 원재료 불출용 창고
                                 
                                 if (outWshCode != "") //기계사업부 원재료 불출용 창고 설정이 되어 있는 사용자일경우
                                 {
                                     //총계를 계산하지 않고, AP송장의 총계를 조회
-                                    sQry = "EXEC S720_01 '" + oMat.Columns.Item("1").Cells.Item(pVal.Row).Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("9").Specific.Value.ToString().Trim() + "'";
+                                    sQry = "EXEC PS_S720_01 '" + oMat.Columns.Item("1").Cells.Item(pVal.Row).Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("9").Specific.Value.ToString().Trim() + "'";
                                     oRecordSet.DoQuery(sQry);
                                     oMat.Columns.Item("14").Cells.Item(pVal.Row).Specific.Value = oRecordSet.Fields.Item("LineTotal").Value.ToString().Trim();
                                 }

@@ -1,9 +1,6 @@
 using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
-using PSH_BOne_AddOn.DataPack;
-using PSH_BOne_AddOn.Form;
-using System.Collections.Generic;
 
 namespace PSH_BOne_AddOn
 {
@@ -348,7 +345,7 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet01); //메모리 해제
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet01);
                 if (ProgressBar01 != null)
                 {
                     ProgressBar01.Stop();
@@ -447,7 +444,7 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet01); //메모리 해제
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(RecordSet01);
                 if (ProgressBar01 != null)
                 {
                     ProgressBar01.Stop();
@@ -544,13 +541,11 @@ namespace PSH_BOne_AddOn
                     else if (baseFormType == "720") //출고
                     {
                         oBaseMat = oBaseForm.Items.Item("13").Specific; //출고-매트릭스
-                        //SAPbouiCOM.DBDataSource oDS_BaseLine = oBaseForm.DataSources.DBDataSources.Item("IGE1");
 
                         for (int i = 1; i <= oMat01.RowCount; i++) //품목매트릭스
                         {
                             if (oMat01.Columns.Item("CHK").Cells.Item(i).Specific.Checked == true)
                             {
-                                //oDS_BaseLine.SetValue("ItemCode", oBaseColRow - 1, oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.Value);
                                 oBaseMat.Columns.Item("1").Cells.Item(oBaseColRow).Specific.Value = oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.Value; //품목코드
                                 oBaseMat.Columns.Item("1").Cells.Item(oBaseColRow + 1).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                                 oBaseColRow += 1;

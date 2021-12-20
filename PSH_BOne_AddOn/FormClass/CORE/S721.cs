@@ -1,6 +1,5 @@
 using System;
 using SAPbouiCOM;
-using PSH_BOne_AddOn.Code;
 using PSH_BOne_AddOn.Data;
 
 namespace PSH_BOne_AddOn.Core
@@ -13,11 +12,11 @@ namespace PSH_BOne_AddOn.Core
 		private string oFormUniqueID;
 		private SAPbouiCOM.Matrix oMat01;
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="formUID"></param>
-		public override void LoadForm(string formUID)
+        /// <summary>
+        /// Form 호출
+        /// </summary>
+        /// <param name="formUID"></param>
+        public override void LoadForm(string formUID)
 		{
             try
             {
@@ -38,7 +37,6 @@ namespace PSH_BOne_AddOn.Core
             {
                 oForm.Update();
                 oForm.Freeze(false);
-                oForm.Visible = true;
             }
         }
 
@@ -47,9 +45,18 @@ namespace PSH_BOne_AddOn.Core
         /// </summary>
         private void S721_CreateItems()
         {
+            SAPbouiCOM.Item oItem = null;
+
             try
             {
-                oForm.Freeze(true);
+                oItem = oForm.Items.Add("AddonText", SAPbouiCOM.BoFormItemTypes.it_STATIC);
+                oItem.Top = oForm.Items.Item("1").Top - 12;
+                oItem.Left = oForm.Items.Item("1").Left;
+                oItem.Height = 12;
+                oItem.Width = 120;
+                oItem.FontSize = 10;
+                oItem.Specific.Caption = "Addon running";
+
                 oMat01.Columns.Item("U_CardName").Editable = false;
             }
             catch (Exception ex)
@@ -58,7 +65,7 @@ namespace PSH_BOne_AddOn.Core
             }
             finally
             {
-                oForm.Freeze(false);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oItem);
             }
         }
 

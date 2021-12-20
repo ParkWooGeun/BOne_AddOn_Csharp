@@ -1,6 +1,5 @@
 ﻿using System;
 using SAPbouiCOM;
-using PSH_BOne_AddOn.Code;
 using System.Collections.Generic;
 
 namespace PSH_BOne_AddOn.Core
@@ -43,7 +42,6 @@ namespace PSH_BOne_AddOn.Core
             {
                 oForm.Update();
                 oForm.Freeze(false);
-                oForm.Visible = true;
             }
         }
 
@@ -52,7 +50,7 @@ namespace PSH_BOne_AddOn.Core
         /// </summary>
         private void S230_CreateItems()
         {
-            SAPbouiCOM.Item oItem;
+            SAPbouiCOM.Item oItem = null;
 
             try
             {
@@ -68,6 +66,10 @@ namespace PSH_BOne_AddOn.Core
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oItem);
             }
         }
 

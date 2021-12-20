@@ -41,7 +41,6 @@ namespace PSH_BOne_AddOn.Core
             {
                 oForm.Update();
                 oForm.Freeze(false);
-                oForm.Visible = true;
             }
         }
 
@@ -50,11 +49,11 @@ namespace PSH_BOne_AddOn.Core
         /// </summary>
         private void S150_CreateItems()
         {
-            SAPbouiCOM.Item oItem;
-            SAPbouiCOM.Item oItem_ItmMsort;
-            SAPbouiCOM.Item oItem_Spec2;
-            SAPbouiCOM.Item oItem_Spec4;
-            SAPbouiCOM.Item oCombo;
+            SAPbouiCOM.Item oItem = null;
+            SAPbouiCOM.Item oItem_ItmMsort = null;
+            SAPbouiCOM.Item oItem_Spec2 = null;
+            SAPbouiCOM.Item oItem_Spec4 = null;
+            SAPbouiCOM.Item oCombo = null;
 
             try
             {
@@ -105,6 +104,14 @@ namespace PSH_BOne_AddOn.Core
                 oCombo.Specific.ValidValues.Add("N", "미사용");
                 oCombo.FromPane = 6;
                 oCombo.ToPane = 6;
+
+                oItem = oForm.Items.Add("AddonText", SAPbouiCOM.BoFormItemTypes.it_STATIC);
+                oItem.Top = oForm.Items.Item("1").Top - 12;
+                oItem.Left = oForm.Items.Item("1").Left;
+                oItem.Height = 12;
+                oItem.Width = 120;
+                oItem.FontSize = 10;
+                oItem.Specific.Caption = "Addon running";
             }
             catch (Exception ex)
             {
@@ -112,6 +119,11 @@ namespace PSH_BOne_AddOn.Core
             }
             finally
             {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oItem);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oItem_ItmMsort);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oItem_Spec2);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oItem_Spec4);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oCombo);
             }
         }
 

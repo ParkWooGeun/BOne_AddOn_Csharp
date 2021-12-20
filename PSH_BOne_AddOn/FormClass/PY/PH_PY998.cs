@@ -389,10 +389,12 @@ namespace PSH_BOne_AddOn
 
                 string permID = oForm.Items.Item("PermID").Specific.Value.ToString().Trim();
                 string userCode = oForm.Items.Item("UserCode").Specific.Value.ToString().Trim();
+                string sPerm = oForm.Items.Item("Perm").Specific.Value.ToString().Trim();
 
                 sQry = "EXEC PH_PY998_02 '";
                 sQry += permID + "','";
-                sQry += userCode + "'";
+                sQry += userCode + "','";
+                sQry += sPerm + "'";
                 oRecordSet01.DoQuery(sQry);
 
                 oMat01.Clear();

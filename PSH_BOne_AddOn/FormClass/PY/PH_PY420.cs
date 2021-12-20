@@ -183,8 +183,6 @@ namespace PSH_BOne_AddOn
                 {
                     throw new Exception();
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -302,10 +300,7 @@ namespace PSH_BOne_AddOn
                 mstcode = oForm.Items.Item("MSTCOD").Specific.Value;
                 yyyy = oForm.Items.Item("Year").Specific.Value;
                 BPLID = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
-                //oFilePath = @"\\191.1.1.220\pdf\";
                 oFilePath = "\\\\" + PSH_Globals.SP_ODBC_IP + "\\pdf\\";
-
-                // "\\\\" + PSH_Globals.SP_ODBC_IP + "\\HR_Pic"; //191.1.1.220\HR_Pic"; //목적지(서버) 경로(하드코딩은 지향하자. 수정필요)
 
                 sQry = "INSERT INTO TBL_XML(CREATEDATE, BPLID ,yyyy ,MSTCOD ,XMLDATA)";
                 sQry += " SELECT GETDATE() AS CREATEDATE,'" + BPLID + "','" + yyyy + "','" + mstcode + "' AS MSTCOD, * FROM OPENROWSET (";

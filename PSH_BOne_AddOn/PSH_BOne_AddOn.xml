@@ -64071,14 +64071,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY413.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            COMBO_SELECT 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY413.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             VALIDATE 이벤트
@@ -64107,7 +64099,7 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY413.PH_PY413_Delete">
             <summary>
-            PH_PY413_Delete
+            PH_PY413_Delete 데이타 삭제
             </summary>
         </member>
         <member name="T:PSH_BOne_AddOn.PH_PY415">

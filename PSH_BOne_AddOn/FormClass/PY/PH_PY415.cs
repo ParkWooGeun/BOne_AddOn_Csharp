@@ -556,7 +556,7 @@ namespace PSH_BOne_AddOn
                             }
                             if (Result == "Y")
                             {
-                                PSH_Globals.SBO_Application.MessageBox(PH_PY415_Calc());
+                                PSH_Globals.SBO_Application.StatusBar.SetText(PH_PY415_Calc(), BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
                             }
                         }
                     }

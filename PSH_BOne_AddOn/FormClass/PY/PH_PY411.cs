@@ -20,6 +20,7 @@ namespace PSH_BOne_AddOn
         {
             int i;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
+
             try
             {
                 oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PH_PY411.srf");
@@ -46,7 +47,6 @@ namespace PSH_BOne_AddOn
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 
                 oForm.Freeze(true);
-
                 PH_PY411_CreateItems();
                 PH_PY411_FormItemEnabled();
             }
@@ -188,7 +188,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.EnableMenu("1282", true);      // 문서추가
-
                 if (string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.Value.ToString().Trim()))
                 {
                     oForm.Items.Item("Year").Specific.Value = Convert.ToString(DateTime.Now.Year - 1);
@@ -205,7 +204,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("gamt").Specific.Value = 0;
 
                 oForm.Items.Item("amt").Enabled = true;
-                //Key set
+                
                 oForm.Items.Item("CLTCOD").Enabled = true;
                 oForm.Items.Item("Year").Enabled = true;
                 oForm.Items.Item("MSTCOD").Enabled = true;
@@ -227,24 +226,16 @@ namespace PSH_BOne_AddOn
             int iRow;
             string sQry;
             short ErrNum = 0;
-            string CLTCOD;
-            string Year;
-            string MSTCOD;
 
             try
             {
                 oForm.Freeze(true);
-
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
-                Year = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
-                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
-
-                if (string.IsNullOrEmpty(Year))
+                if (string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.Value.ToString().Trim()))
                 {
                     ErrNum = 1;
                     throw new Exception();
                 }
-                if (string.IsNullOrEmpty(MSTCOD))
+                if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim()))
                 {
                     ErrNum = 2;
                     throw new Exception();
@@ -252,9 +243,9 @@ namespace PSH_BOne_AddOn
 
                 PH_PY411_FormItemEnabled();
 
-                sQry = "EXEC PH_PY411_01 '" + CLTCOD + "', '" + Year + "', '" + MSTCOD + "'";
+                sQry = "EXEC PH_PY411_01 '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("Year").Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "'";
                 oDS_PH_PY411.ExecuteQuery(sQry);
-                iRow = oDS_PH_PY411.Rows.Count; //oForm.DataSources.DataTables.Item(0).Rows.Count;
+                iRow = oDS_PH_PY411.Rows.Count;
 
                 PH_PY411_TitleSetting(iRow);
                 oForm.ActiveItem = "gubun";
@@ -289,8 +280,6 @@ namespace PSH_BOne_AddOn
             // 데이타 저장
             int seqncom;
             string sQry;
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
             string saup;
             string yyyy;
             string sabun;
@@ -304,11 +293,11 @@ namespace PSH_BOne_AddOn
             double yuncha;
             double Amt;
             double gamt;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
                 oForm.Freeze(true);
-
                 saup = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                 yyyy = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
                 sabun = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
@@ -352,8 +341,6 @@ namespace PSH_BOne_AddOn
 
                 if (oRecordSet.Fields.Item(0).Value > 0)
                 {
-                    // 갱신
-
                     PSH_Globals.SBO_Application.StatusBar.SetText("수정할수 없습니다. 자료를 삭제후 수정하여 재등록 하세요...", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                     //sQry  = "Update [p_seoybank] set ";
                     //sQry += "gubun = '" + Gubun + "',";
@@ -438,12 +425,10 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// PH_PY411_Delete
+        /// PH_PY411_Delete 데이타 삭제
         /// </summary>
         private void PH_PY411_Delete()
         {
-            // 데이타 삭제
-            short ErrNum = 0;
             string sQry;
             string saup;
             string yyyy;
@@ -454,7 +439,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 saup = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                 yyyy = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
                 sabun = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
@@ -475,14 +459,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if (ErrNum == 1)
-                {
-                    //    PSH_Globals.SBO_Application.MessageBox("급여계산 된 자료는 삭제할 수 없습니다.");
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-                }
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
             finally
             {
@@ -501,6 +478,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
+                oForm.Freeze(true);
                 COLNAM[0] = "순번";
                 COLNAM[1] = "구분코드";
                 COLNAM[2] = "구분명";
@@ -601,7 +579,6 @@ namespace PSH_BOne_AddOn
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             string sQry;
-            string yyyy;
             string Result;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -615,8 +592,7 @@ namespace PSH_BOne_AddOn
                     }
                     if (pVal.ItemUID == "Btn01")  // 저장
                     {
-                        yyyy = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
-                        sQry = "select b.U_UseYN from [@PS_HR200L] b where b.code ='87' and b.u_code ='" + yyyy + "'";
+                        sQry = "select b.U_UseYN from [@PS_HR200L] b where b.code ='87' and b.u_code ='" + oForm.Items.Item("Year").Specific.Value.ToString().Trim() + "'";
                         oRecordSet.DoQuery(sQry);
 
                         Result = oRecordSet.Fields.Item(0).Value.ToString().Trim();
@@ -631,9 +607,7 @@ namespace PSH_BOne_AddOn
                     }
                     if (pVal.ItemUID == "Btn_del")  // 삭제
                     {
-
-                        yyyy = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
-                        sQry = "select b.U_UseYN from [@PS_HR200L] b where b.code ='87' and b.u_code ='" + yyyy + "'";
+                        sQry = "select b.U_UseYN from [@PS_HR200L] b where b.code ='87' and b.u_code ='" + oForm.Items.Item("Year").Specific.Value.ToString().Trim() + "'";
                         oRecordSet.DoQuery(sQry);
 
                         Result = oRecordSet.Fields.Item(0).Value.ToString().Trim();
@@ -777,6 +751,7 @@ namespace PSH_BOne_AddOn
                                 oForm.Items.Item("RspName").Specific.Value = oRecordSet.Fields.Item("RspName").Value.ToString().Trim();
                                 oForm.Items.Item("ClsName").Specific.Value = oRecordSet.Fields.Item("ClsName").Value.ToString().Trim();
                                 break;
+
                             case "FullName":
                                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                                 FullName = oForm.Items.Item("FullName").Specific.Value.ToString().Trim();
@@ -808,6 +783,7 @@ namespace PSH_BOne_AddOn
                                 oForm.Items.Item("RspName").Specific.Value = oRecordSet.Fields.Item("RspName").Value.ToString().Trim();
                                 oForm.Items.Item("ClsName").Specific.Value = oRecordSet.Fields.Item("ClsName").Value.ToString().Trim();
                                 break;
+
                             case "bcode":
                                 bcode = oForm.Items.Item("bcode").Specific.Value.ToString().Trim();
                                 sQry = "Select Code,";
@@ -1019,12 +995,11 @@ namespace PSH_BOne_AddOn
         private void Raise_EVENT_CLICK(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             string sQry;
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
             string Param01;
             string Param02;
             string Param03;
             string Param04;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -1044,7 +1019,7 @@ namespace PSH_BOne_AddOn
                             sQry = "EXEC PH_PY411_02 '" + Param01 + "', '" + Param02 + "', '" + Param03 + "', '" + Param04 + "'";
                             oRecordSet.DoQuery(sQry);
 
-                            if ((oRecordSet.RecordCount == 0))
+                            if (oRecordSet.RecordCount == 0)
                             {
                                 oForm.Items.Item("seqn").Specific.Value = "";
                                 oForm.Items.Item("gubun").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
@@ -1135,7 +1110,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 if (pVal.BeforeAction == true)
                 {
                     switch (pVal.MenuUID)

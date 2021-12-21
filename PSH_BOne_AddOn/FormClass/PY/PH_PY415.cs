@@ -139,22 +139,20 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                oForm.Freeze(true);
-
-                if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
+                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
                     oForm.Items.Item("Year").Specific.Value = Convert.ToString(DateTime.Now.Year - 1);
                     oForm.EnableMenu("1281", true); //문서찾기
                     oForm.EnableMenu("1282", false); //문서추가
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
                     oForm.EnableMenu("1281", false); //문서찾기
                     oForm.EnableMenu("1282", true); //문서추가
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", false);
                     oForm.EnableMenu("1281", true);  //문서찾기
@@ -164,10 +162,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-            }
-            finally
-            {
-                oForm.Freeze(false);
             }
         }
 
@@ -181,7 +175,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 oMat1.FlushToDataSource();
                 oRow = oMat1.VisualRowCount;
 
@@ -241,6 +234,7 @@ namespace PSH_BOne_AddOn
         {
             bool returnValue = false;
             int ErrNum = 0;
+
             try
             {
                 if (string.IsNullOrEmpty(oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim()))  // 사업장
@@ -328,7 +322,7 @@ namespace PSH_BOne_AddOn
                         sQry += "  		    a.sabun ";
                         oRecordSet.DoQuery(sQry);
 
-                        if ((oRecordSet.RecordCount == 0))
+                        if (oRecordSet.RecordCount == 0)
                         {
                             oMat1.Clear();
                             ErrNum = 1;
@@ -344,7 +338,7 @@ namespace PSH_BOne_AddOn
                         {
                             if (i != 0)
                             {
-                                oDS_PH_PY415B.InsertRecord((i));
+                                oDS_PH_PY415B.InsertRecord(i);
                             }
                             oDS_PH_PY415B.Offset = i;
                             oDS_PH_PY415B.SetValue("U_LineNum", i, Convert.ToString(i + 1));
@@ -413,7 +407,7 @@ namespace PSH_BOne_AddOn
             {
                 if (ErrNum == 1)
                 {
-                    returnValue = "정산대상자가 없습니자.";
+                    returnValue = "정산대상자가 없습니다.";
                 }
                 else
                 {
@@ -508,7 +502,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "1")
                     {
-                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE | oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
+                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {
                             if (PH_PY415_DataValidCheck() == false)
                             {
@@ -594,7 +588,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim()))
                         {
-                            PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
+                            PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                             BubbleEvent = false;
                         }
                     }
@@ -621,10 +615,8 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 if (pVal.BeforeAction == true)
                 {
-
                 }
                 else if (pVal.BeforeAction == false)
                 {
@@ -707,7 +699,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 if (pVal.BeforeAction == true)
                 {
                 }
@@ -748,6 +739,7 @@ namespace PSH_BOne_AddOn
         {
             try
             {
+                oForm.Freeze(true);
                 if (pVal.BeforeAction == true)
                 {
                 }
@@ -762,6 +754,10 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+            }
+            finally
+            {
+                oForm.Freeze(false);
             }
         }
 
@@ -809,7 +805,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (pVal.Before_Action == false)
                 {
-                    if (pVal.ItemUID == "Mat1" & pVal.ColUID == "ACTCOD")
+                    if (pVal.ItemUID == "Mat1" && pVal.ColUID == "ACTCOD")
                     {
                         dataHelpClass.PSH_CF_DBDatasourceReturn(pVal, pVal.FormUID, "@PH_PY415B", "U_ACTCOD,U_ACTNAM", pVal.ItemUID, (short)pVal.Row, "", "", "");
                     }
@@ -832,7 +828,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 if (pVal.BeforeAction == true)
                 {
                     switch (pVal.MenuUID)

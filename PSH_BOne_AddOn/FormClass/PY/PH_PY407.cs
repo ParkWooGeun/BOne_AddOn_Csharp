@@ -777,7 +777,8 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_CLICK(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string sQry; string Param01;
+            string sQry; 
+            string Param01;
             string Param02;
             string Param03;
             string Param04;
@@ -920,7 +921,6 @@ namespace PSH_BOne_AddOn
         private void PH_PY407_SAVE()
         {
             // 데이타 저장
-            short ErrNum = 0;
             string sQry;
             string saup;
             string yyyy;
@@ -1057,7 +1057,6 @@ namespace PSH_BOne_AddOn
         private void PH_PY407_Delete()
         {
             // 데이타 삭제
-            short ErrNum = 0;
             string sQry;
             string saup;
             string yyyy;

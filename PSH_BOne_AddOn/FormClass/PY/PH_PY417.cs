@@ -307,9 +307,6 @@ namespace PSH_BOne_AddOn
                 oMat01.LoadFromDataSource();
                 oMat01.AutoResizeColumns();
                 oForm.Update();
-
-                ProgBar01.Stop();
-
             }
             catch (Exception ex)
             {

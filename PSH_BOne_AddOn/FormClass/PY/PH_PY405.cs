@@ -988,12 +988,6 @@ namespace PSH_BOne_AddOn
                                 oForm.Items.Item("nanim").Specific.Select(oRecordSet.Fields.Item("nanim").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
                                 oForm.Items.Item("tukrae").Specific.Select(oRecordSet.Fields.Item("tukrae").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
 
-                                //    '//부서
-                                //    oForm.Items("TeamName").Specific.Value = oRecordSet.Fields("TeamName").Value
-                                //    oForm.Items("RspName").Specific.Value = oRecordSet.Fields("RspName").Value
-                                //    oForm.Items("ClsName").Specific.Value = oRecordSet.Fields("ClsName").Value
-
-                                ////Key Disable
                                 oForm.Items.Item("CLTCOD").Enabled = false;
                                 oForm.Items.Item("Year").Enabled = false;
                                 oForm.Items.Item("MSTCOD").Enabled = false;
@@ -1144,7 +1138,7 @@ namespace PSH_BOne_AddOn
                     return;
                 }
 
-                if (medcex != 0 & ntamt != 0)
+                if (medcex != 0 && ntamt != 0)
                 {
                     PSH_Globals.SBO_Application.MessageBox("국세청자료와 국세청자료외는 구분하여 별도로 입력 하십시요. 확인바랍니다..");
                     return;
@@ -1242,6 +1236,7 @@ namespace PSH_BOne_AddOn
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
                     PH_PY405_DataFind();
                 }
+                oGrid1.AutoResizeColumns();
             }
             catch (Exception ex)
             {
@@ -1249,7 +1244,6 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                oGrid1.AutoResizeColumns();
                 oForm.Freeze(false);
             }
         }

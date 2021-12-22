@@ -22,8 +22,8 @@ namespace PSH_BOne_AddOn
         public override void LoadForm(string oFormDocEntry)
         {
             int i;
-            string strXml;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
+
             try
             {
                 oXmlDoc.load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Screen + "\\PH_PY402.srf");
@@ -40,7 +40,7 @@ namespace PSH_BOne_AddOn
                 oFormUniqueID = "PH_PY402_" + SubMain.Get_TotalFormsCount();
                 SubMain.Add_Forms(this, oFormUniqueID, "PH_PY402");
 
-                strXml = oXmlDoc.xml.ToString();
+                string strXml = oXmlDoc.xml.ToString();
                 PSH_Globals.SBO_Application.LoadBatchActions(strXml);
                 oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
@@ -319,6 +319,7 @@ namespace PSH_BOne_AddOn
                 oDS_PH_PY402A.ExecuteQuery(sQry);
                 iRow = oForm.DataSources.DataTables.Item(0).Rows.Count;
                 PH_PY402_TitleSetting(ref iRow);
+                oGrid.AutoResizeColumns();
             }
             catch (Exception ex)
             {
@@ -326,7 +327,6 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                oGrid.AutoResizeColumns();
                 oForm.Freeze(false);
             }
         }
@@ -336,7 +336,6 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PH_PY402_SAVE()
         {
-            // 데이타 저장
             short ErrNum = 0;
             string vReturnValue;
             string CLTCOD;
@@ -541,6 +540,7 @@ namespace PSH_BOne_AddOn
                     oRecordSet.DoQuery(sQry);
                     PH_PY402_DataFind();
                 }
+                oGrid.AutoResizeColumns();
             }
             catch (Exception ex)
             {
@@ -572,7 +572,6 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                oGrid.AutoResizeColumns();
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
                 oForm.Freeze(false);
             }
@@ -596,7 +595,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
                 YEAR = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
@@ -616,6 +614,7 @@ namespace PSH_BOne_AddOn
                         PH_PY402_DataFind();
                     }
                 }
+                oGrid.AutoResizeColumns();
             }
             catch (Exception ex)
             {
@@ -623,7 +622,6 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                oGrid.AutoResizeColumns();
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
                 oForm.Freeze(false);
             }
@@ -640,7 +638,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 COLNAM[0] = "년도";
                 COLNAM[1] = "사번";
                 COLNAM[2] = "공제구분코드";
@@ -669,6 +666,7 @@ namespace PSH_BOne_AddOn
                     }
                     oGrid.Columns.Item(i).RightJustified = true;
                 }
+                oGrid.AutoResizeColumns();
             }
             catch (Exception ex)
             {
@@ -676,7 +674,6 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                oGrid.AutoResizeColumns();
                 oForm.Freeze(false);
             }
         }
@@ -1553,7 +1550,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 if (pVal.BeforeAction == true)
                 {
                     switch (pVal.MenuUID)

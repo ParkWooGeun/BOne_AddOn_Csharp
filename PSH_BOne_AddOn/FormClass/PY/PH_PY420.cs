@@ -108,7 +108,6 @@ namespace PSH_BOne_AddOn
         {
             try
             {
-                oForm.Freeze(true);
                 oForm.EnableMenu("1282", true);  // 문서추가
                 if (string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.Value.ToString().Trim()))
                 {
@@ -124,10 +123,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY420_FormItemEnabled_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-                oForm.Freeze(false);
             }
         }
 
@@ -288,21 +283,16 @@ namespace PSH_BOne_AddOn
             bool returnValue = false;
             string sQry;
             string oFilePath;
-            string mstcode;
-            string yyyy;
-            string BPLID;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
-                mstcode = oForm.Items.Item("MSTCOD").Specific.Value;
-                yyyy = oForm.Items.Item("Year").Specific.Value;
-                BPLID = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                 oFilePath = "\\\\" + PSH_Globals.SP_ODBC_IP + "\\pdf\\";
 
                 sQry = "INSERT INTO TBL_XML(CREATEDATE, BPLID ,yyyy ,MSTCOD ,XMLDATA)";
-                sQry += " SELECT GETDATE() AS CREATEDATE,'" + BPLID + "','" + yyyy + "','" + mstcode + "' AS MSTCOD, * FROM OPENROWSET (";
-                sQry += "BULK '" + oFilePath + mstcode + "_PDFtoXML.xml', SINGLE_BLOB) AS x";
+                sQry += " SELECT GETDATE() AS CREATEDATE,'" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "','" + oForm.Items.Item("Year").Specific.Value;
+                sQry += "','" + oForm.Items.Item("MSTCOD").Specific.Value + "' AS MSTCOD, * FROM OPENROWSET (";
+                sQry += "BULK '" + oFilePath + oForm.Items.Item("MSTCOD").Specific.Value + "_PDFtoXML.xml', SINGLE_BLOB) AS x";
 
                 oRecordSet.DoQuery(sQry);
                 returnValue = true;
@@ -320,27 +310,22 @@ namespace PSH_BOne_AddOn
         private void PH_PY420_Covert_execution()
         {
             string sQry;
-            string mstcode;
-            string yyyy;
-            string BPLID;
+            //string mstcode;
+            //string yyyy;
+            //string BPLID;
             string text;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
-                BPLID = oForm.Items.Item("CLTCOD").Specific.Value;
-                yyyy = oForm.Items.Item("Year").Specific.Value;
-                mstcode = oForm.Items.Item("MSTCOD").Specific.Value;
-
-                sQry = "Exec PH_PY420_01 '" + BPLID + "', '" + yyyy + "', '" + mstcode + "'";
+                sQry = "Exec PH_PY420_01 '" + oForm.Items.Item("CLTCOD").Specific.Value + "', '" + oForm.Items.Item("Year").Specific.Value + "', '" + oForm.Items.Item("MSTCOD").Specific.Value + "'";
                 oRecordSet.DoQuery(sQry);
 
-                sQry = "Exec PH_PY420_02 '" + BPLID + "', '" + yyyy + "', '" + mstcode + "'";
+                sQry = "Exec PH_PY420_02 '" + oForm.Items.Item("CLTCOD").Specific.Value + "', '" + oForm.Items.Item("Year").Specific.Value + "', '" + oForm.Items.Item("MSTCOD").Specific.Value + "'";
                 oRecordSet.DoQuery(sQry);
 
                 text = "PDF 업로드 후 체크 사항";
                 text += Environment.NewLine;
-
                 text += Environment.NewLine;
                 text += "1.장기주택저당차입금 이자상환액은 해당사항이 없으시면 삭제하셔야합니다.";
                 text += Environment.NewLine;
@@ -474,9 +459,9 @@ namespace PSH_BOne_AddOn
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             string sQry;
-            string CLTCOD;
-            string MSTCOD; 
-            string FullName; 
+            //string CLTCOD;
+            //string MSTCOD; 
+            //string FullName; 
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -492,9 +477,6 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "MSTCOD":
-                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
-                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
-
                                 sQry = "Select Code,";
                                 sQry += " FullName = U_FullName,";
                                 sQry += " TeamName = Isnull((SELECT U_CodeNm";
@@ -511,17 +493,14 @@ namespace PSH_BOne_AddOn
                                 sQry += " And U_Code  = U_ClsCode";
                                 sQry += " And U_Char3 = U_CLTCOD),'')";
                                 sQry += " From [@PH_PY001A]";
-                                sQry += " Where U_CLTCOD = '" + CLTCOD + "'";
-                                sQry += " and Code = '" + MSTCOD + "'";
+                                sQry += " Where U_CLTCOD = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "'";
+                                sQry += " and Code = '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "'";
 
                                 oRecordSet.DoQuery(sQry);
                                 oForm.DataSources.UserDataSources.Item("FullName").Value = oRecordSet.Fields.Item("FullName").Value;
                                 break;
 
                             case "FullName":
-                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
-                                FullName = oForm.Items.Item("FullName").Specific.Value;
-
                                 sQry = "Select Code,";
                                 sQry += " FullName = U_FullName,";
                                 sQry += " TeamName = Isnull((SELECT U_CodeNm";
@@ -538,9 +517,9 @@ namespace PSH_BOne_AddOn
                                 sQry += " And U_Code  = U_ClsCode";
                                 sQry += " And U_Char3 = U_CLTCOD),'')";
                                 sQry += " From [@PH_PY001A]";
-                                sQry += " Where U_CLTCOD = '" + CLTCOD + "'";
+                                sQry += " Where U_CLTCOD = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "'";
                                 sQry += " And U_status <> '5'"; // 퇴사자 제외
-                                sQry += " and U_FullName = '" + FullName + "'";
+                                sQry += " and U_FullName = '" + oForm.Items.Item("FullName").Specific.Value + "'";
 
                                 oRecordSet.DoQuery(sQry);
                                 oForm.DataSources.UserDataSources.Item("MSTCOD").Value = oRecordSet.Fields.Item("Code").Value;

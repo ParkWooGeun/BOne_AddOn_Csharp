@@ -660,9 +660,6 @@ namespace PSH_BOne_AddOn
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             string sQry;
-            string CLTCOD;
-            string MSTCOD;
-            string FullName;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -677,9 +674,6 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "MSTCOD":
-                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
-                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value;
-
                                 sQry = "  Select    Code,";
                                 sQry += "           FullName = U_FullName,";
                                 sQry += "           TeamName = Isnull((SELECT U_CodeNm";
@@ -696,8 +690,8 @@ namespace PSH_BOne_AddOn
                                 sQry += "                                   And U_Code  = U_ClsCode";
                                 sQry += "                                   And U_Char3 = U_CLTCOD),'')";
                                 sQry += " From      [@PH_PY001A]";
-                                sQry += " Where     U_CLTCOD = '" + CLTCOD + "'";
-                                sQry += "           and Code = '" + MSTCOD + "'";
+                                sQry += " Where     U_CLTCOD = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "'";
+                                sQry += "           and Code = '" + oForm.Items.Item("MSTCOD").Specific.Value + "'";
 
                                 oRecordSet.DoQuery(sQry);
 
@@ -708,9 +702,6 @@ namespace PSH_BOne_AddOn
                                 break;
 
                             case "FullName":
-                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
-                                FullName = oForm.Items.Item("FullName").Specific.Value;
-
                                 sQry = "  Select    Code,";
                                 sQry += "           FullName = U_FullName,";
                                 sQry += "           TeamName = Isnull((SELECT U_CodeNm";
@@ -727,9 +718,9 @@ namespace PSH_BOne_AddOn
                                 sQry += "                                   And U_Code  = U_ClsCode";
                                 sQry += "                                   And U_Char3 = U_CLTCOD),'')";
                                 sQry += " From      [@PH_PY001A]";
-                                sQry += " Where     U_CLTCOD = '" + CLTCOD + "'";
+                                sQry += " Where     U_CLTCOD = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "'";
                                 sQry += "               And U_status <> '5'";
-                                sQry += "               and U_FullName = '" + FullName + "'"; //퇴사자 제외
+                                sQry += "               and U_FullName = '" + oForm.Items.Item("FullName").Specific.Value + "'"; //퇴사자 제외
 
                                 oRecordSet.DoQuery(sQry);
 
@@ -902,6 +893,7 @@ namespace PSH_BOne_AddOn
                 oDS_PH_PY407A.ExecuteQuery(sQry);
                 iRow = oForm.DataSources.DataTables.Item(0).Rows.Count;
                 PH_PY407_TitleSetting(ref iRow);
+                oGrid1.AutoResizeColumns();
 
             }
             catch (Exception ex)
@@ -910,7 +902,6 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                oGrid1.AutoResizeColumns();
                 oForm.Freeze(false);
             }
         }

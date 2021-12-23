@@ -255,7 +255,7 @@ namespace PSH_BOne_AddOn.Core
                 CardCode = oForm.Items.Item("4").Specific.Value;
                 DocDate = oForm.Items.Item("10").Specific.Value;
                 Text = oForm.Items.Item("29").Specific.Value;
-                SAmt = Text.Replace("KRW", ""); //수주총계
+                SAmt = Text.Split(' ')[0]; //수주총계, 통화 단위 제거
                 Amt = Convert.ToDouble(SAmt.Replace(",", ""));
                 ItemCode = oMat01.Columns.Item("1").Cells.Item(1).Specific.Value;
 

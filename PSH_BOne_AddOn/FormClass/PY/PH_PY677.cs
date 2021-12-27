@@ -863,7 +863,7 @@ namespace PSH_BOne_AddOn
                                     sQry = "EXEC [PH_PY775_01] '";
                                     sQry += CLTCOD + "','";
                                     sQry += ymd.Substring(0,4) + "','";
-                                    sQry += MSTCOD + "'";
+                                    sQry += MSTCOD + "','S'";
 
                                     oRecordSet01.DoQuery(sQry);
 
@@ -876,10 +876,10 @@ namespace PSH_BOne_AddOn
                                     }
                                     else
                                     {
-                                        oDS_PH_PY677B.SetValue("U_ColDt02", oRow - 1, oDS_PH_PY677B.GetValue("U_ColDt01", oRow - 1));  // 퇴근일자(P_OffDt)
-                                        oDS_PH_PY677B.SetValue("U_ColTm01", oRow - 1, "00:00");                                        // 출근시각(P_GetTime)
-                                        oDS_PH_PY677B.SetValue("U_ColTm02", oRow - 1, "00:00");                                        // 퇴근시각(P_OffTime)
-                                        oDS_PH_PY677B.SetValue("U_ColQty12", oRow - 1, Convert.ToString(1));                           // 교대일수
+                                        oDS_PH_PY677B.SetValue("U_ColDt02", oRow - 1, oDS_PH_PY677B.GetValue("U_ColDt01", oRow - 1)); // 퇴근일자(P_OffDt)
+                                        oDS_PH_PY677B.SetValue("U_ColTm01", oRow - 1, "00:00"); // 출근시각(P_GetTime)
+                                        oDS_PH_PY677B.SetValue("U_ColTm02", oRow - 1, "00:00"); // 퇴근시각(P_OffTime)
+                                        oDS_PH_PY677B.SetValue("U_ColQty12", oRow - 1, "1"); // 교대일수
 
                                         PH_PY677_Time_ReSet(oRow);
                                         oMat01.LoadFromDataSource();

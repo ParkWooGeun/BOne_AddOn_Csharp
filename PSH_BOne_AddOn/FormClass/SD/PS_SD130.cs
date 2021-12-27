@@ -256,8 +256,8 @@ namespace PSH_BOne_AddOn
 					CardCode = "%";
 				}
 
-				WinTitle = "수주접수현황[PS_SD130]";
-				ReportName = "PS_SD130.rpt";
+				WinTitle = "수주접수현황[PS_SD130_01]";
+				ReportName = "PS_SD130_01.rpt";
 
 				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
 				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();

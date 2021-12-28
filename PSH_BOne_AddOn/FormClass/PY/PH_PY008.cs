@@ -4524,7 +4524,7 @@ namespace PSH_BOne_AddOn
                                         if (MSTCOD.ToString().Trim() != "")
                                         {
                                             sQry = "exec [PH_PY775_01] '" + CLTCOD + "','";
-                                            sQry += codeHelpClass.Left(ymd, 4) + "','" + MSTCOD + "'";
+                                            sQry += codeHelpClass.Left(ymd, 4) + "','" + MSTCOD + "','S'";
                                             oRecordSet.DoQuery(sQry);
 
                                             if (oRecordSet.Fields.Item("jandd").Value < JanQty)

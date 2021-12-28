@@ -153,6 +153,7 @@ namespace PSH_BOne_AddOn
             string CLTCOD;
             string YY;
             string MSTCOD;
+            string Target;
             string OptBtnValue;
             string OptBtnValue1;
 
@@ -171,6 +172,7 @@ namespace PSH_BOne_AddOn
                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Selected.Value.ToString().Trim();
                 YY = oForm.Items.Item("YY").Specific.Value.Trim();
                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
+                Target = "R";
                 OptBtnValue = oForm.DataSources.UserDataSources.Item("OptionDS").Value;
                 OptBtnValue1 = oForm.DataSources.UserDataSources.Item("OptionDS1").Value;
 
@@ -193,6 +195,7 @@ namespace PSH_BOne_AddOn
                     dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD)); //사업장
                     dataPackParameter.Add(new PSH_DataPackClass("@YY", YY)); //등록기간(시작)
                     dataPackParameter.Add(new PSH_DataPackClass("@MSTCOD", MSTCOD)); //등록기간(종료)
+                    dataPackParameter.Add(new PSH_DataPackClass("@Target", Target)); //Target
 
                     //SubReport Parameter
                     dataPackSubReportParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD, "PH_PY775_SUB1"));
@@ -209,6 +212,7 @@ namespace PSH_BOne_AddOn
                     dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD)); //사업장
                     dataPackParameter.Add(new PSH_DataPackClass("@YY", YY)); //등록기간(시작)
                     dataPackParameter.Add(new PSH_DataPackClass("@MSTCOD", MSTCOD)); //등록기간(종료)
+                    dataPackParameter.Add(new PSH_DataPackClass("@Target", Target)); //Target
                 }
                 formHelpClass.OpenCrystalReport(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
             }

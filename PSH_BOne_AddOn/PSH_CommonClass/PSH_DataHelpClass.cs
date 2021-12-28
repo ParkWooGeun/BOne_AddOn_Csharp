@@ -448,7 +448,7 @@ namespace PSH_BOne_AddOn.Data
                 Sql += "           T0.U_GBHSEL ,"; //고용보험여부
                 Sql += "           T0.U_govid ,"; //주민번호
                 Sql += "           T0.U_sex ,"; //성별
-                Sql += "           Substring(replace(Convert(VarChar(10), T0.U_RETDAT,  20), '-', ''), 1, 8) AS RETDAT,"; //중간정산일
+                Sql += "           isnull(Substring(replace(Convert(VarChar(10), T0.U_RETDAT,  20), '-', ''), 1, 8),'') AS RETDAT,"; //중간정산일
                 Sql += "           T0.U_JIGCOD,"; //직급코드
                 Sql += "           (Case T0.U_BAEWOO When 'Y' then 1 else 0 end) AS U_BAEWOO,"; //배우자
                 Sql += "           ISNULL(T0.U_BUYNSU, 0) AS U_BUYNSU,"; //부양가족
@@ -532,7 +532,7 @@ namespace PSH_BOne_AddOn.Data
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(GetType().Name + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
@@ -540,7 +540,6 @@ namespace PSH_BOne_AddOn.Data
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(Rs);
             }
-
             return F_EmpID;
         }
 

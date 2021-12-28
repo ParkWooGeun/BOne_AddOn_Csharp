@@ -341,22 +341,22 @@ namespace PSH_BOne_AddOn
 
                 if (oRecordSet.Fields.Item(0).Value > 0)
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("수정할수 없습니다. 자료를 삭제후 수정하여 재등록 하세요...", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                    //sQry  = "Update [p_seoybank] set ";
-                    //sQry += "gubun = '" + Gubun + "',";
-                    //sQry += "bcode = '" + bcode + "',";
-                    //sQry += "tyyyy = '" + tyyyy + "',";
-                    //sQry += "tgubun = '" + tgubun + "',";
-                    //sQry += "bname = '" + bname + "',";
-                    //sQry += "bnum = '" + bnum + "',";
-                    //sQry += "yuncha = " + yuncha + ",";
-                    //sQry += "amt = " + Amt + ",";
-                    //sQry += "gamt = " + gamt + "";
-                    //sQry += " Where saup = '" + saup + "' And yyyy = '" + yyyy + "' And sabun = '" + sabun + "' And seqn = '" + seqn + "'";
+                    // PSH_Globals.SBO_Application.StatusBar.SetText("수정할수 없습니다. 자료를 삭제후 수정하여 재등록 하세요...", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    sQry = "Update [p_seoybank] set ";
+                    sQry += "gubun = '" + Gubun + "',";
+                    sQry += "bcode = '" + bcode + "',";
+                    sQry += "tyyyy = '" + tyyyy + "',";
+                    sQry += "tgubun = '" + tgubun + "',";
+                    sQry += "bname = '" + bname + "',";
+                    sQry += "bnum = '" + bnum + "',";
+                    sQry += "yuncha = " + yuncha + ",";
+                    sQry += "amt = " + Amt + ",";
+                    sQry += "gamt = " + gamt + "";
+                    sQry += " Where saup = '" + saup + "' And yyyy = '" + yyyy + "' And sabun = '" + sabun + "' And seqn = '" + seqn + "'";
 
-                    //oRecordSet.DoQuery(sQry);
+                    oRecordSet.DoQuery(sQry);
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
-                    //PSH_Globals.SBO_Application.StatusBar.SetText("자료가 수정 되었습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("자료가 수정 되었습니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
                     PH_PY411_DataFind();
                 }
                 else
@@ -700,13 +700,13 @@ namespace PSH_BOne_AddOn
             string CLTCOD;
             string MSTCOD;
             string FullName;
-            string Gubun;
-            string yyyy;
+            //string Gubun;
+            //string yyyy;
             string bcode;
-            string seqn;
-            double amt;
-            double gamt;
-            double samt;
+            //string seqn;
+            //double amt;
+            //double gamt;
+            //double samt;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -797,180 +797,179 @@ namespace PSH_BOne_AddOn
                                 oForm.Items.Item("bname").Specific.Value = oRecordSet.Fields.Item("CodeName").Value.ToString().Trim();
                                 break;
 
-                            case "amt":
-                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
-                                yyyy = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
-                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
-                                seqn = oForm.Items.Item("seqn").Specific.Value.ToString().Trim();
-                                amt = 0;
-                                gamt = 0;
+                            //case "amt":
+                            //    //CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                            //    //yyyy = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
+                            //    //MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
+                            //    //seqn = oForm.Items.Item("seqn").Specific.Value.ToString().Trim();
+                            //    //amt = 0;
+                            //    //gamt = 0;
 
-                                Gubun = oForm.Items.Item("gubun").Specific.Value.ToString().Trim();
+                            //    //Gubun = oForm.Items.Item("gubun").Specific.Value.ToString().Trim();
 
-                                switch (Gubun)
-                                {
-                                    case "11":
-                                    case "12":
-                                    case "22":
-                                        //11.근로자퇴직급여보장법, '12.과학기술인공제, 22.연금저축
+                                //switch (Gubun)
+                                //{
+                                //    case "11":
+                                //    case "12":
+                                //    case "22":
+                                //        //11.근로자퇴직급여보장법, '12.과학기술인공제, 22.연금저축
+                                //        // 총급여액계산해서 5,500 이하는 15% 아니면 12%
+                                //        // 2020년 50세이상 공제한도 확대(3년한시 2022.12.31까지)
+                                //        //sQry = " Exec PH_PY411 '" + CLTCOD + "', '" + yyyy + "','" + MSTCOD + "','" + Gubun + "'," + oForm.Items.Item("amt").Specific.Value.ToString().Trim();
+                                //        //oRecordSet.DoQuery(sQry);
+                                //        //gamt = oRecordSet.Fields.Item(0).Value; // 불입금액
+                                //        //samt = oRecordSet.Fields.Item(1).Value; // 총급여액(과세대상)
 
-                                        // 총급여액계산해서 5,500 이하는 15% 아니면 12%
-                                        // 2020년 50세이상 공제한도 확대(3년한시 2022.12.31까지)
-                                        sQry = " Exec PH_PY411 '" + CLTCOD + "', '" + yyyy + "','" + MSTCOD + "','" + Gubun + "'," + oForm.Items.Item("amt").Specific.Value.ToString().Trim();
-                                        oRecordSet.DoQuery(sQry);
-                                        gamt = oRecordSet.Fields.Item(0).Value; // 불입금액
-                                        samt = oRecordSet.Fields.Item(1).Value; // 총급여액(과세대상)
+                                //        ////5500백기준
+                                //        //if (samt <= 55000000)
+                                //        //{
+                                //        //    amt = System.Math.Round(gamt * 0.15, 0); // 15%
+                                //        //    oForm.Items.Item("gamt").Specific.Value = amt;
+                                //        //}
+                                //        //else
+                                //        //{
+                                //        //    amt = System.Math.Round(gamt * 0.12, 0); // 12%
+                                //        //    oForm.Items.Item("gamt").Specific.Value = amt;
+                                //        //}
+                                //        //oForm.Items.Item("amt").Specific.Value = gamt;
+                                //        //oForm.Items.Item("Age").Specific.Value = oRecordSet.Fields.Item(2).Value.ToString().Trim() + " 세";
+                                //        break;
 
-                                        //5500백기준
-                                        if (samt <= 55000000)
-                                        {
-                                            amt = System.Math.Round(gamt * 0.15, 0); // 15%
-                                            oForm.Items.Item("gamt").Specific.Value = amt;
-                                        }
-                                        else
-                                        {
-                                            amt = System.Math.Round(gamt * 0.12, 0); // 12%
-                                            oForm.Items.Item("gamt").Specific.Value = amt;
-                                        }
-                                        oForm.Items.Item("amt").Specific.Value = gamt;
-                                        oForm.Items.Item("Age").Specific.Value = oRecordSet.Fields.Item(2).Value.ToString().Trim() + " 세";
-                                        break;
+                                //    case "21":
+                                //        //21.개인연금저축
+                                //        //sQry = " Select sum(gamt) From [p_seoybank] Where saup = '" + CLTCOD + "' And yyyy = '" + yyyy + "' And sabun = '" + MSTCOD + "' And seqn <> '" + seqn + "' And gubun = '21'";
+                                //        //oRecordSet.DoQuery(sQry);
+                                //        //gamt = oRecordSet.Fields.Item(0).Value;
 
-                                    case "21":
-                                        //21.개인연금저축
-                                        sQry = " Select sum(gamt) From [p_seoybank] Where saup = '" + CLTCOD + "' And yyyy = '" + yyyy + "' And sabun = '" + MSTCOD + "' And seqn <> '" + seqn + "' And gubun = '21'";
-                                        oRecordSet.DoQuery(sQry);
-                                        gamt = oRecordSet.Fields.Item(0).Value;
+                                //        //amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.Value.ToString().Trim()) * 0.4, 0);
 
-                                        amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.Value.ToString().Trim()) * 0.4, 0);
+                                //        //if (gamt + amt > 720000)
+                                //        //{
+                                //        //    oForm.Items.Item("gamt").Specific.Value = 720000 - gamt;
+                                //        //}
+                                //        //else
+                                //        //{
+                                //        //    oForm.Items.Item("gamt").Specific.Value = amt;
+                                //        //}
 
-                                        if (gamt + amt > 720000)
-                                        {
-                                            oForm.Items.Item("gamt").Specific.Value = 720000 - gamt;
-                                        }
-                                        else
-                                        {
-                                            oForm.Items.Item("gamt").Specific.Value = amt;
-                                        }
+                                //        //if (Convert.ToDouble(oForm.Items.Item("gamt").Specific.Value.ToString().Trim()) < 0)
+                                //        //{
+                                //        //    oForm.Items.Item("gamt").Specific.Value = 0;
+                                //        //}
+                                //        break;
 
-                                        if (Convert.ToDouble(oForm.Items.Item("gamt").Specific.Value.ToString().Trim()) < 0)
-                                        {
-                                            oForm.Items.Item("gamt").Specific.Value = 0;
-                                        }
-                                        break;
+                                //    case "31":
+                                //    case "32":
+                                //    case "34":
+                                //        // 31.청약저축, 32.주택청약종합저축, 34.근로자주택마련저축
+                                //        //sQry = " Select sum(gamt) From [p_seoybank] Where saup = '" + CLTCOD + "' And yyyy = '" + yyyy + "' And sabun = '" + MSTCOD + "' And seqn <> '" + seqn + "' And gubun IN ('31','32','34') ";
+                                //        //oRecordSet.DoQuery(sQry);
+                                //        //gamt = oRecordSet.Fields.Item(0).Value;
 
-                                    case "31":
-                                    case "32":
-                                    case "34":
-                                        // 31.청약저축, 32.주택청약종합저축, 34.근로자주택마련저축
-                                        sQry = " Select sum(gamt) From [p_seoybank] Where saup = '" + CLTCOD + "' And yyyy = '" + yyyy + "' And sabun = '" + MSTCOD + "' And seqn <> '" + seqn + "' And gubun IN ('31','32','34') ";
-                                        oRecordSet.DoQuery(sQry);
-                                        gamt = oRecordSet.Fields.Item(0).Value;
+                                //        //amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.Value.ToString().Trim()) * 0.4, 0);
 
-                                        amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.Value.ToString().Trim()) * 0.4, 0);
+                                //        //if (gamt + amt > 960000)
+                                //        //{
+                                //        //    oForm.Items.Item("gamt").Specific.Value = 960000 - gamt;
+                                //        //}
+                                //        //else
+                                //        //{
+                                //        //    oForm.Items.Item("gamt").Specific.Value = amt;
+                                //        //}
 
-                                        if (gamt + amt > 960000)
-                                        {
-                                            oForm.Items.Item("gamt").Specific.Value = 960000 - gamt;
-                                        }
-                                        else
-                                        {
-                                            oForm.Items.Item("gamt").Specific.Value = amt;
-                                        }
+                                //        //if (Convert.ToDouble(oForm.Items.Item("gamt").Specific.Value.ToString().Trim()) < 0)
+                                //        //{
+                                //        //    oForm.Items.Item("gamt").Specific.Value = 0;
+                                //        //}
+                                //        break;
 
-                                        if (Convert.ToDouble(oForm.Items.Item("gamt").Specific.Value.ToString().Trim()) < 0)
-                                        {
-                                            oForm.Items.Item("gamt").Specific.Value = 0;
-                                        }
-                                        break;
+                                //    case "51":
+                                //        //51.장기집합투자증권저축  40% 240만원한도
+                                //        //sQry = " Select sum(gamt) From [p_seoybank] Where saup = '" + CLTCOD + "' And yyyy = '" + yyyy + "' And sabun = '" + MSTCOD + "' And seqn <> '" + seqn + "' And gubun = '51'";
+                                //        //oRecordSet.DoQuery(sQry);
+                                //        //gamt = oRecordSet.Fields.Item(0).Value;
 
-                                    case "51":
-                                        //51.장기집합투자증권저축  40% 240만원한도
-                                        sQry = " Select sum(gamt) From [p_seoybank] Where saup = '" + CLTCOD + "' And yyyy = '" + yyyy + "' And sabun = '" + MSTCOD + "' And seqn <> '" + seqn + "' And gubun = '51'";
-                                        oRecordSet.DoQuery(sQry);
-                                        gamt = oRecordSet.Fields.Item(0).Value;
+                                //        //amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.Value.ToString().Trim()) * 0.4, 0);
 
-                                        amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.Value.ToString().Trim()) * 0.4, 0);
+                                //        //if (gamt + amt > 2400000)
+                                //        //{
+                                //        //    oForm.Items.Item("gamt").Specific.Value = 2400000 - gamt;
+                                //        //}
+                                //        //else
+                                //        //{
+                                //        //    oForm.Items.Item("gamt").Specific.Value = amt;
+                                //        //}
 
-                                        if (gamt + amt > 2400000)
-                                        {
-                                            oForm.Items.Item("gamt").Specific.Value = 2400000 - gamt;
-                                        }
-                                        else
-                                        {
-                                            oForm.Items.Item("gamt").Specific.Value = amt;
-                                        }
+                                //        //if (Convert.ToDouble(oForm.Items.Item("gamt").Specific.Value.ToString().Trim()) < 0)
+                                //        //{
+                                //        //    oForm.Items.Item("gamt").Specific.Value = 0;
+                                //        //}
+                                //        break;
 
-                                        if (Convert.ToDouble(oForm.Items.Item("gamt").Specific.Value.ToString().Trim()) < 0)
-                                        {
-                                            oForm.Items.Item("gamt").Specific.Value = 0;
-                                        }
-                                        break;
+                                //    case "61":
+                                //        ////61.중소기업창업투자조합출자 10%
+                                //        ////2018년기준  2018년분은 개인투자조합,벤처기업에직접투자시 3천만원이하100%, 5천만원이하70%, 5천만원초과30%
+                                //        ////            2016,2017년분은 개인투자조합,벤처기업에직접투자시 3천만원이하100%, 5천만원이하50%, 5천만원초과30%
+                                //        ////종합(근로)소득금액의 50%한도
+                                //        ////우리회사는해당사항이 없음 ..   있을시 계산필요
 
-                                    case "61":
-                                        //61.중소기업창업투자조합출자 10%
-                                        //2018년기준  2018년분은 개인투자조합,벤처기업에직접투자시 3천만원이하100%, 5천만원이하70%, 5천만원초과30%
-                                        //            2016,2017년분은 개인투자조합,벤처기업에직접투자시 3천만원이하100%, 5천만원이하50%, 5천만원초과30%
-                                        //종합(근로)소득금액의 50%한도
-                                        //우리회사는해당사항이 없음 ..   있을시 계산필요
+                                //        ////기본 10%만 계산
+                                //        //amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.Value.ToString().Trim()) * 0.1, 0);
 
-                                        //기본 10%만 계산
-                                        amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.Value.ToString().Trim()) * 0.1, 0);
+                                //        ////종합(근로)소득금액의 50%한도 계산이 필요함........이상태에서는 어려움
+                                //        //oForm.Items.Item("gamt").Specific.Value = amt;
 
-                                        //종합(근로)소득금액의 50%한도 계산이 필요함........이상태에서는 어려움
-                                        oForm.Items.Item("gamt").Specific.Value = amt;
+                                //        //if (Convert.ToDouble(oForm.Items.Item("gamt").Specific.Value.ToString().Trim()) < 0)
+                                //        //{
+                                //        //    oForm.Items.Item("gamt").Specific.Value = 0;
+                                //        //}
+                                //        break;
 
-                                        if (Convert.ToDouble(oForm.Items.Item("gamt").Specific.Value.ToString().Trim()) < 0)
-                                        {
-                                            oForm.Items.Item("gamt").Specific.Value = 0;
-                                        }
-                                        break;
+                                //    case "71":
+                                //    case "72":
+                                //        //71.ISA만기시 연금계좌 납입액(연금저축), 72.ISA만기시 연금계좌 납입액(퇴직연금)
+                                //        // 총급여액계산해서 5,500 이하는 15% 아니면 12%  대상금액300한도
+                                //        //sQry = "SELECT SUM(gwase) ";
+                                //        //sQry += "FROM( SELECT gwase   = SUM( a.U_GWASEE ) ";
+                                //        //sQry += "        FROM [@PH_PY112A] a Inner Join [@PH_PY001A] b On a.U_MSTCOD = b.Code ";
+                                //        //sQry += "       WHERE b.U_CLTCOD = '" + CLTCOD + "' ";
+                                //        //sQry += "         And a.U_CLTCOD = b.U_CLTCOD ";
+                                //        //sQry += "         And a.U_YM     BETWEEN  '" + yyyy + "' + '01' AND '" + yyyy + "' + '12' ";
+                                //        //sQry += "         And isnull(b.Code,'')  = '" + MSTCOD + "' ";
+                                //        //sQry += "      Union All ";
+                                //        //sQry += "      SELECT gwase   = SUM( a.U_GWASEE ) ";
+                                //        //sQry += "        FROM [@PH_PY112A] a Inner Join [@PH_PY001A] b On a.U_MSTCOD = b.U_PreCode ";
+                                //        //sQry += "       WHERE b.U_CLTCOD = '" + CLTCOD + "' ";
+                                //        //sQry += "         And a.U_CLTCOD = b.U_CLTCOD ";
+                                //        //sQry += "         And a.U_YM     BETWEEN  '" + yyyy + "' + '01' AND '" + yyyy + "' + '12' ";
+                                //        //sQry += "         And isnull(b.Code,'')  = '" + MSTCOD + "' ";
+                                //        //sQry += "         And Isnull(b.U_PreCode,'') <> '' ";
+                                //        //sQry += "     ) g";
+                                //        //oRecordSet.DoQuery(sQry);
+                                //        //samt = oRecordSet.Fields.Item(0).Value;  // 총급여액(과세대상)
 
-                                    case "71":
-                                    case "72":
-                                        //71.ISA만기시 연금계좌 납입액(연금저축), 72.ISA만기시 연금계좌 납입액(퇴직연금)
-                                        // 총급여액계산해서 5,500 이하는 15% 아니면 12%  대상금액300한도
-                                        sQry = "SELECT SUM(gwase) ";
-                                        sQry += "FROM( SELECT gwase   = SUM( a.U_GWASEE ) ";
-                                        sQry += "        FROM [@PH_PY112A] a Inner Join [@PH_PY001A] b On a.U_MSTCOD = b.Code ";
-                                        sQry += "       WHERE b.U_CLTCOD = '" + CLTCOD + "' ";
-                                        sQry += "         And a.U_CLTCOD = b.U_CLTCOD ";
-                                        sQry += "         And a.U_YM     BETWEEN  '" + yyyy + "' + '01' AND '" + yyyy + "' + '12' ";
-                                        sQry += "         And isnull(b.Code,'')  = '" + MSTCOD + "' ";
-                                        sQry += "      Union All ";
-                                        sQry += "      SELECT gwase   = SUM( a.U_GWASEE ) ";
-                                        sQry += "        FROM [@PH_PY112A] a Inner Join [@PH_PY001A] b On a.U_MSTCOD = b.U_PreCode ";
-                                        sQry += "       WHERE b.U_CLTCOD = '" + CLTCOD + "' ";
-                                        sQry += "         And a.U_CLTCOD = b.U_CLTCOD ";
-                                        sQry += "         And a.U_YM     BETWEEN  '" + yyyy + "' + '01' AND '" + yyyy + "' + '12' ";
-                                        sQry += "         And isnull(b.Code,'')  = '" + MSTCOD + "' ";
-                                        sQry += "         And Isnull(b.U_PreCode,'') <> '' ";
-                                        sQry += "     ) g";
-                                        oRecordSet.DoQuery(sQry);
-                                        samt = oRecordSet.Fields.Item(0).Value;  // 총급여액(과세대상)
-
-                                        if (System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.Value.ToString().Trim()) * 0.1 ,0) > 3000000) // 대상금액 3백한도
-                                        {
-                                            amt = 3000000;
-                                        }
-                                        else
-                                        {
-                                            amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.Value.ToString().Trim()) * 0.1 ,0);
-                                        }
-                                        //5500백기준
-                                        if (samt <= 55000000)
-                                        {
-                                            gamt = System.Math.Round(amt * 0.15, 0);
-                                            oForm.Items.Item("gamt").Specific.Value = gamt;
-                                        }
-                                        else
-                                        {
-                                            gamt = System.Math.Round(amt * 0.12, 0);
-                                            oForm.Items.Item("gamt").Specific.Value = gamt;
-                                        }
-                                        break;
-                                }
-                                break;
+                                //        //if (System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.Value.ToString().Trim()) * 0.1 ,0) > 3000000) // 대상금액 3백한도
+                                //        //{
+                                //        //    amt = 3000000;
+                                //        //}
+                                //        //else
+                                //        //{
+                                //        //    amt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("amt").Specific.Value.ToString().Trim()) * 0.1 ,0);
+                                //        //}
+                                //        ////5500백기준
+                                //        //if (samt <= 55000000)
+                                //        //{
+                                //        //    gamt = System.Math.Round(amt * 0.15, 0);
+                                //        //    oForm.Items.Item("gamt").Specific.Value = gamt;
+                                //        //}
+                                //        //else
+                                //        //{
+                                //        //    gamt = System.Math.Round(amt * 0.12, 0);
+                                //        //    oForm.Items.Item("gamt").Specific.Value = gamt;
+                                //        //}
+                                //        break;
+                                //}
+                                //break;
                         }
                     }
                 }
@@ -1053,7 +1052,7 @@ namespace PSH_BOne_AddOn
                                 oForm.Items.Item("MSTCOD").Enabled = false;
                             }
                             oForm.ActiveItem = "gubun";
-                            oForm.Items.Item("amt").Enabled = false;   // 2020년 수정 못하게 막음  삭제후 등록해야 됨
+                        //    oForm.Items.Item("amt").Enabled = false;   // 2020년 수정 못하게 막음  삭제후 등록해야 됨
                         }
                     }
                 }

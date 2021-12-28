@@ -2771,8 +2771,8 @@ namespace PSH_BOne_AddOn
             int i;
             string query01;
             string oOrdGbn01;
-            short li_Cnt;
-            short li_LineId;
+            int li_Cnt;
+            int li_LineId;
             SAPbobsCOM.Recordset RecordSet01 = null;
             SAPbouiCOM.ProgressBar ProgBar01 = null;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();

@@ -1885,7 +1885,6 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_SD090_10.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_SD110.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_SD120.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_SD130.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_SD150_01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_SD160_01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_SD160_02.rpt" />

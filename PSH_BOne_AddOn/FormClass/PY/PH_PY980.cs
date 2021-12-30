@@ -1648,6 +1648,9 @@ namespace PSH_BOne_AddOn
         private bool File_Create_G_record(string psaup, string pyyyy, string psabun, string pC004)
         {
             bool returnValue = true;  // 기본을 TRUE 로
+            int i;
+            int sCNT;
+            int rCNT;
             string sQry;
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -1660,92 +1663,40 @@ namespace PSH_BOne_AddOn
             string G005;  // 10   '사업자번호
             string G006;  // 13   '소득자주민번호
             string G007;  // 2    '무주택자해당여부 01:여, 02:부
-            // 1 
-            string G008;  // 60   '임대인성명(상호)1
-            string G009;  // 13   '주민등록번호
-            string G010;  // 1    '주택유형
-            string G011;  // 5    '주택계약면적
-            string G012;  // 150  '임대차계약서상주소지
-            string G013;  // 8    '임대차계약기간시작
-            string G014;  // 8    '임대차계약기간종료
-            string G015;  // 10   '연간월세액
-            string G016;  // 10   '세액공제금액
-            string G017;  // 60   '대주성명
-            string G018;  // 13   '대주주민등록번호
-            string G019;  // 8    '금전소비대차 계약기간시작
-            string G020;  // 8    '금전소비대차 계약기간종료
-            string G021;  // 4    '차입금이자율
-            string G022;  // 10   '원리금상환액계
-            string G023;  // 10   '원금
-            string G024;  // 10   '이자
-            string G025;  // 10   '공제금액
-            string G026;  // 60   '임대인성명(상호)
-            string G027;  // 13   '주민등록번호
-            string G028;  // 1    '주택유형
-            string G029;  // 5    '주택계약면적
-            string G030;  // 150  '임대차계약서상주소지
-            string G031;  // 8    '임대차계약기간시작
-            string G032;  // 8    '임대차계약기간종료
-            string G033;  // 10   '전세보증금
-            // 2 
-            string G034;  // 60   '임대인성명2
-            string G035;  // 13   '주민등록번호
-            string G036;  // 1    '주택유형
-            string G037;  // 5    '주택계약면적
-            string G038;  // 150  '임대차계약서상주소지
-            string G039;  // 8    '임대차계약기간시작
-            string G040;  // 8    '임대차계약기간종료
-            string G041;  // 10   '연간월세액
-            string G042;  // 10   '세액공제금액
-            string G043;  // 60   '대주성명
-            string G044;  // 13   '대주주민등록번호
-            string G045;  // 8    '금전소비대차 계약기간시작
-            string G046;  // 8    '금전소비대차 계약기간종료
-            string G047;  // 4    '차입금이자율
-            string G048;  // 10   '원리금산환액계
-            string G049;  // 10   '원금
-            string G050;  // 10   '이자
-            string G051;  // 10   '공제금액
-            string G052;  // 60   '임대인성명
-            string G053;  // 13   '주민등록번호
-            string G054;  // 1    '주택유형
-            string G055;  // 5    '주택계약면적
-            string G056;  // 150  '임대차계약서상주소지
-            string G057;  // 8    '임대차계약기간시작
-            string G058;  // 8    '임대차계약기간종료
-            string G059;  // 10   '전세보증금
-            // 3 
-            string G060;  // 60   '임대인성명3
-            string G061;  // 13   '주민등록번호
-            string G062;  // 1    '주택유형
-            string G063;  // 5    '주택계약면적
-            string G064;  // 150  '임대차계약서상주소지
-            string G065;  // 8    '임대차계약기간시작
-            string G066;  // 8    '임대차계약기간종료
-            string G067;  // 10   '연간월세액
-            string G068;  // 10   '세액공제금액
-            string G069;  // 60   '대주성명
-            string G070;  // 13   '대주주민등록번호
-            string G071;  // 8    '금전소비대차 계약기간시작
-            string G072;  // 8    '금전소비대차 계약기간종료
-            string G073;  // 4    '차입금이자율
-            string G074;  // 10   '원리금산환액계
-            string G075;  // 10   '원금
-            string G076;  // 10   '이자
-            string G077;  // 10   '공제금액
-            string G078;  // 60   '임대인성명
-            string G079;  // 13   '주민등록번호
-            string G080;  // 1    '주택유형
-            string G081;  // 5    '주택계약면적
-            string G082;  // 150  '임대차계약서상주소지
-            string G083;  // 8    '임대차계약기간시작
-            string G084;  // 8    '임대차계약기간종료
-            string G085;  // 10   '전세보증금
+            
+            string[] G008 = new string[3];  // 60   '임대인성명(상호)1
+            string[] G009 = new string[3];  // 13   '주민등록번호
+            string[] G010 = new string[3];  // 1    '주택유형
+            string[] G011 = new string[3];  // 5    '주택계약면적
+            string[] G012 = new string[3];  // 150  '임대차계약서상주소지
+            string[] G013 = new string[3];  // 8    '임대차계약기간시작
+            string[] G014 = new string[3];  // 8    '임대차계약기간종료
+            string[] G015 = new string[3];  // 10   '연간월세액
+            string[] G016 = new string[3];  // 10   '세액공제금액
+            string[] G017 = new string[3];  // 60   '대주성명
+            string[] G018 = new string[3];  // 13   '대주주민등록번호
+            string[] G019 = new string[3];  // 8    '금전소비대차 계약기간시작
+            string[] G020 = new string[3];  // 8    '금전소비대차 계약기간종료
+            string[] G021 = new string[3];  // 4    '차입금이자율
+            string[] G022 = new string[3];  // 10   '원리금상환액계
+            string[] G023 = new string[3];  // 10   '원금
+            string[] G024 = new string[3];  // 10   '이자
+            string[] G025 = new string[3];  // 10   '공제금액
+            string[] G026 = new string[3];  // 60   '임대인성명(상호)
+            string[] G027 = new string[3];  // 13   '주민등록번호
+            string[] G028 = new string[3];  // 1    '주택유형
+            string[] G029 = new string[3];  // 5    '주택계약면적
+            string[] G030 = new string[3];  // 150  '임대차계약서상주소지
+            string[] G031 = new string[3];  // 8    '임대차계약기간시작
+            string[] G032 = new string[3];  // 8    '임대차계약기간종료
+            string[] G033 = new string[3];  // 10   '전세보증금
+
             string G086;  // 2    '일련번호
             string G087;  // 12   '공란
 
             try
             {
+                rCNT = 1;
                 // G_RECORE QUERY
                 sQry = "EXEC PH_PY980_G '" + psaup + "', '" + pyyyy + "', '" + psabun + "'";
                 oRecordSet.DoQuery(sQry);
@@ -1760,101 +1711,102 @@ namespace PSH_BOne_AddOn
                     G005 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G005").Value.ToString().Trim(), 10);
                     G006 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G006").Value.ToString().Trim(), 13);
                     G007 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G007").Value.ToString().Trim(), 2);
-                    G008 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G008").Value.ToString().Trim(), 60);
-                    G009 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G009").Value.ToString().Trim(), 13);
-                    G010 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G010").Value.ToString().Trim(), 1);
 
-                    G011 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G011").Value.ToString().Trim(), 5, '0');
-                    G012 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G012").Value.ToString().Trim(), 150);
-                    G013 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G013").Value.ToString().Trim(), 8, '0');
-                    G014 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G014").Value.ToString().Trim(), 8, '0');
-                    G015 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G015").Value.ToString().Trim(), 10, '0');
-                    G016 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G016").Value.ToString().Trim(), 10, '0');
-                    G017 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G017").Value.ToString().Trim(), 60);
-                    G018 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G018").Value.ToString().Trim(), 13);
-                    G019 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G019").Value.ToString().Trim(), 8, '0');
-                    G020 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G020").Value.ToString().Trim(), 8, '0'); 
+                    sCNT = 0;
+                    while (!oRecordSet.EoF)
+                    {
+                        // 초기화
+                        if (sCNT == 0)
+                        {
+                            for (i = 0; i <= 2; i++)  // ARRY 3개 0 - 2
+                            {
+                                G008[i] = codeHelpClass.GetFixedLengthStringByte(" ", 60);
+                                G009[i] = codeHelpClass.GetFixedLengthStringByte(" ", 13);
+                                G010[i] = codeHelpClass.GetFixedLengthStringByte(" ", 1);
+                                G011[i] = codeHelpClass.GetFixedLengthStringByte("0", 5, '0');
+                                G012[i] = codeHelpClass.GetFixedLengthStringByte(" ", 150);
+                                G013[i] = codeHelpClass.GetFixedLengthStringByte("0", 8, '0');
+                                G014[i] = codeHelpClass.GetFixedLengthStringByte("0", 8, '0');
+                                G015[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
+                                G016[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
+                                G017[i] = codeHelpClass.GetFixedLengthStringByte(" ", 60);
+                                G018[i] = codeHelpClass.GetFixedLengthStringByte(" ", 13);
+                                G019[i] = codeHelpClass.GetFixedLengthStringByte("0", 8, '0');
+                                G020[i] = codeHelpClass.GetFixedLengthStringByte("0", 8, '0');
+                                G021[i] = codeHelpClass.GetFixedLengthStringByte("0", 4, '0');
+                                G022[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
+                                G023[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
+                                G024[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
+                                G025[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
+                                G026[i] = codeHelpClass.GetFixedLengthStringByte(" ", 60);
+                                G027[i] = codeHelpClass.GetFixedLengthStringByte(" ", 13);
+                                G028[i] = codeHelpClass.GetFixedLengthStringByte(" ", 1);
+                                G029[i] = codeHelpClass.GetFixedLengthStringByte("0", 5, '0');
+                                G030[i] = codeHelpClass.GetFixedLengthStringByte(" ", 150);
+                                G031[i] = codeHelpClass.GetFixedLengthStringByte("0", 8, '0');
+                                G032[i] = codeHelpClass.GetFixedLengthStringByte("0", 8, '0');
+                                G033[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
+                            }
+                        }
 
-                    G021 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G021").Value.ToString().Trim(), 4, '0');
-                    G022 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G022").Value.ToString().Trim(), 10, '0');
-                    G023 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G023").Value.ToString().Trim(), 10, '0');
-                    G024 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G024").Value.ToString().Trim(), 10, '0');
-                    G025 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G025").Value.ToString().Trim(), 10, '0');
-                    G026 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G026").Value.ToString().Trim(), 60);
-                    G027 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G027").Value.ToString().Trim(), 13);
-                    G028 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G028").Value.ToString().Trim(), 1);
-                    G029 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G029").Value.ToString().Trim(), 5, '0');
-                    G030 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G030").Value.ToString().Trim(), 150);
+                        G008[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G008").Value.ToString().Trim(), 60);
+                        G009[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G009").Value.ToString().Trim(), 13);
+                        G010[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G010").Value.ToString().Trim(), 1);
+                        G011[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G011").Value.ToString().Trim(), 5, '0');
+                        G012[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G012").Value.ToString().Trim(), 150);
+                        G013[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G013").Value.ToString().Trim(), 8, '0');
+                        G014[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G014").Value.ToString().Trim(), 8, '0');
+                        G015[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G015").Value.ToString().Trim(), 10, '0');
+                        G016[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G016").Value.ToString().Trim(), 10, '0');
+                        G017[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G017").Value.ToString().Trim(), 60);
+                        G018[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G018").Value.ToString().Trim(), 13);
+                        G019[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G019").Value.ToString().Trim(), 8, '0');
+                        G020[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G020").Value.ToString().Trim(), 8, '0');
+                        G021[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G021").Value.ToString().Trim(), 4, '0');
+                        G022[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G022").Value.ToString().Trim(), 10, '0');
+                        G023[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G023").Value.ToString().Trim(), 10, '0');
+                        G024[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G024").Value.ToString().Trim(), 10, '0');
+                        G025[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G025").Value.ToString().Trim(), 10, '0');
+                        G026[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G026").Value.ToString().Trim(), 60);
+                        G027[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G027").Value.ToString().Trim(), 13);
+                        G028[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G028").Value.ToString().Trim(), 1);
+                        G029[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G029").Value.ToString().Trim(), 5, '0');
+                        G030[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G030").Value.ToString().Trim(), 150);
+                        G031[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G031").Value.ToString().Trim(), 8, '0');
+                        G032[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G032").Value.ToString().Trim(), 8, '0');
+                        G033[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G033").Value.ToString().Trim(), 10, '0');
 
-                    G031 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G031").Value.ToString().Trim(), 8, '0');
-                    G032 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G032").Value.ToString().Trim(), 8, '0');
-                    G033 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G033").Value.ToString().Trim(), 10, '0');
-                    G034 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G034").Value.ToString().Trim(), 60);
-                    G035 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G035").Value.ToString().Trim(), 13);
-                    G036 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G036").Value.ToString().Trim(), 1);
-                    G037 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G037").Value.ToString().Trim(), 5, '0');
-                    G038 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G038").Value.ToString().Trim(), 150);
-                    G039 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G039").Value.ToString().Trim(), 8, '0');
-                    G040 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G040").Value.ToString().Trim(), 8, '0');
+                        G087 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G087").Value.ToString().Trim(), 12);
 
-                    G041 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G041").Value.ToString().Trim(), 10, '0');
-                    G042 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G042").Value.ToString().Trim(), 10, '0');
-                    G043 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G043").Value.ToString().Trim(), 60);
-                    G044 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G044").Value.ToString().Trim(), 13);
-                    G045 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G045").Value.ToString().Trim(), 8, '0');
-                    G046 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G046").Value.ToString().Trim(), 8, '0');
-                    G047 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G047").Value.ToString().Trim(), 4, '0');
-                    G048 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G048").Value.ToString().Trim(), 10, '0');
-                    G049 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G049").Value.ToString().Trim(), 10, '0');
-                    G050 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G050").Value.ToString().Trim(), 10, '0');
+                        oRecordSet.MoveNext();
 
-                    G051 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G051").Value.ToString().Trim(), 10, '0');
-                    G052 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G052").Value.ToString().Trim(), 60);
-                    G053 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G053").Value.ToString().Trim(), 13);
-                    G054 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G054").Value.ToString().Trim(), 1);
-                    G055 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G055").Value.ToString().Trim(), 5, '0');
-                    G056 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G056").Value.ToString().Trim(), 150);
-                    G057 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G057").Value.ToString().Trim(), 8, '0');
-                    G058 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G058").Value.ToString().Trim(), 8, '0');
-                    G059 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G059").Value.ToString().Trim(), 10, '0');
-                    G060 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G060").Value.ToString().Trim(), 60);
-
-                    G061 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G061").Value.ToString().Trim(), 13);
-                    G062 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G062").Value.ToString().Trim(), 1);
-                    G063 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G063").Value.ToString().Trim(), 5, '0');
-                    G064 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G064").Value.ToString().Trim(), 150);
-                    G065 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G065").Value.ToString().Trim(), 8, '0');
-                    G066 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G066").Value.ToString().Trim(), 8, '0');
-                    G067 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G067").Value.ToString().Trim(), 10, '0');
-                    G068 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G068").Value.ToString().Trim(), 10, '0');
-                    G069 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G069").Value.ToString().Trim(), 60);
-                    G070 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G070").Value.ToString().Trim(), 13);
-
-                    G071 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G071").Value.ToString().Trim(), 8, '0');
-                    G072 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G072").Value.ToString().Trim(), 8, '0');
-                    G073 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G073").Value.ToString().Trim(), 4, '0');
-                    G074 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G074").Value.ToString().Trim(), 10, '0');
-                    G075 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G075").Value.ToString().Trim(), 10, '0');
-                    G076 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G076").Value.ToString().Trim(), 10, '0');
-                    G077 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G077").Value.ToString().Trim(), 10, '0');
-                    G078 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G078").Value.ToString().Trim(), 60);
-                    G079 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G079").Value.ToString().Trim(), 13);
-                    G080 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G080").Value.ToString().Trim(), 1);
-
-                    G081 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G081").Value.ToString().Trim(), 5, '0');
-                    G082 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G082").Value.ToString().Trim(), 150);
-                    G083 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G083").Value.ToString().Trim(), 8, '0');
-                    G084 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G084").Value.ToString().Trim(), 8, '0');
-                    G085 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G085").Value.ToString().Trim(), 10, '0');
-                    G086 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G086").Value.ToString().Trim(), 2);
-                    G087 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G087").Value.ToString().Trim(), 12);
-
-                    // G 레코드 삽입
-                    FileSystem.PrintLine(1, G001 + G002 + G003 + G004 + G005 + G006 + G007 + G008 + G009 + G010 + G011 + G012 + G013 + G014 + G015 + G016 + G017 + G018 + G019 + G020
-                                          + G021 + G022 + G023 + G024 + G025 + G026 + G027 + G028 + G029 + G030 + G031 + G032 + G033 + G034 + G035 + G036 + G037 + G038 + G039 + G040
-                                          + G041 + G042 + G043 + G044 + G045 + G046 + G047 + G048 + G049 + G050 + G051 + G052 + G053 + G054 + G055 + G056 + G057 + G058 + G059 + G060
-                                          + G061 + G062 + G063 + G064 + G065 + G066 + G067 + G068 + G069 + G070 + G071 + G072 + G073 + G074 + G075 + G076 + G077 + G078 + G079 + G080
-                                          + G081 + G082 + G083 + G084 + G085 + G086 + G087);
+                        // If sCNT 가 3개나 끝이면 인쇄
+                        if (sCNT == 2 | oRecordSet.EoF)
+                        {
+                            G086 = codeHelpClass.GetFixedLengthStringByte(rCNT.ToString(), 2, '0'); // 일련번호
+                            // G 레코드 WRITE
+                            FileSystem.PrintLine(1, G001 + G002 + G003 + G004 + G005 + G006 + G007
+                                                  + G008[0] + G009[0] + G010[0] + G011[0] + G012[0] + G013[0] + G014[0] + G015[0] + G016[0] + G017[0]
+                                                  + G018[0] + G019[0] + G020[0] + G021[0] + G022[0] + G023[0] + G024[0] + G025[0] + G026[0] + G027[0]
+                                                  + G028[0] + G029[0] + G030[0] + G031[0] + G032[0] + G033[0]
+                                                  + G008[1] + G009[1] + G010[1] + G011[1] + G012[1] + G013[1] + G014[1] + G015[1] + G016[1] + G017[1]
+                                                  + G018[1] + G019[1] + G020[1] + G021[1] + G022[1] + G023[1] + G024[1] + G025[1] + G026[1] + G027[1]
+                                                  + G028[1] + G029[1] + G030[1] + G031[1] + G032[1] + G033[1]
+                                                  + G008[2] + G009[2] + G010[2] + G011[2] + G012[2] + G013[2] + G014[2] + G015[2] + G016[2] + G017[2]
+                                                  + G018[2] + G019[2] + G020[2] + G021[2] + G022[2] + G023[2] + G024[2] + G025[2] + G026[2] + G027[2]
+                                                  + G028[2] + G029[2] + G030[2] + G031[2] + G032[2] + G033[2]
+                                                  + G086 + G087);
+                            sCNT = 0;
+                            rCNT += 1;
+                        }
+                        else
+                        {
+                            sCNT += 1; // 레코드번호 + 1
+                        }
+                    }
+                }
+                else
+                {
                 }
             }
             catch (Exception ex)

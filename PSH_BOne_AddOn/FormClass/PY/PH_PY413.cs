@@ -247,6 +247,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("TeamName").Specific.Value = "";
                 oForm.Items.Item("RspName").Specific.Value = "";
                 oForm.Items.Item("ClsName").Specific.Value = "";
+                oForm.Items.Item("LineNum").Specific.Value = "";
 
                 oForm.DataSources.UserDataSources.Item("ws_name").Value = "";
                 oForm.DataSources.UserDataSources.Item("ws_jumin").Value = "";
@@ -316,7 +317,8 @@ namespace PSH_BOne_AddOn
                 sQry = "EXEC PH_PY413_01 '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("Year").Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "'";
                 oDS_PH_PY413.ExecuteQuery(sQry);
                 iRow = oDS_PH_PY413.Rows.Count;
-
+                oForm.Items.Item("LineNum").Specific.Value = "";
+                oForm.DataSources.UserDataSources.Item("LineNum").Value = "";
                 oForm.ActiveItem = "ws_name";
                 oGrid1.AutoResizeColumns();
             }
@@ -366,7 +368,6 @@ namespace PSH_BOne_AddOn
             string ld_addr;
             string ld_fymd;
             string ld_tymd;
-            string lineNum;
             double ws_hm;
             double ws_mamt;
             double ws_gamt;
@@ -410,7 +411,7 @@ namespace PSH_BOne_AddOn
                 ld_fymd = oForm.Items.Item("ld_fymd").Specific.Value;
                 ld_tymd = oForm.Items.Item("ld_tymd").Specific.Value;
                 ld_bamt = Convert.ToDouble(oForm.Items.Item("ld_bamt").Specific.Value);
-                lineNum = oForm.Items.Item("LineNum").Specific.Value;
+                seqn = oForm.Items.Item("LineNum").Specific.Value;
 
                 if (string.IsNullOrEmpty(yyyy))
                 {
@@ -430,13 +431,18 @@ namespace PSH_BOne_AddOn
                     return;
                 }
 
-                sQry = "Select case when Convert(numeric(10),max(isnull(seqn,0))) + 1 is null then 1 else  Convert(numeric(10),max(isnull(seqn,0))) + 1 end From ";
-                sQry += "[p_seoyhouse] Where saup = '" + saup + "' And yyyy = '" + yyyy + "' And sabun = '" + sabun + "'";
-                oRecordSet.DoQuery(sQry);
+                if (string.IsNullOrEmpty(seqn))
+                {
+                    sQry = " Select case when max(isnull(seqn,0)) IS NULL OR max(isnull(seqn,0)) = 0 then 1 ";
+                    sQry += "        else Convert(numeric(10), max(isnull(seqn, 0))) + 1 ";
+                    sQry += "        end ";
+                    sQry += "   From [p_seoyhouse] ";
+                    sQry += "  Where saup = '" + saup + "' And yyyy = '" + yyyy + "' And sabun = '" + sabun + "'";
+                    oRecordSet.DoQuery(sQry);
+                    seqn = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+                }
 
-                seqn = oRecordSet.Fields.Item(0).Value.ToString().Trim();
-
-                sQry = " Select Count(*) From [p_seoyhouse] Where saup = '" + saup + "' And yyyy = '" + yyyy + "' And seqn = '" + lineNum + "' And sabun = '" + sabun + "'";
+                sQry = " Select Count(*) From [p_seoyhouse] Where saup = '" + saup + "' And yyyy = '" + yyyy + "' And seqn = '" + seqn + "' And sabun = '" + sabun + "'";
                 oRecordSet.DoQuery(sQry);
 
                 if (oRecordSet.Fields.Item(0).Value > 0)
@@ -468,7 +474,7 @@ namespace PSH_BOne_AddOn
                     sQry += "ld_fymd = '" + ld_fymd + "',";
                     sQry += "ld_tymd = '" + ld_tymd + "',";
                     sQry += "ld_bamt = " + ld_bamt;
-                    sQry += " Where saup = '" + saup + "' And yyyy = '" + yyyy + "' And seqn = '" + lineNum + "' And sabun = '" + sabun + "'";
+                    sQry += " Where saup = '" + saup + "' And yyyy = '" + yyyy + "' And seqn = '" + seqn + "' And sabun = '" + sabun + "'";
 
                     oRecordSet.DoQuery(sQry);
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
@@ -855,7 +861,7 @@ namespace PSH_BOne_AddOn
                                 yyyy = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
                                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
 
-                                //총급여액계산해서 5,500 이하는 15% 아니면 12%
+                                //총급여액계산해서 5500 이하는 12% 아니면 10%
                                 sQry = "SELECT SUM(gwase) ";
                                 sQry += "FROM( SELECT gwase   = SUM( a.U_GWASEE ) ";
                                 sQry += "        FROM [@PH_PY112A] a Inner Join [@PH_PY001A] b On a.U_MSTCOD = b.Code ";
@@ -882,11 +888,16 @@ namespace PSH_BOne_AddOn
                                 }
 
                                 gamt = 0;
-                                if (samt <= 70000000)  // 7천이하자  10%
+                                
+                                if (samt > 70000000)  // 7천초과자 0
+                                {
+                                    gamt = 0;
+                                }
+                                else if (samt <= 70000000)  // 7천이하자  10%
                                 {
                                     gamt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("ws_mamt").Specific.Value.Trim()) * 0.1, 0);
                                 }
-                                if (samt <= 55000000)  // 5천5백이하자  12%
+                                else if (samt <= 55000000)  // 5천5백이하자  12%
                                 {
                                     gamt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("ws_mamt").Specific.Value.Trim()) * 0.12, 0);
                                 }
@@ -897,104 +908,6 @@ namespace PSH_BOne_AddOn
                                 }
 
                                 oForm.Items.Item("ws_gamt").Specific.Value = gamt;
-                                break;
-
-                            case "ws_mamt2":
-                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
-                                yyyy = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
-                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
-
-                                //총급여액계산해서 5,500 이하는 15% 아니면 12%
-                                sQry = "SELECT SUM(gwase) ";
-                                sQry += "FROM( SELECT gwase   = SUM( a.U_GWASEE ) ";
-                                sQry += "        FROM [@PH_PY112A] a Inner Join [@PH_PY001A] b On a.U_MSTCOD = b.Code ";
-                                sQry += "       WHERE b.U_CLTCOD = '" + CLTCOD + "' ";
-                                sQry += "         And a.U_CLTCOD = b.U_CLTCOD ";
-                                sQry += "         And a.U_YM     BETWEEN  '" + yyyy + "' + '01' AND '" + yyyy + "' + '12' ";
-                                sQry += "         And isnull(b.Code,'')  = '" + MSTCOD + "' ";
-                                sQry += "      Union All ";
-                                sQry += "      SELECT gwase   = SUM( a.U_GWASEE ) ";
-                                sQry += "        FROM [@PH_PY112A] a Inner Join [@PH_PY001A] b On a.U_MSTCOD = b.U_PreCode ";
-                                sQry += "       WHERE b.U_CLTCOD = '" + CLTCOD + "' ";
-                                sQry += "         And a.U_CLTCOD = b.U_CLTCOD ";
-                                sQry += "         And a.U_YM     BETWEEN  '" + yyyy + "' + '01' AND '" + yyyy + "' + '12' ";
-                                sQry += "         And isnull(b.Code,'')  = '" + MSTCOD + "' ";
-                                sQry += "         And Isnull(b.U_PreCode,'') <> '' ";
-                                sQry += "     ) g";
-
-                                oRecordSet.DoQuery(sQry);
-                                samt = oRecordSet.Fields.Item(0).Value;  // 총급여액(과세대상)
-
-                                if (Convert.ToDouble(oForm.Items.Item("ws_mamt2").Specific.Value.Trim()) > 7500000)  // 한도 7백5십만원
-                                {
-                                    oForm.Items.Item("ws_mamt2").Specific.Value = 7500000;
-                                }
-
-                                gamt = 0;
-                                if (samt <= 70000000)  // 7천이하자  10%
-                                {
-                                    gamt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("ws_mamt2").Specific.Value.Trim()) * 0.1, 0);
-                                }
-                                if (samt <= 55000000)  // 5천5백이하자  12%
-                                {
-                                    gamt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("ws_mamt2").Specific.Value.Trim()) * 0.12, 0);
-                                }
-
-                                if (gamt < 0)
-                                {
-                                    gamt = 0;
-                                }
-
-                                oForm.Items.Item("ws_gamt2").Specific.Value = gamt;
-                                break;
-
-                            case "ws_mamt3":
-                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
-                                yyyy = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
-                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
-
-                                //총급여액계산해서 5,500 이하는 15% 아니면 12%
-                                sQry = "SELECT SUM(gwase) ";
-                                sQry += "FROM( SELECT gwase   = SUM( a.U_GWASEE ) ";
-                                sQry += "        FROM [@PH_PY112A] a Inner Join [@PH_PY001A] b On a.U_MSTCOD = b.Code ";
-                                sQry += "       WHERE b.U_CLTCOD = '" + CLTCOD + "' ";
-                                sQry += "         And a.U_CLTCOD = b.U_CLTCOD ";
-                                sQry += "         And a.U_YM     BETWEEN  '" + yyyy + "' + '01' AND '" + yyyy + "' + '12' ";
-                                sQry += "         And isnull(b.Code,'')  = '" + MSTCOD + "' ";
-                                sQry += "      Union All ";
-                                sQry += "      SELECT gwase   = SUM( a.U_GWASEE ) ";
-                                sQry += "        FROM [@PH_PY112A] a Inner Join [@PH_PY001A] b On a.U_MSTCOD = b.U_PreCode ";
-                                sQry += "       WHERE b.U_CLTCOD = '" + CLTCOD + "' ";
-                                sQry += "         And a.U_CLTCOD = b.U_CLTCOD ";
-                                sQry += "         And a.U_YM     BETWEEN  '" + yyyy + "' + '01' AND '" + yyyy + "' + '12' ";
-                                sQry += "         And isnull(b.Code,'')  = '" + MSTCOD + "' ";
-                                sQry += "         And Isnull(b.U_PreCode,'') <> '' ";
-                                sQry += "     ) g";
-
-                                oRecordSet.DoQuery(sQry);
-                                samt = oRecordSet.Fields.Item(0).Value;  // 총급여액(과세대상)
-
-                                if (Convert.ToDouble(oForm.Items.Item("ws_mamt3").Specific.Value.Trim()) > 7500000)  // 한도 7백5십만원
-                                {
-                                    oForm.Items.Item("ws_mamt3").Specific.Value = 7500000;
-                                }
-
-                                gamt = 0;
-                                if (samt <= 70000000)  // 7천이하자  10%
-                                {
-                                    gamt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("ws_mamt3").Specific.Value.Trim()) * 0.1, 0);
-                                }
-                                if (samt <= 55000000)  // 5천5백이하자  12%
-                                {
-                                    gamt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("ws_mamt3").Specific.Value.Trim()) * 0.12, 0);
-                                }
-
-                                if (gamt < 0)
-                                {
-                                    gamt = 0;
-                                }
-
-                                oForm.Items.Item("ws_gamt3").Specific.Value = gamt;
                                 break;
 
                             case "dj_tamt":
@@ -1009,36 +922,6 @@ namespace PSH_BOne_AddOn
                                 else
                                 {
                                     oForm.Items.Item("dj_gamt").Specific.Value = gamt;
-                                }
-                                break;
-
-                            case "dj_tamt2":
-                                amt = 0;
-                                gamt = 0;
-                                amt = Convert.ToDouble(oForm.Items.Item("dj_tamt2").Specific.Value.Trim());
-                                gamt = System.Math.Round(amt * 0.4, 0);
-                                if (gamt > 3000000)
-                                {
-                                    oForm.Items.Item("dj_gamt2").Specific.Value = 3000000;
-                                }
-                                else
-                                {
-                                    oForm.Items.Item("dj_gamt2").Specific.Value = gamt;
-                                }
-                                break;
-
-                            case "dj_tamt3":
-                                amt = 0;
-                                gamt = 0;
-                                amt = Convert.ToDouble(oForm.Items.Item("dj_tamt3").Specific.Value.Trim());
-                                gamt = System.Math.Round(amt * 0.4, 0);
-                                if (gamt > 3000000)
-                                {
-                                    oForm.Items.Item("dj_gamt3").Specific.Value = 3000000;
-                                }
-                                else
-                                {
-                                    oForm.Items.Item("dj_gamt3").Specific.Value = gamt;
                                 }
                                 break;
                         }

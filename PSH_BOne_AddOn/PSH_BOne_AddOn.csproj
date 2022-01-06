@@ -1,4 +1,4 @@
-ï»¿<?xml version="1.0" encoding="utf-8"?>
+ï»?<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -289,6 +289,10 @@
     <Compile Include="FormClass\OA\PS_SY005.cs" />
     <Compile Include="FormClass\OA\PS_SY010.cs" />
     <Compile Include="FormClass\OA\PS_SY020.cs" />
+    <Compile Include="FormClass\PP\PS_PP275.cs" />
+    <Compile Include="FormClass\PP\PS_PP272.cs" />
+    <Compile Include="FormClass\PP\PS_PP271.cs" />
+    <Compile Include="FormClass\PP\PS_PP270.cs" />
     <Compile Include="FormClass\PP\PS_PP052.cs" />
     <Compile Include="FormClass\PP\PS_PP001.cs" />
     <Compile Include="FormClass\PP\PS_PP002.cs" />

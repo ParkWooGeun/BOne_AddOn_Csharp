@@ -91,6 +91,20 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.UserDataSources.Add("MSTCOD", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("MSTCOD").Specific.DataBind.SetBound(true, "", "MSTCOD");
 
+                //주택소유여뷰
+                oForm.DataSources.UserDataSources.Add("HouseYN", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
+                oForm.Items.Item("HouseYN").Specific.ValidValues.Add("", "선택");
+                oForm.Items.Item("HouseYN").Specific.ValidValues.Add("1", "소유");
+                oForm.Items.Item("HouseYN").Specific.ValidValues.Add("2", "미소유");
+                oForm.Items.Item("HouseYN").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+
+                //세대주여부
+                oForm.DataSources.UserDataSources.Add("SaedeYN", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
+                oForm.Items.Item("SaedeYN").Specific.ValidValues.Add("", "선택");
+                oForm.Items.Item("SaedeYN").Specific.ValidValues.Add("1", "세대주");
+                oForm.Items.Item("SaedeYN").Specific.ValidValues.Add("2", "세대원");
+                oForm.Items.Item("SaedeYN").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+
                 //파일경로
                 oForm.DataSources.UserDataSources.Add("Comments", SAPbouiCOM.BoDataType.dt_LONG_TEXT, 200);
                 oForm.Items.Item("Comments").Specific.DataBind.SetBound(true, "", "Comments");
@@ -176,7 +190,7 @@ namespace PSH_BOne_AddOn
 
                         UserID = MSTCOD + "_PDFtoXML.xml";
                         xmldoc.save(oFilePath + UserID);
-                        PSH_Globals.SBO_Application.MessageBox("PDF파일이 변환 되었습니다. 아래 계산버튼을 클릭하세요.");
+                        PSH_Globals.SBO_Application.StatusBar.SetText("PDF파일이 변환 되었습니다. 아래 계산버튼을 클릭하세요. ", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
                     }
                 }
             }
@@ -242,6 +256,18 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
+                if (string.IsNullOrEmpty(oForm.Items.Item("HouseYN").Specific.Value.Trim()))
+                {
+                    errMessage = "주택소유여부는 필수입니다.";
+                    throw new Exception();
+                }
+
+                if (string.IsNullOrEmpty(oForm.Items.Item("SaedeYN").Specific.Value.Trim()))
+                {
+                    errMessage = "세대주여부는 필수입니다.";
+                    throw new Exception();
+                }
+
                 sQry = "select count(*)  from [p_seoybase] where div in (10) and yyyy = '" + oForm.Items.Item("Year").Specific.Value.Trim() + "' and sabun ='" + oForm.Items.Item("MSTCOD").Specific.Value.Trim() + "'";
                 oRecordSet.DoQuery(sQry);
 
@@ -282,16 +308,20 @@ namespace PSH_BOne_AddOn
         {
             bool returnValue = false;
             string sQry;
+            string HouseYN;
+            string SaedeYN;
             string oFilePath;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
+                HouseYN = oForm.Items.Item("HouseYN").Specific.Value.ToString().Trim();
+                SaedeYN = oForm.Items.Item("SaedeYN").Specific.Value.ToString().Trim();
                 oFilePath = "\\\\" + PSH_Globals.SP_ODBC_IP + "\\pdf\\";
 
-                sQry = "INSERT INTO TBL_XML(CREATEDATE, BPLID ,yyyy ,MSTCOD ,XMLDATA)";
+                sQry = "INSERT INTO TBL_XML(CREATEDATE, BPLID ,yyyy ,MSTCOD, HouseYN, SaedeYN ,XMLDATA)";
                 sQry += " SELECT GETDATE() AS CREATEDATE,'" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "','" + oForm.Items.Item("Year").Specific.Value;
-                sQry += "','" + oForm.Items.Item("MSTCOD").Specific.Value + "' AS MSTCOD, * FROM OPENROWSET (";
+                sQry += "','" + oForm.Items.Item("MSTCOD").Specific.Value + "' AS MSTCOD, '" + HouseYN  + "','" + SaedeYN  + "', * FROM OPENROWSET (";
                 sQry += "BULK '" + oFilePath + oForm.Items.Item("MSTCOD").Specific.Value + "_PDFtoXML.xml', SINGLE_BLOB) AS x";
 
                 oRecordSet.DoQuery(sQry);
@@ -313,28 +343,17 @@ namespace PSH_BOne_AddOn
             //string mstcode;
             //string yyyy;
             //string BPLID;
-            string text;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
-                sQry = "Exec PH_PY420_01 '" + oForm.Items.Item("CLTCOD").Specific.Value + "', '" + oForm.Items.Item("Year").Specific.Value + "', '" + oForm.Items.Item("MSTCOD").Specific.Value + "'";
+                sQry = "Exec PH_PY420_01 '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("Year").Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "'";
                 oRecordSet.DoQuery(sQry);
 
-                sQry = "Exec PH_PY420_02 '" + oForm.Items.Item("CLTCOD").Specific.Value + "', '" + oForm.Items.Item("Year").Specific.Value + "', '" + oForm.Items.Item("MSTCOD").Specific.Value + "'";
+                sQry = "Exec PH_PY420_02 '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("Year").Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "'";
                 oRecordSet.DoQuery(sQry);
 
-                text = "PDF 업로드 후 체크 사항";
-                text += Environment.NewLine;
-                text += Environment.NewLine;
-                text += "1.장기주택저당차입금 이자상환액은 해당사항이 없으시면 삭제하셔야합니다.";
-                text += Environment.NewLine;
-                text += "2.기부금의 경우 본인 외 인원들은 삭제됩니다.";
-                text += Environment.NewLine;
-                text += "3.의료비, 기부금 등 연말정산 자료 외 추가등록은 직접등록 하셔야합니다.";
-                text += Environment.NewLine;
-
-                PSH_Globals.SBO_Application.MessageBox(text);
+                PSH_Globals.SBO_Application.StatusBar.SetText("PDF자료가 등록 되었습니다. ", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
             }
             catch (Exception ex)
             {

@@ -47,7 +47,6 @@ namespace PSH_BOne_AddOn
 				oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
 
 				oForm.Freeze(true);
-
 				PS_PP845_CreateItems();
 				PS_PP845_SetComboBox();
 				PS_PP845_Initialize();
@@ -85,12 +84,6 @@ namespace PSH_BOne_AddOn
 				oForm.DataSources.UserDataSources.Add("DocDateTo", SAPbouiCOM.BoDataType.dt_DATE, 10);
 				oForm.Items.Item("DocDateTo").Specific.DataBind.SetBound(true, "", "DocDateTo");
 				oForm.DataSources.UserDataSources.Item("DocDateTo").Value = DateTime.Now.ToString("yyyyMMdd");
-
-				//oForm.DataSources.UserDataSources.Add("Gubun", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 5);
-				//oForm.Items.Item("Gubun").Specific.DataBind.SetBound(true, "", "Gubun");
-
-				//oForm.DataSources.UserDataSources.Add("Type", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 5);
-				//oForm.Items.Item("Type").Specific.DataBind.SetBound(true, "", "Type");
 			}
 			catch (Exception ex)
 			{
@@ -117,7 +110,7 @@ namespace PSH_BOne_AddOn
 					oRecordSet.MoveNext();
 				}
 
-				// Gubun
+				// ItmBsort
 				sQry = "select Code, Name from [@PSH_ITMBSORT] where left(code,1) in (1,3) order by 1";
 				oRecordSet.DoQuery(sQry);
 				while (!oRecordSet.EoF)
@@ -125,15 +118,18 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("ItmBsort").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
 				}
+				oForm.Items.Item("ItmBsort").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
-				// Type
+				// IssueType
 				sQry = "select Code, Name from [@PSH_ISSUETYPE] order by 1";
 				oRecordSet.DoQuery(sQry);
+				oForm.Items.Item("IssueType").Specific.ValidValues.Add("%", "전체");
 				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("IssueType").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
 				}
+				oForm.Items.Item("IssueType").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 			}
 			catch (Exception ex)
 			{
@@ -192,7 +188,7 @@ namespace PSH_BOne_AddOn
 				oRecordSet.DoQuery(sQry);
 				BPLName = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 
-				WinTitle = "[PS_PP845_01] M/G생산 기타출고현황";
+				WinTitle = "[PS_PP845_01] 생산 기타출고현황";
 				ReportName = "PS_PP845_01.RPT";
 
 				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
@@ -220,6 +216,45 @@ namespace PSH_BOne_AddOn
 			{
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
+		}
+
+		/// <summary>
+		/// 필수 사항 check
+		/// </summary>
+		/// <returns></returns>
+		private bool PS_PP845_DataValidCheck()
+		{
+			bool returnValue = false;
+			string errMessage = string.Empty;
+
+			try
+			{
+				if (string.IsNullOrEmpty(oForm.Items.Item("BPLId").Specific.Value))
+				{
+					errMessage = "사업장은 필수입력사항입니다. 확인하세요.";
+					throw new Exception();
+				}
+
+				if (string.IsNullOrEmpty(oForm.Items.Item("ItmBsort").Specific.Value))
+				{
+					errMessage = "구분은 필수입력사항입니다. 확인하세요.";
+					throw new Exception();
+				}
+				returnValue = true;
+			}
+			catch (Exception ex)
+			{
+				if (errMessage != string.Empty)
+				{
+					PSH_Globals.SBO_Application.MessageBox(errMessage);
+				}
+				else
+				{
+					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+				}
+			}
+
+			return returnValue;
 		}
 
 		/// <summary>
@@ -316,14 +351,14 @@ namespace PSH_BOne_AddOn
 			{
 				if (pVal.BeforeAction == true)
 				{
-					if (pVal.ItemUID == "1")
-					{
-					}
-					else if (pVal.ItemUID == "Btn01")
-					{
-						System.Threading.Thread thread = new System.Threading.Thread(PS_PP845_PrintReport);
-						thread.SetApartmentState(System.Threading.ApartmentState.STA);
-						thread.Start();
+					if(PS_PP845_DataValidCheck() == true)
+                    {
+						if (pVal.ItemUID == "Btn01")
+						{
+							System.Threading.Thread thread = new System.Threading.Thread(PS_PP845_PrintReport);
+							thread.SetApartmentState(System.Threading.ApartmentState.STA);
+							thread.Start();
+						}
 					}
 				}
 				else if (pVal.BeforeAction == false)

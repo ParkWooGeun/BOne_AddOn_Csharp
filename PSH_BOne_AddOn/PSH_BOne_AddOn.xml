@@ -30831,6 +30831,12 @@
             PS_PP845_PrintReport
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP845.PS_PP845_DataValidCheck">
+            <summary>
+            필수 사항 check
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_PP845.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event

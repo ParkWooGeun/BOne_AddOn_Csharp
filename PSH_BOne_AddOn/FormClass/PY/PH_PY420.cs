@@ -340,17 +340,26 @@ namespace PSH_BOne_AddOn
         private void PH_PY420_Covert_execution()
         {
             string sQry;
-            //string mstcode;
-            //string yyyy;
-            //string BPLID;
+            string CLTCOD;
+            string Year;
+            string MSTCOD;
+            string HouseYN;
+            string SaedeYN;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
 
             try
             {
-                sQry = "Exec PH_PY420_01 '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("Year").Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "'";
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                Year = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
+                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
+                HouseYN = oForm.Items.Item("HouseYN").Specific.Value.ToString().Trim();
+                SaedeYN = oForm.Items.Item("SaedeYN").Specific.Value.ToString().Trim();
+
+                sQry = "Exec PH_PY420_01 '" + CLTCOD + "', '" + Year + "', '" + MSTCOD + "'";
                 oRecordSet.DoQuery(sQry);
 
-                sQry = "Exec PH_PY420_02 '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("Year").Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "'";
+                sQry = "Exec PH_PY420_02 '" + CLTCOD + "', '" + Year + "', '" + MSTCOD + "', '" + HouseYN + "', '" + SaedeYN + "'";
                 oRecordSet.DoQuery(sQry);
 
                 PSH_Globals.SBO_Application.StatusBar.SetText("PDF자료가 등록 되었습니다. ", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);

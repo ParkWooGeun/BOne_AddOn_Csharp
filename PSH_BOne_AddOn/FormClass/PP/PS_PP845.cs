@@ -122,7 +122,7 @@ namespace PSH_BOne_AddOn
 				oRecordSet.DoQuery(sQry);
 				while (!oRecordSet.EoF)
 				{
-					oForm.Items.Item("Gubun").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
+					oForm.Items.Item("ItmBsort").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
 				}
 
@@ -131,7 +131,7 @@ namespace PSH_BOne_AddOn
 				oRecordSet.DoQuery(sQry);
 				while (!oRecordSet.EoF)
 				{
-					oForm.Items.Item("Type").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
+					oForm.Items.Item("IssueType").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
 				}
 			}
@@ -175,8 +175,8 @@ namespace PSH_BOne_AddOn
 			string BPLID;
 			string DocDateFr;
 			string DocDateTo;
-			string Gubun;
-			string Type;
+			string ItmBsort;
+			string IssueType;
 			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -185,8 +185,8 @@ namespace PSH_BOne_AddOn
 				BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
 				DocDateFr = oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim();
 				DocDateTo = oForm.Items.Item("DocDateTo").Specific.Value.ToString().Trim();
-				Gubun = oForm.Items.Item("Gubun").Specific.Value.ToString().Trim();
-				Type = oForm.Items.Item("Type").Specific.Value.ToString().Trim();
+				ItmBsort = oForm.Items.Item("ItmBsort").Specific.Value.ToString().Trim();
+				IssueType = oForm.Items.Item("IssueType").Specific.Value.ToString().Trim();
 
 				sQry = "SELECT BPLName FROM [OBPL] WHERE BPLId = '" + BPLID + "'";
 				oRecordSet.DoQuery(sQry);
@@ -207,8 +207,8 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLID));
 				dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr));
 				dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo));
-				dataPackParameter.Add(new PSH_DataPackClass("@Gubun", Gubun));
-				dataPackParameter.Add(new PSH_DataPackClass("@Type", Type));
+				dataPackParameter.Add(new PSH_DataPackClass("@ItmBsort", ItmBsort));
+				dataPackParameter.Add(new PSH_DataPackClass("@IssueType", IssueType));
 
 				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
 			}

@@ -85,6 +85,12 @@ namespace PSH_BOne_AddOn
 				oForm.DataSources.UserDataSources.Add("DocDateTo", SAPbouiCOM.BoDataType.dt_DATE, 10);
 				oForm.Items.Item("DocDateTo").Specific.DataBind.SetBound(true, "", "DocDateTo");
 				oForm.DataSources.UserDataSources.Item("DocDateTo").Value = DateTime.Now.ToString("yyyyMMdd");
+
+				//oForm.DataSources.UserDataSources.Add("Gubun", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 5);
+				//oForm.Items.Item("Gubun").Specific.DataBind.SetBound(true, "", "Gubun");
+
+				//oForm.DataSources.UserDataSources.Add("Type", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 5);
+				//oForm.Items.Item("Type").Specific.DataBind.SetBound(true, "", "Type");
 			}
 			catch (Exception ex)
 			{
@@ -108,6 +114,24 @@ namespace PSH_BOne_AddOn
 				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
+					oRecordSet.MoveNext();
+				}
+
+				// Gubun
+				sQry = "select Code, Name from [@PSH_ITMBSORT] where left(code,1) in (1,3) order by 1";
+				oRecordSet.DoQuery(sQry);
+				while (!oRecordSet.EoF)
+				{
+					oForm.Items.Item("Gubun").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
+					oRecordSet.MoveNext();
+				}
+
+				// Type
+				sQry = "select Code, Name from [@PSH_ISSUETYPE] order by 1";
+				oRecordSet.DoQuery(sQry);
+				while (!oRecordSet.EoF)
+				{
+					oForm.Items.Item("Type").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
 				}
 			}
@@ -151,6 +175,8 @@ namespace PSH_BOne_AddOn
 			string BPLID;
 			string DocDateFr;
 			string DocDateTo;
+			string Gubun;
+			string Type;
 			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -159,12 +185,14 @@ namespace PSH_BOne_AddOn
 				BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
 				DocDateFr = oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim();
 				DocDateTo = oForm.Items.Item("DocDateTo").Specific.Value.ToString().Trim();
+				Gubun = oForm.Items.Item("Gubun").Specific.Value.ToString().Trim();
+				Type = oForm.Items.Item("Type").Specific.Value.ToString().Trim();
 
 				sQry = "SELECT BPLName FROM [OBPL] WHERE BPLId = '" + BPLID + "'";
 				oRecordSet.DoQuery(sQry);
 				BPLName = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 
-				WinTitle = "[PS_PP845_01] M/G생산원재료기타출고현황";
+				WinTitle = "[PS_PP845_01] M/G생산 기타출고현황";
 				ReportName = "PS_PP845_01.RPT";
 
 				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
@@ -179,6 +207,8 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLID));
 				dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr));
 				dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo));
+				dataPackParameter.Add(new PSH_DataPackClass("@Gubun", Gubun));
+				dataPackParameter.Add(new PSH_DataPackClass("@Type", Type));
 
 				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
 			}

@@ -165,8 +165,8 @@
     <Compile Include="FormClass\CORE\S60092.cs" />
     <Compile Include="FormClass\CORE\S720.cs" />
     <Compile Include="FormClass\CORE\S721.cs" />
-    <Compile Include="FormClass\CO\PS_CO521.cs" />
     <Compile Include="FormClass\CORE\S951.cs" />
+    <Compile Include="FormClass\CO\PS_CO521.cs" />
     <Compile Include="FormClass\CO\PS_CO800.cs" />
     <Compile Include="FormClass\CO\PS_CO003.cs" />
     <Compile Include="FormClass\CO\PS_CO070.cs" />
@@ -288,6 +288,7 @@
     <Compile Include="FormClass\OA\PS_SY002.cs" />
     <Compile Include="FormClass\OA\PS_SY005.cs" />
     <Compile Include="FormClass\OA\PS_SY010.cs" />
+    <Compile Include="FormClass\OA\PS_SY015.cs" />
     <Compile Include="FormClass\OA\PS_SY020.cs" />
     <Compile Include="FormClass\PP\PS_PP275.cs" />
     <Compile Include="FormClass\PP\PS_PP272.cs" />
@@ -509,7 +510,6 @@
     <Compile Include="FormClass\PY\PH_PY136.cs" />
     <Compile Include="FormClass\PY\PH_PY526.cs" />
     <Compile Include="FormClass\PY\PH_PY980.cs" />
-    <Compile Include="FormClass\OA\PS_SY015.cs" />
     <Compile Include="FormClass\PY\PH_PYA80.cs" />
     <Compile Include="FormClass\PY\PH_PYA90.cs" />
     <Compile Include="FormClass\PY\PS_DateChange.cs" />
@@ -1961,6 +1961,8 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_SD220_51.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_SD600_01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_PP092S_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_PP531_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_PP531_02.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_MM110_01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_MM204_01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_MM204_02.rpt" />
@@ -1969,8 +1971,6 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_MM090_01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_MM090_02.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_MM090_03.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_PP531_01.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_PP531_02.rpt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EXT_Form\FileListBoxForm.resX">
@@ -2653,6 +2653,19 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM204.srf" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO521.srf" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SY015.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SY020.srf" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP270.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP271.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP272.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP275.srf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

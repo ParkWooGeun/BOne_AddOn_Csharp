@@ -18,7 +18,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         public override void LoadForm(string oFormDocEntry)
         {
-            string strXml = string.Empty;
+            string strXml;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
             try
@@ -46,6 +46,7 @@ namespace PSH_BOne_AddOn
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 
                 oForm.Freeze(true);
+
                 CreateItems();
 
                 oForm.EnableMenu("1281", false); //찾기
@@ -55,7 +56,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
             finally
             {
@@ -105,11 +106,10 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("CLTCOD").Specific.DataBind.SetBound(true, "", "CLTCOD");
                 oForm.Items.Item("CLTCOD").DisplayDesc = true;
                 dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true); //접속자에 따른 권한별 사업장 콤보박스세팅
-
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
         }
 
@@ -121,14 +121,13 @@ namespace PSH_BOne_AddOn
         {
             bool returnValue = false;
             short errNum = 0;
-            string stringSpace = string.Empty;
-            string CLTCOD = string.Empty;
-            string yyyy = string.Empty;
-            string HtaxID = string.Empty;
-            string TeamName = string.Empty;
-            string Dname = string.Empty;
-            string Dtel = string.Empty;
-            string DocDate = string.Empty;
+            string CLTCOD;
+            string yyyy;
+            string HtaxID;
+            string TeamName;
+            string Dname;
+            string Dtel;
+            string DocDate;
 
             try
             {
@@ -145,7 +144,6 @@ namespace PSH_BOne_AddOn
                     errNum = 1;
                     throw new Exception();
                 }
-
                 // A RECORD 처리
                 if (File_Create_A_record(CLTCOD, HtaxID, TeamName, Dname, Dtel, DocDate) == false)
                 {
@@ -189,11 +187,9 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    stringSpace = new string(' ', 10);
-                    PSH_Globals.SBO_Application.StatusBar.SetText("File_Create 실행 중 오류가 발생했습니다." + stringSpace + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-
             return returnValue;
         }
 
@@ -205,9 +201,9 @@ namespace PSH_BOne_AddOn
         {
             bool returnValue = false;
             short errNum = 0;
-            string sQry = string.Empty;
-            string saup = string.Empty;
-            string oFilePath = string.Empty; //파일 경로
+            string sQry;
+            string saup;
+            string oFilePath; //파일 경로
 
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -218,6 +214,7 @@ namespace PSH_BOne_AddOn
             // 2016년기준 1110 BYTE 
             // 2017년기준 1110 BYTE
             // 2020년기준 761 BYTE
+            // 2021년기준 761 BYTE 20년 동일
 
             string A001;  //  1     '레코드구분
             string A002;  //  2     '자료구분
@@ -266,6 +263,7 @@ namespace PSH_BOne_AddOn
                     A008 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A008").Value.ToString().Trim(), 4);
                     A009 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A009").Value.ToString().Trim(), 10);
                     A010 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A010").Value.ToString().Trim(), 40);
+
                     A011 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A011").Value.ToString().Trim(), 30);
                     A012 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A012").Value.ToString().Trim(), 30);
                     A013 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A013").Value.ToString().Trim(), 15);
@@ -273,7 +271,8 @@ namespace PSH_BOne_AddOn
                     A015 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A015").Value.ToString().Trim(), 3);
                     A016 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A016").Value.ToString().Trim(), 583);
 
-                    FileSystem.PrintLine(1, A001 + A002 + A003 + A004 + A005 + A006 + A007 + A008 + A009 + A010 + A011 + A012 + A013 + A014 + A015 + A016);
+                    FileSystem.PrintLine(1, A001 + A002 + A003 + A004 + A005 + A006 + A007 + A008 + A009 + A010
+                                          + A011 + A012 + A013 + A014 + A015 + A016);
                 }
 
                 returnValue = true;
@@ -286,7 +285,7 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
                 FileSystem.FileClose(1);
             }
@@ -294,7 +293,6 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
-
             return returnValue;
         }
 
@@ -306,7 +304,7 @@ namespace PSH_BOne_AddOn
         {
             bool returnValue = false;
             short errNum = 0;
-            string sQry = string.Empty;
+            string sQry;
 
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -361,6 +359,7 @@ namespace PSH_BOne_AddOn
                     B008 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B008").Value.ToString().Trim(), 13);
                     B009 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B009").Value.ToString().Trim(), 1);
                     B010 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B010").Value.ToString().Trim(), 7, '0');
+
                     B011 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B011").Value.ToString().Trim(), 7);
                     B012 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B012").Value.ToString().Trim(), 14, '0');
                     B013_1 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B013_1").Value.ToString().Trim(), 1);
@@ -376,8 +375,8 @@ namespace PSH_BOne_AddOn
                     B018_2 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B018_2").Value.ToString().Trim(), 13, '0');
                     B019 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B019").Value.ToString().Trim(), 544);
 
-                    FileSystem.PrintLine(1, B001 + B002 + B003 + B004 + B005 + B006 + B007 + B008 + B009 + B010 + B011 + B012 + B013_1 + B013_2 + B014
-                                          + B015_1 + B015_2 + B016_1 + B016_2 + B017_1 + B017_2 + B018_1 + B018_2 + B019);
+                    FileSystem.PrintLine(1, B001 + B002 + B003 + B004 + B005 + B006 + B007 + B008 + B009 + B010
+                                          + B011 + B012 + B013_1 + B013_2 + B014 + B015_1 + B015_2 + B016_1 + B016_2 + B017_1 + B017_2 + B018_1 + B018_2 + B019);
                 }
 
                 returnValue = true;
@@ -390,7 +389,7 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
                 FileSystem.FileClose(1);
             }
@@ -398,7 +397,6 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
-
             return returnValue;
         }
 
@@ -410,11 +408,11 @@ namespace PSH_BOne_AddOn
         {
             bool returnValue = false;
             short errNum = 0;
-            string sQry = string.Empty;
-            string C_SAUP = string.Empty;
-            string C_YYYY = string.Empty;
-            string C_SABUN = string.Empty;
-            int NEWCNT = 0; //일련번호
+            string sQry;
+            string C_SAUP;
+            string C_YYYY;
+            string C_SABUN;
+            int NEWCNT; //일련번호
 
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbouiCOM.ProgressBar ProgressBar01 = null;
@@ -681,7 +679,6 @@ namespace PSH_BOne_AddOn
                         ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 작성중........!";
                     }
                 }
-
                 returnValue = true;
             }
             catch (Exception ex)
@@ -697,7 +694,7 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
                 FileSystem.FileClose(1);
             }
@@ -710,7 +707,6 @@ namespace PSH_BOne_AddOn
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
                 }
             }
-
             return returnValue;
         }
 
@@ -722,7 +718,7 @@ namespace PSH_BOne_AddOn
         {
             bool returnValue = false;
             short errNum = 0;
-            string sQry = string.Empty;
+            string sQry;
 
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -772,17 +768,18 @@ namespace PSH_BOne_AddOn
                         D008 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D008").Value.ToString().Trim(), 2);
                         D009 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D009").Value.ToString().Trim(), 30);
                         D010 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D010").Value.ToString().Trim(), 10);
+
                         D011 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D011").Value.ToString().Trim(), 20);
                         D012 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D012").Value.ToString().Trim(), 8, '0');
                         D013 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D013").Value.ToString().Trim(), 11, '0');
                         D014 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D014").Value.ToString().Trim(), 595);
 
-                        FileSystem.PrintLine(1, D001 + D002 + D003 + D004 + D005 + D006 + D007 + D008 + D009 + D010 + D011 + D012 + D013 + D014);
+                        FileSystem.PrintLine(1, D001 + D002 + D003 + D004 + D005 + D006 + D007 + D008 + D009 + D010
+                                              + D011 + D012 + D013 + D014);
 
                         oRecordSet.MoveNext();
                     }
                 }
-
                 returnValue = true;
             }
             catch (Exception ex)
@@ -793,7 +790,7 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
                 FileSystem.FileClose(1);
             }
@@ -801,7 +798,6 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
-
             return returnValue;
         }
 
@@ -868,13 +864,9 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-            finally
-            {
-            }
-
             return returnValue;
         }
 
@@ -921,10 +913,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
         }
 
@@ -936,12 +925,13 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_COMBO_SELECT(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string sQry = string.Empty;
+            string sQry;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
                 oForm.Freeze(true);
+
                 if (pVal.Before_Action == true)
                 {
                 }
@@ -967,7 +957,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
             finally
             {
@@ -997,10 +987,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
         }
 
@@ -1063,8 +1050,6 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
             try
             {
                 oForm.Freeze(true);
@@ -1090,7 +1075,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
             finally
             {
@@ -1139,10 +1124,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
         }
     }

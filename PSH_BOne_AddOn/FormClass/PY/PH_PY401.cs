@@ -9,9 +9,9 @@ namespace PSH_BOne_AddOn
     /// </summary>
     internal class PH_PY401 : PSH_BaseClass
     {
-        public string oFormUniqueID01;
-        public SAPbouiCOM.Grid oGrid1;
-        public SAPbouiCOM.DataTable oDS_PH_PY401;
+        private string oFormUniqueID01;
+        private SAPbouiCOM.Grid oGrid1;
+        private SAPbouiCOM.DataTable oDS_PH_PY401;
 
         /// <summary>
         /// 화면 호출
@@ -45,7 +45,6 @@ namespace PSH_BOne_AddOn
                 oForm.SupportedModes = -1;
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 
-
                 oForm.Freeze(true);
                 PH_PY401_CreateItems();
                 PH_PY401_FormItemEnabled();
@@ -69,13 +68,10 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PH_PY401_CreateItems()
         {
-            string sQry = string.Empty;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
             {
-                oForm.Freeze(true);
-
                 oGrid1 = oForm.Items.Item("Grid01").Specific;
                 oForm.DataSources.DataTables.Add("PH_PY401");
 
@@ -228,15 +224,10 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("annuboamt1").Specific.DataBind.SetBound(true, "", "annuboamt1");
                 oForm.DataSources.UserDataSources.Add("annuboamt2", SAPbouiCOM.BoDataType.dt_SUM);
                 oForm.Items.Item("annuboamt2").Specific.DataBind.SetBound(true, "", "annuboamt2");
-
             }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY401_CreateItems_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-                oForm.Freeze(false);
             }
         }
 
@@ -245,12 +236,8 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PH_PY401_FormItemEnabled()
         {
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
             try
             {
-                oForm.Freeze(true);
-                //
                 oForm.Items.Item("MSTCOD").Specific.Value = "";
                 oForm.Items.Item("FullName").Specific.Value = "";
                 oForm.Items.Item("TeamName").Specific.Value = "";
@@ -301,10 +288,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("PPH_PY401_FormItemEnabled_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
-            finally
-            {
-                oForm.Freeze(false);
-            }
         }
 
         /// <summary>
@@ -351,16 +334,16 @@ namespace PSH_BOne_AddOn
                     Raise_EVENT_ITEM_PRESSED(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
-                    //Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
-                    break;
-
-                case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
-                    //Raise_EVENT_GOT_FOCUS(FormUID, ref pVal, ref BubbleEvent);
-                    break;
-
-                //case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
+                //case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
+                //    Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
                 //    break;
+
+                //case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
+                //    Raise_EVENT_GOT_FOCUS(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+
+                case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
+                    break;
 
                 case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
                     Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
@@ -370,13 +353,13 @@ namespace PSH_BOne_AddOn
                     Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
-                    //Raise_EVENT_DOUBLE_CLICK(FormUID, ref pVal, ref BubbleEvent);
-                    break;
+                //case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
+                //    Raise_EVENT_DOUBLE_CLICK(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
 
-                case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED: //8
-                    //Raise_EVENT_MATRIX_LINK_PRESSED(FormUID, ref pVal, ref BubbleEvent);
-                    break;
+                //case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED: //8
+                //    Raise_EVENT_MATRIX_LINK_PRESSED(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
 
                 //case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED: //9
                 //    Raise_EVENT_MATRIX_COLLAPSE_PRESSED(FormUID, ref pVal, ref BubbleEvent);
@@ -386,9 +369,9 @@ namespace PSH_BOne_AddOn
                     Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
-                    //Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
-                    break;
+                //case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
+                //    Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
 
                 //case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD: //12
                 //    Raise_EVENT_DATASOURCE_LOAD(FormUID, ref pVal, ref BubbleEvent);
@@ -402,19 +385,19 @@ namespace PSH_BOne_AddOn
                     Raise_EVENT_FORM_UNLOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                //case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: //18
-                //    break;
+                case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: //18
+                    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE: //19
-                //    break;
+                case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE: //19
+                    break;
 
-                ////case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE: //20
+                //case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE: //20
                 //    Raise_EVENT_FORM_CLOSE(FormUID, ref pVal, ref BubbleEvent);
                 //    break;
 
-                case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
-                    //Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
-                    break;
+                //case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
+                //    Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
 
                 //case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
                 //    Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
@@ -424,17 +407,17 @@ namespace PSH_BOne_AddOn
                 //    Raise_EVENT_FORM_MENU_HILIGHT(FormUID, ref pVal, ref BubbleEvent);
                 //    break;
 
-                case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
-                    //Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
-                    break;
+                //case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
+                //    Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
 
-                    //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
-                    //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
-                    //    break;
+                //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
+                //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
 
-                    //case SAPbouiCOM.BoEventTypes.et_Drag: //39
-                    //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
-                    //    break;
+                //case SAPbouiCOM.BoEventTypes.et_Drag: //39
+                //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
             }
         }
 
@@ -449,7 +432,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 if (pVal.BeforeAction == true)
                 {
                     switch (pVal.MenuUID)
@@ -528,10 +510,9 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string sQry = string.Empty;
-            string yyyy, Result = string.Empty;
-            SAPbobsCOM.Recordset oRecordSet = null;
-            oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            string sQry;
+            string Result;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -543,8 +524,7 @@ namespace PSH_BOne_AddOn
                     }
                     if (pVal.ItemUID == "Btn01")  // 저장
                     {
-                        yyyy = oForm.Items.Item("Year").Specific.Value;
-                        sQry = "select b.U_UseYN from [@PS_HR200L] b where b.code ='87' and b.u_code ='" + yyyy + "'";
+                        sQry = "select b.U_UseYN from [@PS_HR200L] b where b.code ='87' and b.u_code ='" + oForm.Items.Item("Year").Specific.Value + "'";
                         oRecordSet.DoQuery(sQry);
 
                         Result = oRecordSet.Fields.Item(0).Value;
@@ -559,8 +539,7 @@ namespace PSH_BOne_AddOn
                     }
                     if (pVal.ItemUID == "Btn_del")  // 삭제
                     {
-                        yyyy = oForm.Items.Item("Year").Specific.Value;
-                        sQry = "select b.U_UseYN from [@PS_HR200L] b where b.code ='87' and b.u_code ='" + yyyy + "'";
+                        sQry = "select b.U_UseYN from [@PS_HR200L] b where b.code ='87' and b.u_code ='" + oForm.Items.Item("Year").Specific.Value + "'";
                         oRecordSet.DoQuery(sQry);
 
                         Result = oRecordSet.Fields.Item(0).Value;
@@ -593,9 +572,6 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_COMBO_SELECT(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string sQry = string.Empty;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
             try
             {
                 oForm.Freeze(true);
@@ -606,7 +582,6 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemChanged == true)
                     {
-
                         if (pVal.ItemUID == "Grid01")
                         {
                         }
@@ -635,11 +610,9 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string sQry = string.Empty;
-            string CLTCOD = string.Empty;
-            string MSTCOD = string.Empty;
-            SAPbobsCOM.Recordset oRecordSet = null;
-            oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            string sQry;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
                 if (pVal.Before_Action == true)
@@ -652,27 +625,24 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "MSTCOD":
-                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
-                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
-
                                 sQry = "Select Code,";
-                                sQry = sQry + " FullName = U_FullName,";
-                                sQry = sQry + " TeamName = Isnull((SELECT U_CodeNm";
-                                sQry = sQry + " From [@PS_HR200L]";
-                                sQry = sQry + " WHERE Code = '1'";
-                                sQry = sQry + " And U_Code = U_TeamCode),''),";
-                                sQry = sQry + " RspName  = Isnull((SELECT U_CodeNm";
-                                sQry = sQry + " From [@PS_HR200L]";
-                                sQry = sQry + " WHERE Code = '2'";
-                                sQry = sQry + " And U_Code = U_RspCode),''),";
-                                sQry = sQry + " ClsName  = Isnull((SELECT U_CodeNm";
-                                sQry = sQry + " From [@PS_HR200L]";
-                                sQry = sQry + " WHERE Code = '9'";
-                                sQry = sQry + " And U_Code  = U_ClsCode";
-                                sQry = sQry + " And U_Char3 = U_CLTCOD),'')";
-                                sQry = sQry + " From [@PH_PY001A]";
-                                sQry = sQry + " Where U_CLTCOD = '" + CLTCOD + "'";
-                                sQry = sQry + " and Code = '" + MSTCOD + "'";
+                                sQry += " FullName = U_FullName,";
+                                sQry += " TeamName = Isnull((SELECT U_CodeNm";
+                                sQry += " From [@PS_HR200L]";
+                                sQry += " WHERE Code = '1'";
+                                sQry += " And U_Code = U_TeamCode),''),";
+                                sQry += " RspName  = Isnull((SELECT U_CodeNm";
+                                sQry += " From [@PS_HR200L]";
+                                sQry += " WHERE Code = '2'";
+                                sQry += " And U_Code = U_RspCode),''),";
+                                sQry += " ClsName  = Isnull((SELECT U_CodeNm";
+                                sQry += " From [@PS_HR200L]";
+                                sQry += " WHERE Code = '9'";
+                                sQry += " And U_Code  = U_ClsCode";
+                                sQry += " And U_Char3 = U_CLTCOD),'')";
+                                sQry += " From [@PH_PY001A]";
+                                sQry += " Where U_CLTCOD = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "'";
+                                sQry += " and Code = '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "'";
 
                                 oRecordSet.DoQuery(sQry);
 
@@ -707,13 +677,8 @@ namespace PSH_BOne_AddOn
         {
             try
             {
-                string Param01 = string.Empty;
-                string Param02 = string.Empty;
-                string Param03 = string.Empty;
-                
-                string sQry = string.Empty;
-                SAPbobsCOM.Recordset oRecordSet = null;
-                oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+                string sQry;
+                SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
                 if (pVal.Before_Action == true)
                 {
@@ -722,15 +687,11 @@ namespace PSH_BOne_AddOn
                         if (pVal.Row >= 0)
                         {
                             oForm.Freeze(true);
-
-                            Param01 = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
-                            Param02 = oDS_PH_PY401.Columns.Item("Year").Cells.Item(pVal.Row).Value;
-                            Param03 = oDS_PH_PY401.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Value;
-
-                            sQry = "EXEC PH_PY401_02 '" + Param01 + "', '" + Param02 + "', '" + Param03 + "'";
+                            sQry = "EXEC PH_PY401_02 '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "', '" + oDS_PH_PY401.Columns.Item("Year").Cells.Item(pVal.Row).Value;
+                            sQry += "', '" + oDS_PH_PY401.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Value + "'";
                             oRecordSet.DoQuery(sQry);
 
-                            if ((oRecordSet.RecordCount == 0))
+                            if (oRecordSet.RecordCount == 0)
                             {
                                 oForm.Items.Item("MSTCOD").Specific.Value = oDS_PH_PY401.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Value;
                                 oForm.Items.Item("FullName").Specific.Value = oDS_PH_PY401.Columns.Item("FullName").Cells.Item(pVal.Row).Value;
@@ -851,44 +812,40 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PH_PY401_DataFind()
         {
-            int iRow = 0;
-            string sQry = string.Empty;
-            string CLTCOD = string.Empty;
-            string Year = string.Empty;
-
-            
-            CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
-            Year = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
-
-
-            if (string.IsNullOrEmpty(Year))
-            {
-                PSH_Globals.SBO_Application.SetStatusBarMessage("년도가 없습니다. 확인바랍니다..", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                oForm.Items.Item("Year").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                //returnValue = false;
-                return; //returnValue;
-            }
+            int iRow;
+            string sQry;
+            string errMessage =  string.Empty;
 
             try
             {
                 oForm.Freeze(true);
-
+                if (string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.Value.ToString().Trim()))
+                {
+                    errMessage = "년도가 없습니다. 확인바랍니다.";
+                    throw new Exception();
+                }
                 PH_PY401_FormItemEnabled();
 
-                sQry = "Exec PH_PY401_01 '" + CLTCOD + "','" + Year + "'";
+                sQry = "Exec PH_PY401_01 '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "','" + oForm.Items.Item("Year").Specific.Value.ToString().Trim() + "'";
                 oDS_PH_PY401.ExecuteQuery(sQry);
                 iRow = oForm.DataSources.DataTables.Item(0).Rows.Count;
                 PH_PY401_TitleSetting(ref iRow);
-
                 oForm.EnableMenu("1282", true);     //문서추가 활성
+                oGrid1.AutoResizeColumns();
             }
             catch (Exception ex)
             {
+                if(errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
                     PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY401_DataFind_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
             }
             finally
             {
-                oGrid1.AutoResizeColumns();
                 oForm.Freeze(false);
             }
         }
@@ -898,21 +855,53 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PH_PY401_SAVE()
         {
-            // 데이타 저장
-            short ErrNum = 0;
-            string sQry = string.Empty;
+            int ErrNum = 0;
+            string sQry;
+            string CLTCOD;
+            string MSTCOD;
+            string FullName;
+            string YEAR;
+            string entno1;
+            string servcomp1;
+            string symd1;
+            string eymd1;
+            string entno2;
+            string servcomp2;
+            string symd2;
+            string eymd2;
+            double payrtot1;
+            double bnstot1;
+            double fwork1;
+            double ndtalw1;
+            double etcntax1;
+            double lnchalw1;
+            double ftaxamt1;
+            double savtaxddc1;
+            double incmtax1;
+            double fvsptax1;
+            double residtax1;
+            double medcinsr1;
+            double asopinsr1;
+            double annuboamt1;
+            double payrtot2;
+            double bnstot2;
+            double fwork2;
+            double ndtalw2;
+            double etcntax2;
+            double lnchalw2;
+            double ftaxamt2;
+            double savtaxddc2;
+            double indmtax2;
+            double fvsptax2;
+            double residtax2;
+            double medcinsr2;
+            double asopinsr2;
+            double annuboamt2;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-            string CLTCOD, MSTCOD, FullName, YEAR = string.Empty;
-            string entno1, servcomp1, symd1, eymd1, entno2, servcomp2, symd2, eymd2 = string.Empty;
-
-            double payrtot1, bnstot1, fwork1, ndtalw1, etcntax1, lnchalw1, ftaxamt1, savtaxddc1, incmtax1, fvsptax1, residtax1, medcinsr1, asopinsr1, annuboamt1 = 0;
-            double payrtot2, bnstot2, fwork2, ndtalw2, etcntax2, lnchalw2, ftaxamt2, savtaxddc2, indmtax2, fvsptax2, residtax2, medcinsr2, asopinsr2, annuboamt2 = 0;
 
             try
             {
                 oForm.Freeze(true);
-
                 entno1 = oForm.Items.Item("entno1").Specific.Value.ToString().Trim();
                 servcomp1 = oForm.Items.Item("servcomp1").Specific.Value.ToString().Trim();
                 symd1 = oForm.Items.Item("symd1").Specific.Value.ToString().Trim();
@@ -931,7 +920,6 @@ namespace PSH_BOne_AddOn
                 medcinsr1 = Convert.ToDouble(oForm.Items.Item("medcinsr1").Specific.Value);
                 asopinsr1 = Convert.ToDouble(oForm.Items.Item("asopinsr1").Specific.Value);
                 annuboamt1 = Convert.ToDouble(oForm.Items.Item("annuboamt1").Specific.Value);
-
                 entno2 = oForm.Items.Item("entno2").Specific.Value.ToString().Trim();
                 servcomp2 = oForm.Items.Item("servcomp2").Specific.Value.ToString().Trim();
 
@@ -990,92 +978,91 @@ namespace PSH_BOne_AddOn
                 {
                     //신규
                     sQry = "INSERT INTO [p_sbservcomp]";
-                    sQry = sQry + " (";
-                    sQry = sQry + "saup,";
-                    sQry = sQry + "yyyy,";
-                    sQry = sQry + "sabun,";
-                    sQry = sQry + "entno1,";
-                    sQry = sQry + "servcomp1,";
-                    sQry = sQry + "symd1,";
-                    sQry = sQry + "eymd1,";
-                    sQry = sQry + "payrtot1,";
-                    sQry = sQry + "bnstot1,";
-                    sQry = sQry + "fwork1,";
-                    sQry = sQry + "ndtalw1,";
-                    sQry = sQry + "etcntax1,";
-                    sQry = sQry + "lnchalw1,";
-                    sQry = sQry + "ftaxamt1,";
-                    sQry = sQry + "savtaxddc1,";
-                    sQry = sQry + "incmtax1,";
-                    sQry = sQry + "fvsptax1,";
-                    sQry = sQry + "residtax1,";
-                    sQry = sQry + "medcinsr1,";
-                    sQry = sQry + "asopinsr1,";
-                    sQry = sQry + "annuboamt1,";
-                    sQry = sQry + "entno2,";
-                    sQry = sQry + "servcomp2,";
-                    sQry = sQry + "symd2,";
-                    sQry = sQry + "eymd2,";
-                    sQry = sQry + "payrtot2,";
-                    sQry = sQry + "bnstot2,";
-                    sQry = sQry + "fwork2,";
-                    sQry = sQry + "ndtalw2,";
-                    sQry = sQry + "etcntax2,";
-                    sQry = sQry + "lnchalw2,";
-                    sQry = sQry + "ftaxamt2,";
-                    sQry = sQry + "savtaxddc2,";
-                    sQry = sQry + "indmtax2,";
-                    sQry = sQry + "fvsptax2,";
-                    sQry = sQry + "residtax2,";
-                    sQry = sQry + "medcinsr2,";
-                    sQry = sQry + "asopinsr2,";
-                    sQry = sQry + "annuboamt2,";
-                    sQry = sQry + "jscntddc1,";
-                    sQry = sQry + "jscntddc2";
-                    sQry = sQry + " ) ";
-                    sQry = sQry + "VALUES(";
+                    sQry += " (";
+                    sQry += "saup,";
+                    sQry += "yyyy,";
+                    sQry += "sabun,";
+                    sQry += "entno1,";
+                    sQry += "servcomp1,";
+                    sQry += "symd1,";
+                    sQry += "eymd1,";
+                    sQry += "payrtot1,";
+                    sQry += "bnstot1,";
+                    sQry += "fwork1,";
+                    sQry += "ndtalw1,";
+                    sQry += "etcntax1,";
+                    sQry += "lnchalw1,";
+                    sQry += "ftaxamt1,";
+                    sQry += "savtaxddc1,";
+                    sQry += "incmtax1,";
+                    sQry += "fvsptax1,";
+                    sQry += "residtax1,";
+                    sQry += "medcinsr1,";
+                    sQry += "asopinsr1,";
+                    sQry += "annuboamt1,";
+                    sQry += "entno2,";
+                    sQry += "servcomp2,";
+                    sQry += "symd2,";
+                    sQry += "eymd2,";
+                    sQry += "payrtot2,";
+                    sQry += "bnstot2,";
+                    sQry += "fwork2,";
+                    sQry += "ndtalw2,";
+                    sQry += "etcntax2,";
+                    sQry += "lnchalw2,";
+                    sQry += "ftaxamt2,";
+                    sQry += "savtaxddc2,";
+                    sQry += "indmtax2,";
+                    sQry += "fvsptax2,";
+                    sQry += "residtax2,";
+                    sQry += "medcinsr2,";
+                    sQry += "asopinsr2,";
+                    sQry += "annuboamt2,";
+                    sQry += "jscntddc1,";
+                    sQry += "jscntddc2";
+                    sQry += " ) ";
+                    sQry += "VALUES(";
+                    sQry += "'" + CLTCOD + "',";
+                    sQry += "'" + YEAR + "',";
+                    sQry += "'" + MSTCOD + "',";
+                    sQry += "'" + entno1 + "',";
+                    sQry += "'" + servcomp1 + "',";
+                    sQry += "'" + symd1 + "',";
+                    sQry += "'" + eymd1 + "',";
+                    sQry += payrtot1 + ",";
+                    sQry += bnstot1 + ",";
+                    sQry += fwork1 + ",";
+                    sQry += ndtalw1 + ",";
+                    sQry += etcntax1 + ",";
+                    sQry += lnchalw1 + ",";
+                    sQry += ftaxamt1 + ",";
+                    sQry += savtaxddc1 + ",";
+                    sQry += incmtax1 + ",";
+                    sQry += fvsptax1 + ",";
+                    sQry += residtax1 + ",";
+                    sQry += medcinsr1 + ",";
+                    sQry += asopinsr1 + ",";
+                    sQry += annuboamt1 + ",";
+                    sQry += "'" + entno2 + "',";
+                    sQry += "'" + servcomp2 + "',";
+                    sQry += "'" + symd2 + "',";
+                    sQry += "'" + eymd2 + "',";
+                    sQry += payrtot2 + ",";
+                    sQry += bnstot2 + ",";
+                    sQry += fwork2 + ",";
+                    sQry += ndtalw2 + ",";
+                    sQry += etcntax2 + ",";
+                    sQry += lnchalw2 + ",";
+                    sQry += ftaxamt2 + ",";
+                    sQry += savtaxddc2 + ",";
+                    sQry += indmtax2 + ",";
+                    sQry += fvsptax2 + ",";
+                    sQry += residtax2 + ",";
+                    sQry += medcinsr2 + ",";
+                    sQry += asopinsr2 + ",";
+                    sQry += annuboamt2 + ","; 
+                    sQry += "0, 0 )";
 
-                    sQry = sQry + "'" + CLTCOD + "',";
-                    sQry = sQry + "'" + YEAR + "',";
-                    sQry = sQry + "'" + MSTCOD + "',";
-                    sQry = sQry + "'" + entno1 + "',";
-                    sQry = sQry + "'" + servcomp1 + "',";
-                    sQry = sQry + "'" + symd1 + "',";
-                    sQry = sQry + "'" + eymd1 + "',";
-
-                    sQry = sQry + payrtot1 + ",";
-                    sQry = sQry + bnstot1 + ",";
-                    sQry = sQry + fwork1 + ",";
-                    sQry = sQry + ndtalw1 + ",";
-                    sQry = sQry + etcntax1 + ",";
-                    sQry = sQry + lnchalw1 + ",";
-                    sQry = sQry + ftaxamt1 + ",";
-                    sQry = sQry + savtaxddc1 + ",";
-                    sQry = sQry + incmtax1 + ",";
-                    sQry = sQry + fvsptax1 + ",";
-                    sQry = sQry + residtax1 + ",";
-                    sQry = sQry + medcinsr1 + ",";
-                    sQry = sQry + asopinsr1 + ",";
-                    sQry = sQry + annuboamt1 + ",";
-                    sQry = sQry + "'" + entno2 + "',";
-                    sQry = sQry + "'" + servcomp2 + "',";
-                    sQry = sQry + "'" + symd2 + "',";
-                    sQry = sQry + "'" + eymd2 + "',";
-                    sQry = sQry + payrtot2 + ",";
-                    sQry = sQry + bnstot2 + ",";
-                    sQry = sQry + fwork2 + ",";
-                    sQry = sQry + ndtalw2 + ",";
-                    sQry = sQry + etcntax2 + ",";
-                    sQry = sQry + lnchalw2 + ",";
-    ;               sQry = sQry + ftaxamt2 + ",";
-                    sQry = sQry + savtaxddc2 + ",";
-                    sQry = sQry + indmtax2 + ",";
-                    sQry = sQry + fvsptax2 + ",";
-                    sQry = sQry + residtax2 + ",";
-                    sQry = sQry + medcinsr2 + ",";
-                    sQry = sQry + asopinsr2 + ",";
-                    sQry = sQry + annuboamt2 + ","; 
-                    sQry = sQry + "0, 0 )";
                     oRecordSet.DoQuery(sQry);
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
                     PH_PY401_DataFind();
@@ -1084,52 +1071,51 @@ namespace PSH_BOne_AddOn
                 {
                     //수정
                     sQry = "Update [p_sbservcomp] set ";
-                    sQry = sQry + "entno1 = '" + entno1 + "',";
-                    sQry = sQry + "servcomp1 = '" + servcomp1 + "',";
-                    sQry = sQry + "symd1 = '" + symd1 + "',";
-                    sQry = sQry + "eymd1 = '" + eymd1 + "',";
-                    sQry = sQry + "payrtot1 = " + payrtot1 + ",";
-                    sQry = sQry + "bnstot1 = " + bnstot1 + ",";
-                    sQry = sQry + "fwork1 = " + fwork1 + ",";
-                    sQry = sQry + "ndtalw1 = " + ndtalw1 + ",";
-                    sQry = sQry + "etcntax1 = " + etcntax1 + ",";
-                    sQry = sQry + "lnchalw1 = " + lnchalw1 + ",";
-                    sQry = sQry + "ftaxamt1 = " + ftaxamt1 + ",";
-                    sQry = sQry + "savtaxddc1 = " + savtaxddc1 + ",";
-                    sQry = sQry + "incmtax1 = " + incmtax1 + ",";
-                    sQry = sQry + "fvsptax1 = " + fvsptax1 + ",";
-                    sQry = sQry + "residtax1 = " + residtax1 + ",";
-                    sQry = sQry + "medcinsr1 = " + medcinsr1 + ",";
-                    sQry = sQry + "asopinsr1 = " + asopinsr1 + ",";
-                    sQry = sQry + "annuboamt1 =" + annuboamt1 + ",";
-                    sQry = sQry + "entno2 = '" + entno2 + "',";
-                    sQry = sQry + "servcomp2 = '" + servcomp2 + "',";
-                    sQry = sQry + "symd2 = '" + symd2 + "',";
-                    sQry = sQry + "eymd2 = '" + eymd2 + "',";
-                    sQry = sQry + "payrtot2 = " + payrtot2 + ",";
-                    sQry = sQry + "bnstot2= " + bnstot2 + ",";
-                    sQry = sQry + "fwork2 = " + fwork2 + ",";
-                    sQry = sQry + "ndtalw2 = " + ndtalw2 + ",";
-                    sQry = sQry + "etcntax2 = " + etcntax2 + ",";
-                    sQry = sQry + "lnchalw2 = " + lnchalw2 + ",";
-                    sQry = sQry + "ftaxamt2 = " + ftaxamt2 + ",";
-                    sQry = sQry + "savtaxddc2 = " + savtaxddc2 + ",";
-                    sQry = sQry + "indmtax2 = " + indmtax2 + ",";
-                    sQry = sQry + "fvsptax2 = " + fvsptax2 + ",";
-                    sQry = sQry + "residtax2 = " + residtax2 + ",";
-                    sQry = sQry + "medcinsr2 = " + medcinsr2 + ",";
-                    sQry = sQry + "asopinsr2 = " + asopinsr2 + ",";
-                    sQry = sQry + "annuboamt2 =" + annuboamt2;
-
-                    sQry = sQry + " Where saup = '" + CLTCOD + "' And yyyy = '" + YEAR + "' And sabun = '" + MSTCOD + "'";
+                    sQry += "entno1 = '" + entno1 + "',";
+                    sQry += "servcomp1 = '" + servcomp1 + "',";
+                    sQry += "symd1 = '" + symd1 + "',";
+                    sQry += "eymd1 = '" + eymd1 + "',";
+                    sQry += "payrtot1 = " + payrtot1 + ",";
+                    sQry += "bnstot1 = " + bnstot1 + ",";
+                    sQry += "fwork1 = " + fwork1 + ",";
+                    sQry += "ndtalw1 = " + ndtalw1 + ",";
+                    sQry += "etcntax1 = " + etcntax1 + ",";
+                    sQry += "lnchalw1 = " + lnchalw1 + ",";
+                    sQry += "ftaxamt1 = " + ftaxamt1 + ",";
+                    sQry += "savtaxddc1 = " + savtaxddc1 + ",";
+                    sQry += "incmtax1 = " + incmtax1 + ",";
+                    sQry += "fvsptax1 = " + fvsptax1 + ",";
+                    sQry += "residtax1 = " + residtax1 + ",";
+                    sQry += "medcinsr1 = " + medcinsr1 + ",";
+                    sQry += "asopinsr1 = " + asopinsr1 + ",";
+                    sQry += "annuboamt1 =" + annuboamt1 + ",";
+                    sQry += "entno2 = '" + entno2 + "',";
+                    sQry += "servcomp2 = '" + servcomp2 + "',";
+                    sQry += "symd2 = '" + symd2 + "',";
+                    sQry += "eymd2 = '" + eymd2 + "',";
+                    sQry += "payrtot2 = " + payrtot2 + ",";
+                    sQry += "bnstot2= " + bnstot2 + ",";
+                    sQry += "fwork2 = " + fwork2 + ",";
+                    sQry += "ndtalw2 = " + ndtalw2 + ",";
+                    sQry += "etcntax2 = " + etcntax2 + ",";
+                    sQry += "lnchalw2 = " + lnchalw2 + ",";
+                    sQry += "ftaxamt2 = " + ftaxamt2 + ",";
+                    sQry += "savtaxddc2 = " + savtaxddc2 + ",";
+                    sQry += "indmtax2 = " + indmtax2 + ",";
+                    sQry += "fvsptax2 = " + fvsptax2 + ",";
+                    sQry += "residtax2 = " + residtax2 + ",";
+                    sQry += "medcinsr2 = " + medcinsr2 + ",";
+                    sQry += "asopinsr2 = " + asopinsr2 + ",";
+                    sQry += "annuboamt2 =" + annuboamt2;
+                    sQry += " Where saup = '" + CLTCOD + "' And yyyy = '" + YEAR + "' And sabun = '" + MSTCOD + "'";
                     oRecordSet.DoQuery(sQry);
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
                     PH_PY401_DataFind();
                 }
+                oGrid1.AutoResizeColumns();
             }
             catch (Exception ex)
             {
-
                 if (ErrNum == 1)
                 {
                     PSH_Globals.SBO_Application.MessageBox("사업장코드를 확인 하세요.");
@@ -1149,55 +1135,39 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                oGrid1.AutoResizeColumns();
                 oForm.Freeze(false);
             }
         }
-    
+
         /// <summary>
-        /// PH_PY401_Delete
+        /// PH_PY401_Delete 데이타 삭제
         /// </summary>
         private void PH_PY401_Delete()
         {
-            // 데이타 삭제
-            short ErrNum = 0;
-            string sQry = string.Empty;
-            string CLTCOD, YEAR, MSTCOD = string.Empty;
+            string sQry;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
                 oForm.Freeze(true);
-
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
-                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
-                YEAR = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
-                
                 if (PSH_Globals.SBO_Application.MessageBox(" 선택한자료를 삭제하시겠습니까? ?", 2, "예", "아니오") == 1)
                 {
                     if (oDS_PH_PY401.Rows.Count > 0)
                     {
-                        sQry = " Delete From [p_sbservcomp] Where  saup = '" + CLTCOD + "' And yyyy = '" + YEAR + "' And sabun = '" + MSTCOD + "'";
+                        sQry = " Delete From [p_sbservcomp] Where  saup = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "' And yyyy = '" + oForm.Items.Item("Year").Specific.Value.ToString().Trim() + "' And sabun = '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "'";
                         oRecordSet.DoQuery(sQry);
                         oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
                         PH_PY401_DataFind();
                     }
                 }
+                oGrid1.AutoResizeColumns();
             }
             catch (Exception ex)
             {
-                if (ErrNum == 1)
-                {
-                //    PSH_Globals.SBO_Application.MessageBox("급여계산 된 자료는 삭제할 수 없습니다.");
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY401_Delete_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
+                PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY401_Delete_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
             {
-                oGrid1.AutoResizeColumns();
                 oForm.Freeze(false);
             }
         }
@@ -1207,7 +1177,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PH_PY401_TitleSetting(ref int iRow)
         {
-            int i = 0;
+            int i;
             string[] COLNAM = new string[6];
 
             try
@@ -1228,6 +1198,7 @@ namespace PSH_BOne_AddOn
                         oGrid1.Columns.Item(i).Editable = false;
                     }
                 }
+                oGrid1.AutoResizeColumns();
             }
             catch (Exception ex)
             {
@@ -1235,7 +1206,6 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                oGrid1.AutoResizeColumns();
                 oForm.Freeze(false);
             }
         }

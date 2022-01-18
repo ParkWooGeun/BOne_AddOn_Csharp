@@ -18,7 +18,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         public override void LoadForm(string oFormDocEntry)
         {
-            string strXml = string.Empty;
+            string strXml;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
             try
@@ -46,6 +46,7 @@ namespace PSH_BOne_AddOn
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 
                 oForm.Freeze(true);
+
                 CreateItems();
 
                 oForm.EnableMenu("1281", false); //찾기
@@ -55,7 +56,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
             finally
             {
@@ -109,10 +110,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
         }
 
@@ -124,12 +122,13 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_COMBO_SELECT(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string sQry = string.Empty;
+            string sQry;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
                 oForm.Freeze(true);
+
                 if (pVal.Before_Action == true)
                 {
                 }
@@ -155,7 +154,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
             finally
             {
@@ -171,15 +170,14 @@ namespace PSH_BOne_AddOn
         private bool File_Create()
         {
             bool returnValue = false;
-            short errNum = 0;
-            string stringSpace = string.Empty;
-            string CLTCOD = string.Empty;
-            string yyyy = string.Empty;
-            string HtaxID = string.Empty;
-            string TeamName = string.Empty;
-            string Dname = string.Empty;
-            string Dtel = string.Empty;
-            string DocDate = string.Empty;
+            int errNum = 0;
+            string CLTCOD;
+            string yyyy;
+            string HtaxID;
+            string TeamName;
+            string Dname;
+            string Dtel;
+            string DocDate;
 
             try
             {
@@ -190,8 +188,6 @@ namespace PSH_BOne_AddOn
                 Dname = oForm.Items.Item("Dname").Specific.Value.ToString().Trim();
                 Dtel = oForm.Items.Item("Dtel").Specific.Value.ToString().Trim();
                 DocDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
-
-                errNum = 0;
 
                 // Question
                 if (PSH_Globals.SBO_Application.MessageBox("전산매체신고 파일을 생성하시겠습니까?", 2, "&Yes!", "&No") == 2)
@@ -243,14 +239,9 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    stringSpace = new string(' ', 10);
-                    PSH_Globals.SBO_Application.StatusBar.SetText("File_Create 실행 중 오류가 발생했습니다." + stringSpace + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-            finally
-            {
-            }
-
             return returnValue;
         }
 
@@ -261,10 +252,10 @@ namespace PSH_BOne_AddOn
         private bool File_Create_A_record(string pCLTCOD, string pyyyy, string pHtaxID, string pTeamName, string pDname, string pDtel, string pDocDate)
         {
             bool returnValue = false;
-            short errNum = 0;
-            string sQry = string.Empty;
-            string saup = string.Empty;
-            string oFilePath = string.Empty; //파일 경로
+            int errNum = 0;
+            string sQry;
+            string saup;
+            string oFilePath; //파일 경로
 
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -279,6 +270,7 @@ namespace PSH_BOne_AddOn
             // 2018년귀속 1882 BYTE
             // 2019년귀속 2082 BYTE
             // 2020년귀속 1893 BYTE
+            // 2021년귀속 2010 BYTE
 
             string A001; // 1     '레코드구분
             string A002; // 2     '자료구분
@@ -293,10 +285,10 @@ namespace PSH_BOne_AddOn
             string A011; // 30    '담당자부서
             string A012; // 30    '담당자성명
             string A013; // 15    '담당자전화번호
-            string A014; // 4     '귀속년도          --2019
+            string A014; // 4     '귀속년도
             string A015; // 5     '신고의무자수
             string A016; // 3     '한글코드종류
-            string A017; // 1691  '공란
+            string A017; // 1808  '공란
 
             try
             {
@@ -334,10 +326,9 @@ namespace PSH_BOne_AddOn
                     A014 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A014").Value.ToString().Trim(), 4);
                     A015 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A015").Value.ToString().Trim(), 5, '0');
                     A016 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A016").Value.ToString().Trim(), 3);
-                    A017 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A017").Value.ToString().Trim(), 1691);
+                    A017 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A017").Value.ToString().Trim(), 1808);
 
                     FileSystem.PrintLine(1, A001 + A002 + A003 + A004 + A005 + A006 + A007 + A008 + A009 + A010 + A011 + A012 + A013 + A014 + A015 + A016 + A017);
-
                 }
 
                 returnValue = true;
@@ -350,7 +341,7 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
                 FileSystem.FileClose(1);
             }
@@ -358,7 +349,6 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
-
             return returnValue;
         }
 
@@ -369,9 +359,8 @@ namespace PSH_BOne_AddOn
         private bool File_Create_B_record(string pCLTCOD, string pyyyy)
         {
             bool returnValue = false;
-            short errNum = 0;
-            string sQry = string.Empty;
-
+            int errNum = 0;
+            string sQry;
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -393,7 +382,7 @@ namespace PSH_BOne_AddOn
             string B015; // 13    '결정세액(농특세)총계
             string B016; // 13    '결정세액총계
             string B017; // 1     '제출대상기간
-            string B018; // 1683  '공란
+            string B018; // 1800  '공란
 
             try
             {
@@ -426,10 +415,9 @@ namespace PSH_BOne_AddOn
                     B015 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B015").Value.ToString().Trim(), 13, '0');
                     B016 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B016").Value.ToString().Trim(), 13, '0');
                     B017 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B017").Value.ToString().Trim(), 1);
-                    B018 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B018").Value.ToString().Trim(), 1683);
+                    B018 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B018").Value.ToString().Trim(), 1800);
 
                     FileSystem.PrintLine(1, B001 + B002 + B003 + B004 + B005 + B006 + B007 + B008 + B009 + B010 + B011 + B012 + B013 + B014 + B015 + B016 + B017 + B018);
-
                 }
 
                 returnValue = true;
@@ -442,7 +430,7 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
                 FileSystem.FileClose(1);
             }
@@ -450,7 +438,6 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
-
             return returnValue;
         }
 
@@ -461,12 +448,12 @@ namespace PSH_BOne_AddOn
         private bool File_Create_C_record(string pCLTCOD, string pyyyy)
         {
             bool returnValue = false;
-            short errNum = 0;
-            string sQry = string.Empty;
-            string c_SAUP = string.Empty;
-            string c_YYYY = string.Empty;
-            string c_SABUN = string.Empty;
-            int newCNT = 0; //일련번호
+            int errNum = 0;
+            string sQry;
+            string c_SAUP;
+            string c_YYYY;
+            string c_SABUN;
+            int newCNT; //일련번호
 
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbouiCOM.ProgressBar ProgressBar01 = null;
@@ -540,16 +527,16 @@ namespace PSH_BOne_AddOn
             string C062B;   // 10    '비과세(Y03:우리사주조합인출금75%)
             string C062C;   // 10    '비과세(Y03:우리사주조합인출금100%)
             string C063;    // 10    '비과세(Y22:전공의수련보조수당)
-            string C064;    // 10    '비과세(T01:외국인기술자)
+            string C064;    // 10    '비과세(T01:외국인기술자소득세감면(50%))
             string C065;    // 10    '비과세(T30:성과공유중소기업경영성과급)
             string C066;    // 10    '비과세(T40:중소기업핵심인력성과보상기금소득세감면)
-            string C067;    // 10    '비과세(T50:내국인우수인력국내복귀소득세감면)
-            string C068A;   // 10    '비과세(T11:중소기업취업청년소득세감면50%)
-            string C068B;   // 10    '비과세(T12:중소기업취업청년소득세감면70%)
-            string C068C;   // 10    '비과세(T13:중소기업취업청년소득세감면90%)
-            string C069;    // 10    '비과세(T20:조세조약상교직자감면)
-            string C070;    // 10    '공란
-            string C071;    // 10    '공란
+            string C067;    // 10    '비과세(T41:중견기업청년근로자및핵심인력성과보상기금소득세감면)
+            string C068;    // 10    '비과세(T50:내국인우수인력국내복귀소득세감면)
+            string C069A;   // 10    '비과세(T11:중소기업취업청년소득세감면50%)
+            string C069B;   // 10    '비과세(T12:중소기업취업청년소득세감면70%)
+            string C069C;   // 10    '비과세(T13:중소기업취업청년소득세감면90%)
+            string C070;    // 10    '비과세(T20:조세조약상교직자감면)
+            string C071;    // 10    '비과세(T02-외국인기술자소득세감면(70%))
             string C072;    // 10    '공란
             string C073;    // 10    '공란
             string C074;    // 10    '비과세 계
@@ -563,7 +550,7 @@ namespace PSH_BOne_AddOn
             string C080;    // 8     '배우자공제금액
             string C081A;   // 2     '부양가족공제인원
             string C081B;   // 8     '부양가족공제금액
-            // 추가공제  
+            // 추가공제  ㅐ
             string C082A;   // 2     '경로우대공제인원
             string C082B;   // 8     '경로우대공제금액
             string C083A;   // 2     '장애자공제인원
@@ -639,27 +626,28 @@ namespace PSH_BOne_AddOn
             string C129B;   // 10    '연금계좌_근로자퇴직급여보장법에따른 퇴직급여_세액공제액
             string C130A;   // 10    '연금계좌_연금저축_공제대상금액
             string C130B;   // 10    '연금계좌_연금저축_세액공제액
-            string C131A;   // 10    '특별세액공제_보장성보험료_공제대상금액
-            string C131B;   // 10    '특별세액공제_보장성보험료_세액공제액
-            string C132A;   // 10    '특별세액공제_장애인전용보험료_공제대상금액
-            string C132B;   // 10    '특별세액공제_장애인전용보험료_세액공제액
-            string C133A;   // 10    '특별세액공제_의료비_공제대상금액
-            string C133B;   // 10    '특별세액공제_의료비_세액공제액
-            string C134A;   // 10    '특별세액공제_교육비_공제대상금액
-            string C134B;   // 10    '특별세액공제_교육비_세액공제액
-            string C135A;   // 10    '특별세액공제_기부금_정치자금_10만원이하_공제대상금액
-            string C135B;   // 10    '특별세액공제_기부금_정치자금_10만원이하_세액공제액
-            string C136A;   // 11    '특별세액공제_기부금_정치자금_10만원초과_공제대상금액
-            string C136B;   // 10    '특별세액공제_기부금_정치자금_10만원초과_세액공제액
-            string C137A;   // 11    '특별세액공제_기부금_법정기부금_공제대상금액
-            string C137B;   // 10    '특별세액공제_기부금_법정기부금_세액공제액
-            string C138A;   // 11    '특별세액공제_기부금_우리사주조합기부금_공제대상금액
-            string C138B;   // 10    '특별세액공제_기부금_우리사주조합기부금_세액공제액
-            string C139A;   // 11    '특별세액공제_기부금_지정기부금_공제대상금액(종교단체외)
-            string C139B;   // 10    '특별세액공제_기부금_지정기부금_세액공제액(종교단체외)
-            string C140A;   // 11    '특별세액공제_기부금_지정기부금_공제대상금액(종교단체)
-            string C140B;   // 10    '특별세액공제_기부금_지정기부금_세액공제액(종교단체)
-            string C141;    // 11    '공란 '0'
+            string C131A;   // 10    '특별세액공제_ISA계좌만기시추가납입액_공제대상금액
+            string C131B;   // 10    '특별세액공제_ISA계좌만기시추가납입액_세액공제액
+            string C132A;   // 10    '특별세액공제_보장성보험료_공제대상금액
+            string C132B;   // 10    '특별세액공제_보장성보험료_세액공제액
+            string C133A;   // 10    '특별세액공제_장애인전용보험료_공제대상금액
+            string C133B;   // 10    '특별세액공제_장애인전용보험료_세액공제액
+            string C134A;   // 10    '특별세액공제_의료비_공제대상금액
+            string C134B;   // 10    '특별세액공제_의료비_세액공제액
+            string C135A;   // 10    '특별세액공제_교육비_공제대상금액
+            string C135B;   // 10    '특별세액공제_교육비_세액공제액
+            string C136A;   // 10    '특별세액공제_기부금_정치자금_10만원이하_공제대상금액
+            string C136B;   // 10    '특별세액공제_기부금_정치자금_10만원이하_세액공제액
+            string C137A;   // 11    '특별세액공제_기부금_정치자금_10만원초과_공제대상금액
+            string C137B;   // 10    '특별세액공제_기부금_정치자금_10만원초과_세액공제액
+            string C138A;   // 11    '특별세액공제_기부금_소득세법제34조제2항제1호에따른기부금_공제대상금액(법정기부금)
+            string C138B;   // 10    '특별세액공제_기부금_소득세법제34조제2항제1호에따른기부금_세액공제액(법정기부금)
+            string C139A;   // 11    '특별세액공제_기부금_우리사주조합기부금_공제대상금액
+            string C139B;   // 10    '특별세액공제_기부금_우리사주조합기부금_세액공제액
+            string C140A;   // 11    '특별세액공제_기부금_소득세법제34조제3항제1호의기부금(종교단체외)_공제대상금액(지정기부금)
+            string C140B;   // 10    '특별세액공제_기부금_소득세법제34조제3항제1호의기부금(종교단체외)_세액공제액(지정기부금)
+            string C141A;   // 11    '특별세액공제_기부금_소득세법제34조제3항제1호의기부금(종교단체)_공제대상금액(지정기부금)
+            string C141B;   // 10    '특별세액공제_기부금_소득세법제34조제3항제1호의기부금(종교단체)_세액공제액(지정기부금)
             string C142;    // 11    '공란 '0'
             string C143;    // 10    '특별세액공제계
             string C144;    // 10    '표준세액공제
@@ -668,29 +656,28 @@ namespace PSH_BOne_AddOn
             string C147;    // 10    '외국납부
             string C148A;   // 10    '월세세액공제_공제대상금액
             string C148B;   // 8     '월세세액공제_세액공제액
-            string C149;    // 10    '공란 '0'
-            string C150;    // 10    '공란 '0'
-            string C151;    // 10    '세액공제계
+            string C149;    // 10    '세액공제계
             // 결정세액
+            string C150A;   // 11    '소득세
+            string C150B;   // 10    '지방소득세
+            string C150C;   // 10    '농특세
+            string C151;    // 3     '실효세율
+            // 기납부세액_주(현)근무지
             string C152A;   // 11    '소득세
             string C152B;   // 10    '지방소득세
             string C152C;   // 10    '농특세
-            string C153;    // 3     '실효세율
-            // 기납부세액_주(현)근무지
-            string C154A;   // 11    '소득세
-            string C154B;   // 10    '지방소득세
-            string C154C;   // 10    '농특세
             // 납부특례세액
-            string C155A;   // 11    '소득세
-            string C155B;   // 10    '지방소득세
-            string C155C;   // 10    '농특세
+            string C153A;   // 11    '소득세
+            string C153B;   // 10    '지방소득세
+            string C153C;   // 10    '농특세
             // 차감징수세액
-            string C156A_1; // 1    '소득세(기호 음수1, 양수0)
-            string C156A_2; // 11   '소득세
-            string C156B_1; // 1    '지방소득세(기호 음수1, 양수0)
-            string C156B_2; // 10   '지방소득세
-            string C156C_1; // 1    '농특세(기호 음수1, 양수0)
-            string C156C_2; // 10   '농특세
+            string C154A_1; // 1    '소득세(기호 음수1, 양수0)
+            string C154A_2; // 11   '소득세
+            string C154B_1; // 1    '지방소득세(기호 음수1, 양수0)
+            string C154B_2; // 10   '지방소득세
+            string C154C_1; // 1    '농특세(기호 음수1, 양수0)
+            string C154C_2; // 10   '농특세
+            string C155;    // 128  '공란 
 
             try
             {
@@ -791,10 +778,10 @@ namespace PSH_BOne_AddOn
                         C065 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C065").Value.ToString().Trim(), 10, '0');
                         C066 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C066").Value.ToString().Trim(), 10, '0');
                         C067 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C067").Value.ToString().Trim(), 10, '0');
-                        C068A = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C068A").Value.ToString().Trim(), 10, '0');
-                        C068B = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C068B").Value.ToString().Trim(), 10, '0');
-                        C068C = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C068C").Value.ToString().Trim(), 10, '0');
-                        C069 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C069").Value.ToString().Trim(), 10, '0');
+                        C068 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C068").Value.ToString().Trim(), 10, '0');
+                        C069A = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C069A").Value.ToString().Trim(), 10, '0');
+                        C069B = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C069B").Value.ToString().Trim(), 10, '0');
+                        C069C = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C069C").Value.ToString().Trim(), 10, '0');
                         C070 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C070").Value.ToString().Trim(), 10, '0');
 
                         C071 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C071").Value.ToString().Trim(), 10, '0');
@@ -906,7 +893,8 @@ namespace PSH_BOne_AddOn
                         C140A = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C140A").Value.ToString().Trim(), 11, '0');
                         C140B = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C140B").Value.ToString().Trim(), 10, '0');
 
-                        C141 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C141").Value.ToString().Trim(), 11, '0');
+                        C141A = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C141A").Value.ToString().Trim(), 11, '0');
+                        C141B = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C141B").Value.ToString().Trim(), 10, '0');
                         C142 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C142").Value.ToString().Trim(), 11, '0');
                         C143 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C143").Value.ToString().Trim(), 10, '0');
                         C144 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C144").Value.ToString().Trim(), 10, '0');
@@ -916,34 +904,37 @@ namespace PSH_BOne_AddOn
                         C148A = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C148A").Value.ToString().Trim(), 10, '0');
                         C148B = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C148B").Value.ToString().Trim(), 8, '0');
                         C149 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C149").Value.ToString().Trim(), 10, '0');
-                        C150 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C150").Value.ToString().Trim(), 10, '0');
+                        C150A = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C150A").Value.ToString().Trim(), 11, '0');
+                        C150B = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C150B").Value.ToString().Trim(), 10, '0');
+                        C150C = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C150C").Value.ToString().Trim(), 10, '0');
 
-                        C151 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C151").Value.ToString().Trim(), 10, '0');
+                        C151 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C151").Value.ToString().Trim(), 3, '0');
                         C152A = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C152A").Value.ToString().Trim(), 11, '0');
                         C152B = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C152B").Value.ToString().Trim(), 10, '0');
                         C152C = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C152C").Value.ToString().Trim(), 10, '0');
-                        C153 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C153").Value.ToString().Trim(), 3, '0');
-                        C154A = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C154A").Value.ToString().Trim(), 11, '0');
-                        C154B = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C154B").Value.ToString().Trim(), 10, '0');
-                        C154C = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C154C").Value.ToString().Trim(), 10, '0');
-                        C155A = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C155A").Value.ToString().Trim(), 11, '0');
-                        C155B = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C155B").Value.ToString().Trim(), 10, '0');
-                        C155C = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C155C").Value.ToString().Trim(), 10, '0');
-                        C156A_1 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C156A_1").Value.ToString().Trim(), 1, '0');
-                        C156A_2 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C156A_2").Value.ToString().Trim(), 11, '0');
-                        C156B_1 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C156B_1").Value.ToString().Trim(), 1, '0');
-                        C156B_2 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C156B_2").Value.ToString().Trim(), 10, '0');
-                        C156C_1 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C156C_1").Value.ToString().Trim(), 1, '0');
-                        C156C_2 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C156C_2").Value.ToString().Trim(), 10, '0');
+                        C153A = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C153A").Value.ToString().Trim(), 11, '0');
+                        C153B = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C153B").Value.ToString().Trim(), 10, '0');
+                        C153C = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C153C").Value.ToString().Trim(), 10, '0');
+                        C154A_1 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C154A_1").Value.ToString().Trim(), 1, '0');
+                        C154A_2 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C154A_2").Value.ToString().Trim(), 11, '0');
+                        C154B_1 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C154B_1").Value.ToString().Trim(), 1, '0');
+                        C154B_2 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C154B_2").Value.ToString().Trim(), 10, '0');
+                        C154C_1 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C154C_1").Value.ToString().Trim(), 1, '0');
+                        C154C_2 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C154C_2").Value.ToString().Trim(), 10, '0');
+                        C155 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C155").Value.ToString().Trim(), 128);
 
                         FileSystem.PrintLine(1, C001 + C002 + C003 + C004 + C005 + C006 + C007 + C008 + C009 + C010 + C011 + C012 + C013 + C014 + C015 + C016 + C017 + C018 + C019 + C020
                                               + C021 + C022 + C023 + C024 + C025 + C026 + C027 + C028 + C029 + C030 + C031 + C032 + C033 + C034 + C035 + C036 + C037 + C038 + C039 + C040
                                               + C041 + C042 + C043 + C044 + C045 + C046 + C047 + C048 + C049 + C050 + C051 + C052 + C053 + C054 + C055 + C056 + C057 + C058 + C059 + C060
-                                              + C061 + C062A + C062B + C062C + C063 + C064 + C065 + C066 + C067 + C068A + C068B + C068C + C069 + C070 + C071 + C072 + C073 + C074 + C075 + C076 + C077 + C078 + C079 + C080
-                                              + C081A + C081B + C082A + C082B + C083A + C083B + C084 + C085 + C086A + C086B + C087A + C087B + C088A + C088B + C089A + C089B + C090A + C090B + C091A + C091B + C092A + C092B + C093A + C093B + C094A + C094B + C094C + C095A + C095B + C096A + C096B + C096C + C096D + C097 + C098 + C099 + C100
+                                              + C061 + C062A + C062B + C062C + C063 + C064 + C065 + C066 + C067 + C068 + C069A + C069B + C069C +  C070 
+                                              + C071 + C072 + C073 + C074 + C075 + C076 + C077 + C078 + C079 + C080
+                                              + C081A + C081B + C082A + C082B + C083A + C083B + C084 + C085 + C086A + C086B + C087A + C087B + C088A + C088B + C089A + C089B + C090A + C090B 
+                                              + C091A + C091B + C092A + C092B + C093A + C093B + C094A + C094B + C094C + C095A + C095B + C096A + C096B + C096C + C096D + C097 + C098 + C099 + C100
                                               + C101 + C102 + C103 + C104 + C105 + C106 + C107 + C108 + C109 + C110 + C111 + C112 + C113 + C114 + C115 + C116 + C117 + C118 + C119 + C120
-                                              + C121 + C122 + C123 + C124 + C125 + C126A + C126B + C127A + C127B + C128A + C128B + C129A + C129B + C130A + C130B + C131A + C131B + C132A + C132B + C133A + C133B + C134A + C134B + C135A + C135B + C136A + C136B + C137A + C137B + C138A + C138B + C139A + C139B + C140A + C140B
-                                              + C141 + C142 + C143 + C144 + C145 + C146 + C147 + C148A + C148B + C149 + C150 + C151 + C152A + C152B + C152C + C153 + C154A + C154B + C154C + C155A + C155B + C155C + C156A_1 + C156A_2 + C156B_1 + C156B_2 + C156C_1 + C156C_2);
+                                              + C121 + C122 + C123 + C124 + C125 + C126A + C126B + C127A + C127B + C128A + C128B + C129A + C129B + C130A + C130B
+                                              + C131A + C131B + C132A + C132B + C133A + C133B + C134A + C134B + C135A + C135B + C136A + C136B + C137A + C137B + C138A + C138B + C139A + C139B + C140A + C140B
+                                              + C141A + C141B + C142 + C143 + C144 + C145 + C146 + C147 + C148A + C148B + C149 + C150A + C150B + C150C 
+                                              + C151 + C152A + C152B + C152C + C153A + C153B + C153C + C154A_1 + C154A_2 + C154B_1 + C154B_2 + C154C_1 + C154C_2 + C155);
 
                         // D 레코드: 종전근무처 레코드
                         if (Conversion.Val(C006) > 0)
@@ -992,11 +983,10 @@ namespace PSH_BOne_AddOn
 
                         oRecordSet.MoveNext();
 
-                        ProgressBar01.Value +=  1;
+                        ProgressBar01.Value += 1;
                         ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 작성중........!";
                     }
                 }
-
                 returnValue = true;
             }
             catch (Exception ex)
@@ -1032,7 +1022,7 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
                 FileSystem.FileClose(1);
             }
@@ -1056,8 +1046,7 @@ namespace PSH_BOne_AddOn
         {
             bool returnValue = false;
             short errNum = 0;
-            string sQry = string.Empty;
-
+            string sQry;
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -1068,72 +1057,73 @@ namespace PSH_BOne_AddOn
             string D004; // 6    '일련번호
             string D005; // 10   '사업자등록번호
             string D006; // 13   '소득자주민번호
-            string D007; // 1    '납세조합구분
-            string D008; // 60   '법인명(상호)
-            string D009; // 10   '사업자등록번호
-            string D010; // 8    '근무기간시작연월일
-            string D011; // 8    '근무기간종료연월일
-            string D012; // 8    '감면기간시작
-            string D013; // 8    '감면기간종료
-            string D014; // 11   '급여총액
-            string D015; // 11   '상여총액
-            string D016; // 11   '인정상여
-            string D017; // 11   '주식매수선택권행사이익
-            string D018; // 11   '우리사주조합인출금
-            string D019; // 11   '임원퇴직소득금액한도초과액
-            string D020; // 11   '직무발명보상금
-            string D021; // 11   '공란 '0'
+            string D007; // 1    '종교관련종사자여부 1:여, 2:부
+            string D008; // 1    '납세조합구분
+            string D009; // 60   '법인명(상호)
+            string D010; // 10   '사업자등록번호
+            string D011; // 8    '근무기간시작연월일
+            string D012; // 8    '근무기간종료연월일
+            string D013; // 8    '감면기간시작
+            string D014; // 8    '감면기간종료
+            string D015; // 11   '급여총액
+            string D016; // 11   '상여총액
+            string D017; // 11   '인정상여
+            string D018; // 11   '주식매수선택권행사이익
+            string D019; // 11   '우리사주조합인출금
+            string D020; // 11   '임원퇴직소득금액한도초과액
+            string D021; // 11   '직무발명보상금
             string D022; // 11   '공란 '0'
-            string D023; // 11   '계
-            string D024; // 10   '비과세(G01:학자금)
-            string D025; // 10   '비과세(H01:무보수위원수당)
-            string D026; // 10   '비과세(H05:경호,승선수당)
-            string D027; // 10   '비과세(H06:유아,초중등)
-            string D028; // 10   '비과세(H07:고등교육법)
-            string D029; // 10   '비과세(H08:특별법)
-            string D030; // 10   '비과세(H09:연구기관등)
-            string D031; // 10   '비과세(H10:기업부설연구소)
-            string D032; // 10   '비과세(H14:보육교사근무환경개선비)
-            string D033; // 10   '비과세(H15:사립유치원수석교사.교사의인건비)
-            string D034; // 10   '비과세(H11:취재수당)
-            string D035; // 10   '비과세(H12:벽지수당)
-            string D036; // 10   '비과세(H13:재해관련급여)
-            string D037; // 10   '비과세(H16:정부공공기관지방이전기관종사자이주수당)
-            string D038; // 10   '비과세(H17:종교활동비)
-            string D039; // 10   '비과세(I01:외국정부등근로자)
-            string D040; // 10   '비과세(K01:외국주둔군인등)
-            string D041; // 10   '비과세(M01:국외근로100만원)
-            string D042; // 10   '비과세(M02:국외근로300만원)
-            string D043; // 10   '비과세(M03:국외근로)
-            string D044; // 10   '비과세(O01:야간근로수당)
-            string D045; // 10   '비과세(Q01:출산보육수당)
-            string D046; // 10   '비과세(R10:근로장학금)
-            string D047; // 10   '비과세(R11:직무발명보상금)
-            string D048; // 10   '비과세(S01:주식매수선택권)
-            string D049; // 10   '비과세(U01:벤처기업주식매수선택권)
-            string D050A; // 10   '비과세(Y02:우리사주조합인출금50%)
-            string D050B; // 10   '비과세(Y03:우리사주조합인출금75%)
-            string D050C; // 10   '비과세(Y04:우리사주조합인출금100%)
-            string D051;  // 10   '비과세(Y22:전공의수련보조수당)
-            string D052;  // 10   '비과세(T01:외국인기술자)
-            string D053;  // 10   '비과세(T30:성과공유중소기업경영성과급)
-            string D054;  // 10   '비과세(T40:중소기업핵심인력성솨보상기금수령액)
-            string D055;  // 10   '비과세(T50:내국인우수인력국내복귀소득세감면)
-            string D056A; // 10   '비과세(T11:중소기업취업청년소득세감면50%)
-            string D056B; // 10   '비과세(T12:중소기업취업청년소득세감면70%)
-            string D056C; // 10   '비과세(T13:중소기업취업청년소득세감면90%)
-            string D057;  // 10   '비과세(T20:조세조약상교직자감면)
-            string D058;  // 10   '공란  9(10)
-            string D059;  // 10   '공란  9(10)
-            string D060;  // 10   '공란  9(10)
+            string D023; // 11   '공란 '0'
+            string D024; // 11   '계
+            string D025; // 10   '비과세(G01:학자금)
+            string D026; // 10   '비과세(H01:무보수위원수당)
+            string D027; // 10   '비과세(H05:경호,승선수당)
+            string D028; // 10   '비과세(H06:유아,초중등)
+            string D029; // 10   '비과세(H07:고등교육법)
+            string D030; // 10   '비과세(H08:특별법)
+            string D031; // 10   '비과세(H09:연구기관등)
+            string D032; // 10   '비과세(H10:기업부설연구소)
+            string D033; // 10   '비과세(H14:보육교사근무환경개선비)
+            string D034; // 10   '비과세(H15:사립유치원수석교사.교사의인건비)
+            string D035; // 10   '비과세(H11:취재수당)
+            string D036; // 10   '비과세(H12:벽지수당)
+            string D037; // 10   '비과세(H13:재해관련급여)
+            string D038; // 10   '비과세(H16:정부공공기관지방이전기관종사자이주수당)
+            string D039; // 10   '비과세(H17:종교활동비)
+            string D040; // 10   '비과세(I01:외국정부등근로자)
+            string D041; // 10   '비과세(K01:외국주둔군인등)
+            string D042; // 10   '비과세(M01:국외근로100만원)
+            string D043; // 10   '비과세(M02:국외근로300만원)
+            string D044; // 10   '비과세(M03:국외근로)
+            string D045; // 10   '비과세(O01:야간근로수당)
+            string D046; // 10   '비과세(Q01:출산보육수당)
+            string D047; // 10   '비과세(R10:근로장학금)
+            string D048; // 10   '비과세(R11:직무발명보상금)
+            string D049; // 10   '비과세(S01:주식매수선택권)
+            string D050; // 10   '비과세(U01:벤처기업주식매수선택권)
+            string D051A; // 10   '비과세(Y02:우리사주조합인출금50%)
+            string D051B; // 10   '비과세(Y03:우리사주조합인출금75%)
+            string D051C; // 10   '비과세(Y04:우리사주조합인출금100%)
+            string D052;  // 10   '비과세(Y22:전공의수련보조수당)
+            string D053;  // 10   '비과세(T01-외국인기술자소득세감면(50%))
+            string D054;  // 10   '비과세(T30-성과공유중소기업경영성과급)
+            string D055;  // 10   '비과세(T40-중소기업청년근로자및핵심인력성과보상기금수령액)
+            string D056;  // 10   '비과세(T41-중견기업청년근로자및핵심인력성과보상기금소득세감면)
+            string D057;  // 10   '비과세(T50:내국인우수인력국내복귀소득세감면)
+            string D058A; // 10   '비과세(T11:중소기업취업청년소득세감면50%)
+            string D058B; // 10   '비과세(T12:중소기업취업청년소득세감면70%)
+            string D058C; // 10   '비과세(T13:중소기업취업청년소득세감면90%)
+            string D059;  // 10   '비과세(T20:조세조약상교직자감면)
+            string D060;  // 10   '비과세(T02-외국인기술자소득세감면(70%))
             string D061;  // 10   '공란  9(10)
-            string D062;  // 10   '비과세 계
-            string D063;  // 10   '감면소득 계
-            string D064A; // 11   '소득세
-            string D064B; // 10   '지방소득세
-            string D064C; // 10   '농특세
-            string D065;  // 2    '종(전)근무처일련번호 
-            string D066;  // 1172 '공란
+            string D062;  // 10   '공란  9(10)
+            string D063;  // 10   '비과세 계
+            string D064;  // 10   '감면소득 계
+            string D065A; // 11   '소득세
+            string D065B; // 10   '지방소득세
+            string D065C; // 10   '농특세
+            string D066;  // 2    '종(전)근무처일련번호 
+            string D067;  // 1288 '공란
 
             try
             {
@@ -1158,13 +1148,13 @@ namespace PSH_BOne_AddOn
                         D005 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D005").Value.ToString().Trim(), 10);
                         D006 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D006").Value.ToString().Trim(), 13);
                         D007 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D007").Value.ToString().Trim(), 1);
-                        D008 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D008").Value.ToString().Trim(), 60);
-                        D009 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D009").Value.ToString().Trim(), 10);
-                        D010 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D010").Value.ToString().Trim(), 8, '0');
+                        D008 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D008").Value.ToString().Trim(), 1);
+                        D009 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D009").Value.ToString().Trim(), 60);
+                        D010 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D010").Value.ToString().Trim(), 10);
                         D011 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D011").Value.ToString().Trim(), 8, '0');
                         D012 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D012").Value.ToString().Trim(), 8, '0');
                         D013 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D013").Value.ToString().Trim(), 8, '0');
-                        D014 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D014").Value.ToString().Trim(), 11, '0');
+                        D014 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D014").Value.ToString().Trim(), 8, '0');
                         D015 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D015").Value.ToString().Trim(), 11, '0');
                         D016 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D016").Value.ToString().Trim(), 11, '0');
                         D017 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D017").Value.ToString().Trim(), 11, '0');
@@ -1174,7 +1164,7 @@ namespace PSH_BOne_AddOn
                         D021 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D021").Value.ToString().Trim(), 11, '0');
                         D022 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D022").Value.ToString().Trim(), 11, '0');
                         D023 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D023").Value.ToString().Trim(), 11, '0');
-                        D024 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D024").Value.ToString().Trim(), 10, '0');
+                        D024 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D024").Value.ToString().Trim(), 11, '0');
                         D025 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D025").Value.ToString().Trim(), 10, '0');
                         D026 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D026").Value.ToString().Trim(), 10, '0');
                         D027 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D027").Value.ToString().Trim(), 10, '0');
@@ -1200,39 +1190,39 @@ namespace PSH_BOne_AddOn
                         D047 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D047").Value.ToString().Trim(), 10, '0');
                         D048 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D048").Value.ToString().Trim(), 10, '0');
                         D049 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D049").Value.ToString().Trim(), 10, '0');
-                        D050A = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D050A").Value.ToString().Trim(), 10, '0');
-                        D050B = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D050B").Value.ToString().Trim(), 10, '0');
-                        D050C = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D050C").Value.ToString().Trim(), 10, '0');
-                        D051 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D051").Value.ToString().Trim(), 10, '0');
+                        D050 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D050").Value.ToString().Trim(), 10, '0');
+                        D051A = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D051A").Value.ToString().Trim(), 10, '0');
+                        D051B = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D051B").Value.ToString().Trim(), 10, '0');
+                        D051C = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D051C").Value.ToString().Trim(), 10, '0');
                         D052 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D052").Value.ToString().Trim(), 10, '0');
                         D053 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D053").Value.ToString().Trim(), 10, '0');
                         D054 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D054").Value.ToString().Trim(), 10, '0');
                         D055 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D055").Value.ToString().Trim(), 10, '0');
-                        D056A = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D056A").Value.ToString().Trim(), 10, '0');
-                        D056B = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D056B").Value.ToString().Trim(), 10, '0');
-                        D056C = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D056C").Value.ToString().Trim(), 10, '0');
+                        D056 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D056").Value.ToString().Trim(), 10, '0');
                         D057 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D057").Value.ToString().Trim(), 10, '0');
-                        D058 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D058").Value.ToString().Trim(), 10, '0');
+                        D058A = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D058A").Value.ToString().Trim(), 10, '0');
+                        D058B = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D058B").Value.ToString().Trim(), 10, '0');
+                        D058C = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D058C").Value.ToString().Trim(), 10, '0');
                         D059 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D059").Value.ToString().Trim(), 10, '0');
                         D060 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D060").Value.ToString().Trim(), 10, '0');
                         D061 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D061").Value.ToString().Trim(), 10, '0');
                         D062 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D062").Value.ToString().Trim(), 10, '0');
                         D063 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D063").Value.ToString().Trim(), 10, '0');
-                        D064A = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D064A").Value.ToString().Trim(), 11, '0');
-                        D064B = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D064B").Value.ToString().Trim(), 10, '0');
-                        D064C = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D064C").Value.ToString().Trim(), 10, '0');
-                        D065 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D065").Value.ToString().Trim(), 2);
-                        D066 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D066").Value.ToString().Trim(), 1172);
+                        D064 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D064").Value.ToString().Trim(), 10, '0');
+                        D065A = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D065A").Value.ToString().Trim(), 11, '0');
+                        D065B = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D065B").Value.ToString().Trim(), 10, '0');
+                        D065C = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D065C").Value.ToString().Trim(), 10, '0');
+                        D066 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D066").Value.ToString().Trim(), 2);
+                        D067 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D067").Value.ToString().Trim(), 1288);
 
                         FileSystem.PrintLine(1, D001 + D002 + D003 + D004 + D005 + D006 + D007 + D008 + D009 + D010 + D011 + D012 + D013 + D014 + D015 + D016 + D017 + D018 + D019 + D020
                                               + D021 + D022 + D023 + D024 + D025 + D026 + D027 + D028 + D029 + D030 + D031 + D032 + D033 + D034 + D035 + D036 + D037 + D038 + D039 + D040
-                                              + D041 + D042 + D043 + D044 + D045 + D046 + D047 + D048 + D049 + D050A + D050B + D050C + D051 + D052 + D053 + D054 + D055 + D056A + D056B + D056C + D057 + D058 + D059 + D060
-                                              + D061 + D062 + D063 + D064A + D064B + D064C + D065 + D066);
+                                              + D041 + D042 + D043 + D044 + D045 + D046 + D047 + D048 + D049 + D050 + D051A + D051B + D051C + D052 + D053 + D054 + D055 + D056 + D057 + D058A + D058B + D058C + D059 + D060
+                                              + D061 + D062 + D063 + D064 + D065A + D065B + D065C + D066 + D067);
 
                         oRecordSet.MoveNext();
                     }
                 }
-
                 returnValue = true;
             }
             catch (Exception ex)
@@ -1243,7 +1233,7 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
                 FileSystem.FileClose(1);
             }
@@ -1251,7 +1241,6 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
-
             return returnValue;
         }
 
@@ -1262,12 +1251,11 @@ namespace PSH_BOne_AddOn
         private bool File_Create_E_record(string psaup, string pyyyy, string psabun, string pC004)
         {
             bool returnValue = false;
-            short errNum = 0;
-            int i = 0;
-            int BUYCNT = 0;
-            int FAMCNT = 0;
-            string sQry = string.Empty;
-
+            int errNum = 0;
+            int i;
+            int BUYCNT;
+            int FAMCNT;
+            string sQry;
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -1302,59 +1290,41 @@ namespace PSH_BOne_AddOn
             string[] E027 = new string[3]; // 10   '국세청-교육비_일반
             string[] E028 = new string[3]; // 10   '국세청-교육비_장애인특수교육비
             // 2020년 신용카드 등
-            string[] E029 = new string[3]; // 10   '국세청-신용카드  3월
-            string[] E030 = new string[3]; // 10   '국세청-직불카드  3월
-            string[] E031 = new string[3]; // 10   '국세청-현금영수증  3월
-            string[] E032 = new string[3]; // 10   '국세청-도서.공연사용분 3월
-            string[] E033 = new string[3]; // 10   '국세청-전통시장사용액 3월
-            string[] E034 = new string[3]; // 10   '국세청-대중교통이용액 3월
-            string[] E035 = new string[3]; // 10   '국세청-신용카드  4-7월
-            string[] E036 = new string[3]; // 10   '국세청-직불카드  4-7월
-            string[] E037 = new string[3]; // 10   '국세청-현금영수증  4-7월
-            string[] E038 = new string[3]; // 10   '국세청-도서.공연사용분 4-7월
-            string[] E039 = new string[3]; // 10   '국세청-전통시장사용액 4-7월
-            string[] E040 = new string[3]; // 10   '국세청-대중교통이용액 4-7월
-            string[] E041 = new string[3]; // 10   '국세청-신용카드  그외
-            string[] E042 = new string[3]; // 10   '국세청-직불카드  그외
-            string[] E043 = new string[3]; // 10   '국세청-현금영수증  그외
-            string[] E044 = new string[3]; // 10   '국세청-도서.공연사용분 그외
-            string[] E045 = new string[3]; // 10   '국세청-전통시장사용액 그외
-            string[] E046 = new string[3]; // 10   '국세청-대중교통이용액 그외
+            string[] E029 = new string[3]; // 10   '국세청-신용카드
+            string[] E030 = new string[3]; // 10   '국세청-직불카드
+            string[] E031 = new string[3]; // 10   '국세청-현금영수증
+            string[] E032 = new string[3]; // 10   '국세청-도서.공연사용분
+            string[] E033 = new string[3]; // 10   '국세청-전통시장사용액
+            string[] E034 = new string[3]; // 10   '국세청-대중교통이용액
+            string[] E035 = new string[3]; // 10   '국세청-소비증가분-2020년전체사용분
+            string[] E036 = new string[3]; // 10   '국세청-소비증가분-2021년전체사용분
             //
-            string[] E047 = new string[3]; // 13   '국세청-기부금
+            string[] E037 = new string[3]; // 13   '국세청-기부금
 
-            string[] E048 = new string[3]; // 10   '기타-보험료_건강보험
-            string[] E049 = new string[3]; // 10   '기타-보험료_고용보험
-            string[] E050 = new string[3]; // 10   '기타-보험료_보장성
-            string[] E051 = new string[3]; // 10   '기타-보험료_장애인전용보장성
-            string[] E052 = new string[3]; // 10   '기타-의료비_일반
-            string[] E053 = new string[3]; // 10   '기타-의료비_난임
-            string[] E054 = new string[3]; // 10   '기타-의료비_65세이상.장애인.건강보험산정특례자
-            string[] E055_1 = new string[3]; // 1  '기타-의료비_실손의료보험금부호
-            string[] E055_2 = new string[3]; // 10 '기타-의료비_실손의료보험금
-            string[] E056 = new string[3]; // 10   '기타-교육비_일반
-            string[] E057 = new string[3]; // 10   '기타-교육비_장애인특수교육비
+            string[] E038 = new string[3]; // 10   '기타-보험료_건강보험
+            string[] E039 = new string[3]; // 10   '기타-보험료_고용보험
+            string[] E040 = new string[3]; // 10   '기타-보험료_보장성
+            string[] E041 = new string[3]; // 10   '기타-보험료_장애인전용보장성
+            string[] E042 = new string[3]; // 10   '기타-의료비_일반
+            string[] E043 = new string[3]; // 10   '기타-의료비_난임
+            string[] E044 = new string[3]; // 10   '기타-의료비_65세이상.장애인.건강보험산정특례자
+            string[] E045_1 = new string[3]; // 1  '기타-의료비_실손의료보험금부호
+            string[] E045_2 = new string[3]; // 10 '기타-의료비_실손의료보험금
+            string[] E046 = new string[3]; // 10   '기타-교육비_일반
+            string[] E047 = new string[3]; // 10   '기타-교육비_장애인특수교육비
             // 2020년 신용카드 등
-            string[] E058 = new string[3]; // 10   '기타-신용카드   3월
-            string[] E059 = new string[3]; // 10   '기타-직불카드   3월
-            string[] E060 = new string[3]; // 10   '기타-도서.공연사용분 3월
-            string[] E061 = new string[3]; // 10   '기타-전통시장사용액  3월
-            string[] E062 = new string[3]; // 10   '기타-대중교통이용액  3월 
-            string[] E063 = new string[3]; // 10   '기타-신용카드   3월
-            string[] E064 = new string[3]; // 10   '기타-직불카드   3월
-            string[] E065 = new string[3]; // 10   '기타-도서.공연사용분 3월
-            string[] E066 = new string[3]; // 10   '기타-전통시장사용액  3월
-            string[] E067 = new string[3]; // 10   '기타-대중교통이용액  3월 
-            string[] E068 = new string[3]; // 10   '기타-신용카드   3월
-            string[] E069 = new string[3]; // 10   '기타-직불카드   3월
-            string[] E070 = new string[3]; // 10   '기타-도서.공연사용분 3월
-            string[] E071 = new string[3]; // 10   '기타-전통시장사용액  3월
-            string[] E072 = new string[3]; // 10   '기타-대중교통이용액  3월 
+            string[] E048 = new string[3]; // 10   '기타-신용카드
+            string[] E049 = new string[3]; // 10   '기타-직불카드
+            string[] E050 = new string[3]; // 10   '기타-도서.공연사용분
+            string[] E051 = new string[3]; // 10   '기타-전통시장사용액
+            string[] E052 = new string[3]; // 10   '기타-대중교통이용액
+            string[] E053 = new string[3]; // 10   '기타-소비증가분-2020년전체사용분
+            string[] E054 = new string[3]; // 10   '기타-소비증가분-2021년전체사용분
             //
-            string[] E073 = new string[3]; // 13   '기타-기부금
+            string[] E055 = new string[3]; // 13   '기타-기부금
 
-            string E208;                   // 2    '부양가족레코드일련번호
-            string E209 = string.Empty;    // 26   '공란
+            string E154;                   // 2    '부양가족레코드일련번호
+            string E155;                   // 683  '공란
 
             try
             {
@@ -1412,7 +1382,7 @@ namespace PSH_BOne_AddOn
                                 E034[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
                                 E035[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
                                 E036[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
-                                E037[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
+                                E037[i] = codeHelpClass.GetFixedLengthStringByte("0", 13, '0');  // 13
                                 E038[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
                                 E039[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
                                 E040[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
@@ -1420,9 +1390,10 @@ namespace PSH_BOne_AddOn
                                 E042[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
                                 E043[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
                                 E044[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
-                                E045[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
+                                E045_1[i] = codeHelpClass.GetFixedLengthStringByte("0", 1, '0');
+                                E045_2[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
                                 E046[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
-                                E047[i] = codeHelpClass.GetFixedLengthStringByte("0", 13, '0');  // 13
+                                E047[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
                                 E048[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
                                 E049[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
                                 E050[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
@@ -1430,26 +1401,7 @@ namespace PSH_BOne_AddOn
                                 E052[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
                                 E053[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
                                 E054[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
-                                E055_1[i] = codeHelpClass.GetFixedLengthStringByte("0", 1, '0');
-                                E055_2[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
-                                E056[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
-                                E057[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
-                                E058[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
-                                E059[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
-                                E060[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
-                                E061[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
-                                E062[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
-                                E063[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
-                                E064[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
-                                E065[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
-                                E066[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
-                                E067[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
-                                E068[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
-                                E069[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
-                                E070[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
-                                E071[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
-                                E072[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
-                                E073[i] = codeHelpClass.GetFixedLengthStringByte("0", 13, '0');  // 13
+                                E055[i] = codeHelpClass.GetFixedLengthStringByte("0", 13, '0');  // 13
                             }
                         }
 
@@ -1484,7 +1436,7 @@ namespace PSH_BOne_AddOn
                         E034[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E034").Value.ToString().Trim(), 10, '0');
                         E035[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E035").Value.ToString().Trim(), 10, '0');
                         E036[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E036").Value.ToString().Trim(), 10, '0');
-                        E037[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E037").Value.ToString().Trim(), 10, '0');
+                        E037[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E037").Value.ToString().Trim(), 13, '0'); // 13
                         E038[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E038").Value.ToString().Trim(), 10, '0');
                         E039[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E039").Value.ToString().Trim(), 10, '0');
                         E040[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E040").Value.ToString().Trim(), 10, '0');
@@ -1492,9 +1444,10 @@ namespace PSH_BOne_AddOn
                         E042[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E042").Value.ToString().Trim(), 10, '0');
                         E043[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E043").Value.ToString().Trim(), 10, '0');
                         E044[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E044").Value.ToString().Trim(), 10, '0');
-                        E045[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E045").Value.ToString().Trim(), 10, '0');
+                        E045_1[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E045_1").Value.ToString().Trim(), 1, '0');
+                        E045_2[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E045_2").Value.ToString().Trim(), 10, '0');
                         E046[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E046").Value.ToString().Trim(), 10, '0');
-                        E047[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E047").Value.ToString().Trim(), 13, '0'); // 13
+                        E047[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E047").Value.ToString().Trim(), 10, '0');
                         E048[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E048").Value.ToString().Trim(), 10, '0');
                         E049[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E049").Value.ToString().Trim(), 10, '0');
                         E050[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E050").Value.ToString().Trim(), 10, '0');
@@ -1502,64 +1455,32 @@ namespace PSH_BOne_AddOn
                         E052[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E052").Value.ToString().Trim(), 10, '0');
                         E053[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E053").Value.ToString().Trim(), 10, '0');
                         E054[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E054").Value.ToString().Trim(), 10, '0');
-                        E055_1[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E055_1").Value.ToString().Trim(), 1, '0');
-                        E055_2[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E055_2").Value.ToString().Trim(), 10, '0');
-                        E056[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E056").Value.ToString().Trim(), 10, '0');
-                        E057[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E057").Value.ToString().Trim(), 10, '0');
-                        E058[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E058").Value.ToString().Trim(), 10, '0');
-                        E059[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E059").Value.ToString().Trim(), 10, '0');
-                        E060[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E060").Value.ToString().Trim(), 10, '0');
-                        E061[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E061").Value.ToString().Trim(), 10, '0');
-                        E062[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E062").Value.ToString().Trim(), 10, '0');
-                        E063[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E063").Value.ToString().Trim(), 10, '0');
-                        E064[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E064").Value.ToString().Trim(), 10, '0');
-                        E065[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E065").Value.ToString().Trim(), 10, '0');
-                        E066[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E066").Value.ToString().Trim(), 10, '0');
-                        E067[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E067").Value.ToString().Trim(), 10, '0');
-                        E068[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E068").Value.ToString().Trim(), 10, '0');
-                        E069[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E069").Value.ToString().Trim(), 10, '0');
-                        E070[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E070").Value.ToString().Trim(), 10, '0');
-                        E071[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E071").Value.ToString().Trim(), 10, '0');
-                        E072[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E072").Value.ToString().Trim(), 10, '0');
-                        E073[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E073").Value.ToString().Trim(), 13, '0'); // 13
+                        E055[BUYCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E055").Value.ToString().Trim(), 13, '0'); // 13
 
-                        E209 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E209").Value.ToString().Trim(), 26); //공란
+                        E155 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("E155").Value.ToString().Trim(), 683); //공란
 
                         oRecordSet.MoveNext();
 
                         // If BUYCNT = 4 Then    '5개면 인쇄 0 - 4
                         if (BUYCNT == 2 || oRecordSet.EoF)  // 2020년 3개
                         {
-                            E208 = codeHelpClass.GetFixedLengthStringByte(FAMCNT.ToString(), 2, '0'); // 일련번호
+                            E154 = codeHelpClass.GetFixedLengthStringByte(FAMCNT.ToString(), 2, '0'); // 일련번호
 
                             // E레코드 WRITE
                             FileSystem.PrintLine(1, E001 + E002 + E003 + E004 + E005 + E006
                                                   + E007[0] + E008[0] + E009[0] + E010[0] + E011[0] + E012[0] + E013[0] + E014[0] + E015[0] + E016[0] + E017[0] + E018[0] + E019[0] + E020[0]
                                                   + E021[0] + E022[0] + E023[0] + E024[0] + E025[0] + E026[0] + E027[0] + E028[0] + E029[0] + E030[0] + E031[0] + E032[0] + E033[0] + E034[0]
-                                                  + E035[0] + E036[0] + E037[0] + E038[0] + E039[0] + E040[0] + E041[0] + E042[0] + E043[0] + E044[0] + E045[0] + E046[0] + E047[0] + E048[0]
-                                                  + E049[0] + E050[0] + E051[0] + E052[0] + E053[0] + E054[0] + E055_1[0] + E055_2[0] + E056[0] + E057[0] + E058[0] + E059[0] + E060[0] + E061[0] + E062[0]
-                                                  + E063[0] + E064[0] + E065[0] + E066[0] + E067[0] + E068[0] + E069[0] + E070[0] + E071[0] + E072[0] + E073[0]
+                                                  + E035[0] + E036[0] + E037[0] + E038[0] + E039[0] + E040[0] + E041[0] + E042[0] + E043[0] + E044[0] + E045_1[0] + E045_2[0] + E046[0] + E047[0] + E048[0]
+                                                  + E049[0] + E050[0] + E051[0] + E052[0] + E053[0] + E054[0] + E055[0]
                                                   + E007[1] + E008[1] + E009[1] + E010[1] + E011[1] + E012[1] + E013[1] + E014[1] + E015[1] + E016[1] + E017[1] + E018[1] + E019[1] + E020[1]
                                                   + E021[1] + E022[1] + E023[1] + E024[1] + E025[1] + E026[1] + E027[1] + E028[1] + E029[1] + E030[1] + E031[1] + E032[1] + E033[1] + E034[1]
-                                                  + E035[1] + E036[1] + E037[1] + E038[1] + E039[1] + E040[1] + E041[1] + E042[1] + E043[1] + E044[1] + E045[1] + E046[1] + E047[1] + E048[1]
-                                                  + E049[1] + E050[1] + E051[1] + E052[1] + E053[1] + E054[1] + E055_1[1] + E055_2[1] + E056[1] + E057[1] + E058[1] + E059[1] + E060[1] + E061[1] + E062[1]
-                                                  + E063[1] + E064[1] + E065[1] + E066[1] + E067[1] + E068[1] + E069[1] + E070[1] + E071[1] + E072[1] + E073[1]
+                                                  + E035[1] + E036[1] + E037[1] + E038[1] + E039[1] + E040[1] + E041[1] + E042[1] + E043[1] + E044[1] + E045_1[1] + E045_2[1] + E046[1] + E047[1] + E048[1]
+                                                  + E049[1] + E050[1] + E051[1] + E052[1] + E053[1] + E054[1] + E055[1]
                                                   + E007[2] + E008[2] + E009[2] + E010[2] + E011[2] + E012[2] + E013[2] + E014[2] + E015[2] + E016[2] + E017[2] + E018[2] + E019[2] + E020[2]
                                                   + E021[2] + E022[2] + E023[2] + E024[2] + E025[2] + E026[2] + E027[2] + E028[2] + E029[2] + E030[2] + E031[2] + E032[2] + E033[2] + E034[2]
-                                                  + E035[2] + E036[2] + E037[2] + E038[2] + E039[2] + E040[2] + E041[2] + E042[2] + E043[2] + E044[2] + E045[2] + E046[2] + E047[2] + E048[2]
-                                                  + E049[2] + E050[2] + E051[2] + E052[2] + E053[2] + E054[2] + E055_1[2] + E055_2[2] + E056[2] + E057[2] + E058[2] + E059[2] + E060[2] + E061[2] + E062[2]
-                                                  + E063[2] + E064[2] + E065[2] + E066[2] + E067[2] + E068[2] + E069[2] + E070[2] + E071[2] + E072[2] + E073[2]
-                                                  //+ E007[3] + E008[3] + E009[3] + E010[3] + E011[3] + E012[3] + E013[3] + E014[3] + E015[3] + E016[3] + E017[3] + E018[3] + E019[3] + E020[3]
-                                                  //+ E021[3] + E022[3] + E023[3] + E024[3] + E025[3] + E026[3] + E027[3] + E028[3] + E029[3] + E030[3] + E031[3] + E032[3] + E033[3] + E034[3]
-                                                  //+ E035[3] + E036[3] + E037[3] + E038[3] + E039[3] + E040[3] + E041[3] + E042[3] + E043[3] + E044[3] + E045[3] + E046[3] + E047[3] + E048[3]
-                                                  //+ E049[3] + E050[3] + E051[3] + E052[3] + E053[3] + E054[3] + E055[3] + E056[3] + E057[3] + E058[3] + E059[3] + E060[3] + E061[3] + E062[3]
-                                                  //+ E063[3] + E064[3] + E065[3] + E066[3] + E067[3] + E068[3] + E069[3] + E070[3] + E071[3] + E072[3] + E073[3]
-                                                  //+ E007[4] + E008[4] + E009[4] + E010[4] + E011[4] + E012[4] + E013[4] + E014[4] + E015[4] + E016[4] + E017[4] + E018[4] + E019[4] + E020[4]
-                                                  //+ E021[4] + E022[4] + E023[4] + E024[4] + E025[4] + E026[4] + E027[4] + E028[4] + E029[4] + E030[4] + E031[4] + E032[4] + E033[4] + E034[4]
-                                                  //+ E035[4] + E036[4] + E037[4] + E038[4] + E039[4] + E040[4] + E041[4] + E042[4] + E043[4] + E044[4] + E045[4] + E046[4] + E047[4] + E048[4]
-                                                  //+ E049[4] + E050[4] + E051[4] + E052[4] + E053[4] + E054[4] + E055[4] + E056[4] + E057[4] + E058[4] + E059[4] + E060[4] + E061[4] + E062[4]
-                                                  //+ E063[4] + E064[4] + E065[4] + E066[4] + E067[4] + E068[4] + E069[4] + E070[4] + E071[4] + E072[4] + E073[4]
-                                                  + E208 + E209);
+                                                  + E035[2] + E036[2] + E037[2] + E038[2] + E039[2] + E040[2] + E041[2] + E042[2] + E043[2] + E044[2] + E045_1[2] + E045_2[2] + E046[2] + E047[2] + E048[2]
+                                                  + E049[2] + E050[2] + E051[2] + E052[2] + E053[2] + E054[2] + E055[2]
+                                                  + E154 + E155);
                             BUYCNT = 0;
                             FAMCNT += 1;
                         }
@@ -1574,7 +1495,6 @@ namespace PSH_BOne_AddOn
                     errNum = 1;
                     throw new Exception();
                 }
-
                 returnValue = true;
             }
             catch (Exception ex)
@@ -1585,7 +1505,7 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
                 FileSystem.FileClose(1);
             }
@@ -1593,7 +1513,6 @@ namespace PSH_BOne_AddOn
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
-
             return returnValue;
         }
 
@@ -1604,11 +1523,10 @@ namespace PSH_BOne_AddOn
         private bool File_Create_F_record(string psaup, string pyyyy, string psabun, string pC004)
         {
             bool returnValue = true;  // 기본을 TRUE 로
-            int i = 0;
-            int sCNT = 0;
-            int rCNT = 0;
-            string sQry = string.Empty;
-
+            int i;
+            int sCNT;
+            int rCNT;
+            string sQry;
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -1627,10 +1545,10 @@ namespace PSH_BOne_AddOn
             string[] F011 = new string[15]; // 10  '납입금액
             string[] F012 = new string[15]; // 10  '소득세액공제금액
             string[] F013 = new string[15]; // 4   '투자년도
-            string[] F014 = new string[15]; // 1   '투자구분  조합:1, 벤처:2
+            string[] F014 = new string[15]; // 1   '투자구분  조합1:1, 벤처:2, 조합2:3
 
             string F127;                    // 2    '연금.저축레코드일련번호
-            string F128 = string.Empty;     // 206  '공란
+            string F128;                    // 323  '공란
 
             try
             {
@@ -1679,7 +1597,7 @@ namespace PSH_BOne_AddOn
                         F013[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("F013").Value.ToString().Trim(), 4, '0');
                         F014[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("F014").Value.ToString().Trim(), 1);
 
-                        F128 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("F128").Value.ToString().Trim(), 206);
+                        F128 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("F128").Value.ToString().Trim(), 323);
 
                         oRecordSet.MoveNext();
 
@@ -1713,14 +1631,13 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 returnValue = false;
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 FileSystem.FileClose(1);
             }
             finally
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
-
             return returnValue;
         }
 
@@ -1731,8 +1648,10 @@ namespace PSH_BOne_AddOn
         private bool File_Create_G_record(string psaup, string pyyyy, string psabun, string pC004)
         {
             bool returnValue = true;  // 기본을 TRUE 로
-            string sQry = string.Empty;
-
+            int i;
+            int sCNT;
+            int rCNT;
+            string sQry;
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -1743,92 +1662,41 @@ namespace PSH_BOne_AddOn
             string G004;  // 6    '일련번호
             string G005;  // 10   '사업자번호
             string G006;  // 13   '소득자주민번호
-            // 1 
-            string G007;  // 60   '임대인성명(상호)1
-            string G008;  // 13   '주민등록번호
-            string G009;  // 1    '주택유형
-            string G010;  // 5    '주택계약면적
-            string G011;  // 100  '임대차계약서상주소지
-            string G012;  // 8    '임대차계약기간시작
-            string G013;  // 8    '임대차계약기간종료
-            string G014;  // 10   '연간월세액
-            string G015;  // 10   '세액공제금액
-            string G016;  // 60   '대주성명
-            string G017;  // 13   '대주주민등록번호
-            string G018;  // 8    '금전소비대차 계약기간시작
-            string G019;  // 8    '금전소비대차 계약기간종료
-            string G020;  // 4    '차입금이자율
-            string G021;  // 10   '원리금상환액계
-            string G022;  // 10   '원금
-            string G023;  // 10   '이자
-            string G024;  // 10   '공제금액
-            string G025;  // 60   '임대인성명(상호)
-            string G026;  // 13   '주민등록번호
-            string G027;  // 1    '주택유형
-            string G028;  // 5    '주택계약면적
-            string G029;  // 100  '임대차계약서상주소지
-            string G030;  // 8    '임대차계약기간시작
-            string G031;  // 8    '임대차계약기간종료
-            string G032;  // 10   '전세보증금
-            // 2 
-            string G033;  // 60   '임대인성명2
-            string G034;  // 13   '주민등록번호
-            string G035;  // 1    '주택유형
-            string G036;  // 5    '주택계약면적
-            string G037;  // 100  '임대차계약서상주소지
-            string G038;  // 8    '임대차계약기간시작
-            string G039;  // 8    '임대차계약기간종료
-            string G040;  // 10   '연간월세액
-            string G041;  // 10   '세액공제금액
-            string G042;  // 60   '대주성명
-            string G043;  // 13   '대주주민등록번호
-            string G044;  // 8    '금전소비대차 계약기간시작
-            string G045;  // 8    '금전소비대차 계약기간종료
-            string G046;  // 4    '차입금이자율
-            string G047;  // 10   '원리금산환액계
-            string G048;  // 10   '원금
-            string G049;  // 10   '이자
-            string G050;  // 10   '공제금액
-            string G051;  // 60   '임대인성명
-            string G052;  // 13   '주민등록번호
-            string G053;  // 1    '주택유형
-            string G054;  // 5    '주택계약면적
-            string G055;  // 100  '임대차계약서상주소지
-            string G056;  // 8    '임대차계약기간시작
-            string G057;  // 8    '임대차계약기간종료
-            string G058;  // 10   '전세보증금
-            // 3 
-            string G059;  // 60   '임대인성명3
-            string G060;  // 13   '주민등록번호
-            string G061;  // 1    '주택유형
-            string G062;  // 5    '주택계약면적
-            string G063;  // 100  '임대차계약서상주소지
-            string G064;  // 8    '임대차계약기간시작
-            string G065;  // 8    '임대차계약기간종료
-            string G066;  // 10   '연간월세액
-            string G067;  // 10   '세액공제금액
-            string G068;  // 60   '대주성명
-            string G069;  // 13   '대주주민등록번호
-            string G070;  // 8    '금전소비대차 계약기간시작
-            string G071;  // 8    '금전소비대차 계약기간종료
-            string G072;  // 4    '차입금이자율
-            string G073;  // 10   '원리금산환액계
-            string G074;  // 10   '원금
-            string G075;  // 10   '이자
-            string G076;  // 10   '공제금액
-            string G077;  // 60   '임대인성명
-            string G078;  // 13   '주민등록번호
-            string G079;  // 1    '주택유형
-            string G080;  // 5    '주택계약면적
-            string G081;  // 100  '임대차계약서상주소지
-            string G082;  // 8    '임대차계약기간시작
-            string G083;  // 8    '임대차계약기간종료
-            string G084;  // 10   '전세보증금
-            string G085;  // 2    '일련번호
-            string G086;  // 197  '공란
+            string G007;  // 2    '무주택자해당여부 01:여, 02:부
+            
+            string[] G008 = new string[3];  // 60   '임대인성명(상호)1
+            string[] G009 = new string[3];  // 13   '주민등록번호
+            string[] G010 = new string[3];  // 1    '주택유형
+            string[] G011 = new string[3];  // 5    '주택계약면적
+            string[] G012 = new string[3];  // 150  '임대차계약서상주소지
+            string[] G013 = new string[3];  // 8    '임대차계약기간시작
+            string[] G014 = new string[3];  // 8    '임대차계약기간종료
+            string[] G015 = new string[3];  // 10   '연간월세액
+            string[] G016 = new string[3];  // 10   '세액공제금액
+            string[] G017 = new string[3];  // 60   '대주성명
+            string[] G018 = new string[3];  // 13   '대주주민등록번호
+            string[] G019 = new string[3];  // 8    '금전소비대차 계약기간시작
+            string[] G020 = new string[3];  // 8    '금전소비대차 계약기간종료
+            string[] G021 = new string[3];  // 4    '차입금이자율
+            string[] G022 = new string[3];  // 10   '원리금상환액계
+            string[] G023 = new string[3];  // 10   '원금
+            string[] G024 = new string[3];  // 10   '이자
+            string[] G025 = new string[3];  // 10   '공제금액
+            string[] G026 = new string[3];  // 60   '임대인성명(상호)
+            string[] G027 = new string[3];  // 13   '주민등록번호
+            string[] G028 = new string[3];  // 1    '주택유형
+            string[] G029 = new string[3];  // 5    '주택계약면적
+            string[] G030 = new string[3];  // 150  '임대차계약서상주소지
+            string[] G031 = new string[3];  // 8    '임대차계약기간시작
+            string[] G032 = new string[3];  // 8    '임대차계약기간종료
+            string[] G033 = new string[3];  // 10   '전세보증금
+
+            string G086;  // 2    '일련번호
+            string G087;  // 12   '공란
 
             try
             {
+                rCNT = 1;
                 // G_RECORE QUERY
                 sQry = "EXEC PH_PY980_G '" + psaup + "', '" + pyyyy + "', '" + psabun + "'";
                 oRecordSet.DoQuery(sQry);
@@ -1842,114 +1710,115 @@ namespace PSH_BOne_AddOn
                     G004 = codeHelpClass.GetFixedLengthStringByte(pC004.ToString(), 6, '0'); // C레코드의 일련번호
                     G005 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G005").Value.ToString().Trim(), 10);
                     G006 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G006").Value.ToString().Trim(), 13);
-                    G007 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G007").Value.ToString().Trim(), 60);
-                    G008 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G008").Value.ToString().Trim(), 13);
-                    G009 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G009").Value.ToString().Trim(), 1);
-                    G010 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G010").Value.ToString().Trim(), 5, '0');
+                    G007 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G007").Value.ToString().Trim(), 2);
 
-                    G011 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G011").Value.ToString().Trim(), 100);
-                    G012 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G012").Value.ToString().Trim(), 8, '0');
-                    G013 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G013").Value.ToString().Trim(), 8, '0');
-                    G014 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G014").Value.ToString().Trim(), 10, '0');
-                    G015 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G015").Value.ToString().Trim(), 10, '0');
-                    G016 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G016").Value.ToString().Trim(), 60);
-                    G017 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G017").Value.ToString().Trim(), 13);
-                    G018 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G018").Value.ToString().Trim(), 8, '0');
-                    G019 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G019").Value.ToString().Trim(), 8, '0'); ;
-                    G020 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G020").Value.ToString().Trim(), 4, '0');
+                    sCNT = 0;
+                    while (!oRecordSet.EoF)
+                    {
+                        // 초기화
+                        if (sCNT == 0)
+                        {
+                            for (i = 0; i <= 2; i++)  // ARRY 3개 0 - 2
+                            {
+                                G008[i] = codeHelpClass.GetFixedLengthStringByte(" ", 60);
+                                G009[i] = codeHelpClass.GetFixedLengthStringByte(" ", 13);
+                                G010[i] = codeHelpClass.GetFixedLengthStringByte(" ", 1);
+                                G011[i] = codeHelpClass.GetFixedLengthStringByte("0", 5, '0');
+                                G012[i] = codeHelpClass.GetFixedLengthStringByte(" ", 150);
+                                G013[i] = codeHelpClass.GetFixedLengthStringByte("0", 8, '0');
+                                G014[i] = codeHelpClass.GetFixedLengthStringByte("0", 8, '0');
+                                G015[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
+                                G016[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
+                                G017[i] = codeHelpClass.GetFixedLengthStringByte(" ", 60);
+                                G018[i] = codeHelpClass.GetFixedLengthStringByte(" ", 13);
+                                G019[i] = codeHelpClass.GetFixedLengthStringByte("0", 8, '0');
+                                G020[i] = codeHelpClass.GetFixedLengthStringByte("0", 8, '0');
+                                G021[i] = codeHelpClass.GetFixedLengthStringByte("0", 4, '0');
+                                G022[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
+                                G023[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
+                                G024[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
+                                G025[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
+                                G026[i] = codeHelpClass.GetFixedLengthStringByte(" ", 60);
+                                G027[i] = codeHelpClass.GetFixedLengthStringByte(" ", 13);
+                                G028[i] = codeHelpClass.GetFixedLengthStringByte(" ", 1);
+                                G029[i] = codeHelpClass.GetFixedLengthStringByte("0", 5, '0');
+                                G030[i] = codeHelpClass.GetFixedLengthStringByte(" ", 150);
+                                G031[i] = codeHelpClass.GetFixedLengthStringByte("0", 8, '0');
+                                G032[i] = codeHelpClass.GetFixedLengthStringByte("0", 8, '0');
+                                G033[i] = codeHelpClass.GetFixedLengthStringByte("0", 10, '0');
+                            }
+                        }
 
-                    G021 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G021").Value.ToString().Trim(), 10, '0');
-                    G022 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G022").Value.ToString().Trim(), 10, '0');
-                    G023 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G023").Value.ToString().Trim(), 10, '0');
-                    G024 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G024").Value.ToString().Trim(), 10, '0');
-                    G025 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G025").Value.ToString().Trim(), 60);
-                    G026 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G026").Value.ToString().Trim(), 13);
-                    G027 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G027").Value.ToString().Trim(), 1);
-                    G028 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G028").Value.ToString().Trim(), 5, '0');
-                    G029 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G029").Value.ToString().Trim(), 100);
-                    G030 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G030").Value.ToString().Trim(), 8, '0');
+                        G008[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G008").Value.ToString().Trim(), 60);
+                        G009[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G009").Value.ToString().Trim(), 13);
+                        G010[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G010").Value.ToString().Trim(), 1);
+                        G011[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G011").Value.ToString().Trim(), 5, '0');
+                        G012[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G012").Value.ToString().Trim(), 150);
+                        G013[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G013").Value.ToString().Trim(), 8, '0');
+                        G014[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G014").Value.ToString().Trim(), 8, '0');
+                        G015[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G015").Value.ToString().Trim(), 10, '0');
+                        G016[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G016").Value.ToString().Trim(), 10, '0');
+                        G017[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G017").Value.ToString().Trim(), 60);
+                        G018[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G018").Value.ToString().Trim(), 13);
+                        G019[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G019").Value.ToString().Trim(), 8, '0');
+                        G020[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G020").Value.ToString().Trim(), 8, '0');
+                        G021[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G021").Value.ToString().Trim(), 4, '0');
+                        G022[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G022").Value.ToString().Trim(), 10, '0');
+                        G023[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G023").Value.ToString().Trim(), 10, '0');
+                        G024[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G024").Value.ToString().Trim(), 10, '0');
+                        G025[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G025").Value.ToString().Trim(), 10, '0');
+                        G026[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G026").Value.ToString().Trim(), 60);
+                        G027[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G027").Value.ToString().Trim(), 13);
+                        G028[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G028").Value.ToString().Trim(), 1);
+                        G029[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G029").Value.ToString().Trim(), 5, '0');
+                        G030[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G030").Value.ToString().Trim(), 150);
+                        G031[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G031").Value.ToString().Trim(), 8, '0');
+                        G032[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G032").Value.ToString().Trim(), 8, '0');
+                        G033[sCNT] = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G033").Value.ToString().Trim(), 10, '0');
 
-                    G031 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G031").Value.ToString().Trim(), 8, '0');
-                    G032 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G032").Value.ToString().Trim(), 10, '0');
-                    G033 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G033").Value.ToString().Trim(), 60);
-                    G034 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G034").Value.ToString().Trim(), 13);
-                    G035 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G035").Value.ToString().Trim(), 1);
-                    G036 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G036").Value.ToString().Trim(), 5, '0');
-                    G037 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G037").Value.ToString().Trim(), 100);
-                    G038 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G038").Value.ToString().Trim(), 8, '0');
-                    G039 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G039").Value.ToString().Trim(), 8, '0');
-                    G040 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G040").Value.ToString().Trim(), 10, '0');
+                        G087 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G087").Value.ToString().Trim(), 12);
 
-                    G041 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G041").Value.ToString().Trim(), 10, '0');
-                    G042 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G042").Value.ToString().Trim(), 60);
-                    G043 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G043").Value.ToString().Trim(), 13);
-                    G044 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G044").Value.ToString().Trim(), 8, '0');
-                    G045 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G045").Value.ToString().Trim(), 8, '0');
-                    G046 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G046").Value.ToString().Trim(), 4, '0');
-                    G047 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G047").Value.ToString().Trim(), 10, '0');
-                    G048 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G048").Value.ToString().Trim(), 10, '0');
-                    G049 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G049").Value.ToString().Trim(), 10, '0');
-                    G050 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G050").Value.ToString().Trim(), 10, '0');
+                        oRecordSet.MoveNext();
 
-                    G051 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G051").Value.ToString().Trim(), 60);
-                    G052 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G052").Value.ToString().Trim(), 13);
-                    G053 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G053").Value.ToString().Trim(), 1);
-                    G054 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G054").Value.ToString().Trim(), 5, '0');
-                    G055 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G055").Value.ToString().Trim(), 100);
-                    G056 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G056").Value.ToString().Trim(), 8, '0');
-                    G057 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G057").Value.ToString().Trim(), 8, '0');
-                    G058 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G058").Value.ToString().Trim(), 10, '0');
-                    G059 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G059").Value.ToString().Trim(), 60);
-                    G060 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G060").Value.ToString().Trim(), 13);
-
-                    G061 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G061").Value.ToString().Trim(), 1);
-                    G062 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G062").Value.ToString().Trim(), 5, '0');
-                    G063 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G063").Value.ToString().Trim(), 100);
-                    G064 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G064").Value.ToString().Trim(), 8, '0');
-                    G065 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G065").Value.ToString().Trim(), 8, '0');
-                    G066 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G066").Value.ToString().Trim(), 10, '0');
-                    G067 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G067").Value.ToString().Trim(), 10, '0');
-                    G068 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G068").Value.ToString().Trim(), 60);
-                    G069 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G069").Value.ToString().Trim(), 13);
-                    G070 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G070").Value.ToString().Trim(), 8, '0');
-
-                    G071 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G071").Value.ToString().Trim(), 8, '0');
-                    G072 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G072").Value.ToString().Trim(), 4, '0');
-                    G073 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G073").Value.ToString().Trim(), 10, '0');
-                    G074 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G074").Value.ToString().Trim(), 10, '0');
-                    G075 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G075").Value.ToString().Trim(), 10, '0');
-                    G076 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G076").Value.ToString().Trim(), 10, '0');
-                    G077 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G077").Value.ToString().Trim(), 60);
-                    G078 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G078").Value.ToString().Trim(), 13);
-                    G079 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G079").Value.ToString().Trim(), 1);
-                    G080 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G080").Value.ToString().Trim(), 5, '0');
-
-                    G081 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G081").Value.ToString().Trim(), 100);
-                    G082 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G082").Value.ToString().Trim(), 8, '0');
-                    G083 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G083").Value.ToString().Trim(), 8, '0');
-                    G084 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G084").Value.ToString().Trim(), 10, '0');
-                    G085 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G085").Value.ToString().Trim(), 2);
-                    G086 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("G086").Value.ToString().Trim(), 197);
-
-                    // G 레코드 삽입
-                    FileSystem.PrintLine(1, G001 + G002 + G003 + G004 + G005 + G006 + G007 + G008 + G009 + G010 + G011 + G012 + G013 + G014 + G015 + G016 + G017 + G018 + G019 + G020
-                                          + G021 + G022 + G023 + G024 + G025 + G026 + G027 + G028 + G029 + G030 + G031 + G032 + G033 + G034 + G035 + G036 + G037 + G038 + G039 + G040
-                                          + G041 + G042 + G043 + G044 + G045 + G046 + G047 + G048 + G049 + G050 + G051 + G052 + G053 + G054 + G055 + G056 + G057 + G058 + G059 + G060
-                                          + G061 + G062 + G063 + G064 + G065 + G066 + G067 + G068 + G069 + G070 + G071 + G072 + G073 + G074 + G075 + G076 + G077 + G078 + G079 + G080
-                                          + G081 + G082 + G083 + G084 + G085 + G086);
+                        // If sCNT 가 3개나 끝이면 인쇄
+                        if (sCNT == 2 | oRecordSet.EoF)
+                        {
+                            G086 = codeHelpClass.GetFixedLengthStringByte(rCNT.ToString(), 2, '0'); // 일련번호
+                            // G 레코드 WRITE
+                            FileSystem.PrintLine(1, G001 + G002 + G003 + G004 + G005 + G006 + G007
+                                                  + G008[0] + G009[0] + G010[0] + G011[0] + G012[0] + G013[0] + G014[0] + G015[0] + G016[0] + G017[0]
+                                                  + G018[0] + G019[0] + G020[0] + G021[0] + G022[0] + G023[0] + G024[0] + G025[0] + G026[0] + G027[0]
+                                                  + G028[0] + G029[0] + G030[0] + G031[0] + G032[0] + G033[0]
+                                                  + G008[1] + G009[1] + G010[1] + G011[1] + G012[1] + G013[1] + G014[1] + G015[1] + G016[1] + G017[1]
+                                                  + G018[1] + G019[1] + G020[1] + G021[1] + G022[1] + G023[1] + G024[1] + G025[1] + G026[1] + G027[1]
+                                                  + G028[1] + G029[1] + G030[1] + G031[1] + G032[1] + G033[1]
+                                                  + G008[2] + G009[2] + G010[2] + G011[2] + G012[2] + G013[2] + G014[2] + G015[2] + G016[2] + G017[2]
+                                                  + G018[2] + G019[2] + G020[2] + G021[2] + G022[2] + G023[2] + G024[2] + G025[2] + G026[2] + G027[2]
+                                                  + G028[2] + G029[2] + G030[2] + G031[2] + G032[2] + G033[2]
+                                                  + G086 + G087);
+                            sCNT = 0;
+                            rCNT += 1;
+                        }
+                        else
+                        {
+                            sCNT += 1; // 레코드번호 + 1
+                        }
+                    }
+                }
+                else
+                {
                 }
             }
             catch (Exception ex)
             {
                 returnValue = false;
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 FileSystem.FileClose(1);
             }
             finally
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
-
             return returnValue;
         }
 
@@ -1960,9 +1829,8 @@ namespace PSH_BOne_AddOn
         private bool File_Create_H_record(string psaup, string pyyyy, string psabun, string pC004)
         {
             bool returnValue = true;  // 기본을 TRUE 로
-            int hCnt = 0;
-            string sQry = string.Empty;
-
+            int hCnt;
+            string sQry;
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -1985,7 +1853,7 @@ namespace PSH_BOne_AddOn
             string H016;  // 13    '해당년도에공제받지못한금액_소멸금액
             string H017;  // 13    '해당년도에공제받지못한금액_이월금액
             string H018;  // 5     '기부조정명세일련번호
-            string H019;  // 1725  '공란
+            string H019;  // 1842  '공란
 
             try
             {
@@ -2010,6 +1878,7 @@ namespace PSH_BOne_AddOn
                         H008 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("H008").Value.ToString().Trim(), 30);
                         H009 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("H009").Value.ToString().Trim(), 2);
                         H010 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("H010").Value.ToString().Trim(), 4);
+
                         H011 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("H011").Value.ToString().Trim(), 13, '0');
                         H012 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("H012").Value.ToString().Trim(), 13, '0');
                         H013 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("H013").Value.ToString().Trim(), 13, '0');
@@ -2018,7 +1887,7 @@ namespace PSH_BOne_AddOn
                         H016 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("H016").Value.ToString().Trim(), 13, '0');
                         H017 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("H017").Value.ToString().Trim(), 13, '0');
                         H018 = codeHelpClass.GetFixedLengthStringByte(hCnt.ToString().Trim(), 5, '0');
-                        H019 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("H019").Value.ToString().Trim(), 1725);
+                        H019 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("H019").Value.ToString().Trim(), 1842);
 
                         // H 레코드 WRITE
                         FileSystem.PrintLine(1, H001 + H002 + H003 + H004 + H005 + H006 + H007 + H008 + H009 + H010
@@ -2030,14 +1899,13 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 returnValue = false;
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 FileSystem.FileClose(1);
             }
             finally
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
-
             return returnValue;
         }
 
@@ -2048,9 +1916,8 @@ namespace PSH_BOne_AddOn
         private bool File_Create_I_record(string psaup, string pyyyy, string psabun, string pC004)
         {
             bool returnValue = true;  // 기본을 TRUE 로
-            int iCnt = 0;
-            string sQry = string.Empty;
-
+            int iCnt;
+            string sQry;
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -2075,7 +1942,7 @@ namespace PSH_BOne_AddOn
             string I018;  // 13   '기부장려금신청금액
             string I019;  // 13   '기타
             string I020;  // 5    '해당연도기부명세일련번호
-            string I021;  // 1675 '공란
+            string I021;  // 1792 '공란
 
             try
             {
@@ -2100,6 +1967,7 @@ namespace PSH_BOne_AddOn
                         I008 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("I008").Value.ToString().Trim(), 1);
                         I009 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("I009").Value.ToString().Trim(), 13);
                         I010 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("I010").Value.ToString().Trim(), 60);
+
                         I011 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("I011").Value.ToString().Trim(), 1);
                         I012 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("I012").Value.ToString().Trim(), 1);
                         I013 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("I013").Value.ToString().Trim(), 30);
@@ -2110,7 +1978,7 @@ namespace PSH_BOne_AddOn
                         I018 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("I018").Value.ToString().Trim(), 13, '0');
                         I019 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("I019").Value.ToString().Trim(), 13, '0');
                         I020 = codeHelpClass.GetFixedLengthStringByte(iCnt.ToString().Trim(), 5, '0');
-                        I021 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("I021").Value.ToString().Trim(), 1675);
+                        I021 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("I021").Value.ToString().Trim(), 1792);
 
                         // I 레코드 삽입
                         FileSystem.PrintLine(1, I001 + I002 + I003 + I004 + I005 + I006 + I007 + I008 + I009 + I010
@@ -2122,14 +1990,13 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 returnValue = false;
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 FileSystem.FileClose(1);
             }
             finally
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
-
             return returnValue;
         }
 
@@ -2196,13 +2063,9 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-            finally
-            {
-            }
-
             return returnValue;
         }
 
@@ -2300,10 +2163,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
         }
 
@@ -2328,10 +2188,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
         }
 
@@ -2343,8 +2200,6 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
             try
             {
                 oForm.Freeze(true);
@@ -2371,7 +2226,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
             finally
             {
@@ -2420,10 +2275,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
         }
     }

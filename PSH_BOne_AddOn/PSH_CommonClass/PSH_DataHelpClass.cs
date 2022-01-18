@@ -2881,8 +2881,8 @@ namespace PSH_BOne_AddOn.Data
                             throw new Exception();
                         }
 
-                        BaseEntry = oMat01.Columns.Item("45").Cells.Item(i).Specific.Value;
-                        BaseLine = oMat01.Columns.Item("46").Cells.Item(i).Specific.Value;
+                        BaseEntry = Convert.ToInt32(oMat01.Columns.Item("45").Cells.Item(i).Specific.Value);
+                        BaseLine = Convert.ToInt32(oMat01.Columns.Item("46").Cells.Item(i).Specific.Value);
                         
                         if (BaseType == "17") //판매오더
                         {
@@ -2937,8 +2937,8 @@ namespace PSH_BOne_AddOn.Data
                         Query01 = " PS_SBO_GETQUANTITY '" + BaseType + "','" + BaseTable + "','" + BaseEntry + "','" + BaseLine + "'";
                         oRecordset01.DoQuery(Query01);
 
-                        oMat01.Columns.Item("U_Qty").Cells.Item(i).Specific.Value = System.Math.Round(oRecordset01.Fields.Item(0).Value, 0);
-                        oMat01.Columns.Item("11").Cells.Item(i).Specific.Value = System.Math.Round(oRecordset01.Fields.Item(1).Value, 2);
+                        oMat01.Columns.Item("U_Qty").Cells.Item(i).Specific.Value = Convert.ToString(System.Math.Round(Convert.ToDouble(oRecordset01.Fields.Item(0).Value), 0));
+                        oMat01.Columns.Item("11").Cells.Item(i).Specific.Value = Convert.ToString(System.Math.Round(Convert.ToDouble(oRecordset01.Fields.Item(1).Value), 2));
                         oMat01.Columns.Item("1").Cells.Item(oMat01.VisualRowCount).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     }
                 }

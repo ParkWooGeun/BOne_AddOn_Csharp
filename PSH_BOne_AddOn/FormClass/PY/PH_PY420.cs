@@ -1,9 +1,9 @@
 ﻿using System;
 using SAPbouiCOM;
 using System.Text;
-using System.Windows.Forms;
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.ExportFile;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace PSH_BOne_AddOn
 {
@@ -146,7 +146,6 @@ namespace PSH_BOne_AddOn
         [STAThread]
         private void PH_PY420_PDF_Upload()
         {
-            OpenFileDialog fileDlg = new OpenFileDialog();
             int fileSize = 0;
             string XmlText;
             string oFilePath;
@@ -154,16 +153,17 @@ namespace PSH_BOne_AddOn
             string password;
             string UserID;
             MSXML2.DOMDocument xmldoc = new MSXML2.DOMDocument();
+            CommonOpenFileDialog commonOpenFileDialog = new CommonOpenFileDialog();
 
             try
             {
-                fileDlg.Filter = "PDF Files(*.PDF)|*.PDF";
-                fileDlg.Multiselect = false;
+                commonOpenFileDialog.Filters.Add(new CommonFileDialogFilter("PDF Files", "*.PDF"));
 
-                if (fileDlg.ShowDialog() == DialogResult.OK)
+                if (commonOpenFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
                 {
-                    oForm.Items.Item("Comments").Specific.Value = fileDlg.FileName;
+                    oForm.Items.Item("Comments").Specific.Value = commonOpenFileDialog.FileName;
                 }
+
                 string filePath = oForm.Items.Item("Comments").Specific.Value;
                 password = oForm.Items.Item("Password").Specific.Value;
                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value;
@@ -487,9 +487,6 @@ namespace PSH_BOne_AddOn
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             string sQry;
-            //string CLTCOD;
-            //string MSTCOD; 
-            //string FullName; 
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try

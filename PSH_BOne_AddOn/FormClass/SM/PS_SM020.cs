@@ -941,6 +941,10 @@ namespace PSH_BOne_AddOn
                                 {
                                     PS_SM020_MTX02();
                                 }
+                                else
+                                {
+                                    PS_SM020_MTX02();
+                                }
                             }
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)

@@ -2814,13 +2814,13 @@ namespace PSH_BOne_AddOn
                                                         PS_PP044_AddMatrixRow03(oMat03.VisualRowCount, false);
                                                     }
 
-                                                    oDS_PS_PP044N.SetValue("U_OrdMgNum", oMat03.VisualRowCount - 1, RecordSet01.Fields.Item("OrdMgNum").Value);
+                                                    oDS_PS_PP044N.SetValue("U_OrdMgNum", oMat03.VisualRowCount -1, RecordSet01.Fields.Item("OrdMgNum").Value);
                                                     oDS_PS_PP044N.SetValue("U_CpCode", oMat03.VisualRowCount - 1, RecordSet01.Fields.Item("CpCode").Value);
                                                     oDS_PS_PP044N.SetValue("U_CpName", oMat03.VisualRowCount - 1, RecordSet01.Fields.Item("CpName").Value);
                                                     oDS_PS_PP044N.SetValue("U_OLineNum", oMat03.VisualRowCount - 1, Convert.ToString(pVal.Row));
 
                                                     if (oForm.Items.Item("OrdType").Specific.Selected.Value == "50" || oForm.Items.Item("OrdType").Specific.Selected.Value == "60")
-                                                    {
+                                                    {   
                                                         oDS_PS_PP044H.SetValue("U_BaseTime", 0, "1");
                                                         oMat02.Columns.Item("WorkCode").Cells.Item(1).Specific.Value = "9999999";
                                                         oDS_PS_PP044M.SetValue("U_WorkName", 0, "조정");
@@ -3068,6 +3068,8 @@ namespace PSH_BOne_AddOn
 
                             oMat01.LoadFromDataSource();
                             oMat01.AutoResizeColumns();
+                            oMat03.LoadFromDataSource();
+                            oMat03.AutoResizeColumns();
                             oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                         }
                         else if (pVal.ItemUID == "Mat02")

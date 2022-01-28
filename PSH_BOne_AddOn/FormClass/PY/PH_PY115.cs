@@ -1,7 +1,7 @@
-﻿using PSH_BOne_AddOn.Code;
-using PSH_BOne_AddOn.Data;
+﻿using System;
 using SAPbouiCOM;
-using System;
+using PSH_BOne_AddOn.Data;
+using PSH_BOne_AddOn.Code;
 
 namespace PSH_BOne_AddOn
 {
@@ -1179,6 +1179,7 @@ namespace PSH_BOne_AddOn
 
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
             }
+
             return returnValue;
         }
 
@@ -1192,6 +1193,7 @@ namespace PSH_BOne_AddOn
             int JMMMON;
             int GN1YER;
             int GN2YER;
+
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
@@ -2385,10 +2387,10 @@ namespace PSH_BOne_AddOn
                 ExPay2 = (oDS_PH_PY115A.GetValue("U_ExPay2", 0).Trim() == "" ? 0 : Convert.ToDouble(oDS_PH_PY115A.GetValue("U_ExPay2", 0).Trim()));
 
                 //임원일경우 누진 근속년 적용
-                short GNSYER = 0;
-                short GNSMON = 0;
-                short GNSDAY = 0;
-                short ADDRAT = 0;
+                int GNSYER = 0;
+                int GNSMON = 0;
+                int GNSDAY = 0;
+                int ADDRAT = 0;
                 string NUJINYN = string.Empty;
 
                 sQry = "EXEC PH_PY115_03 '" + oDS_PH_PY115A.GetValue("U_MSTCOD", 0).Trim() + "','" + oDS_PH_PY115A.GetValue("U_ENDRET", 0).Trim() + "'";
@@ -2767,40 +2769,37 @@ namespace PSH_BOne_AddOn
 
                 if (Convert.ToDouble(oDS_PH_PY115A.GetValue("U_STRRET", 0).Trim()) <= 20121231)
                 {
-                    //oDS_PH_PY115A.SetValue("U_GNMON1", 0, "0"); //근속월
-                    //oDS_PH_PY115A.SetValue("U_GNYER1", 0, "0"); //근속년
-                    //2012년12월31 이전 근속월수
-                    STRDAT = oDS_PH_PY115A.GetValue("U_DSDAT1", 0).Trim(); //정산시작일
-                    ENDDAT = oDS_PH_PY115A.GetValue("U_DEDAT1", 0).Trim(); //정산종료일
+                    oDS_PH_PY115A.SetValue("U_GNMON1", 0, "0"); //근속월
+                    oDS_PH_PY115A.SetValue("U_GNYER1", 0, "0"); //근속년
+                    ////2012년12월31 이전 근속월수
+                    //STRDAT = oDS_PH_PY115A.GetValue("U_DSDAT1", 0).Trim(); //정산시작일
+                    //ENDDAT = oDS_PH_PY115A.GetValue("U_DEDAT1", 0).Trim(); //정산종료일
 
-                    dataHelpClass.Term2(STRDAT, ENDDAT);
+                    //dataHelpClass.Term2(STRDAT, ENDDAT);
 
-                    WK_GNSYER = PSH_Globals.ZPAY_GBL_GNSYER;
-                    WK_GNSMON = PSH_Globals.ZPAY_GBL_GNSMON;
-                    WK_GNSDAY = PSH_Globals.ZPAY_GBL_GNSDAY;
+                    //WK_GNSYER = PSH_Globals.ZPAY_GBL_GNSYER;
+                    //WK_GNSMON = PSH_Globals.ZPAY_GBL_GNSMON;
+                    //WK_GNSDAY = PSH_Globals.ZPAY_GBL_GNSDAY;
 
-                    WK_GNSMON = Convert.ToInt16(WK_GNSYER * 12 + WK_GNSMON);
+                    //WK_GNSMON = Convert.ToInt16(WK_GNSYER * 12 + WK_GNSMON);
 
-                    if (WK_GNSDAY > 0)
-                    {
-                        //WK_GNSMON = 0;// Convert.ToInt16(WK_GNSMON + 1);
-                        WK_GNSMON += 1;
-                    }
+                    //if (WK_GNSDAY > 0)
+                    //{
+                    //    WK_GNSMON = 0;// Convert.ToInt16(WK_GNSMON + 1);
+                    //}
 
-                    oDS_PH_PY115A.SetValue("U_GNMON1", 0, WK_GNSMON.ToString()); //근속월
+                    //oDS_PH_PY115A.SetValue("U_GNMON1", 0, WK_GNSMON.ToString()); //근속월
 
-                    if ((WK_GNSMON % 12) == 0)
-                    {
-                        //WK_GN2YER = 0;//Convert.ToInt16(dataHelpClass.IInt(WK_GNSMON / 12, 1));
-                        WK_GN2YER = Convert.ToInt16(dataHelpClass.IInt(WK_GNSMON / 12, 1));
-                    }
-                    else
-                    {
-                        //WK_GN2YER = 0;//Convert.ToInt16(dataHelpClass.IInt(WK_GNSMON / 12 + 1, 1));
-                        WK_GN2YER = Convert.ToInt16(dataHelpClass.IInt(WK_GNSMON / 12 + 1, 1));
-                    }
+                    //if ((WK_GNSMON % 12) == 0)
+                    //{
+                    //    WK_GN2YER = 0;//Convert.ToInt16(dataHelpClass.IInt(WK_GNSMON / 12, 1));
+                    //}
+                    //else
+                    //{
+                    //    WK_GN2YER = 0;//Convert.ToInt16(dataHelpClass.IInt(WK_GNSMON / 12 + 1, 1));
+                    //}   
 
-                    oDS_PH_PY115A.SetValue("U_GNYER1", 0, WK_GN2YER.ToString()); //근속년
+                    //oDS_PH_PY115A.SetValue("U_GNYER1", 0, WK_GN2YER.ToString()); //근속년
                 }
                 else
                 {
@@ -2817,6 +2816,7 @@ namespace PSH_BOne_AddOn
                 WK_GNSYER = PSH_Globals.ZPAY_GBL_GNSYER;
                 WK_GNSMON = PSH_Globals.ZPAY_GBL_GNSMON;
                 WK_GNSDAY = PSH_Globals.ZPAY_GBL_GNSDAY;
+
                 WK_GNSMON = Convert.ToInt16(WK_GNSYER * 12 + WK_GNSMON);
 
                 if (WK_GNSDAY > 0)
@@ -2902,6 +2902,7 @@ namespace PSH_BOne_AddOn
             finally
             {
             }
+
             return returnValue;
         }
 
@@ -3022,8 +3023,8 @@ namespace PSH_BOne_AddOn
                                     //2012년12월31일 이전 기산일, 퇴사일
                                     if (Convert.ToDouble((GNSGBN == "1" ? oMast.GRPDAT : oMast.StartDate)) <= 20121231)
                                     {
-                                        oDS_PH_PY115A.SetValue("U_DSDAT1", 0, (GNSGBN == "1" ? oMast.GRPDAT : oMast.StartDate));
-                                        oDS_PH_PY115A.SetValue("U_DEDAT1", 0, "20121231");
+                                        oDS_PH_PY115A.SetValue("U_DSDAT2", 0, (GNSGBN == "1" ? oMast.GRPDAT : oMast.StartDate));
+                                        //      oDS_PH_PY115A.SetValue("U_DEDAT1", 0, "20121231");
                                     }
                                 }
                                 else
@@ -3040,8 +3041,8 @@ namespace PSH_BOne_AddOn
                                         oDS_PH_PY115A.SetValue("U_DSDAT1", 0, "");
                                         oDS_PH_PY115A.SetValue("U_DEDAT1", 0, "");
 
-                                        oDS_PH_PY115A.SetValue("U_DSDAT1", 0, oMast.RETDAT);
-                                        oDS_PH_PY115A.SetValue("U_DEDAT1", 0, "20121231");
+                                        //oDS_PH_PY115A.SetValue("U_DSDAT1", 0, oMast.RETDAT);
+                                        //oDS_PH_PY115A.SetValue("U_DEDAT1", 0, "20121231");
                                     }
                                 }
 
@@ -3057,7 +3058,7 @@ namespace PSH_BOne_AddOn
                                     }
                                     else
                                     {
-                                        oDS_PH_PY115A.SetValue("U_DSDAT2", 0, "20130101");
+                                        //oDS_PH_PY115A.SetValue("U_DSDAT2", 0, "20130101");
                                     }
 
                                     oDS_PH_PY115A.SetValue("U_DEDAT2", 0, DateTime.Now.ToString("yyyyMMdd"));
@@ -3081,7 +3082,9 @@ namespace PSH_BOne_AddOn
                                         //2012년12월31일 이전 기산일, 퇴사일
                                         oDS_PH_PY115A.SetValue("U_DSDAT2", 0, "20130101");
                                     }
+
                                     oDS_PH_PY115A.SetValue("U_DEDAT2", 0, oMast.TermDate);
+
 
                                     oForm.Items.Item("JSNGBN").Specific.Select("1", SAPbouiCOM.BoSearchKey.psk_ByValue);
                                     oDS_PH_PY115A.SetValue("U_JSNNAM", 0, oForm.Items.Item("JSNGBN").Specific.Selected.Description);
@@ -3126,6 +3129,7 @@ namespace PSH_BOne_AddOn
                     case "GNSYER":
                     case "GNSMON":
                     case "GNSDAY":
+
                         Compute_GNMYER();
                         break;
 
@@ -3180,6 +3184,7 @@ namespace PSH_BOne_AddOn
 
                     case "JOTDAT":
                     case "JINDAT":
+
                         STRDAT = oDS_PH_PY115A.GetValue("U_JINDAT", 0).Trim();
                         ENDDAT = oDS_PH_PY115A.GetValue("U_JOTDAT", 0).Trim();
 
@@ -3247,6 +3252,7 @@ namespace PSH_BOne_AddOn
                         break;
 
                     case "JIGBIL":
+
                         STRDAT = oDS_PH_PY115A.GetValue("U_JIGBIL", 0).Trim();
                         //신고월 설정하기
                         if (STRDAT != "")
@@ -3472,12 +3478,18 @@ namespace PSH_BOne_AddOn
                     }
                     else if (pVal.ItemUID == "LBtn1")
                     {
+                        //if (System.Convert.ToBoolean(oDS_PH_PY115A.GetValue("U_MSTCOD", 0)))
+                        //{
+                        //}
+
                         PSH_BaseClass oTmpObject = new PH_PY001();
 
                         if (oTmpObject != null)
                         {
                             oTmpObject.LoadForm("");
 
+                            //if (PSH_Globals.SBO_Application.Forms.ActiveForm.Type == "PH_PY001")
+                            //{
                             PSH_Globals.SBO_Application.Forms.ActiveForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                             PSH_Globals.SBO_Application.Forms.ActiveForm.Freeze(true);
                             PSH_Globals.SBO_Application.Forms.ActiveForm.Items.Item("Code").Specific.Value = oDS_PH_PY115A.GetValue("U_MSTCOD", 0);
@@ -3488,6 +3500,7 @@ namespace PSH_BOne_AddOn
 
                             BubbleEvent = false;
                             return;
+                            //}
                         }
                     }
                 }

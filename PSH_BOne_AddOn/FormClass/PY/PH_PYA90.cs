@@ -195,15 +195,15 @@ namespace PSH_BOne_AddOn
                 }
                 else if (errNum == 2)
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("A레코드(근로 제출자 레코드) 생성 실패.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("A레코드(제출자 레코드) 생성 실패.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                 }
                 else if (errNum == 3)
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("B레코드(근로 원천징수의무자별 집계 레코드) 생성 실패.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("B레코드(원천징수의무자별 집계 레코드) 생성 실패.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                 }
                 else if (errNum == 4)
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("C레코드(근로 주(현)근무처 레코드) 생성 실패.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("C레코드(소득자 레코드) 생성 실패.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                 }
                 else
                 {
@@ -232,6 +232,7 @@ namespace PSH_BOne_AddOn
 
             // A 제출자 레코드
             // 2019년귀속 190 BYTE
+            // 2021년귀속 280 BYTE
 
             string A001; // 1     '레코드구분
             string A002; // 2     '자료구분
@@ -247,7 +248,7 @@ namespace PSH_BOne_AddOn
             string A012; // 30    '담당자성명
             string A013; // 15    '담당자전화번호
             string A014; // 5     '신고의무자수
-            string A015; // 25    '공란
+            string A015; // 115    '공란
 
             try
             {
@@ -283,7 +284,7 @@ namespace PSH_BOne_AddOn
                     A012 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A012").Value.ToString().Trim(), 30);
                     A013 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A013").Value.ToString().Trim(), 15);
                     A014 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A014").Value.ToString().Trim(), 5, '0');
-                    A015 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A015").Value.ToString().Trim(), 25);
+                    A015 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A015").Value.ToString().Trim(), 115);
 
                     FileSystem.PrintLine(1, A001 + A002 + A003 + A004 + A005 + A006 + A007 + A008 + A009 + A010 + A011 + A012 + A013 + A014 + A015);
 
@@ -337,8 +338,8 @@ namespace PSH_BOne_AddOn
             string B010; // 1     '근무시기  1.상반기 2.하반기
             string B011; // 10    '근로자수
             string B012; // 13    '과세소득합계
-            string B013; // 13    '비과세소득합계
-            string B014; // 44    '공란
+            string B013; // 13    '과세소득(인정상여)합계
+            string B014; // 134    '공란
 
             try
             {
@@ -367,7 +368,7 @@ namespace PSH_BOne_AddOn
                     B011 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B011").Value.ToString().Trim(), 10, '0');
                     B012 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B012").Value.ToString().Trim(), 13, '0');
                     B013 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B013").Value.ToString().Trim(), 13, '0');
-                    B014 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B014").Value.ToString().Trim(), 44);
+                    B014 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("B014").Value.ToString().Trim(), 134);
 
                     FileSystem.PrintLine(1, B001 + B002 + B003 + B004 + B005 + B006 + B007 + B008 + B009 + B010 + B011 + B012 + B013 + B014);
                 }
@@ -423,9 +424,19 @@ namespace PSH_BOne_AddOn
             string C011;    // 2     '거주지국코드
             string C012;    // 8     '근무기간 시작연월일
             string C013;    // 8     '근무기간 종료연월일
-            string C014;    // 13    '과세소득
-            string C015;    // 13    '비과세소득
-            string C016;    // 58    '공란
+            string C014;    //13     '급여등 1,7월
+            string C015;    //13     '인정상여 1,7월
+            string C016;    //13     '급여등 2,8월
+            string C017;    //13     '인정상여 2,8월
+            string C018;    //13     '급여등 3,9월
+            string C019;    //13     '인정상여 3,9월
+            string C020;    //13     '급여등 4,10월
+            string C021;    //13     '인정상여 4,10월
+            string C022;    //13     '급여등 5,11월
+            string C023;    //13     '인정상여 5,11월
+            string C024;    //13     '급여등 6,12월
+            string C025;    //13     '인정상여 6,12월
+            string C026;    // 18    '공란
 
             try
             {
@@ -461,9 +472,20 @@ namespace PSH_BOne_AddOn
                         C013 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C013").Value.ToString().Trim(), 8);
                         C014 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C014").Value.ToString().Trim(), 13, '0');
                         C015 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C015").Value.ToString().Trim(), 13, '0');
-                        C016 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C016").Value.ToString().Trim(), 58);
+                        C016 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C016").Value.ToString().Trim(), 13, '0');
+                        C017 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C017").Value.ToString().Trim(), 13, '0');
+                        C018 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C018").Value.ToString().Trim(), 13, '0');
+                        C019 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C019").Value.ToString().Trim(), 13, '0');
+                        C020 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C020").Value.ToString().Trim(), 13, '0');
+                        C021 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C021").Value.ToString().Trim(), 13, '0');
+                        C022 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C022").Value.ToString().Trim(), 13, '0');
+                        C023 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C023").Value.ToString().Trim(), 13, '0');
+                        C024 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C024").Value.ToString().Trim(), 13, '0');
+                        C025 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C025").Value.ToString().Trim(), 13, '0');
+                        C026 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C026").Value.ToString().Trim(), 18);
 
-                        FileSystem.PrintLine(1, C001 + C002 + C003 + C004 + C005 + C006 + C007 + C008 + C009 + C010 + C011 + C012 + C013 + C014 + C015 + C016);
+                        FileSystem.PrintLine(1, C001 + C002 + C003 + C004 + C005 + C006 + C007 + C008 + C009 + C010 + C011 + C012 + C013 + C014 + C015 + C016 + C017 + C018 + C019 + C020
+                                              + C021 + C022 + C023 + C024 + C025 + C026);
 
                         oRecordSet.MoveNext();
 

@@ -882,7 +882,7 @@ namespace PSH_BOne_AddOn
                         C134B = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C134B").Value.ToString().Trim(), 10, '0');
                         C135A = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C135A").Value.ToString().Trim(), 10, '0');
                         C135B = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C135B").Value.ToString().Trim(), 10, '0');
-                        C136A = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C136A").Value.ToString().Trim(), 11, '0');
+                        C136A = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C136A").Value.ToString().Trim(), 10, '0');
                         C136B = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C136B").Value.ToString().Trim(), 10, '0');
                         C137A = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C137A").Value.ToString().Trim(), 11, '0');
                         C137B = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C137B").Value.ToString().Trim(), 10, '0');

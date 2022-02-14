@@ -3707,6 +3707,9 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
+            string sQry;
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
                 if (pVal.BeforeAction == true)
@@ -3729,6 +3732,13 @@ namespace PSH_BOne_AddOn
                             if (PH_PY001_DataValidCheck() == false)
                             {
                                 BubbleEvent = false;
+                            }
+
+                            if (oForm.Items.Item("status").Specific.value  == "5" && !string.IsNullOrEmpty(oForm.Items.Item("termDate").Specific.value))
+                            {
+                                sQry = "exec [PH_PY001_01] '" + oForm.Items.Item("CLTCOD").Specific.value.ToString().Trim() + "','" + oForm.Items.Item("Code").Specific.value + "','PH_PY001','" + PSH_Globals.oCompany.UserSignature.ToString() + "'";
+
+                                oRecordSet01.DoQuery(sQry);
                             }
                         }
                     }
@@ -3829,6 +3839,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
         }
 

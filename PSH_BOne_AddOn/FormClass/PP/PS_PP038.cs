@@ -1205,7 +1205,10 @@ namespace PSH_BOne_AddOn
                         if (pVal.Row >= 0)
                         {
                             PS_PP038_MTX02(pVal.Row);
-                            PS_PP038_AddMatrixRow(oMat01.RowCount, false);
+                            if (oDS_PS_PP038L.GetValue("U_ColReg03", oMat01.VisualRowCount -1).ToString().Trim() != "")
+                            {
+                                PS_PP038_AddMatrixRow(oMat01.RowCount, false);
+                            }
                         }
                     }
                 }

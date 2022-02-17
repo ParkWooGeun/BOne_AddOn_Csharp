@@ -5,7 +5,7 @@ using PSH_BOne_AddOn.Data;
 namespace PSH_BOne_AddOn
 {
     /// <summary>
-    /// 원가 코드등록
+    /// 원가코드등록
     /// </summary>
     internal class PS_CO000 : PSH_BaseClass
     {
@@ -163,6 +163,7 @@ namespace PSH_BOne_AddOn
         {
             try
             {
+                oForm.Freeze(true);
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
                     oForm.Items.Item("Code").Enabled = true;
@@ -204,6 +205,7 @@ namespace PSH_BOne_AddOn
         {
             try
             {
+                oForm.Freeze(true);
                 if (RowIserted == false)
                 {
                     oDS_PS_CO000L.InsertRecord(oRow);
@@ -674,6 +676,7 @@ namespace PSH_BOne_AddOn
         {
             try
             {
+                oForm.Freeze(true);
                 if (pVal.BeforeAction == true)
                 {
                     if (pVal.ItemChanged == true)
@@ -693,6 +696,7 @@ namespace PSH_BOne_AddOn
                             }
                             oMat01.Columns.Item("UseYN").Cells.Item(pVal.Row).Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
                             oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                            oMat01.AutoResizeColumns();
                         }
                     }
                 }
@@ -708,6 +712,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                oForm.Freeze(false);
             }
         }
 
@@ -827,7 +832,6 @@ namespace PSH_BOne_AddOn
         {
             try
             {
-                oForm.Freeze(true);
                 if (pVal.BeforeAction == true)
                 {
                     switch (pVal.MenuUID)
@@ -895,7 +899,6 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                oForm.Freeze(false);
             }
         }
 
@@ -957,13 +960,6 @@ namespace PSH_BOne_AddOn
         {
             try
             {
-                if (pVal.BeforeAction == true)
-                {
-                }
-                else if (pVal.BeforeAction == false)
-                {
-                }
-
                 switch (pVal.ItemUID)
                 {
                     case "Mat01":

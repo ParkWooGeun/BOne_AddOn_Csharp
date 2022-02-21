@@ -139,6 +139,10 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Rad02").Specific.DataBind.SetBound(true, "", "OptionDS");
                 oForm.Items.Item("Rad02").Specific.GroupWith("Rad01");
 
+                oForm.Items.Item("Rad03").Specific.ValOn = "3";
+                oForm.Items.Item("Rad03").Specific.ValOff = "0";
+                oForm.Items.Item("Rad03").Specific.DataBind.SetBound(true, "", "OptionDS");
+                oForm.Items.Item("Rad03").Specific.GroupWith("Rad02");
             }
             catch (Exception ex)
             {
@@ -169,7 +173,7 @@ namespace PSH_BOne_AddOn
         private void PH_PY920_Print_Report01()
         {
             string WinTitle;
-            string ReportName;
+            string ReportName = string.Empty;
 
             string CLTCOD;
             string YYYY;
@@ -204,9 +208,13 @@ namespace PSH_BOne_AddOn
                     {
                         ReportName = "PH_PY920_21_01.rpt";
                     }
-                    else
+                    else if (Gubun == "2")
                     {
                         ReportName = "PH_PY920_21_02.rpt";
+                    }
+                    else if (Gubun == "3")
+                    {
+                        ReportName = "PH_PY920_21_03.rpt";
                     }
 
                     List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>(); //Parameter
@@ -336,9 +344,13 @@ namespace PSH_BOne_AddOn
                     {
                         ReportName = "PH_PY920_20_01.rpt";
                     }
-                    else
+                    else if (Gubun == "2")
                     {
                         ReportName = "PH_PY920_20_02.rpt";
+                    }
+                    else if (Gubun == "3")
+                    {
+                        ReportName = "PH_PY920_20_03.rpt";
                     }
 
                     List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>(); //Parameter

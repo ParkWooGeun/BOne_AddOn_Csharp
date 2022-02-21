@@ -3572,6 +3572,9 @@ namespace PSH_BOne_AddOn
                         case "1290": //레코드이동(최초)
                         case "1291": //레코드이동(최종)
                             Raise_EVENT_RECORD_MOVE(FormUID, ref pVal, ref BubbleEvent);
+                            oMat01.AutoResizeColumns();
+                            oMat02.AutoResizeColumns();
+                            oMat04.AutoResizeColumns();
                             break;
                     }
                 }

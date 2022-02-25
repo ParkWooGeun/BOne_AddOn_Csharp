@@ -2249,7 +2249,7 @@
         </member>
         <member name="T:PSH_BOne_AddOn.PS_CO000">
             <summary>
-            원가 코드등록
+            원가코드등록
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_CO000.LoadForm(System.String)">
@@ -17571,11 +17571,6 @@
             <param name="oRow">행 번호</param>
             <param name="RowIserted">행 추가 여부</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP052.PS_PP052_MTX01">
-            <summary>
-            PS_PP052_MTX01
-            </summary>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_PP052.PS_PP052_FormClear">
             <summary>
             DocEntry 초기화
@@ -17604,7 +17599,7 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_PP052.PS_PP052_Add_InventoryGenExit">
             <summary>
-            PS_PP081_Add_InventoryGenExit
+            PS_PP052_Add_InventoryGenExit
             </summary>
             <returns></returns>
         </member>
@@ -17702,15 +17697,7 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP052.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_DOUBLE_CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP052.Raise_EVENT_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_PP052.Raise_EVENT_FORM_RESIZE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             RESIZE 이벤트
             </summary>

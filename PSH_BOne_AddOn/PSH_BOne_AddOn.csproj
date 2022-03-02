@@ -223,7 +223,10 @@
     <Compile Include="FormClass\FI\PS_FI961.cs" />
     <Compile Include="FormClass\FI\PS_FI962.cs" />
     <Compile Include="FormClass\FX\PS_FX241.cs" />
+    <Compile Include="FormClass\HR\PS_HR100.cs" />
     <Compile Include="FormClass\HR\PS_HR200.cs" />
+    <Compile Include="FormClass\HR\PS_HR420.cs" />
+    <Compile Include="FormClass\HR\PS_HR421.cs" />
     <Compile Include="FormClass\MM\PS_MM005.cs" />
     <Compile Include="FormClass\MM\PS_MM006.cs" />
     <Compile Include="FormClass\MM\PS_MM007.cs" />
@@ -2689,6 +2692,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM007.srf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR100.srf" />
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR421.srf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -224,6 +224,7 @@
     <Compile Include="FormClass\FI\PS_FI962.cs" />
     <Compile Include="FormClass\FX\PS_FX241.cs" />
     <Compile Include="FormClass\HR\PS_HR100.cs" />
+    <Compile Include="FormClass\HR\PS_HR105.cs" />
     <Compile Include="FormClass\HR\PS_HR200.cs" />
     <Compile Include="FormClass\HR\PS_HR420.cs" />
     <Compile Include="FormClass\HR\PS_HR421.cs" />
@@ -1988,6 +1989,7 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_QM600_01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_S140_01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_S149_01.rpt" />
+    <None Include="PSH_BOne_AddOn\PathINI\Report\PS_HR105_01.rpt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EXT_Form\FileListBoxForm.resX">
@@ -2695,6 +2697,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR100.srf" />
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR105.srf" />
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR200.srf" />
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR405.srf" />
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR416.srf" />
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR418.srf" />
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR419.srf" />
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR420.srf" />
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR421.srf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

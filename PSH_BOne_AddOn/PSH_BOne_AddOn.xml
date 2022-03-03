@@ -2249,7 +2249,7 @@
         </member>
         <member name="T:PSH_BOne_AddOn.PS_CO000">
             <summary>
-            원가 코드등록
+            원가코드등록
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_CO000.LoadForm(System.String)">

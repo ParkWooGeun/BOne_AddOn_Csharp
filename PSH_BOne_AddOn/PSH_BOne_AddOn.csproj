@@ -223,9 +223,12 @@
     <Compile Include="FormClass\FI\PS_FI961.cs" />
     <Compile Include="FormClass\FI\PS_FI962.cs" />
     <Compile Include="FormClass\FX\PS_FX241.cs" />
+    <Compile Include="FormClass\HR\PS_HR403.cs" />
+    <Compile Include="FormClass\HR\PS_HR412.cs" />
     <Compile Include="FormClass\HR\PS_HR100.cs" />
     <Compile Include="FormClass\HR\PS_HR105.cs" />
     <Compile Include="FormClass\HR\PS_HR200.cs" />
+    <Compile Include="FormClass\HR\PS_HR416.cs" />
     <Compile Include="FormClass\HR\PS_HR420.cs" />
     <Compile Include="FormClass\HR\PS_HR421.cs" />
     <Compile Include="FormClass\MM\PS_MM005.cs" />
@@ -2699,7 +2702,9 @@
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR100.srf" />
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR105.srf" />
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR200.srf" />
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR403.srf" />
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR405.srf" />
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR412.srf" />
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR416.srf" />
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR418.srf" />
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR419.srf" />

@@ -49,8 +49,8 @@ namespace PSH_BOne_AddOn
 
 				oForm.Freeze(true);
 
-				CreateItems();
-				ComboBox_Setting();
+                PS_HR422_CreateItems();
+                PS_HR422_ComboBox_Setting();
 
 				oForm.EnableMenu("1283", false); // 삭제
 				oForm.EnableMenu("1286", false); // 닫기
@@ -71,10 +71,10 @@ namespace PSH_BOne_AddOn
 			}
 		}
 
-		/// <summary>
-		/// CreateItems
-		/// </summary>
-		private void CreateItems()
+        /// <summary>
+        /// PS_HR422_CreateItems
+        /// </summary>
+        private void PS_HR422_CreateItems()
 		{
 			try
 			{
@@ -88,10 +88,10 @@ namespace PSH_BOne_AddOn
 			}
 		}
 
-		/// <summary>
-		/// ComboBox_Setting
-		/// </summary>
-		private void ComboBox_Setting()
+        /// <summary>
+        /// PS_HR422_ComboBox_Setting
+        /// </summary>
+        private void PS_HR422_ComboBox_Setting()
 		{
 			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -129,11 +129,11 @@ namespace PSH_BOne_AddOn
 			}
 		}
 
-		/// <summary>
-		/// HeaderSpaceLineDel
-		/// </summary>
-		/// <returns></returns>
-		private bool HeaderSpaceLineDel()
+        /// <summary>
+        /// PS_HR422_HeaderSpaceLineDel
+        /// </summary>
+        /// <returns></returns>
+        private bool PS_HR422_HeaderSpaceLineDel()
 		{
 			bool functionReturnValue = false;
 			string errMessage = string.Empty;
@@ -174,11 +174,11 @@ namespace PSH_BOne_AddOn
 			return functionReturnValue;
 		}
 
-		/// <summary>
-		/// Print_Query
-		/// </summary>
-		[STAThread]
-		private void Print_Query()
+        /// <summary>
+        /// PS_HR422_Print_Query
+        /// </summary>
+        [STAThread]
+		private void PS_HR422_Print_Query()
 		{
 			string WinTitle;
 			string ReportName;
@@ -336,14 +336,14 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "Btn01")
                     {
-                        if (HeaderSpaceLineDel() == false)
+                        if (PS_HR422_HeaderSpaceLineDel() == false)
                         {
                             BubbleEvent = false;
                             return;
                         }
                         else
                         {
-                            System.Threading.Thread thread = new System.Threading.Thread(Print_Query);
+                            System.Threading.Thread thread = new System.Threading.Thread(PS_HR422_Print_Query);
                             thread.SetApartmentState(System.Threading.ApartmentState.STA);
                             thread.Start();
                         }
@@ -377,7 +377,7 @@ namespace PSH_BOne_AddOn
                         {
                             if (string.IsNullOrEmpty(oForm.Items.Item("ItmMsort").Specific.Value.ToString().Trim()))
                             {
-                                PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
+                                PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                                 BubbleEvent = false;
                             }
                         }

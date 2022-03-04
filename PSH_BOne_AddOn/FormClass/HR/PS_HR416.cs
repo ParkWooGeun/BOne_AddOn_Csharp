@@ -14,16 +14,11 @@ namespace PSH_BOne_AddOn
         private SAPbouiCOM.Grid oGrid01;
         private SAPbouiCOM.Grid oGrid02;
         private SAPbouiCOM.Grid oGrid03;
-        private SAPbouiCOM.DBDataSource oDS_PS_HR416H; //등록헤더
         private SAPbouiCOM.DBDataSource oDS_PS_HR416L; //등록라인
 
         private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
         private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
-
-        private string oDocEntry01;
-
-        private SAPbouiCOM.BoFormMode oFormMode01;
 
         /// <summary>
         /// Form 호출
@@ -122,7 +117,7 @@ namespace PSH_BOne_AddOn
             {
                 sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
                 oRecordSet01.DoQuery(sQry);
-                while (!(oRecordSet01.EoF))
+                while (!oRecordSet01.EoF)
                 {
                     oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
                     oRecordSet01.MoveNext();
@@ -245,44 +240,47 @@ namespace PSH_BOne_AddOn
         {
             try
             {
-                oForm.Items.Item("Grid01").Top = 79;
-                oForm.Items.Item("Grid01").Height = (oForm.Height / 2) - 110;
+                oForm.Items.Item("Grid01").Top = 82;
+                oForm.Items.Item("Grid01").Height = (oForm.Height / 2) - 105;
                 oForm.Items.Item("Grid01").Left = 10;
                 oForm.Items.Item("Grid01").Width = oForm.Width / 2;
 
-                oForm.Items.Item("Mat01").Top = 79;
-                oForm.Items.Item("Mat01").Height = (oForm.Height / 2) - 110;
+                oForm.Items.Item("Mat01").Top = 82;
+                oForm.Items.Item("Mat01").Height = (oForm.Height / 2) - 105;
                 oForm.Items.Item("Mat01").Left = (oForm.Width / 2) + 30;
-                oForm.Items.Item("Mat01").Width = (oForm.Width / 2) - 30;
+                oForm.Items.Item("Mat01").Width = (oForm.Width / 2) - 45;
 
 
-                oForm.Items.Item("Btn02").Top = oForm.Items.Item("Grid01").Height + 79;
-                oForm.Items.Item("2").Top = oForm.Items.Item("Grid01").Height + 79;
-                oForm.Items.Item("Btn03").Top = oForm.Items.Item("Grid01").Height + 79;
-                oForm.Items.Item("Btn04").Top = oForm.Items.Item("Grid01").Height + 79;
-                oForm.Items.Item("Btn05").Top = oForm.Items.Item("Grid01").Height + oForm.Items.Item("Btn04").Height + 79;
+                oForm.Items.Item("Btn02").Top = oForm.Items.Item("Grid01").Height + 84;
+                oForm.Items.Item("2").Top = oForm.Items.Item("Grid01").Height + 84;
+                oForm.Items.Item("Btn03").Top = oForm.Items.Item("Grid01").Height + 84;
+                oForm.Items.Item("Btn04").Top = oForm.Items.Item("Grid01").Height + 84;
+                oForm.Items.Item("Btn05").Top = oForm.Items.Item("Grid01").Height + oForm.Items.Item("Btn04").Height + 84;
 
                 oForm.Items.Item("t3").Top = oForm.Items.Item("Btn02").Top;
                 oForm.Items.Item("t3").Left = oForm.Items.Item("Btn01").Left;
                 oForm.Items.Item("Svalue").Top = oForm.Items.Item("Btn02").Top;
-                oForm.Items.Item("Svalue").Left = oForm.Items.Item("Btn01").Left + 80;
+                oForm.Items.Item("Svalue").Left = oForm.Items.Item("Btn01").Left + 70;
 
-                oForm.Items.Item("t2").Top = 61;
+                oForm.Items.Item("t1").Top = 66;
+                oForm.Items.Item("t1").Left = 10;
+
+                oForm.Items.Item("t2").Top = 66;
                 oForm.Items.Item("t2").Left = (oForm.Width / 2) + 30;
 
-                oForm.Items.Item("t4").Top = oForm.Items.Item("Btn02").Top + 20;
+                oForm.Items.Item("t4").Top = oForm.Items.Item("Btn02").Top + 25;
 
-                oForm.Items.Item("Grid02").Top = oForm.Items.Item("Grid01").Height + 120;
+                oForm.Items.Item("Grid02").Top = oForm.Items.Item("Grid01").Height + 125;
                 oForm.Items.Item("Grid02").Height = 126;
                 oForm.Items.Item("Grid02").Left = 10;
-                oForm.Items.Item("Grid02").Width = oForm.Width - 21;
+                oForm.Items.Item("Grid02").Width = oForm.Width - 30;
 
-                oForm.Items.Item("t5").Top = oForm.Items.Item("Grid02").Top + 126;
+                oForm.Items.Item("t5").Top = oForm.Items.Item("Grid02").Top + 130;
 
-                oForm.Items.Item("Grid03").Top = oForm.Items.Item("t5").Top + 20;
+                oForm.Items.Item("Grid03").Top = oForm.Items.Item("t5").Top + 25;
                 oForm.Items.Item("Grid03").Height = 126;
                 oForm.Items.Item("Grid03").Left = 10;
-                oForm.Items.Item("Grid03").Width = oForm.Width - 21;
+                oForm.Items.Item("Grid03").Width = oForm.Width - 30;
 
                 oMat01.AutoResizeColumns();
             }
@@ -305,7 +303,6 @@ namespace PSH_BOne_AddOn
             string Number;
             string Evaluate;
             string MSTCOD;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -455,7 +452,6 @@ namespace PSH_BOne_AddOn
             string RateCode;
             string BPLID;
             string MSTCOD;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -510,7 +506,7 @@ namespace PSH_BOne_AddOn
             bool returnValue = false;
             int i;
             int Cnt;
-            int Evaluate;
+            string Evaluate;
             string sQry;
             string BPLID;
             string Year_Renamed;
@@ -520,7 +516,6 @@ namespace PSH_BOne_AddOn
             double Svalue = 0;
             double Avg;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
             {
@@ -579,7 +574,7 @@ namespace PSH_BOne_AddOn
 
                     switch (Evaluate)
                     {
-                        case 1://1차
+                        case "1" ://1차
                             Avg = System.Math.Round(Svalue * 3 / 10, 1);
 
                             sQry = "Update [@PS_HR410L] ";
@@ -591,7 +586,7 @@ namespace PSH_BOne_AddOn
                             oRecordSet01.DoQuery(sQry);
                             break;
 
-                        case 2: //2차
+                        case "2" : //2차
                             Avg = System.Math.Round(Svalue * 4 / 10, 1);
 
                             sQry = "Update [@PS_HR410L] ";
@@ -602,7 +597,8 @@ namespace PSH_BOne_AddOn
                             sQry += " And a.U_Number = '" + Number + "' and [@PS_HR410L].U_MSTCOD = '" + EmpNo + "'";
                             oRecordSet01.DoQuery(sQry);
                             break;
-                        case 3 : //3차
+
+                        case "3" : //3차
                             Avg = System.Math.Round(Svalue * 3 / 10, 1);
 
                             sQry = "Update [@PS_HR410L] ";
@@ -636,7 +632,7 @@ namespace PSH_BOne_AddOn
         {
             bool ReturnValue = false;
             int Cnt;
-            int Evaluate;
+            string Evaluate;
             string sQry = string.Empty;
             string BPLID;
             string Year_Renamed;
@@ -656,7 +652,7 @@ namespace PSH_BOne_AddOn
                 Evaluate = oForm.Items.Item("Evaluate").Specific.Value;
                 Complete = oForm.Items.Item("Complete").Specific.Value;
 
-                if (Evaluate == 1)
+                if (Evaluate == "1")
                 {
                     sQry = "select COUNT(*) from [@PS_HR410H] a Inner Join [@PS_HR410L] b On a.Code = b.Code";
                     sQry += " left Join Z_PS_HR410L c On b.Code = c.Code and b.U_MSTCOD = c.MSTCOD and c.Evaluate = '" + Evaluate + "'";
@@ -666,7 +662,7 @@ namespace PSH_BOne_AddOn
                     sQry += " and Isnull(b.U_MSTCOD1,'') = '" + MSTCOD + "'";
                     sQry += " and isnull(c.Value,0) = 0 ";
                 }
-                else if (Evaluate == 2)
+                else if (Evaluate == "2")
                 {
                     sQry = "select COUNT(*) from [@PS_HR410H] a Inner Join [@PS_HR410L] b On a.Code = b.Code";
                     sQry += " left Join Z_PS_HR410L c On b.Code = c.Code and b.U_MSTCOD = c.MSTCOD and c.Evaluate = '" + Evaluate + "'";
@@ -676,7 +672,7 @@ namespace PSH_BOne_AddOn
                     sQry += " and Isnull(b.U_MSTCOD2,'') = '" + MSTCOD + "'";
                     sQry += " and isnull(c.Value,0) = 0 ";
                 }
-                else if (Evaluate == 3)
+                else if (Evaluate == "3")
                 {
                     sQry = "select COUNT(*) from [@PS_HR410H] a Inner Join [@PS_HR410L] b On a.Code = b.Code";
                     sQry += " left Join Z_PS_HR410L c On b.Code = c.Code and b.U_MSTCOD = c.MSTCOD and c.Evaluate = '" + Evaluate + "'";
@@ -696,7 +692,7 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    if (Evaluate == 1)
+                    if (Evaluate == "1")
                     {
                         //평가가 전부 다되었으면
                         sQry = " Update [@PS_HR410L] set U_Complet1 = 'Y' ";
@@ -707,7 +703,7 @@ namespace PSH_BOne_AddOn
                         sQry += " And a.U_Number = '" + Number + "'";
                         sQry += " And [@PS_HR410L].U_MSTCOD1 = '" + MSTCOD + "'";
                     }
-                    else if (Evaluate == 2)
+                    else if (Evaluate == "2")
                     {
                         sQry = " Update [@PS_HR410L] set U_Complet2 = 'Y' ";
                         sQry += " From [@PS_HR410H] a";
@@ -717,7 +713,7 @@ namespace PSH_BOne_AddOn
                         sQry += " And a.U_Number = '" + Number + "'";
                         sQry += " And [@PS_HR410L].U_MSTCOD2 = '" + MSTCOD + "'";
                     }
-                    else if (Evaluate == 3)
+                    else if (Evaluate == "3")
                     {
                         sQry = " Update [@PS_HR410L] set U_Complet3 = 'Y' ";
                         sQry += " From [@PS_HR410H] a";
@@ -731,7 +727,6 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox(Evaluate + "차 평가완료처리했습니다.");
                 }
                 oForm.Items.Item("Btn01").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-
                 ReturnValue = true;
             }
             catch (Exception ex)
@@ -752,9 +747,9 @@ namespace PSH_BOne_AddOn
         private bool PS_HR416_InComplete_Data()
         {
             bool ReturnValue = false;
-            string sQry = null;
             int Cnt;
-            int Evaluate = 0;
+            string sQry = string.Empty;
+            string Evaluate;
             string BPLID;
             string Year_Renamed;
             string Number;
@@ -780,7 +775,7 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                if (Evaluate == 1) //1차계수조정
+                if (Evaluate == "1") //1차계수조정
                 {
                     sQry = "select COUNT(*) from [@PS_HR410H] a Inner Join [@PS_HR410L] b On a.Code = b.Code";
                     sQry += " Where a.U_BPLId = '" + BPLID + "'";
@@ -790,7 +785,7 @@ namespace PSH_BOne_AddOn
                     sQry += " and isnull(b.U_AValue1,0) <> 0 ";
                    
                 }
-                else if (Evaluate == 2) //2차계수조정
+                else if (Evaluate == "2") //2차계수조정
                 {
                     sQry = "select COUNT(*) from [@PS_HR410H] a Inner Join [@PS_HR410L] b On a.Code = b.Code";
                     sQry += " Where a.U_BPLId = '" + BPLID + "'";
@@ -799,7 +794,7 @@ namespace PSH_BOne_AddOn
                     sQry += " and Isnull(b.U_MSTCOD2,'') = '" + MSTCOD + "'";
                     sQry += " and isnull(b.U_AValue2,0) <> 0 ";
                 }
-                else if (Evaluate == 3)//3차계수조정
+                else if (Evaluate == "3") //3차계수조정
                 {
                     sQry = "select COUNT(*) from [@PS_HR410H] a Inner Join [@PS_HR410L] b On a.Code = b.Code";
                     sQry += " Where a.U_BPLId = '" + BPLID + "'";
@@ -808,7 +803,6 @@ namespace PSH_BOne_AddOn
                     sQry += " and Isnull(b.U_MSTCOD3,'') = '" + MSTCOD + "'";
                     sQry += " and isnull(b.U_AValue3,0) <> 0 ";
                 }
-
                 oRecordSet01.DoQuery(sQry);
                 Cnt = oRecordSet01.Fields.Item(0).Value;
 
@@ -818,7 +812,7 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    if (Evaluate == 1)
+                    if (Evaluate == "1")
                     {
                         sQry = " Update [@PS_HR410L] set U_Complet1 = 'N' ";
                         sQry += " From [@PS_HR410H] a";
@@ -828,7 +822,7 @@ namespace PSH_BOne_AddOn
                         sQry += " And a.U_Number = '" + Number + "'";
                         sQry += " And [@PS_HR410L].U_MSTCOD1 = '" + MSTCOD + "'";
                     }
-                    else if (Evaluate == 2)
+                    else if (Evaluate == "2")
                     {
                         sQry = " Update [@PS_HR410L] set U_Complet2 = 'N' ";
                         sQry += " From [@PS_HR410H] a";
@@ -838,7 +832,7 @@ namespace PSH_BOne_AddOn
                         sQry += " And a.U_Number = '" + Number + "'";
                         sQry += " And [@PS_HR410L].U_MSTCOD2 = '" + MSTCOD + "'";
                     }
-                    else if (Evaluate == 3)
+                    else if (Evaluate == "3")
                     {
                         sQry = " Update [@PS_HR410L] set U_Complet3 = 'N' ";
                         sQry += " From [@PS_HR410H] a";
@@ -856,7 +850,14 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                if (errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                }
             }
             finally
             {
@@ -1044,6 +1045,7 @@ namespace PSH_BOne_AddOn
                             oRecordSet01.MoveNext();
                         }
                         oMat01.LoadFromDataSource();
+                        oMat01.AutoResizeColumns();
                     }
                 }
                 if (Svalue != 0)
@@ -1055,6 +1057,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("Btn02").Specific.Caption = "추가";
                 }
                 oForm.Items.Item("Svalue").Specific.Value = Svalue;
+
             }
             catch (Exception ex)
             {
@@ -1278,14 +1281,13 @@ namespace PSH_BOne_AddOn
                         MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value;
                         FULLNAME = oForm.Items.Item("FULLNAME").Specific.Value;
 
-                        //평가서약을 했는지...
                         sQry = "Select Count(*) From Z_PS_HR403 Where BPLId = '" + BPLID + "' and Year = '" + Year_Renamed + "' And Number = '" + Number + "' and MSTCOD = '" + MSTCOD + "'";
                         oRecordSet01.DoQuery(sQry);
 
                         if (oRecordSet01.Fields.Item(0).Value <= 0)
                         {
-                            //평가서약 화면
-                            //ChildForm01.LoadForm(BPLID, Year_Renamed, Number, MSTCOD, FULLNAME);
+                            PS_HR403 tempForm = new PS_HR403();
+                            tempForm.LoadForm(BPLID, Year_Renamed, Number, MSTCOD, FULLNAME);
                         }
                         else
                         {
@@ -1323,7 +1325,6 @@ namespace PSH_BOne_AddOn
                                 return;
                             }
 
-                            //이동요청중량 보다 기포장중량+포장중량이 클수없음, Check!!!
                             if (PS_HR416_Save_Data("A", false) == false)
                             {
                                 BubbleEvent = false;
@@ -1705,10 +1706,10 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.Before_Action == true)
                 {
-                    PS_HR416_FormResize();
                 }
                 else if (pVal.Before_Action == false)
                 {
+                    PS_HR416_FormResize();
                 }
             }
             catch (Exception ex)

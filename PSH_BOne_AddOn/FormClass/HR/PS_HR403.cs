@@ -15,11 +15,17 @@ namespace PSH_BOne_AddOn
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
         private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
 
+        private string BPLId;
+        private string Year;  
+        private string Number;
+        private string FULLNAME;
+        private string MSTCOD;
+
         /// <summary>
         /// Form 호출
         /// </summary>
-        /// <param name="oFromDocEntry01"></param>
-        public override void LoadForm(string oFromDocEntry01)
+        /// <param name="oFromDocEntry"></param>
+        public override void LoadForm(string oFromDocEntry)
         {
             this.LoadForm();
         }
@@ -34,19 +40,13 @@ namespace PSH_BOne_AddOn
         /// <param name="oFULLNAME"></param>
         public void LoadForm(string oBPLId, string oYear, string oNumber, string oMSTCOD, string oFULLNAME)
         {
-            this.LoadForm();
-            oForm.Items.Item("Year").Specific.Value = oYear;
-            oForm.Items.Item("MSTCOD").Specific.Value = oMSTCOD;
-            oForm.Items.Item("FULLNAME").Specific.Value = oFULLNAME;
+            BPLId = oBPLId;
+            Year = oYear;
+            Number = oNumber;
+            MSTCOD = oMSTCOD;
+            FULLNAME = oFULLNAME;
 
-            if (!string.IsNullOrEmpty(oBPLId))
-            {
-                oForm.Items.Item("BPLId").Specific.Select(oBPLId, SAPbouiCOM.BoSearchKey.psk_ByValue);
-            }
-            if (!string.IsNullOrEmpty(oNumber))
-            {
-                oForm.Items.Item("Number").Specific.Select(oNumber, SAPbouiCOM.BoSearchKey.psk_ByValue);
-            }
+            this.LoadForm();
         }
 
         private void LoadForm()
@@ -80,6 +80,19 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PS_HR403_CreateItems();
                 PS_HR403_ComboBox_Setting();
+
+                oForm.Items.Item("Year").Specific.Value = Year;
+                oForm.Items.Item("MSTCOD").Specific.Value = MSTCOD;
+                oForm.Items.Item("FULLNAME").Specific.Value = FULLNAME;
+
+                if (!string.IsNullOrEmpty(BPLId))
+                {
+                    oForm.Items.Item("BPLId").Specific.Select(BPLId, SAPbouiCOM.BoSearchKey.psk_ByValue);
+                }
+                if (!string.IsNullOrEmpty(Number))
+                {
+                    oForm.Items.Item("Number").Specific.Select(Number, SAPbouiCOM.BoSearchKey.psk_ByValue);
+                }
             }
             catch (Exception ex)
             {
@@ -346,17 +359,6 @@ namespace PSH_BOne_AddOn
             string FULLNAME;
             string Year_Renamed;
             string Number;
-            //string Check1;
-            //string Check2;
-            //string Check3;
-            //string Check4;
-            //string Check5;
-            //string Check6;
-            //string Check7;
-            //string Check8;
-            //string Check9;
-            //string Check10;
-            //string Check11;
             string errMessage = string.Empty;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -366,209 +368,53 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "Btn01")
                     {
-                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+                        if (pVal.ItemUID == "Btn01")
                         {
+                            BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+                            Year_Renamed = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
+                            Number = oForm.Items.Item("Number").Specific.Value.ToString().Trim();
+                            MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value;
+                            FULLNAME = oForm.Items.Item("FULLNAME").Specific.Value;
 
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-                        {
-                            if (pVal.ItemUID == "Btn01")
+                            if (oForm.Items.Item("Check1").Specific.Checked == true && oForm.Items.Item("Check2").Specific.Checked == true && oForm.Items.Item("Check3").Specific.Checked == true
+                                 && oForm.Items.Item("Check4").Specific.Checked == true && oForm.Items.Item("Check5").Specific.Checked == true && oForm.Items.Item("Check6").Specific.Checked == true
+                                 && oForm.Items.Item("Check7").Specific.Checked == true && oForm.Items.Item("Check8").Specific.Checked == true && oForm.Items.Item("Check9").Specific.Checked == true
+                                 && oForm.Items.Item("Check10").Specific.Checked == true && oForm.Items.Item("Check11").Specific.Checked == true)
                             {
-                                BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
-                                Year_Renamed = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
-                                Number = oForm.Items.Item("Number").Specific.Value.ToString().Trim();
-                                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value;
-                                FULLNAME = oForm.Items.Item("FULLNAME").Specific.Value;
+                            }
+                            else
+                            {
+                                errMessage = "공정서약을 체크하세요.";
+                                throw new Exception();
+                            }
 
+                            sQry = " Select Count(*) From Z_PS_HR403 Where BPLId = '" + BPLID + "' and Year = '" + Year_Renamed + "' And Number = '" + Number + "' And MSTCOD = '" + MSTCOD + "'";
 
-                                if (oForm.Items.Item("Check1").Specific.Checked == true && oForm.Items.Item("Check2").Specific.Checked == true && oForm.Items.Item("Check3").Specific.Checked == true
-                                     && oForm.Items.Item("Check4").Specific.Checked == true && oForm.Items.Item("Check5").Specific.Checked == true && oForm.Items.Item("Check6").Specific.Checked == true
-                                     && oForm.Items.Item("Check7").Specific.Checked == true && oForm.Items.Item("Check8").Specific.Checked == true && oForm.Items.Item("Check9").Specific.Checked == true
-                                     && oForm.Items.Item("Check10").Specific.Checked == true && oForm.Items.Item("Check11").Specific.Checked == true)
+                            oRecordSet01.DoQuery(sQry);
+                            Cnt = oRecordSet01.Fields.Item(0).Value;
+
+                            if (Cnt > 0)
+                            {
+                                errMessage = "이미 서약하였습니다.";
+                                throw new Exception();
+                            }
+                            else
+                            {
+                                if (Convert.ToString(PSH_Globals.SBO_Application.MessageBox("평가서약을 하시겠습니까?", 1, "&확인", "&취소")) == "1")
                                 {
+                                    sQry = " insert into Z_PS_HR403 Values ('" + BPLID + "','" + Year_Renamed + "','" + Number + "','" + MSTCOD + "','" + FULLNAME + "','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y')";
+                                    oRecordSet01.DoQuery(sQry);
+                                    PSH_Globals.SBO_Application.SetStatusBarMessage("평가서약을 완료하였습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                                    oForm.Items.Item("2").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                                 }
                                 else
                                 {
-                                    errMessage = "공정서약을 체크하세요.";
+                                    errMessage = "평가서약을 취소 하였습니다.";
                                     throw new Exception();
-                                }
-
-                                //if (oForm.Items.Item("Check1").Specific.Checked == false)
-                                //{
-                                //    Check1 = "Y";
-                                //}
-                                //else
-                                //{
-                                //    Check1 = "N";
-                                //}
-                                //if (oForm.Items.Item("Check2").Specific.Checked == true)
-                                //{
-                                //    Check2 = "Y";
-                                //}
-                                //else
-                                //{
-                                //    Check2 = "N";
-                                //}
-                                //if (oForm.Items.Item("Check3").Specific.Checked == true)
-                                //{
-                                //    Check3 = "Y";
-                                //}
-                                //else
-                                //{
-                                //    Check3 = "N";
-                                //}
-                                //if (oForm.Items.Item("Check4").Specific.Checked == true)
-                                //{
-                                //    Check4 = "Y";
-                                //}
-                                //else
-                                //{
-                                //    Check4 = "N";
-                                //}
-                                //if (oForm.Items.Item("Check5").Specific.Checked == true)
-                                //{
-                                //    Check5 = "Y";
-                                //}
-                                //else
-                                //{
-                                //    Check5 = "N";
-                                //}
-                                //if (oForm.Items.Item("Check6").Specific.Checked == true)
-                                //{
-                                //    Check6 = "Y";
-                                //}
-                                //else
-                                //{
-                                //    Check6 = "N";
-                                //}
-                                //if (oForm.Items.Item("Check7").Specific.Checked == true)
-                                //{
-                                //    Check7 = "Y";
-                                //}
-                                //else
-                                //{
-                                //    Check7 = "N";
-                                //}
-                                //if (oForm.Items.Item("Check8").Specific.Checked == true)
-                                //{
-                                //    Check8 = "Y";
-                                //}
-                                //else
-                                //{
-                                //    Check8 = "N";
-                                //}
-                                //if (oForm.Items.Item("Check9").Specific.Checked == true)
-                                //{
-                                //    Check9 = "Y";
-                                //}
-                                //else
-                                //{
-                                //    Check9 = "N";
-                                //}
-                                //if (oForm.Items.Item("Check10").Specific.Checked == true)
-                                //{
-                                //    Check10 = "Y";
-                                //}
-                                //else
-                                //{
-                                //    Check10 = "N";
-                                //}
-                                //if (oForm.Items.Item("Check11").Specific.Checked == true)
-                                //{
-                                //    Check11 = "Y";
-                                //}
-                                //else
-                                //{
-                                //    Check11 = "N";
-                                //}
-
-                                //if (Check1 == "N")
-                                //{
-                                //    SubMain.Sbo_Application.SetStatusBarMessage("공정서약1을 체크하세요.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                                //    return;
-                                //}
-
-                                //if (Check2 == "N")
-                                //{
-                                //    SubMain.Sbo_Application.SetStatusBarMessage("공정서약2을 체크하세요.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                                //    return;
-                                //}
-
-                                //if (Check3 == "N")
-                                //{
-                                //    SubMain.Sbo_Application.SetStatusBarMessage("공정서약3을 체크하세요.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                                //    return;
-                                //}
-
-                                //if (Check4 == "N")
-                                //{
-                                //    SubMain.Sbo_Application.SetStatusBarMessage("공정서약4을 체크하세요.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                                //    return;
-                                //}
-
-                                //if (Check5 == "N")
-                                //{
-                                //    SubMain.Sbo_Application.SetStatusBarMessage("공정서약5을 체크하세요.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                                //    return;
-                                //}
-                                //if (Check6 == "N")
-                                //{
-                                //    SubMain.Sbo_Application.SetStatusBarMessage("공정서약6을 체크하세요.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                                //    return;
-                                //}
-                                //if (Check7 == "N")
-                                //{
-                                //    SubMain.Sbo_Application.SetStatusBarMessage("공정서약7을 체크하세요.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                                //    return;
-                                //}
-                                //if (Check8 == "N")
-                                //{
-                                //    SubMain.Sbo_Application.SetStatusBarMessage("공정서약8을 체크하세요.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                                //    return;
-                                //}
-                                //if (Check9 == "N")
-                                //{
-                                //    SubMain.Sbo_Application.SetStatusBarMessage("공정서약9을 체크하세요.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                                //    return;
-                                //}
-                                //if (Check10 == "N")
-                                //{
-                                //    SubMain.Sbo_Application.SetStatusBarMessage("공정서약10을 체크하세요.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                                //    return;
-                                //}
-                                //if (Check11 == "N")
-                                //{
-                                //    SubMain.Sbo_Application.SetStatusBarMessage("공정서약11을 체크하세요.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                                //    return;
-                                //}
-
-                                sQry = " Select Count(*) From Z_PS_HR403 Where BPLId = '" + BPLID + "' and Year = '" + Year_Renamed + "' And Number = '" + Number + "' And MSTCOD = '" + MSTCOD + "'";
-
-                                oRecordSet01.DoQuery(sQry);
-                                Cnt = oRecordSet01.Fields.Item(0).Value;
-
-                                if (Cnt > 0)
-                                {
-                                    errMessage = "이미 서약하였습니다.";
-                                    throw new Exception();
-                                }
-                                else
-                                {
-                                    if (Convert.ToString(PSH_Globals.SBO_Application.MessageBox("평가서약을 하시겠습니까?", 1, "&확인", "&취소")) == "1")
-                                    {
-                                        sQry = " insert into Z_PS_HR403 Values ('" + BPLID + "','" + Year_Renamed + "','" + Number + "','" + MSTCOD + "','" + FULLNAME + "','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y')";
-                                        oRecordSet01.DoQuery(sQry);
-                                        PSH_Globals.SBO_Application.SetStatusBarMessage("평가서약을 완료하였습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                                        oForm.Items.Item("2").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                                    }
-                                    else
-                                    {
-                                        errMessage = "평가서약을 취소 하였습니다.";
-                                        throw new Exception();
-                                    }
                                 }
                             }
                         }
+
                     }
                 }
                 else if (pVal.BeforeAction == false)
@@ -577,7 +423,14 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                if (errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                }
             }
             finally
             {

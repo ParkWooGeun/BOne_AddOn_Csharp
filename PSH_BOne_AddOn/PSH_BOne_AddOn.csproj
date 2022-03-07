@@ -226,6 +226,9 @@
     <Compile Include="FormClass\HR\PS_HR100.cs" />
     <Compile Include="FormClass\HR\PS_HR105.cs" />
     <Compile Include="FormClass\HR\PS_HR200.cs" />
+    <Compile Include="FormClass\HR\PS_HR413.cs" />
+    <Compile Include="FormClass\HR\PS_HR414.cs" />
+    <Compile Include="FormClass\HR\PS_HR415.cs" />
     <Compile Include="FormClass\HR\PS_HR420.cs" />
     <Compile Include="FormClass\HR\PS_HR421.cs" />
     <Compile Include="FormClass\HR\PS_HR422.cs" />
@@ -1995,6 +1998,7 @@
     <None Include="PSH_BOne_AddOn\PathINI\Report\PS_HR105_01.rpt" />
     <None Include="PSH_BOne_AddOn\PathINI\Report\PS_HR422_01.rpt" />
     <None Include="PSH_BOne_AddOn\PathINI\Report\PS_HR423_01.rpt" />
+    <None Include="PSH_BOne_AddOn\PathINI\Report\PS_HR424_01.rpt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EXT_Form\FileListBoxForm.resX">

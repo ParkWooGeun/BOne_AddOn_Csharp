@@ -227,6 +227,29 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
+		/// PS_HR200_CopyMatrixRow
+		/// </summary>
+		private void PS_HR200_CopyMatrixRow()
+        {
+            int i;
+
+            try
+            {
+                PS_HR200_FormClear();
+                for (i = 0; i <= oMat.VisualRowCount - 1; i++)
+                {
+                    oMat.FlushToDataSource();
+                    oDS_PS_HR200L.SetValue("Code", i, "");
+                    oMat.LoadFromDataSource();
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+            }
+        }
+
+        /// <summary>
         /// DocEntry 초기화
         /// </summary>
         private void PS_HR200_FormClear()
@@ -798,13 +821,7 @@ namespace PSH_BOne_AddOn
                             PS_HR200_FormItemEnabled();
                             break;
                         case "1287": //복제
-                            PS_HR200_FormClear();
-                            for (i = 0; i <= oMat.VisualRowCount - 1; i++)
-                            {
-                                oMat.FlushToDataSource();
-                                oDS_PS_HR200L.SetValue("Code", i, "");
-                                oMat.LoadFromDataSource();
-                            }
+                            PS_HR200_CopyMatrixRow();
                             break;
                     }
                 }

@@ -223,18 +223,19 @@
     <Compile Include="FormClass\FI\PS_FI961.cs" />
     <Compile Include="FormClass\FI\PS_FI962.cs" />
     <Compile Include="FormClass\FX\PS_FX241.cs" />
+    <Compile Include="FormClass\HR\PS_HR402.cs" />
     <Compile Include="FormClass\HR\PS_HR403.cs" />
+    <Compile Include="FormClass\HR\PS_HR406.cs" />
+    <Compile Include="FormClass\HR\PS_HR407.cs" />
+    <Compile Include="FormClass\HR\PS_HR409.cs" />
     <Compile Include="FormClass\HR\PS_HR412.cs" />
     <Compile Include="FormClass\HR\PS_HR100.cs" />
     <Compile Include="FormClass\HR\PS_HR105.cs" />
     <Compile Include="FormClass\HR\PS_HR200.cs" />
-<<<<<<< HEAD
     <Compile Include="FormClass\HR\PS_HR413.cs" />
     <Compile Include="FormClass\HR\PS_HR414.cs" />
     <Compile Include="FormClass\HR\PS_HR415.cs" />
-=======
     <Compile Include="FormClass\HR\PS_HR416.cs" />
->>>>>>> 0479708db526218699ed14005c0da6d593760bdd
     <Compile Include="FormClass\HR\PS_HR420.cs" />
     <Compile Include="FormClass\HR\PS_HR421.cs" />
     <Compile Include="FormClass\HR\PS_HR422.cs" />

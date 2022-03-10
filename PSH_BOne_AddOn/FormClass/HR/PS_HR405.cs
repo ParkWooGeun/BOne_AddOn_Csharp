@@ -108,7 +108,7 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.UserDataSources.Add("PassWd", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("PassWd").Specific.DataBind.SetBound(true, "", "PassWd");
 
-                oForm.Items.Item("Year").Specific.VALUE = DateTime.Now.ToString("yyyyMMdd");
+                oForm.Items.Item("Year").Specific.VALUE = DateTime.Now.ToString("yyyy");
             }
             catch (Exception ex)
             {
@@ -179,32 +179,31 @@ namespace PSH_BOne_AddOn
                     errMessage = "피평가자는 필수사항입니다. 확인하세요.";
                     throw new Exception();
                 }
-                else if (Convert.ToDouble(oForm.Items.Item("EmpName1").Specific.VALUE.ToString().Trim()) == 0)
+                else if (string.IsNullOrEmpty(oForm.Items.Item("EmpName1").Specific.VALUE.ToString().Trim()))
                 {
                     errMessage = "피평가자명은 필수사항입니다. 확인하세요.";
                     throw new Exception();
                 }
-                else if (Convert.ToDouble(oForm.Items.Item("RateCode").Specific.VALUE.ToString().Trim()) == 0)
+                else if (string.IsNullOrEmpty(oForm.Items.Item("RateCode").Specific.VALUE.ToString().Trim()))
                 {
                     errMessage = "평가항목은 필수사항입니다. 확인하세요.";
                     throw new Exception();
                 }
-                else if (Convert.ToDouble(oForm.Items.Item("RateMNm").Specific.VALUE.ToString().Trim()) == 0)
+                else if (string.IsNullOrEmpty(oForm.Items.Item("RateMNm").Specific.VALUE.ToString().Trim()))
                 {
                     errMessage = "평가항목명은 필수사항입니다. 확인하세요.";
                     throw new Exception();
                 }
-                else if (Convert.ToDouble(oForm.Items.Item("DocDate").Specific.VALUE.ToString().Trim()) == 0)
+                else if (string.IsNullOrEmpty(oForm.Items.Item("DocDate").Specific.VALUE.ToString().Trim()))
                 {
                     errMessage = "평가일은 필수사항입니다. 확인하세요.";
                     throw new Exception();
                 }
-                else if (Convert.ToDouble(oForm.Items.Item("Contents").Specific.VALUE.ToString().Trim()) == 0)
+                else if (string.IsNullOrEmpty(oForm.Items.Item("Contents").Specific.VALUE.ToString().Trim()))
                 {
                     errMessage = "평가내용은 필수사항입니다. 확인하세요.";
                     throw new Exception();
                 }
-               
                 functionReturnValue = true;
             }
             catch (Exception ex)
@@ -278,8 +277,8 @@ namespace PSH_BOne_AddOn
                 oDS_PS_HR405H.SetValue("U_Year", 0, gYear);
                 oDS_PS_HR405H.SetValue("U_MSTCOD", 0, gMSTCOD);
                 oDS_PS_HR405H.SetValue("U_FULLNAME", 0, gFULLNAME);
-                oDS_PS_HR405H.SetValue("U_EmpNo1", 0, gEmpNo1);
-                oDS_PS_HR405H.SetValue("U_EmpName1", 0, gEmpName1);
+                oDS_PS_HR405H.SetValue("U_EmpNo1", 0, "");
+                oDS_PS_HR405H.SetValue("U_EmpName1", 0, "");
                 oDS_PS_HR405H.SetValue("U_RateCode", 0, "");
                 oDS_PS_HR405H.SetValue("U_RateMNm", 0, "");
                 oDS_PS_HR405H.SetValue("U_DocDate", 0, DateTime.Now.ToString("yyyyMMdd"));
@@ -490,7 +489,10 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                if(ProgBar01 != null)
+                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                }
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
                 oForm.Freeze(false);
             }
@@ -535,7 +537,6 @@ namespace PSH_BOne_AddOn
                 }
                 PS_HR405_FormReset();
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
-                oForm.Items.Item("Btn_ret").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
             }
             catch (Exception ex)
             {

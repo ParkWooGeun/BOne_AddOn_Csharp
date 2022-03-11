@@ -227,6 +227,7 @@
     <Compile Include="FormClass\HR\PS_HR401.cs" />
     <Compile Include="FormClass\HR\PS_HR402.cs" />
     <Compile Include="FormClass\HR\PS_HR403.cs" />
+<<<<<<< HEAD
     <Compile Include="FormClass\HR\PS_HR404.cs" />
 =======
     <Compile Include="FormClass\HR\PS_HR405.cs" />

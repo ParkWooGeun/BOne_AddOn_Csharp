@@ -228,9 +228,7 @@
     <Compile Include="FormClass\HR\PS_HR402.cs" />
     <Compile Include="FormClass\HR\PS_HR403.cs" />
     <Compile Include="FormClass\HR\PS_HR404.cs" />
-=======
     <Compile Include="FormClass\HR\PS_HR405.cs" />
->>>>>>> f399b63a85afd95f28d30a29a2c356d47b508e50
     <Compile Include="FormClass\HR\PS_HR406.cs" />
     <Compile Include="FormClass\HR\PS_HR407.cs" />
     <Compile Include="FormClass\HR\PS_HR409.cs" />

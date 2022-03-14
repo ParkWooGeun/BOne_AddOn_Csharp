@@ -241,6 +241,8 @@
     <Compile Include="FormClass\HR\PS_HR414.cs" />
     <Compile Include="FormClass\HR\PS_HR415.cs" />
     <Compile Include="FormClass\HR\PS_HR416.cs" />
+    <Compile Include="FormClass\HR\PS_HR418.cs" />
+    <Compile Include="FormClass\HR\PS_HR419.cs" />
     <Compile Include="FormClass\HR\PS_HR420.cs" />
     <Compile Include="FormClass\HR\PS_HR421.cs" />
     <Compile Include="FormClass\HR\PS_HR422.cs" />

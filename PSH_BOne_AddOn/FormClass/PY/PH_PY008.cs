@@ -358,7 +358,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("WorkType").DisplayDesc = true;
 
                 //위해
-                sQry = " SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P220' And U_Char2 = '" + oForm.Items.Item("SCLTCOD").Specific.Value + "' AND U_UseYN= 'Y' ";
+                sQry = " SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P220' And U_Char2 = '" + oForm.Items.Item("SCLTCOD").Specific.Value.ToString().Trim() + "' AND U_UseYN= 'Y' ";
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("DangerCD").Specific, "Y");
                 oForm.Items.Item("DangerCD").DisplayDesc = true;
 
@@ -1252,7 +1252,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                CLTCOD = oForm.Items.Item("SCLTCOD").Specific.Value;
+                CLTCOD = oForm.Items.Item("SCLTCOD").Specific.Value.ToString().Trim();
 
                 sQry = "  SELECT      T1.U_DayType ";
                 sQry += " FROM        [@PH_PY003A] AS T0";
@@ -2129,7 +2129,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                CLTCOD = oForm.Items.Item("SCLTCOD").Specific.Value;
+                CLTCOD = oForm.Items.Item("SCLTCOD").Specific.Value.ToString().Trim();
 
                 if (oForm.Items.Item("SDay").Specific.Value == "일")
                 {
@@ -2310,14 +2310,14 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                CLTCOD = oForm.Items.Item("SCLTCOD").Specific.Value;
+                CLTCOD = oForm.Items.Item("SCLTCOD").Specific.Value.ToString().Trim();
 
                 if (oForm.Items.Item("SDay").Specific.Value == "일")
                 {
                     ToDate = PosDate;
 
                     //월요일 찾기
-                    sQry = "  SELECT  U_Date";
+                    sQry = "  SELECT  Convert(varchar(8), U_Date, 112)";
                     sQry += " From    [@PH_PY003A] a";
                     sQry += "         Inner join";
                     sQry += "         [@PH_PY003B] b";
@@ -2343,7 +2343,7 @@ namespace PSH_BOne_AddOn
                     FrDate = PosDate;
 
                     //일요일 찾기
-                    sQry = "  SELECT  U_Date ";
+                    sQry = "  SELECT  Convert(varchar(8), U_Date, 112)";
                     sQry += " From    [@PH_PY003A] a";
                     sQry += "         Inner join";
                     sQry += "         [@PH_PY003B] b";
@@ -2366,7 +2366,7 @@ namespace PSH_BOne_AddOn
                 else
                 {
                     //월요일 찾기
-                    sQry = "  SELECT  U_Date ";
+                    sQry = "  SELECT  Convert(varchar(8), U_Date, 112)";
                     sQry += " From    [@PH_PY003A] a";
                     sQry += "         Inner join";
                     sQry += "         [@PH_PY003B] b";
@@ -2387,7 +2387,7 @@ namespace PSH_BOne_AddOn
                     }
 
                     //일요일 찾기
-                    sQry = "  SELECT  U_Date ";
+                    sQry = "  SELECT  Convert(varchar(8), U_Date, 112)";
                     sQry += " From    [@PH_PY003A] a";
                     sQry += "         Inner join";
                     sQry += "         [@PH_PY003B] b";
@@ -2489,7 +2489,7 @@ namespace PSH_BOne_AddOn
 
                 OverTime = PH_PY008_OverTimeCheck2(oForm.Items.Item("PosDate").Specific.Value, MSTCOD);
 
-                CLTCOD = oForm.Items.Item("SCLTCOD").Specific.Value;
+                CLTCOD = oForm.Items.Item("SCLTCOD").Specific.Value.ToString().Trim();
                 YM = codeHelpClass.Left(oForm.Items.Item("PosDate").Specific.Value, 6);
 
                 if (CLTCOD == "1")
@@ -2506,7 +2506,7 @@ namespace PSH_BOne_AddOn
                     CLTCODTIME = 0.0;
                 }
 
-                if (oForm.Items.Item("SDayOff").Specific.Value == "1")
+                if (oForm.Items.Item("SDayOff").Specific.Value.ToString().Trim() == "1")
                 {
                     StTime = 20; //월 20시간
 
@@ -2520,7 +2520,7 @@ namespace PSH_BOne_AddOn
 
                     if (oRecordSet.RecordCount > 0)
                     {
-                        if (Convert.ToDouble(oRecordSet.Fields.Item(0).Value.ToString().Trim()) - StTime < 0 && Convert.ToDouble(oRecordSet.Fields.Item(0).Value.ToString().Trim()) - StTime >= CLTCODTIME)
+                        if (Convert.ToDouble(oRecordSet.Fields.Item(0).Value.ToString().Trim()) - StTime < 0 && Math.Abs(Convert.ToDouble(oRecordSet.Fields.Item(0).Value.ToString().Trim()) - StTime) >= CLTCODTIME)
                         {
                             returnValue = CLTCODTIME;
                         }
@@ -3560,7 +3560,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                CLTCOD = oForm.Items.Item("SCLTCOD").Specific.Value;
+                CLTCOD = oForm.Items.Item("SCLTCOD").Specific.Value.ToString().Trim();
                 sPosDate = oForm.Items.Item("SPosDate").Specific.Value;
 
                 //해당일의 기본근태
@@ -3716,7 +3716,7 @@ namespace PSH_BOne_AddOn
                 if (oForm.Items.Item("GNMUJO").Specific.Value == "11" && oForm.Items.Item("SDayOff").Specific.Value == "1")
                 {
                     //근무조가 1교대1조 평일일 경우
-                    switch (oForm.Items.Item("SCLTCOD").Specific.Value)
+                    switch (oForm.Items.Item("SCLTCOD").Specific.Value.ToString().Trim())
                     {
                         case "1":
                         case "3":
@@ -3832,7 +3832,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 //안강사업장은 제외
-                if (oForm.Items.Item("SCLTCOD").Specific.Value != "3")
+                if (oForm.Items.Item("SCLTCOD").Specific.Value.ToString().Trim() != "3")
                 {
                     if (oForm.Items.Item("WorkType").Specific.Value.Trim() == "") // 근태구분 등록체크
                     {
@@ -4306,7 +4306,7 @@ namespace PSH_BOne_AddOn
                                 sQry += "             U_CodeNm";
                                 sQry += " FROM        [@PS_HR200L]";
                                 sQry += "             WHERE Code = '1'";
-                                sQry += "             AND U_Char2 = '" + oForm.Items.Item("SCLTCOD").Specific.Value + "'";
+                                sQry += "             AND U_Char2 = '" + oForm.Items.Item("SCLTCOD").Specific.Value.ToString().Trim() + "'";
                                 sQry += "             AND U_UseYN = 'Y'";
                                 sQry += " ORDER BY    U_Seq";
                                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("STeamCode").Specific, "Y");
@@ -4327,7 +4327,7 @@ namespace PSH_BOne_AddOn
                                 sQry += "             U_CodeNm";
                                 sQry += " FROM        [@PS_HR200L] ";
                                 sQry += " WHERE       Code = '1'";
-                                sQry += "             And U_Char2 = '" + oForm.Items.Item("SCLTCOD").Specific.Value + "'";
+                                sQry += "             And U_Char2 = '" + oForm.Items.Item("SCLTCOD").Specific.Value.ToString().Trim() + "'";
                                 sQry += "             And U_UseYN = 'Y'";
                                 sQry += " ORDER BY    U_Seq";
                                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("TeamCode").Specific, "Y");
@@ -4349,7 +4349,7 @@ namespace PSH_BOne_AddOn
                                 sQry += "             U_CodeNm";
                                 sQry += " FROM        [@PS_HR200L] ";
                                 sQry += " WHERE       Code = 'P220'";
-                                sQry += "             And U_Char2 = '" + oForm.Items.Item("SCLTCOD").Specific.Value + "'";
+                                sQry += "             And U_Char2 = '" + oForm.Items.Item("SCLTCOD").Specific.Value.ToString().Trim() + "'";
                                 sQry += "             And U_UseYN = 'Y'";
                                 sQry += " ORDER BY    U_Seq";
                                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("DangerCD").Specific, "Y");
@@ -4373,8 +4373,8 @@ namespace PSH_BOne_AddOn
                                 sQry += "             U_CodeNm";
                                 sQry += " FROM        [@PS_HR200L] ";
                                 sQry += " WHERE       Code = '2'";
-                                sQry += "             And U_Char1 = '" + oForm.Items.Item("STeamCode").Specific.Value + "'";
-                                sQry += "             AND U_Char2 = '" + oForm.Items.Item("SCLTCOD").Specific.Value + "'";
+                                sQry += "             And U_Char1 = '" + oForm.Items.Item("STeamCode").Specific.Value.ToString().Trim() + "'";
+                                sQry += "             AND U_Char2 = '" + oForm.Items.Item("SCLTCOD").Specific.Value.ToString().Trim() + "'";
                                 sQry += "             AND U_UseYN = 'Y'";
                                 sQry += " ORDER BY    U_Seq";
                                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("SRspCode").Specific, "Y");
@@ -4398,8 +4398,8 @@ namespace PSH_BOne_AddOn
                                 sQry += "             U_CodeNm";
                                 sQry += " FROM        [@PS_HR200L] ";
                                 sQry += " WHERE       Code = '2'";
-                                sQry += "             And U_Char1 = '" + oForm.Items.Item("TeamCode").Specific.Value + "'";
-                                sQry += "             AND U_Char2 = '" + oForm.Items.Item("SCLTCOD").Specific.Value + "'";
+                                sQry += "             And U_Char1 = '" + oForm.Items.Item("TeamCode").Specific.Value.ToString().Trim() + "'";
+                                sQry += "             AND U_Char2 = '" + oForm.Items.Item("SCLTCOD").Specific.Value.ToString().Trim() + "'";
                                 sQry += "             And U_UseYN = 'Y'";
                                 sQry += " ORDER BY    U_Seq";
                                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("RspCode").Specific, "Y");
@@ -4424,8 +4424,8 @@ namespace PSH_BOne_AddOn
                                 sQry += "             U_CodeNm";
                                 sQry += " FROM        [@PS_HR200L] ";
                                 sQry += " WHERE       Code = '9'";
-                                sQry += "             And U_Char1 = '" + oForm.Items.Item("SRspCode").Specific.Value + "'";
-                                sQry += "             AND U_Char3 = '" + oForm.Items.Item("SCLTCOD").Specific.Value + "'";
+                                sQry += "             And U_Char1 = '" + oForm.Items.Item("SRspCode").Specific.Value.ToString().Trim() + "'";
+                                sQry += "             AND U_Char3 = '" + oForm.Items.Item("SCLTCOD").Specific.Value.ToString().Trim() + "'";
                                 sQry += "             And U_UseYN = 'Y'";
                                 sQry += " ORDER BY    U_Seq";
                                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("SClsCode").Specific, "Y");
@@ -4449,8 +4449,8 @@ namespace PSH_BOne_AddOn
                                 sQry += "             U_CodeNm";
                                 sQry += " FROM        [@PS_HR200L] ";
                                 sQry += "             WHERE Code = '9'";
-                                sQry += "             And U_Char1 = '" + oForm.Items.Item("RspCode").Specific.Value + "'";
-                                sQry += "             AND U_Char3 = '" + oForm.Items.Item("SCLTCOD").Specific.Value + "'";
+                                sQry += "             And U_Char1 = '" + oForm.Items.Item("RspCode").Specific.Value.ToString().Trim() + "'";
+                                sQry += "             AND U_Char3 = '" + oForm.Items.Item("SCLTCOD").Specific.Value.ToString().Trim() + "'";
                                 sQry += "             And U_UseYN = 'Y'";
                                 sQry += " ORDER BY    U_Seq";
                                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("ClsCode").Specific, "Y");
@@ -4518,8 +4518,8 @@ namespace PSH_BOne_AddOn
                                         }
 
                                         ymd = oForm.Items.Item("PosDate").Specific.Value;
-                                        CLTCOD = oForm.Items.Item("SCLTCOD").Specific.Value;
-                                        MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value;
+                                        CLTCOD = oForm.Items.Item("SCLTCOD").Specific.Value.ToString().Trim();
+                                        MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
 
                                         if (MSTCOD.ToString().Trim() != "")
                                         {
@@ -4557,7 +4557,7 @@ namespace PSH_BOne_AddOn
                                         //근속보전휴가, 근속보전반차(기계사업부)
                                         //근속보전휴가 잔량 확인
                                         ymd = oForm.Items.Item("PosDate").Specific.Value;
-                                        CLTCOD = oForm.Items.Item("SCLTCOD").Specific.Value;
+                                        CLTCOD = oForm.Items.Item("SCLTCOD").Specific.Value.ToString().Trim();
                                         MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value;
 
                                         if (Convert.ToDateTime(dataHelpClass.ConvertDateType(oForm.Items.Item("PosDate").Specific.Value, "-")) >= Convert.ToDateTime(ymd.Substring(0, 4) + "-07-01"))

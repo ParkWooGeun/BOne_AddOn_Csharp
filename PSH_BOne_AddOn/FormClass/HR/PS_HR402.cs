@@ -51,7 +51,6 @@ namespace PSH_BOne_AddOn
 				oForm.DataBrowser.BrowseBy = "Code";
 
 				oForm.Freeze(true);
-
 				PS_HR402_CreateItems();
 				PS_HR402_ComboBox_Setting();
 				PS_HR402_SetDocument(oFromDocEntry01);
@@ -97,8 +96,8 @@ namespace PSH_BOne_AddOn
 		private void PS_HR402_ComboBox_Setting()
 		{
 			string sQry;
-			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
 			{
@@ -109,7 +108,6 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
 				}
-				//아이디별 사업장 세팅
 				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
 			}
 			catch (Exception ex)
@@ -157,7 +155,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
 					oForm.EnableMenu("1281", true);	 //찾기
@@ -199,7 +196,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				if (RowIserted == false)
 				{
 					oRow = oMat.RowCount;
@@ -257,9 +253,7 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				oMat.FlushToDataSource();
-				// Matrix 필드에 질의 응답 창 띄워주기
 				switch (oUID)
 				{
 					case "":
@@ -293,14 +287,13 @@ namespace PSH_BOne_AddOn
 		/// <returns></returns>
 		private bool PS_HR402_MatrixSpaceLineDel()
 		{
-			bool functionReturnValue = false;
+			bool ReturnValue = false;
 			string errMessage = string.Empty;
 			int i;
 
 			try
 			{
 				oMat.FlushToDataSource();
-				// 라인
 				if (oMat.VisualRowCount == 0)
 				{
 					errMessage = "라인데이타가 없습니다. 확인하세요.";
@@ -333,7 +326,7 @@ namespace PSH_BOne_AddOn
 					}
 				}
 				oMat.LoadFromDataSource();
-				functionReturnValue = true;
+				ReturnValue = true;
 			}
 			catch (Exception ex)
 			{
@@ -346,7 +339,7 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
 				}
 			}
-			return functionReturnValue;
+			return ReturnValue;
 		}
 
 		/// <summary>
@@ -567,7 +560,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				if (pVal.BeforeAction == true)
 				{
 					if (pVal.ItemChanged == true)
@@ -666,7 +658,6 @@ namespace PSH_BOne_AddOn
 			{
 				if (pVal.BeforeAction == true)
 				{
-					//행삭제전 행삭제가능여부검사
 				}
 				else if (pVal.BeforeAction == false)
 				{
@@ -713,7 +704,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				if (pVal.BeforeAction == true)
 				{
 					switch (pVal.MenuUID)

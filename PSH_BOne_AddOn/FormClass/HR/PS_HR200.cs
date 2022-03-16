@@ -142,7 +142,7 @@ namespace PSH_BOne_AddOn
         {
             try
             {
-                if ((string.IsNullOrEmpty(oFromDocEntry01)))
+                if (string.IsNullOrEmpty(oFromDocEntry01))
                 {
                     PS_HR200_FormItemEnabled();
                     PS_HR200_AddMatrixRow(0, true); //UDO방식일때
@@ -162,8 +162,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                //각모드에따른 아이템설정
-                if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
+                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
                     oForm.Items.Item("Code").Enabled = true;
                     oForm.Items.Item("Mat01").Enabled = true;
@@ -171,16 +170,15 @@ namespace PSH_BOne_AddOn
                     oForm.EnableMenu("1281", true);  //찾기
                     oForm.EnableMenu("1282", false); //추가
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
-                    ////각모드에따른 아이템설정
                     oForm.Items.Item("Code").Specific.Value = "";
                     oForm.Items.Item("Code").Enabled = true;
                     oForm.Items.Item("Mat01").Enabled = false;
                     oForm.EnableMenu("1281", false); //찾기
                     oForm.EnableMenu("1282", true);  //추가
                 }
-                else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE))
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
                     oForm.Items.Item("Code").Enabled = false;
                     oForm.Items.Item("Mat01").Enabled = true;
@@ -206,10 +204,9 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 if (RowIserted == false)//행추가여부
                 {
-                    oDS_PS_HR200L.InsertRecord((oRow));
+                    oDS_PS_HR200L.InsertRecord(oRow);
                 }
                 oMat.AddRow();
                 oDS_PS_HR200L.Offset = oRow;
@@ -289,7 +286,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
+                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
                     PS_HR200_FormClear();
                 }
@@ -309,7 +306,7 @@ namespace PSH_BOne_AddOn
 
                 for (i = 1; i <= oMat.VisualRowCount - 1; i++)
                 {
-                    if ((string.IsNullOrEmpty(oMat.Columns.Item("Code").Cells.Item(i).Specific.Value)))
+                    if (string.IsNullOrEmpty(oMat.Columns.Item("Code").Cells.Item(i).Specific.Value))
                     {
                         errMessage = "코드는 필수입니다.";
                         ClickCode = "Code";
@@ -317,7 +314,7 @@ namespace PSH_BOne_AddOn
                         throw new Exception();
                     }
 
-                    if ((string.IsNullOrEmpty(oMat.Columns.Item("CodeNm").Cells.Item(i).Specific.Value)))
+                    if (string.IsNullOrEmpty(oMat.Columns.Item("CodeNm").Cells.Item(i).Specific.Value))
                     {
                         errMessage = "코드명은 필수입니다.";
                         ClickCode = "CodeNm";
@@ -330,7 +327,7 @@ namespace PSH_BOne_AddOn
                 oDS_PS_HR200L.RemoveRecord(oDS_PS_HR200L.Size - 1);
                 oMat.LoadFromDataSource();
 
-                if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
+                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
                     PS_HR200_FormClear();
                 }
@@ -481,6 +478,7 @@ namespace PSH_BOne_AddOn
         {
             try
             {
+                oForm.Freeze(true);
                 if (pVal.BeforeAction == true)
                 {
                     if (pVal.ItemUID == "1")
@@ -504,9 +502,6 @@ namespace PSH_BOne_AddOn
                             }
                             oFormMode01 = oForm.Mode;
                         }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-                        {
-                        }
                     }
                 }
                 else if (pVal.BeforeAction == false)
@@ -521,9 +516,6 @@ namespace PSH_BOne_AddOn
                                 PS_HR200_AddMatrixRow(0, true);
                             }
                         }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-                        {
-                        }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                         {
                             if (pVal.ActionSuccess == true)
@@ -537,6 +529,10 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+            }
+            finally
+            {
+                oForm.Freeze(false);
             }
         }
 
@@ -628,7 +624,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemChanged == true)
                     {
-                        if ((pVal.ItemUID == "Mat01"))
+                        if (pVal.ItemUID == "Mat01")
                         {
                             if (pVal.ColUID == "Code")
                             {
@@ -676,7 +672,6 @@ namespace PSH_BOne_AddOn
                 {
                     PS_HR200_FormItemEnabled();
                     PS_HR200_AddMatrixRow(oMat.VisualRowCount,false);
-                    ////UDO방식
                 }
             }
             catch (Exception ex)
@@ -724,11 +719,10 @@ namespace PSH_BOne_AddOn
             try
             {
                 int i = 0;
-                if ((oLastColRow01 > 0))
+                if (oLastColRow01 > 0)
                 {
                     if (pVal.BeforeAction == true)
                     {
-                        ////행삭제전 행삭제가능여부검사
                     }
                     else if (pVal.BeforeAction == false)
                     {
@@ -767,12 +761,9 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
-            int i;
-
             try
             {
                 oForm.Freeze(true);
-
                 if (pVal.BeforeAction == true)
                 {
                     switch (pVal.MenuUID)

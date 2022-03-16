@@ -51,7 +51,6 @@ namespace PSH_BOne_AddOn
 				oForm.DataBrowser.BrowseBy = "Code";
 
 				oForm.Freeze(true);
-
 				PS_HR404_CreateItems();
 				PS_HR404_ComboBox_Setting();
 				PS_HR404_SetDocument(oFromDocEntry01);
@@ -104,12 +103,12 @@ namespace PSH_BOne_AddOn
 			{
 				sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
 				oRecordSet.DoQuery(sQry);
+
 				while (!(oRecordSet.EoF))
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
 				}
-				//아이디별 사업장 세팅
 				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
 				//가감구분
 				oMat.Columns.Item("PMDiv").ValidValues.Add("P", "가점");
@@ -163,7 +162,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
 					oForm.EnableMenu("1281", true);  //찾기
@@ -202,7 +200,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-				//행추가여부
 				if (RowIserted == false)
 				{
 					oRow = oMat.RowCount;
@@ -261,7 +258,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oMat.FlushToDataSource();
-				// 라인
 				if (oMat.VisualRowCount == 0)
 				{
 					errMessage = "라인데이타가 없습니다. 확인하세요.";
@@ -367,7 +363,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oMat.FlushToDataSource();
-				// Matrix 필드에 질의 응답 창 띄워주기
 				switch (oCol)
 				{
 					case "PMCode":
@@ -515,13 +510,11 @@ namespace PSH_BOne_AddOn
 								BubbleEvent = false;
 								return;
 							}
-
 							if (PS_HR404_MatrixSpaceLineDel() == false)
 							{
 								BubbleEvent = false;
 								return;
 							}
-
 							oForm.Items.Item("Code").Specific.VALUE = oForm.Items.Item("BPLId").Specific.Value.ToStirng().Trim();
 						}
 						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
@@ -531,7 +524,6 @@ namespace PSH_BOne_AddOn
 								BubbleEvent = false;
 								return;
 							}
-
 							if (PS_HR404_MatrixSpaceLineDel() == false)
 							{
 								BubbleEvent = false;
@@ -574,7 +566,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				if (pVal.BeforeAction == true)
 				{
 					if (pVal.ItemChanged == true)
@@ -676,7 +667,6 @@ namespace PSH_BOne_AddOn
 			{
 				if (pVal.BeforeAction == true)
 				{
-					//행삭제전 행삭제가능여부검사
 				}
 				else if (pVal.BeforeAction == false)
 				{

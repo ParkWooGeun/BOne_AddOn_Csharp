@@ -265,6 +265,7 @@ namespace PSH_BOne_AddOn
             {
                 sQry = "Select IsNull(Max(DocEntry), 0) From [@PS_HR405H]";
                 oRecordSet01.DoQuery(sQry);
+
                 if (Convert.ToDouble(oRecordSet01.Fields.Item(0).Value.ToString().Trim()) == 0)
                 {
                     oForm.Items.Item("DocEntry").Specific.VALUE = 1;
@@ -309,7 +310,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 if (RowIserted == false)
                 {
-                    oDS_PS_HR405L.InsertRecord((oRow));
+                    oDS_PS_HR405L.InsertRecord(oRow);
                 }
                 oMat01.AddRow();
                 oDS_PS_HR405L.Offset = oRow;
@@ -452,9 +453,8 @@ namespace PSH_BOne_AddOn
                 {
                     if (i + 1 > oDS_PS_HR405L.Size)
                     {
-                        oDS_PS_HR405L.InsertRecord((i));
+                        oDS_PS_HR405L.InsertRecord(i);
                     }
-
                     oMat01.AddRow();
                     oDS_PS_HR405L.Offset = i;
                     oDS_PS_HR405L.SetValue("U_LineNum", i, Convert.ToString(i + 1));
@@ -523,7 +523,7 @@ namespace PSH_BOne_AddOn
                     sQry = "Select Count(*) From [@PS_HR405H] where DocEntry = '" + DocEntry + "'";
                     oRecordSet01.DoQuery(sQry);
 
-                    if ((oRecordSet01.RecordCount == 0))
+                    if (oRecordSet01.RecordCount == 0)
                     {
                         errMessage = "삭제대상이 없습니다. 확인하세요.";
                         oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
@@ -1072,7 +1072,6 @@ namespace PSH_BOne_AddOn
                             PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                             BubbleEvent = false;
                         }
-
                     }
                 }
             }
@@ -1147,7 +1146,7 @@ namespace PSH_BOne_AddOn
                                 sQry = "EXEC [PS_HR405_02] '" + DocEntry + "'";
                                 oRecordSet01.DoQuery(sQry);
 
-                                if ((oRecordSet01.RecordCount == 0))
+                                if (oRecordSet01.RecordCount == 0)
                                 {
                                     PSH_Globals.SBO_Application.StatusBar.SetText("조회 결과가 없습니다. 확인하세요.", BoMessageTime.bmt_Long, BoStatusBarMessageType.smt_Warning);
                                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
@@ -1216,7 +1215,7 @@ namespace PSH_BOne_AddOn
                         {
                             PS_HR405_FlushToItemValue(pVal.ItemUID, 0, "");
                         }
-                        if ((pVal.ItemUID == "PassWd"))
+                        if (pVal.ItemUID == "PassWd")
                         {
                             if (PS_HR405_PasswordChk(pVal) == false)
                             {

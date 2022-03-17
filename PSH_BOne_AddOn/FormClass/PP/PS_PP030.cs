@@ -2399,6 +2399,8 @@ namespace PSH_BOne_AddOn
             int i;
             int j;
         	string query01;
+            string sQry;
+            string R3PONum;
             int CurrentDocEntry;
             SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -2418,7 +2420,14 @@ namespace PSH_BOne_AddOn
                     CurrentDocEntry = Convert.ToInt32(RecordSet01.Fields.Item(0).Value);
                     query01 = "UPDATE [ONNM] SET AutoKey = AutoKey + 1 WHERE ObjectCode = 'PS_PP030'";
                     RecordSet01.DoQuery(query01);
-                    
+
+                    sQry = "select b.U_R3PONum";
+                    sQry += "from[@PS_MM180H] a inner join[@PS_MM180L] b on a.DocEntry = b.DocEntry and a.Canceled = 'N' and U_OIGNNum is not null and a.U_DocDate between dateadd(year, -9, GETDATE()) and GETDATE()";
+                    sQry += "where b.U_BatchNum = '" + oMat02.Columns.Item("BatchNum").Cells.Item(i).Specific.Value + "'";
+
+                    RecordSet01.DoQuery(sQry);
+                    R3PONum = RecordSet01.Fields.Item(0).Value;
+
                     query01 = "INSERT INTO [@PS_PP030H] (";
                     query01 += "DocEntry,";
                     query01 += "DocNum,";
@@ -2462,7 +2471,8 @@ namespace PSH_BOne_AddOn
                     query01 += "U_MulGbn3,";
                     query01 += "U_Comments,";
                     query01 += "U_BPLId,";
-                    query01 += "U_BasicGub";
+                    query01 += "U_BasicGub,";
+                    query01 += "U_R3PONum,";
                     query01 += ")";
                     query01 += " VALUES";
                     query01 += "(";
@@ -2545,7 +2555,8 @@ namespace PSH_BOne_AddOn
                     }
                     query01 += "'" + oForm.Items.Item("Comments").Specific.Value.ToString().Trim() + "',";
                     query01 += "'" + oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() + "',";
-                    query01 += "'" + oForm.Items.Item("BasicGub").Specific.Selected.Value + "'";
+                    query01 += "'" + oForm.Items.Item("BasicGub").Specific.Selected.Value + "',";
+                    query01 += "'" + R3PONum + "'";
                     query01 += ")";
                     RecordSet01.DoQuery(query01);
 

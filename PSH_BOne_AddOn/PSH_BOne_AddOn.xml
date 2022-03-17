@@ -21601,6 +21601,16 @@
             PS_PP095_Weight_Check
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP095.PS_PP095_R3Set_DOList">
+            <summary>
+            PS_PP095_Set_DOList
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP095.PS_PP095_R3Set_DOInfo_Load">
+            <summary>
+            R3자료 확인
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_PP095.PS_PP095_FormItemEnabled">
             <summary>
             모드에 따른 아이템 설정

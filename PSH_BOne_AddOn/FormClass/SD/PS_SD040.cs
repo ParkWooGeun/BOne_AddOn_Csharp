@@ -1064,6 +1064,7 @@ namespace PSH_BOne_AddOn
                         //SetValue 매개변수용 변수(변수Type이 맞지 않으면 매개변수 전달시 SetValue 메소드 오류발생, 아래와 같이 매개변수에 값 저장후 SetValue에 전달)
                         string coilNo = oDS_PS_SD040L.GetValue("U_CoilNo", i).ToString().Trim();
                         string docDate = oDS_PS_SD040H.GetValue("U_DocDate", 0).ToString().Trim();
+                        string R3PONum = oDS_PS_SD040L.GetValue("R3PONum", i).ToString().Trim();
                         double weight = Convert.ToDouble(oDS_PS_SD040L.GetValue("U_Weight", i).ToString().Trim());
                         double packWgt = Convert.ToDouble(oDS_PS_SD040L.GetValue("U_PackWgt", i).ToString().Trim());
                         double totalWgt = Convert.ToDouble(oDS_PS_SD040L.GetValue("U_Weight", i)) + Convert.ToDouble(oDS_PS_SD040L.GetValue("U_PackWgt", i));
@@ -1073,6 +1074,7 @@ namespace PSH_BOne_AddOn
                         oTable.SetValue("NTGEW", weight);
                         oTable.SetValue("ZBOXWE", packWgt);
                         oTable.SetValue("BRGEW", totalWgt);
+                        oTable.SetValue("BRGEW", R3PONum);
                         oTable.Append();
 
                         if (oMat01.VisualRowCount == i + 2) //마지막에 실행
@@ -2954,6 +2956,7 @@ namespace PSH_BOne_AddOn
                                     oDS_PS_SD040L.SetValue("U_SbasUnit", pVal.Row - 1 + i, RecordSet01.Fields.Item("SbasUnit").Value);
                                     oDS_PS_SD040L.SetValue("U_LotNo", pVal.Row - 1 + i, RecordSet01.Fields.Item("LotNo").Value);
                                     oDS_PS_SD040L.SetValue("U_CoilNo", pVal.Row - 1 + i, RecordSet01.Fields.Item("CoilNo").Value);
+                                    oDS_PS_SD040L.SetValue("U_R3PONum", pVal.Row - 1 + i, RecordSet01.Fields.Item("R3PONum").Value);
                                     oDS_PS_SD040L.SetValue("U_PackWgt", pVal.Row - 1 + i, RecordSet01.Fields.Item("PackWgt").Value);
                                     oDS_PS_SD040L.SetValue("U_SjQty", pVal.Row - 1 + i, RecordSet01.Fields.Item("SjQty").Value);
                                     oDS_PS_SD040L.SetValue("U_SjWeight", pVal.Row - 1 + i, RecordSet01.Fields.Item("SjWeight").Value);

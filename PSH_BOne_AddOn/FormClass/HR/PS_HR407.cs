@@ -95,7 +95,6 @@ namespace PSH_BOne_AddOn
 				oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 
 				oForm.Freeze(true);
-
 				PS_HR407_CreateItems();
 				PS_HR407_ComboBox_Setting();
 
@@ -187,7 +186,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				Param01 = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
 				Param02 = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
 				Param03 = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
@@ -250,12 +248,11 @@ namespace PSH_BOne_AddOn
 			{
 				if (oBaseForm01 == null)
 				{
-					//DoNothing	//사용하려는폼의 폼타입
 				}
 				else if (oBaseForm01.TypeEx == "PS_HR406")
 				{
-					//선택된행의수
-					for (i = 0; i <= oGrid.Rows.SelectedRows.Count - 1; i++)
+					
+					for (i = 0; i <= oGrid.Rows.SelectedRows.Count - 1; i++) //선택된행의수
 					{
 						PS_HR406 HR406 = new PS_HR406();
 						HR406.LoadForm(oGrid.DataTable.Columns.Item("문서번호").Cells.Item(oGrid.Rows.SelectedRows.Item(i, SAPbouiCOM.BoOrderType.ot_SelectionOrder)).Value);
@@ -385,7 +382,6 @@ namespace PSH_BOne_AddOn
 		/// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
 		private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
-			string Year;
 			string errMessage = string.Empty;
 
 			try

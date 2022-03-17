@@ -52,7 +52,6 @@ namespace PSH_BOne_AddOn
 				oForm.DataBrowser.BrowseBy = "DocNum";
 
 				oForm.Freeze(true);
-
 				PS_HR406_CreateItems();
 				PS_HR406_ComboBox_Setting();
 				PS_HR406_Initialization();
@@ -119,7 +118,7 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
 				}
-				//매트릭스
+
 				oMat.Columns.Item("Grade").ValidValues.Add("", "선택");
 				oMat.Columns.Item("Grade").ValidValues.Add("S", "S");
 				oMat.Columns.Item("Grade").ValidValues.Add("A", "A");
@@ -364,7 +363,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oMat.FlushToDataSource();
-				// 라인
 				if (oMat.VisualRowCount == 0)
 				{
 					errMessage = "라인데이타가 없습니다. 확인하세요.";
@@ -709,7 +707,6 @@ namespace PSH_BOne_AddOn
 					}
 					else if (pVal.ItemUID == "Btn01")
 					{
-						//패스워드 확인
 						if (PS_HR406_PasswordChk() == false)
 						{
 							oForm.Items.Item("PassWd").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -884,7 +881,6 @@ namespace PSH_BOne_AddOn
 			{
 				if (pVal.BeforeAction == true)
 				{
-					//행삭제전 행삭제가능여부검사
 				}
 				else if (pVal.BeforeAction == false)
 				{

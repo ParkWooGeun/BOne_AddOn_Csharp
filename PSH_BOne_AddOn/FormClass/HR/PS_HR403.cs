@@ -10,7 +10,6 @@ namespace PSH_BOne_AddOn
     internal class PS_HR403 : PSH_BaseClass
     {
         private string oFormUniqueID;
-
         private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
         private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
@@ -184,7 +183,6 @@ namespace PSH_BOne_AddOn
                     oRecordSet01.MoveNext();
                 }
 
-                //아이디별 사업장 세팅
                 oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
                 oForm.Items.Item("Number").Specific.ValidValues.Add(Convert.ToString(1), "1차");
                 oForm.Items.Item("Number").Specific.ValidValues.Add(Convert.ToString(2), "2차");
@@ -356,9 +354,9 @@ namespace PSH_BOne_AddOn
             string sQry;
             string BPLID;
             string MSTCOD;
+            string Number;
             string FULLNAME;
             string Year_Renamed;
-            string Number;
             string errMessage = string.Empty;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -417,9 +415,6 @@ namespace PSH_BOne_AddOn
 
                     }
                 }
-                else if (pVal.BeforeAction == false)
-                {
-                }
             }
             catch (Exception ex)
             {
@@ -446,8 +441,6 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_KEY_DOWN(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
             try
             {
                 if (pVal.Before_Action == true)
@@ -471,9 +464,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-            }
-            finally
-            {
             }
         }
 
@@ -562,9 +552,7 @@ namespace PSH_BOne_AddOn
                 else if (pVal.Before_Action == false)
                 {
                     SubMain.Remove_Forms(oFormUniqueID);
-
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
-
                 }
             }
             catch (Exception ex)

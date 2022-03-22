@@ -11722,7 +11722,12 @@
             본사 데이터 전송
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_MM180.PS_MM180_LoadBatchFromR3">
+        <member name="M:PSH_BOne_AddOn.PS_MM180.PS_MM180_LoadBOXNoFromR3">
+            <summary>
+            1. Box No R3(울산사업장) 전송, 2. Lot No 회신, 3. Form Matrix에 출력
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM180.PS_MM180_LoadSPNUMFromR3">
             <summary>
             1. Box No R3(울산사업장) 전송, 2. Lot No 회신, 3. Form Matrix에 출력
             </summary>

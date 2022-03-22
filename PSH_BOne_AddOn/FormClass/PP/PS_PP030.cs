@@ -1676,21 +1676,24 @@ namespace PSH_BOne_AddOn
 
                 //생산요청, 작지리스트(Matrix)
                 oForm.Items.Item("Mat01").Top = 58;
-                oForm.Items.Item("Mat01").Height = oForm.Height / 2 - 120;
+                oForm.Items.Item("Mat01").Height = oForm.Height / 4 - 20;
                 oForm.Items.Item("Mat01").Left = oForm.Items.Item("Opt01").Left;
                 oForm.Items.Item("Mat01").Width = oForm.Width - 30;
 
                 //작업구분(Label)
                 oForm.Items.Item("9").Top = oForm.Items.Item("Mat01").Height + oForm.Items.Item("Mat01").Top + 5;
                 oForm.Items.Item("9").Left = oForm.Items.Item("Opt01").Left;
+
                 //작업구분(TextBox)
                 oForm.Items.Item("OrdGbn").Top = oForm.Items.Item("9").Top;
                 oForm.Items.Item("OrdGbn").Left = oForm.Items.Item("9").Left + oForm.Items.Item("9").Width;
                 oForm.Items.Item("BasicGub").Top = oForm.Items.Item("9").Top;
                 oForm.Items.Item("BasicGub").Left = oForm.Items.Item("9").Left + oForm.Items.Item("9").Width + oForm.Items.Item("9").Width;
+
                 //제품코드(Label)
                 oForm.Items.Item("17").Top = oForm.Items.Item("9").Top + oForm.Items.Item("9").Height + 1;
                 oForm.Items.Item("17").Left = oForm.Items.Item("9").Left;
+
                 //제품코드(Link)
                 oForm.Items.Item("1000001").Top = oForm.Items.Item("17").Top + 1;
                 oForm.Items.Item("1000001").Left = oForm.Items.Item("17").Left + oForm.Items.Item("17").Width - 15;
@@ -1705,6 +1708,7 @@ namespace PSH_BOne_AddOn
                 //기준일자(Label)
                 oForm.Items.Item("14").Top = oForm.Items.Item("17").Top + oForm.Items.Item("17").Height + 1;
                 oForm.Items.Item("14").Left = oForm.Items.Item("17").Left;
+
                 //기준일자(TextBox)
                 oForm.Items.Item("OrdMgNum").Top = oForm.Items.Item("14").Top;
                 oForm.Items.Item("OrdMgNum").Left = oForm.Items.Item("ItemCode").Left;
@@ -1712,9 +1716,11 @@ namespace PSH_BOne_AddOn
                 //작업지시번호(Label)
                 oForm.Items.Item("67").Top = oForm.Items.Item("14").Top + oForm.Items.Item("14").Height + 1;
                 oForm.Items.Item("67").Left = oForm.Items.Item("14").Left;
+
                 //작업지시번호(TextBox)
                 oForm.Items.Item("OrdNum").Top = oForm.Items.Item("67").Top;
                 oForm.Items.Item("OrdNum").Left = oForm.Items.Item("OrdMgNum").Left;
+
                 //작업지시번호(Sub)(TextBox)
                 oForm.Items.Item("OrdSub1").Top = oForm.Items.Item("67").Top;
                 oForm.Items.Item("OrdSub1").Left = oForm.Items.Item("OrdNum").Left + oForm.Items.Item("OrdNum").Width;
@@ -1722,11 +1728,13 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("OrdSub2").Left = oForm.Items.Item("OrdSub1").Left + oForm.Items.Item("OrdSub1").Width;
 
                 //지시,완료일자(Label)
-                oForm.Items.Item("18").Top = oForm.Items.Item("67").Top + oForm.Items.Item("67").Height + 1;
+                oForm.Items.Item("18").Top = oForm.Items.Item("67").Top + oForm.Items.Item("67").Height + 1;  ;
                 oForm.Items.Item("18").Left = oForm.Items.Item("67").Left;
+
                 //지시일자(TextBox)
                 oForm.Items.Item("DocDate").Top = oForm.Items.Item("18").Top;
                 oForm.Items.Item("DocDate").Left = oForm.Items.Item("OrdNum").Left;
+
                 //완료일자(TextBox)
                 oForm.Items.Item("DueDate").Top = oForm.Items.Item("18").Top;
                 oForm.Items.Item("DueDate").Left = oForm.Items.Item("DocDate").Left + oForm.Items.Item("DocDate").Width;
@@ -1734,9 +1742,11 @@ namespace PSH_BOne_AddOn
                 //담당자(Label)
                 oForm.Items.Item("15").Top = oForm.Items.Item("18").Top + oForm.Items.Item("18").Height + 1;
                 oForm.Items.Item("15").Left = oForm.Items.Item("18").Left;
+
                 //담당자(TextBox)
                 oForm.Items.Item("CntcCode").Top = oForm.Items.Item("15").Top;
                 oForm.Items.Item("CntcCode").Left = oForm.Items.Item("DocDate").Left;
+
                 //담당자명(TextBox)
                 oForm.Items.Item("CntcName").Top = oForm.Items.Item("15").Top;
                 oForm.Items.Item("CntcName").Left = oForm.Items.Item("CntcCode").Left + oForm.Items.Item("CntcCode").Width;
@@ -1744,9 +1754,11 @@ namespace PSH_BOne_AddOn
                 //수주번호(Label)
                 oForm.Items.Item("13").Top = oForm.Items.Item("15").Top + oForm.Items.Item("15").Height + 1;
                 oForm.Items.Item("13").Left = oForm.Items.Item("15").Left;
+
                 //수주번호(TextBox)
                 oForm.Items.Item("SjNum").Top = oForm.Items.Item("13").Top;
                 oForm.Items.Item("SjNum").Left = oForm.Items.Item("CntcCode").Left;
+
                 //수주라인(TextBox)
                 oForm.Items.Item("SjLine").Top = oForm.Items.Item("13").Top;
                 oForm.Items.Item("SjLine").Left = oForm.Items.Item("SjNum").Left + oForm.Items.Item("SjNum").Width;
@@ -1754,6 +1766,7 @@ namespace PSH_BOne_AddOn
                 //수주LOT번호(Label)
                 oForm.Items.Item("39").Top = oForm.Items.Item("13").Top + oForm.Items.Item("13").Height + 1;
                 oForm.Items.Item("39").Left = oForm.Items.Item("13").Left;
+
                 //수주LOT번호(TextBox)
                 oForm.Items.Item("LotNo").Top = oForm.Items.Item("39").Top;
                 oForm.Items.Item("LotNo").Left = oForm.Items.Item("SjNum").Left;
@@ -1761,12 +1774,15 @@ namespace PSH_BOne_AddOn
                 //멀티작업구분(Label)
                 oForm.Items.Item("1000005").Top = oForm.Items.Item("39").Top + oForm.Items.Item("39").Height + 1;
                 oForm.Items.Item("1000005").Left = oForm.Items.Item("39").Left;
+
                 //멀티작업구분1(TextBox)
                 oForm.Items.Item("MulGbn1").Top = oForm.Items.Item("1000005").Top;
                 oForm.Items.Item("MulGbn1").Left = oForm.Items.Item("LotNo").Left;
+
                 //멀티작업구분2(TextBox)
                 oForm.Items.Item("MulGbn2").Top = oForm.Items.Item("1000005").Top;
                 oForm.Items.Item("MulGbn2").Left = oForm.Items.Item("MulGbn1").Left + oForm.Items.Item("MulGbn1").Width;
+
                 //멀티작업구분3(TextBox)
                 oForm.Items.Item("MulGbn3").Top = oForm.Items.Item("1000005").Top;
                 oForm.Items.Item("MulGbn3").Left = oForm.Items.Item("MulGbn2").Left + oForm.Items.Item("MulGbn2").Width;
@@ -1774,6 +1790,7 @@ namespace PSH_BOne_AddOn
                 //기준문서구분(Label)
                 oForm.Items.Item("63").Top = oForm.Items.Item("1000005").Top + oForm.Items.Item("1000005").Height + 1;
                 oForm.Items.Item("63").Left = oForm.Items.Item("1000005").Left;
+
                 //기준문서구분(TextBox)
                 oForm.Items.Item("BaseType").Top = oForm.Items.Item("63").Top;
                 oForm.Items.Item("BaseType").Left = oForm.Items.Item("MulGbn1").Left;
@@ -1781,84 +1798,102 @@ namespace PSH_BOne_AddOn
                 //기준문서번호(Label)
                 oForm.Items.Item("65").Top = oForm.Items.Item("63").Top;
                 oForm.Items.Item("65").Left = oForm.Items.Item("BaseType").Left + oForm.Items.Item("BaseType").Width;
+
                 //기준문서번호(TextBox)
                 oForm.Items.Item("BaseNum").Top = oForm.Items.Item("65").Top;
                 oForm.Items.Item("BaseNum").Left = oForm.Items.Item("65").Left + oForm.Items.Item("65").Width;
 
                 //투입자재(Option)
-                oForm.Items.Item("Opt02").Top = oForm.Items.Item("63").Top + oForm.Items.Item("63").Height + 15;
+                oForm.Items.Item("Opt02").Top = oForm.Items.Item("63").Top + oForm.Items.Item("63").Height + 5;
                 oForm.Items.Item("Opt02").Left = oForm.Items.Item("63").Left;
 
                 //투입자재(Matrix)
                 oForm.Items.Item("Mat02").Top = oForm.Items.Item("Opt02").Top + oForm.Items.Item("Opt02").Height + 1;
                 oForm.Items.Item("Mat02").Left = oForm.Items.Item("63").Left;
                 oForm.Items.Item("Mat02").Width = oForm.Width / 2 - 25;
-                oForm.Items.Item("Mat02").Height = oForm.Height - oForm.Items.Item("Mat02").Top - 60;
+                oForm.Items.Item("Mat02").Height = oForm.Height / 3 - 25;
 
                 //문서번호(Label)
                 oForm.Items.Item("11").Top = oForm.Items.Item("9").Top;
-                oForm.Items.Item("11").Left = 320;
+                oForm.Items.Item("11").Left = 360;
                 //문서번호(TextBox)
                 oForm.Items.Item("DocEntry").Top = oForm.Items.Item("9").Top;
                 oForm.Items.Item("DocEntry").Left = oForm.Items.Item("11").Left + oForm.Items.Item("11").Width;
 
                 //사업장(Label)
-                oForm.Items.Item("1000002").Top = oForm.Items.Item("14").Top;
-                oForm.Items.Item("1000002").Left = 255;
+                oForm.Items.Item("1000002").Top = oForm.Items.Item("67").Top;
+                oForm.Items.Item("1000002").Left = oForm.Items.Item("11").Left;
+
                 //사업장(TextBox)
-                oForm.Items.Item("BPLId").Top = oForm.Items.Item("14").Top;
-                oForm.Items.Item("BPLId").Left = 335;
+                oForm.Items.Item("BPLId").Top = oForm.Items.Item("67").Top;
+                oForm.Items.Item("BPLId").Left = oForm.Items.Item("1000002").Left + oForm.Items.Item("1000002").Width;
 
                 //작번이름(Label)
-                oForm.Items.Item("70").Top = oForm.Items.Item("1000002").Top + oForm.Items.Item("1000002").Height + 1;
+                oForm.Items.Item("70").Top = oForm.Items.Item("18").Top;
                 oForm.Items.Item("70").Left = oForm.Items.Item("11").Left;
+
                 //작번이름(TextBox)
-                oForm.Items.Item("JakMyung").Top = oForm.Items.Item("70").Top;
+                oForm.Items.Item("JakMyung").Top = oForm.Items.Item("18").Top;
                 oForm.Items.Item("JakMyung").Left = oForm.Items.Item("70").Left + oForm.Items.Item("70").Width;
 
                 //작번규격,단위(Label)
-                oForm.Items.Item("72").Top = oForm.Items.Item("70").Top + oForm.Items.Item("70").Height + 1;
+                oForm.Items.Item("72").Top = oForm.Items.Item("15").Top;
                 oForm.Items.Item("72").Left = oForm.Items.Item("70").Left;
+
                 //작번규격(TextBox)
-                oForm.Items.Item("JakSize").Top = oForm.Items.Item("72").Top;
+                oForm.Items.Item("JakSize").Top = oForm.Items.Item("15").Top;
                 oForm.Items.Item("JakSize").Left = oForm.Items.Item("72").Left + oForm.Items.Item("72").Width;
+
                 //작번단위(TextBox)
-                oForm.Items.Item("JakUnit").Top = oForm.Items.Item("72").Top;
+                oForm.Items.Item("JakUnit").Top = oForm.Items.Item("15").Top;
                 oForm.Items.Item("JakUnit").Left = oForm.Items.Item("JakSize").Left + oForm.Items.Item("JakSize").Width;
 
                 //요청수,중량(Label)
-                oForm.Items.Item("42").Top = oForm.Items.Item("72").Top + oForm.Items.Item("72").Height + 1;
+                oForm.Items.Item("42").Top = oForm.Items.Item("13").Top;
                 oForm.Items.Item("42").Left = oForm.Items.Item("72").Left;
+
                 //요청수, 중량
-                oForm.Items.Item("ReqWt").Top = oForm.Items.Item("42").Top;
+                oForm.Items.Item("ReqWt").Top = oForm.Items.Item("13").Top;
                 oForm.Items.Item("ReqWt").Left = oForm.Items.Item("42").Left + oForm.Items.Item("42").Width;
 
                 //지시수,중량(Label)
-                oForm.Items.Item("40").Top = oForm.Items.Item("42").Top + oForm.Items.Item("42").Height + 1;
+                oForm.Items.Item("40").Top = oForm.Items.Item("39").Top;
                 oForm.Items.Item("40").Left = oForm.Items.Item("42").Left;
+
                 //지시수,중량
-                oForm.Items.Item("SelWt").Top = oForm.Items.Item("40").Top;
+                oForm.Items.Item("SelWt").Top = oForm.Items.Item("39").Top;
                 oForm.Items.Item("SelWt").Left = oForm.Items.Item("40").Left + oForm.Items.Item("40").Width;
 
                 //수주금액(Label)
-                oForm.Items.Item("38").Top = oForm.Items.Item("40").Top + oForm.Items.Item("40").Height + 1;
+                oForm.Items.Item("38").Top = oForm.Items.Item("1000005").Top;
                 oForm.Items.Item("38").Left = oForm.Items.Item("40").Left;
+
                 //수주금액
-                oForm.Items.Item("SjPrice").Top = oForm.Items.Item("38").Top;
+                oForm.Items.Item("SjPrice").Top = oForm.Items.Item("1000005").Top;
                 oForm.Items.Item("SjPrice").Left = oForm.Items.Item("38").Left + oForm.Items.Item("38").Width;
 
+                //R3PO번호(Label)
+                oForm.Items.Item("455").Top = oForm.Items.Item("63").Top;
+                oForm.Items.Item("455").Left = oForm.Items.Item("40").Left;
+
+                //R3PO번호(TextBox)
+                oForm.Items.Item("R3PONum").Top = oForm.Items.Item("63").Top;
+                oForm.Items.Item("R3PONum").Left = oForm.Items.Item("455").Left + oForm.Items.Item("455").Width;
+
                 //문서상태(Label)
-                oForm.Items.Item("79").Top = oForm.Items.Item("38").Top + oForm.Items.Item("38").Height + 1;
-                oForm.Items.Item("79").Left = oForm.Items.Item("38").Left + 65;
+                oForm.Items.Item("79").Top = oForm.Items.Item("17").Top;
+                oForm.Items.Item("79").Left = oForm.Items.Item("11").Left;
+                 
                 //문서상태(TextBox)
-                oForm.Items.Item("Status").Top = oForm.Items.Item("79").Top;
+                oForm.Items.Item("Status").Top = oForm.Items.Item("17").Top;
                 oForm.Items.Item("Status").Left = oForm.Items.Item("79").Left + oForm.Items.Item("79").Width;
 
                 //취소여부(Label)
-                oForm.Items.Item("71").Top = oForm.Items.Item("79").Top + oForm.Items.Item("79").Height + 1;
-                oForm.Items.Item("71").Left = oForm.Items.Item("79").Left;
+                oForm.Items.Item("71").Top = oForm.Items.Item("14").Top;
+                oForm.Items.Item("71").Left = oForm.Items.Item("11").Left;
+
                 //취소여부(TextBox)
-                oForm.Items.Item("Canceled").Top = oForm.Items.Item("71").Top;
+                oForm.Items.Item("Canceled").Top = oForm.Items.Item("14").Top;
                 oForm.Items.Item("Canceled").Left = oForm.Items.Item("71").Left + oForm.Items.Item("71").Width;
 
                 //공정리스트(Option)
@@ -1884,7 +1919,7 @@ namespace PSH_BOne_AddOn
                 //공정리스트(Matrix)
                 oForm.Items.Item("Mat03").Left = oForm.Items.Item("Opt03").Left;
                 oForm.Items.Item("Mat03").Top = oForm.Items.Item("9").Top + 18;
-                oForm.Items.Item("Mat03").Height = oForm.Height - oForm.Items.Item("Mat03").Top - 60;
+                oForm.Items.Item("Mat03").Height = oForm.Height - oForm.Items.Item("Mat03").Top - 100;
                 oForm.Items.Item("Mat03").Width = oForm.Width - oForm.Items.Item("Mat03").Left - 20;
             }
             catch(Exception ex)
@@ -2422,8 +2457,8 @@ namespace PSH_BOne_AddOn
                     RecordSet01.DoQuery(query01);
 
                     sQry = "select b.U_R3PONum";
-                    sQry += "from[@PS_MM180H] a inner join[@PS_MM180L] b on a.DocEntry = b.DocEntry and a.Canceled = 'N' and U_OIGNNum is not null and a.U_DocDate between dateadd(year, -9, GETDATE()) and GETDATE()";
-                    sQry += "where b.U_BatchNum = '" + oMat02.Columns.Item("BatchNum").Cells.Item(i).Specific.Value + "'";
+                    sQry += " from [@PS_MM180H] a inner join[@PS_MM180L] b on a.DocEntry = b.DocEntry and a.Canceled = 'N' and U_OIGNNum is not null and a.U_DocDate between dateadd(year, -9, GETDATE()) and GETDATE()";
+                    sQry += " where b.U_BatchNum = '" + oMat02.Columns.Item("BatchNum").Cells.Item(i).Specific.Value + "'";
 
                     RecordSet01.DoQuery(sQry);
                     R3PONum = RecordSet01.Fields.Item(0).Value;
@@ -2472,7 +2507,7 @@ namespace PSH_BOne_AddOn
                     query01 += "U_Comments,";
                     query01 += "U_BPLId,";
                     query01 += "U_BasicGub,";
-                    query01 += "U_R3PONum,";
+                    query01 += "U_R3PONum";
                     query01 += ")";
                     query01 += " VALUES";
                     query01 += "(";
@@ -2578,6 +2613,7 @@ namespace PSH_BOne_AddOn
                     query01 += "U_ProcType,";
                     query01 += "U_Comments,";
                     query01 += "U_BatchNum,";
+                    query01 += "U_R3PONum,";
                     query01 += "U_LineId";
                     query01 += ")";
                     query01 += " VALUES(";
@@ -2605,6 +2641,7 @@ namespace PSH_BOne_AddOn
                     query01 += "'" + oMat02.Columns.Item("ProcType").Cells.Item(i).Specific.Selected.Value + "',";
                     query01 += "'" + oMat02.Columns.Item("Comments").Cells.Item(i).Specific.Value + "',";
                     query01 += "'" + oMat02.Columns.Item("BatchNum").Cells.Item(i).Specific.Value + "',";
+                    query01 += "'" + R3PONum + "',";
                     query01 += "'" + i + "'";
                     query01 += ")";
                     RecordSet01.DoQuery(query01);

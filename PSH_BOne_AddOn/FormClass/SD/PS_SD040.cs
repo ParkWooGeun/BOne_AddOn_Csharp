@@ -1074,7 +1074,7 @@ namespace PSH_BOne_AddOn
                         oTable.SetValue("NTGEW", weight);
                         oTable.SetValue("ZBOXWE", packWgt);
                         oTable.SetValue("BRGEW", totalWgt);
-                        oTable.SetValue("BRGEW", R3PONum);
+                        oTable.SetValue("PONO", R3PONum);
                         oTable.Append();
 
                         if (oMat01.VisualRowCount == i + 2) //마지막에 실행
@@ -2883,7 +2883,7 @@ namespace PSH_BOne_AddOn
 
                                 for (i = 1; i <= oMat01.RowCount; i++)
                                 {
-                                    if (pVal.Row != i) //현재 선택된 행 제외
+                                    if (pVal.Row != i)
                                     {
                                         if (oMat01.Columns.Item("PackNo").Cells.Item(pVal.Row).Specific.Value == oMat01.Columns.Item("PackNo").Cells.Item(i).Specific.Value)
                                         {

@@ -104,15 +104,17 @@ namespace PSH_BOne_AddOn
 				sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
 				oRecordSet.DoQuery(sQry);
 
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
 				}
 				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
+
 				//가감구분
 				oMat.Columns.Item("PMDiv").ValidValues.Add("P", "가점");
 				oMat.Columns.Item("PMDiv").ValidValues.Add("M", "감점");
+
 				//사용여부
 				oMat.Columns.Item("UseYN").ValidValues.Add("Y", "Y");
 				oMat.Columns.Item("UseYN").ValidValues.Add("N", "N");
@@ -300,7 +302,6 @@ namespace PSH_BOne_AddOn
 						oDS_PS_HR404L.RemoveRecord(oMat.VisualRowCount - 1);
 					}
 				}
-
 				oMat.LoadFromDataSource();
 				functionReturnValue = true;
 			}
@@ -334,7 +335,6 @@ namespace PSH_BOne_AddOn
 					errMessage = "사업장은 필수입력 사항입니다.";
 					throw new Exception();
 				}
-
 				functionReturnValue = true;
 			}
 			catch (Exception ex)
@@ -710,7 +710,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				if (pVal.BeforeAction == true)
 				{
 					switch (pVal.MenuUID)

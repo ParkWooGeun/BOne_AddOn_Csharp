@@ -260,7 +260,6 @@ namespace PSH_BOne_AddOn
 		/// PS_HR000_DataValidCheck
 		/// </summary>
 		/// <returns></returns>
-
 		private bool PS_HR000_DataValidCheck()
 		{
 			bool functionReturnValue = false;
@@ -281,13 +280,13 @@ namespace PSH_BOne_AddOn
 					errMessage = "조치구분코드가 입력되지 않았습니다.";
 					throw new Exception();
 				}
-				if (string.IsNullOrEmpty(oForm.Items.Item("GrpName").Specific.Value.ToString().Trim()))
+				else if (string.IsNullOrEmpty(oForm.Items.Item("GrpName").Specific.Value.ToString().Trim()))
 				{
 					oForm.Items.Item("GrpName").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 					errMessage = "조치구분명이 입력되지 않았습니다.";
 					throw new Exception();
 				}
-				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
 					if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_HR000H] WHERE U_GrpCode = '" + oForm.Items.Item("GrpCode").Specific.Value.ToString().Trim() + "'", 0, 1) > 0)
 					{
@@ -296,7 +295,7 @@ namespace PSH_BOne_AddOn
 						throw new Exception();
 					}
 				}
-				if (oMat.VisualRowCount == 1) //라인정보 미입력 시
+				else if (oMat.VisualRowCount == 1) //라인정보 미입력 시
 				{
 					errMessage = "라인이 존재하지 않습니다.";
 					throw new Exception();
@@ -310,13 +309,13 @@ namespace PSH_BOne_AddOn
 						errMessage = "항목코드는 필수입니다.";
 						throw new Exception();
 					}
-					if (string.IsNullOrEmpty(oMat.Columns.Item("NameLv1").Cells.Item(i).Specific.Value.ToString().Trim()))
+					else if (string.IsNullOrEmpty(oMat.Columns.Item("NameLv1").Cells.Item(i).Specific.Value.ToString().Trim()))
 					{
 						oMat.Columns.Item("NameLv1").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 						errMessage = "항목명은 필수입니다.";
 						throw new Exception();
 					}
-					if (string.IsNullOrEmpty(oMat.Columns.Item("UseYN").Cells.Item(i).Specific.Value.ToString().Trim()))
+					else if (string.IsNullOrEmpty(oMat.Columns.Item("UseYN").Cells.Item(i).Specific.Value.ToString().Trim()))
 					{
 						oMat.Columns.Item("UseYN").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 						errMessage = "사용유무는 필수입니다.";
@@ -341,7 +340,6 @@ namespace PSH_BOne_AddOn
 				{
 					PS_HR000_FormClear();
 				}
-
 				functionReturnValue = true;
 			}
 			catch (Exception ex)
@@ -803,7 +801,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				if (pVal.BeforeAction == true)
 				{
 					switch (pVal.MenuUID)

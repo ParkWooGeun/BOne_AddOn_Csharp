@@ -257,7 +257,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 DocEntry = dataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PS_HR200'", "");
-                if (string.IsNullOrEmpty(DocEntry) | DocEntry == "0")
+                if (string.IsNullOrEmpty(DocEntry) || DocEntry == "0")
                 {
                     oForm.Items.Item("DocEntry").Specific.Value = 1;
                 }
@@ -699,7 +699,8 @@ namespace PSH_BOne_AddOn
 
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat);
-
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_HR200H);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_HR200L);
                 }
             }
             catch (Exception ex)

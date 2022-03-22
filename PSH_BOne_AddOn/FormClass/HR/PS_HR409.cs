@@ -46,7 +46,6 @@ namespace PSH_BOne_AddOn
 				oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 
 				oForm.Freeze(true);
-
 				PS_HR409_CreateItems();
 				PS_HR409_ComboBox_Setting();
 
@@ -108,12 +107,11 @@ namespace PSH_BOne_AddOn
 			{
 				sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
 				oRecordSet.DoQuery(sQry);
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
 				}
-				//아이디별 사업장 세팅
 				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
 			}
 			catch (Exception ex)
@@ -310,7 +308,6 @@ namespace PSH_BOne_AddOn
 
 						if (Cnt > 0)
 						{
-							//있으면 Update
 							sQry = " Select PassWd From Z_PS_HRPASS Where BPLId = '" + BPLId + "' and MSTCOD = '" + MSTCOD + "'";
 							oRecordSet.DoQuery(sQry);
 
@@ -393,7 +390,7 @@ namespace PSH_BOne_AddOn
 						{
 							if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim()))
 							{
-								PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
+								PSH_Globals.SBO_Application.ActivateMenuItem("7425");
 								BubbleEvent = false;
 							}
 						}

@@ -113,7 +113,7 @@ namespace PSH_BOne_AddOn
 				// 사업장
 				sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
 				oRecordSet.DoQuery(sQry);
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
@@ -145,9 +145,7 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				//아이디별 사업장 세팅
 				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
-
 				oForm.Items.Item("DocDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
 				oForm.Items.Item("Year").Specific.Value = DateTime.Now.ToString("yyyy");
 			}
@@ -289,6 +287,7 @@ namespace PSH_BOne_AddOn
 						oRecordSet.DoQuery(sQry);
 						oDS_PS_HR406H.SetValue("U_FULLNAME", 0, oRecordSet.Fields.Item(0).Value.ToString().Trim());
 						break;
+
 					case "EmpNo1":
 						sQry = "Select lastName + firstName From OHEM Where U_MSTCOD = '" + oDS_PS_HR406H.GetValue("U_EmpNo1", 0).ToString().Trim() + "'";
 						oRecordSet.DoQuery(sQry);
@@ -402,6 +401,7 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
+				oForm.Freeze(true);
 				BPLId   = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
 				DocDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
 				EmpNo1  = oForm.Items.Item("EmpNo1").Specific.Value.ToString().Trim();
@@ -434,15 +434,13 @@ namespace PSH_BOne_AddOn
 					throw new Exception();
 				}
 
-				oForm.Freeze(true);
-
 				ProgressBar01.Text = "조회시작!";
 
 				for (i = 0; i <= oRecordSet.RecordCount - 1; i++)
 				{
 					if (i + 1 > oDS_PS_HR406L.Size)
 					{
-						oDS_PS_HR406L.InsertRecord((i));
+						oDS_PS_HR406L.InsertRecord(i);
 					}
 
 					oMat.AddRow();
@@ -494,7 +492,6 @@ namespace PSH_BOne_AddOn
 		private bool PS_HR406_PasswordChk()
 		{
 			bool functionReturnValue = false;
-
 			string sQry;
 			string MSTCOD;
 			string PassWd;
@@ -774,7 +771,7 @@ namespace PSH_BOne_AddOn
 						{
 							if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim()))
 							{
-								PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
+								PSH_Globals.SBO_Application.ActivateMenuItem("7425");
 								BubbleEvent = false;
 							}
 						}
@@ -782,7 +779,7 @@ namespace PSH_BOne_AddOn
 						{
 							if (string.IsNullOrEmpty(oForm.Items.Item("EmpNo1").Specific.Value.ToString().Trim()))
 							{
-								PSH_Globals.SBO_Application.ActivateMenuItem(("7425"));
+								PSH_Globals.SBO_Application.ActivateMenuItem("7425");
 								BubbleEvent = false;
 							}
 						}
@@ -914,7 +911,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				if (pVal.BeforeAction == true)
 				{
 					switch (pVal.MenuUID)

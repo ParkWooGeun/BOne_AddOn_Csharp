@@ -101,9 +101,11 @@ namespace PSH_BOne_AddOn
                 //사번
                 oForm.DataSources.UserDataSources.Add("MSTCOD", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("MSTCOD").Specific.DataBind.SetBound(true, "", "MSTCOD");
+
                 //성명
                 oForm.DataSources.UserDataSources.Add("FULLNAME", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
                 oForm.Items.Item("FULLNAME").Specific.DataBind.SetBound(true, "", "FULLNAME");
+
                 //직급명
                 oForm.DataSources.UserDataSources.Add("JigNm", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
                 oForm.Items.Item("JigNm").Specific.DataBind.SetBound(true, "", "JigNm");
@@ -410,7 +412,6 @@ namespace PSH_BOne_AddOn
                         {
                             Param09 = oForm.Items.Item("JigNm").Specific.Value; //직급명
                         }
-
                         sQry = "EXEC PS_HR412_02 '" + oStatus + "', '" + Param01 + "', '" + Param02 + "', '" + Param03 + "', '" + Param04 + "', '" + Param05 + "', '" + Param06 + "', '" + Param07 + "', '" + Param08 + "', '" + Param09 + "'";
 
                         oRecordSet01.DoQuery(sQry);
@@ -626,6 +627,7 @@ namespace PSH_BOne_AddOn
                             }
                         }
                     }
+
                     if (pVal.ItemUID == "Btn02")
                     {
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
@@ -643,8 +645,7 @@ namespace PSH_BOne_AddOn
                         }
                     }
 
-                    //평가자 그룹핑 삭제
-                    if (pVal.ItemUID == "Btn03")
+                    if (pVal.ItemUID == "Btn03") //평가자 그룹핑 삭제
                     {
                         if (PS_HR412_PasswordChk(pVal) == false)
                         {
@@ -656,16 +657,12 @@ namespace PSH_BOne_AddOn
                             PS_HR412_SetBaseForm("삭제");
                             PS_HR412_MTX01();
                         }
-
                     }
                 }
             }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-            }
-            finally
-            {
             }
         }
 
@@ -729,9 +726,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-            }
-            finally
-            {
             }
         }
 
@@ -798,9 +792,6 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
-            finally
-            {
-            }
         }
 
         /// <summary>
@@ -824,7 +815,6 @@ namespace PSH_BOne_AddOn
                         {
                             if (!string.IsNullOrEmpty(oForm.Items.Item("Year").Specific.Value.ToString().Trim()))
                             {
-
                                 sQry = "select U_Number from [@PS_HR410H] a";
                                 sQry += " Where Isnull(a.U_OpenYN,'N') = 'Y' and isnull(a.U_CloseYN,'N') = 'N' ";
                                 sQry += " and a.U_BPLId = '" + oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() + "' ";
@@ -975,7 +965,6 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.BeforeAction == true)
                 {
-
                 }
                 else if (pVal.BeforeAction == false)
                 {
@@ -1001,9 +990,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-            }
-            finally
-            {
             }
         }
 
@@ -1113,9 +1099,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-            }
-            finally
-            {
             }
         }
     }

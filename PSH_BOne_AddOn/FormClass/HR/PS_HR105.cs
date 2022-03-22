@@ -55,7 +55,6 @@ namespace PSH_BOne_AddOn
 				oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 
 				oForm.Freeze(true);
-
 				PS_HR105_CreateItems();
 				PS_HR105_ComboBox_Setting();
 				PS_HR105_Initial_Setting();
@@ -142,7 +141,6 @@ namespace PSH_BOne_AddOn
 				dataHelpClass.Set_ComboList(oForm.Items.Item("GrpCode").Specific, sQry, "", false, false);
 				oForm.Items.Item("GrpCode").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
-				//매트릭스 컬럼의 콤보박스 설정
 				//징계양정
 				sQry = "SELECT U_Minor, U_CdName FROM [@PS_SY001L] WHERE Code = 'H001'";
 
@@ -163,7 +161,6 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				//사업장 사용자의 소속 사업장 선택
 				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
 
 				//날짜 설정
@@ -201,7 +198,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-				//행추가여부
 				if (RowIserted == false)
 				{
 					oDS_PS_HR105L.InsertRecord(oRow);
@@ -265,26 +261,24 @@ namespace PSH_BOne_AddOn
 			int loopCount;
 			string errMessage = string.Empty;
 			string sQry;
-			string BPLId;   //사업장
+			string BPLId; //사업장
 			string GrpCode; //조치구분
 			string VioCode; //위반자사번
 			string FrGrpDt; //조치일시작
 			string ToGrpDt; //조치일종료
-
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			SAPbouiCOM.ProgressBar ProgressBar01 = null;
 
 			try
-			{
-				BPLId = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
+            {
+                oForm.Freeze(true);
+                BPLId = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
 				GrpCode = oForm.Items.Item("GrpCode").Specific.Selected.Value.ToString().Trim();
 				VioCode = oForm.Items.Item("VioCode").Specific.Value.ToString().Trim();
 				FrGrpDt = oForm.Items.Item("FrGrpDt").Specific.Value.ToString().Trim();
 				ToGrpDt = oForm.Items.Item("ToGrpDt").Specific.Value.ToString().Trim();
 
 				ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet.RecordCount, false);
-
-				oForm.Freeze(true);
 
 				sQry = "EXEC PS_HR105_01 '" + BPLId + "','" + GrpCode + "','" + VioCode + "','" + FrGrpDt + "','" + ToGrpDt + "'";
 				oRecordSet.DoQuery(sQry);
@@ -308,19 +302,19 @@ namespace PSH_BOne_AddOn
 					}
 					oDS_PS_HR105L.Offset = loopCount;
 
-					oDS_PS_HR105L.SetValue("U_LineNum", loopCount, Convert.ToString(loopCount + 1));                            //라인번호
-					oDS_PS_HR105L.SetValue("U_ColReg01", loopCount, oRecordSet.Fields.Item("PubNo").Value.ToString().Trim());   //발행번호
-					oDS_PS_HR105L.SetValue("U_ColReg09", loopCount, oRecordSet.Fields.Item("GrpDt").Value.ToString().Trim());   //조치일자
+					oDS_PS_HR105L.SetValue("U_LineNum", loopCount, Convert.ToString(loopCount + 1)); //라인번호
+					oDS_PS_HR105L.SetValue("U_ColReg01", loopCount, oRecordSet.Fields.Item("PubNo").Value.ToString().Trim()); //발행번호
+					oDS_PS_HR105L.SetValue("U_ColReg09", loopCount, oRecordSet.Fields.Item("GrpDt").Value.ToString().Trim()); //조치일자
 					oDS_PS_HR105L.SetValue("U_ColReg02", loopCount, oRecordSet.Fields.Item("VioCode").Value.ToString().Trim()); //위반자사번
 					oDS_PS_HR105L.SetValue("U_ColReg03", loopCount, oRecordSet.Fields.Item("VioName").Value.ToString().Trim()); //위반자성명
-					oDS_PS_HR105L.SetValue("U_ColReg04", loopCount, oRecordSet.Fields.Item("ActGd").Value.ToString().Trim());   //징계양정
+					oDS_PS_HR105L.SetValue("U_ColReg04", loopCount, oRecordSet.Fields.Item("ActGd").Value.ToString().Trim()); //징계양정
 					oDS_PS_HR105L.SetValue("U_ColReg05", loopCount, oRecordSet.Fields.Item("CodeLv1").Value.ToString().Trim()); //항목코드
 					oDS_PS_HR105L.SetValue("U_ColReg06", loopCount, oRecordSet.Fields.Item("NameLv1").Value.ToString().Trim()); //항목
 					oDS_PS_HR105L.SetValue("U_ColReg07", loopCount, oRecordSet.Fields.Item("CodeLv2").Value.ToString().Trim()); //세부사항코드
 					oDS_PS_HR105L.SetValue("U_ColReg08", loopCount, oRecordSet.Fields.Item("NameLv2").Value.ToString().Trim()); //세부사항
 					oDS_PS_HR105L.SetValue("U_ColReg10", loopCount, oRecordSet.Fields.Item("CodeLv3").Value.ToString().Trim()); //세세부사항코드
 					oDS_PS_HR105L.SetValue("U_ColReg11", loopCount, oRecordSet.Fields.Item("NameLv3").Value.ToString().Trim()); //세세부사항명
-					oDS_PS_HR105L.SetValue("U_ColReg12", loopCount, oRecordSet.Fields.Item("LNote").Value.ToString().Trim());   //위반세부내용
+					oDS_PS_HR105L.SetValue("U_ColReg12", loopCount, oRecordSet.Fields.Item("LNote").Value.ToString().Trim()); //위반세부내용
 					oDS_PS_HR105L.SetValue("U_ColReg13", loopCount, oRecordSet.Fields.Item("DocEntry").Value.ToString().Trim());//문서번호
 
 					oRecordSet.MoveNext();
@@ -363,8 +357,7 @@ namespace PSH_BOne_AddOn
 		{
 			string WinTitle;
 			string ReportName;
-
-			string BPLId;	//사업장
+			string BPLId; //사업장
 			string GrpCode;	//조치구분
 			string VioCode;	//위반자사번
 			string FrGrpDt;	//조치일시작
@@ -697,7 +690,7 @@ namespace PSH_BOne_AddOn
             {
                 if (pVal.BeforeAction == true)
                 {
-                    if (pVal.ItemUID == "Mat01" & pVal.ColUID == "DocEntry")
+                    if (pVal.ItemUID == "Mat01" && pVal.ColUID == "DocEntry")
                     {
                         PS_HR100 PS_HR100 = new PS_HR100();
                         PS_HR100.LoadForm(oMat.Columns.Item("DocEntry").Cells.Item(pVal.Row).Specific.Value);
@@ -728,7 +721,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 if (pVal.BeforeAction == true)
                 {
                     if (pVal.ItemChanged == true)
@@ -772,7 +764,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (pVal.BeforeAction == false)
                 {
-                    oMat.AutoResizeColumns(); //UDO방식
+                    oMat.AutoResizeColumns();
                 }
             }
             catch (Exception ex)
@@ -843,7 +835,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 if (pVal.BeforeAction == true)
                 {
                     switch (pVal.MenuUID)

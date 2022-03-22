@@ -49,7 +49,6 @@ namespace PSH_BOne_AddOn
 				oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
 
 				oForm.Freeze(true);
-
 				PS_HR424_CreateItems();
 				PS_HR424_ComboBox_Setting();
 
@@ -125,7 +124,7 @@ namespace PSH_BOne_AddOn
 				// 사업장
 				sQry = "SELECT BPLId, BPLName From OBPL Order by BPLId";
 				oRecordSet.DoQuery(sQry);
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
@@ -170,13 +169,13 @@ namespace PSH_BOne_AddOn
 					throw new Exception();
 				}
 
-				if (string.IsNullOrEmpty(oForm.Items.Item("Number").Specific.Value.ToString().Trim()))
+				else if (string.IsNullOrEmpty(oForm.Items.Item("Number").Specific.Value.ToString().Trim()))
 				{
 					errMessage = "평가차수는 필수사항입니다. 확인하여 주십시오.";
 					throw new Exception();
 				}
 
-				if (string.IsNullOrEmpty(oForm.Items.Item("Group").Specific.Value.ToString().Trim()))
+				else if (string.IsNullOrEmpty(oForm.Items.Item("Group").Specific.Value.ToString().Trim()))
 				{
 					errMessage = "평가그룹을 확인하여 주십시오.";
 					throw new Exception();
@@ -223,8 +222,8 @@ namespace PSH_BOne_AddOn
 				}
 
 				sQry = "Select Count(*) From Z_PS_HRPASS Where MSTCOD = '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "'";
-				sQry = sQry + " And  BPLId = '" + oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() + "' ";
-				sQry = sQry + " And  PassWd = '" + oForm.Items.Item("PassWd").Specific.Value.ToString().Trim() + "' ";
+				sQry += " And  BPLId = '" + oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() + "' ";
+				sQry += " And  PassWd = '" + oForm.Items.Item("PassWd").Specific.Value.ToString().Trim() + "' ";
 				oRecordSet.DoQuery(sQry);
 
 				if (Convert.ToDouble(oRecordSet.Fields.Item(0).Value) <= 0)
@@ -247,6 +246,10 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
 				}
 			}
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+            }
 			return functionReturnValue;
 		}
 
@@ -263,7 +266,6 @@ namespace PSH_BOne_AddOn
 			string Group;
 			string BPLId;
 			string MSTCOD;
-
 			string BPLName;
 			string GroupNM;
 			string sQry;
@@ -554,7 +556,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 if (pVal.BeforeAction == true)
                 {
                     switch (pVal.MenuUID)

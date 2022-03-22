@@ -177,7 +177,7 @@ namespace PSH_BOne_AddOn
             {
                 sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
                 oRecordSet01.DoQuery(sQry);
-                while (!(oRecordSet01.EoF))
+                while (!oRecordSet01.EoF)
                 {
                     oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
                     oRecordSet01.MoveNext();
@@ -209,7 +209,6 @@ namespace PSH_BOne_AddOn
             string sQry;
             string BPLID;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
             {
@@ -218,7 +217,7 @@ namespace PSH_BOne_AddOn
                     case "MSTCOD":
                         BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
                         sQry = "Select a.U_FULLNAME From OHEM a  ";
-                        sQry = sQry + " Where a.U_MSTCOD = '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "' And a.branch = '" + oForm.Items.Item("BPLId").Specific.Value + "'";
+                        sQry += " Where a.U_MSTCOD = '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "' And a.branch = '" + oForm.Items.Item("BPLId").Specific.Value + "'";
                         oRecordSet01.DoQuery(sQry);
                         oForm.Items.Item("FULLNAME").Specific.Value = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
                         break;

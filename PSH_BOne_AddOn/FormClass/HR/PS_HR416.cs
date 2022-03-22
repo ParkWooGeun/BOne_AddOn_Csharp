@@ -146,6 +146,10 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+            }
         }
 
         /// <summary>
@@ -735,6 +739,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
                 oForm.Freeze(false);
             }
             return ReturnValue;
@@ -861,6 +866,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
                 oForm.Freeze(false);
             }
             return ReturnValue;
@@ -979,7 +985,6 @@ namespace PSH_BOne_AddOn
             string Number;
             string Evaluate;
             double Svalue = 0;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -1024,13 +1029,12 @@ namespace PSH_BOne_AddOn
                         oMat01.LoadFromDataSource();
                         
                         j = 1;
-                        while (!(oRecordSet01.EoF))
+                        while (!oRecordSet01.EoF)
                         {
 
                             if (oDS_PS_HR416L.Size < j)
                             {
-                                oDS_PS_HR416L.InsertRecord(j - 1);
-                                //라인추가
+                                oDS_PS_HR416L.InsertRecord(j - 1); //라인추가
                             }
                             oDS_PS_HR416L.SetValue("U_LineNum", j - 1, Convert.ToString(j));
                             oDS_PS_HR416L.SetValue("U_ColReg01", j - 1, oRecordSet01.Fields.Item(0).Value);
@@ -1057,7 +1061,6 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("Btn02").Specific.Caption = "추가";
                 }
                 oForm.Items.Item("Svalue").Specific.Value = Svalue;
-
             }
             catch (Exception ex)
             {
@@ -1097,7 +1100,6 @@ namespace PSH_BOne_AddOn
             string FULLNAME;
             string sQry;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
             {
@@ -1373,6 +1375,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
         }
 
@@ -1406,7 +1409,6 @@ namespace PSH_BOne_AddOn
                                 BubbleEvent = false;
                             }
                         }
-
                     }
                 }
                 else if (pVal.Before_Action == false)
@@ -1416,9 +1418,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-            }
-            finally
-            {
             }
         }
 
@@ -1451,9 +1450,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-            }
-            finally
-            {
             }
         }
 
@@ -1522,13 +1518,9 @@ namespace PSH_BOne_AddOn
                                 oDS_PS_HR416L.Offset = i;
 
                                 Svalue += Convert.ToDouble(oDS_PS_HR416L.GetValue("U_ColQty02", i).ToString().Trim());
-
                             }
-
                             oForm.Items.Item("Svalue").Specific.Value = Svalue;
-                            
                             oMat01.LoadFromDataSource();
-                            oForm.Freeze(false);
                         }
                     }
                 }
@@ -1540,6 +1532,7 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
         }
 
@@ -1627,6 +1620,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
         }
 

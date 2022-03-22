@@ -14,7 +14,6 @@ namespace PSH_BOne_AddOn
 	{
 		private string oFormUniqueID;
 		private SAPbouiCOM.Matrix oMat;
-			
 		private SAPbouiCOM.DBDataSource oDS_PS_HR400H; //등록헤더
 		private SAPbouiCOM.DBDataSource oDS_PS_HR400L; //등록라인
 
@@ -107,7 +106,7 @@ namespace PSH_BOne_AddOn
 			{
 				sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
 				oRecordSet.DoQuery(sQry);
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
@@ -423,7 +422,7 @@ namespace PSH_BOne_AddOn
 				{
 					case "RateCode":
 						oMat.FlushToDataSource();
-						if (oRow == oMat.RowCount & !string.IsNullOrEmpty(oDS_PS_HR400L.GetValue("U_RateCode", oRow - 1).ToString().Trim()))
+						if (oRow == oMat.RowCount && !string.IsNullOrEmpty(oDS_PS_HR400L.GetValue("U_RateCode", oRow - 1).ToString().Trim()))
 						{
 							PS_HR400_AddMatrixRow(0, false);
 							oMat.Columns.Item("RateCode").Cells.Item(oRow).Click(SAPbouiCOM.BoCellClickType.ct_Regular);

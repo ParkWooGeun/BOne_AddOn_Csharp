@@ -48,7 +48,6 @@ namespace PSH_BOne_AddOn
 				oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
 
 				oForm.Freeze(true);
-
                 PS_HR422_CreateItems();
                 PS_HR422_ComboBox_Setting();
 
@@ -98,10 +97,10 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				// 사업장
+				//사업장
 				sQry = "SELECT BPLId, BPLName From OBPL Order by BPLId";
 				oRecordSet.DoQuery(sQry);
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
@@ -196,7 +195,7 @@ namespace PSH_BOne_AddOn
 				Group  = oForm.Items.Item("Group").Specific.Selected.Value.ToString().Trim();
 
 				WinTitle = "[PS_HR422] 전문직인사평가세부내역";
-				ReportName = "PS_HR422_01.RPT";
+				ReportName = "PS_HR422_01.rpt";
 
 				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
 
@@ -429,7 +428,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 if (pVal.BeforeAction == true)
                 {
                     switch (pVal.MenuUID)

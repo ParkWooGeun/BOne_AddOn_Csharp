@@ -51,7 +51,6 @@ namespace PSH_BOne_AddOn
 				oForm.DataBrowser.BrowseBy = "Code"; //UDO방식일때
 
 				oForm.Freeze(true);
-
 				PS_HR415_CreateItems();
 				PS_HR415_ComboBox_Setting();
 
@@ -104,15 +103,14 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				// 사업장
+				//사업장
 				sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
 				oRecordSet.DoQuery(sQry);
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
 				}
-				//아이디별 사업장 세팅
 				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
 
 			}
@@ -135,10 +133,10 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
-				//행추가여부
+				oForm.Freeze(true);
 				if (RowIserted == false)
 				{
-					oDS_PS_HR415L.InsertRecord((oRow));
+					oDS_PS_HR415L.InsertRecord(oRow);
 				}
 				oMat.AddRow();
 				oDS_PS_HR415L.Offset = oRow;
@@ -148,6 +146,10 @@ namespace PSH_BOne_AddOn
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+			}
+            finally
+            {
+				oForm.Freeze(false);
 			}
 		}
 
@@ -193,7 +195,6 @@ namespace PSH_BOne_AddOn
 					errMessage = "평가년도는 필수입력사항입니다. 확인하세요.";
 					throw new Exception();
 				}
-
 				if (string.IsNullOrEmpty(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim()))
 				{
 					errMessage = "사업장은 필수입력사항입니다. 확인하세요.";
@@ -227,14 +228,11 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oMat.FlushToDataSource();
-
-				// 라인
 				if (oMat.VisualRowCount == 0)
 				{
 					errMessage = "라인데이타가 없습니다. 확인하세요.";
 					throw new Exception();
 				}
-
 				oMat.LoadFromDataSource();
 				functionReturnValue = true;
 			}
@@ -264,10 +262,10 @@ namespace PSH_BOne_AddOn
 			string errMessage = string.Empty;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
 			try
 			{
 				oForm.Freeze(true);
-
 				Year  = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
 				BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
 
@@ -277,19 +275,18 @@ namespace PSH_BOne_AddOn
 				oMat.Clear();
 				oDS_PS_HR415L.Clear();
 
-				if ((oRecordSet.RecordCount == 0))
+				if (oRecordSet.RecordCount == 0)
 				{
 					errMessage = "조회 결과가 없습니다. 확인하세요.";
 					throw new Exception();
 				}
 				
 				ProgressBar01.Text = "조회시작!";
-
 				for (i = 0; i <= oRecordSet.RecordCount - 1; i++)
 				{
 					if (i + 1 > oDS_PS_HR415L.Size)
 					{
-						oDS_PS_HR415L.InsertRecord((i));
+						oDS_PS_HR415L.InsertRecord(i);
 					}
 
 					oMat.AddRow();
@@ -623,7 +620,6 @@ namespace PSH_BOne_AddOn
 			{
 				if (pVal.BeforeAction == true)
 				{
-					//행삭제전 행삭제가능여부검사
 				}
 				else if (pVal.BeforeAction == false)
 				{
@@ -668,7 +664,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				if (pVal.BeforeAction == true)
 				{
 					switch (pVal.MenuUID)

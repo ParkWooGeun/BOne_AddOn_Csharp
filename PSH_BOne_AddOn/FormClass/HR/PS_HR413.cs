@@ -11,7 +11,6 @@ namespace PSH_BOne_AddOn
 	{
 		private string oFormUniqueID;
 		private SAPbouiCOM.Matrix oMat;
-			
 		private SAPbouiCOM.DBDataSource oDS_PS_HR413H; //등록헤더
 		private SAPbouiCOM.DBDataSource oDS_PS_HR413L; //등록라인
 
@@ -51,7 +50,6 @@ namespace PSH_BOne_AddOn
 				oForm.DataBrowser.BrowseBy = "Code"; //UDO방식일때
 
 				oForm.Freeze(true);
-
 				PS_HR413_CreateItems();
 				PS_HR413_ComboBox_Setting();
 				PS_HR413_SetDocument(oFromDocEntry01);
@@ -106,12 +104,11 @@ namespace PSH_BOne_AddOn
 			{
 				sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
 				oRecordSet.DoQuery(sQry);
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
 				}
-				//아이디별 사업장 세팅
 				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
 			}
 			catch (Exception ex)
@@ -159,7 +156,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-				//각모드에따른 아이템설정
 				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
 					oForm.EnableMenu("1281", true);	 //찾기
@@ -204,7 +200,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-				//행추가여부
 				if (RowIserted == false)
 				{
 					oRow = oMat.RowCount;
@@ -244,7 +239,6 @@ namespace PSH_BOne_AddOn
 					oDS_PS_HR413L.SetValue("Code", i, "");
 					oMat.LoadFromDataSource();
 				}
-
 				PS_HR413_FormItemEnabled();
 			}
 			catch (Exception ex)
@@ -267,7 +261,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oMat.FlushToDataSource();
-				// Matrix 필드에 질의 응답 창 띄워주기
 				if (oUID == "Mat01")
 				{
 					switch (oCol)
@@ -299,9 +292,9 @@ namespace PSH_BOne_AddOn
 					sQry += "         inner Join ";
 					sQry += "         [@PS_HR400L] b ";
 					sQry += "             On a.Code = b.Code ";
-					sQry = sQry + " Where   a.U_BPLId = '" + oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() + "'";
-					sQry = sQry + "         and U_Year = '" + oForm.Items.Item("Year").Specific.Value.ToString().Trim() + "'";
-					sQry = sQry + "         And b.U_RateCode = '" + oForm.Items.Item("RateCode").Specific.Value.ToString().Trim() + "'";
+					sQry += " Where   a.U_BPLId = '" + oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() + "'";
+					sQry += "         and U_Year = '" + oForm.Items.Item("Year").Specific.Value.ToString().Trim() + "'";
+					sQry += "         And b.U_RateCode = '" + oForm.Items.Item("RateCode").Specific.Value.ToString().Trim() + "'";
 					oRecordSet.DoQuery(sQry);
 					oForm.Items.Item("RateMNm").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 				}
@@ -329,7 +322,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oMat.FlushToDataSource();
-				// 라인
 				if (oMat.VisualRowCount == 0)
 				{
 					errMessage = "라인데이타가 없습니다. 확인하세요.";
@@ -487,9 +479,8 @@ namespace PSH_BOne_AddOn
 				oMat.FlushToDataSource();
 				oMat.LoadFromDataSource();
 
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
-
 					oDS_PS_HR413L.SetValue("U_LineNum", sRow - 1, Convert.ToString(sRow));
 					oDS_PS_HR413L.SetValue("U_MSTCOD", sRow - 1, oRecordSet.Fields.Item(0).Value.ToString().Trim());   //사번
 					oDS_PS_HR413L.SetValue("U_FULLNAME", sRow - 1, oRecordSet.Fields.Item(1).Value.ToString().Trim()); //성명
@@ -501,7 +492,6 @@ namespace PSH_BOne_AddOn
 					sRow += 1;
 					oRecordSet.MoveNext();
 				}
-
 				oMat.LoadFromDataSource();
 				oMat.AutoResizeColumns();
 			}
@@ -521,7 +511,6 @@ namespace PSH_BOne_AddOn
 				oForm.Freeze(false);
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
 			}
-
 		}
 
 		/// <summary>
@@ -737,9 +726,6 @@ namespace PSH_BOne_AddOn
 						}
 					}
 				}
-				else if (pVal.Before_Action == false)
-				{
-				}
 			}
 			catch (Exception ex)
 			{
@@ -861,7 +847,6 @@ namespace PSH_BOne_AddOn
 			{
 				if (pVal.BeforeAction == true)
 				{
-					//행삭제전 행삭제가능여부검사
 				}
 				else if (pVal.BeforeAction == false)
 				{
@@ -905,7 +890,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				if (pVal.BeforeAction == true)
 				{
 					switch (pVal.MenuUID)

@@ -12,7 +12,6 @@ namespace PSH_BOne_AddOn
 		private string oFormUniqueID;
 		private SAPbouiCOM.Matrix oMat;
 		private SAPbouiCOM.Grid oGrid;
-
 		private SAPbouiCOM.DBDataSource oDS_PS_HR419L;
 
 		/// <summary>
@@ -50,12 +49,10 @@ namespace PSH_BOne_AddOn
 				oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 
 				oForm.Freeze(true);
-
 				PS_HR419_CreateItems();
 				PS_HR419_ComboBox_Setting();
 
 				oForm.Items.Item("Year").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-
 				oForm.EnableMenu("1283", false); // 삭제
 				oForm.EnableMenu("1286", false); // 닫기
 				oForm.EnableMenu("1287", false); // 복제
@@ -108,12 +105,12 @@ namespace PSH_BOne_AddOn
 				// 사업장
 				sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
 				oRecordSet.DoQuery(sQry);
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
 				}
-				//아이디별 사업장 세팅
+				
 				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
 
 				oForm.Items.Item("Number").Specific.ValidValues.Add("1", "1차평가");
@@ -157,6 +154,7 @@ namespace PSH_BOne_AddOn
 						Year = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
 						Number = oForm.Items.Item("Number").Specific.Value.ToString().Trim();
 						MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
+
 						sQry = "Select U_FULLNAME From OHEM Where U_MSTCOD = '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() +"'";
 						oRecordSet.DoQuery(sQry);
 						oForm.Items.Item("FULLNAME").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
@@ -203,7 +201,6 @@ namespace PSH_BOne_AddOn
 					errMessage = "피평가자가 선택되지 않았습니다. 확인하여 주십시오.";
 					throw new Exception();
 				}
-
 				functionReturnValue = true;
 			}
 			catch (Exception ex)
@@ -220,6 +217,10 @@ namespace PSH_BOne_AddOn
 			return functionReturnValue;
 		}
 
+		/// <summary>
+		/// PS_HR419_MatrixSpaceLineDel
+		/// </summary>
+		/// <returns></returns>
 		private bool PS_HR419_MatrixSpaceLineDel()
 		{
 			bool functionReturnValue = false;
@@ -229,7 +230,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oMat.FlushToDataSource();
-				// 라인
 				if (oMat.VisualRowCount == 0)
 				{
 					errMessage = "라인 데이터가 없습니다. 확인하여 주십시오.";
@@ -269,11 +269,11 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void PS_HR419_Search_Grid_Data()
 		{
+			int Cnt;
 			string BPLID;
 			string Year;
 			string Number;
 			string Group;
-			int Cnt;
 			string ProcYN;
 			string errMessage = string.Empty;
 			string sQry;
@@ -282,7 +282,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				ProcYN = "Y";
 				oMat.Clear();
 				oForm.Items.Item("TeamCode").Specific.Value = "";
@@ -354,7 +353,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				oGrid.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_Single;
 				for (i = 0; i <= oGrid.Columns.Count - 1; i++)
 				{
@@ -390,7 +388,6 @@ namespace PSH_BOne_AddOn
 			int i;
 			int j;
 			int Cnt;
-
 			string BPLID;
 			string Year;
 			string Number;
@@ -400,14 +397,12 @@ namespace PSH_BOne_AddOn
 			string RspCode;
 			string RspName;
 			string PeakYN;
-
 			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
 			{
 				oForm.Freeze(true);
-
 				BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
 				Year = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
 				Number = oForm.Items.Item("Number").Specific.Value.ToString().Trim();
@@ -552,7 +547,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
 				Cnt = Convert.ToInt32(oForm.Items.Item("Cnt").Specific.Value.ToString().Trim());
 
@@ -766,10 +760,12 @@ namespace PSH_BOne_AddOn
 		/// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
 		private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
-			string Complete;
 			int i;
+			string Complete;
+
 			try
 			{
+				oForm.Freeze(true);
 				if (pVal.BeforeAction == true)
 				{
 					if (pVal.ItemUID == "Btn01") //조회버튼
@@ -806,14 +802,11 @@ namespace PSH_BOne_AddOn
 					}
 					else if (pVal.ItemUID == "Btn03") //평가등급 RESET
 					{
-						oForm.Freeze(true);
-
 						for (i = 1; i <= oMat.VisualRowCount; i++)
 						{
 							oMat.Columns.Item("Ranking").Cells.Item(i).Specific.Value = 0;
 							oMat.Columns.Item("Grade").Cells.Item(i).Specific.Value = "";
 						}
-
 						oForm.Freeze(false);
 					}
 					else if (pVal.ItemUID == "Btn04") //완료처리
@@ -826,14 +819,15 @@ namespace PSH_BOne_AddOn
 						PS_HR419_Search_Matrix_Data();
 					}
 				}
-				else if (pVal.BeforeAction == false)
-				{
-				}
 			}
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
 			}
+            finally
+            {
+				oForm.Freeze(false);
+            }
 		}
 
 		/// <summary>
@@ -911,7 +905,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				if (pVal.BeforeAction == true)
 				{
 				}
@@ -1027,7 +1020,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				if (pVal.BeforeAction == true)
 				{
 					switch (pVal.MenuUID)

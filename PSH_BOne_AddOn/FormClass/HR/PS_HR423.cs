@@ -48,7 +48,6 @@ namespace PSH_BOne_AddOn
 				oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
 
 				oForm.Freeze(true);
-
                 PS_HR423_CreateItems();
                 PS_HR423_ComboBox_Setting();
 
@@ -98,10 +97,10 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				// 사업장
+				//사업장
 				sQry = "SELECT BPLId, BPLName From OBPL Order by BPLId";
 				oRecordSet.DoQuery(sQry);
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
@@ -157,7 +156,6 @@ namespace PSH_BOne_AddOn
 					errMessage = "평가그룹을 확인하여 주십시오.";
 					throw new Exception();
 				}
-
 				functionReturnValue = true;
 			}
 			catch (Exception ex)
@@ -187,6 +185,7 @@ namespace PSH_BOne_AddOn
 			string Group;
 			string BPLId;
 			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+
 			try
 			{
 				BPLId = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
@@ -195,7 +194,7 @@ namespace PSH_BOne_AddOn
 				Group = oForm.Items.Item("Group").Specific.Selected.Value.ToString().Trim();
 
 				WinTitle = "[PS_HR423] 전문직정량평가현황";
-				ReportName = "PS_HR423_01.RPT";
+				ReportName = "PS_HR423_01.rpt";
 
 				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
 
@@ -428,7 +427,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 if (pVal.BeforeAction == true)
                 {
                     switch (pVal.MenuUID)

@@ -154,12 +154,11 @@ namespace PSH_BOne_AddOn
 			{
 				sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
 				oRecordSet.DoQuery(sQry);
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
 				}
-
 				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
 			}
 			catch (Exception ex)
@@ -192,7 +191,7 @@ namespace PSH_BOne_AddOn
 				Param04 = oForm.Items.Item("EmpNo1").Specific.Value.ToString().Trim();
 
 				sQry = "EXEC PS_HR407_01  '" + Param01 + "','" + Param02 + "','" + Param03 + "','" + Param04 + "'";
-				oForm.DataSources.DataTables.Item(0).ExecuteQuery((sQry));
+				oForm.DataSources.DataTables.Item(0).ExecuteQuery(sQry);
 				oGrid.DataTable = oForm.DataSources.DataTables.Item("ZTEMP");
 
 				PS_HR407_GridSetting();
@@ -382,8 +381,6 @@ namespace PSH_BOne_AddOn
 		/// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
 		private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
-			string errMessage = string.Empty;
-
 			try
 			{
 				if (pVal.BeforeAction == true)
@@ -394,12 +391,6 @@ namespace PSH_BOne_AddOn
 						{
 							PS_HR407_Search_Grid_Data();
 						}
-						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-						{
-						}
-						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-						{
-						}
 					}
 					if (pVal.ItemUID == "Button02")
 					{
@@ -407,12 +398,6 @@ namespace PSH_BOne_AddOn
 						{
 							PS_HR407_SetBaseForm(); //부모폼에입력
 							oForm.Close();
-						}
-						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-						{
-						}
-						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-						{
 						}
 					}
 				}
@@ -505,7 +490,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				if (pVal.BeforeAction == true)
 				{
 					switch (pVal.MenuUID)

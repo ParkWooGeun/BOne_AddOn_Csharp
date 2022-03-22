@@ -11,7 +11,6 @@ namespace PSH_BOne_AddOn
 	{
 		private string oFormUniqueID;
 		private SAPbouiCOM.Matrix oMat;
-			
 		private SAPbouiCOM.DBDataSource oDS_PS_HR002H; //등록헤더
 		private SAPbouiCOM.DBDataSource oDS_PS_HR002L; //등록라인
 
@@ -366,7 +365,6 @@ namespace PSH_BOne_AddOn
 				{
 					PS_HR002_FormClear();
 				}
-
 				functionReturnValue = true;
 			}
 			catch (Exception ex)
@@ -393,7 +391,6 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-
 				sQry = "    SELECT    B.U_CodeLv1,";
 				sQry += "              B.U_NameLv1,";
 				sQry += "              2 AS [Sort]";
@@ -951,7 +948,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				if (pVal.BeforeAction == true)
 				{
 					switch (pVal.MenuUID)

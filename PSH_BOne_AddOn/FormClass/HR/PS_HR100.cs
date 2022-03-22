@@ -115,7 +115,7 @@ namespace PSH_BOne_AddOn
             {
                 sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
                 oRecordSet01.DoQuery(sQry);
-                while (!(oRecordSet01.EoF))
+                while (!oRecordSet01.EoF)
                 {
                     oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
                     oRecordSet01.MoveNext();
@@ -233,7 +233,6 @@ namespace PSH_BOne_AddOn
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
-
                     oForm.Items.Item("GrpCode").Enabled = true;
                     oForm.Items.Item("DocEntry").Specific.VALUE = "";
                     oForm.Items.Item("DocEntry").Enabled = true;

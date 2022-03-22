@@ -132,7 +132,7 @@ namespace PSH_BOne_AddOn
 
                 sQry = "SELECT BPLId, BPLName FROM OBPL order by BPLId";
                 oRecordSet01.DoQuery(sQry);
-                while (!(oRecordSet01.EoF))
+                while (!oRecordSet01.EoF)
                 {
                     oMat01.Columns.Item("BPLId").ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
                     oRecordSet01.MoveNext();
@@ -559,7 +559,7 @@ namespace PSH_BOne_AddOn
         /// UpdateData
         /// </summary>
         /// <returns></returns>
-        private bool PS_HR405_UpdateData(SAPbouiCOM.ItemEvent pval)
+        private bool PS_HR405_UpdateData(SAPbouiCOM.ItemEvent pVal)
         {
             bool functionReturnValue = false;
             int i = 0;

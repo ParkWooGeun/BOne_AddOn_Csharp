@@ -252,10 +252,13 @@
     <Compile Include="FormClass\MM\PS_MM205.cs" />
     <Compile Include="FormClass\MM\PS_MM224.cs" />
     <Compile Include="FormClass\MM\PS_MM225.cs" />
+    <Compile Include="FormClass\MM\PS_MM237.cs" />
     <Compile Include="FormClass\MM\PS_MM243.cs" />
     <Compile Include="FormClass\MM\PS_MM247.cs" />
     <Compile Include="FormClass\MM\PS_MM300.cs" />
     <Compile Include="FormClass\MM\PS_MM510.cs" />
+    <Compile Include="FormClass\MM\PS_MM917.cs" />
+    <Compile Include="FormClass\MM\PS_MM920.cs" />
     <Compile Include="FormClass\MM\PS_MM921.cs" />
     <Compile Include="FormClass\CO\PS_CO540.cs" />
     <Compile Include="FormClass\CO\PS_CO040.cs" />
@@ -290,6 +293,8 @@
     <Compile Include="FormClass\CO\PS_CO665.cs" />
     <Compile Include="FormClass\CO\PS_CO670.cs" />
     <Compile Include="FormClass\MM\PS_MM923.cs" />
+    <Compile Include="FormClass\MM\PS_MM924.cs" />
+    <Compile Include="FormClass\MM\PS_MM928.cs" />
     <Compile Include="FormClass\MM\PS_MM930.cs" />
     <Compile Include="FormClass\MM\PS_MM951.cs" />
     <Compile Include="FormClass\OA\PS_SY001.cs" />

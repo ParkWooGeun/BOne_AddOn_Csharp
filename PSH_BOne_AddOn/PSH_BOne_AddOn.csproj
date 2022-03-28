@@ -248,8 +248,12 @@
     <Compile Include="FormClass\MM\PS_MM153.cs" />
     <Compile Include="FormClass\MM\PS_MM180.cs" />
     <Compile Include="FormClass\MM\PS_MM200.cs" />
+    <Compile Include="FormClass\MM\PS_MM203.cs" />
     <Compile Include="FormClass\MM\PS_MM204.cs" />
     <Compile Include="FormClass\MM\PS_MM205.cs" />
+    <Compile Include="FormClass\MM\PS_MM212.cs" />
+    <Compile Include="FormClass\MM\PS_MM215.cs" />
+    <Compile Include="FormClass\MM\PS_MM217.cs" />
     <Compile Include="FormClass\MM\PS_MM224.cs" />
     <Compile Include="FormClass\MM\PS_MM225.cs" />
     <Compile Include="FormClass\MM\PS_MM237.cs" />

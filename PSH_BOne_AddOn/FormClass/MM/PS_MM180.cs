@@ -863,6 +863,7 @@ namespace PSH_BOne_AddOn
         private void PS_MM180_LoadBOXNoFromR3()
         {
             string E_MESSAGE;
+            string sQry;
             string I_ZLOTNO;
             string I_ZPROWE;
             string I_ZBOXNO;
@@ -893,6 +894,7 @@ namespace PSH_BOne_AddOn
             RfcRepository rfcRep = null;
             RfcDestination rfcDest = null;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             SAPbouiCOM.ProgressBar ProgBar01 = null;
 
             try
@@ -978,8 +980,17 @@ namespace PSH_BOne_AddOn
                         I_LDATE = row.GetValue("LDATE").ToString();
                         I_JDATE = row.GetValue("JDATE").ToString();
 
-                        oDS_PS_MM180L.SetValue("U_ItemCode", MatrixRow - 1, oForm.Items.Item("BItemCod").Specific.Value);
-                        oDS_PS_MM180L.SetValue("U_ItemName", MatrixRow - 1, dataHelpClass.GetValue("SELECT ItemName FROM [OITM] WHERE ItemCode = '" + oForm.Items.Item("BItemCod").Specific.Value + "'", 0, 1));
+                        sQry = "Select b.U_ItemCode from [@PS_PP011H] a inner join [@PS_PP011L] b on a.Code = b.Code and a.Code ='12522' where b.U_PsCode ='" + I_ZMATNR  + "'";
+                        oRecordSet01.DoQuery(sQry);
+
+                        if (oRecordSet01.Fields.Count == 0) 
+                        {
+                            errMessage = I_ZMATNR + "원소재를 11.거래처제품(연결)코드등록에 입력하세요";
+                            throw new Exception();
+                        }
+
+                        oDS_PS_MM180L.SetValue("U_ItemCode", MatrixRow - 1, oRecordSet01.Fields.Item(0).Value);
+                        oDS_PS_MM180L.SetValue("U_ItemName", MatrixRow - 1, dataHelpClass.GetValue("SELECT ItemName FROM [OITM] WHERE ItemCode = '" + oRecordSet01.Fields.Item(0).Value + "'", 0, 1));
                         oDS_PS_MM180L.SetValue("U_BoxNo", MatrixRow - 1, I_ZBOXNO);
                         oDS_PS_MM180L.SetValue("U_BatchNum", MatrixRow - 1, I_ZLOTNO);
                         oDS_PS_MM180L.SetValue("U_WhsCode", MatrixRow - 1, oForm.Items.Item("BWhsCode").Specific.Value);
@@ -1062,6 +1073,7 @@ namespace PSH_BOne_AddOn
         private void PS_MM180_LoadSPNUMFromR3()
         {
             string E_MESSAGE;
+            string sQry;
             string I_ZSPNUM; 
             string I_ZLOTNO;
             string I_ZPROWE;
@@ -1094,6 +1106,7 @@ namespace PSH_BOne_AddOn
             RfcDestination rfcDest = null;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbouiCOM.ProgressBar ProgBar01 = null;
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -1179,8 +1192,17 @@ namespace PSH_BOne_AddOn
                         I_LDATE = row.GetValue("LDATE").ToString();
                         I_JDATE = row.GetValue("JDATE").ToString();
 
-                        oDS_PS_MM180L.SetValue("U_ItemCode", MatrixRow - 1, oForm.Items.Item("BItemCod").Specific.Value);
-                        oDS_PS_MM180L.SetValue("U_ItemName", MatrixRow - 1, dataHelpClass.GetValue("SELECT ItemName FROM [OITM] WHERE ItemCode = '" + oForm.Items.Item("BItemCod").Specific.Value + "'", 0, 1));
+                        sQry = "Select b.U_ItemCode from [@PS_PP011H] a inner join [@PS_PP011L] b on a.Code = b.Code and a.Code ='12522' where b.U_PsCode ='" + I_ZMATNR + "'";
+                        oRecordSet01.DoQuery(sQry);
+
+                        if (oRecordSet01.Fields.Count == 0)
+                        {
+                            errMessage = I_ZMATNR + "원소재를 11.거래처제품(연결)코드등록에 입력하세요";
+                            throw new Exception();
+                        }
+
+                        oDS_PS_MM180L.SetValue("U_ItemCode", MatrixRow - 1, oRecordSet01.Fields.Item(0).Value);
+                        oDS_PS_MM180L.SetValue("U_ItemName", MatrixRow - 1, dataHelpClass.GetValue("SELECT ItemName FROM [OITM] WHERE ItemCode = '" + oRecordSet01.Fields.Item(0).Value + "'", 0, 1));
                         oDS_PS_MM180L.SetValue("U_BoxNo", MatrixRow - 1, I_ZBOXNO);
                         oDS_PS_MM180L.SetValue("U_BatchNum", MatrixRow - 1, I_ZLOTNO);
                         oDS_PS_MM180L.SetValue("U_WhsCode", MatrixRow - 1, oForm.Items.Item("BWhsCode").Specific.Value);

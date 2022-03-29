@@ -474,6 +474,7 @@ namespace PSH_BOne_AddOn
             string Param07;
             string ItemCode;
             string ItemName;
+            string R3PONum;
             string WorkCon;
             string QueryString;
             string errMessage = string.Empty;
@@ -528,8 +529,9 @@ namespace PSH_BOne_AddOn
                                 Param07 = oMat01.Columns.Item("DueDate").Cells.Item(i).Specific.Value;
                                 ItemCode = oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.Value.ToString().Trim();
                                 ItemName = dataHelpClass.Make_ItemName(oMat01.Columns.Item("ItemName").Cells.Item(i).Specific.Value.ToString().Trim());
+                                R3PONum = oMat01.Columns.Item("R3PONum").Cells.Item(i).Specific.Value;
 
-                                Query01 = "EXEC PS_PP035_02 '" + Param01 + "', '" + Param02 + "', '" + Param03 + "', '" + Param04 + "', '" + Param05 + "', '" + Param06 + "', '" + Param07 + "', '" + ItemCode + "', '" + ItemName + "'";
+                                Query01 = "EXEC PS_PP035_02 '" + Param01 + "', '" + Param02 + "', '" + Param03 + "', '" + Param04 + "', '" + Param05 + "', '" + Param06 + "', '" + Param07 + "', '" + ItemCode + "', '" + ItemName + "', '" + R3PONum + "'";
                                 oRecordSet01.DoQuery(Query01);
                                 PSH_Globals.SBO_Application.MessageBox("데이터를 수정하였습니다.");
                             }
@@ -698,6 +700,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_PP035L.SetValue("U_ColReg07", i, oRecordSet01.Fields.Item("Canceled").Value);
                     oDS_PS_PP035L.SetValue("U_ColReg08", i, oRecordSet01.Fields.Item("CardCode").Value);
                     oDS_PS_PP035L.SetValue("U_ColReg09", i, oRecordSet01.Fields.Item("CardName").Value);
+                    oDS_PS_PP035L.SetValue("U_ColReg24", i, oRecordSet01.Fields.Item("R3PONum").Value);
                     oDS_PS_PP035L.SetValue("U_ColReg10", i, oRecordSet01.Fields.Item("ItemCode").Value);
                     oDS_PS_PP035L.SetValue("U_ColReg11", i, oRecordSet01.Fields.Item("ItemName").Value);
                     oDS_PS_PP035L.SetValue("U_ColReg12", i, oRecordSet01.Fields.Item("Quality").Value);

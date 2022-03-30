@@ -810,7 +810,7 @@ namespace PSH_BOne_AddOn
 
                 for (int i = 0; i <= oMat01.VisualRowCount - 1; i++)
                 {
-                    oFunction.SetValue("I_ZLOTNO", oDS_PS_MM180L.GetValue("U_BatchNum", i).ToString().Trim()); //입고로트번호
+                    oFunction.SetValue("I_ZSPNUM", oDS_PS_MM180L.GetValue("U_BatchNum", i).ToString().Trim()); //입고로트번호
                     oFunction.SetValue("I_RSDAT", oDS_PS_MM180H.GetValue("U_DocDate", 0)); //입고일자
 
                     errCode = "2"; //SAP Function 실행 오류가 발생했을 때 에러코드로 처리하기 위해 이 위치에서 "2"를 대입
@@ -958,7 +958,7 @@ namespace PSH_BOne_AddOn
                         MatrixRow = oMat01.VisualRowCount;
                         I_ZLOTNO = row.GetValue("ZLOTNO").ToString();
                         I_ZPROWE = row.GetValue("ZPROWE").ToString();
-                        I_ZBOXNO = row.GetValue("ZBOXNO").ToString();
+                        I_ZBOXNO = row.GetValue("CHARG").ToString();
                         I_ZMATNR = row.GetValue("MATNR").ToString();
                         I_ZMAKTX = row.GetValue("MAKTX").ToString();
                         I_ZHOEHE = row.GetValue("ZHOEHE").ToString();
@@ -1170,7 +1170,7 @@ namespace PSH_BOne_AddOn
 
                         I_ZLOTNO = row.GetValue("ZLOTNO").ToString();
                         I_ZPROWE = row.GetValue("ZPROWE").ToString();
-                        I_ZBOXNO = row.GetValue("ZBOXNO").ToString();
+                        I_ZBOXNO = row.GetValue("CHARG").ToString();
                         I_ZMATNR = row.GetValue("MATNR").ToString();
                         I_ZMAKTX = row.GetValue("MAKTX").ToString();
                         I_ZHOEHE = row.GetValue("ZHOEHE").ToString();

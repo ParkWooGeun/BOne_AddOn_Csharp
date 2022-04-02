@@ -34952,6 +34952,11 @@
             DocEntry 초기화
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP035.PS_PP035_R3Set_POList">
+            <summary>
+            PS_PP095_Set_DOList
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_PP035.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event

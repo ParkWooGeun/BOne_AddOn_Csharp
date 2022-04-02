@@ -350,7 +350,7 @@ namespace PSH_BOne_AddOn
 
                     foreach (IRfcStructure row in oTable)
                     {
-                        sQry = "insert into Z_PS_PP040_DOList select '" + row.GetValue("ZDoNum").ToString() + "','"+ oDS_PS_PP095H.GetValue("U_DocDate", 0) + "'"; //해당 일자 DoList 저장
+                        sQry = "insert into Z_PS_PP040_DOList select '" + oDS_PS_PP095H.GetValue("U_DocDate", 0)  + "','"+  row.GetValue("ZDoNum").ToString() + "'"; //해당 일자 DoList 저장
                         oRecordSet01.DoQuery(sQry);
                     }
                 }
@@ -440,7 +440,7 @@ namespace PSH_BOne_AddOn
                         MatrixRow = oMat01.VisualRowCount;
 
                         I_ZLOTNO = row.GetValue("ZLOTNO").ToString();
-                        sQry = "Select U_LotNo  from[@PS_SD040H] a inner join[@PS_SD040L] b on a.DocEntry = b.DocEntry and a.Canceled = 'N' where U_CoilNo = '" + row.GetValue("ZLOTNO").ToString() + "'";
+                        sQry = "Select U_LotNo  from [@PS_SD040H] a inner join [@PS_SD040L] b on a.DocEntry = b.DocEntry and a.Canceled = 'N' where U_CoilNo = '" + row.GetValue("ZLOTNO").ToString() + "'";
                         oRecordSet01.DoQuery(sQry);
                         oDS_PS_PP095L.SetValue("U_OrdNum", MatrixRow - 1, oRecordSet01.Fields.Item(0).Value);
                         PS_PP095_AddMatrixRow(MatrixRow, false);

@@ -1523,11 +1523,11 @@ namespace PSH_BOne_AddOn
                             }
                             if (oForm.Items.Item("CpCode").Specific.Value.ToString().Trim() == "CP80101" || oForm.Items.Item("CpCode").Specific.Value.ToString().Trim() == "CP80111")
                             {
-                                if (PS_PP052_Add_InventoryGenExit() == false)
-                                {
-                                    BubbleEvent = false;
-                                    return;
-                                }
+                                //if (PS_PP052_Add_InventoryGenExit() == false)
+                                //{
+                                //    BubbleEvent = false;
+                                //    return;
+                                //}
                             }
                             oDocEntry01 = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim();
                             oOrdGbn = oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim();

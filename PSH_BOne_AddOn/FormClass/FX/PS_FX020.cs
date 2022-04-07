@@ -48,7 +48,6 @@ namespace PSH_BOne_AddOn
 				oForm.DataBrowser.BrowseBy = "Code";
 
 				oForm.Freeze(true);
-
 				PS_FX020_CreateItems();
 				PS_FX020_ComboBox_Setting();
 
@@ -103,7 +102,7 @@ namespace PSH_BOne_AddOn
 				// 사업장
 				sQry = "SELECT BPLId, BPLName From [OBPL] order by BPLId";
 				oRecordSet.DoQuery(sQry);
-				while (!(oRecordSet.EoF))
+				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
@@ -261,7 +260,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				YM = oForm.Items.Item("YM").Specific.Value.ToString().Trim();
 				BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
 
@@ -324,11 +322,7 @@ namespace PSH_BOne_AddOn
 			}
 			catch (Exception ex)
 			{
-				if (ProgressBar01 != null)
-				{
-					ProgressBar01.Stop();
-				}
-
+				ProgressBar01.Stop();
 				if (errMessage != string.Empty)
 				{
 					PSH_Globals.SBO_Application.MessageBox(errMessage);
@@ -340,10 +334,7 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
-				if (ProgressBar01 != null)
-				{
-					ProgressBar01.Stop();
-				}
+				ProgressBar01.Stop();
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
 				oForm.Freeze(false);

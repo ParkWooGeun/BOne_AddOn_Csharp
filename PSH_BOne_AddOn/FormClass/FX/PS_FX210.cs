@@ -376,7 +376,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				if (pVal.BeforeAction == true)
 				{
 					switch (pVal.MenuUID)

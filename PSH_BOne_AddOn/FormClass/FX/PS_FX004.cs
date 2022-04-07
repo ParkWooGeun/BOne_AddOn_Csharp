@@ -70,8 +70,6 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void PS_FX004_CreateItems()
 		{
-			
-
 			try
 			{
 				oGrid = oForm.Items.Item("Grid01").Specific;
@@ -141,7 +139,6 @@ namespace PSH_BOne_AddOn
 					errMessage = "결과가 존재하지 않습니다.";
 					throw new Exception();
 				}
-
 				oGrid.AutoResizeColumns();
 				oForm.Update();
 			}
@@ -310,7 +307,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				if (pVal.BeforeAction == true)
 				{
 					switch (pVal.MenuUID)

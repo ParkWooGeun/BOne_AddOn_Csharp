@@ -52,11 +52,11 @@ namespace PSH_BOne_AddOn
                 PS_FX025_CreateItems();
                 PS_FX025_FormClear();
 
-                oForm.EnableMenu(("1283"), false); // 삭제
-                oForm.EnableMenu(("1286"), false); // 닫기
-                oForm.EnableMenu(("1287"), true); // 복제
-                oForm.EnableMenu(("1284"), true); // 취소
-                oForm.EnableMenu(("1293"), true); // 행삭제
+                oForm.EnableMenu("1283", false); // 삭제
+                oForm.EnableMenu("1286", false); // 닫기
+                oForm.EnableMenu("1287", true); // 복제
+                oForm.EnableMenu("1284", true); // 취소
+                oForm.EnableMenu("1293", true); // 행삭제
             }
             catch (Exception ex)
             {
@@ -78,7 +78,7 @@ namespace PSH_BOne_AddOn
         {
             string sQry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -90,12 +90,12 @@ namespace PSH_BOne_AddOn
                 oDS_PS_FX025H.SetValue("U_JdtDate", 0, DateTime.Now.ToString("yyyyMMdd"));
 
                 sQry = "SELECT BPLId, BPLName From [OBPL] order by BPLId";
-                oRecordSet01.DoQuery(sQry);
+                oRecordSet.DoQuery(sQry);
 
-                while (!oRecordSet01.EoF)
+                while (!oRecordSet.EoF)
                 {
-                    oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
-                    oRecordSet01.MoveNext();
+                    oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
+                    oRecordSet.MoveNext();
                 }
                 oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
             }
@@ -105,7 +105,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }
 
@@ -264,8 +264,8 @@ namespace PSH_BOne_AddOn
             string sQry;
             string YM;
             string BPLId;
-            SAPbouiCOM.ProgressBar ProgBar01 = null;
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbouiCOM.ProgressBar ProgressBar01 = null;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -274,20 +274,20 @@ namespace PSH_BOne_AddOn
                 BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
 
                 sQry = "EXEC [PS_FX025_01] '" + BPLId + "','" + YM + "'";
-                oRecordSet01.DoQuery(sQry);
+                oRecordSet.DoQuery(sQry);
 
                 oMat01.Clear();
                 oDS_PS_FX025L.Clear();
 
-                if (oRecordSet01.RecordCount == 0)
+                if (oRecordSet.RecordCount == 0)
                 {
                     errMessage = "조회 결과가 없습니다. 확인하세요.";
                     throw new Exception();
                 }
 
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet01.RecordCount, false);
+                ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet.RecordCount, false);
 
-                for (i = 0; i <= oRecordSet01.RecordCount - 1; i++)
+                for (i = 0; i <= oRecordSet.RecordCount - 1; i++)
                 {
                     if (i + 1 > oDS_PS_FX025L.Size)
                     {
@@ -297,27 +297,27 @@ namespace PSH_BOne_AddOn
                     oMat01.AddRow();
                     oDS_PS_FX025L.Offset = i;
                     oDS_PS_FX025L.SetValue("U_LineNum", i, Convert.ToString(i + 1));
-                    oDS_PS_FX025L.SetValue("U_ClasCode", i, oRecordSet01.Fields.Item("ClasCode").Value.ToString().Trim());
-                    oDS_PS_FX025L.SetValue("U_ClasName", i, oRecordSet01.Fields.Item("ClasName").Value.ToString().Trim());
-                    oDS_PS_FX025L.SetValue("U_AcctCode", i, oRecordSet01.Fields.Item("AcctCode").Value.ToString().Trim());
-                    oDS_PS_FX025L.SetValue("U_AcctName", i, oRecordSet01.Fields.Item("AcctName").Value.ToString().Trim());
-                    oDS_PS_FX025L.SetValue("U_PrcCode", i, oRecordSet01.Fields.Item("PrcCode").Value.ToString().Trim());
-                    oDS_PS_FX025L.SetValue("U_Debit", i, oRecordSet01.Fields.Item("Debit").Value.ToString().Trim());
-                    oDS_PS_FX025L.SetValue("U_Credit", i, oRecordSet01.Fields.Item("Credit").Value.ToString().Trim());
-                    oDS_PS_FX025L.SetValue("U_LineMemo", i, oRecordSet01.Fields.Item("LineMemo").Value.ToString().Trim());
+                    oDS_PS_FX025L.SetValue("U_ClasCode", i, oRecordSet.Fields.Item("ClasCode").Value.ToString().Trim());
+                    oDS_PS_FX025L.SetValue("U_ClasName", i, oRecordSet.Fields.Item("ClasName").Value.ToString().Trim());
+                    oDS_PS_FX025L.SetValue("U_AcctCode", i, oRecordSet.Fields.Item("AcctCode").Value.ToString().Trim());
+                    oDS_PS_FX025L.SetValue("U_AcctName", i, oRecordSet.Fields.Item("AcctName").Value.ToString().Trim());
+                    oDS_PS_FX025L.SetValue("U_PrcCode", i, oRecordSet.Fields.Item("PrcCode").Value.ToString().Trim());
+                    oDS_PS_FX025L.SetValue("U_Debit", i, oRecordSet.Fields.Item("Debit").Value.ToString().Trim());
+                    oDS_PS_FX025L.SetValue("U_Credit", i, oRecordSet.Fields.Item("Credit").Value.ToString().Trim());
+                    oDS_PS_FX025L.SetValue("U_LineMemo", i, oRecordSet.Fields.Item("LineMemo").Value.ToString().Trim());
 
-                    oRecordSet01.MoveNext();
-                    ProgBar01.Value += 1;
-                    ProgBar01.Text = ProgBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
+                    oRecordSet.MoveNext();
+                    ProgressBar01.Value += 1;
+                    ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";
                 }
                 oMat01.LoadFromDataSource();
                 oMat01.AutoResizeColumns();
             }
             catch (Exception ex)
             {
-                if (ProgBar01 != null)
+                if (ProgressBar01 != null)
                 {
-                    ProgBar01.Stop();
+                    ProgressBar01.Stop();
                 }
                 if (errMessage != string.Empty)
                 {
@@ -331,10 +331,10 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
-                if(ProgBar01 != null)
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
+                if(ProgressBar01 != null)
                 {
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01); //메모리 해제
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01); //메모리 해제
                 }
             }
         }
@@ -389,7 +389,7 @@ namespace PSH_BOne_AddOn
             string sQry;
             string ErrLine = string.Empty;
             string errDiMsg = string.Empty;
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset); ;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset); ;
             SAPbobsCOM.JournalEntries f_oJournalEntries = null;
 
             try
@@ -459,7 +459,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.oCompany.GetNewObjectCode(out sTransId);
                     sQry = "Update [@PS_FX025H] Set U_JdtNo = '" + sTransId + "', U_JdtDate = '" + sDocDate + "', U_JdtCC = '" + sCC + "' ";
                     sQry = sQry + "Where DocNum = '" + oDS_PS_FX025H.GetValue("DocNum", 0).ToString().Trim() + "'";
-                    oRecordSet01.DoQuery(sQry);
+                    oRecordSet.DoQuery(sQry);
 
                     if (PSH_Globals.oCompany.InTransaction == true)
                     {
@@ -497,7 +497,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(f_oJournalEntries);
             }
 
@@ -520,7 +520,7 @@ namespace PSH_BOne_AddOn
             string errDiMsg = string.Empty;
             string sTransId = string.Empty;
             SAPbobsCOM.JournalEntries f_oJournalEntries = null;
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -557,7 +557,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.oCompany.GetNewObjectCode(out sTransId);
                     sQry = "  Update [@PS_FX025H] Set U_JdtCanNo = '" + sTransId + "', U_JdtCC = '" + sCC + "' ";
                     sQry += " Where DocNum = '" + oDS_PS_FX025H.GetValue("DocNum", 0).ToString().Trim() + "'";
-                    oRecordSet01.DoQuery(sQry);
+                    oRecordSet.DoQuery(sQry);
 
                     if (PSH_Globals.oCompany.InTransaction == true)
                     {
@@ -596,7 +596,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(f_oJournalEntries);
             }
 

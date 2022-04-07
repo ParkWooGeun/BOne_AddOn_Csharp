@@ -53,11 +53,11 @@ namespace PSH_BOne_AddOn
                 PS_FX015_ComboBox_Setting();
                 PS_FX015_FormClear();
 
-                oForm.EnableMenu(("1283"), false); // 삭제
-                oForm.EnableMenu(("1286"), false); // 닫기
-                oForm.EnableMenu(("1287"), true); // 복제
-                oForm.EnableMenu(("1284"), true); // 취소
-                oForm.EnableMenu(("1293"), true); // 행삭제
+                oForm.EnableMenu("1283", false); // 삭제
+                oForm.EnableMenu("1286", false); // 닫기
+                oForm.EnableMenu("1287", true); // 복제
+                oForm.EnableMenu("1284", true); // 취소
+                oForm.EnableMenu("1293", true); // 행삭제
             }
             catch (Exception ex)
             {
@@ -96,7 +96,7 @@ namespace PSH_BOne_AddOn
         {
             string sQry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -118,7 +118,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }
         /// <summary>
@@ -278,8 +278,8 @@ namespace PSH_BOne_AddOn
             string FxHisCls; //구분
             double totalDebit = 0; //차변계
             double totalCredit = 0; //대변계
-            SAPbouiCOM.ProgressBar ProgBar01 = null;
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbouiCOM.ProgressBar ProgressBar01 = null;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -289,15 +289,15 @@ namespace PSH_BOne_AddOn
                 FxHisCls = oForm.Items.Item("FxHisCls").Specific.Value.ToString().Trim();
 
                 sQry = "EXEC [PS_FX015_01] '";
-                sQry = sQry + CLTCOD + "','";
-                sQry = sQry + StdYM + "','";
-                sQry = sQry + FxHisCls + "'";
-                oRecordSet01.DoQuery(sQry);
+                sQry += CLTCOD + "','";
+                sQry += StdYM + "','";
+                sQry += FxHisCls + "'";
+                oRecordSet.DoQuery(sQry);
 
                 oMat01.Clear();
                 oDS_PS_FX015L.Clear();
 
-                if (oRecordSet01.RecordCount == 0)
+                if (oRecordSet.RecordCount == 0)
                 {
                     errMessage = "조회 결과가 없습니다. 확인하세요.";
                     oDS_PS_FX015H.SetValue("U_DebitT", 0, "0"); //차변계
@@ -305,9 +305,9 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet01.RecordCount, false);
+                ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet.RecordCount, false);
 
-                for (i = 0; i <= oRecordSet01.RecordCount - 1; i++)
+                for (i = 0; i <= oRecordSet.RecordCount - 1; i++)
                 {
                     if (i + 1 > oDS_PS_FX015L.Size)
                     {
@@ -316,26 +316,26 @@ namespace PSH_BOne_AddOn
                     oMat01.AddRow();
                     oDS_PS_FX015L.Offset = i;
                     oDS_PS_FX015L.SetValue("U_LineNum", i, Convert.ToString(i + 1));
-                    oDS_PS_FX015L.SetValue("U_CLTCOD", i, oRecordSet01.Fields.Item("CLTCOD").Value.ToString().Trim()); //사업장
-                    oDS_PS_FX015L.SetValue("U_ShortCD", i, oRecordSet01.Fields.Item("ShortCD").Value.ToString().Trim()); //GL계정
-                    oDS_PS_FX015L.SetValue("U_ShortNM", i, oRecordSet01.Fields.Item("ShortNM").Value.ToString().Trim()); //GL계정명
-                    oDS_PS_FX015L.SetValue("U_AcctCode", i, oRecordSet01.Fields.Item("AcctCode").Value.ToString().Trim()); //관리계정
-                    oDS_PS_FX015L.SetValue("U_AcctName", i, oRecordSet01.Fields.Item("AcctName").Value.ToString().Trim()); //관리계정명
-                    oDS_PS_FX015L.SetValue("U_Debit", i, oRecordSet01.Fields.Item("Debit").Value.ToString().Trim()); //차변
-                    oDS_PS_FX015L.SetValue("U_Credit", i, oRecordSet01.Fields.Item("Credit").Value.ToString().Trim()); //대변
-                    oDS_PS_FX015L.SetValue("U_ProfCode", i, oRecordSet01.Fields.Item("ProfCode").Value.ToString().Trim()); //배부규칙
-                    oDS_PS_FX015L.SetValue("U_ProfName", i, oRecordSet01.Fields.Item("ProfName").Value.ToString().Trim()); //배부규칙명
-                    oDS_PS_FX015L.SetValue("U_LineMemo", i, oRecordSet01.Fields.Item("LineMemo").Value.ToString().Trim()); //적요6
-                    oDS_PS_FX015L.SetValue("U_VatBP", i, oRecordSet01.Fields.Item("VatBP").Value.ToString().Trim()); //거래처
-                    oDS_PS_FX015L.SetValue("U_VatBPNM", i, oRecordSet01.Fields.Item("VatBPNM").Value.ToString().Trim()); //거래처명
-                    oDS_PS_FX015L.SetValue("U_VatBPRgN", i, oRecordSet01.Fields.Item("VatBPRgN").Value.ToString().Trim()); //사업자등록번호
+                    oDS_PS_FX015L.SetValue("U_CLTCOD", i, oRecordSet.Fields.Item("CLTCOD").Value.ToString().Trim()); //사업장
+                    oDS_PS_FX015L.SetValue("U_ShortCD", i, oRecordSet.Fields.Item("ShortCD").Value.ToString().Trim()); //GL계정
+                    oDS_PS_FX015L.SetValue("U_ShortNM", i, oRecordSet.Fields.Item("ShortNM").Value.ToString().Trim()); //GL계정명
+                    oDS_PS_FX015L.SetValue("U_AcctCode", i, oRecordSet.Fields.Item("AcctCode").Value.ToString().Trim()); //관리계정
+                    oDS_PS_FX015L.SetValue("U_AcctName", i, oRecordSet.Fields.Item("AcctName").Value.ToString().Trim()); //관리계정명
+                    oDS_PS_FX015L.SetValue("U_Debit", i, oRecordSet.Fields.Item("Debit").Value.ToString().Trim()); //차변
+                    oDS_PS_FX015L.SetValue("U_Credit", i, oRecordSet.Fields.Item("Credit").Value.ToString().Trim()); //대변
+                    oDS_PS_FX015L.SetValue("U_ProfCode", i, oRecordSet.Fields.Item("ProfCode").Value.ToString().Trim()); //배부규칙
+                    oDS_PS_FX015L.SetValue("U_ProfName", i, oRecordSet.Fields.Item("ProfName").Value.ToString().Trim()); //배부규칙명
+                    oDS_PS_FX015L.SetValue("U_LineMemo", i, oRecordSet.Fields.Item("LineMemo").Value.ToString().Trim()); //적요6
+                    oDS_PS_FX015L.SetValue("U_VatBP", i, oRecordSet.Fields.Item("VatBP").Value.ToString().Trim()); //거래처
+                    oDS_PS_FX015L.SetValue("U_VatBPNM", i, oRecordSet.Fields.Item("VatBPNM").Value.ToString().Trim()); //거래처명
+                    oDS_PS_FX015L.SetValue("U_VatBPRgN", i, oRecordSet.Fields.Item("VatBPRgN").Value.ToString().Trim()); //사업자등록번호
 
-                    totalDebit += oRecordSet01.Fields.Item("Debit").Value;
-                    totalCredit += oRecordSet01.Fields.Item("Credit").Value;
+                    totalDebit += oRecordSet.Fields.Item("Debit").Value;
+                    totalCredit += oRecordSet.Fields.Item("Credit").Value;
 
-                    oRecordSet01.MoveNext();
-                    ProgBar01.Value += 1;
-                    ProgBar01.Text = ProgBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
+                    oRecordSet.MoveNext();
+                    ProgressBar01.Value += 1;
+                    ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";
                 }
 
                 oDS_PS_FX015H.SetValue("U_DebitT", 0, Convert.ToString(totalDebit)); //차변계
@@ -346,9 +346,9 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if (ProgBar01 != null)
+                if (ProgressBar01 != null)
                 {
-                    ProgBar01.Stop();
+                    ProgressBar01.Stop();
                 }
                 if (errMessage != string.Empty)
                 {
@@ -362,10 +362,10 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
-                if (ProgBar01 != null)
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
+                if (ProgressBar01 != null)
                 {
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01); //메모리 해제
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01); //메모리 해제
                 }
             }
         }
@@ -427,7 +427,7 @@ namespace PSH_BOne_AddOn
             string sQry;
             string ErrLine = string.Empty;
             string errDiMsg = string.Empty;
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset); ;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset); ;
             SAPbobsCOM.JournalEntries f_oJournalEntries = null;
 
             try
@@ -507,7 +507,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.oCompany.GetNewObjectCode(out sTransId);
                     sQry = "Update [@PS_FX015H] Set U_JdtNo = '" + sTransId + "', U_JdtDate = '" + sDocDate + "', U_JdtCC = '" + sCC + "' ";
                     sQry = sQry + "Where DocEntry = '" + oDS_PS_FX015H.GetValue("DocEntry", 0).ToString().Trim() + "'";
-                    oRecordSet01.DoQuery(sQry);
+                    oRecordSet.DoQuery(sQry);
 
                     if (PSH_Globals.oCompany.InTransaction == true)
                     {
@@ -545,7 +545,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(f_oJournalEntries);
             }
 
@@ -568,7 +568,7 @@ namespace PSH_BOne_AddOn
             string errDiMsg = string.Empty;
             string sTransId = string.Empty;
             SAPbobsCOM.JournalEntries f_oJournalEntries = null;
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -605,7 +605,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.oCompany.GetNewObjectCode(out sTransId);
                     sQry = "  Update [@PS_FX015H] Set U_JdtCanNo = '" + sTransId + "', U_JdtCC = '" + sCC + "' ";
                     sQry += " Where DocEntry = '" + oDS_PS_FX015H.GetValue("DocEntry", 0).ToString().Trim() + "'";
-                    oRecordSet01.DoQuery(sQry);
+                    oRecordSet.DoQuery(sQry);
 
                     if (PSH_Globals.oCompany.InTransaction == true)
                     {
@@ -644,7 +644,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(f_oJournalEntries);
             }
 
@@ -863,8 +863,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "1")
                     {
-                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE 
-                            & pVal.Action_Success == true)
+                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE  && pVal.Action_Success == true)
                         {
                             oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
                             PSH_Globals.SBO_Application.ActivateMenuItem("1282");

@@ -383,7 +383,7 @@ namespace PSH_BOne_AddOn
 							SubCode = codeHelpClass.Right(oForm.Items.Item("FixCode").Specific.Value.ToString().Trim(), 3);
 
 							sQry = "Select U_FixName From [@PS_FX005H] Where U_FixCode = '" + FixCode + "'";
-							sQry = sQry + " and U_SubCode = '" + SubCode + "'";
+							sQry += " and U_SubCode = '" + SubCode + "'";
 							oRecordSet.DoQuery(sQry);
 							oForm.Items.Item("FixName").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 						}
@@ -442,7 +442,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				if (pVal.BeforeAction == true)
 				{
 					switch (pVal.MenuUID)

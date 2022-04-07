@@ -148,6 +148,10 @@ namespace PSH_BOne_AddOn
 			{
 				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
 			}
+            finally
+			{
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+			}
 		}
 
 		/// <summary>
@@ -182,21 +186,20 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				switch (oUID)
 				{
 					case "TeamCD":
 						sQry = "SELECT  T1.U_CodeNm FROM [@PS_HR200H] AS T0 Inner Join [@PS_HR200L] AS T1 ON T0.Code = T1.Code ";
-						sQry = sQry + " WHERE   T0.Name = '부서' AND T1.U_UseYN = 'Y' AND T1.U_Char2 = '" + oForm.Items.Item("BPLID").Specific.Value.ToString().Trim() + "' ";
-						sQry = sQry + " And T1.U_Code = '" + oForm.Items.Item("TeamCD").Specific.Value.ToString().Trim() + "'";
+						sQry += " WHERE   T0.Name = '부서' AND T1.U_UseYN = 'Y' AND T1.U_Char2 = '" + oForm.Items.Item("BPLID").Specific.Value.ToString().Trim() + "' ";
+						sQry += " And T1.U_Code = '" + oForm.Items.Item("TeamCD").Specific.Value.ToString().Trim() + "'";
 						oRecordSet.DoQuery(sQry);
 						oForm.Items.Item("TeamNM").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 						break;
 					case "RspCD":
 						sQry = "SELECT  T1.U_CodeNm FROM [@PS_HR200H] AS T0 Inner Join [@PS_HR200L] AS T1 ON T0.Code = T1.Code ";
-						sQry = sQry + " WHERE   T0.Name = '담당' AND T1.U_UseYN = 'Y' AND T1.U_Char2 = '" + oForm.Items.Item("BPLID").Specific.Value.ToString().Trim() + "' ";
-						sQry = sQry + " And T1.U_Char1 = '" + oForm.Items.Item("TeamCD").Specific.Value.ToString().Trim() + "'";
-						sQry = sQry + " And T1.U_Code = '" + oForm.Items.Item("RspCD").Specific.Value.ToString().Trim() + "'";
+						sQry += " WHERE   T0.Name = '담당' AND T1.U_UseYN = 'Y' AND T1.U_Char2 = '" + oForm.Items.Item("BPLID").Specific.Value.ToString().Trim() + "' ";
+						sQry += " And T1.U_Char1 = '" + oForm.Items.Item("TeamCD").Specific.Value.ToString().Trim() + "'";
+						sQry += " And T1.U_Code = '" + oForm.Items.Item("RspCD").Specific.Value.ToString().Trim() + "'";
 						oRecordSet.DoQuery(sQry);
 						oForm.Items.Item("RspNM").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 						break;
@@ -337,10 +340,7 @@ namespace PSH_BOne_AddOn
 			}
 			catch (Exception ex)
 			{
-				if (ProgressBar01 != null)
-				{
-					ProgressBar01.Stop();
-				}
+				ProgressBar01.Stop();
 				if (errMessage != string.Empty)
 				{
 					PSH_Globals.SBO_Application.MessageBox(errMessage);
@@ -352,8 +352,9 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
+				ProgressBar01.Stop();
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01); //메모리 해제
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
 				oForm.Freeze(false);
 			}
 		}
@@ -391,13 +392,13 @@ namespace PSH_BOne_AddOn
 						Comment = oDS_PS_FX030L.GetValue("U_ColReg15", loopCount).ToString().Trim(); //비고
 
 						sQry = "                EXEC [PS_FX030_03] ";
-						sQry = sQry + "'" + BPLID + "',";   //사업장
-						sQry = sQry + "'" + StdYear + "',"; //기준년도
-						sQry = sQry + "'" + FixCode + "',"; //자산코드
-						sQry = sQry + "'" + Qty + "',";     //현황
-						sQry = sQry + "'" + Status + "',";  //상태
-						sQry = sQry + "'" + Comment + "',"; //비고
-						sQry = sQry + "'" + UserSign + "'"; //UserSign
+						sQry += "'" + BPLID + "',";   //사업장
+						sQry += "'" + StdYear + "',"; //기준년도
+						sQry += "'" + FixCode + "',"; //자산코드
+						sQry += "'" + Qty + "',";     //현황
+						sQry += "'" + Status + "',";  //상태
+						sQry += "'" + Comment + "',"; //비고
+						sQry += "'" + UserSign + "'"; //UserSign
 						oRecordSet.DoQuery(sQry);
 					}
 				}
@@ -927,7 +928,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				if (pVal.BeforeAction == true)
 				{
 					switch (pVal.MenuUID)

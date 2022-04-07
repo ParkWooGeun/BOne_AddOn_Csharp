@@ -1518,7 +1518,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "ClasCode")
                     {
-                        dataHelpClass.Set_ComboList(oForm.Items.Item("LongYear").Specific, "", "", true, false);
+                        dataHelpClass.Set_ComboList(oForm.Items.Item("LongYear").Specific, "SELECT 0 as Code ,'' as Name", "", true, true);
                         dataHelpClass.Set_ComboList(oForm.Items.Item("LongYear").Specific, "SELECT b.U_Minor, b.U_CdName FROM [@PS_SY001H] a Inner Join [@PS_SY001L] b On a.Code = b.Code And a.Code = 'FX007' and b.U_RelCd = '" + oForm.Items.Item("ClasCode").Specific.Value.ToString().Trim() + "' order by U_Seq", "", false, false);
                     }
                 }

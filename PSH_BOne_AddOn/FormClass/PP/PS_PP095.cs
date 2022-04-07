@@ -330,7 +330,7 @@ namespace PSH_BOne_AddOn
                 //1. SAP R3 함수 호출(매개변수 전달)
                 IRfcFunction oFunction = rfcRep.CreateFunction("ZPP_HOLDINGS_INTF_DO");
 
-                oFunction.SetValue("I_RSDAT", oDS_PS_PP095H.GetValue("U_DocDate", 0)); //입고일자
+                oFunction.SetValue("I_WADAT", oDS_PS_PP095H.GetValue("U_DocDate", 0)); //입고일자
 
                 errCode = "2"; //SAP Function 실행 오류가 발생했을 때 에러코드로 처리하기 위해 이 위치에서 "2"를 대입
                 oFunction.Invoke(rfcDest); //Function 실행

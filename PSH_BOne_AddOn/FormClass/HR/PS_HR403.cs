@@ -171,21 +171,21 @@ namespace PSH_BOne_AddOn
         {
             string sQry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
                 sQry = "SELECT BPLId, BPLName From [OBPL] order by 1";
-                oRecordSet01.DoQuery(sQry);
-                while (!oRecordSet01.EoF)
+                oRecordSet.DoQuery(sQry);
+                while (!oRecordSet.EoF)
                 {
-                    oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
-                    oRecordSet01.MoveNext();
+                    oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
+                    oRecordSet.MoveNext();
                 }
 
                 oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
-                oForm.Items.Item("Number").Specific.ValidValues.Add(Convert.ToString(1), "1차");
-                oForm.Items.Item("Number").Specific.ValidValues.Add(Convert.ToString(2), "2차");
+                oForm.Items.Item("Number").Specific.ValidValues.Add("1", "1차");
+                oForm.Items.Item("Number").Specific.ValidValues.Add("2", "2차");
 
             }
             catch (Exception ex)
@@ -194,7 +194,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }
 
@@ -208,7 +208,7 @@ namespace PSH_BOne_AddOn
         {
             string sQry;
             string BPLID;
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -218,8 +218,8 @@ namespace PSH_BOne_AddOn
                         BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
                         sQry = "Select a.U_FULLNAME From OHEM a  ";
                         sQry += " Where a.U_MSTCOD = '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "' And a.branch = '" + oForm.Items.Item("BPLId").Specific.Value + "'";
-                        oRecordSet01.DoQuery(sQry);
-                        oForm.Items.Item("FULLNAME").Specific.Value = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
+                        oRecordSet.DoQuery(sQry);
+                        oForm.Items.Item("FULLNAME").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
                         break;
                 }
             }
@@ -229,7 +229,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }
 
@@ -357,7 +357,7 @@ namespace PSH_BOne_AddOn
             string FULLNAME;
             string Year_Renamed;
             string errMessage = string.Empty;
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -387,8 +387,8 @@ namespace PSH_BOne_AddOn
 
                             sQry = " Select Count(*) From Z_PS_HR403 Where BPLId = '" + BPLID + "' and Year = '" + Year_Renamed + "' And Number = '" + Number + "' And MSTCOD = '" + MSTCOD + "'";
 
-                            oRecordSet01.DoQuery(sQry);
-                            Cnt = oRecordSet01.Fields.Item(0).Value;
+                            oRecordSet.DoQuery(sQry);
+                            Cnt = oRecordSet.Fields.Item(0).Value;
 
                             if (Cnt > 0)
                             {
@@ -400,7 +400,7 @@ namespace PSH_BOne_AddOn
                                 if (Convert.ToString(PSH_Globals.SBO_Application.MessageBox("평가서약을 하시겠습니까?", 1, "&확인", "&취소")) == "1")
                                 {
                                     sQry = " insert into Z_PS_HR403 Values ('" + BPLID + "','" + Year_Renamed + "','" + Number + "','" + MSTCOD + "','" + FULLNAME + "','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y')";
-                                    oRecordSet01.DoQuery(sQry);
+                                    oRecordSet.DoQuery(sQry);
                                     PSH_Globals.SBO_Application.SetStatusBarMessage("평가서약을 완료하였습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                                     oForm.Items.Item("2").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                                 }
@@ -428,7 +428,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }
 

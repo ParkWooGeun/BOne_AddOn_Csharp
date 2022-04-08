@@ -166,7 +166,7 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				DocNum = dataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PS_HR406'", "");
-				if (Convert.ToDouble(DocNum) == 0)
+				if (Convert.ToInt32(DocNum) == 0)
 				{
 					oForm.Items.Item("DocNum").Specific.Value = 1;
 				}

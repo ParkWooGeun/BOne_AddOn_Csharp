@@ -331,7 +331,6 @@ namespace PSH_BOne_AddOn
 						}
 					}
 				}
-
 				oMat.FlushToDataSource();
 				oDS_PS_HR000L.RemoveRecord(oDS_PS_HR000L.Size - 1);
 				oMat.LoadFromDataSource();

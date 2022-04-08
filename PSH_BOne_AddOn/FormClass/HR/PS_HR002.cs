@@ -111,9 +111,9 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				sQry = "     SELECT   A.U_GrpCode,";
-				sQry += "             A.U_GrpName";
-				sQry += " FROM    [@PS_HR000H] AS A";
+				sQry = " SELECT   A.U_GrpCode,";
+				sQry += "         A.U_GrpName";
+				sQry += "  FROM   [@PS_HR000H] AS A";
 				sQry += " WHERE   A.Canceled = 'N'";
 				sQry += " ORDER BY A.U_GrpCode ";
 				dataHelpClass.Set_ComboList(oForm.Items.Item("GrpCode").Specific, sQry, "", false, false);

@@ -21611,11 +21611,6 @@
             PS_PP095_Set_DOList
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP095.PS_PP095_R3Set_DOInfo_Load">
-            <summary>
-            R3자료 확인
-            </summary>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_PP095.PS_PP095_FormItemEnabled">
             <summary>
             모드에 따른 아이템 설정
@@ -21631,6 +21626,11 @@
         <member name="M:PSH_BOne_AddOn.PS_PP095.PS_PP095_FormClear">
             <summary>
             DocEntry 초기화
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP095.PS_PP095_MTX01">
+            <summary>
+            PS_PP092_MTX01
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_PP095.PS_PP095_DataValidCheck">

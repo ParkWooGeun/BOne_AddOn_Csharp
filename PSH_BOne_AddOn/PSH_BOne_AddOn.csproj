@@ -223,6 +223,8 @@
     <Compile Include="FormClass\FI\PS_FI961.cs" />
     <Compile Include="FormClass\FI\PS_FI962.cs" />
     <Compile Include="FormClass\FX\PS_FX241.cs" />
+    <Compile Include="FormClass\GA\PS_GA050.cs" />
+    <Compile Include="FormClass\GA\PS_GA151.cs" />
     <Compile Include="FormClass\MM\PS_MM001.cs" />
     <Compile Include="FormClass\MM\PS_MM003.cs" />
     <Compile Include="FormClass\MM\PS_MM005.cs" />
@@ -258,9 +260,11 @@
     <Compile Include="FormClass\MM\PS_MM190.cs" />
     <Compile Include="FormClass\MM\PS_MM195.cs" />
     <Compile Include="FormClass\MM\PS_MM200.cs" />
+    <Compile Include="FormClass\MM\PS_MM201.cs" />
     <Compile Include="FormClass\MM\PS_MM203.cs" />
     <Compile Include="FormClass\MM\PS_MM204.cs" />
     <Compile Include="FormClass\MM\PS_MM205.cs" />
+    <Compile Include="FormClass\MM\PS_MM206.cs" />
     <Compile Include="FormClass\MM\PS_MM207.cs" />
     <Compile Include="FormClass\MM\PS_MM208.cs" />
     <Compile Include="FormClass\MM\PS_MM209.cs" />
@@ -285,6 +289,7 @@
     <Compile Include="FormClass\MM\PS_MM260.cs" />
     <Compile Include="FormClass\MM\PS_MM270.cs" />
     <Compile Include="FormClass\MM\PS_MM280.cs" />
+    <Compile Include="FormClass\MM\PS_MM290.cs" />
     <Compile Include="FormClass\MM\PS_MM300.cs" />
     <Compile Include="FormClass\MM\PS_MM510.cs" />
     <Compile Include="FormClass\MM\PS_MM913.cs" />
@@ -674,6 +679,7 @@
     <Compile Include="FormClass\SM\PS_SM020.cs" />
     <Compile Include="FormClass\SM\PS_SM021.cs" />
     <Compile Include="FormClass\SM\PS_SM030.cs" />
+    <Compile Include="FormClass\SM\PS_SM040.cs" />
     <Compile Include="PSH_CommonClass\AssemblyInfo.cs" />
     <Compile Include="PSH_CommonClass\DataPack\DataPack.cs">
       <SubType>Component</SubType>
@@ -2737,5 +2743,6 @@
   <ItemGroup>
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM007.srf" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

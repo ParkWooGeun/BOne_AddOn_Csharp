@@ -350,13 +350,20 @@ namespace PSH_BOne_AddOn
 
                     foreach (IRfcStructure row in oTable)
                     {
-                        sQry = "insert into Z_PS_PP040_DOList select '" + oDS_PS_PP095H.GetValue("U_DocDate", 0);
+                        sQry = "insert into Z_PS_PP095_DOList select '" + row.GetValue("LFDAT").ToString();
+                        sQry += "','" + row.GetValue("WADAT").ToString();
                         sQry += "','" + row.GetValue("VBELN").ToString();
+                        sQry += "','" + row.GetValue("MATNR").ToString();
+                        sQry += "','" + row.GetValue("MAKTX").ToString();
+                        sQry += "','" + row.GetValue("CHARG").ToString();
                         sQry += "','" + row.GetValue("ZLOTNO").ToString();
+                        sQry += "','" + row.GetValue("LFIMG").ToString();
+                        sQry += "','" + row.GetValue("VTWEG").ToString();
                         sQry += "','" + row.GetValue("KUNNR").ToString();
                         sQry += "','" + row.GetValue("NAME1").ToString();
                         sQry += "','" + row.GetValue("KUNAG").ToString();
-                        sQry += "','" + row.GetValue("NAME2").ToString() + "'";
+                        sQry += "','" + row.GetValue("NAME2").ToString();
+                        sQry += "','" + row.GetValue("TDLINE").ToString() + "'";
 
                         oRecordSet01.DoQuery(sQry);
                     }

@@ -428,45 +428,45 @@ namespace PSH_BOne_AddOn
             }
         }
 
-        ///// <summary>
-        ///// PS_GA165_Open
-        /////  SW이력 창 호출
-        ///// </summary>
-        //private void PS_GA165_Open()
-        //{
-        //	int Seq;
+        /// <summary>
+        /// PS_GA165_Open
+        ///  SW이력 창 호출
+        /// </summary>
+        private void PS_GA165_Open()
+        {
+            int Seq;
 
-        //	try
-        //	{
-        //		PS_GA165 oTempClass = new PS_GA165();
-        //		Seq = Convert.ToInt32(oForm.Items.Item("Code").Specific.Value.ToString().Trim());
-        //		oTempClass.LoadForm(Seq);
-        //	}
-        //	catch (Exception ex)
-        //	{
-        //		PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-        //	}
-        //}
+            try
+            {
+                PS_GA165 oTempClass = new PS_GA165();
+                Seq = Convert.ToInt32(oForm.Items.Item("Code").Specific.Value.ToString().Trim());
+                oTempClass.LoadForm(Seq);
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+            }
+        }
 
-        ///// <summary>
-        ///// PS_GA166_Open
-        ///// IP이력 창 호출
-        ///// </summary>
-        //private void PS_GA166_Open()
-        //{
-        //	int Seq;
+        /// <summary>
+        /// PS_GA166_Open
+        /// IP이력 창 호출
+        /// </summary>
+        private void PS_GA166_Open()
+        {
+            int Seq;
 
-        //	try
-        //	{
-        //		PS_GA166 oTempClass = new PS_GA166();
-        //		Seq = Convert.ToInt32(oForm.Items.Item("Code").Specific.Value.ToString().Trim());
-        //		oTempClass.LoadForm(Seq);
-        //	}
-        //	catch (Exception ex)
-        //	{
-        //		PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-        //	}
-        //}
+            try
+            {
+                PS_GA166 oTempClass = new PS_GA166();
+                Seq = Convert.ToInt32(oForm.Items.Item("Code").Specific.Value.ToString().Trim());
+                oTempClass.LoadForm(Seq);
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+            }
+        }
 
         /// <summary>
         /// Form Item Event
@@ -601,14 +601,14 @@ namespace PSH_BOne_AddOn
                     {
                         PS_GA164_Open();
                     }
-                    //else if (pVal.ItemUID == "btnSW") //SW이력
-                    //{
-                    //	PS_GA165_Open();
-                    //}
-                    //else if (pVal.ItemUID == "btnIP") //IP이력
-                    //{
-                    //	PS_GA166_Open();
-                    //}
+                    else if (pVal.ItemUID == "btnSW") //SW이력
+                    {
+                        PS_GA165_Open();
+                    }
+                    else if (pVal.ItemUID == "btnIP") //IP이력
+                    {
+                        PS_GA166_Open();
+                    }
                 }
 				else if (pVal.BeforeAction == false)
 				{

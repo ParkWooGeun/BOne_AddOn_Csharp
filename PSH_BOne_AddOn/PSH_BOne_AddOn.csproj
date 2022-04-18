@@ -148,6 +148,7 @@
     <Compile Include="EXT_Form\FrmRPT_Viewer1.designer.cs">
       <DependentUpon>FrmRPT_Viewer1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormClass\AD\PS_AD107.cs" />
     <Compile Include="FormClass\CORE\S133.cs" />
     <Compile Include="FormClass\CORE\S139.cs" />
     <Compile Include="FormClass\CORE\S140.cs" />
@@ -230,6 +231,9 @@
     <Compile Include="FormClass\GA\PS_GA162.cs" />
     <Compile Include="FormClass\GA\PS_GA163.cs" />
     <Compile Include="FormClass\GA\PS_GA164.cs" />
+    <Compile Include="FormClass\GA\PS_GA165.cs" />
+    <Compile Include="FormClass\GA\PS_GA166.cs" />
+    <Compile Include="FormClass\GA\PS_GA167.cs" />
     <Compile Include="FormClass\GA\PS_GA500.cs" />
     <Compile Include="FormClass\GA\PS_GA501.cs" />
     <Compile Include="FormClass\GA\PS_GA502.cs" />

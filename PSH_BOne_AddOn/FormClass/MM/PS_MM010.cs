@@ -1578,10 +1578,9 @@ namespace PSH_BOne_AddOn
                             //통합구매이며 통합구매요청번호가 있을때
                             if (oForm.Items.Item("PQType").Specific.Value.ToString().Trim() == "20" && !string.IsNullOrEmpty(oMat01.Columns.Item("E_BANFN").Cells.Item(pVal.Row).Specific.String))
                             {
-                                PSH_Globals.SBO_Application.MessageBox("Migration 진행중입니다. 진행되는 즉시 패치하겠습니다.");
-                                //TempForm01 = new PS_FTP();
-                                //TempForm01.LoadForm(oMat01.Columns.Item("CGNo").Cells.Item(pVal.Row).Specific.String, oMat01.Columns.Item("E_BANFN").Cells.Item(pVal.Row).Specific.String, oMat01.Columns.Item("E_BNFPO").Cells.Item(pVal.Row).Specific.String);
-                                //BubbleEvent = false;
+                                PS_FTP pS_FTP = new PS_FTP();
+                                pS_FTP.LoadForm(oMat01.Columns.Item("CGNo").Cells.Item(pVal.Row).Specific.String, oMat01.Columns.Item("E_BANFN").Cells.Item(pVal.Row).Specific.String, oMat01.Columns.Item("E_BNFPO").Cells.Item(pVal.Row).Specific.String);
+                                BubbleEvent = false;
                             }
                             else
                             {

@@ -8055,6 +8055,12 @@
             PS_FX005_DisplayFixData
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_FX005.OpenFileSelectDialog">
+            <summary>
+            OpenFileSelectDialog 호출(쓰레드를 이용하여 비동기화)
+            OLE 호출을 수행하려면 현재 스레드를 STA(단일 스레드 아파트) 모드로 설정해야 합니다.
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_FX005.PS_FX005_LoadPic(System.String)">
             <summary>
             PS_FX005_LoadPic

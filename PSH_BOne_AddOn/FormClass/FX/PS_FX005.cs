@@ -925,6 +925,7 @@ namespace PSH_BOne_AddOn
         private void PS_FX005_DisplayFixData(string DocEntry)
         {
             string sQry;
+            string errMessage = string.Empty;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -938,7 +939,7 @@ namespace PSH_BOne_AddOn
 
                     if (oRecordSet.RecordCount == 0)
                     {
-                        dataHelpClass.MDC_GF_Message("조회 결과가 없습니다. 확인하세요.:", "W");
+                        errMessage = "조회 결과가 없습니다. 확인하세요.";
                         oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
                         PS_FX005_LoadCaption();
                         throw new Exception();
@@ -992,7 +993,14 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                if(errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
             }
             finally
             {
@@ -1002,10 +1010,41 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
+        /// OpenFileSelectDialog 호출(쓰레드를 이용하여 비동기화)
+        /// OLE 호출을 수행하려면 현재 스레드를 STA(단일 스레드 아파트) 모드로 설정해야 합니다.
+        /// </summary>
+        [STAThread]
+        private string OpenFileSelectDialog()
+        {
+            string returnFileName = string.Empty;
+
+            var thread = new System.Threading.Thread(() =>
+            {
+                System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
+                openFileDialog.InitialDirectory = "C:\\";
+                openFileDialog.Filter = "bmp Files|*.bmp|All Files|*.*";
+                openFileDialog.FilterIndex = 1; //FilterIndex는 1부터 시작
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    returnFileName = openFileDialog.FileName;
+                }
+            });
+
+            thread.SetApartmentState(System.Threading.ApartmentState.STA);
+            thread.Start();
+            thread.Join();
+
+            return returnFileName;
+        }
+
+        /// <summary>
         /// PS_FX005_LoadPic
         /// </summary>
-        private void PS_FX005_LoadPic(string pPictureControlName)
+        private bool PS_FX005_LoadPic(string pPictureControlName)
         {
+            bool ReturnValue = false;
             string errMessage = string.Empty;
             string sFilePath;
             string sFileName;
@@ -1025,7 +1064,7 @@ namespace PSH_BOne_AddOn
                 SaveFolders = "\\\\191.1.1.220\\Asset_Pic";
 
                 //사진 불러오기
-                sFilePath = fileListBoxForm.OpenDialog(fileListBoxForm, "*.BMP|*.BMP", "파일선택", "C:\\");
+                sFilePath = OpenFileSelectDialog();
                 if (string.IsNullOrEmpty(sFilePath))
                 {
                     errMessage = "*.BMP|*.BMP 이미지가 선택되지 않았습니다.";
@@ -1086,16 +1125,24 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
                 }
+                ReturnValue = true;
             }
             catch (Exception ex)
             {
-
-                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                if(errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
             }
             finally
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
+            return ReturnValue;
         }
 
         /// <summary>
@@ -1625,9 +1672,11 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "Pic01" || pVal.ItemUID == "Pic02" || pVal.ItemUID == "Pic03" || pVal.ItemUID == "Pic04" || pVal.ItemUID == "Pic05" || pVal.ItemUID == "Pic06")
                     {
-                        PS_FX005_LoadPic(pVal.ItemUID);
-                        PS_FX005_DisplayFixData(oForm.Items.Item("DocEntry").Specific.Value);
-                        BubbleEvent = false;
+                        if (PS_FX005_LoadPic(pVal.ItemUID) == true)
+                        {
+                            PS_FX005_DisplayFixData(oForm.Items.Item("DocEntry").Specific.Value);
+                            BubbleEvent = false;
+                        }
                     }
                 }
             }

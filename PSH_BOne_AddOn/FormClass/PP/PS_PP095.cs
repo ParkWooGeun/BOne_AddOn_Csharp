@@ -343,7 +343,7 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    sQry = "DELETE from Z_PS_PP040_DOList where DOdate = '" + oDS_PS_PP095H.GetValue("U_DocDate", 0) + "'"; //해당 일자 DoList 삭제
+                    sQry = "DELETE from Z_PS_PP095_DOList where DOdate = '" + oDS_PS_PP095H.GetValue("U_DocDate", 0) + "'"; //해당 일자 DoList 삭제
                     oRecordSet01.DoQuery(sQry);
 
                     IRfcTable oTable = oFunction.GetTable("ITAB");
@@ -600,7 +600,7 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
 
-                sQry = "EXEC PS_PP095_04 '" + oForm.Items.Item("DeliOrd").Specific.Value.ToString().Trim() + "','" + oForm.Items.Item("DocDate").Specific.Value.ToString().Trim() + "'";
+                    sQry = "EXEC PS_PP095_04 '" + oForm.Items.Item("DeliOrd").Specific.Value.ToString().Trim() + "','" + oForm.Items.Item("DocDate").Specific.Value.ToString().Trim() + "'";
                 oRecordSet01.DoQuery(sQry);
 
                 oDS_PS_PP095H.SetValue("U_CardCode", 0, oRecordSet01.Fields.Item(6).Value);
@@ -1274,6 +1274,11 @@ namespace PSH_BOne_AddOn
                 }
                 else if (pVal.Before_Action == false)
                 {
+                    //if (pVal.ItemUID == "DeliOrd")
+                    //{
+                    //    oForm.Items.Item("CardCode").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    //    PSH_Globals.SBO_Application.SendKeys("{TAB}");
+                    //}
                 }
             }
             catch (Exception ex)

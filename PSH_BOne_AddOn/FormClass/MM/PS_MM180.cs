@@ -781,6 +781,7 @@ namespace PSH_BOne_AddOn
         private bool PS_MM180_InterfaceB1toR3()
         {
             bool returnValue = false;
+            string sQry;
             string Client; //클라이언트
             string ServerIP; //서버IP
             string errCode = string.Empty;
@@ -807,7 +808,6 @@ namespace PSH_BOne_AddOn
 
                 //1. SAP R3 함수 호출(매개변수 전달)
                 IRfcFunction oFunction = rfcRep.CreateFunction("ZPP_HOLDINGS_INTF_GR");
-
 
                 if (string.IsNullOrEmpty(oDS_PS_MM180L.GetValue("U_SPNUM", 0).ToString().Trim())) // 박스번호로 입력시
                 {
@@ -847,12 +847,12 @@ namespace PSH_BOne_AddOn
                     }
                     else
                     {
-                        for (int i = 0; i <= oMat01.VisualRowCount - 1; i++)
-                        {
-                            oDS_PS_MM180L.SetValue("U_TransYN", i, "Y");
-                        }
+                        sQry = "Update [@PS_MM180L] set U_TransYN ='Y' where DocEntry ='" + oDS_PS_MM180H.GetValue("DocEntry", 0).ToString().Trim()  + "'";
+                        oRecordSet01.DoQuery(sQry);
                     }
                 }
+                oMat01.LoadFromDataSource();
+                PSH_Globals.SBO_Application.MessageBox("R3 인터페이스 완료!");
                 returnValue = true;
             }
             catch (Exception ex)

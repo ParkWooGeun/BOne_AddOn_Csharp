@@ -781,6 +781,7 @@ namespace PSH_BOne_AddOn
         private bool PS_MM180_InterfaceB1toR3()
         {
             bool returnValue = false;
+            string sQry;
             string Client; //클라이언트
             string ServerIP; //서버IP
             string errCode = string.Empty;
@@ -808,15 +809,37 @@ namespace PSH_BOne_AddOn
                 //1. SAP R3 함수 호출(매개변수 전달)
                 IRfcFunction oFunction = rfcRep.CreateFunction("ZPP_HOLDINGS_INTF_GR");
 
-                for (int i = 0; i <= oMat01.VisualRowCount - 1; i++)
+                if (string.IsNullOrEmpty(oDS_PS_MM180L.GetValue("U_SPNUM", 0).ToString().Trim())) // 박스번호로 입력시
                 {
-                    oFunction.SetValue("I_ZLOTNO", oDS_PS_MM180L.GetValue("U_BatchNum", i).ToString().Trim()); //입고로트번호
+                    for (int i = 0; i <= oMat01.VisualRowCount - 1; i++)
+                    {
+                        oFunction.SetValue("I_ZLOTNO", oDS_PS_MM180L.GetValue("U_BatchNum", i).ToString().Trim()); //입고로트번호
+                        oFunction.SetValue("I_RSDAT", oDS_PS_MM180H.GetValue("U_DocDate", 0)); //입고일자
+
+                        errCode = "2"; //SAP Function 실행 오류가 발생했을 때 에러코드로 처리하기 위해 이 위치에서 "2"를 대입
+                        oFunction.Invoke(rfcDest); //Function 실행
+
+                        if (oFunction.GetValue("E_MESSAGE").ToString().Trim() != "" && codeHelpClass.Left(oFunction.GetValue("E_MESSAGE").ToString().Trim(), 1) != "S") //리턴 메시지가 "S(성공)"이 아니면
+                        {
+                            errCode = "3";
+                            errMessage = oFunction.GetValue("E_MESSAGE").ToString();
+                            throw new Exception();
+                        }
+                        else
+                        {
+                            oDS_PS_MM180L.SetValue("U_TransYN", i, "Y");
+                        }
+                    }
+                }
+                else // 출하번호로 입력시
+                {
+                    oFunction.SetValue("I_SPNUM", oDS_PS_MM180L.GetValue("U_SPNUM", 0).ToString().Trim()); //출하번호
                     oFunction.SetValue("I_RSDAT", oDS_PS_MM180H.GetValue("U_DocDate", 0)); //입고일자
 
                     errCode = "2"; //SAP Function 실행 오류가 발생했을 때 에러코드로 처리하기 위해 이 위치에서 "2"를 대입
                     oFunction.Invoke(rfcDest); //Function 실행
 
-                    if (oFunction.GetValue("E_MESSAGE").ToString().Trim() != "" && codeHelpClass.Left(oFunction.GetValue("E_MESSAGE").ToString().Trim(),1) != "S") //리턴 메시지가 "S(성공)"이 아니면
+                    if (oFunction.GetValue("E_MESSAGE").ToString().Trim() != "" && codeHelpClass.Left(oFunction.GetValue("E_MESSAGE").ToString().Trim(), 1) != "S") //리턴 메시지가 "S(성공)"이 아니면
                     {
                         errCode = "3";
                         errMessage = oFunction.GetValue("E_MESSAGE").ToString();
@@ -824,10 +847,12 @@ namespace PSH_BOne_AddOn
                     }
                     else
                     {
-                        oDS_PS_MM180L.SetValue("U_TransYN", i, "Y");
+                        sQry = "Update [@PS_MM180L] set U_TransYN ='Y' where DocEntry ='" + oDS_PS_MM180H.GetValue("DocEntry", 0).ToString().Trim()  + "'";
+                        oRecordSet01.DoQuery(sQry);
                     }
                 }
-
+                oMat01.LoadFromDataSource();
+                PSH_Globals.SBO_Application.MessageBox("R3 인터페이스 완료!");
                 returnValue = true;
             }
             catch (Exception ex)
@@ -860,37 +885,46 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 1. Box No R3(울산사업장) 전송, 2. Lot No 회신, 3. Form Matrix에 출력
         /// </summary>
-        private void PS_MM180_LoadBatchFromR3()
+        private void PS_MM180_LoadBOXNoFromR3()
         {
             string E_MESSAGE;
+            string sQry;
             string I_ZLOTNO;
             string I_ZPROWE;
             string I_ZBOXNO;
+            string I_ZMATNR;
+            string I_ZMAKTX;
+            string I_ZHOEHE;
+            string I_ZBREIT;
+            string I_ZLAENG;
+            string I_ZPONO;
+            string I_ZPOMAT;
+            string I_ZPOMAX;
+            string I_ZTKOSD;
+            string I_ZWIDTK;
+            string I_KGNET;
+            string I_QM_KUNNR;
+            string I_NAME1;
+            string I_KUNNR;
+            string I_NAME2;
+            string I_RDATE;
             string errMessage = string.Empty;
             string errCode = string.Empty;
             string Client; //클라이언트(운영용:210, 테스트용:810)
             string ServerIP; //서버IP(운영용:192.1.11.3, 테스트용:192.1.11.7)
-            SAPbouiCOM.ProgressBar ProgBar01 = null;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-            RfcDestination rfcDest = null;
             RfcRepository rfcRep = null;
+            RfcDestination rfcDest = null;
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbouiCOM.ProgressBar ProgBar01 = null;
 
             try
             {
                 oForm.Freeze(true);
-
                 ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
                 Client = dataHelpClass.GetR3ServerInfo()[0];
                 ServerIP = dataHelpClass.GetR3ServerInfo()[1];
-
-                if (string.IsNullOrEmpty(oForm.Items.Item("BItemCod").Specific.Value))
-                {
-                    errMessage = "품목코드를 선택하지 않았습니다.";
-                    errCode = "3";
-                    oForm.Items.Item("BItemCod").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    throw new Exception();
-                }
 
                 if (string.IsNullOrEmpty(oForm.Items.Item("BWhsCode").Specific.Value))
                 {
@@ -900,7 +934,7 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                if (oForm.Items.Item("BoxNo").Specific.Value.ToString().Length != 10)
+                else if (oForm.Items.Item("BoxNo").Specific.Value.ToString().Length != 10)
                 {
                     errMessage = "Box No는 10자리 입니다. 확인하여 주십시오.";
                     errCode = "3";
@@ -935,17 +969,268 @@ namespace PSH_BOne_AddOn
                     foreach (IRfcStructure row in oTable)
                     {
                         MatrixRow = oMat01.VisualRowCount;
-                        
+
                         I_ZLOTNO = row.GetValue("ZLOTNO").ToString();
                         I_ZPROWE = row.GetValue("ZPROWE").ToString();
+                        I_ZBOXNO = row.GetValue("CHARG").ToString();
+                        I_ZMATNR = row.GetValue("MATNR").ToString();
+                        I_ZMAKTX = row.GetValue("MAKTX").ToString();
+                        I_ZHOEHE = row.GetValue("ZHOEHE").ToString();
+                        I_ZBREIT = row.GetValue("ZBREIT").ToString();
+                        I_ZPONO = row.GetValue("PONO").ToString();
+                        I_ZPOMAT = row.GetValue("ZPOMAT").ToString();
+                        I_ZPOMAX = row.GetValue("ZPOMAX").ToString();
+                        I_ZTKOSD = row.GetValue("ZTKOSD").ToString();
+                        I_ZWIDTK = row.GetValue("ZWIDTK").ToString();
+                        I_ZLAENG = row.GetValue("ZLAENG").ToString();
+                        I_KGNET = row.GetValue("KGNET").ToString();
+                        I_QM_KUNNR = row.GetValue("QM_KUNNR").ToString();
+                        I_NAME1 = row.GetValue("NAME1").ToString();
+                        I_KUNNR = row.GetValue("KUNNR").ToString();
+                        I_NAME2 = row.GetValue("NAME2").ToString();
+                        I_RDATE = row.GetValue("RDATE").ToString();
 
-                        oDS_PS_MM180L.SetValue("U_ItemCode", MatrixRow - 1, oForm.Items.Item("BItemCod").Specific.Value);
-                        oDS_PS_MM180L.SetValue("U_ItemName", MatrixRow - 1, dataHelpClass.GetValue("SELECT ItemName FROM [OITM] WHERE ItemCode = '" + oForm.Items.Item("BItemCod").Specific.Value + "'", 0, 1));
-                        oDS_PS_MM180L.SetValue("U_BoxNo", MatrixRow - 1, oForm.Items.Item("BoxNo").Specific.Value);
+                        sQry = "Select b.U_ItemCode from [@PS_PP011H] a inner join [@PS_PP011L] b on a.Code = b.Code and a.Code ='12522' where b.U_PsCode ='" + I_ZMATNR + "'";
+                        oRecordSet01.DoQuery(sQry);
+
+                        if (oRecordSet01.Fields.Count == 0)
+                        {
+                            errMessage = I_ZMATNR + "원소재를 11.거래처제품(연결)코드등록에 입력하세요";
+                            throw new Exception();
+                        }
+
+                        oDS_PS_MM180L.SetValue("U_ItemCode", MatrixRow - 1, oRecordSet01.Fields.Item(0).Value);
+                        oDS_PS_MM180L.SetValue("U_ItemName", MatrixRow - 1, dataHelpClass.GetValue("SELECT ItemName FROM [OITM] WHERE ItemCode = '" + oRecordSet01.Fields.Item(0).Value + "'", 0, 1));
+                        oDS_PS_MM180L.SetValue("U_BoxNo", MatrixRow - 1, I_ZBOXNO);
                         oDS_PS_MM180L.SetValue("U_BatchNum", MatrixRow - 1, I_ZLOTNO);
                         oDS_PS_MM180L.SetValue("U_WhsCode", MatrixRow - 1, oForm.Items.Item("BWhsCode").Specific.Value);
                         oDS_PS_MM180L.SetValue("U_WhsName", MatrixRow - 1, dataHelpClass.GetValue("SELECT WhsName FROM [OWHS] WHERE WhsCode = '" + oForm.Items.Item("BWhsCode").Specific.Value + "'", 0, 1));
                         oDS_PS_MM180L.SetValue("U_Quantity", MatrixRow - 1, I_ZPROWE);
+
+                        oDS_PS_MM180L.SetValue("U_RItemCod", MatrixRow - 1, I_ZMATNR); // R3 모재 코드
+                        oDS_PS_MM180L.SetValue("U_RItemNam", MatrixRow - 1, I_ZMAKTX); // R3 모재 코드
+                        oDS_PS_MM180L.SetValue("U_RThink", MatrixRow - 1, I_ZHOEHE); // R3 모재 두께L
+                        oDS_PS_MM180L.SetValue("U_RWidth", MatrixRow - 1, I_ZBREIT); // R3 모재 폭
+                        oDS_PS_MM180L.SetValue("U_RLength", MatrixRow - 1, I_ZLAENG); // R3 모재 길이
+
+                        oDS_PS_MM180L.SetValue("U_R3PONum", MatrixRow - 1, I_ZPONO); // R3 완재 PO
+
+                        oDS_PS_MM180L.SetValue("U_PItemCod", MatrixRow - 1, I_ZPOMAT); // R3 완재 코드
+                        oDS_PS_MM180L.SetValue("U_PItemNam", MatrixRow - 1, I_ZPOMAX); // R3 모재 코드
+                        oDS_PS_MM180L.SetValue("U_PThink", MatrixRow - 1, I_ZTKOSD); // R3 완재 두께
+                        oDS_PS_MM180L.SetValue("U_PWidth", MatrixRow - 1, I_ZWIDTK); // R3 완재 폭
+                        oDS_PS_MM180L.SetValue("U_PLength", MatrixRow - 1, I_ZLAENG); // R3 완재 길이
+
+                        oDS_PS_MM180L.SetValue("U_POWeight", MatrixRow - 1, I_KGNET); // R3 PO 중량
+                        oDS_PS_MM180L.SetValue("U_DestCode", MatrixRow - 1, I_QM_KUNNR); // 수주사양 거래선코드
+                        oDS_PS_MM180L.SetValue("U_DestName", MatrixRow - 1, I_NAME1); // 수주사양 거래선명
+                        oDS_PS_MM180L.SetValue("U_CardCode", MatrixRow - 1, I_KUNNR); // 거래처코드
+                        oDS_PS_MM180L.SetValue("U_CardName", MatrixRow - 1, I_NAME2); // 거래처명
+
+                        oDS_PS_MM180L.SetValue("U_ReqDate", MatrixRow - 1, Convert.ToDateTime(I_RDATE).ToString("yyyyMMdd")); // 요청일
+
+                        PS_MM180_AddMatrixRow(MatrixRow, false);
+                        MatrixRow += 1;
+                    }
+                }
+                else
+                {
+                    errCode = "3";
+                    errMessage = E_MESSAGE;
+                    throw new Exception();
+                }
+                PS_MM180_CalculateSumQty();
+                oMat01.LoadFromDataSource();
+                oMat01.AutoResizeColumns();
+            }
+            catch(Exception ex)
+            {
+                if (errCode == "1")
+                {
+                    PSH_Globals.SBO_Application.MessageBox("풍산 SAP R3에 로그온 할 수 없습니다. 관리자에게 문의 하세요.");
+                }
+                else if (errCode == "2")
+                {
+                    PSH_Globals.SBO_Application.MessageBox("RFC Function 호출 오류");
+                }
+                else if (errCode == "3")
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                }
+            }
+            finally
+            {
+                oForm.Freeze(false);
+
+                if (ProgBar01 != null)
+                {
+                    ProgBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// 1. Box No R3(울산사업장) 전송, 2. Lot No 회신, 3. Form Matrix에 출력
+        /// </summary>
+        private void PS_MM180_LoadSPNUMFromR3()
+        {
+            string E_MESSAGE;
+            string sQry;
+            string I_ZSPNUM; 
+            string I_ZLOTNO;
+            string I_ZPROWE;
+            string I_ZBOXNO;
+            string I_ZMATNR;
+            string I_ZMAKTX;
+            string I_ZHOEHE;
+            string I_ZBREIT;
+            string I_ZLAENG;
+            string I_ZPONO;
+            string I_ZPOMAT;
+            string I_ZPOMAX;
+            string I_ZTKOSD;
+            string I_ZWIDTK;
+            string I_KGNET;
+            string I_QM_KUNNR;
+            string I_NAME1;
+            string I_KUNNR;
+            string I_NAME2;
+            string I_RDATE;
+            string errMessage = string.Empty;
+            string errCode = string.Empty;
+            string Client; //클라이언트(운영용:210, 테스트용:810)
+            string ServerIP; //서버IP(운영용:192.1.11.3, 테스트용:192.1.11.7)
+            RfcRepository rfcRep = null;
+            RfcDestination rfcDest = null;
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            SAPbouiCOM.ProgressBar ProgBar01 = null;
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                oForm.Freeze(true);
+                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
+                Client = dataHelpClass.GetR3ServerInfo()[0];
+                ServerIP = dataHelpClass.GetR3ServerInfo()[1];
+
+                //if (string.IsNullOrEmpty(oForm.Items.Item("BItemCod").Specific.Value))
+                //{
+                //    errMessage = "품목코드를 선택하지 않았습니다.";
+                //    errCode = "3";
+                //    oForm.Items.Item("BItemCod").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                //    throw new Exception();
+                //}
+
+                if (string.IsNullOrEmpty(oForm.Items.Item("BWhsCode").Specific.Value))
+                {
+                    errMessage = "창고코드를 선택하지 않았습니다.";
+                    errCode = "3";
+                    oForm.Items.Item("BWhsCode").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    throw new Exception();
+                }
+
+                else if (oForm.Items.Item("SPNUM").Specific.Value.ToString().Length != 10)
+                {
+                    errMessage = "출하 계획번호는 10자리 입니다. 확인하여 주십시오.";
+                    errCode = "3";
+                    oForm.Items.Item("SPNUM").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    throw new Exception();
+                }
+
+                oMat01.FlushToDataSource();
+
+                //0. 연결
+                if (dataHelpClass.SAPConnection(ref rfcDest, ref rfcRep, "PSC", ServerIP, Client, "ifuser", "pdauser") == false)
+                {
+                    errCode = "1";
+                    throw new Exception();
+                }
+
+                IRfcFunction oFunction = rfcRep.CreateFunction("ZPP_HOLDINGS_INTF_BOXINFO");
+                I_ZSPNUM = oForm.Items.Item("SPNUM").Specific.Value;
+                oFunction.SetValue("I_SPNUM", I_ZSPNUM); //매개변수를 문자열 변수에 저장해서 전달해야함(필수)
+
+                int MatrixRow = 0;
+
+                errCode = "2"; //SAP Function 실행 오류가 발생했을 때 에러코드로 처리하기 위해 이 위치에서 "2"를 대입
+                oFunction.Invoke(rfcDest); //Function 실행
+
+                IRfcTable oTable = oFunction.GetTable("ITAB");
+
+                E_MESSAGE = oFunction.GetValue("E_MESSAGE").ToString();
+
+                if (string.IsNullOrEmpty(E_MESSAGE)) //에러메시지가 없으면
+                {
+                    foreach (IRfcStructure row in oTable)
+                    {
+                        MatrixRow = oMat01.VisualRowCount;
+
+                        I_ZLOTNO = row.GetValue("ZLOTNO").ToString();
+                        I_ZPROWE = row.GetValue("ZPROWE").ToString();
+                        I_ZBOXNO = row.GetValue("CHARG").ToString();
+                        I_ZMATNR = row.GetValue("MATNR").ToString();
+                        I_ZMAKTX = row.GetValue("MAKTX").ToString();
+                        I_ZHOEHE = row.GetValue("ZHOEHE").ToString();
+                        I_ZBREIT = row.GetValue("ZBREIT").ToString();
+                        I_ZPONO = row.GetValue("PONO").ToString();
+                        I_ZPOMAT = row.GetValue("ZPOMAT").ToString();
+                        I_ZPOMAX = row.GetValue("ZPOMAX").ToString();
+                        I_ZTKOSD = row.GetValue("ZTKOSD").ToString();
+                        I_ZWIDTK = row.GetValue("ZWIDTK").ToString();
+                        I_ZLAENG = row.GetValue("ZLAENG").ToString();
+                        I_KGNET = row.GetValue("KGNET").ToString();
+                        I_QM_KUNNR = row.GetValue("QM_KUNNR").ToString();
+                        I_NAME1 = row.GetValue("NAME1").ToString();
+                        I_KUNNR = row.GetValue("KUNNR").ToString();
+                        I_NAME2 = row.GetValue("NAME2").ToString();
+                        I_RDATE = row.GetValue("RDATE").ToString();
+
+                        sQry = "Select b.U_ItemCode from [@PS_PP011H] a inner join [@PS_PP011L] b on a.Code = b.Code and a.Code ='12522' where b.U_PsCode ='" + I_ZMATNR + "'";
+                        oRecordSet01.DoQuery(sQry);
+
+                        if (oRecordSet01.Fields.Count == 0)
+                        {
+                            errMessage = I_ZMATNR + "원소재를 11.거래처제품(연결)코드등록에 입력하세요";
+                            throw new Exception();
+                        }
+
+                        oDS_PS_MM180L.SetValue("U_ItemCode", MatrixRow - 1, oRecordSet01.Fields.Item(0).Value);
+                        oDS_PS_MM180L.SetValue("U_ItemName", MatrixRow - 1, dataHelpClass.GetValue("SELECT ItemName FROM [OITM] WHERE ItemCode = '" + oRecordSet01.Fields.Item(0).Value + "'", 0, 1));
+                        oDS_PS_MM180L.SetValue("U_SPNUM", MatrixRow - 1, I_ZSPNUM);
+                        oDS_PS_MM180L.SetValue("U_BoxNo", MatrixRow - 1, I_ZBOXNO);
+                        oDS_PS_MM180L.SetValue("U_BatchNum", MatrixRow - 1, I_ZLOTNO);
+                        oDS_PS_MM180L.SetValue("U_WhsCode", MatrixRow - 1, oForm.Items.Item("BWhsCode").Specific.Value);
+                        oDS_PS_MM180L.SetValue("U_WhsName", MatrixRow - 1, dataHelpClass.GetValue("SELECT WhsName FROM [OWHS] WHERE WhsCode = '" + oForm.Items.Item("BWhsCode").Specific.Value + "'", 0, 1));
+                        oDS_PS_MM180L.SetValue("U_Quantity", MatrixRow - 1, I_ZPROWE);
+
+                        oDS_PS_MM180L.SetValue("U_RItemCod", MatrixRow - 1, I_ZMATNR); // R3 모재 코드
+                        oDS_PS_MM180L.SetValue("U_RItemNam", MatrixRow - 1, I_ZMAKTX); // R3 모재 코드
+                        oDS_PS_MM180L.SetValue("U_RThink", MatrixRow - 1, I_ZHOEHE); // R3 모재 두께
+                        oDS_PS_MM180L.SetValue("U_RWidth", MatrixRow - 1, I_ZBREIT); // R3 모재 폭
+                        oDS_PS_MM180L.SetValue("U_RLength", MatrixRow - 1, I_ZLAENG); // R3 모재 길이
+
+                        oDS_PS_MM180L.SetValue("U_R3PONum", MatrixRow - 1, I_ZPONO); // R3 완재 PO
+
+                        oDS_PS_MM180L.SetValue("U_PItemCod", MatrixRow - 1, I_ZPOMAT); // R3 완재 코드
+                        oDS_PS_MM180L.SetValue("U_PItemNam", MatrixRow - 1, I_ZPOMAX); // R3 모재 코드
+                        oDS_PS_MM180L.SetValue("U_PThink", MatrixRow - 1, I_ZTKOSD); // R3 완재 두께
+                        oDS_PS_MM180L.SetValue("U_PWidth", MatrixRow - 1, I_ZWIDTK); // R3 완재 폭
+                        oDS_PS_MM180L.SetValue("U_PLength", MatrixRow - 1, I_ZLAENG); // R3 완재 길이
+
+                        oDS_PS_MM180L.SetValue("U_POWeight", MatrixRow - 1, I_KGNET); // R3 PO 중량
+                        oDS_PS_MM180L.SetValue("U_DestCode", MatrixRow - 1, I_QM_KUNNR); // 수주사양 거래선코드
+                        oDS_PS_MM180L.SetValue("U_DestName", MatrixRow - 1, I_NAME1); // 수주사양 거래선명
+                        oDS_PS_MM180L.SetValue("U_CardCode", MatrixRow - 1, I_KUNNR); // 거래처코드
+                        oDS_PS_MM180L.SetValue("U_CardName", MatrixRow - 1, I_NAME2); // 거래처명
+
+                        oDS_PS_MM180L.SetValue("U_ReqDate", MatrixRow - 1, Convert.ToDateTime(I_RDATE).ToString("yyyyMMdd")); // 요청일
 
                         PS_MM180_AddMatrixRow(MatrixRow, false);
                         MatrixRow += 1;
@@ -962,7 +1247,7 @@ namespace PSH_BOne_AddOn
                 oMat01.LoadFromDataSource();
                 oMat01.AutoResizeColumns();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 if (errCode == "1")
                 {
@@ -1091,24 +1376,8 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
+                PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
                 oMat01.LoadFromDataSource();
-                if (dataHelpClass.Get_ReData("U_ItmBsort", "ItemCode", "[OITM]", "'" + MainItemCode + "'", "") == "302") //멀티 원소재일 경우
-                {
-                    if (PS_MM180_InterfaceB1toR3() == true) //본사 데이터 전송
-                    {
-                        PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
-                    }
-                    else
-                    {
-                        errCode = "3";
-                        throw new Exception();
-                    }
-                }
-                else //멀티 원소재 아닐 경우
-                {
-                    PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
-                }
-
                 oMat01.AutoResizeColumns();
 
                 returnValue = true;
@@ -1397,25 +1666,37 @@ namespace PSH_BOne_AddOn
                         {
                             PS_MM180_CreateBatch();
                         }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
+                    }
+                    if (pVal.ItemUID == "Button04")
+                    {
+                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                         {
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-                        {
+                            PS_MM180_InterfaceB1toR3();
                         }
                     }
                     else if (pVal.ItemUID == "Button03")
                     {
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                         {
-                            PS_MM180_LoadBatchFromR3();
-                            oMat01.Columns.Item("Quantity").Editable = false; //원소재 R3 인터페이스시 중량 수정을 막기위해 배치 로드후 중량 수정불가
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-                        {
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-                        {
+                            if (string.IsNullOrEmpty(oForm.Items.Item("SPNUM").Specific.Value) && string.IsNullOrEmpty(oForm.Items.Item("BoxNo").Specific.Value))
+                            {
+                                PSH_Globals.SBO_Application.MessageBox("출하계획번호, 박스번호 중에 하나는 필수 입니다.");
+                            }
+                            else if (!string.IsNullOrEmpty(oForm.Items.Item("SPNUM").Specific.Value) && !string.IsNullOrEmpty(oForm.Items.Item("BoxNo").Specific.Value))
+                            {
+                                PSH_Globals.SBO_Application.MessageBox("출하계획번호, 박스번호 둘다 입력할 수 없습니다.");
+                            }
+                            else if (!string.IsNullOrEmpty(oForm.Items.Item("BoxNo").Specific.Value))
+                            {
+                                PS_MM180_LoadBOXNoFromR3();
+                                oMat01.Columns.Item("Quantity").Editable = false; //원소재 R3 인터페이스시 중량 수정을 막기위해 배치 로드후 중량 수정불가
+                            }
+
+                            else if (!string.IsNullOrEmpty(oForm.Items.Item("SPNUM").Specific.Value))
+                            {
+                                PS_MM180_LoadSPNUMFromR3();
+                                oMat01.Columns.Item("Quantity").Editable = false; //원소재 R3 인터페이스시 중량 수정을 막기위해 배치 로드후 중량 수정불가
+                            }
                         }
                     }
                     else if (pVal.ItemUID == "Button02")
@@ -1430,12 +1711,6 @@ namespace PSH_BOne_AddOn
                             
                             oForm.Items.Item("SumQty").Specific.Value = 0;
                             oForm.Freeze(false);
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-                        {
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-                        {
                         }
                     }
                     else if (pVal.ItemUID == "1")
@@ -1701,7 +1976,7 @@ namespace PSH_BOne_AddOn
                             }
                             else
                             {
-                                if (pVal.ItemUID != "BWhsCode" && pVal.ItemUID != "BBatchNm" && pVal.ItemUID != "BBatchSt" && pVal.ItemUID != "BBatchEd" && pVal.ItemUID != "BQuantity" & pVal.ItemUID != "BoxNo") //UserDataSource Item일 경우(UDO Item이 아닐 경우)
+                                if (pVal.ItemUID != "BWhsCode" && pVal.ItemUID != "BBatchNm" && pVal.ItemUID != "BBatchSt" && pVal.ItemUID != "BBatchEd" && pVal.ItemUID != "BQuantity" && pVal.ItemUID != "BoxNo" && pVal.ItemUID != "SPNUM") //UserDataSource Item일 경우(UDO Item이 아닐 경우)
                                 {
                                     oDS_PS_MM180H.SetValue("U_" + pVal.ItemUID, 0, oForm.Items.Item(pVal.ItemUID).Specific.Value);
                                 }    

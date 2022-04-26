@@ -1036,13 +1036,8 @@ namespace PSH_BOne_AddOn
             try
             {
                 oMat01.FlushToDataSource();
-                ////Real
-                Client = "210";
-                ServerIP = "192.1.11.3";
-
-                ////Test
-                //Client = "810";
-                //ServerIP = "192.1.11.7";
+                Client = dataHelpClass.GetR3ServerInfo()[0];
+                ServerIP = dataHelpClass.GetR3ServerInfo()[1];
 
                 //0. 연결
                 if (dataHelpClass.SAPConnection(ref rfcDest, ref rfcRep, "PSC", ServerIP, Client, "ifuser", "pdauser") == false)
@@ -1064,15 +1059,24 @@ namespace PSH_BOne_AddOn
                         //SetValue 매개변수용 변수(변수Type이 맞지 않으면 매개변수 전달시 SetValue 메소드 오류발생, 아래와 같이 매개변수에 값 저장후 SetValue에 전달)
                         string coilNo = oDS_PS_SD040L.GetValue("U_CoilNo", i).ToString().Trim();
                         string docDate = oDS_PS_SD040H.GetValue("U_DocDate", 0).ToString().Trim();
+                        string R3PONum = oDS_PS_SD040L.GetValue("U_R3PONum", i).ToString().Trim();
                         double weight = Convert.ToDouble(oDS_PS_SD040L.GetValue("U_Weight", i).ToString().Trim());
                         double packWgt = Convert.ToDouble(oDS_PS_SD040L.GetValue("U_PackWgt", i).ToString().Trim());
                         double totalWgt = Convert.ToDouble(oDS_PS_SD040L.GetValue("U_Weight", i)) + Convert.ToDouble(oDS_PS_SD040L.GetValue("U_PackWgt", i));
+
+                        if (string.IsNullOrEmpty(R3PONum))
+                        {
+                            errMessage = "PO 번호는 필수입니다.";
+                            throw new Exception();
+                        }
 
                         oTable.SetValue("ZLOTNO", coilNo);
                         oTable.SetValue("ZORGDT", docDate);
                         oTable.SetValue("NTGEW", weight);
                         oTable.SetValue("ZBOXWE", packWgt);
                         oTable.SetValue("BRGEW", totalWgt);
+                        oTable.SetValue("ZSCRAP", "");
+                        oTable.SetValue("PONO", R3PONum);
                         oTable.Append();
 
                         if (oMat01.VisualRowCount == i + 2) //마지막에 실행
@@ -1134,6 +1138,10 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox("RFC Function 호출 오류");
                 }
                 else if (errCode == "3")
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else if(errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
                 }
@@ -2301,7 +2309,7 @@ namespace PSH_BOne_AddOn
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                         {
-                            if (oForm.Items.Item("Opt02").Specific.Selected == true) //분말일경우
+                            if (oForm.Items.Item("Opt02").Specific.Selected == true)
                             {
                                 PS_SD040_InterfaceB1toR3();
                             }
@@ -2881,7 +2889,7 @@ namespace PSH_BOne_AddOn
 
                                 for (i = 1; i <= oMat01.RowCount; i++)
                                 {
-                                    if (pVal.Row != i) //현재 선택된 행 제외
+                                    if (pVal.Row != i)
                                     {
                                         if (oMat01.Columns.Item("PackNo").Cells.Item(pVal.Row).Specific.Value == oMat01.Columns.Item("PackNo").Cells.Item(i).Specific.Value)
                                         {
@@ -2954,6 +2962,7 @@ namespace PSH_BOne_AddOn
                                     oDS_PS_SD040L.SetValue("U_SbasUnit", pVal.Row - 1 + i, RecordSet01.Fields.Item("SbasUnit").Value);
                                     oDS_PS_SD040L.SetValue("U_LotNo", pVal.Row - 1 + i, RecordSet01.Fields.Item("LotNo").Value);
                                     oDS_PS_SD040L.SetValue("U_CoilNo", pVal.Row - 1 + i, RecordSet01.Fields.Item("CoilNo").Value);
+                                    oDS_PS_SD040L.SetValue("U_R3PONum", pVal.Row - 1 + i, RecordSet01.Fields.Item("R3PONum").Value);
                                     oDS_PS_SD040L.SetValue("U_PackWgt", pVal.Row - 1 + i, RecordSet01.Fields.Item("PackWgt").Value);
                                     oDS_PS_SD040L.SetValue("U_SjQty", pVal.Row - 1 + i, RecordSet01.Fields.Item("SjQty").Value);
                                     oDS_PS_SD040L.SetValue("U_SjWeight", pVal.Row - 1 + i, RecordSet01.Fields.Item("SjWeight").Value);

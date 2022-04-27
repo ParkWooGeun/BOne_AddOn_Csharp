@@ -162,9 +162,10 @@ namespace PSH_BOne_AddOn
 		/// PS_QM035_FlushToItemValue
 		/// </summary>
 		/// <param name="oUID"></param>
-		private void PS_QM035_FlushToItemValue(string oUID)
+		/// <param name="oRow"></param>
+		/// <param name="oCol"></param>
+		private void PS_QM035_FlushToItemValue(string oUID, int oRow, string oCol)
 		{
-			string errMessage = string.Empty;
 			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -173,65 +174,46 @@ namespace PSH_BOne_AddOn
 				switch (oUID)
 				{
 					case "LotNo":
-						sQry = "select Count(*) From [@PS_QM035H] Where U_LotNo = '" + oDS_PS_QM035H.GetValue("U_LotNo", 0).ToString().Trim() + "'";
+						//Lot내역SET
+						sQry = "select MAX(a.ItemCode),MAX(d.ItemName),MAX(a.InDate),SUM(B.Quantity),MAX(d.U_Spec1),MAX(U_Spec2) ";
+						sQry += "from OBTN a INNER JOIN ITL1 b ON a.ItemCode = b.ItemCode and a.SysNumber = b.SysNumber ";
+						sQry += "INNER JOIN OITL c ON c.LogEntry = b.LogEntry ";
+						sQry += "INNER JOIN OITM d ON d.ItemCode = a.ItemCode ";
+						sQry += "where c.DocType = '59' ";
+						sQry += "and left(a.DistNumber,8) Like '" + oDS_PS_QM035H.GetValue("U_LotNo", 0).ToString().Trim() + "' + '%' ";
 						oRecordSet.DoQuery(sQry);
 
-						if (Convert.ToDouble(oRecordSet.Fields.Item(0).Value.ToString().Trim()) == 0)
-						{
-							//Lot내역SET
-							sQry = "select MAX(a.ItemCode),MAX(d.ItemName),MAX(a.InDate),SUM(B.Quantity),MAX(d.U_Spec1),MAX(U_Spec2) ";
-							sQry += "from OBTN a INNER JOIN ITL1 b ON a.ItemCode = b.ItemCode and a.SysNumber = b.SysNumber ";
-							sQry += "INNER JOIN OITL c ON c.LogEntry = b.LogEntry ";
-							sQry += "INNER JOIN OITM d ON d.ItemCode = a.ItemCode ";
-							sQry += "where c.DocType = '59' ";
-							sQry += "and left(a.DistNumber,8) Like '" + oDS_PS_QM035H.GetValue("U_LotNo", 0).ToString().Trim() + "' + '%' ";
-							oRecordSet.DoQuery(sQry);
+						oDS_PS_QM035H.SetValue("U_ItemCode", 0, oRecordSet.Fields.Item(0).Value.ToString().Trim());
+						oDS_PS_QM035H.SetValue("U_ItemName", 0, oRecordSet.Fields.Item(1).Value.ToString().Trim());
+						oDS_PS_QM035H.SetValue("U_InDate", 0, Convert.ToDateTime(oRecordSet.Fields.Item(2).Value.ToString().Trim()).ToString("yyyyMMdd"));
+						oDS_PS_QM035H.SetValue("U_InWgt", 0, oRecordSet.Fields.Item(3).Value.ToString().Trim());
+						oForm.Items.Item("C_Tk").Specific.Value = oRecordSet.Fields.Item(4).Value.ToString().Trim();
+						oForm.Items.Item("C_Rg").Specific.Value = oRecordSet.Fields.Item(5).Value.ToString().Trim();
 
-							oDS_PS_QM035H.SetValue("U_ItemCode", 0, oRecordSet.Fields.Item(0).Value.ToString().Trim());
-							oDS_PS_QM035H.SetValue("U_ItemName", 0, oRecordSet.Fields.Item(1).Value.ToString().Trim());
-							oDS_PS_QM035H.SetValue("U_InDate", 0, Convert.ToDateTime(oRecordSet.Fields.Item(2).Value.ToString().Trim()).ToString("yyyyMMdd"));
-							oDS_PS_QM035H.SetValue("U_InWgt", 0, oRecordSet.Fields.Item(3).Value.ToString().Trim());
-							oForm.Items.Item("C_Tk").Specific.Value = oRecordSet.Fields.Item(4).Value.ToString().Trim();
-							oForm.Items.Item("C_Rg").Specific.Value = oRecordSet.Fields.Item(5).Value.ToString().Trim();
+						//검사기준 SET
+						sQry = "SELECT TOP 1 U_S_Tk_P, U_S_Tk_M, U_S_Rg_P, U_S_Rg_M, U_S_Br, U_S_Lm, U_S_Hd, U_S_Et, U_S_Ts_S, U_S_Ts_E, U_S_El ";
+						sQry += "From [@PS_QM034H] ";
+						sQry += "ORDER BY CODE DESC ";
+						oRecordSet.DoQuery(sQry);
 
-							//검사기준 SET
-							sQry = "SELECT TOP 1 U_S_Tk_P, U_S_Tk_M, U_S_Rg_P, U_S_Rg_M, U_S_Br, U_S_Lm, U_S_Hd, U_S_Et, U_S_Ts_S, U_S_Ts_E, U_S_El ";
-							sQry += "From [@PS_QM034H] ";
-							sQry += "ORDER BY CODE DESC ";
-							oRecordSet.DoQuery(sQry);
-
-							oDS_PS_QM035H.SetValue("U_S_Tk_P", 0, oRecordSet.Fields.Item(0).Value.ToString().Trim());
-							oDS_PS_QM035H.SetValue("U_S_Tk_M", 0, oRecordSet.Fields.Item(1).Value.ToString().Trim());
-							oDS_PS_QM035H.SetValue("U_S_Rg_P", 0, oRecordSet.Fields.Item(2).Value.ToString().Trim());
-							oDS_PS_QM035H.SetValue("U_S_Rg_M", 0, oRecordSet.Fields.Item(3).Value.ToString().Trim());
-							oDS_PS_QM035H.SetValue("U_S_Br", 0, oRecordSet.Fields.Item(4).Value.ToString().Trim());
-							oDS_PS_QM035H.SetValue("U_S_Lm", 0, oRecordSet.Fields.Item(5).Value.ToString().Trim());
-							oDS_PS_QM035H.SetValue("U_S_Hd", 0, oRecordSet.Fields.Item(6).Value.ToString().Trim());
-							oDS_PS_QM035H.SetValue("U_S_Et", 0, oRecordSet.Fields.Item(7).Value.ToString().Trim());
-							oDS_PS_QM035H.SetValue("U_S_Ts_S", 0, oRecordSet.Fields.Item(8).Value.ToString().Trim());
-							oDS_PS_QM035H.SetValue("U_S_Ts_E", 0, oRecordSet.Fields.Item(9).Value.ToString().Trim());
-							oDS_PS_QM035H.SetValue("U_S_El", 0, oRecordSet.Fields.Item(10).Value.ToString().Trim());
-							oDS_PS_QM035H.SetValue("U_Et", 0, "이상없음"); //기본SET
-						}
-						else
-						{
-                            oForm.Items.Item("LotNo").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            errMessage = "이미등록된 Lot입니다.";
-                            throw new Exception();
-                        }
+						oDS_PS_QM035H.SetValue("U_S_Tk_P", 0, oRecordSet.Fields.Item(0).Value.ToString().Trim());
+						oDS_PS_QM035H.SetValue("U_S_Tk_M", 0, oRecordSet.Fields.Item(1).Value.ToString().Trim());
+						oDS_PS_QM035H.SetValue("U_S_Rg_P", 0, oRecordSet.Fields.Item(2).Value.ToString().Trim());
+						oDS_PS_QM035H.SetValue("U_S_Rg_M", 0, oRecordSet.Fields.Item(3).Value.ToString().Trim());
+						oDS_PS_QM035H.SetValue("U_S_Br", 0, oRecordSet.Fields.Item(4).Value.ToString().Trim());
+						oDS_PS_QM035H.SetValue("U_S_Lm", 0, oRecordSet.Fields.Item(5).Value.ToString().Trim());
+						oDS_PS_QM035H.SetValue("U_S_Hd", 0, oRecordSet.Fields.Item(6).Value.ToString().Trim());
+						oDS_PS_QM035H.SetValue("U_S_Et", 0, oRecordSet.Fields.Item(7).Value.ToString().Trim());
+						oDS_PS_QM035H.SetValue("U_S_Ts_S", 0, oRecordSet.Fields.Item(8).Value.ToString().Trim());
+						oDS_PS_QM035H.SetValue("U_S_Ts_E", 0, oRecordSet.Fields.Item(9).Value.ToString().Trim());
+						oDS_PS_QM035H.SetValue("U_S_El", 0, oRecordSet.Fields.Item(10).Value.ToString().Trim());
+						oDS_PS_QM035H.SetValue("U_Et", 0, "이상없음"); //기본SET
 						break;
 				}
 			}
 			catch (Exception ex)
 			{
-				if (errMessage != string.Empty)
-				{
-					PSH_Globals.SBO_Application.MessageBox(errMessage);
-				}
-				else
-				{
-					PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-				}
+				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
 			}
 			finally
 			{
@@ -266,8 +248,8 @@ namespace PSH_BOne_AddOn
 					SPEC = Convert.ToDouble(oForm.Items.Item("Tk").Specific.Value.ToString().Trim());
 					if (VALUE_MIN > SPEC || VALUE_MAX < SPEC)
 					{
-						oForm.Items.Item("Tk").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-						errMessage = "두께를 확인하여 주십시오.";
+                        oForm.Items.Item("Tk").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                        errMessage = "두께를 확인하여 주십시오.";
 						throw new Exception();
 					}
 				}
@@ -345,7 +327,6 @@ namespace PSH_BOne_AddOn
 						throw new Exception();
 					}
 				}
-
 				ReturnValue = true;
 			}
 			catch (Exception ex)
@@ -501,13 +482,13 @@ namespace PSH_BOne_AddOn
 		/// <param name="BubbleEvent"></param>
 		private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
+			string sQry;
+			string errMessage = string.Empty;
+			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
 			try
 			{
-				oForm.Freeze(true);
 				if (pVal.BeforeAction == true)
-				{
-				}
-				else if (pVal.BeforeAction == false)
 				{
 					if (pVal.ItemChanged == true)
 					{
@@ -517,8 +498,19 @@ namespace PSH_BOne_AddOn
 							{
 								if (!string.IsNullOrEmpty(oForm.Items.Item("LotNo").Specific.Value.ToString().Trim()))
 								{
-									PS_QM035_FlushToItemValue(pVal.ItemUID);
-								}
+									sQry = "select Count(*) From [@PS_QM035H] Where U_LotNo = '" + oDS_PS_QM035H.GetValue("U_LotNo", 0).ToString().Trim() + "'";
+									oRecordSet.DoQuery(sQry);
+
+									if (Convert.ToDouble(oRecordSet.Fields.Item(0).Value.ToString().Trim()) == 0)
+									{
+										PS_QM035_FlushToItemValue(pVal.ItemUID, 0, "");
+									}
+									else
+									{
+										errMessage = "이미 등록된 Lot입니다.";
+										throw new Exception();
+									}
+                                }
 								else
 								{
 									oForm.Items.Item("ItemCode").Specific.Value = "";
@@ -530,14 +522,25 @@ namespace PSH_BOne_AddOn
 						}
 					}
 				}
+				else if (pVal.BeforeAction == false)
+				{
+				}
 			}
 			catch (Exception ex)
 			{
-				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-			}
+				if (errMessage != string.Empty)
+				{
+					PSH_Globals.SBO_Application.MessageBox(errMessage);
+				}
+				else
+				{
+					PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+				}
+				BubbleEvent = false;
+                return;
+            }
 			finally
 			{
-				oForm.Freeze(false);
 			}
 		}
 
@@ -616,15 +619,15 @@ namespace PSH_BOne_AddOn
 							break;
 						case "1281": //찾기
 							PS_QM035_FormItemEnabled();
-							oForm.Items.Item("Tk").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-							break;
+                            oForm.Items.Item("Tk").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                            break;
 						case "1282": //추가
 							PS_QM035_FormItemEnabled();
 							PS_QM035_FormClear();
 							oForm.Items.Item("C_Tk").Specific.Value = "";
 							oForm.Items.Item("C_Rg").Specific.Value = "";
-							oForm.Items.Item("LotNo").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-							break;
+                            oForm.Items.Item("LotNo").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                            break;
 						case "1287": //복제
 							break;
 						case "1288": //레코드이동(최초)

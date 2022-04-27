@@ -42517,11 +42517,13 @@
             PS_QM035_FormItemEnabled
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_QM035.PS_QM035_FlushToItemValue(System.String)">
+        <member name="M:PSH_BOne_AddOn.PS_QM035.PS_QM035_FlushToItemValue(System.String,System.Int32,System.String)">
             <summary>
             PS_QM035_FlushToItemValue
             </summary>
             <param name="oUID"></param>
+            <param name="oRow"></param>
+            <param name="oCol"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_QM035.PS_QM035_HeaderSpaceLineDel">
             <summary>

@@ -535,9 +535,12 @@
     <Compile Include="FormClass\QM\PS_QM220.cs" />
     <Compile Include="FormClass\QM\PS_QM240.cs" />
     <Compile Include="FormClass\QM\PS_QM242.cs" />
+    <Compile Include="FormClass\QM\PS_QM245.cs" />
+    <Compile Include="FormClass\QM\PS_QM255.cs" />
     <Compile Include="FormClass\QM\PS_QM260.cs" />
     <Compile Include="FormClass\QM\PS_QM261.cs" />
     <Compile Include="FormClass\QM\PS_QM310.cs" />
+    <Compile Include="FormClass\QM\PS_QM320.cs" />
     <Compile Include="FormClass\QM\PS_QM400.cs" />
     <Compile Include="FormClass\QM\PS_QM410.cs" />
     <Compile Include="FormClass\QM\PS_QM430.cs" />

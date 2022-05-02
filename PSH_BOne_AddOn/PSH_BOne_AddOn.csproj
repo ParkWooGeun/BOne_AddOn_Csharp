@@ -515,6 +515,7 @@
     <Compile Include="FormClass\PY\PH_PYA90.cs" />
     <Compile Include="FormClass\PY\PS_DateChange.cs" />
     <Compile Include="FormClass\PY\PS_DateCommit.cs" />
+    <Compile Include="FormClass\QM\PS_QM075.cs" />
     <Compile Include="FormClass\QM\PS_QM005.cs" />
     <Compile Include="FormClass\QM\PS_QM007.cs" />
     <Compile Include="FormClass\QM\PS_QM010.cs" />

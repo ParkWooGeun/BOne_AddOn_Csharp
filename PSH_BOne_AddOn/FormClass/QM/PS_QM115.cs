@@ -788,7 +788,7 @@ namespace PSH_BOne_AddOn
 				oForm.Freeze(true);
 				if (pVal.BeforeAction == true)
 				{
-					if (pVal.ItemChanged == true)
+					if (pVal.ItemChanged == true)	
 					{
 						if (pVal.ItemUID == "CntcCode")
 						{

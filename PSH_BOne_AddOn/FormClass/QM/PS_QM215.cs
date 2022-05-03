@@ -933,5 +933,33 @@ namespace PSH_BOne_AddOn
 				oForm.Freeze(false);
 			}
 		}
+
+		/// <summary>
+		/// FormDataEvent
+		/// </summary>
+		/// <param name="FormUID"></param>
+		/// <param name="BusinessObjectInfo"></param>
+		/// <param name="BubbleEvent"></param>
+		public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
+		{
+			try
+			{
+				switch (BusinessObjectInfo.EventType)
+				{
+					case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
+						break;
+					case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
+						break;
+					case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
+						break;
+					case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
+						break;
+				}
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+			}
+		}
 	}
 }

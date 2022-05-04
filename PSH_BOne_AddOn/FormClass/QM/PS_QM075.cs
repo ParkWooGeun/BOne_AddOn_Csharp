@@ -13,9 +13,11 @@ namespace PSH_BOne_AddOn
         public SAPbouiCOM.Grid oGrid1;
         public SAPbouiCOM.Grid oGrid2;
         public SAPbouiCOM.Grid oGrid3;
+        public SAPbouiCOM.Grid oGrid4;
         public SAPbouiCOM.DataTable oDS_PS_QM075H;
         public SAPbouiCOM.DataTable oDS_PS_QM075L;
         public SAPbouiCOM.DataTable oDS_PS_QM075M;
+        public SAPbouiCOM.DataTable oDS_PS_QM075N;
 
         private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
@@ -117,6 +119,12 @@ namespace PSH_BOne_AddOn
 
                 oGrid3.DataTable = oForm.DataSources.DataTables.Item("PS_QM075M");
                 oDS_PS_QM075M = oForm.DataSources.DataTables.Item("PS_QM075M");
+
+                oGrid4 = oForm.Items.Item("Grid4").Specific;
+                oForm.DataSources.DataTables.Add("PS_QM075N");
+
+                oGrid4.DataTable = oForm.DataSources.DataTables.Item("PS_QM075N");
+                oDS_PS_QM075N = oForm.DataSources.DataTables.Item("PS_QM075N");
             }
             catch (Exception ex)
             {
@@ -532,6 +540,7 @@ namespace PSH_BOne_AddOn
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_QM075H);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_QM075L);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_QM075M);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_QM075N);
                 }
             }
             catch (Exception ex)
@@ -550,6 +559,7 @@ namespace PSH_BOne_AddOn
         {
             string sQry;
             string sQry2;
+            string sQry3;
             string bplid;
             string docDateFr;
             string docDateTo;
@@ -572,6 +582,10 @@ namespace PSH_BOne_AddOn
                         sQry2 = "exec [PS_QM075_03] '" + bplid + "','" + oGrid1.DataTable.Columns.Item("거래처코드").Cells.Item(pVal.Row).Value + "','" + docDateFr + "','" + docDateTo + "'";
                         oDS_PS_QM075M.ExecuteQuery(sQry2);
                         oGrid3.AutoResizeColumns();
+
+                        sQry3 = "exec [PS_QM075_04] '" + bplid + "','" + oGrid1.DataTable.Columns.Item("거래처코드").Cells.Item(pVal.Row).Value + "','" + docDateFr + "','" + docDateTo + "'";
+                        oDS_PS_QM075N.ExecuteQuery(sQry3);
+                        oGrid4.AutoResizeColumns();
                     }
                 }
                 else if (pVal.Before_Action == false)

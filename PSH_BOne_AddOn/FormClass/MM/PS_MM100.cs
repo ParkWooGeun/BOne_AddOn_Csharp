@@ -21,7 +21,6 @@ namespace PSH_BOne_AddOn
         private string oDocEntry;
         private string oStatus;
         private string oCanceled;
-        private SAPbouiCOM.BoFormMode oFormMode01;
 
         /// <summary>
         /// Form 호출
@@ -867,6 +866,14 @@ namespace PSH_BOne_AddOn
                             PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                             BubbleEvent = false;
                         }
+                        else if (pVal.ColUID == "TargetDc")
+                        {
+                            if (string.IsNullOrEmpty(oMat01.Columns.Item("TargetDc").Cells.Item(pVal.Row).Specific.Value))
+                            {
+                                PSH_Globals.SBO_Application.ActivateMenuItem("7425");
+                                BubbleEvent = false;
+                            }
+                        }
                     }
                     else if (pVal.ItemUID == "Mat01")
                     {
@@ -1097,6 +1104,16 @@ namespace PSH_BOne_AddOn
                             {
                                 oDS_PS_MM100L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
                                 oDS_PS_MM100L.SetValue("U_CCName", pVal.Row - 1, dataHelpClass.GetValue("SELECT PrcName FROM OPRC Where PrcCode = '" + oMat01.Columns.Item("CCCode").Cells.Item(pVal.Row).Specific.Value + "'", 0, 1));
+                            }
+                            else if (pVal.ColUID == "TargetDc")
+                            {
+                                sQry = "exec [PS_MM100_01] '" + oForm.Items.Item("BPLId").Specific.Value + "','" + oMat01.Columns.Item("ItemCode").Cells.Item(pVal.Row).Specific.Value + "','" + oMat01.Columns.Item("TargetDc").Cells.Item(pVal.Row).Specific.Value  + "'";
+                                oRecordSet01.DoQuery(sQry);
+
+                                oDS_PS_MM100L.SetValue("U_TargetDc", pVal.Row - 1, oRecordSet01.Fields.Item(0).Value);
+                                oDS_PS_MM100L.SetValue("U_CntcCode", pVal.Row - 1, oRecordSet01.Fields.Item(5).Value);
+                                oDS_PS_MM100L.SetValue("U_CntcName", pVal.Row - 1, oRecordSet01.Fields.Item(6).Value);
+                                oDS_PS_MM100L.SetValue("U_UseDept", pVal.Row - 1, oRecordSet01.Fields.Item(7).Value);
                             }
                             else
                             {

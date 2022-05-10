@@ -233,7 +233,7 @@ namespace PSH_BOne_AddOn
 			}
 		}
 
-		// <summary>
+		/// <summary>
 		/// /PS_QM450_AddMatrixRow
 		/// </summary>
 		/// <param name="oRow"></param>
@@ -262,7 +262,7 @@ namespace PSH_BOne_AddOn
 			}
 		}
 
-		// <summary>
+		/// <summary>
 		/// /PS_QM450_CopyMatrixRow
 		/// </summary>
 		private void PS_QM450_CopyMatrixRow()

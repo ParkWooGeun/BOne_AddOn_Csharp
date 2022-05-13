@@ -1755,6 +1755,8 @@ namespace PSH_BOne_AddOn
                             if (pVal.ActionSuccess == true)
                             {
                                 PS_MM180_EnableFormItem();
+                                oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
+                                PSH_Globals.SBO_Application.ActivateMenuItem("1291");
                                 PS_MM180_AddMatrixRow(0, true);
                             }
                         }

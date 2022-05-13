@@ -58,6 +58,7 @@ namespace PSH_BOne_AddOn
                 PS_PP035_CF_ChooseFromList();
                 PS_PP035_EnableMenus();
                 PS_PP035_SetDocument(oFormDocEntry);
+                PS_PP035_FormItemEnabled();
             }
             catch (Exception ex)
             {
@@ -124,6 +125,10 @@ namespace PSH_BOne_AddOn
 
                 oForm.DataSources.UserDataSources.Add("ChkWCon", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
                 oForm.Items.Item("ChkWCon").Specific.DataBind.SetBound(true, "", "ChkWCon");
+
+                oForm.DataSources.UserDataSources.Add("ChkR3Po", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
+                oForm.Items.Item("ChkR3Po").Specific.DataBind.SetBound(true, "", "ChkR3Po");
+
                 oForm.Items.Item("Mat01").Enabled = true;
 
                 if (dataHelpClass.User_BPLID() == "2")
@@ -263,6 +268,64 @@ namespace PSH_BOne_AddOn
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
         }
+
+
+        /// <summary>
+        /// 각 모드에 따른 아이템설정
+        /// </summary>        
+        private void PS_PP035_FormItemEnabled()
+        {
+            try
+            {
+                oForm.Freeze(true);
+                if (oForm.Items.Item("ChkR3Po").Specific.Checked == true)
+                {
+                    oMat01.Columns.Item("R3PONum").Editable = true;
+                    oMat01.Columns.Item("ItemCode").Editable = false;
+                    oMat01.Columns.Item("Canceled").Editable = false;
+                    oMat01.Columns.Item("SelWt").Editable = false;
+                    oMat01.Columns.Item("CntcCode").Editable = false;
+                    oMat01.Columns.Item("CntcName").Editable = false;
+                    oMat01.Columns.Item("DocDate").Editable = false;
+                    oMat01.Columns.Item("DueDate").Editable = false;
+                    oMat01.Columns.Item("WalDoc").Editable = false;
+                    oMat01.Columns.Item("WorkCon").Editable = false;
+                }
+                else
+                {
+                    oMat01.Columns.Item("R3PONum").Editable = false;
+                    oMat01.Columns.Item("ItemCode").Editable = true;
+                    oMat01.Columns.Item("Canceled").Editable = true;
+                    oMat01.Columns.Item("SelWt").Editable = true;
+                    oMat01.Columns.Item("CntcCode").Editable = true;
+                    oMat01.Columns.Item("CntcName").Editable = true;
+                    oMat01.Columns.Item("DocDate").Editable = true;
+                    oMat01.Columns.Item("DueDate").Editable = true;
+                    oMat01.Columns.Item("WalDoc").Editable = true;
+                    oMat01.Columns.Item("WorkCon").Editable = true;
+                }
+                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+                {
+                   
+                }
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
+                {
+                   
+                }
+                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                oForm.Freeze(false);
+            }
+        }
+
 
         /// <summary>
         /// SetDocument
@@ -466,7 +529,7 @@ namespace PSH_BOne_AddOn
         private void PS_PP035_SetBaseForm()
         {
             int i;
-            string Query01;
+            string sQry;
             string Param01;
             string Param02;
             double Param03;
@@ -478,7 +541,7 @@ namespace PSH_BOne_AddOn
             string ItemName;
             string R3PONum;
             string WorkCon;
-            string QueryString;
+            string sQry02;
             string errMessage = string.Empty;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -494,28 +557,28 @@ namespace PSH_BOne_AddOn
                             Param01 = oMat01.Columns.Item("DocEntry").Cells.Item(i).Specific.Value;
                             WorkCon = oMat01.Columns.Item("WorkCon").Cells.Item(i).Specific.Value;
 
-                            Query01 = "EXEC PS_PP035_80 '" + Param01 + "', '" + WorkCon + "'";
-                            oRecordSet01.DoQuery(Query01);
+                            sQry = "EXEC PS_PP035_80 '" + Param01 + "', '" + WorkCon + "'";
+                            oRecordSet01.DoQuery(sQry);
                             PSH_Globals.SBO_Application.MessageBox("작업상태를 수정하였습니다.");
                         }
                         else
                         {
                             if (oMat01.Columns.Item("OrdGbn").Cells.Item(i).Specific.Value.ToString().Trim() == "104")
                             {
-                                QueryString =  " SELECT Sum(a.Quantity * (Case When a.Direction = '0' Then 1 Else -1 End)) As Quantity";
-                                QueryString += " FROM IBT1 a Inner Join OITM b  On a.ItemCode = b.ItemCode And b.U_ItmBsort = '104'";
-                                QueryString += " WHERE a.BaseType In ('59', '60')";
-                                QueryString += "    AND a.BatchNum = '" + oMat01.Columns.Item("OrdNum").Cells.Item(i).Specific.Value.ToString().Trim() + "'";
+                                sQry02 =  " SELECT Sum(a.Quantity * (Case When a.Direction = '0' Then 1 Else -1 End)) As Quantity";
+                                sQry02 += " FROM IBT1 a Inner Join OITM b  On a.ItemCode = b.ItemCode And b.U_ItmBsort = '104'";
+                                sQry02 += " WHERE a.BaseType In ('59', '60')";
+                                sQry02 += "    AND a.BatchNum = '" + oMat01.Columns.Item("OrdNum").Cells.Item(i).Specific.Value.ToString().Trim() + "'";
                             }
                             else
                             {
-                                QueryString =  " SELECT SUM(A.InQty) - SUM(A.OutQty) AS [StockQty]";
-                                QueryString += " FROM OINM AS A INNER JOIN OITM As B ON A.ItemCode = B.ItemCode";
-                                QueryString += " WHERE B.U_ItmBsort IN ('105','106')";
-                                QueryString += "       AND A.ItemCode = '" + oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.Value.ToString().Trim() + "'";
-                                QueryString += " GROUP BY  A.ItemCode";
+                                sQry02 =  " SELECT SUM(A.InQty) - SUM(A.OutQty) AS [StockQty]";
+                                sQry02 += " FROM OINM AS A INNER JOIN OITM As B ON A.ItemCode = B.ItemCode";
+                                sQry02 += " WHERE B.U_ItmBsort IN ('105','106')";
+                                sQry02 += "       AND A.ItemCode = '" + oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.Value.ToString().Trim() + "'";
+                                sQry02 += " GROUP BY  A.ItemCode";
                             }
-                            if ((string.IsNullOrEmpty(dataHelpClass.GetValue(QueryString, 0, 1)) ? 0 : Convert.ToInt32(dataHelpClass.GetValue(QueryString, 0, 1))) > 0)
+                            if (oForm.Items.Item("ChkR3Po").Specific.Checked != true && (string.IsNullOrEmpty(dataHelpClass.GetValue(sQry02, 0, 1)) ? 0 : Convert.ToInt32(dataHelpClass.GetValue(sQry02, 0, 1))) > 0)
                             {
                                 errMessage = i + "행의 작업지시는 현재 재고가 존재합니다. 처리할 수 없습니다.";
                                 throw new Exception();
@@ -533,8 +596,8 @@ namespace PSH_BOne_AddOn
                                 ItemName = dataHelpClass.Make_ItemName(oMat01.Columns.Item("ItemName").Cells.Item(i).Specific.Value.ToString().Trim());
                                 R3PONum = oMat01.Columns.Item("R3PONum").Cells.Item(i).Specific.Value;
 
-                                Query01 = "EXEC PS_PP035_02 '" + Param01 + "', '" + Param02 + "', '" + Param03 + "', '" + Param04 + "', '" + Param05 + "', '" + Param06 + "', '" + Param07 + "', '" + ItemCode + "', '" + ItemName + "', '" + R3PONum + "'";
-                                oRecordSet01.DoQuery(Query01);
+                                sQry = "EXEC PS_PP035_02 '" + Param01 + "', '" + Param02 + "', '" + Param03 + "', '" + Param04 + "', '" + Param05 + "', '" + Param06 + "', '" + Param07 + "', '" + ItemCode + "', '" + ItemName + "', '" + R3PONum + "'";
+                                oRecordSet01.DoQuery(sQry);
                                 PSH_Globals.SBO_Application.MessageBox("데이터를 수정하였습니다.");
                             }
                         }
@@ -593,7 +656,7 @@ namespace PSH_BOne_AddOn
         private void PS_PP035_MTX01()
         {
             int i;
-            string Query01;
+            string sQry;
             string Param01;
             string Param02;
             string Param03;
@@ -668,8 +731,8 @@ namespace PSH_BOne_AddOn
                     Param12 = Param03;
                 }
                 ProgressBar01.Text = "조회시작!";
-                Query01 = "EXEC PS_PP035_01 '" + Param01 + "', '" + Param02 + "', '" + Param03 + "', '" + Param04 + "', '" + Param05 + "', '" + Param06 + "', '" + Param07 + "', '" + Param08 + "', '" + Param09 + "', '" + Param10 + "', '" + Param11 + "', '" + Param12 + "', '" + Param13 + "','" + Param14 + "'";
-                oRecordSet01.DoQuery(Query01);
+                sQry = "EXEC PS_PP035_01 '" + Param01 + "', '" + Param02 + "', '" + Param03 + "', '" + Param04 + "', '" + Param05 + "', '" + Param06 + "', '" + Param07 + "', '" + Param08 + "', '" + Param09 + "', '" + Param10 + "', '" + Param11 + "', '" + Param12 + "', '" + Param13 + "','" + Param14 + "'";
+                oRecordSet01.DoQuery(sQry);
                 
                 oMat01.Clear();
                 oMat01.FlushToDataSource();
@@ -978,6 +1041,7 @@ namespace PSH_BOne_AddOn
                     if (pVal.ItemUID == "Btn01")
                     {
                         PS_PP035_MTX01();
+                        PS_PP035_FormItemEnabled();
                     }
                     else if (pVal.ItemUID == "Btn02")
                     {
@@ -1125,6 +1189,11 @@ namespace PSH_BOne_AddOn
                 }
                 else if (pVal.Before_Action == false)
                 {
+                    if (pVal.ItemUID == "ChkR3Po")
+                    {
+                        oMat01.Clear();
+                        PS_PP035_FormItemEnabled();
+                    }
                 }
             }
             catch (Exception ex)
@@ -1144,7 +1213,7 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string Query01;
+            string sQry;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -1160,14 +1229,14 @@ namespace PSH_BOne_AddOn
                             }
                             else if (pVal.ColUID == "CntcCode")
                             {
-                                Query01 = "SELECT LastName, FirstName FROM [OHEM] WHERE EmpID = '" + oMat01.Columns.Item("CntcCode").Cells.Item(pVal.Row).Specific.Value.ToString().Trim() + "'";
-                                oRecordSet01.DoQuery(Query01);
+                                sQry = "SELECT LastName, FirstName FROM [OHEM] WHERE EmpID = '" + oMat01.Columns.Item("CntcCode").Cells.Item(pVal.Row).Specific.Value.ToString().Trim() + "'";
+                                oRecordSet01.DoQuery(sQry);
                                 oMat01.Columns.Item("CntcName").Cells.Item(pVal.Row).Specific.Value = oRecordSet01.Fields.Item(0).Value.ToString().Trim() + oRecordSet01.Fields.Item(1).Value.ToString().Trim();
                             }
                             else if (pVal.ColUID == "ItemCode")
                             {
-                                Query01 = "Select ItemName From OITM Where ItemCode = '" + oMat01.Columns.Item("ItemCode").Cells.Item(pVal.Row).Specific.Value.ToString().Trim() + "'";
-                                oRecordSet01.DoQuery(Query01);
+                                sQry = "Select ItemName From OITM Where ItemCode = '" + oMat01.Columns.Item("ItemCode").Cells.Item(pVal.Row).Specific.Value.ToString().Trim() + "'";
+                                oRecordSet01.DoQuery(sQry);
                                 oMat01.Columns.Item("ItemName").Cells.Item(pVal.Row).Specific.Value = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
                             }
                         }

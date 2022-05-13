@@ -184,18 +184,6 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
-				oForm.Items.Item("GrpBox01").Height = 310;
-				oForm.Items.Item("GrpBox01").Width = 590;
-
-				oForm.Items.Item("GrpBox02").Height = 105;
-				oForm.Items.Item("GrpBox02").Width = 390;
-
-				oForm.Items.Item("GrpBox03").Height = 165;
-				oForm.Items.Item("GrpBox03").Width = 260;
-
-				oForm.Items.Item("GrpBox04").Height = 165;
-				oForm.Items.Item("GrpBox04").Width = 225;
-
 				oMat.AutoResizeColumns();
 			}
 			catch (Exception ex)
@@ -421,7 +409,14 @@ namespace PSH_BOne_AddOn
 					oDS_PS_QM093L.SetValue("U_ColReg04", i, oRecordSet.Fields.Item("ItemCode").Value.ToString().Trim()); //작번
 					oDS_PS_QM093L.SetValue("U_ColReg05", i, oRecordSet.Fields.Item("ItemName").Value.ToString().Trim()); //품명
 					oDS_PS_QM093L.SetValue("U_ColReg06", i, oRecordSet.Fields.Item("ItemSpec").Value.ToString().Trim()); //규격
-					oDS_PS_QM093L.SetValue("U_ColDt01", i, Convert.ToDateTime(oRecordSet.Fields.Item("DocDate").Value.ToString().Trim()).ToString("yyyyMMdd"));	//날짜
+					if (oRecordSet.Fields.Item("DocDate").Value == "")
+					{
+						oDS_PS_QM093L.SetValue("U_ColDt01", i, null); //날짜
+					}
+					else
+                    {
+						oDS_PS_QM093L.SetValue("U_ColDt01", i, Convert.ToDateTime(oRecordSet.Fields.Item("DocDate").Value).ToString("yyyyMMdd")); //날짜
+					}
 					oDS_PS_QM093L.SetValue("U_ColQty01", i, oRecordSet.Fields.Item("TotalQty").Value.ToString().Trim()); //전체수량
 					oDS_PS_QM093L.SetValue("U_ColQty02", i, oRecordSet.Fields.Item("BadQty").Value.ToString().Trim());	 //불량수량
 					oDS_PS_QM093L.SetValue("U_ColReg07", i, oRecordSet.Fields.Item("BadNote").Value.ToString().Trim());	 //불량내용
@@ -531,14 +526,14 @@ namespace PSH_BOne_AddOn
 		private bool PS_QM093_AddData()
 		{
 			bool ReturnValue = false;
-			int DocEntry;	 //관리번호
+			string DocEntry; //관리번호
 			string CLTCOD;	 //사업장
 			string ItemCode; //작번
 			string ItemName; //품명
 			string ItemSpec; //규격
 			string DocDate;	 //날짜
-			int TotalQty;	 //전체수량
-			int BadQty;		 //불량수량
+			decimal TotalQty;	 //전체수량
+			decimal BadQty;		 //불량수량
 			string BadNote;	 //불량내용
 			string CpCode;	 //원인공정
 			string CpName;	 //원인공정명
@@ -566,8 +561,8 @@ namespace PSH_BOne_AddOn
 				ItemName = oForm.Items.Item("ItemName").Specific.Value.ToString().Trim();
 				ItemSpec = oForm.Items.Item("ItemSpec").Specific.Value.ToString().Trim();
 				DocDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
-				TotalQty = Convert.ToInt32(oForm.Items.Item("TotalQty").Specific.Value.ToString().Trim());
-				BadQty = Convert.ToInt32(oForm.Items.Item("BadQty").Specific.Value.ToString().Trim());
+				TotalQty = Convert.ToDecimal(oForm.Items.Item("TotalQty").Specific.Value.ToString().Trim());
+				BadQty = Convert.ToDecimal(oForm.Items.Item("BadQty").Specific.Value.ToString().Trim());
 				BadNote = oForm.Items.Item("BadNote").Specific.Value.ToString().Trim();
 				CpCode = oForm.Items.Item("CpCode").Specific.Value.ToString().Trim();
 				CpName = oForm.Items.Item("CpName").Specific.Value.ToString().Trim();
@@ -592,11 +587,11 @@ namespace PSH_BOne_AddOn
 
 				if (Convert.ToDouble(oRecordSet.Fields.Item(0).Value.ToString().Trim()) == 0)
 				{
-					DocEntry = 1;
+					DocEntry = "1";
 				}
 				else
 				{
-					DocEntry = Convert.ToDouble(oRecordSet.Fields.Item(0).Value.ToString().Trim()) + 1;
+					DocEntry = Convert.ToString(Convert.ToDouble(oRecordSet.Fields.Item(0).Value.ToString().Trim()) + 1);
 				}
 
 				sQry = " EXEC [PS_QM093_02] ";
@@ -648,14 +643,14 @@ namespace PSH_BOne_AddOn
 		private bool PS_QM093_UpdateData()
 		{
 			bool ReturnValue = false;
-			int DocEntry;    //관리번호
+			string DocEntry;    //관리번호
 			string CLTCOD;   //사업장
 			string ItemCode; //작번
 			string ItemName; //품명
 			string ItemSpec; //규격
 			string DocDate;  //날짜
-			int TotalQty;    //전체수량
-			int BadQty;      //불량수량
+			decimal TotalQty;    //전체수량
+			decimal BadQty;      //불량수량
 			string BadNote;  //불량내용
 			string CpCode;   //원인공정
 			string CpName;   //원인공정명
@@ -678,14 +673,14 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				DocEntry = Convert.ToInt32(oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim());
+				DocEntry = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim();
 				CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
 				ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
 				ItemName = oForm.Items.Item("ItemName").Specific.Value.ToString().Trim();
 				ItemSpec = oForm.Items.Item("ItemSpec").Specific.Value.ToString().Trim();
 				DocDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
-				TotalQty = Convert.ToInt32(oForm.Items.Item("TotalQty").Specific.Value.ToString().Trim());
-				BadQty = Convert.ToInt32(oForm.Items.Item("BadQty").Specific.Value.ToString().Trim());
+				TotalQty = Convert.ToDecimal(oForm.Items.Item("TotalQty").Specific.Value.ToString().Trim());
+				BadQty = Convert.ToDecimal(oForm.Items.Item("BadQty").Specific.Value.ToString().Trim());
 				BadNote = oForm.Items.Item("BadNote").Specific.Value.ToString().Trim();
 				CpCode = oForm.Items.Item("CpCode").Specific.Value.ToString().Trim();
 				CpName = oForm.Items.Item("CpName").Specific.Value.ToString().Trim();

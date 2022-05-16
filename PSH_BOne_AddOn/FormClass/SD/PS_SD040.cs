@@ -930,6 +930,7 @@ namespace PSH_BOne_AddOn
         {
             bool returnValue = false;
             string sQry;
+            string r3ItemCode;
             string Client; //클라이언트
             string ServerIP; //서버IP
             string errCode = string.Empty;
@@ -954,11 +955,15 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
+                sQry = "select U_RItemCod from[@PS_MM180H] a inner join[@PS_MM180L] b on a.docentry = b.docentry and a.Canceled = 'N'";
+                sQry += " where b.U_batchnum = '" + oDS_PS_SD040L.GetValue("U_CoilNo", 0).ToString().Trim() + "' and a.U_docdate between dateadd(year, -9,'"+ oDS_PS_SD040H.GetValue("U_DocDate", 0)  + "') and '" + oDS_PS_SD040H.GetValue("U_DocDate", 0)  + "'";
+                oRecordSet01.DoQuery(sQry);
+                r3ItemCode = oRecordSet01.Fields.Item(0).Value;
                 //1. SAP R3 함수 호출(매개변수 전달)
                 IRfcFunction oFunction = rfcRep.CreateFunction("ZPP_HOLDINGS_INTF_SDPO");
 
                 oFunction.SetValue("I_YYMM", codeHelpClass.Left(oDS_PS_SD040H.GetValue("U_DocDate", 0),6)); //입고일자
-                oFunction.SetValue("I_MATNR", oDS_PS_SD040L.GetValue("U_CoilNo", 0).ToString().Trim()); //모재로트번호
+                oFunction.SetValue("I_MATNR", "B218010B4S-0012"); //모재로트번호
 
                 errCode = "2"; //SAP Function 실행 오류가 발생했을 때 에러코드로 처리하기 위해 이 위치에서 "2"를 대입
                 oFunction.Invoke(rfcDest); //Function 실행
@@ -990,7 +995,7 @@ namespace PSH_BOne_AddOn
                         sQry += "','" + row.GetValue("ZLAENG").ToString();
                         sQry += "','" + row.GetValue("QM_KUNNR").ToString();
                         sQry += "','" + row.GetValue("NAME1").ToString();
-                        sQry += "','" + row.GetValue("RDATE").ToString();
+                        sQry += "','" + row.GetValue("RDATE").ToString().Replace("-","");
                         sQry += "','" + row.GetValue("MCOIL").ToString() + "'";
 
                         oRecordSet01.DoQuery(sQry);

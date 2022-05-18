@@ -849,6 +849,9 @@ namespace PSH_BOne_AddOn
                     {
                         sQry = "Update [@PS_MM180L] set U_TransYN ='Y' where DocEntry ='" + oDS_PS_MM180H.GetValue("DocEntry", 0).ToString().Trim()  + "'";
                         oRecordSet01.DoQuery(sQry);
+
+                        sQry = "Update [@PS_MM180H] set U_INFCYN ='Y' where DocEntry ='" + oDS_PS_MM180H.GetValue("DocEntry", 0).ToString().Trim() + "'";
+                        oRecordSet01.DoQuery(sQry);
                     }
                 }
                 oMat01.LoadFromDataSource();

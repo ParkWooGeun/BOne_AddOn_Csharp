@@ -224,6 +224,7 @@
     <Compile Include="FormClass\FI\PS_FI961.cs" />
     <Compile Include="FormClass\FI\PS_FI962.cs" />
     <Compile Include="FormClass\FX\PS_FX241.cs" />
+    <Compile Include="FormClass\GA\PS_GA031.cs" />
     <Compile Include="FormClass\GA\PS_GA050.cs" />
     <Compile Include="FormClass\GA\PS_GA151.cs" />
     <Compile Include="FormClass\GA\PS_GA160.cs" />

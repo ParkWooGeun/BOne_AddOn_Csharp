@@ -10,14 +10,14 @@ namespace PSH_BOne_AddOn
     internal class PS_QM075 : PSH_BaseClass
     {
         private string oFormUniqueID;
-        public SAPbouiCOM.Grid oGrid1;
-        public SAPbouiCOM.Grid oGrid2;
-        public SAPbouiCOM.Grid oGrid3;
-        public SAPbouiCOM.Grid oGrid4;
-        public SAPbouiCOM.DataTable oDS_PS_QM075H;
-        public SAPbouiCOM.DataTable oDS_PS_QM075L;
-        public SAPbouiCOM.DataTable oDS_PS_QM075M;
-        public SAPbouiCOM.DataTable oDS_PS_QM075N;
+        private SAPbouiCOM.Grid oGrid1;
+        private SAPbouiCOM.Grid oGrid2;
+        private SAPbouiCOM.Grid oGrid3;
+        private SAPbouiCOM.Grid oGrid4;
+        private SAPbouiCOM.DataTable oDS_PS_QM075H;
+        private SAPbouiCOM.DataTable oDS_PS_QM075L;
+        private SAPbouiCOM.DataTable oDS_PS_QM075M;
+        private SAPbouiCOM.DataTable oDS_PS_QM075N;
 
         private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
@@ -202,7 +202,7 @@ namespace PSH_BOne_AddOn
 
                 iRow = oForm.DataSources.DataTables.Item(0).Rows.Count;
 
-                PS_QM075_TitleSetting(iRow);
+                PS_QM075_TitleSetting();
             }
             catch (Exception ex)
             {
@@ -224,7 +224,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// PS_QM075_TitleSetting
         /// </summary>
-        private void PS_QM075_TitleSetting(int iRow)
+        private void PS_QM075_TitleSetting()
         {
             try
             {
@@ -244,7 +244,7 @@ namespace PSH_BOne_AddOn
                 oGrid1.Columns.Item("지체율_건").RightJustified = true;
                 oGrid1.Columns.Item("납기입고_수").RightJustified = true;
                 oGrid1.Columns.Item("지체수량_수").RightJustified = true;
-                oGrid1.Columns.Item("목표납기_수").RightJustified = true;
+                oGrid1.Columns.Item("3년지체율_수").RightJustified = true;
                 oGrid1.Columns.Item("지체율_수").RightJustified = true;
                 oGrid1.AutoResizeColumns();
             }
@@ -310,13 +310,13 @@ namespace PSH_BOne_AddOn
                     Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                //case SAPbouiCOM.BoEventTypes.et_CLICK: //6
-                //    Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-
-                case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
-                    Raise_EVENT_DOUBLE_CLICK(FormUID, ref pVal, ref BubbleEvent);
+                case SAPbouiCOM.BoEventTypes.et_CLICK: //6
+                    Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
                     break;
+
+                //case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
+                //    Raise_EVENT_DOUBLE_CLICK(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
 
                 //case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED: //8
                 //    Raise_EVENT_MATRIX_LINK_PRESSED(FormUID, ref pVal, ref BubbleEvent);
@@ -403,6 +403,8 @@ namespace PSH_BOne_AddOn
                     if (pVal.ItemUID == "Btn01")
                     {
                         oDS_PS_QM075L.Clear();
+                        oDS_PS_QM075M.Clear();
+                        oDS_PS_QM075N.Clear();
                         PS_QM075_LoadData();
                     }
                 }
@@ -494,6 +496,9 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
+            string sQry;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
                 if (pVal.Before_Action == true)
@@ -508,6 +513,12 @@ namespace PSH_BOne_AddOn
                             oForm_Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
                             PS_QM075_LoadCaption();
                         }
+                        else if(pVal.ItemUID == "CardCode")
+                        {
+                            sQry = "SELECT CardName, CardCode FROM [OCRD] WHERE CardCode = '" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'";
+                            oRecordSet.DoQuery(sQry);
+                            oForm.Items.Item("CardName").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+                        }
                     }
                 }
             }
@@ -515,6 +526,10 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 BubbleEvent = false;
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }
 
@@ -550,12 +565,12 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// Raise_EVENT_DOUBLE_CLICK 이벤트
+        /// CLICK 이벤트
         /// </summary>
         /// <param name="FormUID">Form UID</param>
         /// <param name="pVal">ItemEvent 객체</param>
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_DOUBLE_CLICK(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        private void Raise_EVENT_CLICK(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             string sQry;
             string sQry2;

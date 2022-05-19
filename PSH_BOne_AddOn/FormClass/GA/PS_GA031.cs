@@ -354,7 +354,6 @@ namespace PSH_BOne_AddOn
 			{
 				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
 			}
-
 		}
 
 		/// <summary>

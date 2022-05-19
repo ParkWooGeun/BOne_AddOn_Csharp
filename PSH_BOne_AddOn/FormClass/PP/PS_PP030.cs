@@ -2436,6 +2436,8 @@ namespace PSH_BOne_AddOn
         	string query01;
             string sQry;
             string R3PONum;
+            string itemCode;
+            string itemName;
             int CurrentDocEntry;
             SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -2457,12 +2459,22 @@ namespace PSH_BOne_AddOn
                     RecordSet01.DoQuery(query01);
 
                     sQry = "select b.U_R3PONum";
+                    sQry += " , (select U_ItemCode from [@PS_PP011L] where  code ='00104' and U_PsCode = b.U_PItemCod) as ItemCode";
+                    sQry += " , (select U_ItemName from [@PS_PP011L] where  code ='00104' and U_PsCode = b.U_PItemCod) as ItemName";
+                    sQry += " , b.U_PItemCod";
                     sQry += " from [@PS_MM180H] a inner join[@PS_MM180L] b on a.DocEntry = b.DocEntry and a.Canceled = 'N' and U_OIGNNum is not null and a.U_DocDate between dateadd(year, -9, GETDATE()) and GETDATE()";
                     sQry += " where b.U_BatchNum = '" + oMat02.Columns.Item("BatchNum").Cells.Item(i).Specific.Value + "'";
 
                     RecordSet01.DoQuery(sQry);
                     R3PONum = RecordSet01.Fields.Item(0).Value;
+                    itemCode = RecordSet01.Fields.Item(1).Value;
+                    itemName = RecordSet01.Fields.Item(2).Value;
 
+                    if (string.IsNullOrEmpty(itemCode))
+                    {
+                        PSH_Globals.SBO_Application.MessageBox("R3 품목 매핑오류 : " + RecordSet01.Fields.Item(3).Value );
+                        throw new Exception();
+                    }
                     query01 = "INSERT INTO [@PS_PP030H] (";
                     query01 += "DocEntry,";
                     query01 += "DocNum,";
@@ -2547,8 +2559,8 @@ namespace PSH_BOne_AddOn
                     {
                         query01 += "'" + oForm.Items.Item("DueDate").Specific.Value + "',";
                     }
-                    query01 += "'" + oForm.Items.Item("ItemCode").Specific.Value + "',";
-                    query01 += "'" + oForm.Items.Item("ItemName").Specific.Value + "',";
+                    query01 += "'" + itemCode + "',";
+                    query01 += "'" + itemName + "',";
                     query01 += "'" + oForm.Items.Item("CntcCode").Specific.Value + "',";
                     query01 += "'" + oForm.Items.Item("CntcName").Specific.Value + "',";
                     query01 += "NULL,"; //SjNum
@@ -3265,11 +3277,11 @@ namespace PSH_BOne_AddOn
                                 {
                                     if (oMat03.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value == "10")
                                     {
-                                        oDS_PS_PP030M.SetValue("U_CpPrice", pVal.Row - 1, Convert.ToString(dataHelpClass.GetValue("Select U_Price From [@PS_PP001L] Where U_CpCode = '" + oMat03.Columns.Item("CpCode").Cells.Item(pVal.Row).Specific.Value + "'", 0, 1) * oMat03.Columns.Item("StdHour").Cells.Item(pVal.Row).Specific.Value));
+                                        oDS_PS_PP030M.SetValue("U_CpPrice", pVal.Row - 1, Convert.ToString(Convert.ToDouble(dataHelpClass.GetValue("Select U_Price From [@PS_PP001L] Where U_CpCode = '" + oMat03.Columns.Item("CpCode").Cells.Item(pVal.Row).Specific.Value + "'", 0, 1)) * Convert.ToDouble(oMat03.Columns.Item("StdHour").Cells.Item(pVal.Row).Specific.Value)));
                                     }
                                     else if (oMat03.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value == "20")
                                     {
-                                        oDS_PS_PP030M.SetValue("U_CpPrice", pVal.Row - 1, Convert.ToString(dataHelpClass.GetValue("Select U_PsmtP From [@PS_PP001L] Where U_CpCode = '" + oMat03.Columns.Item("CpCode").Cells.Item(pVal.Row).Specific.Value + "'", 0, 1) * oMat03.Columns.Item("StdHour").Cells.Item(pVal.Row).Specific.Value));
+                                        oDS_PS_PP030M.SetValue("U_CpPrice", pVal.Row - 1, Convert.ToString(Convert.ToDouble(dataHelpClass.GetValue("Select U_PsmtP From [@PS_PP001L] Where U_CpCode = '" + oMat03.Columns.Item("CpCode").Cells.Item(pVal.Row).Specific.Value + "'", 0, 1)) * Convert.ToDouble(oMat03.Columns.Item("StdHour").Cells.Item(pVal.Row).Specific.Value)));
                                     }
 
                                     oDS_PS_PP030M.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat03.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);

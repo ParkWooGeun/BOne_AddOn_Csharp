@@ -99,7 +99,7 @@ namespace PSH_BOne_AddOn
             {
                 oDS_PS_SM021L = oForm.DataSources.DBDataSources.Item("@PS_USERDS01");
                 oMat01 = oForm.Items.Item("Mat01").Specific;
-                oMat01.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_NotSupported;
+                oMat01.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_Auto;
                 oMat01.AutoResizeColumns();
 
                 oForm.DataSources.UserDataSources.Add("ItemCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
@@ -325,6 +325,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_SM021L.SetValue("U_ColReg03", i, RecordSet01.Fields.Item(2).Value);
                     oDS_PS_SM021L.SetValue("U_ColReg04", i, RecordSet01.Fields.Item(3).Value);
                     oDS_PS_SM021L.SetValue("U_ColQty01", i, RecordSet01.Fields.Item(4).Value);
+                    oDS_PS_SM021L.SetValue("U_ColReg05", i, RecordSet01.Fields.Item(5).Value);
                     RecordSet01.MoveNext();
                     ProgressBar01.Value += 1;
                     ProgressBar01.Text = ProgressBar01.Value + "/" + RecordSet01.RecordCount + "건 조회중...!";

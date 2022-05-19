@@ -849,6 +849,9 @@ namespace PSH_BOne_AddOn
                     {
                         sQry = "Update [@PS_MM180L] set U_TransYN ='Y' where DocEntry ='" + oDS_PS_MM180H.GetValue("DocEntry", 0).ToString().Trim()  + "'";
                         oRecordSet01.DoQuery(sQry);
+
+                        sQry = "Update [@PS_MM180H] set U_INFCYN ='Y' where DocEntry ='" + oDS_PS_MM180H.GetValue("DocEntry", 0).ToString().Trim() + "'";
+                        oRecordSet01.DoQuery(sQry);
                     }
                 }
                 oMat01.LoadFromDataSource();
@@ -1755,6 +1758,8 @@ namespace PSH_BOne_AddOn
                             if (pVal.ActionSuccess == true)
                             {
                                 PS_MM180_EnableFormItem();
+                                oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
+                                PSH_Globals.SBO_Application.ActivateMenuItem("1291");
                                 PS_MM180_AddMatrixRow(0, true);
                             }
                         }

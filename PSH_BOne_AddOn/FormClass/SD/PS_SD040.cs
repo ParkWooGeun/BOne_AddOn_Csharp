@@ -963,7 +963,7 @@ namespace PSH_BOne_AddOn
                 IRfcFunction oFunction = rfcRep.CreateFunction("ZPP_HOLDINGS_INTF_SDPO");
 
                 oFunction.SetValue("I_YYMM", codeHelpClass.Left(oDS_PS_SD040H.GetValue("U_DocDate", 0),6)); //입고일자
-                oFunction.SetValue("I_MATNR", "B218010B4S-0012"); //모재로트번호
+                oFunction.SetValue("I_MATNR", r3ItemCode); //모재로트번호
 
                 errCode = "2"; //SAP Function 실행 오류가 발생했을 때 에러코드로 처리하기 위해 이 위치에서 "2"를 대입
                 oFunction.Invoke(rfcDest); //Function 실행

@@ -866,14 +866,7 @@ namespace PSH_BOne_AddOn
                             PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                             BubbleEvent = false;
                         }
-                        else if (pVal.ColUID == "TargetDc")
-                        {
-                            if (string.IsNullOrEmpty(oMat01.Columns.Item("TargetDc").Cells.Item(pVal.Row).Specific.Value))
-                            {
-                                PSH_Globals.SBO_Application.ActivateMenuItem("7425");
-                                BubbleEvent = false;
-                            }
-                        }
+                        
                     }
                     else if (pVal.ItemUID == "Mat01")
                     {
@@ -888,6 +881,18 @@ namespace PSH_BOne_AddOn
                                     BubbleEvent = false;
                                 }
                             }
+                        }
+                        else if (pVal.ColUID == "TargetDc")
+                        {
+                            if (pVal.CharPressed == 9)
+                            {
+                                if (string.IsNullOrEmpty(oMat01.Columns.Item("TargetDc").Cells.Item(pVal.Row).Specific.Value))
+                                {
+                                    PSH_Globals.SBO_Application.ActivateMenuItem("7425");
+                                    BubbleEvent = false;
+                                }
+                            }
+
                         }
                     }
                     dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "Mat01", "WhsCode");
@@ -1107,7 +1112,7 @@ namespace PSH_BOne_AddOn
                             }
                             else if (pVal.ColUID == "TargetDc")
                             {
-                                sQry = "exec [PS_MM100_01] '" + oForm.Items.Item("BPLId").Specific.Value + "','" + oMat01.Columns.Item("ItemCode").Cells.Item(pVal.Row).Specific.Value + "','" + oMat01.Columns.Item("TargetDc").Cells.Item(pVal.Row).Specific.Value  + "'";
+                                sQry = "exec [PS_MM100_01] '" + oForm.Items.Item("BPLId").Specific.Value + "','" + oMat01.Columns.Item("ItemCode").Cells.Item(pVal.Row).Specific.Value + "'";
                                 oRecordSet01.DoQuery(sQry);
 
                                 oDS_PS_MM100L.SetValue("U_TargetDc", pVal.Row - 1, oRecordSet01.Fields.Item(0).Value);

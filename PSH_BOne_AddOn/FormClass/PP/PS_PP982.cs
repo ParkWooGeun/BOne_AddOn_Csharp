@@ -14,10 +14,12 @@ namespace PSH_BOne_AddOn
 		private SAPbouiCOM.Grid oGrid01;
 		private SAPbouiCOM.Grid oGrid02;
 		private SAPbouiCOM.Grid oGrid03;
+		private SAPbouiCOM.Grid oGrid04;
 		private SAPbouiCOM.Matrix oMat01;
 		private SAPbouiCOM.DataTable oDS_PS_PP982L;
 		private SAPbouiCOM.DataTable oDS_PS_PP982M;
 		private SAPbouiCOM.DataTable oDS_PS_PP982N;
+		private SAPbouiCOM.DataTable oDS_PS_PP982S;
 		private SAPbouiCOM.DBDataSource oDS_PS_PP982O;
 		private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
 		private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
@@ -97,18 +99,22 @@ namespace PSH_BOne_AddOn
 				oGrid01 = oForm.Items.Item("Grid01").Specific;
 				oGrid02 = oForm.Items.Item("Grid02").Specific;
 				oGrid03 = oForm.Items.Item("Grid03").Specific;
+				oGrid04 = oForm.Items.Item("Grid04").Specific;
 
 				oForm.DataSources.DataTables.Add("PS_PP982L");
 				oForm.DataSources.DataTables.Add("PS_PP982M");
 				oForm.DataSources.DataTables.Add("PS_PP982N");
+				oForm.DataSources.DataTables.Add("PS_PP982S");
 
 				oGrid01.DataTable = oForm.DataSources.DataTables.Item("PS_PP982L");
 				oGrid02.DataTable = oForm.DataSources.DataTables.Item("PS_PP982M");
 				oGrid03.DataTable = oForm.DataSources.DataTables.Item("PS_PP982N");
+				oGrid04.DataTable = oForm.DataSources.DataTables.Item("PS_PP982S");
 
 				oDS_PS_PP982L = oForm.DataSources.DataTables.Item("PS_PP982L");
 				oDS_PS_PP982M = oForm.DataSources.DataTables.Item("PS_PP982M");
 				oDS_PS_PP982N = oForm.DataSources.DataTables.Item("PS_PP982N");
+				oDS_PS_PP982S = oForm.DataSources.DataTables.Item("PS_PP982S");
 
 				oDS_PS_PP982O = oForm.DataSources.DBDataSources.Item("@PS_USERDS01");
 
@@ -226,6 +232,10 @@ namespace PSH_BOne_AddOn
 				if (oGrid03.Columns.Count > 0)
 				{
 					oGrid03.AutoResizeColumns();
+				}
+				if (oGrid04.Columns.Count > 0)
+				{
+					oGrid04.AutoResizeColumns();
 				}
 
 				oMat01.AutoResizeColumns();
@@ -547,6 +557,99 @@ namespace PSH_BOne_AddOn
 				}
 
 				oGrid03.AutoResizeColumns();
+				oForm.Update();
+			}
+			catch (Exception ex)
+			{
+				if (errMessage != string.Empty)
+				{
+					PSH_Globals.SBO_Application.MessageBox(errMessage);
+				}
+				else
+				{
+					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+				}
+			}
+			finally
+			{
+				ProgressBar01.Stop();
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+				oForm.Freeze(false);
+			}
+		}
+
+		/// <summary>
+		/// PS_PP982_SelectGrid04 개인별(월별)
+		/// </summary>
+		private void PS_PP982_SelectGrid04()
+		{
+			short loopCount;
+			string sQry;
+			string errMessage = string.Empty;
+			string BPLID;
+			string FrDt;
+			string ToDt;
+			string CntcCode;
+			string ClsCodeChk;
+			string CheckBoxID;
+			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+			PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
+
+			try
+			{
+				oForm.Freeze(true);
+
+				BPLID = oForm.Items.Item("BPLID").Specific.Value.ToString().Trim();
+				FrDt = oForm.Items.Item("FrDt").Specific.Value.ToString().Trim();
+				ToDt = oForm.Items.Item("ToDt").Specific.Value.ToString().Trim();
+				CntcCode = oForm.Items.Item("CntcCode").Specific.Value.ToString().Trim();
+				ClsCodeChk = "";
+
+				for (loopCount = 1; loopCount <= CheckBoxCount; loopCount++)
+				{
+					if (loopCount >= 1 & loopCount < 10)
+					{
+						CheckBoxID = "Check0" + loopCount;
+					}
+					else
+					{
+						CheckBoxID = "Check" + loopCount;
+					}
+
+					if (oForm.DataSources.UserDataSources.Item(CheckBoxID).Value == "Y")
+					{
+						ClsCodeChk += codeHelpClass.Left(codeHelpClass.Right(oForm.Items.Item(CheckBoxID).Specific.Caption.Split('-')[0], 5), 4) + ",";
+					}
+				}
+
+				ProgressBar01.Text = "조회중...";
+
+				sQry = "EXEC PS_PP982_07 '";
+				sQry += BPLID + "','";
+				sQry += FrDt + "','";
+				sQry += ToDt + "','";
+				sQry += CntcCode + "','";
+				sQry += ClsCodeChk + "'";
+
+				oGrid04.DataTable.Clear();
+				oDS_PS_PP982S.ExecuteQuery(sQry);
+
+				oGrid01.Columns.Item(7).RightJustified = true;
+				oGrid04.Columns.Item(8).RightJustified = true;
+				oGrid04.Columns.Item(9).RightJustified = true;
+				oGrid04.Columns.Item(10).RightJustified = true;
+				oGrid04.Columns.Item(11).RightJustified = true;
+				oGrid04.Columns.Item(12).RightJustified = true;
+				oGrid04.Columns.Item(13).RightJustified = true;
+				oGrid04.Columns.Item(14).RightJustified = true;
+
+				if (oGrid04.Rows.Count == 1)
+				{
+					errMessage = "반별자료 결과가 존재하지 않습니다.";
+					throw new Exception();
+				}
+
+				oGrid04.AutoResizeColumns();
 				oForm.Update();
 			}
 			catch (Exception ex)
@@ -982,6 +1085,7 @@ namespace PSH_BOne_AddOn
 						PS_PP982_SelectGrid01(); //반별자료
 						PS_PP982_SelectGrid02(); //집계자료(주별)
 						PS_PP982_SelectGrid03(); //집계자료(일별)
+						PS_PP982_SelectGrid04(); //집계자료(일별)
 					}
 					else if (pVal.ItemUID == "BtnSrch04")
 					{
@@ -1018,6 +1122,10 @@ namespace PSH_BOne_AddOn
 					else if (pVal.ItemUID == "Folder04")
 					{
 						oForm.PaneLevel = 4;
+					}
+					else if (pVal.ItemUID == "Folder05")
+					{
+						oForm.PaneLevel = 5;
 					}
 				}
 			}
@@ -1207,6 +1315,7 @@ namespace PSH_BOne_AddOn
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid01);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid02);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid03);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid04);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_PP982L);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_PP982M);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_PP982N);

@@ -202,7 +202,7 @@ namespace PSH_BOne_AddOn
 
                 iRow = oForm.DataSources.DataTables.Item(0).Rows.Count;
 
-                PS_QM075_TitleSetting();
+                PS_QM075_Grid01_TitleSetting();
             }
             catch (Exception ex)
             {
@@ -224,7 +224,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// PS_QM075_TitleSetting
         /// </summary>
-        private void PS_QM075_TitleSetting()
+        private void PS_QM075_Grid01_TitleSetting()
         {
             try
             {
@@ -258,6 +258,74 @@ namespace PSH_BOne_AddOn
             }
         }
 
+        /// <summary>
+        /// PS_QM075_TitleSetting
+        /// </summary>
+        private void PS_QM075_Grid02_TitleSetting()
+        {
+            try
+            {
+                oForm.Freeze(true);
+                oGrid2.Columns.Item("금액").RightJustified = true;
+                oGrid2.AutoResizeColumns();
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+            }
+            finally
+            {
+                oForm.Freeze(false);
+            }
+        }
+
+        /// <summary>
+        /// PS_QM075_TitleSetting
+        /// </summary>
+        private void PS_QM075_Grid03_TitleSetting()
+        {
+            try
+            {
+                oForm.Freeze(true);
+                oGrid3.Columns.Item("입고수량").RightJustified = true;
+                oGrid3.Columns.Item("불량수량").RightJustified = true;
+                oGrid3.AutoResizeColumns();
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+            }
+            finally
+            {
+                oForm.Freeze(false);
+            }
+        }
+
+        /// <summary>
+        /// PS_QM075_TitleSetting
+        /// </summary>
+        private void PS_QM075_Grid04_TitleSetting()
+        {
+            try
+            {
+                oForm.Freeze(true);
+                oGrid4.Columns.Item("AB공수").RightJustified = true;
+                oGrid4.Columns.Item("B공수").RightJustified = true;
+                oGrid4.Columns.Item("비율").RightJustified = true;
+                oGrid4.Columns.Item("금액").RightJustified = true;
+                oGrid4.Columns.Item("AB금액").RightJustified = true;
+                oGrid4.Columns.Item("B금액").RightJustified = true;
+                oGrid4.AutoResizeColumns();
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+            }
+            finally
+            {
+                oForm.Freeze(false);
+            }
+        }
         /// <summary>
         /// LoadCaption
         /// </summary>
@@ -592,15 +660,15 @@ namespace PSH_BOne_AddOn
 
                         sQry = "exec [PS_QM075_02] '" + bplid + "','" + oGrid1.DataTable.Columns.Item("거래처코드").Cells.Item(pVal.Row).Value + "','" + docDateFr + "','" + docDateTo + "'";
                         oDS_PS_QM075L.ExecuteQuery(sQry);
-                        oGrid2.AutoResizeColumns();
+                        PS_QM075_Grid02_TitleSetting();
 
                         sQry2 = "exec [PS_QM075_03] '" + bplid + "','" + oGrid1.DataTable.Columns.Item("거래처코드").Cells.Item(pVal.Row).Value + "','" + docDateFr + "','" + docDateTo + "'";
                         oDS_PS_QM075M.ExecuteQuery(sQry2);
-                        oGrid3.AutoResizeColumns();
+                        PS_QM075_Grid03_TitleSetting();
 
                         sQry3 = "exec [PS_QM075_04] '" + bplid + "','" + oGrid1.DataTable.Columns.Item("거래처코드").Cells.Item(pVal.Row).Value + "','" + docDateFr + "','" + docDateTo + "'";
                         oDS_PS_QM075N.ExecuteQuery(sQry3);
-                        oGrid4.AutoResizeColumns();
+                        PS_QM075_Grid04_TitleSetting();
                     }
                 }
                 else if (pVal.Before_Action == false)

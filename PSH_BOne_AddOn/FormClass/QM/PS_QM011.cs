@@ -105,6 +105,10 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("Gubun").Specific.ValidValues.Add("10", "Complain");
 				oForm.Items.Item("Gubun").Specific.ValidValues.Add("20", "Claim");
 				oForm.Items.Item("Gubun").Specific.Select("0", SAPbouiCOM.BoSearchKey.psk_Index);
+
+				oForm.Items.Item("StatYN").Specific.ValidValues.Add("O", "Open");
+				oForm.Items.Item("StatYN").Specific.ValidValues.Add("C", "Closed");
+				oForm.Items.Item("StatYN").Specific.Select("0", SAPbouiCOM.BoSearchKey.psk_Index);
 			}
 			catch (Exception ex)
 			{
@@ -198,18 +202,76 @@ namespace PSH_BOne_AddOn
 					PS_QM011_FormClear();			 
 					oForm.EnableMenu("1281", true);	 //찾기
 					oForm.EnableMenu("1282", false); //추가
+					if(oForm.Items.Item("StatYN").Specific.Value.ToString().Trim() == "C")
+                    {
+						oForm.Items.Item("Mat01").Enabled = false;
+						oForm.Items.Item("BPLId").Enabled = false;
+						oForm.Items.Item("Gubun").Enabled = false;
+						oForm.Items.Item("CardCode").Enabled = false;
+						oForm.Items.Item("Basis").Enabled = false;
+						oForm.Items.Item("Remark").Enabled = false;
+						oForm.Items.Item("DocDate").Enabled = false;
+					}
+                    else
+                    {
+						oForm.Items.Item("Mat01").Enabled = true;
+						oForm.Items.Item("BPLId").Enabled = true;
+						oForm.Items.Item("Gubun").Enabled = true;
+						oForm.Items.Item("CardCode").Enabled = true;
+						oForm.Items.Item("Basis").Enabled = true;
+						oForm.Items.Item("Remark").Enabled = true;
+						oForm.Items.Item("DocDate").Enabled = true;
+					}
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
 				{
 					oForm.Items.Item("DocEntry").Enabled = true;
-					oForm.Items.Item("Mat01").Enabled = false;
 					oForm.EnableMenu("1281", false); //찾기
 					oForm.EnableMenu("1282", true);  //추가
+					if (oForm.Items.Item("StatYN").Specific.Value.ToString().Trim() == "C")
+					{
+						oForm.Items.Item("Mat01").Enabled = false;
+						oForm.Items.Item("BPLId").Enabled = false;
+						oForm.Items.Item("Gubun").Enabled = false;
+						oForm.Items.Item("CardCode").Enabled = false;
+						oForm.Items.Item("Basis").Enabled = false;
+						oForm.Items.Item("Remark").Enabled = false;
+						oForm.Items.Item("DocDate").Enabled = false;
+					}
+					else
+					{
+						oForm.Items.Item("Mat01").Enabled = true;
+						oForm.Items.Item("BPLId").Enabled = true;
+						oForm.Items.Item("Gubun").Enabled = true;
+						oForm.Items.Item("CardCode").Enabled = true;
+						oForm.Items.Item("Basis").Enabled = true;
+						oForm.Items.Item("Remark").Enabled = true;
+						oForm.Items.Item("DocDate").Enabled = true;
+					}
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
 				{
 					oForm.Items.Item("DocEntry").Enabled = false;
-					oForm.Items.Item("Mat01").Enabled = true;
+					if (oForm.Items.Item("StatYN").Specific.Value.ToString().Trim() == "C")
+					{
+						oForm.Items.Item("Mat01").Enabled = false;
+						oForm.Items.Item("BPLId").Enabled = false;
+						oForm.Items.Item("Gubun").Enabled = false;
+						oForm.Items.Item("CardCode").Enabled = false;
+						oForm.Items.Item("Basis").Enabled = false;
+						oForm.Items.Item("Remark").Enabled = false;
+						oForm.Items.Item("DocDate").Enabled = false;
+					}
+					else
+					{
+						oForm.Items.Item("Mat01").Enabled = true;
+						oForm.Items.Item("BPLId").Enabled = true;
+						oForm.Items.Item("Gubun").Enabled = true;
+						oForm.Items.Item("CardCode").Enabled = true;
+						oForm.Items.Item("Basis").Enabled = true;
+						oForm.Items.Item("Remark").Enabled = true;
+						oForm.Items.Item("DocDate").Enabled = true;
+					}
 				}
 			}
 			catch (Exception ex)

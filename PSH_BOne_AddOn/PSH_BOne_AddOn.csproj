@@ -520,6 +520,7 @@
     <Compile Include="FormClass\QM\PS_QM007.cs" />
     <Compile Include="FormClass\QM\PS_QM010.cs" />
     <Compile Include="FormClass\QM\PS_QM011.cs" />
+    <Compile Include="FormClass\QM\PS_QM012.cs" />
     <Compile Include="FormClass\QM\PS_QM041.cs" />
     <Compile Include="FormClass\QM\PS_QM055.cs" />
     <Compile Include="FormClass\QM\PS_QM060.cs" />
@@ -1985,6 +1986,7 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_QM600_01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_S140_01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_S149_01.rpt" />
+    <None Include="PSH_BOne_AddOn\PathINI\Report\PS_QM012_01.rpt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EXT_Form\FileListBoxForm.resX">
@@ -2689,6 +2691,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM007.srf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM012.srf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

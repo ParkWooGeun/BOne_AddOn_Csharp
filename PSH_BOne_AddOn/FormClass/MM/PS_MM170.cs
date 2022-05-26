@@ -1201,7 +1201,6 @@ namespace PSH_BOne_AddOn
 						case "1282": //추가
 							break;
 						case "1283": //삭제
-							Raise_EVENT_ROW_DELETE(ref FormUID, ref pVal, ref BubbleEvent);
 							break;
 						case "1284": //취소
 							break;
@@ -1213,6 +1212,7 @@ namespace PSH_BOne_AddOn
 						case "1291": //레코드이동버튼
 							break;
 						case "1293": //행삭제
+							Raise_EVENT_ROW_DELETE(ref FormUID, ref pVal, ref BubbleEvent);
 							break;
 						case "7169": //엑셀 내보내기
 							break;

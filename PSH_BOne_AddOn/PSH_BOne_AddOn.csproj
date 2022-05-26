@@ -148,6 +148,7 @@
     <Compile Include="EXT_Form\FrmRPT_Viewer1.designer.cs">
       <DependentUpon>FrmRPT_Viewer1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormClass\AD\PS_AD103.cs" />
     <Compile Include="FormClass\AD\PS_AD107.cs" />
     <Compile Include="FormClass\CORE\S133.cs" />
     <Compile Include="FormClass\CORE\S139.cs" />

@@ -2783,6 +2783,11 @@
   <ItemGroup>
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM007.srf" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_AD103.srf" />
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_AD104.srf" />
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_AD105.srf" />
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_AD106.srf" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

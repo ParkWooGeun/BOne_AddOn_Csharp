@@ -83,7 +83,6 @@ namespace PSH_BOne_AddOn
 				PS_MM130_CF_ChooseFromList();
 				PS_MM130_EnableMenus();
 				PS_MM130_SetDocument(oFormDocEntry);
-				oForm.ActiveItem = "BPLId"; //커서를 첫번째 ITEM으로 지정
 			}
 			catch (Exception ex)
 			{
@@ -188,10 +187,10 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void PS_MM130_CF_ChooseFromList()
 		{
-			SAPbouiCOM.ChooseFromList oCFL02;
-			SAPbouiCOM.ChooseFromListCollection oCFLs02;
-			SAPbouiCOM.ChooseFromListCreationParams oCFLCreationParams02;
-			SAPbouiCOM.EditText oEdit02;
+			SAPbouiCOM.ChooseFromList oCFL02 = null;
+			SAPbouiCOM.ChooseFromListCollection oCFLs02 = null;
+			SAPbouiCOM.ChooseFromListCreationParams oCFLCreationParams02 = null;
+			SAPbouiCOM.EditText oEdit02 = null;
 
 			try
 			{
@@ -199,7 +198,8 @@ namespace PSH_BOne_AddOn
 				oCFLs02 = oForm.ChooseFromLists;
 				oCFLCreationParams02 = PSH_Globals.SBO_Application.CreateObject(SAPbouiCOM.BoCreatableObjectType.cot_ChooseFromListCreationParams);
 
-				oCFLCreationParams02.ObjectType = Convert.ToString(SAPbouiCOM.BoLinkedObject.lf_BusinessPartner);
+				//oCFLCreationParams02.ObjectType = Convert.ToString(SAPbouiCOM.BoLinkedObject.lf_BusinessPartner);
+				oCFLCreationParams02.ObjectType = "2";
 				oCFLCreationParams02.UniqueID = "CFLSHIPCODE";
 				oCFLCreationParams02.MultiSelection = false;
 				oCFL02 = oCFLs02.Add(oCFLCreationParams02);
@@ -210,6 +210,25 @@ namespace PSH_BOne_AddOn
 			catch(Exception ex)
 			{
 				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+			}
+			finally
+			{
+				if (oCFL02 != null)
+				{
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oCFL02);
+				}
+				if (oCFLs02 != null)
+				{
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oCFLs02);
+				}
+				if (oCFLCreationParams02 != null)
+				{
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oCFLCreationParams02);
+				}
+				if (oEdit02 != null)
+				{
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oEdit02);
+				}
 			}
 		}
 
@@ -1438,7 +1457,7 @@ namespace PSH_BOne_AddOn
 							{
 								if (string.IsNullOrEmpty(oMat.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().Trim()))
 								{
-					//				PS_MM131 TempForm01 = new PS_MM131();
+									PS_MM131 TempForm01 = new PS_MM131();
 
 									if (oDS_PS_MM130H.GetValue("U_OutGbn", 0).ToString().Trim() == "10")
 									{
@@ -1448,7 +1467,7 @@ namespace PSH_BOne_AddOn
 										RadioGrp = "B";
 									}
 
-						//			TempForm01.LoadForm(oForm, pVal.ItemUID, pVal.ColUID, pVal.Row, RadioGrp);
+									TempForm01.LoadForm(ref oForm, pVal.ItemUID, pVal.ColUID, pVal.Row, RadioGrp);
 									PS_MM130_AddMatrixRow(0, true);
 									BubbleEvent = false;
 								}
@@ -1616,9 +1635,9 @@ namespace PSH_BOne_AddOn
 							{
 								oDS_PS_MM130L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().Trim());
 								oMat.LoadFromDataSource();
-
-								oMat.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 							}
+
+							oMat.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 						}
 						else if (pVal.ItemUID == "CardCode")
 						{

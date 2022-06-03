@@ -149,6 +149,8 @@
       <DependentUpon>FrmRPT_Viewer1.cs</DependentUpon>
     </Compile>
     <Compile Include="FormClass\AD\PS_AD103.cs" />
+    <Compile Include="FormClass\AD\PS_AD104.cs" />
+    <Compile Include="FormClass\AD\PS_AD105.cs" />
     <Compile Include="FormClass\AD\PS_AD106.cs" />
     <Compile Include="FormClass\AD\PS_AD107.cs" />
     <Compile Include="FormClass\CORE\S133.cs" />

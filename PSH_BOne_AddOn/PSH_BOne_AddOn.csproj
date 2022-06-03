@@ -389,6 +389,7 @@
     <Compile Include="FormClass\OA\PS_SY010.cs" />
     <Compile Include="FormClass\OA\PS_SY015.cs" />
     <Compile Include="FormClass\OA\PS_SY020.cs" />
+    <Compile Include="FormClass\PP\PS_PP006.cs" />
     <Compile Include="FormClass\PP\PS_PP275.cs" />
     <Compile Include="FormClass\PP\PS_PP272.cs" />
     <Compile Include="FormClass\PP\PS_PP271.cs" />

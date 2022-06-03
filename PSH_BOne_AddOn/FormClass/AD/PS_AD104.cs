@@ -1177,7 +1177,6 @@ namespace PSH_BOne_AddOn
 					{
 						case "1281": //찾기
 							PS_AD104_FormItemEnabled();
-							////UDO방식
 							oForm.Items.Item("DocEntry").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 							break;
 						case "1282": //추가

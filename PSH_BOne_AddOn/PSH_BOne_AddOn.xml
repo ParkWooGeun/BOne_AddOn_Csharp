@@ -39067,6 +39067,11 @@
             PS_PP982_SelectGrid03 집계자료(일별)
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_PP982.PS_PP982_SelectGrid04">
+            <summary>
+            PS_PP982_SelectGrid04 개인별(월별)
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_PP982.PS_PP982_SelectMatrix01">
             <summary>
             PS_PP982_SelectMatrix01 제외인원관리 조회

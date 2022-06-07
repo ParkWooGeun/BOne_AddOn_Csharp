@@ -24,6 +24,7 @@ namespace PSH_BOne_AddOn
         private string oBaseColUID01;
         private int oBaseColRow01;
         private string oBaseBPLId01;
+        private string oBaseDeliOrd;
 
         /// <summary>
         /// Form 호출
@@ -33,7 +34,8 @@ namespace PSH_BOne_AddOn
         /// <param name="oColUID02"></param>
         /// <param name="oColRow02"></param>
         /// <param name="oBPLId02"></param>
-        public void LoadForm(SAPbouiCOM.Form oForm02, string oItemUID02, string oColUID02, int oColRow02, string oBPLId02)
+        /// <param name="oDeliOrd"></param>
+        public void LoadForm(SAPbouiCOM.Form oForm02, string oItemUID02, string oColUID02, int oColRow02, string oBPLId02, string oDeliOrd)
         {
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
 
@@ -68,6 +70,7 @@ namespace PSH_BOne_AddOn
                 oBaseColUID01 = oColUID02;
                 oBaseColRow01 = oColRow02;
                 oBaseBPLId01 = oBPLId02;
+                oBaseDeliOrd = oDeliOrd;
 
                 PS_PP095S_CreateItems();
                 PS_PP095S_ComboBox_Setting();
@@ -81,6 +84,7 @@ namespace PSH_BOne_AddOn
                 oForm.Update();
                 oForm.Freeze(false);
                 oForm.Visible = true;
+                oForm.Items.Item("DeliOrd").Specific.Value = oBaseDeliOrd;
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oXmlDoc); //메모리 해제
             }
         }
@@ -135,6 +139,7 @@ namespace PSH_BOne_AddOn
             string Query01;
             string Param01;
             string Param02;
+            string Param03;
             string errMessage = string.Empty;
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -144,8 +149,9 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 Param01 = oForm.Items.Item("BPLId").Specific.Selected.Value;
                 Param02 = oForm.Items.Item("ItemCode").Specific.Value;
+                Param03 = oForm.Items.Item("DeliOrd").Specific.Value;
 
-                Query01 = "EXEC PS_PP095S_01 '" + Param01 + "','" + Param02 + "'";
+                Query01 = "EXEC PS_PP095S_01 '" + Param01 + "','" + Param02 + "','" + Param03 + "'";
 
                 oRecordSet01.DoQuery(Query01);
 

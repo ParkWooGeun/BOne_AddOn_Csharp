@@ -22793,7 +22793,7 @@
             MG거래명세표등록
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_PP095S.LoadForm(SAPbouiCOM.Form,System.String,System.String,System.Int32,System.String)">
+        <member name="M:PSH_BOne_AddOn.PS_PP095S.LoadForm(SAPbouiCOM.Form,System.String,System.String,System.Int32,System.String,System.String)">
             <summary>
             Form 호출
             </summary>
@@ -22802,6 +22802,7 @@
             <param name="oColUID02"></param>
             <param name="oColRow02"></param>
             <param name="oBPLId02"></param>
+            <param name="oDeliOrd"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_PP095S.PS_PP095S_CreateItems">
             <summary>

@@ -506,34 +506,34 @@ namespace PSH_BOne_AddOn
                 oMat01.Clear();
                 oMat01.FlushToDataSource();
                 oMat01.LoadFromDataSource();
+                PS_PP095_AddMatrixRow(0, false);
+                //if (oRecordSet01.RecordCount == 0)
+                //{
+                //    errMessage = "결과가 존재하지 않습니다.";
+                //    throw new Exception();
+                //}
+                //ProgressBar01.Text = "조회시작";
 
-                if (oRecordSet01.RecordCount == 0)
-                {
-                    errMessage = "결과가 존재하지 않습니다.";
-                    throw new Exception();
-                }
-                ProgressBar01.Text = "조회시작";
-
-                for (i = 0; i <= oRecordSet01.RecordCount - 1; i++)
-                {
-                    if (i != 0)
-                    {
-                        oDS_PS_PP095L.InsertRecord(i);
-                    }
-                    oDS_PS_PP095L.Offset = i;
-                    oDS_PS_PP095L.SetValue("U_LineNum", i, Convert.ToString(i + 1));
-                    oDS_PS_PP095L.SetValue("U_OrdNum", i, oRecordSet01.Fields.Item(0).Value);
-                    oDS_PS_PP095L.SetValue("U_PackNo", i, oRecordSet01.Fields.Item(1).Value);
-                    oDS_PS_PP095L.SetValue("U_ItemCode", i, oRecordSet01.Fields.Item(2).Value);
-                    oDS_PS_PP095L.SetValue("U_ItemName", i, oRecordSet01.Fields.Item(3).Value);
-                    oDS_PS_PP095L.SetValue("U_Weight", i, oRecordSet01.Fields.Item(4).Value);
-                    oDS_PS_PP095L.SetValue("U_ProDate", i, oRecordSet01.Fields.Item(5).Value.ToString("yyyyMMdd").ToString());
-                    oRecordSet01.MoveNext();
-                    ProgressBar01.Value += 1;
-                    ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
-                }
-                oMat01.LoadFromDataSource();
-                oMat01.AutoResizeColumns();
+                //for (i = 0; i <= oRecordSet01.RecordCount - 1; i++)
+                //{
+                //    if (i != 0)
+                //    {
+                //        oDS_PS_PP095L.InsertRecord(i);
+                //    }
+                //    oDS_PS_PP095L.Offset = i;
+                //    oDS_PS_PP095L.SetValue("U_LineNum", i, Convert.ToString(i + 1));
+                //    oDS_PS_PP095L.SetValue("U_OrdNum", i, oRecordSet01.Fields.Item(0).Value);
+                //    oDS_PS_PP095L.SetValue("U_PackNo", i, oRecordSet01.Fields.Item(1).Value);
+                //    oDS_PS_PP095L.SetValue("U_ItemCode", i, oRecordSet01.Fields.Item(2).Value);
+                //    oDS_PS_PP095L.SetValue("U_ItemName", i, oRecordSet01.Fields.Item(3).Value);
+                //    oDS_PS_PP095L.SetValue("U_Weight", i, oRecordSet01.Fields.Item(4).Value);
+                //    oDS_PS_PP095L.SetValue("U_ProDate", i, oRecordSet01.Fields.Item(5).Value.ToString("yyyyMMdd").ToString());
+                //    oRecordSet01.MoveNext();
+                //    ProgressBar01.Value += 1;
+                //    ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
+                //}
+                //oMat01.LoadFromDataSource();
+                //oMat01.AutoResizeColumns();
             }
             catch (Exception ex)
             {
@@ -1159,20 +1159,12 @@ namespace PSH_BOne_AddOn
                                 if (string.IsNullOrEmpty(oMat01.Columns.Item("OrdNum").Cells.Item(pVal.Row).Specific.Value))
                                 {
                                     PS_PP095S PS_PP095S = new PS_PP095S();
-                                    PS_PP095S.LoadForm(oForm, pVal.ItemUID, pVal.ColUID, pVal.Row, oForm.Items.Item("BPLId").Specific.Value);
+                                    PS_PP095S.LoadForm(oForm, pVal.ItemUID, pVal.ColUID, pVal.Row, oForm.Items.Item("BPLId").Specific.Value, oForm.Items.Item("DeliOrd").Specific.Value);
                                     BubbleEvent = false;
                                 }
                             }
                         }
                     }
-                }
-                else if (pVal.Before_Action == false)
-                {
-                    //if (pVal.ItemUID == "DeliOrd")
-                    //{
-                    //    oForm.Items.Item("CardCode").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    //    PSH_Globals.SBO_Application.SendKeys("{TAB}");
-                    //}
                 }
             }
             catch (Exception ex)

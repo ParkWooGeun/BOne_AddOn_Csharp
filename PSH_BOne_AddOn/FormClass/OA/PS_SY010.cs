@@ -253,6 +253,21 @@ namespace PSH_BOne_AddOn
                         PSH_Globals.SBO_Application.MessageBox("수정완료");
                         oForm.Items.Item("Btn02").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     }
+                    else if (oForm.Items.Item("Module").Specific.Selected.Value == "SD030")
+                    {
+
+                        for (i = 0; i <= oForm.DataSources.DataTables.Item(0).Rows.Count - 1; i++)
+                        {
+                            if (oDS_PS_SY010H.Columns.Item("OKYN").Cells.Item(i).Value == "N")
+                            {
+                                codeValue = oDS_PS_SY010H.Columns.Item("출하요청문서번호").Cells.Item(i).Value.ToString().Trim();
+                                sQry = "EXEC [PS_SY010_03] '" + codeValue + "','" + oForm.Items.Item("Module").Specific.Value + "','" + PSH_Globals.oCompany.UserSignature + "'";
+                                oRecordSet01.DoQuery(sQry);
+                            }
+                        }
+                        PSH_Globals.SBO_Application.MessageBox("수정완료");
+                        oForm.Items.Item("Btn02").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    }
                 }
                 else
                 {
@@ -714,22 +729,33 @@ namespace PSH_BOne_AddOn
                         if (oForm.Items.Item("Module").Specific.Selected.Value == "S134")
                         {
                             sQry = "EXEC [PS_SY010_02] '" + oGrid1.DataTable.Columns.Item("거래처코드").Cells.Item(pVal.Row).Value + "','" + oForm.Items.Item("Module").Specific.Value + "'";
+                            oDS_PS_SY010L.ExecuteQuery(sQry);
+                            oGrid2.AutoResizeColumns();
                         }
                         else if (oForm.Items.Item("Module").Specific.Selected.Value == "S150")
                         {
                             sQry = "EXEC [PS_SY010_02] '" + oGrid1.DataTable.Columns.Item("품목코드").Cells.Item(pVal.Row).Value + "','" + oForm.Items.Item("Module").Specific.Value + "'";
+                            oDS_PS_SY010L.ExecuteQuery(sQry);
+                            oGrid2.AutoResizeColumns();
                         }
                         else if (oForm.Items.Item("Module").Specific.Selected.Value == "OCRD")
                         {
                             sQry = "EXEC [PS_SY010_02] '" + oGrid1.DataTable.Columns.Item("거래처코드").Cells.Item(pVal.Row).Value + "','" + oForm.Items.Item("Module").Specific.Value + "'";
+                            oDS_PS_SY010L.ExecuteQuery(sQry);
+                            oGrid2.AutoResizeColumns();
                         }
                         else if (oForm.Items.Item("Module").Specific.Selected.Value == "CO800")
                         {
                             sQry = "EXEC [PS_SY010_02] '" + oGrid1.DataTable.Columns.Item("문서번호").Cells.Item(pVal.Row).Value + "','" + oForm.Items.Item("Module").Specific.Value + "'";
+                            oDS_PS_SY010L.ExecuteQuery(sQry);
+                            oGrid2.AutoResizeColumns();
                         }
-
-                        oDS_PS_SY010L.ExecuteQuery(sQry);
-                        oGrid2.AutoResizeColumns();
+                        else if (oForm.Items.Item("Module").Specific.Selected.Value == "SD030")
+                        {
+                            sQry = "EXEC [PS_SY010_02] '" + oGrid1.DataTable.Columns.Item("출하요청문서번호").Cells.Item(pVal.Row).Value + "','" + oForm.Items.Item("Module").Specific.Value + "'";
+                            oDS_PS_SY010L.ExecuteQuery(sQry);
+                            oGrid2.AutoResizeColumns();
+                        }
                     }
                 }
                 else if (pVal.Before_Action == false)

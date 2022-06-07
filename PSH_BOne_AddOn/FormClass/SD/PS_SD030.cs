@@ -1822,6 +1822,7 @@ namespace PSH_BOne_AddOn
                     if (pVal.ItemUID == "CardCode" || pVal.ItemUID == "CardName")
                     {
                         dataHelpClass.PSH_CF_DBDatasourceReturn(pVal, pVal.FormUID, "@PS_SD030H", "U_CardCode,U_CardName", "", 0, "", "", "");
+                        oDS_PS_SD030H.SetValue("U_Managed", 0, dataHelpClass.GetValue("SELECT isnull(U_Managed,'Y') FROM OCRD WHERE CardCode ='" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'", 0, 1));
                     }
                     else if (pVal.ItemUID == "DCardCod" || pVal.ItemUID == "DCardNam")
                     {

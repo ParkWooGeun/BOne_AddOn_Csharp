@@ -171,6 +171,9 @@
     <Compile Include="FormClass\CORE\S230.cs" />
     <Compile Include="FormClass\CORE\S392.cs" />
     <Compile Include="FormClass\CORE\S393.cs" />
+    <Compile Include="FormClass\CORE\S41.cs" />
+    <Compile Include="FormClass\CORE\S42.cs" />
+    <Compile Include="FormClass\CORE\S426.cs" />
     <Compile Include="FormClass\CORE\S60091.cs" />
     <Compile Include="FormClass\CORE\S60092.cs" />
     <Compile Include="FormClass\CORE\S720.cs" />

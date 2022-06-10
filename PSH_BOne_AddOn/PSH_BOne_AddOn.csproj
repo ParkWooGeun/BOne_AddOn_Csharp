@@ -174,10 +174,13 @@
     <Compile Include="FormClass\CORE\S41.cs" />
     <Compile Include="FormClass\CORE\S42.cs" />
     <Compile Include="FormClass\CORE\S426.cs" />
+    <Compile Include="FormClass\CORE\S60051.cs" />
+    <Compile Include="FormClass\CORE\S60058.cs" />
     <Compile Include="FormClass\CORE\S60091.cs" />
     <Compile Include="FormClass\CORE\S60092.cs" />
     <Compile Include="FormClass\CORE\S720.cs" />
     <Compile Include="FormClass\CORE\S721.cs" />
+    <Compile Include="FormClass\CORE\S804.cs" />
     <Compile Include="FormClass\CORE\S951.cs" />
     <Compile Include="FormClass\CO\PS_CO000.cs" />
     <Compile Include="FormClass\CO\PS_CO521.cs" />

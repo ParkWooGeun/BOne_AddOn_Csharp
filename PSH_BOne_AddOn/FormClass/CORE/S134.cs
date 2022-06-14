@@ -75,13 +75,13 @@ namespace PSH_BOne_AddOn.Core
                 oNewITEM.Specific.ValidValues.Add("Y", "사용");
                 oNewITEM.Specific.ValidValues.Add("N", "미사용");
 
-                oNewITEM = oForm.Items.Add("Managed", SAPbouiCOM.BoFormItemTypes.it_CHECK_BOX);
-                oNewITEM.Top = oForm.Items.Item("10002046").Top + 23;
-                oNewITEM.Left = 220;
-                oNewITEM.Height = oForm.Items.Item("10002046").Height;
-                oNewITEM.Width = 120;
-                oNewITEM.Specific.Caption = "채권관리업체";
-                oNewITEM.Specific.DataBind.SetBound(true, "OCRD", "U_Managed");
+                //oNewITEM = oForm.Items.Add("Managed", SAPbouiCOM.BoFormItemTypes.it_CHECK_BOX);
+                //oNewITEM.Top = oForm.Items.Item("10002046").Top + 23;
+                //oNewITEM.Left = 220;
+                //oNewITEM.Height = oForm.Items.Item("10002046").Height;
+                //oNewITEM.Width = 120;
+                //oNewITEM.Specific.Caption = "채권관리업체";
+                //oNewITEM.Specific.DataBind.SetBound(true, "OCRD", "U_Managed");
 
 
                 oNewITEM = oForm.Items.Add("CreditLn", SAPbouiCOM.BoFormItemTypes.it_EDIT);

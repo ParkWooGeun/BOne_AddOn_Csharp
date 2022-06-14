@@ -2363,6 +2363,11 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
+            int i;
+            string sQry;
+            string errMessage = string.Empty;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
                 if (pVal.BeforeAction == true)
@@ -2397,6 +2402,18 @@ namespace PSH_BOne_AddOn
                             }
                             else if (oForm.Items.Item("Opt03").Specific.Selected == true)
                             {
+                                for (i= 0; i<oMat01.RowCount; i++)
+                                {
+                                    sQry = "select U_CheckYN from [@PS_SD030H] where DocEntry = '" + oMat01.Columns.Item("SD030H").Cells.Item(i + 1).Specific.Value + "'";
+                                    oRecordSet.DoQuery(sQry);
+
+                                    if (oRecordSet.Fields.Item(0).Value.ToString().Trim() == "Y")
+                                    {
+                                        errMessage = "채권관리업체로 등록되어있습니다. 먼저 승인부터 하시세요.";
+                                        BubbleEvent = false;
+                                        throw new Exception();
+                                    }
+                                }
                                 if (PS_SD040_DI_API_01() == false) //분말 납품생성
                                 {
                                     PS_SD040_AddMatrixRow(oMat01.RowCount, false);
@@ -2592,10 +2609,18 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                if(errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
             }
             finally
             {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }
 

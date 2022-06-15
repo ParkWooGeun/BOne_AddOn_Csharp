@@ -165,8 +165,8 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Managed").Specific.ValidValues.Add("Y", "대상");
                 oForm.Items.Item("Managed").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
-                oForm.Items.Item("CheckYN").Specific.ValidValues.Add("N", "승인완료");
                 oForm.Items.Item("CheckYN").Specific.ValidValues.Add("Y", "승인대기");
+                oForm.Items.Item("CheckYN").Specific.ValidValues.Add("N", "승인완료");
                 oForm.Items.Item("CheckYN").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
                 dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL order by BPLId", "1", false, false);
@@ -1845,6 +1845,7 @@ namespace PSH_BOne_AddOn
                     {
                         dataHelpClass.PSH_CF_DBDatasourceReturn(pVal, pVal.FormUID, "@PS_SD030H", "U_CardCode,U_CardName", "", 0, "", "", "");
                         oDS_PS_SD030H.SetValue("U_Managed", 0, dataHelpClass.GetValue("SELECT isnull(QryGroup15,'N') FROM OCRD WHERE CardCode ='" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'", 0, 1));
+                        oDS_PS_SD030H.SetValue("U_CheckYN", 0, "Y");
                     }
                     else if (pVal.ItemUID == "DCardCod" || pVal.ItemUID == "DCardNam")
                     {

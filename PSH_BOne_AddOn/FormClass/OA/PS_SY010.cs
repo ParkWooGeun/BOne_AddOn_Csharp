@@ -185,6 +185,7 @@ namespace PSH_BOne_AddOn
             short i;
             string sQry;
             string codeValue;
+            string refData = string.Empty;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -194,14 +195,13 @@ namespace PSH_BOne_AddOn
                 {
                     if (oForm.Items.Item("Module").Specific.Selected.Value == "S150")
                     {
-
                         for (i = 0; i <= oForm.DataSources.DataTables.Item(0).Rows.Count - 1; i++)
                         {
                             if (oDS_PS_SY010H.Columns.Item("OKYN").Cells.Item(i).Value == "N")
                             {
                                 codeValue = oDS_PS_SY010H.Columns.Item("품목코드").Cells.Item(i).Value;
 
-                                sQry = "EXEC [PS_SY010_03] '" + codeValue + "','" + oForm.Items.Item("Module").Specific.Value + "','" + PSH_Globals.oCompany.UserSignature + "'";
+                                sQry = "EXEC [PS_SY010_03] '" + codeValue + "','" + oForm.Items.Item("Module").Specific.Value + "','" + PSH_Globals.oCompany.UserSignature + "',''";
                                 oRecordSet01.DoQuery(sQry);
                             }
                         }
@@ -210,14 +210,13 @@ namespace PSH_BOne_AddOn
                     }
                     else if (oForm.Items.Item("Module").Specific.Selected.Value == "S134")
                     {
-
                         for (i = 0; i <= oForm.DataSources.DataTables.Item(0).Rows.Count - 1; i++)
                         {
                             if (oDS_PS_SY010H.Columns.Item("OKYN").Cells.Item(i).Value == "N")
                             {
                                 codeValue = oDS_PS_SY010H.Columns.Item("거래처코드").Cells.Item(i).Value;
 
-                                sQry = "EXEC [PS_SY010_03] '" + codeValue + "','" + oForm.Items.Item("Module").Specific.Value + "','" + PSH_Globals.oCompany.UserSignature + "'";
+                                sQry = "EXEC [PS_SY010_03] '" + codeValue + "','" + oForm.Items.Item("Module").Specific.Value + "','" + PSH_Globals.oCompany.UserSignature + "',''";
                                 oRecordSet01.DoQuery(sQry);
                             }
                         }
@@ -231,7 +230,7 @@ namespace PSH_BOne_AddOn
                             if (oDS_PS_SY010H.Columns.Item("OKYN").Cells.Item(i).Value == "N")
                             {
                                 codeValue = oDS_PS_SY010H.Columns.Item("거래처코드").Cells.Item(i).Value;
-                                sQry = "EXEC [PS_SY010_03] '" + codeValue + "','" + oForm.Items.Item("Module").Specific.Value + "','" + PSH_Globals.oCompany.UserSignature + "'";
+                                sQry = "EXEC [PS_SY010_03] '" + codeValue + "','" + oForm.Items.Item("Module").Specific.Value + "','" + PSH_Globals.oCompany.UserSignature + "',''";
                                 oRecordSet01.DoQuery(sQry);
                             }
                         }
@@ -240,13 +239,12 @@ namespace PSH_BOne_AddOn
                     }
                     else if (oForm.Items.Item("Module").Specific.Selected.Value == "CO800")
                     {
-
                         for (i = 0; i <= oForm.DataSources.DataTables.Item(0).Rows.Count - 1; i++)
                         {
                             if (oDS_PS_SY010H.Columns.Item("OKYN").Cells.Item(i).Value == "N")
                             {
                                 codeValue = oDS_PS_SY010H.Columns.Item("문서번호").Cells.Item(i).Value.ToString().Trim();
-                                sQry = "EXEC [PS_SY010_03] '" + codeValue + "','" + oForm.Items.Item("Module").Specific.Value + "','" + PSH_Globals.oCompany.UserSignature + "'";
+                                sQry = "EXEC [PS_SY010_03] '" + codeValue + "','" + oForm.Items.Item("Module").Specific.Value + "','" + PSH_Globals.oCompany.UserSignature + "',''";
                                 oRecordSet01.DoQuery(sQry);
                             }
                         }
@@ -255,13 +253,19 @@ namespace PSH_BOne_AddOn
                     }
                     else if (oForm.Items.Item("Module").Specific.Selected.Value == "SD030")
                     {
-
                         for (i = 0; i <= oForm.DataSources.DataTables.Item(0).Rows.Count - 1; i++)
                         {
                             if (oDS_PS_SY010H.Columns.Item("OKYN").Cells.Item(i).Value == "N")
                             {
                                 codeValue = oDS_PS_SY010H.Columns.Item("출하요청문서번호").Cells.Item(i).Value.ToString().Trim();
-                                sQry = "EXEC [PS_SY010_03] '" + codeValue + "','" + oForm.Items.Item("Module").Specific.Value + "','" + PSH_Globals.oCompany.UserSignature + "'";
+                                refData = oDS_PS_SY010H.Columns.Item("전자결재문서").Cells.Item(i).Value.ToString().Trim();
+
+                                if(string.IsNullOrEmpty(refData))
+                                {
+                                    errMessage = "전자결재문서를 정확히 입력하시기 바랍니다.";
+                                    throw new Exception();
+                                }
+                                sQry = "EXEC [PS_SY010_03] '" + codeValue + "','" + oForm.Items.Item("Module").Specific.Value + "','" + PSH_Globals.oCompany.UserSignature + "','" + refData + "'";
                                 oRecordSet01.DoQuery(sQry);
                             }
                         }
@@ -350,9 +354,8 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                for (i = 0; i < oGrid1.DataTable.Columns.Count - 1; i++)
+                for (i = 0; i < oGrid1.DataTable.Columns.Count; i++)
                 {
-
                     switch (oGrid1.Columns.Item(i).TitleObject.Caption)
                     {
                         case "OKYN":
@@ -378,6 +381,10 @@ namespace PSH_BOne_AddOn
                             EditTextColumn col2 = (EditTextColumn)oGrid1.Columns.Item("품목코드");
                             col2.Editable = false;
                             col2.LinkedObjectType = "4"; // Link to ItemMaster
+                            break;
+
+                        case "전자결재문서":
+                            oGrid1.Columns.Item(oGrid1.Columns.Item(i).TitleObject.Caption).Editable = true;
                             break;
 
                         default:

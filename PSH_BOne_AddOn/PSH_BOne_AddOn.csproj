@@ -516,6 +516,7 @@
     <Compile Include="FormClass\PY\PH_PYA90.cs" />
     <Compile Include="FormClass\PY\PS_DateChange.cs" />
     <Compile Include="FormClass\PY\PS_DateCommit.cs" />
+    <Compile Include="FormClass\QM\PS_QM030.cs" />
     <Compile Include="FormClass\QM\PS_QM075.cs" />
     <Compile Include="FormClass\QM\PS_QM005.cs" />
     <Compile Include="FormClass\QM\PS_QM007.cs" />
@@ -533,6 +534,7 @@
     <Compile Include="FormClass\QM\PS_QM102.cs" />
     <Compile Include="FormClass\QM\PS_QM110.cs" />
     <Compile Include="FormClass\QM\PS_QM241.cs" />
+    <Compile Include="FormClass\QM\PS_QM610.cs" />
     <Compile Include="FormClass\QM\PS_QM620.cs" />
     <Compile Include="FormClass\QM\PS_QM903.cs" />
     <Compile Include="FormClass\SD\PS_SD001.cs" />
@@ -2698,6 +2700,8 @@
   <ItemGroup>
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM173.srf" />
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM012.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM030.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM610.srf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

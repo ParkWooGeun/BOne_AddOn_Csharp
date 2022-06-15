@@ -2135,6 +2135,7 @@ namespace PSH_BOne_AddOn
                         }
                         PS_MM030_Delete_EmptyRow();
                         oLast_Mode = oForm.Mode;
+                        g_deletedCount = 0;
                     }
                     else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                     {
@@ -2225,7 +2226,12 @@ namespace PSH_BOne_AddOn
                             {
                                 if (string.IsNullOrEmpty(oMat01.Columns.Item("PQDocNum").Cells.Item(pVal.Row).Specific.Value))
                                 {
-                                    if (string.IsNullOrEmpty(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim()) || string.IsNullOrEmpty(oForm.Items.Item("POType").Specific.Value.ToString().Trim()) || string.IsNullOrEmpty(oForm.Items.Item("Purchase").Specific.Value.ToString().Trim()))
+                                    if (!string.IsNullOrEmpty(oDS_PS_MM030H.GetValue("U_PODocNum", 0).ToString().Trim()))
+                                    {
+                                        errMessage = "문서내 구매오더번호가 등록된 상태에서 추가는 불가능합니다.";
+                                        throw new Exception();
+                                    }
+                                    else if (string.IsNullOrEmpty(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim()) || string.IsNullOrEmpty(oForm.Items.Item("POType").Specific.Value.ToString().Trim()) || string.IsNullOrEmpty(oForm.Items.Item("Purchase").Specific.Value.ToString().Trim()))
                                     {
                                         errMessage = "사업장, 품의형태 또는 구매방식을 먼저 선택하세요.";
                                         BubbleEvent = false;
@@ -2679,14 +2685,19 @@ namespace PSH_BOne_AddOn
                             }
                             else
                             {
-                                // List<ItemInformation> itemInfoList = new List<ItemInformation>();
                                 //구매오더 행삭제를 위해 삭제된 행번호 저장
-                                //ItemInformation itemInfo = new ItemInformation();
-                                itemInfo.LineNum = Convert.ToInt32(oMat01.Columns.Item("LineNum").Cells.Item(oLastColRow01).Specific.Value);
-                                itemInfoList.Add(itemInfo);
-                                //DI API 상에서 삭제 로직을 적용할 경우는 라인의 순서번호로 구동이 되기때문에 행번호를 저장
-                                g_deletedCount += 1;
-
+                                if(g_deletedCount < 1)
+                                {
+                                    itemInfo.LineNum = Convert.ToInt32(oMat01.Columns.Item("LineNum").Cells.Item(oLastColRow01).Specific.Value);
+                                    itemInfoList.Add(itemInfo);
+                                    g_deletedCount += 1;
+                                }
+                                else
+                                {
+                                    errMessage = "갱신 후 행삭제하세요.";
+                                    BubbleEvent = false;
+                                    throw new Exception();
+                                }
                             }
                             break;
                         case "1281": //찾기

@@ -90,12 +90,14 @@ namespace PSH_BOne_AddOn
 				oForm.DataSources.UserDataSources.Add("Rad03", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
 				oForm.DataSources.UserDataSources.Add("Rad04", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
 				oForm.DataSources.UserDataSources.Add("Rad05", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
+				oForm.DataSources.UserDataSources.Add("Rad06", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
 
 				oForm.Items.Item("Rad01").Specific.DataBind.SetBound(true, "", "Rad01");
 				oForm.Items.Item("Rad02").Specific.DataBind.SetBound(true, "", "Rad02");
 				oForm.Items.Item("Rad03").Specific.DataBind.SetBound(true, "", "Rad03");
 				oForm.Items.Item("Rad04").Specific.DataBind.SetBound(true, "", "Rad04");
 				oForm.Items.Item("Rad05").Specific.DataBind.SetBound(true, "", "Rad05");
+				oForm.Items.Item("Rad06").Specific.DataBind.SetBound(true, "", "Rad05");
 
 				oForm.Items.Item("Rad01").Specific.ValOn = "10";
 				oForm.Items.Item("Rad01").Specific.ValOff = "0";
@@ -116,6 +118,10 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("Rad05").Specific.ValOn = "50";
 				oForm.Items.Item("Rad05").Specific.ValOff = "0";
 				oForm.Items.Item("Rad05").Specific.GroupWith("Rad01");
+
+				oForm.Items.Item("Rad06").Specific.ValOn = "60";
+				oForm.Items.Item("Rad06").Specific.ValOff = "0";
+				oForm.Items.Item("Rad06").Specific.GroupWith("Rad01");
 			}
 			catch (Exception ex)
 			{
@@ -236,7 +242,7 @@ namespace PSH_BOne_AddOn
 				}
 				if (string.IsNullOrEmpty(DocDateTo))
 				{
-					DocDateTo = "99999999";
+					DocDateTo = "99991231";
 				}
 				if (string.IsNullOrEmpty(ItemCode))
 				{
@@ -267,6 +273,11 @@ namespace PSH_BOne_AddOn
 				{
 					WinTitle = "[PS_PP634_10] 거래선별 출고현황(타입별)";
 					ReportName = "PS_PP634_10.RPT";
+				}
+				else if (oForm.Items.Item("Rad06").Specific.Selected == true)
+				{
+					WinTitle = "[PS_PP634_15] 거래선별 출고현황(타입별,금액)";
+					ReportName = "PS_PP634_15.RPT";
 				}
 
 				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();

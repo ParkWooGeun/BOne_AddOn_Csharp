@@ -75,15 +75,6 @@ namespace PSH_BOne_AddOn.Core
                 oNewITEM.Specific.ValidValues.Add("Y", "사용");
                 oNewITEM.Specific.ValidValues.Add("N", "미사용");
 
-                //oNewITEM = oForm.Items.Add("Managed", SAPbouiCOM.BoFormItemTypes.it_CHECK_BOX);
-                //oNewITEM.Top = oForm.Items.Item("10002046").Top + 23;
-                //oNewITEM.Left = 220;
-                //oNewITEM.Height = oForm.Items.Item("10002046").Height;
-                //oNewITEM.Width = 120;
-                //oNewITEM.Specific.Caption = "채권관리업체";
-                //oNewITEM.Specific.DataBind.SetBound(true, "OCRD", "U_Managed");
-
-
                 oNewITEM = oForm.Items.Add("CreditLn", SAPbouiCOM.BoFormItemTypes.it_EDIT);
                 oNewITEM.Left = 351;
                 oNewITEM.Top = oForm.Items.Item("10002046").Top + 23;
@@ -129,13 +120,14 @@ namespace PSH_BOne_AddOn.Core
 
             try
             {
+                oForm.Freeze(true);
                 CreditLineV = oForm.Items.Item("85").Specific.Value.ToString().Trim(); //여신한도
                 DflAccountV = oForm.Items.Item("89").Specific.Value.ToString().Trim(); //계좌번호
-                BankCodeV =oForm.Items.Item("434").Specific.Value.ToString().Trim(); //은행코드
-                AcctNameV =oForm.Items.Item("436").Specific.Value.ToString().Trim(); //은행계좌이름
-                DflBranch =oForm.Items.Item("119").Specific.Value.ToString().Trim(); //지점명
+                BankCodeV = oForm.Items.Item("434").Specific.Value.ToString().Trim(); //은행코드
+                AcctNameV = oForm.Items.Item("436").Specific.Value.ToString().Trim(); //은행계좌이름
+                DflBranch = oForm.Items.Item("119").Specific.Value.ToString().Trim(); //지점명
 
-                if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE))
+                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
                     sQry = "select U_Module from [@PS_SY005L]  where Code = 'S134' and U_USERID = '" + PSH_Globals.oCompany.UserName + "'";
                     oRecordSet.DoQuery(sQry);
@@ -188,7 +180,6 @@ namespace PSH_BOne_AddOn.Core
                     errMessage = "읽기 사용자 : 추가 수정 불가";
                     throw new Exception();
                 }
-
                 returnValue = true;
             }
             catch (Exception ex)
@@ -223,7 +214,6 @@ namespace PSH_BOne_AddOn.Core
             try
             {
                 sQry = "SELECT U_Module FROM [@PS_SY005L] WHERE Code = 'S134' AND U_USERID = '" + PSH_Globals.oCompany.UserName + "'";
-
                 oRecordSet.DoQuery(sQry);
                 
                 if (CreditLineV.ToString().Trim() != oForm.Items.Item("85").Specific.Value.ToString().Trim())
@@ -240,7 +230,6 @@ namespace PSH_BOne_AddOn.Core
                         throw new Exception();
                     }
                 }
-
                 returnValue = true;
             }
             catch (Exception ex)
@@ -275,7 +264,6 @@ namespace PSH_BOne_AddOn.Core
             try
             {
                 sQry = "SELECT U_Module FROM [@PS_SY005L] WHERE Code = 'S134' AND U_USERID = '" + PSH_Globals.oCompany.UserName + "'";
-
                 oRecordSet.DoQuery(sQry);
 
                 if (DflAccountV.ToString().Trim() != oForm.Items.Item("89").Specific.Value.ToString().Trim() || BankCodeV.ToString().Trim() != oForm.Items.Item("434").Specific.Value.ToString().Trim() || AcctNameV.ToString().Trim() != oForm.Items.Item("436").Specific.Value.ToString().Trim() || DflBranch.ToString().Trim() != oForm.Items.Item("119").Specific.Value.ToString().Trim())
@@ -292,7 +280,6 @@ namespace PSH_BOne_AddOn.Core
                         throw new Exception();
                     }
                 }
-
                 returnValue = true;
             }
             catch (Exception ex)
@@ -319,17 +306,16 @@ namespace PSH_BOne_AddOn.Core
         /// <returns></returns>
         private bool PS_S134_Authority_Check()
         {
-            string errMessage = string.Empty;
             bool returnValue = false;
+            string sQry; 
+            string errMessage = string.Empty;
             string selectedValue; //BP마스터의 CardType(고객/공급업체)
-            string sQry;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
                 selectedValue = oForm.Items.Item("40").Specific.Selected.Value;
                 sQry = "SELECT U_Module FROM [@PS_SY005L] WHERE Code = 'S134' AND U_USERID = '" + PSH_Globals.oCompany.UserName + "'";
-
                 oRecordSet.DoQuery(sQry);
 
                 //고객을 선택했을 때
@@ -476,25 +462,21 @@ namespace PSH_BOne_AddOn.Core
                                 BubbleEvent = false;
                                 return;
                             }
-
                             if (PS_S134_Power_Check() == false)
                             {
                                 BubbleEvent = false;
                                 return;
                             }
-
                             if (PS_S134_Credit_Check() == false)
                             {
                                 BubbleEvent = false;
                                 return;
                             }
-
                             if (PS_S134_Account_Check() == false)
                             {
                                 BubbleEvent = false;
                                 return;
                             }
-
                             FrDate = DateTime.Now.ToString("yyyyMMdd");
 
                             if (oForm.Items.Item("CheckYN").Specific.Value.ToString().Trim() == "N")
@@ -505,7 +487,6 @@ namespace PSH_BOne_AddOn.Core
                             {
                                 ToDate = "29991231";
                             }
-
                             CardCode = oForm.Items.Item("5").Specific.Value;
 
                             oFormMode01 = oForm.Mode;
@@ -513,31 +494,26 @@ namespace PSH_BOne_AddOn.Core
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {
-
                             if (PS_S134_Authority_Check() == false)
                             {
                                 BubbleEvent = false;
                                 return;
                             }
-
                             if (PS_S134_Power_Check() == false)
                             {
                                 BubbleEvent = false;
                                 return;
                             }
-
                             if (PS_S134_Credit_Check() == false)
                             {
                                 BubbleEvent = false;
                                 return;
                             }
-
                             if (PS_S134_Account_Check() == false)
                             {
                                 BubbleEvent = false;
                                 return;
                             }
-
                             FrDate = DateTime.Now.ToString("yyyyMMdd");
 
                             if (oForm.Items.Item("CheckYN").Specific.Value.ToString().Trim() == "N")
@@ -548,14 +524,9 @@ namespace PSH_BOne_AddOn.Core
                             {
                                 ToDate = "29991231";
                             }
-
                             CardCode = oForm.Items.Item("5").Specific.Value;
-
                             oFormMode01 = oForm.Mode;
                             oForm.Items.Item("CheckYN").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-                        {
                         }
                     }
                 }
@@ -569,9 +540,6 @@ namespace PSH_BOne_AddOn.Core
                             {
                                 PS_S134_FormItemEnabled();
                             }
-                        }
-                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-                        {
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                         {
@@ -607,7 +575,6 @@ namespace PSH_BOne_AddOn.Core
                                 }
                             }
                         }
-
                     }
                 }
             }
@@ -646,13 +613,11 @@ namespace PSH_BOne_AddOn.Core
                     if (pVal.ItemUID == "40")
                     {
                         selectedValue = oForm.Items.Item("40").Specific.Selected.Value;
-
                         if (PS_S134_Authority_Check() == false)
                         {
                             errCode = 1;
                             throw new Exception();
                         }
-
                     }
                     if (oForm.Items.Item("CheckYN").Specific.Value.ToString().Trim() == "Y")
                     {
@@ -660,7 +625,6 @@ namespace PSH_BOne_AddOn.Core
                         oForm.Items.Item("10002045").Enabled = true;
                         oForm.Items.Item("10002046").Enabled = true;
                         oForm.Items.Item("10002044").Specific.Selected = true;
-
                     }
                     if (oForm.Items.Item("CheckYN").Specific.Value.ToString().Trim() == "N")
                     {
@@ -669,7 +633,6 @@ namespace PSH_BOne_AddOn.Core
                         oForm.Items.Item("10002046").Enabled = true;
                         oForm.Items.Item("10002045").Specific.Selected = true;
                     }
-
                 }
                 oForm.Items.Item("10002051").Enabled = false;
                 oForm.Items.Item("10002054").Enabled = false;

@@ -32889,7 +32889,7 @@
         </member>
         <member name="T:PSH_BOne_AddOn.PS_PP355">
             <summary>
-            부품생산성지표
+            생산성지표
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_PP355.LoadForm(System.String)">

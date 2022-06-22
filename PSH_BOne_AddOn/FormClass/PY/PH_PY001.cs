@@ -3736,7 +3736,7 @@ namespace PSH_BOne_AddOn
 
                             if (oForm.Items.Item("status").Specific.value  == "5" && !string.IsNullOrEmpty(oForm.Items.Item("termDate").Specific.value))
                             {
-                                sQry = "exec [PH_PY001_01] '" + oForm.Items.Item("CLTCOD").Specific.value.ToString().Trim() + "','" + oForm.Items.Item("Code").Specific.value + "','PH_PY001','" + PSH_Globals.oCompany.UserSignature.ToString() + "'";
+                                sQry = "exec [PH_PY001_01] '10','" + oForm.Items.Item("CLTCOD").Specific.value.ToString().Trim() + "','" + oForm.Items.Item("Code").Specific.value + "','PH_PY001','" + PSH_Globals.oCompany.UserSignature.ToString() + "'";
 
                                 oRecordSet01.DoQuery(sQry);
                             }

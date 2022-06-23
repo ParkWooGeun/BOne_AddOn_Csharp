@@ -329,8 +329,7 @@ namespace PSH_BOne_AddOn
 					sQry += "and SysNumber = '" + oDS_PS_QM030L.GetValue("U_SysNum", i).ToString().Trim() + "'";
 					oRecordSet.DoQuery(sQry);
 				}
-
-				PSH_Globals.SBO_Application.StatusBar.SetText("성분 입력작업이 완료되었습니다", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
+				PSH_Globals.SBO_Application.MessageBox("성분 입력작업이 완료되었습니다");
 			}
 			catch (Exception ex)
 			{

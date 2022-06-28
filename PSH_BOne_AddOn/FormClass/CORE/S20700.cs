@@ -47,6 +47,34 @@ namespace PSH_BOne_AddOn.Core
 
             try
             {
+                oItem = oForm.Items.Add("Type", SAPbouiCOM.BoFormItemTypes.it_COMBO_BOX);
+                oItem.Left = oForm.Items.Item("10000116").Left + 80;
+                oItem.Top = oForm.Items.Item("10000116").Top + 23;
+                oItem.Height = oForm.Items.Item("10000116").Height;
+                oItem.Width = 80;
+                oItem.DisplayDesc = true;
+                oItem.Specific.DataBind.SetBound(true, "OUSR", "U_Type");
+                oItem.Specific.ValidValues.Add("10", "퇴사처리");
+                oItem.Specific.ValidValues.Add("20", "부서이동");
+                oItem.Specific.ValidValues.Add("30", "장기미접속");
+                oItem.Specific.ValidValues.Add("99", "해당없음");
+
+                oItem = oForm.Items.Add("updateDate", SAPbouiCOM.BoFormItemTypes.it_EDIT);
+                oItem.Left = oForm.Items.Item("10000116").Left + 200;
+                oItem.Top = oForm.Items.Item("10000116").Top + 23;
+                oItem.Height = oForm.Items.Item("10000116").Height;
+                oItem.Width = 100;
+                oItem.Visible = false;
+                oItem.Specific.DataBind.SetBound(true, "OUSR", "U_updateDate");
+
+                oItem = oForm.Items.Add("Text", SAPbouiCOM.BoFormItemTypes.it_STATIC);
+                oItem.Top = oForm.Items.Item("10000116").Top + 23;
+                oItem.Left = oForm.Items.Item("10000116").Left;
+                oItem.Height = oForm.Items.Item("10000116").Height;
+                oItem.Width = 80;
+                oItem.Specific.Caption = "구분";
+                oItem.LinkTo = "Type";
+
                 oItem = oForm.Items.Add("AddonText", SAPbouiCOM.BoFormItemTypes.it_STATIC);
                 oItem.Top = oForm.Items.Item("1").Top - 12;
                 oItem.Left = oForm.Items.Item("1").Left;
@@ -72,21 +100,20 @@ namespace PSH_BOne_AddOn.Core
         private bool S20700_CheckDataValid()
         {
             bool returnValue = false;
-            string sQry;
             string errMessage = string.Empty;
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
                 if (oForm.Items.Item("10000116").Specific.Checked == false)
                 {
-                    sQry = "Select U_Type From ousr where USER_CODE = '" + oForm.Items.Item("13").Specific.Value + "'";
-                    oRecordSet.DoQuery(sQry);
-
-                    if(oRecordSet.Fields.Item(0).Value.ToString().Trim() != "99")
+                    if(oForm.Items.Item("Type").Specific.Value != "99")
                     {
                         errMessage = "잠금해제시 구분(사용자정의필드)을 해당없음으로 선택하세요. ";
                         throw new Exception();
+                    }
+                    else
+                    {
+                        oForm.Items.Item("updateDate").Specific.Value = "";
                     }
                 }
                 returnValue = true;
@@ -102,7 +129,6 @@ namespace PSH_BOne_AddOn.Core
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-            System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             return returnValue;
         }
 
@@ -128,9 +154,9 @@ namespace PSH_BOne_AddOn.Core
                 //case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
                 //    Raise_EVENT_LOST_FOCUS(FormUID, ref pVal, ref BubbleEvent);
                 //    break;
-                //case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
-                //    Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
+                    Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
+                    break;
                 //case SAPbouiCOM.BoEventTypes.et_CLICK: //6
                 //    Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
                 //    break;
@@ -196,6 +222,9 @@ namespace PSH_BOne_AddOn.Core
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
+            string sQry;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
                 oForm.Freeze(true);
@@ -210,6 +239,11 @@ namespace PSH_BOne_AddOn.Core
                                 BubbleEvent = false;
                                 return;
                             }
+
+                            sQry = "INSERT INTO OUSR_LOCK_LOG SELECT  (select U_MSTCOD from OHEM where userId = (select USERID from OUSR where USER_CODE = '" + oForm.Items.Item("13").Specific.value;
+                            sQry += "')), GETDATE(), 'OUSR', (select U_MSTCOD from OHEM where userId = '" + PSH_Globals.oCompany.UserSignature.ToString() + "'),'";
+                            sQry += oForm.Items.Item("Type").Specific.Value + "'";
+                            oRecordSet.DoQuery(sQry);
                         }
                     }
                 }
@@ -220,6 +254,52 @@ namespace PSH_BOne_AddOn.Core
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+                oForm.Freeze(false);
+            }
+        }
+
+        /// <summary>
+        /// COMBO_SELECT 이벤트
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_COMBO_SELECT(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            string errMessage = string.Empty;
+
+            try
+            {
+                oForm.Freeze(true);
+                if (pVal.Before_Action == true)
+                {
+                }
+                else if (pVal.Before_Action == false)
+                {
+                    if (oForm.Items.Item("Type").Specific.Value.ToString().Trim() != "99")
+                    {
+                        oForm.Items.Item("updateDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
+                    }
+                    else
+                    {
+                        oForm.Items.Item("updateDate").Specific.Value = "";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                }
             }
             finally
             {

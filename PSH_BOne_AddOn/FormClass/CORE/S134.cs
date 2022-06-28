@@ -446,6 +446,7 @@ namespace PSH_BOne_AddOn.Core
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             string sQry;
+            string updatestring = string.Empty;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -550,29 +551,34 @@ namespace PSH_BOne_AddOn.Core
                         }
                         if (pVal.ActionSuccess == true)
                         {
-                            if (oForm.Items.Item("10002045").Specific.Selected == false)
+                            if (oFormMode01 == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE) // 업데이트시 마지막에 업데이트 일자 처리
                             {
-                                if (oFormMode01 == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE) // 업데이트시 마지막에 업데이트 일자 처리
+                                if(oForm.Items.Item("10002047").Specific.Value != "초기등록")
                                 {
-                                    sQry = "update OCRD set UpdateDate='" + FrDate + "', validFor = 'N', frozenFor    = 'Y', frozenFrom = '" + FrDate + "', frozenTo = '" + ToDate + "', FrozenComm = '업데이트됨' FROM OCRD WHERE CardCode ='" + CardCode + "'";
-                                    oRecordSet.DoQuery(sQry);
-                                    oFormMode01 = SAPbouiCOM.BoFormMode.fm_OK_MODE;
-
-                                    oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
-                                    oForm.Items.Item("5").Specific.Value = CardCode;
-                                    oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-
+                                    updatestring = "업데이트됨";
                                 }
-                                else if (oFormMode01 == SAPbouiCOM.BoFormMode.fm_ADD_MODE) // 신규추가시 마지막에 업데이트 일자 처리
+                                else
                                 {
-                                    sQry = "update OCRD set UpdateDate='" + FrDate + "', validFor = 'N', frozenFor    = 'Y', frozenFrom = '" + FrDate + "', frozenTo = '" + ToDate + "', FrozenComm = '초기등록' FROM OCRD WHERE CardCode ='" + CardCode + "'";
-                                    oRecordSet.DoQuery(sQry);
-                                    oFormMode01 = SAPbouiCOM.BoFormMode.fm_OK_MODE;
-
-                                    oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
-                                    oForm.Items.Item("5").Specific.Value = CardCode;
-                                    oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                                    updatestring = "초기등록";
                                 }
+                                sQry = "update OCRD set UpdateDate='" + FrDate + "', validFor = 'N', frozenFor    = 'Y', frozenFrom = '" + FrDate + "', frozenTo = '" + ToDate + "', FrozenComm = '"+ updatestring + "' FROM OCRD WHERE CardCode ='" + CardCode + "'";
+                                oRecordSet.DoQuery(sQry);
+                                oFormMode01 = SAPbouiCOM.BoFormMode.fm_OK_MODE;
+
+                                oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
+                                oForm.Items.Item("5").Specific.Value = CardCode;
+                                oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+
+                            }
+                            else if (oFormMode01 == SAPbouiCOM.BoFormMode.fm_ADD_MODE) // 신규추가시 마지막에 업데이트 일자 처리
+                            {
+                                sQry = "update OCRD set UpdateDate='" + FrDate + "', validFor = 'N', frozenFor    = 'Y', frozenFrom = '" + FrDate + "', frozenTo = '" + ToDate + "', FrozenComm = '초기등록' FROM OCRD WHERE CardCode ='" + CardCode + "'";
+                                oRecordSet.DoQuery(sQry);
+                                oFormMode01 = SAPbouiCOM.BoFormMode.fm_OK_MODE;
+
+                                oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
+                                oForm.Items.Item("5").Specific.Value = CardCode;
+                                oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             }
                         }
                     }
@@ -626,7 +632,7 @@ namespace PSH_BOne_AddOn.Core
                         oForm.Items.Item("10002046").Enabled = true;
                         oForm.Items.Item("10002044").Specific.Selected = true;
                     }
-                    if (oForm.Items.Item("CheckYN").Specific.Value.ToString().Trim() == "N")
+                    else if (oForm.Items.Item("CheckYN").Specific.Value.ToString().Trim() == "N")
                     {
                         oForm.Items.Item("10002044").Enabled = true;
                         oForm.Items.Item("10002045").Enabled = true;

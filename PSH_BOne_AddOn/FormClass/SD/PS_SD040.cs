@@ -2363,6 +2363,11 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
+            int i;
+            string sQry;
+            string errMessage = string.Empty;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
                 if (pVal.BeforeAction == true)
@@ -2592,10 +2597,18 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                if(errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
             }
             finally
             {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }
 
@@ -2922,6 +2935,7 @@ namespace PSH_BOne_AddOn
             SAPbobsCOM.Recordset RecordSet01 = null;
             SAPbobsCOM.Recordset RecordSet02 = null;
             SAPbobsCOM.Recordset RecordSet03 = null;
+            SAPbobsCOM.Recordset RecordSet04 = null;
 
             try
             {
@@ -3098,9 +3112,19 @@ namespace PSH_BOne_AddOn
                                 Query01 = "EXEC PS_SD040_06 '" + oMat01.Columns.Item("PackNo").Cells.Item(pVal.Row).Specific.Value + "', '" + Work01 + "', '" + oForm.Items.Item("CardCode").Specific.String + "'";
                                 RecordSet01.DoQuery(Query01);
 
+                                RecordSet04 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+                                sQry = "Select isnull(U_Managed,'N') + isnull(U_CheckYN,'Y') as Gubun from [@PS_SD030H] where docentry = left('" + RecordSet01.Fields.Item("SD030Num").Value  + "',charindex('-','" + RecordSet01.Fields.Item("SD030Num").Value +"') -1)";
+                                RecordSet04.DoQuery(sQry);
+
                                 if (RecordSet01.RecordCount <= 0)
                                 {
                                     errMessage = "포장번호정보가 존재하지 않습니다.";
+                                    oMat01.Columns.Item("PackNo").Cells.Item(pVal.Row).Specific.Value = "";
+                                    throw new Exception();
+                                }
+                                else if (RecordSet04.Fields.Item(0).Value == "YY")
+                                {
+                                    errMessage = "채권관리주요업체입니다.출하요청승인하세요. (출하요청문서번호 : " + RecordSet01.Fields.Item("SD030Num").Value + ")";
                                     oMat01.Columns.Item("PackNo").Cells.Item(pVal.Row).Specific.Value = "";
                                     throw new Exception();
                                 }
@@ -3371,7 +3395,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (errMessage != string.Empty)
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(errMessage, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Warning);
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
                 }
                 else
                 {

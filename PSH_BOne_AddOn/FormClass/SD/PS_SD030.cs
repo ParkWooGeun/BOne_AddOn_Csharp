@@ -161,6 +161,14 @@ namespace PSH_BOne_AddOn
                 dataHelpClass.Combo_ValidValues_Insert("PS_SD030", "Mat01", "TrType", "2", "군납");
                 dataHelpClass.Combo_ValidValues_SetValueColumn(oMat01.Columns.Item("TrType"), "PS_SD030", "Mat01", "TrType", false);
 
+                oForm.Items.Item("Managed").Specific.ValidValues.Add("N", "미대상");
+                oForm.Items.Item("Managed").Specific.ValidValues.Add("Y", "대상");
+                oForm.Items.Item("Managed").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+
+                oForm.Items.Item("CheckYN").Specific.ValidValues.Add("Y", "승인대기");
+                oForm.Items.Item("CheckYN").Specific.ValidValues.Add("N", "승인완료");
+                oForm.Items.Item("CheckYN").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+
                 dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL order by BPLId", "1", false, false);
                 dataHelpClass.GP_MatrixSetMatComboList(oMat01.Columns.Item("ItemGpCd"), "SELECT ItmsGrpCod,ItmsGrpNam FROM [OITB]", "", "");
                 dataHelpClass.GP_MatrixSetMatComboList(oMat01.Columns.Item("ItmBsort"), "SELECT Code,Name FROM [@PSH_ITMBSORT]", "", "");
@@ -717,7 +725,9 @@ namespace PSH_BOne_AddOn
             bool returnValue = false;
             int i;
             int j;
+            string sQry = string.Empty;
             string errMessage = string.Empty;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -730,6 +740,14 @@ namespace PSH_BOne_AddOn
                 if (oMat01.VisualRowCount == 1)
                 {
                     errMessage = "라인이 존재하지 않습니다.";
+                    throw new Exception();
+                }
+
+                sQry = "select frozenFor  from OCRD where CardCode = '" + oForm.Items.Item("CardCode").Specific.Value.ToString().Trim() + "'";
+                oRecordSet.DoQuery(sQry);
+                if (oRecordSet.Fields.Item(0).Value.ToString().Trim() == "Y")
+                {
+                    errMessage = "거래처코드 비활성화 상태 입니다. 확인하세요. 코드 :" + oForm.Items.Item("CardCode").Specific.Value.ToString().Trim();
                     throw new Exception();
                 }
 
@@ -790,6 +808,10 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + (char)13 + ex.Message);
                 }
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
 
             return returnValue;
@@ -1512,7 +1534,7 @@ namespace PSH_BOne_AddOn
         /// <param name="FormUID">Form UID</param>
         /// <param name="pVal">ItemEvent 객체</param>
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        private void  Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             int i;
             string Query01;
@@ -1822,6 +1844,8 @@ namespace PSH_BOne_AddOn
                     if (pVal.ItemUID == "CardCode" || pVal.ItemUID == "CardName")
                     {
                         dataHelpClass.PSH_CF_DBDatasourceReturn(pVal, pVal.FormUID, "@PS_SD030H", "U_CardCode,U_CardName", "", 0, "", "", "");
+                        oDS_PS_SD030H.SetValue("U_Managed", 0, dataHelpClass.GetValue("SELECT isnull(QryGroup15,'N') FROM OCRD WHERE CardCode ='" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'", 0, 1));
+                        oDS_PS_SD030H.SetValue("U_CheckYN", 0, "Y");
                     }
                     else if (pVal.ItemUID == "DCardCod" || pVal.ItemUID == "DCardNam")
                     {

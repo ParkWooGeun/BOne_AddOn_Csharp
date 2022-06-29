@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace PSH_BOne_AddOn
 {
 	/// <summary>
-	/// 부품생산성지표
+	/// 생산성지표
 	/// </summary>
 	internal class PS_PP355 : PSH_BaseClass
 	{
@@ -112,6 +112,16 @@ namespace PSH_BOne_AddOn
 					oRecordSet.MoveNext();
 				}
 
+				// 대분류
+				sQry = "SELECT Code, Name From [@PSH_ItmBsort] Where Code in ('102','104')"; // 부품 멀티만 Select
+				oRecordSet.DoQuery(sQry);
+				while (!oRecordSet.EoF)
+				{
+					oForm.Items.Item("ItmBsort").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
+					oRecordSet.MoveNext();
+				}
+				oForm.Items.Item("ItmBsort").Specific.Select("102", SAPbouiCOM.BoSearchKey.psk_ByValue); // 부품선택
+
 				// 출력구분
 				oForm.DataSources.UserDataSources.Add("Rad01", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
 				oForm.DataSources.UserDataSources.Add("Rad02", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
@@ -201,6 +211,7 @@ namespace PSH_BOne_AddOn
 			string BPLName;
 			string sQry;
 			string BPLId;
+			string ItmBsort;
 			string DocDateFr;
 			string DocDateTo;
 			string ItemCode;
@@ -211,6 +222,7 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				BPLId     = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+				ItmBsort  = oForm.Items.Item("ItmBsort").Specific.Value.ToString().Trim();
 				DocDateFr = oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim();
 				DocDateTo = oForm.Items.Item("DocDateTo").Specific.Value.ToString().Trim();
 				ItemCode  = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
@@ -220,7 +232,7 @@ namespace PSH_BOne_AddOn
 				oRecordSet.DoQuery(sQry);
 				BPLName = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 
-				WinTitle = "[PS_PP355_01] 부품생산성지표";
+				WinTitle = "[PS_PP355_01] 생산성지표";
 				
 				if (oForm.Items.Item("Rad01").Specific.Selected == true)
 				{
@@ -241,6 +253,7 @@ namespace PSH_BOne_AddOn
 
 				// Parameter
 				dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLId));
+				dataPackParameter.Add(new PSH_DataPackClass("@ItmBsort", ItmBsort));
 				dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr));
 				dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo));
 				dataPackParameter.Add(new PSH_DataPackClass("@ItemCode", ItemCode));

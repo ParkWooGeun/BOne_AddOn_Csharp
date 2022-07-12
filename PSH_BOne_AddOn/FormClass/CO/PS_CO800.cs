@@ -1220,14 +1220,15 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string sQry;
-            string whsCode;
-            string price;
-            string quantity;
-            string amount;
             int i;
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            string sQry;
+            string price;
+            string amount;
+            string whsCode;
+            string quantity;
+            string errMessage = string.Empty;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -1267,6 +1268,20 @@ namespace PSH_BOne_AddOn
 
                                 if (pVal.ColUID == "ItemCode")
                                 {
+                                    sQry =  "SELECT count(*)";
+                                    sQry += "  FROM OINV A INNER JOIN INV1 B ON A.DOCENTRY = B.DOCENTRY";
+                                    sQry += "  	    	  INNER JOIN DLN1 C ON B.BaseEntry = C.DocEntry and B.BaseLine = C.LineNum";
+                                    sQry += "			  INNER JOIN OIVL D ON D.TransType = '15' and C.DocEntry = D.BASE_REF AND C.LineNum = D.DocLineNum";
+                                    sQry += " WHERE Convert(varchar(6), a.DocDate,112) = Convert(varchar(6),'" + oForm.Items.Item("DocDate").Specific.Value + "',112)";
+                                    sQry += "   AND b.itemcode ='" + oMat01.Columns.Item("ItemCode").Cells.Item(pVal.Row).Specific.Value  + "'";
+                                    oRecordSet01.DoQuery(sQry);
+
+                                    if (oRecordSet01.Fields.Item(0).Value == 0)
+                                    {
+                                        errMessage = "선택하신 월에 해당 품목의 납품이력이 없어서 처리할 수 없습니다.(가공비처리불가)";
+                                        oMat01.Columns.Item("ItemCode").Cells.Item(pVal.Row).Specific.Value = "";
+                                        throw new Exception();
+                                    }
                                     oMat01.FlushToDataSource();
 
                                     oDS_PS_CO800L.SetValue("U_ItemName", pVal.Row - 1, dataHelpClass.Get_ReData("ItemName", "ItemCode", "OITM", "'" + oMat01.Columns.Item("ItemCode").Cells.Item(pVal.Row).Specific.Value + "'", ""));
@@ -1336,7 +1351,14 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_VALIDATE_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                if(errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_VALIDATE_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
                 BubbleEvent = false;
             }
             finally

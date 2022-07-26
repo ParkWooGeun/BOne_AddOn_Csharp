@@ -60,11 +60,10 @@ namespace PSH_BOne_AddOn.Core
                 oItem.Specific.ValidValues.Add("99", "해당없음");
 
                 oItem = oForm.Items.Add("updateDate", SAPbouiCOM.BoFormItemTypes.it_EDIT);
-                oItem.Left = oForm.Items.Item("10000116").Left + 200;
+                oItem.Left = oForm.Items.Item("10000116").Left + 160;
                 oItem.Top = oForm.Items.Item("10000116").Top + 23;
                 oItem.Height = oForm.Items.Item("10000116").Height;
-                oItem.Width = 100;
-                oItem.Visible = false;
+                oItem.Width = 80;
                 oItem.Specific.DataBind.SetBound(true, "OUSR", "U_updateDate");
 
                 oItem = oForm.Items.Add("Text", SAPbouiCOM.BoFormItemTypes.it_STATIC);
@@ -283,10 +282,14 @@ namespace PSH_BOne_AddOn.Core
                     if (oForm.Items.Item("Type").Specific.Value.ToString().Trim() != "99")
                     {
                         oForm.Items.Item("updateDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
+                        oForm.Items.Item("14").Click(BoCellClickType.ct_Regular);
+                        oForm.Items.Item("updateDate").Enabled = false;
                     }
                     else
                     {
                         oForm.Items.Item("updateDate").Specific.Value = "";
+                        oForm.Items.Item("14").Click(BoCellClickType.ct_Regular);
+                        oForm.Items.Item("updateDate").Enabled = false;
                     }
                 }
             }

@@ -1,5 +1,6 @@
 using System;
 using SAPbouiCOM;
+using SAPbobsCOM;
 using PSH_BOne_AddOn.Data;
 
 namespace PSH_BOne_AddOn
@@ -2835,7 +2836,7 @@ namespace PSH_BOne_AddOn
             string errCode = string.Empty;
             int errDiCode = 0;
             string errDiMsg = string.Empty;
-
+            SAPbobsCOM.AccountCategory accountCategory = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oAccountSegmentationCategories);
             SAPbobsCOM.EmployeesInfo oOHEM = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oEmployeesInfo);
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -3591,6 +3592,46 @@ namespace PSH_BOne_AddOn
             }
         }
 
+
+        /// <summary>
+        /// 발령사항체크(부서 이동자의 경우 해당 SAP 계정 잠금처리)
+        /// </summary>
+        private void PH_PY001_ClosedSapAccount()
+        {
+            string sQry;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                sQry = "select a.Code";
+                sQry += "	 , a.LineId";
+                sQry += "	 , a.U_appType";
+                sQry += "	 , a.U_TeamCode + '-' + a.U_RspCode as TeamRsp";
+                sQry += "  from [@PH_PY001G] a";
+                sQry += " where code ='" + oForm.Items.Item("Code").Specific.Value + "'";
+                sQry += "order by U_appDate desc";
+
+                oRecordSet.DoQuery(sQry);
+
+                if (oRecordSet.RecordCount != oMat6.VisualRowCount)
+                {
+                    if (oRecordSet.Fields.Item("TeamRsp").Value != oMat6.Columns.Item("TeamCode").Cells.Item(oMat6.VisualRowCount).Specific.Value + "-" + oMat6.Columns.Item("RspCode").Cells.Item(oMat6.VisualRowCount).Specific.Value)
+                    {
+                        sQry = "exec [PH_PY001_01] '20','" + oForm.Items.Item("CLTCOD").Specific.value.ToString().Trim() + "','" + oForm.Items.Item("Code").Specific.value + "','PH_PY001','" + PSH_Globals.oCompany.UserSignature.ToString() + "'";
+                        oRecordSet.DoQuery(sQry);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY001_UpLoadPic_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+            }
+        }
+
         /// <summary>
         /// Form Item Event
         /// </summary>
@@ -3740,6 +3781,7 @@ namespace PSH_BOne_AddOn
 
                                 oRecordSet01.DoQuery(sQry);
                             }
+                            PH_PY001_ClosedSapAccount();
                         }
                     }
 

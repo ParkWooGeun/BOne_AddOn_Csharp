@@ -149,14 +149,12 @@ namespace PSH_BOne_AddOn
         {
             string WinTitle;
             string ReportName;
-
             string CLTCOD;
             string YY;
             string MSTCOD;
             string Target;
             string OptBtnValue;
             string OptBtnValue1;
-
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 
@@ -193,18 +191,19 @@ namespace PSH_BOne_AddOn
                 {
                     //Parameter
                     dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD)); //사업장
-                    dataPackParameter.Add(new PSH_DataPackClass("@YY", YY)); //등록기간(시작)
+                    dataPackParameter.Add(new PSH_DataPackClass("@Year", YY)); //등록기간(시작)
                     dataPackParameter.Add(new PSH_DataPackClass("@MSTCOD", MSTCOD)); //등록기간(종료)
                     dataPackParameter.Add(new PSH_DataPackClass("@Target", Target)); //Target
+                    dataPackParameter.Add(new PSH_DataPackClass("@Current", "")); // 값이 1이면 현재일자 기준 ''이면 12월31일 기준 
 
                     //SubReport Parameter
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD, "PH_PY775_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@YY", YY, "PH_PY775_SUB1"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@MSTCOD", MSTCOD, "PH_PY775_SUB1"));
+                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@CLTCOD_", CLTCOD, "PH_PY775_SUB1"));
+                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@Year_", YY, "PH_PY775_SUB1"));
+                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@MSTCOD_", MSTCOD, "PH_PY775_SUB1"));
 
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD, "PH_PY775_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@YY", YY, "PH_PY775_SUB2"));
-                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@MSTCOD", MSTCOD, "PH_PY775_SUB2"));
+                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@CLTCOD_", CLTCOD, "PH_PY775_SUB2"));
+                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@StdYear_", YY, "PH_PY775_SUB2"));
+                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@Sabun_", MSTCOD, "PH_PY775_SUB2"));
                 }
                 else
                 {
@@ -213,6 +212,7 @@ namespace PSH_BOne_AddOn
                     dataPackParameter.Add(new PSH_DataPackClass("@YY", YY)); //등록기간(시작)
                     dataPackParameter.Add(new PSH_DataPackClass("@MSTCOD", MSTCOD)); //등록기간(종료)
                     dataPackParameter.Add(new PSH_DataPackClass("@Target", Target)); //Target
+                    dataPackParameter.Add(new PSH_DataPackClass("@Current", "")); // 값이 1이면 현재일자 기준 ''이면 12월31일 기준 
                 }
                 formHelpClass.OpenCrystalReport(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
             }
@@ -257,6 +257,7 @@ namespace PSH_BOne_AddOn
                 //    break;
 
                 case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
+                    Raise_EVENT_DOUBLE_CLICK(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED://8
@@ -358,6 +359,49 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }
+
+        /// <summary>
+        /// Raise_DOUBLE_CLICK
+        /// </summary>
+        /// <param name="FormUID">fdsafd</param>
+        /// <param name="pVal">fdsafd</param>
+        /// <param name="BubbleEvent">fdsafd</param>
+        private void Raise_EVENT_DOUBLE_CLICK(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            string sQry;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                if (pVal.Before_Action == true)
+                {
+                }
+                else if (pVal.Before_Action == false)
+                {
+                    if (pVal.ItemChanged == true)
+                    {
+                        switch (pVal.ItemUID)
+                        {
+                            case "MSTCOD":
+                                sQry = "SELECT U_FullName FROM [@PH_PY001A] WHERE Code =  '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "'";
+                                oRecordSet.DoQuery(sQry);
+                                oForm.Items.Item("MSTNAME").Specific.Value = oRecordSet.Fields.Item("U_FullName").Value.ToString().Trim();
+                                break;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_VALIDATE_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                BubbleEvent = false;
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+            }
+        }
+
 
         /// <summary>
         /// ITEM_PRESSED 이벤트

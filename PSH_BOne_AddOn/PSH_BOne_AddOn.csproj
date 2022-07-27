@@ -234,6 +234,7 @@
     <Compile Include="FormClass\MM\PS_MM031.cs" />
     <Compile Include="FormClass\MM\PS_MM040.cs" />
     <Compile Include="FormClass\MM\PS_MM041.cs" />
+    <Compile Include="FormClass\MM\PS_MM050.cs" />
     <Compile Include="FormClass\MM\PS_MM070.cs" />
     <Compile Include="FormClass\MM\PS_MM090.cs" />
     <Compile Include="FormClass\MM\PS_MM100.cs" />
@@ -2709,6 +2710,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD925.srf" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM050.srf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

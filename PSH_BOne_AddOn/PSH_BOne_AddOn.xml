@@ -26,36 +26,22 @@
             the contents of this method with the code editor.
             </summary>
         </member>
-<<<<<<< HEAD
         <member name="T:PSH_BOne_AddOn.Core.S20700">
             <summary>
             사용자 - 설정
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.Core.S20700.LoadForm(System.String)">
-=======
-        <member name="T:PSH_BOne_AddOn.Core.S134">
-            <summary>
-            BP마스터
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.Core.S134.LoadForm(System.String)">
->>>>>>> issue148-3
             <summary>
             Form 호출
             </summary>
             <param name="formUID"></param>
         </member>
-<<<<<<< HEAD
         <member name="M:PSH_BOne_AddOn.Core.S20700.S20700_CreateItems">
-=======
-        <member name="M:PSH_BOne_AddOn.Core.S134.PS_S134_CreateItems">
->>>>>>> issue148-3
             <summary>
             화면 Item 생성
             </summary>
         </member>
-<<<<<<< HEAD
         <member name="M:PSH_BOne_AddOn.Core.S20700.S20700_CheckDataValid">
             <summary>
             필수 사항 check
@@ -71,7 +57,61 @@
             <param name = "BubbleEvent">Bubble Event</param>
         </member>
         <member name="M:PSH_BOne_AddOn.Core.S20700.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-=======
+            <summary>
+            ITEM_PRESSED 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Core.S20700.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            COMBO_SELECT 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Core.S20700.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            FORM_UNLOAD 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Core.S20700.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            FormMenuEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Core.S20700.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+            <summary>
+            FormDataEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="BusinessObjectInfo"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="T:PSH_BOne_AddOn.Core.S134">
+            <summary>
+            BP마스터
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Core.S134.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="formUID"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Core.S134.PS_S134_CreateItems">
+            <summary>
+            화면 Item 생성
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.Core.S134.PS_S134_FormItemEnabled">
             <summary>
             각 모드에 따른 아이템설정
@@ -110,7 +150,6 @@
             <param name="BubbleEvent">Bubble Event</param>
         </member>
         <member name="M:PSH_BOne_AddOn.Core.S134.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
->>>>>>> issue148-3
             <summary>
             ITEM_PRESSED 이벤트
             </summary>
@@ -118,11 +157,7 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-<<<<<<< HEAD
-        <member name="M:PSH_BOne_AddOn.Core.S20700.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-=======
         <member name="M:PSH_BOne_AddOn.Core.S134.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
->>>>>>> issue148-3
             <summary>
             COMBO_SELECT 이벤트
             </summary>
@@ -130,36 +165,14 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-<<<<<<< HEAD
-        <member name="M:PSH_BOne_AddOn.Core.S20700.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            FORM_UNLOAD 이벤트
-=======
         <member name="M:PSH_BOne_AddOn.Core.S134.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             CLICK 이벤트
->>>>>>> issue148-3
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-<<<<<<< HEAD
-        <member name="M:PSH_BOne_AddOn.Core.S20700.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
-            <summary>
-            FormMenuEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pVal"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.Core.S20700.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
-            <summary>
-            FormDataEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="BusinessObjectInfo"></param>
-=======
         <member name="M:PSH_BOne_AddOn.Core.S134.Raise_EVENT_MATRIX_LOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             MATRIX_LOAD 이벤트
@@ -182,7 +195,6 @@
             </summary>
             <param name="FormUID"></param>
             <param name="pVal"></param>
->>>>>>> issue148-3
             <param name="BubbleEvent"></param>
         </member>
         <member name="T:PSH_BOne_AddOn.Core.S133">
@@ -53093,6 +53105,132 @@
         <member name="M:PSH_BOne_AddOn.PS_SD920.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
             <summary>
             RightClickEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="T:PSH_BOne_AddOn.PS_SD925">
+            <summary>
+            멀티 단가변경처리
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD925.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFormDocEntry"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD925.PS_SD925_CreateItems">
+            <summary>
+            화면 Item 생성
+            </summary>        
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD925.PS_SD925_ComboBox_Setting">
+            <summary>
+            Combobox 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD925.PS_SD925_Initial_Setting">
+            <summary>
+            화면 초기화
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD925.PS_SD925_FormClear">
+            <summary>
+            FormClear
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD925.PS_SD925_FormItemEnabled">
+            <summary>
+            각 모드에 따른 아이템설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD925.PS_SD925_AddMatrixRow(System.Int32,System.Boolean)">
+            <summary>
+            메트릭스 Row추가
+            </summary>
+            <param name="oRow"></param>
+            <param name="RowIserted"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD925.PS_SD925_DeleteHeaderSpaceLine">
+            <summary>
+            필수입력사항 체크(헤더)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD925.PS_SD925_DeleteMatrixSpaceLine">
+            <summary>
+            필수입력사항 체크(라인)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD925.PS_SD925_LoadData">
+            <summary>
+            데이터 조회
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD925.PS_SD925_Change_Price">
+            <summary>
+            데이터 조회
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD925.PS_SD925_ReChange_Price">
+            <summary>
+            데이터 조회
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD925.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Form Item Event
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">pVal</param>
+            <param name="BubbleEvent">Bubble Event</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD925.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            ITEM_PRESSED 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD925.Raise_EVENT_GOT_FOCUS(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            GOT_FOCUS 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD925.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            CLICK 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD925.Raise_EVENT_MATRIX_LOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            MATRIX_LOAD 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD925.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            FORM_UNLOAD 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD925.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            FormMenuEvent
             </summary>
             <param name="FormUID"></param>
             <param name="pVal"></param>

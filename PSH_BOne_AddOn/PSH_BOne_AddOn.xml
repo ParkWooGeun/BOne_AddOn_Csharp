@@ -56649,6 +56649,11 @@
             사진파일 업로드
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY001.PH_PY001_ClosedSapAccount">
+            <summary>
+            발령사항체크(부서 이동자의 경우 해당 SAP 계정 잠금처리)
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY001.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event
@@ -73342,6 +73347,14 @@
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY775.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_DOUBLE_CLICK
+            </summary>
+            <param name="FormUID">fdsafd</param>
+            <param name="pVal">fdsafd</param>
+            <param name="BubbleEvent">fdsafd</param>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY775.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>

@@ -2381,8 +2381,8 @@ namespace PSH_BOne_AddOn
                                 return;
                             }
                         }
-                    }
 
+                    }
                     dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "Mat02", "WorkCode");
                     dataHelpClass.ActiveUserDefineValueAlways(ref oForm, ref pVal, ref BubbleEvent, "Mat02", "NCode");
                     dataHelpClass.ActiveUserDefineValueAlways(ref oForm, ref pVal, ref BubbleEvent, "Mat03", "FailCode");
@@ -2418,6 +2418,20 @@ namespace PSH_BOne_AddOn
                         if (pVal.ColUID == "WorkTime" && pVal.Row != 0)
                         {
                             PS_PP040_SumWorkTime();
+                        }
+                    }
+                    if (pVal.ItemUID == "Mat02")
+                    {
+                        if (pVal.ColUID == "YTime" || pVal.ColUID == "NTime")
+                        {
+                            if (string.IsNullOrEmpty(oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value))
+                            {
+                                oForm.Freeze(true);
+                                oMat02.FlushToDataSource();
+                                oDS_PS_PP040M.SetValue("U_" + pVal.ColUID, pVal.Row - 1, "0");
+                                oMat02.LoadFromDataSource();
+                                oForm.Freeze(false);
+                            }
                         }
                     }
                     else if (pVal.ItemUID == "BaseTime")

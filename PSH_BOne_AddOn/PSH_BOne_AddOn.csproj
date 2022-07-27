@@ -2704,6 +2704,7 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM075.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM173.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM610.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM030.srf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

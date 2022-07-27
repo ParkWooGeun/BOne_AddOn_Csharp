@@ -985,6 +985,7 @@ namespace PSH_BOne_AddOn
 								oDS_PS_CO090L.SetValue("Code", i, "");
 								oMat01.LoadFromDataSource();
 							}
+							AddMatrixRow(0, false);
 							oForm.Freeze(false);
 							break;
 					}

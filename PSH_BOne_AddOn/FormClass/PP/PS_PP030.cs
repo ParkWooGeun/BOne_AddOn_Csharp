@@ -1588,9 +1588,9 @@ namespace PSH_BOne_AddOn
 
                     if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_PP040H] PS_PP040H LEFT JOIN [@PS_PP040L] PS_PP040L ON PS_PP040H.DocEntry = PS_PP040L.DocEntry WHERE PS_PP040H.Canceled = 'N' AND PS_PP040L.U_PP030HNo = '" + oForm.Items.Item("DocEntry").Specific.Value + "'", 0, 1)) > 0)
                     {
-                        errMessage = "";
+                        errMessage = "취소하시려면 작업일보 등록취소하셔야합니다.";
                         throw new Exception();
-                    }
+                    } 
 
                     //삭제된행중에 외주반출등록된행
                     if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "101")

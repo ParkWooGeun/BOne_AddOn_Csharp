@@ -165,69 +165,69 @@ namespace PSH_BOne_AddOn.Core
                     throw new Exception();
                 }
 
-                for (int i = 1; i <= oMat01.VisualRowCount - 1; i++)
-                {
-                    if (string.IsNullOrEmpty(oMat01.Columns.Item("1").Cells.Item(i).Specific.Value))
-                    {
-                        errMessage = "품목은 필수입니다.";
-                        oMat01.Columns.Item("1").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                        throw new Exception();
-                    }
+                //for (int i = 1; i <= oMat01.VisualRowCount; i++)
+                //{
+                //    //if (string.IsNullOrEmpty(oMat01.Columns.Item("1").Cells.Item(i).Specific.Value))
+                //    //{
+                //    //    errMessage = "품목은 필수입니다.";
+                //    //    oMat01.Columns.Item("1").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                //    //    throw new Exception();
+                //    //}
 
-                    if (Convert.ToDouble(oMat01.Columns.Item("11").Cells.Item(i).Specific.Value) <= 0)
-                    {
-                        errMessage = "수량(중량)은 필수입니다.";
-                        oMat01.Columns.Item("11").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                        throw new Exception();
-                    }
+                //    //if (Convert.ToDouble(oMat01.Columns.Item("11").Cells.Item(i).Specific.Value) <= 0)
+                //    //{
+                //    //    errMessage = "수량(중량)은 필수입니다.";
+                //    //    oMat01.Columns.Item("11").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                //    //    throw new Exception();
+                //    //}
 
-                    if (string.IsNullOrEmpty(oMat01.Columns.Item("14").Cells.Item(i).Specific.Value))
-                    {
-                        errMessage = "단가는 필수입니다.";
-                        oMat01.Columns.Item("14").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                        throw new Exception();
-                    }
+                //    if (string.IsNullOrEmpty(oMat01.Columns.Item("14").Cells.Item(i).Specific.Value))
+                //    {
+                //        errMessage = "단가는 필수입니다.";
+                //        oMat01.Columns.Item("14").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                //        throw new Exception();
+                //    }
                     
-                    if (oForm.Items.Item("70").Specific.Selected.Value == "S" || oForm.Items.Item("70").Specific.Selected.Value == "L") //현지,시스템통화
-                    {
-                        if (codeHelpClass.Right(oMat01.Columns.Item("14").Cells.Item(i).Specific.Value, 3) != "KRW")
-                        {
-                            errMessage = "헤더와 라인의 통화가 다릅니다.";
-                            throw new Exception();
-                        }
-                    }
+                //    if (oForm.Items.Item("70").Specific.Selected.Value == "S" || oForm.Items.Item("70").Specific.Selected.Value == "L") //현지,시스템통화
+                //    {
+                //        if (codeHelpClass.Right(oMat01.Columns.Item("14").Cells.Item(i).Specific.Value, 3) != "KRW")
+                //        {
+                //            errMessage = "헤더와 라인의 통화가 다릅니다.";
+                //            throw new Exception();
+                //        }
+                //    }
                     
-                    if (oForm.Items.Item("70").Specific.Selected.Value == "C") //BP통화
-                    {
-                        if (oForm.Items.Item("63").Specific.Value != codeHelpClass.Right(oMat01.Columns.Item("14").Cells.Item(i).Specific.Value, 3)) //DocCur 과 Price의 마지막3자리 비교
-                        {
-                            errMessage = "헤더와 라인의 통화가 다릅니다.";
-                            throw new Exception();
-                        }
-                    }
+                //    if (oForm.Items.Item("70").Specific.Selected.Value == "C") //BP통화
+                //    {
+                //        if (oForm.Items.Item("63").Specific.Value != codeHelpClass.Right(oMat01.Columns.Item("14").Cells.Item(i).Specific.Value, 3)) //DocCur 과 Price의 마지막3자리 비교
+                //        {
+                //            errMessage = "헤더와 라인의 통화가 다릅니다.";
+                //            throw new Exception();
+                //        }
+                //    }
                     
-                    if (oForm.Items.Item("TradeType").Specific.Selected.Value == "1") //일반
-                    {
-                        if (dataHelpClass.GetItem_TradeType(oMat01.Columns.Item("1").Cells.Item(i).Specific.Value) == "2") //품목 : 임가공
-                        {
-                            errMessage = "문서의 거래형태와 품목의 거래형태가 다릅니다.";
-                            oMat01.Columns.Item("1").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            throw new Exception();
-                        }
-                    }
+                //    if (oForm.Items.Item("TradeType").Specific.Selected.Value == "1") //일반
+                //    {
+                //        if (dataHelpClass.GetItem_TradeType(oMat01.Columns.Item("1").Cells.Item(i).Specific.Value) == "2") //품목 : 임가공
+                //        {
+                //            errMessage = "문서의 거래형태와 품목의 거래형태가 다릅니다.";
+                //            oMat01.Columns.Item("1").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                //            throw new Exception();
+                //        }
+                //    }
                     
-                    if (oForm.Items.Item("TradeType").Specific.Selected.Value == "2") //임가공
-                    {
-                        if (dataHelpClass.GetItem_TradeType(oMat01.Columns.Item("1").Cells.Item(i).Specific.Value) == "1") //품목 : 일반
-                        {
-                            errMessage = "문서의 거래형태와 품목의 거래형태가 다릅니다.";
-                            oMat01.Columns.Item("1").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            throw new Exception();
-                        }
-                    }
-                }
+                //    if (oForm.Items.Item("TradeType").Specific.Selected.Value == "2") //임가공
+                //    {
+                //        if (dataHelpClass.GetItem_TradeType(oMat01.Columns.Item("1").Cells.Item(i).Specific.Value) == "1") //품목 : 일반
+                //        {
+                //            errMessage = "문서의 거래형태와 품목의 거래형태가 다릅니다.";
+                //            oMat01.Columns.Item("1").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                //            throw new Exception();
+                //        }
+                //    }
+                //}
 
-                returnValue = false;
+                returnValue = true;
             }
             catch (Exception ex)
             {

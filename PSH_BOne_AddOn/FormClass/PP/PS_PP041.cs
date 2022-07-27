@@ -2912,13 +2912,13 @@ namespace PSH_BOne_AddOn
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             int i;
-            string query01;
             double weight;
             double unitTime;
             double unitRemainTime;
             double time;
             double hour;
             double minute;
+            string sQry;
             string ordMgNum;
             string errMessage = string.Empty;
             SAPbouiCOM.ProgressBar ProgBar01 = null;
@@ -2953,11 +2953,27 @@ namespace PSH_BOne_AddOn
                                     {
                                         if (oForm.Items.Item("OrdType").Specific.Selected.Value == "10" || oForm.Items.Item("OrdType").Specific.Selected.Value == "50") //작업타입이 일반,조정
                                         {
-                                            if (oForm.Items.Item("BPLId").Specific.Value == "2")
+                                            if (oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() == "1")
+                                            {
+                                                if (oForm.Items.Item("CpCode").Specific.Value.ToString().Trim() == "CP50107") // packing 공정 이전 검사등록된 내용이 있어야 처리됨.
+                                                {
+                                                    sQry = "select COUNT(*) as Cnt from [@PS_QM610H] a where a.Canceled ='N' and a.U_PassYN ='Y' and a.U_PackYN ='Y' and a.U_M_Visual ='Y'";
+                                                    sQry += " and a.U_OrdNum = (select U_OrdNum from [@PS_PP030H] where docentry  = (select left('" + oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value + "',charindex('-','" + oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value + "') -1)))";
+                                                    
+                                                    RecordSet01.DoQuery(sQry);
+
+                                                    if (RecordSet01.Fields.Item(0).Value == 0)
+                                                    {
+                                                        errMessage = "해당 작업지시의 경우 검사등록이 되지 않았습니다. [PS_QM610][" + oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value + "] ";
+                                                        throw new Exception();
+                                                    }
+                                                }
+                                            }
+                                            if (oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() == "2")
                                             {
                                                 //품질부적합 등록 여부 검사
-                                                query01 = "EXEC PS_PP041_80 '" + oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value + "'";
-                                                RecordSet01.DoQuery(query01);
+                                                sQry = "EXEC PS_PP041_80 '" + oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value + "'";
+                                                RecordSet01.DoQuery(sQry);
                                                 if (RecordSet01.Fields.Item("Result").Value == "Y1")
                                                 {
                                                     errMessage = "품질부적합 등록건(등록상태)입니다. 품질보증팀(검사자)에 문의하십시오.";
@@ -2984,8 +3000,8 @@ namespace PSH_BOne_AddOn
                                                 }
                                             }
 
-                                            query01 = "EXEC PS_PP041_02 '" + oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value + "'";
-                                            RecordSet01.DoQuery(query01);
+                                            sQry = "EXEC PS_PP041_02 '" + oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value + "'";
+                                            RecordSet01.DoQuery(sQry);
                                             if (RecordSet01.RecordCount == 0)
                                             {
                                                 oDS_PS_PP041L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, "");
@@ -3125,8 +3141,8 @@ namespace PSH_BOne_AddOn
                                                     //엔드베어링 생산수량 구하기
                                                     ordMgNum = oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().Trim();
                                                     SAPbobsCOM.Recordset recordSetTemp = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-                                                    query01 = "EXEC [PS_PP041_03] '" + oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value + "'";
-                                                    recordSetTemp.DoQuery(query01);
+                                                    sQry = "EXEC [PS_PP041_03] '" + oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value + "'";
+                                                    recordSetTemp.DoQuery(sQry);
 
                                                     oDS_PS_PP041L.SetValue("U_PQty", pVal.Row - 1, recordSetTemp.Fields.Item(0).Value);
                                                     oDS_PS_PP041L.SetValue("U_YQty", pVal.Row - 1, recordSetTemp.Fields.Item(0).Value);

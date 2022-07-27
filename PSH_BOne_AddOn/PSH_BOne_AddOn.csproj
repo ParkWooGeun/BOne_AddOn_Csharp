@@ -2705,6 +2705,7 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM075.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM173.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM610.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM030.srf" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD925.srf" />

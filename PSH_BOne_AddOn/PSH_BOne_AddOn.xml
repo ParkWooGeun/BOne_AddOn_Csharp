@@ -2728,58 +2728,58 @@
             </summary>
             <param name="oFormDocEntry"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_CO800.CreateItems">
+        <member name="M:PSH_BOne_AddOn.PS_CO800.PS_CO800_CreateItems">
             <summary>
             화면 Item 생성
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_CO800.Initial_Setting">
+        <member name="M:PSH_BOne_AddOn.PS_CO800.PS_CO800_Initial_Setting">
             <summary>
             Initial Setting
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_CO800.FormItemEnabled">
+        <member name="M:PSH_BOne_AddOn.PS_CO800.PS_CO800_FormItemEnabled">
             <summary>
             모드에 따른 아이템 설정
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_CO800.AddMatrixRow(System.Int16,System.Int32)">
+        <member name="M:PSH_BOne_AddOn.PS_CO800.PS_CO800_AddMatrixRow(System.Int16,System.Int32)">
             <summary>
             행추가
             </summary>
             <param name="pSeq"></param>
             <param name="oRow"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_CO800.FormClear">
+        <member name="M:PSH_BOne_AddOn.PS_CO800.PS_CO800_FormClear">
             <summary>
             FormClear
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_CO800.Delete_EmptyRow">
+        <member name="M:PSH_BOne_AddOn.PS_CO800.PS_CO800_Delete_EmptyRow">
             <summary>
             Matrix 마지막 빈행 삭제
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_CO800.HeaderSpaceLineDel">
+        <member name="M:PSH_BOne_AddOn.PS_CO800.PS_CO800_HeaderSpaceLineDel">
             <summary>
             Header 필수 입력 필드 체크
             </summary>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_CO800.MatrixSpaceLineDel">
+        <member name="M:PSH_BOne_AddOn.PS_CO800.PS_CO800_MatrixSpaceLineDel">
             <summary>
             Line 필수 입력 필드 체크
             </summary>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_CO800.Create_oDIObject(System.Int16)">
+        <member name="M:PSH_BOne_AddOn.PS_CO800.PS_CO800_Create_oDIObject(System.Int16)">
             <summary>
             분개 DI
             </summary>
             <param name="ChkType"></param>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_CO800.Cancel_oDIObject(System.Int16)">
+        <member name="M:PSH_BOne_AddOn.PS_CO800.PS_CO800_Cancel_oDIObject(System.Int16)">
             <summary>
             분개 DI
             </summary>

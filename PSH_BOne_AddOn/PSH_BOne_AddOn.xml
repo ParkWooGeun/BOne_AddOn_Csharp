@@ -39930,7 +39930,14 @@
             <param name="PVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:PSH_BOne_AddOn.PS_PP985.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)" -->
+        <member name="M:PSH_BOne_AddOn.PS_PP985.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_FORM_UNLOAD
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_PP985.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>
             FormMenuEvent

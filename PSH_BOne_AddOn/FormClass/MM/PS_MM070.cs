@@ -422,7 +422,6 @@ namespace PSH_BOne_AddOn
                     oMat01.Columns.Item("BadCode1").Editable = true;
                     oMat01.Columns.Item("BadCode2").Editable = true;
                     oMat01.Columns.Item("UnWeight").Editable = true;
-                    oMat01.Columns.Item("Price").Editable = true;
                     oMat01.Columns.Item("LinTotal").Editable = true;
                     oMat01.Columns.Item("WhsCode").Editable = true;
                 }
@@ -448,7 +447,6 @@ namespace PSH_BOne_AddOn
                     oMat01.Columns.Item("BadCode1").Editable = false;
                     oMat01.Columns.Item("BadCode2").Editable = false;
                     oMat01.Columns.Item("UnWeight").Editable = false;
-                    oMat01.Columns.Item("Price").Editable = false;
                     oMat01.Columns.Item("LinTotal").Editable = false;
                     oMat01.Columns.Item("WhsCode").Editable = false;
                 }
@@ -474,7 +472,6 @@ namespace PSH_BOne_AddOn
                     oMat01.Columns.Item("BadCode1").Editable = false;
                     oMat01.Columns.Item("BadCode2").Editable = false;
                     oMat01.Columns.Item("UnWeight").Editable = false;
-                    oMat01.Columns.Item("Price").Editable = false;
                     oMat01.Columns.Item("LinTotal").Editable = false;
                     oMat01.Columns.Item("WhsCode").Editable = false;
 

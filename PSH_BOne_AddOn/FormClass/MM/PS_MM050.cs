@@ -1675,13 +1675,8 @@ namespace PSH_BOne_AddOn
                         oMat02.Columns.Item("OutUnit").Cells.Item(oMat02.VisualRowCount).Specific.Value = oDS_PS_TEMPTABLE.GetValue("U_sField24", pVal.Row - 1).ToString().Trim();
                         oMat02.Columns.Item("ItemGpCd").Cells.Item(oMat02.VisualRowCount).Specific.Select(oDS_PS_TEMPTABLE.GetValue("U_sField18", pVal.Row - 1).ToString().Trim());
                         oMat02.Columns.Item("POType").Cells.Item(oMat02.VisualRowCount).Specific.Select(oDS_PS_TEMPTABLE.GetValue("U_sField05", pVal.Row - 1).ToString().Trim());
-                        oMat02.Columns.Item("LinTotal").Cells.Item(oMat02.VisualRowCount).Specific.Value = Convert.ToString(System.Math.Round(Convert.ToDouble(oDS_PS_TEMPTABLE.GetValue("U_iField04", pVal.Row - 1).ToString().Trim()) * Convert.ToDouble(oDS_PS_TEMPTABLE.GetValue("U_aField01", pVal.Row - 1).ToString().Trim()), 0));
                         qField01 = Convert.ToInt32(Convert.ToDouble(oDS_PS_TEMPTABLE.GetValue("U_qField01", pVal.Row - 1).ToString().Trim()));
                         iField04 = Convert.ToInt32(Convert.ToDouble(oDS_PS_TEMPTABLE.GetValue("U_iField04", pVal.Row - 1).ToString().Trim()));
-                        
-                        oMat02.FlushToDataSource();
-                        oDS_PS_MM050L.SetValue("U_Price", oMat02.VisualRowCount - 1, oDS_PS_TEMPTABLE.GetValue("U_aField01", pVal.Row - 1).ToString().Trim());
-                        oMat02.LoadFromDataSource();
 
                         //입고수량과 미입고 수량이 같을때 미입고 수량을 입고수량에 넣어준다
                         if (qField01 == iField04)
@@ -1697,6 +1692,11 @@ namespace PSH_BOne_AddOn
                             oMat02.Columns.Item("Weight").Cells.Item(oMat02.VisualRowCount).Specific.Value = oDS_PS_TEMPTABLE.GetValue("U_qField01", pVal.Row - 1).ToString().Trim();
                             oMat02.Columns.Item("RealWt").Cells.Item(oMat02.VisualRowCount).Specific.Value = oDS_PS_TEMPTABLE.GetValue("U_qField01", pVal.Row - 1).ToString().Trim();
                         }
+                        oMat02.Columns.Item("LinTotal").Cells.Item(oMat02.VisualRowCount).Specific.Value = oDS_PS_TEMPTABLE.GetValue("U_aField02", pVal.Row - 1).ToString().Trim();
+                        oMat02.FlushToDataSource();
+                        oDS_PS_MM050L.SetValue("U_Price", oMat02.VisualRowCount - 1, oDS_PS_TEMPTABLE.GetValue("U_aField01", pVal.Row - 1).ToString().Trim());
+                        oMat02.LoadFromDataSource();
+
                         oMat02.Columns.Item("UnWeight").Cells.Item(oMat02.VisualRowCount).Specific.Value = oDS_PS_TEMPTABLE.GetValue("U_qField02", pVal.Row - 1).ToString().Trim();
                         oMat02.Columns.Item("DocCur").Cells.Item(oMat02.VisualRowCount).Specific.Value = oDS_PS_TEMPTABLE.GetValue("U_sField17", pVal.Row - 1).ToString().Trim(); //통화
                         oMat02.Columns.Item("DocRate").Cells.Item(oMat02.VisualRowCount).Specific.Value = oDS_PS_TEMPTABLE.GetValue("U_qField04", pVal.Row - 1).ToString().Trim(); //환율

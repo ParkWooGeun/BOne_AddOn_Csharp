@@ -4271,8 +4271,7 @@ namespace PSH_BOne_AddOn
             string CLTCOD;
             string MSTCOD;
             string YY;
-            short errNum = 0;
-
+            string errMessage = string.Empty;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -4528,7 +4527,7 @@ namespace PSH_BOne_AddOn
 
                                             if (oRecordSet.Fields.Item("jandd").Value < JanQty)
                                             {
-                                                errNum = 1;
+                                                errMessage = "일반년차잔여일수가 없습니다. 확인바랍니다.";
                                                 oForm.Items.Item("WorkType").Specific.Select("A00", SAPbouiCOM.BoSearchKey.psk_ByValue);
                                                 throw new Exception();
                                             }
@@ -4583,7 +4582,7 @@ namespace PSH_BOne_AddOn
 
                                         if (oRecordSet.Fields.Item("Bqty").Value - oRecordSet.Fields.Item("Sqty").Value < JanQty)
                                         {
-                                            errNum = 2;
+                                            errMessage = "근속보전휴가잔여일수가 없습니다. 확인바랍니다.";
                                             oForm.Items.Item("WorkType").Specific.Select("A00", SAPbouiCOM.BoSearchKey.psk_ByValue);
                                             throw new Exception();
                                         }
@@ -4594,6 +4593,94 @@ namespace PSH_BOne_AddOn
                                             PH_PY008_Time_ReSet();
                                             oForm.Items.Item("OffDate").Specific.Value = oForm.Items.Item("GetDate").Specific.Value;
 
+                                            oForm.Items.Item("Rotation").Specific.Value = 1;
+                                        }
+                                        break;
+
+                                    case "D13":
+                                    case "D14":
+
+
+                                        //자기계발휴가, 유급휴가, 유급반차 by PWG(2022.07.20)
+                                        //자기계발휴가 잔량 확인
+                                        CLTCOD = oForm.Items.Item("SCLTCOD").Specific.Value.ToString().Trim();
+                                        MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value;
+                                        ymd = oForm.Items.Item("PosDate").Specific.Value;
+
+                                        if (Convert.ToDateTime(dataHelpClass.ConvertDateType(oForm.Items.Item("PosDate").Specific.Value, "-")) >= Convert.ToDateTime(ymd.Substring(0, 4) + "-07-01"))
+                                        {
+                                            YY = codeHelpClass.Left(ymd, 4);
+                                        }
+                                        else
+                                        {
+                                            YY = Convert.ToString(Convert.ToInt32(codeHelpClass.Left(ymd, 4)) - 1);
+                                        }
+
+                                        sQry = "exec [PH_PY606_01] '" + CLTCOD + "','" + YY + "', '','', '" + MSTCOD + "'";
+                                        oRecordSet.DoQuery(sQry);
+
+                                        if (oForm.Items.Item("WorkType").Specific.Value.ToString().Trim() == "D13")
+                                        {
+                                            JanQty = 1;
+                                        }
+                                        else if (oForm.Items.Item("WorkType").Specific.Value.ToString().Trim() == "D14")
+                                        {
+                                            JanQty = 0.5;
+                                        }
+
+                                        if (oRecordSet.Fields.Item("selfyu").Value - oRecordSet.Fields.Item("useyu").Value < JanQty)
+                                        {
+                                            errMessage = "자기계발유급휴가 잔여일수가 없습니다. 확인바랍니다.";
+                                            oForm.Items.Item("WorkType").Specific.Select("A00", SAPbouiCOM.BoSearchKey.psk_ByValue);
+                                            throw new Exception();
+                                        }
+                                        else
+                                        {
+                                            oForm.Items.Item("GetTime").Specific.Value = "0000";
+                                            oForm.Items.Item("OffTime").Specific.Value = "0000";
+                                            PH_PY008_Time_ReSet();
+                                            oForm.Items.Item("OffDate").Specific.Value = oForm.Items.Item("GetDate").Specific.Value;
+
+                                            oForm.Items.Item("Rotation").Specific.Value = 1;
+                                        }
+                                        break;
+
+                                    case "D15":
+                                        //자기계발휴가, 무급휴가 by PWG(2022.07.20)
+                                        //자기계발휴가 잔량 확인
+                                        CLTCOD = oForm.Items.Item("SCLTCOD").Specific.Value.ToString().Trim();
+                                        MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value;
+                                        ymd = oForm.Items.Item("PosDate").Specific.Value;
+
+                                        if (Convert.ToDateTime(dataHelpClass.ConvertDateType(oForm.Items.Item("PosDate").Specific.Value, "-")) >= Convert.ToDateTime(ymd.Substring(0, 4) + "-07-01"))
+                                        {
+                                            YY = codeHelpClass.Left(ymd, 4);
+                                        }
+                                        else
+                                        {
+                                            YY = Convert.ToString(Convert.ToInt32(codeHelpClass.Left(ymd, 4)) - 1);
+                                        }
+
+                                        sQry = "exec [PH_PY606_01] '" + CLTCOD + "','" + YY + "', '','', '" + MSTCOD + "'";
+                                        oRecordSet.DoQuery(sQry);
+
+                                        if (oForm.Items.Item("WorkType").Specific.Value.ToString().Trim() == "D15")
+                                        {
+                                            JanQty = 1;
+                                        }
+
+                                        if (oRecordSet.Fields.Item("selfmu").Value - oRecordSet.Fields.Item("usemu").Value < JanQty)
+                                        {
+                                            errMessage = "자기계발무급휴가 잔여일수가 없습니다. 확인바랍니다.";
+                                            oForm.Items.Item("WorkType").Specific.Select("A00", SAPbouiCOM.BoSearchKey.psk_ByValue);
+                                            throw new Exception();
+                                        }
+                                        else
+                                        {
+                                            oForm.Items.Item("GetTime").Specific.Value = "0000";
+                                            oForm.Items.Item("OffTime").Specific.Value = "0000";
+                                            PH_PY008_Time_ReSet();
+                                            oForm.Items.Item("OffDate").Specific.Value = oForm.Items.Item("GetDate").Specific.Value;
                                             oForm.Items.Item("Rotation").Specific.Value = 1;
                                         }
                                         break;
@@ -4637,13 +4724,9 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if (errNum == 1)
+                if (errMessage != string.Empty)
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("일반년차잔여일수가 없습니다. 확인바랍니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-                else if (errNum == 2)
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("보전휴가잔여일수가 없습니다. 확인바랍니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
                 }
                 else
                 {

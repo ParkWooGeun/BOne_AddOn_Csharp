@@ -583,8 +583,8 @@ namespace PSH_BOne_AddOn
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
-                    oForm.EnableMenu("1281", false);
-                    oForm.EnableMenu("1282", true);
+                    oForm.EnableMenu("1281", false); //찾기
+                    oForm.EnableMenu("1282", true); //추가
                     oForm.Items.Item("Focus").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     oForm.Items.Item("DocEntry").Enabled = true;
                     oForm.Items.Item("OrdType").Enabled = true;
@@ -599,6 +599,8 @@ namespace PSH_BOne_AddOn
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
+                    oForm.EnableMenu("1281", true); //찾기
+                    oForm.EnableMenu("1282", true); //추가
                     oForm.Items.Item("Focus").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     oForm.Items.Item("DocEntry").Enabled = false;
                     oForm.Items.Item("OrdType").Enabled = false;
@@ -3077,6 +3079,7 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
+            int i;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
@@ -3094,7 +3097,16 @@ namespace PSH_BOne_AddOn
                                     BubbleEvent = false;
                                     return;
                                 }
-                                if (PSH_Globals.SBO_Application.MessageBox("정말로 취소하시겠습니까?", 1, "예", "아니오") != 1)
+                                for (i = 1; i <= oMat01.VisualRowCount; i++)
+                                {
+                                    if (string.IsNullOrEmpty(oMat01.Columns.Item("OrdMgNum").Cells.Item(i).Specific.Value))
+                                    {
+                                        PSH_Globals.SBO_Application.MessageBox("출고번호 미생성된 건은 취소불가! 관리자에게 문의하세요.");
+                                        BubbleEvent = false;
+                                        return;
+                                    }
+                                }
+                                    if (PSH_Globals.SBO_Application.MessageBox("정말로 취소하시겠습니까?", 1, "예", "아니오") != 1)
                                 {
                                     BubbleEvent = false;
                                     return;

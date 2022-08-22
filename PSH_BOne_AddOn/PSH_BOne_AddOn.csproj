@@ -583,6 +583,7 @@
     <Compile Include="FormClass\SD\PS_SD150.cs" />
     <Compile Include="FormClass\SD\PS_SD160.cs" />
     <Compile Include="FormClass\SD\PS_SD180.cs" />
+    <Compile Include="FormClass\SD\PS_SD185.cs" />
     <Compile Include="FormClass\SD\PS_SD190.cs" />
     <Compile Include="FormClass\SD\PS_SD240.cs" />
     <Compile Include="FormClass\SD\PS_SD241.cs" />
@@ -1997,6 +1998,7 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_MM173_01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_MM173_02.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_QM012_01.rpt" />
+    <None Include="PSH_BOne_AddOn\PathINI\Report\PS_SD185_01.rpt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EXT_Form\FileListBoxForm.resX">
@@ -2692,6 +2694,9 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM030.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD925.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM050.srf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD185.srf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

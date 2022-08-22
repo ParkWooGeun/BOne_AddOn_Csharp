@@ -541,6 +541,7 @@
     <Compile Include="FormClass\QM\PS_QM620.cs" />
     <Compile Include="FormClass\QM\PS_QM903.cs" />
     <Compile Include="FormClass\SD\PS_SD001.cs" />
+    <Compile Include="FormClass\SD\PS_SD002.cs" />
     <Compile Include="FormClass\SD\PS_SD005.cs" />
     <Compile Include="FormClass\SD\PS_SD006.cs" />
     <Compile Include="FormClass\SD\PS_SD010.cs" />

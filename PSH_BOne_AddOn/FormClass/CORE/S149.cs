@@ -277,7 +277,12 @@ namespace PSH_BOne_AddOn.Core
                         oMat01.Columns.Item("14").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                         throw new Exception();
                     }
-                    
+                    if (string.IsNullOrEmpty(oMat01.Columns.Item("U_BaseType").Cells.Item(i).Specific.Value))
+                    {
+                        errMessage = "사용자기준문서 타입은 필수입니다.";
+                        oMat01.Columns.Item("U_BaseType").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                        throw new Exception();
+                    }
                     if (oForm.Items.Item("70").Specific.Selected.Value == "S" || oForm.Items.Item("70").Specific.Selected.Value == "L") //현지,시스템통화
                     {
                         if (codeHelpClass.Right(oMat01.Columns.Item("14").Cells.Item(i).Specific.Value, 3) != "KRW")
@@ -316,7 +321,6 @@ namespace PSH_BOne_AddOn.Core
                         }
                     }
                 }
-            
                 returnValue = true;
             }
             catch (Exception ex)
@@ -567,6 +571,13 @@ namespace PSH_BOne_AddOn.Core
                                 tempForm.LoadForm(oForm, pVal.ItemUID, pVal.ColUID, oMat01.VisualRowCount, oForm.Items.Item("TradeType").Specific.Selected.Value.ToString().Trim());
                                 BubbleEvent = false;
                                 return;
+                            }
+                        }
+                        if (pVal.ColUID == "U_BaseType") //사용자기준문서타입
+                        {
+                            if (pVal.CharPressed == 9)
+                            {
+                                dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "38", "U_BaseType");
                             }
                         }
                     }

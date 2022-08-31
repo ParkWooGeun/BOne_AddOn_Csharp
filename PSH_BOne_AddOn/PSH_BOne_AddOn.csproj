@@ -1,4 +1,4 @@
-ï»¿<?xml version="1.0" encoding="utf-8"?>
+ï»?<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -523,6 +523,7 @@
     <Compile Include="FormClass\PY\PH_PYA90.cs" />
     <Compile Include="FormClass\PY\PS_DateChange.cs" />
     <Compile Include="FormClass\PY\PS_DateCommit.cs" />
+    <Compile Include="FormClass\QM\PS_QM008.cs" />
     <Compile Include="FormClass\QM\PS_QM030.cs" />
     <Compile Include="FormClass\QM\PS_QM075.cs" />
     <Compile Include="FormClass\QM\PS_QM005.cs" />
@@ -2699,6 +2700,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM008.srf" />
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM008.srf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -228,6 +228,7 @@
     <Compile Include="FormClass\MM\PS_MM005.cs" />
     <Compile Include="FormClass\MM\PS_MM006.cs" />
     <Compile Include="FormClass\MM\PS_MM007.cs" />
+    <Compile Include="FormClass\MM\PS_MM008.cs" />
     <Compile Include="FormClass\MM\PS_MM010.cs" />
     <Compile Include="FormClass\MM\PS_MM010_S.cs" />
     <Compile Include="FormClass\MM\PS_MM030.cs" />
@@ -253,8 +254,10 @@
     <Compile Include="FormClass\MM\PS_MM200.cs" />
     <Compile Include="FormClass\MM\PS_MM204.cs" />
     <Compile Include="FormClass\MM\PS_MM205.cs" />
+    <Compile Include="FormClass\MM\PS_MM210.cs" />
     <Compile Include="FormClass\MM\PS_MM225.cs" />
     <Compile Include="FormClass\MM\PS_MM510.cs" />
+    <Compile Include="FormClass\MM\PS_MM916.cs" />
     <Compile Include="FormClass\MM\PS_MM921.cs" />
     <Compile Include="FormClass\CO\PS_CO540.cs" />
     <Compile Include="FormClass\CO\PS_CO040.cs" />
@@ -2693,6 +2696,9 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM030.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD925.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM050.srf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM008.srf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

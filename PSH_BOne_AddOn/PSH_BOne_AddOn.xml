@@ -10944,11 +10944,6 @@
             </summary>
             <param name="oFromDocEntry01"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_HR418.PS_HR418_FormClear">
-            <summary>
-            PS_HR418_FormClear
-            </summary>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_HR418.PS_HR418_MTX01">
             <summary>
             PS_HR418_MTX01
@@ -10989,7 +10984,7 @@
             Raise_EVENT_ITEM_PRESSED
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_HR418.Raise_EVENT_KEY_DOWN(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -10997,7 +10992,7 @@
             Raise_EVENT_KEY_DOWN
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_HR418.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -11005,7 +11000,7 @@
             Raise_EVENT_VALIDATE
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_HR418.Raise_EVENT_GOT_FOCUS(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -11013,7 +11008,7 @@
             Raise_EVENT_GOT_FOCUS
             </summary>
             <param name="FormUID"></param>
-            <param name="pval"></param>
+            <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_HR418.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -11070,6 +11065,12 @@
         <member name="M:PSH_BOne_AddOn.PS_HR419.PS_HR419_HeaderSpaceLineDel">
             <summary>
             PS_HR419_HeaderSpaceLineDel
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_HR419.PS_HR419_MatrixSpaceLineDel">
+            <summary>
+            PS_HR419_MatrixSpaceLineDel
             </summary>
             <returns></returns>
         </member>

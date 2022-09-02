@@ -642,6 +642,7 @@ namespace PSH_BOne_AddOn
 				else if (pVal.Before_Action == false)
 				{
 					PS_HR401_AddMatrixRow(oMat.VisualRowCount, false);
+					oMat.AutoResizeColumns();
 					PS_HR401_FormItemEnabled();
 				}
 			}

@@ -252,7 +252,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-				oMat.FlushToDataSource();
 				switch (oUID)
 				{
 					case "":
@@ -309,16 +308,6 @@ namespace PSH_BOne_AddOn
 
 				if (oMat.VisualRowCount > 0)
 				{
-					for (i = 0; i <= oMat.VisualRowCount - 2; i++)
-					{
-						oDS_PS_HR402L.Offset = i;
-						if (string.IsNullOrEmpty(oDS_PS_HR402L.GetValue("U_MSTCOD", i).ToString().Trim()))
-						{
-							errMessage = "사번은 필수입력사항입니다. 확인하세요.";
-							throw new Exception();
-						}
-					}
-
 					if (string.IsNullOrEmpty(oDS_PS_HR402L.GetValue("U_Number", oMat.VisualRowCount - 1).ToString().Trim()))
 					{
 						oDS_PS_HR402L.RemoveRecord(oMat.VisualRowCount - 1);
@@ -571,13 +560,6 @@ namespace PSH_BOne_AddOn
 				}
 				else if (pVal.BeforeAction == false)
 				{
-					if (pVal.ItemChanged == true)
-					{
-						if (pVal.ColUID == "Number")
-						{
-							PS_HR402_FlushToItemValue(pVal.ItemUID, pVal.Row, pVal.ColUID);
-						}
-					}
 				}
 			}
 			catch (Exception ex)

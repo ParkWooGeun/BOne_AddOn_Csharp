@@ -3097,20 +3097,22 @@ namespace PSH_BOne_AddOn
                                     BubbleEvent = false;
                                     return;
                                 }
-                                for (i = 1; i <= oMat01.VisualRowCount; i++)
+                                for (i = 1; i < oMat01.VisualRowCount; i++)
                                 {
-                                    if (string.IsNullOrEmpty(oMat01.Columns.Item("OrdMgNum").Cells.Item(i).Specific.Value))
+                                    if (string.IsNullOrEmpty(oMat01.Columns.Item("OutDoc").Cells.Item(i).Specific.Value))
                                     {
                                         PSH_Globals.SBO_Application.MessageBox("출고번호 미생성된 건은 취소불가! 관리자에게 문의하세요.");
                                         BubbleEvent = false;
                                         return;
                                     }
                                 }
-                                    if (PSH_Globals.SBO_Application.MessageBox("정말로 취소하시겠습니까?", 1, "예", "아니오") != 1)
+
+                                if (PSH_Globals.SBO_Application.MessageBox("정말로 취소하시겠습니까?", 1, "예", "아니오") != 1)
                                 {
                                     BubbleEvent = false;
                                     return;
                                 }
+
                                 if (oForm.Items.Item("CpCode").Specific.Value.ToString().Trim() == "CP80101" || oForm.Items.Item("CpCode").Specific.Value.ToString().Trim() == "CP80111")
                                 {
                                     if (PS_PP052_Add_InventoryGenEntry() == false)

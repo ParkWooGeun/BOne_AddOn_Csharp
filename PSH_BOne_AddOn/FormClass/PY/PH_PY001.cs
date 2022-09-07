@@ -2836,7 +2836,6 @@ namespace PSH_BOne_AddOn
             string errCode = string.Empty;
             int errDiCode = 0;
             string errDiMsg = string.Empty;
-            SAPbobsCOM.AccountCategory accountCategory = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oAccountSegmentationCategories);
             SAPbobsCOM.EmployeesInfo oOHEM = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oEmployeesInfo);
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 

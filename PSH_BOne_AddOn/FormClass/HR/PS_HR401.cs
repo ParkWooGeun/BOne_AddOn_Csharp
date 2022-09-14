@@ -51,10 +51,11 @@ namespace PSH_BOne_AddOn
 
 				oForm.Freeze(true);
 				PS_HR401_CreateItems();
-				PS_HR401_ComboBox_Setting();
-				PS_HR401_SetDocument(oFromDocEntry01);
+                PS_HR401_ComboBox_Setting();
+                PS_HR401_SetDocument(oFromDocEntry01);
+                //oMat.AutoResizeColumns();
 
-				oForm.EnableMenu("1293", true); // 행삭제
+                oForm.EnableMenu("1293", true); // 행삭제
 				oForm.EnableMenu("1287", true); // 복제
 				oForm.EnableMenu("1284", true); // 취소
 			}
@@ -131,6 +132,7 @@ namespace PSH_BOne_AddOn
 				{
 					PS_HR401_FormItemEnabled();
 					PS_HR401_AddMatrixRow(0, true);
+					oMat.AutoResizeColumns();
 				}
 				else
 				{
@@ -159,17 +161,26 @@ namespace PSH_BOne_AddOn
 					oForm.EnableMenu("1281", true);	 //찾기
 					oForm.EnableMenu("1282", false); //추가
 					oForm.Items.Item("Code").Enabled = false;
+					oForm.Items.Item("BPLId").Enabled = true;
+					oForm.Items.Item("RateCode").Enabled = true;
+					oForm.Items.Item("RateMNm").Enabled = true;
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
 				{
 					oForm.EnableMenu("1281", true);	//찾기
-					oForm.Items.Item("Code").Enabled = false;
 					oForm.EnableMenu("1282", true); //추가
+					oForm.Items.Item("Code").Enabled = true;
+					oForm.Items.Item("BPLId").Enabled = true;
+					oForm.Items.Item("RateCode").Enabled = true;
+					oForm.Items.Item("RateMNm").Enabled = true;
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
 				{
-					oForm.Items.Item("Code").Enabled = false;
 					oForm.EnableMenu("1282", true); //추가
+					oForm.Items.Item("Code").Enabled = false;
+					oForm.Items.Item("BPLId").Enabled = false;
+					oForm.Items.Item("RateCode").Enabled = false;
+					oForm.Items.Item("RateMNm").Enabled = false;
 				}
 			}
 			catch (Exception ex)
@@ -224,7 +235,6 @@ namespace PSH_BOne_AddOn
 			{
 				oDS_PS_HR401H.SetValue("Code", 0, "");
 				oDS_PS_HR401H.SetValue("U_BPLId", 0, "");
-
 				for (i = 0; i <= oMat.VisualRowCount - 1; i++)
 				{
 					oMat.FlushToDataSource();
@@ -496,6 +506,7 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
+				oForm.Freeze(true);
 				if (pVal.BeforeAction == true)
 				{
 					if (pVal.ItemUID == "1")
@@ -549,6 +560,10 @@ namespace PSH_BOne_AddOn
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+			}
+            finally
+            {
+				oForm.Freeze(false);
 			}
 		}
 

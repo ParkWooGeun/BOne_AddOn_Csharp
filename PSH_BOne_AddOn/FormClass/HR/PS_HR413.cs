@@ -160,24 +160,33 @@ namespace PSH_BOne_AddOn
 				{
 					oForm.EnableMenu("1281", true);	 //찾기
 					oForm.EnableMenu("1282", false); //추가
+					oForm.Items.Item("BPLId").Enabled = true;
+					oForm.Items.Item("YmFrom").Enabled = true;
+					oForm.Items.Item("YmTo").Enabled = true;
 					oForm.Items.Item("Code").Enabled = false;
 					oForm.Items.Item("Year").Enabled = true;
 					oForm.Items.Item("RateCode").Enabled = true;
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
 				{
-					oForm.EnableMenu("1281", true);	//찾기
+					oForm.EnableMenu("1281", true); //찾기
+					oForm.EnableMenu("1282", true); //추가
+					oForm.Items.Item("BPLId").Enabled = true;
+					oForm.Items.Item("YmFrom").Enabled = false;
+					oForm.Items.Item("YmTo").Enabled = false;
 					oForm.Items.Item("Code").Enabled = false;
 					oForm.Items.Item("Year").Enabled = true;
 					oForm.Items.Item("RateCode").Enabled = true;
-					oForm.EnableMenu("1282", true);	//추가
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
 				{
+					oForm.EnableMenu("1282", true); //추가
+					oForm.Items.Item("BPLId").Enabled = false;
+					oForm.Items.Item("YmFrom").Enabled = false;
+					oForm.Items.Item("YmTo").Enabled = false;
 					oForm.Items.Item("Code").Enabled = false;
 					oForm.Items.Item("Year").Enabled = false;
 					oForm.Items.Item("RateCode").Enabled = false;
-					oForm.EnableMenu("1282", true); //추가
 				}
 			}
 			catch (Exception ex)
@@ -485,7 +494,7 @@ namespace PSH_BOne_AddOn
 					oDS_PS_HR413L.SetValue("U_MSTCOD", sRow - 1, oRecordSet.Fields.Item(0).Value.ToString().Trim());   //사번
 					oDS_PS_HR413L.SetValue("U_FULLNAME", sRow - 1, oRecordSet.Fields.Item(1).Value.ToString().Trim()); //성명
 					oDS_PS_HR413L.SetValue("U_Qty", sRow - 1, oRecordSet.Fields.Item(2).Value.ToString().Trim());	   //건수
-					oDS_PS_HR413L.SetValue("U_Value", sRow - 1, oRecordSet.Fields.Item(3).Value).ToString().Trim();	   //점수
+					oDS_PS_HR413L.SetValue("U_Value", sRow - 1, oRecordSet.Fields.Item(3).Value.ToString().Trim());	   //점수
 					oDS_PS_HR413L.SetValue("U_Comments", sRow - 1, oRecordSet.Fields.Item(4).Value.ToString().Trim()); //비고
 
 					PS_HR413_AddMatrixRow(sRow, false);

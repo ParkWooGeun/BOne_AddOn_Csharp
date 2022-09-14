@@ -372,6 +372,55 @@ namespace PSH_BOne_AddOn
 			}
 		}
 
+
+		/// <summary>
+		/// PS_HR415_FormItemEnabled
+		/// </summary>
+		private void PS_HR415_FormItemEnabled()
+		{
+			try
+			{
+				oForm.Freeze(true);
+				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+				{
+					oForm.EnableMenu("1281", true);  //찾기
+					oForm.EnableMenu("1282", false); //추가
+					oForm.Items.Item("BPLId").Enabled = true;
+					oForm.Items.Item("YmFrom").Enabled = true;
+					oForm.Items.Item("YmTo").Enabled = true;
+					oForm.Items.Item("Code").Enabled = false;
+					oForm.Items.Item("Year").Enabled = true;
+				}
+				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
+				{
+					oForm.EnableMenu("1281", true); //찾기
+					oForm.Items.Item("BPLId").Enabled = true;
+					oForm.Items.Item("YmFrom").Enabled = false;
+					oForm.Items.Item("YmTo").Enabled = false;
+					oForm.Items.Item("Code").Enabled = false;
+					oForm.Items.Item("Year").Enabled = true;
+					oForm.EnableMenu("1282", true); //추가
+				}
+				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
+				{
+					oForm.Items.Item("BPLId").Enabled = false;
+					oForm.Items.Item("YmFrom").Enabled = false;
+					oForm.Items.Item("YmTo").Enabled = false;
+					oForm.Items.Item("Code").Enabled = false;
+					oForm.Items.Item("Year").Enabled = false;
+					oForm.EnableMenu("1282", true); //추가
+				}
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+			}
+			finally
+			{
+				oForm.Freeze(false);
+			}
+		}
+
 		/// <summary>
 		/// Form Item Event
 		/// </summary>
@@ -525,6 +574,7 @@ namespace PSH_BOne_AddOn
 						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE && pVal.Action_Success == true)
 						{
 							oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
+							PS_HR415_FormItemEnabled();
 							PSH_Globals.SBO_Application.ActivateMenuItem("1282");
 						}
 					}
@@ -661,6 +711,8 @@ namespace PSH_BOne_AddOn
 		/// <param name="BubbleEvent"></param>
 		public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
 		{
+			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
 			try
 			{
 				oForm.Freeze(true);
@@ -699,14 +751,18 @@ namespace PSH_BOne_AddOn
 							Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
 							break;
 						case "1281": //찾기
+							PS_HR415_FormItemEnabled();
 							break;
 						case "1282": //추가
+							PS_HR415_FormItemEnabled();
+							oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
 							PS_HR415_AddMatrixRow(0, true);
 							break;
 						case "1288": //레코드이동(최초)
 						case "1289": //레코드이동(이전)
 						case "1290": //레코드이동(다음)
 						case "1291": //레코드이동(최종)
+							PS_HR415_FormItemEnabled();
 							break;
 						case "1287": //복제
 							PS_HR415_CopyMatrixRow();

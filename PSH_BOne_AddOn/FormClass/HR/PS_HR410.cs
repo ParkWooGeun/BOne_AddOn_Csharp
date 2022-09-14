@@ -172,6 +172,7 @@ namespace PSH_BOne_AddOn
 				{
 					oForm.EnableMenu("1281", true);  //찾기
 					oForm.EnableMenu("1282", false); //추가
+					oForm.Items.Item("BPLId").Enabled = true;
 					oForm.Items.Item("Code").Enabled = false;
 					oForm.Items.Item("Year").Enabled = true;
 					oForm.Items.Item("Number").Enabled = true;
@@ -179,17 +180,19 @@ namespace PSH_BOne_AddOn
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
 				{
 					oForm.EnableMenu("1281", true); //찾기
+					oForm.EnableMenu("1282", true); //추가
+					oForm.Items.Item("BPLId").Enabled = true;
 					oForm.Items.Item("Code").Enabled = false;
 					oForm.Items.Item("Year").Enabled = true;
 					oForm.Items.Item("Number").Enabled = true;
-					oForm.EnableMenu("1282", true); //추가
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
 				{
+					oForm.EnableMenu("1282", true); //추가
+					oForm.Items.Item("BPLId").Enabled = false;
 					oForm.Items.Item("Code").Enabled = false;
 					oForm.Items.Item("Year").Enabled = false;
 					oForm.Items.Item("Number").Enabled = false;
-					oForm.EnableMenu("1282", true); //추가
 				}
 			}
 			catch (Exception ex)
@@ -251,6 +254,7 @@ namespace PSH_BOne_AddOn
 					oDS_PS_HR410L.SetValue("Code", i, "");
 					oMat.LoadFromDataSource();
 				}
+				PS_HR410_FormItemEnabled();
 			}
 			catch (Exception ex)
 			{
@@ -756,6 +760,7 @@ namespace PSH_BOne_AddOn
 				{
 					PS_HR410_AddMatrixRow(oMat.VisualRowCount, false);
 					PS_HR410_FormItemEnabled();
+					oMat.AutoResizeColumns();
 				}
 			}
 			catch (Exception ex)

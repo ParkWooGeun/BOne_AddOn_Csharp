@@ -11,7 +11,6 @@ namespace PSH_BOne_AddOn
 	{
 		private string oFormUniqueID;
 		private SAPbouiCOM.Matrix oMat;
-			
 		private SAPbouiCOM.DBDataSource oDS_PS_HR406H; //등록헤더
 		private SAPbouiCOM.DBDataSource oDS_PS_HR406L; //등록라인
 		private int oLast_Mode;
@@ -659,6 +658,7 @@ namespace PSH_BOne_AddOn
 		{
 			string Year;
 			string errMessage = string.Empty;
+			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
 			try
 			{
@@ -694,7 +694,7 @@ namespace PSH_BOne_AddOn
 						{
 							oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
 							PSH_Globals.SBO_Application.ActivateMenuItem("1282");
-							oForm.Items.Item("BPLId").Specific.Select("4", SAPbouiCOM.BoSearchKey.psk_ByValue);
+							oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
 						}
 						else if (oLast_Mode == Convert.ToInt32(SAPbouiCOM.BoFormMode.fm_FIND_MODE))
 						{
@@ -806,7 +806,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
-
 				if (pVal.BeforeAction == true)
 				{
 				}
@@ -908,6 +907,8 @@ namespace PSH_BOne_AddOn
 		/// <param name="BubbleEvent"></param>
 		public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
 		{
+			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
 			try
 			{
 				oForm.Freeze(true);
@@ -954,7 +955,7 @@ namespace PSH_BOne_AddOn
 						case "1282": //추가
 							PS_HR406_FormItemEnabled();
 							PS_HR406_FormClear();
-							oForm.Items.Item("BPLId").Specific.Select("4", SAPbouiCOM.BoSearchKey.psk_ByValue);
+							oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
 							break;
 						case "1288": //레코드이동(최초)
 						case "1289": //레코드이동(이전)

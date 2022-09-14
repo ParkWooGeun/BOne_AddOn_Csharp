@@ -62,12 +62,12 @@ namespace PSH_BOne_AddOn
 				PS_HR001_EnableMenus();
 				PS_HR001_SetDocument(oFromDocEntry01);
 
-				oForm.EnableMenu("1283", false); // 삭제
+				oForm.EnableMenu("1283", true); // 삭제
 				oForm.EnableMenu("1286", false); // 닫기
 				oForm.EnableMenu("1287", false); // 복제
 				oForm.EnableMenu("1285", false); // 복원
-				oForm.EnableMenu("1284", true); // 취소
-				oForm.EnableMenu("1293", true); // 행삭제
+				oForm.EnableMenu("1284", false);  // 취소
+				oForm.EnableMenu("1293", true);  // 행삭제
 			}
 			catch (Exception ex)
 			{
@@ -295,7 +295,7 @@ namespace PSH_BOne_AddOn
 				}
 				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
-					if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_HR001H] WHERE U_GrpCode = '" + oForm.Items.Item("GrpCode").Specific.Value.ToString().Trim() + "' AND U_CodeLv1 = '" + oForm.Items.Item("CodeLv1").Specific.Value.ToString().Trim() + "'", 0, 1) > 0)
+					if (Convert.ToDouble(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_HR001H] WHERE U_GrpCode = '" + oForm.Items.Item("GrpCode").Specific.Value.ToString().Trim() + "' AND U_CodeLv1 = '" + oForm.Items.Item("CodeLv1").Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
 					{
 						errMessage = "중복된 조치구분코드입니다.";
 						throw new Exception();
@@ -521,6 +521,7 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
+				oForm.Freeze(true);
 				if (pVal.BeforeAction == true)
 				{
 					if (pVal.ItemUID == "1")
@@ -580,6 +581,10 @@ namespace PSH_BOne_AddOn
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+			}
+            finally
+            {
+				oForm.Freeze(false);
 			}
 		}
 
@@ -647,12 +652,6 @@ namespace PSH_BOne_AddOn
 			}
 		}
 
-		/// <summary>
-		/// COMBO_SELECT 이벤트
-		/// </summary>
-		/// <param name="FormUID">Form UID</param>
-		/// <param name="pVal">ItemEvent 객체</param>
-		/// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
 		private void Raise_EVENT_COMBO_SELECT(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
 			try

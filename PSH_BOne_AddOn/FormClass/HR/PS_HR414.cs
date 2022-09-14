@@ -98,8 +98,8 @@ namespace PSH_BOne_AddOn
 		private void PS_HR414_ComboBox_Setting()
 		{
 			string sQry;
-			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
 			{
@@ -162,6 +162,9 @@ namespace PSH_BOne_AddOn
 				{
 					oForm.EnableMenu("1281", true);	 //찾기
 					oForm.EnableMenu("1282", false); //추가
+					oForm.Items.Item("BPLId").Enabled = true;
+					oForm.Items.Item("YmFrom").Enabled = true;
+					oForm.Items.Item("YmTo").Enabled = true;
 					oForm.Items.Item("Code").Enabled = false;
 					oForm.Items.Item("Year").Enabled = true;
 					oForm.Items.Item("PMCode").Enabled = true;
@@ -169,6 +172,9 @@ namespace PSH_BOne_AddOn
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
 				{
 					oForm.EnableMenu("1281", true); //찾기
+					oForm.Items.Item("BPLId").Enabled = true;
+					oForm.Items.Item("YmFrom").Enabled = false;
+					oForm.Items.Item("YmTo").Enabled = false;
 					oForm.Items.Item("Code").Enabled = false;
 					oForm.Items.Item("Year").Enabled = true;
 					oForm.Items.Item("PMCode").Enabled = true;
@@ -176,6 +182,9 @@ namespace PSH_BOne_AddOn
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
 				{
+					oForm.Items.Item("BPLId").Enabled = false;
+					oForm.Items.Item("YmFrom").Enabled = false;
+					oForm.Items.Item("YmTo").Enabled = false;
 					oForm.Items.Item("Code").Enabled = false;
 					oForm.Items.Item("Year").Enabled = false;
 					oForm.Items.Item("PMCode").Enabled = false;

@@ -62,11 +62,11 @@ namespace PSH_BOne_AddOn
 				PS_HR002_EnableMenus();
 				PS_HR002_SetDocument(oFromDocEntry01);
 
-				oForm.EnableMenu("1283", false); // 삭제
+				oForm.EnableMenu("1283", true); // 삭제
 				oForm.EnableMenu("1286", false); // 닫기
 				oForm.EnableMenu("1287", false); // 복제
 				oForm.EnableMenu("1285", false); // 복원
-				oForm.EnableMenu("1284", true);  // 취소
+				oForm.EnableMenu("1284", false);  // 취소
 				oForm.EnableMenu("1293", true);  // 행삭제
 			}
 			catch (Exception ex)
@@ -581,6 +581,7 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
+				oForm.Freeze(true);
 				if (pVal.BeforeAction == true)
 				{
 					if (pVal.ItemUID == "1")
@@ -637,6 +638,10 @@ namespace PSH_BOne_AddOn
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+			}
+            finally
+            {
+				oForm.Freeze(false);
 			}
 		}
 

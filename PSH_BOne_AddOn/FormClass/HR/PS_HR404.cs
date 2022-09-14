@@ -169,17 +169,20 @@ namespace PSH_BOne_AddOn
 					oForm.EnableMenu("1281", true);  //찾기
 					oForm.EnableMenu("1282", false); //추가
 					oForm.Items.Item("Code").Enabled = false;
+					oForm.Items.Item("BPLId").Enabled = true;
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
 				{
 					oForm.EnableMenu("1281", true); //찾기
-					oForm.Items.Item("Code").Enabled = false;
 					oForm.EnableMenu("1282", true); //추가
+					oForm.Items.Item("Code").Enabled = false;
+					oForm.Items.Item("BPLId").Enabled = true;
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
 				{
-					oForm.Items.Item("Code").Enabled = false;
 					oForm.EnableMenu("1282", true); //추가
+					oForm.Items.Item("Code").Enabled = false;
+					oForm.Items.Item("BPLId").Enabled = false;
 				}
 			}
 			catch (Exception ex)
@@ -499,6 +502,7 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
+				oForm.Freeze(true);
 				if (pVal.BeforeAction == true)
 				{
 					if (pVal.ItemUID == "1")
@@ -552,6 +556,10 @@ namespace PSH_BOne_AddOn
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+			}
+            finally
+            {
+				oForm.Freeze(false);
 			}
 		}
 

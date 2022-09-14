@@ -63,11 +63,11 @@ namespace PSH_BOne_AddOn
 				PS_HR000_EnableMenus();
 				PS_HR000_SetDocument(oFromDocEntry01);
 
-				oForm.EnableMenu("1283", false); // 삭제
+				oForm.EnableMenu("1283", true); // 삭제
 				oForm.EnableMenu("1286", false); // 닫기
 				oForm.EnableMenu("1287", false); // 복제
 				oForm.EnableMenu("1285", false); // 복원
-				oForm.EnableMenu("1284", true);  // 취소
+				oForm.EnableMenu("1284", false);  // 취소
 				oForm.EnableMenu("1293", true);  // 행삭제
 			}
 			catch (Exception ex)
@@ -288,7 +288,7 @@ namespace PSH_BOne_AddOn
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
-					if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_HR000H] WHERE U_GrpCode = '" + oForm.Items.Item("GrpCode").Specific.Value.ToString().Trim() + "'", 0, 1) > 0)
+					if (Convert.ToDouble(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_HR000H] WHERE U_GrpCode = '" + oForm.Items.Item("GrpCode").Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
 					{
 						oForm.Items.Item("GrpCode").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 						errMessage = "중복된 조치구분코드입니다.";
@@ -473,6 +473,7 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
+				oForm.Freeze(true);
 				if (pVal.BeforeAction == true)
 				{
 					if (pVal.ItemUID == "1")
@@ -529,6 +530,10 @@ namespace PSH_BOne_AddOn
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+			}
+            finally
+            {
+				oForm.Freeze(false);
 			}
 		}
 

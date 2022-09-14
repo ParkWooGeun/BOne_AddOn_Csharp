@@ -8268,14 +8268,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_HR001.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            COMBO_SELECT 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_HR001.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             CLICK 이벤트
@@ -10670,6 +10662,11 @@
         <member name="M:PSH_BOne_AddOn.PS_HR415.PS_HR415_LoadData">
             <summary>
             LoadData
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_HR415.PS_HR415_FormItemEnabled">
+            <summary>
+            PS_HR415_FormItemEnabled
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_HR415.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">

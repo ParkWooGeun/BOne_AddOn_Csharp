@@ -361,57 +361,55 @@ namespace PSH_BOne_AddOn
 
             try
             {
+                oForm.Freeze(true);
                 if (pVal.BeforeAction == true)
                 {
                     if (pVal.ItemUID == "Btn01")
                     {
-                        if (pVal.ItemUID == "Btn01")
+                        BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+                        Year_Renamed = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
+                        Number = oForm.Items.Item("Number").Specific.Value.ToString().Trim();
+                        MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value;
+                        FULLNAME = oForm.Items.Item("FULLNAME").Specific.Value;
+
+                        if (oForm.Items.Item("Check1").Specific.Checked == true && oForm.Items.Item("Check2").Specific.Checked == true && oForm.Items.Item("Check3").Specific.Checked == true
+                                && oForm.Items.Item("Check4").Specific.Checked == true && oForm.Items.Item("Check5").Specific.Checked == true && oForm.Items.Item("Check6").Specific.Checked == true
+                                && oForm.Items.Item("Check7").Specific.Checked == true && oForm.Items.Item("Check8").Specific.Checked == true && oForm.Items.Item("Check9").Specific.Checked == true
+                                && oForm.Items.Item("Check10").Specific.Checked == true && oForm.Items.Item("Check11").Specific.Checked == true) 
                         {
-                            BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
-                            Year_Renamed = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
-                            Number = oForm.Items.Item("Number").Specific.Value.ToString().Trim();
-                            MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value;
-                            FULLNAME = oForm.Items.Item("FULLNAME").Specific.Value;
-
-                            if (oForm.Items.Item("Check1").Specific.Checked == true && oForm.Items.Item("Check2").Specific.Checked == true && oForm.Items.Item("Check3").Specific.Checked == true
-                                 && oForm.Items.Item("Check4").Specific.Checked == true && oForm.Items.Item("Check5").Specific.Checked == true && oForm.Items.Item("Check6").Specific.Checked == true
-                                 && oForm.Items.Item("Check7").Specific.Checked == true && oForm.Items.Item("Check8").Specific.Checked == true && oForm.Items.Item("Check9").Specific.Checked == true
-                                 && oForm.Items.Item("Check10").Specific.Checked == true && oForm.Items.Item("Check11").Specific.Checked == true)
-                            {
-                            }
-                            else
-                            {
-                                errMessage = "공정서약을 체크하세요.";
-                                throw new Exception();
-                            }
-
-                            sQry = " Select Count(*) From Z_PS_HR403 Where BPLId = '" + BPLID + "' and Year = '" + Year_Renamed + "' And Number = '" + Number + "' And MSTCOD = '" + MSTCOD + "'";
-
-                            oRecordSet.DoQuery(sQry);
-                            Cnt = oRecordSet.Fields.Item(0).Value;
-
-                            if (Cnt > 0)
-                            {
-                                errMessage = "이미 서약하였습니다.";
-                                throw new Exception();
-                            }
-                            else
-                            {
-                                if (Convert.ToString(PSH_Globals.SBO_Application.MessageBox("평가서약을 하시겠습니까?", 1, "&확인", "&취소")) == "1")
-                                {
-                                    sQry = " insert into Z_PS_HR403 Values ('" + BPLID + "','" + Year_Renamed + "','" + Number + "','" + MSTCOD + "','" + FULLNAME + "','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y')";
-                                    oRecordSet.DoQuery(sQry);
-                                    PSH_Globals.SBO_Application.SetStatusBarMessage("평가서약을 완료하였습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                                    oForm.Items.Item("2").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                                }
-                                else
-                                {
-                                    errMessage = "평가서약을 취소 하였습니다.";
-                                    throw new Exception();
-                                }
-                            }
+                        }
+                        else
+                        {
+                            errMessage = "공정서약을 체크하세요.";
+                            throw new Exception();
                         }
 
+                        sQry = " Select Count(*) From Z_PS_HR403 Where BPLId = '" + BPLID + "' and Year = '" + Year_Renamed + "' And Number = '" + Number + "' And MSTCOD = '" + MSTCOD + "'";
+
+                        oRecordSet.DoQuery(sQry);
+                        Cnt = oRecordSet.Fields.Item(0).Value;
+
+                        if (Cnt > 0)
+                        {
+                            errMessage = "이미 서약하였습니다.";
+                            throw new Exception();
+                        }
+                        else
+                        {
+                            if (Convert.ToString(PSH_Globals.SBO_Application.MessageBox("평가서약을 하시겠습니까?", 1, "&확인", "&취소")) == "1")
+                            {
+                                sQry = " insert into Z_PS_HR403 Values ('" + BPLID + "','" + Year_Renamed + "','" + Number + "','" + MSTCOD + "','" + FULLNAME + "','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y')";
+                                oRecordSet.DoQuery(sQry);
+                                PSH_Globals.SBO_Application.MessageBox("평가서약을 완료하였습니다.");
+                                oForm.Items.Item("Year").Specific.Value = "";
+                                oForm.Items.Item("MSTCOD").Specific.Value = "";
+                            }
+                            else
+                            {
+                                errMessage = "평가서약을 취소 하였습니다.";
+                                throw new Exception();
+                            }
+                        }
                     }
                 }
             }
@@ -428,6 +426,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }

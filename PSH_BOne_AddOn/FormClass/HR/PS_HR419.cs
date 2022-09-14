@@ -534,20 +534,27 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void PS_HR419_Matrix_Grade_Set()
 		{
-			string sQry;
 			int i;
 			int Cnt;
-			string BPLID;
 			int A;
 			int B;
 			int C;
 			int D;
+			string sQry;
+			string BPLID;
+			string errMessage = string.Empty;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
 			{
 				oForm.Freeze(true);
 				BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
+				if (string.IsNullOrEmpty(oForm.Items.Item("Cnt").Specific.Value.ToString().Trim()))
+				{
+					errMessage = "평가그룹 LIST를 먼저 선택하세요.";
+					throw new Exception();
+				}
+
 				Cnt = Convert.ToInt32(oForm.Items.Item("Cnt").Specific.Value.ToString().Trim());
 
 				sQry = "Select b.U_A, b.U_B, b.U_C, b.U_D";
@@ -560,6 +567,7 @@ namespace PSH_BOne_AddOn
 				B = Convert.ToInt32(oRecordSet.Fields.Item(1).Value);
 				C = Convert.ToInt32(oRecordSet.Fields.Item(2).Value);
 				D = Convert.ToInt32(oRecordSet.Fields.Item(3).Value);
+
 
 				for (i = 1; i <= A + B + C + D; i++)
 				{
@@ -588,7 +596,14 @@ namespace PSH_BOne_AddOn
 			}
 			catch (Exception ex)
 			{
-				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+				if(errMessage != string.Empty)
+                {
+					PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+				{
+					PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+				}
 			}
 			finally
 			{

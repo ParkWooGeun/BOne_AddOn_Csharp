@@ -394,7 +394,7 @@ namespace PSH_BOne_AddOn
 						}
 						else
 						{
-							if (Convert.ToDouble(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_AD105L] WHERE U_BasEntry = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "-" + oMat.Columns.Item("LineID").Cells.Item(oLastColRow01).Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
+						if (Convert.ToDouble(dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_AD105L] WHERE U_BasEntry = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "-" + oMat.Columns.Item("LineID").Cells.Item(oLastColRow01).Specific.Value.ToString().Trim() + "'", 0, 1)) > 0)
 							{
 								errMessage = "개발완료보고가 등록된 행입니다. 삭제할수 없습니다.";
 								throw new Exception();

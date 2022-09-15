@@ -164,7 +164,8 @@ namespace PSH_BOne_AddOn
                         }
                         else
                         {
-                            if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_AD104L] WHERE U_BasEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "-" + oMat01.Columns.Item("LineID").Cells.Item(oLastColRow01).Specific.Value + "'", 0, 1) > 0)
+                            //if (dataHelpClass.GetValue("SELECT COUNT(*) FROM [@PS_AD104L] WHERE U_BasEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "-" + oMat01.Columns.Item("LineID").Cells.Item(oLastColRow01).Specific.Value + "'", 0, 1) > 0) //여기오류발생
+                            if (!string.IsNullOrEmpty("SELECT COUNT(*) FROM [@PS_AD104L] WHERE U_BasEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "-" + oMat01.Columns.Item("LineID").Cells.Item(oLastColRow01).Specific.Value + "'")) //수정
                             {
                                 errMessage = "개발품의서가 등록된 행입니다. 삭제할수 없습니다.";
                             }
@@ -420,7 +421,7 @@ namespace PSH_BOne_AddOn
                 oMat01.LoadFromDataSource();
                 oMat01.AutoResizeColumns();
 
-                System.IO.File.Copy(sourceFile, targetFile, true); //파일 복사
+                System.IO.File.Copy(sourceFile, targetFile, true); //파일 복사 (여기서 오류발생)
 
                 PSH_Globals.SBO_Application.MessageBox("업로드 되었습니다.");
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)

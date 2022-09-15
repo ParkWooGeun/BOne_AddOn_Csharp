@@ -8650,6 +8650,11 @@
             PS_FX020_LoadData
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_FX020.PS_FX020_FormItemEnabled">
+            <summary>
+            모드에 따른 아이템 설정
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_FX020.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event
@@ -8698,9 +8703,9 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_FX020.Raise_MenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_FX020.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>
-            Raise_MenuEvent
+            FormMenuEvent
             </summary>
             <param name="FormUID"></param>
             <param name="pVal"></param>

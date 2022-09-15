@@ -209,6 +209,8 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Items.Item("DocNum").Enabled = false;
                     oForm.Items.Item("JdtDate").Enabled = true;
+                    oForm.Items.Item("BPLId").Enabled = true;
+                    oForm.Items.Item("YM").Enabled = true;
                     oForm.Items.Item("Btn02").Enabled = true;
                     oForm.Items.Item("Btn03").Enabled = true;
                 }
@@ -216,12 +218,16 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Items.Item("DocNum").Enabled = true;
                     oForm.Items.Item("JdtDate").Enabled = true;
+                    oForm.Items.Item("BPLId").Enabled = true;
+                    oForm.Items.Item("YM").Enabled = true;
                     oForm.Items.Item("Btn02").Enabled = true;
                     oForm.Items.Item("Btn03").Enabled = true;
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
                     oForm.Items.Item("DocNum").Enabled = false;
+                    oForm.Items.Item("BPLId").Enabled = false;
+                    oForm.Items.Item("YM").Enabled = false;
                     if (string.IsNullOrEmpty(oForm.Items.Item("JdtCC").Specific.Value))
                     {
                         oForm.Items.Item("JdtDate").Enabled = true;

@@ -1552,6 +1552,7 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_CLICK(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
+            int i;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
@@ -1571,8 +1572,15 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "ClasCode")
                     {
-                        dataHelpClass.Set_ComboList(oForm.Items.Item("LongYear").Specific, "SELECT b.U_Minor, b.U_CdName FROM [@PS_SY001H] a Inner Join [@PS_SY001L] b On a.Code = b.Code And a.Code = 'FX007' and b.U_RelCd = '" + oForm.Items.Item("ClasCode").Specific.Value.ToString().Trim() + "' order by U_Seq", "", true, true);
-                       // dataHelpClass.Set_ComboList(oForm.Items.Item("LongYear").Specific, "SELECT b.U_Minor, b.U_CdName FROM [@PS_SY001H] a Inner Join [@PS_SY001L] b On a.Code = b.Code And a.Code = 'FX007' and b.U_RelCd = '" + oForm.Items.Item("ClasCode").Specific.Value.ToString().Trim() + "' order by U_Seq", "", false, false);
+                        //for (i = 0; i <= oForm.Items.Item("LongYear").Specific.ValidValues.Count - 1; i++)
+                        //{
+                        //    oForm.Items.Item("LongYear").Specific.ValidValues.Remove(0, SAPbouiCOM.BoSearchKey.psk_Index);
+                        //}
+                       // dataHelpClass.Set_ComboList(oForm.Items.Item("LongYear").Specific, "SELECT U_Code, U_CodeName FROM [@PSH_ITMMSORT] WHERE U_rCode = '" + oForm.Items.Item("ItmBsort").Specific.Selected.Value + "' ORDER BY U_Code", "", true, true);
+
+                        dataHelpClass.Set_ComboList(oForm.Items.Item("LongYear").Specific, "SELECT b.U_Minor, b.U_CdName FROM [@PS_SY001H] a Inner Join [@PS_SY001L] b On a.Code = b.Code And a.Code = 'FX007' and b.U_RelCd = '" + oForm.Items.Item("ClasCode").Specific.Value.ToString().Trim() + "' order by U_Seq", "", true, false);
+                        oForm.Items.Item("LongYear").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+                        // dataHelpClass.Set_ComboList(oForm.Items.Item("LongYear").Specific, "SELECT b.U_Minor, b.U_CdName FROM [@PS_SY001H] a Inner Join [@PS_SY001L] b On a.Code = b.Code And a.Code = 'FX007' and b.U_RelCd = '" + oForm.Items.Item("ClasCode").Specific.Value.ToString().Trim() + "' order by U_Seq", "", false, false);
                     }
                 }
             }

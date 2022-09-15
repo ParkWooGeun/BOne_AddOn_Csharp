@@ -415,9 +415,9 @@ namespace PSH_BOne_AddOn
                         sQry = "EXEC PS_HR412_02 '" + oStatus + "', '" + Param01 + "', '" + Param02 + "', '" + Param03 + "', '" + Param04 + "', '" + Param05 + "', '" + Param06 + "', '" + Param07 + "', '" + Param08 + "', '" + Param09 + "'";
 
                         oRecordSet.DoQuery(sQry);
-                        PSH_Globals.SBO_Application.StatusBar.SetText("데이터 수정 완료");
                     }
                 }
+                PSH_Globals.SBO_Application.MessageBox("수정 완료");
             }
             catch (Exception ex)
             {
@@ -518,9 +518,9 @@ namespace PSH_BOne_AddOn
                 //    Raise_EVENT_LOST_FOCUS(FormUID, ref pVal, ref BubbleEvent);
                 //    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
-                //    Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
+                    Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
+                    break;
 
                 case SAPbouiCOM.BoEventTypes.et_CLICK: //6
                     Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
@@ -793,6 +793,43 @@ namespace PSH_BOne_AddOn
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
         }
+
+
+        /// <summary>
+        /// COMBO_SELECT 이벤트
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_COMBO_SELECT(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                oForm.Freeze(true);
+                if (pVal.Before_Action == true)
+                {
+                }
+                else if (pVal.Before_Action == false)
+                {
+                    if(pVal.ItemUID == "Group")
+                    {
+                        oForm.Items.Item("SGroup").Specific.Select(oForm.Items.Item("Group").Specific.Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+            }
+            finally
+            {
+                oForm.Freeze(false);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+            }
+        }
+
 
         /// <summary>
         /// VALIDATE 이벤트

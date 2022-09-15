@@ -9843,6 +9843,14 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_HR412.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            COMBO_SELECT 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_HR412.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             VALIDATE 이벤트

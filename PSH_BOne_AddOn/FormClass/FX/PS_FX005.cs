@@ -905,6 +905,12 @@ namespace PSH_BOne_AddOn
                 oDS_PS_FX005H.SetValue("U_TempChr1", 0, "");
                 oDS_PS_FX005H.SetValue("U_PrcCode", 0, "");
                 oDS_PS_FX005H.SetValue("U_PrcName", 0, "");
+                oDS_PS_FX005H.SetValue("U_Pic01", 0, "");
+                oDS_PS_FX005H.SetValue("U_Pic02", 0, "");
+                oDS_PS_FX005H.SetValue("U_Pic03", 0, "");
+                oDS_PS_FX005H.SetValue("U_Pic04", 0, "");
+                oDS_PS_FX005H.SetValue("U_Pic05", 0, "");
+                oDS_PS_FX005H.SetValue("U_Pic06", 0, "");
 
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
             }
@@ -1565,8 +1571,8 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "ClasCode")
                     {
-                        dataHelpClass.Set_ComboList(oForm.Items.Item("LongYear").Specific, "SELECT 0 as Code ,'' as Name", "", true, true);
-                        dataHelpClass.Set_ComboList(oForm.Items.Item("LongYear").Specific, "SELECT b.U_Minor, b.U_CdName FROM [@PS_SY001H] a Inner Join [@PS_SY001L] b On a.Code = b.Code And a.Code = 'FX007' and b.U_RelCd = '" + oForm.Items.Item("ClasCode").Specific.Value.ToString().Trim() + "' order by U_Seq", "", false, false);
+                        dataHelpClass.Set_ComboList(oForm.Items.Item("LongYear").Specific, "SELECT b.U_Minor, b.U_CdName FROM [@PS_SY001H] a Inner Join [@PS_SY001L] b On a.Code = b.Code And a.Code = 'FX007' and b.U_RelCd = '" + oForm.Items.Item("ClasCode").Specific.Value.ToString().Trim() + "' order by U_Seq", "", true, true);
+                       // dataHelpClass.Set_ComboList(oForm.Items.Item("LongYear").Specific, "SELECT b.U_Minor, b.U_CdName FROM [@PS_SY001H] a Inner Join [@PS_SY001L] b On a.Code = b.Code And a.Code = 'FX007' and b.U_RelCd = '" + oForm.Items.Item("ClasCode").Specific.Value.ToString().Trim() + "' order by U_Seq", "", false, false);
                     }
                 }
             }

@@ -503,7 +503,7 @@ namespace PSH_BOne_AddOn
 			{
 				CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
 				TeamCode = oForm.Items.Item("TeamCode").Specific.Value.ToString().Trim();
-				RspCode  = oForm.Items.Item("RspCode").Specific.Value.ToString().Trim(); ;
+				RspCode  = oForm.Items.Item("RspCode").Specific.Value.ToString().Trim();
 				ClsCode  = oForm.Items.Item("ClsCode").Specific.Value.ToString().Trim();
 				MSTCOD   = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
 				StdYear  = oForm.Items.Item("StdYear").Specific.Value.ToString().Trim();

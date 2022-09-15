@@ -389,7 +389,7 @@ namespace PSH_BOne_AddOn
             string sQry;
             string ErrLine = string.Empty;
             string errDiMsg = string.Empty;
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset); ;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             SAPbobsCOM.JournalEntries f_oJournalEntries = null;
 
             try

@@ -328,7 +328,7 @@ namespace PSH_BOne_AddOn
 				CardType = oForm.Items.Item("CardType").Specific.Value.ToString().Trim();
 				ItemType = oForm.Items.Item("ItemType").Specific.Value.ToString().Trim();
 				WCYN = oForm.Items.Item("WCYN").Specific.Value.ToString().Trim();
-				RspCode = oForm.Items.Item("RspCode").Specific.Value.ToString().Trim(); ;
+				RspCode = oForm.Items.Item("RspCode").Specific.Value.ToString().Trim();
 				ClsCode = oForm.Items.Item("ClsCode").Specific.Value.ToString().Trim();
 				FrDt = oForm.Items.Item("FrDt").Specific.Value.ToString().Trim();
 				ToDt = oForm.Items.Item("ToDt").Specific.Value.ToString().Trim();

@@ -19,12 +19,10 @@ namespace PSH_BOne_AddOn
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
         private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
 
-        private string oDocEntry01;
         private string oBPLId;
         private string oDocdate;
         private string oHisType;
         private string oClasCode;
-        private SAPbouiCOM.BoFormMode oFormMode01;
 
         /// <summary>
         /// Form 호출
@@ -248,7 +246,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (oForm.Items.Item("AmtYN").Specific.Value.ToString().Trim() == "Y")
                 {
-                    if (oForm.Items.Item("Amt").Specific.Value == 0)
+                    if (Convert.ToDouble(oForm.Items.Item("Amt").Specific.Value) == 0)
                     {
                         errMessage = "자본적지출시 금액은 필수사항입니다. 확인하세요.";
                         throw new Exception();

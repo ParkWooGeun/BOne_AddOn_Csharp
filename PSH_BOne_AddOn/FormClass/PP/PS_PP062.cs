@@ -218,7 +218,7 @@ namespace PSH_BOne_AddOn
 				BPLID = oForm.Items.Item("BPLID").Specific.Selected.Value.ToString().Trim();
 				FrDt = oForm.Items.Item("FrDt").Specific.Value.ToString().Trim();
 				ToDt = oForm.Items.Item("ToDt").Specific.Value.ToString().Trim();
-				MachCode = oForm.Items.Item("MachCode").Specific.Value.ToString().Trim(); ;
+				MachCode = oForm.Items.Item("MachCode").Specific.Value.ToString().Trim();
 				MachName = oForm.Items.Item("MachName").Specific.Value.ToString().Trim();
 				WkCode = oForm.Items.Item("WkCode").Specific.Value.ToString().Trim();
 				ClsCode = oForm.Items.Item("ClsCode").Specific.Selected.Value.ToString().Trim();

@@ -222,6 +222,10 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("JdtDate").Enabled = true;
                     oForm.Items.Item("Btn02").Enabled = true;
                     oForm.Items.Item("Btn03").Enabled = true;
+                    oForm.Items.Item("CLTCOD").Enabled = true;
+                    oForm.Items.Item("StdYM").Enabled = true;
+                    oForm.Items.Item("FxHisCls").Enabled = true;
+                    oForm.Items.Item("Mat01").Enabled = true;
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
@@ -229,10 +233,18 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("JdtDate").Enabled = true;
                     oForm.Items.Item("Btn02").Enabled = true;
                     oForm.Items.Item("Btn03").Enabled = true;
+                    oForm.Items.Item("CLTCOD").Enabled = true;
+                    oForm.Items.Item("StdYM").Enabled = true;
+                    oForm.Items.Item("FxHisCls").Enabled = true;
+                    oForm.Items.Item("Mat01").Enabled = true;
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
                     oForm.Items.Item("DocEntry").Enabled = false;
+                    oForm.Items.Item("CLTCOD").Enabled = false;
+                    oForm.Items.Item("StdYM").Enabled = false;
+                    oForm.Items.Item("FxHisCls").Enabled = false;
+                    oForm.Items.Item("Mat01").Enabled = true;
                     if (string.IsNullOrEmpty(oForm.Items.Item("JdtCC").Specific.Value))
                     {
                         oForm.Items.Item("JdtDate").Enabled = true;
@@ -246,11 +258,13 @@ namespace PSH_BOne_AddOn
                         {
                             oForm.Items.Item("Btn02").Enabled = false;
                             oForm.Items.Item("Btn03").Enabled = true;
+                            oForm.Items.Item("Mat01").Enabled = false;
                         }
                         else
                         {
                             oForm.Items.Item("Btn02").Enabled = false;
                             oForm.Items.Item("Btn03").Enabled = false;
+                            oForm.Items.Item("Mat01").Enabled = false;
                         }
                     }
                 }
@@ -427,8 +441,8 @@ namespace PSH_BOne_AddOn
             string sQry;
             string ErrLine = string.Empty;
             string errDiMsg = string.Empty;
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset); ;
             SAPbobsCOM.JournalEntries f_oJournalEntries = null;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -907,6 +921,7 @@ namespace PSH_BOne_AddOn
                 }
                 else if (pVal.BeforeAction == false)
                 {
+                    PS_FX015_FormItemEnabled();
                     oMat01.AutoResizeColumns();
                 }
             }
@@ -956,6 +971,8 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 oForm.Freeze(true);
@@ -991,6 +1008,11 @@ namespace PSH_BOne_AddOn
                         case "1293": //행삭제
                             break;
                         case "1281": //찾기
+                            oForm.Items.Item("CLTCOD").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
+                            oForm.Items.Item("DocEntry").Specific.Value = "";
+                            oForm.Items.Item("StdYM").Specific.Value = "";
+                            PS_FX015_FormItemEnabled();
+                            break;
                         case "1282": //추가
                             PS_FX015_FormItemEnabled();
                             PS_FX015_FormClear();

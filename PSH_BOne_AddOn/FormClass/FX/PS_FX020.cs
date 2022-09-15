@@ -617,7 +617,7 @@ namespace PSH_BOne_AddOn
 
 					if (oRecordSet.Fields.Item("Cnt").Value <= 0)
 					{
-						Code = oForm.Items.Item("Code").Specific.Value.ToString().Trim(); ;
+						Code = oForm.Items.Item("Code").Specific.Value.ToString().Trim();
 						sQry = "DELETE FROM Z_PS_FX020L WHERE Code = '" + Code + "'";
 						oRecordSet.DoQuery(sQry);
 					}

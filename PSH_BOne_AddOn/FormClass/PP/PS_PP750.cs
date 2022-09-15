@@ -284,9 +284,9 @@ namespace PSH_BOne_AddOn
                 cardType = oForm.Items.Item("CardType").Specific.Value.ToString().Trim(); //거래처구분
                 srchType = oForm.Items.Item("SrchType").Specific.Value.ToString().Trim(); //조회구분(쿼리 매개변수 없음)
                 MM030YN = oForm.Items.Item("MM030YN").Specific.Value.ToString().Trim(); //품의여부
-                MM050YN = oForm.Items.Item("MM050YN").Specific.Value.ToString().Trim(); ; //입고여부
-                MM070YN = oForm.Items.Item("MM070YN").Specific.Value.ToString().Trim(); ; //검수여부
-                ordType = oForm.Items.Item("OrdType").Specific.Value.ToString().Trim(); ; //품의구분
+                MM050YN = oForm.Items.Item("MM050YN").Specific.Value.ToString().Trim(); //입고여부
+                MM070YN = oForm.Items.Item("MM070YN").Specific.Value.ToString().Trim(); //검수여부
+                ordType = oForm.Items.Item("OrdType").Specific.Value.ToString().Trim(); //품의구분
                 cmpltYN = (oForm.Items.Item("CmpltYN").Specific.Checked ? "Y" : "N"); //생산미완료여부
 
                 oForm.DataSources.UserDataSources.Item("SItemCD").Value = ""; //선택작번 초기화

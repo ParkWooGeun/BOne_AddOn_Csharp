@@ -531,7 +531,7 @@ namespace PSH_BOne_AddOn
             string sTransIdRV = string.Empty;
             string sQry;
 
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset); ;
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             SAPbobsCOM.Documents oDIObjectFW = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenExit);
             SAPbobsCOM.Documents oDIObjectRV = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry);
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -673,7 +673,7 @@ namespace PSH_BOne_AddOn
             string sTransIdRV = string.Empty;
             string sQry;
 
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset); ;
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             SAPbobsCOM.Documents oDIObjectFW = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenExit); //출고
             SAPbobsCOM.Documents oDIObjectRV = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry); //입고
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();

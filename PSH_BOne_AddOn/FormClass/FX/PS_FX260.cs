@@ -191,7 +191,8 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@FixCode", FixCode));
 				dataPackParameter.Add(new PSH_DataPackClass("@SubDiv", SubDiv));
 
-				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
+				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, "Y");
+				//formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
 			}
 			catch (Exception ex)
 			{

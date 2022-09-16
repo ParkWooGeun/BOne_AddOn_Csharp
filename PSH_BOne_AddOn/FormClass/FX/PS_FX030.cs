@@ -127,6 +127,7 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("BPLID").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
 				}
+
 				//자산분류
 				sQry = "     SELECT     U_Minor,";
 				sQry += "                U_CdName";
@@ -136,6 +137,7 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("FixType").Specific.ValidValues.Add("%", "전체");
 				dataHelpClass.Set_ComboList(oForm.Items.Item("FixType").Specific, sQry, "", false, false);
 				oForm.Items.Item("FixType").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+
 				//상태(Line)
 				sQry = "    SELECT      U_Minor, ";
 				sQry += "                U_CdName";

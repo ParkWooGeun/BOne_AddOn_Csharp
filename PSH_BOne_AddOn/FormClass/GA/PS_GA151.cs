@@ -203,6 +203,12 @@ namespace PSH_BOne_AddOn
 					BPLId = "";
 				}
 
+				if ((string.IsNullOrEmpty(oForm.Items.Item("PrvdDtFr").Specific.Value) || string.IsNullOrEmpty(oForm.Items.Item("PrvdDtTo").Specific.Value)))
+				{
+					errMessage = "일자는 필수 입력사항입니다.";
+					throw new Exception();
+				}
+
 				ProgressBar01.Text = "조회 시작....";
 				
 				sQry = "EXEC [PS_GA151_01] '" + BPLId + "','" + CntcCode + "','" + TeamCd + "','" + PrvdDtFr + "','" + PrvdDtTo + "','" + RetireYN + "'";
@@ -288,6 +294,7 @@ namespace PSH_BOne_AddOn
 		{
 			string WinTitle;
 			string ReportName;
+			string errMessage = string.Empty;
 			string BPLId;	 //사업장
 			string CntcCode; //사번
 			string TeamCd;	 //팀
@@ -310,6 +317,11 @@ namespace PSH_BOne_AddOn
 					BPLId = "";
 				}
 
+                if ((string.IsNullOrEmpty(oForm.Items.Item("PrvdDtFr").Specific.Value) || string.IsNullOrEmpty(oForm.Items.Item("PrvdDtTo").Specific.Value))){
+					errMessage = "일자는 필수 입력사항입니다.";
+					throw new Exception();
+                }
+
 				WinTitle = "[PS_GA151] 레포트";
 				ReportName = "PS_GA151_01.rpt";
 
@@ -327,8 +339,19 @@ namespace PSH_BOne_AddOn
 			}
 			catch (Exception ex)
 			{
-				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+				if(errMessage != string.Empty)
+                {
+					PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+				{
+					PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+				}
 			}
+            finally
+            {
+
+            }
 		}
 
 		/// <summary>

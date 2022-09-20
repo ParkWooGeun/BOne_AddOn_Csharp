@@ -11,7 +11,11 @@ namespace PSH_BOne_AddOn
 	{
 		private string oFormUniqueID;
 		private SAPbouiCOM.Matrix oMat;
-			
+		
+		private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
+		private string oLastColUID01;  //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
+		private int oLastColRow01;     //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
+
 		private SAPbouiCOM.DBDataSource oDS_PS_MM003H; //등록헤더
 		private SAPbouiCOM.DBDataSource oDS_PS_MM003L; //등록라인
 		private string oLast_Item_UID; //클래스에서 선택한 마지막 아이템 Uid값
@@ -52,7 +56,7 @@ namespace PSH_BOne_AddOn
 				PS_MM003_CreateItems();
 				PS_MM003_ComboBox_Setting();
 				PS_MM003_FormClear();
-				PS_MM003_AddMatrixRow(0, oMat.RowCount);
+				PS_MM003_AddMatrixRow(0, true);
 
 				oForm.EnableMenu("1283", true);  // 제거
 				oForm.EnableMenu("1293", true);  // 행삭제
@@ -148,30 +152,31 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_MM003_AddMatrixRow
+		/// PS_MM001_AddMatrixRow
 		/// </summary>
-		/// <param name="oSeq"></param>
 		/// <param name="oRow"></param>
-		private void PS_MM003_AddMatrixRow(int oSeq, int oRow)
+		/// <param name="RowIserted"></param>
+		private void PS_MM003_AddMatrixRow(int oRow, bool RowIserted)
 		{
 			try
 			{
-				switch (oSeq)
+				oForm.Freeze(true);
+				if (RowIserted == false) //행추가여부
 				{
-					case 0:
-						oDS_PS_MM003L.SetValue("U_LineNum", oRow, Convert.ToString(oRow + 1));
-						oMat.LoadFromDataSource();
-						break;
-					case 1:
-						oDS_PS_MM003L.InsertRecord(oRow);
-						oDS_PS_MM003L.SetValue("U_LineNum", oRow, Convert.ToString(oRow + 1));
-						oMat.LoadFromDataSource();
-						break;
+					oDS_PS_MM003L.InsertRecord(oRow);
 				}
+				oMat.AddRow();
+				oDS_PS_MM003L.Offset = oRow;
+				oDS_PS_MM003L.SetValue("U_LineNum", oRow, Convert.ToString(oRow + 1));
+				oMat.LoadFromDataSource();
 			}
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+			}
+			finally
+			{
+				oForm.Freeze(false);
 			}
 		}
 
@@ -313,8 +318,7 @@ namespace PSH_BOne_AddOn
 							case "TrDiv":
 								if ((oRow == oMat.RowCount || oMat.VisualRowCount == 2) && !string.IsNullOrEmpty(oMat.Columns.Item("TrDiv").Cells.Item(oRow).Specific.Value.ToString().Trim()))
 								{
-									oMat.FlushToDataSource();
-									PS_MM003_AddMatrixRow(1, oMat.RowCount);
+									PS_MM003_AddMatrixRow(oRow, false);
 									oMat.Columns.Item("TrDiv").Cells.Item(oRow).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 								}
 								break;
@@ -453,7 +457,7 @@ namespace PSH_BOne_AddOn
 						}
 						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE && pVal.Action_Success == false)
 						{
-							PS_MM003_AddMatrixRow(1, oMat.RowCount);
+							PS_MM003_AddMatrixRow(oMat.RowCount, true);
 						}
 					}
 				}
@@ -506,7 +510,9 @@ namespace PSH_BOne_AddOn
 					{
 						if (pVal.ItemUID == "Mat01" && pVal.ColUID == "TrDiv")
 						{
+							oMat.FlushToDataSource();
 							PS_MM003_FlushToItemValue(pVal.ItemUID, pVal.ColUID, pVal.Row, pVal.ColUID);
+							oMat.LoadFromDataSource();
 						}
 					}
 				}
@@ -521,6 +527,56 @@ namespace PSH_BOne_AddOn
 			finally
 			{ 
 				oForm.Freeze(false);
+			}
+		}
+
+
+		/// <summary>
+		/// Raise_EVENT_ROW_DELETE
+		/// </summary>
+		/// <param name="FormUID"></param>
+		/// <param name="pVal"></param>
+		/// <param name="BubbleEvent"></param>
+		private void Raise_EVENT_ROW_DELETE(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
+		{
+			int i;
+
+			try
+			{
+				if (oLastColRow01 > 0)
+				{
+					if (pVal.BeforeAction == true)
+					{
+					}
+					else if (pVal.BeforeAction == false)
+					{
+						for (i = 1; i <= oMat.VisualRowCount; i++)
+						{
+							oMat.Columns.Item("LineNum").Cells.Item(i).Specific.Value = i;
+						}
+
+						oMat.FlushToDataSource();
+						oDS_PS_MM003L.RemoveRecord(oDS_PS_MM003L.Size - 1);
+						oMat.LoadFromDataSource();
+						oForm.Update();
+
+						if (oMat.RowCount == 0)
+						{
+							PS_MM003_AddMatrixRow(0, true);
+						}
+						else
+						{
+							if (!string.IsNullOrEmpty(oDS_PS_MM003L.GetValue("U_TrDiv", oMat.RowCount - 1).ToString().Trim()))
+							{
+								PS_MM003_AddMatrixRow(oMat.RowCount, true);
+							}
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
 			}
 		}
 
@@ -539,7 +595,8 @@ namespace PSH_BOne_AddOn
 				}
 				else if (pVal.Before_Action == false)
 				{
-					PS_MM003_AddMatrixRow(1, oMat.VisualRowCount);
+					PS_MM003_AddMatrixRow(oMat.VisualRowCount, false);
+					oMat.AutoResizeColumns();
 				}
 			}
 			catch (Exception ex)
@@ -615,6 +672,7 @@ namespace PSH_BOne_AddOn
 						case "1291": //레코드이동버튼
 							break;
 						case "1293": //행삭제
+							Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
 							break;
 					}
 				}
@@ -626,7 +684,7 @@ namespace PSH_BOne_AddOn
 							break;
 						case "1282": //추가
 							PS_MM003_FormClear();
-							PS_MM003_AddMatrixRow(0, oMat.RowCount);
+							PS_MM003_AddMatrixRow(0, false);
 							oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
 							oForm.Items.Item("DocDate").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 							break;
@@ -642,6 +700,7 @@ namespace PSH_BOne_AddOn
 						case "1291": //레코드이동버튼
 							break;
 						case "1293": //행삭제
+							Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
 							break;
 					}
 				}
@@ -676,6 +735,38 @@ namespace PSH_BOne_AddOn
 						break;
 					case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
 						break;
+				}
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+			}
+		}
+
+		/// <summary>
+		/// Raise_RightClickEvent
+		/// </summary>
+		/// <param name="FormUID"></param>
+		/// <param name="pVal"></param>
+		/// <param name="BubbleEvent"></param>
+		public override void Raise_RightClickEvent(string FormUID, ref SAPbouiCOM.ContextMenuInfo pVal, ref bool BubbleEvent)
+		{
+			try
+			{
+				if (pVal.ItemUID == "Mat01")
+				{
+					if (pVal.Row > 0)
+					{
+						oLastItemUID01 = pVal.ItemUID;
+						oLastColUID01 = pVal.ColUID;
+						oLastColRow01 = pVal.Row;
+					}
+				}
+				else
+				{
+					oLastItemUID01 = pVal.ItemUID;
+					oLastColUID01 = "";
+					oLastColRow01 = 0;
 				}
 			}
 			catch (Exception ex)

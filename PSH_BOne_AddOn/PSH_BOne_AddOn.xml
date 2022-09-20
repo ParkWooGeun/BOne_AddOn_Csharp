@@ -12559,12 +12559,12 @@
             PS_MM003_FormClear
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_MM003.PS_MM003_AddMatrixRow(System.Int32,System.Int32)">
+        <member name="M:PSH_BOne_AddOn.PS_MM003.PS_MM003_AddMatrixRow(System.Int32,System.Boolean)">
             <summary>
-            PS_MM003_AddMatrixRow
+            PS_MM001_AddMatrixRow
             </summary>
-            <param name="oSeq"></param>
             <param name="oRow"></param>
+            <param name="RowIserted"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM003.PS_MM003_HeaderSpaceLineDel">
             <summary>
@@ -12619,6 +12619,14 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM003.Raise_EVENT_ROW_DELETE(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_ROW_DELETE
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_MM003.Raise_EVENT_MATRIX_LOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             MATRIX_LOAD 이벤트
@@ -12649,6 +12657,14 @@
             </summary>
             <param name="FormUID"></param>
             <param name="BusinessObjectInfo"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM003.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
+            <summary>
+            Raise_RightClickEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
         <member name="T:PSH_BOne_AddOn.PS_MM005">
@@ -15715,11 +15731,11 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM130.Raise_EVENT_GOT_FOCUS(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
-            Raise_EVENT_GOT_FOCUS
+            GOT_FOCUS 이벤트
             </summary>
-            <param name="FormUID"></param>
-            <param name="pVal"></param>
-            <param name="BubbleEvent"></param>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM130.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -86391,6 +86407,23 @@
         <member name="M:PSH_BOne_AddOn.PSH_MainClass.Initialize_ODBC_Variable">
             <summary>
             ODBC 연결용 변수 초기화
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PSH_MainClass.ConnectShareFolder">
+            <summary>
+            공유폴더 연결
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PSH_MainClass.TryConnectResult(System.Int32)">
+            <summary>
+            연결 상태 정보 반환 메서드
+            </summary>
+            <param name="state"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PSH_BOne_AddOn.PSH_MainClass.ERROR_CODE">
+            <summary>
+            네트워크 드라이브 에러코드 Class
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PSH_MainClass.XmlCreateYN">

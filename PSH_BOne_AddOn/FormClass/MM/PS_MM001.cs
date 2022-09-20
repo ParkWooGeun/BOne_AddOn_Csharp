@@ -627,7 +627,7 @@ namespace PSH_BOne_AddOn
 						oMat.LoadFromDataSource();
 						oMat.AutoResizeColumns();
 						oForm.Update();
-						oMat.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Click();
+						//oMat.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Click();
 					}
 				}
 				else if (pVal.BeforeAction == false)
@@ -794,7 +794,7 @@ namespace PSH_BOne_AddOn
 							break;
 						case "1282": //추가
 							PS_MM001_FormItemEnabled();
-							PS_MM001_AddMatrixRow(0, true);
+							PS_MM001_AddMatrixRow(0, false);
 							break;
 						case "1284": //취소
 							break;

@@ -196,6 +196,7 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void PS_AD107_MTX01()
 		{
+			string sQry;
 			string BPLId;	//사업장
 			string ReqCd;	//요청자
 			string ReqStat;	//요청상태
@@ -208,7 +209,6 @@ namespace PSH_BOne_AddOn
 			string FinToDt;	//개발완료일(TO)
 			string MovFrDt;	//운영이관일(FR)
 			string MovToDt; //운영이관일(TO)
-			string sQry;
 			string errMessage = string.Empty;
 			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 

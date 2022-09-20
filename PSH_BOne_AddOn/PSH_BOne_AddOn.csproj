@@ -739,6 +739,7 @@
     <Compile Include="FormClass\SM\PS_SM030.cs" />
     <Compile Include="FormClass\SM\PS_SM040.cs" />
     <Compile Include="PSH_CommonClass\AssemblyInfo.cs" />
+    <Compile Include="PSH_CommonClass\PSH_NetworkConnector.cs" />
     <Compile Include="PSH_CommonClass\DataPack\DataPack.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -4,6 +4,9 @@ using System.Net;
 using SAP.Middleware.Connector;
 using PSH_BOne_AddOn.Code;
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace PSH_BOne_AddOn.Data
 {

@@ -14,7 +14,6 @@ namespace PSH_BOne_AddOn
         private SAPbouiCOM.Matrix oMat02;
         private SAPbouiCOM.DBDataSource oDS_PS_MM015H; //등록헤더
         private SAPbouiCOM.DBDataSource oDS_PS_MM015L; //등록라인
-        public SAPbouiCOM.Grid oGrid01;
 
         /// <summary>
         /// Form 호출
@@ -336,8 +335,8 @@ namespace PSH_BOne_AddOn
                     LineNum = oDS_PS_MM015L.GetValue("U_ColReg03", i).ToString().Trim();
                     CardCode = oDS_PS_MM015L.GetValue("U_ColReg04", i).ToString().Trim();
                     BPLId = oDS_PS_MM015L.GetValue("U_ColReg01", i).ToString().Trim();
-                    DocDate = Microsoft.VisualBasic.Compatibility.VB6.Support.Format(oDS_PS_MM015L.GetValue("U_ColReg09", i).ToString().Trim(), "YYYY-MM-DD");
-                    DueDate = Microsoft.VisualBasic.Compatibility.VB6.Support.Format(oDS_PS_MM015L.GetValue("U_ColReg10", i).ToString().Trim(), "YYYY-MM-DD");
+                    DocDate = oDS_PS_MM015L.GetValue("U_ColReg09", i).ToString().Trim();
+                    DueDate = oDS_PS_MM015L.GetValue("U_ColReg10", i).ToString().Trim();
                     CntcCode = oDS_PS_MM015L.GetValue("U_ColReg08", i).ToString().Trim();
                     
                     DI_oPurchaseOrders.CardCode = CardCode;
@@ -597,7 +596,6 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "Mat01")
                     {
-
                         PS_MM015_Search_Matrix_Data(pVal.Row);
                     }
                 }

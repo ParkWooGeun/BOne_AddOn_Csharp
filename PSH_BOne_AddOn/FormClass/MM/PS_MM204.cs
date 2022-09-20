@@ -147,7 +147,6 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Rad01").Specific.ValOn = "A";
                 oForm.Items.Item("Rad01").Specific.ValOff = "0";
                 oForm.Items.Item("Rad01").Specific.DataBind.SetBound(true, "", "OptionDS");
-
                 oForm.Items.Item("Rad01").Specific.Selected = true;
 
                 oForm.Items.Item("Rad02").Specific.ValOn = "B";
@@ -158,8 +157,13 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Rad03").Specific.ValOff = "0";
                 oForm.Items.Item("Rad03").Specific.DataBind.SetBound(true, "", "OptionDS");
 
-                oForm.Items.Item("Rad03").Specific.GroupWith("Rad01");
-                oForm.Items.Item("Rad03").Specific.GroupWith("Rad02");
+                oForm.Items.Item("Rad04").Specific.ValOn = "D";
+                oForm.Items.Item("Rad04").Specific.ValOff = "0";
+                oForm.Items.Item("Rad04").Specific.DataBind.SetBound(true, "", "OptionDS");
+
+                oForm.Items.Item("Rad04").Specific.GroupWith("Rad01");
+                oForm.Items.Item("Rad04").Specific.GroupWith("Rad02");
+                oForm.Items.Item("Rad04").Specific.GroupWith("Rad03");
             }
             catch (Exception ex)
             {
@@ -353,6 +357,10 @@ namespace PSH_BOne_AddOn
                 else if (OptBtnValue == "C") //거래처별
                 {
                     ReportName = "PS_MM204_03.rpt";
+                }
+                else if (OptBtnValue == "D") //거래처발송
+                {
+                    ReportName = "PS_MM204_04.rpt";
                 }
                 //프로시저 : PS_MM204_00
 

@@ -17,17 +17,16 @@ namespace PSH_BOne_AddOn
 		private string oBaseItemUID01;
 		private string oBaseColUID01;
 		private int oBaseColRow01;
-		private int oBaseSelectedLineNum01;
 
 		/// <summary>
-		/// Form 호출
+		/// LoadForm
 		/// </summary>
-		/// <param name="oForm02"></param>
-		/// <param name="oItemUID02"></param>
-		/// <param name="oColUID02"></param>
-		/// <param name="oColRow02"></param>
-		/// <param name="SelectedLineNum"></param>
-		public void LoadForm(ref SAPbouiCOM.Form oForm02, string oItemUID02, string oColUID02, int oColRow02, int SelectedLineNum)
+		/// <param name="baseForm"></param>
+		/// <param name="baseItemUID"></param>
+		/// <param name="baseColUID"></param>
+		/// <param name="baseMatRow"></param>
+		public void LoadForm(SAPbouiCOM.Form baseForm, string baseItemUID, string baseColUID, int baseMatRow)
+			                 
 		{
 			int i;
 			MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
@@ -55,11 +54,10 @@ namespace PSH_BOne_AddOn
 				oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
 
 				oForm.Freeze(true);
-				oBaseForm01 = oForm02;
-				oBaseItemUID01 = oItemUID02;
-				oBaseColUID01 = oColUID02;
-				oBaseColRow01 = oColRow02;
-				oBaseSelectedLineNum01 = SelectedLineNum;
+				oBaseForm01 = baseForm;
+				oBaseItemUID01 = baseItemUID;
+				oBaseColUID01 = baseColUID;
+				oBaseColRow01 = baseMatRow;
 
 				PS_MM013_CreateItems();
 				PS_MM013_LoadData01();
@@ -193,7 +191,6 @@ namespace PSH_BOne_AddOn
 			
 			try
 			{
-				oBaseForm01.Freeze(true);
 				oBaseMat01 = oBaseForm01.Items.Item("Mat01").Specific;
 
 				oMat.FlushToDataSource();
@@ -235,11 +232,6 @@ namespace PSH_BOne_AddOn
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-			}
-			finally
-			{
-				oBaseForm01.Freeze(false);
-				oForm.Close();
 			}
 		}
 
@@ -335,8 +327,6 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
-				oForm.Freeze(true);
-
 				if (pVal.BeforeAction == true)
 				{
 					if (pVal.ItemUID == "Btn01")
@@ -346,6 +336,10 @@ namespace PSH_BOne_AddOn
 				}
 				else if (pVal.BeforeAction == false)
 				{
+					if (pVal.ItemUID == "Btn01")
+					{
+						oForm.Close();
+					}
 				}
 			}
 			catch (Exception ex)
@@ -354,7 +348,6 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
-				oForm.Freeze(false);
 			}
 		}
 
@@ -475,10 +468,8 @@ namespace PSH_BOne_AddOn
 				}
 				else if (pVal.Before_Action == false)
 				{
-					SubMain.Remove_Forms(oFormUniqueID);
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat);
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_MM013L);
+				//	SubMain.Remove_Forms(oFormUniqueID);
+				//	System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat);
 				}
 			}
 			catch (Exception ex)
@@ -552,38 +543,6 @@ namespace PSH_BOne_AddOn
 			finally
 			{
 				oForm.Freeze(false);
-			}
-		}
-
-		/// <summary>
-		/// FormDataEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="BusinessObjectInfo"></param>
-		/// <param name="BubbleEvent"></param>
-		public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
-		{
-			try
-			{
-				switch (BusinessObjectInfo.EventType)
-				{
-					case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
-                        //Raise_EVENT_FORM_DATA_LOAD(FormUID, ref BusinessObjectInfo, ref BubbleEvent);
-                        break;
-					case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
-                        //Raise_EVENT_FORM_DATA_ADD(FormUID, ref BusinessObjectInfo, ref BubbleEvent);
-                        break;
-					case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
-                        //Raise_EVENT_FORM_DATA_UPDATE(FormUID, ref BusinessObjectInfo, ref BubbleEvent);
-                        break;
-					case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
-                        //Raise_EVENT_FORM_DATA_DELETE(FormUID, ref BusinessObjectInfo, ref BubbleEvent);
-                        break;
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
 			}
 		}
 	}

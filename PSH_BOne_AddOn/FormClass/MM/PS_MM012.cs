@@ -1,6 +1,9 @@
 using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
+using SAP.Middleware.Connector;
+using PSH_BOne_AddOn.Code;
+using System.Collections.Generic;
 
 namespace PSH_BOne_AddOn
 {
@@ -17,7 +20,6 @@ namespace PSH_BOne_AddOn
 
 		private string oCode;
 		private string oYear;
-		private object oSAP_Connection01;
 
 		/// <summary>
 		/// Form 호출
@@ -48,7 +50,7 @@ namespace PSH_BOne_AddOn
 				oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
 				oForm.SupportedModes = -1;
-				oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
+				oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
 				oForm.DataBrowser.BrowseBy = "Code";
 
 				oForm.Freeze(true);
@@ -56,6 +58,7 @@ namespace PSH_BOne_AddOn
 				PS_MM012_ComboBox_Setting();
 				PS_MM012_FormItemEnabled();
 
+				oForm.EnableMenu("1281", true);  // 삭제
 				oForm.EnableMenu("1283", true);  // 삭제
 				oForm.EnableMenu("1287", true);  // 복제
 				oForm.EnableMenu("1286", false); // 닫기
@@ -106,7 +109,7 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				// 사업장
+				//사업장
 				sQry = "SELECT BPLId, BPLName From [OBPL] order by BPLId";
 				oRecordSet.DoQuery(sQry);
 				while (!oRecordSet.EoF)
@@ -466,53 +469,137 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-		/// PS_MM012_R3_Interface
+		/// 본사 데이터 전송
 		/// </summary>
-		private void PS_MM012_R3_Interface()
+		private bool PS_MM012_InterfaceB1toR3()
 		{
-			string errMessage = string.Empty;
+			bool returnValue = false;
 			string sQry;
+			string Client; //클라이언트
+			string ServerIP; //서버IP
+			string BANFN;
+			string LFDAT;
+			string MEINS;
+			string MENGE;
+			string ZMM01;
+			string ZMM02;
+			string ZMM03;
+			string ZMM04;
+			string ZMM05;
+			string ZMM06;
+			string ZMM07;
+			string ZMM08;
+			string ZMM09;
+			string ZMM10;
+			string ZMM11;
+			string ZMM12;
+			string ZSUM;
+			string errCode = string.Empty;
+			string errMessage = string.Empty;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+			PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
+			RfcDestination rfcDest = null;
+			RfcRepository rfcRep = null;
 
 			try
 			{
-				if (PS_MM012_Qty_Check() == false)
+				oMat.FlushToDataSource();
+				Client = dataHelpClass.GetR3ServerInfo()[0];
+				ServerIP = dataHelpClass.GetR3ServerInfo()[1];
+
+				//0. 연결
+				if (dataHelpClass.SAPConnection(ref rfcDest, ref rfcRep, "PSC", ServerIP, Client, "ifuser", "pdauser") == false)
 				{
-					errMessage = "구매요청 수량 초과 오류.";
+					errCode = "1";
 					throw new Exception();
 				}
 
-                if (SAP_Connection() == false)
-                {
-                    errMessage = "Sap풍산 ERP 시스템(R/3)에 접속할 수 없습니다.";
-                    throw new Exception();
-                }
+				sQry = "Select * From [@PS_MM012L] Where Isnull(U_PQDocNum,'') <> '' And Code = '" + oDS_PS_MM012H.GetValue("Code", 0).ToString().Trim() +"'";
+				oRecordSet.DoQuery(sQry);
 
-                if (Send_RFC() == false)
-                {
-                    errMessage = "Send_RFC에서 에러 발생.";
-                    throw new Exception();
-                }
-                else
-                {
-                    sQry = "update [@PS_MM012H] set u_tradate = convert(varchar(20), getdate(),120) Where U_BPLId = '" + oDS_PS_MM012H.GetValue("U_BPLId", 0).ToString().Trim() + "' And U_Year = '" + oDS_PS_MM012H.GetValue("U_Year", 0).ToString().Trim() + "'";
-                    oRecordSet.DoQuery(sQry);
-                }
+				//1. SAP R3 함수 호출(매개변수 전달)
+				IRfcFunction oFunction = rfcRep.CreateFunction("ZMM_INTF_GROUP2");
 
-                if (oSAP_Connection01.Connection != null)
-                {
-                    oSAP_Connection01.Connection.Logoff();
-                    oSAP_Connection01 = null;
-                }
-            }
+				while (!oRecordSet.EoF)
+				{
+					BANFN = oRecordSet.Fields.Item("U_E_BANFN").Value.ToString().Trim();
+					LFDAT = oRecordSet.Fields.Item("U_DueDate").Value.ToString("yyyyMMdd").Trim();
+					MEINS =	 oRecordSet.Fields.Item("U_Unit").Value.ToString().Trim();
+					MENGE =	 oRecordSet.Fields.Item("U_Qty").Value.ToString().Trim();
+					ZMM01 =	 oRecordSet.Fields.Item("U_Mm01").Value.ToString().Trim();
+					ZMM02 =	 oRecordSet.Fields.Item("U_Mm02").Value.ToString().Trim();
+					ZMM03 =	 oRecordSet.Fields.Item("U_Mm03").Value.ToString().Trim();
+					ZMM04 =	 oRecordSet.Fields.Item("U_Mm04").Value.ToString().Trim();
+					ZMM05 =	 oRecordSet.Fields.Item("U_Mm05").Value.ToString().Trim();
+					ZMM06 =	 oRecordSet.Fields.Item("U_Mm06").Value.ToString().Trim();
+					ZMM07 =	 oRecordSet.Fields.Item("U_Mm07").Value.ToString().Trim();
+					ZMM08 =	 oRecordSet.Fields.Item("U_Mm08").Value.ToString().Trim();
+					ZMM09 =	 oRecordSet.Fields.Item("U_Mm09").Value.ToString().Trim();
+					ZMM10 =	 oRecordSet.Fields.Item("U_Mm10").Value.ToString().Trim();
+					ZMM11 =	 oRecordSet.Fields.Item("U_Mm11").Value.ToString().Trim();
+					ZMM12 =	 oRecordSet.Fields.Item("U_Mm12").Value.ToString().Trim();
+					ZSUM  =	 oRecordSet.Fields.Item("U_MmTot").Value.ToString().Trim();
+					
+					oFunction.SetValue("I_BANFN", BANFN);
+					oFunction.SetValue("I_LFDAT", LFDAT);
+					oFunction.SetValue("I_MEINS", MEINS);
+					oFunction.SetValue("I_MENGE", MENGE);
+					oFunction.SetValue("I_ZMM01", ZMM01);
+					oFunction.SetValue("I_ZMM02", ZMM02);
+					oFunction.SetValue("I_ZMM03", ZMM03);
+					oFunction.SetValue("I_ZMM04", ZMM04);
+					oFunction.SetValue("I_ZMM05", ZMM05);
+					oFunction.SetValue("I_ZMM06", ZMM06);
+					oFunction.SetValue("I_ZMM07", ZMM07);
+					oFunction.SetValue("I_ZMM08", ZMM08);
+					oFunction.SetValue("I_ZMM09", ZMM09);
+					oFunction.SetValue("I_ZMM10", ZMM10);
+					oFunction.SetValue("I_ZMM11", ZMM11);
+					oFunction.SetValue("I_ZMM12", ZMM12);
+					oFunction.SetValue("I_ZSUM",  ZSUM);
+					oRecordSet.MoveNext();
+					
+					errCode = "2"; //SAP Function 실행 오류가 발생했을 때 에러코드로 처리하기 위해 이 위치에서 "2"를 대입
+					//oFunction.Invoke(rfcDest); //Function 실행
+
+					if (oFunction.GetValue("E_MESSAGE").ToString().Trim() != "" && codeHelpClass.Left(oFunction.GetValue("E_MESSAGE").ToString().Trim(), 1) != "S") //리턴 메시지가 "S(성공)"이 아니면
+					{
+						errCode = "3";
+						errMessage = oFunction.GetValue("E_MESSAGE").ToString();
+						throw new Exception();
+					}
+				}
+
+				sQry = "update [@PS_MM012H] set u_tradate = convert(varchar(20), getdate(),120) Where U_BPLId = '" + oDS_PS_MM012H.GetValue("U_BPLId", 0).ToString().Trim() + "' And U_Year = '" + oDS_PS_MM012H.GetValue("U_Year", 0).ToString().Trim() + "'";
+				oRecordSet.DoQuery(sQry);
+				returnValue = true;
+			}
 			catch (Exception ex)
 			{
-				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+				if (errCode == "1")
+				{
+					PSH_Globals.SBO_Application.MessageBox("풍산 SAP R3에 로그온 할 수 없습니다. 관리자에게 문의 하세요.");
+				}
+				else if (errCode == "2")
+				{
+					PSH_Globals.SBO_Application.MessageBox("RFC Function 호출 오류");
+				}
+				else if (errCode == "3")
+				{
+					PSH_Globals.SBO_Application.MessageBox(errMessage);
+				}
+				else
+				{
+					PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+				}
 			}
 			finally
 			{
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
+
+			return returnValue;
 		}
 
 		/// <summary>
@@ -558,142 +645,6 @@ namespace PSH_BOne_AddOn
 			}
 			return ReturnValue;
 		}
-
-        //private bool SAP_Connection()
-        //{
-        //    bool ReturnValue = false;
-        //    // ERROR: Not supported in C#: OnErrorStatement
-
-        //    oSAP_Connection01 = Interaction.CreateObject("SAP.Functions");
-        //    //UPGRADE_WARNING: oSAP_Connection01.Connection 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //    oSAP_Connection01.Connection.User = "ifuser";
-        //    //UPGRADE_WARNING: oSAP_Connection01.Connection 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //    oSAP_Connection01.Connection.Password = "pdauser";
-        //    //    oSAP_Connection01.Connection.Client = "710"     '개발용
-        //    //UPGRADE_WARNING: oSAP_Connection01.Connection 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //    oSAP_Connection01.Connection.Client = "210";
-        //    //    oSAP_Connection01.Connection.ApplicationServer = "192.1.11.3"   //개발할때 (풍산과 디버깅테스트 할때 사용)
-        //    //    oSAP_Connection01.Connection.ApplicationServer = "192.1.11.7"   '개발용
-        //    //UPGRADE_WARNING: oSAP_Connection01.Connection 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //    oSAP_Connection01.Connection.ApplicationServer = "192.1.1.217";
-        //    ////운영
-        //    //UPGRADE_WARNING: oSAP_Connection01.Connection 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //    oSAP_Connection01.Connection.language = "KO";
-        //    //UPGRADE_WARNING: oSAP_Connection01.Connection 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //    oSAP_Connection01.Connection.SystemNumber = "01";
-        //    //    oSapConnection01.Connection.SystemNumber = "00" '192.1.11.3 일때는 "00"
-        //    //UPGRADE_WARNING: oSAP_Connection01.Connection 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //    if (!oSAP_Connection01.Connection.Logon(0, true))
-        //    {
-        //        goto SAP_Connection_Error;
-        //    }
-
-        //    ReturnValue = true;
-        //    return ReturnValue;
-        //SAP_Connection_Error:
-        //    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //    ReturnValue = false;
-        //    return ReturnValue;
-        //}
-
-        //private bool Send_RFC()
-        //{
-        //	bool ReturnValue = false;
-        //	// ERROR: Not supported in C#: OnErrorStatement
-
-        //	object oFunction01 = null;
-
-        //	SAPbobsCOM.Recordset oRecordSet = null;
-        //	string sQry = null;
-        //	oRecordSet = SubMain.Sbo_Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-        //	sQry = "Select * From [@PS_MM012L] Where Isnull(U_PQDocNum,'') <> '' And Code = '" + oDS_PS_MM012H.GetValue("Code", 0)) + "'";
-        //	oRecordSet.DoQuery(sQry);
-
-        //	while (!(oRecordSet.EoF))
-        //	{
-        //		//UPGRADE_NOTE: oFunction01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        //		oFunction01 = null;
-        //		//UPGRADE_WARNING: oSAP_Connection01.Add 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //		oFunction01 = oSAP_Connection01.Add("ZMM_INTF_GROUP2");
-
-        //		//UPGRADE_WARNING: oFunction01.Exports 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //		oFunction01.Exports("I_BANFN") = oRecordSet.Fields.Item("U_E_BANFN").Value.ToString().Trim();
-        //		//UPGRADE_WARNING: oFunction01.Exports 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //		oFunction01.Exports("I_BNFPO") = oRecordSet.Fields.Item("U_E_BNFPO").Value.ToString().Trim();
-        //		//UPGRADE_WARNING: oFunction01.Exports 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //		oFunction01.Exports("I_LFDAT") = oRecordSet.Fields.Item("U_DueDate").Value.ToString().Trim();
-        //		//UPGRADE_WARNING: oFunction01.Exports 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //		oFunction01.Exports("I_MEINS") = oRecordSet.Fields.Item("U_Unit").Value.ToString().Trim();
-        //		//UPGRADE_WARNING: oFunction01.Exports 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //		oFunction01.Exports("I_MENGE") = oRecordSet.Fields.Item("U_Qty").Value.ToString().Trim();
-        //		//UPGRADE_WARNING: oFunction01.Exports 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //		oFunction01.Exports("I_ZMM01") = oRecordSet.Fields.Item("U_Mm01").Value.ToString().Trim();
-        //		//UPGRADE_WARNING: oFunction01.Exports 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //		oFunction01.Exports("I_ZMM02") = oRecordSet.Fields.Item("U_Mm02").Value.ToString().Trim();
-        //		//UPGRADE_WARNING: oFunction01.Exports 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //		oFunction01.Exports("I_ZMM03") = oRecordSet.Fields.Item("U_Mm03").Value.ToString().Trim();
-        //		//UPGRADE_WARNING: oFunction01.Exports 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //		oFunction01.Exports("I_ZMM04") = oRecordSet.Fields.Item("U_Mm04").Value.ToString().Trim();
-        //		//UPGRADE_WARNING: oFunction01.Exports 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //		oFunction01.Exports("I_ZMM05") = oRecordSet.Fields.Item("U_Mm05").Value.ToString().Trim();
-        //		//UPGRADE_WARNING: oFunction01.Exports 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //		oFunction01.Exports("I_ZMM06") = oRecordSet.Fields.Item("U_Mm06").Value.ToString().Trim();
-        //		//UPGRADE_WARNING: oFunction01.Exports 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //		oFunction01.Exports("I_ZMM07") = oRecordSet.Fields.Item("U_Mm07").Value.ToString().Trim();
-        //		//UPGRADE_WARNING: oFunction01.Exports 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //		oFunction01.Exports("I_ZMM08") = oRecordSet.Fields.Item("U_Mm08").Value.ToString().Trim();
-        //		//UPGRADE_WARNING: oFunction01.Exports 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //		oFunction01.Exports("I_ZMM09") = oRecordSet.Fields.Item("U_Mm09").Value.ToString().Trim();
-        //		//UPGRADE_WARNING: oFunction01.Exports 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //		oFunction01.Exports("I_ZMM10") = oRecordSet.Fields.Item("U_Mm10").Value.ToString().Trim();
-        //		//UPGRADE_WARNING: oFunction01.Exports 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //		oFunction01.Exports("I_ZMM11") = oRecordSet.Fields.Item("U_Mm11").Value.ToString().Trim();
-        //		//UPGRADE_WARNING: oFunction01.Exports 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //		oFunction01.Exports("I_ZMM12") = oRecordSet.Fields.Item("U_Mm12").Value.ToString().Trim();
-        //		//UPGRADE_WARNING: oFunction01.Exports 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //		oFunction01.Exports("I_ZSUM") = oRecordSet.Fields.Item("U_MmTot").Value.ToString().Trim();
-
-
-        //		oRecordSet.MoveNext();
-
-        //		//UPGRADE_WARNING: oFunction01.Call 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //		if (!(oFunction01.Call))
-        //		{
-        //			MDC_Com.MDC_GF_Message(ref "R/3 RFC 함수호출 중 오류발생", ref "E");
-        //			goto Send_RFC_Error;
-        //		}
-        //		else
-        //		{
-        //		}
-        //	}
-
-
-
-        //	ReturnValue = true;
-        //	//UPGRADE_NOTE: oFunction01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        //	oFunction01 = null;
-        //	//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        //	oRecordSet = null;
-        //	return ReturnValue;
-        //Send_RFC_Error:
-        //	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //	//UPGRADE_WARNING: oSAP_Connection01.Connection 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //	if ((oSAP_Connection01.Connection != null))
-        //	{
-        //		//UPGRADE_WARNING: oSAP_Connection01.Connection 개체의 기본 속성을 확인할 수 없습니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-        //		oSAP_Connection01.Connection.Logoff();
-        //		//UPGRADE_NOTE: oSAP_Connection01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        //		oSAP_Connection01 = null;
-        //	}
-
-        //	ReturnValue = false;
-        //	//UPGRADE_NOTE: oFunction01 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        //	oFunction01 = null;
-        //	//UPGRADE_NOTE: oRecordSet 개체는 가비지가 수집되어야 소멸됩니다. 자세한 내용은 다음을 참조하십시오. 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        //	oRecordSet = null;
-        //	return ReturnValue;
-        //}
 
         /// <summary>
         /// Form Item Event
@@ -829,7 +780,7 @@ namespace PSH_BOne_AddOn
 					}
 					else if (pVal.ItemUID == "Btn01")
 					{
-						PS_MM012_R3_Interface();
+						PS_MM012_InterfaceB1toR3();
 					}
 				}
 				else if (pVal.BeforeAction == false)
@@ -877,9 +828,8 @@ namespace PSH_BOne_AddOn
 							if (string.IsNullOrEmpty(oMat.Columns.Item("PQDocNum").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()))
 							{
 								PS_MM013 ChildForm01 = new PS_MM013();
-								ChildForm01.LoadForm(ref oForm, pVal.ItemUID, pVal.ColUID, pVal.Row, 0);
+								ChildForm01.LoadForm(oForm, pVal.ItemUID, pVal.ColUID, pVal.Row);
 								BubbleEvent = false;
-								return;
 							}
 						}
 					}

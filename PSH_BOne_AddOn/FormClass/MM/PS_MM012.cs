@@ -58,7 +58,7 @@ namespace PSH_BOne_AddOn
 				PS_MM012_ComboBox_Setting();
 				PS_MM012_FormItemEnabled();
 
-				oForm.EnableMenu("1281", true);  // 삭제
+				oForm.EnableMenu("1281", true);  // 찾기
 				oForm.EnableMenu("1283", true);  // 삭제
 				oForm.EnableMenu("1287", true);  // 복제
 				oForm.EnableMenu("1286", false); // 닫기
@@ -561,7 +561,7 @@ namespace PSH_BOne_AddOn
 					oRecordSet.MoveNext();
 					
 					errCode = "2"; //SAP Function 실행 오류가 발생했을 때 에러코드로 처리하기 위해 이 위치에서 "2"를 대입
-					//oFunction.Invoke(rfcDest); //Function 실행
+				    oFunction.Invoke(rfcDest); //Function 실행
 
 					if (oFunction.GetValue("E_MESSAGE").ToString().Trim() != "" && codeHelpClass.Left(oFunction.GetValue("E_MESSAGE").ToString().Trim(), 1) != "S") //리턴 메시지가 "S(성공)"이 아니면
 					{

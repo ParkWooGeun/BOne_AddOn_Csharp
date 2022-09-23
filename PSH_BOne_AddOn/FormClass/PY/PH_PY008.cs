@@ -1536,16 +1536,17 @@ namespace PSH_BOne_AddOn
 
                                     if (Base + Special + Extend + SpExtend + EarlyTo + SEarlyTo + OverTime <= 52)
                                     {
-                                        if (LateTo + EarlyOff + GoOut > 0.1) //지각, 조퇴, 외출시간이 있으면 교대일수 없다.
-                                        {
-                                            Rotation = 0;
-                                        }
-                                        else
-                                        {
-                                            Rotation = 1;
-                                        }
+                                        //if (LateTo + EarlyOff + GoOut > 0.1) //지각, 조퇴, 외출시간이 있으면 교대일수 없다.
+                                        //{
+                                        //    Rotation = 0;
+                                        //}
+                                        //else
+                                        //{
+                                        //    Rotation = 1;
+                                        //}
+                                        Rotation = 1;
 
-                                        if (codeHelpClass.Left(WorkType, 1) == "F" || WorkType == "D11")
+                                        if (codeHelpClass.Left(WorkType, 1) == "F" || WorkType == "D11" || WorkType == "D15")
                                         {
                                             Rotation = 0;
                                         }
@@ -1773,16 +1774,16 @@ namespace PSH_BOne_AddOn
 
                                     if (Base + Special + Extend + SpExtend + EarlyTo + SEarlyTo + OverTime <= 52) //스페셜 추가 OVER TIME 주 BASE SPECIAL 도 추가함 (주52)
                                     {
-                                        if (LateTo + EarlyOff + GoOut > 0.1) //지각, 조퇴, 외출시간이 있으면 교대일수 없다.
-                                        {
-                                            Rotation = 0;
-                                        }
-                                        else
-                                        {
-                                            Rotation = 1;
-                                        }
-
-                                        if (codeHelpClass.Left(WorkType, 1) == "F" || WorkType == "D11")
+                                    //    if (LateTo + EarlyOff + GoOut > 0.1) //지각, 조퇴, 외출시간이 있으면 교대일수 없다.
+                                    //    {
+                                    //        Rotation = 0;
+                                    //    }
+                                    //    else
+                                    //    {
+                                    //        Rotation = 1;
+                                    //    }
+                                    Rotation = 1;
+                                        if (codeHelpClass.Left(WorkType, 1) == "F" || WorkType == "D11" || WorkType =="D15")
                                         {
                                             Rotation = 0;
                                         }
@@ -1956,16 +1957,16 @@ namespace PSH_BOne_AddOn
 
                     if (Base + Special + Extend + SpExtend + EarlyTo + SEarlyTo + OverTime <= 52)
                     {
-                        if (LateTo + EarlyOff + GoOut > 0.1) //지각, 조퇴, 외출시간이 있으면 교대일수 없다.
-                        {
-                            Rotation = 0;
-                        }
-                        else
-                        {
-                            Rotation = 1;
-                        }
-
-                        if (codeHelpClass.Left(WorkType, 1) == "F" || WorkType == "D11")
+                        //if (LateTo + EarlyOff + GoOut > 0.1) //지각, 조퇴, 외출시간이 있으면 교대일수 없다.
+                        //{
+                        //    Rotation = 0;
+                        //}
+                        //else
+                        //{
+                        //    Rotation = 1;
+                        //}
+                        Rotation = 1;
+                        if (codeHelpClass.Left(WorkType, 1) == "F" || WorkType == "D11" || WorkType == "D15")
                         {
                             Rotation = 0;
                         }
@@ -4271,7 +4272,9 @@ namespace PSH_BOne_AddOn
             string CLTCOD;
             string MSTCOD;
             string YY;
+            short errNum = 0;
             string errMessage = string.Empty;
+
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -4469,6 +4472,7 @@ namespace PSH_BOne_AddOn
 
                                     case "A01":
                                     case "A02":
+                                    case "D11":
                                     case "E02":
                                     case "E03":
                                     case "F01":
@@ -4476,7 +4480,7 @@ namespace PSH_BOne_AddOn
                                     case "F03":
                                     case "F04":
                                     case "F05":
-                                    case "D11":
+                                    case "F06":
 
                                         //무단결근, 유계결근, 무급휴일, 휴업, 공상휴직, 병가(휴직), 신병휴직, 정직(유결), 가사휴직
                                         oForm.Items.Item("OffDate").Specific.Value = oForm.Items.Item("GetDate").Specific.Value;
@@ -4522,7 +4526,8 @@ namespace PSH_BOne_AddOn
 
                                         if (MSTCOD.ToString().Trim() != "")
                                         {
-                                            sQry = "exec [PH_PY775_01] '" + CLTCOD + "','" + codeHelpClass.Left(ymd, 4) + "','" + MSTCOD + "','S','1'";
+                                            sQry = "exec [PH_PY775_01] '" + CLTCOD + "','";
+                                            sQry += codeHelpClass.Left(ymd, 4) + "','" + MSTCOD + "','S'";
                                             oRecordSet.DoQuery(sQry);
 
                                             if (oRecordSet.Fields.Item("jandd").Value < JanQty)
@@ -4648,6 +4653,7 @@ namespace PSH_BOne_AddOn
                                     case "D15":
                                         //자기계발휴가, 무급휴가 by PWG(2022.07.20)
                                         //자기계발휴가 잔량 확인
+
                                         CLTCOD = oForm.Items.Item("SCLTCOD").Specific.Value.ToString().Trim();
                                         MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value;
                                         ymd = oForm.Items.Item("PosDate").Specific.Value;
@@ -4681,7 +4687,8 @@ namespace PSH_BOne_AddOn
                                             oForm.Items.Item("OffTime").Specific.Value = "0000";
                                             PH_PY008_Time_ReSet();
                                             oForm.Items.Item("OffDate").Specific.Value = oForm.Items.Item("GetDate").Specific.Value;
-                                            oForm.Items.Item("Rotation").Specific.Value = 1;
+
+                                            oForm.Items.Item("Rotation").Specific.Value = 0;
                                         }
                                         break;
                                 }

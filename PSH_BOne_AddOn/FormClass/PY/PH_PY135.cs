@@ -238,7 +238,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("JdtDate").Enabled = true;
                     oForm.Items.Item("Mat01").Enabled = true;
                     oForm.Items.Item("Btn02").Enabled = true;
-                    oForm.Items.Item("Btn03").Enabled = true;
+                    oForm.Items.Item("Btn03").Enabled = true;  
 
                     //폼 세팅
                     PH_PY135_FormClear();
@@ -247,6 +247,10 @@ namespace PSH_BOne_AddOn
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
                     oForm.EnableMenu("1281", true); //문서찾기
                     oForm.EnableMenu("1282", false); //문서추가
+                    if (oForm.Items.Item("JdtNo").Specific.Value != "")
+                    {
+                        oForm.Items.Item("Btn02").Enabled = false;
+                    }
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
@@ -258,8 +262,14 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("JdtDate").Enabled = true;
                     oForm.Items.Item("Mat01").Enabled = true;
 
+
                     oForm.EnableMenu("1281", false); //문서찾기
                     oForm.EnableMenu("1282", true); //문서추가
+
+                    if (oForm.Items.Item("JdtNo").Specific.Value != "")
+                    {
+                        oForm.Items.Item("Btn02").Enabled = false;
+                    }
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
@@ -274,6 +284,10 @@ namespace PSH_BOne_AddOn
 
                     oForm.EnableMenu("1281", true); //문서찾기
                     oForm.EnableMenu("1282", true); //문서추가
+                    if (oForm.Items.Item("JdtNo").Specific.Value != "")
+                    {
+                        oForm.Items.Item("Btn02").Enabled = false;
+                    }
                 }
             }
             catch (Exception ex)

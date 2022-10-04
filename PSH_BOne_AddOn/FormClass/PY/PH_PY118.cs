@@ -754,10 +754,10 @@ namespace PSH_BOne_AddOn
                         ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("PDF 파일 생성 시작!", 50, false);
                         oMat01.FlushToDataSource();
                        
-                        sQry = "DELETE FROM TEMP_GONGTABLE"; 
+                        sQry = "DELETE FROM Z_TEMP_GONGTABLE"; 
                         oRecordSet.DoQuery(sQry);
 
-                        sQry = "DELETE FROM TEMP_JIGTABLE";
+                        sQry = "DELETE FROM Z_TEMP_JIGTABLE";
                         oRecordSet.DoQuery(sQry);
 
                         sQry = "EXEC PH_PY118_02 '" + Param01 + "','" + Param02 + "','" + Param03 + "','" + Param04 + "','" + Param05 + "','" + "'";
@@ -798,7 +798,7 @@ namespace PSH_BOne_AddOn
                         
                         if(j==1)
                         {
-                            sQry = "DELETE FROM PH_PY118_011";
+                            sQry = "DELETE FROM Z_PH_PY118_011";
                             oRecordSet.DoQuery(sQry);
                             j = 0;
                         }

@@ -118,11 +118,9 @@ namespace PSH_BOne_AddOn
 
                 //제목
                 oForm.DataSources.UserDataSources.Add("Subject", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 50);
-                //oForm.Items.Item("Subject").Specific.DataBind.SetBound(true, "", "Subject");
 
                 //본문
                 oForm.DataSources.UserDataSources.Add("Remark", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
-               //oForm.Items.Item("Remark").Specific.DataBind.SetBound(true, "", "Remark");
             }
             catch (System.Exception ex)
             {
@@ -130,6 +128,9 @@ namespace PSH_BOne_AddOn
             }
         }
 
+        /// <summary>
+        /// PH_PY118_SetDocEntry
+        /// </summary>
         private void PH_PY118_SetDocEntry()
         {
             string DocEntry;
@@ -231,7 +232,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (i + 1 > oDS_PH_PY118B.Size)
                     {
-                        oDS_PH_PY118B.InsertRecord((i));
+                        oDS_PH_PY118B.InsertRecord(i);
                     }
                     oMat01.AddRow();
 
@@ -291,6 +292,7 @@ namespace PSH_BOne_AddOn
         private void PH_PY118_FormItemEnabled()
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
@@ -570,7 +572,7 @@ namespace PSH_BOne_AddOn
                             if (pVal.Row > 0)
                             {
                                 oMat01.SelectRow(pVal.Row, true, false);
-                                                            }
+                            }
                             break;
                     }
                 }
@@ -777,7 +779,7 @@ namespace PSH_BOne_AddOn
                             {
                                 if (oDS_PH_PY118B.GetValue("U_SaveYN", i).ToString().Trim() != "Y")
                                 {
-                                    if ((!string.IsNullOrEmpty(oDS_PH_PY118B.GetValue("U_eMail", i).ToString().Trim())))
+                                    if (!string.IsNullOrEmpty(oDS_PH_PY118B.GetValue("U_eMail", i).ToString().Trim()))
                                     {
                                         sMSTCOD = oDS_PH_PY118B.GetValue("U_MSTCOD", i).ToString().Trim();
                                         if (Make_PDF_File(sMSTCOD, sVersion) == false)
@@ -821,7 +823,7 @@ namespace PSH_BOne_AddOn
                             {
                                 if (oDS_PH_PY118B.GetValue("U_SendYN", i).ToString().Trim() != "Y")
                                 {
-                                    if ((!string.IsNullOrEmpty(oDS_PH_PY118B.GetValue("U_SaveYN", i).ToString().Trim())))
+                                    if (!string.IsNullOrEmpty(oDS_PH_PY118B.GetValue("U_SaveYN", i).ToString().Trim()))
                                     {
                                         sMSTCOD = oDS_PH_PY118B.GetValue("U_MSTCOD", i).ToString().Trim();
                                         if (Send_EMail(sMSTCOD, sVersion) == false)//사번
@@ -960,25 +962,11 @@ namespace PSH_BOne_AddOn
                 Sub_Folder2 = @"C:\PSH_개인별급여명세서\" + STDYER + @"\" + STDMON + "";
                 Sub_Folder3 = @"C:\PSH_개인별급여명세서\" + STDYER + @"\" + STDMON + @"\" + "문서번호" + p_Version + "";
 
-                if (Dir_Exists(Main_Folder) == 0)
-                {
-                    //Make_Dir(Main_Folder);
-                }
-
-                if (Dir_Exists(Sub_Folder1) == 0)
-                {
-                    //Make_Dir(Sub_Folder1);
-                }
-
-                if (Dir_Exists(Sub_Folder2) == 0)
-                {
-                    //Make_Dir(Sub_Folder2);
-                }
-
-                if (Dir_Exists(Sub_Folder3) == 0)
-                {
-                    //Make_Dir(Sub_Folder3);
-                }
+                //디렉토리 생성
+                Dir_Exists(Main_Folder);
+                Dir_Exists(Sub_Folder1);
+                Dir_Exists(Sub_Folder2);
+                Dir_Exists(Sub_Folder3);
 
                 ExportString = Sub_Folder3 + @"\" + p_MSTCOD + "_개인별급여명세서_" + STDYER + "" + STDMON + ".pdf";
 
@@ -989,13 +977,8 @@ namespace PSH_BOne_AddOn
 
                 PdfSecuritySettings securitySettings = document.SecuritySettings;
 
-                // Setting one of the passwords automatically sets the security level to
-                // PdfDocumentSecurityLevel.Encrypted128Bit.
                 securitySettings.UserPassword = "manager";   //개개인암호
                 securitySettings.OwnerPassword = psgovID;    //마스터암호
-
-                // Don't use 40 bit encryption unless needed for compatibility
-                //securitySettings.DocumentSecurityLevel = PdfDocumentSecurityLevel.Encrypted40Bit;
 
                 // Restrict some rights.
                 securitySettings.PermitAccessibilityExtractContent = false;
@@ -1007,10 +990,9 @@ namespace PSH_BOne_AddOn
                 securitySettings.PermitModifyDocument = true;
                 securitySettings.PermitPrint = false;
 
-                // Save the document...
+                // PDF문서 저장
                 document.Save(ExportString);
-                // ...and start a viewer.
-                //Process.Start(ExportString);
+
                 sQry = "Update [@PH_PY118B] Set U_SaveYN = 'Y' Where U_MSTCOD = '" + p_MSTCOD + "' And DocEntry = '" + p_Version + "'";
                 oRecordSet01.DoQuery(sQry);
 

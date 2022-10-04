@@ -51000,6 +51000,83 @@
             <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
         </member>
+        <member name="T:PSH_BOne_AddOn.PS_SD185">
+            <summary>
+            견적대비수주현황
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD185.LoadForm(System.String)">
+            <summary>
+            LoadForm
+            </summary>
+            <param name="oFormDocEntry"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD185.PS_SD185_CreateItems">
+            <summary>
+            PS_SD185_CreateItems
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD185.PS_SD185_SetComboBox">
+            <summary>
+            PS_SD185_SetComboBox
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD185.PS_SD185_Initialize">
+            <summary>
+            PS_SD185_Initialize
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD185.PS_SD185_CheckDataValid">
+            <summary>
+            PS_SD185_CheckDataValid
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD185.PS_SD185_Print_Report01">
+            <summary>
+            PS_SD185_Print_Report01
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD185.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Form Item Event
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">pVal</param>
+            <param name="BubbleEvent">Bubble Event</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD185.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_ITEM_PRESSED
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD185.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_FORM_UNLOAD
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD185.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            FormMenuEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD185.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+            <summary>
+            FormDataEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="BusinessObjectInfo"></param>
+            <param name="BubbleEvent"></param>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_SD190">
             <summary>
             판매실적조회
@@ -57080,6 +57157,17 @@
             <param name="pRptName">리포트 파일(rpt) 명</param>
             <param name="pSubRptFormulas">리포트로 전달할 Formula</param>
             /// <param name="pZoomRate">리포트 비율</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Form.PSH_FormHelpClass.OpenCrystalReport(System.String,System.String,System.Collections.Generic.List{PSH_BOne_AddOn.DataPack.PSH_DataPackClass},System.Collections.Generic.List{PSH_BOne_AddOn.DataPack.PSH_DataPackClass},System.Collections.Generic.List{PSH_BOne_AddOn.DataPack.PSH_DataPackClass},System.String)">
+            <summary>
+            크리스탈 리포트 호출 (Parameter, Formula 추가)
+            </summary>
+            <param name="pRptTitle">리포트 제목</param>
+            <param name="pRptName">리포트 파일(rpt) 명</param>
+            <param name="pRptParameters">리포트로 전달할 Parameter</param>
+            <param name="pSub1RptParameters">SubReport로 전달할 Parameter</param>
+            <param name="pSub2RptParameters">SubReport로 전달할 Parameter</param>
+            <param name="ExportString">Export</param>
         </member>
         <member name="T:PSH_BOne_AddOn.PSH_SetFilter">
             <summary>
@@ -63249,7 +63337,7 @@
         </member>
         <member name="T:PSH_BOne_AddOn.PH_PY118">
             <summary>
-            급상여 E-Mail 발송 (2019.12.16 현재 사용안함, 사용하는 것으로 결정되었을 때 기능 테스트 필요, 송명규) 메일 발송 기능을 사용하게 되면, C#.NET 구문으로 신규 개발 필요
+            급상여E-Mail 발송
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY118.LoadForm(System.String)">
@@ -63263,54 +63351,29 @@
             화면 Item 생성
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY118.PH_PY118_EnableMenus">
+        <member name="M:PSH_BOne_AddOn.PH_PY118.PH_PY118_AddMatrixRow(System.Int32,System.Boolean)">
             <summary>
-            메뉴 세팅(Enable)
+            매트릭스 행 추가
+            PH_PY118_Add_MatrixRow
+            <param name="oRow"></param>
+            <param name="RowIserted"></param>
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY118.PH_PY118_SetDocument(System.String)">
+        <member name="M:PSH_BOne_AddOn.PH_PY118.PH_PY118_MTX01">
             <summary>
-            화면(Form) 초기화(Set)
+            PH_PY118_MTX01
             </summary>
-            <param name="oFormDocEntry"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY118.PH_PY118_FormItemEnabled">
             <summary>
-            화면(Form) 아이템 세팅(Enable)
+            화면의 아이템 Enable 설정
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY118.SetSendMail">
+        <member name="M:PSH_BOne_AddOn.PH_PY118.PH_PY118A_DataValidCheck">
             <summary>
-            SetSendMail
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY118.PrintChk">
-            <summary>
-            PrintChk
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY118.Create_Html2">
-            <summary>
-            Create_Html2
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY118.Send_eMail">
-            <summary>
-            Send_eMail
-            메일 발송 기능을 사용하게 되면, C#.NET 구문으로 신규 개발 필요
+            DataValidCheck
             </summary>
             <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY118.Execution_Process">
-            <summary>
-            Execution_Process
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY118.EMail_Process">
-            <summary>
-            EMail_Process
-            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY118.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -63320,6 +63383,38 @@
             <param name="pVal">pVal</param>
             <param name="BubbleEvent">Bubble Event</param>
         </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY118.Raise_EVENT_GOT_FOCUS(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_GOT_FOCUS 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY118.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_CLICK 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY118.Raise_EVENT_MATRIX_LOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_CLICK 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY118.Raise_EVENT_KEY_DOWN(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_KEY_DOWN
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY118.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             FORM_UNLOAD 이벤트
@@ -63327,6 +63422,46 @@
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY118.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            ITEM_PRESSED 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY118.Make_PDF_File(System.String,System.String)">
+            <summary>
+            Make_PDF_File
+            </summary>
+            <param name="p_MSTCOD">사번</param>
+            <param name="p_Version">문서번호</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY118.Dir_Exists(System.String)">
+            <summary>
+            디렉토리 체크, 폴더 생성
+            </summary>
+            <param name="strDirName">경로</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY118.Send_EMail(System.String,System.String)">
+            <summary>
+            Send_EMail
+            </summary>
+            <param name="p_MSTCOD"></param>
+            <param name="p_Version"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY118.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            FormMenuEvent
+            <summary>
+            메뉴이벤트
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
         </member>
         <member name="T:PSH_BOne_AddOn.PH_PY119">
             <summary>

@@ -571,7 +571,7 @@ namespace PSH_BOne_AddOn
 					}
 				}
 
-				sQry = "update [@PS_MM012H] set u_tradate = convert(varchar(20), getdate(),120) Where U_BPLId = '" + oDS_PS_MM012H.GetValue("U_BPLId", 0).ToString().Trim() + "' And U_Year = '" + oDS_PS_MM012H.GetValue("U_Year", 0).ToString().Trim() + "'";
+				sQry = "UPDATE [@PS_MM012H] SET U_tradate = convert(varchar(20), getdate(),120) Where U_BPLId = '" + oDS_PS_MM012H.GetValue("U_BPLId", 0).ToString().Trim() + "' And U_Year = '" + oDS_PS_MM012H.GetValue("U_Year", 0).ToString().Trim() + "'";
 				oRecordSet.DoQuery(sQry);
 				returnValue = true;
 			}

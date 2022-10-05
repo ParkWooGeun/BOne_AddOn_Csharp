@@ -423,6 +423,11 @@ namespace PSH_BOne_AddOn
 				}
 				else if (pItemUID == "BtnSearch2")
 				{
+                    if (!string.IsNullOrEmpty(oForm.Items.Item("S_StdDt").Specific.Value.ToString().Trim()))
+                    {
+						errMessage = "등록일자는 필수입니다.";
+						throw new Exception();
+                    }
 					BPLId = oForm.Items.Item("S_BPLID").Specific.Value.ToString().Trim();
 					OrdCls = oForm.Items.Item("S_OrdCls").Specific.Value.ToString().Trim();
 					StdDt = oForm.Items.Item("S_StdDt").Specific.Value.ToString().Trim();
@@ -522,11 +527,11 @@ namespace PSH_BOne_AddOn
 		{
 			bool ReturnValue = false;
 			int loopCount;
-			string InDueDt;		//입고예정일
-			string Comment;		//비고
-			string OrdDueDt;	//납기일
-			string OrdDocDt;	//품의일
-			string MatItemCd;	//자재품목코드
+			string InDueDt; //입고예정일
+			string Comment; //비고
+			string OrdDueDt;//납기일
+			string OrdDocDt;//품의일
+			string MatItemCd;//자재품목코드
 			string MatItemNm;	//자재품명
 			string MatItemSpc;	//자재규격
 			string OrdType;		//자체/통합

@@ -81,7 +81,6 @@ namespace PSH_BOne_AddOn
                 oDS_PS_MM015H = oForm.DataSources.DBDataSources.Item("@PS_USERDS01");
                 oDS_PS_MM015L = oForm.DataSources.DBDataSources.Item("@PS_USERDS02");
                 
-                // 메트릭스 개체 할당
                 oMat01 = oForm.Items.Item("Mat01").Specific;
                 oMat02 = oForm.Items.Item("Mat02").Specific;
             }
@@ -216,8 +215,8 @@ namespace PSH_BOne_AddOn
             string errMessage = string.Empty;
             int j;
             int cnt;
-            string EBELN;
             string sQry;
+            string EBELN;
             double S_MENGE = 0; //품의중량
             double S_NETWR = 0; //품의금액
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);

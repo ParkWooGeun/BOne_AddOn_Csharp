@@ -736,7 +736,7 @@ namespace PSH_BOne_AddOn
                                 BubbleEvent = false;
                             }
 
-                            if (oDS_PH_PY118B.Size < 2)
+                            if (oDS_PH_PY118B.Size < 1)
                             {
                                 errMessage = "조회 누르르고 추가하세오!";
                                 BubbleEvent = false;
@@ -908,6 +908,7 @@ namespace PSH_BOne_AddOn
             string JIGBIL;
             string ExportString;
             string psgovID;
+            string JOBTitle;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -922,11 +923,11 @@ namespace PSH_BOne_AddOn
                 STDYER = YM.Substring(0, 4);
                 STDMON = YM.Substring(4, 2);
 
-                sQry = "Select RIGHT(U_govID,7) From [@PH_PY001A] WHERE Code = '" + p_MSTCOD + "'";
+                sQry = "Select U_Comment2 from [@PS_HR200L] WHERE Code ='P118' AND U_Char1 ='" + JOBTYP + "'And U_Char2 ='" + JOBGBN +"'";
                 oRecordSet01.DoQuery(sQry);
-                psgovID = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
+                JOBTitle = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
 
-                WinTitle = "개인별급여명세서_" + p_MSTCOD;
+                WinTitle = JOBTitle + "_" + p_MSTCOD;
                 ReportName = "PH_PY118_01.rpt";
 
                 List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>(); //레포트 그대로날리는변수 
@@ -968,7 +969,11 @@ namespace PSH_BOne_AddOn
                 Dir_Exists(Sub_Folder2);
                 Dir_Exists(Sub_Folder3);
 
-                ExportString = Sub_Folder3 + @"\" + p_MSTCOD + "_개인별급여명세서_" + STDYER + "" + STDMON + ".pdf";
+                ExportString = Sub_Folder3 + @"\" + p_MSTCOD + "_" + JOBTitle + "_" + STDYER + "" + STDMON + ".pdf";
+
+                sQry = "Select RIGHT(U_govID,7) From [@PH_PY001A] WHERE Code = '" + p_MSTCOD + "'";
+                oRecordSet01.DoQuery(sQry);
+                psgovID = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
 
                 formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackSub1ReportParameter, dataPackSub2ReportParameter, ExportString);
                 
@@ -1060,6 +1065,10 @@ namespace PSH_BOne_AddOn
             string STDMON;
             string MSTCOD;
             string Version;
+            string JOBTitle;
+            string JOBGBN;
+            string JOBTYP;
+
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             
             try
@@ -1069,6 +1078,8 @@ namespace PSH_BOne_AddOn
                 YM = oForm.Items.Item("YM").Specific.Value;
                 STDYER = YM.Substring(0, 4);
                 STDMON = YM.Substring(4, 2);
+                JOBGBN = oForm.Items.Item("JOBGBN").Specific.Value.Trim();
+                JOBTYP = oForm.Items.Item("JOBTYP").Specific.Value.Trim();
 
                 Sub_Folder3 = @"C:\PSH_개인별급여명세서\" + STDYER + @"\" + STDMON + @"\" + "문서번호" + Version + "";
 
@@ -1081,6 +1092,10 @@ namespace PSH_BOne_AddOn
                 oRecordSet01.DoQuery(sQry);
                 strToAddress = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
 
+                sQry = "Select U_Comment2 from [@PS_HR200L] WHERE Code ='P118' AND U_Char1 ='" + JOBTYP + "'And U_Char2 ='" + JOBGBN + "'";
+                oRecordSet01.DoQuery(sQry);
+                JOBTitle = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
+
                 //mail.From = new MailAddress("dakkorea1@gmail.com");
                 MsOutlook.Application outlookApp = new MsOutlook.Application();
                 if (outlookApp == null)
@@ -1092,7 +1107,7 @@ namespace PSH_BOne_AddOn
                 mail.Subject = strSubject;
                 mail.HTMLBody = strBody;
                 mail.To = strToAddress;
-                MsOutlook.Attachment oAttach = mail.Attachments.Add(Sub_Folder3 + @"\" + p_MSTCOD + "_개인별급여명세서_" + STDYER + "" + STDMON + ".pdf");
+                MsOutlook.Attachment oAttach = mail.Attachments.Add(Sub_Folder3 + @"\" + p_MSTCOD + "_" + JOBTitle + "_" + STDYER + "" + STDMON + ".pdf");
                 mail.Send();
 
                 mail = null;

@@ -266,12 +266,6 @@ namespace PSH_BOne_AddOn
 					}
 					oForm.Close();
 				}
-				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-				{
-				}
-				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-				{
-				}
 			}
 			catch (Exception ex)
 			{
@@ -406,6 +400,8 @@ namespace PSH_BOne_AddOn
 				}
 				else if (pVal.BeforeAction == false)
 				{
+
+					oMat.AutoResizeColumns();
 				}
 			}
 			catch (Exception ex)
@@ -470,7 +466,6 @@ namespace PSH_BOne_AddOn
 				else if (pVal.Before_Action == false)
 				{
 					SubMain.Remove_Forms(oFormUniqueID);
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_MM171L);
 				}

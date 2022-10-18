@@ -444,11 +444,11 @@ namespace PSH_BOne_AddOn
 		private void PS_MM152_FlushToItemValue(string oUID, int oRow, string oCol)
 		{
 			int sRow;
+			string sQry;
 			double MDUseQty;
 			double MDUseUnWt;
 			double MDUseWt;
 			double MUseWt;
-			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
@@ -568,7 +568,6 @@ namespace PSH_BOne_AddOn
 					errMessage = "전기일자는 필수입력사항입니다. 확인하세요.";
 					throw new Exception();
 				}
-
 				ReturnValue = true;
 			}
 			catch (Exception ex)
@@ -592,20 +591,20 @@ namespace PSH_BOne_AddOn
 		private bool PS_MM152_MatrixSpaceLineDel()
 		{
 			bool ReturnValue = false;
-			string errMessage = string.Empty;
 			int i;
+			string sQry;
+			string OutDoc;
+			string OutLine;
+			string ItemCode;
+			string errMessage = string.Empty;
 			double MUseQty;
 			double MUseWt;
 			double MDUseWt;
 			double MDUseQty;
-			string OutDoc;
-			string OutLine;
-			string ItemCode;
 			double MM130Wt;
 			double MM152Wt;
 			double MM132Wt;
 			double OutWt;
-			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
@@ -732,7 +731,6 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oMat.FlushToDataSource();
-
 				for (i = 0; i <= oMat.VisualRowCount - 1; i++)
 				{
 					if (string.IsNullOrEmpty(oDS_PS_MM152L.GetValue("U_OtDocLin", i).ToString().Trim()))
@@ -760,23 +758,23 @@ namespace PSH_BOne_AddOn
 			int i;
 			int j;
 			int lTypeCount;
-			string BPLID;
-			double OutQty;
-			double OutWt;
+			int AutoKey;
+			int iTemp01;
 			string JakNum;
-			double NQty;
-			double NWeight; //불량수량, 중량
+			string BPLID;
 			string CpCode;
 			string DocDate;
 			string PP040H_DocEntry;
 			string DocType;
 			string OutGbn;
 			string TCpCode;
-			int AutoKey;
-			int iTemp01;
 			string sTemp01;
 			string errMessage = string.Empty;
 			string sQry;
+			double OutQty;
+			double OutWt;
+			double NQty;
+			double NWeight; //불량수량, 중량
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
@@ -865,6 +863,7 @@ namespace PSH_BOne_AddOn
 								lTypeCount += 1;
 								oRecordSet.MoveNext();
 							}
+
 							// DocEntry
 							sQry = "Select AutoKey From [ONNM] Where ObjectCode = 'PS_PP040'";
 							oRecordSet.DoQuery(sQry);
@@ -884,6 +883,7 @@ namespace PSH_BOne_AddOn
 							{
 								DocType = "10";
 							}
+
 							// Insert PS_PP040H
 							sQry = " INSERT INTO [@PS_PP040H]";
 							sQry += " (";
@@ -958,9 +958,7 @@ namespace PSH_BOne_AddOn
 							sQry += ")";
 							oRecordSet.DoQuery(sQry);
 
-							//for (j = 0; j <= (Information.UBound(PS_PP040_Renamed)); j++)   
-							// Check 해 주세요..... 황
-							for (j = 0; j <= PS_PP040_Renamed.Length - 2; j++)
+							for (j = 0; j <= PS_PP040_Renamed.Length - 1; j++)
 							{
 								if (PS_PP040_Renamed[j].Chk == "N")
 								{
@@ -971,6 +969,7 @@ namespace PSH_BOne_AddOn
 										NQty = 0;
 										NWeight = 0;
 									}
+									
 									// Insert PS_PP040L
 									sQry = " INSERT INTO [@PS_PP040L]";
 									sQry += " (";
@@ -1021,13 +1020,13 @@ namespace PSH_BOne_AddOn
 									sQry += "'00',";
 									sQry += "'" + PS_PP040_Renamed[j].PP030HNo + "',";
 									sQry += "'" + PS_PP040_Renamed[j].PP030MNo + "',";
-									sQry += "'" + OutQty + NQty + "',";
-									sQry += "'" + OutWt + NWeight + "',";
-									sQry += "'" + OutQty + "',";
-									sQry += "'" + OutWt + "',";
-									sQry += "'" + NQty + "',";
-									sQry += "'" + NWeight + "',";
-									sQry += "'" + 0 + "'";
+									sQry +=  OutQty + NQty + ",";
+									sQry +=  OutWt + NWeight + ",";
+									sQry += OutQty + ",";
+									sQry += OutWt + ",";
+									sQry += NQty + ",";
+									sQry += NWeight + ",";
+									sQry += 0 ;
 									sQry += ")";
 									oRecordSet.DoQuery(sQry);
 
@@ -1416,7 +1415,7 @@ namespace PSH_BOne_AddOn
 								sQry = "Select U_CardCode From [@PS_MM152H] Where DocEntry = '" + DocEntryNext + "'";
 								oRecordSet.DoQuery(sQry);
 
-								if (PSH_Globals.oCompany.UserName != oRecordSet.Fields.Item(0).Value.ToString().Trim())
+								if (PSH_Globals.oCompany.UserName.ToString().Trim() != oRecordSet.Fields.Item(0).Value.ToString().Trim())
 								{
 									if (PSH_Globals.oCompany.UserName.Substring(0, 1) == "6" || PSH_Globals.oCompany.UserName.Substring(0, 1) == "7")
 									{
@@ -1545,6 +1544,7 @@ namespace PSH_BOne_AddOn
 							if (pVal.ColUID == "OtDocLin" || pVal.ColUID == "MUseQty")
 							{
 								PS_MM152_FlushToItemValue(pVal.ItemUID, pVal.Row, pVal.ColUID);
+								oMat.AutoResizeColumns();
 							}
 							else if (pVal.ColUID == "OutQty")
 							{
@@ -1649,6 +1649,7 @@ namespace PSH_BOne_AddOn
 				{
 					PS_MM152_Add_MatrixRow(oMat.RowCount, false);
 					PS_MM152_FormItemEnabled();
+					oMat.AutoResizeColumns();
 				}
 			}
 			catch (Exception ex)
@@ -1693,9 +1694,6 @@ namespace PSH_BOne_AddOn
 		/// <param name="BubbleEvent"></param>
 		public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
 		{
-			int DocEntry;
-			int DocEntryMax;
-			int DocEntryNext;
 			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -1726,174 +1724,9 @@ namespace PSH_BOne_AddOn
 						case "1289":
 						case "1290":
 						case "1291": //레코드이동버튼
-                            if (string.IsNullOrEmpty(oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim()))
-                            {
-                                DocEntry = 0;
-                            }
-                            else
-                            {
-                                DocEntry = Convert.ToInt32(oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim());
-                            }
-
-                            sQry = "Select Max(DocEntry) From [@PS_MM152H]";
-                            oRecordSet.DoQuery(sQry);
-
-                            DocEntryMax = Convert.ToInt32(oRecordSet.Fields.Item(0).Value.ToString().Trim());
-
-                            if (pVal.MenuUID == "1288") //다음
+							if (PSH_Globals.oCompany.UserName.Substring(0, 1) == "6" || PSH_Globals.oCompany.UserName.Substring(0, 1) == "7")
 							{
-                                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-                                {
-                                    PSH_Globals.SBO_Application.ActivateMenuItem("1290");
-                                    BubbleEvent = false;
-                                    return;
-                                }
-                                else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
-                                {
-                                    if (string.IsNullOrEmpty(oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim()))
-                                    {
-                                        PSH_Globals.SBO_Application.ActivateMenuItem("1290");
-                                        BubbleEvent = false;
-                                        return;
-                                    }
-                                }
-
-                            One_More_Check_1288:
-                                DocEntryNext = DocEntry + 1;
-                                if (DocEntryNext > DocEntryMax)
-                                {
-                                    DocEntry = 0;
-                                    goto One_More_Check_1288;
-                                }
-
-                                sQry = "Select U_CardCode From [@PS_MM152H] Where DocEntry = '" + DocEntryNext + "'";
-                                oRecordSet.DoQuery(sQry);
-
-								if (PSH_Globals.oCompany.UserName != oRecordSet.Fields.Item(0).Value.ToString().Trim())
-								{
-									if (PSH_Globals.oCompany.UserName.Substring(0, 1) == "6" || PSH_Globals.oCompany.UserName.Substring(0, 1) == "7")
-									{
-										DocEntry = DocEntry + 1;
-										goto One_More_Check_1288;
-									}
-									else
-									{
-										oCheck = "False";
-										return;
-									}
-								}
-								else
-								{
-									oCheck = "True";
-									oDocEntryNext = DocEntryNext;
-								}
-                            }
-
-							else if (pVal.MenuUID == "1289")  //이전
-							{
-								if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-								{
-									PSH_Globals.SBO_Application.ActivateMenuItem("1291");
-									BubbleEvent = false;
-									return;
-								}
-								else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
-								{
-									if (string.IsNullOrEmpty(oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim()))
-									{
-										PSH_Globals.SBO_Application.ActivateMenuItem("1291");
-										BubbleEvent = false;
-										return;
-									}
-								}
-
-							One_More_Check_1289:
-								DocEntryNext = DocEntry - 1;
-								if (DocEntryNext < 1)
-								{
-									DocEntry = DocEntryMax + 1;
-									goto One_More_Check_1289;
-								}
-
-								sQry = "Select U_CardCode From [@PS_MM152H] Where DocEntry = '" + DocEntryNext + "'";
-								oRecordSet.DoQuery(sQry);
-
-								if (PSH_Globals.oCompany.UserName != oRecordSet.Fields.Item(0).Value.ToString().Trim())
-								{
-									if (PSH_Globals.oCompany.UserName.Substring(0, 1) == "6" || PSH_Globals.oCompany.UserName.Substring(0, 1) == "7")
-									{
-										DocEntry = DocEntry - 1;
-										goto One_More_Check_1289;
-									}
-									else
-									{
-										oCheck = "False";
-										return;
-									}
-								}
-								else
-								{
-									oCheck = "True";
-									oDocEntryNext = DocEntryNext;
-								}
-							}
-
-							else if (pVal.MenuUID == "1290") //맨첨
-							{
-								DocEntryNext = 0;
-
-							One_More_Check_1290:
-								DocEntryNext += 1;
-
-								sQry = "Select U_CardCode From [@PS_MM152H] Where DocEntry = '" + DocEntryNext + "'";
-								oRecordSet.DoQuery(sQry);
-
-								if (PSH_Globals.oCompany.UserName != oRecordSet.Fields.Item(0).Value.ToString().Trim())
-								{
-									if (PSH_Globals.oCompany.UserName.Substring(0, 1) == "6" || PSH_Globals.oCompany.UserName.Substring(0, 1) == "7")
-									{
-										goto One_More_Check_1290;
-									}
-									else
-									{
-										oCheck = "False";
-										return;
-									}
-								}
-								else
-								{
-									oCheck = "True";
-									oDocEntryNext = DocEntryNext;
-								}
-							}
-
-							else if (pVal.MenuUID == "1291") //맨뒤
-							{
-								DocEntryNext = DocEntryMax + 1;
-
-							One_More_Check_1291:
-								DocEntryNext -= 1;
-
-								sQry = "Select U_CardCode From [@PS_MM152H] Where DocEntry = '" + DocEntryNext + "'";
-								oRecordSet.DoQuery(sQry);
-
-								if (PSH_Globals.oCompany.UserName != oRecordSet.Fields.Item(0).Value.ToString().Trim())
-								{
-									if (PSH_Globals.oCompany.UserName.Substring(0, 1) == "6" || PSH_Globals.oCompany.UserName.Substring(0, 1) == "7")
-									{
-										goto One_More_Check_1291;
-									}
-									else
-									{
-										oCheck = "False";
-										return;
-									}
-								}
-								else
-								{
-									oCheck = "True";
-									oDocEntryNext = DocEntryNext;
-								}
+								Raise_EVENT_RECORD_MOVE(FormUID, ref pVal, ref BubbleEvent);
 							}
                             break;
 						case "1293": //행삭제
@@ -1994,6 +1827,119 @@ namespace PSH_BOne_AddOn
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+			}
+		}
+
+		/// <summary>
+		/// 네비게이션 메소드(Raise_FormMenuEvent 에서 사용)
+		/// </summary>
+		/// <param name="FormUID"></param>
+		/// <param name="pVal"></param>
+		/// <param name="BubbleEvent"></param>
+		private void Raise_EVENT_RECORD_MOVE(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
+		{
+			string sQry;
+			string docEntry;
+			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
+			try
+			{
+				docEntry = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim(); //현재문서번호
+
+				if (pVal.MenuUID == "1288") //다음
+				{
+					if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+					{
+						PSH_Globals.SBO_Application.ActivateMenuItem("1290");
+						return;
+					}
+					else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
+					{
+						if (string.IsNullOrEmpty(oForm.Items.Item("DocEntry").Specific.Value))
+						{
+							PSH_Globals.SBO_Application.ActivateMenuItem("1290");
+							return;
+						}
+					}
+					else
+					{
+						oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
+						oForm.Items.Item("DocEntry").Enabled = true;
+						sQry = "  Select min(DocEntry)";
+						sQry += "  From [@PS_MM152H]";
+						sQry += " Where U_CardCode = '" + PSH_Globals.oCompany.UserName + "'";
+						sQry += "   AND DocEntry > " + docEntry;
+
+						oForm.Items.Item("DocEntry").Specific.Value = dataHelpClass.GetValue(sQry, 0, 1);
+						oForm.Items.Item("1").Enabled = true;
+						oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+						oForm.Items.Item("DocEntry").Enabled = false;
+					}
+				}
+				else if (pVal.MenuUID == "1289") //이전
+				{
+					if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+					{
+						PSH_Globals.SBO_Application.ActivateMenuItem("1291");
+						return;
+					}
+					else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
+					{
+						if (string.IsNullOrEmpty(oForm.Items.Item("DocEntry").Specific.Value))
+						{
+							PSH_Globals.SBO_Application.ActivateMenuItem("1291");
+							return;
+						}
+					}
+					else
+					{
+						oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
+						oForm.Items.Item("DocEntry").Enabled = true;
+						sQry = "  Select max(DocEntry)";
+						sQry += "  From [@PS_MM152H]";
+						sQry += " Where U_CardCode = '" + PSH_Globals.oCompany.UserName + "'";
+						sQry += "   AND DocEntry < " + docEntry;
+
+						oForm.Items.Item("DocEntry").Specific.Value = dataHelpClass.GetValue(sQry, 0, 1);
+						oForm.Items.Item("1").Enabled = true;
+						oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+						oForm.Items.Item("DocEntry").Enabled = false;
+					}
+				}
+				else if (pVal.MenuUID == "1290") //최초
+				{
+					oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
+					oForm.Items.Item("DocEntry").Enabled = true;
+					sQry = "  Select Min(DocEntry)";
+					sQry += "  From [@PS_MM152H]";
+					sQry += " Where U_CardCode = '" + PSH_Globals.oCompany.UserName + "'";
+
+					oForm.Items.Item("DocEntry").Specific.Value = dataHelpClass.GetValue(sQry, 0, 1);
+					oForm.Items.Item("1").Enabled = true;
+					oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+					oForm.Items.Item("DocEntry").Enabled = false;
+				}
+				else if (pVal.MenuUID == "1291") //최종
+				{
+					oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
+					oForm.Items.Item("DocEntry").Enabled = true;
+					sQry = "  Select Max(DocEntry)";
+					sQry += "  From [@PS_MM152H]";
+					sQry += " Where U_CardCode = '" + PSH_Globals.oCompany.UserName + "'";
+
+					oForm.Items.Item("DocEntry").Specific.Value = dataHelpClass.GetValue(sQry, 0, 1);
+					oForm.Items.Item("1").Enabled = true;
+					oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+					oForm.Items.Item("DocEntry").Enabled = false;
+				}
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+			{
+				BubbleEvent = false;
 			}
 		}
 	}

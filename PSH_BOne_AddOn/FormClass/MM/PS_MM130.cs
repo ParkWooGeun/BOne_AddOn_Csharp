@@ -951,6 +951,9 @@ namespace PSH_BOne_AddOn
 				}
 				oMat.AutoResizeColumns();
 				returnValue = true;
+
+				PSH_Globals.oCompany.GetNewObjectCode(out SDocEntry);
+				oDS_PS_MM130H.SetValue("U_STDocNum", 0, SDocEntry);
 			}
 			catch (Exception ex)
 			{
@@ -1102,7 +1105,7 @@ namespace PSH_BOne_AddOn
 							}
 						}
 						
-						else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE) && oForm.Items.Item("OKYNC").Specific.Value.ToString().Trim() == "C" & !string.IsNullOrEmpty(oForm.Items.Item("STDocNum").Specific.Value.ToString().Trim()))
+						else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE) && oForm.Items.Item("OKYNC").Specific.Value.ToString().Trim() == "C" && !string.IsNullOrEmpty(oForm.Items.Item("STDocNum").Specific.Value.ToString().Trim()))
 						{
 							if (PS_MM130_DataValidCheck() == false)
 							{
@@ -1413,6 +1416,119 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
+		/// 네비게이션 메소드(Raise_FormMenuEvent 에서 사용)
+		/// </summary>
+		/// <param name="FormUID"></param>
+		/// <param name="pVal"></param>
+		/// <param name="BubbleEvent"></param>
+		private void Raise_EVENT_RECORD_MOVE(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
+		{
+			string sQry;
+			string docEntry;
+			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
+			try
+			{
+				docEntry = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim(); //현재문서번호
+
+				if (pVal.MenuUID == "1288") //다음
+				{
+					if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+					{
+						PSH_Globals.SBO_Application.ActivateMenuItem("1290");
+						return;
+					}
+					else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
+					{
+						if (string.IsNullOrEmpty(oForm.Items.Item("DocEntry").Specific.Value))
+						{
+							PSH_Globals.SBO_Application.ActivateMenuItem("1290");
+							return;
+						}
+					}
+					else
+					{
+						oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
+						oForm.Items.Item("DocEntry").Enabled = true;
+						sQry = "  Select min(DocEntry)";
+						sQry += "  From [@PS_MM130H]";
+						sQry += " Where U_CardCode = '" + PSH_Globals.oCompany.UserName + "'";
+						sQry += "   AND DocEntry > " + docEntry;
+
+						oForm.Items.Item("DocEntry").Specific.Value = dataHelpClass.GetValue(sQry, 0, 1);
+						oForm.Items.Item("1").Enabled = true;
+						oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+						oForm.Items.Item("DocEntry").Enabled = false;
+					}
+				}
+				else if (pVal.MenuUID == "1289") //이전
+				{
+					if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+					{
+						PSH_Globals.SBO_Application.ActivateMenuItem("1291");
+						return;
+					}
+					else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
+					{
+						if (string.IsNullOrEmpty(oForm.Items.Item("DocEntry").Specific.Value))
+						{
+							PSH_Globals.SBO_Application.ActivateMenuItem("1291");
+							return;
+						}
+					}
+					else
+					{
+						oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
+						oForm.Items.Item("DocEntry").Enabled = true;
+						sQry = "  Select max(DocEntry)";
+						sQry += "  From [@PS_MM130H]";
+						sQry += " Where U_CardCode = '" + PSH_Globals.oCompany.UserName + "'";
+						sQry += "   AND DocEntry < " + docEntry;
+
+						oForm.Items.Item("DocEntry").Specific.Value = dataHelpClass.GetValue(sQry, 0, 1);
+						oForm.Items.Item("1").Enabled = true;
+						oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+						oForm.Items.Item("DocEntry").Enabled = false;
+					}
+				}
+				else if (pVal.MenuUID == "1290") //최초
+				{
+					oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
+					oForm.Items.Item("DocEntry").Enabled = true;
+					sQry = "  Select Min(DocEntry)";
+					sQry += "  From [@PS_MM130H]";
+					sQry += " Where U_CardCode = '" + PSH_Globals.oCompany.UserName + "'";
+
+					oForm.Items.Item("DocEntry").Specific.Value = dataHelpClass.GetValue(sQry, 0, 1);
+					oForm.Items.Item("1").Enabled = true;
+					oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+					oForm.Items.Item("DocEntry").Enabled = false;
+				}
+				else if (pVal.MenuUID == "1291") //최종
+				{
+					oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
+					oForm.Items.Item("DocEntry").Enabled = true;
+					sQry = "  Select Max(DocEntry)";
+					sQry += "  From [@PS_MM130H]";
+					sQry += " Where U_CardCode = '" + PSH_Globals.oCompany.UserName + "'";
+
+					oForm.Items.Item("DocEntry").Specific.Value = dataHelpClass.GetValue(sQry, 0, 1);
+					oForm.Items.Item("1").Enabled = true;
+					oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+					oForm.Items.Item("DocEntry").Enabled = false;
+				}
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+			{
+				BubbleEvent = false;
+			}
+		}
+
+		/// <summary>
 		/// Raise_EVENT_MATRIX_LOAD
 		/// </summary>
 		/// <param name="FormUID"></param>
@@ -1610,6 +1726,10 @@ namespace PSH_BOne_AddOn
 						case "1289":
 						case "1290":
 						case "1291": //레코드이동버튼
+							if (PSH_Globals.oCompany.UserName.Substring(0, 1) == "6" || PSH_Globals.oCompany.UserName.Substring(0, 1) == "7")
+							{
+								Raise_EVENT_RECORD_MOVE(FormUID, ref pVal, ref BubbleEvent);
+							}
 							break;
 						case "1293": //행삭제
 							Raise_EVENT_ROW_DELETE(ref FormUID, ref pVal, ref BubbleEvent);

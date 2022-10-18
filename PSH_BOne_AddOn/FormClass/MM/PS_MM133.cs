@@ -141,8 +141,7 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				//아이디별 사업장 세팅
-				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
+				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue); //아이디별 사업장 세팅
 
 				//아이디별 사번 세팅
 				if (PSH_Globals.oCompany.UserName == "66302" || PSH_Globals.oCompany.UserName == "67517" || PSH_Globals.oCompany.UserName == "66510")

@@ -423,11 +423,6 @@ namespace PSH_BOne_AddOn
 				}
 				else if (pItemUID == "BtnSearch2")
 				{
-                    if (!string.IsNullOrEmpty(oForm.Items.Item("S_StdDt").Specific.Value.ToString().Trim()))
-                    {
-						errMessage = "등록일자는 필수입니다.";
-						throw new Exception();
-                    }
 					BPLId = oForm.Items.Item("S_BPLID").Specific.Value.ToString().Trim();
 					OrdCls = oForm.Items.Item("S_OrdCls").Specific.Value.ToString().Trim();
 					StdDt = oForm.Items.Item("S_StdDt").Specific.Value.ToString().Trim();
@@ -746,10 +741,16 @@ namespace PSH_BOne_AddOn
 			string BPLId;   //사업장
 			string OrdCls;  //품의구분
 			string StdDt;   //기준일자
+			string errMessage = string.Empty;
 			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 
 			try
 			{
+				if (string.IsNullOrEmpty(oForm.Items.Item("S_StdDt").Specific.Value.ToString().Trim()))
+				{
+					errMessage = "등록일자는 필수입니다.";
+					throw new Exception();
+				}
 				BPLId = oForm.Items.Item("S_BPLID").Specific.Value.ToString().Trim();
 				OrdCls = oForm.Items.Item("S_OrdCls").Specific.Value.ToString().Trim();
 				StdDt = oForm.Items.Item("S_StdDt").Specific.Value.ToString().Trim();
@@ -768,7 +769,14 @@ namespace PSH_BOne_AddOn
 			}
 			catch (Exception ex)
 			{
-				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+				if(errMessage != string.Empty)
+                {
+					PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+				{
+					PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+				}
 			}
 		}
 

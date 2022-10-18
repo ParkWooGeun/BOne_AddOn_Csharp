@@ -15850,6 +15850,14 @@
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM130.Raise_EVENT_RECORD_MOVE(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            네비게이션 메소드(Raise_FormMenuEvent 에서 사용)
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_MM130.Raise_EVENT_MATRIX_LOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Raise_EVENT_MATRIX_LOAD
@@ -16099,6 +16107,18 @@
             <param name="ValidateType"></param>
             <returns></returns>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM132.PS_MM132_StockTrans">
+            <summary>
+            PS_MM130_StockTrans
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM132.PS_MM132_Cancel_StockTrans">
+            <summary>
+            PS_MM130_Cancel_oStockTrans
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_MM132.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event
@@ -16134,6 +16154,14 @@
         <member name="M:PSH_BOne_AddOn.PS_MM132.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Raise_EVENT_VALIDATE
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM132.Raise_EVENT_RECORD_MOVE(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            네비게이션 메소드(Raise_FormMenuEvent 에서 사용)
             </summary>
             <param name="FormUID"></param>
             <param name="pVal"></param>
@@ -17723,6 +17751,14 @@
             <param name="BusinessObjectInfo"></param>
             <param name="BubbleEvent"></param>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM152.Raise_EVENT_RECORD_MOVE(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            네비게이션 메소드(Raise_FormMenuEvent 에서 사용)
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
         <member name="T:PSH_BOne_AddOn.PS_MM153">
             <summary>
             외주입고 품질검사
@@ -18025,6 +18061,20 @@
             <summary>
             PS_MM170_MatrixSpaceLineDel
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM170.PS_MM170_Create_oJournalEntries(System.Int32)">
+            <summary>
+            PH_PY135_Create_oJournalEntries(분개)
+            </summary>
+            <param name="ChkType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM170.PS_MM170_Cancel_oJournalEntries(System.Int32)">
+            <summary>
+            PH_PY135_Create_oJournalEntries(분개취소-역분개)
+            </summary>
+            <param name="ChkType"></param>
             <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_MM170.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">

@@ -256,31 +256,31 @@ namespace PSH_BOne_AddOn
 				case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED: //1
 					Raise_EVENT_ITEM_PRESSED(FormUID, ref pVal, ref BubbleEvent);
 					break;
-				//case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
-				//	Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
-				//	break;
-				//case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
-				//	Raise_EVENT_GOT_FOCUS(FormUID, ref pVal, ref BubbleEvent);
-				//	break;
-				//case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
-				//    Raise_EVENT_LOST_FOCUS(FormUID, ref pVal, ref BubbleEvent);
-				//    break;
-				//case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
-				//	Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
-				//	break;
-				//case SAPbouiCOM.BoEventTypes.et_CLICK: //6
-				//	Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
-				//	break;
-				//case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
-				//    Raise_EVENT_DOUBLE_CLICK(FormUID, ref pVal, ref BubbleEvent);
-				//    break;
-				//case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED: //8
-				//    Raise_EVENT_MATRIX_LINK_PRESSED(FormUID, ref pVal, ref BubbleEvent);
-				//    break;
-				//case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED: //9
-				//    Raise_EVENT_MATRIX_COLLAPSE_PRESSED(FormUID, ref pVal, ref BubbleEvent);
-				//    break;
-				case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
+                case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
+                    Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                //case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
+                //	Raise_EVENT_GOT_FOCUS(FormUID, ref pVal, ref BubbleEvent);
+                //	break;
+                //case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
+                //    Raise_EVENT_LOST_FOCUS(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
+                //	Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
+                //	break;
+                //case SAPbouiCOM.BoEventTypes.et_CLICK: //6
+                //	Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
+                //	break;
+                //case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
+                //    Raise_EVENT_DOUBLE_CLICK(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED: //8
+                //    Raise_EVENT_MATRIX_LINK_PRESSED(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED: //9
+                //    Raise_EVENT_MATRIX_COLLAPSE_PRESSED(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+                case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
 					Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
 					break;
 				//case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
@@ -398,6 +398,48 @@ namespace PSH_BOne_AddOn
 			finally
 			{
 				oForm.Freeze(false);
+			}
+		}
+
+		/// <summary>
+		/// KEY_DOWN 이벤트
+		/// </summary>
+		/// <param name="FormUID">Form UID</param>
+		/// <param name="pVal">ItemEvent 객체</param>
+		/// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+		private void Raise_EVENT_KEY_DOWN(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+		{
+			try
+			{
+				if (pVal.BeforeAction == true)
+				{
+					if (pVal.CharPressed == 9)
+					{
+						if (pVal.ItemUID == "CardCode")
+						{
+							if (string.IsNullOrEmpty(oForm.Items.Item("CardCode").Specific.Value.ToString().Trim()))
+							{
+								PSH_Globals.SBO_Application.ActivateMenuItem("7425");
+								BubbleEvent = false;
+							}
+						}
+						if (pVal.ItemUID == "ItemCode")
+						{
+							if (string.IsNullOrEmpty(oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim()))
+							{
+								PSH_Globals.SBO_Application.ActivateMenuItem("7425");
+								BubbleEvent = false;
+							}
+						}
+					}
+				}
+				else if (pVal.BeforeAction == false)
+				{
+				}
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
 			}
 		}
 

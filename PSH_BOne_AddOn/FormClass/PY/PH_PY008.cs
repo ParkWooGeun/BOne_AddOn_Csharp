@@ -3524,7 +3524,7 @@ namespace PSH_BOne_AddOn
 
                 returnValue = hh + MM;
 
-                if (pWorkType == "D09" || pWorkType == "D10") // 근태구분이 반차일 경우 무조건 4시간 반환(2014.04.21 송명규 추가)
+                if (pWorkType == "D09" || pWorkType == "D10" || pWorkType == "D14") // 근태구분이 반차일 경우 무조건 4시간 반환(2014.04.21 송명규 추가)
                 {
                     returnValue = 4;
                 }
@@ -4527,7 +4527,7 @@ namespace PSH_BOne_AddOn
                                         if (MSTCOD.ToString().Trim() != "")
                                         {
                                             sQry = "exec [PH_PY775_01] '" + CLTCOD + "','";
-                                            sQry += codeHelpClass.Left(ymd, 4) + "','" + MSTCOD + "','S'";
+                                            sQry += codeHelpClass.Left(ymd, 4) + "','" + MSTCOD + "','" + "','1'";
                                             oRecordSet.DoQuery(sQry);
 
                                             if (oRecordSet.Fields.Item("jandd").Value < JanQty)

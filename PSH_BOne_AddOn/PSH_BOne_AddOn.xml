@@ -63517,6 +63517,11 @@
             화면 Item 생성
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY118.PH_PY118_SetDocEntry">
+            <summary>
+            PH_PY118_SetDocEntry
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY118.PH_PY118_AddMatrixRow(System.Int32,System.Boolean)">
             <summary>
             매트릭스 행 추가

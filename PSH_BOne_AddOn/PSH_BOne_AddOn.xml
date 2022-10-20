@@ -13092,11 +13092,6 @@
             PS_MM230_LoadData
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_MM230.PS_MM230_Print_Report01">
-            <summary>
-            PS_MM230_Print_Report01
-            </summary>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_MM230.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event

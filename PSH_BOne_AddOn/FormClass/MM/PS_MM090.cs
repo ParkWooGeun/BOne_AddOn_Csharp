@@ -1361,7 +1361,7 @@ namespace PSH_BOne_AddOn
                             }
                             else if (pVal.ItemUID == "CardCode")
                             {
-                                oDS_PS_MM090H.SetValue("U_CardName", 0, dataHelpClass.Get_ReData("CardName", "CardCode", "[OCRD]", "'" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'", ""));
+                                oDS_PS_MM090H.SetValue("U_", 0, dataHelpClass.Get_ReData("CardName", "CardCode", "[OCRD]", "'" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'", ""));
                             }
                         }
                         oMat01.LoadFromDataSource();

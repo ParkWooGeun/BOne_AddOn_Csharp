@@ -326,7 +326,7 @@ namespace PSH_BOne_AddOn
                     Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
                     break;
                 //case SAPbouiCOM.BoEventTypes.et_CLICK: //6
-                //    Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
+                ////    Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
                 //    break;
                 //case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
                 //	Raise_EVENT_DOUBLE_CLICK(FormUID, ref pVal, ref BubbleEvent);
@@ -337,9 +337,9 @@ namespace PSH_BOne_AddOn
                 //case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED: //9
                 //    Raise_EVENT_MATRIX_COLLAPSE_PRESSED(FormUID, ref pVal, ref BubbleEvent);
                 //    break;
-                //case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
-                //	Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
-                //	break;
+                case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
+                    Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
+                    break;
                 //case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
                 //	Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
                 //	break;
@@ -486,6 +486,44 @@ namespace PSH_BOne_AddOn
 			}
 			finally
             {
+				oForm.Freeze(false);
+			}
+		}
+
+		/// <summary>
+		/// Raise_EVENT_VALIDATE
+		/// </summary>
+		/// <param name="FormUID"></param>
+		/// <param name="pVal"></param>
+		/// <param name="BubbleEvent"></param>
+		private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+		{
+			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
+			try
+			{
+				oForm.Freeze(true);
+
+				if (pVal.BeforeAction == true)
+				{
+					if (pVal.ItemChanged == true)
+					{
+						if (pVal.ItemUID == "CardCode")
+						{
+							oForm.Items.Item("CardName").Specific.Value = dataHelpClass.Get_ReData("CardName", "CardCode", "[OCRD]", "'" + oForm.Items.Item("CardCode").Specific.Value + "'", "");
+						}
+					}
+				}
+				else if (pVal.BeforeAction == false)
+				{
+				}
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+			{
 				oForm.Freeze(false);
 			}
 		}

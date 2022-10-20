@@ -111,18 +111,20 @@ namespace PSH_BOne_AddOn
 				BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
 				DocDateF = oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim();
 				DocDateT = oForm.Items.Item("DocDateTo").Specific.Value.ToString().Trim();
+
 				//사용처
-				sQry = " Select g.PrcName, g.PrcName From (select Distinct PrcName = CASE When ISNULL(d.U_Part,'') = '' Then (Case When Isnull(d.U_Dept,'') = '' Then d.U_BusArea Else ISNULL(d.U_dept,'') End) Else ISNULL(d.U_Part,'') End, BPLId = '" + BPLID + "'";
-				sQry += " from OINM a Inner Join OITM b On a.ItemCode = b.ItemCode";
-				sQry += " Left Join OPRC d On a.OcrCode = d.PrcCode And d.Locked = 'N'";
+				sQry = " Select g.PrcName, g.PrcName ";
+				sQry += "  From (select Distinct PrcName = CASE When ISNULL(d.U_Part,'') = '' Then (Case When Isnull(d.U_Dept,'') = '' Then isnull(d.U_BusArea,'') Else ISNULL(d.U_dept,'') End) Else ISNULL(d.U_Part,'') End, BPLId = '" + BPLID + "'";
+				sQry += "		   FROM OINM a Inner Join OITM b On a.ItemCode = b.ItemCode";
+				sQry += "			            Left Join OPRC d On a.OcrCode = d.PrcCode And d.Locked = 'N'";
 				sQry += " where right(a.Warehouse,1) = '" + BPLID + "'";
-				sQry += " and a.DocDate Between '" + DocDateF + "' and '" + DocDateT + "'";
-				sQry += " and isnull(a.ApplObj,0) <> '911'";
-				sQry += " and b.U_ItmBsort = '401'";
-				sQry += " and a.TransType in (59,60) ) g";
+				sQry += "   and a.DocDate Between '" + DocDateF + "' and '" + DocDateT + "'";
+				sQry += "   and isnull(a.ApplObj,0) <> '911'";
+				sQry += "   and b.U_ItmBsort = '401'";
+				sQry += "   and a.TransType in (59,60) ) g";
+				sQry += " where g.PrcName <> ''";
 				oRecordSet.DoQuery(sQry);
 
-				oForm.Items.Item("OcrCode").Specific.ValidValues.Add("", "");
 				while (!oRecordSet.EoF)
 				{
 					oForm.Items.Item("OcrCode").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
@@ -340,18 +342,20 @@ namespace PSH_BOne_AddOn
                         BPLID = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
 						DocDateF = oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim();
 						DocDateT = oForm.Items.Item("DocDateTo").Specific.Value.ToString().Trim();
+
 						//사용처
-						sQry = " Select g.PrcName, g.PrcName From (select Distinct PrcName = CASE When ISNULL(d.U_Part,'') = '' Then (Case When Isnull(d.U_Dept,'') = '' Then d.U_BusArea Else ISNULL(d.U_dept,'') End) Else ISNULL(d.U_Part,'') End, BPLId = '" + BPLID + "'";
-						sQry += " from OINM a Inner Join OITM b On a.ItemCode = b.ItemCode";
-						sQry += " Left Join OPRC d On a.OcrCode = d.PrcCode And d.Locked = 'N'";
+						sQry = " Select g.PrcName, g.PrcName ";
+						sQry += "  From (select Distinct PrcName = CASE When ISNULL(d.U_Part,'') = '' Then (Case When Isnull(d.U_Dept,'') = '' Then isnull(d.U_BusArea,'') Else ISNULL(d.U_dept,'') End) Else ISNULL(d.U_Part,'') End, BPLId = '" + BPLID + "'";
+						sQry += "		   FROM OINM a Inner Join OITM b On a.ItemCode = b.ItemCode";
+						sQry += "			            Left Join OPRC d On a.OcrCode = d.PrcCode And d.Locked = 'N'";
 						sQry += " where right(a.Warehouse,1) = '" + BPLID + "'";
-						sQry += " and a.DocDate Between '" + DocDateF + "' and '" + DocDateT + "'";
-						sQry += " and isnull(a.ApplObj,0) <> '911'";
-						sQry += " and b.U_ItmBsort = '401'";
-						sQry += " and a.TransType in (59,60) ) g";
+						sQry += "   and a.DocDate Between '" + DocDateF + "' and '" + DocDateT + "'";
+						sQry += "   and isnull(a.ApplObj,0) <> '911'";
+						sQry += "   and b.U_ItmBsort = '401'";
+						sQry += "   and a.TransType in (59,60) ) g";
+						sQry += " where g.PrcName <> ''";
 						oRecordSet.DoQuery(sQry);
 
-						oForm.Items.Item("OcrCode").Specific.ValidValues.Add("", "");
 						while (!oRecordSet.EoF)
 						{
 							oForm.Items.Item("OcrCode").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());

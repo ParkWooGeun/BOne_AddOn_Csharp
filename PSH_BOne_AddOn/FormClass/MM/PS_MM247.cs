@@ -360,6 +360,7 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
+				oForm.Freeze(true);
 				if (pVal.BeforeAction == true)
 				{
 					if (pVal.ItemUID == "Btn02")
@@ -393,6 +394,10 @@ namespace PSH_BOne_AddOn
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+			}
+            finally
+            {
+				oForm.Freeze(false);
 			}
 		}
 

@@ -9,7 +9,7 @@ namespace PSH_BOne_AddOn
 	internal class PS_MM948 : PSH_BaseClass
 	{
 		private string oFormUniqueID;
-		private SAPbouiCOM.Grid oGrid;
+		private SAPbouiCOM.Grid oGrid1;
 
 		/// <summary>
 		/// Form 호출
@@ -74,7 +74,7 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
-				oGrid = oForm.Items.Item("Grid01").Specific;
+				oGrid1 = oForm.Items.Item("Grid01").Specific;
 			}
 			catch (Exception ex)
 			{
@@ -109,23 +109,23 @@ namespace PSH_BOne_AddOn
 
 				sQry = "EXEC PS_MM948_01 '" + Param01 + "','" + Param02 + "','" + Param03 + "','" + Param04 + "'";
 
-				oGrid.DataTable.Clear();
+				oGrid1.DataTable.Clear();
 
 				oForm.DataSources.DataTables.Item("DataTable").ExecuteQuery(sQry);
-				oGrid.DataTable = oForm.DataSources.DataTables.Item("DataTable");
+				oGrid1.DataTable = oForm.DataSources.DataTables.Item("DataTable");
 
-				for (loopCount1 = 3; loopCount1 <= oGrid.Columns.Count - 1; loopCount1++)
+				for (loopCount1 = 3; loopCount1 <= oGrid1.Columns.Count - 1; loopCount1++)
 				{
-					oGrid.Columns.Item(loopCount1).RightJustified = true;
+					oGrid1.Columns.Item(loopCount1).RightJustified = true;
 				}
 
-				if (oGrid.Rows.Count == 0)
+				if (oGrid1.Rows.Count == 0)
 				{
 					errMessage = "결과가 존재하지 않습니다.";
 					throw new Exception();
 				}
 
-				oGrid.AutoResizeColumns();
+				oGrid1.AutoResizeColumns();
 				oForm.Update();
 			}
 			catch (Exception ex)
@@ -247,7 +247,7 @@ namespace PSH_BOne_AddOn
 				{
 					SubMain.Remove_Forms(oFormUniqueID);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(oGrid1);
 				}
 			}
 			catch (Exception ex)

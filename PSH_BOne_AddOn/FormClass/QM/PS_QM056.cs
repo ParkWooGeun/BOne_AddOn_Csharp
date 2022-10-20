@@ -112,8 +112,7 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				//사업장
-				dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL order by BPLId", "", false, false);
+				dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL order by BPLId", "", false, false); //사업장
 			}
 			catch (Exception ex)
 			{
@@ -359,7 +358,6 @@ namespace PSH_BOne_AddOn
 				{
 					PS_QM056_FormClear();
 				}
-
 				ReturnValue = true;
 			}
 			catch (Exception ex)
@@ -434,8 +432,8 @@ namespace PSH_BOne_AddOn
 			string DocEntry;
 			string ItemCode;
 			string sQry;
-			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
 			{

@@ -218,7 +218,6 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void PS_QM092_MTX02()
 		{
-
 			string BPLID; //사업장
 			string FrDt;  //기간(Fr)
 			string ToDt;  //기간(To)

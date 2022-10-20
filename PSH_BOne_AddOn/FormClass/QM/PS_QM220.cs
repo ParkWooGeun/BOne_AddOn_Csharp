@@ -225,8 +225,8 @@ namespace PSH_BOne_AddOn
 						ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";
 					}
 				}
-
 				oMat.LoadFromDataSource();
+				oMat.AutoResizeColumns();
 			}
 			catch (Exception ex)
 			{

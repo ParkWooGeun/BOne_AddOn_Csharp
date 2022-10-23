@@ -2045,7 +2045,7 @@
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">pVal</param>
-            <param name="BubbleEvent">Bubble Event</param> 
+            <param name="BubbleEvent">Bubble Event</param>
         </member>
         <member name="M:PSH_BOne_AddOn.Core.S170.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>

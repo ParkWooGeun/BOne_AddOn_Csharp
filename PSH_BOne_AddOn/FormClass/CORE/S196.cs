@@ -22,6 +22,7 @@ namespace PSH_BOne_AddOn.Core
 				oForm = PSH_Globals.SBO_Application.Forms.Item(formUID);
 				oFormUniqueID = formUID;
 				oForm.Freeze(true);
+				SubMain.Add_Forms(this, formUID, "S196");
 				S196_CreateItems();
 			}
 			catch (Exception ex)

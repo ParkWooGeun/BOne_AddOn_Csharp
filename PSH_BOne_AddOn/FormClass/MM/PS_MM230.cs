@@ -63,7 +63,7 @@ namespace PSH_BOne_AddOn
 				oForm.EnableMenu("1286", true); // 닫기
 				oForm.EnableMenu("1284", true); // 취소
 				oForm.EnableMenu("1293", true); // 행삭제
-				oForm.Items.Item("YM").Click(); //발송순번 포커서
+				oForm.Items.Item("YM").Click(); //포커서
 			}
 			catch (Exception ex)
 			{
@@ -525,6 +525,11 @@ namespace PSH_BOne_AddOn
 							{
 								PS_MM230_FormItemEnabled();
 								PS_MM230_AddMatrixRow(0, true);
+								PS_MM230_Initial_Setting();
+								oForm.Items.Item("YM").Specific.Value = DateTime.Now.ToString("yyyyMM");
+								oForm.Items.Item("DocDateFr").Specific.Value = "";
+								oForm.Items.Item("DocDateTo").Specific.Value = "";
+								oForm.Items.Item("YM").Click(); //포커서
 							}
 						}
 						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
@@ -924,6 +929,11 @@ namespace PSH_BOne_AddOn
 						case "1282": //추가
 							PS_MM230_FormItemEnabled();
 							PS_MM230_AddMatrixRow(0, true);
+							PS_MM230_Initial_Setting();
+							oForm.Items.Item("YM").Specific.Value = DateTime.Now.ToString("yyyyMM");
+							oForm.Items.Item("DocDateFr").Specific.Value = "";
+							oForm.Items.Item("DocDateTo").Specific.Value = "";
+							oForm.Items.Item("YM").Click(); //포커서
 							break;
 						case "1287": //복제 
 							break;

@@ -2,9 +2,6 @@ using System;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.Code;
-using PSH_BOne_AddOn.Form;
-using PSH_BOne_AddOn.DataPack;
-using System.Collections.Generic;
 
 namespace PSH_BOne_AddOn
 {
@@ -63,11 +60,10 @@ namespace PSH_BOne_AddOn
 				PS_MM230_EnableMenus();
 				PS_MM230_SetDocument(oFormDocEntry);
 
-				oForm.EnableMenu("1283", true); // 삭제
 				oForm.EnableMenu("1286", true); // 닫기
 				oForm.EnableMenu("1284", true); // 취소
 				oForm.EnableMenu("1293", true); // 행삭제
-				oForm.Items.Item("YM").Click(); //발송순번 포커서
+				oForm.Items.Item("YM").Click(); //포커서
 			}
 			catch (Exception ex)
 			{
@@ -373,8 +369,7 @@ namespace PSH_BOne_AddOn
 				DocDateFr = oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim();
 				DocDateTo = oForm.Items.Item("DocDateTo").Specific.Value.ToString().Trim();
 
-				//구매관리 11,번 계산서접수조회의 PROC를 드대로 씀
-				sQry = " EXEC PS_MM247_01 '" + DocDateFr + "','" + DocDateTo + "','" + BPLId + "'";
+				sQry = " EXEC PS_MM230_05 '" + DocDateFr + "','" + DocDateTo + "','" + BPLId + "'";
 				oRecordSet.DoQuery(sQry);
 
 				oDS_PS_MM230L.Clear();
@@ -386,8 +381,8 @@ namespace PSH_BOne_AddOn
 				{
 					oDS_PS_MM230L.InsertRecord(i);
 					oDS_PS_MM230L.SetValue("U_LineNum", i, Convert.ToString(i + 1));
-					oDS_PS_MM230L.SetValue("U_CardCode", i, oRecordSet.Fields.Item(1).Value.ToString().Trim());
-					oDS_PS_MM230L.SetValue("U_CardName", i, oRecordSet.Fields.Item(2).Value.ToString().Trim());
+					oDS_PS_MM230L.SetValue("U_CardCode", i, oRecordSet.Fields.Item(0).Value.ToString().Trim());
+					oDS_PS_MM230L.SetValue("U_CardName", i, oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					i += 1;
 					oRecordSet.MoveNext();
 				}
@@ -401,45 +396,6 @@ namespace PSH_BOne_AddOn
 			{
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 				oForm.Freeze(false);
-			}
-		}
-
-		/// <summary>
-		/// PS_MM230_Print_Report01
-		/// </summary>
-		[STAThread]
-		private void PS_MM230_Print_Report01()
-		{
-			string WinTitle;
-			string ReportName;
-			string DocEntry;
-			string VIEWYN;
-			string SoviewYN;
-			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
-
-			try
-			{
-				DocEntry = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim();
-				VIEWYN = oForm.Items.Item("VIEWYN").Specific.Value.ToString().Trim();
-				SoviewYN = oForm.Items.Item("SOVIEWYN").Specific.Value.ToString().Trim();
-
-				WinTitle = "[PS_MM230_10] 검사성적서 출력(한글)";
-				ReportName = "PS_MM230_10.rpt";
-
-				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
-
-				// Parameter
-				dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", DocEntry));
-				dataPackParameter.Add(new PSH_DataPackClass("@VIEWYN", VIEWYN));
-				dataPackParameter.Add(new PSH_DataPackClass("@SOVIEWYN", SoviewYN));
-				dataPackParameter.Add(new PSH_DataPackClass("@Gubun", "Q"));
-				dataPackParameter.Add(new PSH_DataPackClass("@Lang", "K"));
-
-				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
 			}
 		}
 
@@ -558,15 +514,6 @@ namespace PSH_BOne_AddOn
 							PS_MM230_LoadData();
 						}
 					}
-					else if (pVal.ItemUID == "Btn_prt")
-					{
-						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-						{
-							System.Threading.Thread thread = new System.Threading.Thread(PS_MM230_Print_Report01);
-							thread.SetApartmentState(System.Threading.ApartmentState.STA);
-							thread.Start();
-						}
-					}
 				}
 				else if (pVal.BeforeAction == false)
 				{
@@ -578,6 +525,11 @@ namespace PSH_BOne_AddOn
 							{
 								PS_MM230_FormItemEnabled();
 								PS_MM230_AddMatrixRow(0, true);
+								PS_MM230_Initial_Setting();
+								oForm.Items.Item("YM").Specific.Value = DateTime.Now.ToString("yyyyMM");
+								oForm.Items.Item("DocDateFr").Specific.Value = "";
+								oForm.Items.Item("DocDateTo").Specific.Value = "";
+								oForm.Items.Item("YM").Click(); //포커서
 							}
 						}
 						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
@@ -724,8 +676,10 @@ namespace PSH_BOne_AddOn
 		/// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
 		private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
+			string sQry;
 			string CDate;
 			PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
+			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
 			{
@@ -749,6 +703,22 @@ namespace PSH_BOne_AddOn
 								oForm.Items.Item("DocDateTo").Specific.Value = Convert.ToDateTime(CDate).AddMonths(1).AddDays(-1).ToString("yyyyMMdd"); //말일
 							}
 						}
+						if (pVal.ItemUID == "Mat01")
+						{
+							if (pVal.ColUID == "CardCode")
+							{
+								sQry = "Select CardName From OCRD Where CardCode = '" + oMat.Columns.Item("CardCode").Cells.Item(pVal.Row).Specific.Value.ToString().Trim() + "'";
+								oRecordSet.DoQuery(sQry);
+								oMat.Columns.Item("CardName").Cells.Item(pVal.Row).Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+
+								if ((pVal.Row == oMat.RowCount || oMat.VisualRowCount == 0) && !string.IsNullOrEmpty(oMat.Columns.Item("CardCode").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()))
+								{
+									oMat.FlushToDataSource();
+									PS_MM230_AddMatrixRow(oMat.RowCount, false);
+								}
+								oMat.Columns.Item("CardCode").Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+							}
+						}
 					}
 				}
 				else if (pVal.Before_Action == false)
@@ -762,6 +732,7 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 				oForm.Freeze(false);
 			}
 		}
@@ -783,7 +754,6 @@ namespace PSH_BOne_AddOn
 				{
 					PS_MM230_FormItemEnabled();
 					PS_MM230_AddMatrixRow(oMat.VisualRowCount, false);
-					//oMat.AutoResizeColumns();
 				}
 			}
 			catch (Exception ex)
@@ -959,6 +929,11 @@ namespace PSH_BOne_AddOn
 						case "1282": //추가
 							PS_MM230_FormItemEnabled();
 							PS_MM230_AddMatrixRow(0, true);
+							PS_MM230_Initial_Setting();
+							oForm.Items.Item("YM").Specific.Value = DateTime.Now.ToString("yyyyMM");
+							oForm.Items.Item("DocDateFr").Specific.Value = "";
+							oForm.Items.Item("DocDateTo").Specific.Value = "";
+							oForm.Items.Item("YM").Click(); //포커서
 							break;
 						case "1287": //복제 
 							break;

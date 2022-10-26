@@ -9,8 +9,6 @@ namespace PSH_BOne_AddOn.Core
     /// </summary>
     internal class S20700 : PSH_BaseClass
     {
-        private string oFormUniqueID;
-
         /// <summary>
         /// Form 호출
         /// </summary>
@@ -21,8 +19,6 @@ namespace PSH_BOne_AddOn.Core
             {
                 oForm = PSH_Globals.SBO_Application.Forms.Item(formUID);
                 oForm.Freeze(true);
-
-                oFormUniqueID = formUID;
                 SubMain.Add_Forms(this, formUID, "S20700");
 
                 S20700_CreateItems();
@@ -241,8 +237,9 @@ namespace PSH_BOne_AddOn.Core
 
                             sQry = "INSERT INTO OUSR_LOCK_LOG SELECT  (select U_MSTCOD from OHEM where userId = (select USERID from OUSR where USER_CODE = '" + oForm.Items.Item("13").Specific.value;
                             sQry += "')), GETDATE(), 'OUSR', (select U_MSTCOD from OHEM where userId = '" + PSH_Globals.oCompany.UserSignature.ToString() + "'),'";
-                            sQry += oForm.Items.Item("Type").Specific.Value + "'";
+                            sQry += oForm.Items.Item("Type").Specific.Value + "','" + oForm.Items.Item("13").Specific.value + "'";
                             oRecordSet.DoQuery(sQry);
+
                         }
                     }
                 }
@@ -325,7 +322,6 @@ namespace PSH_BOne_AddOn.Core
                 }
                 else if (pVal.Before_Action == false)
                 {
-                    SubMain.Remove_Forms(oFormUniqueID);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                 }
             }

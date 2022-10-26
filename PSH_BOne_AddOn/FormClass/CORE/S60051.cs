@@ -8,7 +8,6 @@ namespace PSH_BOne_AddOn.Core
 	/// </summary>
 	internal class S60051 : PSH_BaseClass
 	{
-		private string oFormUniqueID;
 		private SAPbouiCOM.Matrix oMat;
 		private int oMatRow;
 
@@ -20,12 +19,11 @@ namespace PSH_BOne_AddOn.Core
 		{
 			try
 			{
-				oFormUniqueID = formUID;
-				oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
+				oForm = PSH_Globals.SBO_Application.Forms.Item(formUID);
 				oForm.Freeze(true);
+				SubMain.Add_Forms(this, formUID, "S60051");
 				S60051_CreateItems();
 				oMat = oForm.Items.Item("5").Specific;
-				SubMain.Add_Forms(this, formUID, "S60051");
 			}
 			catch (Exception ex)
 			{
@@ -51,7 +49,7 @@ namespace PSH_BOne_AddOn.Core
 				newItem.Top = oForm.Items.Item("1").Top - 12;
 				newItem.Left = oForm.Items.Item("1").Left;
 				newItem.Height = 12;
-				newItem.Width = 120;
+				newItem.Width = 70;
 				newItem.FontSize = 10;
 				newItem.Specific.Caption = "Addon running";
 			}
@@ -66,11 +64,10 @@ namespace PSH_BOne_AddOn.Core
 		}
 
 		/// <summary>
-		/// Create_oJournalEntries
+		/// S60051_Create_oJournalEntries
 		/// </summary>
-		/// <param name="ChkType"></param>
 		/// <returns></returns>
-		private bool Create_oJournalEntries(int ChkType)
+		private bool S60051_Create_oJournalEntries()
 		{
 			bool ReturnValue = false;
 			int i;
@@ -84,7 +81,7 @@ namespace PSH_BOne_AddOn.Core
 			string ErrMsg = string.Empty;
 			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-			SAPbobsCOM.JournalEntries f_oJournalEntries = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oJournalEntries); //분개문서 객체
+			SAPbobsCOM.JournalEntries oJournal = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oJournalEntries);
 
 			try
 			{
@@ -95,13 +92,13 @@ namespace PSH_BOne_AddOn.Core
 				PSH_Globals.oCompany.StartTransaction();
 
 				i = 0;
-				var _with1 = f_oJournalEntries;
+				//var _with1 = f_oJournalEntries;
 
 				// Header
-				_with1.ReferenceDate = DateTime.ParseExact(oForm.Items.Item("55").Specific.Value.ToString().Trim(), "yyyyMMdd", null);
-				_with1.DueDate = DateTime.ParseExact(oForm.Items.Item("55").Specific.Value.ToString().Trim(), "yyyyMMdd", null);
-				_with1.TaxDate = DateTime.ParseExact(oForm.Items.Item("61").Specific.Value.ToString().Trim(), "yyyyMMdd", null);
-				_with1.Memo = "추심에서 부도어음이동";
+				oJournal.ReferenceDate = DateTime.ParseExact(oForm.Items.Item("55").Specific.Value.ToString().Trim(), "yyyyMMdd", null);
+				oJournal.DueDate = DateTime.ParseExact(oForm.Items.Item("55").Specific.Value.ToString().Trim(), "yyyyMMdd", null);
+				oJournal.TaxDate = DateTime.ParseExact(oForm.Items.Item("61").Specific.Value.ToString().Trim(), "yyyyMMdd", null);
+				oJournal.Memo = "추심에서 부도어음이동";
 
 				// Line
 				for (j = 1; j <= oMat.VisualRowCount; j++)
@@ -116,37 +113,35 @@ namespace PSH_BOne_AddOn.Core
 						oRecordSet.DoQuery(sQry);
 						vBPLId = oRecordSet.Fields.Item("U_BPLId").Value.ToString().Trim();
 						//전표헤더 사업장
-						_with1.UserFields.Fields.Item("U_BPLId").Value = vBPLId;
+						oJournal.UserFields.Fields.Item("U_BPLId").Value = vBPLId;
 
 						//차변(Debit)--------------------------------------------------------
-						_with1.Lines.Add();
-						_with1.Lines.SetCurrentLine(i);
+						oJournal.Lines.Add();
+						oJournal.Lines.SetCurrentLine(i);
 
-						_with1.Lines.ShortName = oMat.Columns.Item("28").Cells.Item(j).Specific.Value.ToString().Trim();
-						_with1.Lines.ControlAccount = "11104070";
+						oJournal.Lines.ShortName = oMat.Columns.Item("28").Cells.Item(j).Specific.Value.ToString().Trim();
+						oJournal.Lines.ControlAccount = "11104070";
 						//부도어음
-						_with1.Lines.Debit = Convert.ToDouble(oMat.Columns.Item("2").Cells.Item(j).Specific.Value.ToString().Trim());
-						_with1.Lines.Reference1 = vBoeKey;
-						_with1.Lines.LineMemo = "어음관리 번호(" + oMat.Columns.Item("7").Cells.Item(j).Specific.Value.ToString().Trim() + ") : 추심에서 부도이동";
-						_with1.Lines.UserFields.Fields.Item("U_BPLId").Value = vBPLId;
+						oJournal.Lines.Debit = Convert.ToDouble(oMat.Columns.Item("2").Cells.Item(j).Specific.Value.ToString().Trim());
+						oJournal.Lines.Reference1 = vBoeKey;
+						oJournal.Lines.LineMemo = "어음관리 번호(" + oMat.Columns.Item("7").Cells.Item(j).Specific.Value.ToString().Trim() + ") : 추심에서 부도이동";
+						oJournal.Lines.UserFields.Fields.Item("U_BPLId").Value = vBPLId;
 						i += 1;
 
 						//대변(Credit)
-						_with1.Lines.Add();
-						_with1.Lines.SetCurrentLine(i);
-
-						_with1.Lines.ShortName = oMat.Columns.Item("28").Cells.Item(j).Specific.Value.ToString().Trim();
-						_with1.Lines.ControlAccount = "11104060";
+						oJournal.Lines.Add();
+						oJournal.Lines.SetCurrentLine(i);
+						oJournal.Lines.ShortName = oMat.Columns.Item("28").Cells.Item(j).Specific.Value.ToString().Trim();
+						oJournal.Lines.ControlAccount = "11104060";
 						//받을어음
-						_with1.Lines.Credit = Convert.ToDouble(oMat.Columns.Item("2").Cells.Item(j).Specific.Value.ToString().Trim());
-						_with1.Lines.Reference1 = vBoeKey;
-						_with1.Lines.LineMemo = "어음관리 번호(" + oMat.Columns.Item("7").Cells.Item(j).Specific.Value.ToString().Trim() + ") : 추심에서 부도이동";
-						_with1.Lines.UserFields.Fields.Item("U_BPLId").Value = vBPLId;
+						oJournal.Lines.Credit = Convert.ToDouble(oMat.Columns.Item("2").Cells.Item(j).Specific.Value.ToString().Trim());
+						oJournal.Lines.Reference1 = vBoeKey;
+						oJournal.Lines.LineMemo = "어음관리 번호(" + oMat.Columns.Item("7").Cells.Item(j).Specific.Value.ToString().Trim() + ") : 추심에서 부도이동";
+						oJournal.Lines.UserFields.Fields.Item("U_BPLId").Value = vBPLId;
 						i += 1;
 					}
 				}
-				// 완료
-				RetVal = f_oJournalEntries.Add();
+				RetVal = oJournal.Add(); // 완료
 
 				if (0 != RetVal)
 				{
@@ -154,12 +149,7 @@ namespace PSH_BOne_AddOn.Core
 					errCode = "1";
 					throw new Exception();
 				}
-
-				if (ChkType == 1)
-				{
-					PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack);
-				}
-				else if (ChkType == 2)
+				else
 				{
 					PSH_Globals.oCompany.GetNewObjectCode(out VTransId);
 
@@ -211,7 +201,7 @@ namespace PSH_BOne_AddOn.Core
 			finally
 			{
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(f_oJournalEntries);
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(oJournal);
 			}
 			return ReturnValue;
 		}
@@ -320,7 +310,7 @@ namespace PSH_BOne_AddOn.Core
 							//부도일 경우
 							if (oForm.Items.Item("4").Specific.Value.ToString().Trim() == "F")
 							{
-								if (Create_oJournalEntries(2) == false)
+								if (S60051_Create_oJournalEntries() == false)
 								{
 									BubbleEvent = false;
 									return;
@@ -392,7 +382,6 @@ namespace PSH_BOne_AddOn.Core
 				}
 				else if (pVal.Before_Action == false)
 				{
-					SubMain.Remove_Forms(oFormUniqueID);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat);
 				}

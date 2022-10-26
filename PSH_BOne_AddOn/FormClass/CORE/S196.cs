@@ -8,9 +8,6 @@ namespace PSH_BOne_AddOn.Core
 	/// </summary>
 	internal class S196 : PSH_BaseClass
 	{
-		private string oFormUniqueID;
-		private int oMatRow;
-
 		/// <summary>
 		/// Form 호출
 		/// </summary>
@@ -20,7 +17,6 @@ namespace PSH_BOne_AddOn.Core
 			try
 			{
 				oForm = PSH_Globals.SBO_Application.Forms.Item(formUID);
-				oFormUniqueID = formUID;
 				oForm.Freeze(true);
 				SubMain.Add_Forms(this, formUID, "S196");
 				S196_CreateItems();
@@ -66,11 +62,11 @@ namespace PSH_BOne_AddOn.Core
 				newItem.Specific.Caption = "어음구분";
 
 				newItem = oForm.Items.Add("AddonText", SAPbouiCOM.BoFormItemTypes.it_STATIC);
-				newItem.Top = oForm.Items.Item("1").Top - 12;
-				newItem.Left = oForm.Items.Item("1").Left;
+				newItem.Top = oForm.Items.Item("2").Top;
+				newItem.Left = oForm.Items.Item("2").Left + 70;
 				newItem.Height = 12;
 				newItem.Width = 120;
-				newItem.FontSize = 10;
+				newItem.FontSize = 12;
 				newItem.Specific.Caption = "Addon running";
 			}
 			catch (Exception ex)
@@ -183,38 +179,7 @@ namespace PSH_BOne_AddOn.Core
 				}
 				else if (pVal.Before_Action == false)
 				{
-					SubMain.Remove_Forms(oFormUniqueID);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
-				}
-			}
-			catch (Exception ex)
-			{
-				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-			}
-		}
-
-		/// <summary>
-		/// Raise_RightClickEvent
-		/// </summary>
-		/// <param name="FormUID"></param>
-		/// <param name="eventInfo"></param>
-		/// <param name="BubbleEvent"></param>
-		public override void Raise_RightClickEvent(string FormUID, ref SAPbouiCOM.ContextMenuInfo eventInfo, ref bool BubbleEvent)
-		{
-			try
-			{
-				if (eventInfo.BeforeAction == true)
-				{
-					if (eventInfo.ItemUID == "76")
-					{
-						if (eventInfo.Row > 0)
-						{
-							oMatRow = eventInfo.Row;
-						}
-					}
-				}
-				else if (eventInfo.BeforeAction == false)
-				{
 				}
 			}
 			catch (Exception ex)

@@ -9,7 +9,6 @@ namespace PSH_BOne_AddOn.Core
 	/// </summary>
 	internal class S42 : PSH_BaseClass
 	{
-		private string oFormUniqueID;
 		private SAPbouiCOM.Matrix oMat01;
 		private SAPbouiCOM.Matrix oMat02;
 		private SAPbouiCOM.Matrix oMat03;
@@ -26,18 +25,15 @@ namespace PSH_BOne_AddOn.Core
 		{
 			try
 			{
-				oFormUniqueID = formUID;
-				oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
+				oForm = PSH_Globals.SBO_Application.Forms.Item(formUID);
 				oForm.Freeze(true);
+				SubMain.Add_Forms(this, formUID, "S42");
 				oMat01 = oForm.Items.Item("3").Specific;
 				oMat02 = oForm.Items.Item("4").Specific;
 				oMat03 = oForm.Items.Item("5").Specific;
 				oMatTopRow01 = 1;
 				oMatBottomLeftRow01 = 1;
-
 				PS_S42_CreateItems();
-			
-				SubMain.Add_Forms(this, formUID, "S42");
 			}
 			catch (Exception ex)
 			{
@@ -67,11 +63,11 @@ namespace PSH_BOne_AddOn.Core
 				oForm.Items.Item("16").Visible = false;
 
 				oNewITEM = oForm.Items.Add("AddonText", SAPbouiCOM.BoFormItemTypes.it_STATIC);
-				oNewITEM.Top = oForm.Items.Item("1").Top - 12;
-				oNewITEM.Left = oForm.Items.Item("1").Left;
+				oNewITEM.Top = oForm.Items.Item("2").Top;
+				oNewITEM.Left = oForm.Items.Item("2").Left + 70;
 				oNewITEM.Height = 12;
 				oNewITEM.Width = 120;
-				oNewITEM.FontSize = 10;
+				oNewITEM.FontSize = 12;
 				oNewITEM.Specific.Caption = "Addon running";
 			}
 			catch (Exception ex)
@@ -298,7 +294,7 @@ namespace PSH_BOne_AddOn.Core
 						{
 							if (pVal.ColUID == "4")
 							{
-								//품목이 멀티일때
+								//멀티(코일단위로 출고가능)
 								if (dataHelpClass.GetItem_ItmBsort(oMat01.Columns.Item("1").Cells.Item(oMatTopRow01).Specific.Value.ToString().Trim()) == "104" || dataHelpClass.GetItem_ItmBsort(oMat01.Columns.Item("1").Cells.Item(oMatTopRow01).Specific.Value.ToString().Trim()) == "302")
 								{
 									if (Convert.ToDouble(oMat02.Columns.Item("3").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()) != Convert.ToDouble(oMat02.Columns.Item("4").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()))
@@ -306,7 +302,7 @@ namespace PSH_BOne_AddOn.Core
 										oMat02.Columns.Item("4").Cells.Item(pVal.Row).Specific.Value = oMat02.Columns.Item("3").Cells.Item(pVal.Row).Specific.Value.ToString().Trim();
 									}
 								}
-								//품목이 부품일때,제품만해당
+								//부품
 								else if (dataHelpClass.GetItem_ItmBsort(oMat01.Columns.Item("1").Cells.Item(oMatTopRow01).Specific.Value.ToString().Trim()) == "102")
 								{
 									oMat02.Columns.Item("4").Cells.Item(pVal.Row).Specific.Value = Convert.ToString(System.Math.Round(Convert.ToDouble(oMat02.Columns.Item("4").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()), 0));
@@ -344,7 +340,6 @@ namespace PSH_BOne_AddOn.Core
 				}
 				else if (pVal.Before_Action == false)
 				{
-					SubMain.Remove_Forms(oFormUniqueID);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat02);

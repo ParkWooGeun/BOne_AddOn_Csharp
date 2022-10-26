@@ -8,8 +8,6 @@ namespace PSH_BOne_AddOn.Core
 	/// </summary>
 	internal class S146 : PSH_BaseClass
 	{
-		private string oFormUniqueID;
-
 		/// <summary>
 		/// Form 호출
 		/// </summary>
@@ -20,7 +18,7 @@ namespace PSH_BOne_AddOn.Core
 			{
 				oForm = PSH_Globals.SBO_Application.Forms.Item(formUID);
 				oForm.Freeze(true);
-				oFormUniqueID = formUID;
+				SubMain.Add_Forms(this, formUID, "S170");
 				S146_CreateItems();
 			}
 			catch (Exception ex)
@@ -122,11 +120,11 @@ namespace PSH_BOne_AddOn.Core
 				newItem.Specific.Caption = "지급지";
 
 				newItem = oForm.Items.Add("AddonText", SAPbouiCOM.BoFormItemTypes.it_STATIC);
-				newItem.Top = oForm.Items.Item("1").Top - 12;
-				newItem.Left = oForm.Items.Item("1").Left;
+				newItem.Top = oForm.Items.Item("2").Top;
+				newItem.Left = oForm.Items.Item("2").Left + 70;
 				newItem.Height = 12;
 				newItem.Width = 120;
-				newItem.FontSize = 10;
+				newItem.FontSize = 12;
 				newItem.Specific.Caption = "Addon running";
 			}
 			catch (Exception ex)
@@ -239,7 +237,6 @@ namespace PSH_BOne_AddOn.Core
 				}
 				else if (pVal.Before_Action == false)
 				{
-					SubMain.Remove_Forms(oFormUniqueID);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
 				}
 			}

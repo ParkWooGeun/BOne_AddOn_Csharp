@@ -2063,14 +2063,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.Core.S170.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
-            <summary>
-            Raise_RightClickEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="eventInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
         <member name="M:PSH_BOne_AddOn.Core.S170.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>
             FormMenuEvent
@@ -2679,14 +2671,6 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.Core.S196.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
-            <summary>
-            Raise_RightClickEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="eventInfo"></param>
-            <param name="BubbleEvent"></param>
-        </member>
         <member name="M:PSH_BOne_AddOn.Core.S196.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>
             FormMenuEvent
@@ -2798,7 +2782,12 @@
         </member>
         <member name="M:PSH_BOne_AddOn.Core.S392.S392_UpdateOCRData">
             <summary>
-            회계전표 클릭 시 배부규칙명 업데이트
+            회계전표 클릭시 배부규칙명 업데이트
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Core.S392.S392_FormItemEnabled">
+            <summary>
+            각 모드에 따른 아이템설정
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.Core.S392.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -2899,7 +2888,7 @@
         </member>
         <member name="T:PSH_BOne_AddOn.Core.S393">
             <summary>
-            분개장문서
+            분개장문서 사용안함.
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.Core.S393.LoadForm(System.String)">
@@ -3163,6 +3152,7 @@
             <summary>
             자금관리-지급
             </summary>
+            
         </member>
         <member name="M:PSH_BOne_AddOn.Core.S426.LoadForm(System.String)">
             <summary>
@@ -3170,7 +3160,7 @@
             </summary>
             <param name="formUID"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.Core.S426.S426_CreateItems">
+        <member name="M:PSH_BOne_AddOn.Core.S426.PS_S426_CreateItems">
             <summary>
             S426_CreateItems
             </summary>
@@ -3198,14 +3188,6 @@
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.Core.S426.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
-            <summary>
-            Raise_RightClickEvent
-            </summary>
-            <param name="FormUID"></param>
-            <param name="eventInfo"></param>
-            <param name="BubbleEvent"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.Core.S426.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>
@@ -3239,11 +3221,10 @@
             S60051_CreateItems
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.Core.S60051.Create_oJournalEntries(System.Int32)">
+        <member name="M:PSH_BOne_AddOn.Core.S60051.S60051_Create_oJournalEntries">
             <summary>
-            Create_oJournalEntries
+            S60051_Create_oJournalEntries
             </summary>
-            <param name="ChkType"></param>
             <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.Core.S60051.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
@@ -3295,6 +3276,67 @@
             <param name="BubbleEvent"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.Core.S60051.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+            <summary>
+            FormDataEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="BusinessObjectInfo"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="T:PSH_BOne_AddOn.Core.S60058">
+            <summary>
+            운영 관리>애드온>애드온 관리
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Core.S60058.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="formUID"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Core.S60058.S60058_CreateItems">
+            <summary>
+            S60058_CreateItems
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Core.S60058.S60058_EnableButton">
+            <summary>
+            애드온 패치 실행 권한에 따라 애드온등록, 애드온제거 버튼 활성, 비활성
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Core.S60058.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Form Item Event
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">pVal</param>
+            <param name="BubbleEvent">Bubble Event</param> 
+        </member>
+        <member name="M:PSH_BOne_AddOn.Core.S60058.Raise_EVENT_FORM_LOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_FORM_LOAD
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Core.S60058.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            FORM_UNLOAD 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Core.S60058.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            FormMenuEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Core.S60058.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
             <summary>
             FormDataEvent
             </summary>

@@ -8,11 +8,10 @@ using System.Collections.Generic;
 namespace PSH_BOne_AddOn.Core
 {
 	/// <summary>
-	/// 분개장문서
+	/// 분개장문서 사용안함.
 	/// </summary>
 	internal class S393 : PSH_BaseClass
 	{
-		private string oFormUniqueID;
 		private SAPbouiCOM.Matrix oMat;
 		private int oMatRow;
 
@@ -24,12 +23,11 @@ namespace PSH_BOne_AddOn.Core
 		{
 			try
 			{
-				oFormUniqueID = formUID;
-				oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
+				oForm = PSH_Globals.SBO_Application.Forms.Item(formUID);
 				oForm.Freeze(true);
+				SubMain.Add_Forms(this, formUID, "S393");
 				oMat = oForm.Items.Item("76").Specific;
 				S393_CreateItems();
-				SubMain.Add_Forms(this, formUID, "S393");
 			}
 			catch (Exception ex)
 			{
@@ -141,7 +139,6 @@ namespace PSH_BOne_AddOn.Core
 
 				oForm.DataSources.UserDataSources.Item("RadioBtn01").Value = "0";
 
-				//사업장-ComboBox
 				newItem = oForm.Items.Add("Static01", SAPbouiCOM.BoFormItemTypes.it_STATIC);
 				newItem.Left = oForm.Items.Item("2006").Left + 93;
 				newItem.Top = oForm.Items.Item("2006").Top;
@@ -190,7 +187,7 @@ namespace PSH_BOne_AddOn.Core
 				newItem.Top = oForm.Items.Item("1").Top - 12;
 				newItem.Left = oForm.Items.Item("1").Left;
 				newItem.Height = 12;
-				newItem.Width = 120;
+				newItem.Width = 70;
 				newItem.FontSize = 10;
 				newItem.Specific.Caption = "Addon running";
 			}
@@ -551,7 +548,6 @@ namespace PSH_BOne_AddOn.Core
 				}
 				else if (pVal.Before_Action == false)
 				{
-					SubMain.Remove_Forms(oFormUniqueID);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat);
 				}

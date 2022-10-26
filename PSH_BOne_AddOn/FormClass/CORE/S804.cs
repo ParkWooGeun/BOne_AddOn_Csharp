@@ -8,8 +8,6 @@ namespace PSH_BOne_AddOn.Core
     /// </summary>
     internal class S804 : PSH_BaseClass
     {
-        private string oFormUniqueID;
-
         private string oLast_Item_UID; //클래스에서 선택한 마지막 아이템 Uid값
         private string oLast_Col_UID;  //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
         private int oLast_Col_Row;     //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
@@ -22,11 +20,10 @@ namespace PSH_BOne_AddOn.Core
         {
             try
             {
-                oFormUniqueID = formUID;
-                oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
+                oForm = PSH_Globals.SBO_Application.Forms.Item(formUID);
                 oForm.Freeze(true);
-                S804_CreateItems();
                 SubMain.Add_Forms(this, formUID, "S804");
+                S804_CreateItems();
             }
             catch (Exception ex)
             {
@@ -394,7 +391,6 @@ namespace PSH_BOne_AddOn.Core
                 }
                 else if (pVal.Before_Action == false)
                 {
-                    SubMain.Remove_Forms(oFormUniqueID);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                 }
             }

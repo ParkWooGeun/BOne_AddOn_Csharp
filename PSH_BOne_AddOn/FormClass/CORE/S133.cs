@@ -10,7 +10,6 @@ namespace PSH_BOne_AddOn.Core
 	/// </summary>
 	internal class S133 : PSH_BaseClass
 	{
-		private string oFormUniqueID;
         private SAPbouiCOM.Matrix oMat01; //품목 매트릭스
         private SAPbouiCOM.Matrix oMat02; //서비스 매트릭스
         private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
@@ -29,7 +28,6 @@ namespace PSH_BOne_AddOn.Core
 				oForm = PSH_Globals.SBO_Application.Forms.Item(formUID);
 				oForm.Freeze(true);
 
-				oFormUniqueID = formUID;
 				oMat01 = oForm.Items.Item("38").Specific;
                 oMat02 = oForm.Items.Item("39").Specific;
                 SubMain.Add_Forms(this, formUID, "S133");
@@ -819,7 +817,6 @@ namespace PSH_BOne_AddOn.Core
                 }
                 else if (pVal.Before_Action == false)
                 {
-                    SubMain.Remove_Forms(oFormUniqueID);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat02);

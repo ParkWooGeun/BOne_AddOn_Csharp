@@ -13,7 +13,6 @@ namespace PSH_BOne_AddOn.Core
 	/// </summary>
 	internal class S149 : PSH_BaseClass
 	{
-		private string oFormUniqueID;
 		private SAPbouiCOM.Matrix oMat01;
 		private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
 		private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
@@ -30,8 +29,6 @@ namespace PSH_BOne_AddOn.Core
 			{
 				oForm = PSH_Globals.SBO_Application.Forms.Item(formUID);
 				oForm.Freeze(true);
-
-				oFormUniqueID = formUID;
 				oMat01 = oForm.Items.Item("38").Specific;
 				SubMain.Add_Forms(this, formUID, "S149");
 
@@ -902,7 +899,6 @@ namespace PSH_BOne_AddOn.Core
                 }
                 else if (pVal.Before_Action == false)
                 {
-                    SubMain.Remove_Forms(oFormUniqueID);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
                 }

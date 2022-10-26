@@ -9,7 +9,6 @@ namespace PSH_BOne_AddOn.Core
     /// </summary>
     internal class S230 : PSH_BaseClass
     {
-        private string oFormUniqueID;
         private SAPbouiCOM.Matrix oMat01;
         private static List<string> regUserID = new List<string>();
         public List<string> RegUserID
@@ -27,8 +26,6 @@ namespace PSH_BOne_AddOn.Core
             {
                 oForm = PSH_Globals.SBO_Application.Forms.Item(formUID);
                 oForm.Freeze(true);
-
-                oFormUniqueID = formUID;
                 SubMain.Add_Forms(this, formUID, "S230");
 
                 S230_CreateItems();
@@ -208,7 +205,6 @@ namespace PSH_BOne_AddOn.Core
                 }
                 else if (pVal.Before_Action == false)
                 {
-                    SubMain.Remove_Forms(oFormUniqueID);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                 }
             }

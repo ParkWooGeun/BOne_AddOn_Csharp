@@ -9,9 +9,6 @@ namespace PSH_BOne_AddOn.Core
 	/// </summary>
 	internal class S170 : PSH_BaseClass
 	{
-		//private string oFormUniqueID;
-		//private int oMatRow;
-
 		/// <summary>
 		/// Form 호출
 		/// </summary>
@@ -22,10 +19,8 @@ namespace PSH_BOne_AddOn.Core
 			{
 				oForm = PSH_Globals.SBO_Application.Forms.Item(formUID);
 				oForm.Freeze(true);
-				//oFormUniqueID = formUID;
 				SubMain.Add_Forms(this, formUID, "S170");
 				S170_CreateItems();
-				//oForm.Items.Item("5").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 			}
 			catch (Exception ex)
 			{
@@ -227,7 +222,6 @@ namespace PSH_BOne_AddOn.Core
 				}
 				else if (pVal.Before_Action == false)
 				{
-					//SubMain.Remove_Forms(oFormUniqueID);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
 				}
 			}
@@ -236,36 +230,6 @@ namespace PSH_BOne_AddOn.Core
 				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
 			}
 		}
-
-		///// <summary>
-		///// Raise_RightClickEvent
-		///// </summary>
-		///// <param name="FormUID"></param>
-		///// <param name="eventInfo"></param>
-		///// <param name="BubbleEvent"></param>
-		//public override void Raise_RightClickEvent(string FormUID, ref SAPbouiCOM.ContextMenuInfo eventInfo, ref bool BubbleEvent)
-		//{
-		//	try
-		//	{
-		//		if (eventInfo.BeforeAction == true)
-		//		{
-		//			if (eventInfo.ItemUID == "76")
-		//			{
-		//				if (eventInfo.Row > 0)
-		//				{
-		//					oMatRow = eventInfo.Row;
-		//				}
-		//			}
-		//		}
-		//		else if (eventInfo.BeforeAction == false)
-		//		{
-		//		}
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-		//	}
-		//}
 
 		/// <summary>
 		/// FormMenuEvent

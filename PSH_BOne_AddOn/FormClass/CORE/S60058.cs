@@ -9,7 +9,6 @@ namespace PSH_BOne_AddOn.Core
     internal class S60058 : PSH_BaseClass
     {
         private SAPbouiCOM.Matrix oMat;
-        private short authorityGrade;
 
         /// <summary>
         /// Form 호출
@@ -22,17 +21,10 @@ namespace PSH_BOne_AddOn.Core
                 oForm = PSH_Globals.SBO_Application.Forms.Item(formUID);
                 oForm.Freeze(true);
                 SubMain.Add_Forms(this, formUID, "S60058");
-                //화면권한관리 기능용 코드(et_FORM_LOAD 이벤트에서 권한없음일 경우는 강제로 Form Close)
-                authorityGrade = 3; //(1:권한없음, 2:읽기전용, 3:모든권한)
-
-                if (authorityGrade == 1)
-                {
-                    PSH_Globals.SBO_Application.MessageBox("화면에 대한 실행권한이 없습니다.");
-                }
-
-                oMat = oForm.Items.Item("8").Specific;
                 S60058_CreateItems();
                 S60058_EnableButton();
+
+                oMat = oForm.Items.Item("8").Specific;
             }
             catch (Exception ex)
             {
@@ -82,14 +74,14 @@ namespace PSH_BOne_AddOn.Core
 
             try
             {
-                sQry = " SELECT  COUNT(*)";
-                sQry += " FROM    [@PS_SY005L]";
-                sQry += " WHERE   U_AppUser = '" + PSH_Globals.SBO_Application.Company.UserName + "'";
-                sQry += "         AND Code = '60058'";
-                sQry += "         AND U_UseYN = 'Y'";
+                sQry = " SELECT COUNT(*)";
+                sQry += " FROM  [@PS_SY005L]";
+                sQry += " WHERE U_AppUser = '" + PSH_Globals.SBO_Application.Company.UserName + "'";
+                sQry += "   AND Code = '60058'";
+                sQry += "   AND U_UseYN = 'Y'";
                 oRecordSet.DoQuery(sQry);
 
-                if (Convert.ToInt32(oRecordSet.Fields.Item(0).Value.ToString().Trim()) == 0)
+                if (oRecordSet.Fields.Item(0).Value == 0)
                 {
                     oForm.Items.Item("16").Enabled = false; //애드온 등록
                     oForm.Items.Item("15").Enabled = false; //애드온 제거
@@ -130,9 +122,9 @@ namespace PSH_BOne_AddOn.Core
                 //case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
                 //	Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
                 //	break;
-                //case SAPbouiCOM.BoEventTypes.et_CLICK: //6
-                //	Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
-                //	break;
+                case SAPbouiCOM.BoEventTypes.et_CLICK: //6
+                    Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
+                    break;
                 //case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
                 //    Raise_EVENT_DOUBLE_CLICK(FormUID, ref pVal, ref BubbleEvent);
                 //    break;
@@ -151,9 +143,9 @@ namespace PSH_BOne_AddOn.Core
                 //case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD: //12
                 //    Raise_EVENT_DATASOURCE_LOAD(FormUID, ref pVal, ref BubbleEvent);
                 //    break;
-                case SAPbouiCOM.BoEventTypes.et_FORM_LOAD: //16
-                    Raise_EVENT_FORM_LOAD(FormUID, ref pVal, ref BubbleEvent);
-                    break;
+                //case SAPbouiCOM.BoEventTypes.et_FORM_LOAD: //16
+                //    Raise_EVENT_FORM_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
                 //case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: //18
                 //    Raise_EVENT_FORM_ACTIVATE(FormUID, ref pVal, ref BubbleEvent);
                 //    break;
@@ -191,29 +183,32 @@ namespace PSH_BOne_AddOn.Core
         }
 
         /// <summary>
-        /// Raise_EVENT_FORM_LOAD
+        /// Raise_EVENT_CLICK 이벤트
         /// </summary>
-        /// <param name="FormUID"></param>
-        /// <param name="pVal"></param>
-        /// <param name="BubbleEvent"></param>
-        private void Raise_EVENT_FORM_LOAD(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_CLICK(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             try
             {
                 if (pVal.BeforeAction == true)
                 {
-                    if (authorityGrade == 1)
-                    {
-                        oForm.Close();
-                    }
                 }
                 else if (pVal.BeforeAction == false)
                 {
+                    if (pVal.ItemUID == "7")
+                    {
+                        S60058_EnableButton();
+                    }
                 }
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_CLICK_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
             }
         }
 
@@ -312,34 +307,6 @@ namespace PSH_BOne_AddOn.Core
             finally
             {
                 oForm.Freeze(false);
-            }
-        }
-
-        /// <summary>
-        /// FormDataEvent
-        /// </summary>
-        /// <param name="FormUID"></param>
-        /// <param name="BusinessObjectInfo"></param>
-        /// <param name="BubbleEvent"></param>
-        public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
-        {
-            try
-            {
-                switch (BusinessObjectInfo.EventType)
-                {
-                    case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
-                        break;
-                    case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
-                        break;
-                    case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
-                        break;
-                    case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
         }
     }

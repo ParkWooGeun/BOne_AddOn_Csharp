@@ -9,7 +9,6 @@ namespace PSH_BOne_AddOn.Core
 	/// </summary>
 	internal class S41 : PSH_BaseClass
 	{
-		private string oFormUniqueID;
 		private SAPbouiCOM.Matrix oMat01;
 		private SAPbouiCOM.Matrix oMat02;
 
@@ -25,17 +24,15 @@ namespace PSH_BOne_AddOn.Core
 		{
 			try
 			{
-				oFormUniqueID = formUID;
-				oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
+				oForm = PSH_Globals.SBO_Application.Forms.Item(formUID);
 				oForm.Freeze(true);
+				SubMain.Add_Forms(this, formUID, "S41");
 				oMat01 = oForm.Items.Item("35").Specific;
 				oMat02 = oForm.Items.Item("3").Specific;
 				oMatTopRow01 = 1;
 				oMatBottomRow01 = 1;
-
 				PS_S41_CreateItems();
 
-				SubMain.Add_Forms(this, formUID, "S41");
 			}
 			catch (Exception ex)
 			{
@@ -147,11 +144,11 @@ namespace PSH_BOne_AddOn.Core
 				oForm.Items.Item("36").Visible = false;
 
 				oNewITEM = oForm.Items.Add("AddonText", SAPbouiCOM.BoFormItemTypes.it_STATIC);
-				oNewITEM.Top = oForm.Items.Item("1").Top - 12;
-				oNewITEM.Left = oForm.Items.Item("1").Left;
+				oNewITEM.Top = oForm.Items.Item("2").Top;
+				oNewITEM.Left = oForm.Items.Item("2").Left + 70;
 				oNewITEM.Height = 12;
 				oNewITEM.Width = 120;
-				oNewITEM.FontSize = 10;
+				oNewITEM.FontSize = 12;
 				oNewITEM.Specific.Caption = "Addon running";
 			}
 			catch (Exception ex)
@@ -174,8 +171,8 @@ namespace PSH_BOne_AddOn.Core
 			int i;
 			int j;
 			string sQry;
-			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			string errMessage = string.Empty;
+			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
 			{
@@ -593,7 +590,6 @@ namespace PSH_BOne_AddOn.Core
 				}
 				else if (pVal.Before_Action == false)
 				{
-					SubMain.Remove_Forms(oFormUniqueID);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat02);

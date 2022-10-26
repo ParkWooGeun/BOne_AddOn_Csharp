@@ -1,5 +1,4 @@
 ﻿using System;
-using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.Code;
 
@@ -248,6 +247,8 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("TeamName").Specific.Value = "";
                     oForm.Items.Item("RspName").Specific.Value = "";
                     oForm.Items.Item("ClsName").Specific.Value = "";
+                    oForm.Items.Item("Status").Specific.Value = "";
+                    oForm.Items.Item("TermDate").Specific.Value = "";
                 }
 
                 oForm.DataSources.UserDataSources.Item("div").Value = "";
@@ -325,7 +326,7 @@ namespace PSH_BOne_AddOn
                 sQry = "EXEC PH_PY402_01 '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("Year").Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "'";
                 oDS_PH_PY402A.ExecuteQuery(sQry);
                 iRow = oForm.DataSources.DataTables.Item(0).Rows.Count;
-                PH_PY402_TitleSetting(ref iRow);
+                PH_PY402_TitleSetting();
                 oGrid.AutoResizeColumns();
             }
             catch (Exception ex)
@@ -643,7 +644,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// PH_PY402_TitleSetting
         /// </summary>
-        private void PH_PY402_TitleSetting(ref int iRow)
+        private void PH_PY402_TitleSetting()
         {
             int i;
             string[] COLNAM = new string[18];
@@ -921,7 +922,6 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemChanged == true)
                     {
-
                         if (pVal.ItemUID == "relate")
                         {
                             oMat.Clear();
@@ -1022,8 +1022,9 @@ namespace PSH_BOne_AddOn
                                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
 
-                                sQry  = "Select Code,";
+                                sQry = "Select Code,";
                                 sQry += " FullName = U_FullName,";
+                                sQry += " TermDate = COALESCE(CONVERT(CHAR(10), U_termDate, 112),''),";
                                 sQry += " TeamName = Isnull((SELECT U_CodeNm";
                                 sQry += " From [@PS_HR200L]";
                                 sQry += " WHERE Code = '1'";
@@ -1036,17 +1037,22 @@ namespace PSH_BOne_AddOn
                                 sQry += " From [@PS_HR200L]";
                                 sQry += " WHERE Code = '9'";
                                 sQry += " And U_Code  = U_ClsCode";
-                                sQry += " And U_Char3 = U_CLTCOD),'')";
+                                sQry += " And U_Char3 = U_CLTCOD),''),";
+                                sQry += " Status = isnull((SELECT name ";
+                                sQry += " FROM[OHST]";
+                                sQry += " WHERE statusID = U_Status),'')";
                                 sQry += " From [@PH_PY001A]";
                                 sQry += " Where U_CLTCOD = '" + CLTCOD + "'";
                                 sQry += " and Code = '" + MSTCOD + "'";
-
                                 oRecordSet.DoQuery(sQry);
 
-                                oForm.Items.Item("FullName").Specific.Value = oRecordSet.Fields.Item("FullName").Value.ToString().Trim();
+                                oForm.DataSources.UserDataSources.Item("FullName").Value = oRecordSet.Fields.Item("FullName").Value.ToString().Trim();
+                                // oForm.Items.Item("FullName").Specific.Value = oRecordSet.Fields.Item("FullName").Value.ToString().Trim(); //이벤트가 발생함
                                 oForm.Items.Item("TeamName").Specific.Value = oRecordSet.Fields.Item("TeamName").Value.ToString().Trim();
                                 oForm.Items.Item("RspName").Specific.Value = oRecordSet.Fields.Item("RspName").Value.ToString().Trim();
                                 oForm.Items.Item("ClsName").Specific.Value = oRecordSet.Fields.Item("ClsName").Value.ToString().Trim();
+                                oForm.Items.Item("Status").Specific.Value = oRecordSet.Fields.Item("Status").Value.ToString().Trim();
+                                oForm.Items.Item("TermDate").Specific.Value = oRecordSet.Fields.Item("TermDate").Value.ToString().Trim();
                                 break;
 
                             case "FullName":
@@ -1055,6 +1061,7 @@ namespace PSH_BOne_AddOn
 
                                 sQry  = "Select Code,";
                                 sQry += " FullName = U_FullName,";
+                                sQry += " TermDate = COALESCE(CONVERT(CHAR(10), U_termDate, 112),''),";
                                 sQry += " TeamName = Isnull((SELECT U_CodeNm";
                                 sQry += " From [@PS_HR200L]";
                                 sQry += " WHERE Code = '1'";
@@ -1067,19 +1074,23 @@ namespace PSH_BOne_AddOn
                                 sQry += " From [@PS_HR200L]";
                                 sQry += " WHERE Code = '9'";
                                 sQry += " And U_Code  = U_ClsCode";
-                                sQry += " And U_Char3 = U_CLTCOD),'')";
+                                sQry += " And U_Char3 = U_CLTCOD),''),";
+                                sQry += " Status = isnull((SELECT name ";
+                                sQry += " FROM[OHST]";
+                                sQry += " WHERE statusID = U_Status),'')";
                                 sQry += " From [@PH_PY001A]";
                                 sQry += " Where U_CLTCOD = '" + CLTCOD + "'";
-                                sQry += " And U_status <> '5'"; // 퇴사자 제외
+                            //    sQry += " And U_status <> '5'"; // 퇴사자 제외
                                 sQry += " and U_FullName = '" + FullName + "'";
-
                                 oRecordSet.DoQuery(sQry);
 
                                 oForm.DataSources.UserDataSources.Item("MSTCOD").Value = oRecordSet.Fields.Item("Code").Value.ToString().Trim();
-                                //oForm.Items("MSTCOD").Specific.Value = oRecordSet.Fields("Code").Value.ToString().Trim();
+                                //oForm.Items("MSTCOD").Specific.Value = oRecordSet.Fields("Code").Value.ToString().Trim(); //이벤트가 발생함
                                 oForm.Items.Item("TeamName").Specific.Value = oRecordSet.Fields.Item("TeamName").Value.ToString().Trim();
                                 oForm.Items.Item("RspName").Specific.Value = oRecordSet.Fields.Item("RspName").Value.ToString().Trim();
                                 oForm.Items.Item("ClsName").Specific.Value = oRecordSet.Fields.Item("ClsName").Value.ToString().Trim();
+                                oForm.Items.Item("Status").Specific.Value = oRecordSet.Fields.Item("Status").Value.ToString().Trim();
+                                oForm.Items.Item("TermDate").Specific.Value = oRecordSet.Fields.Item("TermDate").Value.ToString().Trim();
                                 break;
 
                             case "div":
@@ -1089,7 +1100,6 @@ namespace PSH_BOne_AddOn
                                 sQry += " From [@PS_HR200L]";
                                 sQry += " WHERE Code = '70'";
                                 sQry += " And U_Code = '" + Div + "'";
-
                                 oRecordSet.DoQuery(sQry);
 
                                 oForm.Items.Item("divnm").Specific.Value = oRecordSet.Fields.Item("CodeNm").Value.ToString().Trim();
@@ -1102,7 +1112,6 @@ namespace PSH_BOne_AddOn
                                 sQry += " From [@PS_HR200L]";
                                 sQry += " WHERE Code = '71'";
                                 sQry += " And U_Code = '" + target + "'";
-
                                 oRecordSet.DoQuery(sQry);
 
                                 oForm.Items.Item("targetnm").Specific.Value = oRecordSet.Fields.Item("CodeNm").Value.ToString().Trim();
@@ -1177,7 +1186,6 @@ namespace PSH_BOne_AddOn
 
                                         if (oForm.Items.Item("div").Specific.Value == "20")
                                         {
-
                                             if (Convert.ToDouble(oForm.DataSources.UserDataSources.Item("handoamt").Value) > 0)
                                             {
                                                 oForm.DataSources.UserDataSources.Item("ntsamt").Value = "0";
@@ -1296,8 +1304,8 @@ namespace PSH_BOne_AddOn
                                 sQry += "         And a.yyyy   =  '" + YEAR_Renamed + "'";
                                 sQry += "         And a.sabun  = '" + MSTCOD + "' ";
                                 sQry += "     ) g";
-
                                 oRecordSet.DoQuery(sQry);
+
                                 bookAmt = Convert.ToDouble(oRecordSet.Fields.Item(0).Value.ToString().Trim());
                                 //총급여액(과세대상)
                                 //7천기준

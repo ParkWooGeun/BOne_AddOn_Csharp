@@ -68294,7 +68294,7 @@
             PH_PY402_Delete  데이타 삭제
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY402.PH_PY402_TitleSetting(System.Int32@)">
+        <member name="M:PSH_BOne_AddOn.PH_PY402.PH_PY402_TitleSetting">
             <summary>
             PH_PY402_TitleSetting
             </summary>

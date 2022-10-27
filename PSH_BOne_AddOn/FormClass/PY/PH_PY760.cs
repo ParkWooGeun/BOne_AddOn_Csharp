@@ -130,6 +130,14 @@ namespace PSH_BOne_AddOn
                     return returnValue;
                 }
 
+                if (string.IsNullOrEmpty(oForm.Items.Item("ENDINT").Specific.Value.Trim()))
+                {
+                    PSH_Globals.SBO_Application.SetStatusBarMessage("귀속기간(종료)는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                    oForm.Items.Item("ENDINT").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    return returnValue;
+                }
+
+
                 returnValue = true;
             }
             catch (Exception ex)
@@ -154,7 +162,7 @@ namespace PSH_BOne_AddOn
 
             string CLTCOD;
             string MSTCOD;
-
+            string ENDINT;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 
@@ -162,6 +170,7 @@ namespace PSH_BOne_AddOn
             {
                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Selected.Value.ToString().Trim();
                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
+                ENDINT = oForm.Items.Item("ENDINT").Specific.Value.Trim();
 
                 WinTitle = "[PH_PY760] 평균임금및퇴직금산출내역서";
                 ReportName = "PH_PY760_01.rpt";
@@ -174,6 +183,7 @@ namespace PSH_BOne_AddOn
                 //Parameter
                 dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD)); //사업장
                 dataPackParameter.Add(new PSH_DataPackClass("@MSTCOD", MSTCOD)); //사번
+                dataPackParameter.Add(new PSH_DataPackClass("@ENDINT", ENDINT)); //사번
 
                 formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
@@ -201,6 +211,7 @@ namespace PSH_BOne_AddOn
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
+                    Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
@@ -254,6 +265,7 @@ namespace PSH_BOne_AddOn
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
+                    Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
@@ -312,6 +324,34 @@ namespace PSH_BOne_AddOn
             finally
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+            }
+        }
+
+        /// <summary>
+        /// Raise_EVENT_KEY_DOWN
+        /// </summary>
+        /// <param name="FormUID"></param>
+        /// <param name="pVal"></param>
+        /// <param name="BubbleEvent"></param>
+        private void Raise_EVENT_KEY_DOWN(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            try
+            {
+                if (pVal.CharPressed == 9)
+                {
+                    if (pVal.ItemUID == "ENDINT")
+                    {
+                        PSH_Globals.SBO_Application.ActivateMenuItem("7425");
+                        BubbleEvent = false;
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_KEY_DOWN_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
             }
         }
 

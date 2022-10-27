@@ -183,7 +183,7 @@ namespace PSH_BOne_AddOn
                 //Parameter
                 dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD)); //사업장
                 dataPackParameter.Add(new PSH_DataPackClass("@MSTCOD", MSTCOD)); //사번
-                dataPackParameter.Add(new PSH_DataPackClass("@ENDINT", ENDINT)); //사번
+                dataPackParameter.Add(new PSH_DataPackClass("@ENDINT", ENDINT)); //귀속기간종료
 
                 formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }

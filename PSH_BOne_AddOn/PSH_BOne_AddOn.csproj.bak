@@ -2071,22 +2071,6 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_HR422_01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_HR423_01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_HR424_01.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FX030_02.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FX030_05.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FX030_08.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FX030_11.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FX210_01.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FX220_01.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FX230_01.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FX240_01.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FX240_02.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FX240_03.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FX240_04.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FX250_01.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FX260_01.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FX270_01.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_FX300_01.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_HR400_01.rpt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EXT_Form\FileListBoxForm.resX">
@@ -2805,34 +2789,6 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR422.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR423.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR424.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FX004.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FX005.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FX010.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FX015.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FX020.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FX030.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FX210.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FX220.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FX230.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FX240.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FX250.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FX260.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FX270.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_FX300.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR000.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR001.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR002.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR400.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR401.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR402.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR404.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR406.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR407.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR409.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR410.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR413.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR414.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR415.srf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -238,7 +238,7 @@ namespace PSH_BOne_AddOn
 				{
 					sQry = "SELECT BPLName FROM [OBPL] WHERE BPLId = '" + BPLId + "'";
 					oRecordSet.DoQuery(sQry);
-					BPLName = oRecordSet.Fields.Item(0).Value.ToString().Trim(); ;
+					BPLName = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 				}
 
 				if (string.IsNullOrEmpty(SaleGbn))

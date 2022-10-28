@@ -108,7 +108,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PS_FX241_ComboBox_Setting()
         {
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
           
             try
             {
@@ -127,11 +127,11 @@ namespace PSH_BOne_AddOn
 
                 //사업장
                 sQry = "SELECT BPLId, BPLName From [OBPL] order by BPLId";
-                oRecordSet01.DoQuery(sQry);
-                while (!oRecordSet01.EoF)
+                oRecordSet.DoQuery(sQry);
+                while (!oRecordSet.EoF)
                 {
-                    oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
-                    oRecordSet01.MoveNext();
+                    oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
+                    oRecordSet.MoveNext();
                 }
                 oForm.Items.Item("BPLId").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
             }
@@ -142,7 +142,7 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
             }
         }
 
@@ -153,16 +153,16 @@ namespace PSH_BOne_AddOn
         private void PS_FX241_Print_Report01()
         {
 
-            string WinTitle = string.Empty;
+            string WinTitle;
             string ReportName = string.Empty;
-            string BPLID = string.Empty;
-            string YM = string.Empty;
-            string Div = string.Empty;
-            string Gubun = string.Empty;
+            string BPLID;
+            string YM;
+            string Div;
+            string Gubun;
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -205,7 +205,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }
 
@@ -388,7 +388,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 if (pVal.BeforeAction == true)
                 {
                     switch (pVal.MenuUID)

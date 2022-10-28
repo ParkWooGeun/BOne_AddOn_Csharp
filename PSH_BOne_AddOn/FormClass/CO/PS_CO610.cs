@@ -567,7 +567,7 @@ namespace PSH_BOne_AddOn
             string sCC;
             string sQry;
 
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset); ;
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             SAPbobsCOM.JournalEntries f_oJournalEntries = null;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             

@@ -337,8 +337,8 @@ namespace PSH_BOne_AddOn
             string WinTitle = string.Empty;
             string ReportName = string.Empty;
 
-            System.DateTime FrDt; ; //조회기간(시작)
-            System.DateTime ToDt; ; //조회기간(종료)
+            System.DateTime FrDt; //조회기간(시작)
+            System.DateTime ToDt; //조회기간(종료)
             string Ctgr; //출력구분
             string PrtCls; //그리드, 리포트 출력구분
 

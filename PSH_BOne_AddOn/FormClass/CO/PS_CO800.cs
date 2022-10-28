@@ -8,21 +8,21 @@ using PSH_BOne_AddOn.Form;
 namespace PSH_BOne_AddOn
 {
     /// <summary>
-    /// 제품 원재료 변환
+    /// ?�품 ?�재�? 변??
     /// </summary>
     internal class PS_CO800 : PSH_BaseClass
     {
         private string oFormUniqueID;
         private SAPbouiCOM.Matrix oMat01;
-        private SAPbouiCOM.DBDataSource oDS_PS_CO800H; //등록헤더
-        private SAPbouiCOM.DBDataSource oDS_PS_CO800L; //등록라인
-        private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
-        private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
-        private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
+        private SAPbouiCOM.DBDataSource oDS_PS_CO800H; //?�록?�더
+        private SAPbouiCOM.DBDataSource oDS_PS_CO800L; //?�록?�인
+        private string oLastItemUID01; //?�래?�에?? ?�택?? 마�?�? ?�이?? Uid�?
+        private string oLastColUID01; //마�?막아?�템?? 메트�?��?�경?�에 마�?�? ?�택?? Col?? Uid�?
+        private int oLastColRow01; //마�?막아?�템?? 메트�?��?�경?�에 마�?�? ?�택?? Row�?
         private int oSeq;
 
         /// <summary>
-        /// Form 호출
+        /// Form ?�출
         /// </summary>
         /// <param name="oFormDocEntry"></param>
         public override void LoadForm(string oFormDocEntry)
@@ -61,11 +61,11 @@ namespace PSH_BOne_AddOn
                 PS_CO800_FormClear();
                 PS_CO800_AddMatrixRow(0, oMat01.RowCount);
 
-                oForm.EnableMenu("1283", false); // 삭제
-                oForm.EnableMenu("1286", false); // 닫기
+                oForm.EnableMenu("1283", false); // ??��
+                oForm.EnableMenu("1286", false); // ?�기
                 oForm.EnableMenu("1287", false); // 복제
                 oForm.EnableMenu("1284", true); // 취소
-                oForm.EnableMenu("1293", true); // 행삭제
+                oForm.EnableMenu("1293", true); // ?�삭??
             }
             catch (Exception ex)
             {
@@ -76,12 +76,12 @@ namespace PSH_BOne_AddOn
                 oForm.Update();
                 oForm.Freeze(false);
                 oForm.Visible = true;
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oXmlDoc); //메모리 해제
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oXmlDoc); //메모�? ?�제
             }
         }
 
         /// <summary>
-        /// 화면 Item 생성
+        /// ?�면 Item ?�성
         /// </summary>
         private void PS_CO800_CreateItems()
         {
@@ -94,10 +94,10 @@ namespace PSH_BOne_AddOn
                 oDS_PS_CO800H = oForm.DataSources.DBDataSources.Item("@PS_CO800H");
                 oDS_PS_CO800L = oForm.DataSources.DBDataSources.Item("@PS_CO800L");
 
-                oMat01 = oForm.Items.Item("Mat01").Specific; //매트릭스 데이터 셋
+                oMat01 = oForm.Items.Item("Mat01").Specific; //매트�?�� ?�이?? ??
                 oMat01.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_NotSupported;
 
-                //사업장 리스트
+                //?�업?? 리스??
                 sQry = "SELECT BPLId, BPLName From [OBPL] order by BPLId";  
                 oRecordSet01.DoQuery(sQry); 
 
@@ -126,7 +126,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue); //사업장
+                oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue); //?�업??
             }
             catch (Exception ex)
             {
@@ -135,7 +135,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// 모드에 따른 아이템 설정
+        /// 모드?? ?�른 ?�이?? ?�정
         /// </summary>
         private void PS_CO800_FormItemEnabled()
         {
@@ -283,7 +283,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// 행추가
+        /// ?�추가
         /// </summary>
         /// <param name="pSeq"></param>
         /// <param name="oRow"></param>
@@ -339,7 +339,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// Matrix 마지막 빈행 삭제
+        /// Matrix 마�?�? 빈행 ??��
         /// </summary>
         private void PS_CO800_Delete_EmptyRow()
         {
@@ -364,7 +364,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// Header 필수 입력 필드 체크
+        /// Header ?�수 ?�력 ?�드 체크
         /// </summary>
         /// <returns></returns>
         private bool PS_CO800_HeaderSpaceLineDel()
@@ -402,19 +402,19 @@ namespace PSH_BOne_AddOn
             {
                 if (errCode == "1")
                 {
-                    PSH_Globals.SBO_Application.MessageBox("사업장 필수입력 사항입니다. 확인하세요.");
+                    PSH_Globals.SBO_Application.MessageBox("?�업?? ?�수?�력 ?�항?�니??. ?�인?�세??.");
                 }
                else if (errCode == "2")
                 {
-                    PSH_Globals.SBO_Application.MessageBox("기준일은 필수입력 사항입니다. 확인하세요.");
+                    PSH_Globals.SBO_Application.MessageBox("기�??��? ?�수?�력 ?�항?�니??. ?�인?�세??.");
                 }
                 else if (errCode == "3")
                 {
-                    PSH_Globals.SBO_Application.MessageBox("담당자는 필수입력 사항입니다. 확인하세요.");
+                    PSH_Globals.SBO_Application.MessageBox("?�당?�는 ?�수?�력 ?�항?�니??. ?�인?�세??.");
                 }
                 else if (errCode == "4")
                 {
-                    PSH_Globals.SBO_Application.MessageBox("전자결재번호는 필수입력 사항입니다. 확인하세요.");
+                    PSH_Globals.SBO_Application.MessageBox("?�자결재번호?? ?�수?�력 ?�항?�니??. ?�인?�세??.");
                 }
                 else
                 {
@@ -425,7 +425,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// Line 필수 입력 필드 체크
+        /// Line ?�수 ?�력 ?�드 체크
         /// </summary>
         /// <returns></returns>
         private bool PS_CO800_MatrixSpaceLineDel()
@@ -439,7 +439,7 @@ namespace PSH_BOne_AddOn
             {
                 oMat01.FlushToDataSource();
 
-                //라인
+                //?�인
                 if (oMat01.VisualRowCount < 1)
                 {
                     errCode = "1";
@@ -490,21 +490,21 @@ namespace PSH_BOne_AddOn
             {
                 if (errCode == "1")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("라인 데이터가 없습니다. 확인하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("?�인 ?�이?��? ?�습?�다. ?�인?�세??.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
                 else if (errCode == "2")
                 {
-                    PSH_Globals.SBO_Application.MessageBox( i + 1  + "행에 배치번호는 필수입니다.");
+                    PSH_Globals.SBO_Application.MessageBox( i + 1  + "?�에 배치번호?? ?�수?�니??.");
                     oMat01.Columns.Item("BatchNum").Cells.Item(i + 1).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
                 else if (errCode == "3")
                 {
-                    PSH_Globals.SBO_Application.MessageBox(i + 1 + "행에  원재료코드는 필수입니다.");
+                    PSH_Globals.SBO_Application.MessageBox(i + 1 + "?�에  ?�재료코?�는 ?�수?�니??.");
                     oMat01.Columns.Item("RitmCode").Cells.Item(i + 1).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
                 else if (errCode == "4")
                 {
-                    PSH_Globals.SBO_Application.MessageBox(i + 1 + "행 이동 수/중량을 확인하세요.");
+                    PSH_Globals.SBO_Application.MessageBox(i + 1 + "?? ?�동 ??/중량?? ?�인?�세??.");
                     oMat01.Columns.Item("MoveQty").Cells.Item(i + 1).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
                 else
@@ -535,7 +535,7 @@ namespace PSH_BOne_AddOn
             string sTransIdRV;
             string sQry;
             string errMessage = string.Empty;
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset); ;
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             SAPbobsCOM.Documents oDIObjectFW = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenExit);
             SAPbobsCOM.Documents oDIObjectRV = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry);
 
@@ -572,7 +572,7 @@ namespace PSH_BOne_AddOn
                 if (RetVal != 0)
                 {
                     PSH_Globals.oCompany.GetLastError(out errDiCode, out errDiMsg);
-                    errMessage = "DI실행 중 오류 발생 [" + errDiCode + "][" + errDiMsg + "]";
+                    errMessage = "DI?�행 �? ?�류 발생 [" + errDiCode + "][" + errDiMsg + "]";
                     throw new Exception();
                 }
 
@@ -602,7 +602,7 @@ namespace PSH_BOne_AddOn
                 if (RetVal != 0)
                 {
                     PSH_Globals.oCompany.GetLastError(out errDiCode, out errDiMsg);
-                    errMessage = "DI실행 중 오류 발생 [" + errDiCode + "][" + errDiMsg + "]";
+                    errMessage = "DI?�행 �? ?�류 발생 [" + errDiCode + "][" + errDiMsg + "]";
                     throw new Exception();
                 }
 
@@ -676,9 +676,9 @@ namespace PSH_BOne_AddOn
             string sQry;
             string sTransIdFW;
             string sTransIdRV = string.Empty;
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset); ;
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             SAPbobsCOM.Documents oDIObjectFW = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenExit); //출고
-            SAPbobsCOM.Documents oDIObjectRV = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry); //입고
+            SAPbobsCOM.Documents oDIObjectRV = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry); //?�고
 
             try
             {
@@ -741,7 +741,7 @@ namespace PSH_BOne_AddOn
                     j += 1;
                 }
 
-                //완료
+                //?�료
                 RetVal = oDIObjectFW.Add();
                 if (RetVal != 0)
                 {
@@ -777,11 +777,11 @@ namespace PSH_BOne_AddOn
 
                 if (errCode == 7)
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("적요는 50글자 초과 등록 불가합니다. (" + ErrLine + "번째 라인)", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("?�요?? 50글?? 초과 ?�록 불�??�니??. (" + ErrLine + "번째 ?�인)", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
                 else if (errCode == 1)
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("DI실행 중 오류 발생 : [" + errDiCode + "]" + errDiMsg, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("DI?�행 �? ?�류 발생 : [" + errDiCode + "]" + errDiMsg, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
                 else
                 {
@@ -902,7 +902,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// ITEM_PRESSED 이벤트
+        /// ITEM_PRESSED ?�벤??
         /// </summary>
         /// <param name="FormUID">Form UID</param>
         /// <param name="pVal">ItemEvent 객체</param>
@@ -943,7 +943,7 @@ namespace PSH_BOne_AddOn
                         }
                         else
                         {
-                            PSH_Globals.SBO_Application.MessageBox("확인 모드에서 변환이 처리하세요.");
+                            PSH_Globals.SBO_Application.MessageBox("?�인 모드?�서 변?�이 처리?�세??.");
                         }
                     }
                     else if (pVal.ItemUID == "Btn03")
@@ -958,7 +958,7 @@ namespace PSH_BOne_AddOn
                         }
                         else
                         {
-                            PSH_Globals.SBO_Application.MessageBox("변환 취소가 선행될 수 없습니다.");
+                            PSH_Globals.SBO_Application.MessageBox("변?? 취소가 ?�행?? ?? ?�습?�다.");
                         }
                     }
                 }
@@ -980,7 +980,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// KEY_DOWN 이벤트
+        /// KEY_DOWN ?�벤??
         /// </summary>
         /// <param name="FormUID">Form UID</param>
         /// <param name="pVal">ItemEvent 객체</param>
@@ -1037,7 +1037,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// GOT_FOCUS 이벤트
+        /// GOT_FOCUS ?�벤??
         /// </summary>
         /// <param name="FormUID">Form UID</param>
         /// <param name="pVal">ItemEvent 객체</param>
@@ -1065,7 +1065,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// CLICK 이벤트
+        /// CLICK ?�벤??
         /// </summary>
         /// <param name="FormUID">Form UID</param>
         /// <param name="pVal">ItemEvent 객체</param>
@@ -1098,7 +1098,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// DOUBLE_CLICK 이벤트
+        /// DOUBLE_CLICK ?�벤??
         /// </summary>
         /// <param name="FormUID">Form UID</param>
         /// <param name="pVal">ItemEvent 객체</param>
@@ -1152,7 +1152,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// FORM_UNLOAD 이벤트
+        /// FORM_UNLOAD ?�벤??
         /// </summary>
         /// <param name="FormUID">Form UID</param>
         /// <param name="pVal">ItemEvent 객체</param>
@@ -1183,7 +1183,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// FORM_ACTIVATE 이벤트
+        /// FORM_ACTIVATE ?�벤??
         /// </summary>
         /// <param name="FormUID">Form UID</param>
         /// <param name="pVal">ItemEvent 객체</param>
@@ -1213,7 +1213,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// VALIDATE 이벤트
+        /// VALIDATE ?�벤??
         /// </summary>
         /// <param name="FormUID">Form UID</param>
         /// <param name="pVal">ItemEvent 객체</param>
@@ -1278,7 +1278,7 @@ namespace PSH_BOne_AddOn
 
                                     if (oRecordSet01.Fields.Item(0).Value == 0)
                                     {
-                                        errMessage = "선택하신 월에 해당 품목의 납품이력이 없어서 처리할 수 없습니다.(가공비처리불가)";
+                                        errMessage = "?�택?�신 ?�에 ?�당 ?�목?? ?�품?�력?? ?�어?? 처리?? ?? ?�습?�다.(가공비처리불�?)";
                                         oMat01.Columns.Item("ItemCode").Cells.Item(pVal.Row).Specific.Value = "";
                                         throw new Exception();
                                     }
@@ -1298,7 +1298,7 @@ namespace PSH_BOne_AddOn
                                 {
                                     oMat01.FlushToDataSource();
 
-                                    //배치번호 창고 및 수량
+                                    //배치번호 창고 �? ?�량
                                     sQry = "SELECT	  B.WhsCode";
                                     sQry += "		, B.QUANTITY";
                                     sQry += "  FROM OBTN A LEFT JOIN OBTQ B ON A.ABSENTRY = B.MDABSENTRY";
@@ -1320,7 +1320,7 @@ namespace PSH_BOne_AddOn
                                     oDS_PS_CO800L.SetValue("U_SPrice", pVal.Row - 1, oRecordSet01.Fields.Item(0).Value.ToString().Trim());
                                     oDS_PS_CO800L.SetValue("U_SAmount", pVal.Row - 1, (oRecordSet01.Fields.Item(0).Value * Int32.Parse(quantity)).ToString());
 
-                                    // 단가 조회
+                                    // ?��? 조회
                                     sQry = " SELECT ROUND(SUM(transValue)/(SUM(InQty)-SUM(OutQty)),0) AS PRICE";
                                     sQry += " FROM OINM";
                                     sQry += "  WHERE ITEMCODE ='" + oMat01.Columns.Item("ItemCode").Cells.Item(pVal.Row).Specific.Value + "'";
@@ -1368,7 +1368,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// ROW_DELETE 이벤트
+        /// ROW_DELETE ?�벤??
         /// </summary>
         /// <param name="FormUID"></param>
         /// <param name="pVal"></param>
@@ -1434,20 +1434,20 @@ namespace PSH_BOne_AddOn
                     {
                         case "1284": //취소
                             break;
-                        case "1286": //닫기
+                        case "1286": //?�기
                             break;
-                        case "1293": //행삭제
+                        case "1293": //?�삭??
                             Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
                             break;
 
                         case "1281": //찾기
                             break;
-                        case "1282": //추가
+                        case "1282": //추�?
                             break;
                         case "1288":
                         case "1289":
                         case "1290":
-                        case "1291": //레코드이동버튼
+                        case "1291": //?�코?�이?�버??
                             break;
                     }
                 }
@@ -1457,14 +1457,14 @@ namespace PSH_BOne_AddOn
                     {
                         case "1284": //취소
                             break;
-                        case "1286": //닫기
+                        case "1286": //?�기
                             break;
                         case "1281": //찾기
                             PS_CO800_FormItemEnabled();
                             PS_CO800_AddMatrixRow(1, oMat01.RowCount);
 
                             break;
-                        case "1282": //추가
+                        case "1282": //추�?
                             PS_CO800_FormItemEnabled();
                             PS_CO800_FormClear();
                             PS_CO800_AddMatrixRow(0, oMat01.RowCount);
@@ -1473,12 +1473,12 @@ namespace PSH_BOne_AddOn
                         case "1288":
                         case "1289":
                         case "1290":
-                        case "1291": //레코드이동버튼
+                        case "1291": //?�코?�이?�버??
                             PS_CO800_FormItemEnabled();
                             PS_CO800_AddMatrixRow(1, oMat01.RowCount);
 
                             break;
-                        case "1293": //행삭제
+                        case "1293": //?�삭??
                             Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
                             PS_CO800_AddMatrixRow(0, 0);
                             break;

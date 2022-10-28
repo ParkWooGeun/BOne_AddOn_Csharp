@@ -484,7 +484,7 @@ namespace PSH_BOne_AddOn
 				BPLID = oForm.Items.Item("BPLID01").Specific.Selected.Value.ToString().Trim();
 				FrDt = oForm.Items.Item("FrDt01").Specific.Value.ToString().Trim();
 				ToDt = oForm.Items.Item("ToDt01").Specific.Value.ToString().Trim();
-				CpCode = oForm.Items.Item("CpCode01").Specific.Value.ToString().Trim(); ;
+				CpCode = oForm.Items.Item("CpCode01").Specific.Value.ToString().Trim();
 				CntcCode = oForm.Items.Item("CntcCode01").Specific.Value.ToString().Trim();
 				WorkGbn = oForm.Items.Item("WorkGbn01").Specific.Selected.Value.ToString().Trim();
 				CardType = oForm.Items.Item("CardType01").Specific.Selected.Value.ToString().Trim();

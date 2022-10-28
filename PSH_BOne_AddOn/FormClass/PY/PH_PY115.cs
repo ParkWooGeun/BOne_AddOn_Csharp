@@ -1924,7 +1924,7 @@ namespace PSH_BOne_AddOn
 
                         PAYSTD[2] = codeHelpClass.Left(oRecordSet.Fields.Item("PAYSD3").Value.ToString().Replace("-", ""), 8);
                         PAYEND[2] = codeHelpClass.Left(oRecordSet.Fields.Item("PAYED3").Value.ToString().Replace("-", ""), 8);
-                        PAYDAY[2] = oRecordSet.Fields.Item("PAYDY3").Value.ToString().Trim(); ;
+                        PAYDAY[2] = oRecordSet.Fields.Item("PAYDY3").Value.ToString().Trim();
                         PAYAMT[2] = oRecordSet.Fields.Item("PAYT03").Value;
 
                         PAYSTD[3] = codeHelpClass.Left(oRecordSet.Fields.Item("PAYSD4").Value.ToString().Replace("-", ""), 8);

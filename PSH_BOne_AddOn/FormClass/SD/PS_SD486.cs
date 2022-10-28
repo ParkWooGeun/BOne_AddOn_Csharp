@@ -204,11 +204,11 @@ namespace PSH_BOne_AddOn
 
 				sQry = "SELECT BPLName FROM [OBPL] WHERE BPLId = '" + BPLId + "'";
 				oRecordSet.DoQuery(sQry);
-				BPLName = oRecordSet.Fields.Item(0).Value.ToString().Trim(); ;
+				BPLName = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 
 				sQry = "SELECT CardName, CardCode FROM [OCRD] WHERE CardCode = '" + CardCode + "'";
 				oRecordSet.DoQuery(sQry);
-				CardName = oRecordSet.Fields.Item(0).Value.ToString().Trim(); ;
+				CardName = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 
 				WinTitle = "품목별판매현황[PS_SD486]";
 				ReportName = "PS_SD486_01.rpt";

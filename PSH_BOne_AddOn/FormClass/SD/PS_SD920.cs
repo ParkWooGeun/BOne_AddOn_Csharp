@@ -537,7 +537,7 @@ namespace PSH_BOne_AddOn
                     if (DI_oReturns == null && DI_oDeliveryNotes == null)
                     {
                         DI_oReturns = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oReturns); //반품 문서객체
-                        DI_oDeliveryNotes = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oDeliveryNotes); ; //납품 문서객체 
+                        DI_oDeliveryNotes = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oDeliveryNotes); //납품 문서객체 
                     }
 
                     //반품_S

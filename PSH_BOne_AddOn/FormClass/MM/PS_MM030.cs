@@ -1152,7 +1152,7 @@ namespace PSH_BOne_AddOn
         private bool PS_MM030_oPurchaseOrders_Update()
         {
             bool returnValue = false;
-            int i; ;
+            int i;
             int errDICode;
             int RetVal;
             string sQry;

@@ -289,7 +289,7 @@ namespace PSH_BOne_AddOn
 				ToDt = oForm.Items.Item("ToDt").Specific.Value.ToString().Trim();
 				CardType = oForm.Items.Item("CardType").Specific.Value.ToString().Trim();
 				ItemType = oForm.Items.Item("ItemType").Specific.Value.ToString().Trim();
-				ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim(); ;
+				ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
 				TeamCode = oForm.Items.Item("TeamCode").Specific.Value.ToString().Trim();
 				RspCode = oForm.Items.Item("RspCode").Specific.Value.ToString().Trim();
 				ClsCode = oForm.Items.Item("ClsCode").Specific.Value.ToString().Trim();
@@ -402,7 +402,7 @@ namespace PSH_BOne_AddOn
 				ToDt = oForm.Items.Item("ToDt").Specific.Value.ToString().Trim();
 				CardType = oForm.Items.Item("CardType").Specific.Value.ToString().Trim();
 				ItemType = oForm.Items.Item("ItemType").Specific.Value.ToString().Trim();
-				ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim(); ;
+				ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
 				TeamCode = oForm.Items.Item("TeamCode").Specific.Value.ToString().Trim();
 				RspCode = oForm.Items.Item("RspCode").Specific.Value.ToString().Trim();
 				ClsCode = oForm.Items.Item("ClsCode").Specific.Value.ToString().Trim();

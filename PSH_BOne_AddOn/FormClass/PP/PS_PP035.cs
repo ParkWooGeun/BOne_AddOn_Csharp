@@ -133,7 +133,7 @@ namespace PSH_BOne_AddOn
 
                 if (dataHelpClass.User_BPLID() == "2")
                 {
-                    oForm.DataSources.UserDataSources.Item("WorkDtFr").Value = DateTime.Now.AddMonths(-6).ToString("yyyyMM") + "01"; ;
+                    oForm.DataSources.UserDataSources.Item("WorkDtFr").Value = DateTime.Now.AddMonths(-6).ToString("yyyyMM") + "01";
                     oForm.DataSources.UserDataSources.Item("WorkDtTo").Value = DateTime.Now.ToString("yyyyMMdd");
                 }
             }
@@ -679,7 +679,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                Param01 = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(); ;
+                Param01 = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
                 Param02 = oForm.Items.Item("Canceled").Specific.Value.ToString().Trim();
                 Param03 = oForm.Items.Item("OrdNum").Specific.Value.ToString().Trim();
                 Param04 = oForm.Items.Item("OrdGbn").Specific.Value.ToString().Trim();

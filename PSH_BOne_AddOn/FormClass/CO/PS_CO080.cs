@@ -413,7 +413,7 @@ namespace PSH_BOne_AddOn
 			{
 				oForm.Freeze(true);
 
-				sQry = "select sum(U_Amount)  from [@PS_CO080L] where code ='"+ oForm.Items.Item("YM").Specific.Value.ToString().Trim() + oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() + "'"; ;
+				sQry = "select sum(U_Amount)  from [@PS_CO080L] where code ='"+ oForm.Items.Item("YM").Specific.Value.ToString().Trim() + oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() + "'";
 				oRecordSet.DoQuery(sQry);
 
 				oForm.DataSources.UserDataSources.Item("Amount").Value = oRecordSet.Fields.Item(0).Value.ToString();

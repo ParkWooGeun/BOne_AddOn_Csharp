@@ -1,4 +1,4 @@
-�?<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -21,7 +21,7 @@
     <FileUpgradeFlags />
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />
-    <PublishUrl>�Խ�\</PublishUrl>
+    <PublishUrl>게시\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -89,11 +89,6 @@
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win32_x86\dotnet\CrystalDecisions.Windows.Forms.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Office.Interop.Outlook, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>bin\Microsoft.Office.Interop.Outlook.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Vbe.Interop, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -110,14 +105,6 @@
     <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
-    </Reference>
-    <Reference Include="PdfSharp, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Desktop\PSH_BOne_AddOn1\bin\PdfSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="PdfSharp.Charting, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Desktop\PSH_BOne_AddOn1\bin\PdfSharp.Charting.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -161,8 +148,6 @@
     <Compile Include="EXT_Form\FrmRPT_Viewer1.designer.cs">
       <DependentUpon>FrmRPT_Viewer1.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormClass\CORE\S20700.cs" />
-    <Compile Include="FormClass\CORE\S134.cs" />
     <Compile Include="FormClass\CORE\S133.cs" />
     <Compile Include="FormClass\CORE\S139.cs" />
     <Compile Include="FormClass\CORE\S140.cs" />
@@ -237,31 +222,16 @@
     <Compile Include="FormClass\FI\PS_FI960.cs" />
     <Compile Include="FormClass\FI\PS_FI961.cs" />
     <Compile Include="FormClass\FI\PS_FI962.cs" />
-    <Compile Include="FormClass\FX\PS_FX005.cs" />
-    <Compile Include="FormClass\FX\PS_FX010.cs" />
-    <Compile Include="FormClass\FX\PS_FX015.cs" />
-    <Compile Include="FormClass\FX\PS_FX025.cs" />
-    <Compile Include="FormClass\FX\PS_FX004.cs" />
-    <Compile Include="FormClass\FX\PS_FX020.cs" />
-    <Compile Include="FormClass\FX\PS_FX030.cs" />
-    <Compile Include="FormClass\FX\PS_FX210.cs" />
-    <Compile Include="FormClass\FX\PS_FX220.cs" />
-    <Compile Include="FormClass\FX\PS_FX230.cs" />
-    <Compile Include="FormClass\FX\PS_FX240.cs" />
     <Compile Include="FormClass\FX\PS_FX241.cs" />
-    <Compile Include="FormClass\FX\PS_FX250.cs" />
-    <Compile Include="FormClass\FX\PS_FX260.cs" />
-    <Compile Include="FormClass\FX\PS_FX270.cs" />
-    <Compile Include="FormClass\FX\PS_FX300.cs" />
-    <Compile Include="FormClass\HR\PS_HR000.cs" />
-    <Compile Include="FormClass\HR\PS_HR001.cs" />
-    <Compile Include="FormClass\HR\PS_HR002.cs" />
     <Compile Include="FormClass\HR\PS_HR400.cs" />
     <Compile Include="FormClass\HR\PS_HR401.cs" />
     <Compile Include="FormClass\HR\PS_HR402.cs" />
     <Compile Include="FormClass\HR\PS_HR403.cs" />
+<<<<<<< HEAD
     <Compile Include="FormClass\HR\PS_HR404.cs" />
+=======
     <Compile Include="FormClass\HR\PS_HR405.cs" />
+>>>>>>> f399b63a85afd95f28d30a29a2c356d47b508e50
     <Compile Include="FormClass\HR\PS_HR406.cs" />
     <Compile Include="FormClass\HR\PS_HR407.cs" />
     <Compile Include="FormClass\HR\PS_HR409.cs" />
@@ -274,8 +244,6 @@
     <Compile Include="FormClass\HR\PS_HR414.cs" />
     <Compile Include="FormClass\HR\PS_HR415.cs" />
     <Compile Include="FormClass\HR\PS_HR416.cs" />
-    <Compile Include="FormClass\HR\PS_HR418.cs" />
-    <Compile Include="FormClass\HR\PS_HR419.cs" />
     <Compile Include="FormClass\HR\PS_HR420.cs" />
     <Compile Include="FormClass\HR\PS_HR421.cs" />
     <Compile Include="FormClass\HR\PS_HR422.cs" />
@@ -284,14 +252,12 @@
     <Compile Include="FormClass\MM\PS_MM005.cs" />
     <Compile Include="FormClass\MM\PS_MM006.cs" />
     <Compile Include="FormClass\MM\PS_MM007.cs" />
-    <Compile Include="FormClass\MM\PS_MM008.cs" />
     <Compile Include="FormClass\MM\PS_MM010.cs" />
     <Compile Include="FormClass\MM\PS_MM010_S.cs" />
     <Compile Include="FormClass\MM\PS_MM030.cs" />
     <Compile Include="FormClass\MM\PS_MM031.cs" />
     <Compile Include="FormClass\MM\PS_MM040.cs" />
     <Compile Include="FormClass\MM\PS_MM041.cs" />
-    <Compile Include="FormClass\MM\PS_MM050.cs" />
     <Compile Include="FormClass\MM\PS_MM070.cs" />
     <Compile Include="FormClass\MM\PS_MM090.cs" />
     <Compile Include="FormClass\MM\PS_MM100.cs" />
@@ -305,16 +271,12 @@
     <Compile Include="FormClass\MM\PS_MM096.cs" />
     <Compile Include="FormClass\MM\PS_MM135.cs" />
     <Compile Include="FormClass\MM\PS_MM153.cs" />
-    <Compile Include="FormClass\MM\PS_MM173.cs" />
     <Compile Include="FormClass\MM\PS_MM180.cs" />
     <Compile Include="FormClass\MM\PS_MM200.cs" />
     <Compile Include="FormClass\MM\PS_MM204.cs" />
     <Compile Include="FormClass\MM\PS_MM205.cs" />
-    <Compile Include="FormClass\MM\PS_MM210.cs" />
     <Compile Include="FormClass\MM\PS_MM225.cs" />
-    <Compile Include="FormClass\MM\PS_MM230.cs" />
     <Compile Include="FormClass\MM\PS_MM510.cs" />
-    <Compile Include="FormClass\MM\PS_MM916.cs" />
     <Compile Include="FormClass\MM\PS_MM921.cs" />
     <Compile Include="FormClass\CO\PS_CO540.cs" />
     <Compile Include="FormClass\CO\PS_CO040.cs" />
@@ -569,7 +531,6 @@
     <Compile Include="FormClass\PP\ZPS_MGSCRAP.cs" />
     <Compile Include="FormClass\PY\PH_PY400.cs" />
     <Compile Include="FormClass\PY\PH_PY420.cs" />
-    <Compile Include="FormClass\PY\PH_PY606.cs" />
     <Compile Include="FormClass\PY\PH_PY998.cs" />
     <Compile Include="FormClass\PY\PH_PY115.cs" />
     <Compile Include="FormClass\PY\PH_PY135.cs" />
@@ -580,14 +541,10 @@
     <Compile Include="FormClass\PY\PH_PYA90.cs" />
     <Compile Include="FormClass\PY\PS_DateChange.cs" />
     <Compile Include="FormClass\PY\PS_DateCommit.cs" />
-    <Compile Include="FormClass\QM\PS_QM008.cs" />
-    <Compile Include="FormClass\QM\PS_QM030.cs" />
-    <Compile Include="FormClass\QM\PS_QM075.cs" />
     <Compile Include="FormClass\QM\PS_QM005.cs" />
     <Compile Include="FormClass\QM\PS_QM007.cs" />
     <Compile Include="FormClass\QM\PS_QM010.cs" />
     <Compile Include="FormClass\QM\PS_QM011.cs" />
-    <Compile Include="FormClass\QM\PS_QM012.cs" />
     <Compile Include="FormClass\QM\PS_QM041.cs" />
     <Compile Include="FormClass\QM\PS_QM055.cs" />
     <Compile Include="FormClass\QM\PS_QM060.cs" />
@@ -599,11 +556,9 @@
     <Compile Include="FormClass\QM\PS_QM102.cs" />
     <Compile Include="FormClass\QM\PS_QM110.cs" />
     <Compile Include="FormClass\QM\PS_QM241.cs" />
-    <Compile Include="FormClass\QM\PS_QM610.cs" />
     <Compile Include="FormClass\QM\PS_QM620.cs" />
     <Compile Include="FormClass\QM\PS_QM903.cs" />
     <Compile Include="FormClass\SD\PS_SD001.cs" />
-    <Compile Include="FormClass\SD\PS_SD002.cs" />
     <Compile Include="FormClass\SD\PS_SD005.cs" />
     <Compile Include="FormClass\SD\PS_SD006.cs" />
     <Compile Include="FormClass\SD\PS_SD010.cs" />
@@ -645,7 +600,6 @@
     <Compile Include="FormClass\SD\PS_SD150.cs" />
     <Compile Include="FormClass\SD\PS_SD160.cs" />
     <Compile Include="FormClass\SD\PS_SD180.cs" />
-    <Compile Include="FormClass\SD\PS_SD185.cs" />
     <Compile Include="FormClass\SD\PS_SD190.cs" />
     <Compile Include="FormClass\SD\PS_SD240.cs" />
     <Compile Include="FormClass\SD\PS_SD241.cs" />
@@ -683,7 +637,6 @@
     <Compile Include="FormClass\SD\PS_SD914.cs" />
     <Compile Include="FormClass\SD\PS_SD916.cs" />
     <Compile Include="FormClass\SD\PS_SD920.cs" />
-    <Compile Include="FormClass\SD\PS_SD925.cs" />
     <Compile Include="FormClass\SD\PS_SD950.cs" />
     <Compile Include="FormClass\SD\PS_SD955.cs" />
     <Compile Include="FormClass\SD\PS_SD956.cs" />
@@ -2057,16 +2010,6 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_QM600_01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_S140_01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_S149_01.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_MM173_01.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_MM173_02.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_QM012_01.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_PP634_15.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PH_PY606_01.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_MM210_01.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_MM916_01.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_SD185_01.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PH_PY118_01.rpt" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_MM204_04.rpt" />
     <None Include="PSH_BOne_AddOn\PathINI\Report\PS_HR105_01.rpt" />
     <None Include="PSH_BOne_AddOn\PathINI\Report\PS_HR422_01.rpt" />
     <None Include="PSH_BOne_AddOn\PathINI\Report\PS_HR423_01.rpt" />
@@ -2649,7 +2592,6 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM620.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM903.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD001.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD002.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD005.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD006.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD010.srf" />
@@ -2748,35 +2690,34 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SY005.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SY010.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\ZPS_MGSCRAP.srf" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP092S.srf" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM204.srf" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO521.srf" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SY015.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SY020.srf" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP270.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP271.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP272.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP275.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO000.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP531.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM007.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM012.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM075.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM173.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM610.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM030.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD925.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM050.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY606.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM008.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_QM008.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM210.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM916.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD185.srf" />
-    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM230.srf" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_FX025.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_CO000.srf" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP531.srf" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM007.srf" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="PSH_BOne_AddOn\PathINI\Screen\PS_HR100.srf" />

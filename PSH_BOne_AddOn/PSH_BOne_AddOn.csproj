@@ -2023,6 +2023,7 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_MM916_01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_SD185_01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PH_PY118_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_MM204_04.rpt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EXT_Form\FileListBoxForm.resX">
@@ -2725,6 +2726,7 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM210.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM916.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD185.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM230.srf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

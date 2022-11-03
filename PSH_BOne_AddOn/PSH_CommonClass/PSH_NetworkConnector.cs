@@ -10,22 +10,6 @@ namespace PSH_BOne_AddOn
 {
     public class NetworkConnector
     {
-        public NETRESOURCE NetResource = new NETRESOURCE();
-        [DllImport("mpr.dll", CharSet = CharSet.Auto)]
-
-        public static extern int WNetUseConnection(
-                    IntPtr hwndOwner,
-                    [MarshalAs(UnmanagedType.Struct)] ref NETRESOURCE lpNetResource,
-                    string lpPassword,
-                    string lpUserID,
-                    uint dwFlags,
-                    StringBuilder lpAccessName,
-                    ref int lpBufferSize,
-                    out uint lpResult);
-
-        [DllImport("mpr.dll", EntryPoint = "WNetCancelConnection2", CharSet = CharSet.Auto)]
-
-        public static extern int WNetCancelConnection2A(String lpName, int dwFlags, int fForce);
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
 
@@ -41,25 +25,54 @@ namespace PSH_BOne_AddOn
             public string lpProvider;
         }
 
-        public int TryConnectNetwork(string remotePath, string userID, string pwd)
+
+        [DllImport("mpr.dll", CharSet = CharSet.Auto)]
+
+        public static extern int WNetUseConnection(
+                    IntPtr hwndOwner,
+                    [MarshalAs(UnmanagedType.Struct)] ref NETRESOURCE lpNetResource,
+                    string lpPassword,
+                    string lpUserID,
+                    uint dwFlags,
+                    StringBuilder lpAccessName,
+                    ref int lpBufferSize,
+                    out uint lpResult);
+
+       
+
+        
+
+        public int TryConnectNetwork(string remotePath, string userID, string pwd, string strLocalName)
         {
             int capacity = 64;
             uint resultFlags = 0;
             uint flags = 0;
+
             StringBuilder sb = new StringBuilder(capacity);
-            NetResource.dwType = 1; // 공유 디스크
-            NetResource.lpLocalName = null;  // 로컬 드라이브 지정하지 않음
-            NetResource.lpRemoteName = "\\\\191.1.1.220\\b1_shr";
-            NetResource.lpProvider = null;
+            NETRESOURCE ns = new NETRESOURCE();
+            ns.dwType = 1; // 공유 디스크
+            ns.lpLocalName = strLocalName;  // 로컬 드라이브 지정하지 않음
+            ns.lpRemoteName = remotePath;
+            ns.lpProvider = null;
 
             
-            int result = WNetUseConnection(IntPtr.Zero, ref NetResource, pwd, userID, flags, sb, ref capacity, out resultFlags);
+            int result = WNetUseConnection(IntPtr.Zero, ref ns, pwd, userID, flags, sb, ref capacity, out resultFlags);
             return result;
         }
 
-        public void DisconnectNetwork()
+
+        [DllImport("mpr.dll", EntryPoint = "WNetCancelConnection2", CharSet = CharSet.Auto)]
+
+        public static extern int WNetCancelConnection2(String lpName, int dwFlags, int fForce);
+
+        //public void DisconnectNetwork()
+        //{
+        //    WNetCancelConnection2A(NETRESOURCE.lpRemoteName, 1, 0);
+        //}
+        public void DisconnectNetwork(string strRemoteConnectString)
         {
-            WNetCancelConnection2A(NetResource.lpRemoteName, 1, 0);
+            WNetCancelConnection2(strRemoteConnectString, 1, 1);
         }
+
     }
 }

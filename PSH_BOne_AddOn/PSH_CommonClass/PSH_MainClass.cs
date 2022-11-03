@@ -217,13 +217,14 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                IpAddress = dataHelpClass.GetValue("EXEC Profile_SELECT 'SERVERINFO'", 0, 1);
-                Id = dataHelpClass.GetValue("EXEC Profile_SELECT 'SERVERINFO'", 2, 1);
+                IpAddress = dataHelpClass.GetValue("EXEC Profile_SELECT 'SERVERINFO'", 0, 1) + dataHelpClass.GetValue("EXEC Profile_SELECT 'SERVERINFO'", 1, 1);  //\\191.1.1.220\b1_shr\PathINI
+                Id = "Administrator";
                 PassWord = dataHelpClass.GetValue("EXEC Profile_SELECT 'SERVERINFO'", 3, 1);
-
+                
                 while (true)
                 {
-                     int state = Nc.TryConnectNetwork(IpAddress, Id, PassWord);
+                     Nc.DisconnectNetwork("Q:"); // SAP접속시 SAP공유폴더 접속해제
+                     int state = Nc.TryConnectNetwork(IpAddress,Id,PassWord,"Q:"); //공유폴더접속
 
                     if (TryConnectResult(state) == true)
                     {

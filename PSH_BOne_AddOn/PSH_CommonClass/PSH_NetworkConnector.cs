@@ -54,12 +54,10 @@ namespace PSH_BOne_AddOn
             ns.lpLocalName = strLocalName;  // 로컬 드라이브 지정하지 않음
             ns.lpRemoteName = remotePath;
             ns.lpProvider = null;
-
             
             int result = WNetUseConnection(IntPtr.Zero, ref ns, pwd, userID, flags, sb, ref capacity, out resultFlags);
             return result;
         }
-
 
         [DllImport("mpr.dll", EntryPoint = "WNetCancelConnection2", CharSet = CharSet.Auto)]
 
@@ -73,6 +71,5 @@ namespace PSH_BOne_AddOn
         {
             WNetCancelConnection2(strRemoteConnectString, 1, 1);
         }
-
     }
 }

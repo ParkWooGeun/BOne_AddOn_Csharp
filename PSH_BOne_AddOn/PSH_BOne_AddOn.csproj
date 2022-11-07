@@ -525,6 +525,7 @@
     <Compile Include="FormClass\PP\PS_PP996.cs" />
     <Compile Include="FormClass\PP\ZPS_MGSCRAP.cs" />
     <Compile Include="FormClass\PY\PH_PY400.cs" />
+    <Compile Include="FormClass\PY\PH_PY403.cs" />
     <Compile Include="FormClass\PY\PH_PY420.cs" />
     <Compile Include="FormClass\PY\PH_PY606.cs" />
     <Compile Include="FormClass\PY\PH_PY998.cs" />

@@ -397,11 +397,7 @@ namespace PSH_BOne_AddOn
 				sQry += "   and a.U_CardSeq ='" + oForm.Items.Item("CardSeq").Specific.Value.ToString().Trim() + "'";
 				oRecordSet.DoQuery(sQry);
 
-<<<<<<< HEAD
 				if (oMat.VisualRowCount-1 != Convert.ToInt32(oRecordSet.Fields.Item(0).Value.ToString().Trim()))
-=======
-				if (oMat.VisualRowCount - 1 != Convert.ToInt32(oRecordSet.Fields.Item(0).Value.ToString().Trim()))
->>>>>>> C#Migration_QM
 				{
 					errMessage = "성적서등록 화면내 검사항목과 사양서화면내 검사항목이 불일치합니다.";
 					throw new Exception();
@@ -740,7 +736,6 @@ namespace PSH_BOne_AddOn
 				case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
 					Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
 					break;
-<<<<<<< HEAD
                 case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
                     Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
@@ -781,48 +776,6 @@ namespace PSH_BOne_AddOn
                 //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
                 //    break;
                 case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD: //17
-=======
-				//case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
-				//	Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
-				//	break;
-				//case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD: //12
-				//    Raise_EVENT_DATASOURCE_LOAD(FormUID, ref pVal, ref BubbleEvent);
-				//    break;
-				//case SAPbouiCOM.BoEventTypes.et_FORM_LOAD: //16
-				//    Raise_EVENT_FORM_LOAD(FormUID, ref pVal, ref BubbleEvent);
-				//    break;
-				//case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: //18
-				//    Raise_EVENT_FORM_ACTIVATE(FormUID, ref pVal, ref BubbleEvent);
-				//    break;
-				//case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE: //19
-				//    Raise_EVENT_FORM_DEACTIVATE(FormUID, ref pVal, ref BubbleEvent);
-				//    break;
-				//case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE: //20
-				//    Raise_EVENT_FORM_CLOSE(FormUID, ref pVal, ref BubbleEvent);
-				//    break;
-				//case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
-				//	Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
-				//	break;
-				//case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
-				//    Raise_EVENT_FORM_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
-				//    break;
-				//case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
-				//    Raise_EVENT_FORM_MENU_HILIGHT(FormUID, ref pVal, ref BubbleEvent);
-				//    break;
-				//case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
-				//    Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
-				//    break;
-				//case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED: //37
-				//    Raise_EVENT_PICKER_CLICKED(FormUID, ref pVal, ref BubbleEvent);
-				//    break;
-				//case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
-				//    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
-				//    break;
-				//case SAPbouiCOM.BoEventTypes.et_Drag: //39
-				//    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
-				//    break;
-				case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD: //17
->>>>>>> C#Migration_QM
 					Raise_EVENT_FORM_UNLOAD(FormUID, ref pVal, ref BubbleEvent);
 					break;
 			}
@@ -1166,19 +1119,12 @@ namespace PSH_BOne_AddOn
 						}
 						else if (pVal.ItemUID == "InspNo") //검사의뢰번호
 						{
-<<<<<<< HEAD
 							sQry = "Select Itemcode, Quantity = Sum(Quantity), CardName, CardSeq, CardCode From [Z_PACKING_PD] Where QM006YN = 'N' AND InspNo = '" + oForm.Items.Item("InspNo").Specific.Value.ToString().Trim() + "' Group by Itemcode, CardName, CardSeq, CardCode ";
-=======
-							sQry = "Select Itemcode, Quantity = Sum(Quantity), CardName, CardSeq From [Z_PACKING_PD] Where QM006YN = 'N' AND InspNo = '" + oForm.Items.Item("InspNo").Specific.Value.ToString().Trim() + "' Group by Itemcode, CardName, CardSeq ";
->>>>>>> C#Migration_QM
                             oRecordSet.DoQuery(sQry);
 
                             oDS_PS_QM008H.SetValue("U_Weight", 0, oRecordSet.Fields.Item(1).Value.ToString().Trim());
 							oForm.Items.Item("ItemCode").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
-<<<<<<< HEAD
 							oForm.Items.Item("CardCode").Specific.Value = oRecordSet.Fields.Item(4).Value.ToString().Trim();
-=======
->>>>>>> C#Migration_QM
 
 							if (!string.IsNullOrEmpty(oRecordSet.Fields.Item(2).Value.ToString().Trim()))
 							{
@@ -1289,7 +1235,6 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-<<<<<<< HEAD
 		/// Raise_EVENT_CLICK 이벤트
 		/// </summary>
 		/// <param name="FormUID">Form UID</param>
@@ -1319,8 +1264,6 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
-=======
->>>>>>> C#Migration_QM
 		/// FORM_UNLOAD 이벤트
 		/// </summary>
 		/// <param name="FormUID">Form UID</param>

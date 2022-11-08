@@ -283,18 +283,11 @@ namespace PSH_BOne_AddOn
 					}
 					oDS_PS_QM030L.SetValue("LineId", j - 1, Convert.ToString(j));
 					oDS_PS_QM030L.SetValue("U_CLotNo", j - 1, oRecordSet.Fields.Item("DistNumber").Value.ToString().Trim());
-<<<<<<< HEAD
 					oDS_PS_QM030L.SetValue("U_GRDate", j - 1, oRecordSet.Fields.Item("InDate").Value.ToString("yyyyMMdd").Trim());
 					oDS_PS_QM030L.SetValue("U_ChemC_Fe", j - 1, oRecordSet.Fields.Item("U_ChemC_Fe").Value.ToString().Trim());
 					oDS_PS_QM030L.SetValue("U_ChemC_P", j - 1, oRecordSet.Fields.Item("U_ChemC_P").Value.ToString().Trim());
 					oDS_PS_QM030L.SetValue("U_ChemC_Cu", j - 1, oRecordSet.Fields.Item("U_ChemC_Cu").Value.ToString().Trim());
 					oDS_PS_QM030L.SetValue("U_SysNum", j - 1, oRecordSet.Fields.Item("SysNumber").Value.ToString().Trim());
-=======
-					oDS_PS_QM030L.SetValue("U_GRDate", j, Convert.ToDateTime(oRecordSet.Fields.Item("InDate").Value.ToString().Trim()).ToString("yyyyMMdd"));
-					oDS_PS_QM030L.SetValue("U_ChemC_Fe", j - 1, oRecordSet.Fields.Item("U_ChemC_Fe").Value.ToString().Trim());
-					oDS_PS_QM030L.SetValue("U_ChemC_P", j - 1, oRecordSet.Fields.Item("U_ChemC_P").Value.ToString().Trim());
-					oDS_PS_QM030L.SetValue("U_ChemC_Cu", j - 1, oRecordSet.Fields.Item("U_ChemC_Cu").Value.ToString().Trim());
->>>>>>> C#Migration_QM
 					oDS_PS_QM030L.SetValue("U_Weight", j - 1, oRecordSet.Fields.Item("Quantity").Value.ToString().Trim());
 					j += 1;
 					oRecordSet.MoveNext();
@@ -333,17 +326,10 @@ namespace PSH_BOne_AddOn
 					sQry += "U_ChemC_Cu = '" + oDS_PS_QM030L.GetValue("U_ChemC_Cu", i).ToString().Trim() + "' ";
 					sQry += "Where ItemCode = '" + oDS_PS_QM030H.GetValue("U_ItemCode", 0).ToString().Trim() + "' ";
 					sQry += "and DistNumber = '" + oDS_PS_QM030L.GetValue("U_CLotNo", i).ToString().Trim() + "'";
-<<<<<<< HEAD
 					sQry += "and SysNumber = '" + oDS_PS_QM030L.GetValue("U_SysNum", i).ToString().Trim() + "'";
 					oRecordSet.DoQuery(sQry);
 				}
 				PSH_Globals.SBO_Application.MessageBox("성분 입력작업이 완료되었습니다");
-=======
-					oRecordSet.DoQuery(sQry);
-				}
-
-				PSH_Globals.SBO_Application.StatusBar.SetText("성분 입력작업이 완료되었습니다", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
->>>>>>> C#Migration_QM
 			}
 			catch (Exception ex)
 			{

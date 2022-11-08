@@ -41312,7 +41312,7 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY403.Raise_EVENT_MATRIX_LOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
-            Raise_EVENT_CLICK 이벤트
+            MATRIX_LOAD 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>

@@ -52,6 +52,8 @@ namespace PSH_BOne_AddOn
                 PH_PY403_CreateItems();
                 PH_PY403_ComboBox_Setting();
                 PH_PY403_EnableMenus();
+                PH_PY403_FormItemEnabled();
+                PH_PY403_AddMatrixRow();
             }
             catch (Exception ex)
             {
@@ -72,10 +74,8 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PH_PY403_CreateItems()
         {
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
-                oForm.Freeze(true);
                 oDS_PH_PY403A = oForm.DataSources.DBDataSources.Item("@PH_PY403A");
                 oDS_PH_PY403B = oForm.DataSources.DBDataSources.Item("@PH_PY403B");
                 oMat = oForm.Items.Item("Mat01").Specific;
@@ -84,14 +84,18 @@ namespace PSH_BOne_AddOn
 
                 // 정산년도
                 oForm.Items.Item("YY").Specific.Value = Convert.ToString(DateTime.Now.Year - 1);
+
+                //성명
+                oForm.DataSources.UserDataSources.Add("CntcName", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 30);
+                oForm.Items.Item("CntcName").Specific.DataBind.SetBound(true, "", "CntcName");
+
+                // 사번
+                oForm.DataSources.UserDataSources.Add("CntcCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
+                oForm.Items.Item("CntcCode").Specific.DataBind.SetBound(true, "", "CntcCode");
             }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-            }
-            finally
-            {
-                oForm.Freeze(false);
             }
         }
 
@@ -137,6 +141,12 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Sparent").Specific.Select("", SAPbouiCOM.BoSearchKey.psk_Index);
                 oForm.Items.Item("Sparent").DisplayDesc = true;
 
+                //재직구분
+                oForm.DataSources.UserDataSources.Add("Status_1", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
+                sQry = "SELECT statusID, name FROM [OHST] Order By 1 ";
+                dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("Status_1").Specific, "N");
+
+
                 //관계 oMat
                 sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P121' AND U_UseYN= 'Y'";
                 oRecordSet.DoQuery(sQry);
@@ -154,7 +164,7 @@ namespace PSH_BOne_AddOn
                 oMat.Columns.Item("Soduk").DisplayDesc = true;
 
                 //장애인코드 oMat
-                oMat.Columns.Item("HDCode").ValidValues.Add("0", "해당업음");
+                oMat.Columns.Item("HDCode").ValidValues.Add("", "해당업음");
                 oMat.Columns.Item("HDCode").ValidValues.Add("1", "장애인복지법에 따른 장애인");
                 oMat.Columns.Item("HDCode").ValidValues.Add("2", "국가유공자등 예우및지원에 관한 법률에 따른 상이자 및 이와 유사한자로서 근로능력이없는자");
                 oMat.Columns.Item("HDCode").ValidValues.Add("3", "그 밖에 항시 치료를 요하는 중증환자");
@@ -178,7 +188,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.EnableMenu("1283", false); //삭제
-                oForm.EnableMenu("1287", false); //복제
                 oForm.EnableMenu("1284", true); //취소
                 oForm.EnableMenu("1293", true); //행삭제
             }
@@ -203,36 +212,26 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("CntcCode").Enabled = true;
                     oForm.Items.Item("DocEntry").Enabled = false;
 
-                    PH_PY403_FormClear(); //폼 DocEntry 세팅
+                    PH_PY403_FormClear();            //폼 DocEntry 세팅
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true); //접속자에 따른 권한별 사업장 콤보박스세팅
-                    oForm.EnableMenu("1281", true); //문서찾기
+                    oForm.EnableMenu("1281", true);  //문서찾기
                     oForm.EnableMenu("1282", false); //문서추가
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
                     oForm.Items.Item("CLTCOD").Enabled = true;
                     oForm.Items.Item("CntcCode").Enabled = true;
-                    oForm.Items.Item("LoanDate").Enabled = true;
-                    oForm.Items.Item("LoanAmt").Enabled = true;
-                    oForm.Items.Item("RpmtPrd").Enabled = true;
-                    oForm.Items.Item("IntRate").Enabled = true;
                     oForm.Items.Item("DocEntry").Enabled = true;
-                    oForm.Items.Item("btnCal").Enabled = true;
 
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true); //접속자에 따른 권한별 사업장 콤보박스세팅
                     oForm.EnableMenu("1281", false); //문서찾기
-                    oForm.EnableMenu("1282", true); //문서추가
+                    oForm.EnableMenu("1282", true);  //문서추가
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
                     oForm.Items.Item("CLTCOD").Enabled = false;
                     oForm.Items.Item("CntcCode").Enabled = false;
-                    oForm.Items.Item("LoanDate").Enabled = false;
-                    oForm.Items.Item("LoanAmt").Enabled = false;
-                    oForm.Items.Item("RpmtPrd").Enabled = false;
-                    oForm.Items.Item("IntRate").Enabled = false;
                     oForm.Items.Item("DocEntry").Enabled = false;
-                    oForm.Items.Item("btnCal").Enabled = false;
                     
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", false); //접속자에 따른 권한별 사업장 콤보박스세팅
 
@@ -268,26 +267,18 @@ namespace PSH_BOne_AddOn
                 }
 
                 //사번
-                if (string.IsNullOrEmpty(oDS_PH_PY403A.GetValue("U_CntcCode", 0).ToString().Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("CntcCode").Specific.Value.ToString().Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사번은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CntcCode").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     return returnValue;
                 }
 
-                //대출일자
-                if (string.IsNullOrEmpty(oDS_PH_PY403A.GetValue("U_LoanDate", 0).ToString().Trim()))
-                {
-                    PSH_Globals.SBO_Application.SetStatusBarMessage("대출일자는 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                    oForm.Items.Item("LoanDate").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    return returnValue;
-                }
-
                 //대출금액
-                if (Convert.ToDouble(oDS_PH_PY403A.GetValue("U_LoanAmt", 0).ToString().Trim()) == 0)
+                if (oDS_PH_PY403A.GetValue("U_House", 0).ToString().Trim() == "")
                 {
-                    PSH_Globals.SBO_Application.SetStatusBarMessage("대출금액은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                    oForm.Items.Item("LoanAmt").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    PSH_Globals.SBO_Application.SetStatusBarMessage("주택구분은 필수입니다. 입력하세요.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                    oForm.Items.Item("House").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     return returnValue;
                 }
 
@@ -431,22 +422,24 @@ namespace PSH_BOne_AddOn
                         }
                         oDS_PH_PY403B.Offset = oRow;
                         oDS_PH_PY403B.SetValue("U_LineNum", oRow, Convert.ToString(oRow + 1));
-                        oDS_PH_PY403B.SetValue("U_Cnt", oRow, "");
-                        oDS_PH_PY403B.SetValue("U_PayDate", oRow, "");
-                        oDS_PH_PY403B.SetValue("U_RpmtAmt", oRow, "0");
-                        oDS_PH_PY403B.SetValue("U_TotRpmt", oRow, "0");
-                        oDS_PH_PY403B.SetValue("U_RpmtYN", oRow, "N");
+                        oDS_PH_PY403B.SetValue("U_Chk", oRow, "N");
+                        oDS_PH_PY403B.SetValue("U_KName", oRow, "");
+                        oDS_PH_PY403B.SetValue("U_Relate", oRow, "");
+                        oDS_PH_PY403B.SetValue("U_JuminNo", oRow, "");
+                        oDS_PH_PY403B.SetValue("U_Soduk", oRow, "");
+                        oDS_PH_PY403B.SetValue("U_HDCode", oRow, "");
                         oMat.LoadFromDataSource();
                     }
                     else
                     {
                         oDS_PH_PY403B.Offset = oRow - 1;
                         oDS_PH_PY403B.SetValue("U_LineNum", oRow - 1, Convert.ToString(oRow));
-                        oDS_PH_PY403B.SetValue("U_Cnt", oRow - 1, "");
-                        oDS_PH_PY403B.SetValue("U_PayDate", oRow - 1, "");
-                        oDS_PH_PY403B.SetValue("U_RpmtAmt", oRow - 1, "0");
-                        oDS_PH_PY403B.SetValue("U_TotRpmt", oRow - 1, "0");
-                        oDS_PH_PY403B.SetValue("U_RpmtYN", oRow - 1, "N");
+                        oDS_PH_PY403B.SetValue("U_Chk", oRow - 1, "N");
+                        oDS_PH_PY403B.SetValue("U_KName", oRow - 1, "");
+                        oDS_PH_PY403B.SetValue("U_Relate", oRow - 1, "");
+                        oDS_PH_PY403B.SetValue("U_JuminNo", oRow - 1, "");
+                        oDS_PH_PY403B.SetValue("U_Soduk", oRow - 1, "");
+                        oDS_PH_PY403B.SetValue("U_HDCode", oRow - 1, "");
                         oMat.LoadFromDataSource();
                     }
                 }
@@ -454,11 +447,12 @@ namespace PSH_BOne_AddOn
                 {
                     oDS_PH_PY403B.Offset = oRow;
                     oDS_PH_PY403B.SetValue("U_LineNum", oRow, Convert.ToString(oRow + 1));
-                    oDS_PH_PY403B.SetValue("U_Cnt", oRow, "");
-                    oDS_PH_PY403B.SetValue("U_PayDate", oRow, "");
-                    oDS_PH_PY403B.SetValue("U_RpmtAmt", oRow, "0");
-                    oDS_PH_PY403B.SetValue("U_TotRpmt", oRow, "0");
-                    oDS_PH_PY403B.SetValue("U_RpmtYN", oRow, "N");
+                    oDS_PH_PY403B.SetValue("U_Chk", oRow, "N");
+                    oDS_PH_PY403B.SetValue("U_KName", oRow, "");
+                    oDS_PH_PY403B.SetValue("U_Relate", oRow, "");
+                    oDS_PH_PY403B.SetValue("U_JuminNo", oRow, "");
+                    oDS_PH_PY403B.SetValue("U_Soduk", oRow, "");
+                    oDS_PH_PY403B.SetValue("U_HDCode", oRow, "");
                     oMat.LoadFromDataSource();
                 }
             }
@@ -586,7 +580,7 @@ namespace PSH_BOne_AddOn
                 }
 
                 //사번
-                if (string.IsNullOrEmpty(oDS_PH_PY403A.GetValue("U_CntcCode", 0).ToString().Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("CntcCode").Specific.Value.ToString().Trim()))
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("사번은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("CntcCode").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
@@ -765,18 +759,6 @@ namespace PSH_BOne_AddOn
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                         {
                         }
-
-                    }
-                    else if (pVal.ItemUID == "btnCal")
-                    {
-                        if (PH_PY403_CalDataCheck() == false)
-                        {
-                            BubbleEvent = false;
-                        }
-                        else
-                        {
-                            PH_PY403_MTX01();
-                        }
                     }
                 }
                 else if (pVal.BeforeAction == false)
@@ -832,7 +814,15 @@ namespace PSH_BOne_AddOn
                     }
                     else if (pVal.ItemUID == "CntcCode" && pVal.CharPressed == 9)
                     {
-                        if (string.IsNullOrEmpty(oForm.Items.Item("CntcCode").Specific.Value))
+                        if (string.IsNullOrEmpty(oForm.Items.Item("CntcCode").Specific.Value.ToString().Trim()))
+                        {
+                            PSH_Globals.SBO_Application.ActivateMenuItem("7425");
+                            BubbleEvent = false;
+                        }
+                    }
+                    else if (pVal.ItemUID == "CntcName" && pVal.CharPressed == 9)
+                    {
+                        if (string.IsNullOrEmpty(oForm.Items.Item("CntcName").Specific.Value.ToString().Trim()))
                         {
                             PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                             BubbleEvent = false;
@@ -890,7 +880,10 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            string CLTCOD;
+            string CntcCode;
+            string CntcName;
+            string sQry;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -898,20 +891,6 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 if (pVal.BeforeAction == true)
                 {
-                    if (pVal.ItemChanged == true)
-                    {
-                        switch (pVal.ItemUID)
-                        {
-                            case "Mat01":
-
-                                if (PH_PY403_Validate("수정", pVal.Row) == false)
-                                {
-                                    oDS_PH_PY403B.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oDS_PH_PY403B.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim());
-                                    oMat.LoadFromDataSource();
-                                }
-                                break;
-                        }
-                    }
                 }
                 else if (pVal.BeforeAction == false)
                 {
@@ -920,12 +899,61 @@ namespace PSH_BOne_AddOn
                         switch (pVal.ItemUID)
                         {
                             case "CntcCode":
-                                oDS_PH_PY403A.SetValue("U_CntcName", 0, dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item(pVal.ItemUID).Specific.Value + "'",""));
+                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                                CntcCode = oForm.Items.Item("CntcCode").Specific.Value.ToString().Trim();
+
+                                sQry = "  Select Code,";
+                                sQry += "        FullName = U_FullName,";
+                                sQry += "        TeamName = Isnull((SELECT U_CodeNm";
+                                sQry += "                             From [@PS_HR200L]";
+                                sQry += "                            WHERE Code = '1'";
+                                sQry += "                              And U_Code = U_TeamCode),''),";
+                                sQry += "        RspName  = Isnull((SELECT U_CodeNm";
+                                sQry += "                             From [@PS_HR200L]";
+                                sQry += "                            WHERE Code = '2'";
+                                sQry += "                              And U_Code = U_RspCode),''),";
+                                sQry += "        Status = U_Status";
+                                sQry += "   From [@PH_PY001A]";
+                                sQry += "  Where U_CLTCOD = '" + CLTCOD + "'";
+                                sQry += "    and Code = '" + CntcCode + "'";
+                                oRecordSet.DoQuery(sQry);
+
+                                oForm.DataSources.UserDataSources.Item("CntcName").Value = oRecordSet.Fields.Item("FullName").Value.ToString().Trim();
+                                oForm.Items.Item("TeamName").Specific.Value = oRecordSet.Fields.Item("TeamName").Value.ToString().Trim();
+                                oForm.Items.Item("RspName").Specific.Value = oRecordSet.Fields.Item("RspName").Value.ToString().Trim();
+                                oForm.Items.Item("Status_1").Specific.Select(oRecordSet.Fields.Item("Status").Value.ToString().Trim());
+                                break;
+
+                            case "CntcName":
+                                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                                CntcName = oForm.Items.Item("CntcName").Specific.Value.ToString().Trim();
+
+                                sQry = "Select Code,";
+                                sQry += "      FullName = U_FullName,";
+                                sQry += "      TeamName = Isnull((SELECT U_CodeNm";
+                                sQry += "                           From [@PS_HR200L]";
+                                sQry += "                          WHERE Code = '1'";
+                                sQry += "                            And U_Code = U_TeamCode),''),";
+                                sQry += "      RspName  = Isnull((SELECT U_CodeNm";
+                                sQry += "                           From [@PS_HR200L]";
+                                sQry += "                          WHERE Code = '2'";
+                                sQry += "                            And U_Code = U_RspCode),''),";
+                                sQry += "      Status = U_Status";
+                                sQry += " From [@PH_PY001A]";
+                                sQry += "Where U_CLTCOD = '" + CLTCOD + "'";
+                                sQry += "  And U_status <> '5'"; // 퇴사자 제외
+                                sQry += "  and U_FullName = '" + CntcName + "'";
+                                oRecordSet.DoQuery(sQry);
+
+                                oForm.DataSources.UserDataSources.Item("CntcCode").Value = oRecordSet.Fields.Item("Code").Value.ToString().Trim();
+                                oForm.Items.Item("TeamName").Specific.Value = oRecordSet.Fields.Item("TeamName").Value.ToString().Trim();
+                                oForm.Items.Item("RspName").Specific.Value = oRecordSet.Fields.Item("RspName").Value.ToString().Trim();
+                                oForm.Items.Item("Status_1").Specific.Select(oRecordSet.Fields.Item("Status").Value.ToString().Trim());
                                 break;
 
                             case "Mat01":
 
-                                if (pVal.ColUID == "Cnt")
+                                if (pVal.ColUID == "KName")
                                 {
                                     oMat.FlushToDataSource();
                                     oDS_PH_PY403B.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value);
@@ -981,7 +1009,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// Raise_EVENT_CLICK 이벤트
+        /// MATRIX_LOAD 이벤트
         /// </summary>
         /// <param name="FormUID">Form UID</param>
         /// <param name="pVal">ItemEvent 객체</param>

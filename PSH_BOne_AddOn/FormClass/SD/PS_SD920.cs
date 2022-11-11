@@ -8,10 +8,10 @@ using System.Timers;
 
 namespace PSH_BOne_AddOn
 {
-	/// <summary>
-	/// A/R송장 미처리 납품 처리
-	/// </summary>
-	internal class PS_SD920 : PSH_BaseClass
+    /// <summary>
+    /// 이월반품처리(원가) 
+    /// </summary>
+    internal class PS_SD920 : PSH_BaseClass
 	{
 		private string oFormUniqueID;
 		private SAPbouiCOM.Matrix oMat01; 
@@ -220,18 +220,27 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("BPLId").Enabled = true;
                     oForm.Items.Item("YYYYMM").Enabled = true;
                     oMat01.Columns.Item("Check").Editable = true;
+                    oForm.Items.Item("DocEntry").Enabled = false;
+                    oForm.EnableMenu("1281", true); //문서찾기
+                    oForm.EnableMenu("1282", false); //문서추가
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
                     oForm.Items.Item("BPLId").Enabled = true;
                     oForm.Items.Item("YYYYMM").Enabled = true;
                     oMat01.Columns.Item("Check").Editable = false;
+                    oForm.Items.Item("DocEntry").Enabled = true;
+                    oForm.EnableMenu("1281", false); //문서찾기
+                    oForm.EnableMenu("1282", true); //문서추가
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
                     oForm.Items.Item("BPLId").Enabled = false;
                     oForm.Items.Item("YYYYMM").Enabled = false;
                     oMat01.Columns.Item("Check").Editable = false;
+                    oForm.Items.Item("DocEntry").Enabled = false;
+                    oForm.EnableMenu("1281", true); //문서찾기
+                    oForm.EnableMenu("1282", true); //문서추가    
                 }
             }
             catch (Exception ex)
@@ -946,6 +955,7 @@ namespace PSH_BOne_AddOn
                             oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
                             PSH_Globals.SBO_Application.ActivateMenuItem("1282");
                         }
+                        PS_SD920_EnableFormItem();
                     }
                     else if (pVal.ItemUID == "Btn01")
                     {
@@ -1218,6 +1228,7 @@ namespace PSH_BOne_AddOn
                         case "1293": //행삭제
                             break;
                         case "1281": //찾기
+                            PS_SD920_EnableFormItem();
                             break;
                         case "1282": //추가
                             break;
@@ -1258,24 +1269,18 @@ namespace PSH_BOne_AddOn
                             oForm.Freeze(false);
                             break;
                         case "1281": //찾기
-                            oForm.Freeze(true);
                             PS_SD920_EnableFormItem();
-                            oForm.Freeze(false);
                             break;
                         case "1282": //추가
-                            oForm.Freeze(true);
                             PS_SD920_EnableFormItem();
                             PS_SD920_SetInitial();
                             PS_SD920_SetDocEntry();
-                            oForm.Freeze(false);
                             break;
                         case "1288":
                         case "1289":
                         case "1290":
                         case "1291": //레코드이동버튼
-                            oForm.Freeze(true);
                             PS_SD920_EnableFormItem();
-                            oForm.Freeze(false);
                             break;
                         case "1287": //복제
                             break;

@@ -480,17 +480,17 @@ namespace PSH_BOne_AddOn
 
                     if (oRecordSet01.Fields.Item("UniqueID").Value == "IFX00000000F")
                     {
-                        XmlString += " Image=\"\\\\191.1.1.220\\b1_shr\\PathINI\\QM.jpg\"";
+                        XmlString += " Image=\"\\\\191.1.1.220\\b1_shr\\QM.jpg\"";
 
                     }
                     else if (oRecordSet01.Fields.Item("UniqueID").Value == "HGA00000000F")
                     {
-                        XmlString += " Image=\"\\\\191.1.1.220\\b1_shr\\PathINI\\GA.jpg\"";
+                        XmlString += " Image=\"\\\\191.1.1.220\\b1_shr\\GA.jpg\"";
 
                     }
                     else if (oRecordSet01.Fields.Item("UniqueID").Value == "GQM00000000F")
                     {
-                        XmlString += " Image=\"\\\\191.1.1.220\\b1_shr\\PathINI\\QM.jpg\"";
+                        XmlString += " Image=\"\\\\191.1.1.220\\b1_shr\\QM.jpg\"";
                     }
 
                     if (NowType == "2")

@@ -41233,14 +41233,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY403.PH_PY403_Validate(System.String,System.Int32)">
-            <summary>
-            Validate
-            </summary>
-            <param name="ValidateType"></param>
-            <param name="prmRow"></param>
-            <returns></returns>
-        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY403.PH_PY403_FormClear">
             <summary>
             DocEntry 초기화
@@ -41251,16 +41243,10 @@
             매트릭스 행 추가
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY403.PH_PY403_MTX01">
+        <member name="M:PSH_BOne_AddOn.PH_PY403.PH_PY403_Find">
             <summary>
-            PH_PY403_MTX01
+            자료조회 및 전년자료가져오기
             </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY403.PH_PY403_CalDataCheck">
-            <summary>
-            PH_PY403_CalDataCheck
-            </summary>
-            <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY403.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -41341,6 +41327,19 @@
             <param name="FormUID"></param>
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY403.Raise_EVENT_ROW_DELETE(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            EVENT_ROW_DELETE
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY403.DELETE_P_SEOYBASE">
+            <summary>
+            DELETE_정산기초자료
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY403.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>

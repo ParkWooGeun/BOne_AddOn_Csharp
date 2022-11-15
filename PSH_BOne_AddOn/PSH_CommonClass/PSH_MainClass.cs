@@ -228,8 +228,11 @@ namespace PSH_BOne_AddOn
 
                     if (TryConnectResult(state) == true)
                     {
-                        MessageBox.Show(string.Format("Shart folder Connected. {0}", IpAddress));
-                        break;
+                        PSH_Globals.SBO_Application.StatusBar.SetText("공유폴더 연결완료!", BoMessageTime.bmt_Long, BoStatusBarMessageType.smt_Success);
+                    }
+                    else
+                    {
+                        throw new Exception();
                     }
                 }
             }

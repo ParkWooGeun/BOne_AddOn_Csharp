@@ -8,7 +8,6 @@ namespace PSH_BOne_AddOn.Core
     /// </summary>
     internal class S951 : PSH_BaseClass
     {
-        private string oFormUniqueID;
         private SAPbouiCOM.Matrix oMat01;
         private SAPbouiCOM.Matrix oMat02;
         private string cUserID;
@@ -23,10 +22,7 @@ namespace PSH_BOne_AddOn.Core
             {
                 oForm = PSH_Globals.SBO_Application.Forms.Item(formUID);
                 oForm.Freeze(true);
-
-                oFormUniqueID = formUID;
                 SubMain.Add_Forms(this, formUID, "S951");
-
                 S951_CreateItems();
             }
             catch (Exception ex)
@@ -372,7 +368,6 @@ namespace PSH_BOne_AddOn.Core
                 }
                 else if (pVal.Before_Action == false)
                 {
-                    SubMain.Remove_Forms(oFormUniqueID);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                 }
             }

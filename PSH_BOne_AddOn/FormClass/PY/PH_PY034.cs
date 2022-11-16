@@ -574,9 +574,9 @@ namespace PSH_BOne_AddOn
                         oJournal.Lines.CostingCode = sPrcCode;                //배부규칙
                         oJournal.Lines.LineMemo = sLineMemo;                  //비고
 
-                        oJournal.Lines.UserFields.Fields.Item("U_spender").Value = sSpender;                                         //사용인
-                        oJournal.Lines.UserFields.Fields.Item("U_BillCode").Value = "P90010";                                        //법정지출증빙코드
-                        oJournal.Lines.UserFields.Fields.Item("U_BillName").Value = "규정";                                          //법정지출증빙명
+                        oJournal.Lines.UserFields.Fields.Item("U_spender").Value = sSpender; //사용인
+                        oJournal.Lines.UserFields.Fields.Item("U_BillCode").Value = "P90010"; //법정지출증빙코드
+                        oJournal.Lines.UserFields.Fields.Item("U_BillName").Value = "규정"; //법정지출증빙명
                         oJournal.UserFields.Fields.Item("U_BPLId").Value = BPLid;  //사업장
                     }
                 }

@@ -57,6 +57,7 @@ namespace PSH_BOne_AddOn
 
                 this.XmlCreateYN();
                 this.Load_MenuXml();
+                this.ConnectShareFolder();
                 //DoSomething();
 
                 Initialize_ODBC_Variable();
@@ -204,9 +205,150 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// 메인 메뉴용 XML 로딩
+        /// 공유폴더 연결
         /// </summary>
-        private void XmlCreateYN()
+        private void ConnectShareFolder()
+        {
+            string IpAddress;
+            string Id;
+            string PassWord;
+            NetworkConnector Nc = new NetworkConnector();
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
+            try
+            {
+                IpAddress = dataHelpClass.GetValue("EXEC Profile_SELECT 'SERVERINFO'", 0, 1) + dataHelpClass.GetValue("EXEC Profile_SELECT 'SERVERINFO'", 1, 1);  //\\191.1.1.220\b1_shr\PathINI
+                Id = dataHelpClass.GetValue("EXEC Profile_SELECT 'SERVERINFO'", 2, 1);
+                PassWord = dataHelpClass.GetValue("EXEC Profile_SELECT 'SERVERINFO'", 3, 1);
+                
+                while (true)
+                {
+                     Nc.DisconnectNetwork("Q:"); // SAP접속시 SAP공유폴더 접속해제
+                     int state = Nc.TryConnectNetwork(IpAddress,Id,PassWord,"Q:"); //공유폴더접속
+
+                    if (TryConnectResult(state) == true)
+                    {
+                        PSH_Globals.SBO_Application.StatusBar.SetText("공유폴더 연결완료!", BoMessageTime.bmt_Long, BoStatusBarMessageType.smt_Success);
+                        break;
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("ConnectShareFolder_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
+        }
+
+        /// <summary>
+        /// 연결 상태 정보 반환 메서드
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        private bool TryConnectResult(int state)
+        {
+            bool result;
+
+            if (state == 0)
+            {
+                result = true;
+            }
+            else
+            {
+                result = false;
+                
+                switch (state)
+                {
+                    case ERROR_CODE.NO_ERROR:
+                        break;
+                    case ERROR_CODE.ERROR_ACCESS_DENIED:
+                        break;
+                    case ERROR_CODE.ERROR_ALREADY_ASSIGNED:
+                        break;
+                    case ERROR_CODE.ERROR_BAD_DEV_TYPE:
+                        break;
+                    case ERROR_CODE.ERROR_BAD_DEVICE:
+                        break;
+                    case ERROR_CODE.ERROR_BAD_NET_NAME:
+                        break;
+                    case ERROR_CODE.ERROR_BAD_PROFILE:
+                        break;
+                    case ERROR_CODE.ERROR_BAD_PROVIDER:
+                        break;
+                    case ERROR_CODE.ERROR_MULTIPLE_CONNECTION:
+                    case ERROR_CODE.ERROR_BAD_USER_OR_PASSWORD:
+                        break;
+                    case ERROR_CODE.ERROR_BUSY:
+                        break;
+                    case ERROR_CODE.ERROR_CANCELLED:
+                        break;
+                    case ERROR_CODE.ERROR_CANNOT_OPEN_PROFILE:
+                        break;
+                    case ERROR_CODE.ERROR_DEVICE_ALREADY_REMEMBERED:
+                        break;
+                    case ERROR_CODE.ERROR_EXTENDED_ERROR:
+                        break;
+                    case ERROR_CODE.ERROR_INVALID_ADDRESS:
+                        break;
+                    case ERROR_CODE.ERROR_INVALID_PARAMETER:
+                        break;
+                    case ERROR_CODE.ERROR_INVALID_PASSWORD:
+                        break;
+                    case ERROR_CODE.ERROR_NETWORK_BUSY:
+                        break;
+                    case ERROR_CODE.ERROR_NO_NET_OR_BAD_PATH:
+                        break;
+                    case ERROR_CODE.ERROR_NO_NET_OR_BAD_SERVER:
+                        break;
+                    case ERROR_CODE.ERROR_UNEXP_NET_ERR:
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 네트워크 드라이브 에러코드 Class
+        /// </summary>
+
+        public class ERROR_CODE
+        {
+            public const int NO_ERROR = 0;
+            public const int ERROR_NO_NET_OR_BAD_SERVER = 53;
+            public const int ERROR_BAD_USER_OR_PASSWORD = 1326;
+            public const int ERROR_ACCESS_DENIED = 5;
+            public const int ERROR_ALREADY_ASSIGNED = 85;
+            public const int ERROR_BAD_DEV_TYPE = 66;
+            public const int ERROR_BAD_DEVICE = 1200;
+            public const int ERROR_BAD_NET_NAME = 67;
+            public const int ERROR_BAD_PROFILE = 1206;
+            public const int ERROR_BAD_PROVIDER = 1204;
+            public const int ERROR_BUSY = 170;
+            public const int ERROR_CANCELLED = 1223;
+            public const int ERROR_CANNOT_OPEN_PROFILE = 1205;
+            public const int ERROR_DEVICE_ALREADY_REMEMBERED = 1202;
+            public const int ERROR_EXTENDED_ERROR = 1208;
+            public const int ERROR_INVALID_PASSWORD = 86;
+            public const int ERROR_NO_NET_OR_BAD_PATH = 1203;
+            public const int ERROR_INVALID_ADDRESS = 487;
+            public const int ERROR_NETWORK_BUSY = 54;
+            public const int ERROR_UNEXP_NET_ERR = 59;
+            public const int ERROR_INVALID_PARAMETER = 87;
+            public const int ERROR_MULTIPLE_CONNECTION = 1219;
+        }
+
+    /// <summary>
+    /// 메인 메뉴용 XML 로딩
+    /// </summary>
+    private void XmlCreateYN()
         {
             string Query01;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -342,17 +484,17 @@ namespace PSH_BOne_AddOn
 
                     if (oRecordSet01.Fields.Item("UniqueID").Value == "IFX00000000F")
                     {
-                        XmlString += " Image=\"\\\\191.1.1.220\\b1_shr\\PathINI\\QM.jpg\"";
+                        XmlString += " Image=\"\\\\191.1.1.220\\b1_shr\\QM.jpg\"";
 
                     }
                     else if (oRecordSet01.Fields.Item("UniqueID").Value == "HGA00000000F")
                     {
-                        XmlString += " Image=\"\\\\191.1.1.220\\b1_shr\\PathINI\\GA.jpg\"";
+                        XmlString += " Image=\"\\\\191.1.1.220\\b1_shr\\GA.jpg\"";
 
                     }
                     else if (oRecordSet01.Fields.Item("UniqueID").Value == "GQM00000000F")
                     {
-                        XmlString += " Image=\"\\\\191.1.1.220\\b1_shr\\PathINI\\QM.jpg\"";
+                        XmlString += " Image=\"\\\\191.1.1.220\\b1_shr\\QM.jpg\"";
                     }
 
                     if (NowType == "2")

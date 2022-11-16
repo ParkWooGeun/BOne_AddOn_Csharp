@@ -17,11 +17,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// Form 호출
 		/// </summary>
-<<<<<<< HEAD
 		/// <param name="oFormDocEntry"></param> 
-=======
-		/// <param name="oFormDocEntry"></param>
->>>>>>> C#Migration_MM
 		public override void LoadForm(string oFormDocEntry)
 		{
 			int i;
@@ -187,13 +183,10 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", StrDate));
 				dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", EndDate));
 				dataPackParameter.Add(new PSH_DataPackClass("@CardCode", CardCode));
-<<<<<<< HEAD
 				if (Gbn01 == "1")
 				{
 					dataPackParameter.Add(new PSH_DataPackClass("@Gubun", "PS_MM173"));
 				}
-=======
->>>>>>> C#Migration_MM
 
 				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
 			}

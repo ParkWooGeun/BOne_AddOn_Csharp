@@ -63,21 +63,10 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PS_MM070_CreateItems();
                 PS_MM070_ComboBox_Setting();
+                PS_MM070_Initialization();
                 PS_MM070_FormClear();
                 PS_MM070_AddMatrixRow(0, true);
-
-                if (!string.IsNullOrEmpty(oFormDocEntry))
-                {
-                    oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
-                    PS_MM070_FormItemEnabled();
-                    oForm.Items.Item("DocNum").Specific.Value = oFormDocEntry;
-                    oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                }
-                else
-                {
-                    PS_MM070_Initialization();
-                    PS_MM070_FormItemEnabled();
-                }
+                PS_MM070_FormItemEnabled();
 
                 oForm.EnableMenu("1283", false); //삭제
                 oForm.EnableMenu("1287", false); //복제
@@ -109,6 +98,8 @@ namespace PSH_BOne_AddOn
                 oDS_PS_MM070L = oForm.DataSources.DBDataSources.Item("@PS_MM070L");
 
                 oMat01 = oForm.Items.Item("Mat01").Specific;
+
+                oDS_PS_MM070H.SetValue("U_DocDate", 0, DateTime.Now.ToString("yyyyMMdd"));
             }
             catch (Exception ex)
             {
@@ -200,8 +191,6 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Items.Item("QEYesNo").Specific.Select("N");
                 }
-
-                oDS_PS_MM070H.SetValue("U_DocDate", 0, DateTime.Now.ToString("yyyyMMdd"));
             }
             catch (Exception ex)
             {

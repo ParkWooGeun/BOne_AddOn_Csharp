@@ -1651,9 +1651,9 @@ namespace PSH_BOne_AddOn
                                 ItemCode = oDS_PS_MM010L.GetValue("U_ItemCode", pVal.Row - 1).ToString().Trim();
                                 Qty = Convert.ToInt32(oDS_PS_MM010L.GetValue("U_Qty", pVal.Row - 1));
 
-                                //Calculate_Weight = '1';//dataHelpClass.Calculate_Weight(ItemCode, Qty, oForm.Items.Item("BPLId").Specific.Value.ToString().Trim());
+                                Calculate_Weight = dataHelpClass.Calculate_Weight(ItemCode, Qty, oForm.Items.Item("BPLId").Specific.Value.ToString().Trim());
 
-                                oDS_PS_MM010L.SetValue("U_Weight", pVal.Row - 1, "1");
+                                oDS_PS_MM010L.SetValue("U_Weight", pVal.Row - 1, Convert.ToString(Calculate_Weight));
                                 oMat01.LoadFromDataSource();
                                 oMat01.Columns.Item("Weight").Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             }

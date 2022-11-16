@@ -23,16 +23,6 @@ namespace PSH_BOne_AddOn
 		private int oLastColRow01;     //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
 		private string oOutMan;
 
-		private struct ItemInformations
-		{
-			public string ItemCode;
-			public string BatchNum;
-			public int Quantity;
-			public string WhsCode;
-		}
-		private ItemInformations[] ItemInformation;
-		private int ItemInformationCount;
-
 		/// <summary>
 		/// Form 호출
 		/// </summary>
@@ -515,15 +505,17 @@ namespace PSH_BOne_AddOn
 		/// 샘플출고
 		/// </summary>
 		/// <returns></returns>
-		private bool PS_MM092_DI_API01()
+		private bool PS_MM092_Add_oInventoryGenExit()
 		{
 			bool ReturnValue = false;
-
 			int i;
-			SAPbobsCOM.Documents oDIObject = null;
 			int RetVal;
 			int ResultDocNum;
+			double Quantity;
+			string ItemCode;
+			string BatchNum;
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+			SAPbobsCOM.Documents DI_oInventoryGenExit = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenExit); //문서타입(입고)
 
 			try
 			{
@@ -532,45 +524,34 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack);
 				}
 				PSH_Globals.oCompany.StartTransaction();
+				oMat.FlushToDataSource();
 
-				ItemInformation = new ItemInformations[1];
-				ItemInformationCount = 0;
+				DI_oInventoryGenExit.DocDate = DateTime.ParseExact(oForm.Items.Item("InDate").Specific.Value, "yyyyMMdd", null);
+				DI_oInventoryGenExit.UserFields.Fields.Item("U_CardCode").Value = oForm.Items.Item("CardCode").Specific.Value.ToString().Trim();
+				DI_oInventoryGenExit.UserFields.Fields.Item("U_CardName").Value = oForm.Items.Item("CardName").Specific.Value.ToString().Trim();
+				DI_oInventoryGenExit.UserFields.Fields.Item("U_IssueTyp").Value = "4"; //샘플
 
-				for (i = 1; i <= oMat.VisualRowCount; i++)
+				for (i = 1; i <= oMat.RowCount; i++)
 				{
-					Array.Resize(ref ItemInformation, ItemInformationCount + 1);
-					ItemInformation[ItemInformationCount].ItemCode = oMat.Columns.Item("ItemCode").Cells.Item(i).Specific.Value.ToString().Trim();
-					ItemInformation[ItemInformationCount].Quantity = Convert.ToInt32(Convert.ToDouble(oMat.Columns.Item("Weight").Cells.Item(i).Specific.Value.ToString().Trim()));
-					ItemInformation[ItemInformationCount].WhsCode = "101";
-					ItemInformation[ItemInformationCount].BatchNum = oMat.Columns.Item("LotNo").Cells.Item(i).Specific.Value.ToString().Trim();
-					ItemInformationCount += 1;
-				}
+					Quantity = Convert.ToDouble(oMat.Columns.Item("Weight").Cells.Item(i).Specific.Value.ToString().Trim());
+                    ItemCode = oMat.Columns.Item("ItemCode").Cells.Item(i).Specific.Value.ToString().Trim();
+					BatchNum = oMat.Columns.Item("LotNo").Cells.Item(i).Specific.Value.ToString().Trim();
 
-				oDIObject = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenExit);
-				oDIObject.DocDate = DateTime.ParseExact(oForm.Items.Item("InDate").Specific.Value, "yyyyMMdd", null);
-				oDIObject.UserFields.Fields.Item("U_CardCode").Value = oForm.Items.Item("CardCode").Specific.Value.ToString().Trim();
-				oDIObject.UserFields.Fields.Item("U_CardName").Value = oForm.Items.Item("CardName").Specific.Value.ToString().Trim();
-			    oDIObject.UserFields.Fields.Item("U_IssueTyp").Value = "4"; //샘플
+					DI_oInventoryGenExit.Lines.Add();
+					DI_oInventoryGenExit.Lines.SetCurrentLine(i - 1);
+					DI_oInventoryGenExit.Lines.ItemCode = ItemCode;
+					DI_oInventoryGenExit.Lines.WarehouseCode = "101";
+					DI_oInventoryGenExit.Lines.Quantity = Quantity;
 
-				for (i = 0; i <= ItemInformationCount - 1; i++)
-				{
-					if (i != 0)
+					if (dataHelpClass.GetItem_ManBtchNum(oMat.Columns.Item("ItemCode").Cells.Item(i).Specific.Value.ToString().Trim()) == "Y") //배치사용품목이면
 					{
-						oDIObject.Lines.Add();
-					}
-					oDIObject.Lines.ItemCode = ItemInformation[i].ItemCode;
-					oDIObject.Lines.WarehouseCode = ItemInformation[i].WhsCode;
-					oDIObject.Lines.Quantity = ItemInformation[i].Quantity;
-					
-					if (dataHelpClass.GetItem_ManBtchNum(ItemInformation[i].ItemCode) == "Y") //배치사용품목이면
-					{
-						oDIObject.Lines.BatchNumbers.BatchNumber = ItemInformation[i].BatchNum;
-						oDIObject.Lines.BatchNumbers.Quantity = ItemInformation[i].Quantity;
-						oDIObject.Lines.BatchNumbers.Add();
+						DI_oInventoryGenExit.Lines.BatchNumbers.BatchNumber = BatchNum;
+						DI_oInventoryGenExit.Lines.BatchNumbers.Quantity = Quantity;
+						DI_oInventoryGenExit.Lines.BatchNumbers.Add();
 					}
 				}
 
-				RetVal = oDIObject.Add();
+				RetVal = DI_oInventoryGenExit.Add();
 
 				if (RetVal == 0)
 				{
@@ -602,9 +583,9 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
-				if (oDIObject != null)
+				if (DI_oInventoryGenExit != null)
 				{
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDIObject);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(DI_oInventoryGenExit);
 				}
 			}
 			return ReturnValue;
@@ -614,16 +595,20 @@ namespace PSH_BOne_AddOn
 		/// 샘플출고취소(입고)
 		/// </summary>
 		/// <returns></returns>
-		private bool PS_MM092_DI_API02()
+		private bool PS_MM092_Add_oInventoryGenEntry()
 		{
 			bool ReturnValue = false;
 			int i;
-			SAPbobsCOM.Documents oDIObject = null;
 			int RetVal;
 			int ResultDocNum;
+			double Quantity;
+			string ItemCode;
+			string BatchNum;
 			string sQry;
-			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+			string WhsCode;
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+			SAPbobsCOM.Documents DI_oInventoryGenEntry =  PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry);
 
 			try
 			{
@@ -632,39 +617,41 @@ namespace PSH_BOne_AddOn
 					PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack);
 				}
 				PSH_Globals.oCompany.StartTransaction();
+				oMat.FlushToDataSource();
 
 				sQry = "SELECT IGE1.ItemCode,IGE1.Quantity,IGE1.WhsCode,(SELECT BatchNum FROM [IBT1_LINK] WHERE BaseType = '60' AND BaseEntry = OIGE.DocEntry AND BaseLinNum = IGE1.LineNum) AS BatchNum ";
 				sQry += " FROM [OIGE] OIGE LEFT JOIN [IGE1] IGE1 ON OIGE.DocEntry = IGE1.DocEntry WHERE OIGE.DocEntry = '" + oForm.Items.Item("OIGENo").Specific.Value.ToString().Trim() + "'";
 				oRecordSet.DoQuery(sQry);
 
-				oDIObject = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry);
-                oDIObject.DocDate = DateTime.ParseExact(oForm.Items.Item("InDate").Specific.Value, "yyyyMMdd", null);
-				oDIObject.UserFields.Fields.Item("U_CardCode").Value = oForm.Items.Item("CardCode").Specific.Value.ToString().Trim();
-				oDIObject.UserFields.Fields.Item("U_CardName").Value = oForm.Items.Item("CardName").Specific.Value.ToString().Trim();
-			    oDIObject.UserFields.Fields.Item("U_IssueTyp").Value = "4"; //샘플
+				DI_oInventoryGenEntry.DocDate = DateTime.ParseExact(oForm.Items.Item("InDate").Specific.Value, "yyyyMMdd", null);
+				DI_oInventoryGenEntry.UserFields.Fields.Item("U_CardCode").Value = oForm.Items.Item("CardCode").Specific.Value.ToString().Trim();
+				DI_oInventoryGenEntry.UserFields.Fields.Item("U_CardName").Value = oForm.Items.Item("CardName").Specific.Value.ToString().Trim();
+				DI_oInventoryGenEntry.UserFields.Fields.Item("U_IssueTyp").Value = "4"; //샘플
+				DI_oInventoryGenEntry.UserFields.Fields.Item("U_CancDoc").Value = oForm.Items.Item("OIGENo").Specific.Value.ToString().Trim(); //입고(출고취소) 문서번호
 
-				for (i = 0; i <= oRecordSet.RecordCount - 1; i++)
+				for (i = 1; i <= oRecordSet.RecordCount; i++)
 				{
-					if (i != 0)
-					{
-						oDIObject.Lines.Add();
-					}
-					oDIObject.Lines.ItemCode = oRecordSet.Fields.Item("ItemCode").Value.ToString().Trim();
-					oDIObject.Lines.WarehouseCode = oRecordSet.Fields.Item("WhsCode").Value.ToString().Trim();
-					oDIObject.Lines.Quantity = Convert.ToDouble(oRecordSet.Fields.Item("Quantity").Value.ToString().Trim());
-					oDIObject.UserFields.Fields.Item("U_CancDoc").Value = oForm.Items.Item("OIGENo").Specific.Value.ToString().Trim(); //입고(출고취소) 문서번호
+					ItemCode = oRecordSet.Fields.Item("ItemCode").Value;
+					Quantity = oRecordSet.Fields.Item("Quantity").Value;
+					BatchNum = oRecordSet.Fields.Item("BatchNum").Value;
+					WhsCode = oRecordSet.Fields.Item("WhsCode").Value;
 
-					if (dataHelpClass.GetItem_ManBtchNum(oRecordSet.Fields.Item("ItemCode").Value.ToString().Trim()) == "Y") //배치관리품목이면
-					{
-						oDIObject.Lines.BatchNumbers.BatchNumber = oRecordSet.Fields.Item("BatchNum").Value.ToString().Trim();
-						oDIObject.Lines.BatchNumbers.Quantity = Convert.ToDouble(oRecordSet.Fields.Item("Quantity").Value.ToString().Trim());
-					    oDIObject.Lines.BatchNumbers.Add();
-					}
+					DI_oInventoryGenEntry.Lines.Add();
+					DI_oInventoryGenEntry.Lines.SetCurrentLine(i - 1);
+					DI_oInventoryGenEntry.Lines.ItemCode = ItemCode;
+					DI_oInventoryGenEntry.Lines.WarehouseCode = WhsCode;
+					DI_oInventoryGenEntry.Lines.Quantity = Quantity;
 
+					if (dataHelpClass.GetItem_ManBtchNum(oMat.Columns.Item("ItemCode").Cells.Item(i).Specific.Value.ToString().Trim()) == "Y") //배치사용품목이면
+					{
+						DI_oInventoryGenEntry.Lines.BatchNumbers.BatchNumber = BatchNum;
+						DI_oInventoryGenEntry.Lines.BatchNumbers.Quantity = Quantity;
+						DI_oInventoryGenEntry.Lines.BatchNumbers.Add();
+					}
 					oRecordSet.MoveNext();
 				}
 
-				RetVal = oDIObject.Add();
+				RetVal = DI_oInventoryGenEntry.Add();
 
 				if (RetVal == 0)
 				{
@@ -697,9 +684,9 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
-				if (oDIObject != null)
+				if (DI_oInventoryGenEntry != null)
 				{
-					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDIObject);
+					System.Runtime.InteropServices.Marshal.ReleaseComObject(DI_oInventoryGenEntry);
 				}
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
@@ -812,7 +799,7 @@ namespace PSH_BOne_AddOn
 								BubbleEvent = false;
 								return;
 							}
-							if (PS_MM092_DI_API01() == false) //출고
+							if (PS_MM092_Add_oInventoryGenExit() == false) //출고
 							{
 								PS_MM092_AddMatrixRow(oMat.VisualRowCount, false);
 								BubbleEvent = false;
@@ -1322,7 +1309,7 @@ namespace PSH_BOne_AddOn
 									return;
 								}
 
-								if (PS_MM092_DI_API02() == false)
+								if (PS_MM092_Add_oInventoryGenEntry() == false)
 								{
 									BubbleEvent = false;
 									return;

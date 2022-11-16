@@ -218,7 +218,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 IpAddress = dataHelpClass.GetValue("EXEC Profile_SELECT 'SERVERINFO'", 0, 1) + dataHelpClass.GetValue("EXEC Profile_SELECT 'SERVERINFO'", 1, 1);  //\\191.1.1.220\b1_shr\PathINI
-                Id = "Administrator";
+                Id = dataHelpClass.GetValue("EXEC Profile_SELECT 'SERVERINFO'", 2, 1);
                 PassWord = dataHelpClass.GetValue("EXEC Profile_SELECT 'SERVERINFO'", 3, 1);
                 
                 while (true)
@@ -229,6 +229,7 @@ namespace PSH_BOne_AddOn
                     if (TryConnectResult(state) == true)
                     {
                         PSH_Globals.SBO_Application.StatusBar.SetText("공유폴더 연결완료!", BoMessageTime.bmt_Long, BoStatusBarMessageType.smt_Success);
+                        break;
                     }
                     else
                     {

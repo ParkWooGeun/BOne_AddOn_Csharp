@@ -15273,13 +15273,13 @@
             PS_SMM092_Print_Report01
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_MM092.PS_MM092_DI_API01">
+        <member name="M:PSH_BOne_AddOn.PS_MM092.PS_MM092_Add_oInventoryGenExit">
             <summary>
             샘플출고
             </summary>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_MM092.PS_MM092_DI_API02">
+        <member name="M:PSH_BOne_AddOn.PS_MM092.PS_MM092_Add_oInventoryGenEntry">
             <summary>
             샘플출고취소(입고)
             </summary>

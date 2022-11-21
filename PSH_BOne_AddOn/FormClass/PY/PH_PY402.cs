@@ -1135,13 +1135,21 @@ namespace PSH_BOne_AddOn
                             case "div":
                                 Div = oForm.Items.Item("div").Specific.Value.ToString().Trim();
 
-                                sQry  = "Select CodeNm = U_CodeNm";
-                                sQry += " From [@PS_HR200L]";
-                                sQry += " WHERE Code = '70'";
-                                sQry += " And U_Code = '" + Div + "'";
-                                oRecordSet.DoQuery(sQry);
+                                if (Div == "10" || Div == "20" || Div == "70")
+                                {
+                                    PSH_Globals.SBO_Application.MessageBox("기본공제,추가공제,공제제외 사항은 '정산공제대상자정보등록'에서 입력 하세요.");
+                                    oForm.Items.Item("div").Specific.Value = "";
+                                }
+                                else
+                                {
+                                    sQry = "Select CodeNm = U_CodeNm";
+                                    sQry += " From [@PS_HR200L]";
+                                    sQry += " WHERE Code = '70'";
+                                    sQry += " And U_Code = '" + Div + "'";
+                                    oRecordSet.DoQuery(sQry);
 
-                                oForm.Items.Item("divnm").Specific.Value = oRecordSet.Fields.Item("CodeNm").Value.ToString().Trim();
+                                    oForm.Items.Item("divnm").Specific.Value = oRecordSet.Fields.Item("CodeNm").Value.ToString().Trim();
+                                }
                                 break;
 
                             case "target":
@@ -1297,13 +1305,19 @@ namespace PSH_BOne_AddOn
                                 break;
 
                             case "ntsamt":
-                                if (Convert.ToDouble(oForm.Items.Item("handoamt").Specific.Value.ToString().Trim()) > 0 && ( oForm.Items.Item("target").Specific.Value.ToString().Trim() == "633" && oForm.Items.Item("relate").Specific.Value.ToString().Trim() != "01") )
-                                // 대학교육비 본인은 한도 없슴
+                                if (Convert.ToDouble(oForm.Items.Item("handoamt").Specific.Value.ToString().Trim()) > 0) 
                                 {
                                     if (Convert.ToDouble(oForm.Items.Item("ntsamt").Specific.Value.ToString().Trim()) + Convert.ToDouble(oForm.Items.Item("amt").Specific.Value.ToString().Trim()) > Convert.ToDouble(oForm.Items.Item("handoamt").Specific.Value.ToString().Trim()))
                                     {
-                                        oForm.Items.Item("ntsamt").Specific.Value = 0;
-                                        PSH_Globals.SBO_Application.MessageBox("한도금액보다 초과됩니다. 확인하세요");
+                                        if (oForm.Items.Item("target").Specific.Value.ToString().Trim() == "633" && oForm.Items.Item("relate").Specific.Value.ToString().Trim() == "01") 
+                                        {
+                                            // 대학교육비 본인은 한도 없슴
+                                        }
+                                        else
+                                        {
+                                            oForm.Items.Item("ntsamt").Specific.Value = 0;
+                                            PSH_Globals.SBO_Application.MessageBox("한도금액보다 초과됩니다. 확인하세요");
+                                        }
                                     }
                                 }
                                 break;

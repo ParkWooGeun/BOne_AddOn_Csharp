@@ -17,7 +17,7 @@ namespace PSH_BOne_AddOn
         private string oLastItemUID;     //클래스에서 선택한 마지막 아이템 Uid값
         private string oLastColUID;      //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
         private int oLastColRow;         //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
-        // 정산기초자료 Insert Update 시 사용
+        // 전역변수 (정산기초자료 Insert Update 시 사용)
         string CLTCOD;   // 사업장
         string YY;       // 년도
         string CntcCode; // 사번

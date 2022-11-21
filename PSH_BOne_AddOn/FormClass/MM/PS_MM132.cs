@@ -1386,6 +1386,7 @@ namespace PSH_BOne_AddOn
 				else if (pVal.BeforeAction == false)
 				{
 					PS_MM132_FormItemEnabled();
+					oMat.AutoResizeColumns();
 					PS_MM132_AddMatrixRow(oMat.VisualRowCount, false);
 				}
 			}

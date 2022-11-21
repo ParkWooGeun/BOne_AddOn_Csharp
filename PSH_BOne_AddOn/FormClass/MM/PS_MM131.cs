@@ -249,13 +249,19 @@ namespace PSH_BOne_AddOn
 				Param07 = oForm.Items.Item("Size").Specific.Value.ToString().Trim();
 				Param08 = oForm.Items.Item("CpCode").Specific.Value.ToString().Trim();
 
-				if ((Param01.Substring(0, 3) == "102" || Param02 == "102") && oRadioGrp == "B" && string.IsNullOrEmpty(Param08))
+				if (string.IsNullOrEmpty(Param02))
 				{
-					errMessage = "부품 재공반출은 공정코드를 선택해야 합니다.";
+					errMessage = "대분류는 필수입니다.";
 					throw new Exception();
 				}
 
-				if (oRadioGrp == "A")
+                if (oRadioGrp == "B" && (Param02 == "102") && string.IsNullOrEmpty(Param08))
+                {
+                    errMessage = "부품 재공반출은 공정코드를 선택해야 합니다.";
+                    throw new Exception();
+                }
+
+                if (oRadioGrp == "A")
 				{
 					sQry = "EXEC PS_MM131_01 '" + Param01 + "', '" + Param02 + "', '" + Param03 + "', '" + Param04 + "', '" + Param05 + "', '" + Param06 + "', '" + Param07 + "'";
 				}
@@ -284,7 +290,7 @@ namespace PSH_BOne_AddOn
 				ProgressBar01.Text = "조회시작!";
 
 				j = 0;
-				for (i = 0; i <= oRecordSet.RecordCount - 1; i++)
+				for ( i = 0; i <= oRecordSet.RecordCount - 1; i++)
 				{
 					if (oRadioGrp == "A")
 					{

@@ -28,6 +28,7 @@ namespace PSH_BOne_AddOn
         private string oSCardCod01;
         private SAPbouiCOM.BoFormMode oFormMode01;
         private bool oHasMatrix01;
+        private bool Mat02Modify = false;
 
         /// <summary>
         /// Form 호출
@@ -2970,7 +2971,7 @@ namespace PSH_BOne_AddOn
                                     RecordSet01.DoQuery(query01);
                                     for (i = 0; i <= RecordSet01.RecordCount - 1; i++)
                                     {
-                                        if (RecordSet01.Fields.Item(0).Value == "10")
+                                        if (RecordSet01.Fields.Item(0).Value == "10" && Mat02Modify == true)
                                         {
                                             PS_PP030_PurchaseRequest(RecordSet01.Fields.Item(1).Value, RecordSet01.Fields.Item(2).Value);
                                         }
@@ -2979,6 +2980,7 @@ namespace PSH_BOne_AddOn
                                 }
                                 
                                 PS_PP030_FormItemEnabled();
+                                Mat02Modify = false;
                                 PS_PP030_AddMatrixRow01(0, true);
                                 PS_PP030_AddMatrixRow02(0, true);
                                 oForm.Items.Item("SCardCod").Specific.Value = oSCardCod01;
@@ -3008,7 +3010,7 @@ namespace PSH_BOne_AddOn
                                         RecordSet01.DoQuery(query01);
                                         for (i = 0; i <= RecordSet01.RecordCount - 1; i++)
                                         {
-                                            if (RecordSet01.Fields.Item(0).Value == "10")
+                                            if (RecordSet01.Fields.Item(0).Value == "10" && Mat02Modify == true)
                                             {
                                                 PS_PP030_PurchaseRequest(RecordSet01.Fields.Item(1).Value, RecordSet01.Fields.Item(2).Value);
                                             }
@@ -3041,6 +3043,7 @@ namespace PSH_BOne_AddOn
                                     oFormMode01 = SAPbouiCOM.BoFormMode.fm_OK_MODE;
                                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                                     PS_PP030_FormItemEnabled();
+                                    Mat02Modify = false;
                                     oForm.Items.Item("DocEntry").Specific.Value = oDocEntry01;
                                     oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                                 }
@@ -3718,6 +3721,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (pVal.ItemUID == "Mat02")
                         {
+                            Mat02Modify = true;
                             if (PS_PP030_Validate("수정02") == false)
                             {
                                 oDS_PS_PP030L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oDS_PS_PP030L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim());

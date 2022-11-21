@@ -319,6 +319,7 @@ namespace PSH_BOne_AddOn
 					}
 				}
 				oMat.LoadFromDataSource();
+				oMat.AutoResizeColumns();
 				functionReturnValue = true;
 			}
 			catch (Exception ex)
@@ -404,16 +405,16 @@ namespace PSH_BOne_AddOn
                 case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
 					Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
 					break;
-				//case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
-				//	Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
-				//	break;
-				//case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD: //12
-				//    Raise_EVENT_DATASOURCE_LOAD(FormUID, ref pVal, ref BubbleEvent);
-				//    break;
-				//case SAPbouiCOM.BoEventTypes.et_FORM_LOAD: //16
-				//    Raise_EVENT_FORM_LOAD(FormUID, ref pVal, ref BubbleEvent);
-				//    break;
-				case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD: //17
+                //case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
+                //    Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD: //12
+                //    Raise_EVENT_DATASOURCE_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_FORM_LOAD: //16
+                //    Raise_EVENT_FORM_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+                case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD: //17
 					Raise_EVENT_FORM_UNLOAD(FormUID, ref pVal, ref BubbleEvent);
 					break;
 				//case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: //18

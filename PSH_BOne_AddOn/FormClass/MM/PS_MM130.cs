@@ -1275,6 +1275,8 @@ namespace PSH_BOne_AddOn
 		{
 			double Count;
 			string sQry;
+			string ObasUnit;
+			string OnHand;
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			SAPbobsCOM.Recordset oRecordSet02 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -1327,9 +1329,20 @@ namespace PSH_BOne_AddOn
 									sQry = "Select OnHand, U_Qty FROM OITW WHERE ItemCode = '" + oMat.Columns.Item("OutItmCd").Cells.Item(pVal.Row).Specific.Value.ToString().Trim() + "' AND WhsCode = '101'";
 									oRecordSet02.DoQuery(sQry);
 
-									if (oRecordSet.Fields.Item(0).Value.ToString().Trim().Substring(0, 1) == "1")
+									if (string.IsNullOrEmpty(oMat.Columns.Item("OutItmCd").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()))
+                                    {
+										ObasUnit = "0";
+										OnHand = "0";
+									}
+                                    else
+                                    {
+										ObasUnit = oRecordSet.Fields.Item(0).Value.ToString().Trim().Substring(0, 1);
+										OnHand = oRecordSet02.Fields.Item(0).Value.ToString().Trim();
+									}
+									
+									if (ObasUnit.Substring(0, 1) == "1")
 									{
-										if (Convert.ToDouble(oRecordSet02.Fields.Item(0).Value.ToString().Trim()) > 0 && !string.IsNullOrEmpty(oMat.Columns.Item("OutItmCd").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()))
+										if (Convert.ToDouble(OnHand) > 0 && !string.IsNullOrEmpty(oMat.Columns.Item("OutItmCd").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()))
 										{
 											oMat.Columns.Item("OutWt").Cells.Item(pVal.Row).Specific.Value = oMat.Columns.Item("OutQty").Cells.Item(pVal.Row).Specific.Value.ToString().Trim();
 										}
@@ -1338,11 +1351,11 @@ namespace PSH_BOne_AddOn
 											oMat.Columns.Item("OutWt").Cells.Item(pVal.Row).Specific.Value = oMat.Columns.Item("OutQty").Cells.Item(pVal.Row).Specific.Value.ToString().Trim();
 										}
 									}
-									else if (oRecordSet.Fields.Item(0).Value.ToString().Trim().Substring(0, 1) == "2")
+									else if (ObasUnit.Substring(0, 1) == "2")
 									{
 										if (Convert.ToDouble(oRecordSet02.Fields.Item(1).Value.ToString().Trim()) > 0 & !string.IsNullOrEmpty(oMat.Columns.Item("OutItmCd").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()))
 										{
-											oMat.Columns.Item("OutWt").Cells.Item(pVal.Row).Specific.Value = Convert.ToString((Convert.ToDouble(oRecordSet02.Fields.Item(0).Value.ToString().Trim()) / Convert.ToDouble(oRecordSet02.Fields.Item(1).Value.ToString().Trim())) * Convert.ToDouble(oMat.Columns.Item("OutQty").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()));
+											oMat.Columns.Item("OutWt").Cells.Item(pVal.Row).Specific.Value = Convert.ToString((Convert.ToDouble(OnHand) / Convert.ToDouble(oRecordSet02.Fields.Item(1).Value.ToString().Trim())) * Convert.ToDouble(oMat.Columns.Item("OutQty").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()));
 										}
 										else
 										{

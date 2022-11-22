@@ -224,7 +224,7 @@ namespace PSH_BOne_AddOn
                 while (true)
                 {
                      Nc.DisconnectNetwork("Q:"); // SAP접속시 SAP공유폴더 접속해제
-                     int state = Nc.TryConnectNetwork(IpAddress,Id,PassWord,"Q:"); //공유폴더접속
+                     int state = Nc.TryConnectNetwork(IpAddress, Id, PassWord, "Q:"); //공유폴더접속
 
                     if (TryConnectResult(state) == true)
                     {

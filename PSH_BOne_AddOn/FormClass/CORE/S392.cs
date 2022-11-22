@@ -239,6 +239,16 @@ namespace PSH_BOne_AddOn.Core
 				newItem.Width = oForm.Items.Item("2006").Width;
 				newItem.Specific.Caption = "사업장";
 
+				newItem = oForm.Items.Add("BPLId02", SAPbouiCOM.BoFormItemTypes.it_COMBO_BOX);
+				newItem.Left = oForm.Items.Item("2000").Left + 161;
+				newItem.Top = oForm.Items.Item("2000").Top;
+				newItem.Height = oForm.Items.Item("2000").Height;
+				newItem.Width = oForm.Items.Item("2000").Width;
+				newItem.FromPane = 2;
+				newItem.ToPane = 2;
+				newItem.DisplayDesc = true;
+				newItem.Specific.DataBind.SetBound(true, "JDT1", "U_BPLId");
+
 				newItem = oForm.Items.Add("BPLId01", SAPbouiCOM.BoFormItemTypes.it_COMBO_BOX);
 				newItem.Left = oForm.Items.Item("2007").Left + 93;
 				newItem.Top = oForm.Items.Item("2007").Top;
@@ -265,16 +275,6 @@ namespace PSH_BOne_AddOn.Core
 				newItem.FromPane = 2;
 				newItem.ToPane = 2;
 				newItem.Specific.Caption = "사업장";
-
-				newItem = oForm.Items.Add("BPLId02", SAPbouiCOM.BoFormItemTypes.it_COMBO_BOX);
-				newItem.Left = oForm.Items.Item("2000").Left + 161;
-				newItem.Top = oForm.Items.Item("2000").Top;
-				newItem.Height = oForm.Items.Item("2000").Height;
-				newItem.Width = oForm.Items.Item("2000").Width;
-				newItem.FromPane = 2;
-				newItem.ToPane = 2;
-				newItem.DisplayDesc = true;
-				newItem.Specific.DataBind.SetBound(true, "JDT1", "U_BPLId");
 
 				//거래처
 				newItem = oForm.Items.Add("Static03", SAPbouiCOM.BoFormItemTypes.it_STATIC);

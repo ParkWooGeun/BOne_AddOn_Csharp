@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+ï»¿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -21,7 +21,7 @@
     <FileUpgradeFlags />
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />
-    <PublishUrl>°Ô½Ã\</PublishUrl>
+    <PublishUrl>ï¿½Ô½ï¿½\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -668,6 +668,9 @@
     <Compile Include="FormClass\SD\PS_SD020.cs" />
     <Compile Include="FormClass\SD\PS_SD021.cs" />
     <Compile Include="FormClass\SD\PS_SD022.cs" />
+    <Compile Include="..\..\..\Desktop\PS_SD023.cs">
+      <Link>FormClass\SD\PS_SD023.cs</Link>
+    </Compile>
     <Compile Include="FormClass\SD\PS_SD030.cs" />
     <Compile Include="FormClass\SD\PS_SD035.cs" />
     <Compile Include="FormClass\SD\PS_SD040.cs" />
@@ -750,6 +753,7 @@
     <Compile Include="FormClass\SD\PS_SD960.cs" />
     <Compile Include="FormClass\SD\PS_SD961.cs" />
     <Compile Include="FormClass\SD\PS_SD962.cs" />
+    <Compile Include="FormClass\SD\PS_SD998.cs" />
     <Compile Include="FormClass\SM\PS_SM010.cs" />
     <Compile Include="FormClass\SM\PS_SM020.cs" />
     <Compile Include="FormClass\SM\PS_SM021.cs" />

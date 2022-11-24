@@ -91,7 +91,7 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@TXT1", TXT1));
 				dataPackParameter.Add(new PSH_DataPackClass("@TXT2", TXT2));
 
-				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
+				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter ,"Y");
 			}
 			catch (Exception ex)
 			{

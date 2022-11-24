@@ -79,6 +79,7 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
+				oForm.Items.Item("ItmBsort").Specific.Select(1, SAPbouiCOM.BoSearchKey.psk_Index);
 				oForm.Update();
 				oForm.Freeze(false);
 				oForm.Visible = true;
@@ -145,7 +146,7 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Items.Item("ItmBsort").Specific.ValidValues.Add("", "전체");
-				sQry = "SELECT Code, Name FROM [@PSH_ITMBSORT] order by Code";
+				sQry = "SELECT Code, Name FROM [@PSH_ITMBSORT] Where code in ('102','602') order by Code";
 				oRecordSet.DoQuery(sQry);
 				while (!oRecordSet.EoF)
 				{

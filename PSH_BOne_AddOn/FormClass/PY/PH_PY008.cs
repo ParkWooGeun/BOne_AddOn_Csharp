@@ -3880,6 +3880,7 @@ namespace PSH_BOne_AddOn
             string todaytm;
             string returnValue = string.Empty;
             short errNum = 0;
+            string sQry;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);    
             
             try
@@ -3895,7 +3896,16 @@ namespace PSH_BOne_AddOn
                     }
                     if (oForm.Items.Item("WorkType").Specific.Value.Trim() == "A00" || oForm.Items.Item("WorkType").Specific.Value.Trim() == "D09" || oForm.Items.Item("WorkType").Specific.Value.Trim() == "D10") // 근태구분 등록체크
                     {
-                        if (Convert.ToInt32(Convert.ToDouble(oForm.Items.Item("Base").Specific.Value.Substring(0, 2))) == 0) // 기본+ 특근이 0 이면 등록 안됨.
+                        sQry = "  select      U_Check";
+                        sQry += " from        [@PH_PY003B]";
+                        sQry += " where       left(code,1) = '1'";
+                        sQry += "             and u_date = '" + oForm.Items.Item("SPosDate").Specific.Value.ToString().Trim() + "'";
+                        oRecordSet.DoQuery(sQry);
+
+                        if (oRecordSet.Fields.Item(0).Value == "Y") //단축근무일떈 반차 0000으로 등록
+                        {
+                        }
+                        else if (Convert.ToInt32(Convert.ToDouble(oForm.Items.Item("Base").Specific.Value.Substring(0, 2))) == 0) // 기본+ 특근이 0 이면 등록 안됨.
                         {
                             returnValue = "N";
                             errNum = 4;

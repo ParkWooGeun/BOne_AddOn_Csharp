@@ -777,9 +777,7 @@
     <Compile Include="FormClass\SD\PS_SD020.cs" />
     <Compile Include="FormClass\SD\PS_SD021.cs" />
     <Compile Include="FormClass\SD\PS_SD022.cs" />
-    <Compile Include="..\..\..\Desktop\PS_SD023.cs">
-      <Link>FormClass\SD\PS_SD023.cs</Link>
-    </Compile>
+    <Compile Include="FormClass\SD\PS_SD023.cs" />
     <Compile Include="FormClass\SD\PS_SD030.cs" />
     <Compile Include="FormClass\SD\PS_SD035.cs" />
     <Compile Include="FormClass\SD\PS_SD040.cs" />

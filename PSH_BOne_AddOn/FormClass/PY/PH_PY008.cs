@@ -2638,6 +2638,7 @@ namespace PSH_BOne_AddOn
             string NextDay;
             string TimeType;
             string sQry;
+            string sQry1;
             string STime = string.Empty;
             string ETime = string.Empty;
             double EarlyTo = 0;
@@ -2651,16 +2652,20 @@ namespace PSH_BOne_AddOn
             string Team1;
             string Team2;
             string Team3;
+            String MSTCOD;
             short errNum = 0;
+            double shorttime = 0;
 
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset oRecordSet1 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
                 CLTCOD = oForm.Items.Item("SCLTCOD").Specific.Value.ToString().Trim();
                 ShiftDat = oForm.Items.Item("ShiftDat").Specific.Value.ToString().Trim();
                 GNMUJO = oForm.Items.Item("GNMUJO").Specific.Value.ToString().Trim();
+                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
 
                 PosDate = oForm.Items.Item("PosDate").Specific.Value.ToString().Trim();
                 GetDate = oForm.Items.Item("GetDate").Specific.Value.ToString().Trim();
@@ -2706,6 +2711,18 @@ namespace PSH_BOne_AddOn
                 OffTime = codeHelpClass.Right(OffTime, 4);
 
                 WorkType = oForm.Items.Item("WorkType").Specific.Value.ToString().Trim();
+
+                shorttime = Convert.ToInt32(OffTime) - Convert.ToInt32(GetTime);
+
+                if ((shorttime % 100) == 30)
+                {
+                    shorttime += 20;
+                }
+                else if ((shorttime % 100) == 70)
+                {
+                    shorttime -= 20;
+                }
+                shorttime /= 100;
 
                 if (GNMUJO == "41")
                 {
@@ -3418,13 +3435,48 @@ namespace PSH_BOne_AddOn
                     oRecordSet.MoveNext();
                 }
 
-                oForm.Items.Item("EarlyTo").Specific.Value = PH_PY008_hhmm_Calc(EarlyTo, ""); //조출
-                oForm.Items.Item("Base").Specific.Value = PH_PY008_hhmm_Calc(Base, WorkType); //기본
-                oForm.Items.Item("Extend").Specific.Value = PH_PY008_hhmm_Calc(Extend, ""); //연장
-                oForm.Items.Item("Midnight").Specific.Value = PH_PY008_hhmm_Calc(Midnight, ""); //심야
-                oForm.Items.Item("SEarlyTo").Specific.Value = PH_PY008_hhmm_Calc(SEarlyTo, ""); //특근조출
-                oForm.Items.Item("Special").Specific.Value = PH_PY008_hhmm_Calc(Special, ""); //특근
-                oForm.Items.Item("SpExtend").Specific.Value = PH_PY008_hhmm_Calc(SpExtend, ""); //특근연장
+                sQry = "  select      U_Check";
+                sQry += " from        [@PH_PY003B]";
+                sQry += " where       left(code,1) = '1'";
+                sQry += "             and u_date = '" + oForm.Items.Item("SPosDate").Specific.Value.ToString().Trim() + "'";
+                oRecordSet.DoQuery(sQry);
+
+
+                sQry1 = "  select      count(*)";
+                sQry1 += " from        [@PH_PY001A]";
+                sQry1 += " where       U_CLTCOD ='1' AND U_PAYTYP = '2' AND U_JIGCOD IN ('60','74','82')";
+                sQry1 += "             and Code = '" + MSTCOD + "'";
+                oRecordSet1.DoQuery(sQry1);
+
+
+                if (oRecordSet.Fields.Item(0).Value == "Y" && oRecordSet1.Fields.Item(0).Value == 1 && WorkType == "A00")
+                {
+                    if (shorttime > 4)
+                    {
+                        oForm.Items.Item("Extend").Specific.Value = shorttime - 5;  //연장근무이면 기본시간4 + 휴계시간1 뺌.
+                    }
+                    else
+                    {
+                        oForm.Items.Item("Extend").Specific.Value = 0;
+                    }
+
+                    oForm.Items.Item("EarlyTo").Specific.Value = 0; //조출
+                    oForm.Items.Item("Base").Specific.Value = 4; //기본
+                    oForm.Items.Item("Midnight").Specific.Value = 0; //심야
+                    oForm.Items.Item("SEarlyTo").Specific.Value = 0; //특근조출
+                    oForm.Items.Item("Special").Specific.Value = 0; //특근
+                    oForm.Items.Item("SpExtend").Specific.Value = 0; //특근연장
+                }
+                else
+                {
+                    oForm.Items.Item("EarlyTo").Specific.Value = PH_PY008_hhmm_Calc(EarlyTo, ""); //조출
+                    oForm.Items.Item("Base").Specific.Value = PH_PY008_hhmm_Calc(Base, WorkType); //기본
+                    oForm.Items.Item("Extend").Specific.Value = PH_PY008_hhmm_Calc(Extend, ""); //연장
+                    oForm.Items.Item("Midnight").Specific.Value = PH_PY008_hhmm_Calc(Midnight, ""); //심야
+                    oForm.Items.Item("SEarlyTo").Specific.Value = PH_PY008_hhmm_Calc(SEarlyTo, ""); //특근조출
+                    oForm.Items.Item("Special").Specific.Value = PH_PY008_hhmm_Calc(Special, ""); //특근
+                    oForm.Items.Item("SpExtend").Specific.Value = PH_PY008_hhmm_Calc(SpExtend, ""); //특근연장
+                }
             }
             catch (Exception ex)
             {
@@ -3828,6 +3880,7 @@ namespace PSH_BOne_AddOn
             string todaytm;
             string returnValue = string.Empty;
             short errNum = 0;
+            string sQry;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);    
             
             try
@@ -3843,7 +3896,16 @@ namespace PSH_BOne_AddOn
                     }
                     if (oForm.Items.Item("WorkType").Specific.Value.Trim() == "A00" || oForm.Items.Item("WorkType").Specific.Value.Trim() == "D09" || oForm.Items.Item("WorkType").Specific.Value.Trim() == "D10") // 근태구분 등록체크
                     {
-                        if (Convert.ToInt32(Convert.ToDouble(oForm.Items.Item("Base").Specific.Value.Substring(0, 2))) == 0) // 기본+ 특근이 0 이면 등록 안됨.
+                        sQry = "  select      U_Check";
+                        sQry += " from        [@PH_PY003B]";
+                        sQry += " where       left(code,1) = '1'";
+                        sQry += "             and u_date = '" + oForm.Items.Item("SPosDate").Specific.Value.ToString().Trim() + "'";
+                        oRecordSet.DoQuery(sQry);
+
+                        if (oRecordSet.Fields.Item(0).Value == "Y") //단축근무일떈 반차 0000으로 등록
+                        {
+                        }
+                        else if (Convert.ToInt32(Convert.ToDouble(oForm.Items.Item("Base").Specific.Value.Substring(0, 2))) == 0) // 기본+ 특근이 0 이면 등록 안됨.
                         {
                             returnValue = "N";
                             errNum = 4;
@@ -4465,6 +4527,19 @@ namespace PSH_BOne_AddOn
                                 switch (oForm.Items.Item("WorkType").Specific.Value.ToString().Trim())
                                 {
                                     case "A00":
+
+                                        sQry = "  select      U_Check";
+                                        sQry += " from        [@PH_PY003B]";
+                                        sQry += " where       left(code,1) = '1'";
+                                        sQry += "             and u_date = '" + oForm.Items.Item("SPosDate").Specific.Value.ToString().Trim() + "'";
+                                        oRecordSet.DoQuery(sQry);
+                                        if (oRecordSet.Fields.Item(0).Value == "Y")
+                                        {
+                                            oForm.Items.Item("GetTime").Specific.Value = "0000";
+                                            oForm.Items.Item("OffTime").Specific.Value = "0000";
+                                            PH_PY008_Time_ReSet();
+                                            oForm.Items.Item("OffDate").Specific.Value = oForm.Items.Item("GetDate").Specific.Value;
+                                        }
 
                                         //정상근무
                                         oForm.Items.Item("Rotation").Specific.Value = 1;

@@ -1067,8 +1067,8 @@ namespace PSH_BOne_AddOn
 							NWeight = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_NWeight", i).ToString().Trim());
 
 							sQry = " Update [@PS_MM130L] ";
-							sQry += "Set U_InQty = IsNull(U_InQty, 0) + " + OutQty + NQty + ", U_InWt = IsNull(U_InWt, 0) + " + OutWt + NWeight + " ";
-							sQry += "From [@PS_MM130L] a Inner Join [@PS_MM130H] b On a.DocEntry = b.DocEntry ";
+							sQry += "Set U_InQty = IsNull(U_InQty, 0) + " + OutQty + "+" + NQty + ", U_InWt = IsNull(U_InWt, 0) + " + OutWt + "+" + NWeight;
+							sQry += " From [@PS_MM130L] a Inner Join [@PS_MM130H] b On a.DocEntry = b.DocEntry ";
 							sQry += "Where b.U_OutDoc = '" + oDS_PS_MM152L.GetValue("U_OutDoc", i).ToString().Trim() + "' ";
 							sQry += "And a.U_LineNum = '" + oDS_PS_MM152L.GetValue("U_OutLine", i).ToString().Trim() + "' ";
 							oRecordSet.DoQuery(sQry);

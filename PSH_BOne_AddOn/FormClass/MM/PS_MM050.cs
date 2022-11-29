@@ -55,7 +55,7 @@ namespace PSH_BOne_AddOn
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
                 oForm.DataBrowser.BrowseBy = "DocNum";
 
-                oForm.Freeze(true); 
+                oForm.Freeze(true);
                 PS_MM050_CreateItems();
                 PS_MM050_ComboBox_Setting();
                 if (!string.IsNullOrEmpty(oFormDocEntry))
@@ -299,7 +299,7 @@ namespace PSH_BOne_AddOn
                         }
                         else if (PS_MM050_CheckDate(oMat02.Columns.Item("PODocNum").Cells.Item(i).Specific.Value) == false)
                         {
-                            errMessage = ErrRowCount + "행 [" + oMat01.Columns.Item("ItemCode").Cells.Item(ErrRowCount).Specific.Value + "]의 가입고일은 구매품의일과 같거나 늦어야합니다. 확인하십시오. 해당 가입고는 전체가 등록되지 않습니다.";
+                            errMessage = ErrRowCount + "행 [" + oMat01.Columns.Item("ItemCode").Cells.Item(ErrRowCount + 1).Specific.Value + "]의 가입고일은 구매품의일과 같거나 늦어야합니다. 확인하십시오. 해당 가입고는 전체가 등록되지 않습니다.";
                             ErrRowCount = i;
                             throw new Exception();
                         }
@@ -890,7 +890,7 @@ namespace PSH_BOne_AddOn
                             oMat01.Columns.Item("PQDocNum").Cells.Item(oRow).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                         }
                         oMat01.FlushToDataSource();
-                         
+
                         sQry = "Select a.DocNum, b.LineId, b.U_ItemCode "; //U_LineNum를 LineId로 수정(2012.07.24 송명규)
                         sQry += "From [@PS_MM010H] a Inner Join [@PS_MM010L] b On a.DocEntry = b.DocEntry ";
                         sQry += "Where a.DocNum = '" + oDS_PS_MM050L.GetValue("U_PQDocNum", oRow - 1).ToString().Trim() + "' ";
@@ -940,7 +940,7 @@ namespace PSH_BOne_AddOn
                                 //금액 반올림 2012/04/03 노근용 수정
                                 oDS_PS_MM050L.SetValue("U_LinTotal", oRow - 1, Convert.ToString(System.Math.Round(Convert.ToDouble(oMat02.Columns.Item("Weight").Cells.Item(oRow).Specific.Value.ToString().Trim()) * Convert.ToDouble(oMat02.Columns.Item("Price").Cells.Item(oRow).Specific.Value.ToString().Trim()), 0)));
                             }
-                            oDS_PS_MM050L.SetValue("U_RealWt", oRow -1, oMat02.Columns.Item("Weight").Cells.Item(oRow).Specific.Value.ToString().Trim());
+                            oDS_PS_MM050L.SetValue("U_RealWt", oRow - 1, oMat02.Columns.Item("Weight").Cells.Item(oRow).Specific.Value.ToString().Trim());
                             oMat02.LoadFromDataSource();
                             oMat02.Columns.Item("Price").Cells.Item(oRow).Click();
 
@@ -953,7 +953,7 @@ namespace PSH_BOne_AddOn
                                 {
                                     SumQty += Convert.ToDouble(oMat02.Columns.Item("Qty").Cells.Item(i + 1).Specific.Value);
                                 }
-                                SumWeight += Convert.ToDouble(oMat02.Columns.Item("RealWt").Cells.Item(i + 1).Specific.Value); 
+                                SumWeight += Convert.ToDouble(oMat02.Columns.Item("RealWt").Cells.Item(i + 1).Specific.Value);
                                 DocTotal += Convert.ToDouble(oMat02.Columns.Item("LinTotal").Cells.Item(i + 1).Specific.Value);
                             }
                             oForm.Items.Item("DocTotal").Specific.Value = DocTotal;
@@ -1119,29 +1119,29 @@ namespace PSH_BOne_AddOn
                     Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                //case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
-                //    Raise_EVENT_FORM_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
+                    //    Raise_EVENT_FORM_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
-                //    Raise_EVENT_FORM_MENU_HILIGHT(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
+                    //    Raise_EVENT_FORM_MENU_HILIGHT(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
-                //    Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
+                    //    Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED: //37
-                //    Raise_EVENT_PICKER_CLICKED(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED: //37
+                    //    Raise_EVENT_PICKER_CLICKED(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
-                //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
+                    //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_Drag: //39
-                //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_Drag: //39
+                    //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
             }
         }
 
@@ -1718,7 +1718,7 @@ namespace PSH_BOne_AddOn
                         oMat02.Columns.Item("BDocNum").Cells.Item(oMat02.VisualRowCount).Specific.Value = oDS_PS_TEMPTABLE.GetValue("U_sField15", pVal.Row - 1).ToString().Trim();
                         oMat02.Columns.Item("BLineNum").Cells.Item(oMat02.VisualRowCount).Specific.Value = oDS_PS_TEMPTABLE.GetValue("U_sField16", pVal.Row - 1).ToString().Trim();
 
- 
+
 
                         if (qField01 != iField04)
                         {
@@ -1763,7 +1763,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if(errMessage != string.Empty)
+                if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
                 }
@@ -1818,7 +1818,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                
+
                 if (oLastColRow01 > 0)
                 {
                     if (pVal.BeforeAction == true)

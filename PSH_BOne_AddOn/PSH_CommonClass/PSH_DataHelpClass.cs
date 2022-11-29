@@ -29,7 +29,12 @@ namespace PSH_BOne_AddOn.Data
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             string returnValue = string.Empty;
+            string p2Table = string.Empty;
+            string p2TaValue = string.Empty;
             string sQry;
+            string sQry1;
+            int a;
+            int b;
 
             sQry = "  SELECT " + pReColumn + " ";
             sQry += " FROM " + pTable;
@@ -41,14 +46,52 @@ namespace PSH_BOne_AddOn.Data
                 {
                     sQry += pAndLine;
                 }
-
                 oRecordSet.DoQuery(sQry);
-                
-                while (!oRecordSet.EoF)
+
+                if (pTable == "ONNM")
                 {
-                    returnValue = oRecordSet.Fields.Item(0).Value.ToString();
-                    oRecordSet.MoveNext();
+                    a = int.Parse(oRecordSet.Fields.Item(0).Value.ToString());
+
+                    p2TaValue = pTaValue.Substring(0, 9) + '%';
+                    sQry1 = "  SELECT      TOP(1) TableName";
+                    sQry1 += " FROM        OUTB";
+                    sQry1 += "             WHERE TableName Like" + p2TaValue + "'";
+                    oRecordSet.DoQuery(sQry1);
+                    p2Table = Convert.ToString(oRecordSet.Fields.Item(0).Value.ToString());
+
+                    sQry1 = "  SELECT MAX(DocEntry)" + " ";
+                    sQry1 += " FROM  [@" + p2Table + "]";
+                    oRecordSet.DoQuery(sQry1);
+                    b = int.Parse(oRecordSet.Fields.Item(0).Value.ToString());
+
+                    if (a <= b)
+                    {
+                        sQry = " UPDATE  " + pTable + " ";
+                        sQry += " SET  AutoKey =" + (b + 1) + "";
+                        sQry += " WHERE " + pColumn + " = " + pTaValue;
+                        oRecordSet.DoQuery(sQry);
+
+                        sQry = "  SELECT " + pReColumn + " ";
+                        sQry += " FROM " + pTable;
+                        sQry += " WHERE " + pColumn + " = " + pTaValue;
+                        oRecordSet.DoQuery(sQry);
+                        returnValue = oRecordSet.Fields.Item(0).Value.ToString();
+                    }
+                    else
+                    {
+                        returnValue = Convert.ToString(a);
+                    }
                 }
+                
+                else
+                {
+                    while (!oRecordSet.EoF)
+                    {
+                        returnValue = oRecordSet.Fields.Item(0).Value.ToString();
+                        oRecordSet.MoveNext();
+                    }
+                }
+                
             }
             catch (Exception ex)
             {

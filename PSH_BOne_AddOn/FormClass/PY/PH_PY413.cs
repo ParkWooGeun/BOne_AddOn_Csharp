@@ -893,13 +893,13 @@ namespace PSH_BOne_AddOn
                                 {
                                     gamt = 0;
                                 }
-                                else if (samt <= 70000000)  // 7천이하자  10%
-                                {
-                                    gamt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("ws_mamt").Specific.Value.Trim()) * 0.1, 0);
-                                }
-                                else if (samt <= 55000000)  // 5천5백이하자  12%
+                                else if (samt <= 70000000)  // 7천이하자  12%
                                 {
                                     gamt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("ws_mamt").Specific.Value.Trim()) * 0.12, 0);
+                                }
+                                else if (samt <= 55000000)  // 5천5백이하자  15%
+                                {
+                                    gamt = System.Math.Round(Convert.ToDouble(oForm.Items.Item("ws_mamt").Specific.Value.Trim()) * 0.15, 0);
                                 }
 
                                 if (gamt < 0)

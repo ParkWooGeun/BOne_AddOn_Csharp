@@ -172,6 +172,7 @@ namespace PSH_BOne_AddOn
             //2019년기준 236 BYTE
             //2020년기준 236 BYTE
             //2021년기준 236 BYTE 20년 동일
+            //2022년기준 237 BYTE
 
             string A001; // 레코드구분(1) 'A'
             string A002; // 자료구분(2)   '26'
@@ -192,11 +193,12 @@ namespace PSH_BOne_AddOn
             string A017; // 의료증빙코드(1)
             string A018; // 건수(5)
             string A019; // 지급금액(11)
-            string A020; // 난임시술비해당여부(1)
-            string A021; // 주민등록번호(13)
-            string A022; // 내,외국인코드(1)
-            string A023; // 본인등해당여부(1)
-            string A024; // 제출대상기간코드(1)
+            string A020; // 미숙아･선천성 이상아 해당여부(1)
+            string A021; // 난임시술비해당여부(1)
+            string A022; // 주민등록번호(13)
+            string A023; // 내,외국인코드(1)
+            string A024; // 본인등해당여부(1)
+            string A025; // 제출대상기간코드(1)
 
             try
             {   
@@ -250,14 +252,15 @@ namespace PSH_BOne_AddOn
                         A019 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A019").Value.ToString().Trim(), 11, '0');
                         A020 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A020").Value.ToString().Trim(), 1);
 
-                        A021 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A021").Value.ToString().Trim(), 13);
-                        A022 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A022").Value.ToString().Trim(), 1);
+                        A021 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A021").Value.ToString().Trim(), 1);
+                        A022 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A022").Value.ToString().Trim(), 13);
                         A023 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A023").Value.ToString().Trim(), 1);
                         A024 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A024").Value.ToString().Trim(), 1);
+                        A025 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("A025").Value.ToString().Trim(), 1);
 
                         FileSystem.PrintLine(1, A001 + A002 + A003 + A004 + A005 + A006 + A007 + A008 + A009 + A010
                                               + A011 + A012 + A013 + A014 + A015 + A016 + A017 + A018 + A019 + A020
-                                              + A021 + A022 + A023 + A024);
+                                              + A021 + A022 + A023 + A024 + A025);
 
                         oRecordSet.MoveNext();
 

@@ -169,7 +169,7 @@ namespace PSH_BOne_AddOn
 
 				Year_Renamed = oDS_PS_MM012H.GetValue("U_Year", 0).ToString().Trim();
 				if (string.IsNullOrEmpty(Year_Renamed))
-                {
+				{
 					Year_Renamed = "0";
 				}
 
@@ -281,6 +281,10 @@ namespace PSH_BOne_AddOn
 				else
 				{
 					oMat.Columns.Item("Mm12").Editable = false;
+				}
+				if (YY == Year_Renamed && MM == "12")
+				{
+					oMat.Columns.Item("Mm12").Editable = true;
 				}
 
 				oMat.AutoResizeColumns();
@@ -515,7 +519,7 @@ namespace PSH_BOne_AddOn
 					throw new Exception();
 				}
 
-				sQry = "Select * From [@PS_MM012L] Where Isnull(U_PQDocNum,'') <> '' And Code = '" + oDS_PS_MM012H.GetValue("Code", 0).ToString().Trim() +"'";
+				sQry = "Select * From [@PS_MM012L] Where Isnull(U_PQDocNum,'') <> '' And Code = '" + oDS_PS_MM012H.GetValue("Code", 0).ToString().Trim() + "'";
 				oRecordSet.DoQuery(sQry);
 
 				//1. SAP R3 함수 호출(매개변수 전달)
@@ -525,22 +529,22 @@ namespace PSH_BOne_AddOn
 				{
 					BANFN = oRecordSet.Fields.Item("U_E_BANFN").Value.ToString().Trim();
 					LFDAT = oRecordSet.Fields.Item("U_DueDate").Value.ToString("yyyyMMdd").Trim();
-					MEINS =	 oRecordSet.Fields.Item("U_Unit").Value.ToString().Trim();
-					MENGE =	 oRecordSet.Fields.Item("U_Qty").Value.ToString().Trim();
-					ZMM01 =	 oRecordSet.Fields.Item("U_Mm01").Value.ToString().Trim();
-					ZMM02 =	 oRecordSet.Fields.Item("U_Mm02").Value.ToString().Trim();
-					ZMM03 =	 oRecordSet.Fields.Item("U_Mm03").Value.ToString().Trim();
-					ZMM04 =	 oRecordSet.Fields.Item("U_Mm04").Value.ToString().Trim();
-					ZMM05 =	 oRecordSet.Fields.Item("U_Mm05").Value.ToString().Trim();
-					ZMM06 =	 oRecordSet.Fields.Item("U_Mm06").Value.ToString().Trim();
-					ZMM07 =	 oRecordSet.Fields.Item("U_Mm07").Value.ToString().Trim();
-					ZMM08 =	 oRecordSet.Fields.Item("U_Mm08").Value.ToString().Trim();
-					ZMM09 =	 oRecordSet.Fields.Item("U_Mm09").Value.ToString().Trim();
-					ZMM10 =	 oRecordSet.Fields.Item("U_Mm10").Value.ToString().Trim();
-					ZMM11 =	 oRecordSet.Fields.Item("U_Mm11").Value.ToString().Trim();
-					ZMM12 =	 oRecordSet.Fields.Item("U_Mm12").Value.ToString().Trim();
-					ZSUM  =	 oRecordSet.Fields.Item("U_MmTot").Value.ToString().Trim();
-					
+					MEINS = oRecordSet.Fields.Item("U_Unit").Value.ToString().Trim();
+					MENGE = oRecordSet.Fields.Item("U_Qty").Value.ToString().Trim();
+					ZMM01 = oRecordSet.Fields.Item("U_Mm01").Value.ToString().Trim();
+					ZMM02 = oRecordSet.Fields.Item("U_Mm02").Value.ToString().Trim();
+					ZMM03 = oRecordSet.Fields.Item("U_Mm03").Value.ToString().Trim();
+					ZMM04 = oRecordSet.Fields.Item("U_Mm04").Value.ToString().Trim();
+					ZMM05 = oRecordSet.Fields.Item("U_Mm05").Value.ToString().Trim();
+					ZMM06 = oRecordSet.Fields.Item("U_Mm06").Value.ToString().Trim();
+					ZMM07 = oRecordSet.Fields.Item("U_Mm07").Value.ToString().Trim();
+					ZMM08 = oRecordSet.Fields.Item("U_Mm08").Value.ToString().Trim();
+					ZMM09 = oRecordSet.Fields.Item("U_Mm09").Value.ToString().Trim();
+					ZMM10 = oRecordSet.Fields.Item("U_Mm10").Value.ToString().Trim();
+					ZMM11 = oRecordSet.Fields.Item("U_Mm11").Value.ToString().Trim();
+					ZMM12 = oRecordSet.Fields.Item("U_Mm12").Value.ToString().Trim();
+					ZSUM = oRecordSet.Fields.Item("U_MmTot").Value.ToString().Trim();
+
 					oFunction.SetValue("I_BANFN", BANFN);
 					oFunction.SetValue("I_LFDAT", LFDAT);
 					oFunction.SetValue("I_MEINS", MEINS);
@@ -557,11 +561,11 @@ namespace PSH_BOne_AddOn
 					oFunction.SetValue("I_ZMM10", ZMM10);
 					oFunction.SetValue("I_ZMM11", ZMM11);
 					oFunction.SetValue("I_ZMM12", ZMM12);
-					oFunction.SetValue("I_ZSUM",  ZSUM);
+					oFunction.SetValue("I_ZSUM", ZSUM);
 					oRecordSet.MoveNext();
-					
+
 					errCode = "2"; //SAP Function 실행 오류가 발생했을 때 에러코드로 처리하기 위해 이 위치에서 "2"를 대입
-				    oFunction.Invoke(rfcDest); //Function 실행
+					oFunction.Invoke(rfcDest); //Function 실행
 
 					if (oFunction.GetValue("E_MESSAGE").ToString().Trim() != "" && codeHelpClass.Left(oFunction.GetValue("E_MESSAGE").ToString().Trim(), 1) != "S") //리턴 메시지가 "S(성공)"이 아니면
 					{
@@ -646,32 +650,32 @@ namespace PSH_BOne_AddOn
 			return ReturnValue;
 		}
 
-        /// <summary>
-        /// Form Item Event
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">pVal</param>
-        /// <param name="BubbleEvent">Bubble Event</param> 
-        public override void Raise_FormItemEvent(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+		/// <summary>
+		/// Form Item Event
+		/// </summary>
+		/// <param name="FormUID">Form UID</param>
+		/// <param name="pVal">pVal</param>
+		/// <param name="BubbleEvent">Bubble Event</param> 
+		public override void Raise_FormItemEvent(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
 			switch (pVal.EventType)
 			{
 				case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED: //1
 					Raise_EVENT_ITEM_PRESSED(FormUID, ref pVal, ref BubbleEvent);
 					break;
-                case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
-                    Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
-                    break;
-                //case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
-                //	Raise_EVENT_GOT_FOCUS(FormUID, ref pVal, ref BubbleEvent);
-                //	break;
-                //case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
-                //    Raise_EVENT_LOST_FOCUS(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
-                //case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
-                //	Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
-                //	break;
-                case SAPbouiCOM.BoEventTypes.et_CLICK: //6
+				case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
+					Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
+					break;
+				//case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
+				//	Raise_EVENT_GOT_FOCUS(FormUID, ref pVal, ref BubbleEvent);
+				//	break;
+				//case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
+				//    Raise_EVENT_LOST_FOCUS(FormUID, ref pVal, ref BubbleEvent);
+				//    break;
+				//case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
+				//	Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
+				//	break;
+				case SAPbouiCOM.BoEventTypes.et_CLICK: //6
 					Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
 					break;
 				//case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7

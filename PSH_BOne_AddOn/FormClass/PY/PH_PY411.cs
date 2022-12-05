@@ -140,11 +140,11 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("gubun").DisplayDesc = true;
                 oForm.Items.Item("gubun").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
-                // 투자년도(중소기업창업투자조합출자) 18년추가
+                // 투자년도
                 oForm.DataSources.UserDataSources.Add("tyyyy", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 4);
                 oForm.Items.Item("tyyyy").Specific.DataBind.SetBound(true, "", "tyyyy");
 
-                // 투자구분(중소기업창업투자조합출자) 18년추가
+                // 투자구분
                 oForm.DataSources.UserDataSources.Add("tgubun", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("tgubun").Specific.DataBind.SetBound(true, "", "tgubun");
                 sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '83' AND U_UseYN= 'Y'";

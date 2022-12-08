@@ -1,7 +1,10 @@
 using System;
 using SAPbouiCOM;
+using System.Collections.Generic;
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.Code;
+using PSH_BOne_AddOn.Form;
+using PSH_BOne_AddOn.DataPack;
 
 namespace PSH_BOne_AddOn
 {
@@ -619,6 +622,50 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
+        /// 리포트 출력
+        /// </summary>
+        [STAThread]
+        private void PH_PY403_Print_Report01()
+        {
+            string WinTitle;
+            string ReportName;
+            string CLTCOD;
+            string YY;
+
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+
+            try
+            {
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                YY = oForm.Items.Item("YY").Specific.Value.Trim();
+
+                WinTitle = "[PH_PY403] 연말정산공제대상자신고서출력";
+                ReportName = "PH_PY403_01.rpt";
+
+                List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
+                List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
+
+                //Formula
+                dataPackFormula.Add(new PSH_DataPackClass("@CLTCOD", dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", CLTCOD, "and Code = 'P144' AND U_UseYN= 'Y'"))); //사업장
+                dataPackFormula.Add(new PSH_DataPackClass("@YY", YY));
+
+                //Parameter
+                dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD)); //사업장
+                dataPackParameter.Add(new PSH_DataPackClass("@YY", YY)); 
+
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY710_Print_Report01_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
+        }
+
+        /// <summary>
         /// Form Item Event
         /// </summary>
         /// <param name="FormUID">Form UID</param>
@@ -758,6 +805,12 @@ namespace PSH_BOne_AddOn
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                         {
                         }
+                    }
+                    else if (pVal.ItemUID == "Btn01")
+                    {
+                        System.Threading.Thread thread = new System.Threading.Thread(PH_PY403_Print_Report01);
+                        thread.SetApartmentState(System.Threading.ApartmentState.STA);
+                        thread.Start();
                     }
                 }
                 else if (pVal.BeforeAction == false)

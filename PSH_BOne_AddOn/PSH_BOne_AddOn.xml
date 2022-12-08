@@ -41248,6 +41248,11 @@
             자료조회 및 전년자료가져오기
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY403.PH_PY403_Print_Report01">
+            <summary>
+            리포트 출력
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY403.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event

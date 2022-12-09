@@ -691,12 +691,12 @@ namespace PSH_BOne_AddOn
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
                     oForm.Items.Item("DocNum").Enabled = false;
-                    oForm.Items.Item("CardCode").Enabled = true;
-                    oForm.Items.Item("BPLId").Enabled = true;
-                    oForm.Items.Item("CntcCode").Enabled = true;
-                    oForm.Items.Item("POType").Enabled = true;
+                    oForm.Items.Item("CardCode").Enabled = false;
+                    oForm.Items.Item("BPLId").Enabled = false;
+                    oForm.Items.Item("CntcCode").Enabled = false;
+                    oForm.Items.Item("POType").Enabled = false;
                     oForm.Items.Item("POStatus").Enabled = true;
-                    oForm.Items.Item("DocDate").Enabled = true;
+                    oForm.Items.Item("DocDate").Enabled = false;
                     oMat02.Columns.Item("LinTotal").Editable = false;
                     oForm.Items.Item("Mat02").Enabled = true;
                     oMat02.Columns.Item("Qty").Editable = true;

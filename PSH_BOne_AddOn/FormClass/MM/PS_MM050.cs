@@ -278,7 +278,11 @@ namespace PSH_BOne_AddOn
             bool ReturnValue = false;
             int i;
             int ErrRowCount = 0;
+            string sQry;
+            int errCode = 0;
             string errMessage = string.Empty;
+
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -289,8 +293,20 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    for (i = 1; i < oMat02.VisualRowCount; i++)
+                    for (i = 1; i <= oMat02.VisualRowCount; i++)
                     {
+                        sQry = "exec PS_MM050_02 '"+ oMat02.Columns.Item("PODocNum").Cells.Item(i).Specific.Value + "','" + oMat02.Columns.Item("POLinNum").Cells.Item(i).Specific.Value+ "','" + oMat02.Columns.Item("ItemCode").Cells.Item(i).Specific.Value + "','" + oMat02.Columns.Item("Qty").Cells.Item(i).Specific.Value + "'";
+                        oRecordSet.DoQuery(sQry);
+
+                        if (oRecordSet.Fields.Item(0).Value == "E")
+                        {
+                            if (PSH_Globals.SBO_Application.MessageBox(oRecordSet.Fields.Item(1).Value + "계속 진행하시겠습니까?", 2, "Yes", "No") == 2)
+                            {
+                                errCode = 1;
+                                throw new Exception();
+                            }
+                        }
+
                         if (string.IsNullOrEmpty(oMat02.Columns.Item("Qty").Cells.Item(i).Specific.Value))
                         {
                             errMessage = Convert.ToString(ErrRowCount) + "행의 수량에 값이 없습니다. 확인바랍니다.";
@@ -310,7 +326,11 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if (errMessage != string.Empty)
+                if (errCode == 1)
+                {
+                    PSH_Globals.SBO_Application.MessageBox("취소처리되었습니다.");
+                }
+                else if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
                 }

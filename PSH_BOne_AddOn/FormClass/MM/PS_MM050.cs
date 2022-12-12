@@ -295,7 +295,7 @@ namespace PSH_BOne_AddOn
                 {
                     for (i = 1; i <= oMat02.VisualRowCount; i++)
                     {
-                        sQry = "exec PS_MM050_02 '"+ oMat02.Columns.Item("PODocNum").Cells.Item(i).Specific.Value + "','" + oMat02.Columns.Item("POLinNum").Cells.Item(i).Specific.Value+ "','" + oMat02.Columns.Item("ItemCode").Cells.Item(i).Specific.Value + "','" + oMat02.Columns.Item("Qty").Cells.Item(i).Specific.Value + "'";
+                        sQry = "exec PS_MM050_02 '" + oMat02.Columns.Item("PODocNum").Cells.Item(i).Specific.Value + "','" + oMat02.Columns.Item("POLinNum").Cells.Item(i).Specific.Value + "','" + oMat02.Columns.Item("ItemCode").Cells.Item(i).Specific.Value + "','" + oMat02.Columns.Item("Qty").Cells.Item(i).Specific.Value + "'";
                         oRecordSet.DoQuery(sQry);
 
                         if (oRecordSet.Fields.Item(0).Value == "E")
@@ -711,14 +711,14 @@ namespace PSH_BOne_AddOn
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
                     oForm.Items.Item("DocNum").Enabled = false;
-                    oForm.Items.Item("CardCode").Enabled = true;
-                    oForm.Items.Item("BPLId").Enabled = true;
-                    oForm.Items.Item("CntcCode").Enabled = true;
-                    oForm.Items.Item("POType").Enabled = true;
-                    oForm.Items.Item("POStatus").Enabled = true;
-                    oForm.Items.Item("DocDate").Enabled = true;
+                    oForm.Items.Item("CardCode").Enabled = false;
+                    oForm.Items.Item("BPLId").Enabled = false;
+                    oForm.Items.Item("CntcCode").Enabled = false;
+                    oForm.Items.Item("POType").Enabled = false;
+                    oForm.Items.Item("POStatus").Enabled = false;
+                    oForm.Items.Item("DocDate").Enabled = false;
                     oMat02.Columns.Item("LinTotal").Editable = false;
-                    oForm.Items.Item("Mat02").Enabled = true;
+                    oForm.Items.Item("Mat02").Enabled = false;
                     oMat02.Columns.Item("Qty").Editable = true;
                     oMat02.Columns.Item("Weight").Editable = true;
                     oMat02.Columns.Item("RealWt").Editable = true;

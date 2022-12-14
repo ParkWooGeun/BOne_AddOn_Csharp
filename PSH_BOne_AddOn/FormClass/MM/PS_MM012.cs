@@ -482,6 +482,7 @@ namespace PSH_BOne_AddOn
 			string Client; //클라이언트
 			string ServerIP; //서버IP
 			string BANFN;
+			string BANPO;
 			string LFDAT;
 			string MEINS;
 			string MENGE;
@@ -528,6 +529,7 @@ namespace PSH_BOne_AddOn
 				while (!oRecordSet.EoF)
 				{
 					BANFN = oRecordSet.Fields.Item("U_E_BANFN").Value.ToString().Trim();
+					BANPO = oRecordSet.Fields.Item("U_E_BNFPO").Value.ToString().Trim();
 					LFDAT = oRecordSet.Fields.Item("U_DueDate").Value.ToString("yyyyMMdd").Trim();
 					MEINS = oRecordSet.Fields.Item("U_Unit").Value.ToString().Trim();
 					MENGE = oRecordSet.Fields.Item("U_Qty").Value.ToString().Trim();
@@ -546,6 +548,7 @@ namespace PSH_BOne_AddOn
 					ZSUM = oRecordSet.Fields.Item("U_MmTot").Value.ToString().Trim();
 
 					oFunction.SetValue("I_BANFN", BANFN);
+					oFunction.SetValue("I_BNFPO", BANPO);
 					oFunction.SetValue("I_LFDAT", LFDAT);
 					oFunction.SetValue("I_MEINS", MEINS);
 					oFunction.SetValue("I_MENGE", MENGE);
@@ -567,7 +570,7 @@ namespace PSH_BOne_AddOn
 					errCode = "2"; //SAP Function 실행 오류가 발생했을 때 에러코드로 처리하기 위해 이 위치에서 "2"를 대입
 					oFunction.Invoke(rfcDest); //Function 실행
 
-					if (oFunction.GetValue("E_MESSAGE").ToString().Trim() != "" && codeHelpClass.Left(oFunction.GetValue("E_MESSAGE").ToString().Trim(), 1) != "S") //리턴 메시지가 "S(성공)"이 아니면
+					if (oFunction.GetValue("E_MESSAGE").ToString().Trim() != "" && codeHelpClass.Left(oFunction.GetValue("E_MESSAGE").ToString().Trim(), 1) == "E") //리턴 메시지가 "S(성공)"이 아니면
 					{
 						errCode = "3";
 						errMessage = oFunction.GetValue("E_MESSAGE").ToString();

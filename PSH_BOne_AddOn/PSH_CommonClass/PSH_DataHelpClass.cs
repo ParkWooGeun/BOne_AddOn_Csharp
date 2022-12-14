@@ -71,6 +71,10 @@ namespace PSH_BOne_AddOn.Data
                         sQry += " WHERE " + pColumn + " = " + pTaValue;
                         oRecordSet.DoQuery(sQry);
 
+                        sQry = " INSERT INTO ZONNM_History ";
+                        sQry += " Values(" + pTaValue + "," + b + ", GetDate())";
+                        oRecordSet.DoQuery(sQry);
+
                         sQry = "  SELECT " + pReColumn + " ";
                         sQry += " FROM " + pTable;
                         sQry += " WHERE " + pColumn + " = " + pTaValue;

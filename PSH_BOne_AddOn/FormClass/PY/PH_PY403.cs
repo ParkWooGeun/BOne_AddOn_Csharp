@@ -169,6 +169,16 @@ namespace PSH_BOne_AddOn
                 oMat.Columns.Item("HDCode").ValidValues.Add("2", "국가유공자등 예우및지원에 관한 법률에 따른 상이자 및 이와 유사한자로서 근로능력이없는자");
                 oMat.Columns.Item("HDCode").ValidValues.Add("3", "그 밖에 항시 치료를 요하는 중증환자");
                 oMat.Columns.Item("HDCode").DisplayDesc = true;
+
+                //미숙아.선천성이상아 여부
+                oMat.Columns.Item("PreBaby").ValidValues.Add("Y", "해당");
+                oMat.Columns.Item("PreBaby").ValidValues.Add("N", "비해당");
+                oMat.Columns.Item("PreBaby").DisplayDesc = true;
+
+                //건겅보험산정특례자여부
+                oMat.Columns.Item("Tukrae").ValidValues.Add("Y", "해당");
+                oMat.Columns.Item("Tukrae").ValidValues.Add("N", "비해당");
+                oMat.Columns.Item("Tukrae").DisplayDesc = true;
             }
             catch (Exception ex)
             {
@@ -444,6 +454,8 @@ namespace PSH_BOne_AddOn
                         oDS_PH_PY403B.SetValue("U_Birthday", oRow, "");
                         oDS_PH_PY403B.SetValue("U_Soduk", oRow, "");
                         oDS_PH_PY403B.SetValue("U_HDCode", oRow, "");
+                        oDS_PH_PY403B.SetValue("U_PreBaby", oRow, "N");
+                        oDS_PH_PY403B.SetValue("U_Tukrae", oRow, "N");
                         oMat.LoadFromDataSource();
                     }
                     else
@@ -457,6 +469,8 @@ namespace PSH_BOne_AddOn
                         oDS_PH_PY403B.SetValue("U_Birthday", oRow - 1, "");
                         oDS_PH_PY403B.SetValue("U_Soduk", oRow - 1, "");
                         oDS_PH_PY403B.SetValue("U_HDCode", oRow - 1, "");
+                        oDS_PH_PY403B.SetValue("U_PreBaby", oRow - 1, "N");
+                        oDS_PH_PY403B.SetValue("U_Tukrae", oRow - 1, "N");
                         oMat.LoadFromDataSource();
                     }
                 }
@@ -471,6 +485,8 @@ namespace PSH_BOne_AddOn
                     oDS_PH_PY403B.SetValue("U_Birthday", oRow, "");
                     oDS_PH_PY403B.SetValue("U_Soduk", oRow, "");
                     oDS_PH_PY403B.SetValue("U_HDCode", oRow, "");
+                    oDS_PH_PY403B.SetValue("U_PreBaby", oRow, "N");
+                    oDS_PH_PY403B.SetValue("U_Tukrae", oRow, "N");
                     oMat.LoadFromDataSource();
                 }
             }
@@ -587,6 +603,8 @@ namespace PSH_BOne_AddOn
                             oDS_PH_PY403B.SetValue("U_JuminNo", i, oRecordSet.Fields.Item("juminno").Value.ToString().Trim());
                             oDS_PH_PY403B.SetValue("U_Birthday", i, oRecordSet.Fields.Item("birthymd").Value.ToString().Trim());
                             oDS_PH_PY403B.SetValue("U_HDCode", i, oRecordSet.Fields.Item("hdcode").Value.ToString().Trim());
+                            oDS_PH_PY403B.SetValue("U_PreBaby", i, "N");
+                            oDS_PH_PY403B.SetValue("U_Tukrae", i, "N");
                             oRecordSet.MoveNext();
                         }
                     }
@@ -604,6 +622,8 @@ namespace PSH_BOne_AddOn
                         oDS_PH_PY403B.SetValue("U_Birthday", i, Birthday);
                         oDS_PH_PY403B.SetValue("U_Soduk", i, "Y");
                         oDS_PH_PY403B.SetValue("U_HDCode", i, "");
+                        oDS_PH_PY403B.SetValue("U_PreBaby", i, "N");
+                        oDS_PH_PY403B.SetValue("U_Tukrae", i, "N");
                     }
                     oMat.LoadFromDataSource();
                     PH_PY403_AddMatrixRow();

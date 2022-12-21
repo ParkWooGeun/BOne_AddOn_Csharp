@@ -101,6 +101,7 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.DataTables.Item("PH_PY405").Columns.Add("지급금액(외)", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
                 oForm.DataSources.DataTables.Item("PH_PY405").Columns.Add("지급금액(국)", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
                 oForm.DataSources.DataTables.Item("PH_PY405").Columns.Add("건수", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
+                oForm.DataSources.DataTables.Item("PH_PY405").Columns.Add("의료비구분", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
                 oForm.DataSources.DataTables.Item("PH_PY405").Columns.Add("경로", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
                 oForm.DataSources.DataTables.Item("PH_PY405").Columns.Add("장애", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
                 oForm.DataSources.DataTables.Item("PH_PY405").Columns.Add("난임", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
@@ -197,6 +198,14 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.UserDataSources.Add("cont", SAPbouiCOM.BoDataType.dt_SUM);
                 oForm.Items.Item("cont").Specific.DataBind.SetBound(true, "", "cont");
 
+                // 의료비구분
+                oForm.DataSources.UserDataSources.Add("mcode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
+                oForm.Items.Item("mcode").Specific.DataBind.SetBound(true, "", "mcode");
+                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '72' AND U_Char3 = '10' AND U_UseYN= 'Y'";
+                dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("mcode").Specific, "Y");
+                oForm.Items.Item("mcode").DisplayDesc = true;
+                oForm.Items.Item("mcode").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+
                 // 경로여부
                 oForm.DataSources.UserDataSources.Add("olddiv", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("olddiv").Specific.DataBind.SetBound(true, "", "olddiv");
@@ -273,6 +282,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("nanim").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
                 oForm.Items.Item("tukrae").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
                 oForm.Items.Item("prebaby").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+                oForm.Items.Item("mcode").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
                 oForm.Items.Item("CLTCOD").Enabled = true;
                 oForm.Items.Item("Year").Enabled = true;
@@ -354,6 +364,7 @@ namespace PSH_BOne_AddOn
             string nanim;
             string tukrae;
             string prebaby;
+            string mcode;
             double medcex;
             double ntamt;
             double cont;
@@ -363,25 +374,26 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
                 saup = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
-                yyyy = oForm.Items.Item("Year").Specific.Value;
+                yyyy = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
                 sabun = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
 
-                rel = oForm.Items.Item("rel").Specific.Value;
-                kname = oForm.Items.Item("kname").Specific.Value;
-                juminno = oForm.Items.Item("juminno").Specific.Value;
-                empdiv = oForm.Items.Item("empdiv").Specific.Value;
-                custnm = oForm.Items.Item("custnm").Specific.Value;
-                entno = oForm.Items.Item("entno").Specific.Value;
-                payymd = oForm.Items.Item("payymd").Specific.Value;
-                Gubun = oForm.Items.Item("gubun").Specific.Value;
-                medcex = Convert.ToDouble(oForm.Items.Item("medcex").Specific.Value);
-                ntamt = Convert.ToDouble(oForm.Items.Item("ntamt").Specific.Value);
-                cont = Convert.ToDouble(oForm.Items.Item("cont").Specific.Value);
-                olddiv = oForm.Items.Item("olddiv").Specific.Value;
-                deform = oForm.Items.Item("deform").Specific.Value;
-                nanim = oForm.Items.Item("nanim").Specific.Value;
-                tukrae = oForm.Items.Item("tukrae").Specific.Value;
-                prebaby = oForm.Items.Item("prebaby").Specific.Value;
+                rel = oForm.Items.Item("rel").Specific.Value.ToString().Trim();
+                kname = oForm.Items.Item("kname").Specific.Value.ToString().Trim();
+                juminno = oForm.Items.Item("juminno").Specific.Value.ToString().Trim();
+                empdiv = oForm.Items.Item("empdiv").Specific.Value.ToString().Trim();
+                custnm = oForm.Items.Item("custnm").Specific.Value.ToString().Trim();
+                entno = oForm.Items.Item("entno").Specific.Value.ToString().Trim();
+                payymd = oForm.Items.Item("payymd").Specific.Value.ToString().Trim();
+                Gubun = oForm.Items.Item("gubun").Specific.Value.ToString().Trim();
+                medcex = Convert.ToDouble(oForm.Items.Item("medcex").Specific.Value.ToString().Trim());
+                ntamt = Convert.ToDouble(oForm.Items.Item("ntamt").Specific.Value.ToString().Trim());
+                cont = Convert.ToDouble(oForm.Items.Item("cont").Specific.Value.ToString().Trim());
+                olddiv = oForm.Items.Item("olddiv").Specific.Value.ToString().Trim();
+                deform = oForm.Items.Item("deform").Specific.Value.ToString().Trim();
+                nanim = oForm.Items.Item("nanim").Specific.Value.ToString().Trim();
+                tukrae = oForm.Items.Item("tukrae").Specific.Value.ToString().Trim();
+                prebaby = oForm.Items.Item("prebaby").Specific.Value.ToString().Trim();
+                mcode = oForm.Items.Item("mcode").Specific.Value.ToString().Trim();
 
                 if (string.IsNullOrEmpty(yyyy))
                 {
@@ -398,6 +410,12 @@ namespace PSH_BOne_AddOn
                 if (string.IsNullOrEmpty(sabun))
                 {
                     PSH_Globals.SBO_Application.MessageBox("사번이 없습니다. 확인바랍니다..");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(mcode))
+                {
+                    PSH_Globals.SBO_Application.MessageBox("의료비구분코드를 반드시 입력하세요. 확인바랍니다..");
                     return;
                 }
 
@@ -454,6 +472,7 @@ namespace PSH_BOne_AddOn
                     sQry += "deform = '" + deform + "',";
                     sQry += "tukrae = '" + tukrae + "',";
                     sQry += "prebaby = '" + prebaby + "',";
+                    sQry += "mcode = '" + mcode + "',";
                     sQry += "nanim = '" + nanim + "'";
                     sQry += " Where saup = '" + saup + "' And yyyy = '" + yyyy + "' And sabun = '" + sabun + "' And juminno = '" + juminno + "' And custnm = '" + custnm + "' And payymd = '" + payymd + "' And entno = '" + entno + "'";
 
@@ -485,6 +504,7 @@ namespace PSH_BOne_AddOn
                     sQry += "nanim,";
                     sQry += "tukrae,";
                     sQry += "prebaby,";
+                    sQry += "mcode,";
                     sQry += "mednm";
                     sQry += " ) ";
                     sQry += "VALUES(";
@@ -507,6 +527,7 @@ namespace PSH_BOne_AddOn
                     sQry += "'" + nanim + "',";
                     sQry += "'" + tukrae + "',";
                     sQry += "'" + prebaby + "',";
+                    sQry += "'" + mcode + "',";
                     sQry += "'" + "" + "'";
                     sQry += " ) ";
 
@@ -1129,6 +1150,7 @@ namespace PSH_BOne_AddOn
                                 oForm.Items.Item("nanim").Specific.Select(oRecordSet.Fields.Item("nanim").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
                                 oForm.Items.Item("tukrae").Specific.Select(oRecordSet.Fields.Item("tukrae").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
                                 oForm.Items.Item("prebaby").Specific.Select(oRecordSet.Fields.Item("prebaby").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
+                                oForm.Items.Item("mcode").Specific.Select(oRecordSet.Fields.Item("mcode").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
 
                                 oForm.Items.Item("CLTCOD").Enabled = false;
                                 oForm.Items.Item("Year").Enabled = false;

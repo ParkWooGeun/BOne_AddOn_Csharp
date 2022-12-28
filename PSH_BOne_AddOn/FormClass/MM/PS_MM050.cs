@@ -295,7 +295,7 @@ namespace PSH_BOne_AddOn
                 {
                     for (i = 1; i <= oMat02.VisualRowCount; i++)
                     {
-                        sQry = "exec PS_MM050_02 '" + oMat02.Columns.Item("PODocNum").Cells.Item(i).Specific.Value + "','" + oMat02.Columns.Item("POLinNum").Cells.Item(i).Specific.Value + "','" + oMat02.Columns.Item("ItemCode").Cells.Item(i).Specific.Value + "','" + oMat02.Columns.Item("Qty").Cells.Item(i).Specific.Value + "'";
+                        sQry = "exec PS_MM050_02 '" + oMat02.Columns.Item("PODocNum").Cells.Item(i).Specific.Value + "','" + oMat02.Columns.Item("POLinNum").Cells.Item(i).Specific.Value + "','" + oMat02.Columns.Item("ItemCode").Cells.Item(i).Specific.Value + "'," + Convert.ToDouble(oMat02.Columns.Item("Weight").Cells.Item(i).Specific.Value) + "";
                         oRecordSet.DoQuery(sQry);
 
                         if (oRecordSet.Fields.Item(0).Value == "E")

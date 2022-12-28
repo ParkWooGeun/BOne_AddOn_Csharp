@@ -108,6 +108,7 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.DataTables.Item("PH_PY402").Columns.Add("22년전체", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
                 oForm.DataSources.DataTables.Item("PH_PY402").Columns.Add("21년전통시장", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
                 oForm.DataSources.DataTables.Item("PH_PY402").Columns.Add("22년전통시장", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
+                oForm.DataSources.DataTables.Item("PH_PY402").Columns.Add("자료구분", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
 
                 // 사업장
                 oForm.DataSources.UserDataSources.Add("CLTCOD", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
@@ -683,7 +684,7 @@ namespace PSH_BOne_AddOn
         private void PH_PY402_TitleSetting()
         {
             int i;
-            string[] COLNAM = new string[21];
+            string[] COLNAM = new string[22];
 
             try
             {
@@ -709,6 +710,7 @@ namespace PSH_BOne_AddOn
                 COLNAM[18] = "22년전체";
                 COLNAM[19] = "21년전통시장";
                 COLNAM[20] = "22년전통시장";
+                COLNAM[21] = "자료구분";
 
                 for (i = 0; i < COLNAM.Length; i++)
                 {

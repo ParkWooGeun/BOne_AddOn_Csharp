@@ -288,12 +288,13 @@ namespace PSH_BOne_AddOn
             try
             {
                 oFilePath = "\\\\" + PSH_Globals.SP_ODBC_IP + "\\pdf\\";
-                sQry = "INSERT INTO TBL_XML(CREATEDATE, BPLID ,yyyy ,MSTCOD,XMLDATA)";
-                sQry += " SELECT GETDATE() AS CREATEDATE,'" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "','" + oForm.Items.Item("Year").Specific.Value;
-                sQry += "','" + oForm.Items.Item("MSTCOD").Specific.Value + "' AS MSTCOD, '" + "', * FROM OPENROWSET (";
-                sQry += "BULK '" + oFilePath + oForm.Items.Item("MSTCOD").Specific.Value + "_PDFtoXML.xml', SINGLE_BLOB) AS x";
 
+                sQry = "INSERT INTO TBL_XML(CREATEDATE, BPLID, yyyy, MSTCOD, XMLDATA)";
+                sQry += " SELECT GETDATE() AS CREATEDATE,'" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "','" + oForm.Items.Item("Year").Specific.Value;
+                sQry += "','" + oForm.Items.Item("MSTCOD").Specific.Value + "' AS MSTCOD, * FROM OPENROWSET (";
+                sQry += "BULK '" + oFilePath + oForm.Items.Item("MSTCOD").Specific.Value + "_PDFtoXML.xml', SINGLE_BLOB) AS x";
                 oRecordSet.DoQuery(sQry);
+
                 returnValue = true;
             }
             catch (Exception ex)

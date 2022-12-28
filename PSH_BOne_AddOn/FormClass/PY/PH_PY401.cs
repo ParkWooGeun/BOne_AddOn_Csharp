@@ -409,24 +409,25 @@ namespace PSH_BOne_AddOn
                 servcomp1 = oForm.Items.Item("servcomp1").Specific.Value.ToString().Trim();
                 symd1 = oForm.Items.Item("symd1").Specific.Value.ToString().Trim();
                 eymd1 = oForm.Items.Item("eymd1").Specific.Value.ToString().Trim();
-                payrtot1 = Convert.ToDouble(oForm.Items.Item("payrtot1").Specific.Value);
-                bnstot1 = Convert.ToDouble(oForm.Items.Item("bnstot1").Specific.Value);
-                fwork1 = Convert.ToDouble(oForm.Items.Item("fwork1").Specific.Value);
-                ndtalw1 = Convert.ToDouble(oForm.Items.Item("ndtalw1").Specific.Value);
-                etcntax1 = Convert.ToDouble(oForm.Items.Item("etcntax1").Specific.Value);
-                lnchalw1 = Convert.ToDouble(oForm.Items.Item("lnchalw1").Specific.Value);
-                ftaxamt1 = Convert.ToDouble(oForm.Items.Item("ftaxamt1").Specific.Value);
-                savtaxddc1 = Convert.ToDouble(oForm.Items.Item("savtaxddc1").Specific.Value);
-                incmtax1 = Convert.ToDouble(oForm.Items.Item("incmtax1").Specific.Value);
-                fvsptax1 = Convert.ToDouble(oForm.Items.Item("fvsptax1").Specific.Value);
-                residtax1 = Convert.ToDouble(oForm.Items.Item("residtax1").Specific.Value);
-                medcinsr1 = Convert.ToDouble(oForm.Items.Item("medcinsr1").Specific.Value);
-                asopinsr1 = Convert.ToDouble(oForm.Items.Item("asopinsr1").Specific.Value);
-                annuboamt1 = Convert.ToDouble(oForm.Items.Item("annuboamt1").Specific.Value);
-                entno2 = oForm.Items.Item("entno2").Specific.Value.ToString().Trim();
-                servcomp2 = oForm.Items.Item("servcomp2").Specific.Value.ToString().Trim();
+                payrtot1 = Convert.ToDouble(oForm.Items.Item("payrtot1").Specific.Value.ToString().Trim());
+                bnstot1 = Convert.ToDouble(oForm.Items.Item("bnstot1").Specific.Value.ToString().Trim());
+                fwork1 = Convert.ToDouble(oForm.Items.Item("fwork1").Specific.Value.ToString().Trim());
+                ndtalw1 = Convert.ToDouble(oForm.Items.Item("ndtalw1").Specific.Value.ToString().Trim());
+                etcntax1 = Convert.ToDouble(oForm.Items.Item("etcntax1").Specific.Value.ToString().Trim());
+                lnchalw1 = Convert.ToDouble(oForm.Items.Item("lnchalw1").Specific.Value.ToString().Trim());
+                ftaxamt1 = Convert.ToDouble(oForm.Items.Item("ftaxamt1").Specific.Value.ToString().Trim());
+                savtaxddc1 = Convert.ToDouble(oForm.Items.Item("savtaxddc1").Specific.Value.ToString().Trim());
+                incmtax1 = Convert.ToDouble(oForm.Items.Item("incmtax1").Specific.Value.ToString().Trim());
+                fvsptax1 = Convert.ToDouble(oForm.Items.Item("fvsptax1").Specific.Value.ToString().Trim());
+                residtax1 = Convert.ToDouble(oForm.Items.Item("residtax1").Specific.Value.ToString().Trim());
+                medcinsr1 = Convert.ToDouble(oForm.Items.Item("medcinsr1").Specific.Value.ToString().Trim());
+                asopinsr1 = Convert.ToDouble(oForm.Items.Item("asopinsr1").Specific.Value.ToString().Trim());
+                annuboamt1 = Convert.ToDouble(oForm.Items.Item("annuboamt1").Specific.Value.ToString().Trim());
                 injungpay1 = Convert.ToDouble(oForm.Items.Item("injungpay1").Specific.Value.ToString().Trim());
                 overpay1 = Convert.ToDouble(oForm.Items.Item("overpay1").Specific.Value.ToString().Trim());
+
+                entno2 = oForm.Items.Item("entno2").Specific.Value.ToString().Trim();
+                servcomp2 = oForm.Items.Item("servcomp2").Specific.Value.ToString().Trim();
 
                 if (string.IsNullOrEmpty(oForm.Items.Item("symd2").Specific.Value.ToString().Trim()))
                 {
@@ -439,20 +440,20 @@ namespace PSH_BOne_AddOn
                     eymd2 = oForm.Items.Item("eymd2").Specific.Value.ToString().Trim();
                 }
 
-                payrtot2 = Convert.ToDouble(oForm.Items.Item("payrtot2").Specific.Value);
-                bnstot2 = Convert.ToDouble(oForm.Items.Item("bnstot2").Specific.Value);
-                fwork2 = Convert.ToDouble(oForm.Items.Item("fwork2").Specific.Value);
-                ndtalw2 = Convert.ToDouble(oForm.Items.Item("ndtalw2").Specific.Value);
-                etcntax2 = Convert.ToDouble(oForm.Items.Item("etcntax2").Specific.Value);
-                lnchalw2 = Convert.ToDouble(oForm.Items.Item("lnchalw2").Specific.Value);
-                ftaxamt2 = Convert.ToDouble(oForm.Items.Item("ftaxamt2").Specific.Value);
-                savtaxddc2 = Convert.ToDouble(oForm.Items.Item("savtaxddc2").Specific.Value);
-                indmtax2 = Convert.ToDouble(oForm.Items.Item("indmtax2").Specific.Value);
-                fvsptax2 = Convert.ToDouble(oForm.Items.Item("fvsptax2").Specific.Value);
-                residtax2 = Convert.ToDouble(oForm.Items.Item("residtax2").Specific.Value);
-                medcinsr2 = Convert.ToDouble(oForm.Items.Item("medcinsr2").Specific.Value);
-                asopinsr2 = Convert.ToDouble(oForm.Items.Item("asopinsr2").Specific.Value);
-                annuboamt2 = Convert.ToDouble(oForm.Items.Item("annuboamt2").Specific.Value);
+                payrtot2 = Convert.ToDouble(oForm.Items.Item("payrtot2").Specific.Value.ToString().Trim());
+                bnstot2 = Convert.ToDouble(oForm.Items.Item("bnstot2").Specific.Value.ToString().Trim());
+                fwork2 = Convert.ToDouble(oForm.Items.Item("fwork2").Specific.Value.ToString().Trim());
+                ndtalw2 = Convert.ToDouble(oForm.Items.Item("ndtalw2").Specific.Value.ToString().Trim());
+                etcntax2 = Convert.ToDouble(oForm.Items.Item("etcntax2").Specific.Value.ToString().Trim());
+                lnchalw2 = Convert.ToDouble(oForm.Items.Item("lnchalw2").Specific.Value.ToString().Trim());
+                ftaxamt2 = Convert.ToDouble(oForm.Items.Item("ftaxamt2").Specific.Value.ToString().Trim());
+                savtaxddc2 = Convert.ToDouble(oForm.Items.Item("savtaxddc2").Specific.Value.ToString().Trim());
+                indmtax2 = Convert.ToDouble(oForm.Items.Item("indmtax2").Specific.Value.ToString().Trim());
+                fvsptax2 = Convert.ToDouble(oForm.Items.Item("fvsptax2").Specific.Value.ToString().Trim());
+                residtax2 = Convert.ToDouble(oForm.Items.Item("residtax2").Specific.Value.ToString().Trim());
+                medcinsr2 = Convert.ToDouble(oForm.Items.Item("medcinsr2").Specific.Value.ToString().Trim());
+                asopinsr2 = Convert.ToDouble(oForm.Items.Item("asopinsr2").Specific.Value.ToString().Trim());
+                annuboamt2 = Convert.ToDouble(oForm.Items.Item("annuboamt2").Specific.Value.ToString().Trim());
                 injungpay2 = Convert.ToDouble(oForm.Items.Item("injungpay2").Specific.Value.ToString().Trim());
                 overpay2 = Convert.ToDouble(oForm.Items.Item("overpay2").Specific.Value.ToString().Trim());
 

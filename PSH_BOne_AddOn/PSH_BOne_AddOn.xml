@@ -69296,13 +69296,6 @@
             각 모드에 따른 아이템설정
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD045.PS_SD045_AddMatrixRow(System.Int32,System.Boolean)">
-            <summary>
-            메트릭스 Row추가
-            </summary>
-            <param name="oRow"></param>
-            <param name="RowIserted"></param>
-        </member>
         <member name="M:PSH_BOne_AddOn.PS_SD045.PS_SD045_DeleteHeaderSpaceLine">
             <summary>
             필수입력사항 체크(헤더)
@@ -69324,6 +69317,12 @@
             <summary>
             데이터 조회 (List 중 선택된 데이터)
             </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD045.PS_SD045_DI_API">
+            <summary>
+            부분반품(납품 취소)
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD045.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>

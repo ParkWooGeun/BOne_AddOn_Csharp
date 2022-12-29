@@ -75764,6 +75764,11 @@
              화면의 아이템 Enable 설정
              </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY910.PH_PY910_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY910.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Raise_FormItemEvent
@@ -75771,6 +75776,14 @@
             <param name="FormUID">Form UID</param>
             <param name="pVal">pVal</param>
             <param name="BubbleEvent">Bubble Event</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY910.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            ITEM_PRESSED 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY910.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -75795,19 +75808,6 @@
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY910.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            ITEM_PRESSED 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY910.PH_PY910_Print_Report01">
-            <summary>
-            리포트 조회
-            </summary>
         </member>
         <member name="T:PSH_BOne_AddOn.PH_PY915">
             <summary>

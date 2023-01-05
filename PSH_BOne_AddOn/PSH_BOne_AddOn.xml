@@ -95144,20 +95144,22 @@
             화면 Item 생성
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY705.PH_PY705_EnableMenus">
-            <summary>
-            메뉴 아이콘 Enable
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY705.PH_PY705_SetDocument(System.String)">
+        <member name="M:PSH_BOne_AddOn.PH_PY705.PH_PY705_SetDocument">
             <summary>
             화면세팅
             </summary>
-            <param name="oFormDocEntry"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY705.PH_PY705_FormItemEnabled">
             <summary>
             화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY705.PH_PY118_AddMatrixRow(System.Int32,System.Boolean)">
+            <summary>
+            매트릭스 행 추가
+            PH_PY118_Add_MatrixRow
+            <param name="oRow"></param>
+            <param name="RowIserted"></param>
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY705.PH_PY705_DataValidCheck">
@@ -95166,16 +95168,20 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY705.PH_PY705_DataFind">
+        <member name="M:PSH_BOne_AddOn.PH_PY705.PH_PY705_MTX01">
             <summary>
             DataFind : 자료 조회
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY705.PH_PY705_TitleSetting(System.Int32)">
+        <member name="M:PSH_BOne_AddOn.PH_PY705.PH_PY705_Save">
             <summary>
-            그리드 제목행 설정
+            급상여 변동자료 등록 테이블[@PH_PY109B]에DataBinding 
             </summary>
-            <param name="iRow"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY705.PH_PY705_Cancel">
+            <summary>
+            급상여 변동자료 등록 테이블[@PH_PY109B]에 교통비 0으로 취소
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY705.PH_PY705_Print_Report01">
             <summary>

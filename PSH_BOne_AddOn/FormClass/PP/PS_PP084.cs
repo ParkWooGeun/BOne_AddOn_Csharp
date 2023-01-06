@@ -877,6 +877,13 @@ namespace PSH_BOne_AddOn
                         ClickCode = "PQty";
                         throw new Exception();
                     }
+                    if (string.IsNullOrEmpty(oMat01.Columns.Item("PP030No").Cells.Item(i).Specific.Value))
+                    {
+                        errMessage = "작업지시문서는 필수입니다.";
+                        type = "M";
+                        ClickCode = "PP030No";
+                        throw new Exception();
+                    }
                     //기계몰드는 수주수량보다 생산수량이 많을 수 없다.
                     if (oForm.Items.Item("OrdGbn").Specific.Selected.Value == "105" || oForm.Items.Item("OrdGbn").Specific.Selected.Value == "106")
                     {
@@ -1471,9 +1478,13 @@ namespace PSH_BOne_AddOn
             int j;
             string Check = string.Empty;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            string sQry;
+            string errMessage = string.Empty;
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
+
                 oForm.Freeze(true);
                 if (pVal.BeforeAction == true)
                 {
@@ -1511,14 +1522,25 @@ namespace PSH_BOne_AddOn
                             oDS_PS_PP084L.Clear();
                         }
                         j = 0;
+
+                        sQry = " Select U_ReleaYN FROM [@PS_QM008H] ";
+                        sQry += " WHERE U_InspNo = '" + oDS_PS_PP0841L.GetValue("U_ColReg05", pVal.Row - 1).ToString().Trim() + "'";
+                        oRecordSet01.DoQuery(sQry);
+
+                        if (oRecordSet01.Fields.Item(0).Value.ToString().Trim() == "Y")
+                        {
+                            errMessage = "출고금지입니다. 성적서를 확인해주세요.";
+                            throw new Exception();
+                        }
                         for (i = 0; i <= oMat01.VisualRowCount - 1; i++)
                         {
                             if (oDS_PS_PP084L.GetValue("U_PP030No", i).ToString().Trim() == oDS_PS_PP0841L.GetValue("U_ColReg01", pVal.Row - 1).ToString().Trim() && oDS_PS_PP084L.GetValue("U_BatchNum", i).ToString().Trim() == oDS_PS_PP0841L.GetValue("U_ColReg04", pVal.Row - 1).ToString().Trim())
                             {
-                                dataHelpClass.MDC_GF_Message( "같은 행을 두번 선택할 수 없습니다. 확인하세요.","W");
+                                dataHelpClass.MDC_GF_Message("같은 행을 두번 선택할 수 없습니다. 확인하세요.", "W");
                                 j = 1;
                             }
                         }
+
                         if (j == 0)
                         {
                             oMat01.Columns.Item("BatchNum").Cells.Item(oMat01.VisualRowCount).Specific.Value = oDS_PS_PP0841L.GetValue("U_ColReg04", pVal.Row - 1).ToString().Trim();
@@ -1535,7 +1557,14 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                if (errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
             }
             finally
             {

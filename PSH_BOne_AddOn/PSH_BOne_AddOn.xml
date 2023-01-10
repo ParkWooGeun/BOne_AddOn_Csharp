@@ -28105,6 +28105,11 @@
             메트릭스에 데이터 로드
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_MM919.PS_MM919_Print_Report01">
+            <summary>
+            리포트 조회
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_MM919.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event

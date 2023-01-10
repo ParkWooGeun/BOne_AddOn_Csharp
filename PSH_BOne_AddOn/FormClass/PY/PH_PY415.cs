@@ -391,15 +391,15 @@ namespace PSH_BOne_AddOn
                     }
                 }
 
-                ProgressBar01.Value = 0;
-                ProgressBar01.Text = "기부조정 계산 처리중...!";
+                //ProgressBar01.Value = 0;
+                //ProgressBar01.Text = "기부조정 계산 처리중...!";
 
-                // 정산계산은 사원별로 하고 기부조정은 전체로함
-                if (Convert.ToDouble(Year) >= 2022)
-                {
-                    sQry = "EXEC PH_PY415_2022_04 '" + CLTCOD + "','" + Year + "'";  //기부조정 계산
-                    oRecordSet.DoQuery(sQry);
-                }
+                //// 정산계산은 사원별로 하고 기부조정은 전체로함
+                //if (Convert.ToDouble(Year) >= 2022)
+                //{
+                //    sQry = "EXEC PH_PY415_2022_04 '" + CLTCOD + "','" + Year + "'";  //기부조정 계산
+                //    oRecordSet.DoQuery(sQry);
+                //}
 
                 returnValue = "정산계산을 완료하였습니다.";
             }

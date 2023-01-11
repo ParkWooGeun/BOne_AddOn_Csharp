@@ -391,6 +391,7 @@ namespace PSH_BOne_AddOn
                     }
                 }
 
+                //2022년에 개인별계산으로 변경(PH_PY415_2022_02 기부금계산속으로 이동)
                 //ProgressBar01.Value = 0;
                 //ProgressBar01.Text = "기부조정 계산 처리중...!";
 

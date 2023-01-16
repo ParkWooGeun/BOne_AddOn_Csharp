@@ -300,7 +300,7 @@ namespace PSH_BOne_AddOn
 
                 if (MSTCOD == "%") // 전체계산
                 {
-                    if (Convert.ToDouble(Year) >= 2021)  // 2021귀속
+                    if (Convert.ToDouble(Year) >= 2022)  // 2022귀속
                     {
                         sQry = "    SELECT Distinct ";
                         sQry += "          a.sabun AS [MSTCOD], ";
@@ -359,13 +359,13 @@ namespace PSH_BOne_AddOn
                         {
                             sabun = oMat1.Columns.Item("MSTCOD").Cells.Item(i).Specific.Value.ToString().Trim();
 
-                            if (Convert.ToDouble(Year) >= 2021)
+                            if (Convert.ToDouble(Year) >= 2022)
                             {
-                                sQry = "EXEC PH_PY415_2021 '" + CLTCOD + "','" + Year + "','" + sabun + "'";
+                                sQry = "EXEC PH_PY415_2022 '" + CLTCOD + "','" + Year + "','" + sabun + "'";
                                 oRecordSet.DoQuery(sQry);
-                                sQry = "EXEC PH_PY415_2021_02 '" + CLTCOD + "','" + Year + "','" + sabun + "'"; //정산 계산
+                                sQry = "EXEC PH_PY415_2022_02 '" + CLTCOD + "','" + Year + "','" + sabun + "'"; //정산 계산
                                 oRecordSet.DoQuery(sQry);
-                                sQry = "EXEC PH_PY415_2021_03 '" + CLTCOD + "','" + Year + "','" + sabun + "'"; //표준공제 계산
+                                sQry = "EXEC PH_PY415_2022_03 '" + CLTCOD + "','" + Year + "','" + sabun + "'"; //표준공제 계산
                                 oRecordSet.DoQuery(sQry);
                             }
 
@@ -376,30 +376,31 @@ namespace PSH_BOne_AddOn
                 }
                 else // 개인별 계산
                 {
-                    if (Convert.ToDouble(Year) >= 2021)
+                    if (Convert.ToDouble(Year) >= 2022)
                     {
                         oDS_PH_PY415B.SetValue("U_ColReg01", 0, oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim());
                         oDS_PH_PY415B.SetValue("U_ColReg02", 0, oForm.Items.Item("FullName").Specific.Value.ToString().Trim());
                         oMat1.LoadFromDataSource();
 
-                        sQry = "EXEC PH_PY415_2021 '" + CLTCOD + "','" + Year + "','" + MSTCOD + "'";
+                        sQry = "EXEC PH_PY415_2022 '" + CLTCOD + "','" + Year + "','" + MSTCOD + "'";
                         oRecordSet.DoQuery(sQry);
-                        sQry = "EXEC PH_PY415_2021_02 '" + CLTCOD + "','" + Year + "','" + MSTCOD + "'"; //정산 계산
+                        sQry = "EXEC PH_PY415_2022_02 '" + CLTCOD + "','" + Year + "','" + MSTCOD + "'"; //정산 계산
                         oRecordSet.DoQuery(sQry);
-                        sQry = "EXEC PH_PY415_2021_03 '" + CLTCOD + "','" + Year + "','" + MSTCOD + "'"; //표준공제 계산
+                        sQry = "EXEC PH_PY415_2022_03 '" + CLTCOD + "','" + Year + "','" + MSTCOD + "'"; //표준공제 계산
                         oRecordSet.DoQuery(sQry);
                     }
                 }
 
-                ProgressBar01.Value = 0;
-                ProgressBar01.Text = "기부조정 계산 처리중...!";
+                //2022년에 개인별계산으로 변경(PH_PY415_2022_02 기부금계산속으로 이동)
+                //ProgressBar01.Value = 0;
+                //ProgressBar01.Text = "기부조정 계산 처리중...!";
 
-                // 정산계산은 사원별로 하고 기부조정은 전체로함
-                if (Convert.ToDouble(Year) >= 2021)
-                {
-                    sQry = "EXEC PH_PY415_2021_04 '" + CLTCOD + "','" + Year + "'";  //기부조정 계산
-                    oRecordSet.DoQuery(sQry);
-                }
+                //// 정산계산은 사원별로 하고 기부조정은 전체로함
+                //if (Convert.ToDouble(Year) >= 2022)
+                //{
+                //    sQry = "EXEC PH_PY415_2022_04 '" + CLTCOD + "','" + Year + "'";  //기부조정 계산
+                //    oRecordSet.DoQuery(sQry);
+                //}
 
                 returnValue = "정산계산을 완료하였습니다.";
             }

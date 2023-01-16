@@ -91,20 +91,6 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.UserDataSources.Add("MSTCOD", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("MSTCOD").Specific.DataBind.SetBound(true, "", "MSTCOD");
 
-                //주택소유여뷰
-                oForm.DataSources.UserDataSources.Add("HouseYN", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
-                oForm.Items.Item("HouseYN").Specific.ValidValues.Add("", "선택");
-                oForm.Items.Item("HouseYN").Specific.ValidValues.Add("1", "소유");
-                oForm.Items.Item("HouseYN").Specific.ValidValues.Add("2", "미소유");
-                oForm.Items.Item("HouseYN").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-
-                //세대주여부
-                oForm.DataSources.UserDataSources.Add("SaedeYN", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
-                oForm.Items.Item("SaedeYN").Specific.ValidValues.Add("", "선택");
-                oForm.Items.Item("SaedeYN").Specific.ValidValues.Add("1", "세대주");
-                oForm.Items.Item("SaedeYN").Specific.ValidValues.Add("2", "세대원");
-                oForm.Items.Item("SaedeYN").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-
                 //파일경로
                 oForm.DataSources.UserDataSources.Add("Comments", SAPbouiCOM.BoDataType.dt_LONG_TEXT, 200);
                 oForm.Items.Item("Comments").Specific.DataBind.SetBound(true, "", "Comments");
@@ -256,18 +242,6 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                if (string.IsNullOrEmpty(oForm.Items.Item("HouseYN").Specific.Value.Trim()))
-                {
-                    errMessage = "주택소유여부는 필수입니다.";
-                    throw new Exception();
-                }
-
-                if (string.IsNullOrEmpty(oForm.Items.Item("SaedeYN").Specific.Value.Trim()))
-                {
-                    errMessage = "세대주여부는 필수입니다.";
-                    throw new Exception();
-                }
-
                 sQry = "select count(*)  from [p_seoybase] where div in (10) and yyyy = '" + oForm.Items.Item("Year").Specific.Value.Trim() + "' and sabun ='" + oForm.Items.Item("MSTCOD").Specific.Value.Trim() + "'";
                 oRecordSet.DoQuery(sQry);
 
@@ -308,23 +282,19 @@ namespace PSH_BOne_AddOn
         {
             bool returnValue = false;
             string sQry;
-            string HouseYN;
-            string SaedeYN;
             string oFilePath;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
-                HouseYN = oForm.Items.Item("HouseYN").Specific.Value.ToString().Trim();
-                SaedeYN = oForm.Items.Item("SaedeYN").Specific.Value.ToString().Trim();
                 oFilePath = "\\\\" + PSH_Globals.SP_ODBC_IP + "\\pdf\\";
 
-                sQry = "INSERT INTO TBL_XML(CREATEDATE, BPLID ,yyyy ,MSTCOD, HouseYN, SaedeYN ,XMLDATA)";
+                sQry = "INSERT INTO TBL_XML(CREATEDATE, BPLID, yyyy, MSTCOD, XMLDATA)";
                 sQry += " SELECT GETDATE() AS CREATEDATE,'" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "','" + oForm.Items.Item("Year").Specific.Value;
-                sQry += "','" + oForm.Items.Item("MSTCOD").Specific.Value + "' AS MSTCOD, '" + HouseYN  + "','" + SaedeYN  + "', * FROM OPENROWSET (";
+                sQry += "','" + oForm.Items.Item("MSTCOD").Specific.Value + "' AS MSTCOD, * FROM OPENROWSET (";
                 sQry += "BULK '" + oFilePath + oForm.Items.Item("MSTCOD").Specific.Value + "_PDFtoXML.xml', SINGLE_BLOB) AS x";
-
                 oRecordSet.DoQuery(sQry);
+
                 returnValue = true;
             }
             catch (Exception ex)
@@ -343,23 +313,18 @@ namespace PSH_BOne_AddOn
             string CLTCOD;
             string Year;
             string MSTCOD;
-            string HouseYN;
-            string SaedeYN;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
 
             try
             {
                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                 Year = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
-                HouseYN = oForm.Items.Item("HouseYN").Specific.Value.ToString().Trim();
-                SaedeYN = oForm.Items.Item("SaedeYN").Specific.Value.ToString().Trim();
 
                 sQry = "Exec PH_PY420_01 '" + CLTCOD + "', '" + Year + "', '" + MSTCOD + "'";
                 oRecordSet.DoQuery(sQry);
 
-                sQry = "Exec PH_PY420_02 '" + CLTCOD + "', '" + Year + "', '" + MSTCOD + "', '" + HouseYN + "', '" + SaedeYN + "'";
+                sQry = "Exec PH_PY420_02 '" + CLTCOD + "', '" + Year + "', '" + MSTCOD + "'";
                 oRecordSet.DoQuery(sQry);
 
                 PSH_Globals.SBO_Application.StatusBar.SetText("PDF자료가 등록 되었습니다. ", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);

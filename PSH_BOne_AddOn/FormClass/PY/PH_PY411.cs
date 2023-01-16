@@ -95,6 +95,8 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.DataTables.Item("PH_PY411").Columns.Add("사업장", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
                 oForm.DataSources.DataTables.Item("PH_PY411").Columns.Add("투자년도", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
                 oForm.DataSources.DataTables.Item("PH_PY411").Columns.Add("투자구분", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
+                oForm.DataSources.DataTables.Item("PH_PY411").Columns.Add("가입일", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
+                oForm.DataSources.DataTables.Item("PH_PY411").Columns.Add("계약기간", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
 
                 // 사업장
                 oForm.DataSources.UserDataSources.Add("CLTCOD", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
@@ -138,17 +140,25 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("gubun").DisplayDesc = true;
                 oForm.Items.Item("gubun").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
-                // 투자년도(중소기업창업투자조합출자) 18년추가
+                // 투자년도
                 oForm.DataSources.UserDataSources.Add("tyyyy", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 4);
                 oForm.Items.Item("tyyyy").Specific.DataBind.SetBound(true, "", "tyyyy");
 
-                // 투자구분(중소기업창업투자조합출자) 18년추가
+                // 투자구분
                 oForm.DataSources.UserDataSources.Add("tgubun", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("tgubun").Specific.DataBind.SetBound(true, "", "tgubun");
                 sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '83' AND U_UseYN= 'Y'";
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("tgubun").Specific, "Y");
                 oForm.Items.Item("tgubun").DisplayDesc = true;
                 oForm.Items.Item("tgubun").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+
+                // 가입일
+                oForm.DataSources.UserDataSources.Add("gymd", SAPbouiCOM.BoDataType.dt_DATE, 8);
+                oForm.Items.Item("gymd").Specific.DataBind.SetBound(true, "", "gymd");
+
+                // 계약기간
+                oForm.DataSources.UserDataSources.Add("gterm", SAPbouiCOM.BoDataType.dt_SUM);
+                oForm.Items.Item("gterm").Specific.DataBind.SetBound(true, "", "gterm");
 
                 // 금융기관코드
                 oForm.DataSources.UserDataSources.Add("bcode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
@@ -196,6 +206,8 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("gubun").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
                 oForm.Items.Item("tyyyy").Specific.Value = "";
                 oForm.Items.Item("tgubun").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+                oForm.Items.Item("gymd").Specific.Value = "";
+                oForm.Items.Item("gterm").Specific.Value = 0;
                 oForm.Items.Item("bcode").Specific.Value = "";
                 oForm.Items.Item("bname").Specific.Value = "";
                 oForm.Items.Item("bnum").Specific.Value = "";
@@ -211,6 +223,9 @@ namespace PSH_BOne_AddOn
 
                 oForm.Items.Item("tyyyy").Enabled = false;
                 oForm.Items.Item("tgubun").Enabled = false;
+
+                oForm.Items.Item("gymd").Enabled = false;
+                oForm.Items.Item("gterm").Enabled = false;
             }
             catch (Exception ex)
             {
@@ -290,9 +305,11 @@ namespace PSH_BOne_AddOn
             string bcode;
             string bname;
             string bnum;
+            string gymd;
             double yuncha;
             double Amt;
             double gamt;
+            double gterm;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -305,6 +322,8 @@ namespace PSH_BOne_AddOn
                 Gubun = oForm.Items.Item("gubun").Specific.Value.ToString().Trim();
                 tyyyy = oForm.Items.Item("tyyyy").Specific.Value.ToString().Trim();
                 tgubun = oForm.Items.Item("tgubun").Specific.Value.ToString().Trim();
+                gymd = oForm.Items.Item("gymd").Specific.Value.ToString().Trim();
+                gterm = Convert.ToDouble(oForm.Items.Item("gterm").Specific.Value.ToString().Trim());
                 bcode = oForm.Items.Item("bcode").Specific.Value.ToString().Trim();
                 bname = oForm.Items.Item("bname").Specific.Value.ToString().Trim();
                 bnum = oForm.Items.Item("bnum").Specific.Value.ToString().Trim();
@@ -351,7 +370,9 @@ namespace PSH_BOne_AddOn
                     sQry += "bnum = '" + bnum + "',";
                     sQry += "yuncha = " + yuncha + ",";
                     sQry += "amt = " + Amt + ",";
-                    sQry += "gamt = " + gamt + "";
+                    sQry += "gamt = " + gamt + ",";
+                    sQry += "gymd = '" + gymd + "',";
+                    sQry += "gterm = " + gterm + "";
                     sQry += " Where saup = '" + saup + "' And yyyy = '" + yyyy + "' And sabun = '" + sabun + "' And seqn = '" + seqn + "'";
 
                     oRecordSet.DoQuery(sQry);
@@ -385,7 +406,9 @@ namespace PSH_BOne_AddOn
                     sQry += "bnum,";
                     sQry += "yuncha,";
                     sQry += "amt,";
-                    sQry += "gamt";
+                    sQry += "gamt,";
+                    sQry += "gymd,";
+                    sQry += "gterm";
                     sQry += " ) ";
                     sQry += "VALUES(";
 
@@ -401,7 +424,9 @@ namespace PSH_BOne_AddOn
                     sQry += "'" + bnum + "',";
                     sQry += yuncha + ",";
                     sQry += Amt + ",";
-                    sQry += gamt + "";
+                    sQry += gamt + ",";
+                    sQry += "'" + gymd + "',";
+                    sQry += gterm + "";
                     sQry += " ) ";
 
                     oRecordSet.DoQuery(sQry);
@@ -474,7 +499,7 @@ namespace PSH_BOne_AddOn
         private void PH_PY411_TitleSetting(int iRow)
         {
             int i;
-            string[] COLNAM = new string[14];
+            string[] COLNAM = new string[16];
 
             try
             {
@@ -493,6 +518,8 @@ namespace PSH_BOne_AddOn
                 COLNAM[11] = "사업장";
                 COLNAM[12] = "투자년도";
                 COLNAM[13] = "투자구분";
+                COLNAM[14] = "계약일";
+                COLNAM[15] = "계약기간";
 
                 for (i = 0; i < COLNAM.Length; i++)
                 {
@@ -661,13 +688,25 @@ namespace PSH_BOne_AddOn
 
                             switch (Gubun)
                             {
-                                case "61":
+                                case "61": // 중소기업창업투자조합 출자
                                     oForm.Items.Item("tyyyy").Enabled = true;
                                     oForm.Items.Item("tgubun").Enabled = true;
+                                    oForm.Items.Item("gymd").Enabled = false;
+                                    oForm.Items.Item("gterm").Enabled = false;
+                                    oForm.ActiveItem = "tyyyy";
+                                    break;
+                                case "81": // 청년형 장기집합투자증권저축
+                                    oForm.Items.Item("gymd").Enabled = true;
+                                    oForm.Items.Item("gterm").Enabled = true;
+                                    oForm.Items.Item("tyyyy").Enabled = false;
+                                    oForm.Items.Item("tgubun").Enabled = false;
+                                    oForm.ActiveItem = "gymd";
                                     break;
                                 default:
                                     oForm.Items.Item("tyyyy").Enabled = false;
                                     oForm.Items.Item("tgubun").Enabled = false;
+                                    oForm.Items.Item("gymd").Enabled = false;
+                                    oForm.Items.Item("gterm").Enabled = false;
                                     break;
                             }
                         }
@@ -1024,6 +1063,8 @@ namespace PSH_BOne_AddOn
                                 oForm.Items.Item("gubun").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
                                 oForm.Items.Item("tyyyy").Specific.Value = "";
                                 oForm.Items.Item("tgubun").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+                                oForm.Items.Item("gymd").Specific.Value = "";
+                                oForm.Items.Item("gterm").Specific.Value = 0;
                                 oForm.Items.Item("bcode").Specific.Value = "";
                                 oForm.Items.Item("bname").Specific.Value = "";
                                 oForm.Items.Item("bnum").Specific.Value = "";
@@ -1039,6 +1080,8 @@ namespace PSH_BOne_AddOn
                                 oForm.Items.Item("gubun").Specific.Select(oRecordSet.Fields.Item("gubun").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
                                 oForm.DataSources.UserDataSources.Item("tyyyy").Value = oRecordSet.Fields.Item("tyyyy").Value.ToString().Trim();
                                 oForm.Items.Item("tgubun").Specific.Select(oRecordSet.Fields.Item("tgubun").Value, SAPbouiCOM.BoSearchKey.psk_ByValue);
+                                oForm.DataSources.UserDataSources.Item("gymd").Value = oRecordSet.Fields.Item("gymd").Value.ToString().Trim();
+                                oForm.DataSources.UserDataSources.Item("gterm").Value = oRecordSet.Fields.Item("gterm").Value.ToString().Trim();
                                 oForm.DataSources.UserDataSources.Item("bcode").Value = oRecordSet.Fields.Item("bcode").Value.ToString().Trim();
                                 oForm.DataSources.UserDataSources.Item("bname").Value = oRecordSet.Fields.Item("bname").Value.ToString().Trim();
                                 oForm.DataSources.UserDataSources.Item("yuncha").Value = oRecordSet.Fields.Item("yuncha").Value.ToString().Trim();

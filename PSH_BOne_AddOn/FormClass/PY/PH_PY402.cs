@@ -1,5 +1,4 @@
 ﻿using System;
-using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.Code;
 
@@ -101,11 +100,15 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.DataTables.Item("PH_PY402").Columns.Add("금액(국세청)", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
                 oForm.DataSources.DataTables.Item("PH_PY402").Columns.Add("금액(국세청외)", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
                 oForm.DataSources.DataTables.Item("PH_PY402").Columns.Add("전통시장", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
-                oForm.DataSources.DataTables.Item("PH_PY402").Columns.Add("대중교통", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
+                oForm.DataSources.DataTables.Item("PH_PY402").Columns.Add("대중교통1-6", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
+                oForm.DataSources.DataTables.Item("PH_PY402").Columns.Add("대중교통7-12", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
                 oForm.DataSources.DataTables.Item("PH_PY402").Columns.Add("도서공연", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
                 oForm.DataSources.DataTables.Item("PH_PY402").Columns.Add("합계금액", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
-                oForm.DataSources.DataTables.Item("PH_PY402").Columns.Add("20년사용분", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
-                oForm.DataSources.DataTables.Item("PH_PY402").Columns.Add("21년사용분", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
+                oForm.DataSources.DataTables.Item("PH_PY402").Columns.Add("21년전체", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
+                oForm.DataSources.DataTables.Item("PH_PY402").Columns.Add("22년전체", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
+                oForm.DataSources.DataTables.Item("PH_PY402").Columns.Add("21년전통시장", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
+                oForm.DataSources.DataTables.Item("PH_PY402").Columns.Add("22년전통시장", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
+                oForm.DataSources.DataTables.Item("PH_PY402").Columns.Add("자료구분", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
 
                 // 사업장
                 oForm.DataSources.UserDataSources.Add("CLTCOD", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
@@ -203,13 +206,25 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.UserDataSources.Add("bookpms", SAPbouiCOM.BoDataType.dt_SUM);
                 oForm.Items.Item("bookpms").Specific.DataBind.SetBound(true, "", "bookpms");
 
-                // 2020년사용분
-                oForm.DataSources.UserDataSources.Add("card20", SAPbouiCOM.BoDataType.dt_SUM);
-                oForm.Items.Item("card20").Specific.DataBind.SetBound(true, "", "card20");
+                // 2021년사용분전체
+                oForm.DataSources.UserDataSources.Add("cardpre", SAPbouiCOM.BoDataType.dt_SUM);
+                oForm.Items.Item("cardpre").Specific.DataBind.SetBound(true, "", "cardpre");
 
-                // 2021년사용분
-                oForm.DataSources.UserDataSources.Add("card21", SAPbouiCOM.BoDataType.dt_SUM);
-                oForm.Items.Item("card21").Specific.DataBind.SetBound(true, "", "card21");
+                // 2022년사용분전체
+                oForm.DataSources.UserDataSources.Add("cardcur", SAPbouiCOM.BoDataType.dt_SUM);
+                oForm.Items.Item("cardcur").Specific.DataBind.SetBound(true, "", "cardcur");
+
+                // 2021년 전통시장
+                oForm.DataSources.UserDataSources.Add("mart44", SAPbouiCOM.BoDataType.dt_SUM);
+                oForm.Items.Item("mart44").Specific.DataBind.SetBound(true, "", "mart44");
+
+                // 2022년전통시장
+                oForm.DataSources.UserDataSources.Add("mart47", SAPbouiCOM.BoDataType.dt_SUM);
+                oForm.Items.Item("mart47").Specific.DataBind.SetBound(true, "", "mart47");
+
+                // 대중교통 7-12월
+                oForm.DataSources.UserDataSources.Add("trans44", SAPbouiCOM.BoDataType.dt_SUM);
+                oForm.Items.Item("trans44").Specific.DataBind.SetBound(true, "", "trans44");
 
                 //장애인코드
                 oForm.DataSources.UserDataSources.Add("hdcode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
@@ -248,6 +263,8 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("TeamName").Specific.Value = "";
                     oForm.Items.Item("RspName").Specific.Value = "";
                     oForm.Items.Item("ClsName").Specific.Value = "";
+                    oForm.Items.Item("Status").Specific.Value = "";
+                    oForm.Items.Item("TermDate").Specific.Value = "";
                 }
 
                 oForm.DataSources.UserDataSources.Item("div").Value = "";
@@ -269,15 +286,21 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("mart24").Enabled = false;
                 oForm.Items.Item("trans24").Enabled = false;
                 oForm.Items.Item("bookpms").Enabled = false;
-                oForm.Items.Item("card20").Enabled = false;
-                oForm.Items.Item("card21").Enabled = false;
+                oForm.Items.Item("cardpre").Enabled = false;
+                oForm.Items.Item("cardcur").Enabled = false;
+                oForm.Items.Item("mart44").Enabled = false;
+                oForm.Items.Item("mart47").Enabled = false;
+                oForm.Items.Item("trans44").Enabled = false;
 
                 oForm.DataSources.UserDataSources.Item("ntsamt24").Value = "0";
                 oForm.DataSources.UserDataSources.Item("mart24").Value = "0";
                 oForm.DataSources.UserDataSources.Item("trans24").Value = "0";
                 oForm.DataSources.UserDataSources.Item("bookpms").Value = "0";
-                oForm.DataSources.UserDataSources.Item("card20").Value = "0";
-                oForm.DataSources.UserDataSources.Item("card21").Value = "0";
+                oForm.DataSources.UserDataSources.Item("cardpre").Value = "0";
+                oForm.DataSources.UserDataSources.Item("cardcur").Value = "0";
+                oForm.DataSources.UserDataSources.Item("mart44").Value = "0";
+                oForm.DataSources.UserDataSources.Item("mart47").Value = "0";
+                oForm.DataSources.UserDataSources.Item("trans44").Value = "0";
             }
             catch (Exception ex)
             {
@@ -325,7 +348,7 @@ namespace PSH_BOne_AddOn
                 sQry = "EXEC PH_PY402_01 '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("Year").Specific.Value.ToString().Trim() + "', '" + oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() + "'";
                 oDS_PH_PY402A.ExecuteQuery(sQry);
                 iRow = oForm.DataSources.DataTables.Item(0).Rows.Count;
-                PH_PY402_TitleSetting(ref iRow);
+                PH_PY402_TitleSetting();
                 oGrid.AutoResizeColumns();
             }
             catch (Exception ex)
@@ -365,8 +388,11 @@ namespace PSH_BOne_AddOn
             double mart24;
             double trans24;
             double bookpms;
-            double card20;
-            double card21;
+            double cardpre;
+            double cardcur;
+            double mart44;
+            double mart47;
+            double trans44;
             string sQry;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -394,8 +420,11 @@ namespace PSH_BOne_AddOn
                 mart24 = Convert.ToDouble(oForm.Items.Item("mart24").Specific.Value.ToString().Trim());
                 trans24 = Convert.ToDouble(oForm.Items.Item("trans24").Specific.Value.ToString().Trim());
                 bookpms = Convert.ToDouble(oForm.Items.Item("bookpms").Specific.Value.ToString().Trim());
-                card20 = Convert.ToDouble(oForm.Items.Item("card20").Specific.Value.ToString().Trim());
-                card21 = Convert.ToDouble(oForm.Items.Item("card21").Specific.Value.ToString().Trim());
+                cardpre = Convert.ToDouble(oForm.Items.Item("cardpre").Specific.Value.ToString().Trim());
+                cardcur = Convert.ToDouble(oForm.Items.Item("cardcur").Specific.Value.ToString().Trim());
+                mart44 = Convert.ToDouble(oForm.Items.Item("mart44").Specific.Value.ToString().Trim());
+                mart47 = Convert.ToDouble(oForm.Items.Item("mart47").Specific.Value.ToString().Trim());
+                trans44 = Convert.ToDouble(oForm.Items.Item("trans44").Specific.Value.ToString().Trim());
 
                 if (string.IsNullOrWhiteSpace(CLTCOD))
                 {
@@ -423,7 +452,7 @@ namespace PSH_BOne_AddOn
                     hdcode = "";
                 }
 
-                if (string.IsNullOrEmpty(juminno) || (Div != "70" && Amt + ntsamt + ntsamt24 + mart24 + trans24 + bookpms + card20 + card21 == 0)) //기본공제제외자(70)
+                if (string.IsNullOrEmpty(juminno) || (Div != "70" && Amt + ntsamt + ntsamt24 + mart24 + trans24 + bookpms + cardpre + cardcur == 0)) //기본공제제외자(70)
                 {
                     ErrNum = 5;
                     throw new Exception();
@@ -495,8 +524,11 @@ namespace PSH_BOne_AddOn
                     sQry += "mart24 =" + mart24 + ",";
                     sQry += "trans24 =" + trans24 + ",";
                     sQry += "bookpms =" + bookpms + ",";
-                    sQry += "card20 =" + card20 + ",";
-                    sQry += "card21 =" + card21;
+                    sQry += "cardpre =" + cardpre + ",";
+                    sQry += "cardcur =" + cardcur + ",";
+                    sQry += "mart44 =" + mart44 + ",";
+                    sQry += "mart47 =" + mart47 + ",";
+                    sQry += "trans44 =" + trans44;
                     sQry += " Where saup = '" + CLTCOD + "' And yyyy = '" + YEAR + "' And sabun = '" + MSTCOD + "'";
                     sQry += " And div = '" + Div + "' And target = '" + target + "' And juminno = '" + juminno + "'";
 
@@ -526,8 +558,11 @@ namespace PSH_BOne_AddOn
                     sQry += "mart24, ";
                     sQry += "trans24, ";
                     sQry += "bookpms, ";
-                    sQry += "card20, ";
-                    sQry += "card21 ) ";
+                    sQry += "cardpre, ";
+                    sQry += "cardcur, ";
+                    sQry += "mart44, ";
+                    sQry += "mart47, ";
+                    sQry += "trans44 ) ";
                     sQry += " VALUES(";
 
                     sQry += "'" + CLTCOD + "',";
@@ -547,8 +582,11 @@ namespace PSH_BOne_AddOn
                     sQry += mart24 + ",";
                     sQry += trans24 + ",";
                     sQry += bookpms + ",";
-                    sQry += card20 + ",";
-                    sQry += card21 + " )";
+                    sQry += cardpre + ",";
+                    sQry += cardcur + ",";
+                    sQry += mart44 + ",";
+                    sQry += mart47 + ",";
+                    sQry += trans44 + " )";
 
                     oRecordSet.DoQuery(sQry);
                     PH_PY402_DataFind();
@@ -643,10 +681,10 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// PH_PY402_TitleSetting
         /// </summary>
-        private void PH_PY402_TitleSetting(ref int iRow)
+        private void PH_PY402_TitleSetting()
         {
             int i;
-            string[] COLNAM = new string[18];
+            string[] COLNAM = new string[22];
 
             try
             {
@@ -664,11 +702,15 @@ namespace PSH_BOne_AddOn
                 COLNAM[10] = "금액(국세청)";
                 COLNAM[11] = "금액(국세청외)";
                 COLNAM[12] = "전통시장";
-                COLNAM[13] = "대중교통";
-                COLNAM[14] = "도서공연";
-                COLNAM[15] = "합계금액";
-                COLNAM[16] = "20년사용분";
-                COLNAM[17] = "21년사용분";
+                COLNAM[13] = "대중교통1-6";
+                COLNAM[14] = "대중교통7-12";
+                COLNAM[15] = "도서공연";
+                COLNAM[16] = "합계금액";
+                COLNAM[17] = "21년전체";
+                COLNAM[18] = "22년전체";
+                COLNAM[19] = "21년전통시장";
+                COLNAM[20] = "22년전통시장";
+                COLNAM[21] = "자료구분";
 
                 for (i = 0; i < COLNAM.Length; i++)
                 {
@@ -921,7 +963,6 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemChanged == true)
                     {
-
                         if (pVal.ItemUID == "relate")
                         {
                             oMat.Clear();
@@ -1022,8 +1063,9 @@ namespace PSH_BOne_AddOn
                                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
 
-                                sQry  = "Select Code,";
+                                sQry = "Select Code,";
                                 sQry += " FullName = U_FullName,";
+                                sQry += " TermDate = COALESCE(CONVERT(CHAR(10), U_termDate, 112),''),";
                                 sQry += " TeamName = Isnull((SELECT U_CodeNm";
                                 sQry += " From [@PS_HR200L]";
                                 sQry += " WHERE Code = '1'";
@@ -1036,17 +1078,22 @@ namespace PSH_BOne_AddOn
                                 sQry += " From [@PS_HR200L]";
                                 sQry += " WHERE Code = '9'";
                                 sQry += " And U_Code  = U_ClsCode";
-                                sQry += " And U_Char3 = U_CLTCOD),'')";
+                                sQry += " And U_Char3 = U_CLTCOD),''),";
+                                sQry += " Status = isnull((SELECT name ";
+                                sQry += " FROM[OHST]";
+                                sQry += " WHERE statusID = U_Status),'')";
                                 sQry += " From [@PH_PY001A]";
                                 sQry += " Where U_CLTCOD = '" + CLTCOD + "'";
                                 sQry += " and Code = '" + MSTCOD + "'";
-
                                 oRecordSet.DoQuery(sQry);
 
-                                oForm.Items.Item("FullName").Specific.Value = oRecordSet.Fields.Item("FullName").Value.ToString().Trim();
+                                oForm.DataSources.UserDataSources.Item("FullName").Value = oRecordSet.Fields.Item("FullName").Value.ToString().Trim();
+                                // oForm.Items.Item("FullName").Specific.Value = oRecordSet.Fields.Item("FullName").Value.ToString().Trim(); //이벤트가 발생함
                                 oForm.Items.Item("TeamName").Specific.Value = oRecordSet.Fields.Item("TeamName").Value.ToString().Trim();
                                 oForm.Items.Item("RspName").Specific.Value = oRecordSet.Fields.Item("RspName").Value.ToString().Trim();
                                 oForm.Items.Item("ClsName").Specific.Value = oRecordSet.Fields.Item("ClsName").Value.ToString().Trim();
+                                oForm.Items.Item("Status").Specific.Value = oRecordSet.Fields.Item("Status").Value.ToString().Trim();
+                                oForm.Items.Item("TermDate").Specific.Value = oRecordSet.Fields.Item("TermDate").Value.ToString().Trim();
                                 break;
 
                             case "FullName":
@@ -1055,6 +1102,7 @@ namespace PSH_BOne_AddOn
 
                                 sQry  = "Select Code,";
                                 sQry += " FullName = U_FullName,";
+                                sQry += " TermDate = COALESCE(CONVERT(CHAR(10), U_termDate, 112),''),";
                                 sQry += " TeamName = Isnull((SELECT U_CodeNm";
                                 sQry += " From [@PS_HR200L]";
                                 sQry += " WHERE Code = '1'";
@@ -1067,32 +1115,43 @@ namespace PSH_BOne_AddOn
                                 sQry += " From [@PS_HR200L]";
                                 sQry += " WHERE Code = '9'";
                                 sQry += " And U_Code  = U_ClsCode";
-                                sQry += " And U_Char3 = U_CLTCOD),'')";
+                                sQry += " And U_Char3 = U_CLTCOD),''),";
+                                sQry += " Status = isnull((SELECT name ";
+                                sQry += " FROM[OHST]";
+                                sQry += " WHERE statusID = U_Status),'')";
                                 sQry += " From [@PH_PY001A]";
                                 sQry += " Where U_CLTCOD = '" + CLTCOD + "'";
                                 sQry += " And U_status <> '5'"; // 퇴사자 제외
                                 sQry += " and U_FullName = '" + FullName + "'";
-
                                 oRecordSet.DoQuery(sQry);
 
                                 oForm.DataSources.UserDataSources.Item("MSTCOD").Value = oRecordSet.Fields.Item("Code").Value.ToString().Trim();
-                                //oForm.Items("MSTCOD").Specific.Value = oRecordSet.Fields("Code").Value.ToString().Trim();
+                                //oForm.Items("MSTCOD").Specific.Value = oRecordSet.Fields("Code").Value.ToString().Trim(); //이벤트가 발생함
                                 oForm.Items.Item("TeamName").Specific.Value = oRecordSet.Fields.Item("TeamName").Value.ToString().Trim();
                                 oForm.Items.Item("RspName").Specific.Value = oRecordSet.Fields.Item("RspName").Value.ToString().Trim();
                                 oForm.Items.Item("ClsName").Specific.Value = oRecordSet.Fields.Item("ClsName").Value.ToString().Trim();
+                                oForm.Items.Item("Status").Specific.Value = oRecordSet.Fields.Item("Status").Value.ToString().Trim();
+                                oForm.Items.Item("TermDate").Specific.Value = oRecordSet.Fields.Item("TermDate").Value.ToString().Trim();
                                 break;
 
                             case "div":
                                 Div = oForm.Items.Item("div").Specific.Value.ToString().Trim();
 
-                                sQry  = "Select CodeNm = U_CodeNm";
-                                sQry += " From [@PS_HR200L]";
-                                sQry += " WHERE Code = '70'";
-                                sQry += " And U_Code = '" + Div + "'";
+                                if (Div == "10" || Div == "20" || Div == "70")
+                                {
+                                    PSH_Globals.SBO_Application.MessageBox("기본공제,추가공제,공제제외 사항은 '정산공제대상자정보등록'에서 입력 하세요.");
+                                    oForm.Items.Item("div").Specific.Value = "";
+                                }
+                                else
+                                {
+                                    sQry = "Select CodeNm = U_CodeNm";
+                                    sQry += " From [@PS_HR200L]";
+                                    sQry += " WHERE Code = '70'";
+                                    sQry += " And U_Code = '" + Div + "'";
+                                    oRecordSet.DoQuery(sQry);
 
-                                oRecordSet.DoQuery(sQry);
-
-                                oForm.Items.Item("divnm").Specific.Value = oRecordSet.Fields.Item("CodeNm").Value.ToString().Trim();
+                                    oForm.Items.Item("divnm").Specific.Value = oRecordSet.Fields.Item("CodeNm").Value.ToString().Trim();
+                                }
                                 break;
 
                             case "target":
@@ -1102,7 +1161,6 @@ namespace PSH_BOne_AddOn
                                 sQry += " From [@PS_HR200L]";
                                 sQry += " WHERE Code = '71'";
                                 sQry += " And U_Code = '" + target + "'";
-
                                 oRecordSet.DoQuery(sQry);
 
                                 oForm.Items.Item("targetnm").Specific.Value = oRecordSet.Fields.Item("CodeNm").Value.ToString().Trim();
@@ -1118,15 +1176,21 @@ namespace PSH_BOne_AddOn
                                     oForm.Items.Item("mart24").Enabled = true;
                                     oForm.Items.Item("trans24").Enabled = true;
                                     oForm.Items.Item("bookpms").Enabled = true;
-                                    oForm.Items.Item("card20").Enabled = true;
-                                    oForm.Items.Item("card21").Enabled = true;
+                                    oForm.Items.Item("cardpre").Enabled = true;
+                                    oForm.Items.Item("cardcur").Enabled = true;
+                                    oForm.Items.Item("mart44").Enabled = true;
+                                    oForm.Items.Item("mart47").Enabled = true;
+                                    oForm.Items.Item("trans44").Enabled = true;
 
                                     oForm.Items.Item("ntsamt24").Specific.Value = 0;
                                     oForm.Items.Item("mart24").Specific.Value = 0;
                                     oForm.Items.Item("trans24").Specific.Value = 0;
                                     oForm.Items.Item("bookpms").Specific.Value = 0;
-                                    oForm.Items.Item("card20").Specific.Value = 0;
-                                    oForm.Items.Item("card21").Specific.Value = 0;
+                                    oForm.Items.Item("cardpre").Specific.Value = 0;
+                                    oForm.Items.Item("cardcur").Specific.Value = 0;
+                                    oForm.Items.Item("mart44").Specific.Value = 0;
+                                    oForm.Items.Item("mart47").Specific.Value = 0;
+                                    oForm.Items.Item("trans44").Specific.Value = 0;
                                 }
                                 else
                                 {
@@ -1137,15 +1201,21 @@ namespace PSH_BOne_AddOn
                                     oForm.Items.Item("mart24").Enabled = false;
                                     oForm.Items.Item("trans24").Enabled = false;
                                     oForm.Items.Item("bookpms").Enabled = false;
-                                    oForm.Items.Item("card20").Enabled = false;
-                                    oForm.Items.Item("card21").Enabled = false;
+                                    oForm.Items.Item("cardpre").Enabled = false;
+                                    oForm.Items.Item("cardcur").Enabled = false;
+                                    oForm.Items.Item("mart44").Enabled = false;
+                                    oForm.Items.Item("mart47").Enabled = false;
+                                    oForm.Items.Item("trans44").Enabled = false;
 
                                     oForm.Items.Item("ntsamt24").Specific.Value = 0;
                                     oForm.Items.Item("mart24").Specific.Value = 0;
                                     oForm.Items.Item("trans24").Specific.Value = 0;
                                     oForm.Items.Item("bookpms").Specific.Value = 0;
-                                    oForm.Items.Item("card20").Specific.Value = 0;
-                                    oForm.Items.Item("card21").Specific.Value = 0;
+                                    oForm.Items.Item("cardpre").Specific.Value = 0;
+                                    oForm.Items.Item("cardcur").Specific.Value = 0;
+                                    oForm.Items.Item("mart44").Specific.Value = 0;
+                                    oForm.Items.Item("mart47").Specific.Value = 0;
+                                    oForm.Items.Item("trans44").Specific.Value = 0;
                                 }
 
                                 switch (target)
@@ -1177,7 +1247,6 @@ namespace PSH_BOne_AddOn
 
                                         if (oForm.Items.Item("div").Specific.Value == "20")
                                         {
-
                                             if (Convert.ToDouble(oForm.DataSources.UserDataSources.Item("handoamt").Value) > 0)
                                             {
                                                 oForm.DataSources.UserDataSources.Item("ntsamt").Value = "0";
@@ -1238,13 +1307,19 @@ namespace PSH_BOne_AddOn
                                 break;
 
                             case "ntsamt":
-                                if (Convert.ToDouble(oForm.Items.Item("handoamt").Specific.Value.ToString().Trim()) > 0 && ( oForm.Items.Item("target").Specific.Value.ToString().Trim() == "633" && oForm.Items.Item("relate").Specific.Value.ToString().Trim() != "01") )
-                                // 대학교육비 본인은 한도 없슴
+                                if (Convert.ToDouble(oForm.Items.Item("handoamt").Specific.Value.ToString().Trim()) > 0) 
                                 {
                                     if (Convert.ToDouble(oForm.Items.Item("ntsamt").Specific.Value.ToString().Trim()) + Convert.ToDouble(oForm.Items.Item("amt").Specific.Value.ToString().Trim()) > Convert.ToDouble(oForm.Items.Item("handoamt").Specific.Value.ToString().Trim()))
                                     {
-                                        oForm.Items.Item("ntsamt").Specific.Value = 0;
-                                        PSH_Globals.SBO_Application.MessageBox("한도금액보다 초과됩니다. 확인하세요");
+                                        if (oForm.Items.Item("target").Specific.Value.ToString().Trim() == "633" && oForm.Items.Item("relate").Specific.Value.ToString().Trim() == "01") 
+                                        {
+                                            // 대학교육비 본인은 한도 없슴
+                                        }
+                                        else
+                                        {
+                                            oForm.Items.Item("ntsamt").Specific.Value = 0;
+                                            PSH_Globals.SBO_Application.MessageBox("한도금액보다 초과됩니다. 확인하세요");
+                                        }
                                     }
                                 }
                                 break;
@@ -1296,8 +1371,8 @@ namespace PSH_BOne_AddOn
                                 sQry += "         And a.yyyy   =  '" + YEAR_Renamed + "'";
                                 sQry += "         And a.sabun  = '" + MSTCOD + "' ";
                                 sQry += "     ) g";
-
                                 oRecordSet.DoQuery(sQry);
+
                                 bookAmt = Convert.ToDouble(oRecordSet.Fields.Item(0).Value.ToString().Trim());
                                 //총급여액(과세대상)
                                 //7천기준
@@ -1391,8 +1466,11 @@ namespace PSH_BOne_AddOn
                                 oForm.DataSources.UserDataSources.Item("mart24").Value = "0";
                                 oForm.DataSources.UserDataSources.Item("trans24").Value = "0";
                                 oForm.DataSources.UserDataSources.Item("bookpms").Value = "0";
-                                oForm.DataSources.UserDataSources.Item("card20").Value = "0";
-                                oForm.DataSources.UserDataSources.Item("card21").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("cardpre").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("cardcur").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("mart44").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("mart47").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("trans44").Value = "0";
 
                                 oForm.Items.Item("TeamName").Specific.Value = "";
                                 oForm.Items.Item("RspName").Specific.Value = "";
@@ -1432,8 +1510,11 @@ namespace PSH_BOne_AddOn
                                 oForm.DataSources.UserDataSources.Item("mart24").Value = oRecordSet.Fields.Item("mart24").Value.ToString().Trim();
                                 oForm.DataSources.UserDataSources.Item("trans24").Value = oRecordSet.Fields.Item("trans24").Value.ToString().Trim();
                                 oForm.DataSources.UserDataSources.Item("bookpms").Value = oRecordSet.Fields.Item("bookpms").Value.ToString().Trim();
-                                oForm.DataSources.UserDataSources.Item("card20").Value = oRecordSet.Fields.Item("card20").Value.ToString().Trim();
-                                oForm.DataSources.UserDataSources.Item("card21").Value = oRecordSet.Fields.Item("card21").Value.ToString().Trim();
+                                oForm.DataSources.UserDataSources.Item("cardpre").Value = oRecordSet.Fields.Item("cardpre").Value.ToString().Trim();
+                                oForm.DataSources.UserDataSources.Item("cardcur").Value = oRecordSet.Fields.Item("cardcur").Value.ToString().Trim();
+                                oForm.DataSources.UserDataSources.Item("mart44").Value = oRecordSet.Fields.Item("mart44").Value.ToString().Trim();
+                                oForm.DataSources.UserDataSources.Item("mart47").Value = oRecordSet.Fields.Item("mart47").Value.ToString().Trim();
+                                oForm.DataSources.UserDataSources.Item("trans44").Value = oRecordSet.Fields.Item("trans44").Value.ToString().Trim();
 
                                 // card
                                 if (oRecordSet.Fields.Item("div").Value.ToString().Trim() == "50")
@@ -1445,8 +1526,11 @@ namespace PSH_BOne_AddOn
                                     oForm.Items.Item("mart24").Enabled = true;
                                     oForm.Items.Item("trans24").Enabled = true;
                                     oForm.Items.Item("bookpms").Enabled = true;
-                                    oForm.Items.Item("card20").Enabled = true;
-                                    oForm.Items.Item("card21").Enabled = true;
+                                    oForm.Items.Item("cardpre").Enabled = true;
+                                    oForm.Items.Item("cardcur").Enabled = true;
+                                    oForm.Items.Item("mart44").Enabled = true;
+                                    oForm.Items.Item("mart47").Enabled = true;
+                                    oForm.Items.Item("trans44").Enabled = true;
                                 }
                                 else
                                 {
@@ -1457,8 +1541,11 @@ namespace PSH_BOne_AddOn
                                     oForm.Items.Item("mart24").Enabled = false;
                                     oForm.Items.Item("trans24").Enabled = false;
                                     oForm.Items.Item("bookpms").Enabled = false;
-                                    oForm.Items.Item("card20").Enabled = false;
-                                    oForm.Items.Item("card21").Enabled = false;
+                                    oForm.Items.Item("cardpre").Enabled = false;
+                                    oForm.Items.Item("cardcur").Enabled = false;
+                                    oForm.Items.Item("mart44").Enabled = false;
+                                    oForm.Items.Item("mart47").Enabled = false;
+                                    oForm.Items.Item("trans44").Enabled = false;
                                 }
                                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
                             }

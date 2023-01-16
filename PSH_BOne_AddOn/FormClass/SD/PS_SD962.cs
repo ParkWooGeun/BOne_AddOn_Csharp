@@ -290,7 +290,7 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@BPLID", BPLID));
 				dataPackParameter.Add(new PSH_DataPackClass("@FrDt", DateTime.ParseExact(FrDt, "yyyyMMdd", null)));
 				dataPackParameter.Add(new PSH_DataPackClass("@ToDt", DateTime.ParseExact(ToDt, "yyyyMMdd", null)));
-				dataPackParameter.Add(new PSH_DataPackClass("@ItemCode", ItmBsort));
+				dataPackParameter.Add(new PSH_DataPackClass("@ItmBsort", ItmBsort));
 				dataPackParameter.Add(new PSH_DataPackClass("@ItemCode", ItemCode));
 
 				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);

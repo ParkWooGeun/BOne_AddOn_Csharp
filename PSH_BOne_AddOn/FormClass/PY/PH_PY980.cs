@@ -453,7 +453,7 @@ namespace PSH_BOne_AddOn
             string sQry;
             string c_SAUP;
             string c_YYYY;
-            string c_SABUN;
+            string c_SABUN = string.Empty;
             int newCNT; //일련번호
 
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
@@ -993,6 +993,9 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 ProgressBar01.Stop();
+
+                PSH_Globals.SBO_Application.MessageBox("에러!!!! 사번 :" + c_SABUN + " 의 자료를 확인 하세요!");
+
                 if (errNum == 1)
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("C레코드가 존재하지 않습니다.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
@@ -1023,6 +1026,7 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
+                    
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
                 FileSystem.FileClose(1);

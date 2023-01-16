@@ -84,15 +84,14 @@ namespace PSH_BOne_AddOn
             {
                 oDS_PS_SD045H = oForm.DataSources.DBDataSources.Item("@PS_SD045H");
                 oDS_PS_SD045L = oForm.DataSources.DBDataSources.Item("@PS_SD045L");
-                oDS_PS_SD045B = oForm.DataSources.DBDataSources.Item("@PS_USERDS01"); //조회용 Matrix
 
                 oMat01 = oForm.Items.Item("Mat01").Specific;
                 oMat01.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_Auto;
                 oMat01.AutoResizeColumns();
 
-                oMat02 = oForm.Items.Item("Mat02").Specific;
-                oMat02.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_Auto;
-                oMat02.AutoResizeColumns();
+                //oMat02 = oForm.Items.Item("Mat02").Specific;
+                //oMat02.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_Auto;
+                //oMat02.AutoResizeColumns();
 
                 //시작일
                 oForm.DataSources.UserDataSources.Add("FrDt", SAPbouiCOM.BoDataType.dt_DATE);
@@ -109,6 +108,11 @@ namespace PSH_BOne_AddOn
                 //거래처명
                 oForm.DataSources.UserDataSources.Add("CardName", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
                 oForm.Items.Item("CardName").Specific.DataBind.SetBound(true, "", "CardName");
+
+                //납품문서번호
+                oForm.DataSources.UserDataSources.Add("SDocNum", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 20);
+                oForm.Items.Item("SDocNum").Specific.DataBind.SetBound(true, "", "SDocNum");
+
             }
             catch (Exception ex)
             {
@@ -180,35 +184,6 @@ namespace PSH_BOne_AddOn
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
         }
-
-        ///// <summary>
-        ///// 메트릭스 Row추가
-        ///// </summary>
-        ///// <param name="oRow"></param>
-        ///// <param name="RowIserted"></param>
-        //private void PS_SD045_AddMatrixRow(int oRow, bool RowIserted)
-        //{
-        //    try
-        //    {
-        //        oForm.Freeze(true);
-        //        if (RowIserted == false)
-        //        {
-        //            oDS_PS_SD045L.InsertRecord(oRow);
-        //        }
-        //        oMat01.AddRow();
-        //        oDS_PS_SD045L.Offset = oRow;
-        //        oDS_PS_SD045L.SetValue("U_LineNum", oRow, Convert.ToString(oRow));
-        //        oMat01.LoadFromDataSource();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-        //    }
-        //    finally
-        //    {
-        //        oForm.Freeze(false);
-        //    }
-        //}
 
         /// <summary>
         /// 필수입력사항 체크(헤더)

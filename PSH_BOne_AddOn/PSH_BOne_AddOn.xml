@@ -69291,7 +69291,14 @@
             DocEntry 초기화
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD045.PS_SD045_EnableFormItem">
+        <member name="M:PSH_BOne_AddOn.PS_SD045.PS_SD045_AddMatrixRow(System.Int32,System.Boolean)">
+            <summary>
+            메트릭스 행추가
+            </summary>
+            <param name="oRow"></param>
+            <param name="RowIserted"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD045.PS_SD045_FormItemEnabled">
             <summary>
             각 모드에 따른 아이템설정
             </summary>
@@ -69308,14 +69315,9 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD045.LoadData01">
+        <member name="M:PSH_BOne_AddOn.PS_SD045.LoadData01(System.String)">
             <summary>
-            데이터 조회(상단 list 조회)
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD045.LoadData02(System.String)">
-            <summary>
-            데이터 조회 (List 중 선택된 데이터)
+            데이터 조회 
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD045.PS_SD045_DI_API">
@@ -69383,14 +69385,6 @@
         <member name="M:PSH_BOne_AddOn.PS_SD045.Raise_EVENT_KEY_DOWN(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             KEY_DOWN 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD045.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            DOUBLE_CLICK 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>

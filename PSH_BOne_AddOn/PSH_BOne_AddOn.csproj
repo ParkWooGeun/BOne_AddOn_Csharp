@@ -2381,6 +2381,13 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_MM965_30.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_MM965_40.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_SD610_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PH_PY403_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PH_PY910_22_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PH_PY920_22_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PH_PY920_22_02.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PH_PY920_22_03.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_MM919_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_MM919_02.rpt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EXT_Form\FileListBoxForm.resX">
@@ -3278,6 +3285,7 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD610.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SM040.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD023.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY403.srf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -69317,7 +69317,12 @@
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD045.LoadData01(System.String)">
             <summary>
-            데이터 조회 
+            납품처리문서 데이터 조회 
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD045.LoadData02(System.String)">
+            <summary>
+            반품내역 조회 
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD045.PS_SD045_DI_API">
@@ -69373,6 +69378,14 @@
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD045.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_DOUBLE_CLICK
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD045.Raise_EVENT_CHOOSE_FROM_LIST(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>

@@ -467,7 +467,7 @@ namespace PSH_BOne_AddOn
                 PSH_Globals.oCompany.StartTransaction();
 
                 oMat01.FlushToDataSource(); 
-
+                  
                 LineNumCount = 0;
                 Query01 = "  SELECT U_BPLID,U_CardCode,U_DCardCod,U_DCardNam,U_TrType,Convert(VARCHAR(10),GETDATE(),112) AS U_DocDate, Convert(VARCHAR(10),GETDATE(),112) AS U_DueDate FROM [@PS_SD040H] ";
                 Query01 +=    "WHERE DocEntry = '" + oForm.Items.Item("SDocNum").Specific.Value.ToString().Trim() + "'";

@@ -61,6 +61,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
 
                 PS_SD045_CreateItems();
+                PS_SD045_SetComboBox();
                 PS_SD045_FormItemEnabled();
                 PS_SD045_SetDocEntry();
             }
@@ -100,6 +101,23 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+        }
+
+        /// <summary>
+        /// 콤보박스 세팅
+        /// </summary>
+        private void PS_SD045_SetComboBox()
+        {
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
+            try
+            {
+                dataHelpClass.GP_MatrixSetMatComboList(oMat01.Columns.Item("ItmBsort"), "SELECT Code,Name FROM [@PSH_ITMBSORT]", "", "");
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + (char)13 + ex.Message);
             }
         }
 
@@ -315,7 +333,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_SD045L.SetValue("U_CardName", i, oRecordSet01.Fields.Item("U_CardName").Value.ToString().Trim());
                     oDS_PS_SD045L.SetValue("U_ItemCode", i, oRecordSet01.Fields.Item("U_ItemCode").Value.ToString().Trim());
                     oDS_PS_SD045L.SetValue("U_ItemName", i, oRecordSet01.Fields.Item("U_ItemName").Value.ToString().Trim());
-                    oDS_PS_SD045L.SetValue("U_ItemType", i, oRecordSet01.Fields.Item("U_ItmBsort").Value.ToString().Trim());
+                    oDS_PS_SD045L.SetValue("U_ItmBsort", i, oRecordSet01.Fields.Item("U_ItmBsort").Value.ToString().Trim());
                     oDS_PS_SD045L.SetValue("U_BatchNum", i, oRecordSet01.Fields.Item("U_LotNo").Value.ToString().Trim());
                     oDS_PS_SD045L.SetValue("U_Qty", i, oRecordSet01.Fields.Item("U_Qty").Value.ToString().Trim());
                     oDS_PS_SD045L.SetValue("U_Quantity", i, oRecordSet01.Fields.Item("U_Weight").Value.ToString().Trim());

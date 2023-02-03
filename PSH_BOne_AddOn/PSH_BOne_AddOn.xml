@@ -69286,6 +69286,11 @@
             화면 Item 생성
             </summary>        
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD045.PS_SD045_SetComboBox">
+            <summary>
+            콤보박스 세팅
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_SD045.PS_SD045_SetDocEntry">
             <summary>
             DocEntry 초기화

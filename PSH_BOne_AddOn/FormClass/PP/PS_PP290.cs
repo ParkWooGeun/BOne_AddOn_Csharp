@@ -129,6 +129,7 @@ namespace PSH_BOne_AddOn
 
 				oForm.Items.Item("Gubun").Specific.ValidValues.Add("1", "설비정비현황(담당별)");
 				oForm.Items.Item("Gubun").Specific.ValidValues.Add("2", "설비정비현황(설비별)");
+				oForm.Items.Item("Gubun").Specific.ValidValues.Add("3", "설비정비현황(부서별)");
 				oForm.Items.Item("Gubun").Specific.Select("1", SAPbouiCOM.BoSearchKey.psk_ByValue);
 			}
 			catch (Exception ex)
@@ -197,6 +198,7 @@ namespace PSH_BOne_AddOn
 		[STAThread]
 		private void PS_PP290_PrintReport()
 		{
+			bool returnValue = false;
 			string WinTitle = string.Empty;
 			string ReportName = string.Empty;
 			string sQry;
@@ -229,6 +231,9 @@ namespace PSH_BOne_AddOn
 				oRecordSet.DoQuery(sQry);
 				BPLName = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 
+				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
+				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
+
 				if (Gubun == "1")
 				{
 					WinTitle = "[PS_PP290_01] 설비정비현황(담당별)출력";
@@ -239,25 +244,36 @@ namespace PSH_BOne_AddOn
 					WinTitle = "[PS_PP290_02] 설비정비현황(설비별)출력";
 					ReportName = "PS_PP290_02.RPT";
 				}
+				else if (Gubun =="3")
+                {
+					WinTitle = "[PS_PP290_03] 설비정비현황(부서별)출력";
+					ReportName = "PS_PP290_03.RPT";
+					returnValue = true;
+				}
+				
+			if(returnValue == false)
+                {
+					// Formula 수식필드
+					dataPackFormula.Add(new PSH_DataPackClass("@BPLId", BPLName));
+					dataPackFormula.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr.Substring(0, 4) + "-" + DocDateFr.Substring(4, 2) + "-" + DocDateFr.Substring(6, 2)));
+					dataPackFormula.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo.Substring(0, 4) + "-" + DocDateTo.Substring(4, 2) + "-" + DocDateTo.Substring(6, 2)));
 
-				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
-				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
+					// Parameter
+					dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLId));
+					dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr));
+					dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo));
+					dataPackParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode));
+					dataPackParameter.Add(new PSH_DataPackClass("@WorkDiv", WorkDiv));
+					dataPackParameter.Add(new PSH_DataPackClass("@RspCode", RspCode));
+					dataPackParameter.Add(new PSH_DataPackClass("@Code1", Code1));
+					formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
 
-				// Formula 수식필드
-				dataPackFormula.Add(new PSH_DataPackClass("@BPLId", BPLName));
-				dataPackFormula.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr.Substring(0, 4) + "-" + DocDateFr.Substring(4, 2) + "-" + DocDateFr.Substring(6, 2)));
-				dataPackFormula.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo.Substring(0, 4) + "-" + DocDateTo.Substring(4, 2) + "-" + DocDateTo.Substring(6, 2)));
-
-				// Parameter
-				dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLId));
-				dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr));
-				dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo));
-				dataPackParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode));
-				dataPackParameter.Add(new PSH_DataPackClass("@WorkDiv", WorkDiv));
-				dataPackParameter.Add(new PSH_DataPackClass("@RspCode", RspCode));
-				dataPackParameter.Add(new PSH_DataPackClass("@Code1", Code1));
-
-				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+				}
+                else
+                {
+					dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr));
+					formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
+				}
 			}
 			catch (Exception ex)
 			{

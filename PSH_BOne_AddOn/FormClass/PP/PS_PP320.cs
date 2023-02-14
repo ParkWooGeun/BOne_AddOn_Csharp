@@ -86,6 +86,18 @@ namespace PSH_BOne_AddOn
 				oForm.DataSources.UserDataSources.Add("DocDateTo", SAPbouiCOM.BoDataType.dt_DATE, 10);
 				oForm.Items.Item("DocDateTo").Specific.DataBind.SetBound(true, "", "DocDateTo");
 				oForm.DataSources.UserDataSources.Item("DocDateTo").Value = DateTime.Now.ToString("yyyyMMdd");
+
+				oForm.DataSources.UserDataSources.Add("OptionDS", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
+				oForm.Items.Item("Rad01").Specific.ValOn = "1";
+				oForm.Items.Item("Rad01").Specific.ValOff = "0";
+				oForm.Items.Item("Rad01").Specific.DataBind.SetBound(true, "", "OptionDS");
+
+				oForm.Items.Item("Rad01").Specific.Selected = true;
+
+				oForm.Items.Item("Rad02").Specific.ValOn = "2";
+				oForm.Items.Item("Rad02").Specific.ValOff = "0";
+				oForm.Items.Item("Rad02").Specific.DataBind.SetBound(true, "", "OptionDS");
+				oForm.Items.Item("Rad02").Specific.GroupWith("Rad01");
 			}
 			catch (Exception ex)
 			{
@@ -137,15 +149,37 @@ namespace PSH_BOne_AddOn
 			string DocDateTo;
 			string ItmMsort;
 			string Seq;
-
+			string OpDs;
+			string MSTCOD;
+			string Div = string.Empty;
+			string sQry;
 			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
 			{
 				DocDateFr = oForm.Items.Item("DocDateFr").Specific.Value.ToString().Trim();
 				DocDateTo = oForm.Items.Item("DocDateTo").Specific.Value.ToString().Trim();
 				ItmMsort = oForm.Items.Item("ItmMsort").Specific.Value.ToString().Trim();
+				OpDs = oForm.DataSources.UserDataSources.Item("OptionDS").Value;
+				MSTCOD = dataHelpClass.User_MSTCOD();
 
+				sQry = " SELECT COUNT(*) FROM [@PH_PY001A] ";
+				sQry += " WHERE U_status <>'5' AND Code = '" + MSTCOD + "'";
+				sQry += " AND (U_PAYTYP ='1' OR(U_PAYTYP = '2' AND U_JIGCOD NOT IN('60', '74', '82'))) ";
+				oRecordSet.DoQuery(sQry);
+
+				if (oRecordSet.RecordCount == 1)
+				{
+					Div = "0";
+				}
+				else
+                {
+					Div = "1";
+				}
+
+				
 				if (oForm.Items.Item("chk").Specific.Checked == true)
 				{
 					Seq = "S";
@@ -164,6 +198,10 @@ namespace PSH_BOne_AddOn
 					DocDateTo = "99999999";
 				}
 
+				
+
+
+
 				WinTitle = "[PS_PP320_01] 부품주문번호별 수주잔량";
 				ReportName = "PS_PP320_01.RPT";
 
@@ -174,18 +212,24 @@ namespace PSH_BOne_AddOn
 				dataPackFormula.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr.Substring(0, 4) + "-" + DocDateFr.Substring(4, 2) + "-" + DocDateFr.Substring(6, 2)));
 				dataPackFormula.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo.Substring(0, 4) + "-" + DocDateTo.Substring(4, 2) + "-" + DocDateTo.Substring(6, 2)));
 				dataPackFormula.Add(new PSH_DataPackClass("@ItmMsort", ItmMsort));
+				dataPackFormula.Add(new PSH_DataPackClass("@Div", Div));
 
 				// Parameter
 				dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", DateTime.ParseExact(DocDateFr, "yyyyMMdd", null)));
 				dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", DateTime.ParseExact(DocDateTo, "yyyyMMdd", null)));
 				dataPackParameter.Add(new PSH_DataPackClass("@ItmMsort", ItmMsort));
 				dataPackParameter.Add(new PSH_DataPackClass("@Seq", Seq));
+				dataPackParameter.Add(new PSH_DataPackClass("@OpDs", OpDs));
 
 				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
 			}
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+            {
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 		}
 

@@ -101,10 +101,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Div").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
                 //// 기준일자
-                oForm.Items.Item("FrDate").Specific.Value = DateTime.Now.ToString("yyyyMM") + "01";
-
-                //// 종료일자
-                oForm.Items.Item("ToDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
+                oForm.Items.Item("FrDate").Specific.Value = DateTime.Now.ToString("yyyyMM");
             }
             catch (Exception ex)
             {
@@ -156,7 +153,6 @@ namespace PSH_BOne_AddOn
                     oForm.EnableMenu("1282", false); //문서추가
                     oForm.Items.Item("CLTCOD").Enabled = true;
                     oForm.Items.Item("FrDate").Enabled = true;
-                    oForm.Items.Item("ToDate").Enabled = true;
                     oForm.Items.Item("MSTCOD").Enabled = true;
                     oForm.Items.Item("MSTNAME").Enabled = true;
                     oForm.Items.Item("Btn_Serch").Enabled = true;
@@ -168,7 +164,6 @@ namespace PSH_BOne_AddOn
                     oForm.EnableMenu("1282", true); //문서추가
                     oForm.Items.Item("CLTCOD").Enabled = true;
                     oForm.Items.Item("FrDate").Enabled = true;
-                    oForm.Items.Item("ToDate").Enabled = true;
                     oForm.Items.Item("MSTCOD").Enabled = true;
                     oForm.Items.Item("MSTNAME").Enabled = true;
                     oForm.Items.Item("Btn_Serch").Enabled = false;
@@ -181,7 +176,6 @@ namespace PSH_BOne_AddOn
                     oForm.EnableMenu("1282", true); //문서추가
                     oForm.Items.Item("CLTCOD").Enabled = false;
                     oForm.Items.Item("FrDate").Enabled = false;
-                    oForm.Items.Item("ToDate").Enabled = false;
                     oForm.Items.Item("MSTCOD").Enabled = false;
                     oForm.Items.Item("MSTNAME").Enabled = false;
                     oForm.Items.Item("Btn_Serch").Enabled = false;
@@ -248,12 +242,11 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                if (string.IsNullOrEmpty(oForm.Items.Item("FrDate").Specific.Value.ToString().Trim()) || string.IsNullOrEmpty(oForm.Items.Item("ToDate").Specific.Value.ToString().Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("FrDate").Specific.Value.ToString().Trim()))
                 {
                     errMessage = "기준일자온 필수입니다.";
                     throw new Exception();
                 }
-               
                 returnValue = true;
             }
             catch (Exception ex)
@@ -274,7 +267,7 @@ namespace PSH_BOne_AddOn
             return returnValue;
         }
 
-        /// <summary>
+        /// <summary>           
         /// DataFind : 자료 조회
         /// </summary>
         private void PH_PY705_MTX01()
@@ -282,7 +275,6 @@ namespace PSH_BOne_AddOn
             string sQry;
             string CLTCOD;
             string FrDate;
-            string ToDate;
             string MSTCOD;
             string errMessage = string.Empty;
 
@@ -292,7 +284,6 @@ namespace PSH_BOne_AddOn
             {
                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                 FrDate = oForm.Items.Item("FrDate").Specific.Value.ToString().Trim();
-                ToDate = oForm.Items.Item("ToDate").Specific.Value.ToString().Trim();
                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
 
                 oMat01.Clear();
@@ -307,11 +298,11 @@ namespace PSH_BOne_AddOn
 
                 if (CLTCOD == "2")
                 {
-                    sQry = "EXEC PH_PY705_05 '" + CLTCOD + "','" + FrDate + "','" + ToDate + "','" + MSTCOD + "'";
+                    sQry = "EXEC PH_PY705_05 '" + CLTCOD + "','" + FrDate + "','" + MSTCOD + "'";
                 }
                 else
                 {
-                    sQry = "Exec PH_PY705_04 '" + CLTCOD + "','" + FrDate + "','" + ToDate + "','" + MSTCOD + "'";
+                    sQry = "Exec PH_PY705_04 '" + CLTCOD + "','" + FrDate + "','" + MSTCOD + "'";
                 }
                 oRecordSet.DoQuery(sQry);
 
@@ -369,26 +360,43 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// 급상여 변동자료 등록 테이블[@PH_PY109B]에DataBinding 
         /// </summary>
-        private void PH_PY705_Save()
+        private bool PH_PY705_Save()
         {
             string sQry;
             string FrDate;
             string errMessage = string.Empty;
+            bool returnValue = false;
 
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
                 FrDate = oForm.Items.Item("FrDate").Specific.Value.ToString().Trim();
-                FrDate = FrDate.Substring(2,4); 
-                
+                FrDate = FrDate.Substring(2, 4);
+
+                sQry = "Select Count(*)";
+                sQry += " FROM [@PH_PY109B] B INNER JOIN [@PH_PY109A] A ON B.Code = A.Code";
+                sQry += " WHERE U_CLTCOD = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "'AND RIGHT(B.Code,7) = '" + FrDate + "'" + " + '111'";
+                oRecordSet.DoQuery(sQry);
+                if (oRecordSet.Fields.Item(0).Value == 0)
+                {
+                    errMessage = "급상여변동자료를 등록하세요.";
+                    throw new Exception();
+                }
+
                 for(int i=0; i<=oMat01.RowCount -1; i++)
                 {
                     sQry = " UPDATE [@PH_PY109B] ";
-                    sQry += " SET U_AMT05 = '" + oMat01.Columns.Item("Amt").Cells.Item(i+1).Specific.Value + "'";
-                    sQry += " WHERE U_MSTCOD = '" + oMat01.Columns.Item("MSTCOD").Cells.Item(i+1).Specific.Value +"' AND RIGHT(Code,7) = '" + FrDate + "'" + "+ '111'";
+                    sQry += " SET U_AMT05 = U_AMT05 + '" + oMat01.Columns.Item("Amt").Cells.Item(i + 1).Specific.Value + "'";
+                    sQry += " WHERE U_MSTCOD = '" + oMat01.Columns.Item("MSTCOD").Cells.Item(i + 1).Specific.Value + "' AND RIGHT(Code,7) = '" + FrDate + "'" + "+ '111'";
                     oRecordSet.DoQuery(sQry);
                 }
+
+                sQry = " UPDATE [@PH_PY705A] SET U_ControlYN = 'C'";
+                sQry += " WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'";
+                oRecordSet.DoQuery(sQry);
+
+                returnValue = true;
             }
             catch (Exception ex)
             {
@@ -406,6 +414,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(false);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
             }
+            return returnValue;
         }
 
         /// <summary>
@@ -432,11 +441,6 @@ namespace PSH_BOne_AddOn
                     sQry += " WHERE U_MSTCOD = '" + oMat01.Columns.Item("MSTCOD").Cells.Item(i + 1).Specific.Value + "' AND RIGHT(Code,7) = '" + FrDate + "'" + "+ '111'";
                     oRecordSet.DoQuery(sQry);
                 }
-
-                sQry = " UPDATE [@PH_PY705A] SET U_ControlYN = 'C'";
-                sQry += " WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'";
-                oRecordSet.DoQuery(sQry);
-
                 returnValue = true;
             }
             catch (Exception ex)
@@ -470,12 +474,10 @@ namespace PSH_BOne_AddOn
 
             string CLTCOD;
             string FrDate;
-            string ToDate;
             string MSTCOD;
             string Div;
 
             System.DateTime DocDate_F;  //datetime
-            System.DateTime DocDate_T;  //datetime
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
@@ -484,12 +486,10 @@ namespace PSH_BOne_AddOn
             {
                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
                 FrDate = oForm.Items.Item("FrDate").Specific.Value.ToString().Trim();
-                ToDate = oForm.Items.Item("ToDate").Specific.Value.ToString().Trim();
                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
                 Div = oForm.Items.Item("Div").Specific.Value.ToString().Trim();
 
-                DocDate_F = DateTime.ParseExact(oForm.Items.Item("FrDate").Specific.Value, "yyyyMMdd", null);
-                DocDate_T = DateTime.ParseExact(oForm.Items.Item("ToDate").Specific.Value, "yyyyMMdd", null);
+                DocDate_F = DateTime.ParseExact(oForm.Items.Item("FrDate").Specific.Value, "yyyyMM", null);
 
                 if (CLTCOD == "2")
                 {
@@ -531,12 +531,10 @@ namespace PSH_BOne_AddOn
                 if (CLTCOD == "2" && (Div == "1" || Div == "2"))
                 {
                     dataPackFormula.Add(new PSH_DataPackClass("@FrDate", DocDate_F));
-                    dataPackFormula.Add(new PSH_DataPackClass("@ToDate", DocDate_T));
                 }
                 else
                 {
-                    dataPackFormula.Add(new PSH_DataPackClass("@FrDate", FrDate.Substring(0, 4) + "-" + FrDate.Substring(4, 2) + "-" + FrDate.Substring(6, 2)));
-                    dataPackFormula.Add(new PSH_DataPackClass("@ToDate", ToDate.Substring(0, 4) + "-" + ToDate.Substring(4, 2) + "-" + ToDate.Substring(6, 2)));
+                    dataPackFormula.Add(new PSH_DataPackClass("@FrDate", FrDate.Substring(0, 4) + "-" + FrDate.Substring(4, 2)));
                 }
 
                 if (CLTCOD == "1" && Div == "3")
@@ -544,14 +542,12 @@ namespace PSH_BOne_AddOn
                     //Parameter
                     dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD));
                     dataPackParameter.Add(new PSH_DataPackClass("@FrDate", FrDate));
-                    dataPackParameter.Add(new PSH_DataPackClass("@ToDate", ToDate));
                 }
                 else if (CLTCOD == "2" && (Div == "1" || Div == "2"))
                 {
                     //Parameter
                     dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD));
                     dataPackParameter.Add(new PSH_DataPackClass("@FrDate", DocDate_F));
-                    dataPackParameter.Add(new PSH_DataPackClass("@ToDate", DocDate_T));
                     dataPackParameter.Add(new PSH_DataPackClass("@MSTCOD", MSTCOD));
                 }
                 else
@@ -559,7 +555,6 @@ namespace PSH_BOne_AddOn
                     //Parameter
                     dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD));
                     dataPackParameter.Add(new PSH_DataPackClass("@FrDate", FrDate));
-                    dataPackParameter.Add(new PSH_DataPackClass("@ToDate", ToDate));
                     dataPackParameter.Add(new PSH_DataPackClass("@MSTCOD", MSTCOD));
                 }
 
@@ -683,19 +678,25 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
+            string errMessage = string.Empty;
             try
             {
                 if (pVal.BeforeAction == true)
                 {
                     if (pVal.ItemUID == "1")
                     {
+
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {
                             if (PH_PY705_DataValidCheck() == false)
                             {
                                 BubbleEvent = false;
                             }
-                            PH_PY705_Save(); 
+
+                            if (PH_PY705_Save() == false)
+                            {
+                                BubbleEvent = false;
+                            }
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                         {
@@ -741,7 +742,14 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_ITEM_PRESSED_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                if (errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_ITEM_PRESSED_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
             }
             finally
             {

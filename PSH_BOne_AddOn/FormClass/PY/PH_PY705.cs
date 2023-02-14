@@ -477,8 +477,6 @@ namespace PSH_BOne_AddOn
             string MSTCOD;
             string Div;
 
-            System.DateTime DocDate_F;  //datetime
-
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 
@@ -488,8 +486,6 @@ namespace PSH_BOne_AddOn
                 FrDate = oForm.Items.Item("FrDate").Specific.Value.ToString().Trim();
                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
                 Div = oForm.Items.Item("Div").Specific.Value.ToString().Trim();
-
-                DocDate_F = DateTime.ParseExact(oForm.Items.Item("FrDate").Specific.Value, "yyyyMM", null);
 
                 if (CLTCOD == "2")
                 {
@@ -530,7 +526,7 @@ namespace PSH_BOne_AddOn
                 dataPackFormula.Add(new PSH_DataPackClass("@CLTCOD", dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", CLTCOD, "and Code = 'P144' AND U_UseYN= 'Y'")));
                 if (CLTCOD == "2" && (Div == "1" || Div == "2"))
                 {
-                    dataPackFormula.Add(new PSH_DataPackClass("@FrDate", DocDate_F));
+                    dataPackFormula.Add(new PSH_DataPackClass("@FrDate", FrDate));
                 }
                 else
                 {
@@ -547,7 +543,7 @@ namespace PSH_BOne_AddOn
                 {
                     //Parameter
                     dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD));
-                    dataPackParameter.Add(new PSH_DataPackClass("@FrDate", DocDate_F));
+                    dataPackParameter.Add(new PSH_DataPackClass("@FrDate", FrDate));
                     dataPackParameter.Add(new PSH_DataPackClass("@MSTCOD", MSTCOD));
                 }
                 else

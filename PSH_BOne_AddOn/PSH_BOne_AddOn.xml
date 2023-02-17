@@ -69286,9 +69286,24 @@
             화면 Item 생성
             </summary>        
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD045.PS_SD045_SetComboBox">
+            <summary>
+            Combobox 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD045.PS_SD045_SetInitial">
+            <summary>
+            화면 초기화
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_SD045.PS_SD045_SetDocEntry">
             <summary>
             DocEntry 초기화
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_SD045.PS_SD045_FormItemEnabled">
+            <summary>
+            각 모드에 따른 아이템설정
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_SD045.PS_SD045_AddMatrixRow(System.Int32,System.Boolean)">
@@ -69298,12 +69313,7 @@
             <param name="oRow"></param>
             <param name="RowIserted"></param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD045.PS_SD045_FormItemEnabled">
-            <summary>
-            각 모드에 따른 아이템설정
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD045.PS_SD045_DeleteHeaderSpaceLine">
+        <member name="M:PSH_BOne_AddOn.PS_SD045.PS_SD045_CheckDataValid">
             <summary>
             필수입력사항 체크(헤더)
             </summary>
@@ -69368,22 +69378,6 @@
         <member name="M:PSH_BOne_AddOn.PS_SD045.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             CLICK 이벤트
-            </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD045.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_DOUBLE_CLICK
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pVal"></param>
-            <param name="BubbleEvent"></param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PS_SD045.Raise_EVENT_CHOOSE_FROM_LIST(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            CHOOSE_FROM_LIST 이벤트
             </summary>
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>

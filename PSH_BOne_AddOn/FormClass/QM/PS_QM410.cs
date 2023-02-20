@@ -118,6 +118,15 @@ namespace PSH_BOne_AddOn
 				dataHelpClass.Set_ComboList(oForm.Items.Item("ChkCls").Specific, sQry, "", false, false);
 				oForm.Items.Item("ChkCls").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
+				//매트릭스_순서
+				sQry = "  select U_LineNum as [Code]";
+				sQry += "      , U_LineNum as [Name]";
+				sQry += "   from [@PS_SY001L]";
+				sQry += "  where 1=1";
+				sQry += "    and code = 'H002'";
+				sQry += "    and U_LineNum <= 30";
+				dataHelpClass.GP_MatrixSetMatComboList(oMat.Columns.Item("Seq"), sQry, "", "");
+
 				//매트릭스_검사항목
 				sQry = "     SELECT      U_Minor AS [Code],";
 				sQry += "                 U_CdName + '[' + ISNULL(U_RelCd,'') + ']' AS [Name]";
@@ -371,6 +380,7 @@ namespace PSH_BOne_AddOn
 				oMat.AddRow();
 				oDS_PS_QM410L.Offset = oRow;
 				oDS_PS_QM410L.SetValue("U_LineNum", oRow, Convert.ToString(oRow + 1));
+				oDS_PS_QM410L.SetValue("U_Seq", oRow, Convert.ToString(oRow + 1));
 				oDS_PS_QM410L.SetValue("U_Check", oRow, "Y");
 				oMat.LoadFromDataSource();
 			}
@@ -631,6 +641,7 @@ namespace PSH_BOne_AddOn
 					oDS_PS_QM410L.SetValue("U_LineNum", i, Convert.ToString(i + 1));
 					oDS_PS_QM410L.SetValue("U_Check", i, "Y");                  //선택
 					oDS_PS_QM410L.SetValue("U_ChkPnt", i, oRecordSet.Fields.Item("ChkPnt").Value.ToString().Trim());                    //검사항목
+					oDS_PS_QM410L.SetValue("U_Seq", i, Convert.ToString(i + 1));
 					oDS_PS_QM410L.SetValue("U_StdPnt", i, oRecordSet.Fields.Item("StdPnt").Value.ToString().Trim());                    //기준치수
 					oDS_PS_QM410L.SetValue("U_MinMark", i, oRecordSet.Fields.Item("MinMark").Value.ToString().Trim());                  //부호(최소)
 					oDS_PS_QM410L.SetValue("U_MinPnt", i, oRecordSet.Fields.Item("MinPnt").Value.ToString().Trim());                    //공차(최소)

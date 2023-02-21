@@ -351,6 +351,7 @@ namespace PSH_BOne_AddOn
     private void XmlCreateYN()
         {
             string Query01;
+            string UserName;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             FileSystemObject FSO = new FileSystemObject();
@@ -363,7 +364,12 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                Query01 = "select a.UniqueID from [Authority_Screen] a inner join [Authority_User] b on a.Seq = b.seq where  a.Gubun ='H' and  b.updateYN ='Y' and b.UserID ='" + PSH_Globals.oCompany.UserName + "'";
+                UserName = PSH_Globals.oCompany.UserName;
+                if (UserName == "dev02")
+                {
+                    UserName = "dev03";
+                }
+                Query01 = "select a.UniqueID from [Authority_Screen] a inner join [Authority_User] b on a.Seq = b.seq where  a.Gubun ='H' and  b.updateYN ='Y' and b.UserID ='" + UserName + "'";
                 oRecordSet01.DoQuery(Query01);
 
                 //파일 폴더 생성

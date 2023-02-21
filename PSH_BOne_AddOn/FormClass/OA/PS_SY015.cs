@@ -82,8 +82,8 @@ namespace PSH_BOne_AddOn
                 oDS_PS_SY015A = oForm.DataSources.DataTables.Item("PS_SY015");
                 
                 // 구분
-                oForm.Items.Item("pGubun").Specific.ValidValues.Add("B", "기본");
-                oForm.Items.Item("pGubun").Specific.ValidValues.Add("H", "인사");
+                oForm.Items.Item("pGubun").Specific.ValidValues.Add("H", "기본");
+                oForm.Items.Item("pGubun").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
                 oForm.Items.Item("pGubun").DisplayDesc = true;
 
                 // 폴더/화면구분
@@ -91,6 +91,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("pFSGubun").Specific.ValidValues.Add("S", "화면");
                 oForm.Items.Item("pFSGubun").Specific.ValidValues.Add("C", "복제");
                 oForm.Items.Item("pFSGubun").Specific.ValidValues.Add("A", "권한");
+                oForm.Items.Item("pFSGubun").Specific.Select(3, SAPbouiCOM.BoSearchKey.psk_Index);
                 oForm.Items.Item("pFSGubun").DisplayDesc = true;
 
                 // 사용여부
@@ -102,6 +103,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("MType").Specific.ValidValues.Add("N", "신규");
                 oForm.Items.Item("MType").Specific.ValidValues.Add("M", "변경");
                 oForm.Items.Item("MType").Specific.ValidValues.Add("C", "부서이동");
+                oForm.Items.Item("MType").Specific.Select(1, SAPbouiCOM.BoSearchKey.psk_Index);
                 oForm.Items.Item("MType").DisplayDesc = true;
 
                 // 순서

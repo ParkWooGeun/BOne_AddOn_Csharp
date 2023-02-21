@@ -45,7 +45,7 @@ namespace PSH_BOne_AddOn.Core
             {
                 oItem = oForm.Items.Add("Type", SAPbouiCOM.BoFormItemTypes.it_COMBO_BOX);
                 oItem.Left = oForm.Items.Item("10000116").Left + 80;
-                oItem.Top = oForm.Items.Item("10000116").Top + 23;
+                oItem.Top = oForm.Items.Item("10000116").Top + 50;
                 oItem.Height = oForm.Items.Item("10000116").Height;
                 oItem.Width = 80;
                 oItem.DisplayDesc = true;
@@ -57,13 +57,13 @@ namespace PSH_BOne_AddOn.Core
 
                 oItem = oForm.Items.Add("updateDate", SAPbouiCOM.BoFormItemTypes.it_EDIT);
                 oItem.Left = oForm.Items.Item("10000116").Left + 160;
-                oItem.Top = oForm.Items.Item("10000116").Top + 23;
+                oItem.Top = oForm.Items.Item("10000116").Top + 50;
                 oItem.Height = oForm.Items.Item("10000116").Height;
                 oItem.Width = 80;
                 oItem.Specific.DataBind.SetBound(true, "OUSR", "U_updateDate");
 
                 oItem = oForm.Items.Add("Text", SAPbouiCOM.BoFormItemTypes.it_STATIC);
-                oItem.Top = oForm.Items.Item("10000116").Top + 23;
+                oItem.Top = oForm.Items.Item("10000116").Top + 50;
                 oItem.Left = oForm.Items.Item("10000116").Left;
                 oItem.Height = oForm.Items.Item("10000116").Height;
                 oItem.Width = 80;
@@ -234,12 +234,10 @@ namespace PSH_BOne_AddOn.Core
                                 BubbleEvent = false;
                                 return;
                             }
-
-                            sQry = "INSERT INTO OUSR_LOCK_LOG SELECT  (select U_MSTCOD from OHEM where userId = (select USERID from OUSR where USER_CODE = '" + oForm.Items.Item("13").Specific.value;
-                            sQry += "')), GETDATE(), 'OUSR', (select U_MSTCOD from OHEM where userId = '" + PSH_Globals.oCompany.UserSignature.ToString() + "'),'";
+                            sQry = "INSERT INTO OUSR_LOCK_LOG SELECT  (select U_MSTCOD  from OHEM where empID = '" + oForm.Items.Item("1320000125").Specific.value.ToString().Trim();
+                            sQry += "'), GETDATE(), 'OUSR', (select U_MSTCOD from OHEM where userId = '" + PSH_Globals.oCompany.UserSignature.ToString() + "'),'";
                             sQry += oForm.Items.Item("Type").Specific.Value + "','" + oForm.Items.Item("13").Specific.value + "'";
                             oRecordSet.DoQuery(sQry);
-
                         }
                     }
                 }

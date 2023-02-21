@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
-using PSH_BOne_AddOn.DataPack;
-using PSH_BOne_AddOn.Form;
 
 namespace PSH_BOne_AddOn
 {
@@ -371,6 +368,7 @@ namespace PSH_BOne_AddOn
         {
             bool returnValue = false;
             string errCode = string.Empty;
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
             {
@@ -382,6 +380,12 @@ namespace PSH_BOne_AddOn
                 else if(oDS_PS_CO800H.GetValue("U_DocDate", 0) == "")
                 {
                     errCode = "2";
+                    throw new Exception();
+                }
+                // 마감일자 Check
+                else if(dataHelpClass.Check_Finish_Status(oDS_PS_CO800H.GetValue("U_BPLId", 0).ToString().Trim(), oDS_PS_CO800H.GetValue("U_DocDate", 0).ToString().Trim().Substring(0,6)) == false)
+                {
+                    errCode = "5";
                     throw new Exception();
                 }
                 else if (oDS_PS_CO800H.GetValue("U_MstCode", 0) == "")
@@ -415,6 +419,10 @@ namespace PSH_BOne_AddOn
                 else if (errCode == "4")
                 {
                     PSH_Globals.SBO_Application.MessageBox("전자결재번호는 필수입력 사항입니다. 확인하세요.");
+                }
+                else if (errCode == "5")
+                {
+                    PSH_Globals.SBO_Application.MessageBox("마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 작성일자를 확인하고, 회계부서로 문의하세요.");
                 }
                 else
                 {

@@ -117,6 +117,7 @@ namespace PSH_BOne_AddOn
         {
             bool ReturnValue = false;
             string errMessage = string.Empty;
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
             {
@@ -125,6 +126,14 @@ namespace PSH_BOne_AddOn
                     errMessage = "사업장, 년월은 필수입력 사항입니다.확인하세요.";
                     throw new Exception();
                 }
+
+                // 마감일자 Check
+                if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(), oForm.Items.Item("YM").Specific.Value.ToString().Trim()) == false)
+                {
+                    errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 작성일자를 확인하고, 회계부서로 문의하세요.";
+                    throw new Exception();
+                }
+
                 ReturnValue = true;
             }
             catch (Exception ex)

@@ -175,6 +175,7 @@ namespace PSH_BOne_AddOn
         {
             bool returnValue = false;
             string errMessage = string.Empty;
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
             {
@@ -183,16 +184,23 @@ namespace PSH_BOne_AddOn
                     errMessage = "사업장은 필수사항입니다. 확인하세요.";
                     throw new Exception();
                 }
-                else if (string.IsNullOrEmpty(oDS_PS_MM095H.GetValue("U_OrdGbn", 0)))
-                {
-                    errMessage = "작업구분은 필수사항입니다. 확인하세요.";
-                    throw new Exception();
-                }
                 else if (string.IsNullOrEmpty(oDS_PS_MM095H.GetValue("U_DocDate", 0)))
                 {
                     errMessage = "전기일은 필수사항입니다. 확인하세요.";
                     throw new Exception();
                 }
+                // 마감일자 Check
+                else if (dataHelpClass.Check_Finish_Status(oDS_PS_MM095H.GetValue("U_BPLId", 0).ToString().Trim(), oDS_PS_MM095H.GetValue("U_DocDate", 0).ToString().Trim().Substring(0, 6)) == false)
+                {
+                    errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 작성일자를 확인하고, 회계부서로 문의하세요.";
+                    throw new Exception();
+                }
+                else if (string.IsNullOrEmpty(oDS_PS_MM095H.GetValue("U_OrdGbn", 0)))
+                {
+                    errMessage = "작업구분은 필수사항입니다. 확인하세요.";
+                    throw new Exception();
+                }
+                
                 returnValue = true;
             }
             catch (Exception ex)

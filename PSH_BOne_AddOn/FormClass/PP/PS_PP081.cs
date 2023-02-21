@@ -672,13 +672,13 @@ namespace PSH_BOne_AddOn
                     type = string.Empty;
                     throw new Exception();
                 }
-                if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(), oForm.Items.Item("DocDate").Specific.Value, oForm.TypeEx) == false)
-                {
-                    errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 작성일자를 확인하고, 회계부서로 문의하세요.";
-                    ClickCode = string.Empty;
-                    type = string.Empty;
-                    throw new Exception();
-                }
+                //if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(), oForm.Items.Item("DocDate").Specific.Value, oForm.TypeEx) == false)
+                //{
+                //    errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 작성일자를 확인하고, 회계부서로 문의하세요.";
+                //    ClickCode = string.Empty;
+                //    type = string.Empty;
+                //    throw new Exception();
+                //}
                 for (i = 1; i <= oMat01.VisualRowCount - 1; i++)
                 {
                     if (string.IsNullOrEmpty(oMat01.Columns.Item("PP030No").Cells.Item(i).Specific.Value))

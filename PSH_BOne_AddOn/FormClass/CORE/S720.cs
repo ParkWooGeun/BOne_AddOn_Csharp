@@ -91,11 +91,11 @@ namespace PSH_BOne_AddOn.Core
             try
             {
                 //마감상태 체크_S(2017.11.23 송명규 추가)
-                if (dataHelpClass.Check_Finish_Status(dataHelpClass.User_BPLID(), oForm.Items.Item("9").Specific.Value, oForm.TypeEx) == false)
-                {
-                    errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다." + (char)13 + "전기일을 확인하고, 회계부서로 문의하세요.";
-                    throw new Exception();
-                }
+                //if (dataHelpClass.Check_Finish_Status(dataHelpClass.User_BPLID(), oForm.Items.Item("9").Specific.Value, oForm.TypeEx) == false)
+                //{
+                //    errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다." + (char)13 + "전기일을 확인하고, 회계부서로 문의하세요.";
+                //    throw new Exception();
+                //}
                 //마감상태 체크_E(2017.11.23 송명규 추가)
 
                 returnValue = true;

@@ -668,6 +668,12 @@ namespace PSH_BOne_AddOn
                     errMessage = "해당일자는 전기기간이 잠겼습니다. 일자를 확인바랍니다.";
                     throw new Exception();
                 }
+                //마감상태 체크(원가)
+                if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(), oForm.Items.Item("DocDate").Specific.Value.ToString().Trim().Substring(0,6)) == false)
+                {
+                    errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 작업일보일자를 확인하고, 회계부서로 문의하세요.";
+                    throw new Exception();
+                }
 
                 if (oForm.Items.Item("OrdType").Specific.Selected.Value != "10" 
                  && oForm.Items.Item("OrdType").Specific.Selected.Value != "20" 
@@ -704,14 +710,6 @@ namespace PSH_BOne_AddOn
                         throw new Exception();
                     }
                 }
-
-                //마감상태 체크_S(2017.11.23 송명규 추가)
-                if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(), oForm.Items.Item("DocDate").Specific.Value, oForm.TypeEx) == false)
-                {
-                    errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 작업일보일자를 확인하고, 회계부서로 문의하세요.";
-                    throw new Exception();
-                }
-                //마감상태 체크_E(2017.11.23 송명규 추가)
 
                 if (oMat03.VisualRowCount == 0)
                 {

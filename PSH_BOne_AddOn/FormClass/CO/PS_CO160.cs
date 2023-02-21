@@ -284,12 +284,19 @@ namespace PSH_BOne_AddOn
             bool returnValue = false;
             int i = 0;
             string errCode = string.Empty;
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
             {
                 if (string.IsNullOrEmpty(oForm.Items.Item("YM").Specific.Value))
                 {
                     errCode = "1";
+                    throw new Exception();
+                }
+                // 마감일자 Check
+                if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(), oForm.Items.Item("YM").Specific.Value.ToString().Trim()) == false)
+                {
+                     errCode = "7";
                     throw new Exception();
                 }
 
@@ -366,6 +373,11 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("이동작지문서라인은 필수입니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                     oMat01.Columns.Item("MPO").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                }
+                else if (errCode == "7")
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 작성일자를 확인하고, 회계부서로 문의하세요.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                    oForm.Items.Item("YM").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
                 else
                 {

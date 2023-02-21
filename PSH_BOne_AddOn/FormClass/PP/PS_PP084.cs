@@ -840,12 +840,12 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
                 //마감상태 체크_S(2017.11.23 송명규 추가)
-                if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(), oForm.Items.Item("DocDate").Specific.Value, oForm.TypeEx) == false)
-                {
-                    errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 완료일자를 확인하고, 회계부서로 문의하세요.";
-                    type = "X";
-                    throw new Exception();
-                }
+                //if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(), oForm.Items.Item("DocDate").Specific.Value, oForm.TypeEx) == false)
+                //{
+                //    errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 완료일자를 확인하고, 회계부서로 문의하세요.";
+                //    type = "X";
+                //    throw new Exception();
+                //}
                 //마감상태 체크_E(2017.11.23 송명규 추가)
                 for (i = 1; i <= oMat01.VisualRowCount - 1; i++)
                 {

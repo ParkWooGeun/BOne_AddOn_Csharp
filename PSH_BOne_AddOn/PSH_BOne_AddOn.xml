@@ -79272,7 +79272,7 @@
             <param name="prmRslt">실적</param>
             <returns>KPI 진척률</returns>
         </member>
-        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.Check_Finish_Status(System.String,System.String,System.Object)">
+        <member name="M:PSH_BOne_AddOn.Data.PSH_DataHelpClass.Check_Finish_Status(System.String,System.String)">
             <summary>
             마감상태 조회
             </summary>

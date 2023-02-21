@@ -402,6 +402,11 @@ namespace PSH_BOne_AddOn
                     type = "F";
                     throw new Exception();
                 }
+                else if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(), oForm.Items.Item("DocDate").Specific.Value.ToString().Trim().Substring(0, 6)) == false)
+                {
+                    errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 작성일자를 확인하고, 회계부서로 문의하세요.";
+                    throw new Exception();
+                }
                 else if (string.IsNullOrEmpty(oForm.Items.Item("CntcCode").Specific.Value))
                 {
                     errMessage = "담당자는 필수입니다.";
@@ -414,11 +419,7 @@ namespace PSH_BOne_AddOn
                     errMessage = "라인이 존재하지 않습니다.";
                     throw new Exception();
                 }
-                else if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId").Specific.Value, oForm.Items.Item("DocDate").Specific.Value, oForm.TypeEx) == false)
-                {
-                    errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 작성일자를 확인하고, 회계부서로 문의하세요.";
-                    throw new Exception();
-                }
+                
                 for (i = 1; i <= oMat01.VisualRowCount - 1; i++)
                 {
                     if (string.IsNullOrEmpty(oMat01.Columns.Item("ItemCode").Cells.Item(i).Specific.Value))

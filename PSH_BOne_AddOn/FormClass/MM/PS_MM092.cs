@@ -338,10 +338,24 @@ namespace PSH_BOne_AddOn
 			bool ReturnValue = false;
 			int i;
 			string errMessage = string.Empty;
+			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
 			try
 			{
-				if (string.IsNullOrEmpty(oForm.Items.Item("CardCode").Specific.Value.ToString().Trim()))
+				if (string.IsNullOrEmpty(oForm.Items.Item("InDate").Specific.Value.ToString().Trim()))
+				{
+					oForm.Items.Item("InDate").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+					errMessage = "반출일은 필수입니다.";
+					throw new Exception();
+				}
+				// 마감일자 Check
+				else if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(), oForm.Items.Item("InDate").Specific.Value.ToString().Trim().Substring(0, 6)) == false)
+				{
+					errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 작성일자를 확인하고, 회계부서로 문의하세요.";
+					oForm.Items.Item("InDate").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+					throw new Exception();
+				}
+				else if (string.IsNullOrEmpty(oForm.Items.Item("CardCode").Specific.Value.ToString().Trim()))
 				{
 					oForm.Items.Item("CardCode").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 					errMessage = "고객코드는 필수입니다.";
@@ -351,12 +365,6 @@ namespace PSH_BOne_AddOn
 				{
 					oForm.Items.Item("OutMan").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 					errMessage = "반출자는 필수입니다.";
-					throw new Exception();
-				}
-				else if (string.IsNullOrEmpty(oForm.Items.Item("InDate").Specific.Value.ToString().Trim()))
-				{
-					oForm.Items.Item("InDate").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-					errMessage = "반출일은 필수입니다.";
 					throw new Exception();
 				}
 				else if (string.IsNullOrEmpty(oForm.Items.Item("PurPose").Specific.Value.ToString().Trim()))

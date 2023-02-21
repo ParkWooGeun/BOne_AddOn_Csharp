@@ -3608,24 +3608,21 @@ namespace PSH_BOne_AddOn.Data
         /// <param name="prmDocDate">등록일</param>
         /// <param name="prmFormTypeEx">화면타입(UID)</param>
         /// <returns></returns>
-        public bool Check_Finish_Status(string prmBPLId, string prmDocDate, object prmFormTypeEx)
+        public bool Check_Finish_Status(string prmBPLId, string prmYM)
         {
             bool returnValue = false;
             string sQry;
             string CheckFinishStatus;
-
             SAPbobsCOM.Recordset oRecordset01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
                 sQry = " EXEC PS_Z_CheckFinishStatus '";
                 sQry += prmBPLId + "','";
-                sQry += prmDocDate + "','";
-                sQry += prmFormTypeEx + "'";
-
+                sQry += prmYM + "'";
                 oRecordset01.DoQuery(sQry);
 
-                CheckFinishStatus = oRecordset01.Fields.Item("ReturnValue").Value;
+                CheckFinishStatus = oRecordset01.Fields.Item("ReturnValue").Value.ToString().Trim();
 
                 if (CheckFinishStatus == "True")
                 {

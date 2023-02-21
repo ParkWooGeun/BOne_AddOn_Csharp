@@ -660,7 +660,7 @@ namespace PSH_BOne_AddOn
                 }
 
                 //마감상태 체크
-                if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(), oForm.Items.Item("DocDate").Specific.Value, oForm.TypeEx) == false)
+                if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("SBPLId").Specific.Value.ToString().Trim(), oForm.Items.Item("DocDate").Specific.Value.ToString().Trim().Substring(0, 6)) == false)
                 {
                     errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다." + (char)13 + "작업일보일자를 확인하고, 회계부서로 문의하세요.";
                     throw new Exception();

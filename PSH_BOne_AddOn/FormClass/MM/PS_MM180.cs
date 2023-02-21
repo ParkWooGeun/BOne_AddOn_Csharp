@@ -395,8 +395,13 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("DocDate").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     throw new Exception();
                 }
-
-                if (dataHelpClass.Future_Date_Check(oForm.Items.Item("DocDate").Specific.Value) == "N")
+                else if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BWhsCode").Specific.Value.ToString().Trim().Substring(2,1), oForm.Items.Item("DocDate").Specific.Value.ToString().Trim().Substring(0, 6)) == false)
+                {
+                    oForm.Items.Item("DocDate").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 작성일자를 확인하고, 회계부서로 문의하세요.";
+                    throw new Exception();
+                }
+                else if (dataHelpClass.Future_Date_Check(oForm.Items.Item("DocDate").Specific.Value) == "N")
                 {
                     errMessage = "미래일자는 입력할 수 없습니다.";
                     oForm.Items.Item("DocDate").Click(SAPbouiCOM.BoCellClickType.ct_Regular);

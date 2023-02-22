@@ -649,6 +649,7 @@ namespace PSH_BOne_AddOn
             string ClickCode = string.Empty;
             string errMessage = string.Empty;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
             {
@@ -659,6 +660,13 @@ namespace PSH_BOne_AddOn
                 if (string.IsNullOrEmpty(oForm.Items.Item("DocDate").Specific.Value))
                 {
                     errMessage = "작성일은 필수입니다";
+                    ClickCode = "DocDate";
+                    type = "F";
+                    throw new Exception();
+                }
+                if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(), oForm.Items.Item("DocDate").Specific.Value.ToString().Trim().Substring(0, 6)) == false)
+                {
+                    errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 완료일자를 확인하고, 회계부서로 문의하세요.";
                     ClickCode = "DocDate";
                     type = "F";
                     throw new Exception();

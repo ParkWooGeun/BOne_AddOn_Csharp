@@ -558,6 +558,42 @@ namespace PSH_BOne_AddOn.Core
 		}
 
 		/// <summary>
+		/// 필수 사항 check
+		/// </summary>
+		/// <returns></returns>
+		private bool S392_CheckDataValid()
+		{
+			bool returnValue = false;
+			string errMessage = string.Empty;
+			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
+			try
+			{
+				if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId01").Specific.Value.ToString().Trim(), oForm.Items.Item("6").Specific.Value.ToString().Trim().Substring(0, 6)) == false)
+				{
+					errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 전기일을 확인하고, 회계부서로 문의하세요.";
+					oForm.Items.Item("6").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+					throw new Exception();
+				}
+
+				returnValue = true;
+			}
+			catch (Exception ex)
+			{
+				if (errMessage != string.Empty)
+				{
+					PSH_Globals.SBO_Application.MessageBox(errMessage);
+				}
+				else
+				{
+					PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+				}
+			}
+
+			return returnValue;
+		}
+
+		/// <summary>
 		/// Form Item Event
 		/// </summary>
 		/// <param name="FormUID">Form UID</param>
@@ -662,8 +698,27 @@ namespace PSH_BOne_AddOn.Core
 			try
 			{
 				oForm.Freeze(true);
-				if (pVal.ItemChanged == true)
+				if (pVal.Before_Action == true)
 				{
+					if (pVal.ItemUID == "1")
+					{
+						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+						{
+							if (S392_CheckDataValid() == false)
+							{
+								BubbleEvent = false;
+								return;
+							}
+						}
+						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
+						{
+							if (S392_CheckDataValid() == false)
+							{
+								BubbleEvent = false;
+								return;
+							}
+						}
+					}
 				}
 				else if (pVal.Before_Action == false)
 				{

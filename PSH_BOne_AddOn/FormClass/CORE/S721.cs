@@ -67,6 +67,41 @@ namespace PSH_BOne_AddOn.Core
         }
 
         /// <summary>
+        /// 필수 사항 check
+        /// </summary>
+        /// <returns></returns>
+        private bool S721_CheckDataValid()
+        {
+            bool returnValue = false;
+            string errMessage = string.Empty;
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
+            try
+            {
+                if (dataHelpClass.Check_Finish_Status(dataHelpClass.User_BPLID(), oForm.Items.Item("9").Specific.Value.ToString().Trim().Substring(0, 6)) == false)
+                {
+                    errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 전기일을 확인하고, 회계부서로 문의하세요.";
+                    throw new Exception();
+                }
+
+                returnValue = true;
+            }
+            catch (Exception ex)
+            {
+                if (errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                }
+            }
+
+            return returnValue;
+        }
+
+        /// <summary>
         /// Form Item Event
         /// </summary>
         /// <param name="FormUID">Form UID</param>
@@ -77,7 +112,7 @@ namespace PSH_BOne_AddOn.Core
             switch (pVal.EventType)
             {
                 case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED: //1
-                    //Raise_EVENT_ITEM_PRESSED(FormUID, ref pVal, ref BubbleEvent);
+                    Raise_EVENT_ITEM_PRESSED(FormUID, ref pVal, ref BubbleEvent);
                     break;
                 case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
                     Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
@@ -145,6 +180,57 @@ namespace PSH_BOne_AddOn.Core
                 case SAPbouiCOM.BoEventTypes.et_Drag: //39
                     //Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
                     break;
+            }
+        }
+
+        /// <summary>
+        /// ITEM_PRESSED 이벤트
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            try
+            {
+                oForm.Freeze(true);
+
+                if (pVal.BeforeAction == true)
+                {
+                    if (pVal.ItemUID == "1")
+                    {
+                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+                        {
+                            if (S721_CheckDataValid() == false)
+                            {
+                                BubbleEvent = false;
+                                return;
+                            }
+                        }
+                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
+                        {
+                            if (S721_CheckDataValid() == false)
+                            {
+                                BubbleEvent = false;
+                                return;
+                            }
+                        }
+                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
+                        {
+                        }
+                    }
+                }
+                else if (pVal.BeforeAction == false)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                oForm.Freeze(false);
             }
         }
 

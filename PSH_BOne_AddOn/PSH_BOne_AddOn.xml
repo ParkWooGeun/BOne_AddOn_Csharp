@@ -2129,6 +2129,12 @@
             각 모드에 따른 아이템설정
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.Core.S392.S392_CheckDataValid">
+            <summary>
+            필수 사항 check
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:PSH_BOne_AddOn.Core.S392.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event
@@ -3057,6 +3063,12 @@
             화면 Item 생성
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.Core.S721.S721_CheckDataValid">
+            <summary>
+            필수 사항 check
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:PSH_BOne_AddOn.Core.S721.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event
@@ -3064,6 +3076,14 @@
             <param name="FormUID">Form UID</param>
             <param name="pVal">pVal</param>
             <param name="BubbleEvent">Bubble Event</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Core.S721.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            ITEM_PRESSED 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
         <member name="M:PSH_BOne_AddOn.Core.S721.Raise_EVENT_KEY_DOWN(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>

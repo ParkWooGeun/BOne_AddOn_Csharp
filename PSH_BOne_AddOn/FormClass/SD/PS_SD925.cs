@@ -261,17 +261,24 @@ namespace PSH_BOne_AddOn
         {
             bool returnValue = false;
             string errMessage = string.Empty;
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
             {
-                if (string.IsNullOrEmpty(oDS_PS_SD925H.GetValue("U_YYYYMM", 0)))
+                if (string.IsNullOrEmpty(oDS_PS_SD925H.GetValue("U_BPLId", 0)))
+                {
+                    errMessage = "사업장은 필수입력사항입니다. 확인하세요.";
+                    throw new Exception();
+                }
+                else if (string.IsNullOrEmpty(oDS_PS_SD925H.GetValue("U_YYYYMM", 0)))
                 {
                     errMessage = "전기년월은 필수입력사항입니다. 확인하세요.";
                     throw new Exception();
                 }
-                else if (string.IsNullOrEmpty(oDS_PS_SD925H.GetValue("U_BPLId", 0)))
+                // 마감일자 Check
+                else if (dataHelpClass.Check_Finish_Status(oDS_PS_SD925H.GetValue("U_BPLId", 0).ToString().Trim(), oDS_PS_SD925H.GetValue("U_YYYYMM", 0).ToString().Trim()) == false)
                 {
-                    errMessage = "사업장은 필수입력사항입니다. 확인하세요.";
+                    errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 전기년월을 확인하고, 회계부서로 문의하세요.";
                     throw new Exception();
                 }
                 else if (Convert.ToDouble(oDS_PS_SD925H.GetValue("U_TgtWgt", 0)) <= 0)

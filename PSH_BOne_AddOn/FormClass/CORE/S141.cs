@@ -138,10 +138,9 @@ namespace PSH_BOne_AddOn.Core
 
             try
             {
-                if (string.IsNullOrEmpty(oForm.Items.Item("4").Specific.Value))
+                if (oForm.Items.Item("2001").Specific.Value.ToString().Trim() != "1" && oForm.Items.Item("TradeType").Specific.Selected.Value.ToString().Trim() == "2") //창원이 아닌경우 임가공 선택한 경우
                 {
-                    errMessage = "고객은 필수입니다.";
-                    oForm.Items.Item("4").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    errMessage = "창원사업장이 아닌경우 임가공거래가 불가능합니다.";
                     throw new Exception();
                 }
                 else if (string.IsNullOrEmpty(oForm.Items.Item("2001").Specific.Value.ToString().Trim()))
@@ -150,25 +149,24 @@ namespace PSH_BOne_AddOn.Core
                     oForm.Items.Item("2001").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     throw new Exception();
                 }
+                else if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("2001").Specific.Value.ToString().Trim(), oForm.Items.Item("10").Specific.Value.ToString().Trim().Substring(0, 6)) == false)
+                {
+                    errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 전기일을 확인하고, 회계부서로 문의하세요.";
+                    oForm.Items.Item("10").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    throw new Exception();
+                }
+                else if (string.IsNullOrEmpty(oForm.Items.Item("4").Specific.Value))
+                {
+                    errMessage = "고객은 필수입니다.";
+                    oForm.Items.Item("4").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    throw new Exception();
+                }
                 else if (string.IsNullOrEmpty(oForm.Items.Item("TradeType").Specific.Value))
                 {
                     errMessage = "거래형태는 필수입니다.";
                     oForm.Items.Item("TradeType").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     throw new Exception();
                 }
-                else if (oForm.Items.Item("2001").Specific.Value.ToString().Trim() != "1" && oForm.Items.Item("TradeType").Specific.Selected.Value.ToString().Trim() == "2") //창원이 아닌경우 임가공 선택한 경우
-                {
-                    errMessage = "창원사업장이 아닌경우 임가공거래가 불가능합니다.";
-                    throw new Exception();
-                }
-
-                //마감상태 체크_S(2017.11.23 송명규 추가)
-                //if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("2001").Specific.Value.ToString().Trim(), oForm.Items.Item("10").Specific.Value, oForm.TypeEx) == false)
-                //{
-                //    errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다." + (char)13 + "전기일을 확인하고, 회계부서로 문의하세요.";
-                //    throw new Exception();
-                //}
-                //마감상태 체크_E(2017.11.23 송명규 추가)
 
                 for (int i = 1; i <= oMat01.VisualRowCount - 1; i++)
                 {

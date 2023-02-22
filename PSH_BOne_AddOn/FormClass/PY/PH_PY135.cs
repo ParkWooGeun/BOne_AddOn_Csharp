@@ -376,7 +376,7 @@ namespace PSH_BOne_AddOn
         {
             bool returnValue = false;
             short errCode = 0;
-
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             
             try
@@ -392,6 +392,12 @@ namespace PSH_BOne_AddOn
                 if (string.IsNullOrEmpty(oDS_PH_PY135A.GetValue("U_YM", 0).ToString().Trim()))
                 {
                     errCode = 2;
+                    throw new Exception();
+                }
+                //마감Check
+                if (dataHelpClass.Check_Finish_Status(oDS_PH_PY135A.GetValue("U_CLTCOD", 0).ToString().Trim(), oDS_PH_PY135A.GetValue("U_JdtDate", 0).ToString().Trim().Substring(0, 6)) == false)
+                {
+                    errCode = 3;
                     throw new Exception();
                 }
 
@@ -425,6 +431,11 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.SetStatusBarMessage("지급년월은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     oForm.Items.Item("YM").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                }
+                else if (errCode == 3)
+                {
+                    PSH_Globals.SBO_Application.SetStatusBarMessage("마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 분개전기일를 확인하고, 회계부서로 문의하세요.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                    oForm.Items.Item("JdtDate").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 }
                 else if (errCode == 10)
                 {

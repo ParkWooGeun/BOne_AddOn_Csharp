@@ -287,7 +287,7 @@ namespace PSH_BOne_AddOn
             string DueDate;
             string TaxDate;
             string Comments;
-
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -318,6 +318,16 @@ namespace PSH_BOne_AddOn
                     ErrNum = 1;
                     throw new Exception();
                 }
+                if (DocDate + DueDate + TaxDate == "")
+                {
+                    ErrNum = 5;
+                    throw new Exception();
+                }
+                if (dataHelpClass.Check_Finish_Status(BPLId, DocDate.Substring(0, 6)) == false)
+                {
+                    ErrNum = 8;
+                    throw new Exception();
+                }
                 if (ObjectCode == "")
                 {
                     ErrNum = 2;
@@ -331,11 +341,6 @@ namespace PSH_BOne_AddOn
                 if (DocEntry == "")
                 {
                     ErrNum = 4;
-                    throw new Exception();
-                }
-                if (DocDate + DueDate + TaxDate == "")
-                {
-                    ErrNum = 5;
                     throw new Exception();
                 }
                 if (Comments == "")
@@ -390,6 +395,10 @@ namespace PSH_BOne_AddOn
                 else if (ErrNum == 7)
                 {
                     PSH_Globals.SBO_Application.MessageBox("저장을 취소하셨습니다.");
+                }
+                else if (ErrNum == 8)
+                {
+                    PSH_Globals.SBO_Application.MessageBox("마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 전기일자를 확인하고, 회계부서로 문의하세요.");
                 }
                 else
                 {

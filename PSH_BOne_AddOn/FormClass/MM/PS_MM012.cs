@@ -50,7 +50,7 @@ namespace PSH_BOne_AddOn
 				oForm = PSH_Globals.SBO_Application.Forms.Item(oFormUniqueID);
 
 				oForm.SupportedModes = -1;
-				oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
+				oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
 				oForm.DataBrowser.BrowseBy = "Code";
 
 				oForm.Freeze(true);

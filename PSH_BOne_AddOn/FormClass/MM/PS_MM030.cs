@@ -2639,6 +2639,12 @@ namespace PSH_BOne_AddOn
                     switch (pVal.MenuUID)
                     {
                         case "1284": //취소
+                            // 마감일자 Check
+                            if (dataHelpClass.Check_Finish_Status(oDS_PS_MM030H.GetValue("U_BPLId", 0).ToString().Trim(), oDS_PS_MM030H.GetValue("U_DocDate", 0).ToString().Trim().Substring(0, 6)) == false)
+                            {
+                                errMessage = "마감상태가 잠금입니다. 해당 일자로 취소할 수 없습니다. 작성일자를 확인하고, 회계부서로 문의하세요.";
+                                throw new Exception();
+                            }
                             for (i = 0; i <= oMat01.VisualRowCount - 2; i++)
                             {
                                 LineNum = oMat01.Columns.Item("LineId").Cells.Item(i + 1).Specific.Value.ToString().Trim();
@@ -2662,6 +2668,12 @@ namespace PSH_BOne_AddOn
                             }
                             break;
                         case "1286": //닫기
+                            // 마감일자 Check
+                            if (dataHelpClass.Check_Finish_Status(oDS_PS_MM030H.GetValue("U_BPLId", 0).ToString().Trim(), oDS_PS_MM030H.GetValue("U_DocDate", 0).ToString().Trim().Substring(0, 6)) == false)
+                            {
+                                errMessage = "마감상태가 잠금입니다. 해당 일자로 닫기할 수 없습니다. 작성일자를 확인하고, 회계부서로 문의하세요.";
+                                throw new Exception();
+                            }
                             // 부산사업장만 해당되도록 품의취소시 가입고가 남아있을경우 닫기 처리 안됨.
                             if (Convert.ToDouble(oForm.Items.Item("BPLId").Specific.Value) == 2)
                             {

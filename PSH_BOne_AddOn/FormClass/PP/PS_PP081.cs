@@ -1904,10 +1904,22 @@ namespace PSH_BOne_AddOn
                     switch (pVal.MenuUID)
                     {
                         case "1284": //취소
+                            if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(), oForm.Items.Item("DocDate").Specific.Value.ToString().Trim().Substring(0, 6)) == false)
+                            {
+                                errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 완료일자를 확인하고, 회계부서로 문의하세요.";
+                                BubbleEvent = false;
+                                throw new Exception();
+                            }
                             errMessage = "현재화면에서 취소할수 없습니다. 생산완료등록(PP080) 화면에서 취소하시기 바랍니다.";
                             BubbleEvent = false;
                             throw new Exception();
                         case "1286": //닫기
+                            if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(), oForm.Items.Item("DocDate").Specific.Value.ToString().Trim().Substring(0, 6)) == false)
+                            {
+                                errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 완료일자를 확인하고, 회계부서로 문의하세요.";
+                                BubbleEvent = false;
+                                throw new Exception();
+                            }
                             break;
                         case "1293": //행삭제
                             Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);

@@ -1187,10 +1187,28 @@ namespace PSH_BOne_AddOn.Core
 						case "1282": //추가
 							break;
 						case "1283": //삭제
+							if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId01").Specific.Value.ToString().Trim(), oForm.Items.Item("6").Specific.Value.ToString().Trim().Substring(0, 6)) == false)
+							{
+								PSH_Globals.SBO_Application.MessageBox("마감상태가 잠금입니다. 해당 일자로 삭제할 수 없습니다. 작성일자를 확인하고, 회계부서로 문의하세요.");
+								BubbleEvent = false;
+								return;
+							}
 							break;
 						case "1284": //취소
+							if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId01").Specific.Value.ToString().Trim(), oForm.Items.Item("6").Specific.Value.ToString().Trim().Substring(0, 6)) == false)
+							{
+								PSH_Globals.SBO_Application.MessageBox("마감상태가 잠금입니다. 해당 일자로 취소할 수 없습니다. 작성일자를 확인하고, 회계부서로 문의하세요.");
+								BubbleEvent = false;
+								return;
+							}
 							break;
 						case "1286": //닫기
+							if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId01").Specific.Value.ToString().Trim(), oForm.Items.Item("6").Specific.Value.ToString().Trim().Substring(0, 6)) == false)
+							{
+								PSH_Globals.SBO_Application.MessageBox("마감상태가 잠금입니다. 해당 일자로 닫기할 수 없습니다. 작성일자를 확인하고, 회계부서로 문의하세요.");
+								BubbleEvent = false;
+								return;
+							}
 							break;
 						case "1288":
 						case "1289":

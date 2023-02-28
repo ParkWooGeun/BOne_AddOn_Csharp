@@ -154,7 +154,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("CLTCOD").Enabled = true;
                     oForm.Items.Item("FrDate").Enabled = true;
                     oForm.Items.Item("MSTCOD").Enabled = true;
-                    oForm.Items.Item("MSTNAME").Enabled = true;
+                    oForm.Items.Item("MSTNAME").Enabled = false;
                     oForm.Items.Item("Btn_Serch").Enabled = true;
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
                 }

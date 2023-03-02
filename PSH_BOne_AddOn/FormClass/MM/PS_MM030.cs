@@ -2643,6 +2643,7 @@ namespace PSH_BOne_AddOn
                             if (dataHelpClass.Check_Finish_Status(oDS_PS_MM030H.GetValue("U_BPLId", 0).ToString().Trim(), oDS_PS_MM030H.GetValue("U_DocDate", 0).ToString().Trim().Substring(0, 6)) == false)
                             {
                                 errMessage = "마감상태가 잠금입니다. 해당 일자로 취소할 수 없습니다. 작성일자를 확인하고, 회계부서로 문의하세요.";
+                                BubbleEvent = false;
                                 throw new Exception();
                             }
                             for (i = 0; i <= oMat01.VisualRowCount - 2; i++)

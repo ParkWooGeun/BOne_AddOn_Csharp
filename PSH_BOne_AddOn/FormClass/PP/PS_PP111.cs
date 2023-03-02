@@ -329,6 +329,40 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
+		/// HeaderSpaceLineDel
+		/// </summary>
+		/// <returns></returns>
+		private bool PS_PP111_HeaderSpaceLineDel()
+		{
+			bool ReturnValue = false;
+			string errMessage = string.Empty;
+			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
+			try
+			{
+				if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(), oForm.Items.Item("DocYM").Specific.Value.ToString().Trim()) == false)
+				{
+					errMessage = "마감상태가 잠금입니다. 해당 일자로 취소할 수 없습니다. 기준년월를 확인하고, 회계부서로 문의하세요.";
+					throw new Exception();
+				}
+
+				ReturnValue = true;
+			}
+			catch (Exception ex)
+			{
+				if (errMessage != string.Empty)
+				{
+					PSH_Globals.SBO_Application.MessageBox(errMessage);
+				}
+				else
+				{
+					PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+				}
+			}
+			return ReturnValue;
+		}
+
+		/// <summary>
 		/// PS_PP111_PrintReport
 		/// </summary>
 		[STAThread]
@@ -483,6 +517,11 @@ namespace PSH_BOne_AddOn
 					}
 					else if (pVal.ItemUID == "BtnSave")
 					{
+						if (PS_PP111_HeaderSpaceLineDel() == false)
+						{
+							BubbleEvent = false; 
+							return;
+						}
 						PS_PP111_AddData();
 					}
 					else if (pVal.ItemUID == "BtnPrint")
@@ -551,6 +590,112 @@ namespace PSH_BOne_AddOn
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat);
 					System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_PP111L);
+				}
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+		}
+
+		/// <summary>
+		/// FormMenuEvent
+		/// </summary>
+		/// <param name="FormUID"></param>
+		/// <param name="pVal"></param>
+		/// <param name="BubbleEvent"></param>
+		public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
+		{
+			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
+			try
+			{
+				oForm.Freeze(true);
+				if (pVal.BeforeAction == true)
+				{
+					switch (pVal.MenuUID)
+					{
+						case "1284": //취소
+							if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(), oForm.Items.Item("DocYM").Specific.Value.ToString().Trim()) == false)
+							{
+								PSH_Globals.SBO_Application.MessageBox("마감상태가 잠금입니다. 해당 일자로 취소할 수 없습니다. 작성일자를 확인하고, 회계부서로 문의하세요.");
+								BubbleEvent = false;
+								return;
+							}
+							break;
+						case "1286": //닫기
+							if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(), oForm.Items.Item("DocYM").Specific.Value.ToString().Trim()) == false)
+							{
+								PSH_Globals.SBO_Application.MessageBox("마감상태가 잠금입니다. 해당 일자로 닫기할 수 없습니다. 작성일자를 확인하고, 회계부서로 문의하세요.");
+								BubbleEvent = false;
+								return;
+							}
+							break;
+						case "1293": //행삭제
+							break;
+						case "1281": //찾기
+							break;
+						case "1282": //추가
+							break;
+						case "1288":
+						case "1289":
+						case "1290":
+						case "1291": //레코드이동버튼
+							break;
+					}
+				}
+				else if (pVal.BeforeAction == false)
+				{
+					switch (pVal.MenuUID)
+					{
+						case "1284":  //취소
+							break;
+						case "1286": //닫기
+							break;
+						case "1293": //행삭제
+							break;
+						case "1281": //찾기
+							break;
+						case "1282": //추가
+							break;
+						case "1288":
+						case "1289":
+						case "1290":
+						case "1291": //레코드이동버튼
+							break;
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+			{
+				oForm.Freeze(false);
+			}
+		}
+
+		/// <summary>
+		/// FormDataEvent
+		/// </summary>
+		/// <param name="FormUID"></param>
+		/// <param name="BusinessObjectInfo"></param>
+		/// <param name="BubbleEvent"></param>
+		public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
+		{
+			try
+			{
+				switch (BusinessObjectInfo.EventType)
+				{
+					case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
+						break;
+					case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
+						break;
+					case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
+						break;
+					case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
+						break;
 				}
 			}
 			catch (Exception ex)

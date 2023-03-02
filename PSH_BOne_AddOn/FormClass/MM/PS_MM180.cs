@@ -2226,7 +2226,7 @@ namespace PSH_BOne_AddOn
                     switch (pVal.MenuUID)
                     {
                         case "1284": //취소
-                            if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BWhsCode").Specific.Value.ToString().Trim().Substring(2, 1), oForm.Items.Item("DocDate").Specific.Value.ToString().Trim().Substring(0, 6)) == false)
+                            if (dataHelpClass.Check_Finish_Status(oMat01.Columns.Item("WhsCode").Cells.Item(1).Specific.Value.ToString().Trim().Substring(2, 1), oForm.Items.Item("DocDate").Specific.Value.ToString().Trim().Substring(0, 6)) == false)
                             {
                                 PSH_Globals.SBO_Application.MessageBox("마감상태가 잠금입니다. 해당 일자로 취소할 수 없습니다. 작성일자를 확인하고, 회계부서로 문의하세요.");
                                 BubbleEvent = false;
@@ -2253,7 +2253,7 @@ namespace PSH_BOne_AddOn
                             }
                             break;
                         case "1286": //닫기
-                            if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BWhsCode").Specific.Value.ToString().Trim().Substring(2, 1), oForm.Items.Item("DocDate").Specific.Value.ToString().Trim().Substring(0, 6)) == false)
+                            if (dataHelpClass.Check_Finish_Status(oMat01.Columns.Item("WhsCode").Cells.Item(1).Specific.Value.ToString().Trim().Substring(2, 1), oForm.Items.Item("DocDate").Specific.Value.ToString().Trim().Substring(0, 6)) == false)
                             {
                                 PSH_Globals.SBO_Application.MessageBox("마감상태가 잠금입니다. 해당 일자로 닫기할 수 없습니다. 작성일자를 확인하고, 회계부서로 문의하세요.");
                                 BubbleEvent = false;

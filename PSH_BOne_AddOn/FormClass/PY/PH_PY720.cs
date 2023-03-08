@@ -235,6 +235,7 @@ namespace PSH_BOne_AddOn
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
+                    Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
@@ -287,6 +288,7 @@ namespace PSH_BOne_AddOn
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
+                    Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
@@ -338,6 +340,36 @@ namespace PSH_BOne_AddOn
             }
         }
 
+        /// <summary>
+        /// Raise_EVENT_KEY_DOWN
+        /// </summary>
+        /// <param name="FormUID"></param>
+        /// <param name="pVal"></param>
+        /// <param name="BubbleEvent"></param>
+        private void Raise_EVENT_KEY_DOWN(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            try
+            {
+                if (pVal.CharPressed == 9)
+                {
+                    if (pVal.ItemUID == "JIGBIL")
+                    {
+                        if (string.IsNullOrEmpty(oForm.Items.Item("JIGBIL").Specific.Value))
+                        {
+                            PSH_Globals.SBO_Application.ActivateMenuItem("7425");
+                            BubbleEvent = false;
+                        }
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_KEY_DOWN_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
+        }
         /// <summary>
         /// FORM_UNLOAD 이벤트
         /// </summary>

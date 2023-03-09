@@ -1700,6 +1700,11 @@ namespace PSH_BOne_AddOn
                         errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. " + (i + 1) + "번 라인의 청구일자를 확인하고, 회계부서로 문의하세요.";
                         throw new Exception();
                     }
+                    else if (string.IsNullOrEmpty(oDS_PS_MM005H.GetValue("U_UseDept", i)))
+                    {
+                        errMessage = (i + 1) + "번 라인의 사용처가 없습니다. 확인하세요.";
+                        throw new Exception();
+                    }
                 }
                 oMat01.LoadFromDataSource();
 

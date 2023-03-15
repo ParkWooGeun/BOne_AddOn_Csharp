@@ -487,6 +487,11 @@ namespace PSH_BOne_AddOn
                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
                 Div = oForm.Items.Item("Div").Specific.Value.ToString().Trim();
 
+                if (string.IsNullOrEmpty(MSTCOD))
+                {
+                    MSTCOD = "%";
+                }
+
                 if (CLTCOD == "2")
                 {
                     if (Div == "1")

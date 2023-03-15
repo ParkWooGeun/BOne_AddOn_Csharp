@@ -675,6 +675,7 @@
     <Compile Include="FormClass\PP\PS_PP995.cs" />
     <Compile Include="FormClass\PP\PS_PP996.cs" />
     <Compile Include="FormClass\PP\ZPS_MGSCRAP.cs" />
+    <Compile Include="FormClass\PY\PH_PY126.cs" />
     <Compile Include="FormClass\PY\PH_PY400.cs" />
     <Compile Include="FormClass\PY\PH_PY403.cs" />
     <Compile Include="FormClass\PY\PH_PY420.cs" />

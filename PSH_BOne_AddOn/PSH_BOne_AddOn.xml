@@ -57010,7 +57010,7 @@
         </member>
         <member name="T:PSH_BOne_AddOn.PH_PY035">
             <summary>
-            배차신청서
+            급상여E-Mail 발송
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY035.LoadForm(System.String)">
@@ -57022,6 +57022,11 @@
         <member name="M:PSH_BOne_AddOn.PH_PY035.PH_PY035_CreateItems">
             <summary>
             화면 Item 생성
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY035.PH_PY035_ComboBox_Setting">
+            <summary>
+            PH_PY035_ComboBox_Setting
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY035.PH_PY035_SetDocEntry">
@@ -57037,19 +57042,9 @@
             <param name="RowIserted"></param>
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY035.PH_PY035_ComboBox_Setting">
-            <summary>
-            PH_PY035_ComboBox_Setting
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY035.PH_PY035_MTX01">
+        <member name="M:PSH_BOne_AddOn.PH_PY035.PH_PY035_MTX01(System.String)">
             <summary>
             PH_PY035_MTX01
-            </summary>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY035.PH_PY035_AddData">
-            <summary>
-            PH_PY031_DeleteData
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY035.PH_PY035_FormItemEnabled">

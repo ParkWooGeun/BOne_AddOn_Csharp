@@ -137,16 +137,22 @@ namespace PSH_BOne_AddOn.Core
 
             try
             {
-                if (string.IsNullOrEmpty(oForm.Items.Item("4").Specific.Value))
-                {
-                    errMessage = "고객은 필수입니다.";
-                    oForm.Items.Item("4").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    throw new Exception();
-                }
-                else if (string.IsNullOrEmpty(oForm.Items.Item("2001").Specific.Value.ToString().Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("2001").Specific.Value.ToString().Trim()))
                 {
                     errMessage = "사업장은 필수입니다.";
                     oForm.Items.Item("2001").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    throw new Exception();
+                }
+                else if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("2001").Specific.Value.ToString().Trim(), oForm.Items.Item("10").Specific.Value.ToString().Trim().Substring(0, 6)) == false)
+                {
+                    errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 전기일을 확인하고, 회계부서로 문의하세요.";
+                    oForm.Items.Item("10").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    throw new Exception();
+                }
+                else if (string.IsNullOrEmpty(oForm.Items.Item("4").Specific.Value))
+                {
+                    errMessage = "고객은 필수입니다.";
+                    oForm.Items.Item("4").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     throw new Exception();
                 }
                 else if (string.IsNullOrEmpty(oForm.Items.Item("TradeType").Specific.Value.ToString().Trim()))
@@ -248,78 +254,78 @@ namespace PSH_BOne_AddOn.Core
         /// <param name="BubbleEvent">Bubble Event</param>
         public override void Raise_FormItemEvent(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            //switch (pVal.EventType)
-            //{
-            //    case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED: //1
-            //        Raise_EVENT_ITEM_PRESSED(FormUID, ref pVal, ref BubbleEvent);
-            //        break;
-            //    case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
-            //        Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
-            //        break;
-            //    case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
-            //        Raise_EVENT_GOT_FOCUS(FormUID, ref pVal, ref BubbleEvent);
-            //        break;
-            //    case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
-            //        Raise_EVENT_LOST_FOCUS(FormUID, ref pVal, ref BubbleEvent);
-            //        break;
-            //    case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
-            //        Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
-            //        break;
-            //    case SAPbouiCOM.BoEventTypes.et_CLICK: //6
-            //        Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
-            //        break;
-            //    case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
-            //        Raise_EVENT_DOUBLE_CLICK(FormUID, ref pVal, ref BubbleEvent);
-            //        break;
-            //    case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED: //8
-            //        Raise_EVENT_MATRIX_LINK_PRESSED(FormUID, ref pVal, ref BubbleEvent);
-            //        break;
-            //    case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED: //9
-            //        Raise_EVENT_MATRIX_COLLAPSE_PRESSED(FormUID, ref pVal, ref BubbleEvent);
-            //        break;
-            //    case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
-            //        Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
-            //        break;
-            //    case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
-            //        Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
-            //        break;
-            //    case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD: //12
-            //        Raise_EVENT_DATASOURCE_LOAD(FormUID, ref pVal, ref BubbleEvent);
-            //        break;
-            //    case SAPbouiCOM.BoEventTypes.et_FORM_LOAD: //16
-            //        Raise_EVENT_FORM_LOAD(FormUID, ref pVal, ref BubbleEvent);
-            //        break;
-            //    case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD: //17
-            //        Raise_EVENT_FORM_UNLOAD(FormUID, ref pVal, ref BubbleEvent);
-            //        break;
-            //    case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: //18
-            //        Raise_EVENT_FORM_ACTIVATE(FormUID, ref pVal, ref BubbleEvent);
-            //        break;
-            //    case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE: //19
-            //        Raise_EVENT_FORM_DEACTIVATE(FormUID, ref pVal, ref BubbleEvent);
-            //        break;
-            //    case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE: //20
-            //        Raise_EVENT_FORM_CLOSE(FormUID, ref pVal, ref BubbleEvent);
-            //        break;
-            //    case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
-            //        Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
-            //        break;
-            //    case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
-            //        Raise_EVENT_FORM_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
-            //        break;
-            //    case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
-            //        Raise_EVENT_FORM_MENU_HILIGHT(FormUID, ref pVal, ref BubbleEvent);
-            //        break;
-            //    case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
-            //        Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
-            //        break;
-            //    case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
-            //        Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
-            //        break;
-            //    case SAPbouiCOM.BoEventTypes.et_Drag: //39
-            //        Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
-            //        break;
-            //}
+            switch (pVal.EventType)
+            {
+                case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED: //1
+                    Raise_EVENT_ITEM_PRESSED(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
+                    Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
+                    Raise_EVENT_GOT_FOCUS(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                //case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
+                //    Raise_EVENT_LOST_FOCUS(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+                case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
+                    Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                //case SAPbouiCOM.BoEventTypes.et_CLICK: //6
+                //    Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
+                //    Raise_EVENT_DOUBLE_CLICK(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED: //8
+                //    Raise_EVENT_MATRIX_LINK_PRESSED(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED: //9
+                //    Raise_EVENT_MATRIX_COLLAPSE_PRESSED(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
+                //    Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+                case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
+                    Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                //case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD: //12
+                //    Raise_EVENT_DATASOURCE_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_FORM_LOAD: //16
+                //    Raise_EVENT_FORM_LOAD(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD: //17
+                    Raise_EVENT_FORM_UNLOAD(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: //18
+                    Raise_EVENT_FORM_ACTIVATE(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                //case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE: //19
+                //    Raise_EVENT_FORM_DEACTIVATE(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE: //20
+                //    Raise_EVENT_FORM_CLOSE(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
+                //    Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
+                //    Raise_EVENT_FORM_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
+                //    Raise_EVENT_FORM_MENU_HILIGHT(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
+                //    Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
+                //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_Drag: //39
+                //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+            }
         }
 
         /// <summary>
@@ -512,187 +518,6 @@ namespace PSH_BOne_AddOn.Core
         }
 
         /// <summary>
-        /// CLICK 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_CLICK(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            try
-            {
-                if (pVal.Before_Action == true)
-                {
-                }
-                else if (pVal.Before_Action == false)
-                {
-                    if (pVal.ItemUID == "10000330")
-                    {
-                        if (pVal.ActionSuccess == true)
-                        {
-                            if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-                            {
-                                oSetBackOrderFunction01 = true;
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-        }
-
-        /// <summary>
-        /// VALIDATE 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            string itemCode;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
-            try
-            {
-                oForm.Freeze(true);
-
-                if (pVal.Before_Action == true)
-                {
-                    if (pVal.ItemChanged == true)
-                    {
-                        if (pVal.ItemUID == "38")
-                        {
-                            itemCode = oMat01.Columns.Item("1").Cells.Item(pVal.Row).Specific.Value;
-                            
-                            if (pVal.ColUID == "U_Qty") //수량필드 값변경시
-                            {
-                                if (Convert.ToDouble(oMat01.Columns.Item("U_Qty").Cells.Item(pVal.Row).Specific.Value) <= 0)
-                                {
-                                    oMat01.Columns.Item("U_Qty").Cells.Item(pVal.Row).Specific.Value = 0; //수량
-                                    oMat01.Columns.Item("11").Cells.Item(pVal.Row).Specific.Value = 1; //중량
-                                }
-                                else
-                                {
-                                    if (dataHelpClass.GetItem_SbasUnit(itemCode) == "101") //EA자체품
-                                    {
-                                        oMat01.Columns.Item("11").Cells.Item(pVal.Row).Specific.Value = Convert.ToDouble(oMat01.Columns.Item("U_Qty").Cells.Item(pVal.Row).Specific.Value);
-                                    }
-                                    else if (dataHelpClass.GetItem_SbasUnit(itemCode) == "102") //EAUOM
-                                    {
-                                        if (Convert.ToDouble(oMat01.Columns.Item("U_Qty").Cells.Item(pVal.Row).Specific.Value) * Convert.ToDouble(dataHelpClass.GetItem_Unit1(itemCode)) == 0)
-                                        {
-                                            oMat01.Columns.Item("11").Cells.Item(pVal.Row).Specific.Value = 1;
-                                        }
-                                        else
-                                        {
-                                            oMat01.Columns.Item("11").Cells.Item(pVal.Row).Specific.Value = Convert.ToDouble(oMat01.Columns.Item("U_Qty").Cells.Item(pVal.Row).Specific.Value) * Convert.ToDouble(dataHelpClass.GetItem_Unit1(itemCode));
-                                        }
-                                    }
-                                    else if (dataHelpClass.GetItem_SbasUnit(itemCode) == "201") //KGSPEC
-                                    {
-                                        if ((Convert.ToDouble(dataHelpClass.GetItem_Spec1(itemCode)) - Convert.ToDouble(dataHelpClass.GetItem_Spec2(itemCode))) * Convert.ToDouble(dataHelpClass.GetItem_Spec2(itemCode)) * 0.02808 * (Convert.ToDouble(dataHelpClass.GetItem_Spec3(itemCode)) / 1000) * Convert.ToDouble(oMat01.Columns.Item("U_Qty").Cells.Item(pVal.Row).Specific.Value) == 0)
-                                        {
-                                            oMat01.Columns.Item("11").Cells.Item(pVal.Row).Specific.Value = 1;
-                                        }
-                                        else
-                                        {
-                                            oMat01.Columns.Item("11").Cells.Item(pVal.Row).Specific.Value = (Convert.ToDouble(dataHelpClass.GetItem_Spec1(itemCode)) - Convert.ToDouble(dataHelpClass.GetItem_Spec2(itemCode))) * Convert.ToDouble(dataHelpClass.GetItem_Spec2(itemCode)) * 0.02808 * (Convert.ToDouble(dataHelpClass.GetItem_Spec3(itemCode)) / 1000) * Convert.ToDouble(oMat01.Columns.Item("U_Qty").Cells.Item(pVal.Row).Specific.Value);
-                                        }
-                                    }
-                                    else if (dataHelpClass.GetItem_SbasUnit(itemCode) == "202") //KG단중
-                                    {
-                                        if (System.Math.Round(Convert.ToDouble(oMat01.Columns.Item("U_Qty").Cells.Item(pVal.Row).Specific.Value) * Convert.ToDouble(dataHelpClass.GetItem_UnWeight(itemCode)) / 1000, 0) == 0)
-                                        {
-                                            oMat01.Columns.Item("11").Cells.Item(pVal.Row).Specific.Value = 1;
-                                        }
-                                        else
-                                        {
-                                            oMat01.Columns.Item("11").Cells.Item(pVal.Row).Specific.Value = System.Math.Round(Convert.ToDouble(oMat01.Columns.Item("U_Qty").Cells.Item(pVal.Row).Specific.Value) * Convert.ToDouble(dataHelpClass.GetItem_UnWeight(itemCode)) / 1000, 0);
-                                        }
-                                    }
-                                    else if (dataHelpClass.GetItem_SbasUnit(itemCode) == "203") //KG입력
-                                    {
-                                    }
-                                }
-                            }
-                            else if (pVal.ColUID == "11")
-                            {
-                                if (Convert.ToDouble(oMat01.Columns.Item("11").Cells.Item(pVal.Row).Specific.Value) <= 0)
-                                {
-                                    oMat01.Columns.Item("U_Qty").Cells.Item(pVal.Row).Specific.Value = 0; //수량
-                                    oMat01.Columns.Item("11").Cells.Item(pVal.Row).Specific.Value = 1; //중량
-                                }
-                                else
-                                {
-                                    if (dataHelpClass.GetItem_SbasUnit(itemCode) == "101") //EA자체품
-                                    {   
-                                    }
-                                    else if (dataHelpClass.GetItem_SbasUnit(itemCode) == "102") //EAUOM
-                                    {   
-                                    }
-                                    else if (dataHelpClass.GetItem_SbasUnit(itemCode) == "201") //KGSPEC
-                                    {
-                                        if ((Convert.ToDouble(dataHelpClass.GetItem_Spec1(itemCode)) - Convert.ToDouble(dataHelpClass.GetItem_Spec2(itemCode))) * Convert.ToDouble(dataHelpClass.GetItem_Spec2(itemCode)) * 0.02808 * (Convert.ToDouble(dataHelpClass.GetItem_Spec3(itemCode)) / 1000) * Convert.ToDouble(oMat01.Columns.Item("U_Qty").Cells.Item(pVal.Row).Specific.Value) == 0)
-                                        {
-                                            oMat01.Columns.Item("11").Cells.Item(pVal.Row).Specific.Value = 1;
-                                        }
-                                        else
-                                        {
-                                            oMat01.Columns.Item("11").Cells.Item(pVal.Row).Specific.Value = (Convert.ToDouble(dataHelpClass.GetItem_Spec1(itemCode)) - Convert.ToDouble(dataHelpClass.GetItem_Spec2(itemCode))) * Convert.ToDouble(dataHelpClass.GetItem_Spec2(itemCode)) * 0.02808 * (Convert.ToDouble(dataHelpClass.GetItem_Spec3(itemCode)) / 1000) * Convert.ToDouble(oMat01.Columns.Item("U_Qty").Cells.Item(pVal.Row).Specific.Value);
-                                        }
-                                    }
-                                    else if (dataHelpClass.GetItem_SbasUnit(itemCode) == "202") //KG단중
-                                    {
-                                        if (System.Math.Round(Convert.ToDouble(oMat01.Columns.Item("U_Qty").Cells.Item(pVal.Row).Specific.Value) * Convert.ToDouble(dataHelpClass.GetItem_UnWeight(itemCode)) / 1000, 0) == 0)
-                                        {
-                                            oMat01.Columns.Item("11").Cells.Item(pVal.Row).Specific.Value = 1;
-                                        }
-                                        else
-                                        {
-                                            oMat01.Columns.Item("11").Cells.Item(pVal.Row).Specific.Value = System.Math.Round(Convert.ToDouble(oMat01.Columns.Item("U_Qty").Cells.Item(pVal.Row).Specific.Value) * Convert.ToDouble(dataHelpClass.GetItem_UnWeight(itemCode)) / 1000, 0);
-                                        }
-                                    }
-                                    else if (dataHelpClass.GetItem_SbasUnit(itemCode) == "203") //KG입력
-                                    {
-                                    }
-                                }
-                            }
-                            else if (pVal.ColUID == "1")
-                            {
-                                if (oMat01.VisualRowCount > 1)
-                                {
-                                    oForm.Items.Item("TradeType").Enabled = false;
-                                }
-                                else
-                                {
-                                    oForm.Items.Item("TradeType").Enabled = true;
-                                }
-                            }
-                        }
-                    }
-                }
-                else if (pVal.Before_Action == false)
-                {
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                BubbleEvent = false;
-            }
-            finally
-            {
-                oForm.Freeze(false);
-            }
-        }
-
-        /// <summary>
         /// MATRIX_LOAD 이벤트
         /// </summary>
         /// <param name="FormUID">Form UID</param>
@@ -824,6 +649,8 @@ namespace PSH_BOne_AddOn.Core
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 oForm.Freeze(true);
@@ -832,8 +659,20 @@ namespace PSH_BOne_AddOn.Core
                     switch (pVal.MenuUID)
                     {
                         case "1284": //취소
+                            if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("2001").Specific.Value.ToString().Trim(), oForm.Items.Item("10").Specific.Value.ToString().Trim().Substring(0, 6)) == false)
+                            {
+                                PSH_Globals.SBO_Application.MessageBox("마감상태가 잠금입니다. 해당 일자로 취소할 수 없습니다. 작성일자를 확인하고, 회계부서로 문의하세요.");
+                                BubbleEvent = false;
+                                return;
+                            }
                             break;
                         case "1286": //닫기
+                            if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("2001").Specific.Value.ToString().Trim(), oForm.Items.Item("10").Specific.Value.ToString().Trim().Substring(0, 6)) == false)
+                            {
+                                PSH_Globals.SBO_Application.MessageBox("마감상태가 잠금입니다. 해당 일자로 닫기할 수 없습니다. 작성일자를 확인하고, 회계부서로 문의하세요.");
+                                BubbleEvent = false;
+                                return;
+                            }
                             break;
                         case "1293": //행삭제
                             Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);
@@ -884,41 +723,6 @@ namespace PSH_BOne_AddOn.Core
             finally
             {
                 oForm.Freeze(false);
-            }
-        }
-
-        /// <summary>
-        /// FormDataEvent
-        /// </summary>
-        /// <param name="FormUID"></param>
-        /// <param name="BusinessObjectInfo"></param>
-        /// <param name="BubbleEvent"></param>
-        public override void Raise_FormDataEvent(string FormUID, ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, ref bool BubbleEvent)
-        {
-            try
-            {
-                switch (BusinessObjectInfo.EventType)
-                {
-                    case SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD: //33
-                        //Raise_EVENT_FORM_DATA_LOAD(FormUID, ref BusinessObjectInfo, ref BubbleEvent);
-                        break;
-                    case SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD: //34
-                        //Raise_EVENT_FORM_DATA_ADD(FormUID, ref BusinessObjectInfo, ref BubbleEvent);
-                        break;
-                    case SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE: //35
-                        //Raise_EVENT_FORM_DATA_UPDATE(FormUID, ref BusinessObjectInfo, ref BubbleEvent);
-                        break;
-                    case SAPbouiCOM.BoEventTypes.et_FORM_DATA_DELETE: //36
-                        //Raise_EVENT_FORM_DATA_DELETE(FormUID, ref BusinessObjectInfo, ref BubbleEvent);
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
             }
         }
 

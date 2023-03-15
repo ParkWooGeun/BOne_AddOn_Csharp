@@ -121,6 +121,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }
+
         /// <summary>
         /// HeaderSpaceLineDel
         /// </summary>
@@ -129,6 +130,7 @@ namespace PSH_BOne_AddOn
         {
             bool ReturnValue = false;
             string errMessage = string.Empty;
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
             {
@@ -137,6 +139,12 @@ namespace PSH_BOne_AddOn
                     errMessage = "사업장, 년월은 필수입력 사항입니다.확인하세요.";
                     throw new Exception();
                 }
+                if (dataHelpClass.Check_Finish_Status(oDS_PS_FX015H.GetValue("U_CLTCOD", 0).ToString().Trim(), oDS_PS_FX015H.GetValue("U_StdYM", 0).ToString().Trim()) == false)
+                {
+                    errMessage = "마감상태가 잠금입니다. 해당 일자로 취소할 수 없습니다. 기준년월를 확인하고, 회계부서로 문의하세요.";
+                    throw new Exception();
+                }
+
                 ReturnValue = true;
             }
             catch (Exception ex)
@@ -782,6 +790,7 @@ namespace PSH_BOne_AddOn
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             string errMessage = string.Empty;
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
             {
@@ -809,6 +818,11 @@ namespace PSH_BOne_AddOn
                     }
                     else if (pVal.ItemUID == "Btn02")
                     {
+                        if (dataHelpClass.Check_Finish_Status(oDS_PS_FX015H.GetValue("U_CLTCOD", 0).ToString().Trim(), oDS_PS_FX015H.GetValue("U_JdtDate", 0).ToString().Trim()) == false)
+                        {
+                            errMessage = "마감상태가 잠금입니다. 해당 일자로 분개할 수 없습니다. 기준년월를 확인하고, 회계부서로 문의하세요.";
+                            throw new Exception();
+                        }
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                         {
                             if (string.IsNullOrEmpty(oForm.Items.Item("JdtDate").Specific.Value))
@@ -839,6 +853,11 @@ namespace PSH_BOne_AddOn
                     }
                     else if (pVal.ItemUID == "Btn03")
                     {
+                        if (dataHelpClass.Check_Finish_Status(oDS_PS_FX015H.GetValue("U_CLTCOD", 0).ToString().Trim(), oDS_PS_FX015H.GetValue("U_JdtDate", 0).ToString().Trim()) == false)
+                        {
+                            errMessage = "마감상태가 잠금입니다. 해당 일자로 취소할 수 없습니다. 기준년월를 확인하고, 회계부서로 문의하세요.";
+                            throw new Exception();
+                        }
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                         {
                             if (string.IsNullOrEmpty(oForm.Items.Item("JdtDate").Specific.Value))
@@ -981,8 +1000,20 @@ namespace PSH_BOne_AddOn
                     switch (pVal.MenuUID)
                     {
                         case "1284": //취소
+                            if (dataHelpClass.Check_Finish_Status(oDS_PS_FX015H.GetValue("U_CLTCOD", 0).ToString().Trim(), oDS_PS_FX015H.GetValue("U_JdtDate", 0).ToString().Trim()) == false)
+                            {
+                                PSH_Globals.SBO_Application.MessageBox("마감상태가 잠금입니다. 해당 일자로 취소할 수 없습니다. 기준년월를 확인하고, 회계부서로 문의하세요.");
+                                BubbleEvent = false;
+                                return;
+                            }
                             break;
                         case "1286": //닫기
+                            if (dataHelpClass.Check_Finish_Status(oDS_PS_FX015H.GetValue("U_CLTCOD", 0).ToString().Trim(), oDS_PS_FX015H.GetValue("U_JdtDate", 0).ToString().Trim()) == false)
+                            {
+                                PSH_Globals.SBO_Application.MessageBox("마감상태가 잠금입니다. 해당 일자로 닫기할 수 없습니다. 기준년월를 확인하고, 회계부서로 문의하세요.");
+                                BubbleEvent = false;
+                                return;
+                            }
                             break;
                         case "1293": //행삭제
                             break;

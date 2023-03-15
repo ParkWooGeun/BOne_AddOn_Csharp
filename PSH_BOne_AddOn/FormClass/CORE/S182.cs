@@ -138,16 +138,22 @@ namespace PSH_BOne_AddOn.Core
 
             try
             {
-                if (string.IsNullOrEmpty(oForm.Items.Item("4").Specific.Value))
-                {
-                    errMessage = "고객은 필수입니다.";
-                    oForm.Items.Item("4").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                    throw new Exception();
-                }
-                else if (string.IsNullOrEmpty(oForm.Items.Item("2001").Specific.Value.ToString().Trim()))
+                if (string.IsNullOrEmpty(oForm.Items.Item("2001").Specific.Value.ToString().Trim()))
                 {
                     errMessage = "사업장은 필수입니다.";
                     oForm.Items.Item("2001").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    throw new Exception();
+                }
+                else if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("2001").Specific.Value.ToString().Trim(), oForm.Items.Item("10").Specific.Value.ToString().Trim().Substring(0, 6)) == false)
+                {
+                    errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 전기일을 확인하고, 회계부서로 문의하세요.";
+                    oForm.Items.Item("10").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    throw new Exception();
+                }
+                else if (string.IsNullOrEmpty(oForm.Items.Item("4").Specific.Value))
+                {
+                    errMessage = "고객은 필수입니다.";
+                    oForm.Items.Item("4").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     throw new Exception();
                 }
                 else if (string.IsNullOrEmpty(oForm.Items.Item("TradeType").Specific.Value.ToString().Trim()))
@@ -822,6 +828,8 @@ namespace PSH_BOne_AddOn.Core
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
             try
             {
                 oForm.Freeze(true);
@@ -830,8 +838,20 @@ namespace PSH_BOne_AddOn.Core
                     switch (pVal.MenuUID)
                     {
                         case "1284": //취소
+                            if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("2001").Specific.Value.ToString().Trim(), oForm.Items.Item("10").Specific.Value.ToString().Trim().Substring(0, 6)) == false)
+                            {
+                                PSH_Globals.SBO_Application.MessageBox("마감상태가 잠금입니다. 해당 일자로 취소할 수 없습니다. 작성일자를 확인하고, 회계부서로 문의하세요.");
+                                BubbleEvent = false;
+                                return;
+                            }
                             break;
                         case "1286": //닫기
+                            if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("2001").Specific.Value.ToString().Trim(), oForm.Items.Item("10").Specific.Value.ToString().Trim().Substring(0, 6)) == false)
+                            {
+                                PSH_Globals.SBO_Application.MessageBox("마감상태가 잠금입니다. 해당 일자로 닫기할 수 없습니다. 작성일자를 확인하고, 회계부서로 문의하세요.");
+                                BubbleEvent = false;
+                                return;
+                            }
                             break;
                         case "1293": //행삭제
                             Raise_EVENT_ROW_DELETE(FormUID, ref pVal, ref BubbleEvent);

@@ -196,8 +196,7 @@ namespace PSH_BOne_AddOn
                 sQry += "             AND U_UseYN = 'Y'";
                 sQry += " ORDER BY    U_Seq";
                 dataHelpClass.Set_ComboList(oForm.Items.Item("Object").Specific, sQry, "", false, false);
-                oForm.Items.Item("ObjCls").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-
+                oForm.Items.Item("Object").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
             }
             catch (Exception ex)
             {
@@ -217,9 +216,9 @@ namespace PSH_BOne_AddOn
         {
             string sQry;
             string errMessage = string.Empty;
-            string sDocEntry;            //
+            string sDocEntry;
             string sCLTCOD;              // 사업장
-            string sMSTCOD;              // 사원번호
+            string sUseCarCd;              // 사원번호
             string SFrDate;              // 시작일자
             string SToDate;              // 종료일자
 
@@ -230,7 +229,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 sDocEntry = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim();
                 sCLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
-                sMSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
+                sUseCarCd = oForm.Items.Item("UseCarCd").Specific.Value.ToString().Trim();
                 SFrDate = oForm.Items.Item("FrDate").Specific.Value.ToString().Trim().Replace(".", "");
                 SToDate = oForm.Items.Item("ToDate").Specific.Value.ToString().Trim().Replace(".", "");
 
@@ -242,14 +241,14 @@ namespace PSH_BOne_AddOn
                 sQry = "EXEC [PH_PY035_01] '";
                 sQry += sDocEntry + "','";                // 사업장
                 sQry += sCLTCOD + "','";                // 사업장
-                sQry += sMSTCOD + "','";                // 사원번호
+                sQry += sUseCarCd + "','";                // 사원번호
                 sQry += SFrDate + "','";                // 시작일자
                 sQry += SToDate + "'";                // 종료일자
                 oRecordSet01.DoQuery(sQry);
 
                 if (oRecordSet01.RecordCount == 0)
                 {
-                    errMessage = "결과가 존재하지 않습니다. 사업장,년월을 확인 하세요.";
+                    errMessage = "결과가 존재하지 않습니다.";
                     throw new Exception();
                 }
 
@@ -265,23 +264,20 @@ namespace PSH_BOne_AddOn
 
                     oDS_PH_PY035B.SetValue("U_LineNum", i, Convert.ToString(i + 1));
                     oDS_PH_PY035B.SetValue("U_ColReg01", i, oRecordSet01.Fields.Item("DocEntry").Value.ToString().Trim());  // 관리번호
-                    oDS_PH_PY035B.SetValue("U_ColReg02", i, oRecordSet01.Fields.Item("U_CLTCOD").Value.ToString().Trim());    // 사업장
-                    oDS_PH_PY035B.SetValue("U_ColReg03", i, oRecordSet01.Fields.Item("U_MSTCOD").Value.ToString().Trim());   // 신청차사번
-                    oDS_PH_PY035B.SetValue("U_ColReg04", i, oRecordSet01.Fields.Item("U_MSTNAM").Value.ToString().Trim());   // 신청자명
-                    oDS_PH_PY035B.SetValue("U_ColReg05", i, oRecordSet01.Fields.Item("U_WMSTCOD").Value.ToString().Trim());     // 동승자사번
-                    oDS_PH_PY035B.SetValue("U_ColReg06", i, oRecordSet01.Fields.Item("U_WMSTNAM").Value.ToString().Trim());     // 동승자명
-                    oDS_PH_PY035B.SetValue("U_ColReg07", i, oRecordSet01.Fields.Item("U_Dest").Value.ToString().Trim());    // 목적지
-                    oDS_PH_PY035B.SetValue("U_ColReg08", i, oRecordSet01.Fields.Item("U_FrDate").Value.ToString().Trim());    // 시작일자
-                    oDS_PH_PY035B.SetValue("U_ColReg09", i, oRecordSet01.Fields.Item("U_FrTime").Value.ToString().Trim());    // 시작일자
-                    oDS_PH_PY035B.SetValue("U_ColReg10", i, oRecordSet01.Fields.Item("U_TODate").Value.ToString().Trim());    // 종료일자
-                    oDS_PH_PY035B.SetValue("U_ColReg11", i, oRecordSet01.Fields.Item("U_ToTime").Value.ToString().Trim());    // 시작일자
-                    oDS_PH_PY035B.SetValue("U_ColReg12", i, oRecordSet01.Fields.Item("U_UseCar").Value.ToString().Trim());    // 사용차량
-                    oDS_PH_PY035B.SetValue("U_ColReg13", i, oRecordSet01.Fields.Item("U_Object").Value.ToString().Trim());    // 배차목적
-                    oDS_PH_PY035B.SetValue("U_ColReg14", i, oRecordSet01.Fields.Item("U_Driver").Value.ToString().Trim());    // 기사요청
-                    oDS_PH_PY035B.SetValue("U_ColReg15", i, oRecordSet01.Fields.Item("U_BeForKm").Value.ToString().Trim());  // 주행전Km
-                    oDS_PH_PY035B.SetValue("U_ColReg16", i, oRecordSet01.Fields.Item("U_AfterKm").Value.ToString().Trim());    // 주행후Km
-                    oDS_PH_PY035B.SetValue("U_ColReg17", i, oRecordSet01.Fields.Item("U_RegCls").Value.ToString().Trim());   // 등록구분
-                    oDS_PH_PY035B.SetValue("U_ColReg18", i, oRecordSet01.Fields.Item("U_Comments").Value.ToString().Trim());  // 비고
+                    oDS_PH_PY035B.SetValue("U_ColReg02", i, oRecordSet01.Fields.Item("U_RegCls").Value.ToString().Trim());   // 등록구분
+                    oDS_PH_PY035B.SetValue("U_ColReg03", i, oRecordSet01.Fields.Item("U_UseCar").Value.ToString().Trim());    // 사용차량
+                    oDS_PH_PY035B.SetValue("U_ColReg04", i, oRecordSet01.Fields.Item("U_Dest").Value.ToString().Trim());    // 목적지
+                    oDS_PH_PY035B.SetValue("U_ColReg05", i, oRecordSet01.Fields.Item("U_FrDate").Value.ToString().Trim());    // 시작일자
+                    oDS_PH_PY035B.SetValue("U_ColReg06", i, oRecordSet01.Fields.Item("U_FrTime").Value.ToString().Trim());    // 시작시간
+                    oDS_PH_PY035B.SetValue("U_ColReg07", i, oRecordSet01.Fields.Item("U_ToDate").Value.ToString().Trim());    // 종료일자
+                    oDS_PH_PY035B.SetValue("U_ColReg08", i, oRecordSet01.Fields.Item("U_ToTime").Value.ToString().Trim());    // 종료시간
+                    oDS_PH_PY035B.SetValue("U_ColReg09", i, oRecordSet01.Fields.Item("U_MSTCOD").Value.ToString().Trim());   // 신청차사번
+                    oDS_PH_PY035B.SetValue("U_ColReg10", i, oRecordSet01.Fields.Item("U_MSTNAM").Value.ToString().Trim());   // 신청자명
+                    oDS_PH_PY035B.SetValue("U_ColReg11", i, oRecordSet01.Fields.Item("U_WMSTCOD").Value.ToString().Trim());     // 동승자사번
+                    oDS_PH_PY035B.SetValue("U_ColReg12", i, oRecordSet01.Fields.Item("U_WMSTNAM").Value.ToString().Trim());     // 동승자명
+                    oDS_PH_PY035B.SetValue("U_ColReg13", i, oRecordSet01.Fields.Item("U_BeForKm").Value.ToString().Trim());  // 주행전Km
+                    oDS_PH_PY035B.SetValue("U_ColReg14", i, oRecordSet01.Fields.Item("U_AfterKm").Value.ToString().Trim());    // 주행후Km
+                    oDS_PH_PY035B.SetValue("U_ColReg15", i, oRecordSet01.Fields.Item("U_Comments").Value.ToString().Trim());  // 비고
                     oRecordSet01.MoveNext();
                 }
                 oMat01.LoadFromDataSource();
@@ -325,8 +321,8 @@ namespace PSH_BOne_AddOn
             string purpose;    // 목적
             string Comments;          // 비고
             string RegCls;            // 등록구분
+            string UseCarCd;           // 사용차량
             string UseCar;           // 사용차량
-            string Driver;          // 기사요청
             string beforKm;                      // 주행전
             string AfterKm;                 // 주행후
             string UserSign;          // UserSign
@@ -337,57 +333,46 @@ namespace PSH_BOne_AddOn
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
+                DocEntry = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim();
                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
-                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
-                MSTNAM = oForm.Items.Item("MSTNAM").Specific.Value.ToString().Trim();
-                WMSTCOD = oForm.Items.Item("WMSTCOD").Specific.Value.ToString().Trim();
-                WMSTNAM = oForm.Items.Item("WMSTNAM").Specific.Value.ToString().Trim();
-                Dest = oForm.Items.Item("Dest").Specific.Value.ToString().Trim();
                 FrDate = oForm.Items.Item("FrDate").Specific.Value.ToString().Trim();
                 FrTime = oForm.Items.Item("FrTime").Specific.Value.ToString().Trim();
                 ToDate = oForm.Items.Item("ToDate").Specific.Value.ToString().Trim();
                 ToTime = oForm.Items.Item("ToTime").Specific.Value.ToString().Trim();
+                UseCarCd = oForm.Items.Item("UseCarCd").Specific.Value.ToString().Trim();
+                UseCar = oForm.Items.Item("UseCar").Specific.Value.ToString().Trim();
+                Dest = oForm.Items.Item("Dest").Specific.Value.ToString().Trim();
                 purpose = oForm.Items.Item("Object").Specific.Value.ToString().Trim();
+                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
+                MSTNAM = oForm.Items.Item("MSTNAM").Specific.Value.ToString().Trim();
+                WMSTCOD = oForm.Items.Item("WMSTCOD").Specific.Value.ToString().Trim();
+                WMSTNAM = oForm.Items.Item("WMSTNAM").Specific.Value.ToString().Trim();
                 Comments = oForm.Items.Item("Comments").Specific.Value.ToString().Trim();
                 RegCls = oForm.Items.Item("RegCls").Specific.Value.ToString().Trim();
-                UseCar = oForm.Items.Item("UseCar").Specific.Value.ToString().Trim();
-                Driver = oForm.Items.Item("Driver").Specific.Value.ToString().Trim();
                 beforKm = oForm.Items.Item("BeforKm").Specific.Value.ToString().Trim();
                 AfterKm = oForm.Items.Item("AfterKm").Specific.Value.ToString().Trim();
                 UserSign = Convert.ToString(PSH_Globals.oCompany.UserSignature);
 
-                sQry = "SELECT ISNULL(MAX(DocEntry), 0) FROM[@PH_PY035A]";
-                oRecordSet01.DoQuery(sQry);
-
-                if (Convert.ToInt32(oRecordSet01.Fields.Item(0).Value.ToString().Trim()) == 0)
-                {
-                    DocEntry = 1;
-                }
-                else
-                {
-                    DocEntry = Convert.ToInt32(oRecordSet01.Fields.Item(0).Value.ToString().Trim()) + 1;
-                }
-
                 sQry = "EXEC [PH_PY035_02] '";
                 sQry += DocEntry + "','";              // 관리번호
                 sQry += CLTCOD + "','";                // 사업장
-                sQry += MSTCOD + "','";                // 사원번호
-                sQry += MSTNAM + "','";                // 사원성명
-                sQry += WMSTCOD + "','";                // 사원번호
-                sQry += WMSTNAM + "','";                // 사원성명
-                sQry += Dest + "','";                 // 출장지
                 sQry += FrDate + "','";                // 시작일자
                 sQry += FrTime + "','";                // 시작시각
                 sQry += ToDate + "','";                // 종료일자
                 sQry += ToTime + "','";                // 종료시각
-                sQry += purpose + "','";        // 목적
+                sQry += UseCarCd + "','";              // 출장구분
+                sQry += UseCar + "','";                // 출장구분
+                sQry += Dest + "','";                  // 출장지
+                sQry += purpose + "','";               // 목적
+                sQry += MSTCOD + "','";                // 사원번호
+                sQry += MSTNAM + "','";                // 사원성명
+                sQry += WMSTCOD + "','";               // 사원번호
+                sQry += WMSTNAM + "','";               // 사원성명
                 sQry += Comments + "','";              // 비고
                 sQry += RegCls + "','";                // 등록구분
-                sQry += UseCar + "','";               // 출장구분
-                sQry += Driver + "','";              // 출장지역
-                sQry += beforKm + "','";               // 지급율
-                sQry += AfterKm + "','";          // 환율
-                sQry += UserSign + "'";               // UserSign
+                sQry += beforKm + "','";               // 주행전km
+                sQry += AfterKm + "','";               //주행후km
+                sQry += UserSign + "'";                // UserSign
 
                 oRecordSet02.DoQuery(sQry);
                 dataHelpClass.MDC_GF_Message("등록 완료!", "S");
@@ -417,31 +402,101 @@ namespace PSH_BOne_AddOn
             {
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
-                    // 접속자에 따른 권한별 사업장 콤보박스세팅
-                    dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
-
-                    oForm.EnableMenu("1281", true); //문서찾기
-                    oForm.EnableMenu("1282", false); //문서추가
-                    oForm.Items.Item("DocEntry").Enabled = false;
-
+                    if (Convert.ToInt32(oForm.Items.Item("RegCls").Specific.Value.ToString().Trim()) == 3)
+                    {
+                        oForm.Items.Item("DocEntry").Enabled = false;
+                        oForm.Items.Item("CLTCOD").Enabled = false;
+                        oForm.Items.Item("FrDate").Enabled = false;
+                        oForm.Items.Item("ToDate").Enabled = false;
+                        oForm.Items.Item("FrTime").Enabled = false;
+                        oForm.Items.Item("ToTime").Enabled = false;
+                        oForm.Items.Item("UseCarCd").Enabled = false;
+                        oForm.Items.Item("Object").Enabled = false;
+                        oForm.Items.Item("Dest").Enabled = false;
+                        oForm.Items.Item("MSTCOD").Enabled = false;
+                        oForm.Items.Item("WMSTCOD").Enabled = false;
+                        oForm.Items.Item("Comments").Enabled = false;
+                        oForm.Items.Item("RegCls").Enabled = false;
+                        oForm.Items.Item("BeforKm").Enabled = false;
+                        oForm.Items.Item("AfterKm").Enabled = false;
+                    }
+                    else
+                    {
+                        // 접속자에 따른 권한별 사업장 콤보박스세팅
+                        dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
+                        oForm.EnableMenu("1281", true); //문서찾기
+                        oForm.EnableMenu("1282", false); //문서추가
+                        oForm.Items.Item("DocEntry").Enabled = false;
+                    }
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
                     // 접속자에 따른 권한별 사업장 콤보박스세팅
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
                     oForm.Items.Item("DocEntry").Enabled = true;
+                    oForm.Items.Item("CLTCOD").Enabled = true;
+                    oForm.Items.Item("FrDate").Enabled = true;
+                    oForm.Items.Item("ToDate").Enabled = true;
+                    oForm.Items.Item("UseCarCd").Enabled = true;
 
+                    oForm.Items.Item("FrTime").Enabled = true;
+                    oForm.Items.Item("ToTime").Enabled = true;
+                    oForm.Items.Item("Object").Enabled = false;
+                    oForm.Items.Item("Dest").Enabled = false;
+                    oForm.Items.Item("MSTCOD").Enabled = false;
+                    oForm.Items.Item("WMSTCOD").Enabled = false;
+                    oForm.Items.Item("Comments").Enabled = false;
+                    oForm.Items.Item("RegCls").Enabled = false;
+                    oForm.Items.Item("BeforKm").Enabled = false;
+                    oForm.Items.Item("AfterKm").Enabled = false;
                     oForm.EnableMenu("1281", false); //문서찾기
                     oForm.EnableMenu("1282", true); //문서추가
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
-                    // 접속자에 따른 권한별 사업장 콤보박스세팅
-                    dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
-                    oForm.Items.Item("DocEntry").Enabled = false;
+                    if (Convert.ToInt32(oForm.Items.Item("RegCls").Specific.Value.ToString().Trim()) == 3)
+                    {
+                        oForm.Items.Item("DocEntry").Enabled = false;
+                        oForm.Items.Item("CLTCOD").Enabled = false;
+                        oForm.Items.Item("FrDate").Enabled = false;
+                        oForm.Items.Item("ToDate").Enabled = false;
+                        oForm.Items.Item("FrTime").Enabled = false;
+                        oForm.Items.Item("ToTime").Enabled = false;
+                        oForm.Items.Item("UseCarCd").Enabled = false;
+                        oForm.Items.Item("Object").Enabled = false;
+                        oForm.Items.Item("Dest").Enabled = false;
+                        oForm.Items.Item("MSTCOD").Enabled = false;
+                        oForm.Items.Item("WMSTCOD").Enabled = false;
+                        oForm.Items.Item("Comments").Enabled = false;
+                        oForm.Items.Item("RegCls").Enabled = false;
+                        oForm.Items.Item("BeforKm").Enabled = false;
+                        oForm.Items.Item("AfterKm").Enabled = false;
+                    }
+                    else
+                    {
+                        // 접속자에 따른 권한별 사업장 콤보박스세팅
+                        dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
+                        oForm.EnableMenu("1281", true); //문서찾기
+                        oForm.EnableMenu("1282", true); //문서추가
 
-                    oForm.EnableMenu("1281", true); //문서찾기
-                    oForm.EnableMenu("1282", true); //문서추가
+                        oForm.Items.Item("DocEntry").Enabled = false;
+                        oForm.Items.Item("CLTCOD").Enabled = true;
+                        oForm.Items.Item("FrDate").Enabled = true;
+                        oForm.Items.Item("ToDate").Enabled = true;
+                        oForm.Items.Item("FrTime").Enabled = true;
+                        oForm.Items.Item("ToTime").Enabled = true;
+                        oForm.Items.Item("UseCarCd").Enabled = true;
+                        oForm.Items.Item("Object").Enabled = true;
+                        oForm.Items.Item("Dest").Enabled = true;
+                        oForm.Items.Item("MSTCOD").Enabled = true;
+                        oForm.Items.Item("WMSTCOD").Enabled = true;
+                        oForm.Items.Item("Comments").Enabled = true;
+                        oForm.Items.Item("RegCls").Enabled = true;
+                        oForm.Items.Item("BeforKm").Enabled = true;
+                        oForm.Items.Item("AfterKm").Enabled = true;
+
+                    }
+
                 }
             }
             catch (System.Exception ex)
@@ -720,7 +775,7 @@ namespace PSH_BOne_AddOn
                 {
                     dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "MSTCOD", "");  // 기본정보-사번
                     dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "WMSTCOD", "");  // 기본정보-사번
-                    dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "UseCarCd", ""); // 사용차량
+                    dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "UseCarCd", ""); // 조회조건-사번
                 }
                 else if (pVal.BeforeAction == false)
                 {
@@ -766,7 +821,9 @@ namespace PSH_BOne_AddOn
                             }
                             else if (pVal.ItemUID == "UseCarCd")
                             {
-                                oForm.Items.Item("UseCar").Specific.Value = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[PS_HR200L]", "'" + oForm.Items.Item("UseCarCd").Specific.Value + "'", ""); //성명
+                                oForm.Items.Item("UseCar").Specific.Value = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[PS_HR200L]", "'" + oForm.Items.Item("UseCarCd").Specific.Value + "'", ""); //차량
+                                PH_PY035_MTX01();
+
                             }
                         }
                     }
@@ -850,11 +907,6 @@ namespace PSH_BOne_AddOn
                                 BubbleEvent = false;
                                 return;
                             }
-
-                            oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
-                            PH_PY035_FormItemEnabled();
-                            oForm.Items.Item("DocEntry").Specific.Value = sVersion;
-                            oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                         {

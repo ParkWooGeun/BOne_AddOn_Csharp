@@ -520,9 +520,12 @@ namespace PSH_BOne_AddOn
 			int RetVal;
 			int ResultDocNum;
 			double Quantity;
+			string sQry;
+			string Whscode;
 			string ItemCode;
 			string BatchNum;
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			SAPbobsCOM.Documents DI_oInventoryGenExit = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenExit); //문서타입(입고)
 
 			try
@@ -539,6 +542,20 @@ namespace PSH_BOne_AddOn
 				DI_oInventoryGenExit.UserFields.Fields.Item("U_CardName").Value = oForm.Items.Item("CardName").Specific.Value.ToString().Trim();
 				DI_oInventoryGenExit.UserFields.Fields.Item("U_IssueTyp").Value = "4"; //샘플
 
+				// 해외매출처일 경우 501, 국내일경우 101 S
+				sQry = "select GroupCode from OCRD where  cardcode = '" + oForm.Items.Item("CardCode").Specific.Value.ToString().Trim() + "'";
+				oRecordSet.DoQuery(sQry);
+
+				if(oRecordSet.Fields.Item(0).Value.ToString().Trim() == "102")
+                {
+					Whscode = "501";
+                }
+				else
+                {
+					Whscode = "101";
+				}
+				// 해외매출처일 경우 501, 국내일경우 101 E
+				
 				for (i = 1; i <= oMat.RowCount; i++)
 				{
 					Quantity = Convert.ToDouble(oMat.Columns.Item("Weight").Cells.Item(i).Specific.Value.ToString().Trim());
@@ -548,7 +565,7 @@ namespace PSH_BOne_AddOn
 					DI_oInventoryGenExit.Lines.Add();
 					DI_oInventoryGenExit.Lines.SetCurrentLine(i - 1);
 					DI_oInventoryGenExit.Lines.ItemCode = ItemCode;
-					DI_oInventoryGenExit.Lines.WarehouseCode = "101";
+					DI_oInventoryGenExit.Lines.WarehouseCode = Whscode;
 					DI_oInventoryGenExit.Lines.Quantity = Quantity;
 
 					if (dataHelpClass.GetItem_ManBtchNum(oMat.Columns.Item("ItemCode").Cells.Item(i).Specific.Value.ToString().Trim()) == "Y") //배치사용품목이면

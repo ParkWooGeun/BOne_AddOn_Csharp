@@ -782,6 +782,7 @@
     <Compile Include="FormClass\SD\PS_SD030.cs" />
     <Compile Include="FormClass\SD\PS_SD035.cs" />
     <Compile Include="FormClass\SD\PS_SD040.cs" />
+    <Compile Include="FormClass\SD\PS_SD045.cs" />
     <Compile Include="FormClass\SD\PS_SD050.cs" />
     <Compile Include="FormClass\SD\PS_SD051.cs" />
     <Compile Include="FormClass\SD\PS_SD052.cs" />
@@ -3285,8 +3286,11 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP006.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD610.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SM040.srf" />
+<<<<<<< HEAD
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD023.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY403.srf" />
+=======
+>>>>>>> issue162-3
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

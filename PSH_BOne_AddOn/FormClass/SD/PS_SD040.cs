@@ -1766,14 +1766,16 @@ namespace PSH_BOne_AddOn
         private bool PS_SD040_DI_API_03()
         {
             bool returnValue = false;
-            string errCode = string.Empty;
+            string errMsg = string.Empty;
             string errDIMsg = string.Empty;
             int errDICode = 0;
-            int j;
+            int j = 0;
+            int k = 0;
             int i;
+            int t = 0;
             int RetVal;
             int LineNumCount;
-            string BatchYN;
+            string oDocEntry;
             string Query01;
             string Query02;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -1784,43 +1786,21 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
-
-                PSH_Globals.oCompany.StartTransaction();
-
                 //현재월의 전기기간 체크 후 잠겨있으면 DI API 미실행
                 if (dataHelpClass.Get_ReData("PeriodStat", "[NAME]", "OFPR", "'" + DateTime.Now.ToString("yyyy") + "-" + DateTime.Now.ToString("MM") + "'", "") == "Y")
                 {
-                    errCode = "2";
+                    errMsg = "현재월의 전기기간이 잠겼습니다. 회계부서에 문의하세요.";
                     throw new Exception();
                 }
 
-                List<ItemInformation> itemInfoList = new List<ItemInformation>(); //품목정보
-                List<BatchInformation> batchInfoList = new List<BatchInformation>(); //배치정보
-
-                //배치번호 Y/N LotNo에 번호가 있으면 Batch = "Y"
-                if (string.IsNullOrEmpty(oMat01.Columns.Item("LotNo").Cells.Item(1).Specific.Value))
+                if (PSH_Globals.oCompany.InTransaction == true)
                 {
-                    BatchYN = "N";
+                    PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack);
                 }
-                else
-                {
-                    BatchYN = "Y";
-                }
+                PSH_Globals.oCompany.StartTransaction();
+                oDocEntry = oForm.Items.Item("DocEntry").Specific.Value;
+                oMat01.FlushToDataSource();
 
-                for (i = 1; i <= oMat01.VisualRowCount - 1; i++)
-                {
-                    ItemInformation itemInfo = new ItemInformation
-                    {
-                        ODLNNum = Convert.ToInt32(oMat01.Columns.Item("ODLNNum").Cells.Item(i).Specific.Value),
-                        DLN1Num = Convert.ToInt32(oMat01.Columns.Item("DLN1Num").Cells.Item(i).Specific.Value),
-                        SD040HNum = Convert.ToInt32(oForm.Items.Item("DocEntry").Specific.Value),
-                        SD040LNum = Convert.ToInt32(oMat01.Columns.Item("LineId").Cells.Item(i).Specific.Value),
-                        Check = false
-                    };
-
-                    itemInfoList.Add(itemInfo);
-                }
 
                 LineNumCount = 0;
                 oDIObject = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oReturns);
@@ -1839,33 +1819,9 @@ namespace PSH_BOne_AddOn
                     oDIObject.DocDueDate = Convert.ToDateTime(dataHelpClass.ConvertDateType(oForm.Items.Item("DueDate").Specific.Value, "-"));
                 }
 
-                for (i = 0; i < itemInfoList.Count; i++)
-                {
-                    if (i != 0)
-                    {
-                        if (BatchYN == "N")
-                        {
-                            if (itemInfoList[i - 1].ODLNNum != itemInfoList[i].ODLNNum && itemInfoList[i - 1].DLN1Num != itemInfoList[i].DLN1Num) //배치관리가 아닐때
-                            {
-                                oDIObject.Lines.Add();
-                            }
-                        }
-                        else
-                        {
-                            if (oForm.Items.Item("Opt03").Specific.Selected == true)
-                            {
-                                if (itemInfoList[i - 1].ODLNNum != itemInfoList[i].ODLNNum && itemInfoList[i - 1].DLN1Num != itemInfoList[i].DLN1Num) //배치번호일때
-                                {
-                                    oDIObject.Lines.Add();
-                                }
-                            }
-                            else
-                            {
-                                oDIObject.Lines.Add();
-                            }
-                        }
-                    }
 
+                for (i = 1; i < oMat01.VisualRowCount; i++)
+                {
                     //쿼리로 값구하기, 해당 납품라인에 대해 처리하기
                     Query01 = "  SELECT ItemCode AS ItemCode,";
                     Query01 += "        WhsCode AS WhsCode,";
@@ -1874,10 +1830,12 @@ namespace PSH_BOne_AddOn
                     Query01 += "        DocEntry AS ODLNNum,";
                     Query01 += "        LineNum AS DLN1Num";
                     Query01 += " FROM   [DLN1]";
-                    Query01 += " WHERE  DocEntry = '" + itemInfoList[i].ODLNNum + "'";
-                    Query01 += "        AND LineNum = '" + itemInfoList[i].DLN1Num + "'";
+                    Query01 += " WHERE  DocEntry = '" + Convert.ToInt32(oMat01.Columns.Item("ODLNNum").Cells.Item(i).Specific.Value) + "'";
+                    Query01 += "        AND LineNum = '" + Convert.ToInt32(oMat01.Columns.Item("DLN1Num").Cells.Item(i).Specific.Value) + "'";
                     RecordSet01.DoQuery(Query01);
 
+                    oDIObject.Lines.Add();
+                    oDIObject.Lines.SetCurrentLine(LineNumCount);
                     oDIObject.Lines.ItemCode = RecordSet01.Fields.Item("ItemCode").Value;
                     oDIObject.Lines.WarehouseCode = RecordSet01.Fields.Item("WhsCode").Value;
                     oDIObject.Lines.UserFields.Fields.Item("U_BaseType").Value = "PS_SD040";
@@ -1897,7 +1855,7 @@ namespace PSH_BOne_AddOn
                         Query02 += "        AND BaseLinNum = '" + RecordSet01.Fields.Item("DLN1Num").Value + "'";
                         RecordSet02.DoQuery(Query02);
 
-                        for (j = 0; j <= RecordSet02.RecordCount - 1; j++)
+                        for (j = 0; j < RecordSet02.RecordCount; j++)
                         {
                             oDIObject.Lines.BatchNumbers.BatchNumber = RecordSet02.Fields.Item("BatchNum").Value;
                             oDIObject.Lines.BatchNumbers.Quantity = RecordSet02.Fields.Item("Quantity").Value;
@@ -1905,10 +1863,15 @@ namespace PSH_BOne_AddOn
                             RecordSet02.MoveNext();
                         }
                     }
-
-                    itemInfoList[i].RDN1Num = LineNumCount;
-                    LineNumCount += 1;
-                    RecordSet01.MoveNext();
+                    if (oForm.Items.Item("Opt03").Specific.Selected == true)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        RecordSet01.MoveNext();
+                        LineNumCount += 1;
+                    }
                 }
 
                 RetVal = oDIObject.Add();
@@ -1916,15 +1879,20 @@ namespace PSH_BOne_AddOn
                 if (RetVal == 0)
                 {
                     PSH_Globals.oCompany.GetNewObjectCode(out string afterDIDocNum);
-
-                    dataHelpClass.DoQuery("UPDATE [@PS_SD040H] SET U_ProgStat = '4' WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'");
+                    dataHelpClass.DoQuery("UPDATE [@PS_SD040H] SET U_ProgStat = '4', Canceled ='Y', Status = 'C' WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'");
 
                     //납품문서번호 업데이트
-                    for (i = 0; i < itemInfoList.Count; i++)
+                    for (i = 1; i < oMat01.VisualRowCount; i++)
                     {
-                        dataHelpClass.DoQuery("UPDATE [@PS_SD040L] SET U_ORDNNum = '" + afterDIDocNum + "', U_RDN1Num = '" + itemInfoList[i].RDN1Num + "' WHERE DocEntry = '" + itemInfoList[i].SD040HNum + "' AND LineId = '" + itemInfoList[i].SD040LNum + "'");
+                        Query01 = "  UPDATE [@PS_SD040L]";
+                        Query01 += " SET U_ORDNNum = '" + afterDIDocNum + "', U_RDN1Num = '" + k + "'";
+                        Query01 += " WHERE DocEntry = '" + Convert.ToInt32(oForm.Items.Item("DocEntry").Specific.Value) + "' AND LineId = '" + Convert.ToInt32(oMat01.Columns.Item("LineId").Cells.Item(i).Specific.Value) + "'";
+                        RecordSet01.DoQuery(Query01);
+                        if (LineNumCount > 0)
+                        {
+                            k += 1;
+                        }
                     }
-
                     //여신한도초과요청:납품처리여부 필드 업데이트(KEY-해당일자, 거래처코드)
                     Query01 = "  UPDATE	[@PS_SD080L]";
                     Query01 += " SET    U_SD040YN = 'N'"; //납품처리여부 "N"으로 환원
@@ -1939,17 +1907,17 @@ namespace PSH_BOne_AddOn
                 else
                 {
                     PSH_Globals.oCompany.GetLastError(out errDICode, out errDIMsg);
-                    errCode = "1";
+                    errMsg = "DI실행 중 오류 발생 : [" + errDICode + "]" + (char)13 + errDIMsg;
                     throw new Exception();
                 }
 
                 PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
-
-                oMat01.LoadFromDataSource();
-                oMat01.AutoResizeColumns();
-
+                oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
+                PS_SD040_FormItemEnabled();
+                oForm.Items.Item("DocEntry").Specific.Value = oDocEntry;
+                oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                 returnValue = true;
-            }
+            } 
             catch (Exception ex)
             {
                 if (PSH_Globals.oCompany.InTransaction)
@@ -1957,13 +1925,9 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack);
                 }
 
-                if (errCode == "1")
+                if (errMsg != string.Empty)
                 {
-                    PSH_Globals.SBO_Application.MessageBox("DI실행 중 오류 발생 : [" + errDICode + "]" + (char)13 + errDIMsg);
-                }
-                else if (errCode == "2")
-                {
-                    PSH_Globals.SBO_Application.MessageBox("현재월의 전기기간이 잠겼습니다. 회계부서에 문의하세요.");
+                    PSH_Globals.SBO_Application.MessageBox(errMsg);
                 }
                 else
                 {
@@ -1989,7 +1953,7 @@ namespace PSH_BOne_AddOn
 
             return returnValue;
         }
-
+        
         /// <summary>
         /// 거래명세표 출력
         /// </summary>

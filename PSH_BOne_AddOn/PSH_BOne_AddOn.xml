@@ -57010,7 +57010,7 @@
         </member>
         <member name="T:PSH_BOne_AddOn.PH_PY035">
             <summary>
-            급상여E-Mail 발송
+            배차신청서
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY035.LoadForm(System.String)">
@@ -57022,6 +57022,11 @@
         <member name="M:PSH_BOne_AddOn.PH_PY035.PH_PY035_CreateItems">
             <summary>
             화면 Item 생성
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY035.PH_PY035_EnableMenus">
+            <summary>
+            EnableMenus 메뉴설정
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY035.PH_PY035_ComboBox_Setting">
@@ -57042,10 +57047,18 @@
             <param name="RowIserted"></param>
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY035.PH_PY035_MTX01(System.String)">
+        <member name="M:PSH_BOne_AddOn.PH_PY035.PH_PY035_MTX01(System.Int32)">
             <summary>
             PH_PY035_MTX01
             </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY035.Make_PDF_File(System.String)">
+            <summary>
+            Make_PDF_File
+            </summary>
+            <param name="p_MSTCOD">사번</param>
+            <param name="p_Version">문서번호</param>
+            <returns></returns>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY035.PH_PY035_FormItemEnabled">
             <summary>
@@ -57081,6 +57094,14 @@
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY035.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_DOUBLE_CLICK
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY035.Raise_EVENT_MATRIX_LOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>

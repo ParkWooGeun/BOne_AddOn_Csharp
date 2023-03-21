@@ -21,7 +21,7 @@
     <FileUpgradeFlags />
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />
-    <PublishUrl>�Խ�\</PublishUrl>
+    <PublishUrl> Խ \</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -680,6 +680,7 @@
     <Compile Include="FormClass\PY\PH_PY403.cs" />
     <Compile Include="FormClass\PY\PH_PY420.cs" />
     <Compile Include="FormClass\PY\PH_PY606.cs" />
+    <Compile Include="FormClass\PY\PH_PY900.cs" />
     <Compile Include="FormClass\PY\PH_PY998.cs" />
     <Compile Include="FormClass\PY\PH_PY115.cs" />
     <Compile Include="FormClass\PY\PH_PY135.cs" />
@@ -3286,11 +3287,8 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP006.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD610.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SM040.srf" />
-<<<<<<< HEAD
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD023.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY403.srf" />
-=======
->>>>>>> issue162-3
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

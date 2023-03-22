@@ -3286,11 +3286,8 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_PP006.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD610.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SM040.srf" />
-<<<<<<< HEAD
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD023.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY403.srf" />
-=======
->>>>>>> issue162-3
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1702,7 +1702,7 @@ namespace PSH_BOne_AddOn
                     }
                     else if (string.IsNullOrEmpty(oDS_PS_MM005H.GetValue("U_UseDept", i)))
                     {
-                        errMessage = (i + 1) + "번 라인의 사용처가 없습니다. 확인하세요.";
+                        errMessage = (i + 1) + "번 라인의 사용처가 없습니다.다시 확인하세요.";
                         throw new Exception();
                     }
                 }

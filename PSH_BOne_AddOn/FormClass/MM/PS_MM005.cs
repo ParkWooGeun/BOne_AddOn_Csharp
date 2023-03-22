@@ -1695,15 +1695,18 @@ namespace PSH_BOne_AddOn
                         errMessage = (i + 1) + "번 라인의 품목은 비활성 품목입니다.";
                         throw new Exception();
                     }
-                    else if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(), oDS_PS_MM005H.GetValue("U_DocDate", i), oForm.TypeEx) == false) //마감상태 체크
+                    else if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim(), oDS_PS_MM005H.GetValue("U_DocDate", i).ToString().Trim().Substring(0, 6)) == false) //마감상태 체크
                     {
                         errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. " + (i + 1) + "번 라인의 청구일자를 확인하고, 회계부서로 문의하세요.";
                         throw new Exception();
                     }
-                    else if (string.IsNullOrEmpty(oDS_PS_MM005H.GetValue("U_UseDept", i)))
+                    else if (oForm.Items.Item("OrdType").Specific.Value.ToString().Trim() == "20")
                     {
-                        errMessage = (i + 1) + "번 라인의 사용처가 없습니다.다시 확인하세요.";
-                        throw new Exception();
+                        if (string.IsNullOrEmpty(oDS_PS_MM005H.GetValue("U_UseDept", i)))
+                        {
+                            errMessage = (i + 1) + "번 라인의 사용처가 없습니다.다시 확인하세요.";
+                            throw new Exception();
+                        }
                     }
                 }
                 oMat01.LoadFromDataSource();

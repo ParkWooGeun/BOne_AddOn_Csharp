@@ -719,7 +719,6 @@ namespace PSH_BOne_AddOn
             string WinTitle;
             string ReportName = String.Empty;
             string CLTCOD;
-            string cntgovID = String.Empty;
             string YY;
             string pMSTNAM;
             string pCode;
@@ -734,8 +733,6 @@ namespace PSH_BOne_AddOn
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            SAPbobsCOM.Recordset oRecordSet02 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
 
             try
             {
@@ -859,11 +856,9 @@ namespace PSH_BOne_AddOn
             string strBody;
             string Sub_Folder2;
             string sQry;
-            string YM;
             string MSTNAM;
             string MSTCOD;
             string Version;
-            string JOBTitle;
 
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -1044,10 +1039,10 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string sQry;
             string p_MSTCOD;
             string MCLTCOD;
             string MYY;
+            string sQry;
             string errMessage = string.Empty;
             SAPbouiCOM.ProgressBar ProgressBar01 = null;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -1095,6 +1090,16 @@ namespace PSH_BOne_AddOn
                         MCLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim(); //사업장
                         MYY = oForm.Items.Item("YY").Specific.Value.ToString().Trim(); //년월
 
+                        sQry = " SELECT Count(*) FROM [@PH_PY900A] WHERE U_CLTCOD ='" + MCLTCOD + "' AND U_YY ='" + MYY + "'";
+                        oRecordSet01.DoQuery(sQry);
+
+                        if(Convert.ToDouble(oRecordSet01.Fields.Item(0).Value) == 0)
+                        {
+                            PSH_Globals.SBO_Application.MessageBox("추가를 먼저하고 PDF저장을 누르세요.");
+                            BubbleEvent = false;
+                            return;
+                        }
+
                         ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("PDF 파일 생성 시작!", 50, false);
 
                         for (int i = 0; i <= oMat1.VisualRowCount - 1; i++)
@@ -1124,6 +1129,8 @@ namespace PSH_BOne_AddOn
 
                     if (pVal.ItemUID == "Btn_eMail")
                     {
+                        MYY = oForm.Items.Item("YY").Specific.Value.ToString().Trim(); //년월
+
                         ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("eMail 메일전송", 50, false);
                         oMat1.FlushToDataSource();
                         for (int i = 0; i <= oMat1.VisualRowCount - 1; i++)
@@ -1144,12 +1151,24 @@ namespace PSH_BOne_AddOn
                             ProgressBar01.Text = ProgressBar01.Value + "/" + (oMat1.VisualRowCount) + "건 eMail전송중...!";
                         }
                         ProgressBar01.Stop();
+
+                        oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
+                        PH_PY900_FormItemEnabled();
+                        oForm.Items.Item("YY").Specific.Value = MYY;
+                        oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     }
                 }
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_ITEM_PRESSED_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                if (errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_ITEM_PRESSED_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
             }
             finally
             {
@@ -1256,9 +1275,6 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string sQry;
-            string FieldCo;
-            int ErrCode = 0;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -1278,14 +1294,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if (ErrCode == 1)
-                {
-                    PSH_Globals.SBO_Application.MessageBox("급상여변동자료 입력은 필수입니다.");
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_VALIDATE_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
+                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_VALIDATE_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
             {

@@ -81,11 +81,6 @@ namespace PSH_BOne_AddOn
                 oGrid1.DataTable = oForm.DataSources.DataTables.Item("PS_SY015");
                 oDS_PS_SY015A = oForm.DataSources.DataTables.Item("PS_SY015");
                 
-                // 구분
-                oForm.Items.Item("pGubun").Specific.ValidValues.Add("H", "기본");
-                oForm.Items.Item("pGubun").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-                oForm.Items.Item("pGubun").DisplayDesc = true;
-
                 // 폴더/화면구분
                 oForm.Items.Item("pFSGubun").Specific.ValidValues.Add("F", "폴더");
                 oForm.Items.Item("pFSGubun").Specific.ValidValues.Add("S", "화면");
@@ -173,7 +168,6 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Items.Item("pUserID").Enabled = false;
                     oForm.Items.Item("CPUserID").Enabled = false;
-                    oForm.Items.Item("pGubun").Enabled = true;
                     oForm.Items.Item("Modual").Enabled = true;
                     oForm.Items.Item("Sub1").Enabled = true;
                     oForm.Items.Item("Sub2").Enabled = true;
@@ -197,7 +191,6 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Items.Item("pUserID").Enabled = false;
                     oForm.Items.Item("CPUserID").Enabled = false;
-                    oForm.Items.Item("pGubun").Enabled = true;
                     oForm.Items.Item("Modual").Enabled = true;
                     oForm.Items.Item("Sub1").Enabled = true;
                     oForm.Items.Item("Sub2").Enabled = true;
@@ -221,7 +214,6 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Items.Item("CPUserID").Enabled = true;
                     oForm.Items.Item("pUserID").Enabled = true;
-                    oForm.Items.Item("pGubun").Enabled = false;
                     oForm.Items.Item("Modual").Enabled = false;
                     oForm.Items.Item("Sub1").Enabled = false;
                     oForm.Items.Item("Sub2").Enabled = false;
@@ -245,7 +237,6 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Items.Item("CPUserID").Enabled = false;
                     oForm.Items.Item("pUserID").Enabled = true;
-                    oForm.Items.Item("pGubun").Enabled = true;
                     oForm.Items.Item("Modual").Enabled = false;
                     oForm.Items.Item("Sub1").Enabled = false;
                     oForm.Items.Item("Sub2").Enabled = false;
@@ -303,31 +294,24 @@ namespace PSH_BOne_AddOn
             string Param01;
             string Param02;
             string Param03;
-            string Param04;
             string errMessage = string.Empty;
 
             try
             {
                 oForm.Freeze(true);
-                Param01 = oForm.Items.Item("pGubun").Specific.Value.ToString().Trim();
-                Param02 = oForm.Items.Item("pFSGubun").Specific.Value.ToString().Trim();
-                Param03 = oForm.Items.Item("pUserID").Specific.Value.ToString().Trim();
-                Param04 = oForm.Items.Item("pUnique").Specific.Value.ToString().Trim();
+                Param01 = oForm.Items.Item("pFSGubun").Specific.Value.ToString().Trim();
+                Param02 = oForm.Items.Item("pUserID").Specific.Value.ToString().Trim();
+                Param03 = oForm.Items.Item("pUnique").Specific.Value.ToString().Trim();
 
-                if (string.IsNullOrEmpty(Param01.ToString().Trim()))
+                if (oForm.Items.Item("pFSGubun").Specific.Value.ToString().Trim() == "A")
                 {
-                    errMessage = "구분이 없습니다. 확인바랍니다.";
-                    throw new Exception();
-                }
-                else if (oForm.Items.Item("pFSGubun").Specific.Value.ToString().Trim() == "A")
-                {
-                    if (string.IsNullOrEmpty(Param03.ToString().Trim()) && string.IsNullOrEmpty(Param04.ToString().Trim()))
+                    if (string.IsNullOrEmpty(Param02.ToString().Trim()) && string.IsNullOrEmpty(Param03.ToString().Trim()))
                     {
                         errMessage = "UserID 또는 화면코드는 필수입니다.";
                         throw new Exception();
                     }
                 }
-                sQry = "EXEC PS_SY015_01 '" + Param01 + "', '" + Param02 + "', '"+  Param03 + "', '" + Param04 + "'";
+                sQry = "EXEC PS_SY015_01 '" + Param01 + "', '" + Param02 + "', '"+  Param03 + "'";
                 oDS_PS_SY015A.ExecuteQuery(sQry);
                 iRow = oForm.DataSources.DataTables.Item(0).Rows.Count;
                 PS_SY015_TitleSetting(iRow);
@@ -438,7 +422,6 @@ namespace PSH_BOne_AddOn
         {
             int i;
             string sQry;
-            string pGubun;
             string pFSGubun;
             string pUserID;
             string Modual;
@@ -467,7 +450,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                pGubun = oForm.Items.Item("pGubun").Specific.Value.ToString().Trim();
                 pFSGubun = oForm.Items.Item("pFSGubun").Specific.Value.ToString().Trim();
                 pUserID = oForm.Items.Item("pUserID").Specific.Value.ToString().Trim();
                 Modual = oForm.Items.Item("Modual").Specific.Value.ToString().Trim();
@@ -490,7 +472,7 @@ namespace PSH_BOne_AddOn
                 if (oForm.Items.Item("pFSGubun").Specific.Value.ToString().Trim()  != "A")
                 {
                     sQry = "EXEC PS_SY015_03 '" + pFSGubun + "', '" + pUserID + "', '" + pUniqueID + "', '" + Sequence + "', '" + UniqueID + "', '" + UserID + "', '" + FatherID + "', '" + Strings_Renamed + "', '" + Position + "', '";
-                    sQry += Level + "', '" + No + "', '" + pGubun + "', '" + AuthType + "', '" + PSH_Globals.oCompany.UserName + "','" + MType + "','" + UseYN + "'";
+                    sQry += Level + "', '" + No + "', '" + AuthType + "', '" + PSH_Globals.oCompany.UserName + "','" + MType + "','" + UseYN + "'";
 
                     oDS_PS_SY015A.ExecuteQuery(sQry);
                 }
@@ -511,7 +493,7 @@ namespace PSH_BOne_AddOn
                         if(temp[i] != oGrid1.DataTable.Columns.Item("UniqueID").Cells.Item(i).Value + "_" + oGrid1.DataTable.Columns.Item("UserID").Cells.Item(i).Value + "_" + oGrid1.DataTable.Columns.Item("AuthType").Cells.Item(i).Value)
                         {
                             sQry = "EXEC PS_SY015_03 'A', '', '', '', '', '" + oGrid1.DataTable.Columns.Item("UserID").Cells.Item(i).Value + "', '', '', '', '', '";
-                            sQry += oGrid1.DataTable.Columns.Item("seq").Cells.Item(i).Value + "', '', '" + oGrid1.DataTable.Columns.Item("AuthType").Cells.Item(i).Value + "', '" + PSH_Globals.oCompany.UserName + "','" + MType + "',''";
+                            sQry += oGrid1.DataTable.Columns.Item("seq").Cells.Item(i).Value + "', '" + oGrid1.DataTable.Columns.Item("AuthType").Cells.Item(i).Value + "', '" + PSH_Globals.oCompany.UserName + "','" + MType + "',''";
                             oRecordSet01.DoQuery(sQry);
 
                             if (oGrid1.DataTable.Columns.Item("AuthType").Cells.Item(i).Value == "R") {

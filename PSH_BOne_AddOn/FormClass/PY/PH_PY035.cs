@@ -84,7 +84,6 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PH_PY035_CreateItems()
         {
-            string sQry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
@@ -262,7 +261,7 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    SFrDate = Convert.ToString(DateTime.Now.AddDays(-15));
+                    SFrDate = Convert.ToString(DateTime.Now.AddDays(-7));
                 }
 
                 if (!string.IsNullOrEmpty(oForm.Items.Item("UseCarCd").Specific.Value.ToString().Trim()))
@@ -348,12 +347,12 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// Make_PDF_File
+        /// report_print_035
         /// </summary>
         /// <param name="p_MSTCOD">사번</param>
         /// <param name="p_Version">문서번호</param>
         /// <returns></returns>
-        private bool Make_PDF_File(string p_Version)
+        private bool report_print_035(string p_Version)
         {
             bool ReturnValue = false;
             string WinTitle;
@@ -374,7 +373,7 @@ namespace PSH_BOne_AddOn
             }
             catch (System.Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText("Make_PDF_File_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.StatusBar.SetText("report_print_035_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
             {
@@ -1014,7 +1013,7 @@ namespace PSH_BOne_AddOn
                             BubbleEvent = false;
                             return;
                         }
-                        Make_PDF_File(oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim());
+                        report_print_035(oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim());
                     }
                 }
 

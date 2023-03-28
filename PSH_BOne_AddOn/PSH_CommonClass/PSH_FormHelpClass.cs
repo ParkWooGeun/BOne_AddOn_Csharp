@@ -1118,6 +1118,89 @@ namespace PSH_BOne_AddOn.Form
             }
         }
 
+        /// <summary>
+        /// 크리스탈 리포트 호출 (Parameter, Formula 추가)
+        /// </summary>
+        /// <param name="pRptTitle">리포트 제목</param>
+        /// <param name="pRptName">리포트 파일(rpt) 명</param>
+        /// <param name="pRptParameters">리포트로 전달할 Parameter</param>
+        /// <param name="ExportString">Export</param>
+        // public void CrystalReportOpen(string pRptTitle, string pRptName, List<PSH_DataPackClass> pRptParameters,, string ExportString)
+        public void OpenCrystalReport(string pRptTitle, string pRptName, List<PSH_DataPackClass> pRptParameters, string ExportString, int pZoomRate)
+
+        {
+            PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1 rPT_Viewer1 = new PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1();
+            ReportDocument reportDocument = new ReportDocument();
+
+            //SAPbouiCOM.ProgressBar ProgBar01 = null;
+
+            int loopCount1 = 0;
+
+            try
+            {
+                //ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회 중...", 100, false);
+
+                reportDocument.Load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Report + "\\" + pRptName);
+
+                reportDocument.DataSourceConnections[0].IntegratedSecurity = false;
+                reportDocument.DataSourceConnections[0].SetConnection(PSH_Globals.SP_ODBC_IP, PSH_Globals.SP_ODBC_DBName, PSH_Globals.SP_ODBC_ID, PSH_Globals.SP_ODBC_PW); //데이터베이스 서버 접속
+
+                //메인리포트 파라미터
+                for (loopCount1 = 0; loopCount1 <= pRptParameters.Count - 1; loopCount1++)
+                {
+                    reportDocument.SetParameterValue(pRptParameters[loopCount1].Code.ToString(), pRptParameters[loopCount1].Value);
+                }
+
+                if (ExportString != "")
+                {
+                    ExportOptions CrExportOptions = new ExportOptions();
+                    DiskFileDestinationOptions CrDiskFileDestinationOptions = new DiskFileDestinationOptions();
+                    PdfRtfWordFormatOptions CrFormatTypeOptions = new PdfRtfWordFormatOptions();
+                    CrDiskFileDestinationOptions.DiskFileName = ExportString;
+                    CrExportOptions = reportDocument.ExportOptions;
+                    {
+                        CrExportOptions.ExportDestinationType = ExportDestinationType.DiskFile;
+                        CrExportOptions.ExportFormatType = ExportFormatType.PortableDocFormat;
+                        CrExportOptions.DestinationOptions = CrDiskFileDestinationOptions;
+                        CrExportOptions.FormatOptions = CrFormatTypeOptions;
+                    }
+                    reportDocument.Export();
+
+                    //ProgBar01.Value = 100;
+                    //ProgBar01.Stop();
+                    //ProgBar01 = null;
+                }
+                else
+                {
+
+                    rPT_Viewer1.ReportViewer.ReportSource = reportDocument;
+                    rPT_Viewer1.ReportViewer.Refresh();
+                    rPT_Viewer1.ReportViewer.Zoom(100);
+
+                    rPT_Viewer1.Text = pRptTitle;
+
+                    //ProgBar01.Value = 100;
+                    //ProgBar01.Stop();
+                    //ProgBar01 = null;
+
+                    rPT_Viewer1.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                //ProgBar01.Stop();
+                throw ex;
+            }
+            finally
+            {
+                reportDocument.Close();
+                reportDocument.Dispose();
+
+                rPT_Viewer1.ReportViewer.ReportSource = null;
+                rPT_Viewer1.Dispose();
+                rPT_Viewer1 = null;
+            }
+        }
         #endregion
     }
 }

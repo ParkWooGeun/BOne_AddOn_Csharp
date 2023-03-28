@@ -57832,6 +57832,178 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
+        <member name="T:PSH_BOne_AddOn.PH_PY900">
+            <summary>
+            건강보험 연말정산
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY900.LoadForm(System.String)">
+            <summary>
+            Form 호출
+            </summary>
+            <param name="oFormDocEntry"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY900.PH_PY900_CreateItems">
+            <summary>
+            화면 Item 생성
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY900.PH_PY900_EnableMenus">
+            <summary>
+            메뉴 아이콘 Enable
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY900.PH_PY900_SetDocument(System.String)">
+            <summary>
+            화면세팅
+            </summary>
+            <param name="oFormDocEntry"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY900.PH_PY900_FormItemEnabled">
+            <summary>
+            화면의 아이템 Enable 설정
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY900.PH_PY900_AddMatrixRow">
+            <summary>
+            매트릭스 행 추가
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY900.PH_PY900_DataValidCheck">
+            <summary>
+            DataValidCheck
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY900.PH_PY900_FormClear">
+            <summary>
+            PH_PY900_FormClear
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY900.PH_PY900_Validate(System.String)">
+            <summary>
+            Validate
+            </summary>
+            <param name="ValidateType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY900.PH_PY900_Excel_Upload">
+            <summary>
+            엑셀 파일 업로드
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY900.Make_PDF_File(System.String)">
+            <summary>
+            PDF만들기
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY900.Dir_Exists(System.String)">
+            <summary>
+            디렉토리 체크, 폴더 생성
+            </summary>
+            <param name="strDirName">경로</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY900.Send_EMail(System.String)">
+            <summary>
+            Send_EMail
+            </summary>
+            <param name="p_MSTCOD"></param>
+            <param name="p_Version"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY900.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Form Item Event
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">pVal</param>
+            <param name="BubbleEvent">Bubble Event</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY900.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            ITEM_PRESSED 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY900.Raise_EVENT_GOT_FOCUS(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_GOT_FOCUS 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY900.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_CLICK 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY900.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_VALIDATE
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY900.Raise_EVENT_MATRIX_LOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_MATRIX_LOAD
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY900.Raise_EVENT_FORM_UNLOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            FORM_UNLOAD 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY900.Raise_EVENT_ROW_DELETE(System.String,SAPbouiCOM.IMenuEvent,System.Boolean,SAPbouiCOM.Matrix,SAPbouiCOM.DBDataSource,System.String)">
+            <summary>
+            ROW_DELETE(Raise_FormMenuEvent에서 호출), 해당 클래스에서는 사용되지 않음
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pval"></param>
+            <param name="BubbleEvent"></param>
+            <param name="oMat"></param>
+            <param name="DBData"></param>
+            <param name="CheckField"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY900.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
+            <summary>
+            FormMenuEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY900.Raise_FormDataEvent(System.String,SAPbouiCOM.BusinessObjectInfo@,System.Boolean@)">
+            <summary>
+            FormDataEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="BusinessObjectInfo"></param>
+            <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY900.Raise_RightClickEvent(System.String,SAPbouiCOM.ContextMenuInfo@,System.Boolean@)">
+            <summary>
+            RightClickEvent
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
+        </member>
         <member name="T:PSH_BOne_AddOn.PH_PY998">
             <summary>
             ?�용?? 권한 조회(?�면�?)
@@ -79985,6 +80157,15 @@
             <param name="pRptParameters">리포?�로 ?�달?? Parameter</param>
             <param name="pSub1RptParameters">SubReport�? ?�달?? Parameter</param>
             <param name="pSub2RptParameters">SubReport�? ?�달?? Parameter</param>
+            <param name="ExportString">Export</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Form.PSH_FormHelpClass.OpenCrystalReport(System.String,System.String,System.Collections.Generic.List{PSH_BOne_AddOn.DataPack.PSH_DataPackClass},System.String,System.Int32)">
+            <summary>
+            크리스탈 리포트 호출 (Parameter, Formula 추가)
+            </summary>
+            <param name="pRptTitle">리포트 제목</param>
+            <param name="pRptName">리포트 파일(rpt) 명</param>
+            <param name="pRptParameters">리포트로 전달할 Parameter</param>
             <param name="ExportString">Export</param>
         </member>
         <member name="T:PSH_BOne_AddOn.PSH_SetFilter">

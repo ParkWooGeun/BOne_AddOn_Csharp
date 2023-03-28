@@ -21,7 +21,7 @@
     <FileUpgradeFlags />
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />
-    <PublishUrl>�Խ�\</PublishUrl>
+    <PublishUrl> Խ \</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -681,6 +681,7 @@
     <Compile Include="FormClass\PY\PH_PY403.cs" />
     <Compile Include="FormClass\PY\PH_PY420.cs" />
     <Compile Include="FormClass\PY\PH_PY606.cs" />
+    <Compile Include="FormClass\PY\PH_PY900.cs" />
     <Compile Include="FormClass\PY\PH_PY998.cs" />
     <Compile Include="FormClass\PY\PH_PY115.cs" />
     <Compile Include="FormClass\PY\PH_PY135.cs" />

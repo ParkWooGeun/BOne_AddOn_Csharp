@@ -57024,6 +57024,17 @@
             화면 Item 생성
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY035.PH_PY035_LoadCaption">
+            <summary>
+            화면 Item 생성
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY035.PH_PY035_FormReset">
+            <summary>
+            PH_PY031_FormReset
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PH_PY035.PH_PY035_EnableMenus">
             <summary>
             EnableMenus 메뉴설정
@@ -57047,16 +57058,25 @@
             <param name="RowIserted"></param>
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY035.PH_PY035_MTX01(System.Int32)">
+        <member name="M:PSH_BOne_AddOn.PH_PY035.PH_PY035_MTX01">
             <summary>
             PH_PY035_MTX01
             </summary>
         </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY035.Make_PDF_File(System.String)">
+        <member name="M:PSH_BOne_AddOn.PH_PY035.PH_PY035_AddData">
             <summary>
-            Make_PDF_File
+            PH_PY035_AddData
             </summary>
-            <param name="p_MSTCOD">사번</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY035.PH_PY035_UPDATEData">
+            <summary>
+            PH_PY035_UPDATEData
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PH_PY035.report_print_035(System.String)">
+            <summary>
+            report_print_035
+            </summary>
             <param name="p_Version">문서번호</param>
             <returns></returns>
         </member>
@@ -57094,14 +57114,6 @@
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY035.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_DOUBLE_CLICK
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pVal"></param>
-            <param name="BubbleEvent"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY035.Raise_EVENT_MATRIX_LOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>

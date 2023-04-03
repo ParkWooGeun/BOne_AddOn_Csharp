@@ -67195,11 +67195,27 @@
             DocEntry 초기화
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM701.PS_QM701_DisplayFixData(System.String)">
+            <summary>
+            PS_QM701 사진보여주기( 여기ㅅㅜ정할꺼)de
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_QM701.PS_QM701_DataValidCheck">
             <summary>
             필수 사항 check
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM701.OpenFileSelectDialog">
+            <summary>
+            OpenFileSelectDialog 호출(쓰레드를 이용하여 비동기화)
+            OLE 호출을 수행하려면 현재 스레드를 STA(단일 스레드 아파트) 모드로 설정해야 합니다.
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM701.PS_QM701_LoadPic(System.String)">
+            <summary>
+            PS_QM701_LoadPic
+            </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_QM701.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -67233,6 +67249,14 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM701.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_DOUBLE_CLICK 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_QM701.Raise_EVENT_KEY_DOWN(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Raise_EVENT_KEY_DOWN
@@ -67240,6 +67264,14 @@
             <param name="FormUID"></param>
             <param name="pVal"></param>
             <param name="BubbleEvent"></param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM701.Raise_EVENT_VALIDATE(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            VALIDATE 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_QM701.Raise_EVENT_MATRIX_LOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -86173,14 +86205,6 @@
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        </member>
-        <member name="M:PSH_BOne_AddOn.PH_PY119.Raise_EVENT_KEY_DOWN(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
-            <summary>
-            Raise_EVENT_KEY_DOWN
-            </summary>
-            <param name="FormUID"></param>
-            <param name="pVal"></param>
-            <param name="BubbleEvent"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PH_PY119.Raise_EVENT_COMBO_SELECT(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>

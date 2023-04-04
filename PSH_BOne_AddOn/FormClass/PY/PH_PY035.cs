@@ -353,7 +353,7 @@ namespace PSH_BOne_AddOn
 
                 if (oRecordSet01.RecordCount == 0)
                 {
-                    errMessage = "결과가 존재하지 않습니다.";
+                    errMessage = "예약내역이 존재하지 않습니다. 등록을 진행하세요.";
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
                 }
 
@@ -380,6 +380,7 @@ namespace PSH_BOne_AddOn
                     oDS_PH_PY035B.SetValue("U_ColReg12", i, oRecordSet01.Fields.Item("U_AfterKm").Value.ToString().Trim());    // 주행후Km
                     oDS_PH_PY035B.SetValue("U_ColReg13", i, oRecordSet01.Fields.Item("U_RegCls").Value.ToString().Trim());   // 등록구분
                     oDS_PH_PY035B.SetValue("U_ColReg14", i, oRecordSet01.Fields.Item("U_Comments").Value.ToString().Trim());  // 비고
+                    oDS_PH_PY035B.SetValue("U_ColReg15", i, Convert.ToString(i + 1));  // 순번
                     oRecordSet01.MoveNext();
                 }
                 oMat01.LoadFromDataSource();
@@ -1037,6 +1038,14 @@ namespace PSH_BOne_AddOn
                             else if (pVal.ItemUID == "UseCarCd")
                             {
                                 oForm.Items.Item("UseCar").Specific.Value = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" + oForm.Items.Item("UseCarCd").Specific.Value + "'", ""); //차량
+                                if (PH_PY035_MTX01() == false)
+                                {
+                                    BubbleEvent = false;
+                                    return;
+                                }
+                            }
+                            else if (pVal.ItemUID == "FrDate" || pVal.ItemUID == "FrDate")
+                            {
                                 if (PH_PY035_MTX01() == false)
                                 {
                                     BubbleEvent = false;

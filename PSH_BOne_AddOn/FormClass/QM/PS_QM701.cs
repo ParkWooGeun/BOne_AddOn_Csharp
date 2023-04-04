@@ -94,16 +94,8 @@ namespace PSH_BOne_AddOn
                 oMat01 = oForm.Items.Item("oMat01").Specific;
                 oMat01.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_NotSupported;
 
-                //검사일자
-                oForm.DataSources.UserDataSources.Add("WorkDate", SAPbouiCOM.BoDataType.dt_DATE);
-                oForm.Items.Item("WorkDate").Specific.DataBind.SetBound(true, "", "WorkDate");
-                oForm.DataSources.UserDataSources.Item("WorkDate").Value = DateTime.Now.ToString("yyyyMMdd");
-
-                //요구납기일
-                oForm.DataSources.UserDataSources.Add("OrdDate", SAPbouiCOM.BoDataType.dt_DATE);
-                oForm.Items.Item("OrdDate").Specific.DataBind.SetBound(true, "", "OrdDate");
-                oForm.DataSources.UserDataSources.Item("OrdDate").Value = DateTime.Now.ToString("yyyyMMdd");
-
+                oDS_PS_QM701H.SetValue("U_WorkDate", 0, DateTime.Now.ToString("yyyyMMdd"));
+                oDS_PS_QM701H.SetValue("U_OrdDate", 0, DateTime.Now.ToString("yyyyMMdd"));
                 //내주외주
                 oForm.Items.Item("InOut").Specific.ValidValues.Add("I", "자체");
                 oForm.Items.Item("InOut").Specific.ValidValues.Add("O", "외주");
@@ -173,24 +165,7 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }
-
-        ///// <summary>
-        ///// EnableMenus
-        ///// </summary>
-        //private void PS_QM701_EnableMenus()
-        //{
-        //    PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
-        //    try
-        //    {
-        //        dataHelpClass.SetEnableMenus(oForm, false, false, true, true, false, true, true, true, true, false, false, false, false, false, false, false);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-        //    }
-        //}
-
+               
         /// <summary>
         /// SetDocument
         /// </summary>
@@ -344,14 +319,14 @@ namespace PSH_BOne_AddOn
                     oDS_PS_QM701H.SetValue("U_WorkNum", 0, oRecordSet.Fields.Item("WorkNum").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_ItemName", 0, oRecordSet.Fields.Item("ItemName").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_ItemSpec", 0, oRecordSet.Fields.Item("ItemSpec").Value.ToString().Trim());
-                    oDS_PS_QM701H.SetValue("U_OutCompy", 0, oRecordSet.Fields.Item("OutCompy").Value.ToString().Trim());
+                    oDS_PS_QM701H.SetValue("U_CardCode", 0, oRecordSet.Fields.Item("CardCode").Value.ToString().Trim());
+                    oDS_PS_QM701H.SetValue("U_CardName", 0, oRecordSet.Fields.Item("CardName").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_InDate", 0, oRecordSet.Fields.Item("InDate").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_TotalQty", 0, oRecordSet.Fields.Item("TotalQty").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_BZZadQty", 0, oRecordSet.Fields.Item("BZZadQty").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_MSTCOD", 0, oRecordSet.Fields.Item("MSTCOD").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_OrdDate", 0, oRecordSet.Fields.Item("OrdDate").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_BadCode", 0, oRecordSet.Fields.Item("BadCode").Value.ToString().Trim());
-                    oDS_PS_QM701H.SetValue("U_BadNote", 0, oRecordSet.Fields.Item("BadNote").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_InCpCode", 0, oRecordSet.Fields.Item("InCpCode").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_OuCpCode", 0, oRecordSet.Fields.Item("OuCpCode").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_Comments", 0, oRecordSet.Fields.Item("Comments").Value.ToString().Trim());
@@ -428,11 +403,6 @@ namespace PSH_BOne_AddOn
                 if (string.IsNullOrEmpty(oForm.Items.Item("OrdDate").Specific.Value))
                 {
                     errMessage = "요구납기일 입력되지 않았습니다.";
-                    throw new Exception();
-                }
-                if (string.IsNullOrEmpty(oForm.Items.Item("BadNote").Specific.Value))
-                {
-                    errMessage = "처리의견 입력되지 않았습니다.";
                     throw new Exception();
                 }
                 if (string.IsNullOrEmpty(oForm.Items.Item("BZZadQty").Specific.Value))
@@ -857,6 +827,22 @@ namespace PSH_BOne_AddOn
                             BubbleEvent = false;
                         }
                     }
+                    else if (pVal.ItemUID == "WorkCp")
+                    {
+                        if (string.IsNullOrEmpty(oForm.Items.Item("WorkCp").Specific.Value))
+                        {
+                            PSH_Globals.SBO_Application.ActivateMenuItem("7425");
+                            BubbleEvent = false;
+                        }
+                    }
+                    else if (pVal.ItemUID == "InCpCode")
+                    {
+                        if (string.IsNullOrEmpty(oForm.Items.Item("InCpCode").Specific.Value))
+                        {
+                            PSH_Globals.SBO_Application.ActivateMenuItem("7425");
+                            BubbleEvent = false;
+                        }
+                    }
                 }
             }
             catch (System.Exception ex)
@@ -899,23 +885,36 @@ namespace PSH_BOne_AddOn
                                 oMat01.LoadFromDataSource();
                             }
                         }
-                        if (pVal.ItemUID == "BadCode")
-                        {
-                            sQry = "SELECT Distinct Convert(int, b.U_SmalCode) As U_SmalCode, b.U_SmalName From [@PS_PP003H] a Inner Join [@PS_PP003L] b On a.DocEntry = b.DocEntry ";
-                            sQry += "Where a.U_BigCode = '1' And a.U_MidCode = '" + oForm.Items.Item("BadCode").Specific.Value + "' Order by Convert(int, b.U_SmalCode) ";
-                            oRecordSet01.DoQuery(sQry);
-                            while (!oRecordSet01.EoF)
-                            {
-                                oForm.Items.Item("BadNote").Specific.ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
-                                oRecordSet01.MoveNext();
-                            }
-                            oForm.Items.Item("BadNote").Specific.Select("%", SAPbouiCOM.BoSearchKey.psk_ByValue);
-                        }
                         else
                         {
                             if (pVal.ItemUID == "WorkCode")
                             {
                                 oForm.Items.Item("WorkName").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("WorkCode").Specific.Value + "'", ""); //검사자
+                            }
+                            if (pVal.ItemUID == "InCpCode")
+                            {
+                                oForm.Items.Item("InCpName").Specific.Value = dataHelpClass.GetValue("SELECT U_CpName FROM [@PS_PP001L] WHERE U_CpCode = '" + oForm.Items.Item("InCpCode").Specific.Value + "'", 0, 1);
+                            }
+                            if (pVal.ItemUID == "KeyDoc")
+                            {
+                                sQry = " EXEC PS_QM701_03 '" + oForm.Items.Item("KeyDoc").Specific.Value.ToString().Trim() + "'";
+                                oRecordSet01.DoQuery(sQry);
+
+                                oDS_PS_QM701H.SetValue("U_WorkNum", 0, oRecordSet01.Fields.Item("WorkNum").Value.ToString().Trim());
+                                oDS_PS_QM701H.SetValue("U_WorkCode", 0, oRecordSet01.Fields.Item("WorkCode").Value.ToString().Trim());
+                                oDS_PS_QM701H.SetValue("U_WorkName", 0, oRecordSet01.Fields.Item("WorkName").Value.ToString().Trim());
+                                oDS_PS_QM701H.SetValue("U_InOut", 0, oRecordSet01.Fields.Item("InOut").Value.ToString().Trim());
+                                oDS_PS_QM701H.SetValue("U_ItemName", 0, oRecordSet01.Fields.Item("ItemName").Value.ToString().Trim());
+                                oDS_PS_QM701H.SetValue("U_ItemCode", 0, oRecordSet01.Fields.Item("ItemCode").Value.ToString().Trim());
+                                oDS_PS_QM701H.SetValue("U_ItemSpec", 0, oRecordSet01.Fields.Item("ItemSpec").Value.ToString().Trim());
+                                oDS_PS_QM701H.SetValue("U_CardCode", 0, oRecordSet01.Fields.Item("CardCode").Value.ToString().Trim());
+                                oDS_PS_QM701H.SetValue("U_CardName", 0, oRecordSet01.Fields.Item("CardName").Value.ToString().Trim());
+                                oDS_PS_QM701H.SetValue("U_InDate", 0, oRecordSet01.Fields.Item("InDate").Value);
+                                oDS_PS_QM701H.SetValue("U_TotalQty", 0, oRecordSet01.Fields.Item("TotalQty").Value.ToString().Trim());
+                                oDS_PS_QM701H.SetValue("U_BZZadQty", 0, oRecordSet01.Fields.Item("BZZadQty").Value.ToString().Trim());
+                                oDS_PS_QM701H.SetValue("U_BadCode", 0, oRecordSet01.Fields.Item("BadCode").Value.ToString().Trim());
+                                oDS_PS_QM701H.SetValue("U_WorkDate", 0, oRecordSet01.Fields.Item("WorkDate").Value);
+
                             }
                         }
                     }

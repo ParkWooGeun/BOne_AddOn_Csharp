@@ -843,6 +843,14 @@ namespace PSH_BOne_AddOn
                             BubbleEvent = false;
                         }
                     }
+                    else if (pVal.ItemUID == "MSTCOD")
+                    {
+                        if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.Value))
+                        {
+                            PSH_Globals.SBO_Application.ActivateMenuItem("7425");
+                            BubbleEvent = false;
+                        }
+                    }
                 }
             }
             catch (System.Exception ex)
@@ -890,6 +898,10 @@ namespace PSH_BOne_AddOn
                             if (pVal.ItemUID == "WorkCode")
                             {
                                 oForm.Items.Item("WorkName").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("WorkCode").Specific.Value + "'", ""); //검사자
+                            }
+                            if (pVal.ItemUID == "MSTCOD")
+                            {
+                                oForm.Items.Item("MSTNAM").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("MSTCOD").Specific.Value + "'", ""); //검사자
                             }
                             if (pVal.ItemUID == "InCpCode")
                             {

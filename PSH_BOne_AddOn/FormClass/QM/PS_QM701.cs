@@ -57,14 +57,9 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PS_QM701_CreateItems();
                 PS_QM701_ComboBox_Setting();
-                //PS_QM701_EnableMenus();
+                PS_QM701_EnableMenus();
                 PS_QM701_SetDocument(oFromDocEntry01);
 
-                oForm.EnableMenu("1283", true);  //삭제
-                oForm.EnableMenu("1287", false);  //복제
-                oForm.EnableMenu("1286", false); //닫기
-                oForm.EnableMenu("1284", true); //취소
-                oForm.EnableMenu("1293", true);  //행삭제
             }
             catch (Exception ex)
             {
@@ -185,6 +180,24 @@ namespace PSH_BOne_AddOn
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
         }
+
+        /// <summary>
+        /// EnableMenus
+        /// </summary>
+        private void PS_QM701_EnableMenus()
+        {
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
+            try
+            {
+                dataHelpClass.SetEnableMenus(oForm, false, false, true, true, false, true, true, true, true, false, false, false, false, false, false, false);
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+            }
+        }
+
 
         /// <summary>
         /// 모드에 따른 아이템 설정
@@ -362,11 +375,6 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-                {
-                    PS_QM701_FormClear();
-                }
-
                 if (string.IsNullOrEmpty(oForm.Items.Item("WorkName").Specific.Value))
                 {
                     errMessage = "검사자가 입력되지 않았습니다.";
@@ -415,6 +423,8 @@ namespace PSH_BOne_AddOn
                     errMessage = "검수입고 문서가 선택되지않았습니다.. 다시확인해주세요.";
                     throw new Exception();
                 }
+
+                functionReturnValue = true;
 
             }
             catch (Exception ex)
@@ -516,17 +526,19 @@ namespace PSH_BOne_AddOn
                 }
                 FSO.CopyFile(sFilePath, SaveFolders + "\\" + oDS_PS_QM701H.GetValue("U_KeyDoc", 0).ToString().Trim() + "_" + oDS_PS_QM701H.GetValue("DocEntry", 0).ToString().Trim() + imageFileName);
 
-                sQry = " EXEC [PS_QM701_01] '";
-                sQry += pPictureControlName + "','";
-                sQry += oDS_PS_QM701H.GetValue("U_KeyDoc", 0).ToString().Trim() + "', '";
-                sQry += oDS_PS_QM701H.GetValue("DocEntry", 0).ToString().Trim() + "'";
-                oRecordSet.DoQuery(sQry);
+                //sQry = " EXEC [PS_QM701_01] '";
+                //sQry += pPictureControlName + "','";
+                //sQry += oDS_PS_QM701H.GetValue("U_KeyDoc", 0).ToString().Trim() + "', '";
+                //sQry += oDS_PS_QM701H.GetValue("DocEntry", 0).ToString().Trim() + "'";
+                //oRecordSet.DoQuery(sQry);
 
                 PSH_Globals.SBO_Application.MessageBox("사진이 업로드 되었습니다.");
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
                     oForm.Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
                 }
+
+                oDS_PS_QM701H.SetValue("U_Pic", 0, (SaveFolders + "\\" + sFileName));
                 ReturnValue = true;
             }
             catch (Exception ex)
@@ -664,6 +676,7 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
+            string errMessage = string.Empty;
             try
             {
                 oForm.Freeze(true);
@@ -685,12 +698,28 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "1")
                     {
+                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+                        {
+                            if (pVal.ActionSuccess == true)
+                            {
+                                PS_QM701_FormItemEnabled();
+                                PS_QM701_AddMatrixRow(0, true);
+                            }
+                        }
                     }
                 }
+                
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
-                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                if (errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_ITEM_PRESSED_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
             }
             finally
             {
@@ -779,6 +808,9 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_DOUBLE_CLICK(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
                 if (pVal.BeforeAction == true)
@@ -787,7 +819,9 @@ namespace PSH_BOne_AddOn
                     {
                         if (PS_QM701_LoadPic(pVal.ItemUID) == true)
                         {
-                            PS_QM701_DisplayFixData(oForm.Items.Item("DocEntry").Specific.Value);
+                            //oDS_PS_QM701H.SetValue("U_Pic", 0, "");
+                            oDS_PS_QM701H.SetValue("U_Pic", 0, "\\\\191.1.1.220\\Incom_Pic\\" + oForm.Items.Item("KeyDoc").Specific.Value+ "_" + oForm.Items.Item("DocEntry").Specific.Value + "_01.BMP");
+                            //PS_QM701_DisplayFixData(oForm.Items.Item("DocEntry").Specific.Value);
                             BubbleEvent = false;
                         }
                     }
@@ -796,6 +830,10 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }
 

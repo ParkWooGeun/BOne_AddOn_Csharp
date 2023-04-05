@@ -67178,6 +67178,11 @@
             </summary>
             <param name="oFromDocEntry01">DocEntry</param>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM701.PS_QM701_EnableMenus">
+            <summary>
+            EnableMenus
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_QM701.PS_QM701_FormItemEnabled">
             <summary>
             모드에 따른 아이템 설정

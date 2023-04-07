@@ -458,7 +458,7 @@ namespace PSH_BOne_AddOn
 							sQry += " and [@PS_HR410L].U_Group = '" + Group + "'";
 							sQry += " and [@PS_HR410L].U_Complet3 = 'Y'";
 							sQry += " and [@PS_HR410L].U_S_TeamCd =  (case when '" + TeamCode + "'" + " = '9999' then U_S_TeamCd else '" + TeamCode + "'" + " end )";
-							sQry += " and [@PS_HR410L].U_S_RspCd =  (case when '" + RspCode + "'" + " = '9999' then U_S_RspCd else '" + RspCode + "'" + " end )";
+							sQry += " and isnull([@PS_HR410L].U_S_RspCd,'') =  (case when '" + RspCode + "'" + " = '9999' then U_S_RspCd else '" + RspCode + "'" + " end )";
 							sQry += " and isnull([@PS_HR410L].U_PeakYN,'N') = (case when '" + PeakYN + "'" + "='N' then 'N' else 'Y' end)";
 							break;
 					}

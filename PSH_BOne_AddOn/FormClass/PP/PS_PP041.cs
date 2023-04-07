@@ -2962,10 +2962,13 @@ namespace PSH_BOne_AddOn
                                                     
                                                     RecordSet01.DoQuery(sQry);
 
-                                                    if (RecordSet01.Fields.Item(0).Value == 0)
+                                                    if (dataHelpClass.User_MSTCOD() != "2091201") // (MSTCOD : 2091201) 이승훈과장만 제외.
                                                     {
-                                                        errMessage = "해당 작업지시의 경우 검사등록이 되지 않았습니다. [PS_QM610][" + oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value + "] ";
-                                                        throw new Exception();
+                                                        if (RecordSet01.Fields.Item(0).Value == 0)
+                                                        {
+                                                            errMessage = "해당 작업지시의 경우 검사등록이 되지 않았습니다. [PS_QM610][" + oMat01.Columns.Item("OrdMgNum").Cells.Item(pVal.Row).Specific.Value + "] ";
+                                                            throw new Exception();
+                                                        }
                                                     }
                                                 }
                                             }

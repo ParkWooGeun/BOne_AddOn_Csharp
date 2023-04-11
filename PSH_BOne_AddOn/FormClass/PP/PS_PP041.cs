@@ -2919,11 +2919,13 @@ namespace PSH_BOne_AddOn
             double hour;
             double minute;
             string sQry;
+            string sQry1;
             string ordMgNum;
             string errMessage = string.Empty;
             SAPbouiCOM.ProgressBar ProgBar01 = null;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset RecordSet02 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -2962,7 +2964,10 @@ namespace PSH_BOne_AddOn
                                                     
                                                     RecordSet01.DoQuery(sQry);
 
-                                                    if (dataHelpClass.User_MSTCOD() != "2091201") // (MSTCOD : 2091201) 이승훈과장만 제외.
+                                                    sQry1 = " SELECT COUNT(*) FROM [@PS_SY005H] A INNER JOIN [@PS_SY005L] B ON A.Code = B.Code WHERE A.Code ='PP041' AND B.U_UseYN ='Y'";
+                                                    sQry1 += " AND B.U_USERID = '" + PSH_Globals.oCompany.UserName +"'";
+                                                    RecordSet02.DoQuery(sQry1);
+                                                    if(RecordSet02.Fields.Item(0).Value == 0) //PS_SY005(마스터승인권한) 화면 참조해서 조건예외로 스크랩처리
                                                     {
                                                         if (RecordSet01.Fields.Item(0).Value == 0)
                                                         {

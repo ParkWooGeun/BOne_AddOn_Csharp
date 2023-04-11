@@ -185,33 +185,61 @@ namespace PSH_BOne_AddOn
 			string Number;
 			string Group;
 			string BPLId;
-			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+            string BPLName;
+            string GroupNM;
+            string sQry;
+            PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
-			try
-			{
+            try
+            {
 				BPLId  = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
 				Year   = oForm.Items.Item("Year").Specific.Value.ToString().Trim();
 				Number = oForm.Items.Item("Number").Specific.Selected.Value.ToString().Trim();
 				Group  = oForm.Items.Item("Group").Specific.Selected.Value.ToString().Trim();
 
-				WinTitle = "[PS_HR422] 전문직인사평가세부내역";
+                sQry = "SELECT BPLName FROM [OBPL] WHERE BPLId = '" + BPLId + "'";
+                oRecordSet.DoQuery(sQry);
+                BPLName = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+
+                if (Group == "1")
+                {
+                    GroupNM = "반장";
+                }
+                else
+                {
+                    GroupNM = "사원";
+                }
+
+                WinTitle = "[PS_HR422] 전문직인사평가세부내역";
 				ReportName = "PS_HR422_01.rpt";
 
-				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
+                List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
+                List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
 
-				//dataPackParameter
-				dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLId));
+                // dataPackFormula
+                dataPackFormula.Add(new PSH_DataPackClass("@BPLId", BPLName));
+                dataPackFormula.Add(new PSH_DataPackClass("@Year", Year));
+                dataPackFormula.Add(new PSH_DataPackClass("@Number", Number));
+                dataPackFormula.Add(new PSH_DataPackClass("@Group", GroupNM));
+
+                //dataPackParameter
+                dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLId));
 				dataPackParameter.Add(new PSH_DataPackClass("@Year", Year));
 				dataPackParameter.Add(new PSH_DataPackClass("@Number", Number));
 				dataPackParameter.Add(new PSH_DataPackClass("@Group", Group));
 
-				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
-			}
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+            }
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
 			}
-		}
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
+            }
+        }
 
         /// <summary>
         /// Form Item Event

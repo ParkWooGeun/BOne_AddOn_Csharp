@@ -302,7 +302,7 @@ namespace PSH_BOne_AddOn
 				dataPackFormula.Add(new PSH_DataPackClass("@BPLId", BPLName));
 				dataPackFormula.Add(new PSH_DataPackClass("@Year", Year));
 				dataPackFormula.Add(new PSH_DataPackClass("@Number", Number));
-				dataPackParameter.Add(new PSH_DataPackClass("@Group", GroupNM));
+                dataPackFormula.Add(new PSH_DataPackClass("@Group", GroupNM));
 
 				// dataPackParameter
 				dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLId));

@@ -1,4 +1,4 @@
-ï»?<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -2392,6 +2392,8 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PH_PY920_22_03.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_MM919_01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_MM919_02.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_PP290_03.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PH_PY900_01.rpt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EXT_Form\FileListBoxForm.resX">
@@ -3290,6 +3292,9 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SM040.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD023.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY403.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY126.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_SD045.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY900.srf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

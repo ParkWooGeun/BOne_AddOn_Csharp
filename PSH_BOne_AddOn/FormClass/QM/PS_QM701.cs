@@ -318,7 +318,7 @@ namespace PSH_BOne_AddOn
                     }
 
                     oDS_PS_QM701H.SetValue("U_Pic", 0, "");
-                    oDS_PS_QM701H.SetValue("U_Pic", 0, "\\\\191.1.1.220\\Income_Pic\\" + oRecordSet.Fields.Item("WorkNum").Value.ToString().Trim() + "_" + oRecordSet.Fields.Item("DocEntry").Value.ToString().Trim() + "_01.BMP");
+                    oDS_PS_QM701H.SetValue("U_Pic", 0, "\\\\191.1.1.220\\Income_Pic\\" + oRecordSet.Fields.Item("DocEntry").Value.ToString().Trim() + ".BMP");
 
                     oDS_PS_QM701H.SetValue("DocEntry", 0, oRecordSet.Fields.Item("DocEntry").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("Canceled", 0, oRecordSet.Fields.Item("Canceled").Value.ToString().Trim());
@@ -511,12 +511,8 @@ namespace PSH_BOne_AddOn
                     errMessage = "BMP 확장자만 가능합니다.";
                     throw new Exception();
                 }
-
-                string imageFileName = null;
-                if (pPictureControlName == "Pic")
-                {
-                    imageFileName = "_01.BMP";
-                }
+                
+                string imageFileName = ".BMP";
 
                 //서버에 기존 파일 체크
                 FileInfo fileInfo = new FileInfo(SaveFolders + "\\" + sFileName);
@@ -524,7 +520,7 @@ namespace PSH_BOne_AddOn
                 {
                     FSO.DeleteFile(SaveFolders + "\\" + sFileName);
                 }
-                FSO.CopyFile(sFilePath, SaveFolders + "\\" + oDS_PS_QM701H.GetValue("U_KeyDoc", 0).ToString().Trim() + "_" + oDS_PS_QM701H.GetValue("DocEntry", 0).ToString().Trim() + imageFileName);
+                FSO.CopyFile(sFilePath, SaveFolders + "\\" + oDS_PS_QM701H.GetValue("DocEntry", 0).ToString().Trim() + imageFileName);
 
                 //sQry = " EXEC [PS_QM701_01] '";
                 //sQry += pPictureControlName + "','";
@@ -860,14 +856,6 @@ namespace PSH_BOne_AddOn
                     else if (pVal.ItemUID == "KeyDoc")
                     {
                         if (string.IsNullOrEmpty(oForm.Items.Item("KeyDoc").Specific.Value))
-                        {
-                            PSH_Globals.SBO_Application.ActivateMenuItem("7425");
-                            BubbleEvent = false;
-                        }
-                    }
-                    else if (pVal.ItemUID == "WorkCp")
-                    {
-                        if (string.IsNullOrEmpty(oForm.Items.Item("WorkCp").Specific.Value))
                         {
                             PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                             BubbleEvent = false;

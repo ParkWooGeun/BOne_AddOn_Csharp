@@ -109,7 +109,7 @@ namespace PSH_BOne_AddOn
                 dataHelpClass.Set_ComboList((oForm.Items.Item("BPLId").Specific), "SELECT BPLId, BPLName From [OBPL] order by 1", "", false, false);
                 oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
                 oForm.Items.Item("Div").Specific.ValidValues.Add("1", "배차신청List조회");
-                //oForm.Items.Item("Div").Specific.ValidValues.Add("2", "전표번호오류자료");
+                oForm.Items.Item("Div").Specific.ValidValues.Add("2", "차량출입조회");
                 //oForm.Items.Item("Div").Specific.ValidValues.Add("3", "공정실적없는 상각분개조회");
                 oForm.Items.Item("Div").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
@@ -202,10 +202,10 @@ namespace PSH_BOne_AddOn
                 {
                     Query01 = "EXEC PH_PY037_01 '" + BPLId + "','" + DocDateFr + "','" + DocDateTo + "'";
                 }
-                //else if (Div == "2")
-                //{
-                //    Query01 = "EXEC PH_PY037_02 '" + BPLId + "','" + DocDateFr + "','" + DocDateTo + "'";
-                //}
+                else if (Div == "2")
+                {
+                    Query01 = "EXEC PH_PY037_02 '" + BPLId + "','" + DocDateFr + "','" + DocDateTo + "'";
+                }
                 //else if (Div == "3")
                 //{
                 //    Query01 = "EXEC PH_PY037_03 '" + BPLId + "','" + DocDateFr + "','" + DocDateTo + "'";

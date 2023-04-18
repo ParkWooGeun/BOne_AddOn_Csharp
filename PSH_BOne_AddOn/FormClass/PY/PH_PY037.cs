@@ -124,55 +124,7 @@ namespace PSH_BOne_AddOn
             }
         }
 
-        ///// <summary>
-        ///// DocEntry 초기화
-        ///// </summary>
-        //private void PH_PY037_FormClear()
-        //{
-        //    PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
-        //    try
-        //    {
-        //        string DocEntry = dataHelpClass.Get_ReData( "AutoKey", "ObjectCode", "ONNM", "'PH_PY037'", "");
-        //        if (Convert.ToDouble(DocEntry) == 0)
-        //        {
-        //            oForm.Items.Item("DocEntry").Specific.Value = 1;
-        //        }
-        //        else
-        //        {
-        //           oForm.Items.Item("DocEntry").Specific.Value = DocEntry;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-        //    }
-        //}
-
-        ///// <summary>
-        ///// 필수 사항 check
-        ///// </summary>
-        ///// <returns></returns>
-        //private bool PH_PY037_DataValidCheck()
-        //{
-        //    bool returnValue = false;
-
-        //    try
-        //    {
-        //        PH_PY037_FormClear();
-        //        returnValue = true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-        //    }
-        //    finally
-        //    {
-        //    }
-
-        //    return returnValue;
-        //}
-
+        
         /// <summary>
         /// PH_PY037_MTX01
         /// </summary>

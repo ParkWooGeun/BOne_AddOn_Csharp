@@ -899,9 +899,16 @@ namespace PSH_BOne_AddOn
                                 sQry = "SELECT Convert(Char(8),U_FrDate,112) AS FrDate,  Convert(Char(8),U_ToDate,112) AS ToDate, *  FROM [@PH_PY035A] WHERE DocEntry ='" + oMat01.Columns.Item("DocEntry").Cells.Item(pVal.Row).Specific.Value + "'";
                                 oRecordSet01.DoQuery(sQry);
 
-                                sQry1 = "EXEC [PH_PY035_04] '" + oRecordSet01.Fields.Item("U_UseCarCd").Value.ToString().Trim() + "','" + oRecordSet01.Fields.Item("FrDate").Value.ToString().Trim() + "','" + oRecordSet01.Fields.Item("U_FrTime").Value.ToString().Trim() + "'";
-                                oRecordSet02.DoQuery(sQry1);
-
+                                if (oRecordSet01.Fields.Item("U_RegCls").Value.ToString().Trim() != "03")
+                                {
+                                    sQry1 = "EXEC [PH_PY035_04] '" + oRecordSet01.Fields.Item("U_UseCarCd").Value.ToString().Trim() + "','" + oRecordSet01.Fields.Item("FrDate").Value.ToString().Trim() + "','" + oRecordSet01.Fields.Item("U_FrTime").Value.ToString().Trim() + "'";
+                                    oRecordSet02.DoQuery(sQry1);
+                                    oDS_PH_PY035A.SetValue("U_BeForKm", 0, oRecordSet02.Fields.Item("U_AfterKm").Value.ToString().Trim());  // 주행전Km (이전자료의 주행후km값을 가져옴)
+                                }
+                                else
+                                {
+                                    oDS_PH_PY035A.SetValue("U_BeForKm", 0, oRecordSet01.Fields.Item("U_BeforKm").Value.ToString().Trim());  // 정산이면 값을 그대로 가져옴
+                                }
                                 oDS_PH_PY035A.SetValue("DocEntry", 0, oRecordSet01.Fields.Item("DocEntry").Value.ToString().Trim());  // 관리번호
                                 oDS_PH_PY035A.SetValue("U_CLTCOD", 0, oRecordSet01.Fields.Item("U_CLTCOD").Value.ToString().Trim());  // 관리번호
                                 oDS_PH_PY035A.SetValue("U_FrDate", 0, oRecordSet01.Fields.Item("FrDate").Value.ToString().Trim());    // 시작일자
@@ -918,8 +925,6 @@ namespace PSH_BOne_AddOn
                                 oDS_PH_PY035A.SetValue("U_Comments", 0, oRecordSet01.Fields.Item("U_Comments").Value.ToString().Trim());  // 비고
                                 oDS_PH_PY035A.SetValue("U_RegCls", 0, oRecordSet01.Fields.Item("U_RegCls").Value.ToString().Trim());   // 등록구분
                                 oDS_PH_PY035A.SetValue("U_AfterKm", 0, oRecordSet01.Fields.Item("U_AfterKm").Value.ToString().Trim());    // 주행후Km
-                                oDS_PH_PY035A.SetValue("U_BeForKm", 0, oRecordSet02.Fields.Item("U_AfterKm").Value.ToString().Trim());  // 주행전Km (이전자료의 주행후km값을 가져옴)
-
                                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
                                 PH_PY035_LoadCaption();
                                 PH_PY035_FormItemEnabled();
@@ -1110,13 +1115,14 @@ namespace PSH_BOne_AddOn
                     //추가
                     if (pVal.ItemUID == "BtnAdd")
                     {
-                        if(string.IsNullOrEmpty(oForm.Items.Item("AfterKm").Specific.Value.ToString().Trim()))
+                        if (string.IsNullOrEmpty(oForm.Items.Item("BeforKm").Specific.Value.ToString().Trim()))
                         {
                             if (PH_PY035A_DataValidCheck() == false)
                             {
                                 BubbleEvent = false;
                                 return;
                             }
+
                             sQry = "EXEC [PH_PY035_03] '";
                             sQry += oForm.Items.Item("UseCarCd").Specific.Value.ToString().Trim() + "','";                // 사원번호
                             sQry += oForm.Items.Item("FrDate").Specific.Value.ToString().Trim().Replace(".", "") + "','";                // 사업장
@@ -1157,123 +1163,63 @@ namespace PSH_BOne_AddOn
                                 return;
                             }
 
-                            sQry = "EXEC [PH_PY035_03] '";
-                            sQry += oForm.Items.Item("UseCarCd").Specific.Value.ToString().Trim() + "','";                // 사원번호
-                            sQry += oForm.Items.Item("FrDate").Specific.Value.ToString().Trim().Replace(".", "") + "','";                // 사업장
-                            sQry += oForm.Items.Item("FrTime").Specific.Value.ToString().Trim() + "','";                // 사원번호
-                            sQry += oForm.Items.Item("ToDate").Specific.Value.ToString().Trim().Replace(".", "") + "','";                // 시작일자
-                            sQry += oForm.Items.Item("ToTime").Specific.Value.ToString().Trim() + "','";                // 종료일자
-                            sQry += oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'";                // 문서번호 (현재등록하는 문서제외)
-                            oRecordSet01.DoQuery(sQry);
-
-                            if (Convert.ToInt32(oRecordSet01.Fields.Item(0).Value.ToString().Trim()) > 0)
-                            {
-                                errMessage = "중복된 시간에 예약내역이 있습니다. 확인 후 다시 등록하세요.";
-                                PSH_Globals.SBO_Application.MessageBox(errMessage);
-                                BubbleEvent = false;
-                                return;
-                            }
-                            sUseCard = oForm.Items.Item("UseCarCd").Specific.Value.ToString().Trim();
-                            if (PH_PY035_UPDATEData() == false)
-                            {
-                                BubbleEvent = false;
-                                return;
-                            }
                             FrDate = oForm.Items.Item("FrDate").Specific.Value.ToString().Trim();
                             sUseCard = oForm.Items.Item("UseCarCd").Specific.Value.ToString().Trim();
-                            if (!string.IsNullOrEmpty(oForm.Items.Item("AfterKm").Specific.Value.ToString().Trim()))
+
+                            if (oForm.Items.Item("RegCls").Specific.Value.ToString().Trim() != "02")
                             {
-                                sQry = " UPDATE [@PH_PY035A] SET U_RegCls ='03' WHERE DocEntry ='" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'";
+                                sQry = "EXEC [PH_PY035_03] '";
+                                sQry += oForm.Items.Item("UseCarCd").Specific.Value.ToString().Trim() + "','";                // 사원번호
+                                sQry += oForm.Items.Item("FrDate").Specific.Value.ToString().Trim().Replace(".", "") + "','";                // 사업장
+                                sQry += oForm.Items.Item("FrTime").Specific.Value.ToString().Trim() + "','";                // 사원번호
+                                sQry += oForm.Items.Item("ToDate").Specific.Value.ToString().Trim().Replace(".", "") + "','";                // 시작일자
+                                sQry += oForm.Items.Item("ToTime").Specific.Value.ToString().Trim() + "','";                // 종료일자
+                                sQry += oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'";                // 문서번호 (현재등록하는 문서제외)
                                 oRecordSet01.DoQuery(sQry);
+
+                                if (Convert.ToInt32(oRecordSet01.Fields.Item(0).Value.ToString().Trim()) > 0)
+                                {
+                                    errMessage = "중복된 시간에 예약내역이 있습니다. 확인 후 다시 등록하세요.";
+                                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                                    BubbleEvent = false;
+                                    return;
+                                }
+                                if (oForm.Items.Item("BeforKm").Specific.Value.ToString().Trim() == "0")
+                                {
+                                    errMessage = "이전 등록자가 입력을 완료하지 못했습니다. 확인 후 다시 등록하여 주세요.";
+                                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                                    BubbleEvent = false;
+                                    return;
+                                }
+                                else
+                                {
+                                    if (PH_PY035_UPDATEData() == false)
+                                    {
+                                        BubbleEvent = false;
+                                        return;
+                                    }
+                                    if (!string.IsNullOrEmpty(oForm.Items.Item("AfterKm").Specific.Value.ToString().Trim()))
+                                    {
+                                        sQry = " UPDATE [@PH_PY035A] SET U_RegCls ='03' WHERE DocEntry ='" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'";
+                                        oRecordSet01.DoQuery(sQry);
+                                    }
+                                }
                             }
+                            else
+                            {
+                                if (PH_PY035_UPDATEData() == false)
+                                {
+                                    BubbleEvent = false;
+                                    return;
+                                }
+                            }
+
                             PH_PY035_FormReset();
                             oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
                             PH_PY035_LoadCaption();
                             PH_PY035_FormItemEnabled();
                             PH_PY035_MTX01(sUseCard, FrDate);
                         }
-                        //if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
-                        //{
-                        //    if (PH_PY035A_DataValidCheck() == false)
-                        //    {
-                        //        BubbleEvent = false;
-                        //        return;
-                        //    }
-                        //    sQry = "EXEC [PH_PY035_03] '";
-                        //    sQry += oForm.Items.Item("UseCarCd").Specific.Value.ToString().Trim() + "','";                // 사원번호
-                        //    sQry += oForm.Items.Item("FrDate").Specific.Value.ToString().Trim().Replace(".", "") + "','";                // 사업장
-                        //    sQry += oForm.Items.Item("FrTime").Specific.Value.ToString().Trim()  + "','";                // 사원번호
-                        //    sQry += oForm.Items.Item("ToDate").Specific.Value.ToString().Trim().Replace(".", "") + "','";                // 시작일자
-                        //    sQry += oForm.Items.Item("ToTime").Specific.Value.ToString().Trim() + "','";                // 종료일자
-                        //    sQry += oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'";                //문서번호 (현재등록하는 문서제외)
-                        //    oRecordSet01.DoQuery(sQry);
-
-                        //    if (Convert.ToInt32(oRecordSet01.Fields.Item(0).Value.ToString().Trim()) > 0)
-                        //    {
-                        //        errMessage = "중복된 시간에 예약내역이 있습니다. 확인 후 다시 등록하세요.";
-                        //        PSH_Globals.SBO_Application.MessageBox(errMessage);
-                        //        BubbleEvent = false;
-                        //        return;
-                        //    }
-                        //    else
-                        //    {
-                        //        if (PH_PY035_AddData() == false)
-                        //        {
-                        //            BubbleEvent = false;
-                        //            return;
-                        //        }
-
-                        //        PH_PY035_FormReset();
-                        //        oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
-                        //        PH_PY035_LoadCaption();
-                        //        PH_PY035_FormItemEnabled();
-                        //        PH_PY035_MTX01();
-                        //    }
-                        //}
-
-                        //else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
-                        //{
-                        //    if (PH_PY035A_DataValidCheck() == false)
-                        //    {
-                        //        BubbleEvent = false;
-                        //        return;
-                        //    }
-
-                        //    sQry = "EXEC [PH_PY035_03] '";
-                        //    sQry += oForm.Items.Item("UseCarCd").Specific.Value.ToString().Trim() + "','";                // 사원번호
-                        //    sQry += oForm.Items.Item("FrDate").Specific.Value.ToString().Trim().Replace(".", "") + "','";                // 사업장
-                        //    sQry += oForm.Items.Item("FrTime").Specific.Value.ToString().Trim() + "','";                // 사원번호
-                        //    sQry += oForm.Items.Item("ToDate").Specific.Value.ToString().Trim().Replace(".", "") + "','";                // 시작일자
-                        //    sQry += oForm.Items.Item("ToTime").Specific.Value.ToString().Trim() + "','";                // 종료일자
-                        //    sQry += oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'";                // 문서번호 (현재등록하는 문서제외)
-                        //    oRecordSet01.DoQuery(sQry);
-
-                        //    if (Convert.ToInt32(oRecordSet01.Fields.Item(0).Value.ToString().Trim()) > 0)
-                        //    {
-                        //        errMessage = "중복된 시간에 예약내역이 있습니다. 확인 후 다시 등록하세요.";
-                        //        PSH_Globals.SBO_Application.MessageBox(errMessage);
-                        //        BubbleEvent = false;
-                        //        return;
-                        //    }
-
-                        //    if (PH_PY035_UPDATEData() == false)
-                        //    {
-                        //        BubbleEvent = false;
-                        //        return;
-                        //    }
-
-                        //    if (!string.IsNullOrEmpty(oForm.Items.Item("AfterKm").Specific.Value.ToString().Trim()))
-                        //    {
-                        //        sQry = " UPDATE [@PH_PY035A] SET U_RegCls ='03' WHERE DocEntry ='" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'";
-                        //        oRecordSet01.DoQuery(sQry);
-                        //    }
-
-                        //    PH_PY035_FormReset();
-                        //    oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
-                        //    PH_PY035_LoadCaption();
-                        //    PH_PY035_FormItemEnabled();
-                        //    PH_PY035_MTX01();
-                        //}
                     }
                     if (pVal.ItemUID == "BtnPrint")
                     {

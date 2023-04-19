@@ -209,6 +209,10 @@ namespace PSH_BOne_AddOn
 					oDS_PS_PP111L.SetValue("U_ColReg06", i, oRecordSet.Fields.Item("ItemName").Value.ToString().Trim());    //품목명
 					oDS_PS_PP111L.SetValue("U_ColReg07", i, oRecordSet.Fields.Item("CpCode").Value.ToString().Trim());      //공정코드
 					oDS_PS_PP111L.SetValue("U_ColReg08", i, oRecordSet.Fields.Item("CpName").Value.ToString().Trim());      //공정명
+					oDS_PS_PP111L.SetValue("U_ColQty04", i, oRecordSet.Fields.Item("OrderQty").Value.ToString().Trim());       //발생(비용/공수)
+					oDS_PS_PP111L.SetValue("U_ColQty05", i, oRecordSet.Fields.Item("SaleQty").Value.ToString().Trim());       //추가발생[외주제작](비용/공수)
+					oDS_PS_PP111L.SetValue("U_ColQty06", i, oRecordSet.Fields.Item("resultQty").Value.ToString().Trim());      //추가발생[외주가공](비용/공수)
+					oDS_PS_PP111L.SetValue("U_ColQty07", i, oRecordSet.Fields.Item("expQty").Value.ToString().Trim());       //발생(비용/공수)
 					oDS_PS_PP111L.SetValue("U_ColQty01", i, oRecordSet.Fields.Item("InVal").Value.ToString().Trim());       //발생(비용/공수)
 					oDS_PS_PP111L.SetValue("U_ColQty02", i, oRecordSet.Fields.Item("ReVal").Value.ToString().Trim());       //추가발생[외주제작](비용/공수)
 					oDS_PS_PP111L.SetValue("U_ColQty03", i, oRecordSet.Fields.Item("ReVal2").Value.ToString().Trim());      //추가발생[외주가공](비용/공수)
@@ -252,19 +256,23 @@ namespace PSH_BOne_AddOn
 		{
 			short loopCount;
 			string sQry;
-			string BPLID;		//사업장
-			string StdYM;		//기준년월
-			string POEntry;		//작지문서번호
-			string POLine;		//공정순번
-			string OrdNum;		//작번
-			string OrdSub1;		//서브작번1
-			string OrdSub2;		//서브작번2
-			string ItemName;	//품목명
-			string CpCode;		//공정코드
-			string CpName;		//공정명
-			decimal InVal;		//발생(비용/공수)
-			decimal ReVal;		//추가발생[외주제작](비용/공수)
-			decimal ReVal2;		//추가발생[외주가공]
+			string BPLID; //사업장
+			string StdYM; //기준년월
+			string POEntry; //작지문서번호
+			string POLine; //공정순번
+			string OrdNum; //작번
+			string OrdSub1; //서브작번1
+			string OrdSub2; //서브작번2
+			string ItemName; //품목명
+			string CpCode; //공정코드
+			string CpName; //공정명
+			decimal InVal; //발생(비용/공수)
+			decimal ReVal; //추가발생[외주제작](비용/공수)
+			decimal ReVal2; //추가발생[외주가공]
+			decimal OrderQty; //오더수량
+			decimal SaleQty; //판매량
+			decimal resultQty; //잔량
+			decimal expQty; //예상공수
 			string UserSign;    //UserSign
 
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -281,35 +289,43 @@ namespace PSH_BOne_AddOn
 				{
 					if (oMat.Columns.Item("Check").Cells.Item(loopCount + 1).Specific.Checked == true)
 					{
-						POEntry = oDS_PS_PP111L.GetValue("U_ColReg01", loopCount).ToString().Trim();                    //작지문서번호
-						POLine = oDS_PS_PP111L.GetValue("U_ColReg02", loopCount).ToString().Trim();                     //공정순번
-						OrdNum = oDS_PS_PP111L.GetValue("U_ColReg03", loopCount).ToString().Trim();                     //작번
-						OrdSub1 = oDS_PS_PP111L.GetValue("U_ColReg04", loopCount).ToString().Trim();                    //서브작번1
-						OrdSub2 = oDS_PS_PP111L.GetValue("U_ColReg05", loopCount).ToString().Trim();                    //서브작번2
-						ItemName = oDS_PS_PP111L.GetValue("U_ColReg06", loopCount).ToString().Trim();                   //품목명
-						CpCode = oDS_PS_PP111L.GetValue("U_ColReg07", loopCount).ToString().Trim();                     //공정코드
-						CpName = oDS_PS_PP111L.GetValue("U_ColReg08", loopCount).ToString().Trim();                     //공정명
-						InVal = Convert.ToDecimal(oDS_PS_PP111L.GetValue("U_ColQty01", loopCount).ToString().Trim());   //발생(비용/공수)
-						ReVal = Convert.ToDecimal(oDS_PS_PP111L.GetValue("U_ColQty02", loopCount).ToString().Trim());   //추가발생[외주제작](비용/공수)
-						ReVal2 = Convert.ToDecimal(oDS_PS_PP111L.GetValue("U_ColQty03", loopCount).ToString().Trim());  //추가발생[외주가공]
+						POEntry = oDS_PS_PP111L.GetValue("U_ColReg01", loopCount).ToString().Trim(); //작지문서번호
+						POLine = oDS_PS_PP111L.GetValue("U_ColReg02", loopCount).ToString().Trim(); //공정순번
+						OrdNum = oDS_PS_PP111L.GetValue("U_ColReg03", loopCount).ToString().Trim(); //작번
+						OrdSub1 = oDS_PS_PP111L.GetValue("U_ColReg04", loopCount).ToString().Trim(); //서브작번1
+						OrdSub2 = oDS_PS_PP111L.GetValue("U_ColReg05", loopCount).ToString().Trim(); //서브작번2
+						ItemName = oDS_PS_PP111L.GetValue("U_ColReg06", loopCount).ToString().Trim(); //품목명
+						CpCode = oDS_PS_PP111L.GetValue("U_ColReg07", loopCount).ToString().Trim(); //공정코드
+						CpName = oDS_PS_PP111L.GetValue("U_ColReg08", loopCount).ToString().Trim(); //공정명
+						InVal = Convert.ToDecimal(oDS_PS_PP111L.GetValue("U_ColQty01", loopCount).ToString().Trim()); //발생(비용/공수)
+						ReVal = Convert.ToDecimal(oDS_PS_PP111L.GetValue("U_ColQty02", loopCount).ToString().Trim()); //추가발생[외주제작](비용/공수)
+						ReVal2 = Convert.ToDecimal(oDS_PS_PP111L.GetValue("U_ColQty03", loopCount).ToString().Trim()); //추가발생[외주가공]
+						OrderQty = Convert.ToDecimal(oDS_PS_PP111L.GetValue("U_ColQty04", loopCount).ToString().Trim()); //오더수량
+						SaleQty = Convert.ToDecimal(oDS_PS_PP111L.GetValue("U_ColQty05", loopCount).ToString().Trim()); //판매량
+						resultQty = Convert.ToDecimal(oDS_PS_PP111L.GetValue("U_ColQty06", loopCount).ToString().Trim()); //잔량
+						expQty = Convert.ToDecimal(oDS_PS_PP111L.GetValue("U_ColQty07", loopCount).ToString().Trim()); //예상공수
 
 						ProgressBar01.Text = "저장 중...";
 
 						sQry = " EXEC [PS_PP111_02] ";
-						sQry += "'" + BPLID + "',";     //사업장
-						sQry += "'" + StdYM + "',";     //기준년월
-						sQry += "'" + POEntry + "',";   //작지문서번호
-						sQry += "'" + POLine + "',";    //공정순번
-						sQry += "'" + OrdNum + "',";    //작번
-						sQry += "'" + OrdSub1 + "',";   //서브작번1
-						sQry += "'" + OrdSub2 + "',";   //서브작번2
-						sQry += "'" + ItemName + "',";  //품목명
-						sQry += "'" + CpCode + "',";    //공정코드
-						sQry += "'" + CpName + "',";    //공정명
-						sQry += "'" + InVal + "',";     //발생(비용/공수)
-						sQry += "'" + ReVal + "',";     //추가발생[외주제작](비용/공수)
-						sQry += "'" + ReVal2 + "',";    //추가발생[외주가공](비용/공수)
-						sQry += "'" + UserSign + "'";   //UserSign
+						sQry += "'" + BPLID + "',"; //사업장
+						sQry += "'" + StdYM + "',"; //기준년월
+						sQry += "'" + POEntry + "',"; //작지문서번호
+						sQry += "'" + POLine + "',"; //공정순번
+						sQry += "'" + OrdNum + "',"; //작번
+						sQry += "'" + OrdSub1 + "',"; //서브작번1
+						sQry += "'" + OrdSub2 + "',"; //서브작번2
+						sQry += "'" + ItemName + "',"; //품목명
+						sQry += "'" + CpCode + "',"; //공정코드
+						sQry += "'" + CpName + "',"; //공정명
+						sQry += "'" + InVal + "',"; //발생(비용/공수)
+						sQry += "'" + ReVal + "',"; //추가발생[외주제작](비용/공수)
+						sQry += "'" + ReVal2 + "',"; //추가발생[외주가공](비용/공수)
+						sQry += "'" + UserSign + "',"; //발생(비용/공수)
+						sQry += "'" + OrderQty + "',"; //오더수량
+						sQry += "'" + SaleQty + "',"; //판매량
+						sQry += "'" + resultQty + "',"; //잔량
+						sQry += "'" + expQty + "'"; //예상공수
 
 						oRecordSet.DoQuery(sQry);
 					}

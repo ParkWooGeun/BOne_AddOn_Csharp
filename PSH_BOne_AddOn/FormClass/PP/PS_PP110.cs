@@ -17,10 +17,6 @@ namespace PSH_BOne_AddOn
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
         private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
 
-        private string oDocEntry01;
-
-        private SAPbouiCOM.BoFormMode oFormMode01;
-
         /// <summary>
         /// Form 호출
         /// </summary>
@@ -178,7 +174,6 @@ namespace PSH_BOne_AddOn
             string errMessage = string.Empty;
             int i;
             string Query01;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -224,12 +219,16 @@ namespace PSH_BOne_AddOn
                     oDS_PS_PP110L.SetValue("U_ColReg08", i, oRecordSet01.Fields.Item("Size").Value);
                     oDS_PS_PP110L.SetValue("U_ColReg09", i, oRecordSet01.Fields.Item("CpCode").Value);
                     oDS_PS_PP110L.SetValue("U_ColReg10", i, oRecordSet01.Fields.Item("CpName").Value);
+                    oDS_PS_PP110L.SetValue("U_ColQty04", i, oRecordSet01.Fields.Item("OrderQty").Value);
+                    oDS_PS_PP110L.SetValue("U_ColQty05", i, oRecordSet01.Fields.Item("SaleQty").Value);
+                    oDS_PS_PP110L.SetValue("U_ColQty06", i, oRecordSet01.Fields.Item("resultQty").Value);
+                    oDS_PS_PP110L.SetValue("U_ColQty07", i, oRecordSet01.Fields.Item("expQty").Value);
                     oDS_PS_PP110L.SetValue("U_ColQty01", i, oRecordSet01.Fields.Item("InVal").Value);
                     oDS_PS_PP110L.SetValue("U_ColQty02", i, oRecordSet01.Fields.Item("ReqVal").Value);
                     oDS_PS_PP110L.SetValue("U_ColQty03", i, oRecordSet01.Fields.Item("OutVal").Value);
 
                     oRecordSet01.MoveNext();
-                    ProgressBar01.Value = ProgressBar01.Value + 1;
+                    ProgressBar01.Value += 1;
                     ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
                 }
                 oMat01.LoadFromDataSource();

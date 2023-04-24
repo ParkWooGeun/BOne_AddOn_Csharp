@@ -392,7 +392,16 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.StatusBar.SetText("AD열 세번째 행 타이틀은 건강", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     throw new Exception();
                 }
-
+                if (Convert.ToString(t[32].Value) != "연말정산보험료계(건강+요양)")
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("AF열 세번째 행 타이틀은 건강", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                    throw new Exception();
+                }
+                if (Convert.ToString(t[33].Value) != "건강환급금이자")
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("AG열 세번째 행 타이틀은 건강", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                    throw new Exception();
+                }
                 //프로그레스 바
                 ProgressBar01.Text = "데이터 읽는중...!";
 
@@ -429,22 +438,30 @@ namespace PSH_BOne_AddOn
 
                     oDS_PH_PY901B.InsertRecord(oDS_PH_PY901B.Size);
                     oDS_PH_PY901B.Offset = oDS_PH_PY901B.Size - 1;
-                    if(Convert.ToString(r[14].Value) == "74")
+
+                    pgovID = codeHelpClass.Left(Convert.ToString(r[8].Value), 6) + codeHelpClass.Right(Convert.ToString(r[8].Value), 7);
+                    sQry = "Select Code From [@PH_PY001A] WHERE U_status <> '5' and U_CLTCOD = '" + CLTCOD + "' And U_govID = '" + pgovID + "'";
+                    oRecordSet01.DoQuery(sQry);
+                    if (!string.IsNullOrEmpty(oRecordSet01.Fields.Item(0).Value))
                     {
-                        pgovID = codeHelpClass.Left(Convert.ToString(r[8].Value), 6) + codeHelpClass.Right(Convert.ToString(r[8].Value), 7);
-                        sQry = "Select Code From [@PH_PY001A] wHERE U_status <> '5' and U_CLTCOD = '" + CLTCOD + "' And U_govID = '" + pgovID + "'";
-                        oRecordSet01.DoQuery(sQry);
-                        if(!string.IsNullOrEmpty(oRecordSet01.Fields.Item(0).Value))
+                        oDS_PH_PY901B.SetValue("U_LineNum", oDS_PH_PY901B.Size - 1, Convert.ToString(cnt));
+                        oDS_PH_PY901B.SetValue("U_MSTCOD", oDS_PH_PY901B.Size - 1, oRecordSet01.Fields.Item(0).Value);
+                        oDS_PH_PY901B.SetValue("U_MSTNAM", oDS_PH_PY901B.Size - 1, Convert.ToString(r[7].Value));
+                        oDS_PH_PY901B.SetValue("U_govID", oDS_PH_PY901B.Size - 1, codeHelpClass.Left(Convert.ToString(r[8].Value), 6) + "-" + Convert.ToString(r[8].Value).ToString().Substring(6, 1) + "******");
+                        
+                        oDS_PH_PY901B.SetValue("U_SAmt2", oDS_PH_PY901B.Size - 1, Convert.ToString(r[32].Value));
+                        oDS_PH_PY901B.SetValue("U_SAmt3", oDS_PH_PY901B.Size - 1, Convert.ToString(r[33].Value));
+                        if (Convert.ToString(r[14].Value) == "74")
                         {
-                            oDS_PH_PY901B.SetValue("U_LineNum", oDS_PH_PY901B.Size - 1, Convert.ToString(cnt));
-                            oDS_PH_PY901B.SetValue("U_MSTCOD", oDS_PH_PY901B.Size - 1, oRecordSet01.Fields.Item(0).Value);
-                            oDS_PH_PY901B.SetValue("U_MSTNAM", oDS_PH_PY901B.Size - 1, Convert.ToString(r[7].Value));
-//                            oDS_PH_PY901B.SetValue("U_govID", oDS_PH_PY901B.Size - 1, Convert.ToString(r[8].Value));
-                            oDS_PH_PY901B.SetValue("U_govID", oDS_PH_PY901B.Size - 1, codeHelpClass.Left(Convert.ToString(r[8].Value), 6) + "-" + Convert.ToString(r[8].Value).ToString().Substring(6, 1) + "******");
-                            oDS_PH_PY901B.SetValue("U_AMT", oDS_PH_PY901B.Size - 1, Convert.ToString(r[30].Value));
-                            
-                            cnt++;
+                            oDS_PH_PY901B.SetValue("U_SAmt1", oDS_PH_PY901B.Size - 1, Convert.ToString(r[30].Value));
+                            oDS_PH_PY901B.SetValue("U_Amt", oDS_PH_PY901B.Size - 1, Convert.ToString(Convert.ToInt32(r[30].Value) + Convert.ToInt32(r[32].Value) + Convert.ToInt32(r[33].Value)));
                         }
+                        else
+                        {
+                            oDS_PH_PY901B.SetValue("U_SAmt1", oDS_PH_PY901B.Size - 1, "0");
+                            oDS_PH_PY901B.SetValue("U_Amt", oDS_PH_PY901B.Size - 1, Convert.ToString(Convert.ToInt32(r[32].Value) + Convert.ToInt32(r[33].Value)));
+                        }
+                        cnt++;
                     }
 
                     if ((TOTCNT > 50 && tRow == oProValue * V_StatusCnt) || TOTCNT <= 50)
@@ -458,6 +475,7 @@ namespace PSH_BOne_AddOn
                 ProgressBar01.Text = ProgressBar01.Value + "/" + (xlRow.Count - 1) + "건 Loding...!";
                 oMat.LoadFromDataSource();
                 oMat.AutoResizeColumns();
+                
 
             }
             catch (Exception ex)
@@ -1416,4 +1434,3 @@ namespace PSH_BOne_AddOn
         }
     }
 }
-

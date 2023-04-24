@@ -209,22 +209,22 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
-                    oForm.Items.Item("oMat01").Enabled = true;
                     PS_QM701_FormClear();
+                    oForm.Items.Item("DocEntry").Enabled = false;
                     oForm.EnableMenu("1281", true);  //찾기
                     oForm.EnableMenu("1282", false); //추가
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
-                    oForm.Items.Item("oMat01").Enabled = false;
+                    oForm.Items.Item("DocEntry").Enabled = true;
                     oForm.EnableMenu("1281", false); //찾기
                     oForm.EnableMenu("1282", true);  //추가
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
+                    oForm.Items.Item("DocEntry").Enabled = false;
                     oForm.EnableMenu("1281", true); //찾기
                     oForm.EnableMenu("1282", true);  //추가
-                    oForm.Items.Item("oMat01").Enabled = true;
                 }
             }
             catch (Exception ex)
@@ -307,18 +307,17 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 if (!string.IsNullOrEmpty(DocEntry.ToString().Trim()))
                 {
-                    sQry = "EXEC [PS_QM701_02] '" + DocEntry + "'";
+                    sQry = "EXEC PS_QM701_03 '" + DocEntry + "'";
                     oRecordSet.DoQuery(sQry);
 
                     if (oRecordSet.RecordCount == 0)
                     {
-                        errMessage = "조회 결과가 없습니다. 확인하세요.";
-                        oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
+                        errMessage = "추가를 먼저 누르신 뒤 사진을 등록해주세요.";
                         throw new Exception();
                     }
 
                     oDS_PS_QM701H.SetValue("U_Pic", 0, "");
-                    oDS_PS_QM701H.SetValue("U_Pic", 0, "\\\\191.1.1.220\\Income_Pic\\" + oRecordSet.Fields.Item("DocEntry").Value.ToString().Trim() + ".BMP");
+                    oDS_PS_QM701H.SetValue("U_Pic", 0, "\\\\191.1.1.220\\Incom_Pic\\" + oRecordSet.Fields.Item("DocEntry").Value.ToString().Trim() + ".BMP");
 
                     oDS_PS_QM701H.SetValue("DocEntry", 0, oRecordSet.Fields.Item("DocEntry").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("Canceled", 0, oRecordSet.Fields.Item("Canceled").Value.ToString().Trim());
@@ -338,9 +337,11 @@ namespace PSH_BOne_AddOn
                     oDS_PS_QM701H.SetValue("U_TotalQty", 0, oRecordSet.Fields.Item("TotalQty").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_BZZadQty", 0, oRecordSet.Fields.Item("BZZadQty").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_MSTCOD", 0, oRecordSet.Fields.Item("MSTCOD").Value.ToString().Trim());
+                    oDS_PS_QM701H.SetValue("U_MSTNAM", 0, oRecordSet.Fields.Item("MSTNAM").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_OrdDate", 0, oRecordSet.Fields.Item("OrdDate").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_BadCode", 0, oRecordSet.Fields.Item("BadCode").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_InCpCode", 0, oRecordSet.Fields.Item("InCpCode").Value.ToString().Trim());
+                    oDS_PS_QM701H.SetValue("U_InCpName", 0, oRecordSet.Fields.Item("InCpName").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_OuCpCode", 0, oRecordSet.Fields.Item("OuCpCode").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_Comments", 0, oRecordSet.Fields.Item("Comments").Value.ToString().Trim());
                 }
@@ -522,11 +523,9 @@ namespace PSH_BOne_AddOn
                 }
                 FSO.CopyFile(sFilePath, SaveFolders + "\\" + oDS_PS_QM701H.GetValue("DocEntry", 0).ToString().Trim() + imageFileName);
 
-                //sQry = " EXEC [PS_QM701_01] '";
-                //sQry += pPictureControlName + "','";
-                //sQry += oDS_PS_QM701H.GetValue("U_KeyDoc", 0).ToString().Trim() + "', '";
-                //sQry += oDS_PS_QM701H.GetValue("DocEntry", 0).ToString().Trim() + "'";
-                //oRecordSet.DoQuery(sQry);
+                sQry = " EXEC [PS_QM701_01] '";
+                sQry += oDS_PS_QM701H.GetValue("DocEntry", 0).ToString().Trim() + "'";
+                oRecordSet.DoQuery(sQry);
 
                 PSH_Globals.SBO_Application.MessageBox("사진이 업로드 되었습니다.");
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
@@ -672,6 +671,9 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
+            string sQry;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             string errMessage = string.Empty;
             try
             {
@@ -698,8 +700,12 @@ namespace PSH_BOne_AddOn
                         {
                             if (pVal.ActionSuccess == true)
                             {
+                                sQry = "SELECT MAX(DocEntry) AS DocEntry FROM [@PS_QM701H]";
+                                oRecordSet.DoQuery(sQry);
+                                oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                                 PS_QM701_FormItemEnabled();
-                                PS_QM701_AddMatrixRow(0, true);
+                                oForm.Items.Item("DocEntry").Specific.Value = oRecordSet.Fields.Item("DocEntry").Value.ToString().Trim();
+                                oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             }
                         }
                     }
@@ -815,9 +821,8 @@ namespace PSH_BOne_AddOn
                     {
                         if (PS_QM701_LoadPic(pVal.ItemUID) == true)
                         {
-                            //oDS_PS_QM701H.SetValue("U_Pic", 0, "");
-                            oDS_PS_QM701H.SetValue("U_Pic", 0, "\\\\191.1.1.220\\Incom_Pic\\" + oForm.Items.Item("KeyDoc").Specific.Value+ "_" + oForm.Items.Item("DocEntry").Specific.Value + "_01.BMP");
-                            //PS_QM701_DisplayFixData(oForm.Items.Item("DocEntry").Specific.Value);
+                            //oDS_PS_QM701H.SetValue("U_Pic", 0, "\\\\191.1.1.220\\Incom_Pic\\" +  oForm.Items.Item("DocEntry").Specific.Value + ".BMP");
+                            PS_QM701_DisplayFixData(oForm.Items.Item("DocEntry").Specific.Value);
                             BubbleEvent = false;
                         }
                     }
@@ -935,7 +940,7 @@ namespace PSH_BOne_AddOn
                             }
                             if (pVal.ItemUID == "KeyDoc")
                             {
-                                sQry = " EXEC PS_QM701_03 '" + oForm.Items.Item("KeyDoc").Specific.Value.ToString().Trim() + "'";
+                                sQry = " EXEC PS_QM701_02 '" + oForm.Items.Item("KeyDoc").Specific.Value.ToString().Trim() + "'";
                                 oRecordSet01.DoQuery(sQry);
 
                                 oDS_PS_QM701H.SetValue("U_WorkNum", 0, oRecordSet01.Fields.Item("WorkNum").Value.ToString().Trim());

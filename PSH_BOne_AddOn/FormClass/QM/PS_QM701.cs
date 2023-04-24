@@ -318,7 +318,6 @@ namespace PSH_BOne_AddOn
 
                     oDS_PS_QM701H.SetValue("U_Pic", 0, "");
                     oDS_PS_QM701H.SetValue("U_Pic", 0, "\\\\191.1.1.220\\Incom_Pic\\" + oRecordSet.Fields.Item("DocEntry").Value.ToString().Trim() + ".BMP");
-
                     oDS_PS_QM701H.SetValue("DocEntry", 0, oRecordSet.Fields.Item("DocEntry").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("Canceled", 0, oRecordSet.Fields.Item("Canceled").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_CLTCOD", 0, oRecordSet.Fields.Item("CLTCOD").Value.ToString().Trim());
@@ -682,7 +681,19 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "1")
                     {
-                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE))
+                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+                        {
+                            if (PS_QM701_DataValidCheck() == false)
+                            {
+                                BubbleEvent = false;
+                                return;
+                            }
+                            sQry = "insert into PSHDB_IMG.dbo.ZPS_QM701_PIC(BPLId,FixCode) SELECT ";
+                            sQry += "'" + oForm.Items.Item("CLTCOD").Specific.Value.Trim() + "',";
+                            sQry += "'" + oForm.Items.Item("DocEntry").Specific.Value.Trim() + "'";
+                            oRecordSet.DoQuery(sQry);
+                        }
+                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {
                             if (PS_QM701_DataValidCheck() == false)
                             {
@@ -991,7 +1002,7 @@ namespace PSH_BOne_AddOn
                 else if (pVal.BeforeAction == false)
                 {
                     PS_QM701_FormItemEnabled();
-                    PS_QM701_AddMatrixRow(oMat01.VisualRowCount, false);
+                    //PS_QM701_AddMatrixRow(oMat01.VisualRowCount, false);
                 }
             }
             catch (Exception ex)
@@ -1120,11 +1131,10 @@ namespace PSH_BOne_AddOn
                             break;
                         case "1281": //찾기
                             PS_QM701_FormItemEnabled(); //UDO방식
-                            oForm.Items.Item("DocEntry").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             break;
                         case "1282": //추가
                             PS_QM701_FormItemEnabled();
-                            PS_QM701_AddMatrixRow(0, true);
+                            //PS_QM701_AddMatrixRow(0, true);
                             break;
                         case "1288": //레코드이동(최초)
                         case "1289": //레코드이동(이전)

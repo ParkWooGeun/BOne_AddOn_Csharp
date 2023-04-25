@@ -109,7 +109,7 @@ namespace PSH_BOne_AddOn
                 dataHelpClass.Set_ComboList((oForm.Items.Item("BPLId").Specific), "SELECT BPLId, BPLName From [OBPL] order by 1", "", false, false);
                 oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
                 oForm.Items.Item("Div").Specific.ValidValues.Add("1", "배차신청List조회");
-                //oForm.Items.Item("Div").Specific.ValidValues.Add("2", "전표번호오류자료");
+                oForm.Items.Item("Div").Specific.ValidValues.Add("2", "차량출입조회");
                 //oForm.Items.Item("Div").Specific.ValidValues.Add("3", "공정실적없는 상각분개조회");
                 oForm.Items.Item("Div").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
@@ -124,55 +124,7 @@ namespace PSH_BOne_AddOn
             }
         }
 
-        ///// <summary>
-        ///// DocEntry 초기화
-        ///// </summary>
-        //private void PH_PY037_FormClear()
-        //{
-        //    PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
-        //    try
-        //    {
-        //        string DocEntry = dataHelpClass.Get_ReData( "AutoKey", "ObjectCode", "ONNM", "'PH_PY037'", "");
-        //        if (Convert.ToDouble(DocEntry) == 0)
-        //        {
-        //            oForm.Items.Item("DocEntry").Specific.Value = 1;
-        //        }
-        //        else
-        //        {
-        //           oForm.Items.Item("DocEntry").Specific.Value = DocEntry;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-        //    }
-        //}
-
-        ///// <summary>
-        ///// 필수 사항 check
-        ///// </summary>
-        ///// <returns></returns>
-        //private bool PH_PY037_DataValidCheck()
-        //{
-        //    bool returnValue = false;
-
-        //    try
-        //    {
-        //        PH_PY037_FormClear();
-        //        returnValue = true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-        //    }
-        //    finally
-        //    {
-        //    }
-
-        //    return returnValue;
-        //}
-
+        
         /// <summary>
         /// PH_PY037_MTX01
         /// </summary>
@@ -202,10 +154,10 @@ namespace PSH_BOne_AddOn
                 {
                     Query01 = "EXEC PH_PY037_01 '" + BPLId + "','" + DocDateFr + "','" + DocDateTo + "'";
                 }
-                //else if (Div == "2")
-                //{
-                //    Query01 = "EXEC PH_PY037_02 '" + BPLId + "','" + DocDateFr + "','" + DocDateTo + "'";
-                //}
+                else if (Div == "2")
+                {
+                    Query01 = "EXEC PH_PY037_02 '" + BPLId + "','" + DocDateFr + "','" + DocDateTo + "'";
+                }
                 //else if (Div == "3")
                 //{
                 //    Query01 = "EXEC PH_PY037_03 '" + BPLId + "','" + DocDateFr + "','" + DocDateTo + "'";

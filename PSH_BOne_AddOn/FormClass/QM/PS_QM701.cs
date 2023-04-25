@@ -150,6 +150,33 @@ namespace PSH_BOne_AddOn
                 }
                 oForm.Items.Item("ItemCode").Specific.Select("%", SAPbouiCOM.BoSearchKey.psk_ByValue);
 
+                // 불량원인
+                sQry = " SELECT '%' AS [Code],";
+                sQry += " '선택' AS [Name]";
+                sQry += " UNION ALL";
+                sQry += " SELECT U_Code AS [Code],U_CodeNm AS [Name] FROM [@PS_QM700L] WHERE Code ='InCase' ORDER BY Code";
+                oRecordSet.DoQuery(sQry);
+                while (!oRecordSet.EoF)
+                {
+                    oForm.Items.Item("BadNote").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
+                    oRecordSet.MoveNext();
+                }
+                oForm.Items.Item("BadNote").Specific.Select("%", SAPbouiCOM.BoSearchKey.psk_ByValue);
+
+                // 판정의견
+                sQry = " SELECT '%' AS [Code],";
+                sQry += " '선택' AS [Name]";
+                sQry += " UNION ALL";
+                sQry += " SELECT U_Code AS [Code],U_CodeNm AS [Name] FROM [@PS_QM700L] WHERE Code ='InOpinio' ORDER BY Code";
+                oRecordSet.DoQuery(sQry);
+                while (!oRecordSet.EoF)
+                {
+                    oForm.Items.Item("verdict").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
+                    oRecordSet.MoveNext();
+                }
+                oForm.Items.Item("verdict").Specific.Select("%", SAPbouiCOM.BoSearchKey.psk_ByValue);
+
+
             }
             catch (Exception ex)
             {
@@ -320,6 +347,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_QM701H.SetValue("U_Pic", 0, "\\\\191.1.1.220\\Incom_Pic\\" + oRecordSet.Fields.Item("DocEntry").Value.ToString().Trim() + ".BMP");
                     oDS_PS_QM701H.SetValue("DocEntry", 0, oRecordSet.Fields.Item("DocEntry").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("Canceled", 0, oRecordSet.Fields.Item("Canceled").Value.ToString().Trim());
+                    oDS_PS_QM701H.SetValue("U_ChkYN", 0, oRecordSet.Fields.Item("ChkYN").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_CLTCOD", 0, oRecordSet.Fields.Item("CLTCOD").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_KeyDoc", 0, oRecordSet.Fields.Item("KeyDoc").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_WorkDate", 0, oRecordSet.Fields.Item("WorkDate").Value.ToString().Trim());
@@ -342,6 +370,8 @@ namespace PSH_BOne_AddOn
                     oDS_PS_QM701H.SetValue("U_InCpCode", 0, oRecordSet.Fields.Item("InCpCode").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_InCpName", 0, oRecordSet.Fields.Item("InCpName").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_OuCpCode", 0, oRecordSet.Fields.Item("OuCpCode").Value.ToString().Trim());
+                    oDS_PS_QM701H.SetValue("U_BadNote", 0, oRecordSet.Fields.Item("BadNote").Value.ToString().Trim());
+                    oDS_PS_QM701H.SetValue("U_verdict", 0, oRecordSet.Fields.Item("verdict").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_Comments", 0, oRecordSet.Fields.Item("Comments").Value.ToString().Trim());
                 }
             }

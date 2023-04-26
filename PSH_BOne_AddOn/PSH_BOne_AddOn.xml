@@ -67357,6 +67357,15 @@
             LoadData
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM702.Return_EMail(System.String,System.String,System.String)">
+            <summary>
+            Send_EMail
+            </summary>
+            <param name="p_DocEntry"></param>
+            <param name="p_MSTCOD"></param>
+            <param name="p_Reson"></param>
+            <returns></returns>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_QM702.PS_QM702_UPDATEData(System.String)">
             <summary>
             LoadData

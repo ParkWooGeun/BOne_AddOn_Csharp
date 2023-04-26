@@ -1,6 +1,15 @@
 ﻿using System;
+using System.IO;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
+using PSH_BOne_AddOn.Form;
+using PSH_BOne_AddOn.DataPack;
+using System.Collections.Generic;
+using PdfSharp.Pdf;
+using PdfSharp.Pdf.IO;
+using PdfSharp.Pdf.Security;
+using MsOutlook = Microsoft.Office.Interop.Outlook;
+
 
 namespace PSH_BOne_AddOn
 {
@@ -202,7 +211,6 @@ namespace PSH_BOne_AddOn
                     {
                         oDS_PS_QM702H.InsertRecord((i));
                     }
-
                     oMat01.AddRow();
                     oDS_PS_QM702H.Offset = i;
                     oDS_PS_QM702H.SetValue("U_LineNum", i, Convert.ToString(i + 1));  // 순번
@@ -237,10 +245,58 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY035_MTX01:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
                 }
             }
-            finally
+        }
+        /// <summary>
+        /// Send_EMail
+        /// </summary>
+        /// <param name="p_DocEntry"></param>
+        /// <param name="p_MSTCOD"></param>
+        /// <param name="p_Reson"></param>
+        /// <returns></returns>
+        private bool Return_EMail(string p_DocEntry,string p_MSTCOD, string p_Reson)
+        {
+            bool ReturnValue = false;
+            string strToAddress;
+            string strSubject;
+            string strBody;
+            string sQry;
+
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
             {
-                oForm.Freeze(false);
+                strSubject = "부적합문서 반려";
+                strBody = "부적합 문서번호 " + p_DocEntry + "가 반려되었습니다. 확인해주세요.";
+
+                sQry = "SELECT U_eMail, U_FullName FROM [@PH_PY001A] WHERE Code ='" + p_MSTCOD + "'";
+                oRecordSet01.DoQuery(sQry);
+                strToAddress = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
+
+                //mail.From = new MailAddress("dakkorea1@gmail.com");
+                MsOutlook.Application outlookApp = new MsOutlook.Application();
+                if (outlookApp == null)
+                {
+                    throw new Exception();
+                }
+                MsOutlook.MailItem mail = (MsOutlook.MailItem)outlookApp.CreateItem(MsOutlook.OlItemType.olMailItem);
+
+                mail.Subject = strSubject;
+                mail.HTMLBody = strBody;
+                mail.To = strToAddress;
+                mail.Send();
+
+                mail = null;
+                outlookApp = null;
+
+                sQry = "UPDATE [@PS_QM701H] SET U_ChkYN = '반려', U_ChkDate = Convert(CHAR(10),GETDATE()) WHERE DocEntry ='" + p_DocEntry + "'";
+                oRecordSet01.DoQuery(sQry);
+                ReturnValue = true;
             }
+            catch (System.Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("Send_EMail_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            return ReturnValue;
         }
 
         /// <summary>
@@ -394,6 +450,7 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
+            string errMessage = string.Empty;
             try
             {
                 if (pVal.BeforeAction == true)
@@ -410,6 +467,34 @@ namespace PSH_BOne_AddOn
                                 {
                                     BubbleEvent = false;
                                     return;
+                                }
+                            }
+                        }
+                        PS_QM702_LoadData();
+                    }
+                    else if (pVal.ItemUID == "btn_return")
+                    {
+                        oMat01.FlushToDataSource();
+                        for (int i = 0; i <= oMat01.VisualRowCount - 1; i++)
+                        {
+                            if (oDS_PS_QM702H.GetValue("U_ColReg17", i).ToString().Trim() == "Y")
+                            {
+                               if(string.IsNullOrEmpty(oDS_PS_QM702H.GetValue("U_ColReg16", i).ToString().Trim()))
+                                {
+                                    errMessage = "반려 시 반려사유는 필수입니다.";
+                                    throw new Exception();
+                                }
+                                else
+                                {
+                                    string DocEntry = oDS_PS_QM702H.GetValue("U_ColReg02", i).ToString().Trim();
+                                    string MSTCOD = oDS_PS_QM702H.GetValue("U_ColReg07", i).ToString().Trim();
+                                    string Reson = oDS_PS_QM702H.GetValue("U_ColReg16", i).ToString().Trim();
+
+                                    if (Return_EMail(DocEntry,MSTCOD,Reson) == false)//사번
+                                    {
+                                        errMessage = "전송 중 오류가 발생했습니다.";
+                                        throw new Exception();
+                                    }
                                 }
                             }
                         }

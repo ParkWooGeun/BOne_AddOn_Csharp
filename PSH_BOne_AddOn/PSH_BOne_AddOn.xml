@@ -67320,7 +67320,7 @@
         </member>
         <member name="T:PSH_BOne_AddOn.PS_QM702">
             <summary>
-            마스터승인권한관리
+            검사승인 및 전송
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_QM702.LoadForm(System.String)">
@@ -67353,6 +67353,11 @@
             </summary>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_QM702.PS_QM702_LoadData">
+            <summary>
+            LoadData
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM702.PS_QM702_UPDATEData(System.String)">
             <summary>
             LoadData
             </summary>

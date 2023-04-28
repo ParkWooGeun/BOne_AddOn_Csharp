@@ -730,6 +730,8 @@ namespace PSH_BOne_AddOn
                                 BubbleEvent = false;
                                 return;
                             }
+                            sQry = "UPDATE [@PS_QM701H] SET U_ChkYN = NULL WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value.Trim() + "'";
+                            oRecordSet.DoQuery(sQry);
                         }
                     }
                 }
@@ -1032,7 +1034,7 @@ namespace PSH_BOne_AddOn
                 else if (pVal.BeforeAction == false)
                 {
                     PS_QM701_FormItemEnabled();
-                    //PS_QM701_AddMatrixRow(oMat01.VisualRowCount, false);
+                    PS_QM701_AddMatrixRow(oMat01.VisualRowCount, false);
                 }
             }
             catch (Exception ex)
@@ -1164,7 +1166,7 @@ namespace PSH_BOne_AddOn
                             break;
                         case "1282": //추가
                             PS_QM701_FormItemEnabled();
-                            //PS_QM701_AddMatrixRow(0, true);
+                            PS_QM701_AddMatrixRow(0, true);
                             break;
                         case "1288": //레코드이동(최초)
                         case "1289": //레코드이동(이전)

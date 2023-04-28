@@ -67352,6 +67352,14 @@
             <param name="RowIserted"></param>
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM702.PS_QM702_AddMatrixRowM(System.Int32,System.Boolean)">
+            <summary>
+            매트릭스 행 추가
+            PH_PY035_Add_MatrixRow
+            <param name="oRow"></param>
+            <param name="RowIserted"></param>
+            </summary>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_QM702.PS_QM702_LoadData">
             <summary>
             LoadData
@@ -67371,6 +67379,31 @@
             LoadData
             </summary>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM702.PS_QM702_MTX01">
+            <summary>
+            PH_PY037_MTX01
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM702.Make_PDF_File(System.String)">
+            <summary>
+            PDF만들기
+            </summary>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM702.Dir_Exists(System.String)">
+            <summary>
+            디렉토리 체크, 폴더 생성
+            </summary>
+            <param name="strDirName">경로</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM702.Send_EMail(System.String,System.String)">
+            <summary>
+            Send_EMail
+            </summary>
+            <param name="p_DocEntry"></param>
+            <param name="p_Address"></param>
+            <returns></returns>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_QM702.Raise_FormItemEvent(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             Form Item Event
@@ -67379,6 +67412,14 @@
             <param name="pVal">pVal</param>
             <param name="BubbleEvent">Bubble Event</param>
         </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM702.Raise_EVENT_MATRIX_LOAD(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            MATRIX_LOAD 이벤트
+            </summary>
+            <param name="FormUID">Form UID</param>
+            <param name="pVal">ItemEvent 객체</param>
+            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
         <member name="M:PSH_BOne_AddOn.PS_QM702.Raise_EVENT_ITEM_PRESSED(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
             ITEM_PRESSED 이벤트
@@ -67386,6 +67427,14 @@
             <param name="FormUID">Form UID</param>
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.PS_QM702.Raise_EVENT_KEY_DOWN(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+            <summary>
+            Raise_EVENT_KEY_DOWN
+            </summary>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_QM702.Raise_EVENT_GOT_FOCUS(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
@@ -67419,13 +67468,13 @@
             <param name="pVal">ItemEvent 객체</param>
             <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         </member>
-        <member name="M:PSH_BOne_AddOn.PS_QM702.Raise_EVENT_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
+        <member name="M:PSH_BOne_AddOn.PS_QM702.Raise_EVENT_DOUBLE_CLICK(System.String,SAPbouiCOM.ItemEvent@,System.Boolean@)">
             <summary>
-            CLICK 이벤트
+            Raise_EVENT_DOUBLE_CLICK
             </summary>
-            <param name="FormUID">Form UID</param>
-            <param name="pVal">ItemEvent 객체</param>
-            <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+            <param name="FormUID"></param>
+            <param name="pVal"></param>
+            <param name="BubbleEvent"></param>
         </member>
         <member name="M:PSH_BOne_AddOn.PS_QM702.Raise_FormMenuEvent(System.String,SAPbouiCOM.MenuEvent@,System.Boolean@)">
             <summary>
@@ -79952,6 +80001,16 @@
             <param name="pRptName">리포트 파일(rpt) 명</param>
             <param name="pSubRptFormulas">리포트로 전달할 Formula</param>
             /// <param name="pZoomRate">리포트 비율</param>
+        </member>
+        <member name="M:PSH_BOne_AddOn.Form.PSH_FormHelpClass.OpenCrystalReport(System.String,System.String,System.Collections.Generic.List{PSH_BOne_AddOn.DataPack.PSH_DataPackClass},System.Collections.Generic.List{PSH_BOne_AddOn.DataPack.PSH_DataPackClass},System.String)">
+            <summary>
+            크리스탈 리포트 호출 (Parameter, Formula 추가)
+            </summary>
+            <param name="pRptTitle">리포트 제목</param>
+            <param name="pRptName">리포트 파일(rpt) 명</param>
+            <param name="pRptParameters">리포트로 전달할 Parameter</param>
+            <param name="pSub1RptParameters">SubReport로 전달할 Parameter</param>
+            <param name="ExportString">Export</param>
         </member>
         <member name="M:PSH_BOne_AddOn.Form.PSH_FormHelpClass.OpenCrystalReport(System.String,System.String,System.Collections.Generic.List{PSH_BOne_AddOn.DataPack.PSH_DataPackClass},System.Collections.Generic.List{PSH_BOne_AddOn.DataPack.PSH_DataPackClass},System.Collections.Generic.List{PSH_BOne_AddOn.DataPack.PSH_DataPackClass},System.String)">
             <summary>

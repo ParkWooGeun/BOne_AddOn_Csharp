@@ -2065,6 +2065,7 @@ namespace PSH_BOne_AddOn
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             int i;
+            string DocNumber;
 
             try
             {
@@ -2078,6 +2079,7 @@ namespace PSH_BOne_AddOn
                             {
                                 BubbleEvent = false;
                                 return;
+                            
                             }
 
                             if (PS_MM030_MatrixSpaceLineDel() == false)
@@ -2151,6 +2153,13 @@ namespace PSH_BOne_AddOn
                     else if (pVal.ItemUID == "Btn03")
                     {
                         PS_MM030_Copy_Price();
+                    }
+                    else if (pVal.ItemUID == "Btn04")
+                    {
+                        DocNumber = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim().Substring(0, 4) + oForm.Items.Item("DocNum").Specific.Value.ToString().Trim();
+                        PS_MM035 tempForm = new PS_MM035();
+                        tempForm.LoadForm(DocNumber);
+                        BubbleEvent = false;
                     }
                 }
                 else if (pVal.BeforeAction == false)

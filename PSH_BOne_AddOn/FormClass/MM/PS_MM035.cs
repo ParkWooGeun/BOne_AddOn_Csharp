@@ -484,14 +484,20 @@ namespace PSH_BOne_AddOn
                     errMessage = "거래처코드를 확인 하세요";
                     throw new Exception();
                 }
-                if (string.IsNullOrWhiteSpace(ContText))
+                if (string.IsNullOrWhiteSpace(PricePay1) || string.IsNullOrWhiteSpace(PricePay3) ||
+                    string.IsNullOrWhiteSpace(PricePay5) || string.IsNullOrWhiteSpace(PricePay6))
                 {
-                    errMessage = "계약문구선택을 확인 하세요";
+                    errMessage = "대금지불조건을 확인 하세요 ";
                     throw new Exception();
                 }
                 if (Convert.ToDouble(PricePay1) + Convert.ToDouble(PricePay3) + Convert.ToDouble(PricePay5) + Convert.ToDouble(PricePay6) != 100)
                 {
                     errMessage = "대금지불 전체조건의 합이100% 이여야 합니다.";
+                    throw new Exception();
+                }
+                if (string.IsNullOrWhiteSpace(ContText))
+                {
+                    errMessage = "계약문구선택을 확인 하세요";
                     throw new Exception();
                 }
 
@@ -726,26 +732,33 @@ namespace PSH_BOne_AddOn
             string ReportName;
             string BPLId;
             string DocEntry;
+            string DocNumber;
 
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
             
             try
             {
                 BPLId = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
-                DocEntry = oForm.Items.Item("DocEntry").Specific.Value.Trim();
+                DocNumber = oForm.Items.Item("DocEntry").Specific.Value.Trim();
+                DocEntry = DocNumber.Substring(4);
 
                 WinTitle = "[PS_MM035] 물품수급계약서 출력";
                 ReportName = "PS_MM035_01.rpt";
 
                 List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
+                List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
+                List<PSH_DataPackClass> dataPackSubReportParameter = new List<PSH_DataPackClass>(); //SubReport
 
                 //Formula
 
                 //Parameter
                 dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLId)); //사업장
-                dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", DocEntry));
+                dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", DocNumber));
 
-                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
+                //SubReport Parameter
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@DocEntry", DocEntry, "PS_MM035_01_SUB1"));
+
+                formHelpClass.OpenCrystalReport(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
             }
             catch (Exception ex)
             {

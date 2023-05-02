@@ -313,7 +313,8 @@ namespace PSH_BOne_AddOn
             try
             {
                 strSubject = "부적합문서 반려";
-                strBody = "부적합 문서번호 " + p_DocEntry + "가 반려되었습니다. 확인해주세요.";
+                strBody = "부적합 문서번호 " + p_DocEntry + "가 반려되었습니다. ";
+                strBody += "반려사유 : "+ p_Reson + "입니다.";
 
                 sQry = "SELECT U_eMail, U_FullName FROM [@PH_PY001A] WHERE Code ='" + p_MSTCOD + "'";
                 oRecordSet01.DoQuery(sQry);
@@ -406,7 +407,7 @@ namespace PSH_BOne_AddOn
                 DocDateTo = oForm.Items.Item("DocDateto").Specific.Value.ToString().Trim();
                 MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
 
-                sQry = "Exec PS_QM702_02 '" + CLTCOD +"','" + DocDateFr + "','" + DocDateTo + "','" + MSTCOD + "'";
+                sQry = "EXEC PS_QM702_02 '" + CLTCOD +"','" + DocDateFr + "','" + DocDateTo + "','" + MSTCOD + "'";
                 oGrid01.DataTable.Clear();
 
                 oDS_PS_QM702L.ExecuteQuery(sQry);
@@ -482,22 +483,7 @@ namespace PSH_BOne_AddOn
                     File.Delete(Incom_Pic_Path + "PIC.bmp");
                     File.Copy(Incom_Pic_Path + "NULL.bmp", Incom_Pic_Path + "PIC.bmp");
                 }
-
-
-                sQry = "select U_InOut from [@PS_QM701H] where DocENtry ='" + p_DocEntry + "'";
-                oRecordSet01.DoQuery(sQry);
-
-                if (oRecordSet01.Fields.Item(0).Value.ToString().Trim() == "O")
-                {
-                    WinTitle = "[PS_QM702] 외주 부자재적합보고서";
-                    ReportName = "PS_QM702_01.rpt";
-                }
-                else
-                {
-                    WinTitle = "[PS_QM702] 내주 부자재적합보고서";
-                    ReportName = "PS_QM702_02.rpt";
-                }    
-
+                
                 List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
                 List<PSH_DataPackClass> dataPackSub1ReportParameter = new List<PSH_DataPackClass>(); //서브레포트 그대로날리는변수 
                 
@@ -508,8 +494,22 @@ namespace PSH_BOne_AddOn
 
                 Main_Folder = @"C:\PSH_부적합전송";
                 Dir_Exists(Main_Folder);
+                ExportString = Main_Folder + @"\" + "풍산홀딩스부적합보고서" + p_DocEntry + ".pdf";
 
-                ExportString = Main_Folder + @"\" + p_DocEntry + ".pdf";
+                sQry = "select U_InOut from [@PS_QM701H] where DocENtry ='" + p_DocEntry + "'";
+                oRecordSet01.DoQuery(sQry);
+
+                if (oRecordSet01.Fields.Item(0).Value.ToString().Trim() == "O")
+                {
+                    WinTitle = "[PS_QM702] 외주 부적합 자재 통보서";
+                    ReportName = "PS_QM702_01.rpt";
+
+                }
+                else
+                {
+                    WinTitle = "[PS_QM702] 내주 부적합 자재 보고서";
+                    ReportName = "PS_QM702_02.rpt";
+                }
 
                 formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackSub1ReportParameter, ExportString);
 
@@ -605,7 +605,7 @@ namespace PSH_BOne_AddOn
                 mail.Subject = oForm.Items.Item("Subject").Specific.Value.ToString().Trim(); 
                 mail.HTMLBody = oForm.Items.Item("SBody").Specific.Value.ToString().Trim(); 
                 mail.To = p_Address;
-                MsOutlook.Attachment oAttach = mail.Attachments.Add(Main_Folder + @"\" + p_DocEntry + ".pdf");
+                MsOutlook.Attachment oAttach = mail.Attachments.Add(Main_Folder + @"\" + "풍산홀딩스부적합보고서" + p_DocEntry + ".pdf");
                 mail.Send();
 
                 mail = null;
@@ -833,6 +833,8 @@ namespace PSH_BOne_AddOn
                         {
                             errMessage = "메일을 보낼 주소가 없습니다. 확인해주세요.";
                             throw new Exception();
+
+
                         }
                         else
                         {
@@ -848,10 +850,13 @@ namespace PSH_BOne_AddOn
                                         BubbleEvent = false;
                                         return;
                                     }
+                                    oDS_PS_QM702M.SetValue("U_ColReg03", i, "Y");
                                     oRecordSet01.MoveNext();
                                 }
                             }
                         }
+                        oMat02.LoadFromDataSource();
+                        oMat02.AutoResizeColumns();
                         errMessage = "전송이 완료되었습니다.";
                         PSH_Globals.SBO_Application.MessageBox(errMessage);
                     }
@@ -1004,6 +1009,7 @@ namespace PSH_BOne_AddOn
                                 oMat02.LoadFromDataSource();
                             }
                         }
+                       
                     }
                 }
                 else if (pVal.Before_Action == false)
@@ -1082,6 +1088,7 @@ namespace PSH_BOne_AddOn
                     if (pVal.ItemUID == "oGrid01")
                     {
                         oForm.Items.Item("SDocEntry").Specific.Value = oDS_PS_QM702L.Columns.Item("문서번호").Cells.Item(pVal.Row).Value;
+                        oDS_PS_QM702M.Clear(); //추가
                     }
                 }
                 else if (pVal.BeforeAction == false)

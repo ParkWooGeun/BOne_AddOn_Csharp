@@ -316,7 +316,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// PH_PY035_MTX01
         /// </summary>
-        private bool PH_PY035_MTX01(string sUseCarCd, string ToDate)
+        private bool PH_PY035_MTX01(string sUseCarCd, string FrDate)
         {
             bool returnValue = false;
             string sQry;
@@ -331,8 +331,8 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
                 sCLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
-                SFrDate = Convert.ToString((DateTime.ParseExact(oForm.Items.Item("FrDate").Specific.Value.ToString().Trim(), "yyyyMMdd", null)).AddDays(-5));
-                SToDate = ToDate.Replace(".", "");
+                SFrDate = Convert.ToString((DateTime.ParseExact(FrDate, "yyyyMMdd", null)).AddDays(-5));
+                SToDate = FrDate.Replace(".", "");
 
                 oMat01.Clear();
                 oMat01.FlushToDataSource();
@@ -574,6 +574,56 @@ namespace PSH_BOne_AddOn
             return ReturnValue;
         }
 
+
+        /// <summary>
+        /// report_print_035
+        /// </summary>
+        /// <param name="">문서번호</param>
+        /// <returns></returns>
+        private bool report_printlist_035()
+        {
+            bool ReturnValue = false;
+            string WinTitle;
+            string ReportName;
+            string CLTCOD;
+            string UseCar;
+            string FrDate;
+            string ToDate;
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+
+            try
+            {
+
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                UseCar = oForm.Items.Item("UseCarCd").Specific.Value.ToString().Trim();
+                FrDate = oForm.Items.Item("FrDate").Specific.Value.ToString().Trim();
+                ToDate = oForm.Items.Item("ToDate").Specific.Value.ToString().Trim();
+
+
+                WinTitle = "[PH_PY035] 배차List";
+                ReportName = "PH_PY035_02.rpt";
+
+                List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
+
+                //Parameter
+                dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD)); //
+                dataPackParameter.Add(new PSH_DataPackClass("@UseCar", UseCar)); //사업장
+                dataPackParameter.Add(new PSH_DataPackClass("@FrDate", FrDate));
+                dataPackParameter.Add(new PSH_DataPackClass("@ToDate", ToDate));
+
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
+            }
+            catch (System.Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("report_print_035_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
+            return ReturnValue;
+        }
+
         /// <summary>
         /// 화면의 아이템 Enable 설정
         /// </summary>
@@ -607,35 +657,33 @@ namespace PSH_BOne_AddOn
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                 {
-                    //1210 창원관리담당, 2210 부산 관리담당, 3210 포장사업장 지원담당
-                    sQry = "  Select  TeamCode = U_TeamCode,";
-                    sQry += "         RspCode = Isnull(U_RspCode,'')";
-                    sQry += " From    [@PH_PY001A]";
-                    sQry += " Where   Code = '" + dataHelpClass.User_MSTCOD() + "'";
-                    oRecordSet.DoQuery(sQry);
+                    ////1210 창원관리담당, 2210 부산 관리담당, 3210 포장사업장 지원담당
+                    //sQry = "  Select  TeamCode = U_TeamCode,";
+                    //sQry += "         RspCode = Isnull(U_RspCode,'')";
+                    //sQry += " From    [@PH_PY001A]";
+                    //sQry += " Where   Code = '" + dataHelpClass.User_MSTCOD() + "'";
+                    //oRecordSet.DoQuery(sQry);
                     
-                    if (dataHelpClass.User_MSTCOD() == oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() || codeHelpClass.Right(oRecordSet.Fields.Item(1).Value.ToString().Trim(), 3) == "210")
-                    {
-                        dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
-                        oForm.Items.Item("sFocus").Click();
-                        oForm.Items.Item("CLTCOD").Enabled = false;
-                        oForm.Items.Item("FrDate").Enabled = true;
-                        oForm.Items.Item("ToDate").Enabled = true;
-                        oForm.Items.Item("FrTime").Enabled = true;
-                        oForm.Items.Item("ToTime").Enabled = true;
-                        oForm.Items.Item("UseCarCd").Enabled = false;
-                        oForm.Items.Item("Object").Enabled = true;
-                        oForm.Items.Item("Dest").Enabled = true;
-                        oForm.Items.Item("MSTCOD").Enabled = false;
-                        oForm.Items.Item("WMSTNAM").Enabled = true;
-                        oForm.Items.Item("Comments").Enabled = true;
-                        oForm.Items.Item("RegCls").Enabled = true;
-                        oForm.Items.Item("BeforKm").Enabled = true;
-                        oForm.Items.Item("AfterKm").Enabled = true;
-                    }
-                    else
-                    {
-                        // 접속자에 따른 권한별 사업장 콤보박스세팅
+                    //if (dataHelpClass.User_MSTCOD() == oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() || codeHelpClass.Right(oRecordSet.Fields.Item(1).Value.ToString().Trim(), 3) == "210")
+                    //{
+                    //    dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
+                    //    oForm.Items.Item("sFocus").Click();
+                    //    oForm.Items.Item("CLTCOD").Enabled = false;
+                    //    oForm.Items.Item("FrDate").Enabled = true;
+                    //    oForm.Items.Item("ToDate").Enabled = true;
+                    //    oForm.Items.Item("FrTime").Enabled = true;
+                    //    oForm.Items.Item("ToTime").Enabled = true;
+                    //    oForm.Items.Item("UseCarCd").Enabled = false;
+                    //    oForm.Items.Item("Object").Enabled = true;
+                    //    oForm.Items.Item("Dest").Enabled = true;
+                    //    oForm.Items.Item("MSTCOD").Enabled = false;
+                    //    oForm.Items.Item("WMSTNAM").Enabled = true;
+                    //    oForm.Items.Item("Comments").Enabled = true;
+                    //    oForm.Items.Item("RegCls").Enabled = true;
+                    //    oForm.Items.Item("BeforKm").Enabled = true;
+                    //    oForm.Items.Item("AfterKm").Enabled = true;
+                    //}
+                    // 접속자에 따른 권한별 사업장 콤보박스세팅
                         dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
                         oForm.Items.Item("FrDate").Enabled = false;
                         oForm.Items.Item("ToDate").Enabled = false;
@@ -648,9 +696,8 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("WMSTNAM").Enabled = true;
                         oForm.Items.Item("Comments").Enabled = true;
                         oForm.Items.Item("RegCls").Enabled = false;
-                        oForm.Items.Item("BeforKm").Enabled = false;
-                        oForm.Items.Item("AfterKm").Enabled = false;
-                    }
+                        oForm.Items.Item("BeforKm").Enabled = true;
+                        oForm.Items.Item("AfterKm").Enabled = true;
                 }
             }
             catch (System.Exception ex)
@@ -1236,6 +1283,10 @@ namespace PSH_BOne_AddOn
                         oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
                         PH_PY035_LoadCaption();
                         PH_PY035_FormItemEnabled();
+                    }
+                    if (pVal.ItemUID == "btn_list")
+                    {
+                        report_printlist_035();
                     }
                 }
                 

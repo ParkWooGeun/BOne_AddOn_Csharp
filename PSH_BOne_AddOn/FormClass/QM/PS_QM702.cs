@@ -782,8 +782,10 @@ namespace PSH_BOne_AddOn
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             string sQry;
+            string sQry1;
             string errMessage = string.Empty;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset oRecordSet02 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
                 if (pVal.BeforeAction == true)
@@ -877,6 +879,7 @@ namespace PSH_BOne_AddOn
                         {
                             for (int i = 0; i <= oMat02.VisualRowCount - 1; i++)
                             {
+                                int k = 0;
                                 sQry = "SELECT U_eMail FROM [@PS_QM700L] WHERE Code ='" + oDS_PS_QM702M.GetValue("U_ColReg01", i).ToString().Trim() + "'";
                                 oRecordSet01.DoQuery(sQry);
 
@@ -889,6 +892,13 @@ namespace PSH_BOne_AddOn
                                     }
                                     oDS_PS_QM702M.SetValue("U_ColReg03", i, "Y");
                                     oRecordSet01.MoveNext();
+                                    k++;
+                                }
+                                if( k != 0)
+                                {
+                                    sQry1 = "Insert into Z_PS_QM702 values ('" + SGoBun + "','" + SDocEntry + "','";
+                                    sQry1 += oDS_PS_QM702M.GetValue("U_ColReg01", i).ToString().Trim() + "','" + oDS_PS_QM702M.GetValue("U_ColReg02", i).ToString().Trim() + "',GETDATE())";
+                                    oRecordSet02.DoQuery(sQry1);
                                 }
                             }
                         }
@@ -914,6 +924,7 @@ namespace PSH_BOne_AddOn
                 }
             }
             System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet02);
         }
         /// <summary>
         /// Raise_EVENT_KEY_DOWN

@@ -767,6 +767,7 @@
     <Compile Include="FormClass\QM\PS_QM700.cs" />
     <Compile Include="FormClass\QM\PS_QM701.cs" />
     <Compile Include="FormClass\QM\PS_QM702.cs" />
+    <Compile Include="FormClass\QM\PS_QM703.cs" />
     <Compile Include="FormClass\QM\PS_QM704.cs" />
     <Compile Include="FormClass\QM\PS_QM902.cs" />
     <Compile Include="FormClass\QM\PS_QM903.cs" />

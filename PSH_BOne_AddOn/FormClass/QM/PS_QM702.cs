@@ -300,7 +300,7 @@ namespace PSH_BOne_AddOn
         /// <param name="p_MSTCOD"></param>
         /// <param name="p_Reson"></param>
         /// <returns></returns>
-        private bool Return_EMail(string p_DocEntry,string p_MSTCOD, string p_Reson)
+        private bool Return_EMail(string p_DocEntry,string p_MSTCOD, string p_Reson, string p_gobun)
         {
             bool ReturnValue = false;
             string strToAddress;
@@ -313,7 +313,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 strSubject = "부적합문서 반려";
-                strBody = "부적합 문서번호 " + p_DocEntry + "가 반려되었습니다. ";
+                strBody = "부적합  " + p_gobun + "  문서번호"  + p_DocEntry + "가 반려되었습니다. ";
                 strBody += "반려사유 : "+ p_Reson + "입니다.";
 
                 sQry = "SELECT U_eMail, U_FullName FROM [@PH_PY001A] WHERE Code ='" + p_MSTCOD + "'";
@@ -335,8 +335,15 @@ namespace PSH_BOne_AddOn
 
                 mail = null;
                 outlookApp = null;
-
-                sQry = "UPDATE [@PS_QM701H] SET U_ChkYN = '반려', U_ChkDate = Convert(CHAR(10),GETDATE()) WHERE DocEntry ='" + p_DocEntry + "'";
+                
+                if (p_gobun == "외주")
+                {
+                    sQry = "UPDATE [@PS_QM701H] SET U_ChkYN = '반려', U_ChkDate = Convert(CHAR(10),GETDATE()) WHERE DocEntry ='" + p_DocEntry + "'";
+                }
+                else
+                {
+                    sQry = "UPDATE [@PS_QM703H] SET U_ChkYN = '반려', U_ChkDate = Convert(CHAR(10),GETDATE()) WHERE DocEntry ='" + p_DocEntry + "'";
+                }
                 oRecordSet01.DoQuery(sQry);
                 ReturnValue = true;
             }
@@ -350,7 +357,7 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// LoadData
         /// </summary>
-        private bool PS_QM702_UPDATEData(string DocEntry)
+        private bool PS_QM702_UPDATEData(string DocEntry, string Gobun)
         {
             string sQry;
             string errMessage = string.Empty;
@@ -360,7 +367,15 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                sQry = "UPDATE [@PS_QM701H] SET U_ChkYN = '승인', U_ChkDate = Convert(CHAR(10),GETDATE()) WHERE DocEntry ='" + DocEntry + "'";
+                if (Gobun == "외주")
+                {
+                    sQry = "UPDATE [@PS_QM701H] SET U_ChkYN = '승인', U_ChkDate = Convert(CHAR(10),GETDATE()) WHERE DocEntry ='" + DocEntry + "'";
+                }
+                else
+                {
+                    sQry = "UPDATE [@PS_QM703H] SET U_ChkYN = '승인', U_ChkDate = Convert(CHAR(10),GETDATE()) WHERE DocEntry ='" + DocEntry + "'";
+                }
+                
                 oRecordSet01.DoQuery(sQry);
                 returnValue = true;
             }
@@ -448,15 +463,15 @@ namespace PSH_BOne_AddOn
         /// PDF만들기
         /// </summary>
         [STAThread]
-        private bool Make_PDF_File(String p_DocEntry)
+        private bool Make_PDF_File(String p_DocEntry,string p_Gobun)
         {
             bool ReturnValue = false;
             string WinTitle;
             string ReportName = String.Empty;
             string Main_Folder;
-            string sQry;
             string ExportString;
             string Incom_Pic_Path;
+            string filename;
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
@@ -464,18 +479,26 @@ namespace PSH_BOne_AddOn
 
             try
             {
+                if (p_Gobun == "외주")
+                {
+                    filename = "_Out.bmp";
+                }
+                else
+                {
+                    filename = "_In.bmp";
+                }
                 Incom_Pic_Path = @"\\191.1.1.220\Incom_Pic\";
 
-                if (File.Exists(Incom_Pic_Path + p_DocEntry + ".bmp"))
+                if (File.Exists(Incom_Pic_Path + p_DocEntry + filename))
                 {
                     if (File.Exists(Incom_Pic_Path + "PIC.bmp") == true)
                     {
                         File.Delete(Incom_Pic_Path + "PIC.bmp");
-                        File.Copy(Incom_Pic_Path + p_DocEntry + ".bmp", Incom_Pic_Path + "PIC.bmp");
+                        File.Copy(Incom_Pic_Path + p_DocEntry + filename, Incom_Pic_Path + "PIC.bmp");
                     }
                     else
                     {
-                        File.Copy(Incom_Pic_Path + p_DocEntry + ".bmp", Incom_Pic_Path + "PIC.bmp");
+                        File.Copy(Incom_Pic_Path + p_DocEntry + filename, Incom_Pic_Path + "PIC.bmp");
                     }
                 }
                 else
@@ -490,25 +513,24 @@ namespace PSH_BOne_AddOn
                 //Parameter
                 dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", p_DocEntry));
 
-                dataPackSub1ReportParameter.Add(new PSH_DataPackClass("@DocEntry", p_DocEntry, "PS_QM702_04"));
 
                 Main_Folder = @"C:\PSH_부적합전송";
                 Dir_Exists(Main_Folder);
-                ExportString = Main_Folder + @"\" + "풍산홀딩스부적합보고서" + p_DocEntry + ".pdf";
+                ExportString = Main_Folder + @"\" + "풍산홀딩스부적합보고서" +p_Gobun + p_DocEntry + ".pdf";
 
-                sQry = "select U_InOut from [@PS_QM701H] where DocENtry ='" + p_DocEntry + "'";
-                oRecordSet01.DoQuery(sQry);
-
-                if (oRecordSet01.Fields.Item(0).Value.ToString().Trim() == "O")
+                
+                if (p_Gobun == "외주")
                 {
                     WinTitle = "[PS_QM702] 외주 부적합 자재 통보서";
                     ReportName = "PS_QM702_01.rpt";
+                    dataPackSub1ReportParameter.Add(new PSH_DataPackClass("@DocEntry", p_DocEntry, "PS_QM702_04"));
 
                 }
                 else
                 {
                     WinTitle = "[PS_QM702] 내주 부적합 자재 보고서";
                     ReportName = "PS_QM702_02.rpt";
+                    dataPackSub1ReportParameter.Add(new PSH_DataPackClass("@DocEntry", p_DocEntry, "PS_QM703_04"));
                 }
 
                 formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackSub1ReportParameter, ExportString);
@@ -585,7 +607,7 @@ namespace PSH_BOne_AddOn
         /// <param name="p_DocEntry"></param>
         /// <param name="p_Address"></param>
         /// <returns></returns>
-        private bool Send_EMail(string p_DocEntry, string p_Address)
+        private bool Send_EMail(string p_DocEntry, string p_Address, string p_Gobun)
         {
             bool ReturnValue = false;
             string Main_Folder;
@@ -605,7 +627,7 @@ namespace PSH_BOne_AddOn
                 mail.Subject = oForm.Items.Item("Subject").Specific.Value.ToString().Trim(); 
                 mail.HTMLBody = oForm.Items.Item("SBody").Specific.Value.ToString().Trim(); 
                 mail.To = p_Address;
-                MsOutlook.Attachment oAttach = mail.Attachments.Add(Main_Folder + @"\" + "풍산홀딩스부적합보고서" + p_DocEntry + ".pdf");
+                MsOutlook.Attachment oAttach = mail.Attachments.Add(Main_Folder + @"\" + "풍산홀딩스부적합보고서" + p_Gobun + p_DocEntry + ".pdf");
                 mail.Send();
 
                 mail = null;
@@ -773,8 +795,9 @@ namespace PSH_BOne_AddOn
                         {
                             if (oDS_PS_QM702H.GetValue("U_ColReg17", i).ToString().Trim() == "Y")
                             {
+                                string GOBUN = oDS_PS_QM702H.GetValue("U_ColReg01", i).ToString().Trim();
                                 string DocEntry = oDS_PS_QM702H.GetValue("U_ColReg02", i).ToString().Trim();
-                                if (PS_QM702_UPDATEData(DocEntry) == false)
+                                if (PS_QM702_UPDATEData(DocEntry, GOBUN) == false)
                                 {
                                     BubbleEvent = false;
                                     return;
@@ -800,8 +823,9 @@ namespace PSH_BOne_AddOn
                                     string DocEntry = oDS_PS_QM702H.GetValue("U_ColReg02", i).ToString().Trim();
                                     string MSTCOD = oDS_PS_QM702H.GetValue("U_ColReg07", i).ToString().Trim();
                                     string Reson = oDS_PS_QM702H.GetValue("U_ColReg16", i).ToString().Trim();
+                                    string GOBUN = oDS_PS_QM702H.GetValue("U_ColReg01", i).ToString().Trim();
 
-                                    if (Return_EMail(DocEntry,MSTCOD,Reson) == false)//사번
+                                    if (Return_EMail(DocEntry,MSTCOD,Reson, GOBUN) == false)//사번
                                     {
                                         errMessage = "전송 중 오류가 발생했습니다.";
                                         throw new Exception();
@@ -817,12 +841,25 @@ namespace PSH_BOne_AddOn
                     }
                     else if (pVal.ItemUID == "btn_send")
                     {
+                        string SDocEntry = oForm.Items.Item("SDocEntry").Specific.Value.ToString().Trim();
+                        string SGoBun = oForm.Items.Item("SGoBun").Specific.Value.ToString().Trim();
                         if (string.IsNullOrEmpty(oForm.Items.Item("SDocEntry").Specific.Value.ToString().Trim()))
                         {
-                            errMessage = "결재완료된 문서번호 선택은 필수입니다..";
+                            errMessage = "결재완료된 문서번호 선택은 필수입니다.";
                             throw new Exception();
                         }
-                        if ( Make_PDF_File(oForm.Items.Item("SDocEntry").Specific.Value.ToString().Trim()) == false)
+                        if (string.IsNullOrEmpty(oForm.Items.Item("Subject").Specific.Value.ToString().Trim()))
+                        {
+                            errMessage = "제목을 입력해주세요.";
+                            throw new Exception();
+                        }
+                        if (string.IsNullOrEmpty(oForm.Items.Item("SBody").Specific.Value.ToString().Trim()))
+                        {
+                            errMessage = "본문을 입력해주세요.";
+                            throw new Exception();
+                        }
+                       
+                        if ( Make_PDF_File(SDocEntry, SGoBun) == false)
                         {
                             BubbleEvent = false;
                             return;
@@ -845,7 +882,7 @@ namespace PSH_BOne_AddOn
 
                                 for (int j = 0; j <= oRecordSet01.RecordCount - 1; j++)
                                 {
-                                    if (Send_EMail(oForm.Items.Item("SDocEntry").Specific.Value.ToString().Trim(), oRecordSet01.Fields.Item("U_eMail").Value.ToString().Trim()) == false)
+                                    if (Send_EMail(SDocEntry, oRecordSet01.Fields.Item("U_eMail").Value.ToString().Trim(), SGoBun) == false)
                                     {
                                         BubbleEvent = false;
                                         return;
@@ -1088,6 +1125,7 @@ namespace PSH_BOne_AddOn
                     if (pVal.ItemUID == "oGrid01")
                     {
                         oForm.Items.Item("SDocEntry").Specific.Value = oDS_PS_QM702L.Columns.Item("문서번호").Cells.Item(pVal.Row).Value;
+                        oForm.Items.Item("SGoBun").Specific.Value = oDS_PS_QM702L.Columns.Item("구분").Cells.Item(pVal.Row).Value;
                         oDS_PS_QM702M.Clear(); //추가
                     }
                 }

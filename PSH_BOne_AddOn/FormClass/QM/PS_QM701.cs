@@ -344,7 +344,7 @@ namespace PSH_BOne_AddOn
                     }
 
                     oDS_PS_QM701H.SetValue("U_Pic", 0, "");
-                    oDS_PS_QM701H.SetValue("U_Pic", 0, "\\\\191.1.1.220\\Incom_Pic\\" + oRecordSet.Fields.Item("DocEntry").Value.ToString().Trim() + ".BMP");
+                    oDS_PS_QM701H.SetValue("U_Pic", 0, "\\\\191.1.1.220\\Incom_Pic\\" + oRecordSet.Fields.Item("DocEntry").Value.ToString().Trim() + "_Out.BMP");
                     oDS_PS_QM701H.SetValue("DocEntry", 0, oRecordSet.Fields.Item("DocEntry").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("Canceled", 0, oRecordSet.Fields.Item("Canceled").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_ChkYN", 0, oRecordSet.Fields.Item("ChkYN").Value.ToString().Trim());
@@ -443,19 +443,19 @@ namespace PSH_BOne_AddOn
                     errMessage = "요구납기일 입력되지 않았습니다.";
                     throw new Exception();
                 }
-                if (string.IsNullOrEmpty(oForm.Items.Item("BZZadQty").Specific.Value))
-                {
-                    errMessage = "부적합량이 0입니다. 다시확인해주세요.";
-                    throw new Exception();
-                }
+                
                 if (string.IsNullOrEmpty(oForm.Items.Item("KeyDoc").Specific.Value))
                 {
                     errMessage = "검수입고 문서가 선택되지않았습니다.. 다시확인해주세요.";
                     throw new Exception();
                 }
-
+                int result = string.Compare(oForm.Items.Item("BZZadQty").Specific.Value, oForm.Items.Item("TotalQty").Specific.Value);
+                if (result == 1)
+                {
+                    errMessage = "부적합량이 입고량보다 많습니다. 확인해주세요.";
+                    throw new Exception();
+                }
                 functionReturnValue = true;
-
             }
             catch (Exception ex)
             {
@@ -542,7 +542,7 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
                 
-                string imageFileName = ".BMP";
+                string imageFileName = "_Out.BMP";
 
                 //서버에 기존 파일 체크
                 FileInfo fileInfo = new FileInfo(SaveFolders + "\\" + sFileName);
@@ -717,6 +717,16 @@ namespace PSH_BOne_AddOn
                             {
                                 BubbleEvent = false;
                                 return;
+                            }
+                            if(oForm.Items.Item("verdict").Specific.Value.Trim() == "2")
+                            {
+                                if (string.IsNullOrEmpty(oForm.Items.Item("Comments").Specific.Value))
+                                {
+                                    errMessage = "특채는 관련근거가 필수입니다.";
+                                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                                    BubbleEvent = false;
+                                    return;
+                                }
                             }
                             sQry = "insert into PSHDB_IMG.dbo.ZPS_QM701_PIC(BPLId,FixCode) SELECT ";
                             sQry += "'" + oForm.Items.Item("CLTCOD").Specific.Value.Trim() + "',";
@@ -1044,7 +1054,7 @@ namespace PSH_BOne_AddOn
                 else if (pVal.BeforeAction == false)
                 {
                     PS_QM701_FormItemEnabled();
-                    PS_QM701_AddMatrixRow(oMat01.VisualRowCount, false);
+                    //PS_QM701_AddMatrixRow(oMat01.VisualRowCount, false);
                 }
             }
             catch (Exception ex)

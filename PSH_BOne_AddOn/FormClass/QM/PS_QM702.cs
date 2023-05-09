@@ -530,7 +530,7 @@ namespace PSH_BOne_AddOn
                 {
                     WinTitle = "[PS_QM702] 내주 부적합 자재 보고서";
                     ReportName = "PS_QM702_02.rpt";
-                    dataPackSub1ReportParameter.Add(new PSH_DataPackClass("@DocEntry", p_DocEntry, "PS_QM703_04"));
+                    dataPackSub1ReportParameter.Add(new PSH_DataPackClass("@DocEntry", p_DocEntry, "SUB702_06"));
                 }
 
                 formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackSub1ReportParameter, ExportString);

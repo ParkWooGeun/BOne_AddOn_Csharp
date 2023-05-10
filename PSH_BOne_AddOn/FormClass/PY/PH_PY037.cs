@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using SAPbouiCOM;
 using PSH_BOne_AddOn.Data;
+using PSH_BOne_AddOn.DataPack;
+using PSH_BOne_AddOn.Form;
 
 namespace PSH_BOne_AddOn
 {
@@ -75,7 +78,8 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.DataTables.Add("PH_PY037A");
                 oGrid01.DataTable = oForm.DataSources.DataTables.Item("PH_PY037A");
                 oDS_PH_PY037A = oForm.DataSources.DataTables.Item("PH_PY037A");
-
+                
+                //oForm.Items.Item("STeamCode").DisplayDesc = true;
                 //기간
                 oForm.DataSources.UserDataSources.Add("DocDatefr", SAPbouiCOM.BoDataType.dt_DATE, 10);
                 oForm.Items.Item("DocDatefr").Specific.DataBind.SetBound(true, "", "DocDatefr");
@@ -101,11 +105,9 @@ namespace PSH_BOne_AddOn
         private void PH_PY037_ComboBox_Setting()
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
+            string sQry;
             try
             {
-                //oForm.Freeze(true);
-                
                 dataHelpClass.Set_ComboList((oForm.Items.Item("BPLId").Specific), "SELECT BPLId, BPLName From [OBPL] order by 1", "", false, false);
                 oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
                 oForm.Items.Item("Div").Specific.ValidValues.Add("1", "배차신청List조회");
@@ -113,14 +115,21 @@ namespace PSH_BOne_AddOn
                 //oForm.Items.Item("Div").Specific.ValidValues.Add("3", "공정실적없는 상각분개조회");
                 oForm.Items.Item("Div").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
+                // 차량정보
+                sQry = "  SELECT      U_Code AS [Code],";
+                sQry += "             U_CodeNm As [Name]";
+                sQry += " FROM        [@PS_HR200L]";
+                sQry += " WHERE       Code = 'P247'";
+                sQry += "             AND U_UseYN = 'Y'";
+                sQry += "             AND U_Char1 = '" + oForm.Items.Item("BPLId").Specific.Value + "'";
+                sQry += " ORDER BY    U_Seq";
+                dataHelpClass.Set_ComboList(oForm.Items.Item("CarCode").Specific, sQry, "", false, false);
+                oForm.Items.Item("CarCode").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+
             }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-                //oForm.Freeze(false);
             }
         }
 
@@ -138,6 +147,7 @@ namespace PSH_BOne_AddOn
             string DocDateFr;
             string DocDateTo;
             string Div;
+            string CarCode;
             string errCode = string.Empty;
 
             try
@@ -149,10 +159,12 @@ namespace PSH_BOne_AddOn
                 DocDateFr = oForm.Items.Item("DocDatefr").Specific.Value.ToString().Trim();
                 DocDateTo = oForm.Items.Item("DocDateto").Specific.Value.ToString().Trim();
                 Div = oForm.Items.Item("Div").Specific.Selected.Value;
+                CarCode = oForm.Items.Item("CarCode").Specific.Selected.Value;
+
 
                 if (Div == "1")
                 {
-                    Query01 = "EXEC PH_PY037_01 '" + BPLId + "','" + DocDateFr + "','" + DocDateTo + "'";
+                    Query01 = "EXEC PH_PY037_01 '" + BPLId + "','" + DocDateFr + "','" + DocDateTo + "','" + CarCode + "'";
                 }
                 else if (Div == "2")
                 {
@@ -199,7 +211,47 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
         }
+        private void PH_PY037_Print_Report01()
+        {
+            string WinTitle;
+            string ReportName;
+            string DocDateFr;
+            string DocDateTo;
+            string CarCode;
+            string BPLId;
 
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+
+            try
+            {
+                WinTitle = "[PH_PY037] 차량운행일지";
+                ReportName = "PH_PY037_01.rpt";
+
+                BPLId = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
+                DocDateFr = oForm.Items.Item("DocDatefr").Specific.Value.ToString().Trim();
+                DocDateTo = oForm.Items.Item("DocDateto").Specific.Value.ToString().Trim();
+                CarCode = oForm.Items.Item("CarCode").Specific.Selected.Value;
+
+
+                List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
+               
+                //Parameter
+                dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLId)); //사업장
+                dataPackParameter.Add(new PSH_DataPackClass("@DocDatefr", DocDateFr)); //사업장
+                dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo)); //사업장
+                dataPackParameter.Add(new PSH_DataPackClass("@CarCode", CarCode)); //사업장
+
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY037_Print_Report01_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
+        }
         /// <summary>
         /// Form Item Event
         /// </summary>
@@ -246,9 +298,9 @@ namespace PSH_BOne_AddOn
                 //    Raise_EVENT_MATRIX_COLLAPSE_PRESSED(FormUID, ref pVal, ref BubbleEvent);
                 //    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
-                //    Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
+                    Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
+                    break;
 
                 case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
                     //Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
@@ -337,6 +389,12 @@ namespace PSH_BOne_AddOn
                     {
                         oForm.Close();
                     }
+                    if (pVal.ItemUID == "btn_print")
+                    {
+                        System.Threading.Thread thread = new System.Threading.Thread(PH_PY037_Print_Report01);
+                        thread.SetApartmentState(System.Threading.ApartmentState.STA);
+                        thread.Start();
+                    }
                 }
                 else if (pVal.BeforeAction == false)
                 {
@@ -351,6 +409,47 @@ namespace PSH_BOne_AddOn
             }
         }
 
+
+        /// <summary>
+        /// Raise_EVENT_VALIDATE
+        /// </summary>
+        /// <param name="FormUID"></param>
+        /// <param name="pVal"></param>
+        /// <param name="BubbleEvent"></param>
+        private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
+            try
+            {
+                oForm.Freeze(true);
+                if (pVal.BeforeAction == true)
+                {
+                    if (pVal.ItemChanged == true)
+                    {
+                        if (pVal.ItemUID == "Mat01")
+                        {
+                        }
+                        else
+                        {
+                        }
+                    }
+                }
+                else if (pVal.BeforeAction == false)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_VALIDATE_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                oForm.Freeze(false);
+            }
+        }
+
+
         /// <summary>
         /// COMBO_SELECT 이벤트
         /// </summary>
@@ -362,34 +461,63 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                if (pVal.Before_Action == true)
+                if (pVal.BeforeAction == true)
                 {
                 }
-                else if (pVal.Before_Action == false)
+                else if (pVal.BeforeAction == false)
                 {
-                    if (pVal.ItemUID == "Div")
-                    {
-                        if (oForm.Items.Item("Div").Specific.Selected.Value == "13")
-                        {
-                            oForm.Items.Item("DocDatefr").Visible = false;
-                        }
-                        else
-                        {
-                            oForm.Items.Item("DocDatefr").Visible = true;
-                        }
-                    }
+                    PH_PY037_FlushToItemValue(pVal.ItemUID, 0, "");
                 }
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_COMBO_SELECT_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                oForm.Freeze(false);
             }
             finally
             {
                 oForm.Freeze(false);
             }
         }
-        
+
+        /// <summary>
+        /// FlushToItemValue(사용자의 Event에 따른 화면 Item의 유동적인 세팅)
+        /// </summary>
+        /// <param name="oUID"></param>
+        /// <param name="oRow"></param>
+        /// <param name="oCol"></param>
+        private void PH_PY037_FlushToItemValue(string oUID, int oRow, string oCol)
+        {
+            string Div;
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            try
+            {
+                switch (oUID)
+                {
+                    case "Div":
+                        Div = oForm.Items.Item("Div").Specific.Selected.Value;
+                        if (Div == "1")
+                        {
+                            oForm.Items.Item("CarCode").Visible = true;
+                            oForm.Items.Item("CarCode2").Visible = true;
+                            oForm.Items.Item("btn_print").Visible = true;
+                        }
+                        else 
+                        {
+                            oForm.Items.Item("CarCode").Visible = false;
+                            oForm.Items.Item("CarCode2").Visible = false;
+                            oForm.Items.Item("btn_print").Visible = false;
+                        }
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY030_FlushToItemValue_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+        }
+
+
         /// <summary>
         /// FORM_UNLOAD 이벤트
         /// </summary>

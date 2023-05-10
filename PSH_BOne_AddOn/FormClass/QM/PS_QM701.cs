@@ -373,6 +373,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_QM701H.SetValue("U_BadNote", 0, oRecordSet.Fields.Item("BadNote").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_verdict", 0, oRecordSet.Fields.Item("verdict").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_Comments", 0, oRecordSet.Fields.Item("Comments").Value.ToString().Trim());
+                    oDS_PS_QM701H.SetValue("U_OutUnit", 0, oRecordSet.Fields.Item("OutUnit").Value.ToString().Trim());
                 }
             }
             catch (Exception ex)
@@ -1020,7 +1021,7 @@ namespace PSH_BOne_AddOn
                                 oDS_PS_QM701H.SetValue("U_BZZadQty", 0, oRecordSet01.Fields.Item("BZZadQty").Value.ToString().Trim());
                                 oDS_PS_QM701H.SetValue("U_BadCode", 0, oRecordSet01.Fields.Item("BadCode").Value.ToString().Trim());
                                 oDS_PS_QM701H.SetValue("U_WorkDate", 0, oRecordSet01.Fields.Item("WorkDate").Value);
-
+                                oDS_PS_QM701H.SetValue("U_OutUnit", 0, oRecordSet01.Fields.Item("OutUnit").Value.ToString().Trim());
                             }
                         }
                     }

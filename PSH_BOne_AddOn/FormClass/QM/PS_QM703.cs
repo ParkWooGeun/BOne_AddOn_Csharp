@@ -351,6 +351,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_QM703H.SetValue("U_BadNote", 0, oRecordSet01.Fields.Item("BadNote").Value.ToString().Trim());
                     oDS_PS_QM703H.SetValue("U_verdict", 0, oRecordSet01.Fields.Item("verdict").Value.ToString().Trim());
                     oDS_PS_QM703H.SetValue("U_Comments", 0, oRecordSet01.Fields.Item("Comments").Value.ToString().Trim());
+                    oDS_PS_QM703H.SetValue("U_OutUnit", 0, oRecordSet01.Fields.Item("OutUnit").Value.ToString().Trim());
                 }
             }
             catch (Exception ex)
@@ -990,6 +991,7 @@ namespace PSH_BOne_AddOn
                                 oDS_PS_QM703H.SetValue("U_CardCode", 0, oRecordSet01.Fields.Item("CardCode").Value.ToString().Trim());
                                 oDS_PS_QM703H.SetValue("U_CardName", 0, oRecordSet01.Fields.Item("CardName").Value.ToString().Trim());
                                 oDS_PS_QM703H.SetValue("U_TotalQty", 0, oRecordSet01.Fields.Item("TotalQty").Value.ToString().Trim());
+                                oDS_PS_QM703H.SetValue("U_OutUnit", 0, oRecordSet01.Fields.Item("OutUnit").Value.ToString().Trim());
                             }
                         }
                     }

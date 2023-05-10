@@ -394,7 +394,7 @@ namespace PSH_BOne_AddOn
                     errMessage = oFunction.GetValue("E_MESSAGE").ToString();
                     throw new Exception();
                 }
-                else if (codeHelpClass.Left(oFunction.GetValue("E_MESSAGE").ToString().Trim(), 1) == "S" && oFunction.GetValue("E_BANFN").ToString() != "")
+                else if (codeHelpClass.Left(oFunction.GetValue("E_MESSAGE").ToString().Trim(), 1) == "S")
                 {
                     returnValue = oFunction.GetValue("E_BANFN").ToString() + "/" + oFunction.GetValue("E_BNFPO").ToString(); //통합구매요청번호 '//통합구매요청 품목번호
                 }
@@ -435,8 +435,6 @@ namespace PSH_BOne_AddOn
                             errCode = "E2"; //ZMM_INTF_GROUP_FILE 함수호출 체크를 위한 변수값 대입
                             oFunction.Invoke(rfcDest); //Function 실행
                             errCode = string.Empty; // 이상 없을 경우 초기화
-
-
 
                             if (string.IsNullOrEmpty(oFunction.GetValue("E_MESSAGE").ToString()))
                             {

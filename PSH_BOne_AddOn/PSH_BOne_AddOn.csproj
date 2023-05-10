@@ -317,6 +317,7 @@
     <Compile Include="FormClass\GA\PS_GA502.cs" />
     <Compile Include="FormClass\MM\PS_MM012.cs" />
     <Compile Include="FormClass\MM\PS_MM013.cs" />
+    <Compile Include="FormClass\MM\PS_MM035.cs" />
     <Compile Include="FormClass\MM\PS_MM050.cs" />
     <Compile Include="FormClass\MM\PS_FTP.cs" />
     <Compile Include="FormClass\MM\PS_MM001.cs" />

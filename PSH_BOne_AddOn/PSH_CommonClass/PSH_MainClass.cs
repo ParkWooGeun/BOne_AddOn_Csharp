@@ -220,11 +220,11 @@ namespace PSH_BOne_AddOn
                 IpAddress = dataHelpClass.GetValue("EXEC Profile_SELECT 'SERVERINFO'", 0, 1) + dataHelpClass.GetValue("EXEC Profile_SELECT 'SERVERINFO'", 1, 1);  //\\191.1.1.220\b1_shr\PathINI
                 Id = dataHelpClass.GetValue("EXEC Profile_SELECT 'SERVERINFO'", 2, 1);
                 PassWord = dataHelpClass.GetValue("EXEC Profile_SELECT 'SERVERINFO'", 3, 1);
-                
+
                 while (true)
                 {
-                     Nc.DisconnectNetwork("Q:"); // SAP접속시 SAP공유폴더 접속해제
-                     int state = Nc.TryConnectNetwork(IpAddress, Id, PassWord, "Q:"); //공유폴더접속
+                    Nc.DisconnectNetwork("Q:"); // SAP접속시 SAP공유폴더 접속해제
+                    int state = Nc.TryConnectNetwork(IpAddress, Id, PassWord, "Q:"); //공유폴더접속
 
                     if (TryConnectResult(state) == true)
                     {
@@ -262,7 +262,7 @@ namespace PSH_BOne_AddOn
             else
             {
                 result = false;
-                
+
                 switch (state)
                 {
                     case ERROR_CODE.NO_ERROR:
@@ -345,10 +345,10 @@ namespace PSH_BOne_AddOn
             public const int ERROR_MULTIPLE_CONNECTION = 1219;
         }
 
-    /// <summary>
-    /// 메인 메뉴용 XML 로딩
-    /// </summary>
-    private void XmlCreateYN()
+        /// <summary>
+        /// 메인 메뉴용 XML 로딩
+        /// </summary>
+        private void XmlCreateYN()
         {
             string Query01;
             string UserName;
@@ -426,6 +426,7 @@ namespace PSH_BOne_AddOn
             string UpdateQry01;
             int i;
             int j;
+            string UserName;
             string NowType;
             string UserID;
             string AfType;
@@ -443,8 +444,13 @@ namespace PSH_BOne_AddOn
             {
                 AfLevel = "0";
                 NowLevel = "0";
-                UserID = PSH_Globals.oCompany.UserName;
 
+                UserName = PSH_Globals.oCompany.UserName;
+                UserID = PSH_Globals.oCompany.UserName;
+                if (UserID == "dev02")
+                {
+                    UserID = "dev03";
+                }
                 Query01 = "exec [PS_SY004_01] '" + UserID + "','H'";
                 oRecordSet01.DoQuery(Query01);
 
@@ -624,7 +630,7 @@ namespace PSH_BOne_AddOn
                         else if ((Convert.ToDouble(NowType) == 2 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 2 && Convert.ToDouble(AfLevel) == 0))
                         {
                             XmlString += "</Menu></action></Menus></Menu></action></Menus></Menu>";
-                        }   
+                        }
                         else if ((Convert.ToDouble(NowType) == 2 && Convert.ToDouble(AfType) == 2) && (Convert.ToDouble(NowLevel) == 1 && Convert.ToDouble(AfLevel) == 0))
                         {
                             XmlString += "</Menu></action></Menus></Menu>";
@@ -644,8 +650,8 @@ namespace PSH_BOne_AddOn
 
                 oFilePath = PSH_Globals.SP_XMLPath + "\\";
 
-                UserID += "_Menu_KOR.xml";
-                xmldoc.save(oFilePath + UserID);
+                UserName += "_Menu_KOR.xml";
+                xmldoc.save(oFilePath + UserName);
 
                 UpdateQry01 = "update b set b.UpdateYN ='N' from [Authority_Screen] a inner join [Authority_User] b on a.Seq = b.seq where  a.Gubun ='H' and  b.updateYN ='Y' and b.UserID ='" + PSH_Globals.oCompany.UserName + "'";
                 oRecordSet01.DoQuery(UpdateQry01);
@@ -762,7 +768,7 @@ namespace PSH_BOne_AddOn
                     {
                         for (int i = 0; i < PSH_Globals.classAllList.Count; i++)
                         {
-                           if (PSH_Globals.classAllList[i].Name == "S" + pVal.FormTypeEx) //접두어 "S" 포함
+                            if (PSH_Globals.classAllList[i].Name == "S" + pVal.FormTypeEx) //접두어 "S" 포함
                             {
                                 Type type = Type.GetType("PSH_BOne_AddOn.Core.S" + pVal.FormTypeEx); //Core폼과 동일한 클래스 Type 생성
                                 dynamic baseClass = Activator.CreateInstance(type); //Core폼과 동일한 클래스 Instance 생성

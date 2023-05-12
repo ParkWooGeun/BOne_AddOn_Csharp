@@ -822,6 +822,75 @@ namespace PSH_BOne_AddOn
             return returnValue;
         }
 
+
+        /// <summary>
+        /// 필수 사항 check
+        /// </summary>
+        /// <returns></returns>
+        private bool PS_MM090_JakNumCheck()
+        {
+            bool returnValue = false;
+            int i;
+            string sQry;
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                for (i = 1; i <= oMat01.VisualRowCount; i++)
+                {
+
+                    //검수입고(원재료품의, 외주제작품의, 가공비품의)가 등록 되지 않으면 생산완료 등록 불가(2012.01.12 송명규 수정)
+                    sQry = "EXEC [PS_MM090_09] '" + oMat01.Columns.Item("JakName").Cells.Item(i).Specific.Value.ToString().Trim() + "'";
+                    oRecordSet01.DoQuery(sQry);
+                    if (Convert.ToDouble(oRecordSet01.Fields.Item(0).Value) > 0)
+                    {
+                        if (oRecordSet01.Fields.Item(1).Value == "10")
+                        {
+                            oMat01.FlushToDataSource();
+                            oDS_PS_MM090L.SetValue("U_Reason", i - 1, i + "번 라인 : 원재료품의가 모두 검수입고 되지 않았습니다. 확인해주세요.");
+                            oMat01.LoadFromDataSource();
+                        }
+                        else if (oRecordSet01.Fields.Item(1).Value == "30")
+                        {
+                            oMat01.FlushToDataSource();
+                            oDS_PS_MM090L.SetValue("U_Reason", i - 1, i + "번 라인 : 가공비품의가 모두 검수입고 되지 않았습니다. 확인해주세요.");
+                            oMat01.LoadFromDataSource();
+                        }
+                        else if (oRecordSet01.Fields.Item(1).Value == "40")
+                        {
+                            oMat01.FlushToDataSource();
+                            oDS_PS_MM090L.SetValue("U_Reason", i - 1, i + "번 라인 : 외주제작품의가 모두 검수입고 되지 않았습니다. 확인해주세요.");
+                            oMat01.LoadFromDataSource();
+                        }
+                    }
+                    //검사여부등록 체크_S(2015.08.28 송명규 수정)
+                    sQry = "EXEC [PS_MM090_10] '" + oMat01.Columns.Item("JakName").Cells.Item(i).Specific.Value.ToString().Trim() + "','" + oForm.Items.Item("InDate").Specific.Value + "'";
+                    oRecordSet01.DoQuery(sQry);
+
+                    if (oRecordSet01.Fields.Item("ReturnValue").Value == "0") //검사등록되지 않음
+                    {
+                        oMat01.FlushToDataSource();
+                        oDS_PS_MM090L.SetValue("U_Reason", i - 1, i + "번 라인 : 검사등록이 되지 않았습니다. 확인해주세요.");
+                        oMat01.LoadFromDataSource();
+                    }
+                    else if (oRecordSet01.Fields.Item("ReturnValue").Value == "1")
+                    {
+                        oMat01.FlushToDataSource();
+                        oDS_PS_MM090L.SetValue("U_Reason", i - 1, i + "번 라인 : 검사등록일자(" + oRecordSet01.Fields.Item("ChkDate").Value + ")보다 생산완료일자가 빠릅니다. 생산완료일자를 확인해주세요.");
+                        oMat01.LoadFromDataSource();
+                    }
+                    //검사여부등록 체크_E(2015.08.28 송명규 수정)
+                }
+                returnValue = true;
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            return returnValue;
+        }
+
         /// <summary>
         /// Report_Export
         /// </summary>
@@ -879,9 +948,8 @@ namespace PSH_BOne_AddOn
                 }
 
                 List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
-
-                // Parameter
-                dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", DocEntry));
+                
+                dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", DocEntry));// Parameter
 
                 formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
@@ -1017,6 +1085,11 @@ namespace PSH_BOne_AddOn
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                         {
                             if (PS_MM090_DataValidCheck() == false)
+                            {
+                                BubbleEvent = false;
+                                return;
+                            }
+                            if(PS_MM090_JakNumCheck() == false)
                             {
                                 BubbleEvent = false;
                                 return;

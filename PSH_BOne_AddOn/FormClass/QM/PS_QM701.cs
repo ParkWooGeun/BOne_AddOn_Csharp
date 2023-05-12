@@ -406,6 +406,19 @@ namespace PSH_BOne_AddOn
 
             try
             {
+                if (oForm.Items.Item("BadNote").Specific.Value.ToString().Trim() =="%")
+                {
+                    errMessage = "불량원인을 선택하세요.";
+                    throw new Exception();
+                }
+
+                if (oForm.Items.Item("verdict").Specific.Value.ToString().Trim() == "%")
+                {
+                    errMessage = "판정의견을 선택하세요.";
+                    throw new Exception();
+                }
+
+
                 if (string.IsNullOrEmpty(oForm.Items.Item("WorkName").Specific.Value))
                 {
                     errMessage = "검사자가 입력되지 않았습니다.";

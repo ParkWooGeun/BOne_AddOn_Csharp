@@ -289,7 +289,7 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY035_MTX01:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                    PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY702_MTX01:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
                 }
             }
         }
@@ -880,7 +880,7 @@ namespace PSH_BOne_AddOn
                             for (int i = 0; i <= oMat02.VisualRowCount - 1; i++)
                             {
                                 int k = 0;
-                                sQry = "SELECT U_eMail FROM [@PS_QM700L] WHERE Code ='" + oDS_PS_QM702M.GetValue("U_ColReg01", i).ToString().Trim() + "'";
+                                sQry = "SELECT U_eMail FROM [@PS_QM700L] WHERE U_UseYN = 'Y'AND Code ='" + oDS_PS_QM702M.GetValue("U_ColReg01", i).ToString().Trim() + "'";
                                 oRecordSet01.DoQuery(sQry);
 
                                 for (int j = 0; j <= oRecordSet01.RecordCount - 1; j++)

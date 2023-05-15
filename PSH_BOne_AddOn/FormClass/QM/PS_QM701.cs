@@ -1,13 +1,19 @@
 ﻿using System;
-using SAPbouiCOM;
-using PSH_BOne_AddOn.Data;
 using System.IO;
+using SAPbouiCOM;
+using System.Collections.Generic;
+using PSH_BOne_AddOn.Data;
+using PSH_BOne_AddOn.Code;
+using PSH_BOne_AddOn.DataPack;
+using PSH_BOne_AddOn.Form;
 using Scripting;
+
+
 
 namespace PSH_BOne_AddOn
 {
     /// <summary>
-    /// 기초자료등록(부적합)
+    /// 외주자료등록(부적합)
     /// </summary>
     internal class PS_QM701 : PSH_BaseClass
     {
@@ -320,7 +326,7 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// PS_QM701 사진보여주기( 여기ㅅㅜ정할꺼)de
+        /// PS_QM701 사진보여주기
         /// </summary>
         private void PS_QM701_DisplayFixData(string DocEntry)
         {
@@ -374,6 +380,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_QM701H.SetValue("U_verdict", 0, oRecordSet.Fields.Item("verdict").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_Comments", 0, oRecordSet.Fields.Item("Comments").Value.ToString().Trim());
                     oDS_PS_QM701H.SetValue("U_OutUnit", 0, oRecordSet.Fields.Item("OutUnit").Value.ToString().Trim());
+                    oDS_PS_QM701H.SetValue("U_cmt", 0, oRecordSet.Fields.Item("Cmt").Value.ToString().Trim());
                 }
             }
             catch (Exception ex)
@@ -403,7 +410,7 @@ namespace PSH_BOne_AddOn
         {
             bool functionReturnValue = false;
             string errMessage = string.Empty;
-
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
                 if (oForm.Items.Item("BadNote").Specific.Value.ToString().Trim() =="%")
@@ -417,7 +424,6 @@ namespace PSH_BOne_AddOn
                     errMessage = "판정의견을 선택하세요.";
                     throw new Exception();
                 }
-
 
                 if (string.IsNullOrEmpty(oForm.Items.Item("WorkName").Specific.Value))
                 {
@@ -469,6 +475,16 @@ namespace PSH_BOne_AddOn
                     errMessage = "부적합량이 입고량보다 많습니다. 확인해주세요.";
                     throw new Exception();
                 }
+                if (!string.IsNullOrEmpty(oForm.Items.Item("InCpCode").Specific.Value))
+                {
+                    string sQry = "SELECT CoUNT(*) FROM [@PS_QM700L] WHERE Code = 'OutCode' AND U_Code ='" + (oForm.Items.Item("InCpCode").Specific.Value.ToString().Trim()) + "'";
+                    oRecordSet.DoQuery(sQry);
+                    if(oRecordSet.Fields.Item(0).Value == 0)
+                    {
+                        errMessage = "발생공정값을 다시 확인해주세요.";
+                        throw new Exception();
+                    }
+                }
                 functionReturnValue = true;
             }
             catch (Exception ex)
@@ -481,6 +497,10 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
             return functionReturnValue;
         }
@@ -595,6 +615,67 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
             return ReturnValue;
+        }
+
+
+        /// <summary>
+        /// 리포트 조회
+        /// </summary>
+        [STAThread]
+        private void PS_QM701_Print_Report01()
+        {
+            string WinTitle;
+            string ReportName;
+            string filename;
+            string DocEntry;
+            string Incom_Pic_Path;
+
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+
+            try
+            {
+                DocEntry= oForm.Items.Item("DocEntry").Specific.Value.Trim();
+                filename = "_Out.bmp";
+                Incom_Pic_Path = @"\\191.1.1.220\Incom_Pic\";
+
+                if (System.IO.File.Exists(Incom_Pic_Path + DocEntry + filename))
+                {
+                    if (System.IO.File.Exists(Incom_Pic_Path + "PIC.bmp") == true)
+                    {
+                        System.IO.File.Delete(Incom_Pic_Path + "PIC.bmp");
+                        System.IO.File.Copy(Incom_Pic_Path + DocEntry + filename, Incom_Pic_Path + "PIC.bmp");
+                    }
+                    else
+                    {
+                        System.IO.File.Copy(Incom_Pic_Path + DocEntry + filename, Incom_Pic_Path + "PIC.bmp");
+                    }
+                }
+                else
+                {
+                    System.IO.File.Delete(Incom_Pic_Path + "PIC.bmp");
+                    System.IO.File.Copy(Incom_Pic_Path + "NULL.bmp", Incom_Pic_Path + "PIC.bmp");
+                }
+
+                List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
+                List<PSH_DataPackClass> dataPackSubReportParameter = new List<PSH_DataPackClass>();
+
+                WinTitle = "[PS_QM701] 외주 부적합 자재 통보서";
+                ReportName = "PS_QM702_01.rpt";
+
+                //Parameter
+                dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", DocEntry)); //사업장
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@DocEntry", DocEntry, "PS_QM702_04"));
+                
+                formHelpClass.OpenCrystalReport(dataPackParameter, dataPackSubReportParameter, WinTitle, ReportName);
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("PS_QM701_Print_Report01_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
         }
 
 
@@ -768,6 +849,12 @@ namespace PSH_BOne_AddOn
                             }
                         }
                     }
+                    if (pVal.ItemUID == "btn_Print")
+                    {
+                        System.Threading.Thread thread = new System.Threading.Thread(PS_QM701_Print_Report01);
+                        thread.SetApartmentState(System.Threading.ApartmentState.STA);
+                        thread.Start();
+                    }
                 }
                 else if (pVal.BeforeAction == false)
                 {
@@ -787,7 +874,6 @@ namespace PSH_BOne_AddOn
                         }
                     }
                 }
-                
             }
             catch (System.Exception ex)
             {
@@ -1013,7 +1099,7 @@ namespace PSH_BOne_AddOn
                             }
                             if (pVal.ItemUID == "InCpCode")
                             {
-                                oForm.Items.Item("InCpName").Specific.Value = dataHelpClass.GetValue("SELECT U_CpName FROM [@PS_PP001L] WHERE U_CpCode = '" + oForm.Items.Item("InCpCode").Specific.Value + "'", 0, 1);
+                                oForm.Items.Item("InCpName").Specific.Value = dataHelpClass.GetValue("SELECT U_CodeNm FROM [@PS_QM700L] WHERE Code = 'OutCode' AND U_Code ='" + oForm.Items.Item("InCpCode").Specific.Value + "'", 0, 1);
                             }
                             if (pVal.ItemUID == "KeyDoc")
                             {

@@ -1,8 +1,13 @@
 ﻿using System;
-using SAPbouiCOM;
-using PSH_BOne_AddOn.Data;
 using System.IO;
+using SAPbouiCOM;
+using System.Collections.Generic;
+using PSH_BOne_AddOn.Data;
+using PSH_BOne_AddOn.Code;
+using PSH_BOne_AddOn.DataPack;
+using PSH_BOne_AddOn.Form;
 using Scripting;
+
 
 namespace PSH_BOne_AddOn
 {
@@ -352,6 +357,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_QM703H.SetValue("U_verdict", 0, oRecordSet01.Fields.Item("verdict").Value.ToString().Trim());
                     oDS_PS_QM703H.SetValue("U_Comments", 0, oRecordSet01.Fields.Item("Comments").Value.ToString().Trim());
                     oDS_PS_QM703H.SetValue("U_OutUnit", 0, oRecordSet01.Fields.Item("OutUnit").Value.ToString().Trim());
+                    oDS_PS_QM703H.SetValue("U_cmt", 0, oRecordSet01.Fields.Item("Cmt").Value.ToString().Trim());
                 }
             }
             catch (Exception ex)
@@ -381,6 +387,7 @@ namespace PSH_BOne_AddOn
         {
             bool functionReturnValue = false;
             string errMessage = string.Empty;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -436,6 +443,16 @@ namespace PSH_BOne_AddOn
                     errMessage = "부적합량이 입고량보다 많습니다. 확인해주세요.";
                     throw new Exception();
                 }
+                if (!string.IsNullOrEmpty(oForm.Items.Item("InCpCode").Specific.Value))
+                {
+                    string sQry = "SELECT CoUNT(*) FROM [@PS_QM700L] WHERE Code = 'OutCode' AND U_Code ='" + (oForm.Items.Item("InCpCode").Specific.Value.ToString().Trim()) + "'";
+                    oRecordSet.DoQuery(sQry);
+                    if (oRecordSet.Fields.Item(0).Value == 0)
+                    {
+                        errMessage = "발생공정값을 다시 확인해주세요.";
+                        throw new Exception();
+                    }
+                }
                 functionReturnValue = true;
 
             }
@@ -449,6 +466,10 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
             return functionReturnValue;
         }
@@ -563,6 +584,67 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
             return ReturnValue;
+        }
+
+        /// <summary>
+        /// 리포트 조회
+        /// </summary>
+        [STAThread]
+        private void PS_QM703_Print_Report01()
+        {
+            string WinTitle;
+            string ReportName;
+            string filename;
+            string DocEntry;
+            string Incom_Pic_Path;
+
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+
+            try
+            {
+                DocEntry = oForm.Items.Item("DocEntry").Specific.Value.Trim();
+                filename = "_In.bmp";
+
+                Incom_Pic_Path = @"\\191.1.1.220\Incom_Pic\";
+
+                if (System.IO.File.Exists(Incom_Pic_Path + DocEntry + filename))
+                {
+                    if (System.IO.File.Exists(Incom_Pic_Path + "PIC.bmp") == true)
+                    {
+                        System.IO.File.Delete(Incom_Pic_Path + "PIC.bmp");
+                        System.IO.File.Copy(Incom_Pic_Path + DocEntry + filename, Incom_Pic_Path + "PIC.bmp");
+                    }
+                    else
+                    {
+                        System.IO.File.Copy(Incom_Pic_Path + DocEntry + filename, Incom_Pic_Path + "PIC.bmp");
+                    }
+                }
+                else
+                {
+                    System.IO.File.Delete(Incom_Pic_Path + "PIC.bmp");
+                    System.IO.File.Copy(Incom_Pic_Path + "NULL.bmp", Incom_Pic_Path + "PIC.bmp");
+                }
+
+                List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
+                List<PSH_DataPackClass> dataPackSubReportParameter = new List<PSH_DataPackClass>();
+
+                WinTitle = "[PS_QM703] 자체 부적합 자재 보고서";
+                ReportName = "PS_QM702_02.rpt";
+
+                //Parameter
+                dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", DocEntry)); 
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@DocEntry", DocEntry, "SUB702_06"));
+
+                formHelpClass.OpenCrystalReport(dataPackParameter, dataPackSubReportParameter, WinTitle, ReportName);
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("PS_QM703_Print_Report01_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
         }
 
 
@@ -735,6 +817,12 @@ namespace PSH_BOne_AddOn
                                 oRecordSet.DoQuery(sQry);
                             }
                         }
+                    }
+                    if (pVal.ItemUID == "btn_Print")
+                    {
+                        System.Threading.Thread thread = new System.Threading.Thread(PS_QM703_Print_Report01);
+                        thread.SetApartmentState(System.Threading.ApartmentState.STA);
+                        thread.Start();
                     }
                 }
                 else if (pVal.BeforeAction == false)
@@ -989,7 +1077,7 @@ namespace PSH_BOne_AddOn
                             }
                             if (pVal.ItemUID == "InCpCode")
                             {
-                                oForm.Items.Item("InCpName").Specific.Value = dataHelpClass.GetValue("SELECT U_CdName FROM [@PS_SY001H] AS A INNER JOIN [@PS_SY001L] AS B ON A.Code = B.Code WHERE a.code ='P002'AND U_Minor = '" + oForm.Items.Item("InCpCode").Specific.Value + "'", 0, 1);
+                                oForm.Items.Item("InCpName").Specific.Value = dataHelpClass.GetValue("SELECT U_CodeNm FROM [@PS_QM700L] WHERE Code = 'OutCode' AND U_Code ='" + oForm.Items.Item("InCpCode").Specific.Value + "'", 0, 1);
                             }
                             if (pVal.ItemUID == "WorkNum")
                                 {

@@ -61,11 +61,11 @@ namespace PSH_BOne_AddOn
                 PS_QM700_EnableMenus();
                 PS_QM700_SetDocument(oFromDocEntry01);
 
-                oForm.EnableMenu("1283", true);  //삭제
+                oForm.EnableMenu("1283", false);  //삭제
                 oForm.EnableMenu("1287", false);  //복제
                 oForm.EnableMenu("1286", false); //닫기
                 oForm.EnableMenu("1284", false); //취소
-                oForm.EnableMenu("1293", true);  //행삭제
+                oForm.EnableMenu("1293", false);  //행삭제
             }
             catch (Exception ex)
             {
@@ -126,7 +126,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                dataHelpClass.SetEnableMenus(oForm, false, false, true, true, false, true, true, true, true, false, false, false, false, false, false, false);
+                dataHelpClass.SetEnableMenus(oForm, false, false, true, true, false, false, false, true, true, false, false, false, false, false, false, false);
             }
             catch (Exception ex)
             {

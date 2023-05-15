@@ -213,6 +213,9 @@ namespace PSH_BOne_AddOn
         {
             string DeleteFilePath;
             string errMessage = string.Empty;
+            string sQry;
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
                 oMat01.FlushToDataSource();
@@ -230,6 +233,18 @@ namespace PSH_BOne_AddOn
                         oDS_PS_QM704L.SetValue("U_ColRgL01", pRow - 1, ""); //첨부파일 경로 삭제
                         PSH_Globals.SBO_Application.MessageBox("파일이 삭제되었습니다.");
                     }
+
+                    if (oDS_PS_QM704L.GetValue("U_ColReg01", pRow - 1) == "외주")
+                    {
+                        sQry = "UPDATE [@PS_QM701H] SET U_AttPath ='' WHERE DocEntry ='" + oDS_PS_QM704L.GetValue("U_ColReg02", pRow - 1).Trim() + "'";
+                        oRecordSet01.DoQuery(sQry);
+                    }
+                    else
+                    {
+                        sQry = "UPDATE [@PS_QM703H] SET U_AttPath ='' WHERE DocEntry ='" + oDS_PS_QM704L.GetValue("U_ColReg02", pRow - 1).Trim() + "'";
+                        oRecordSet01.DoQuery(sQry);
+                    }
+
                 }
                 oMat01.LoadFromDataSource();
                 oMat01.AutoResizeColumns();
@@ -244,6 +259,10 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
         }
 
@@ -286,7 +305,7 @@ namespace PSH_BOne_AddOn
                 }
                 oDS_PS_QM704L.SetValue("U_ColRgL01", pRow - 1, SaveFolders + "\\" + sFileName); //첨부파일 경로 등록
 
-                if(oDS_PS_QM704L.GetValue("U_ColReg01", pRow - 1) =="외주")
+                if(oDS_PS_QM704L.GetValue("U_ColReg01", pRow - 1).ToString().Trim() =="외주")
                 {
                     sQry = "UPDATE [@PS_QM701H] SET U_AttPath ='" + oDS_PS_QM704L.GetValue("U_ColRgL01", pRow - 1) + "' WHERE DocEntry ='" + oDS_PS_QM704L.GetValue("U_ColReg02", pRow - 1).Trim() + "'";
                     oRecordSet01.DoQuery(sQry);

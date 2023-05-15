@@ -205,7 +205,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                dataHelpClass.SetEnableMenus(oForm, false, false, true, true, false, true, true, true, true, true, false, false, false, false, false, false);
+                dataHelpClass.SetEnableMenus(oForm, false, false, true, true, false, true, true, true, true, false, false, false, false, false, false, false);
             }
             catch (Exception ex)
             {
@@ -227,7 +227,7 @@ namespace PSH_BOne_AddOn
                     PS_QM703_FormClear();
                     oForm.Items.Item("DocEntry").Enabled = false;
                     oForm.EnableMenu("1281", true);  //찾기
-                    oForm.EnableMenu("1282", false); //추가
+                    oForm.EnableMenu("1282", true); //추가
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
@@ -262,7 +262,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-                if (RowIserted == false)//행추가여부
+                 if (RowIserted == false)//행추가여부
                 {
                     oDS_PS_QM703L.InsertRecord(oRow);
                 }
@@ -1058,11 +1058,14 @@ namespace PSH_BOne_AddOn
                             if (pVal.ColUID == "spec")
                             {
                                 oMat01.FlushToDataSource();
+
                                 if (oMat01.RowCount == pVal.Row && !string.IsNullOrEmpty(oDS_PS_QM703L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
                                 {
                                     PS_QM703_AddMatrixRow(pVal.Row, false);
                                 }
+
                                 oMat01.LoadFromDataSource();
+                                oMat01.AutoResizeColumns();
                             }
                         }
                         else
@@ -1125,7 +1128,6 @@ namespace PSH_BOne_AddOn
                 else if (pVal.BeforeAction == false)
                 {
                     PS_QM703_FormItemEnabled();
-                   //PS_QM703_AddMatrixRow(oMat01.VisualRowCount, false);
                 }
             }
             catch (Exception ex)
@@ -1225,20 +1227,20 @@ namespace PSH_BOne_AddOn
                     switch (pVal.MenuUID)
                     {
                         case "1284": //취소
-                            if (PSH_Globals.SBO_Application.MessageBox("검사등록을 취소하시겠습니까?", 1, "Yes", "No") == 1)
-                            {
-                                if (oForm.Items.Item("ChkYN").Specific.Value.Trim() == "승인" || oForm.Items.Item("Canceled").Specific.Value.Trim() == "Y")
-                                {
-                                    errMessage = "승인되거나 취소된 문서는 수정할수 없습니다.";
-                                    PSH_Globals.SBO_Application.MessageBox(errMessage);
-                                    BubbleEvent = false;
-                                    return;
-                                }
-                            }
-                            else
-                            {
-                                BubbleEvent = false;
-                            }
+                            //if (PSH_Globals.SBO_Application.MessageBox("검사등록을 취소하시겠습니까?", 1, "Yes", "No") == 1)
+                            //{
+                            //    if (oForm.Items.Item("ChkYN").Specific.Value.Trim() == "승인" || oForm.Items.Item("Canceled").Specific.Value.Trim() == "Y")
+                            //    {
+                            //        errMessage = "승인되거나 취소된 문서는 수정할수 없습니다.";
+                            //        PSH_Globals.SBO_Application.MessageBox(errMessage);
+                            //        BubbleEvent = false;
+                            //        return;
+                            //    }
+                            //}
+                            //else
+                            //{
+                            //    BubbleEvent = false;
+                            //}
                             break;
                         case "1286": //닫기
                             break;
@@ -1248,6 +1250,10 @@ namespace PSH_BOne_AddOn
                         case "1281": //찾기
                             break;
                         case "1282": //추가
+                            PS_QM703_ComboBox_Setting();
+                            PS_QM703_EnableMenus();
+                            PS_QM703_FormItemEnabled();
+                            PS_QM703_AddMatrixRow(0, true);
                             break;
                         case "1288": //레코드이동(최초)
                         case "1289": //레코드이동(이전)
@@ -1271,6 +1277,8 @@ namespace PSH_BOne_AddOn
                             PS_QM703_FormItemEnabled(); //UDO방식
                             break;
                         case "1282": //추가
+                            PS_QM703_ComboBox_Setting();
+                            PS_QM703_EnableMenus();
                             PS_QM703_FormItemEnabled();
                             PS_QM703_AddMatrixRow(0, true);
                             break;

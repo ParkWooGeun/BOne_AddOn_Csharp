@@ -223,7 +223,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                dataHelpClass.SetEnableMenus(oForm, false, false, true, true, false, true, true, true, true, true, false, false, false, false, false, false);
+                dataHelpClass.SetEnableMenus(oForm, false, false, true, true, false, true, true, true, true, false, false, false, false, false, false, false);
             }
             catch (Exception ex)
             {
@@ -1254,20 +1254,6 @@ namespace PSH_BOne_AddOn
                     switch (pVal.MenuUID)
                     {
                         case "1284": //취소
-                            if (PSH_Globals.SBO_Application.MessageBox("검사등록을 취소하시겠습니까?", 1, "Yes", "No") == 1)
-                            {
-                                if (oForm.Items.Item("ChkYN").Specific.Value.Trim() == "승인" || oForm.Items.Item("Canceled").Specific.Value.Trim() == "Y")
-                                {
-                                    errMessage = "승인되거나 취소된 문서는 수정할수 없습니다.";
-                                    PSH_Globals.SBO_Application.MessageBox(errMessage);
-                                    BubbleEvent = false;
-                                    return;
-                                }
-                            }
-                            else
-                            {
-                                BubbleEvent = false;
-                            }
                             break;
                         case "1286": //닫기
                             break;

@@ -99,9 +99,6 @@ namespace PSH_BOne_AddOn
                 
                 oForm.Items.Item("InOut").Specific.ValidValues.Add("I", "자체");
                 oForm.Items.Item("InOut").Specific.ValidValues.Add("O", "외주");
-
-                //검사자
-                //oDS_PS_QM703H.SetValue("U_WorkName", 0, dataHelpClass.GetValue("SELECT LastName + FirstName FROM [OHEM] WHERE U_MSTCOD = '" + oForm.Items.Item("WorkCode").Specific.Value + "'", 0, 1));
             }
             catch (Exception ex)
             {
@@ -377,6 +374,53 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
         }
+
+        /// <summary>
+        /// 화면 초기화
+        /// </summary>
+        private void PS_QM703_FormReset()
+        {
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
+            try
+            {
+                oForm.Freeze(true);
+
+                oDS_PS_QM703H.SetValue("U_CLTCOD", 0, dataHelpClass.User_BPLID()); // 사업장
+                oDS_PS_QM703H.SetValue("U_WorkDate", 0, DateTime.Now.ToString("yyyyMMdd"));
+                oDS_PS_QM703H.SetValue("U_KeyDoc", 0, "");
+                oDS_PS_QM703H.SetValue("U_WorkNum", 0, "");
+                oDS_PS_QM703H.SetValue("U_WorkCode", 0, "");
+                oDS_PS_QM703H.SetValue("U_InOut", 0, "");
+                oDS_PS_QM703H.SetValue("U_ItemName", 0, "");
+                oDS_PS_QM703H.SetValue("U_ItemSpec", 0, "");
+                oDS_PS_QM703H.SetValue("U_CardCode", 0, "");
+                oDS_PS_QM703H.SetValue("U_TotalQty", 0, "");
+                oDS_PS_QM703H.SetValue("U_BZZadQty", 0, "");
+                oDS_PS_QM703H.SetValue("U_OutUnit", 0, "");
+                oDS_PS_QM703H.SetValue("U_MSTCOD", 0, "");
+                oDS_PS_QM703H.SetValue("U_BadCode", 0, "");
+                oDS_PS_QM703H.SetValue("U_InCpCode", 0, "");
+                oDS_PS_QM703H.SetValue("U_BadNote", 0, "%");
+                oDS_PS_QM703H.SetValue("U_verdict", 0, "%");
+                oDS_PS_QM703H.SetValue("U_Comments", 0, "");
+                oDS_PS_QM703H.SetValue("U_cmt", 0, "");
+                oDS_PS_QM703H.SetValue("U_ChkYN", 0, "");
+                //라인 초기화
+                oMat01.Clear();
+                oMat01.FlushToDataSource();
+                oMat01.LoadFromDataSource();
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                oForm.Freeze(false);
+            }
+        }
+
 
 
         /// <summary>
@@ -1063,10 +1107,8 @@ namespace PSH_BOne_AddOn
                                 {
                                     PS_QM703_AddMatrixRow(pVal.Row, false);
                                 }
-
-                                oMat01.LoadFromDataSource();
-                                oMat01.AutoResizeColumns();
                             }
+                            oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                         }
                         else
                         {
@@ -1098,6 +1140,8 @@ namespace PSH_BOne_AddOn
                             }
                         }
                     }
+                    oForm.Update();
+                    oMat01.AutoResizeColumns();
                 }
             }
             catch (Exception ex)
@@ -1227,20 +1271,6 @@ namespace PSH_BOne_AddOn
                     switch (pVal.MenuUID)
                     {
                         case "1284": //취소
-                            //if (PSH_Globals.SBO_Application.MessageBox("검사등록을 취소하시겠습니까?", 1, "Yes", "No") == 1)
-                            //{
-                            //    if (oForm.Items.Item("ChkYN").Specific.Value.Trim() == "승인" || oForm.Items.Item("Canceled").Specific.Value.Trim() == "Y")
-                            //    {
-                            //        errMessage = "승인되거나 취소된 문서는 수정할수 없습니다.";
-                            //        PSH_Globals.SBO_Application.MessageBox(errMessage);
-                            //        BubbleEvent = false;
-                            //        return;
-                            //    }
-                            //}
-                            //else
-                            //{
-                            //    BubbleEvent = false;
-                            //}
                             break;
                         case "1286": //닫기
                             break;
@@ -1250,10 +1280,6 @@ namespace PSH_BOne_AddOn
                         case "1281": //찾기
                             break;
                         case "1282": //추가
-                            PS_QM703_ComboBox_Setting();
-                            PS_QM703_EnableMenus();
-                            PS_QM703_FormItemEnabled();
-                            PS_QM703_AddMatrixRow(0, true);
                             break;
                         case "1288": //레코드이동(최초)
                         case "1289": //레코드이동(이전)
@@ -1277,9 +1303,8 @@ namespace PSH_BOne_AddOn
                             PS_QM703_FormItemEnabled(); //UDO방식
                             break;
                         case "1282": //추가
-                            PS_QM703_ComboBox_Setting();
-                            PS_QM703_EnableMenus();
                             PS_QM703_FormItemEnabled();
+                            PS_QM703_FormReset();
                             PS_QM703_AddMatrixRow(0, true);
                             break;
                         case "1288": //레코드이동(최초)

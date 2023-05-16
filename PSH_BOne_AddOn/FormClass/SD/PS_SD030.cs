@@ -1731,6 +1731,10 @@ namespace PSH_BOne_AddOn
                             {
                                 oDS_PS_SD030H.SetValue("U_" + pVal.ItemUID, 0, oForm.Items.Item(pVal.ItemUID).Specific.Value);
                             }
+                            if (pVal.ItemUID == "CardCode")
+                            {
+                                oDS_PS_SD030H.SetValue("U_Comments", 0, dataHelpClass.GetValue("SELECT ISNULL(Notes,'') from OCRD WHERE CardCode = '" + oForm.Items.Item("CardCode").Specific.Value.ToString().Trim() + "'", 0, 1));
+                            }
                         }
                     }
                 }

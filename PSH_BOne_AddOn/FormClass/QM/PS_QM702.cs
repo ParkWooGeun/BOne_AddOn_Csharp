@@ -708,21 +708,21 @@ namespace PSH_BOne_AddOn
                     Raise_EVENT_FORM_UNLOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                    //case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: //18
-                    //    Raise_EVENT_FORM_ACTIVATE(FormUID, ref pVal, ref BubbleEvent);
-                    //    break;
+                //case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: //18
+                //    Raise_EVENT_FORM_ACTIVATE(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
 
-                    //case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE: //19
-                    //    Raise_EVENT_FORM_DEACTIVATE(FormUID, ref pVal, ref BubbleEvent);
-                    //    break;
+                //case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE: //19
+                //    Raise_EVENT_FORM_DEACTIVATE(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
 
-                    //case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE: //20
-                    //    Raise_EVENT_FORM_CLOSE(FormUID, ref pVal, ref BubbleEvent);
-                    //    break;
+                //case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE: //20
+                //    Raise_EVENT_FORM_CLOSE(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
 
-                    //case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
-                    //    Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
-                    //    break;
+                case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
+                    Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
+                    break;
 
                     //case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
                     //    Raise_EVENT_FORM_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
@@ -925,6 +925,117 @@ namespace PSH_BOne_AddOn
             }
             System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet02);
+        }
+
+        /// <summary>
+        /// FormResize
+        /// </summary>
+        private void PS_QM702_FormResize()
+        {
+            try
+            {
+                oForm.Items.Item("oMat01").Top = 26;
+                oForm.Items.Item("oMat01").Left = 10;
+                oForm.Items.Item("oMat01").Height = 185;
+                oForm.Items.Item("oMat01").Width = oForm.Width  - 14;
+
+                oForm.Items.Item("oGrid01").Top = 327;
+                oForm.Items.Item("oGrid01").Left =10;
+                oForm.Items.Item("oGrid01").Height = (oForm.Height / 3 * 2) -  20;
+                oForm.Items.Item("oGrid01").Width = (oForm.Width / 2) - 20;
+
+                oForm.Items.Item("oMat02").Top = 360;
+                oForm.Items.Item("oMat02").Left = (oForm.Width / 2) + 20; ;
+                oForm.Items.Item("oMat02").Height = 323;
+                oForm.Items.Item("oMat02").Width = (oForm.Width / 2) - 120;
+
+                oForm.Items.Item("Item_14").Top = 260;
+                oForm.Items.Item("Item_14").Left = (oForm.Width / 2) ;
+                oForm.Items.Item("Item_14").Height = 15;
+                oForm.Items.Item("Item_14").Width = 80;
+
+                oForm.Items.Item("Item_12").Top = 280;
+                oForm.Items.Item("Item_12").Left = (oForm.Width / 2);
+                oForm.Items.Item("Item_12").Height = 15;
+                oForm.Items.Item("Item_12").Width = 80;
+
+                oForm.Items.Item("Item_17").Top = 296;
+                oForm.Items.Item("Item_17").Left = (oForm.Width / 2) ;
+                oForm.Items.Item("Item_17").Height = 15;
+                oForm.Items.Item("Item_17").Width = 80;
+
+
+                oForm.Items.Item("Item_18").Top = 312;
+                oForm.Items.Item("Item_18").Left = (oForm.Width / 2);
+                oForm.Items.Item("Item_18").Height = 15;
+                oForm.Items.Item("Item_18").Width = 80;
+
+                oForm.Items.Item("SDocEntry").Top = 280;
+                oForm.Items.Item("SDocEntry").Left = (oForm.Width / 2) + 80;
+                oForm.Items.Item("SDocEntry").Height = 15;
+                oForm.Items.Item("SDocEntry").Width = 80;
+
+                oForm.Items.Item("Subject").Top = 296;
+                oForm.Items.Item("Subject").Left = (oForm.Width / 2) + 80;
+                oForm.Items.Item("Subject").Height = 15;
+                oForm.Items.Item("Subject").Width = 250;
+
+
+                oForm.Items.Item("SBody").Top = 312;
+                oForm.Items.Item("SBody").Left = (oForm.Width / 2) + 80;
+                oForm.Items.Item("SBody").Height = 30;
+                oForm.Items.Item("SBody").Width = 250;
+
+                oForm.Items.Item("Item_20").Top = 345;
+                oForm.Items.Item("Item_20").Left = (oForm.Width / 2)+10;
+                oForm.Items.Item("Item_20").Height = 15;
+                oForm.Items.Item("Item_20").Width = 80;
+
+                oForm.Items.Item("Item_2").Top = 280;
+                oForm.Items.Item("Item_2").Left = (oForm.Width / 2) + 180;
+                oForm.Items.Item("Item_2").Height = 15;
+                oForm.Items.Item("Item_2").Width = 60;
+
+                oForm.Items.Item("SGoBun").Top = 280;
+                oForm.Items.Item("SGoBun").Left = (oForm.Width / 2) + 240;
+                oForm.Items.Item("SGoBun").Height = 15;
+                oForm.Items.Item("SGoBun").Width = 80;
+
+
+                oMat01.AutoResizeColumns();
+                oMat02.AutoResizeColumns();
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+        }
+
+        /// <summary>
+        /// FORM_RESIZE 이벤트
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_FORM_RESIZE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            try
+            {
+                if (pVal.Before_Action == true)
+                {
+                }
+                else if (pVal.Before_Action == false)
+                {
+                    PS_QM702_FormResize();
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
         }
         /// <summary>
         /// Raise_EVENT_KEY_DOWN

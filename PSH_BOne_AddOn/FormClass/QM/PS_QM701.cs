@@ -244,9 +244,6 @@ namespace PSH_BOne_AddOn
                 {
                     PS_QM701_FormClear();
                     oForm.Items.Item("DocEntry").Enabled = false;
-                    oForm.Items.Item("TotalQty").Enabled = true;
-                    oForm.Items.Item("BZZadQty").Enabled = true;
-                    oForm.Items.Item("OutUnit").Enabled = true;
                     oForm.Items.Item("OrdDate").Enabled = true;
                     oForm.Items.Item("BadCode").Enabled = true;
                     oForm.Items.Item("InCpCode").Enabled = true;
@@ -263,9 +260,6 @@ namespace PSH_BOne_AddOn
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
                     oForm.Items.Item("DocEntry").Enabled = true;
-                    oForm.Items.Item("TotalQty").Enabled = false;
-                    oForm.Items.Item("BZZadQty").Enabled = false;
-                    oForm.Items.Item("OutUnit").Enabled = false;
                     oForm.Items.Item("OrdDate").Enabled = false;
                     oForm.Items.Item("BadCode").Enabled = false;
                     oForm.Items.Item("InCpCode").Enabled = false;
@@ -280,9 +274,6 @@ namespace PSH_BOne_AddOn
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
                     oForm.Items.Item("DocEntry").Enabled = false;
-                    oForm.Items.Item("TotalQty").Enabled = true;
-                    oForm.Items.Item("BZZadQty").Enabled = true;
-                    oForm.Items.Item("OutUnit").Enabled = true;
                     oForm.Items.Item("OrdDate").Enabled = true;
                     oForm.Items.Item("BadCode").Enabled = true;
                     oForm.Items.Item("InCpCode").Enabled = true;
@@ -554,8 +545,7 @@ namespace PSH_BOne_AddOn
                     errMessage = "검수입고 문서가 선택되지않았습니다.. 다시확인해주세요.";
                     throw new Exception();
                 }
-                int result = string.Compare(oForm.Items.Item("BZZadQty").Specific.Value, oForm.Items.Item("TotalQty").Specific.Value);
-                if (result == 1)
+                if (float.Parse(oForm.Items.Item("BZZadQty").Specific.Value) > float.Parse(oForm.Items.Item("TotalQty").Specific.Value))
                 {
                     errMessage = "부적합량이 입고량보다 많습니다. 확인해주세요.";
                     throw new Exception();

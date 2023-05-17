@@ -481,8 +481,7 @@ namespace PSH_BOne_AddOn
                     errMessage = "도면번호가 선택되지않았습니다. 확인해주세요.";
                     throw new Exception();
                 }
-                int result = string.Compare(oForm.Items.Item("BZZadQty").Specific.Value, oForm.Items.Item("TotalQty").Specific.Value);
-                if (result == 1)
+                if (float.Parse(oForm.Items.Item("BZZadQty").Specific.Value) > float.Parse(oForm.Items.Item("TotalQty").Specific.Value))
                 {
                     errMessage = "부적합량이 입고량보다 많습니다. 확인해주세요.";
                     throw new Exception();

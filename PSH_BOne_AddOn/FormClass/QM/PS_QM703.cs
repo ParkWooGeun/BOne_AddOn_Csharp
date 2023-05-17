@@ -96,7 +96,6 @@ namespace PSH_BOne_AddOn
 
                 oDS_PS_QM703H.SetValue("U_WorkDate", 0, DateTime.Now.ToString("yyyyMMdd"));
                 //내주외주
-                
                 oForm.Items.Item("InOut").Specific.ValidValues.Add("I", "자체");
                 oForm.Items.Item("InOut").Specific.ValidValues.Add("O", "외주");
             }
@@ -327,7 +326,6 @@ namespace PSH_BOne_AddOn
                         errMessage = "추가를 먼저 누르신 뒤 사진을 등록해주세요.";
                         throw new Exception();
                     }
-
                     oDS_PS_QM703H.SetValue("U_Pic", 0, "");
                     oDS_PS_QM703H.SetValue("U_Pic", 0, "\\\\191.1.1.220\\Incom_Pic\\" + oRecordSet01.Fields.Item("DocEntry").Value.ToString().Trim() + "_In.BMP");
                     oDS_PS_QM703H.SetValue("DocEntry", 0, oRecordSet01.Fields.Item("DocEntry").Value.ToString().Trim());
@@ -385,7 +383,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
-
                 oDS_PS_QM703H.SetValue("U_CLTCOD", 0, dataHelpClass.User_BPLID()); // 사업장
                 oDS_PS_QM703H.SetValue("U_WorkDate", 0, DateTime.Now.ToString("yyyyMMdd"));
                 oDS_PS_QM703H.SetValue("U_KeyDoc", 0, "");
@@ -421,8 +418,6 @@ namespace PSH_BOne_AddOn
             }
         }
 
-
-
         /// <summary>
         /// 필수 사항 check
         /// </summary>
@@ -440,31 +435,26 @@ namespace PSH_BOne_AddOn
                     errMessage = "불량원인을 선택하세요.";
                     throw new Exception();
                 }
-
                 if (oForm.Items.Item("verdict").Specific.Value.ToString().Trim() == "%")
                 {
                     errMessage = "판정의견을 선택하세요.";
                     throw new Exception();
                 }
-
                 if (string.IsNullOrEmpty(oForm.Items.Item("WorkName").Specific.Value))
                 {
                     errMessage = "검사자가 입력되지 않았습니다.";
                     throw new Exception();
                 }
-
                 if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.Value))
                 {
                     errMessage = "결재자가 입력되지 않았습니다.";
                     throw new Exception();
                 }
-
                 if (string.IsNullOrEmpty(oForm.Items.Item("WorkDate").Specific.Value))
                 {
                     errMessage = "검사일자가 입력되지 않았습니다.";
                     throw new Exception();
                 }
-
                 if (string.IsNullOrEmpty(oForm.Items.Item("WorkNum").Specific.Value))
                 {
                     errMessage = "작업번호 입력되지 않았습니다.";
@@ -475,7 +465,6 @@ namespace PSH_BOne_AddOn
                     errMessage = "부적합량 입력되지 않았습니다.";
                     throw new Exception();
                 }
-              
                 if (string.IsNullOrEmpty(oForm.Items.Item("KeyDoc").Specific.Value))
                 {
                     errMessage = "도면번호가 선택되지않았습니다. 확인해주세요.";
@@ -497,7 +486,6 @@ namespace PSH_BOne_AddOn
                     }
                 }
                 functionReturnValue = true;
-
             }
             catch (Exception ex)
             {
@@ -648,7 +636,6 @@ namespace PSH_BOne_AddOn
             {
                 DocEntry = oForm.Items.Item("DocEntry").Specific.Value.Trim();
                 filename = "_In.bmp";
-
                 Incom_Pic_Path = @"\\191.1.1.220\Incom_Pic\";
 
                 if (System.IO.File.Exists(Incom_Pic_Path + DocEntry + filename))
@@ -689,7 +676,6 @@ namespace PSH_BOne_AddOn
             {
             }
         }
-
 
         /// <summary>
         /// Form Item Event
@@ -1195,7 +1181,6 @@ namespace PSH_BOne_AddOn
                 else if (pVal.Before_Action == false)
                 {
                     SubMain.Remove_Forms(oFormUniqueID);
-
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oForm);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oMat01);
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(oDS_PS_QM703H);

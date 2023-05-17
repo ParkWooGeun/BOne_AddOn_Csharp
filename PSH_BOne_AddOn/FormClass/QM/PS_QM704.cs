@@ -75,16 +75,12 @@ namespace PSH_BOne_AddOn
         {
             try
             {
-                //oForm.Freeze(true);
-                
                 oGrid01 = oForm.Items.Item("Grid01").Specific;
-
                 oForm.DataSources.DataTables.Add("PS_QM704H");
                 oGrid01.DataTable = oForm.DataSources.DataTables.Item("PS_QM704H");
                 oDS_PS_QM704H = oForm.DataSources.DataTables.Item("PS_QM704H");
 
                 oDS_PS_QM704L = oForm.DataSources.DBDataSources.Item("@PS_USERDS01");
-                // 메트릭스 개체 할당
                 oMat01 = oForm.Items.Item("oMat01").Specific;
                 oMat01.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_NotSupported;
                 oMat01.AutoResizeColumns();
@@ -104,7 +100,6 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                //oForm.Freeze(false);
             }
         }
 
@@ -143,7 +138,6 @@ namespace PSH_BOne_AddOn
         private void PS_QM704_EnableMenus()
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
             try
             {
                 oForm.EnableMenu("1283", false);                // 삭제
@@ -171,12 +165,8 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                //oForm.Freeze(true);
-                
                 dataHelpClass.Set_ComboList((oForm.Items.Item("BPLId").Specific), "SELECT BPLId, BPLName From [OBPL] order by 1", "", false, false);
                 oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
-
-
                 oForm.Items.Item("InOut").Specific.ValidValues.Add("I", "자체");
                 oForm.Items.Item("InOut").Specific.ValidValues.Add("O", "외주");
                 oForm.Items.Item("InOut").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
@@ -202,7 +192,6 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
-                //oForm.Freeze(false);
             }
         }
 
@@ -233,7 +222,6 @@ namespace PSH_BOne_AddOn
                         oDS_PS_QM704L.SetValue("U_ColRgL01", pRow - 1, ""); //첨부파일 경로 삭제
                         PSH_Globals.SBO_Application.MessageBox("파일이 삭제되었습니다.");
                     }
-
                     if (oDS_PS_QM704L.GetValue("U_ColReg01", pRow - 1) == "외주")
                     {
                         sQry = "UPDATE [@PS_QM701H] SET U_AttPath ='' WHERE DocEntry ='" + oDS_PS_QM704L.GetValue("U_ColReg02", pRow - 1).Trim() + "'";
@@ -244,7 +232,6 @@ namespace PSH_BOne_AddOn
                         sQry = "UPDATE [@PS_QM703H] SET U_AttPath ='' WHERE DocEntry ='" + oDS_PS_QM704L.GetValue("U_ColReg02", pRow - 1).Trim() + "'";
                         oRecordSet01.DoQuery(sQry);
                     }
-
                 }
                 oMat01.LoadFromDataSource();
                 oMat01.AutoResizeColumns();
@@ -320,9 +307,8 @@ namespace PSH_BOne_AddOn
                 oMat01.AutoResizeColumns();
 
                 System.IO.File.Copy(sourceFile, targetFile, true); //파일 복사 (여기서 오류발생)
-
                 PSH_Globals.SBO_Application.MessageBox("업로드 되었습니다.");
-                           }
+            }
             catch (Exception ex)
             {
                 if (errMessage != string.Empty)
@@ -366,7 +352,6 @@ namespace PSH_BOne_AddOn
             thread.SetApartmentState(System.Threading.ApartmentState.STA);
             thread.Start();
             thread.Join();
-
             return returnFileName;
         }
 
@@ -381,9 +366,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 oMat01.FlushToDataSource();
-
                 AttachPath = oDS_PS_QM704L.GetValue("U_ColRgL01", pRow - 1).ToString().Trim();
-
                 if (string.IsNullOrEmpty(AttachPath))
                 {
                     PSH_Globals.SBO_Application.MessageBox("첨부파일이 없습니다.");
@@ -409,7 +392,6 @@ namespace PSH_BOne_AddOn
                 }
             }
         }
-
 
         /// <summary>
         /// PS_QM704_MTX01
@@ -819,9 +801,6 @@ namespace PSH_BOne_AddOn
 
                 oForm.Items.Item("oMat01").Top = (oForm.Height / 3) * 2 + 100;
                 oForm.Items.Item("oMat01").Left = 7;
-                //oForm.Items.Item("oMat01").Height = (oForm.Height / 5);
-                //oForm.Items.Item("oMat01").Width = (oForm.Width);
-
             }
             catch (Exception ex)
             {

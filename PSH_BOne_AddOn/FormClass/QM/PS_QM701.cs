@@ -65,7 +65,6 @@ namespace PSH_BOne_AddOn
                 PS_QM701_ComboBox_Setting();
                 PS_QM701_EnableMenus();
                 PS_QM701_SetDocument(oFromDocEntry01);
-
             }
             catch (Exception ex)
             {
@@ -100,7 +99,6 @@ namespace PSH_BOne_AddOn
                 //내주외주
                 oForm.Items.Item("InOut").Specific.ValidValues.Add("I", "자체");
                 oForm.Items.Item("InOut").Specific.ValidValues.Add("O", "외주");
-
                 //검사자
                 oDS_PS_QM701H.SetValue("U_WorkName", 0, dataHelpClass.GetValue("SELECT LastName + FirstName FROM [OHEM] WHERE U_MSTCOD = '" + oForm.Items.Item("WorkCode").Specific.Value + "'", 0, 1));
             }
@@ -181,8 +179,6 @@ namespace PSH_BOne_AddOn
                     oRecordSet.MoveNext();
                 }
                 oForm.Items.Item("verdict").Specific.Select("%", SAPbouiCOM.BoSearchKey.psk_ByValue);
-
-
             }
             catch (Exception ex)
             {
@@ -220,7 +216,6 @@ namespace PSH_BOne_AddOn
         private void PS_QM701_EnableMenus()
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
             try
             {
                 dataHelpClass.SetEnableMenus(oForm, false, false, true, true, false, true, true, true, true, false, false, false, false, false, false, false);
@@ -252,10 +247,8 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("verdict").Enabled = true;
                     oForm.Items.Item("Comments").Enabled = true;
                     oForm.Items.Item("cmt").Enabled = true;
-
                     oForm.EnableMenu("1281", true);  //찾기
                     oForm.EnableMenu("1282", false); //추가
-
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
@@ -302,11 +295,9 @@ namespace PSH_BOne_AddOn
         private void PS_QM701_FormReset()
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
             try
             {
                 oForm.Freeze(true);
-
                 oDS_PS_QM701H.SetValue("U_CLTCOD", 0, dataHelpClass.User_BPLID()); // 사업장
                 oDS_PS_QM701H.SetValue("U_WorkDate", 0, DateTime.Now.ToString("yyyyMMdd"));                               
                 oDS_PS_QM701H.SetValue("U_KeyDoc", 0, "");                                 
@@ -424,7 +415,6 @@ namespace PSH_BOne_AddOn
                         errMessage = "추가를 먼저 누르신 뒤 사진을 등록해주세요.";
                         throw new Exception();
                     }
-
                     oDS_PS_QM701H.SetValue("U_Pic", 0, "");
                     oDS_PS_QM701H.SetValue("U_Pic", 0, "\\\\191.1.1.220\\Incom_Pic\\" + oRecordSet.Fields.Item("DocEntry").Value.ToString().Trim() + "_Out.BMP");
                     oDS_PS_QM701H.SetValue("DocEntry", 0, oRecordSet.Fields.Item("DocEntry").Value.ToString().Trim());
@@ -494,31 +484,26 @@ namespace PSH_BOne_AddOn
                     errMessage = "불량원인을 선택하세요.";
                     throw new Exception();
                 }
-
                 if (oForm.Items.Item("verdict").Specific.Value.ToString().Trim() == "%")
                 {
                     errMessage = "판정의견을 선택하세요.";
                     throw new Exception();
                 }
-
                 if (string.IsNullOrEmpty(oForm.Items.Item("WorkName").Specific.Value))
                 {
                     errMessage = "검사자가 입력되지 않았습니다.";
                     throw new Exception();
                 }
-
                 if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.Value))
                 {
                     errMessage = "결재자가 입력되지 않았습니다.";
                     throw new Exception();
                 }
-
                 if (string.IsNullOrEmpty(oForm.Items.Item("WorkDate").Specific.Value))
                 {
                     errMessage = "검사일자가 입력되지 않았습니다.";
                     throw new Exception();
                 }
-
                 if (string.IsNullOrEmpty(oForm.Items.Item("WorkNum").Specific.Value))
                 {
                     errMessage = "작업번호 입력되지 않았습니다.";
@@ -707,7 +692,6 @@ namespace PSH_BOne_AddOn
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
-
             try
             {
                 DocEntry= oForm.Items.Item("DocEntry").Specific.Value.Trim();
@@ -1233,7 +1217,6 @@ namespace PSH_BOne_AddOn
                 else if (pVal.BeforeAction == false)
                 {
                     PS_QM701_FormItemEnabled();
-                    //PS_QM701_AddMatrixRow(oMat01.VisualRowCount, false);
                 }
             }
             catch (Exception ex)

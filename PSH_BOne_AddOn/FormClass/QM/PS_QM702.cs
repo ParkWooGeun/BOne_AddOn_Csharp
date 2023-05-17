@@ -64,7 +64,6 @@ namespace PSH_BOne_AddOn
 
                 oForm.SupportedModes = -1;
                 oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
-                //oForm.DataBrowser.BrowseBy = "DocEntry";
 
                 oForm.Freeze(true);
                 PS_QM702_CreateItems();
@@ -513,11 +512,9 @@ namespace PSH_BOne_AddOn
                 //Parameter
                 dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", p_DocEntry));
 
-
                 Main_Folder = @"C:\PSH_부적합전송";
                 Dir_Exists(Main_Folder);
                 ExportString = Main_Folder + @"\" + "풍산홀딩스부적합보고서" +p_Gobun + p_DocEntry + ".pdf";
-
                 
                 if (p_Gobun == "외주")
                 {
@@ -1000,7 +997,6 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("SGoBun").Left = (oForm.Width / 2) + 240;
                 oForm.Items.Item("SGoBun").Height = 15;
                 oForm.Items.Item("SGoBun").Width = 80;
-
 
                 oMat01.AutoResizeColumns();
                 oMat02.AutoResizeColumns();

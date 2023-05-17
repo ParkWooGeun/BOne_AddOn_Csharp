@@ -60,8 +60,6 @@ namespace PSH_BOne_AddOn
                 PS_QM700_ComboBox_Setting();
                 PS_QM700_EnableMenus();
                 PS_QM700_SetDocument(oFromDocEntry01);
-
-                
             }
             catch (Exception ex)
             {
@@ -128,7 +126,6 @@ namespace PSH_BOne_AddOn
                 oForm.EnableMenu("1286", true); //닫기
                 oForm.EnableMenu("1284", false); //취소
                 oForm.EnableMenu("1293", false);  //행삭제
-
             }
             catch (Exception ex)
             {
@@ -248,32 +245,6 @@ namespace PSH_BOne_AddOn
             }
         }
 
-        ///// <summary>
-        ///// DocEntry 초기화
-        ///// </summary>
-        //private void PS_QM700_FormClear()
-        //{
-        //    string DocEntry;
-        //    PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
-        //    try
-        //    {
-        //        DocEntry = dataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PS_QM700'", "");
-        //        if (string.IsNullOrEmpty(DocEntry) || DocEntry == "0")
-        //        {
-        //            oForm.Items.Item("DocEntry").Specific.Value = 1;
-        //        }
-        //        else
-        //        {
-        //            oForm.Items.Item("DocEntry").Specific.Value = DocEntry;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-        //    }
-        //}
-
         /// <summary>
         /// 필수 사항 check
         /// </summary>
@@ -290,7 +261,6 @@ namespace PSH_BOne_AddOn
             {
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
-                    //PS_QM700_FormClear();
                 }
 
                 if (string.IsNullOrEmpty(oForm.Items.Item("Name").Specific.Value))
@@ -316,14 +286,12 @@ namespace PSH_BOne_AddOn
                         throw new Exception();
                     }
                 }
-
                 oMat.FlushToDataSource();
                 oDS_PS_QM700L.RemoveRecord(oDS_PS_QM700L.Size - 1);
                 oMat.LoadFromDataSource();
 
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
-                    //PS_QM700_FormClear();
                 }
                 functionReturnValue = true;
             }
@@ -581,7 +549,6 @@ namespace PSH_BOne_AddOn
                             oLastItemUID01 = pVal.ItemUID;
                             oLastColUID01 = pVal.ColUID;
                             oLastColRow01 = pVal.Row;
-
                             oMat.SelectRow(pVal.Row, true, false);
                         }
                     }
@@ -662,8 +629,6 @@ namespace PSH_BOne_AddOn
                                 }
                                 oMat.LoadFromDataSource();
                             }
-                            //oMat.Columns.Item("UseYN").Cells.Item(pVal.Row).Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-                            //oMat.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                         }
                     }
                 }

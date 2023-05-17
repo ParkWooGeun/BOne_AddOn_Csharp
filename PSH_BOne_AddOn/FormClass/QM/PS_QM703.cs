@@ -233,7 +233,43 @@ namespace PSH_BOne_AddOn
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
-                    oForm.Items.Item("DocEntry").Enabled = false;
+                    if (oForm.Items.Item("ChkYN").Specific.Value.Trim() == "승인" || oForm.Items.Item("Canceled").Specific.Value.Trim() == "Y")
+                    {
+                        oForm.Items.Item("CLTCOD").Enabled = false;
+                        oForm.Items.Item("WorkDate").Enabled = false;
+                        oForm.Items.Item("WorkNum").Enabled = false;
+                        oForm.Items.Item("KeyDoc").Enabled = false;
+                        oForm.Items.Item("WorkCode").Enabled = false;
+                        oForm.Items.Item("MSTCOD").Enabled = false;
+                        oForm.Items.Item("BZZadQty").Enabled = false;
+                        oForm.Items.Item("oMat01").Enabled = false;
+
+                        oForm.Items.Item("DocEntry").Enabled = false;
+                        oForm.Items.Item("BadCode").Enabled = false;
+                        oForm.Items.Item("InCpCode").Enabled = false;
+                        oForm.Items.Item("BadNote").Enabled = false;
+                        oForm.Items.Item("verdict").Enabled = false;
+                        oForm.Items.Item("Comments").Enabled = false;
+                        oForm.Items.Item("cmt").Enabled = false;
+                    }
+                    else
+                    {
+                        oForm.Items.Item("CLTCOD").Enabled = true;
+                        oForm.Items.Item("WorkDate").Enabled = true;
+                        oForm.Items.Item("KeyDoc").Enabled = true;
+                        oForm.Items.Item("WorkCode").Enabled = true;
+                        oForm.Items.Item("MSTCOD").Enabled = true;
+                        oForm.Items.Item("oMat01").Enabled = true;
+                        oForm.Items.Item("BZZadQty").Enabled = true;
+
+                        oForm.Items.Item("DocEntry").Enabled = false;
+                        oForm.Items.Item("BadCode").Enabled = true;
+                        oForm.Items.Item("InCpCode").Enabled = true;
+                        oForm.Items.Item("BadNote").Enabled = true;
+                        oForm.Items.Item("verdict").Enabled = true;
+                        oForm.Items.Item("Comments").Enabled = true;
+                        oForm.Items.Item("cmt").Enabled = true;
+                    }
                     oForm.EnableMenu("1281", true); //찾기
                     oForm.EnableMenu("1282", true);  //추가
                 }
@@ -974,19 +1010,30 @@ namespace PSH_BOne_AddOn
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
+            string errMessage = string.Empty;
             try
             {
                 if (pVal.BeforeAction == true)
                 {
                     if (pVal.ItemUID == "Pic")
                     {
-                        if (PS_QM703_LoadPic(pVal.ItemUID) == true)
+                        if (oForm.Items.Item("ChkYN").Specific.Value.Trim() == "승인" || oForm.Items.Item("Canceled").Specific.Value.Trim() == "Y")
                         {
-                            //oDS_PS_QM703H.SetValue("U_Pic", 0, "\\\\191.1.1.220\\Incom_Pic\\" +  oForm.Items.Item("DocEntry").Specific.Value + ".BMP");
-                            PS_QM703_DisplayFixData(oForm.Items.Item("DocEntry").Specific.Value);
+                            errMessage = "승인되거나 취소된 문서는 수정할수 없습니다.";
+                            PSH_Globals.SBO_Application.MessageBox(errMessage);
                             BubbleEvent = false;
+                            return;
                         }
+                        else
+                        {
+                            if (PS_QM703_LoadPic(pVal.ItemUID) == true)
+                            {
+                                //oDS_PS_QM703H.SetValue("U_Pic", 0, "\\\\191.1.1.220\\Incom_Pic\\" +  oForm.Items.Item("DocEntry").Specific.Value + ".BMP");
+                                PS_QM703_DisplayFixData(oForm.Items.Item("DocEntry").Specific.Value);
+                                BubbleEvent = false;
+                            }
+                        }
+                        
                     }
                 }
             }

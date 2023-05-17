@@ -573,57 +573,6 @@ namespace PSH_BOne_AddOn
             }
             return ReturnValue;
         }
-
-
-        /// <summary>
-        /// report_print_035
-        /// </summary>
-        /// <param name="">문서번호</param>
-        /// <returns></returns>
-        private bool report_printlist_035()
-        {
-            bool ReturnValue = false;
-            string WinTitle;
-            string ReportName;
-            string CLTCOD;
-            string UseCar;
-            string FrDate;
-            string ToDate;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-            PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
-
-            try
-            {
-
-                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
-                UseCar = oForm.Items.Item("UseCarCd").Specific.Value.ToString().Trim();
-                FrDate = oForm.Items.Item("FrDate").Specific.Value.ToString().Trim();
-                ToDate = oForm.Items.Item("ToDate").Specific.Value.ToString().Trim();
-
-
-                WinTitle = "[PH_PY035] 배차List";
-                ReportName = "PH_PY035_02.rpt";
-
-                List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
-
-                //Parameter
-                dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD)); //
-                dataPackParameter.Add(new PSH_DataPackClass("@UseCar", UseCar)); //사업장
-                dataPackParameter.Add(new PSH_DataPackClass("@FrDate", FrDate));
-                dataPackParameter.Add(new PSH_DataPackClass("@ToDate", ToDate));
-
-                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
-            }
-            catch (System.Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText("report_print_035_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-            return ReturnValue;
-        }
-
         /// <summary>
         /// 화면의 아이템 Enable 설정
         /// </summary>
@@ -1284,13 +1233,7 @@ namespace PSH_BOne_AddOn
                         PH_PY035_LoadCaption();
                         PH_PY035_FormItemEnabled();
                     }
-                    if (pVal.ItemUID == "btn_list")
-                    {
-                        report_printlist_035();
-                    }
                 }
-                
-
                 else if (pVal.BeforeAction == false)
                 {
                     if (pVal.ItemUID == "1")

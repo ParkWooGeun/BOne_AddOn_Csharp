@@ -2964,10 +2964,10 @@ namespace PSH_BOne_AddOn
                                                     
                                                     RecordSet01.DoQuery(sQry);
 
-                                                    sQry1 = " SELECT COUNT(*) FROM [@PS_SY005H] A INNER JOIN [@PS_SY005L] B ON A.Code = B.Code WHERE A.Code ='PP041' AND B.U_UseYN ='Y'";
-                                                    sQry1 += " AND B.U_USERID = '" + PSH_Globals.oCompany.UserName +"'";
+                                                    sQry1 = " SELECT COUNT(*) from [@PS_SY001H] A INNER JOIN [@PS_SY001L] B ON A.Code=B.Code WHERE A.Code = 'PP041' AND B.U_UseYN ='Y'";
+                                                    sQry1 += " AND B.U_Minor = '" + PSH_Globals.oCompany.UserName +"'";
                                                     RecordSet02.DoQuery(sQry1);
-                                                    if(RecordSet02.Fields.Item(0).Value == 0) //PS_SY005(마스터승인권한) 화면 참조해서 조건예외로 스크랩처리
+                                                    if(RecordSet02.Fields.Item(0).Value == 0) //PS_SY001(시스템코드등록) 화면 참조해서 조건예외로 스크랩처리(이승훈과장요청) BY PWG 2023.05.10
                                                     {
                                                         if (RecordSet01.Fields.Item(0).Value == 0)
                                                         {

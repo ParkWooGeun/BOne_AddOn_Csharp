@@ -402,6 +402,11 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.StatusBar.SetText("AG열 세번째 행 타이틀은 건강", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     throw new Exception();
                 }
+                if (Convert.ToString(t[34].Value) != "요양환급금이자")
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("AH열 세번째 행 타이틀은 건강", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                    throw new Exception();
+                }
                 //프로그레스 바
                 ProgressBar01.Text = "데이터 읽는중...!";
 
@@ -451,15 +456,17 @@ namespace PSH_BOne_AddOn
                         
                         oDS_PH_PY901B.SetValue("U_SAmt2", oDS_PH_PY901B.Size - 1, Convert.ToString(r[32].Value));
                         oDS_PH_PY901B.SetValue("U_SAmt3", oDS_PH_PY901B.Size - 1, Convert.ToString(r[33].Value));
+                        oDS_PH_PY901B.SetValue("U_SAmt4", oDS_PH_PY901B.Size - 1, Convert.ToString(r[34].Value));
+
                         if (Convert.ToString(r[14].Value) == "74")
                         {
                             oDS_PH_PY901B.SetValue("U_SAmt1", oDS_PH_PY901B.Size - 1, Convert.ToString(r[30].Value));
-                            oDS_PH_PY901B.SetValue("U_Amt", oDS_PH_PY901B.Size - 1, Convert.ToString(Convert.ToInt32(r[30].Value) + Convert.ToInt32(r[32].Value) + Convert.ToInt32(r[33].Value)));
+                            oDS_PH_PY901B.SetValue("U_Amt", oDS_PH_PY901B.Size - 1, Convert.ToString(Convert.ToInt32(r[30].Value) + Convert.ToInt32(r[32].Value) + Convert.ToInt32(r[33].Value) + Convert.ToInt32(r[34].Value)));
                         }
                         else
                         {
                             oDS_PH_PY901B.SetValue("U_SAmt1", oDS_PH_PY901B.Size - 1, "0");
-                            oDS_PH_PY901B.SetValue("U_Amt", oDS_PH_PY901B.Size - 1, Convert.ToString(Convert.ToInt32(r[32].Value) + Convert.ToInt32(r[33].Value)));
+                            oDS_PH_PY901B.SetValue("U_Amt", oDS_PH_PY901B.Size - 1, Convert.ToString(Convert.ToInt32(r[32].Value) + Convert.ToInt32(r[33].Value) + Convert.ToInt32(r[34].Value)));
                         }
                         cnt++;
                     }

@@ -395,7 +395,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("DocDate").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     throw new Exception();
                 }
-                else if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BWhsCode").Specific.Value.ToString().Trim().Substring(2,1), oForm.Items.Item("DocDate").Specific.Value.ToString().Trim().Substring(0, 6)) == false)
+                else if (dataHelpClass.Check_Finish_Status(oForm.Items.Item("BWhsCode").Specific.Value.ToString().Trim().Substring(2, 1), oForm.Items.Item("DocDate").Specific.Value.ToString().Trim().Substring(0, 6)) == false)
                 {
                     oForm.Items.Item("DocDate").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     errMessage = "마감상태가 잠금입니다. 해당 일자로 등록할 수 없습니다. 작성일자를 확인하고, 회계부서로 문의하세요.";
@@ -1345,7 +1345,7 @@ namespace PSH_BOne_AddOn
                     oDIObject.DocDate = Convert.ToDateTime(dataHelpClass.ConvertDateType(oForm.Items.Item("DocDate").Specific.Value, "-"));
                 }
 
-                oDIObject.UserFields.Fields.Item("Comments").Value = "PS_MM180: 문서번호 " + oForm.Items.Item("DocEntry").Specific.Value + " 입고";
+                oDIObject.UserFields.Fields.Item("Comments").Value = "애드온 입고 (" + oForm.Items.Item("DocEntry").Specific.Value + ") 입고_PS_MM180";
 
                 for (i = 0; i < itemInfoList.Count; i++)
                 {

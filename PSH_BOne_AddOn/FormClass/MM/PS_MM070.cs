@@ -939,7 +939,7 @@ namespace PSH_BOne_AddOn
         {
             bool returnValue = false;
             int i;
-            int j;
+            int j = 0;
             int errCode;
             int RetVal;
             int Line_Count;
@@ -999,7 +999,7 @@ namespace PSH_BOne_AddOn
                                 {
                                     DI_oPurchaseDeliveryNotes.Lines.Add();
                                 }
-                                DI_oPurchaseDeliveryNotes.Lines.SetCurrentLine(i);
+                                DI_oPurchaseDeliveryNotes.Lines.SetCurrentLine(j);
 
                                 //외화처리 기능 구헌(2020.04.06 송명규)_S
                                 if (oDS_PS_MM070L.GetValue("U_DocCur", 0).ToString().Trim() == "KRW")
@@ -1045,6 +1045,7 @@ namespace PSH_BOne_AddOn
                                 DI_oPurchaseDeliveryNotes.Lines.UserFields.Fields.Item("U_Payment").Value = (oRecordSet01.Fields.Item("U_Payment").Value);
 
                                 Line_Count += 1;
+                                j++;
                             }
                         }
                         else
@@ -1064,7 +1065,7 @@ namespace PSH_BOne_AddOn
                                     DI_oPurchaseDeliveryNotes.Lines.Add();
                                 }
                             
-                                DI_oPurchaseDeliveryNotes.Lines.SetCurrentLine(i);
+                                DI_oPurchaseDeliveryNotes.Lines.SetCurrentLine(j);
                                 DI_oPurchaseDeliveryNotes.Lines.ItemCode = oDS_PS_MM070L.GetValue("U_ItemCode", i).ToString().Trim();
                                 DI_oPurchaseDeliveryNotes.Lines.Quantity = Convert.ToDouble(oDS_PS_MM070L.GetValue("U_RealWt", i).ToString().Trim());
                                 DI_oPurchaseDeliveryNotes.Lines.DiscountPercent = 100 - (Convert.ToDouble(oDS_PS_MM070L.GetValue("U_LinTotal", i).ToString().Trim()) / (Convert.ToDouble(oDS_PS_MM070L.GetValue("U_RealWt", i).ToString().Trim()) * Convert.ToDouble(oDS_PS_MM070L.GetValue("U_Price", i).ToString().Trim())) * 100);
@@ -1103,6 +1104,7 @@ namespace PSH_BOne_AddOn
 
                                 DI_oPurchaseDeliveryNotes.Lines.UserFields.Fields.Item("U_Payment").Value = oRecordSet01.Fields.Item("U_Payment").Value.ToString().Trim();
                                 Line_Count += 1;
+                                j++;
                             }
                         }
                         

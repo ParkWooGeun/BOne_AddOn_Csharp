@@ -2399,6 +2399,7 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PH_PY900_01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PH_PY035_01.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_MM035_01.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PH_PY037_01.rpt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EXT_Form\FileListBoxForm.resX">
@@ -3303,6 +3304,7 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY035.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY037.srf" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PS_MM035.srf" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Screen\PH_PY901.srf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

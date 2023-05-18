@@ -387,14 +387,23 @@ namespace PSH_BOne_AddOn
                 oFunction.Invoke(rfcDest); //Function 실행
                 errCode = string.Empty;// 이상 없을 경우 초기화
 
-                if (codeHelpClass.Left(oFunction.GetValue("E_MESSAGE").ToString().Trim(), 1) == "E")
-                {
-                    oDS_PS_MM010L.SetValue("U_MESSAGE", i, "");
-                    oDS_PS_MM010L.SetValue("U_MESSAGE", i, oFunction.GetValue("E_MESSAGE").ToString());
-                    errMessage = oFunction.GetValue("E_MESSAGE").ToString();
-                    throw new Exception();
-                }
-                else if (codeHelpClass.Left(oFunction.GetValue("E_MESSAGE").ToString().Trim(), 1) == "S")
+                //if (codeHelpClass.Left(oFunction.GetValue("E_MESSAGE").ToString().Trim(), 1) == "E")
+                //{
+                //    oDS_PS_MM010L.SetValue("U_MESSAGE", i, "");
+                //    oDS_PS_MM010L.SetValue("U_MESSAGE", i, oFunction.GetValue("E_MESSAGE").ToString());
+                //    errMessage = oFunction.GetValue("E_MESSAGE").ToString();
+                //    throw new Exception();
+                //}
+                //else if (codeHelpClass.Left(oFunction.GetValue("E_MESSAGE").ToString().Trim(), 1) == "S")
+                //{
+                //    returnValue = oFunction.GetValue("E_BANFN").ToString() + "/" + oFunction.GetValue("E_BNFPO").ToString(); //통합구매요청번호 '//통합구매요청 품목번호
+                //}
+                //else
+                //{
+                //    oDS_PS_MM010L.SetValue("U_MESSAGE", i, "");
+                //    oDS_PS_MM010L.SetValue("U_MESSAGE", i, oFunction.GetValue("E_MESSAGE").ToString());
+                //}
+                if (codeHelpClass.Left(oFunction.GetValue("E_MESSAGE").ToString().Trim(), 1) == "S")
                 {
                     returnValue = oFunction.GetValue("E_BANFN").ToString() + "/" + oFunction.GetValue("E_BNFPO").ToString(); //통합구매요청번호 '//통합구매요청 품목번호
                 }

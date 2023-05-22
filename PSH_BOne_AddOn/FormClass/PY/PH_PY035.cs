@@ -543,11 +543,11 @@ namespace PSH_BOne_AddOn
         /// <summary>
         /// report_print_035
         /// </summary>
-        /// <param name="p_Version">문서번호</param>
+        /// <param></param>
         /// <returns></returns>
-        private bool report_print_035(string p_Version)
+        private void PH_PY035_Report()
         {
-            bool ReturnValue = false;
+            string DocEntry;
             string WinTitle;
             string ReportName;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
@@ -558,20 +558,21 @@ namespace PSH_BOne_AddOn
                 WinTitle = "[PH_PY035] 배차신청서";
                 ReportName = "PH_PY035_01.rpt";
 
+                DocEntry = oForm.Items.Item("DocEntry").Specific.Value.Trim();
+
                 List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
 
                 //Parameter
-                dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", p_Version)); //사업장
+                dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", DocEntry)); //사업장
                 formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
             }
             catch (System.Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText("report_print_035_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY035_Report_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
             {
             }
-            return ReturnValue;
         }
 
         /// <summary>
@@ -1228,7 +1229,9 @@ namespace PSH_BOne_AddOn
                             BubbleEvent = false;
                             return;
                         }
-                        report_print_035(oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim());
+                        System.Threading.Thread thread = new System.Threading.Thread(PH_PY035_Report);
+                        thread.SetApartmentState(System.Threading.ApartmentState.STA);
+                        thread.Start();
                     }
                     if (pVal.ItemUID == "Btn_Rst")
                     {

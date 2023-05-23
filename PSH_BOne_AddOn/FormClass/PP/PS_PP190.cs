@@ -408,8 +408,16 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void PS_PP190_EnableFormItem()
 		{
+			int i;
+			int sCount;
+			int sSeq;
+			string sQry;
+			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
 			try
 			{
+
 				oForm.Freeze(true);
 				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
@@ -449,6 +457,49 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("Seq").Enabled = false;
 					oForm.DataSources.UserDataSources.Item("Chk").Value = "N";
 					oMat.AutoResizeColumns();
+
+					sCount = oMat.Columns.Item("State").ValidValues.Count;
+					sSeq = sCount;
+					for (i = 1; i <= sCount; i++)
+					{
+						oMat.Columns.Item("State").ValidValues.Remove(sSeq - 1, SAPbouiCOM.BoSearchKey.psk_Index);
+						sSeq -= 1;
+					}
+
+					if (oForm.Items.Item("ToolType").Specific.Value.ToString().Trim() == "3")
+					{
+						sQry = "SELECT b.U_Minor, b.U_CdName FROM [@PS_SY001H] a Inner Join [@PS_SY001L] b On a.Code = b.Code And a.Code = 'P010' order by b.U_Minor";//금형상태
+					}
+					else
+					{
+						sQry = "SELECT b.U_Minor, b.U_CdName FROM [@PS_SY001H] a Inner Join [@PS_SY001L] b On a.Code = b.Code And a.Code = 'P011' order by b.U_Minor"; //워크롤상태
+					}
+					oRecordSet.DoQuery(sQry);
+
+					oMat.Columns.Item("State").ValidValues.Add("", "");
+					while (!oRecordSet.EoF)
+					{
+						oMat.Columns.Item("State").ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
+						oRecordSet.MoveNext();
+					}
+
+					sCount = oMat.Columns.Item("UseDept").ValidValues.Count;
+					sSeq = sCount;
+					for (i = 1; i <= sCount; i++)
+					{
+						oMat.Columns.Item("UseDept").ValidValues.Remove(sSeq - 1, SAPbouiCOM.BoSearchKey.psk_Index);
+						sSeq -= 1;
+					}
+
+					sQry = "SELECT U_MachCode AS value, U_MachName AS name FROM [@PS_PP130H] WHERE Convert(Char(1),U_BPLId) = '1' And Convert(Nvarchar(10),U_CpCode) ='" + oForm.Items.Item("CpCode").Specific.Value.ToString().Trim() + "'";
+					oRecordSet.DoQuery(sQry);
+
+					oMat.Columns.Item("UseDept").ValidValues.Add("", "");
+					while (!oRecordSet.EoF)
+					{
+						oMat.Columns.Item("UseDept").ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
+						oRecordSet.MoveNext();
+					}
 				}
 			}
 			catch (Exception ex)
@@ -941,6 +992,7 @@ namespace PSH_BOne_AddOn
 				else if (pVal.Before_Action == false)
 				{
 					PS_PP190_AddMatrixRow(oMat.VisualRowCount, false);
+					oMat.AutoResizeColumns();
 				}
 			}
 			catch (Exception ex)

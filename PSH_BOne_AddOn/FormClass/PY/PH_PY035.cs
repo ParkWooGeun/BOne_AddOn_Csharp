@@ -210,7 +210,7 @@ namespace PSH_BOne_AddOn
                 oForm.EnableMenu("1293", false);                // 행삭제
                 oForm.EnableMenu("1281", false);
                 oForm.EnableMenu("1282", true);
-                dataHelpClass.SetEnableMenus(oForm, false, false, false, false, false, true, true, true, true, true, false, false, false, false, false, false);
+                dataHelpClass.SetEnableMenus(oForm, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false);
             }
             catch (Exception ex)
             {

@@ -59,7 +59,7 @@ namespace PSH_BOne_AddOn
 
 				oForm.Freeze(true);
 				PS_PP190_CreateItems();
-				PS_PP190_SetComboBox();
+				PS_PP190_ComboBox_Setting();
 				PS_PP190_SetDocument(oFormDocEntry);
 			}
 			catch (Exception ex)
@@ -103,7 +103,7 @@ namespace PSH_BOne_AddOn
 		/// <summary>
 		/// PS_PP190_SetComboBox
 		/// </summary>
-		private void PS_PP190_SetComboBox()
+		private void PS_PP190_ComboBox_Setting()
 		{
 			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -128,6 +128,17 @@ namespace PSH_BOne_AddOn
 					oRecordSet.MoveNext();
 				}
 
+				//금형종류
+				sQry = "SELECT b.U_Minor, b.U_CdName FROM [@PS_SY001H] a Inner Join [@PS_SY001L] b On a.Code = b.Code And a.Code = 'P013' order by b.U_Minor";
+				oRecordSet.DoQuery(sQry);
+
+				oForm.Items.Item("ToolType").Specific.ValidValues.Add("", "");
+				while (!oRecordSet.EoF)
+				{
+					oForm.Items.Item("ToolType").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
+					oRecordSet.MoveNext();
+				}
+
 				//구분
 				sQry = "SELECT b.U_Minor, b.U_CdName FROM [@PS_SY001H] a Inner Join [@PS_SY001L] b On a.Code = b.Code And a.Code = 'P012' order by b.U_Minor";
 				oRecordSet.DoQuery(sQry);
@@ -136,9 +147,8 @@ namespace PSH_BOne_AddOn
 				{
 					oMat.Columns.Item("Gubun").ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
-				}
-				oMat.Columns.Item("Gubun").DisplayDesc = true;
-
+                }
+                oMat.Columns.Item("Gubun").DisplayDesc = true;
 			}
 			catch (Exception ex)
 			{
@@ -417,7 +427,6 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-
 				oForm.Freeze(true);
 				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
@@ -465,7 +474,6 @@ namespace PSH_BOne_AddOn
 						oMat.Columns.Item("State").ValidValues.Remove(sSeq - 1, SAPbouiCOM.BoSearchKey.psk_Index);
 						sSeq -= 1;
 					}
-
 					if (oForm.Items.Item("ToolType").Specific.Value.ToString().Trim() == "3")
 					{
 						sQry = "SELECT b.U_Minor, b.U_CdName FROM [@PS_SY001H] a Inner Join [@PS_SY001L] b On a.Code = b.Code And a.Code = 'P010' order by b.U_Minor";//금형상태

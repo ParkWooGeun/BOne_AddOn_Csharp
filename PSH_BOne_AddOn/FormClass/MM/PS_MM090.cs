@@ -515,87 +515,6 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(false);
             }
         }
-
-        /// <summary>
-        /// PS_MM090_MTX01
-        /// </summary>
-        private void PS_MM090_MTX01()
-        {
-            string errMessage = string.Empty;
-            int i;
-            string sQty;
-            string Param01;
-            string Param02;
-            string Param03;
-            string Param04;
-            SAPbouiCOM.ProgressBar ProgressBar01 = null;
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            
-            try
-            {
-                oForm.Freeze(true);
-                Param01 = oForm.Items.Item("Param01").Specific.Value.ToString().Trim();
-                Param02 = oForm.Items.Item("Param01").Specific.Value.ToString().Trim();
-                Param03 = oForm.Items.Item("Param01").Specific.Value.ToString().Trim();
-                Param04 = oForm.Items.Item("Param01").Specific.Value.ToString().Trim();
-
-                sQty = "SELECT 10";
-                oRecordSet01.DoQuery(sQty);
-
-                oMat01.Clear();
-                oMat01.FlushToDataSource();
-                oMat01.LoadFromDataSource();
-
-                if (oRecordSet01.RecordCount == 0)
-                {
-                    errMessage = "결과가 존재하지 않습니다.";
-                    throw new Exception();
-                }
-
-                ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("조회시작!", oRecordSet01.RecordCount, false);
-
-                for (i = 0; i <= oRecordSet01.RecordCount - 1; i++)
-                {
-                    if (i != 0)
-                    {
-                        oDS_PS_MM090L.InsertRecord(i);
-                    }
-                    oDS_PS_MM090L.Offset = i;
-                    oDS_PS_MM090L.SetValue("U_COL01", i, oRecordSet01.Fields.Item(0).Value);
-                    oDS_PS_MM090L.SetValue("U_COL02", i, oRecordSet01.Fields.Item(1).Value);
-                    oRecordSet01.MoveNext();
-                    ProgressBar01.Value += 1;
-                    ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet01.RecordCount + "건 조회중...!";
-                }
-                oMat01.LoadFromDataSource();
-                oMat01.AutoResizeColumns();
-            }
-            catch (Exception ex)
-            {
-                if (ProgressBar01 != null)
-                {
-                    ProgressBar01.Stop();
-                }
-                if (errMessage != string.Empty)
-                {
-                    PSH_Globals.SBO_Application.MessageBox(errMessage);
-                }
-                else
-                {
-                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-                }
-            }
-            finally
-            {
-                oForm.Freeze(false);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01); //메모리 해제
-                if(ProgressBar01 != null)
-                {
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01); //메모리 해제
-                }
-            }
-        }
-
         /// <summary>
         /// DocEntry 초기화
         /// </summary>
@@ -822,75 +741,6 @@ namespace PSH_BOne_AddOn
             return returnValue;
         }
 
-
-        /// <summary>
-        /// 필수 사항 check
-        /// </summary>
-        /// <returns></returns>
-        private bool PS_MM090_JakNumCheck()
-        {
-            bool returnValue = false;
-            int i;
-            string sQry;
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
-            try
-            {
-                for (i = 1; i <= oMat01.VisualRowCount; i++)
-                {
-
-                    //검수입고(원재료품의, 외주제작품의, 가공비품의)가 등록 되지 않으면 생산완료 등록 불가(2012.01.12 송명규 수정)
-                    sQry = "EXEC [PS_MM090_09] '" + oMat01.Columns.Item("JakName").Cells.Item(i).Specific.Value.ToString().Trim() + "'";
-                    oRecordSet01.DoQuery(sQry);
-                    if (Convert.ToDouble(oRecordSet01.Fields.Item(0).Value) > 0)
-                    {
-                        if (oRecordSet01.Fields.Item(1).Value == "10")
-                        {
-                            oMat01.FlushToDataSource();
-                            oDS_PS_MM090L.SetValue("U_Reason", i - 1, i + "번 라인 : 원재료품의가 모두 검수입고 되지 않았습니다. 확인해주세요.");
-                            oMat01.LoadFromDataSource();
-                        }
-                        else if (oRecordSet01.Fields.Item(1).Value == "30")
-                        {
-                            oMat01.FlushToDataSource();
-                            oDS_PS_MM090L.SetValue("U_Reason", i - 1, i + "번 라인 : 가공비품의가 모두 검수입고 되지 않았습니다. 확인해주세요.");
-                            oMat01.LoadFromDataSource();
-                        }
-                        else if (oRecordSet01.Fields.Item(1).Value == "40")
-                        {
-                            oMat01.FlushToDataSource();
-                            oDS_PS_MM090L.SetValue("U_Reason", i - 1, i + "번 라인 : 외주제작품의가 모두 검수입고 되지 않았습니다. 확인해주세요.");
-                            oMat01.LoadFromDataSource();
-                        }
-                    }
-                    //검사여부등록 체크_S(2015.08.28 송명규 수정)
-                    sQry = "EXEC [PS_MM090_10] '" + oMat01.Columns.Item("JakName").Cells.Item(i).Specific.Value.ToString().Trim() + "','" + oForm.Items.Item("InDate").Specific.Value + "'";
-                    oRecordSet01.DoQuery(sQry);
-
-                    if (oRecordSet01.Fields.Item("ReturnValue").Value == "0") //검사등록되지 않음
-                    {
-                        oMat01.FlushToDataSource();
-                        oDS_PS_MM090L.SetValue("U_Reason", i - 1, i + "번 라인 : 검사등록이 되지 않았습니다. 확인해주세요.");
-                        oMat01.LoadFromDataSource();
-                    }
-                    else if (oRecordSet01.Fields.Item("ReturnValue").Value == "1")
-                    {
-                        oMat01.FlushToDataSource();
-                        oDS_PS_MM090L.SetValue("U_Reason", i - 1, i + "번 라인 : 검사등록일자(" + oRecordSet01.Fields.Item("ChkDate").Value + ")보다 생산완료일자가 빠릅니다. 생산완료일자를 확인해주세요.");
-                        oMat01.LoadFromDataSource();
-                    }
-                    //검사여부등록 체크_E(2015.08.28 송명규 수정)
-                }
-                returnValue = true;
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            return returnValue;
-        }
-
         /// <summary>
         /// Report_Export
         /// </summary>
@@ -1037,33 +887,33 @@ namespace PSH_BOne_AddOn
                 //    Raise_EVENT_FORM_CLOSE(FormUID, ref pVal, ref BubbleEvent);
                 //    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
-                //    Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
+                    Raise_EVENT_FORM_RESIZE(FormUID, ref pVal, ref BubbleEvent);
+                    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
-                //    Raise_EVENT_FORM_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
+                    //    Raise_EVENT_FORM_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
-                //    Raise_EVENT_FORM_MENU_HILIGHT(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
+                    //    Raise_EVENT_FORM_MENU_HILIGHT(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
-                //    Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
+                    //    Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED: //37
-                //    Raise_EVENT_PICKER_CLICKED(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED: //37
+                    //    Raise_EVENT_PICKER_CLICKED(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
-                //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
+                    //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_Drag: //39
-                //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_Drag: //39
+                    //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
             }
         }
 
@@ -1089,11 +939,11 @@ namespace PSH_BOne_AddOn
                                 BubbleEvent = false;
                                 return;
                             }
-                            if(PS_MM090_JakNumCheck() == false)
-                            {
-                                BubbleEvent = false;
-                                return;
-                            }
+                            //if(PS_MM090_JakNumCheck() == false)
+                            //{
+                            //    BubbleEvent = false;
+                            //    return;
+                            //}
                             oOutMan = oForm.Items.Item("OutMan").Specific.Value.ToString().Trim();
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
@@ -1411,6 +1261,48 @@ namespace PSH_BOne_AddOn
                                 oMat01.Columns.Item("Size").Cells.Item(pVal.Row).Specific.Value = oRecordSet01.Fields.Item("Size").Value.ToString().Trim();
                                 oMat01.Columns.Item("Unit").Cells.Item(pVal.Row).Specific.Value = oRecordSet01.Fields.Item("Unit").Value.ToString().Trim();
 
+                                //검사여부등록 체크_S(2015.08.28 송명규 수정)
+                                sQry = "EXEC [PS_MM090_10] '" + oMat01.Columns.Item("JakName").Cells.Item(pVal.Row).Specific.Value.ToString().Trim() + "','" + oForm.Items.Item("InDate").Specific.Value + "'";
+                                oRecordSet01.DoQuery(sQry);
+
+                                if (oRecordSet01.Fields.Item("ReturnValue").Value == "0") //검사등록되지 않음
+                                {
+                                    oMat01.FlushToDataSource();
+                                    oDS_PS_MM090L.SetValue("U_Reason", pVal.Row - 1, pVal.Row + "번 라인 : 검사등록이 되지 않았습니다. 확인해주세요.");
+                                    oMat01.LoadFromDataSource();
+                                }
+                                else if (oRecordSet01.Fields.Item("ReturnValue").Value == "1")
+                                {
+                                    oMat01.FlushToDataSource();
+                                    oDS_PS_MM090L.SetValue("U_Reason", pVal.Row - 1, pVal.Row + "번 라인 : 검사등록일자(" + oRecordSet01.Fields.Item("ChkDate").Value + ")보다 생산완료일자가 빠릅니다. 생산완료일자를 확인해주세요.");
+                                    oMat01.LoadFromDataSource();
+                                }
+                                //검사여부등록 체크_E(2015.08.28 송명규 수정)
+
+                                //검수입고(원재료품의, 외주제작품의, 가공비품의)가 등록 되지 않으면 생산완료 등록 불가(2012.01.12 송명규 수정)
+                                sQry = "EXEC [PS_MM090_09] '" + oMat01.Columns.Item("JakName").Cells.Item(pVal.Row).Specific.Value.ToString().Trim() + "'";
+                                oRecordSet01.DoQuery(sQry);
+                                if (Convert.ToDouble(oRecordSet01.Fields.Item(0).Value) > 0)
+                                {
+                                    if (oRecordSet01.Fields.Item(1).Value == "10")
+                                    {
+                                        oMat01.FlushToDataSource();
+                                        oDS_PS_MM090L.SetValue("U_Reason", pVal.Row -1, pVal.Row + "번 라인 : 원재료품의가 모두 검수입고 되지 않았습니다. 확인해주세요.");
+                                        oMat01.LoadFromDataSource();
+                                    }
+                                    else if (oRecordSet01.Fields.Item(1).Value == "30")
+                                    {
+                                        oMat01.FlushToDataSource();
+                                        oDS_PS_MM090L.SetValue("U_Reason", pVal.Row - 1, pVal.Row + "번 라인 : 가공비품의가 모두 검수입고 되지 않았습니다. 확인해주세요.");
+                                        oMat01.LoadFromDataSource();
+                                    }
+                                    else if (oRecordSet01.Fields.Item(1).Value == "40")
+                                    {
+                                        oMat01.FlushToDataSource();
+                                        oDS_PS_MM090L.SetValue("U_Reason", pVal.Row - 1, pVal.Row + "번 라인 : 외주제작품의가 모두 검수입고 되지 않았습니다. 확인해주세요.");
+                                        oMat01.LoadFromDataSource();
+                                    }
+                                }
                             }
                             else if (pVal.ColUID == "DocLin")
                             {
@@ -1548,7 +1440,7 @@ namespace PSH_BOne_AddOn
         /// <param name="FormUID">Form UID</param>
         /// <param name="pVal">ItemEvent 객체</param>
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_RESIZE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        private void Raise_EVENT_FORM_RESIZE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             try
             {

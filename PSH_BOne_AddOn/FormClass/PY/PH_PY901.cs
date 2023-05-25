@@ -517,10 +517,6 @@ namespace PSH_BOne_AddOn
         {
             bool returnValue = false;
             string errMessage = string.Empty;
-            string sQry;
-            PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -546,26 +542,6 @@ namespace PSH_BOne_AddOn
                     errMessage = "라인 데이터가 없습니다.";
                     throw new Exception();
                 }
-
-                if (string.IsNullOrEmpty(oForm.Items.Item("FieldCo").Specific.Value.ToString().Trim()))
-                {
-                    CLTCOD = oDS_PH_PY901A.GetValue("U_CLTCOD", 0).ToString().Trim();
-                    YM = oDS_PH_PY901A.Right(oDS_PH_PY901A.GetValue("U_YM", 0).ToString().Trim(), 4);
-                    sQry = "select U_Sequence from [@PH_PY109Z] where code ='" + CLTCOD + YM + "111'";
-                    oRecordSet.DoQuery(sQry);
-                    if (oRecordSet.RecordCount == 0)
-                    {
-                        errMessage = "예약내역이 존재하지 않습니다. 등록을 진행하세요.";
-                        PSH_Globals.SBO_Application.MessageBox(errMessage);
-                    }
-                    else
-                    {
-                        errMessage = "예약내역이 존재하지 않습니다. 등록을 진행하세요.";
-                        PSH_Globals.SBO_Application.MessageBox(errMessage);
-                    }
-                    errMessage = "업데이트 필드는 필수입니다. 입력하세요.";
-                    throw new Exception();
-                }
                 returnValue = true;
             }
             catch (Exception ex)
@@ -579,10 +555,7 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-            finally
-            {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
-            }
+            
             return returnValue;
         }
 

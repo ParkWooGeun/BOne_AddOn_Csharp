@@ -107,15 +107,28 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PH_PY901_ComboBox_Setting()
         {
+            string sQry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
                 dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true); //접속자에 따른 권한별 사업장 콤보박스세팅
+
+                CLTCOD = oDS_PH_PY901A.GetValue("U_CLTCOD", 0).ToString().Trim();
+                YM = codeHelpClass.Right(oDS_PH_PY901A.GetValue("U_YM", 0).ToString().Trim(), 4);
+                sQry = "select distinct U_Sequence,U_PDName from [@PH_PY109Z] where code ='" + CLTCOD + YM + "111' order by 1";
+                dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("FieldCo").Specific, "");
+                oForm.Items.Item("FieldCo").DisplayDesc = true;
             }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
             }
         }
 
@@ -524,6 +537,10 @@ namespace PSH_BOne_AddOn
         {
             bool returnValue = false;
             string errMessage = string.Empty;
+            string sQry;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
             {
@@ -539,6 +556,27 @@ namespace PSH_BOne_AddOn
                     errMessage = "년월은 필수입니다. 입력하세요.";
                     throw new Exception();
                 }
+
+                if (string.IsNullOrEmpty(oForm.Items.Item("FieldCo").Specific.Value.ToString().Trim()))
+                {
+                    CLTCOD = oDS_PH_PY901A.GetValue("U_CLTCOD", 0).ToString().Trim();
+                    YM = codeHelpClass.Right(oDS_PH_PY901A.GetValue("U_YM", 0).ToString().Trim(), 4);
+                    sQry = "select U_Sequence from [@PH_PY109Z] where code ='" + CLTCOD + YM + "111'";
+                    oRecordSet.DoQuery(sQry);
+                    if (oRecordSet.RecordCount == 0)
+                    {
+                        errMessage = "급상여변동자료가 등록되지 않았습니다. 등록을 진행하세요.";
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        errMessage = "급상여변동자료가 동록되어 있습니다. 업데이트 필드를 선택하세요.";
+                        throw new Exception();
+                    }
+                }
+
+
+
                 if (oDS_PH_PY901B.Size > 1)
                 {
                     oDS_PH_PY901B.RemoveRecord(oDS_PH_PY901B.Size - 1);
@@ -549,6 +587,7 @@ namespace PSH_BOne_AddOn
                     errMessage = "라인 데이터가 없습니다.";
                     throw new Exception();
                 }
+
                 returnValue = true;
             }
             catch (Exception ex)
@@ -562,6 +601,11 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
+            }
+
             return returnValue;
         }
 
@@ -1053,9 +1097,15 @@ namespace PSH_BOne_AddOn
                                     }
                                     else
                                     {
-                                        sQry = "select distinct U_Sequence,U_PDName from [@PH_PY109Z] where code ='" + CLTCOD + YM + "111' and u_sequence" + FieldCo + "' order by 1";
+                                        if (oForm.Items.Item("FieldCo").Specific.ValidValues.Count > 0)
+                                        {
+                                            for (int i = oForm.Items.Item("FieldCo").Specific.ValidValues.Count - 1; i >= 0; i += -1)
+                                            {
+                                                oForm.Items.Item("FieldCo").Specific.ValidValues.Remove(i, SAPbouiCOM.BoSearchKey.psk_Index);
+                                            }
+                                        }
+                                        sQry = "select distinct U_Sequence,U_PDName from [@PH_PY109Z] where code ='" + CLTCOD + YM + "111' order by 1";
                                         dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("FieldCo").Specific, "");
-                                        oForm.Items.Item("FieldCo").Specific.Select(8, SAPbouiCOM.BoSearchKey.psk_Index); //건강보험select
                                         oForm.Items.Item("FieldCo").DisplayDesc = true;
                                     }
                                 }

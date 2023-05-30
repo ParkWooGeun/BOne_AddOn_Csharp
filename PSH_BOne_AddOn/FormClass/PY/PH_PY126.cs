@@ -317,6 +317,10 @@ namespace PSH_BOne_AddOn
             string errMessage = string.Empty;
             string Chk_Data;
             string Chk_Name;
+            string sQry;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
             {
@@ -342,6 +346,23 @@ namespace PSH_BOne_AddOn
                 {
                     errMessage = "경조일자는 필수입니다. 입력하세요.";
                     throw new Exception();
+                }
+                if (string.IsNullOrEmpty(oForm.Items.Item("FieldCo").Specific.Value.ToString().Trim()))
+                {
+                    CLTCOD = oDS_PH_PY126A.GetValue("U_CLTCOD", 0).ToString().Trim();
+                    YM = codeHelpClass.Right(oDS_PH_PY126A.GetValue("U_YM", 0).ToString().Trim(), 4);
+                    sQry = "select U_Sequence from [@PH_PY109Z] where code ='" + CLTCOD + YM + "111'";
+                    oRecordSet.DoQuery(sQry);
+                    if (oRecordSet.RecordCount == 0)
+                    {
+                        errMessage = "급상여변동자료가 등록되지 않았습니다. 등록을 진행하세요.";
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        errMessage = "급상여변동자료가 동록되어 있습니다. 업데이트 필드를 선택하세요.";
+                        throw new Exception();
+                    }
                 }
                 //라인
                 if (oMat.VisualRowCount > 1)
@@ -415,7 +436,10 @@ namespace PSH_BOne_AddOn
                     PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
                 }
             }
-
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet); //메모리 해제
+            }
             return returnValue;
         }
 
@@ -904,9 +928,15 @@ namespace PSH_BOne_AddOn
                                     }
                                     else
                                     {
-                                        sQry = "select distinct U_Sequence,U_PDName from [@PH_PY109Z] where code ='" + CLTCOD + YM + "111' and u_sequence" + FieldCo + "' order by 1";
+                                        if (oForm.Items.Item("FieldCo").Specific.ValidValues.Count > 0)
+                                        {
+                                            for (int i = oForm.Items.Item("FieldCo").Specific.ValidValues.Count - 1; i >= 0; i += -1)
+                                            {
+                                                oForm.Items.Item("FieldCo").Specific.ValidValues.Remove(i, SAPbouiCOM.BoSearchKey.psk_Index);
+                                            }
+                                        }
+                                        sQry = "select distinct U_Sequence,U_PDName from [@PH_PY109Z] where code ='" + CLTCOD + YM + "111' order by 1";
                                         dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("FieldCo").Specific, "");
-                                        oForm.Items.Item("FieldCo").Specific.Select(9, SAPbouiCOM.BoSearchKey.psk_Index); //경조금select
                                         oForm.Items.Item("FieldCo").DisplayDesc = true;
                                     }
                                 }

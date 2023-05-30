@@ -12,7 +12,7 @@ using Scripting;
 namespace PSH_BOne_AddOn
 {
     /// <summary>
-    /// 기초자료등록(부적합)
+    /// 부적합등록(자체)
     /// </summary>
     internal class PS_QM703 : PSH_BaseClass
     {
@@ -246,7 +246,7 @@ namespace PSH_BOne_AddOn
                 {
                     sQry = "SELECT count(*) FROM[@PS_QM700L] WHERE Code = 'ZCheck' AND U_UseYN<>'N' AND U_Code ='" + dataHelpClass.User_MSTCOD() + "'";
                     oRecordSet01.DoQuery(sQry);
-                    if(oForm.Items.Item("ChkYN").Specific.Value.Trim() == "승인" && oRecordSet01.Fields.Item(0).Value != 0 && oForm.Items.Item("Canceled").Specific.Value.Trim() == "Y")
+                    if(oForm.Items.Item("ChkYN").Specific.Value.Trim() == "승인" && oRecordSet01.Fields.Item(0).Value != 0 && oForm.Items.Item("Canceled").Specific.Value.Trim() == "Y") //승인자는 수정가능
                     {
                         oForm.Items.Item("CLTCOD").Enabled = true;
                         oForm.Items.Item("WorkDate").Enabled = true;

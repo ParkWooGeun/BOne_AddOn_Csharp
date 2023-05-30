@@ -242,6 +242,8 @@ namespace PSH_BOne_AddOn
                 oMat01.LoadFromDataSource();
                 oDS_PS_QM702H.Clear(); //추가
 
+                sQry = "SELECT Count(*) From [@PS_QM700L] WHERE Code ='ZCheck' AND U_Code ='" + dataHelpClass.User_MSTCOD() + "'";
+
                 sQry = "EXEC [PS_QM702_01] '" + dataHelpClass.User_MSTCOD() + "'";
                 oRecordSet01.DoQuery(sQry);
 
@@ -419,7 +421,7 @@ namespace PSH_BOne_AddOn
                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Selected.Value.ToString().Trim();
                 DocDateFr = oForm.Items.Item("DocDatefr").Specific.Value.ToString().Trim();
                 DocDateTo = oForm.Items.Item("DocDateto").Specific.Value.ToString().Trim();
-                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim();
+                MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim(); //검사자임
 
                 sQry = "EXEC PS_QM702_02 '" + CLTCOD +"','" + DocDateFr + "','" + DocDateTo + "','" + MSTCOD + "'";
                 oGrid01.DataTable.Clear();
@@ -824,10 +826,16 @@ namespace PSH_BOne_AddOn
                                     string Reson = oDS_PS_QM702H.GetValue("U_ColReg16", i).ToString().Trim();
                                     string GOBUN = oDS_PS_QM702H.GetValue("U_ColReg01", i).ToString().Trim();
 
-                                    if (Return_EMail(DocEntry,MSTCOD,Reson, GOBUN) == false)//사번
+                                    sQry = "SELECT U_eMail FROM [@PS_QM700L] WHERE U_UseYN = 'Y'AND Code ='ZReturn'";
+                                    oRecordSet01.DoQuery(sQry);
+
+                                    for (int j = 0; j <= oRecordSet01.RecordCount - 1; j++)
                                     {
-                                        errMessage = "전송 중 오류가 발생했습니다.";
-                                        throw new Exception();
+                                        if (Return_EMail(DocEntry, MSTCOD, Reson, GOBUN) == false)//사번
+                                        {
+                                            errMessage = "전송 중 오류가 발생했습니다.";
+                                            throw new Exception();
+                                        }
                                     }
                                 }
                             }
@@ -869,8 +877,6 @@ namespace PSH_BOne_AddOn
                         {
                             errMessage = "메일을 보낼 주소가 없습니다. 확인해주세요.";
                             throw new Exception();
-
-
                         }
                         else
                         {

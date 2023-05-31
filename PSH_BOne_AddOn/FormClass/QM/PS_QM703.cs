@@ -168,7 +168,7 @@ namespace PSH_BOne_AddOn
                     oMat01.Columns.Item("gubun").ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
                     oRecordSet.MoveNext();
                 }
-
+                
             }
             catch (Exception ex)
             {

@@ -242,9 +242,10 @@ namespace PSH_BOne_AddOn
                 oMat01.LoadFromDataSource();
                 oDS_PS_QM702H.Clear(); //추가
 
-                sQry = "SELECT Count(*) From [@PS_QM700L] WHERE Code ='ZCheck' AND U_Code ='" + dataHelpClass.User_MSTCOD() + "'";
+                sQry = "SELECT Count(*) From [@PS_QM700L] WHERE Code ='ZCheck' AND U_UseYN <> 'N' AND U_Code ='" + dataHelpClass.User_MSTCOD() + "'";
+                oRecordSet01.DoQuery(sQry);
 
-                sQry = "EXEC [PS_QM702_01] '" + dataHelpClass.User_MSTCOD() + "'";
+                sQry = "EXEC [PS_QM702_01] '" + oRecordSet01.Fields.Item(0).Value + "'";
                 oRecordSet01.DoQuery(sQry);
 
                 if (oRecordSet01.RecordCount == 0)

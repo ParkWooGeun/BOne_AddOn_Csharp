@@ -185,6 +185,10 @@ namespace PSH_BOne_AddOn
                 sQry += " ORDER BY    U_Seq";
 
                 dataHelpClass.GP_MatrixSetMatComboList(oMat01.Columns.Item("Action"), sQry, "", "");
+                
+                oMat01.Columns.Item("endsoL").ValidValues.Add("O", "완료");
+                oMat01.Columns.Item("endsoL").ValidValues.Add("X", "미완료");
+
             }
             catch (Exception ex)
             {
@@ -394,6 +398,57 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
+        /// PS_QM704_Update
+        /// </summary>
+        private void PS_QM704_Update(int pRow, int cnt)
+        {
+          
+            string sQry;
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            try
+            {
+                oMat01.FlushToDataSource();
+
+                if (cnt == 1)
+                {
+                    if (oDS_PS_QM704L.GetValue("U_ColReg01", pRow - 1).ToString().Trim() == "외주")
+                    {
+                        sQry = "UPDATE [@PS_QM701H] SET U_endsoL ='O' WHERE DocEntry ='" + oDS_PS_QM704L.GetValue("U_ColReg02", pRow - 1).ToString().Trim() + "'";
+                        oRecordSet01.DoQuery(sQry);
+                    }
+                    else
+                    {
+                        sQry = "UPDATE [@PS_QM703H] SET U_endsoL ='O' WHERE DocEntry ='" + oDS_PS_QM704L.GetValue("U_ColReg02", pRow - 1).ToString().Trim() + "'";
+                        oRecordSet01.DoQuery(sQry);
+                    }
+                }
+                else
+                {
+                    if (oDS_PS_QM704L.GetValue("U_ColReg01", pRow - 1).ToString().Trim() == "외주")
+                    {
+                        sQry = "UPDATE [@PS_QM701H] SET U_endsoL ='X' WHERE DocEntry ='" + oDS_PS_QM704L.GetValue("U_ColReg02", pRow - 1).ToString().Trim() + "'";
+                        oRecordSet01.DoQuery(sQry);
+                    }
+                    else
+                    {
+                        sQry = "UPDATE [@PS_QM703H] SET U_endsoL ='X' WHERE DocEntry ='" + oDS_PS_QM704L.GetValue("U_ColReg02", pRow - 1).ToString().Trim() + "'";
+                        oRecordSet01.DoQuery(sQry);
+                    }
+                }
+                oMat01.LoadFromDataSource();
+                oMat01.AutoResizeColumns();
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+            }
+        }
+
+        /// <summary>
         /// PS_QM704_MTX01
         /// </summary>
         private void PS_QM704_MTX01()
@@ -514,6 +569,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_QM704L.SetValue("U_ColReg13", i, oRecordSet01.Fields.Item("u_chkYN").Value.ToString().Trim());    // 주행후Km
                     oDS_PS_QM704L.SetValue("U_ColRgL01", i, oRecordSet01.Fields.Item("U_AttPath").Value.ToString().Trim());   // 등록구분
                     oDS_PS_QM704L.SetValue("U_ColReg15", i, oRecordSet01.Fields.Item("U_Action").Value.ToString().Trim());   // 등록구분
+                    oDS_PS_QM704L.SetValue("U_ColReg16", i, oRecordSet01.Fields.Item("U_endsoL").Value.ToString().Trim());   // 등록구분
                     oRecordSet01.MoveNext();
                 }
                 oMat01.LoadFromDataSource();
@@ -765,6 +821,17 @@ namespace PSH_BOne_AddOn
                             else if (oMat01.Columns.Item("Action").Cells.Item(pVal.Row).Specific.Value == "D")
                             {
                                 PS_QM704_DeleteAttach(pVal.Row);
+                            }
+                        }
+                        if (pVal.ColUID == "endsoL")
+                        {
+                            if (oMat01.Columns.Item("endsoL").Cells.Item(pVal.Row).Specific.Value == "O")
+                            {
+                                PS_QM704_Update(pVal.Row,1);
+                            }
+                            else if (oMat01.Columns.Item("endsoL").Cells.Item(pVal.Row).Specific.Value == "X")
+                            {
+                                PS_QM704_Update(pVal.Row,2);
                             }
                         }
                     }

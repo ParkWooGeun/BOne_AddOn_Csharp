@@ -746,6 +746,129 @@ namespace PSH_BOne_AddOn
             }
         }
 
+
+        /// <summary>
+        /// PS_QM701_etBaseForm
+        /// </summary>
+        private void PS_QM703_SaveAttach()
+        {
+            string sFileFullPath;
+            string sFilePath;
+            string sFileName;
+            string SaveFolders;
+            string sourceFile;
+            string targetFile;
+            string errMessage = string.Empty;
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            try
+            {
+                sFileFullPath = PS_QM703_OpenFileSelectDialog();//OpenFileDialog를 쓰레드로 실행
+
+                SaveFolders = "\\\\191.1.1.220\\Attach\\PS_QM704";
+                sFileName = System.IO.Path.GetFileName(sFileFullPath); //파일명
+                sFilePath = System.IO.Path.GetDirectoryName(sFileFullPath); //파일명을 제외한 전체 경로
+                sourceFile = System.IO.Path.Combine(sFilePath, sFileName);
+                targetFile = System.IO.Path.Combine(SaveFolders, sFileName);
+
+                if (System.IO.File.Exists(targetFile)) //서버에 기존파일이 존재하는지 체크
+                {
+                    if (PSH_Globals.SBO_Application.MessageBox("동일한 문서번호의 파일이 존재합니다. 교체하시겠습니까?", 2, "Yes", "No") == 1)
+                    {
+                        System.IO.File.Delete(targetFile); //삭제
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                oDS_PS_QM703H.SetValue("U_Comments", 0, SaveFolders + "\\" + sFileName); //첨부파일 경로 등록
+                System.IO.File.Copy(sourceFile, targetFile, true); //파일 복사 (여기서 오류발생)
+                PSH_Globals.SBO_Application.MessageBox("업로드 되었습니다.");
+            }
+            catch (Exception ex)
+            {
+                if (errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                }
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+            }
+        }
+
+        /// <summary>
+        /// OpenFileSelectDialog 호출(쓰레드를 이용하여 비동기화)
+        /// OLE 호출을 수행하려면 현재 스레드를 STA(단일 스레드 아파트) 모드로 설정해야 합니다.
+        /// </summary>
+        [STAThread]
+        private string PS_QM703_OpenFileSelectDialog()
+        {
+            string returnFileName = string.Empty;
+
+            var thread = new System.Threading.Thread(() =>
+            {
+                System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
+                openFileDialog.InitialDirectory = "C:\\";
+                openFileDialog.Filter = "All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 1; //FilterIndex는 1부터 시작
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    returnFileName = openFileDialog.FileName;
+                }
+            });
+
+            thread.SetApartmentState(System.Threading.ApartmentState.STA);
+            thread.Start();
+            thread.Join();
+            return returnFileName;
+        }
+
+        /// <summary>
+        /// PS_QM701_etBaseForm
+        /// </summary>
+        private void PS_QM703_OpenAttach()
+        {
+            string AttachPath;
+            string errMessage = string.Empty;
+
+            try
+            {
+                AttachPath = oDS_PS_QM703H.GetValue("U_Comments", 0).ToString().Trim();
+                if (string.IsNullOrEmpty(AttachPath))
+                {
+                    PSH_Globals.SBO_Application.MessageBox("첨부파일이 없습니다.");
+                }
+                else
+                {
+                    System.Diagnostics.ProcessStartInfo process = new System.Diagnostics.ProcessStartInfo(AttachPath);
+                    process.UseShellExecute = true;
+                    process.Verb = "open";
+
+                    System.Diagnostics.Process.Start(process);
+                }
+            }
+            catch (Exception ex)
+            {
+                if (errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                }
+            }
+        }
+
+
         /// <summary>
         /// Form Item Event
         /// </summary>
@@ -919,6 +1042,14 @@ namespace PSH_BOne_AddOn
                         System.Threading.Thread thread = new System.Threading.Thread(PS_QM703_Print_Report01);
                         thread.SetApartmentState(System.Threading.ApartmentState.STA);
                         thread.Start();
+                    }
+                    if (pVal.ItemUID == "btn_upload")
+                    {
+                        PS_QM703_SaveAttach();
+                    }
+                    if (pVal.ItemUID == "btn_open")
+                    {
+                        PS_QM703_OpenAttach();
                     }
                 }
                 else if (pVal.BeforeAction == false)

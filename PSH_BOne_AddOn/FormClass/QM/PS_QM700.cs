@@ -165,7 +165,6 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Items.Item("Code").Enabled = true;
                     oForm.Items.Item("Mat01").Enabled = true;
-                    //PS_QM700_FormClear();
                     oForm.EnableMenu("1281", true);  //찾기
                     oForm.EnableMenu("1282", true); //추가
                 }
@@ -181,6 +180,8 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Items.Item("Code").Enabled = false;
                     oForm.Items.Item("Mat01").Enabled = true;
+                    oForm.EnableMenu("1281", true);  //찾기
+                    oForm.EnableMenu("1282", true); //추가
                 }
             }
             catch (Exception ex)
@@ -219,29 +220,6 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
-            }
-        }
-
-        /// <summary>
-		/// PS_QM700_CopyMatrixRow
-		/// </summary>
-		private void PS_QM700_CopyMatrixRow()
-        {
-            int i;
-
-            try
-            {
-                //PS_QM700_FormClear();
-                for (i = 0; i <= oMat.VisualRowCount - 1; i++)
-                {
-                    oMat.FlushToDataSource();
-                    oDS_PS_QM700L.SetValue("Code", i, "");
-                    oMat.LoadFromDataSource();
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
         }
 
@@ -475,7 +453,6 @@ namespace PSH_BOne_AddOn
                             if (pVal.ActionSuccess == true)
                             {
                                 PS_QM700_FormItemEnabled();
-                                PS_QM700_AddMatrixRow(0, true);
                             }
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
@@ -629,6 +606,26 @@ namespace PSH_BOne_AddOn
                                 }
                                 oMat.LoadFromDataSource();
                             }
+                            oMat.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                        }
+                    }
+                }
+                else if (pVal.BeforeAction == false)
+                {
+                    if (pVal.ItemChanged == false)
+                    {
+                        if (pVal.ItemUID == "Mat01")
+                        {
+                            if (pVal.ColUID == "Code")
+                            {
+                                oMat.FlushToDataSource();
+                                if (oMat.RowCount == pVal.Row && !string.IsNullOrEmpty(oDS_PS_QM700L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
+                                {
+                                    PS_QM700_AddMatrixRow(pVal.Row, false);
+                                }
+                                oMat.LoadFromDataSource();
+                            }
+                            oMat.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                         }
                     }
                 }
@@ -660,7 +657,6 @@ namespace PSH_BOne_AddOn
                 else if (pVal.BeforeAction == false)
                 {
                     PS_QM700_FormItemEnabled();
-                    PS_QM700_AddMatrixRow(oMat.VisualRowCount,false);
                 }
             }
             catch (Exception ex)
@@ -757,7 +753,6 @@ namespace PSH_BOne_AddOn
                             PS_QM700_FormItemEnabled();
                             break;
                         case "1287": //복제
-                            PS_QM700_CopyMatrixRow();
                             break;
                     }
                 }

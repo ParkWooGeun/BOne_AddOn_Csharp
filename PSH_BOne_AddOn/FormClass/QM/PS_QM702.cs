@@ -299,10 +299,9 @@ namespace PSH_BOne_AddOn
         /// Send_EMail
         /// </summary>
         /// <param name="p_DocEntry"></param>
-        /// <param name="p_MSTCOD"></param>
         /// <param name="p_Reson"></param>
         /// <returns></returns>
-        private bool Return_EMail(string p_DocEntry,string p_MSTCOD, string p_Reson, string p_gobun)
+        private bool Return_EMail(string p_DocEntry, string p_Email, string p_Reson, string p_gobun)
         {
             bool ReturnValue = false;
             string strToAddress;
@@ -318,9 +317,7 @@ namespace PSH_BOne_AddOn
                 strBody = "부적합  " + p_gobun + "  문서번호"  + p_DocEntry + "가 반려되었습니다. ";
                 strBody += "반려사유 : "+ p_Reson + "입니다.";
 
-                sQry = "SELECT U_eMail, U_FullName FROM [@PH_PY001A] WHERE Code ='" + p_MSTCOD + "'";
-                oRecordSet01.DoQuery(sQry);
-                strToAddress = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
+                strToAddress = p_Email;
 
                 //mail.From = new MailAddress("dakkorea1@gmail.com");
                 MsOutlook.Application outlookApp = new MsOutlook.Application();
@@ -823,16 +820,18 @@ namespace PSH_BOne_AddOn
                                 else
                                 {
                                     string DocEntry = oDS_PS_QM702H.GetValue("U_ColReg02", i).ToString().Trim();
-                                    string MSTCOD = oDS_PS_QM702H.GetValue("U_ColReg07", i).ToString().Trim();
                                     string Reson = oDS_PS_QM702H.GetValue("U_ColReg16", i).ToString().Trim();
                                     string GOBUN = oDS_PS_QM702H.GetValue("U_ColReg01", i).ToString().Trim();
 
                                     sQry = "SELECT U_eMail FROM [@PS_QM700L] WHERE U_UseYN = 'Y'AND Code ='ZReturn'";
                                     oRecordSet01.DoQuery(sQry);
 
+
                                     for (int j = 0; j <= oRecordSet01.RecordCount - 1; j++)
                                     {
-                                        if (Return_EMail(DocEntry, MSTCOD, Reson, GOBUN) == false)//사번
+                                        string email = string.Empty;
+                                        email = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
+                                        if (Return_EMail(DocEntry,email, Reson, GOBUN) == false)//사번
                                         {
                                             errMessage = "전송 중 오류가 발생했습니다.";
                                             throw new Exception();
@@ -872,8 +871,6 @@ namespace PSH_BOne_AddOn
                             BubbleEvent = false;
                             return;
                         }
-                        oMat02.FlushToDataSource();
-                        PS_QM702_LoadData();
                         if(oMat02.VisualRowCount-1 == 0)
                         {
                             errMessage = "메일을 보낼 주소가 없습니다. 확인해주세요.";

@@ -133,6 +133,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("BadCode").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
                     oRecordSet.MoveNext();
                 }
+                oForm.Items.Item("BadCode").DisplayDesc = true;
 
                 // 불량원인
                 sQry = " SELECT '%' AS [Code],";
@@ -145,6 +146,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("BadNote").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
                     oRecordSet.MoveNext();
                 }
+                oForm.Items.Item("BadNote").DisplayDesc = true;
                 oForm.Items.Item("BadNote").Specific.Select("%", SAPbouiCOM.BoSearchKey.psk_ByValue);
 
                 // 판정의견
@@ -158,6 +160,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("verdict").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
                     oRecordSet.MoveNext();
                 }
+                oForm.Items.Item("verdict").DisplayDesc = true;
                 oForm.Items.Item("verdict").Specific.Select("%", SAPbouiCOM.BoSearchKey.psk_ByValue);
                 
                 //메트릭스 콤보박스
@@ -246,7 +249,7 @@ namespace PSH_BOne_AddOn
                 {
                     sQry = "SELECT count(*) FROM[@PS_QM700L] WHERE Code = 'ZCheck' AND U_UseYN<>'N' AND U_Code ='" + dataHelpClass.User_MSTCOD() + "'";
                     oRecordSet01.DoQuery(sQry);
-                    if(oForm.Items.Item("ChkYN").Specific.Value.Trim() == "승인" && oRecordSet01.Fields.Item(0).Value != 0 && oForm.Items.Item("Canceled").Specific.Value.Trim() == "Y") //승인자는 수정가능
+                    if(oForm.Items.Item("ChkYN").Specific.Value.Trim() == "승인" && oRecordSet01.Fields.Item(0).Value != 0 && oForm.Items.Item("Canceled").Specific.Value.Trim() == "N") //승인자는 수정가능
                     {
                         oForm.Items.Item("CLTCOD").Enabled = true;
                         oForm.Items.Item("WorkDate").Enabled = true;
@@ -264,8 +267,7 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("Comments").Enabled = true;
                         oForm.Items.Item("cmt").Enabled = true;
                     }
-
-                    if (oForm.Items.Item("ChkYN").Specific.Value.Trim() == "승인" || oForm.Items.Item("Canceled").Specific.Value.Trim() == "Y")
+                    else if (oForm.Items.Item("ChkYN").Specific.Value.Trim() == "승인" || oForm.Items.Item("Canceled").Specific.Value.Trim() == "Y")
                     {
                         oForm.Items.Item("CLTCOD").Enabled = false;
                         oForm.Items.Item("WorkDate").Enabled = false;
@@ -397,31 +399,6 @@ namespace PSH_BOne_AddOn
                     }
                     oDS_PS_QM703H.SetValue("U_Pic", 0, "");
                     oDS_PS_QM703H.SetValue("U_Pic", 0, "\\\\191.1.1.220\\Incom_Pic\\" + oRecordSet01.Fields.Item("DocEntry").Value.ToString().Trim() + "_In.BMP");
-                    oDS_PS_QM703H.SetValue("DocEntry", 0, oRecordSet01.Fields.Item("DocEntry").Value.ToString().Trim());
-                    oDS_PS_QM703H.SetValue("Canceled", 0, oRecordSet01.Fields.Item("Canceled").Value.ToString().Trim());
-                    oDS_PS_QM703H.SetValue("U_ChkYN", 0, oRecordSet01.Fields.Item("ChkYN").Value.ToString().Trim());
-                    oDS_PS_QM703H.SetValue("U_CLTCOD", 0, oRecordSet01.Fields.Item("CLTCOD").Value.ToString().Trim());
-                    oDS_PS_QM703H.SetValue("U_KeyDoc", 0, oRecordSet01.Fields.Item("KeyDoc").Value.ToString().Trim());
-                    oDS_PS_QM703H.SetValue("U_WorkDate", 0, oRecordSet01.Fields.Item("WorkDate").Value.ToString().Trim());
-                    oDS_PS_QM703H.SetValue("U_WorkCode", 0, oRecordSet01.Fields.Item("WorkCode").Value.ToString().Trim());
-                    oDS_PS_QM703H.SetValue("U_WorkName", 0, oRecordSet01.Fields.Item("WorkName").Value.ToString().Trim()); 
-                    oDS_PS_QM703H.SetValue("U_WorkNum", 0, oRecordSet01.Fields.Item("WorkNum").Value.ToString().Trim());
-                    oDS_PS_QM703H.SetValue("U_ItemName", 0, oRecordSet01.Fields.Item("ItemName").Value.ToString().Trim());
-                    oDS_PS_QM703H.SetValue("U_ItemSpec", 0, oRecordSet01.Fields.Item("ItemSpec").Value.ToString().Trim());
-                    oDS_PS_QM703H.SetValue("U_CardCode", 0, oRecordSet01.Fields.Item("CardCode").Value.ToString().Trim());
-                    oDS_PS_QM703H.SetValue("U_CardName", 0, oRecordSet01.Fields.Item("CardName").Value.ToString().Trim());
-                    oDS_PS_QM703H.SetValue("U_TotalQty", 0, oRecordSet01.Fields.Item("TotalQty").Value.ToString().Trim());
-                    oDS_PS_QM703H.SetValue("U_BZZadQty", 0, oRecordSet01.Fields.Item("BZZadQty").Value.ToString().Trim());
-                    oDS_PS_QM703H.SetValue("U_MSTCOD", 0, oRecordSet01.Fields.Item("MSTCOD").Value.ToString().Trim());
-                    oDS_PS_QM703H.SetValue("U_MSTNAM", 0, oRecordSet01.Fields.Item("MSTNAM").Value.ToString().Trim());
-                    oDS_PS_QM703H.SetValue("U_BadCode", 0, oRecordSet01.Fields.Item("BadCode").Value.ToString().Trim());
-                    oDS_PS_QM703H.SetValue("U_InCpCode", 0, oRecordSet01.Fields.Item("InCpCode").Value.ToString().Trim());
-                    oDS_PS_QM703H.SetValue("U_InCpName", 0, oRecordSet01.Fields.Item("InCpName").Value.ToString().Trim());
-                    oDS_PS_QM703H.SetValue("U_BadNote", 0, oRecordSet01.Fields.Item("BadNote").Value.ToString().Trim());
-                    oDS_PS_QM703H.SetValue("U_verdict", 0, oRecordSet01.Fields.Item("verdict").Value.ToString().Trim());
-                    oDS_PS_QM703H.SetValue("U_Comments", 0, oRecordSet01.Fields.Item("Comments").Value.ToString().Trim());
-                    oDS_PS_QM703H.SetValue("U_OutUnit", 0, oRecordSet01.Fields.Item("OutUnit").Value.ToString().Trim());
-                    oDS_PS_QM703H.SetValue("U_cmt", 0, oRecordSet01.Fields.Item("Cmt").Value.ToString().Trim());
                 }
             }
             catch (Exception ex)
@@ -660,10 +637,6 @@ namespace PSH_BOne_AddOn
                 oRecordSet.DoQuery(sQry);
 
                 PSH_Globals.SBO_Application.MessageBox("사진이 업로드 되었습니다.");
-                if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-                {
-                    oForm.Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
-                }
 
                 oDS_PS_QM703H.SetValue("U_Pic", 0, (SaveFolders + "\\" + sFileName));
                 ReturnValue = true;
@@ -1012,14 +985,14 @@ namespace PSH_BOne_AddOn
                         }
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {
-                            sQry = "SELECT count(*) FROM[@PS_QM700L] WHERE Code = 'ZCheck' AND U_UseYN<>'N' AND U_Code ='" + dataHelpClass.User_MSTCOD() + "'";
-                            oRecordSet.DoQuery(sQry);
-
                             if (PS_QM703_DataValidCheck() == false)
                             {
                                 BubbleEvent = false;
                                 return;
                             }
+                            sQry = "SELECT count(*) FROM[@PS_QM700L] WHERE Code = 'ZCheck' AND U_UseYN<>'N' AND U_Code ='" + dataHelpClass.User_MSTCOD() + "'";
+                            oRecordSet.DoQuery(sQry);
+
                             if (oRecordSet.Fields.Item(0).Value == 0)
                             {
                                 if (oForm.Items.Item("ChkYN").Specific.Value.Trim() == "승인" || oForm.Items.Item("Canceled").Specific.Value.Trim() == "Y")
@@ -1028,6 +1001,11 @@ namespace PSH_BOne_AddOn
                                     PSH_Globals.SBO_Application.MessageBox(errMessage);
                                     BubbleEvent = false;
                                     return;
+                                }
+                                else
+                                {
+                                    sQry = "UPDATE [@PS_QM703H] SET U_ChkYN = NULL WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value.Trim() + "'";
+                                    oRecordSet.DoQuery(sQry);
                                 }
                             }
                             else
@@ -1045,7 +1023,32 @@ namespace PSH_BOne_AddOn
                     }
                     if (pVal.ItemUID == "btn_upload")
                     {
-                        PS_QM703_SaveAttach();
+                        sQry = "SELECT count(*) FROM[@PS_QM700L] WHERE Code = 'ZCheck' AND U_UseYN<>'N' AND U_Code ='" + dataHelpClass.User_MSTCOD() + "'";
+                        oRecordSet.DoQuery(sQry);
+                        if (oForm.Items.Item("ChkYN").Specific.Value.Trim() == "승인" && oRecordSet.Fields.Item(0).Value != 0 && oForm.Items.Item("Canceled").Specific.Value.Trim() == "N") //승인자는 수정가능
+                        {
+                            if (oForm.Items.Item("verdict").Specific.Value.Trim() == "2")
+                            {
+                                oForm.Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
+                                PS_QM703_SaveAttach();
+                            }
+                        }
+                        else if (oForm.Items.Item("ChkYN").Specific.Value.Trim() == "승인" || oForm.Items.Item("Canceled").Specific.Value.Trim() == "Y")
+                        {
+                            errMessage = "승인되거나 취소된 문서는 수정할수 없습니다.";
+                            PSH_Globals.SBO_Application.MessageBox(errMessage);
+                            BubbleEvent = false;
+                            return;
+                        }
+                        else
+                        {
+                            if (oForm.Items.Item("verdict").Specific.Value.Trim() == "2")
+                            {
+                                oForm.Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
+                                PS_QM703_SaveAttach();
+                            }
+                        }
+                        
                     }
                     if (pVal.ItemUID == "btn_open")
                     {
@@ -1182,7 +1185,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (oForm.Items.Item("ChkYN").Specific.Value.Trim() == "승인" || oForm.Items.Item("Canceled").Specific.Value.Trim() == "Y")
                         {
-                            errMessage = "승인되거나 취소된 문서는 수정할수 없습니다.";
+                            errMessage = "승인되거나 취소된 문서는 사진을 수정할수 없습니다.";
                             PSH_Globals.SBO_Application.MessageBox(errMessage);
                             BubbleEvent = false;
                             return;

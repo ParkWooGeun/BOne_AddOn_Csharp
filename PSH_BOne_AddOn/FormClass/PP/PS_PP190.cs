@@ -178,13 +178,12 @@ namespace PSH_BOne_AddOn
 		{
 			string DeleteFilePath;
 			string errMessage = string.Empty;
-			string sQry;
 			SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
 			{
                 oMat01.FlushToDataSource();
-                DeleteFilePath = oDS_PS_PP190L.GetValue("U_ColRgL01", pRow - 1); //삭제할 첨부파일 경로 저장
+                DeleteFilePath = oDS_PS_PP190L.GetValue("U_AttPath", pRow - 1); //삭제할 첨부파일 경로 저장
 
                 if (string.IsNullOrEmpty(DeleteFilePath))
                 {
@@ -231,7 +230,6 @@ namespace PSH_BOne_AddOn
 			string sourceFile;
 			string targetFile;
 			string errMessage = string.Empty;
-			string sQry;
 			SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			try
 			{
@@ -327,7 +325,7 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				//oMat01.FlushToDataSource();
-				AttachPath = oDS_PS_PP190L.GetValue("U_ColRgL01", pRow - 1).ToString().Trim();
+				AttachPath = oDS_PS_PP190L.GetValue("U_AttPath", pRow - 1).ToString().Trim();
 				if (string.IsNullOrEmpty(AttachPath))
 				{
 					PSH_Globals.SBO_Application.MessageBox("첨부파일이 없습니다.");
@@ -360,15 +358,16 @@ namespace PSH_BOne_AddOn
 		/// <param name="oFormDocEntry"></param>
 		private void PS_PP190_SetDocument(string oFormDocEntry)
 		{
+			int i;
 			int sSeq;
 			int sCount;
-			int i;
 			string sQry;
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
 			{
+				oForm.Freeze(true);
 				if (string.IsNullOrEmpty(oFormDocEntry))
 				{
 					PS_PP190_EnableFormItem();
@@ -415,6 +414,7 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
+				oForm.Freeze(false);
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 		}
@@ -438,8 +438,8 @@ namespace PSH_BOne_AddOn
 				oDS_PS_PP190L.Offset = oRow;
 				oDS_PS_PP190L.SetValue("LineId", oRow, Convert.ToString(oRow + 1));
 				oDS_PS_PP190L.SetValue("U_LineNum", oRow, Convert.ToString(oRow + 1));
-				//oMat01.LoadFromDataSource();
-			}
+                oMat01.LoadFromDataSource();
+            }
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
@@ -499,7 +499,6 @@ namespace PSH_BOne_AddOn
 		private bool PS_PP190_DelMatrixSpaceLine()
 		{
 			bool returnValue = false;
-
 			int i;
 			string errMessage = string.Empty;
 
@@ -538,11 +537,6 @@ namespace PSH_BOne_AddOn
 						if (string.IsNullOrEmpty(oDS_PS_PP190L.GetValue("U_Thick", i).ToString().Trim()))
 						{
 							errMessage = "두께는 필수입력사항입니다. 확인하세요.";
-							throw new Exception();
-						}
-						if (string.IsNullOrEmpty(oDS_PS_PP190L.GetValue("U_State", i).ToString().Trim()))
-                        {
-							errMessage = "상태는 필수입력사항입니다. 확인하세요.";
 							throw new Exception();
 						}
 					}
@@ -620,8 +614,8 @@ namespace PSH_BOne_AddOn
 				oForm.Freeze(true);
 				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
-					oForm.EnableMenu("1281", true);		//찾기
-					oForm.EnableMenu("1282", false);    //추가
+					oForm.EnableMenu("1281", true); //찾기
+					oForm.EnableMenu("1282", false); //추가
 					oForm.Items.Item("BPLId").Enabled = true;
 					oForm.Items.Item("Seq").Enabled = false;
 					oForm.Items.Item("ToolType").Enabled = true;
@@ -633,8 +627,8 @@ namespace PSH_BOne_AddOn
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
 				{
-					oForm.EnableMenu("1281", true);	  //찾기
-					oForm.EnableMenu("1282", true);   //추가
+					oForm.EnableMenu("1281", true); //찾기
+					oForm.EnableMenu("1282", true); //추가
 					oForm.Items.Item("BPLId").Enabled = true;
 					oForm.Items.Item("Seq").Enabled = false;
 					oForm.Items.Item("CpCode").Enabled = false;
@@ -646,7 +640,7 @@ namespace PSH_BOne_AddOn
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
 				{
-					oForm.EnableMenu("1282", true);  //추가
+					oForm.EnableMenu("1282", true); //추가
 					oForm.Items.Item("BPLId").Enabled = false;
 					oForm.Items.Item("ToolType").Enabled = false;
 					oForm.Items.Item("Year").Enabled = false;
@@ -698,7 +692,9 @@ namespace PSH_BOne_AddOn
 						oMat01.Columns.Item("UseDept").ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 						oRecordSet.MoveNext();
 					}
+					oMat01.Columns.Item("UseDept").DisplayDesc = true;
 				}
+				oMat01.AutoResizeColumns();
 			}
 			catch (Exception ex)
 			{
@@ -807,6 +803,7 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
+				oForm.Freeze(true);
 				if (pVal.BeforeAction == true)
 				{
                     if (pVal.ItemUID == "1")
@@ -907,6 +904,7 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
+				oForm.Freeze(false);
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 		}
@@ -1044,6 +1042,7 @@ namespace PSH_BOne_AddOn
 
 					if (pVal.ItemUID == "Mat01")
 					{
+						oMat01.FlushToDataSource();
 						if (pVal.ColUID == "Action")
 						{
 							if (oMat01.Columns.Item("Action").Cells.Item(pVal.Row).Specific.Value == "S")
@@ -1072,7 +1071,7 @@ namespace PSH_BOne_AddOn
                                 oMat01.LoadFromDataSource();
                             }
                         }
-						
+						oMat01.LoadFromDataSource();						
 					}
 				}
 			}
@@ -1303,6 +1302,7 @@ namespace PSH_BOne_AddOn
 		{
 			try
 			{
+				oForm.Freeze(true);
 				if (pVal.BeforeAction == true)
 				{
 					switch (pVal.MenuUID)
@@ -1372,7 +1372,6 @@ namespace PSH_BOne_AddOn
 							PS_PP190_SetDocument("");
 							break;
 						case "1287": //복제
-							oForm.Freeze(true);
 							oDS_PS_PP190H.SetValue("Code", 0, "");
 							oDS_PS_PP190H.SetValue("U_Seq", 0, "");
 
@@ -1382,7 +1381,6 @@ namespace PSH_BOne_AddOn
                                 oDS_PS_PP190L.SetValue("Code", i, "");
                                 oMat01.LoadFromDataSource();
                             }
-							oForm.Freeze(false);
 							break;
 						case "1288":
 						case "1289":
@@ -1396,6 +1394,10 @@ namespace PSH_BOne_AddOn
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+            finally
+            {
+				oForm.Freeze(false);
 			}
 		}
 

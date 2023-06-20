@@ -10,7 +10,7 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 namespace PSH_BOne_AddOn
 {
     /// <summary>
-    /// 베네피아 금액등록
+    /// 복지포인트 사용금액등록
     /// </summary>
     internal class PH_PY124 : PSH_BaseClass
     {
@@ -540,8 +540,8 @@ namespace PSH_BOne_AddOn
             int CheckLine;
             int i;
             bool sucessFlag = false;
-            short columnCount = 7; //엑셀 컬럼수
-            short columnCount2 = 7; //엑셀 컬럼수
+            short columnCount = 15; //엑셀 컬럼수
+            short columnCount2 = 15; //엑셀 컬럼수
             string sFile;
             double TOTCNT;
             int V_StatusCnt;
@@ -584,7 +584,6 @@ namespace PSH_BOne_AddOn
             Microsoft.Office.Interop.Excel.Range xlRange = xlsh.UsedRange;
             Microsoft.Office.Interop.Excel.Range xlRow = xlRange.Rows;
 
-            SAPbouiCOM.ProgressBar ProgressBar01 = null;
             oForm.Freeze(true);
 
             oMat1.Clear();
@@ -592,7 +591,6 @@ namespace PSH_BOne_AddOn
             oMat1.LoadFromDataSource();
             try
             {
-                ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("시작!", xlRow.Count, false);
                 Microsoft.Office.Interop.Excel.Range[] t = new Microsoft.Office.Interop.Excel.Range[columnCount2 + 1];
                 for (loopCount = 1; loopCount <= columnCount2; loopCount++)
                 {
@@ -600,46 +598,43 @@ namespace PSH_BOne_AddOn
                 }
 
                 // 첫 타이틀 비교
-                if (Convert.ToString(t[1].Value) != "일련번호")
+                if (Convert.ToString(t[1].Value) != "NO")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("A열 첫번째 행 타이틀은 일련번호", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("A열 첫번째 행 타이틀은 NO", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     throw new Exception();
                 }
-                if (Convert.ToString(t[2].Value) != "사번")
+                if (Convert.ToString(t[5].Value) != "사번/ID")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("B열 두번째 행 타이틀은 사번", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("E열 두번째 행 타이틀은 사번", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     throw new Exception();
                 }
-                if (Convert.ToString(t[3].Value) != "이름")
+                if (Convert.ToString(t[3].Value) != "성명")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("C열 세번째 행 타이틀은 이름", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("C열 세번째 행 타이틀은 성명", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     throw new Exception();
                 }
-                if (Convert.ToString(t[4].Value) != "베네피아")
+                if (Convert.ToString(t[11].Value) != "온라인금액")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("D열 세번째 행 타이틀은 베네피아", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("K열 세번째 행 타이틀은 온라인금액", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     throw new Exception();
                 }
-                if (Convert.ToString(t[5].Value) != "영수증")
+                if (Convert.ToString(t[12].Value) != "복지카드")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("E열 세번째 행 타이틀은 영수증", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("L열 세번째 행 타이틀은 복지카드", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     throw new Exception();
                 }
-                if (Convert.ToString(t[6].Value) != "복지카드(국내)")
+                if (Convert.ToString(t[13].Value) != "기타/현금영수증")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("F열 세번째 행 타이틀은 복지카드(국내)", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("M열 세번째 행 타이틀은 기타/현금영수증", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     throw new Exception();
                 }
-                if (Convert.ToString(t[7].Value) != "총합계(원)")
+                if (Convert.ToString(t[14].Value) != "합계")
                 {
-                    PSH_Globals.SBO_Application.StatusBar.SetText("G열 세번째 행 타이틀은 총합계(원)", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                    PSH_Globals.SBO_Application.StatusBar.SetText("N열 세번째 행 타이틀은 합계", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
                     throw new Exception();
                 }
 
-                //프로그레스 바
-                ProgressBar01.Text = "데이터 읽는중...!";
-
-                //최대값 구하기
+                 //최대값 구하기
                 TOTCNT = xlsh.UsedRange.Rows.Count;
 
                 V_StatusCnt = Convert.ToInt32(Math.Round(TOTCNT / 50, 0));
@@ -668,27 +663,19 @@ namespace PSH_BOne_AddOn
                     {
                         oDS_PH_PY124B.RemoveRecord(oDS_PH_PY124B.Size - 1);
                     }
-
                     oDS_PH_PY124B.InsertRecord(oDS_PH_PY124B.Size);
                     oDS_PH_PY124B.Offset = oDS_PH_PY124B.Size - 1;
                     oDS_PH_PY124B.SetValue("U_LineNum", oDS_PH_PY124B.Size - 1, Convert.ToString(r[1].Value));
                     oDS_PH_PY124B.SetValue("U_Seq", oDS_PH_PY124B.Size - 1, Convert.ToString(r[1].Value));
-                    oDS_PH_PY124B.SetValue("U_MSTCOD", oDS_PH_PY124B.Size - 1, Convert.ToString(r[2].Value));
+                    oDS_PH_PY124B.SetValue("U_MSTCOD", oDS_PH_PY124B.Size - 1, Convert.ToString(r[5].Value).Substring(3,7));
                     oDS_PH_PY124B.SetValue("U_MSTNAM", oDS_PH_PY124B.Size - 1, Convert.ToString(r[3].Value));
-                    oDS_PH_PY124B.SetValue("U_BeneAmt", oDS_PH_PY124B.Size - 1, Convert.ToString(r[4].Value));
-                    oDS_PH_PY124B.SetValue("U_BillAmt", oDS_PH_PY124B.Size - 1, Convert.ToString(r[5].Value));
-                    oDS_PH_PY124B.SetValue("U_CardAmt", oDS_PH_PY124B.Size - 1, Convert.ToString(r[6].Value));
-                    oDS_PH_PY124B.SetValue("U_TotAmt", oDS_PH_PY124B.Size - 1, Convert.ToString(r[7].Value));
+                    oDS_PH_PY124B.SetValue("U_BeneAmt", oDS_PH_PY124B.Size - 1, Convert.ToString(r[11].Value));
+                    oDS_PH_PY124B.SetValue("U_BillAmt", oDS_PH_PY124B.Size - 1, Convert.ToString(r[12].Value));
+                    oDS_PH_PY124B.SetValue("U_CardAmt", oDS_PH_PY124B.Size - 1, Convert.ToString(r[13].Value));
+                    oDS_PH_PY124B.SetValue("U_TotAmt", oDS_PH_PY124B.Size - 1, Convert.ToString(r[14].Value));
 
-                    if ((TOTCNT > 50 && tRow == oProValue * V_StatusCnt) || TOTCNT <= 50)
-                    {
-                        ProgressBar01.Text = tRow + "/ " + TOTCNT + " 건 처리중...!";
-                        ProgressBar01.Value += 1;
-                    }
                     tRow += 1;
                 }
-                ProgressBar01.Value += 1;
-                ProgressBar01.Text = ProgressBar01.Value + "/" + (xlRow.Count - 1) + "건 Loding...!";
 
                 //라인번호 재정의
                 for (i = 0; i <= oDS_PH_PY124B.Size - 1; i++)
@@ -701,7 +688,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY124_Excel_Upload:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
+               PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY124_Excel_Upload:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
             }
             finally
             {
@@ -716,11 +703,6 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(xlwbs);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(xlapp);
 
-                if (ProgressBar01 != null)
-                {
-                    ProgressBar01.Stop();
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
-                }
                 if (sucessFlag == true)
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("엑셀 Loding 완료", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success);

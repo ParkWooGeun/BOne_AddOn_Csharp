@@ -468,7 +468,7 @@ namespace PSH_BOne_AddOn.Core
 
                                 RecordSet01.DoQuery(Query01);
                                 if (RecordSet01.Fields.Item(0).Value.ToString().Trim() == oMat01.Columns.Item("1").Cells.Item(i).Specific.Value.ToString().Trim()
-                                    && Convert.ToDouble(RecordSet01.Fields.Item(1).Value) == Convert.ToDouble(oMat01.Columns.Item("14").Cells.Item(i).Specific.Value.ToString().Split(" ")[0]) //단가
+                                    && Convert.ToDouble(RecordSet01.Fields.Item(1).Value) == Convert.ToDouble(oMat01.Columns.Item("14").Cells.Item(i).Specific.Value.ToString().Split(' ')[0]) //단가
                                     && RecordSet01.Fields.Item(2).Value.ToString().Trim() == oMat01.Columns.Item("U_TrType").Cells.Item(i).Specific.Selected.Value.ToString().Trim())
                                 {
                                 }

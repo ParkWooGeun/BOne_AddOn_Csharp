@@ -45,6 +45,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PS_MM510_CreateItems();
                 PS_MM510_ComboBox_Setting();
+                PS_MM510_Initial_Setting();
             }
             catch (Exception ex)
             {
@@ -67,7 +68,6 @@ namespace PSH_BOne_AddOn
             try
             {
                 oGrid01 = oForm.Items.Item("Grid01").Specific;
-
                 oForm.DataSources.UserDataSources.Add("BPLId", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
                 oForm.DataSources.UserDataSources.Add("TeamCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
                 oForm.DataSources.UserDataSources.Add("RspCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
@@ -102,18 +102,19 @@ namespace PSH_BOne_AddOn
         private void PS_MM510_ComboBox_Setting()
         {
             string sQry;
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             
             try
             {
                 sQry = "SELECT BPLId, BPLName From OBPL order by BPLId";
                 oRecordSet01.DoQuery(sQry);
-                while (!(oRecordSet01.EoF))
+                while (!oRecordSet01.EoF)
                 {
                     oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet01.Fields.Item(0).Value, oRecordSet01.Fields.Item(1).Value);
                     oRecordSet01.MoveNext();
                 }
-                oForm.Items.Item("BPLId").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+                
 
                 //품목그룹
                 oForm.Items.Item("ItmsGrp").Specific.ValidValues.Add("%", "전체");
@@ -136,7 +137,23 @@ namespace PSH_BOne_AddOn
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
             }
         }
+        /// <summary>
+        /// PS_MM510_Initial_Setting
+        /// </summary>
+        private void PS_MM510_Initial_Setting()
+        {
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
+            try
+            {
+                oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);//사업장 사용자의 소속 사업장 선택
+                oForm.Items.Item("CntcCode").Specific.Value = dataHelpClass.User_MSTCOD(); //아이디별 사번 세팅
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+            }
+        }
         /// <summary>
         /// PS_MM510_MTX01
         /// </summary>
@@ -578,6 +595,7 @@ namespace PSH_BOne_AddOn
                         case "1281": //찾기
                             break;
                         case "1282": //추가
+                            PS_MM510_Initial_Setting();
                             break;
                         case "1288": //레코드이동(다음)
                         case "1289": //레코드이동(이전)

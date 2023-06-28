@@ -696,7 +696,11 @@ namespace PSH_BOne_AddOn
                     for (i = 1; i <= oMat01.VisualRowCount; i++)
                     {
                         dataHelpClass.DoQuery("UPDATE [@PS_PP048L] SET U_OIGENum = '" + ResultDocNum + "', U_IGE1Num = '" + j + "', U_Check = 'Y' WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "' And LineId = '" + oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value + "'");
-                        dataHelpClass.DoQuery("UPDATE [@PS_PP040L] SET U_ScrapWt = 0 WHERE DocEntry = '" + oForm.Items.Item("PP040No").Specific.Value + "' And LineId = '" + oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value + "'");//부품 실적추가분 취소처리 => 수량을 0으로 처리
+
+                        if (!string.IsNullOrEmpty(oForm.Items.Item("PP040No").Specific.Value.ToString().Trim()))
+                        {
+                            dataHelpClass.DoQuery("UPDATE [@PS_PP040L] SET U_ScrapWt = 0 WHERE DocEntry = '" + oForm.Items.Item("PP040No").Specific.Value + "' And LineId = '" + oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value + "'");//부품 실적추가분 취소처리 => 수량을 0으로 처리
+                        }
                         j += 1;
                     }
                 }
@@ -1563,12 +1567,12 @@ namespace PSH_BOne_AddOn
                             {
                                 if (oMat01.Columns.Item("Check").Cells.Item(i).Specific.Checked == true & string.IsNullOrEmpty(oMat01.Columns.Item("OIGENum").Cells.Item(i).Specific.Value.ToString().Trim()))
                                 {
-                                    RowCounter = RowCounter + 1;
+                                    RowCounter += 1;
                                 }
                             }
                             if (RowCounter == 0)
                             {
-                                dataHelpClass.MDC_GF_Message("취소할 항목을 선택해주세요.", "W");
+                                PSH_Globals.SBO_Application.MessageBox("취소할 항목을 선택해주세요.");
                                 BubbleEvent = false;
                                 return;
                             }
@@ -1582,19 +1586,39 @@ namespace PSH_BOne_AddOn
                                 BubbleEvent = false;
                                 return;
                             }
+
                             if (oForm.Items.Item("Div").Specific.Value.ToString().Trim() == "10")
                             {
-                                if (PS_PP048_Add_InventoryGenExit() == false)
+                                if (!string.IsNullOrEmpty(oForm.Items.Item("OIGNNo").Specific.Value.ToString().Trim()))
                                 {
-                                    BubbleEvent = false;
-                                    return;
+                                    if (PS_PP048_Add_InventoryGenExit() == false)
+                                    {
+                                        BubbleEvent = false;
+                                        return;
+                                    }
+                                }
+                                else if (string.IsNullOrEmpty(oForm.Items.Item("OIGNNo").Specific.Value.ToString().Trim()))
+                                {
+                                    for (i = 1; i <= oMat01.VisualRowCount; i++)
+                                    {
+                                        if (!string.IsNullOrEmpty(oForm.Items.Item("PP040No").Specific.Value.ToString().Trim()))
+                                        {
+                                            dataHelpClass.DoQuery("UPDATE [@PS_PP040L] SET U_ScrapWt = 0 WHERE DocEntry = '" + oForm.Items.Item("PP040No").Specific.Value + "' And LineId = '" + oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value + "'");//부품 실적추가분 취소처리 => 수량을 0으로 처리
+                                            dataHelpClass.DoQuery("UPDATE [@PS_PP048L] SET U_Check = 'Y' WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'");
+                                        }
+                                    }
                                 }
                             }
-                            else
+                            else 
                             {
                                 dataHelpClass.DoQuery("UPDATE [@PS_PP048L] SET U_Check = 'Y' WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'");
-                                dataHelpClass.DoQuery("UPDATE [@PS_PP040L] SET U_Loss = 0 WHERE DocEntry = '" + oForm.Items.Item("PP040No").Specific.Value + "'");
+
+                                if (!string.IsNullOrEmpty(oForm.Items.Item("PP040No").Specific.Value.ToString().Trim()))
+                                {
+                                    dataHelpClass.DoQuery("UPDATE [@PS_PP040L] SET U_Loss = 0 WHERE DocEntry = '" + oForm.Items.Item("PP040No").Specific.Value + "'");
+                                }
                             }
+
                             oDocEntry = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim();
                             break;
                         case "1286": //닫기
@@ -1625,27 +1649,29 @@ namespace PSH_BOne_AddOn
                     switch (pVal.MenuUID)
                     {
                         case "1284": //취소
-                            sQry = "Select Min(IsNULL(U_OIGENum, '')) From [@PS_PP048L] where DocEntry = '" + oDocEntry + "'";
-                            oRecordSet01.DoQuery(sQry);
-                            if (oForm.Items.Item("Div").Specific.Value.ToString().Trim() == "10")
-                            {
-                                if (string.IsNullOrEmpty(oRecordSet01.Fields.Item(0).Value.ToString().Trim()))
-                                {
-                                    oStatus = "O";
-                                    oCanceled = "N";
-                                }
-                                else
-                                {
-                                    oStatus = "C";
-                                    oCanceled = "Y";
-                                }
-                            }
-                            else
-                            {
-                                oStatus = "C";
-                                oCanceled = "Y";
-                            }
+                                     //sQry = "Select Min(IsNULL(U_OIGENum, '')) From [@PS_PP048L] where DocEntry = '" + oDocEntry + "'";
+                                     //oRecordSet01.DoQuery(sQry);
+                                     //if (oForm.Items.Item("Div").Specific.Value.ToString().Trim() == "10")
+                                     //{
+                                     //    if (string.IsNullOrEmpty(oRecordSet01.Fields.Item(0).Value.ToString().Trim()))
+                                     //    {
+                                     //        oStatus = "O";
+                                     //        oCanceled = "N";
+                                     //    }
+                                     //    else
+                                     //    {
+                                     //        oStatus = "C";
+                                     //        oCanceled = "Y";
+                                     //    }
+                                     //}
+                                     //else
+                                     //{
+                                     //    oStatus = "C";
+                                     //    oCanceled = "Y";
+                                     //}
 
+                            oStatus = "C";
+                            oCanceled = "Y";
                             dataHelpClass.DoQuery("UPDATE [@PS_PP048H] SET Status = '" + oStatus + "', Canceled = '" + oCanceled + "' WHERE DocEntry = '" + oDocEntry + "'");
 
                             oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;

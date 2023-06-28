@@ -637,12 +637,12 @@ namespace PSH_BOne_AddOn
 				{
 					if (string.IsNullOrEmpty(oDS_PS_MM152L.GetValue("U_OtDocLin", i).ToString().Trim()))
 					{
-						errMessage = "반출문서 - 행 필수사항입니다.확인하세요.";
+						errMessage = "'반출문서 - 행'dev 필수사항입니다.확인하세요.";
 						throw new Exception();
 					}
 					if (Convert.ToDouble(oDS_PS_MM152L.GetValue("U_OutWt", i).ToString().Trim()) == 0 && Convert.ToDouble(oDS_PS_MM152L.GetValue("U_NWeight", i).ToString().Trim()) == 0 && Convert.ToDouble(oDS_PS_MM152L.GetValue("U_ScrapWt", i).ToString().Trim()) == 0 && Convert.ToDouble(oDS_PS_MM152L.GetValue("U_MUseWt", i).ToString().Trim()) == 0 && Convert.ToDouble(oDS_PS_MM152L.GetValue("U_Loss", i).ToString().Trim()) == 0 && Convert.ToDouble(oDS_PS_MM152L.GetValue("U_Sample", i).ToString().Trim()) == 0)
 					{
-						errMessage = "" + i + 1 + "번 라인의 출고중량은 0보다 커야만 합니다. 확인하세요.";
+						errMessage = "" + (i + 1) + "번 라인의 출고중량은 0보다 커야만 합니다. 확인하세요.";
 						throw new Exception();
 					}
 				}
@@ -654,7 +654,7 @@ namespace PSH_BOne_AddOn
 
 				if (MUseWt > MDUseWt)
 				{
-					errMessage = "" + i + 1 + "번 라인의 원재료사용중량은 원재료잔량중량보다 클수 없습니다. 확인하세요.";
+					errMessage = "" + (i + 1) + "번 라인의 원재료사용중량은 원재료잔량중량보다 클수 없습니다. 확인하세요.";
 					throw new Exception();
 				}
 				//출고중량 체크

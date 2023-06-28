@@ -935,8 +935,7 @@
 //					break;
 
 //				//----------------------------------------------------------
-//				case SAPbouiCOM.BoEventTypes.et_
-//				KER_CLICKED:
+//				case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED:
 //					////37
 //					break;
 

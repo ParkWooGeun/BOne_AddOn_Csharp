@@ -126,6 +126,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Div").Specific.ValidValues.Add("16", "생산완료 오류체크");
                 oForm.Items.Item("Div").Specific.ValidValues.Add("17", "멀티 원재료 입출고 일자");
                 oForm.Items.Item("Div").Specific.ValidValues.Add("18", "멀티 공정 수량 확인용 쿼리");
+                oForm.Items.Item("Div").Specific.ValidValues.Add("19", "멀티 멀티공정 생산량 검증");
                 oForm.Items.Item("Div").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
             }
@@ -286,6 +287,10 @@ namespace PSH_BOne_AddOn
                     Query01 = "EXEC PS_CO510_18 '" + BPLId + "','" + DocDateFr + "','" + DocDateTo + "'";
                 }
 
+                else if (Div == "19")
+                {
+                    Query01 = "EXEC PS_CO510_19 '" + BPLId + "','" + DocDateFr + "','" + DocDateTo + "'";
+                }
                 oGrid01.DataTable.Clear();
 
                 oDS_PS_CO510A.ExecuteQuery(Query01);

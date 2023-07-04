@@ -598,6 +598,42 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
+		/// 사용횟수 입력
+		/// </summary>
+		private void PS_PP190_Counting_Sum()
+		{
+			int i;
+			int sumCnt = 0;
+
+			try
+			{
+				oForm.Freeze(true);
+				for(i = oMat01.RowCount -1 ; i > 0; i--)
+                {
+					if(oMat01.Columns.Item("Gubun").Cells.Item(i).Specific.Value  == "U")
+                    {
+						sumCnt += Convert.ToInt32(oMat01.Columns.Item("Cnt").Cells.Item(i).Specific.Value);
+
+					}
+                    else
+                    {
+						break;
+                    }
+				}
+				oForm.Items.Item("Cnt").Specific.Value = sumCnt;
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+			{
+				oForm.Update();
+				oForm.Freeze(false);
+			}
+		}
+
+		/// <summary>
 		/// PS_PP190_EnableFormItem
 		/// </summary>
 		private void PS_PP190_EnableFormItem()
@@ -895,7 +931,7 @@ namespace PSH_BOne_AddOn
                             }
                         }
                     }
-                    oMat01.LoadFromDataSource();
+                    //oMat01.LoadFromDataSource();
                 }
 			}
 			catch (Exception ex)
@@ -1365,6 +1401,7 @@ namespace PSH_BOne_AddOn
 						case "1281": //찾기
 							PS_PP190_AddMatrixRow(0, true);
 							PS_PP190_EnableFormItem();
+							PS_PP190_Counting_Sum();
 							break;
 						case "1282": //추가
 							PS_PP190_AddMatrixRow(0, true);
@@ -1387,6 +1424,7 @@ namespace PSH_BOne_AddOn
 						case "1290":
 						case "1291": //레코드이동버튼
 							PS_PP190_EnableFormItem();
+							PS_PP190_Counting_Sum();
 							break;
 					}
 				}

@@ -1597,7 +1597,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                DocEntry = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim();
+                DocEntry = oForm.Items.Item("DocNum").Specific.Value.ToString().Trim();
                 WinTitle = "[PS_MM070_01] 라벨 출력";
                 ReportName = "PS_MM070_01.rpt";
 

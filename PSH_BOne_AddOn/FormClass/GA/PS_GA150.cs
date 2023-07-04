@@ -1114,8 +1114,8 @@ namespace PSH_BOne_AddOn
 							oForm.Items.Item("CntcName").Specific.Value = dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("CntcCode").Specific.Value.ToString().Trim() + "'", "");
 							oForm.Items.Item("TeamCd").Specific.Value = dataHelpClass.Get_ReData("U_TeamCode", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("CntcCode").Specific.Value.ToString().Trim() + "'", "");
 							oForm.Items.Item("RspCd").Specific.Value = dataHelpClass.Get_ReData("U_RspCode", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("CntcCode").Specific.Value.ToString().Trim() + "'", "");
-							oForm.Items.Item("TeamNm").Specific.Value = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" + oForm.Items.Item("TeamCd").Specific.Value.ToString().Trim() + "'", "");
-							oForm.Items.Item("RspNm").Specific.Value = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" + oForm.Items.Item("RspCd").Specific.Value.ToString().Trim() + "'", "");
+							oForm.Items.Item("TeamNm").Specific.Value = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" + oForm.Items.Item("TeamCd").Specific.Value.ToString().Trim() + "'", "And U_UseYN ='Y'");
+							oForm.Items.Item("RspNm").Specific.Value = dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", "'" + oForm.Items.Item("RspCd").Specific.Value.ToString().Trim() + "'", "And U_UseYN ='Y'");
 							oForm.Items.Item("LPrvdDt").Specific.Value = dataHelpClass.Get_ReData("Convert(VARCHAR(10), MAX(U_PrvdDt), 112) ", "U_CntcCode", "[@PS_GA150H]", "'" + oForm.Items.Item("CntcCode").Specific.Value.ToString().Trim() + "'", "AND U_PrtrNm = '" + oForm.Items.Item("PrtrNm").Specific.Value.ToString().Trim() + "'");
 						}
 						else if (pVal.ItemUID == "PrtrCd")

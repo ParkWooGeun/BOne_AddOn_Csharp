@@ -858,7 +858,7 @@ namespace PSH_BOne_AddOn
 								oMat.FlushToDataSource();
 
 								oDS_PS_AD106L.SetValue("U_" + pVal.ColUID, pVal.Row - 1, oMat.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().Trim());
-								oDS_PS_AD106L.SetValue("U_FormName", pVal.Row - 1, dataHelpClass.Get_ReData("U_CdName", "U_Minor", "[@PS_SY001L]", "'" + oMat.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().Trim() + "'", ""));
+								oDS_PS_AD106L.SetValue("U_FormName", pVal.Row - 1, dataHelpClass.Get_ReData("string", "UniqueID", "Authority_Screen", "'" + oMat.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().Trim() + "'", ""));
 
 								oMat.LoadFromDataSource();
 							}

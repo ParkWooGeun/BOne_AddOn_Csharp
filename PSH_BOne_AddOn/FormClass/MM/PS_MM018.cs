@@ -257,31 +257,6 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
-        /// Delete_EmptyRow
-        /// </summary>
-        private void PS_MM018_Delete_EmptyRow()
-        {
-            int i;
-
-            try
-            {
-                oMat.FlushToDataSource();
-                for (i = 0; i <= oMat.VisualRowCount - 1; i++)
-                {
-                    if (string.IsNullOrEmpty(oDS_PS_MM018L.GetValue("U_MM005Doc", i).ToString().Trim()))
-                    {
-                        oDS_PS_MM018L.RemoveRecord(i);
-                    }
-                }
-                oMat.LoadFromDataSource();
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-            }
-        }
-
-        /// <summary>
         /// 모드에 따른 아이템 설정
         /// </summary>
         private void PS_MM018_FormItemEnabled()
@@ -560,7 +535,6 @@ namespace PSH_BOne_AddOn
                                 BubbleEvent = false;
                                 return;
                             }
-                            PS_MM018_Delete_EmptyRow();
                         }
                         oMat.AutoResizeColumns();
                     }

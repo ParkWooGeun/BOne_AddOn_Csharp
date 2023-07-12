@@ -500,7 +500,7 @@ namespace PSH_BOne_AddOn
                         oRecordSet.DoQuery(sQry);
                     }
                 }
-                sQry = "UPDATE [@PS_MM018H] SET U_ApplyYN = 'Y' WHERE DocEntry ='" + oForm.Items.Item("DocNum").Specific.Value.ToString().Trim() + "'";
+                sQry = "UPDATE [@PS_MM018H] SET U_ApplyYN = 'N' WHERE DocEntry ='" + oForm.Items.Item("DocNum").Specific.Value.ToString().Trim() + "'";
                 oRecordSet.DoQuery(sQry);
             }
             catch (Exception ex)

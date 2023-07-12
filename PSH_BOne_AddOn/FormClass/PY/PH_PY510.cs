@@ -110,35 +110,35 @@ namespace PSH_BOne_AddOn
                 //부서
                 oForm.DataSources.UserDataSources.Add("TeamCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("TeamCode").Specific.DataBind.SetBound(true, "", "TeamCode");
-                sQry = "        SELECT      U_Code,";
-                sQry = sQry + "             U_CodeNm";
-                sQry = sQry + " FROM        [@PS_HR200L]";
-                sQry = sQry + " WHERE       Code = '1'";
-                sQry = sQry + "             AND U_UseYN = 'Y'";
-                sQry = sQry + "             AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "'";
+                sQry = "  SELECT      U_Code,";
+                sQry += "             U_CodeNm";
+                sQry += " FROM        [@PS_HR200L]";
+                sQry += " WHERE       Code = '1'";
+                sQry += "             AND U_UseYN = 'Y'";
+                sQry += "             AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "'";
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("TeamCode").Specific, "Y");
                 oForm.Items.Item("TeamCode").DisplayDesc = true;
 
                 //담당
                 oForm.DataSources.UserDataSources.Add("RspCode", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("RspCode").Specific.DataBind.SetBound(true, "", "RspCode");
-                sQry = "        SELECT      U_Code,";
-                sQry = sQry + "             U_CodeNm";
-                sQry = sQry + " FROM        [@PS_HR200L]";
-                sQry = sQry + " WHERE       Code = '2'";
-                sQry = sQry + "             AND U_UseYN = 'Y'";
-                sQry = sQry + "             AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "'";
+                sQry = "  SELECT      U_Code,";
+                sQry += "             U_CodeNm";
+                sQry += " FROM        [@PS_HR200L]";
+                sQry += " WHERE       Code = '2'";
+                sQry += "             AND U_UseYN = 'Y'";
+                sQry += "             AND U_Char2 = '" + oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() + "'";
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("RspCode").Specific, "Y");
                 oForm.Items.Item("RspCode").DisplayDesc = true;
 
                 //직원구분
                 oForm.DataSources.UserDataSources.Add("JIGTYP", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("JIGTYP").Specific.DataBind.SetBound(true, "", "JIGTYP");
-                sQry = "        SELECT      U_Code,";
-                sQry = sQry + "             U_CodeNm";
-                sQry = sQry + " FROM        [@PS_HR200L]";
-                sQry = sQry + " WHERE       Code = 'P126'";
-                sQry = sQry +"              AND U_UseYN = 'Y'";
+                sQry = "  SELECT      U_Code,";
+                sQry += "             U_CodeNm";
+                sQry += " FROM        [@PS_HR200L]";
+                sQry += " WHERE       Code = 'P126'";
+                sQry +="              AND U_UseYN = 'Y'";
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("JIGTYP").Specific, "Y");
                 oForm.Items.Item("JIGTYP").DisplayDesc = true;
                 oForm.Items.Item("JIGTYP").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
@@ -249,7 +249,6 @@ namespace PSH_BOne_AddOn
             
             short ErrNum = 0;
             string sQry = string.Empty;
-
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -296,14 +295,11 @@ namespace PSH_BOne_AddOn
             TeamCode = oForm.Items.Item("TeamCode").Specific.Value.ToString().Trim();
             RspCode = oForm.Items.Item("RspCode").Specific.Value.ToString().Trim();
             JIGTYP = oForm.Items.Item("JIGTYP").Specific.Value.ToString().Trim();
-
-            //SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
             {
-
-                sQry = "EXEC PH_PY510_02 '" + CLTCOD + "','" + TeamCode + "','" + RspCode + "','" + JIGTYP + "'";
-
+                sQry = "EXEC PH_PY510_02 '" + CLTCOD + "','" + TeamCode + "','" + RspCode + "','" + JIGTYP + "','" + dataHelpClass.User_MSTCOD() + "'";
                 oDS_PH_PY510.ExecuteQuery(sQry);
             }
             catch(Exception ex)

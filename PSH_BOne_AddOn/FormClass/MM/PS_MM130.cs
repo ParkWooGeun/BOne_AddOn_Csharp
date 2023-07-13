@@ -127,7 +127,7 @@ namespace PSH_BOne_AddOn
 				dataHelpClass.Combo_ValidValues_SetValueItem(oForm.Items.Item("OKYNC").Specific, "PS_MM130", "OKYNC", false);
 				oForm.Items.Item("OKYNC").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
-				dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL WHERE BPLId = '1' ORDER BY BPLId", "1", false, false);
+				dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL ORDER BY BPLId", "1", false, false);
 			}
 			catch (Exception ex)
 			{
@@ -140,17 +140,18 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void PS_MM130_Initial_Setting()
 		{
-			string lcl_User_BPLId;
+			//string lcl_User_BPLId;
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
 			try
 			{
-				lcl_User_BPLId = dataHelpClass.User_BPLID();
+				//lcl_User_BPLId = dataHelpClass.User_BPLID();
 
-				if (lcl_User_BPLId == "1")
-				{
-					oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
-				}
+				//if (lcl_User_BPLId == "1")
+				//{
+				//	oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
+				//}
+				//dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL order by BPLId", "", false, false);
 				oForm.Items.Item("CntcCode").Specific.Value = dataHelpClass.User_MSTCOD();
 			}
 			catch (Exception ex)
@@ -291,9 +292,9 @@ namespace PSH_BOne_AddOn
 					}
 					else
 					{
-						oForm.EnableMenu("1284", true); //취소
-						oForm.EnableMenu("1286", true); //닫기
-						oForm.EnableMenu("1293", true); //행삭제
+						oForm.EnableMenu("1284", false); //취소
+						oForm.EnableMenu("1286", false); //닫기
+						oForm.EnableMenu("1293", false); //행삭제
 					}
 
 					//외주업체
@@ -320,6 +321,9 @@ namespace PSH_BOne_AddOn
 						oMat.Columns.Item("OutWhNm").Editable = false;
 						oMat.Columns.Item("InWhCd").Editable = false;
 						oMat.Columns.Item("InWhNm").Editable = false;
+						oMat.Columns.Item("TCpCode").Editable = false;
+						oMat.Columns.Item("OutItmCd").Editable = false;
+
 					}
 					else
 					{
@@ -342,6 +346,8 @@ namespace PSH_BOne_AddOn
 						oForm.Items.Item("Rad02").Enabled = true;
 						oForm.Items.Item("OKYNC").Enabled = true;
 						oMat.Columns.Item("OrdNum").Editable = true;
+						oMat.Columns.Item("TCpCode").Editable = true;
+						oMat.Columns.Item("OutItmCd").Editable = true;
 					}
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
@@ -394,6 +400,9 @@ namespace PSH_BOne_AddOn
 						oForm.Items.Item("Fare").Enabled = true;
 						oForm.Items.Item("ArrivePl").Enabled = true;
 						oForm.Items.Item("OKYNC").Enabled = true;
+						oMat.Columns.Item("TCpCode").Editable = true;
+						oMat.Columns.Item("OutItmCd").Editable = true;
+
 					}
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
@@ -411,9 +420,9 @@ namespace PSH_BOne_AddOn
 					}
 					else
 					{
-						oForm.EnableMenu("1284", true); //취소
-						oForm.EnableMenu("1286", true); //닫기
-						oForm.EnableMenu("1293", true); //행삭제
+						oForm.EnableMenu("1284", false); //취소
+						oForm.EnableMenu("1286", false); //닫기
+						oForm.EnableMenu("1293", false); //행삭제
 					}
 
 					oForm.Items.Item("BPLId").Enabled = false;
@@ -452,6 +461,8 @@ namespace PSH_BOne_AddOn
 						oMat.Columns.Item("OutWhNm").Editable = false;
 						oMat.Columns.Item("InWhCd").Editable = false;
 						oMat.Columns.Item("InWhNm").Editable = false;
+						oMat.Columns.Item("TCpCode").Editable = false;
+						oMat.Columns.Item("OutItmCd").Editable = false;
 					}
 					else
 					{
@@ -480,6 +491,8 @@ namespace PSH_BOne_AddOn
 							oMat.Columns.Item("OutWhNm").Editable = false;
 							oMat.Columns.Item("InWhCd").Editable = false;
 							oMat.Columns.Item("InWhNm").Editable = false;
+							oMat.Columns.Item("TCpCode").Editable = false;
+							oMat.Columns.Item("OutItmCd").Editable = false;
 						}
 						else
 						{
@@ -501,6 +514,8 @@ namespace PSH_BOne_AddOn
 							oMat.Columns.Item("InWhCd").Editable = true;
 							oMat.Columns.Item("InWhNm").Editable = true;
 							oForm.Items.Item("OKYNC").Enabled = true;
+							oMat.Columns.Item("TCpCode").Editable = true;
+							oMat.Columns.Item("OutItmCd").Editable = true;
 						}
 					}
 				}
@@ -621,7 +636,7 @@ namespace PSH_BOne_AddOn
 					}
 				}
 
-				if (oMat.VisualRowCount == 1)
+				if (oMat.VisualRowCount < 1)
 				{
 					errMessage = "라인이 존재하지 않습니다.";
 					throw new Exception();
@@ -852,6 +867,7 @@ namespace PSH_BOne_AddOn
 				PSH_Globals.oCompany.StartTransaction();
 				oMat.FlushToDataSource();
 
+				oStockTrans.ToWarehouse = oDS_PS_MM130L.GetValue("U_InWhCd", 0).ToString().Trim();
 				oStockTrans.DocDate = DateTime.ParseExact(oForm.Items.Item("DocDate").Specific.Value, "yyyyMMdd", null);
 				oStockTrans.FromWarehouse = oDS_PS_MM130L.GetValue("U_OutWhCd", 0).ToString().Trim();
 				oStockTrans.Comments = "재고이전(" + oDS_PS_MM130H.GetValue("DocEntry", 0).ToString().Trim() + ") 재고이동 - PS_MM130 ";
@@ -1404,7 +1420,14 @@ namespace PSH_BOne_AddOn
 						}
 						else if (pVal.ItemUID == "CntcCode")
 						{
-							sQry = "Select U_FULLNAME, U_MSTCOD From [OHEM] Where U_MSTCOD = '" + oForm.Items.Item("CntcCode").Specific.Value.ToString().Trim() + "'";
+							sQry = "Select U_FULLNAME, U_
+								
+								
+								
+								
+								
+								
+								From [OHEM] Where U_MSTCOD = '" + oForm.Items.Item("CntcCode").Specific.Value.ToString().Trim() + "'";
 							oRecordSet.DoQuery(sQry);
 
 							oForm.Items.Item("CntcName").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();

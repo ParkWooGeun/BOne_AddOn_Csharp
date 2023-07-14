@@ -287,6 +287,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("DocNum").Enabled = false;
                     oForm.Items.Item("Mat01").Enabled = true;
                     oForm.Items.Item("BPLID").Enabled = true;
+                    oForm.Items.Item("RqstID").Enabled = true;
                     oForm.Items.Item("DocDate").Enabled = true;
                     oForm.Items.Item("ApplyBt").Enabled = false;
                     oDS_PS_MM018H.SetValue("U_ConfYN", 0, "Y"); //승인여부 
@@ -297,6 +298,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("DocNum").Enabled = true;
                     oForm.Items.Item("Mat01").Enabled = false;
                     oForm.Items.Item("BPLID").Enabled = false;
+                    oForm.Items.Item("RqstID").Enabled = true;
                     oForm.Items.Item("DocDate").Enabled = false;
                     oForm.Items.Item("ApplyBt").Enabled = false;
                 }
@@ -304,12 +306,14 @@ namespace PSH_BOne_AddOn
                 {
                     oForm.Items.Item("DocNum").Enabled = false;
                     oForm.Items.Item("BPLID").Enabled = false;
+                    oForm.Items.Item("RqstID").Enabled = true;
                     oForm.Items.Item("DocDate").Enabled = false;
 
                     if(oForm.Items.Item("ConfYN").Specific.Value == "N")
                     {
                         oForm.Items.Item("Mat01").Enabled = false;
                         oForm.Items.Item("ApplyBt").Enabled = true;
+                        oForm.Items.Item("RqstID").Enabled = false;
 
                         if (oForm.Items.Item("ApplyYN").Specific.Value == "N")
                         {
@@ -320,6 +324,7 @@ namespace PSH_BOne_AddOn
                     {
                         oForm.Items.Item("Mat01").Enabled = true;
                         oForm.Items.Item("ApplyBt").Enabled = false;
+                        oForm.Items.Item("RqstID").Enabled = true;
                     }
                 }
             }

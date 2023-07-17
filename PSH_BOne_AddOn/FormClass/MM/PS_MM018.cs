@@ -307,6 +307,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("DocNum").Enabled = false;
                     oForm.Items.Item("BPLID").Enabled = false;
                     oForm.Items.Item("RqstID").Enabled = true;
+                    oForm.Items.Item("Note").Enabled = true;
                     oForm.Items.Item("DocDate").Enabled = false;
 
                     if(oForm.Items.Item("ConfYN").Specific.Value == "N")
@@ -314,6 +315,7 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("Mat01").Enabled = false;
                         oForm.Items.Item("ApplyBt").Enabled = true;
                         oForm.Items.Item("RqstID").Enabled = false;
+                        oForm.Items.Item("Note").Enabled = false;
 
                         if (oForm.Items.Item("ApplyYN").Specific.Value == "N")
                         {
@@ -325,6 +327,7 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("Mat01").Enabled = true;
                         oForm.Items.Item("ApplyBt").Enabled = false;
                         oForm.Items.Item("RqstID").Enabled = true;
+                        oForm.Items.Item("Note").Enabled = true;
                     }
                 }
             }
@@ -409,16 +412,10 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 switch (oUID)
                 {
-                    case "UserID":
-                        sQry = "Select U_FullName From [@PH_PY001A] Where Code = '" + oForm.Items.Item("UserID").Specific.Value.ToString().Trim() + "'";
+                    case "RqstID":
+                        sQry = "Select U_FullName From [@PH_PY001A] Where Code = '" + oForm.Items.Item("RqstID").Specific.Value.ToString().Trim() + "'";
                         oRecordSet.DoQuery(sQry);
-                        oForm.Items.Item("UserName").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
-                        break;
-
-                    case "ConfID":
-                        sQry = "Select U_FullName From [@PH_PY001A] Where Code = '" + oForm.Items.Item("ConfID").Specific.Value.ToString().Trim() + "'";
-                        oRecordSet.DoQuery(sQry);
-                        oForm.Items.Item("ConfName").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+                        oForm.Items.Item("RqstName").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
                         break;
 
                     case "Mat01":
@@ -775,7 +772,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemChanged == true)
                     {
-                        if (pVal.ItemUID == "UserID" || pVal.ItemUID == "ConfID")
+                        if (pVal.ItemUID == "RqstID")
                         {
                             PS_MM018_FlushToItemValue(pVal.ItemUID, 0, "");
                         }

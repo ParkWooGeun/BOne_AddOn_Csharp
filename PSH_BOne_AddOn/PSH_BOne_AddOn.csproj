@@ -677,9 +677,11 @@
     <Compile Include="FormClass\PP\PS_PP995.cs" />
     <Compile Include="FormClass\PP\PS_PP996.cs" />
     <Compile Include="FormClass\PP\ZPS_MGSCRAP.cs" />
+    <Compile Include="FormClass\PY\PH_PY137.cs" />
     <Compile Include="FormClass\PY\PH_PY037.cs" />
     <Compile Include="FormClass\PY\PH_PY126.cs" />
     <Compile Include="FormClass\PY\PH_PY035.cs" />
+    <Compile Include="FormClass\PY\PH_PY140.cs" />
     <Compile Include="FormClass\PY\PH_PY400.cs" />
     <Compile Include="FormClass\PY\PH_PY403.cs" />
     <Compile Include="FormClass\PY\PH_PY420.cs" />

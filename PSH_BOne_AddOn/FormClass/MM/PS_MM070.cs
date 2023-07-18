@@ -1995,7 +1995,7 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_COMBO_SELECT(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string TeamCode;
+            //string TeamCode;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try

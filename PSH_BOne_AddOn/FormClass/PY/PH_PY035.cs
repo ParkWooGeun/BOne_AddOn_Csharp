@@ -582,7 +582,7 @@ namespace PSH_BOne_AddOn
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-            string sQry;
+            
             try
             {
                 oForm.Freeze(true);

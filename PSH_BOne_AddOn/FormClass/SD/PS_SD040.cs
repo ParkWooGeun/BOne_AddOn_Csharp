@@ -1772,7 +1772,6 @@ namespace PSH_BOne_AddOn
             int j = 0;
             int k = 0;
             int i;
-            int t = 0;
             int RetVal;
             int LineNumCount;
             string oDocEntry;
@@ -2322,8 +2321,6 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            int i;
-            string sQry;
             string errMessage = string.Empty;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 

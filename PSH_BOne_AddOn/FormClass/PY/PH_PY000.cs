@@ -546,7 +546,6 @@ namespace PSH_BOne_AddOn
                 else if (pVal.BeforeAction == false)
                 {
                     oMat1.LoadFromDataSource();
-
                     PH_PY000_FormItemEnabled();
                     PH_PY000_AddMatrixRow();
                 }

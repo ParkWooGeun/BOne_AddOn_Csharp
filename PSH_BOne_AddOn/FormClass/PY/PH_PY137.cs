@@ -87,7 +87,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("CLTCOD").DisplayDesc = true;
 
                 //선택제도
-                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P247' AND U_UseYN= 'Y'";
+                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P248' AND U_UseYN= 'Y'";
                 oRecordSet.DoQuery(sQry);
                 if (oRecordSet.RecordCount > 0)
                 {
@@ -663,14 +663,15 @@ namespace PSH_BOne_AddOn
                             }
 
                             oMat01.Columns.Item("MSTNAM").Cells.Item(pVal.Row).Specific.Value = dataHelpClass.Get_ReData("U_FULLNAME", "Code", "[@PH_PY001A]", "'" + oMat01.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.Value + "'", "");
-                            
+                            oMat01.Columns.Item("eMail").Cells.Item(pVal.Row).Specific.Value = dataHelpClass.Get_ReData("u_email", "Code", "[@PH_PY001A]", "'" + oMat01.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.Value + "'", "");
+
                             if (!string.IsNullOrEmpty(oMat01.Columns.Item("MSTCOD").Cells.Item(oMat01.VisualRowCount).Specific.Value))
                             {
                                 PH_PY137_AddMatrixRow(oMat01.VisualRowCount, false);
                                 oMat01.Columns.Item("JoinDate").Cells.Item(oMat01.VisualRowCount-1).Specific.Value = DateTime.Now.ToString("yyyyMMdd");
                                 oMat01.Columns.Item("JoinAMT").Cells.Item(pVal.Row).Specific.Value = "50000";
                                 oMat01.Columns.Item("ContrCnt").Cells.Item(pVal.Row).Specific.Value = "120";
-                                oMat01.Columns.Item("CompMCnt").Cells.Item(pVal.Row).Specific.Value = "0";
+                                oMat01.Columns.Item("PaymtCnt").Cells.Item(pVal.Row).Specific.Value = "0";
                                 oMat01.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             }
                         }

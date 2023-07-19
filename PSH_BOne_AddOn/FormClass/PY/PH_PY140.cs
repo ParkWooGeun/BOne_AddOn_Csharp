@@ -87,7 +87,7 @@ namespace PSH_BOne_AddOn
 
                 oForm.Items.Item("CLTCOD").DisplayDesc = true; //사업장
 
-                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P247' AND U_UseYN= 'Y'";
+                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P248' AND U_UseYN= 'Y'";
                 oRecordSet.DoQuery(sQry);
                 if (oRecordSet.RecordCount > 0)
                 {
@@ -367,8 +367,7 @@ namespace PSH_BOne_AddOn
                     oDS_PH_PY140B.SetValue("U_MSTNAM", i, oRecordSet.Fields.Item(1).Value);
                     oDS_PH_PY140B.SetValue("U_SelectTp", i, oRecordSet.Fields.Item(2).Value);
                     oDS_PH_PY140B.SetValue("U_Amount", i, oRecordSet.Fields.Item(3).Value);
-                    oDS_PH_PY140B.SetValue("U_BNKCOD", i, oRecordSet.Fields.Item(4).Value);
-                    oDS_PH_PY140B.SetValue("U_BNKACC", i, oRecordSet.Fields.Item(5).Value);
+                    oDS_PH_PY140B.SetValue("U_eMail", i, oRecordSet.Fields.Item(4).Value);
                     oRecordSet.MoveNext();
                     ProgressBar01.Value += 1;
                     ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";

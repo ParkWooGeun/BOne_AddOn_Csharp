@@ -500,6 +500,7 @@ namespace PSH_BOne_AddOn
 							oMat.Columns.Item("CpName").Cells.Item(oRow).Specific.Value = oRecordSet.Fields.Item("U_CpName").Value.ToString().Trim();
 							oMat.Columns.Item("TCpCode").Cells.Item(oRow).Specific.Value = oRecordSet.Fields.Item("U_TCpCode").Value.ToString().Trim();
 							oMat.Columns.Item("TCpName").Cells.Item(oRow).Specific.Value = oRecordSet.Fields.Item("U_TCpName").Value.ToString().Trim();
+							oMat.Columns.Item("HeatNo").Cells.Item(oRow).Specific.Value = oRecordSet.Fields.Item("HeatNo").Value.ToString().Trim();
 						}
 						else if (oCol == "MUseQty")
 						{

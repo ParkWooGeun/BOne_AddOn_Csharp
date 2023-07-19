@@ -1006,6 +1006,7 @@ namespace PSH_BOne_AddOn
                             else if (pVal.ColUID == "ItemCode")
                             {
                                 oDS_PS_MM158L.SetValue("U_ItemName", pVal.Row - 1, dataHelpClass.GetValue("SELECT ItemName FROM OITM WHERE ItemCode = '" + oDS_PS_MM158L.GetValue("U_ItemCode", pVal.Row - 1).ToString().Trim() + "'", 0, 1));
+                                oDS_PS_MM158L.SetValue("U_ItemSpec", pVal.Row - 1, dataHelpClass.GetValue("SELECT U_Size FROM OITM WHERE ItemCode = '" + oDS_PS_MM158L.GetValue("U_ItemCode", pVal.Row - 1).ToString().Trim() + "'", 0, 1));
                                 oDS_PS_MM158L.SetValue("U_WhsCode", pVal.Row - 1, "902");
                                 oDS_PS_MM158L.SetValue("U_WhsName", pVal.Row - 1, dataHelpClass.GetValue("SELECT WhsName FROM OWHS where WhsCode = '902'", 0, 1));
                             }

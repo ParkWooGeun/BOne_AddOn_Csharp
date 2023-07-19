@@ -1799,8 +1799,9 @@ namespace PSH_BOne_AddOn
 						case "1282": //추가
 							oDS_PS_MM130H.SetValue("U_OutGbn", 0, "10");
 							oDS_PS_MM130H.SetValue("U_DocDate", 0, DateTime.Now.ToString("yyyyMMdd"));
-							oDS_PS_MM130H.SetValue("U_BPLId", 0, "1");
 							oDS_PS_MM130H.SetValue("U_OKYNC", 0, "N");
+							oForm.Items.Item("BPLId").Enabled = true;
+							oDS_PS_MM130H.SetValue("U_BPLID", 0, "1");
 							PS_MM130_FormItemEnabled();
 							PS_MM130_AddMatrixRow(0, true);
 							break;

@@ -255,11 +255,11 @@ namespace PSH_BOne_AddOn
 					throw new Exception();
 				}
 
-                if (oRadioGrp == "B" && (Param02 == "102" || Param02 == "105") && string.IsNullOrEmpty(Param08))
-                {
-                    errMessage = "재공반출은 공정코드를 선택해야 합니다.";
-                    throw new Exception();
-                }
+                //if (oRadioGrp == "B" && (Param02 == "102" || Param02 == "105") && string.IsNullOrEmpty(Param08))
+                //{
+                //    errMessage = "재공반출은 공정코드를 선택해야 합니다.";
+                //    throw new Exception();
+                //}
 
                 if (oRadioGrp == "A")
 				{

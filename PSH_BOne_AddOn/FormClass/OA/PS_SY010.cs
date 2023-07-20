@@ -131,7 +131,7 @@ namespace PSH_BOne_AddOn
                 // 사업장
                 sQry = "SELECT BPLId, BPLName From [OBPL] order by BPLId";
                 oRecordSet01.DoQuery(sQry);
-                while (!(oRecordSet01.EoF))
+                while (!oRecordSet01.EoF)
                 {
                     oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
                     oRecordSet01.MoveNext();
@@ -139,12 +139,12 @@ namespace PSH_BOne_AddOn
 
                 // 모듈
                 sQry = "select distinct b.Code, a.name";
-                sQry = sQry + " from [@PS_SY005H] a inner join [@PS_SY005L] b on a.Code = b.Code and b.U_UseYN ='Y'";
-                sQry = sQry + " Where b.U_AppUser = '" + PSH_Globals.oCompany.UserName + "'";
-                sQry = sQry + "   and len(a.Code) <> '2'";
+                sQry += " from [@PS_SY005H] a inner join [@PS_SY005L] b on a.Code = b.Code and b.U_UseYN ='Y'";
+                sQry += " Where b.U_AppUser = '" + PSH_Globals.oCompany.UserName + "'";
+                sQry += "   and len(a.Code) <> '2'";
 
                 oRecordSet01.DoQuery(sQry);
-                while (!(oRecordSet01.EoF))
+                while (!oRecordSet01.EoF)
                 {
                     oForm.Items.Item("Module").Specific.ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
                     oRecordSet01.MoveNext();
@@ -266,6 +266,20 @@ namespace PSH_BOne_AddOn
                                     throw new Exception();
                                 }
                                 sQry = "EXEC [PS_SY010_03] '" + codeValue + "','" + oForm.Items.Item("Module").Specific.Value + "','" + PSH_Globals.oCompany.UserSignature + "','" + refData + "'";
+                                oRecordSet01.DoQuery(sQry);
+                            }
+                        }
+                        PSH_Globals.SBO_Application.MessageBox("수정완료");
+                        oForm.Items.Item("Btn02").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    }
+                    else if (oForm.Items.Item("Module").Specific.Selected.Value == "MM018")
+                    {
+                        for (i = 0; i <= oForm.DataSources.DataTables.Item(0).Rows.Count - 1; i++)
+                        {
+                            if (oDS_PS_SY010H.Columns.Item("OKYN").Cells.Item(i).Value == "N")
+                            {
+                                codeValue = oDS_PS_SY010H.Columns.Item("문서번호").Cells.Item(i).Value.ToString().Trim();
+                                sQry = "EXEC [PS_SY010_03] '" + codeValue + "','" + oForm.Items.Item("Module").Specific.Value + "','" + PSH_Globals.oCompany.UserSignature + "',''";
                                 oRecordSet01.DoQuery(sQry);
                             }
                         }

@@ -1095,6 +1095,9 @@ namespace PSH_BOne_AddOn
 		/// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
 		private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
+			string sQry;
+			string errMessage = string.Empty;
+			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
 			{
@@ -1144,14 +1147,33 @@ namespace PSH_BOne_AddOn
 								return;
 							}
                         }
-						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
+						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE && oForm.Items.Item("OKYNC").Specific.Value.ToString().Trim() == "Y" )
 						{
+							sQry = "select count(*) from [@PS_SY005H] A INNER JOIN [@PS_SY005L] B ON A.Code = B.Code WHERE A.Code ='MM158' AND B.U_UseYN ='Y' AND B.U_AppUser ='" + PSH_Globals.oCompany.UserName + "'";
+							oRecordSet.DoQuery(sQry);
+							if (oRecordSet.Fields.Item(0).Value.ToString().Trim() == "1")
+							{
+								if (PS_MM130_DataValidCheck() == false)
+								{
+									BubbleEvent = false;
+									return;
+								}
+							}
+							else
+							{
+								errMessage = "자재담당자만 승인으로 등록할 수 있습니다.";
+								BubbleEvent = false;
+								throw new System.Exception();
+							}
+						}
+                        else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
+                        {
 							if (PS_MM130_DataValidCheck() == false)
 							{
 								BubbleEvent = false;
 								return;
 							}
-						} 
+						}
 					}
 
 					if (pVal.ItemUID == "Print")
@@ -1189,7 +1211,14 @@ namespace PSH_BOne_AddOn
 			}
 			catch (Exception ex)
 			{
-				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+				if (errMessage != string.Empty)
+				{
+					PSH_Globals.SBO_Application.MessageBox(errMessage);
+				}
+				else
+				{
+					PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+				}
 			}
 		}
 

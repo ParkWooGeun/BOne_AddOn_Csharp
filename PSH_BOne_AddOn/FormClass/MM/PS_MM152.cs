@@ -247,13 +247,16 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void PS_MM152_FormItemEnabled()
 		{
+			string sQry;
+			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			try
 			{
 				oForm.Items.Item("Comments").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-
+				sQry = "SELECT COUNT(*) FROM [@PS_SY005H] A INNER JOIN [@PS_SY005L] B ON A.Code = B.Code where A.Code ='M152' AND B.U_UseYN ='Y' AND B.U_AppUser = '" + PSH_Globals.oCompany.UserName + "'";
+				oRecordSet.DoQuery(sQry);
 				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
-					if (PSH_Globals.oCompany.UserName == "66302" || PSH_Globals.oCompany.UserName == "71090")
+					if(oRecordSet.Fields.Item(0).Value.ToString().Trim() == "1")
 					{
 						oForm.Items.Item("BPLId").Enabled = false;
 						oForm.Items.Item("CardCode").Enabled = false;
@@ -362,7 +365,7 @@ namespace PSH_BOne_AddOn
 							oForm.Items.Item("CardCode").Enabled = false;
 							oForm.Items.Item("DocDate").Enabled = true;
 
-							if (PSH_Globals.oCompany.UserName.Substring(0, 1) == "6" || PSH_Globals.oCompany.UserName.Substring(0, 1) == "7")
+							if (oRecordSet.Fields.Item(0).Value.ToString().Trim() == "1")
 							{
 								oForm.Items.Item("OKYNC").Enabled = false;
 							}
@@ -397,7 +400,7 @@ namespace PSH_BOne_AddOn
 							oForm.Items.Item("CardCode").Enabled = false;
 							oForm.Items.Item("DocDate").Enabled = false;
 
-							if (PSH_Globals.oCompany.UserName.Substring(0, 1) == "6" || PSH_Globals.oCompany.UserName.Substring(0, 1) == "7")
+							if (oRecordSet.Fields.Item(0).Value.ToString().Trim() == "1")
 							{
 								oForm.Items.Item("OKYNC").Enabled = false;
 							}
@@ -804,8 +807,8 @@ namespace PSH_BOne_AddOn
 					{
 						if (!string.IsNullOrEmpty(oDS_PS_MM152L.GetValue("U_OtDocLin", i).ToString().Trim()) && !string.IsNullOrEmpty(oDS_PS_MM152L.GetValue("U_PP040Doc", i).ToString().Trim()))
 						{
-							OutQty = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_OutQty", i).ToString().Trim()) + Convert.ToDouble(oDS_PS_MM152L.GetValue("U_NQty", i).ToString().Trim()); //출고수량 + 불량수량
-							OutWt = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_OutWt", i).ToString().Trim()) + Convert.ToDouble(oDS_PS_MM152L.GetValue("U_NWeight", i).ToString().Trim()); //출고중량 + 불량중량
+							OutQty = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_OutQty", i).ToString().Trim()) + Convert.ToDouble(oDS_PS_MM152L.GetValue("U_NQty", i).ToString().Trim()) + Convert.ToDouble(oDS_PS_MM152L.GetValue("U_DNQty", i).ToString().Trim()); //출고수량 + 불량수량 + 당사불량수량
+							OutWt = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_OutWt", i).ToString().Trim()) + Convert.ToDouble(oDS_PS_MM152L.GetValue("U_NWeight", i).ToString().Trim()) + Convert.ToDouble(oDS_PS_MM152L.GetValue("U_DNWeight", i).ToString().Trim()); //출고중량 + 불량중량 + 당사불량중량
 
 							sQry = "Update [@PS_PP040H] Set Status = 'C', Canceled = 'Y' Where DocEntry = '" + oDS_PS_MM152L.GetValue("U_PP040Doc", i).ToString().Trim() + "'";
 							oRecordSet.DoQuery(sQry);
@@ -839,8 +842,8 @@ namespace PSH_BOne_AddOn
 							OutQty = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_OutQty", i).ToString().Trim()) + Convert.ToDouble(oDS_PS_MM152L.GetValue("U_Sample", i).ToString().Trim()); //외주수량 + 시료수량
 							OutWt = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_OutWt", i).ToString().Trim()) + Convert.ToDouble(oDS_PS_MM152L.GetValue("U_Sample", i).ToString().Trim()); //외주중량 + 시료수량
 
-							NQty = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_NQty", i).ToString().Trim());
-							NWeight = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_NWeight", i).ToString().Trim());
+							NQty = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_NQty", i).ToString().Trim()) + Convert.ToDouble(oDS_PS_MM152L.GetValue("U_DNQty", i).ToString().Trim());
+							NWeight = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_NWeight", i).ToString().Trim()) + Convert.ToDouble(oDS_PS_MM152L.GetValue("U_DNWeight", i).ToString().Trim());
 
 							OutGbn = oDS_PS_MM152L.GetValue("U_OutGbn", i).ToString().Trim();
 							CpCode = oDS_PS_MM152L.GetValue("U_CpCode", i).ToString().Trim();
@@ -1072,8 +1075,8 @@ namespace PSH_BOne_AddOn
 							sQry = "Update [ONNM] Set AutoKey = '" + AutoKey + "' Where ObjectCode = 'PS_PP040'";
 							oRecordSet.DoQuery(sQry);
 
-							NQty = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_NQty", i).ToString().Trim());
-							NWeight = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_NWeight", i).ToString().Trim());
+							NQty = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_NQty", i).ToString().Trim()) + Convert.ToDouble(oDS_PS_MM152L.GetValue("U_DNQty", i).ToString().Trim());
+							NWeight = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_NWeight", i).ToString().Trim()) + Convert.ToDouble(oDS_PS_MM152L.GetValue("U_DNWeight", i).ToString().Trim());
 
 							sQry = " Update [@PS_MM130L] ";
 							sQry += "Set U_InQty = IsNull(U_InQty, 0) + " + OutQty + "+" + NQty + ", U_InWt = IsNull(U_InWt, 0) + " + OutWt + "+" + NWeight;
@@ -1249,6 +1252,7 @@ namespace PSH_BOne_AddOn
 			string errMessage = string.Empty;
 			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+			SAPbobsCOM.Recordset oRecordSet1 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
 			{
@@ -1320,6 +1324,32 @@ namespace PSH_BOne_AddOn
 						}
 						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
 						{
+							sQry = "SELECT U_OKYNC FROM [@PS_MM152H] WHERE DocEntry ='" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() +"'";
+							oRecordSet.DoQuery(sQry);
+
+							sQry = "SELECT COUNT(*) FROM[@PS_SY005H] A INNER JOIN[@PS_SY005L] B ON A.Code = B.Code where A.Code = 'MM152' AND B.U_UseYN = 'Y' AND B.U_AppUser = '" + PSH_Globals.oCompany.UserName + "'";
+							oRecordSet1.DoQuery(sQry);
+
+							if (oRecordSet.Fields.Item(0).Value.ToString().Trim() == "Y")
+                            {
+								if (oRecordSet1.Fields.Item(0).Value.ToString().Trim() == "1")
+								{
+									for (i = 1; i <= oMat.RowCount - 1; i++)
+									{
+										sQry = "UPDATE [@PS_MM152L] SET U_DNQty ='" + oDS_PS_MM152L.GetValue("U_DNQty", i).ToString().Trim() + "',";
+										sQry += " U_DNWeight = '" + oDS_PS_MM152L.GetValue("U_DNWeight", i).ToString().Trim() + "',";
+										sQry += " U_RNQty = '" + oDS_PS_MM152L.GetValue("U_RNQty", i).ToString().Trim() + "',";
+										sQry += " U_RNWeight = '" + oDS_PS_MM152L.GetValue("U_RNWeight", i).ToString().Trim() + "' WHERE U_LineNum ='" + i + "'";
+										oRecordSet.DoQuery(sQry);
+									}
+								}
+								else
+                                {
+									errMessage = "이미 승인되어있습니다. 승인된 문서는 재차 승인할수없습니다.";
+									throw new Exception();
+								}
+							}
+
 							if (PSH_Globals.oCompany.InTransaction == true)
 							{
 								PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack);

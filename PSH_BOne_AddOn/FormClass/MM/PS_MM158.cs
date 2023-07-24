@@ -755,19 +755,19 @@ namespace PSH_BOne_AddOn
                             //승인된 건은 취소불가
                             if (oForm.Items.Item("ChkYN").Specific.Value.ToString().Trim() == "C")
                             {
-                                if(string.IsNullOrEmpty(oMat01.Columns.Item("InDoc").Cells.Item(1).Specific.Value))
+                                if (string.IsNullOrEmpty(oMat01.Columns.Item("InDoc").Cells.Item(1).Specific.Value))
                                 {
                                     sQry = "UPDATE [@PS_MM158H] SET Canceled = 'Y' WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'";
                                     oRecordSet.DoQuery(sQry);
                                 }
                                 else
                                 {
-                                    errMessage = "승인처리된 문서는 취소할 수 없습니다. 반품에서 취소수량만큼 등록하세요.";
+                                    errMessage = "승인처리된 문서는 취소할 수 없습니다.";
                                     BubbleEvent = false;
                                     throw new System.Exception();
                                 }
                             }
-                            else
+                            else if (oForm.Items.Item("ChkYN").Specific.Value.ToString().Trim() == "Y")
                             {
                                 if (PS_MM158_DataValidCheck() == false)
                                 {
@@ -775,31 +775,24 @@ namespace PSH_BOne_AddOn
                                     return;
                                 }
 
-                                sQry = "select count(*) from [@PS_SY001H] A INNER JOIN [@PS_SY001L] B ON A.Code = B.Code WHERE A.Code ='M158' AND B.U_UseYN ='Y' AND B.U_Minor ='" + dataHelpClass.User_MSTCOD() + "'";
+                                sQry = "select count(*) from [@PS_SY005H] A INNER JOIN [@PS_SY005L] B ON A.Code = B.Code WHERE A.Code ='MM158' AND B.U_UseYN ='Y' AND B.U_AppUser ='" + PSH_Globals.oCompany.UserName + "'";
                                 oRecordSet.DoQuery(sQry);
                                 //시스템 코드등록에 자재담당자로 등록되어있고, 입고문서가 없으면 승인처리 가능
-                                if (oRecordSet.Fields.Item(0).Value.ToString().Trim() == "1")
+                                if (oRecordSet.Fields.Item(0).Value.ToString().Trim() == "1" && string.IsNullOrEmpty(oMat01.Columns.Item("InDoc").Cells.Item(1).Specific.Value))
                                 {
-                                    if (oForm.Items.Item("ChkYN").Specific.Value.ToString().Trim() == "Y" && string.IsNullOrEmpty(oMat01.Columns.Item("InDoc").Cells.Item(1).Specific.Value))
+                                    if (PS_MM158_DI_API() == false)
                                     {
-                                        if (PS_MM158_DI_API() == false)
-                                        {
-                                            BubbleEvent = false;
-                                            return;
-                                        }
+                                        BubbleEvent = false;
+                                        return;
                                     }
                                 }
                                 else
                                 {
-                                    if (oForm.Items.Item("ChkYN").Specific.Value.ToString().Trim() == "Y")
-                                    {
-                                        errMessage = "자재담당자만 승인으로 등록할 수 있습니다.";
-                                        BubbleEvent = false;
-                                        throw new System.Exception();
-                                    }
+                                    errMessage = "자재담당자만 승인으로 등록할 수 있습니다.";
+                                    BubbleEvent = false;
+                                    throw new System.Exception();
                                 }
                             }
-                            
                         }
                     }
                 }
@@ -824,9 +817,6 @@ namespace PSH_BOne_AddOn
                                 PS_MM158_FormItemEnabled();
                                 oMat01.FlushToDataSource();
                                 oMat01.LoadFromDataSource();
-                                //oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
-                                //oForm.Items.Item("DocEntry").Specific.Value = LDocEntry.ToString().Trim();
-                                //oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             }
                         }
                     }

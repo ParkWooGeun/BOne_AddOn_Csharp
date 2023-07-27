@@ -534,6 +534,8 @@ namespace PSH_BOne_AddOn
                     oDIObject.Lines.ItemCode = oDS_PS_MM158L.GetValue("U_ItemCode", i).ToString().Trim();
                     oDIObject.Lines.WarehouseCode = oDS_PS_MM158L.GetValue("U_WhsCode", i).ToString().Trim();
                     oDIObject.Lines.Quantity = Convert.ToDouble(oDS_PS_MM158L.GetValue("U_Quantity", i).ToString().Trim());
+                    oDIObject.Lines.UserFields.Fields.Item("U_OrdNum").Value = oDS_PS_MM158L.GetValue("U_PP030Doc", i).ToString().Trim();
+                    oDIObject.Lines.UserFields.Fields.Item("U_sSize").Value = oDS_PS_MM158L.GetValue("U_HeatNo", i).ToString().Trim();
                     LineNumCount += 1;
                 }
                 

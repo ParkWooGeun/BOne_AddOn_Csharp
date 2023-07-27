@@ -261,6 +261,8 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Freeze(true);
+				sQry = "SELECT COUNT(*) FROM [@PS_SY005H] A INNER JOIN [@PS_SY005L] B ON A.Code = B.Code where A.Code ='M152' AND B.U_UseYN ='Y' AND B.U_AppUser = '" + PSH_Globals.oCompany.UserName + "'";
+				oRecordSet.DoQuery(sQry);
 				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
 					PS_MM130_FormClear();
@@ -298,7 +300,7 @@ namespace PSH_BOne_AddOn
 					}
 
 					//외주업체
-					if (PSH_Globals.oCompany.UserName == "66302" || PSH_Globals.oCompany.UserName == "71090" || PSH_Globals.oCompany.UserName == "66510")
+					if (oRecordSet.Fields.Item(0).Value.ToString().Trim() == "1")
 					{
 						oForm.Items.Item("BPLId").Enabled = false;
 						oForm.Items.Item("Print").Enabled = false;
@@ -371,7 +373,7 @@ namespace PSH_BOne_AddOn
 					}
 
 					//외주업체
-					if (PSH_Globals.oCompany.UserName == "66302" || PSH_Globals.oCompany.UserName == "71090" || PSH_Globals.oCompany.UserName == "66510")
+					if (oRecordSet.Fields.Item(0).Value.ToString().Trim() == "1")
 					{
 						oForm.Items.Item("BPLId").Enabled = true;
 						oForm.Items.Item("CardCode").Enabled = true;
@@ -434,7 +436,7 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("DocEntry").Enabled = false;
 
 					//외주업체
-					if (PSH_Globals.oCompany.UserName== "66302" || PSH_Globals.oCompany.UserName == "71090" || PSH_Globals.oCompany.UserName == "66510")
+					if (oRecordSet.Fields.Item(0).Value.ToString().Trim() == "1")
 					{
 						oForm.Items.Item("BPLId").Enabled = false;
 						oForm.Items.Item("CardCode").Enabled = false;
@@ -661,8 +663,13 @@ namespace PSH_BOne_AddOn
 						errMessage = "외주 마지막공정(외주공정구간)을 선택하셔야 합니다.";
 						throw new Exception();
 					}
+					else if (Convert.ToDouble(oMat.Columns.Item("OutWt").Cells.Item(i).Specific.Value.ToString().Trim()) > Convert.ToDouble(oMat.Columns.Item("Weight").Cells.Item(i).Specific.Value.ToString().Trim()))
+					{
+						oMat.Columns.Item("OutWt").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+						errMessage = "반출수(중)량은 기준 중량을 초과할수 없습니다.";
+						throw new Exception();
+					}
 				}
-
 				oDS_PS_MM130L.RemoveRecord(oDS_PS_MM130L.Size - 1);
 				oMat.LoadFromDataSource();
 				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)

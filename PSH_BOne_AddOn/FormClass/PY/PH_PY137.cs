@@ -100,8 +100,16 @@ namespace PSH_BOne_AddOn
                 oMat01.Columns.Item("SelectTp").DisplayDesc = true;
 
                 //지급여부
-                oMat01.Columns.Item("PayoutYN").ValidValues.Add("Y", "지급");
-                oMat01.Columns.Item("PayoutYN").ValidValues.Add("N", "정지");
+                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = 'P249' AND U_UseYN= 'Y'";
+                oRecordSet.DoQuery(sQry);
+                if (oRecordSet.RecordCount > 0)
+                {
+                    for (i = 0; i <= oRecordSet.RecordCount - 1; i++)
+                    {
+                        oMat01.Columns.Item("PayoutYN").ValidValues.Add(oRecordSet.Fields.Item(0).Value, oRecordSet.Fields.Item(1).Value);
+                        oRecordSet.MoveNext();
+                    }
+                }
                 oMat01.Columns.Item("PayoutYN").DisplayDesc = true;
             }
             catch (Exception ex)
@@ -313,8 +321,7 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
                 oMat01.FlushToDataSource();
-                //행추가여부
-                if (RowIserted == false)
+                if (RowIserted == false) //행추가여부
                 {
                     oDS_PH_PY137B.InsertRecord(oRow);
                 }

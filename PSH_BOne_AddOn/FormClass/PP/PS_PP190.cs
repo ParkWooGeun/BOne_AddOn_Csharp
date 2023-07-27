@@ -442,7 +442,6 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("CpCode").Enabled = true;
 					oForm.Items.Item("Year").Enabled = true;
 					oForm.DataSources.UserDataSources.Item("Chk").Value = "N";
-					oMat01.AutoResizeColumns();
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
 				{
@@ -454,7 +453,6 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("Code").Enabled = true;
 					oForm.Items.Item("Seq").Enabled = false;
 					oForm.DataSources.UserDataSources.Item("Chk").Value = "N";
-					oMat01.AutoResizeColumns();
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
 				{
@@ -466,7 +464,6 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("Code").Enabled = false;
 					oForm.Items.Item("Seq").Enabled = false;
 					oForm.DataSources.UserDataSources.Item("Chk").Value = "N";
-					oMat01.AutoResizeColumns();
 
 					sCount = oMat01.Columns.Item("State").ValidValues.Count;
 					sSeq = sCount;
@@ -493,6 +490,7 @@ namespace PSH_BOne_AddOn
 					}
 				}
 				oMat01.AutoResizeColumns();
+				oMat02.AutoResizeColumns();
 			}
 			catch (Exception ex)
 			{
@@ -1168,6 +1166,13 @@ namespace PSH_BOne_AddOn
 							if (pVal.ColUID == "ItemCode")
 							{
 								oDS_PS_PP190M.SetValue("U_ItemName", pVal.Row - 1, dataHelpClass.Get_ReData("ItemName", "ItemCode", "OITM", "'" + oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().Trim() + "'", ""));
+								oDS_PS_PP190M.SetValue("U_CallSize", pVal.Row - 1, dataHelpClass.Get_ReData("U_CallSize", "ItemCode", "OITM", "'" + oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().Trim() + "'", ""));
+								oDS_PS_PP190M.SetValue("U_OutSize", pVal.Row - 1, dataHelpClass.Get_ReData("U_OutSize", "ItemCode", "OITM", "'" + oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().Trim() + "'", ""));
+                                if (pVal.Row - 1 == 0)
+								{
+									oDS_PS_PP190H.SetValue("U_CallSize", 0, dataHelpClass.Get_ReData("U_CallSize", "ItemCode", "OITM", "'" + oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().Trim() + "'", ""));
+									oDS_PS_PP190H.SetValue("U_Item", 0, dataHelpClass.Get_ReData("U_OutSize", "ItemCode", "OITM", "'" + oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Specific.Value.ToString().Trim() + "'", ""));
+								}
 								if (oMat02.RowCount == pVal.Row && !string.IsNullOrEmpty(oDS_PS_PP190M.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
 								{
 									PS_PP190_AddMatrixRow02(pVal.Row, false);

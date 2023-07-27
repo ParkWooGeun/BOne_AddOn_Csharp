@@ -331,6 +331,7 @@ namespace PSH_BOne_AddOn
         private void PH_PY140_MTX01()
         {
             int i;
+            int sumAmt = 0;
             string sQry;
             string CLTCOD;
             string errMessage = string.Empty;
@@ -368,10 +369,12 @@ namespace PSH_BOne_AddOn
                     oDS_PH_PY140B.SetValue("U_SelectTp", i, oRecordSet.Fields.Item(2).Value);
                     oDS_PH_PY140B.SetValue("U_Amount", i, oRecordSet.Fields.Item(3).Value);
                     oDS_PH_PY140B.SetValue("U_eMail", i, oRecordSet.Fields.Item(4).Value);
+                    sumAmt += oRecordSet.Fields.Item(3).Value;
                     oRecordSet.MoveNext();
                     ProgressBar01.Value += 1;
                     ProgressBar01.Text = ProgressBar01.Value + "/" + oRecordSet.RecordCount + "건 조회중...!";
                 }
+                oForm.Items.Item("TotalAMT").Specific.Value = sumAmt;
                 oMat01.LoadFromDataSource();
                 oMat01.AutoResizeColumns();
                 PH_PY140_AddMatrixRow(oMat01.VisualRowCount, false);

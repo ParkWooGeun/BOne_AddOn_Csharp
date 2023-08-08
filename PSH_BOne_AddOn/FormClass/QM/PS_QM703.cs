@@ -196,6 +196,13 @@ namespace PSH_BOne_AddOn
                     PS_QM703_FormItemEnabled();
                     PS_QM703_AddMatrixRow(0, true); //UDO방식일때
                 }
+                else
+                {
+                    oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
+                    PS_QM703_FormItemEnabled();
+                    oForm.Items.Item("DocEntry").Specific.Value = oFromDocEntry01;
+                    oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                }
             }
             catch (Exception ex)
             {
@@ -264,7 +271,6 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("InCpCode").Enabled = true;
                         oForm.Items.Item("BadNote").Enabled = true;
                         oForm.Items.Item("verdict").Enabled = true;
-                        oForm.Items.Item("Comments").Enabled = true;
                         oForm.Items.Item("cmt").Enabled = true;
                     }
                     else if (oForm.Items.Item("ChkYN").Specific.Value.Trim() == "승인" || oForm.Items.Item("Canceled").Specific.Value.Trim() == "Y")
@@ -283,7 +289,6 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("InCpCode").Enabled = false;
                         oForm.Items.Item("BadNote").Enabled = false;
                         oForm.Items.Item("verdict").Enabled = false;
-                        oForm.Items.Item("Comments").Enabled = false;
                         oForm.Items.Item("cmt").Enabled = false;
                     }
                     else
@@ -301,7 +306,6 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("InCpCode").Enabled = true;
                         oForm.Items.Item("BadNote").Enabled = true;
                         oForm.Items.Item("verdict").Enabled = true;
-                        oForm.Items.Item("Comments").Enabled = true;
                         oForm.Items.Item("cmt").Enabled = true;
                     }
                     oForm.EnableMenu("1281", true); //찾기

@@ -212,6 +212,13 @@ namespace PSH_BOne_AddOn
                     PS_QM701_FormItemEnabled();
                     PS_QM701_AddMatrixRow(0, true); //UDO방식일때
                 }
+                else
+                {
+                    oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
+                    PS_QM701_FormItemEnabled();
+                    oForm.Items.Item("DocEntry").Specific.Value = oFromDocEntry01;
+                    oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                }
             }
             catch (Exception ex)
             {
@@ -263,7 +270,6 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("OuCpCode").Enabled = true;
                     oForm.Items.Item("BadNote").Enabled = true;
                     oForm.Items.Item("verdict").Enabled = true;
-                    oForm.Items.Item("Comments").Enabled = true;
                     oForm.Items.Item("cmt").Enabled = true;
                     oForm.EnableMenu("1281", true);  //찾기
                     oForm.EnableMenu("1282", false); //추가
@@ -283,7 +289,6 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("OuCpCode").Enabled = false;
                     oForm.Items.Item("BadNote").Enabled = false;
                     oForm.Items.Item("verdict").Enabled = false;
-                    oForm.Items.Item("Comments").Enabled = false;
                     oForm.Items.Item("cmt").Enabled = false;
                     oForm.EnableMenu("1281", false); //찾기
                     oForm.EnableMenu("1282", true);  //추가
@@ -308,7 +313,6 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("InCpCode").Enabled = true;
                         oForm.Items.Item("BadNote").Enabled = true;
                         oForm.Items.Item("verdict").Enabled = true;
-                        oForm.Items.Item("Comments").Enabled = true;
                         oForm.Items.Item("cmt").Enabled = true;
                     }
 
@@ -328,7 +332,6 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("InCpCode").Enabled = false;
                         oForm.Items.Item("BadNote").Enabled = false;
                         oForm.Items.Item("verdict").Enabled = false;
-                        oForm.Items.Item("Comments").Enabled = false;
                         oForm.Items.Item("cmt").Enabled = false;
                         oForm.Items.Item("OrdDate").Enabled = false;
                     }
@@ -347,7 +350,6 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("InCpCode").Enabled = true;
                         oForm.Items.Item("BadNote").Enabled = true;
                         oForm.Items.Item("verdict").Enabled = true;
-                        oForm.Items.Item("Comments").Enabled = true;
                         oForm.Items.Item("cmt").Enabled = true;
                         oForm.Items.Item("OrdDate").Enabled = true;
                     }
@@ -1043,11 +1045,6 @@ namespace PSH_BOne_AddOn
                                 BubbleEvent = false;
                                 return;
                             }
-                            
-                            sQry = "insert into PSHDB_IMG.dbo.ZPS_QM701_PIC(BPLId,FixCode) SELECT ";
-                            sQry += "'" + oForm.Items.Item("CLTCOD").Specific.Value.Trim() + "',";
-                            sQry += "'" + oForm.Items.Item("DocEntry").Specific.Value.Trim() + "'";
-                            oRecordSet.DoQuery(sQry);
                         }
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {
@@ -1340,6 +1337,7 @@ namespace PSH_BOne_AddOn
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             string sQry;
+            string errMessage = string.Empty;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -1379,12 +1377,21 @@ namespace PSH_BOne_AddOn
                             }
                             if (pVal.ItemUID == "KeyDoc")
                             {
+                                sQry = " SELECT ISNULL(DocEntry,'') AS DocEntry FROM [@PS_QM701H] WHERE Canceled<> 'Y' AND U_KeyDoc ='" + oForm.Items.Item("KeyDoc").Specific.Value.ToString().Trim() + "'";
+                                oRecordSet01.DoQuery(sQry);
+
+                                if ((oRecordSet01.Fields.Item(0).Value)>0)
+                                {
+                                    errMessage = "중복된 문서가 존재합니다. 문서번호는" + oRecordSet01.Fields.Item(0).Value.ToString().Trim() + "입니다.";
+                                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                                    BubbleEvent = false;
+                                    return;
+                                }
+
                                 sQry = " EXEC PS_QM701_02 '" + oForm.Items.Item("KeyDoc").Specific.Value.ToString().Trim() + "'";
                                 oRecordSet01.DoQuery(sQry);
 
                                 oDS_PS_QM701H.SetValue("U_WorkNum", 0, oRecordSet01.Fields.Item("WorkNum").Value.ToString().Trim());
-                                oDS_PS_QM701H.SetValue("U_WorkCode", 0, oRecordSet01.Fields.Item("WorkCode").Value.ToString().Trim());
-                                oDS_PS_QM701H.SetValue("U_WorkName", 0, oRecordSet01.Fields.Item("WorkName").Value.ToString().Trim());
                                 oDS_PS_QM701H.SetValue("U_InOut", 0, oRecordSet01.Fields.Item("InOut").Value.ToString().Trim());
                                 oDS_PS_QM701H.SetValue("U_ItemName", 0, oRecordSet01.Fields.Item("ItemName").Value.ToString().Trim());
                                 oDS_PS_QM701H.SetValue("U_ItemCode", 0, oRecordSet01.Fields.Item("ItemCode").Value.ToString().Trim());
@@ -1393,9 +1400,6 @@ namespace PSH_BOne_AddOn
                                 oDS_PS_QM701H.SetValue("U_CardName", 0, oRecordSet01.Fields.Item("CardName").Value.ToString().Trim());
                                 oDS_PS_QM701H.SetValue("U_InDate", 0, oRecordSet01.Fields.Item("InDate").Value);
                                 oDS_PS_QM701H.SetValue("U_TotalQty", 0, oRecordSet01.Fields.Item("TotalQty").Value.ToString().Trim());
-                                oDS_PS_QM701H.SetValue("U_BZZadQty", 0, oRecordSet01.Fields.Item("BZZadQty").Value.ToString().Trim());
-                                oDS_PS_QM701H.SetValue("U_BadCode", 0, oRecordSet01.Fields.Item("BadCode").Value.ToString().Trim());
-                                oDS_PS_QM701H.SetValue("U_WorkDate", 0, oRecordSet01.Fields.Item("WorkDate").Value);
                                 oDS_PS_QM701H.SetValue("U_OutUnit", 0, oRecordSet01.Fields.Item("OutUnit").Value.ToString().Trim());
                             }
                         }
@@ -1406,8 +1410,16 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-                BubbleEvent = false;
+
+                if (errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                    BubbleEvent = false;
+                }
             }
             finally
             {

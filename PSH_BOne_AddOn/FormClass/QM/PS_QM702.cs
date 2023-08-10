@@ -177,16 +177,16 @@ namespace PSH_BOne_AddOn
             
             try
             {
-                oMat01.Clear();
-                oMat01.FlushToDataSource();
-                oMat01.LoadFromDataSource();
-                oDS_PS_QM702H.Clear(); //추가
-
                 sQry = "EXEC [PS_QM702_01] '" + Gubun + "'";
                 oRecordSet01.DoQuery(sQry);
 
                 if(Gubun == "O")
                 {
+                    oMat01.Clear();
+                    oMat01.FlushToDataSource();
+                    oMat01.LoadFromDataSource();
+                    oDS_PS_QM702H.Clear();
+
                     for (int i = 0; i <= oRecordSet01.RecordCount - 1; i++)
                     {
                         if (i + 1 > oDS_PS_QM702H.Size)
@@ -213,16 +213,23 @@ namespace PSH_BOne_AddOn
                         oDS_PS_QM702H.SetValue("U_ColReg15", i, oRecordSet01.Fields.Item("U_Comments").Value.ToString().Trim());
                         oRecordSet01.MoveNext();
                     }
+                    oMat01.LoadFromDataSource();
+                    oMat01.AutoResizeColumns();
                 }
                else
                 {
+                    oMat02.Clear();
+                    oMat02.FlushToDataSource();
+                    oMat02.LoadFromDataSource();
+                    oDS_PS_QM702M.Clear();
+
                     for (int i = 0; i <= oRecordSet01.RecordCount - 1; i++)
                     {
-                        if (i + 1 > oDS_PS_QM702H.Size)
+                        if (i + 1 > oDS_PS_QM702M.Size)
                         {
-                            oDS_PS_QM702H.InsertRecord((i));
+                            oDS_PS_QM702M.InsertRecord((i));
                         }
-                        oMat01.AddRow();
+                        oMat02.AddRow();
                         oDS_PS_QM702M.Offset = i;
                         oDS_PS_QM702M.SetValue("U_LineNum", i, Convert.ToString(i + 1));
                         oDS_PS_QM702M.SetValue("U_ColReg01", i, oRecordSet01.Fields.Item("U_InOut").Value.ToString().Trim());
@@ -242,9 +249,9 @@ namespace PSH_BOne_AddOn
                         oDS_PS_QM702M.SetValue("U_ColReg15", i, oRecordSet01.Fields.Item("U_Comments").Value.ToString().Trim());
                         oRecordSet01.MoveNext();
                     }
+                    oMat02.LoadFromDataSource();
+                    oMat02.AutoResizeColumns();
                 }
-                oMat01.LoadFromDataSource();
-                oMat01.AutoResizeColumns();
             }
             catch (System.Exception ex)
             {
@@ -291,7 +298,7 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    PSH_Globals.SBO_Application.SetStatusBarMessage("PH_PY035_MTX01:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                    PSH_Globals.SBO_Application.SetStatusBarMessage("PS_QM701_MTX01:" + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
                 }
             }
             finally
@@ -511,6 +518,11 @@ namespace PSH_BOne_AddOn
                     {
                         PS_QM702_LoadData("I");
                         PS_QM702_LoadData("O");
+                        if(oMat01.VisualRowCount + oMat02.VisualRowCount < 1)
+                        {
+                            errMessage = "승인대기List가 없습니다.";
+                            throw new Exception();
+                        }
                     }
                     else if (pVal.ItemUID == "btn_appr")
                     {
@@ -521,17 +533,34 @@ namespace PSH_BOne_AddOn
                             {
                                 string GOBUN = oDS_PS_QM702H.GetValue("U_ColReg01", i).ToString().Trim();
                                 string DocEntry = oDS_PS_QM702H.GetValue("U_ColReg02", i).ToString().Trim();
-                                if (PS_QM702_UPDATEData(DocEntry,    GOBUN) == false)
+                                if (PS_QM702_UPDATEData(DocEntry,GOBUN) == false)
                                 {
                                     BubbleEvent = false;
                                     return;
                                 }
                             }
                         }
+                        oMat02.FlushToDataSource();
+                        for (int i = 0; i <= oMat02.VisualRowCount - 1; i++)
+                        {
+                            if (oDS_PS_QM702M.GetValue("U_ColReg17", i).ToString().Trim() == "Y")
+                            {
+                                string GOBUN = oDS_PS_QM702M.GetValue("U_ColReg01", i).ToString().Trim();
+                                string DocEntry = oDS_PS_QM702M.GetValue("U_ColReg02", i).ToString().Trim();
+                                if (PS_QM702_UPDATEData(DocEntry, GOBUN) == false)
+                                {
+                                    BubbleEvent = false;
+                                    return;
+                                }
+                            }
+                        }
+                        PS_QM702_LoadData("I");
+                        PS_QM702_LoadData("O");
                     }
                     else if (pVal.ItemUID == "btn_return")
                     {
                         oMat01.FlushToDataSource();
+                        oMat02.FlushToDataSource();
                         for (int i = 0; i <= oMat01.VisualRowCount - 1; i++)
                         {
                             if (oDS_PS_QM702H.GetValue("U_ColReg17", i).ToString().Trim() == "Y")
@@ -550,6 +579,36 @@ namespace PSH_BOne_AddOn
                                     sQry = "SELECT U_eMail FROM [@PS_QM700L] WHERE U_UseYN = 'Y'AND Code ='ZReturn'";
                                     oRecordSet01.DoQuery(sQry);
 
+                                    for (int j = 0; j <= oRecordSet01.RecordCount - 1; j++)
+                                    {
+                                        string email = string.Empty;
+                                        email = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
+                                        if (Return_EMail(DocEntry, email, Reson, GOBUN) == false)//사번
+                                        {
+                                            errMessage = GOBUN+ "문서번호" + DocEntry + "전송 중 오류가 발생했습니다.";
+                                            throw new Exception();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        for (int i = 0; i <= oMat02.VisualRowCount - 1; i++)
+                        {
+                            if (oDS_PS_QM702M.GetValue("U_ColReg17", i).ToString().Trim() == "Y")
+                            {
+                                if (string.IsNullOrEmpty(oDS_PS_QM702M.GetValue("U_ColReg16", i).ToString().Trim()))
+                                {
+                                    errMessage = "반려 시 반려사유는 필수입니다.";
+                                    throw new Exception();
+                                }
+                                else
+                                {
+                                    string DocEntry = oDS_PS_QM702M.GetValue("U_ColReg02", i).ToString().Trim();
+                                    string Reson = oDS_PS_QM702M.GetValue("U_ColReg16", i).ToString().Trim();
+                                    string GOBUN = oDS_PS_QM702M.GetValue("U_ColReg01", i).ToString().Trim();
+
+                                    sQry = "SELECT U_eMail FROM [@PS_QM700L] WHERE U_UseYN = 'Y'AND Code ='ZReturn'";
+                                    oRecordSet01.DoQuery(sQry);
 
                                     for (int j = 0; j <= oRecordSet01.RecordCount - 1; j++)
                                     {
@@ -557,13 +616,15 @@ namespace PSH_BOne_AddOn
                                         email = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
                                         if (Return_EMail(DocEntry, email, Reson, GOBUN) == false)//사번
                                         {
-                                            errMessage = "전송 중 오류가 발생했습니다.";
+                                            errMessage = GOBUN + "문서번호" + DocEntry + "전송 중 오류가 발생했습니다.";
                                             throw new Exception();
                                         }
                                     }
                                 }
                             }
                         }
+                        PS_QM702_LoadData("I");
+                        PS_QM702_LoadData("O");
                     }
                     else if (pVal.BeforeAction == false)
                     {

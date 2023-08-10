@@ -219,7 +219,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                dataHelpClass.SetEnableMenus(oForm, false, false, true, true, false, true, true, true, true, false, false, false, false, false, false, false);
+                dataHelpClass.SetEnableMenus(oForm, false, false, true, true, false, true, true, true, true, true, false, false, false, false, false, false);
             }
             catch (Exception ex)
             {
@@ -265,12 +265,12 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("MSTCOD").Enabled = true;
                         oForm.Items.Item("oMat01").Enabled = true;
                         oForm.Items.Item("BZZadQty").Enabled = true;
-
                         oForm.Items.Item("DocEntry").Enabled = false;
                         oForm.Items.Item("BadCode").Enabled = true;
                         oForm.Items.Item("InCpCode").Enabled = true;
                         oForm.Items.Item("BadNote").Enabled = true;
                         oForm.Items.Item("verdict").Enabled = true;
+                        oForm.Items.Item("OutUnit").Enabled = true;
                         oForm.Items.Item("cmt").Enabled = true;
                     }
                     else if (oForm.Items.Item("ChkYN").Specific.Value.Trim() == "승인" || oForm.Items.Item("Canceled").Specific.Value.Trim() == "Y")
@@ -283,12 +283,12 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("MSTCOD").Enabled = false;
                         oForm.Items.Item("BZZadQty").Enabled = false;
                         oForm.Items.Item("oMat01").Enabled = false;
-
                         oForm.Items.Item("DocEntry").Enabled = false;
                         oForm.Items.Item("BadCode").Enabled = false;
                         oForm.Items.Item("InCpCode").Enabled = false;
                         oForm.Items.Item("BadNote").Enabled = false;
                         oForm.Items.Item("verdict").Enabled = false;
+                        oForm.Items.Item("OutUnit").Enabled = false;
                         oForm.Items.Item("cmt").Enabled = false;
                     }
                     else
@@ -300,12 +300,12 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("MSTCOD").Enabled = true;
                         oForm.Items.Item("oMat01").Enabled = true;
                         oForm.Items.Item("BZZadQty").Enabled = true;
-
                         oForm.Items.Item("DocEntry").Enabled = false;
                         oForm.Items.Item("BadCode").Enabled = true;
                         oForm.Items.Item("InCpCode").Enabled = true;
                         oForm.Items.Item("BadNote").Enabled = true;
                         oForm.Items.Item("verdict").Enabled = true;
+                        oForm.Items.Item("OutUnit").Enabled = true;
                         oForm.Items.Item("cmt").Enabled = true;
                     }
                     oForm.EnableMenu("1281", true); //찾기
@@ -981,11 +981,6 @@ namespace PSH_BOne_AddOn
                                 BubbleEvent = false;
                                 return;
                             }
-                            
-                            sQry = "insert into PSHDB_IMG.dbo.ZPS_QM703_PIC(BPLId,FixCode) SELECT ";
-                            sQry += "'" + oForm.Items.Item("CLTCOD").Specific.Value.Trim() + "',";
-                            sQry += "'" + oForm.Items.Item("DocEntry").Specific.Value.Trim() + "'";
-                            oRecordSet.DoQuery(sQry);
                         }
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {
@@ -1063,7 +1058,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "1")
                     {
-                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+                        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {
                             if (pVal.ActionSuccess == true)
                             {
@@ -1463,6 +1458,12 @@ namespace PSH_BOne_AddOn
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
             string errMessage = string.Empty;
+            string p_DocEntry;
+            string sQry;
+            string sQry1;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
                 oForm.Freeze(true);
@@ -1471,6 +1472,30 @@ namespace PSH_BOne_AddOn
                     switch (pVal.MenuUID)
                     {
                         case "1284": //취소
+                            sQry = "SELECT count(*) FROM[@PS_QM700L] WHERE Code = 'ZCheck' AND U_UseYN<>'N' AND U_Code ='" + dataHelpClass.User_MSTCOD() + "'";
+                            oRecordSet.DoQuery(sQry);
+                            p_DocEntry = oForm.Items.Item("DocEntry").Specific.Value;
+                            if (PSH_Globals.SBO_Application.MessageBox("결재를 취소하시겠습니까?", 1, "Yes", "No") == 1)
+                            {
+                                if (oRecordSet.Fields.Item(0).Value.ToString().Trim() == "0")
+                                {
+                                    PSH_Globals.SBO_Application.MessageBox("결재자만 결재를 취소할 수 있습니다.");
+                                    BubbleEvent = false;
+                                    return;
+                                }
+                                sQry1 = " UPDATE [@PS_QM703H] SET U_ChkYN ='' WHERE DocEntry ='" + p_DocEntry + "'";
+                                oRecordSet01.DoQuery(sQry1);
+
+                                oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
+                                PS_QM703_FormItemEnabled();
+                                oForm.Items.Item("DocEntry").Specific.Value = p_DocEntry;
+                                oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                                BubbleEvent = false;
+                            }
+                            else
+                            {
+                                BubbleEvent = false;
+                            }
                             break;
                         case "1286": //닫기
                             break;
@@ -1525,6 +1550,7 @@ namespace PSH_BOne_AddOn
             finally
             {
                 oForm.Freeze(false);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
             }
         }
 

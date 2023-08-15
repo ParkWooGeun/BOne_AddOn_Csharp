@@ -356,14 +356,14 @@ namespace PSH_BOne_AddOn
                 if (p_Gobun == "외주")
                 {
                     WinTitle = "[PS_QM705] 외주 부적합 자재 통보서";
-                    ReportName = "PS_QM705_01.rpt";
-                    dataPackSub1ReportParameter.Add(new PSH_DataPackClass("@DocEntry", p_DocEntry, "PS_QM705_04"));
+                    ReportName = "PS_QM702_01.rpt";
+                    dataPackSub1ReportParameter.Add(new PSH_DataPackClass("@DocEntry", p_DocEntry, "PS_QM702_04"));
 
                 }
                 else
                 {
                     WinTitle = "[PS_QM705] 자체 부적합 자재 보고서";
-                    ReportName = "PS_QM705_02.rpt";
+                    ReportName = "PS_QM702_02.rpt";
                     dataPackSub1ReportParameter.Add(new PSH_DataPackClass("@DocEntry", p_DocEntry, "SUB702_06"));
                 }
 
@@ -453,6 +453,11 @@ namespace PSH_BOne_AddOn
                 if (p_Gobun == "외주")
                 {
                     sQry = " SELECT U_Comments FROM [@PS_QM701H] WHERE DocEntry ='" + p_DocEntry + "'";
+                    oRecordSet01.DoQuery(sQry);
+                }
+                else
+                {
+                    sQry = " SELECT U_Comments FROM [@PS_QM703H] WHERE DocEntry ='" + p_DocEntry + "'";
                     oRecordSet01.DoQuery(sQry);
                 }
 
@@ -691,7 +696,7 @@ namespace PSH_BOne_AddOn
                                 }
                                 if( k != 0)
                                 {
-                                    sQry1 = "Insert into Z_PS_QM705 values ('" + SGoBun + "','" + SDocEntry + "','";
+                                    sQry1 = "Insert into Z_PS_QM702 values ('" + SGoBun + "','" + SDocEntry + "','";
                                     sQry1 += oDS_PS_QM705M.GetValue("U_ColReg01", i).ToString().Trim() + "','" + oDS_PS_QM705M.GetValue("U_ColReg02", i).ToString().Trim() + "',GETDATE())";
                                     oRecordSet02.DoQuery(sQry1);
                                 }
@@ -963,7 +968,12 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("SGoBun").Specific.Value = oMat01.Columns.Item("Gubun").Cells.Item(pVal.Row).Specific.Value.ToString().Trim();
                         oForm.Items.Item("Subject").Specific.Value = "(풍산홀딩스) 부적합자재통보서 송부의 건";
                         oForm.Items.Item("SBody").Specific.Value = sQry;
-                        oDS_PS_QM705M.Clear(); //추가
+
+                        oMat02.Clear();
+                        oMat02.FlushToDataSource();
+                        oMat02.LoadFromDataSource();
+                        oDS_PS_QM705M.Clear();
+                        PS_QM705_AddMatrixRowM(0, false);
                     }
                 }
                 else if (pVal.BeforeAction == false)

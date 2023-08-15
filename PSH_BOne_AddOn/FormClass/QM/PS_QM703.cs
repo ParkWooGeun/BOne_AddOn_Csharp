@@ -693,7 +693,7 @@ namespace PSH_BOne_AddOn
                     }
                     else
                     {
-                        System.IO.File.Copy(Incom_Pic_Path + DocEntry + filename, Incom_Pic_Path + "PIC.bmp");
+                        System.IO.File.Copy(Incom_Pic_Path + DocEntry + filename, Incom_Pic_Path + "NULL.bmp");
                     }
                 }
                 else
@@ -1041,11 +1041,13 @@ namespace PSH_BOne_AddOn
                         }
                         else
                         {
-                            if (oForm.Items.Item("verdict").Specific.Value.Trim() == "2")
-                            {
-                                oForm.Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
-                                PS_QM703_SaveAttach();
-                            }
+                            PS_QM703_SaveAttach();
+                            oForm.Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
+                            //if (oForm.Items.Item("verdict").Specific.Value.Trim() == "2")
+                            //{
+                            //    oForm.Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
+                            //    PS_QM703_SaveAttach();
+                            //}
                         }
                         
                     }

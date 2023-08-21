@@ -249,13 +249,13 @@ namespace PSH_BOne_AddOn
                             oMat01.Columns.Item("JoinDate").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             return returnValue;
                         }
-                        //종료일
-                        else if (string.IsNullOrEmpty(oMat01.Columns.Item("TermDate").Cells.Item(i).Specific.Value))
-                        {
-                            PSH_Globals.SBO_Application.SetStatusBarMessage("종료일은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
-                            oMat01.Columns.Item("TermDate").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                            return returnValue;
-                        }
+                        ////종료일
+                        //else if (string.IsNullOrEmpty(oMat01.Columns.Item("TermDate").Cells.Item(i).Specific.Value))
+                        //{
+                        //    PSH_Globals.SBO_Application.SetStatusBarMessage("종료일은 필수입니다.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                        //    oMat01.Columns.Item("TermDate").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                        //    return returnValue;
+                        //}
                         //가입금액
                         else if (string.IsNullOrEmpty(oMat01.Columns.Item("JoinAMT").Cells.Item(i).Specific.Value))
                         {
@@ -321,7 +321,8 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Freeze(true);
                 oMat01.FlushToDataSource();
-                if (RowIserted == false) //행추가여부
+                //행추가여부
+                if (RowIserted == false)
                 {
                     oDS_PH_PY137B.InsertRecord(oRow);
                 }
@@ -405,38 +406,38 @@ namespace PSH_BOne_AddOn
                     Raise_EVENT_FORM_UNLOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                //case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: //18
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE: //18
+                    //    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE: //19
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE: //19
+                    //    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE: //20
-                //    Raise_EVENT_FORM_CLOSE(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE: //20
+                    //    Raise_EVENT_FORM_CLOSE(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
+                    //    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
-                //    Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN: //22
+                    //    Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
-                //    Raise_EVENT_FORM_MENU_HILIGHT(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
+                    //    Raise_EVENT_FORM_MENU_HILIGHT(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
-                //    Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
+                    //    Raise_EVENT_CHOOSE_FROM_LIST(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
-                //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_GRID_SORT: //38
+                    //    Raise_EVENT_GRID_SORT(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
 
-                //case SAPbouiCOM.BoEventTypes.et_Drag: //39
-                //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                    //case SAPbouiCOM.BoEventTypes.et_Drag: //39
+                    //    Raise_EVENT_Drag(FormUID, ref pVal, ref BubbleEvent);
+                    //    break;
             }
         }
 
@@ -646,7 +647,7 @@ namespace PSH_BOne_AddOn
             DateTime JoinDate;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            
+
             try
             {
                 oForm.Freeze(true);
@@ -662,7 +663,7 @@ namespace PSH_BOne_AddOn
                             sQry = "exec [PH_PY137_01] '" + oMat01.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.Value + "'";
                             oRecordSet.DoQuery(sQry);
 
-                            if(oRecordSet.Fields.Item(0).Value == "E")
+                            if (oRecordSet.Fields.Item(0).Value == "E")
                             {
                                 errMessage = oRecordSet.Fields.Item(1).Value;
                                 oMat01.Columns.Item("MSTCOD").Cells.Item(pVal.Row).Specific.Value = "";
@@ -675,7 +676,7 @@ namespace PSH_BOne_AddOn
                             if (!string.IsNullOrEmpty(oMat01.Columns.Item("MSTCOD").Cells.Item(oMat01.VisualRowCount).Specific.Value))
                             {
                                 PH_PY137_AddMatrixRow(oMat01.VisualRowCount, false);
-                                oMat01.Columns.Item("JoinDate").Cells.Item(oMat01.VisualRowCount-1).Specific.Value = DateTime.Now.ToString("yyyyMMdd");
+                                oMat01.Columns.Item("JoinDate").Cells.Item(oMat01.VisualRowCount - 1).Specific.Value = DateTime.Now.ToString("yyyyMMdd");
                                 oMat01.Columns.Item("JoinAMT").Cells.Item(pVal.Row).Specific.Value = "50000";
                                 oMat01.Columns.Item("ContrCnt").Cells.Item(pVal.Row).Specific.Value = "120";
                                 oMat01.Columns.Item("PaymtCnt").Cells.Item(pVal.Row).Specific.Value = "0";
@@ -687,7 +688,7 @@ namespace PSH_BOne_AddOn
                             oMat01.FlushToDataSource();
                             JoinDate = DateTime.ParseExact(oMat01.Columns.Item("JoinDate").Cells.Item(oMat01.VisualRowCount - 1).Specific.Value, "yyyyMMdd", null);
                             TeamDate = JoinDate.AddMonths(Convert.ToInt32(oMat01.Columns.Item("ContrCnt").Cells.Item(pVal.Row).Specific.Value)).ToString("yyyyMMdd");
-                            oDS_PH_PY137B.SetValue("U_TermDate", pVal.Row -1, TeamDate);
+                            oDS_PH_PY137B.SetValue("U_TermDate", pVal.Row - 1, TeamDate);
                             oMat01.LoadFromDataSource();
                         }
                     }
@@ -695,7 +696,7 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                if(errMessage != string.Empty)
+                if (errMessage != string.Empty)
                 {
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
                 }

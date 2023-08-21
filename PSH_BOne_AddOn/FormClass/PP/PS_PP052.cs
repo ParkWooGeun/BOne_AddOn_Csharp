@@ -526,10 +526,30 @@ namespace PSH_BOne_AddOn
                 oMat01.Columns.Item("ItemName").Visible = false;
                 oMat01.Columns.Item("CpCode").Visible = false;
 
+                if (oForm.Items.Item("CpCode").Specific.Value.ToString().Trim() != "CP80101" && oForm.Items.Item("CpCode").Specific.Value.ToString().Trim() != "CP80111")
+                {
+                    oMat01.Columns.Item("Charge").Editable = false;
+                    oMat01.Columns.Item("BatchNum").Visible = false;
+                    oMat01.Columns.Item("CItemCod").Visible = false;
+                    oMat01.Columns.Item("CItemNam").Visible = false;
+                    oMat01.Columns.Item("OnHandWt").Visible = false;
+                    oMat01.Columns.Item("OrdMgNum").Visible = true;
+                }
+                else
+                {
+                    oMat01.Columns.Item("Charge").Editable = true;
+                    oMat01.Columns.Item("BatchNum").Visible = true;
+                    oMat01.Columns.Item("CItemCod").Visible = true;
+                    oMat01.Columns.Item("CItemNam").Visible = true;
+                    oMat01.Columns.Item("OnHandWt").Visible = true;
+                    oMat01.Columns.Item("OrdMgNum").Visible = false;
+                }
+
                 oMat01.AutoResizeColumns();
                 oMat02.AutoResizeColumns();
                 oMat03.AutoResizeColumns();
                 oMat04.AutoResizeColumns();
+
 
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
@@ -555,7 +575,6 @@ namespace PSH_BOne_AddOn
                     oMat01.Columns.Item("NQty").Editable = true;
                     oMat01.Columns.Item("ScrapWt").Editable = true;
                     oMat01.Columns.Item("WorkTime").Editable = true;
-                    oMat01.Columns.Item("CItemCod").Editable = true;
                     oForm.Items.Item("CpCode").Enabled = true;
                     oForm.Items.Item("BaseTime").Enabled = true;
                     oForm.Items.Item("WorkTime").Enabled = true;
@@ -622,7 +641,6 @@ namespace PSH_BOne_AddOn
                     oMat01.Columns.Item("NQty").Editable = false;
                     oMat01.Columns.Item("ScrapWt").Editable = false;
                     oMat01.Columns.Item("WorkTime").Editable = false;
-                    oMat01.Columns.Item("CItemCod").Editable = false;
                     oMat01.Columns.Item("ItemName").Visible = false;
                     oMat01.Columns.Item("CpCode").Visible = false;
                     oForm.Items.Item("CpCode").Enabled = false;
@@ -1948,23 +1966,25 @@ namespace PSH_BOne_AddOn
                                 if (oForm.Items.Item("CpCode").Specific.Value.ToString().Trim() != "CP80101" && oForm.Items.Item("CpCode").Specific.Value.ToString().Trim() != "CP80111")
                                 {
                                     oMat01.Columns.Item("Charge").Editable = false;
+                                    oMat01.Columns.Item("BatchNum").Visible = false;
+                                    oMat01.Columns.Item("CItemCod").Visible = false;
+                                    oMat01.Columns.Item("CItemNam").Visible = false;
+                                    oMat01.Columns.Item("OnHandWt").Visible = false;
+                                    oMat01.Columns.Item("OrdMgNum").Visible = true;
                                 }
                                 else
                                 {
                                     oMat01.Columns.Item("Charge").Editable = true;
+                                    oMat01.Columns.Item("BatchNum").Visible = true;
+                                    oMat01.Columns.Item("CItemCod").Visible = true;
+                                    oMat01.Columns.Item("CItemNam").Visible = true;
+                                    oMat01.Columns.Item("OnHandWt").Visible = true;
+                                    oMat01.Columns.Item("OrdMgNum").Visible = false;
                                 }
                                 sQry = "SELECT U_Sequence FROM [@PS_PP030M] WHERE DocEntry = '" + oForm.Items.Item("PP030HNo").Specific.Value.ToString().Trim() + "' and U_CpCode = '" + oForm.Items.Item("CpCode").Specific.Value.ToString().Trim() + "'";
 
                                 oRecordSet01.DoQuery(sQry);
 
-                                if (oRecordSet01.Fields.Item(0).Value == 1)
-                                {
-                                    oMat01.Columns.Item("CItemCod").Editable = true;
-                                }
-                                else
-                                {
-                                    oMat01.Columns.Item("CItemCod").Editable = false;
-                                }
                                 if (Convert.ToInt32(DateTime.Now.ToString("HHmm")) > 830  && Convert.ToInt32(DateTime.Now.ToString("HHmm")) < 2030)
                                 {
                                     oForm.Items.Item("Shift").Specific.Select("D", SAPbouiCOM.BoSearchKey.psk_ByValue);
@@ -2288,7 +2308,6 @@ namespace PSH_BOne_AddOn
             double Time;
             string Query01;
             string errCode = string.Empty;
-            string ReturnValue;
             string BatchNumErr = string.Empty;
             string errMessage = string.Empty;
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
@@ -2319,10 +2338,10 @@ namespace PSH_BOne_AddOn
 
                                     oRecordSet01.DoQuery(Query01);
 
-                                    ReturnValue = oRecordSet01.Fields.Item("ReturnValue").Value;
+                                    errCode = oRecordSet01.Fields.Item("ReturnValue").Value;
                                     BatchNumErr = oRecordSet01.Fields.Item("BatchNum").Value;
 
-                                    if (ReturnValue.ToString().Trim() == "O")
+                                    if (errCode == "O")
                                     {
                                         oDS_PS_PP052L.SetValue("U_OrdMgNum", pVal.Row - 1, Convert.ToString(oForm.Items.Item("PP030HNo").Specific.Value + "-1"));
                                         oDS_PS_PP052L.SetValue("U_CItemCod", pVal.Row - 1, oRecordSet01.Fields.Item("ItemCode").Value);
@@ -2331,22 +2350,46 @@ namespace PSH_BOne_AddOn
                                     }
                                     else if (errCode == "E1")
                                     {
+                                        oMat01.FlushToDataSource();
+                                        oDS_PS_PP052L.SetValue("U_OrdMgNum", pVal.Row - 1, "");
+                                        oDS_PS_PP052L.SetValue("U_CItemCod", pVal.Row - 1, "");
+                                        oDS_PS_PP052L.SetValue("U_CItemNam", pVal.Row - 1, "");
+                                        oDS_PS_PP052L.SetValue("U_OnHandWt", pVal.Row - 1, "");
                                         //usb_io_output(609, 34, 1, 2, 0, 0);
+                                        oMat01.LoadFromDataSource();
                                         throw new Exception();
                                     }
                                     else if (errCode == "E2")
                                     {
+                                        oMat01.FlushToDataSource();
+                                        oDS_PS_PP052L.SetValue("U_OrdMgNum", pVal.Row - 1, "");
+                                        oDS_PS_PP052L.SetValue("U_CItemCod", pVal.Row - 1, "");
+                                        oDS_PS_PP052L.SetValue("U_CItemNam", pVal.Row - 1, "");
+                                        oDS_PS_PP052L.SetValue("U_OnHandWt", pVal.Row - 1, "");
                                         //usb_io_output(609, 34, 1, 2, 0, 0);
+                                        oMat01.LoadFromDataSource();
                                         throw new Exception();
                                     }
                                     else if (errCode == "E3")
                                     {
+                                        oMat01.FlushToDataSource();
+                                        oDS_PS_PP052L.SetValue("U_OrdMgNum", pVal.Row - 1, "");
+                                        oDS_PS_PP052L.SetValue("U_CItemCod", pVal.Row - 1, "");
+                                        oDS_PS_PP052L.SetValue("U_CItemNam", pVal.Row - 1, "");
+                                        oDS_PS_PP052L.SetValue("U_OnHandWt", pVal.Row - 1, "");
                                         //usb_io_output(609, 34, 1, 2, 0, 0);
+                                        oMat01.LoadFromDataSource();
                                         throw new Exception();
                                     }
                                     else if (errCode == "E4")
                                     {
+                                        oMat01.FlushToDataSource();
+                                        oDS_PS_PP052L.SetValue("U_OrdMgNum", pVal.Row - 1, "");
+                                        oDS_PS_PP052L.SetValue("U_CItemCod", pVal.Row - 1, "");
+                                        oDS_PS_PP052L.SetValue("U_CItemNam", pVal.Row - 1, "");
+                                        oDS_PS_PP052L.SetValue("U_OnHandWt", pVal.Row - 1, "");
                                         //usb_io_output(609, 34, 1, 2, 0, 0);
+                                        oMat01.LoadFromDataSource();
                                         throw new Exception();
                                     }
 
@@ -2391,11 +2434,10 @@ namespace PSH_BOne_AddOn
                                         {
                                             PS_PP052_AddMatrixRow03(0, true);
                                         }
-                                        else
+                                        else if(oMat01.RowCount == pVal.Row && !string.IsNullOrEmpty(oDS_PS_PP052L.GetValue("U_" + pVal.ColUID, pVal.Row - 1).ToString().Trim()))
                                         {
                                             PS_PP052_AddMatrixRow03(oMat03.VisualRowCount, false);
                                         }
-
                                         oDS_PS_PP052N.SetValue("U_OrdMgNum", oMat03.VisualRowCount - 1, oRecordSet01.Fields.Item("OrdMgNum").Value);
                                         oDS_PS_PP052N.SetValue("U_CpCode", oMat03.VisualRowCount - 1, oRecordSet01.Fields.Item("CpCode").Value);
                                         oDS_PS_PP052N.SetValue("U_CpName", oMat03.VisualRowCount - 1, oRecordSet01.Fields.Item("CpName").Value);

@@ -1836,6 +1836,32 @@ namespace PSH_BOne_AddOn
 										{
 											sQry1 = "Select U_ItmBSort From [OITM] Where ItemCode = '" + oDS_PS_MM152L.GetValue("U_ItemCode", i).ToString().Trim() + "'";
 											oRecordSet1.DoQuery(sQry1);
+											if (oRecordSet1.Fields.Item(0).Value.ToString().Trim() == "105" && oForm.Items.Item("OKYNC").Specific.Value.ToString().Trim() != "C")
+											{
+												if (oDS_PS_MM152L.GetValue("U_QCOKYN", i).ToString().Trim() == "Y")
+												{
+													if (PS_MM152_Add_PS_PP040(ref pVal) == false)
+													{
+														BubbleEvent = false;
+														return;
+													}
+												}
+											}
+											else
+											{
+												if (PS_MM152_Add_PS_PP040(ref pVal) == false)
+												{
+													BubbleEvent = false;
+													return;
+												}
+												else
+												{
+													if (PSH_Globals.oCompany.InTransaction == true)
+													{
+														PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
+													}
+												}
+											}
 										}
 										else
 										{

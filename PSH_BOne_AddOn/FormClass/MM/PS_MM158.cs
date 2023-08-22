@@ -526,7 +526,7 @@ namespace PSH_BOne_AddOn
                     oDIObject.DocDate = Convert.ToDateTime(dataHelpClass.ConvertDateType(oForm.Items.Item("DocDate").Specific.Value, "-"));
                 }
                 oDIObject.UserFields.Fields.Item("Comments").Value = "애드온 입고 문서번호:" + oForm.Items.Item("DocEntry").Specific.Value + " 외주자재입고_PS_MM158";
-
+                
                 for (i = 0; i <= oMat01.VisualRowCount - 1; i++)
                 {
                     oDIObject.Lines.Add();
@@ -534,6 +534,9 @@ namespace PSH_BOne_AddOn
                     oDIObject.Lines.ItemCode = oDS_PS_MM158L.GetValue("U_ItemCode", i).ToString().Trim();
                     oDIObject.Lines.WarehouseCode = oDS_PS_MM158L.GetValue("U_WhsCode", i).ToString().Trim();
                     oDIObject.Lines.Quantity = Convert.ToDouble(oDS_PS_MM158L.GetValue("U_Quantity", i).ToString().Trim());
+                    oDIObject.Lines.Price = Convert.ToDouble(0);
+                    oDIObject.Lines.LineTotal = Convert.ToDouble(0);
+                    oDIObject.Lines.UserFields.Fields.Item("PriceBefDi").Value = Convert.ToDouble(0);
                     oDIObject.Lines.UserFields.Fields.Item("U_OrdNum").Value = oDS_PS_MM158L.GetValue("U_PP030Doc", i).ToString().Trim();
                     oDIObject.Lines.UserFields.Fields.Item("U_sSize").Value = oDS_PS_MM158L.GetValue("U_HeatNo", i).ToString().Trim();
                     LineNumCount += 1;

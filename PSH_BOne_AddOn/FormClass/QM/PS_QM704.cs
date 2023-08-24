@@ -808,7 +808,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemUID == "oMat01")
                     {
-                        if (pVal.ColUID == "Action")
+                        if (pVal.ColUID == "Action" && !string.IsNullOrEmpty(oMat01.Columns.Item("DocEntry").Cells.Item(pVal.Row).Specific.Value))
                         {
                             if (oMat01.Columns.Item("Action").Cells.Item(pVal.Row).Specific.Value == "S")
                             {
@@ -823,7 +823,7 @@ namespace PSH_BOne_AddOn
                                 PS_QM704_DeleteAttach(pVal.Row);
                             }
                         }
-                        if (pVal.ColUID == "endsoL")
+                        if (pVal.ColUID == "endsoL" && !string.IsNullOrEmpty(oMat01.Columns.Item("DocEntry").Cells.Item(pVal.Row).Specific.Value))
                         {
                             if (oMat01.Columns.Item("endsoL").Cells.Item(pVal.Row).Specific.Value == "O")
                             {

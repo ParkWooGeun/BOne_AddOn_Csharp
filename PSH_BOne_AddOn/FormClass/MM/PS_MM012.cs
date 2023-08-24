@@ -747,7 +747,7 @@ namespace PSH_BOne_AddOn
 		private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
 			string Code;
-
+			string errmsg = string.Empty;
 			try
 			{
 				oForm.Freeze(true);
@@ -777,6 +777,16 @@ namespace PSH_BOne_AddOn
 								Code = oDS_PS_MM012H.GetValue("U_BPLId", 0).ToString().Trim() + oDS_PS_MM012H.GetValue("U_Year", 0).ToString().Trim();
 								oDS_PS_MM012H.SetValue("Code", 0, Code);
 								oDS_PS_MM012H.SetValue("Name", 0, Code);
+							}
+							if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
+							{
+								if ((oForm.Items.Item("Code").Specific.Value.Substring(0, 1)) != oDS_PS_MM012H.GetValue("U_BPLID", 0).ToString().Trim())
+								{
+									errmsg = "사업장을 수정할수 없습니다.";
+									PSH_Globals.SBO_Application.MessageBox(errmsg);
+									BubbleEvent = false;
+									return;
+								}
 							}
 
 							PS_MM012_Delete_EmptyRow();
@@ -808,7 +818,14 @@ namespace PSH_BOne_AddOn
 			}
 			catch (Exception ex)
 			{
-				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+				if (errmsg != string.Empty)
+				{
+					PSH_Globals.SBO_Application.MessageBox(errmsg);
+				}
+				else
+				{
+					PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+				}
 			}
 			finally
 			{

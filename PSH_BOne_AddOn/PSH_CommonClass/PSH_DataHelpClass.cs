@@ -2084,13 +2084,9 @@ namespace PSH_BOne_AddOn.Data
                 {
                     sID = sID.Substring(0, 6) + sID.Substring(7, 7);
                 }
-                if (Convert.ToInt32(sID.Substring(0, 4)) > 2010)
+                if (Convert.ToInt32(sID.Substring(0, 4)) > 2010 && (sID.Substring(6, 1).ToString().Trim() == "3" || sID.Substring(6, 1).ToString().Trim() == "4"))
                 {
-                    if (sID.Substring(6, 1).ToString().Trim() == "3" || sID.Substring(6, 1).ToString().Trim() == "4")
-                    {
-                        returnValue = true;
-                        //2020년 10월부터 주민등록 검증이 사라졌음.
-                    }
+                    returnValue = true; //2020년 10월부터 주민등록 검증이 사라졌음.
                 }
                 else
                 {

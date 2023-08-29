@@ -1390,7 +1390,8 @@ namespace PSH_BOne_AddOn
 										sQry += " U_WorkCls,";
 										sQry += " U_ScrapWt,";
 										sQry += " U_WorkTime,";
-										sQry += " U_PSum";
+										sQry += " U_PSum,";
+										sQry += " U_Comment";
 										sQry += " ) ";
 										sQry += "VALUES(";
 										sQry += "'" + PP040H_DocEntry + "',";
@@ -1422,7 +1423,8 @@ namespace PSH_BOne_AddOn
 										sQry += "'A',";
 										sQry += 0 + ",";
 										sQry += 0 + ",";
-										sQry += 0;
+										sQry += 0 + ",";
+										sQry += "'A'";
 										sQry += ")";
 										oRecordSet.DoQuery(sQry);
 

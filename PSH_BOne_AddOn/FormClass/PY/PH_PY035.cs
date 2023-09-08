@@ -613,7 +613,7 @@ namespace PSH_BOne_AddOn
                     //sQry += " From    [@PH_PY001A]";
                     //sQry += " Where   Code = '" + dataHelpClass.User_MSTCOD() + "'";
                     //oRecordSet.DoQuery(sQry);
-                    
+
                     //if (dataHelpClass.User_MSTCOD() == oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim() || codeHelpClass.Right(oRecordSet.Fields.Item(1).Value.ToString().Trim(), 3) == "210")
                     //{
                     //    dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
@@ -634,6 +634,14 @@ namespace PSH_BOne_AddOn
                     //    oForm.Items.Item("AfterKm").Enabled = true;
                     //}
                     // 접속자에 따른 권한별 사업장 콤보박스세팅
+                    if (oForm.Items.Item("RegCls").Specific.Value.ToString().Trim() == '3')
+                    {
+                        oForm.Items.Item("RegCls").Enabled = false;
+                    }
+                    else
+                    {
+                        oForm.Items.Item("RegCls").Enabled = true;
+                    }
                         dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true);
                         oForm.Items.Item("FrDate").Enabled = false;
                         oForm.Items.Item("ToDate").Enabled = false;
@@ -645,7 +653,6 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("MSTCOD").Enabled = false;
                         oForm.Items.Item("WMSTNAM").Enabled = true;
                         oForm.Items.Item("Comments").Enabled = true;
-                        oForm.Items.Item("RegCls").Enabled = false;
                         oForm.Items.Item("BeforKm").Enabled = true;
                         oForm.Items.Item("AfterKm").Enabled = true;
                 }

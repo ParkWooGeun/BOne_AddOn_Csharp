@@ -105,7 +105,7 @@ namespace PSH_BOne_AddOn
             {
                 oForm.Items.Item("ChkYN").Specific.ValidValues.Add("N", "승인대기");
                 oForm.Items.Item("ChkYN").Specific.ValidValues.Add("Y", "승인");
-                oForm.Items.Item("ChkYN").Specific.ValidValues.Add("C", "취소");
+                oForm.Items.Item("ChkYN").Specific.ValidValues.Add("C", "승인취소");
                 oForm.Items.Item("ChkYN").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
                 dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL order by BPLId", "", false, false);
@@ -278,7 +278,7 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("BPLId").Enabled = false;
                         oForm.Items.Item("CardCode").Enabled = false;
                         oForm.Items.Item("DocDate").Enabled = false;
-                        oForm.Items.Item("ChkYN").Enabled = false; 
+                        oForm.Items.Item("ChkYN").Enabled = true; 
                         oMat01.Columns.Item("PP030Doc").Editable = false;
                         oMat01.Columns.Item("ItemCode").Editable = false;
                         oMat01.Columns.Item("ItemSpec").Editable = false;
@@ -609,6 +609,126 @@ namespace PSH_BOne_AddOn
             return returnValue;
         }
 
+        /// <summary>
+        /// 출고DI
+        /// </summary>
+        /// <returns></returns>
+        private bool PS_MM158_DI_API2()
+        {
+            bool returnValue = false;
+            string errCode = string.Empty;
+            string errDIMsg = string.Empty;
+            int errDICode = 0;
+            int i;
+            int RetVal;
+            int LineNumCount;
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            SAPbobsCOM.Documents oDIObject = null;
+            SAPbouiCOM.ProgressBar ProgBar01 = null;
+            try
+            {
+                ProgBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
+
+                PSH_Globals.oCompany.StartTransaction();
+
+                //현재월의 전기기간 체크 후 잠겨있으면 DI API 미실행
+                if (dataHelpClass.Get_ReData("PeriodStat", "[NAME]", "OFPR", "'" + DateTime.Now.ToString("yyyy") + "-" + DateTime.Now.ToString("MM") + "'", "") == "Y")
+                {
+                    errCode = "2";
+                    throw new Exception();
+                }
+
+                LineNumCount = 0;
+                oDIObject = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenExit);
+                if (!string.IsNullOrEmpty(oForm.Items.Item("DocDate").Specific.Value))
+                {
+                    oDIObject.DocDate = Convert.ToDateTime(dataHelpClass.ConvertDateType(oForm.Items.Item("DocDate").Specific.Value, "-"));
+                }
+                oDIObject.UserFields.Fields.Item("Comments").Value = "애드온 입고 문서번호:" + oForm.Items.Item("DocEntry").Specific.Value + " 외주자재입고_PS_MM158 (입고취소)";
+
+                for (i = 0; i <= oMat01.VisualRowCount - 1; i++)
+                {
+                    oDIObject.Lines.Add();
+                    oDIObject.Lines.SetCurrentLine(LineNumCount);
+                    oDIObject.Lines.ItemCode = oDS_PS_MM158L.GetValue("U_ItemCode", i).ToString().Trim();
+                    oDIObject.Lines.WarehouseCode = oDS_PS_MM158L.GetValue("U_WhsCode", i).ToString().Trim();
+                    oDIObject.Lines.Quantity = Convert.ToDouble(oDS_PS_MM158L.GetValue("U_Quantity", i).ToString().Trim());
+                    oDIObject.Lines.Price = Convert.ToDouble(0);
+                    oDIObject.Lines.LineTotal = Convert.ToDouble(0);
+                    oDIObject.Lines.UserFields.Fields.Item("PriceBefDi").Value = Convert.ToDouble(0);
+                    oDIObject.Lines.UserFields.Fields.Item("U_OrdNum").Value = oDS_PS_MM158L.GetValue("U_PP030Doc", i).ToString().Trim();
+                    oDIObject.Lines.UserFields.Fields.Item("U_sSize").Value = oDS_PS_MM158L.GetValue("U_HeatNo", i).ToString().Trim();
+                    LineNumCount += 1;
+                }
+
+                RetVal = oDIObject.Add();
+
+                if (RetVal == 0)
+                {
+                    PSH_Globals.oCompany.GetNewObjectCode(out string afterDIDocNum);
+
+                    for (i = 1; i <= oMat01.VisualRowCount; i++)
+                    {
+                        oMat01.Columns.Item("InDoc").Cells.Item(i).Specific.Value = "";
+                        oMat01.Columns.Item("InNum").Cells.Item(i).Specific.Value = "";
+                    }
+                }
+                else
+                {
+                    PSH_Globals.oCompany.GetLastError(out errDICode, out errDIMsg);
+                    errCode = "1";
+                    throw new Exception();
+                }
+
+                PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
+                oMat01.FlushToDataSource();
+                oMat01.LoadFromDataSource();
+                oMat01.AutoResizeColumns();
+
+                returnValue = true;
+            }
+            catch (Exception ex)
+            {
+                if (PSH_Globals.oCompany.InTransaction)
+                {
+                    PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack);
+                }
+
+                if (errCode == "1")
+                {
+                    PSH_Globals.SBO_Application.MessageBox("DI실행 중 오류 발생 : [" + errDICode + "]" + (char)13 + errDIMsg);
+                }
+                else if (errCode == "2")
+                {
+                    PSH_Globals.SBO_Application.MessageBox("현재월의 전기기간이 잠겼습니다. 회계부서에 문의하세요.");
+                }
+                else if (errCode == "3")
+                {
+                    //PS_MM180_InterfaceB1toR3에서 오류 발생하면 해당 메소드에서 오류 메시지 출력, 이 분기문에서는 별도 메시지 출력 안함
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + (char)13 + ex.Message);
+                }
+            }
+            finally
+            {
+                if (oDIObject != null)
+                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oDIObject);
+                }
+
+                if (ProgBar01 != null)
+                {
+                    ProgBar01.Stop();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgBar01);
+                }
+            }
+
+            return returnValue;
+        }
+
+
 
 
         /// <summary>
@@ -760,17 +880,38 @@ namespace PSH_BOne_AddOn
                             //승인된 건은 취소불가
                             if (oForm.Items.Item("ChkYN").Specific.Value.ToString().Trim() == "C")
                             {
-                                if (string.IsNullOrEmpty(oMat01.Columns.Item("InDoc").Cells.Item(1).Specific.Value))
-                                {
-                                    sQry = "UPDATE [@PS_MM158H] SET Canceled = 'Y' WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'";
-                                    oRecordSet.DoQuery(sQry);
-                                }
-                                else
-                                {
-                                    errMessage = "승인처리된 문서는 취소할 수 없습니다.";
+                                sQry = " select COUNT(*) FROM [@PS_MM130H] MM130H INNER JOIN [@PS_MM130L] MM130L ON MM130H.DocEntry= MM130L.DocEntry ";
+                                sQry += "INNER JOIN(SELECT B.U_PP030Doc, b.U_ItemCode, B.U_HeatNo FROM [@PS_MM158H] A INNER JOIN[@PS_MM158L] B ON A.DocEntry = B.DocEntry WHERE A.Canceled = 'N' AND A.DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "')g";
+                                sQry += " ON MM130L.U_OrdNum = g.U_PP030Doc AND MM130L.U_OutItmCd = g.U_ItemCode  AND MM130L.U_HeatNo = g.U_HeatNo";
+                                sQry += " WHERE MM130H.Canceled = 'N' AND MM130H.U_OKYNC = 'Y'";
+                                oRecordSet.DoQuery(sQry);
+                                if (Convert.ToDouble(oRecordSet.Fields.Item(0).Value.ToString().Trim()) > 0)
+                                { 
+                                    errMessage = "반출이 일어난 경우 취소가 불가능합니다.";
                                     BubbleEvent = false;
                                     throw new System.Exception();
                                 }
+                                else
+                                {
+                                    if (PS_MM158_DI_API2() == false)
+                                    {
+                                        BubbleEvent = false;
+                                        return;
+                                    }
+
+                                }
+
+                                //if (string.IsNullOrEmpty(oMat01.Columns.Item("InDoc").Cells.Item(1).Specific.Value))
+                                //{
+                                //    sQry = "UPDATE [@PS_MM158H] SET Canceled = 'Y' WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'";
+                                //    oRecordSet.DoQuery(sQry);
+                                //}
+                                //else
+                                //{
+                                //    errMessage = "반출이 일어난 경우 취소가 불가능합니다.";
+                                //    BubbleEvent = false;
+                                //    throw new System.Exception();
+                                //}
                             }
                             else if (oForm.Items.Item("ChkYN").Specific.Value.ToString().Trim() == "Y")
                             {

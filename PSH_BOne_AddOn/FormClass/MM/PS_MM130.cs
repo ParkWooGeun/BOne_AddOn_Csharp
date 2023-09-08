@@ -59,6 +59,7 @@ namespace PSH_BOne_AddOn
 				PS_MM130_ComboBox_Setting();
 				PS_MM130_Initial_Setting();
 				PS_MM130_CF_ChooseFromList();
+				PS_MM130_FormItemEnabled();
 				PS_MM130_EnableMenus();
 				PS_MM130_SetDocument(oFormDocEntry);
 			}
@@ -127,7 +128,7 @@ namespace PSH_BOne_AddOn
 				dataHelpClass.Combo_ValidValues_SetValueItem(oForm.Items.Item("OKYNC").Specific, "PS_MM130", "OKYNC", false);
 				oForm.Items.Item("OKYNC").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
-				dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL ORDER BY BPLId", "1", false, false);
+				dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL order by BPLId", "", false, false);
 			}
 			catch (Exception ex)
 			{
@@ -263,6 +264,7 @@ namespace PSH_BOne_AddOn
 				oForm.Freeze(true);
 				sQry = "SELECT COUNT(*) FROM [@PS_SY005H] A INNER JOIN [@PS_SY005L] B ON A.Code = B.Code where A.Code ='M152' AND B.U_UseYN ='Y' AND B.U_AppUser = '" + PSH_Globals.oCompany.UserName + "'";
 				oRecordSet.DoQuery(sQry);
+				
 				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
 					PS_MM130_FormClear();
@@ -413,6 +415,18 @@ namespace PSH_BOne_AddOn
 					oForm.EnableMenu("1282", true); //추가
 					oForm.EnableMenu("1293", true); // 행삭제
 					oForm.Items.Item("Print").Enabled = true;
+					if (oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() == "2")
+					{
+						oMat.Columns.Item("HeatNo").Visible = true;
+						oMat.Columns.Item("OrQty").Visible = true;
+						PS_MM130_AddMatrixRow(0, true);
+					}
+					else
+					{
+						oMat.Columns.Item("HeatNo").Visible = false;
+						oMat.Columns.Item("OrQty").Visible = false;
+						PS_MM130_AddMatrixRow(0, true);
+					}
 
 					if (oDS_PS_MM130H.GetValue("U_OKYNC", 0).ToString().Trim() == "N" || oDS_PS_MM130H.GetValue("U_OKYNC", 0).ToString().Trim() == "Y")
 					{
@@ -1031,9 +1045,9 @@ namespace PSH_BOne_AddOn
                 //case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
                 //    Raise_EVENT_LOST_FOCUS(FormUID, ref pVal, ref BubbleEvent);
                 //    break;
-                //case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
-                //    Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
-                //    break;
+                case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
+                    Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
+                    break;
                 //case SAPbouiCOM.BoEventTypes.et_CLICK: //6
                 //    Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
                 //    break;
@@ -1092,6 +1106,58 @@ namespace PSH_BOne_AddOn
                     Raise_EVENT_FORM_UNLOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
             }
+		}
+
+		/// <summary>
+		/// Raise_EVENT_COMBO_SELECT
+		/// </summary>
+		/// <param name="FormUID"></param>
+		/// <param name="pVal"></param>
+		/// <param name="BubbleEvent"></param>
+		private void Raise_EVENT_COMBO_SELECT(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+		{
+			string errmsg = string.Empty;
+			try
+			{
+				oForm.Freeze(true);
+				if (pVal.BeforeAction == true)
+				{
+
+				}
+				else if (pVal.BeforeAction == false)
+				{
+					if (pVal.ItemUID == "BPLId")
+					{
+						if (oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() == "2")
+						{
+							oMat.Columns.Item("HeatNo").Visible = true;
+							oMat.Columns.Item("OrQty").Visible = true;
+							PS_MM130_AddMatrixRow(0, true);
+						}
+						else
+						{
+							oMat.Columns.Item("HeatNo").Visible = false;
+							oMat.Columns.Item("OrQty").Visible = false;
+							PS_MM130_AddMatrixRow(0, true);
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				if (errmsg != string.Empty)
+				{
+					PSH_Globals.SBO_Application.MessageBox(errmsg);
+				}
+				else
+				{
+					PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+				}
+			}
+			finally
+			{
+				oForm.Freeze(false);
+			}
 		}
 
 		/// <summary>
@@ -1851,6 +1917,7 @@ namespace PSH_BOne_AddOn
 						case "1289":
 						case "1290":
 						case "1291": //레코드이동버튼
+							PS_MM130_FormItemEnabled();
 							break;
 						case "1293": //행삭제
 							Raise_EVENT_ROW_DELETE(ref FormUID, ref pVal, ref BubbleEvent);

@@ -636,7 +636,7 @@ namespace PSH_BOne_AddOn
                     // 접속자에 따른 권한별 사업장 콤보박스세팅
                     if (oForm.Items.Item("RegCls").Specific.Value.ToString().Trim() == "03")
                     {
-                        oForm.Items.Item("RegCls").Enabled = false;
+                        oForm.Items.Item("RegCls").Enabled = true;
                     }
                     else
                     {

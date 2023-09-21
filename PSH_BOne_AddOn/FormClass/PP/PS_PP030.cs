@@ -3814,7 +3814,17 @@ namespace PSH_BOne_AddOn
                         }
                         else if (pVal.ItemUID == "Mat03")
                         {
-                            if (pVal.ColUID == "StdHour" || pVal.ColUID == "ReDate")
+                            if (pVal.ColUID == "CpBCode")
+                            {
+                                if(oDS_PS_PP030H.GetValue("U_BPLID", 0).ToString().Trim() == "2")
+                                {
+                                    if(oMat03.Columns.Item("CpBCode").Cells.Item(pVal.Row).Specific.Value == "CP226" || oMat03.Columns.Item("CpBCode").Cells.Item(pVal.Row).Specific.Value == "CP217") //외부제작이면 일보여부등록아니오로 선택(부산만)
+                                    {
+                                        oDS_PS_PP030M.SetValue("U_ReportYN", pVal.Row - 1, "N");
+                                    }
+                                }
+                            }
+                                if (pVal.ColUID == "StdHour" || pVal.ColUID == "ReDate")
                             {
                                 oMat03.FlushToDataSource();
                                 

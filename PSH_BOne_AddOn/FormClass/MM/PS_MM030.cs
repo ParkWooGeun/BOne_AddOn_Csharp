@@ -618,6 +618,39 @@ namespace PSH_BOne_AddOn
                                             oDS_PS_MM030L.SetValue("U_Price", sRow - 1, oRecordSet02.Fields.Item("U_Cprice").Value.ToString().Trim());
                                             oDS_PS_MM030L.SetValue("U_LinTotal", sRow - 1, Convert.ToDouble(Convert.ToDouble(oRecordSet02.Fields.Item("U_Cprice").Value)) * Convert.ToDouble(oRecordSet01.Fields.Item("U_Weight").Value.ToString().Trim()));
                                         }
+                                        //부산 외주단가 추가(2023.07.28 박우근 수정)
+                                        else if (oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() == "2" && oForm.Items.Item("Purchase").Specific.Value.ToString().Trim() == "30")
+                                        {
+                                            //부산 외주 단가
+                                            sQry = "  Select      T0.U_eCardCod,";
+                                            sQry += "             T0.U_ItemCode,";
+                                            sQry += "             IsNull(T0.U_Cprice, 0) As U_Cprice,";
+                                            sQry += "             T0.U_CtrDate ";
+                                            sQry += " From        [@PS_PP006H] T0";
+                                            sQry += "             Inner Join";
+                                            sQry += "             (";
+                                            sQry += "                 Select      U_eCardCod,";
+                                            sQry += "                             U_ItemCode,";
+                                            sQry += "                             U_CpCode,";
+                                            sQry += "                             MAX(U_CtrDate) As U_CtrDate";
+                                            sQry += "                 From        [@PS_PP006H]";
+                                            sQry += "                 Group by    U_eCardCod,";
+                                            sQry += "                             U_ItemCode,";
+                                            sQry += "                             U_CpCode";
+                                            sQry += "             ) T1 ";
+                                            sQry += "                 On T1.U_eCardCod = T0.U_eCardCod";
+                                            sQry += "                 And T1.U_ItemCode = T0.U_ItemCode";
+                                            sQry += "                 And T1.U_CpCode = T0.U_CpCode";
+                                            sQry += "                 And T1.U_CtrDate = T0.U_CtrDate";
+                                            sQry += " Where       T0.U_eCardCod = '" + oForm.Items.Item("CardCode").Specific.Value.ToString().Trim() + "' ";
+                                            sQry += "             And T0.U_ItemCode = '" + oRecordSet01.Fields.Item("U_ItemCode").Value.ToString().Trim() + "' ";
+                                            sQry += "             And T0.U_CpCode = '" + oRecordSet01.Fields.Item("U_ProcCode").Value.ToString().Trim() + "' ";
+
+                                            oRecordSet02.DoQuery(sQry);
+
+                                            oDS_PS_MM030L.SetValue("U_Price", sRow - 1, oRecordSet02.Fields.Item("U_Cprice").Value.ToString().Trim());
+                                            oDS_PS_MM030L.SetValue("U_LinTotal", sRow - 1, Convert.ToDouble(Convert.ToDouble(oRecordSet02.Fields.Item("U_Cprice").Value)) * Convert.ToDouble(oRecordSet01.Fields.Item("U_Weight").Value.ToString().Trim()));
+                                        }
 
                                         //구매실적단가 가져오기
                                         sQry = "EXEC PS_MM030_03 '";

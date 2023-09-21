@@ -116,7 +116,7 @@ namespace PSH_BOne_AddOn
 				dataHelpClass.Combo_ValidValues_SetValueItem(oForm.Items.Item("OKYNC").Specific, "PS_MM132", "OKYNC", false);
 				oForm.Items.Item("OKYNC").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
-				dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL WHERE BPLId = '1'  ORDER BY BPLId", "1", false, false);
+				dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL ORDER BY BPLId", "1", false, false);
 			}
 			catch (Exception ex)
 			{
@@ -354,6 +354,8 @@ namespace PSH_BOne_AddOn
 						oMat.Columns.Item("OutWhNm").Editable = true;
 						oMat.Columns.Item("InWhCd").Editable = true;
 						oMat.Columns.Item("InWhNm").Editable = true;
+						oMat.Columns.Item("ReQty").Editable = true;
+						oMat.Columns.Item("ReWt").Editable = true;
 					}
 					else if (oDS_PS_MM132H.GetValue("U_OKYNC", 0).ToString().Trim() == "Y")
 					{
@@ -361,6 +363,8 @@ namespace PSH_BOne_AddOn
 						oMat.Columns.Item("OutWhNm").Editable = false;
 						oMat.Columns.Item("InWhCd").Editable = false;
 						oMat.Columns.Item("InWhNm").Editable = false;
+						oMat.Columns.Item("ReQty").Editable = false;
+						oMat.Columns.Item("ReWt").Editable = false;
 					}
 					else if (oDS_PS_MM132H.GetValue("U_OKYNC", 0).ToString().Trim() == "C")
 					{
@@ -368,6 +372,8 @@ namespace PSH_BOne_AddOn
 						oMat.Columns.Item("OutWhNm").Editable = false;
 						oMat.Columns.Item("InWhCd").Editable = false;
 						oMat.Columns.Item("InWhNm").Editable = false;
+						oMat.Columns.Item("ReQty").Editable = false;
+						oMat.Columns.Item("ReWt").Editable = false;
 					}
 				}
 			}
@@ -647,6 +653,7 @@ namespace PSH_BOne_AddOn
 				PSH_Globals.oCompany.StartTransaction();
 				oMat.FlushToDataSource();
 
+				oStockTrans.ToWarehouse = oDS_PS_MM132L.GetValue("U_InWhCd", 0).ToString().Trim();
 				oStockTrans.DocDate = DateTime.ParseExact(oForm.Items.Item("DocDate").Specific.Value, "yyyyMMdd", null);
 				oStockTrans.FromWarehouse = oDS_PS_MM132L.GetValue("U_OutWhCd", 0).ToString().Trim();
 				oStockTrans.Comments = "재고이전(" + oDS_PS_MM132H.GetValue("DocEntry", 0).ToString().Trim() + ") 재고이동 - PS_MM132 ";

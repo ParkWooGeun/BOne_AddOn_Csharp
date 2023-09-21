@@ -18,7 +18,6 @@ namespace PSH_BOne_AddOn
 		private string oBaseItemUID01;
 		private string oBaseColUID01;
 		private int oBaseColRow01;
-		private string oBaseTradeType01;
 		private string oRadioGrp;
 
 		private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
@@ -146,7 +145,7 @@ namespace PSH_BOne_AddOn
 			try
 			{
 				oForm.Items.Item("ItmBsort").Specific.ValidValues.Add("", "전체");
-				sQry = "SELECT Code, Name FROM [@PSH_ITMBSORT] Where code in ('102','602') order by Code";
+				sQry = "SELECT Code, Name FROM [@PSH_ITMBSORT] Where code in ('102','602','105') order by Code";
 				oRecordSet.DoQuery(sQry);
 				while (!oRecordSet.EoF)
 				{
@@ -167,6 +166,7 @@ namespace PSH_BOne_AddOn
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 		}
+
 
 		/// <summary>
 		/// PS_MM131_CF_ChooseFromList
@@ -256,11 +256,11 @@ namespace PSH_BOne_AddOn
 					throw new Exception();
 				}
 
-                if (oRadioGrp == "B" && (Param02 == "102") && string.IsNullOrEmpty(Param08))
-                {
-                    errMessage = "부품 재공반출은 공정코드를 선택해야 합니다.";
-                    throw new Exception();
-                }
+                //if (oRadioGrp == "B" && (Param02 == "102" || Param02 == "105") && string.IsNullOrEmpty(Param08))
+                //{
+                //    errMessage = "재공반출은 공정코드를 선택해야 합니다.";
+                //    throw new Exception();
+                //}
 
                 if (oRadioGrp == "A")
 				{
@@ -324,6 +324,9 @@ namespace PSH_BOne_AddOn
 						oDS_PS_MM131L.SetValue("U_ColQty03", j, oRecordSet.Fields.Item("PosWt").Value.ToString().Trim());
 						oDS_PS_MM131L.SetValue("U_ColReg11", j, oRecordSet.Fields.Item("PP030HNo").Value.ToString().Trim());
 						oDS_PS_MM131L.SetValue("U_ColReg12", j, oRecordSet.Fields.Item("PP030MNo").Value.ToString().Trim());
+						oDS_PS_MM131L.SetValue("U_ColReg18", j, oRecordSet.Fields.Item("HeatNo").Value.ToString().Trim());
+						oDS_PS_MM131L.SetValue("U_ColReg19", j, oRecordSet.Fields.Item("OrQty").Value.ToString().Trim());
+
 
 						sQry = "Select U_CpCode, U_CpName From [@PS_PP030M] Where DocEntry = '" + oRecordSet.Fields.Item("PP030HNo").Value.ToString().Trim() + "' And U_Sequence = '" + oRecordSet.Fields.Item("PP030MNo").Value.ToString().Trim() + "'";
 						oRecordSet02.DoQuery(sQry);
@@ -367,7 +370,8 @@ namespace PSH_BOne_AddOn
 						oDS_PS_MM131L.SetValue("U_ColQty03", j, oRecordSet.Fields.Item("PosWt").Value.ToString().Trim());
 						oDS_PS_MM131L.SetValue("U_ColReg11", j, oRecordSet.Fields.Item("PP030HNo").Value.ToString().Trim());
 						oDS_PS_MM131L.SetValue("U_ColReg12", j, oRecordSet.Fields.Item("PP030MNo").Value.ToString().Trim());
-
+						oDS_PS_MM131L.SetValue("U_ColReg18", j, "");
+						oDS_PS_MM131L.SetValue("U_ColReg19", j, oRecordSet.Fields.Item("OrQty").Value.ToString().Trim());
 						sQry = "Select U_CpCode, U_CpName From [@PS_PP030M] Where DocEntry = '" + oRecordSet.Fields.Item("PP030HNo").Value.ToString().Trim() + "' And U_Sequence = '" + oRecordSet.Fields.Item("PP030MNo").Value.ToString().Trim() + "'";
 						oRecordSet02.DoQuery(sQry);
 
@@ -470,6 +474,8 @@ namespace PSH_BOne_AddOn
 
 							oDS_PS_MM130L.SetValue("U_CpCode", oBaseMat01.VisualRowCount - 2, oMat.Columns.Item("CpCode").Cells.Item(i).Specific.Value.ToString().Trim());
 							oDS_PS_MM130L.SetValue("U_CpName", oBaseMat01.VisualRowCount - 2, oMat.Columns.Item("CpName").Cells.Item(i).Specific.Value.ToString().Trim());
+							oDS_PS_MM130L.SetValue("U_HeatNo", oBaseMat01.VisualRowCount - 2, oMat.Columns.Item("HeatNo").Cells.Item(i).Specific.Value.ToString().Trim());
+							oDS_PS_MM130L.SetValue("U_OrQty", oBaseMat01.VisualRowCount - 2, oMat.Columns.Item("OrQty").Cells.Item(i).Specific.Value.ToString().Trim());
 							j += 1;
 						}
 						else
@@ -852,6 +858,17 @@ namespace PSH_BOne_AddOn
 							{
 								oForm.Items.Item("ItmMsort").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 								oRecordSet.MoveNext();
+							}
+
+							if (oForm.Items.Item("ItmBsort").Specific.Value.ToString().Trim() == "105")
+							{
+								oMat.Columns.Item("OrQty").Visible = true;
+								oMat.Columns.Item("HeatNo").Visible = true;
+							}
+							else
+							{
+								oMat.Columns.Item("OrQty").Visible = false;
+								oMat.Columns.Item("HeatNo").Visible = false;
 							}
 						}
 					}

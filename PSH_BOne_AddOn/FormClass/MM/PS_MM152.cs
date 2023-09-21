@@ -273,6 +273,7 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("Comments").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 					oMat.Columns.Item("HeatNo").Visible = true;
 					oMat.Columns.Item("DNQty").Visible = true;
+					oMat.Columns.Item("DNCode").Visible = true;
 					oMat.Columns.Item("AttPath").Visible = true;
 					oMat.Columns.Item("Action").Visible = true;
 					oMat.Columns.Item("QCOKDate").Visible = true;
@@ -294,6 +295,7 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("Comments").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 					oMat.Columns.Item("HeatNo").Visible = false;
 					oMat.Columns.Item("DNQty").Visible = false;
+					oMat.Columns.Item("DNCode").Visible = false;
 					oMat.Columns.Item("AttPath").Visible = false;
 					oMat.Columns.Item("Action").Visible = false;
 					oMat.Columns.Item("QCOKDate").Visible = false;

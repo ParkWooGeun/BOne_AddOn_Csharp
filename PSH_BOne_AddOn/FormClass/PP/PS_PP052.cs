@@ -518,6 +518,7 @@ namespace PSH_BOne_AddOn
                 oMat01.Columns.Item("SCpName").Visible = false;
                 oMat01.Columns.Item("MachCode").Visible = false;
                 oMat01.Columns.Item("MachName").Visible = false;
+                oMat01.Columns.Item("NQty").Visible = false;
                 oMat01.Columns.Item("YQty").Visible = false;
                 oMat01.Columns.Item("YWeight").Visible = false;
                 oMat01.Columns.Item("PWeight").Visible = false;

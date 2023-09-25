@@ -324,9 +324,12 @@ namespace PSH_BOne_AddOn
 						oDS_PS_MM131L.SetValue("U_ColQty03", j, oRecordSet.Fields.Item("PosWt").Value.ToString().Trim());
 						oDS_PS_MM131L.SetValue("U_ColReg11", j, oRecordSet.Fields.Item("PP030HNo").Value.ToString().Trim());
 						oDS_PS_MM131L.SetValue("U_ColReg12", j, oRecordSet.Fields.Item("PP030MNo").Value.ToString().Trim());
-						oDS_PS_MM131L.SetValue("U_ColReg18", j, oRecordSet.Fields.Item("HeatNo").Value.ToString().Trim());
-						oDS_PS_MM131L.SetValue("U_ColReg19", j, oRecordSet.Fields.Item("OrQty").Value.ToString().Trim());
-
+						
+						if(Param02 == "105")
+                        {
+							oDS_PS_MM131L.SetValue("U_ColReg18", j, oRecordSet.Fields.Item("HeatNo").Value.ToString().Trim());
+							oDS_PS_MM131L.SetValue("U_ColReg19", j, oRecordSet.Fields.Item("OrQty").Value.ToString().Trim());
+						}
 
 						sQry = "Select U_CpCode, U_CpName From [@PS_PP030M] Where DocEntry = '" + oRecordSet.Fields.Item("PP030HNo").Value.ToString().Trim() + "' And U_Sequence = '" + oRecordSet.Fields.Item("PP030MNo").Value.ToString().Trim() + "'";
 						oRecordSet02.DoQuery(sQry);
@@ -370,8 +373,12 @@ namespace PSH_BOne_AddOn
 						oDS_PS_MM131L.SetValue("U_ColQty03", j, oRecordSet.Fields.Item("PosWt").Value.ToString().Trim());
 						oDS_PS_MM131L.SetValue("U_ColReg11", j, oRecordSet.Fields.Item("PP030HNo").Value.ToString().Trim());
 						oDS_PS_MM131L.SetValue("U_ColReg12", j, oRecordSet.Fields.Item("PP030MNo").Value.ToString().Trim());
-						oDS_PS_MM131L.SetValue("U_ColReg18", j, "");
-						oDS_PS_MM131L.SetValue("U_ColReg19", j, oRecordSet.Fields.Item("OrQty").Value.ToString().Trim());
+						if (Param02 == "105")
+						{
+							oDS_PS_MM131L.SetValue("U_ColReg18", j, oRecordSet.Fields.Item("HeatNo").Value.ToString().Trim());
+							oDS_PS_MM131L.SetValue("U_ColReg19", j, oRecordSet.Fields.Item("OrQty").Value.ToString().Trim());
+						}
+
 						sQry = "Select U_CpCode, U_CpName From [@PS_PP030M] Where DocEntry = '" + oRecordSet.Fields.Item("PP030HNo").Value.ToString().Trim() + "' And U_Sequence = '" + oRecordSet.Fields.Item("PP030MNo").Value.ToString().Trim() + "'";
 						oRecordSet02.DoQuery(sQry);
 

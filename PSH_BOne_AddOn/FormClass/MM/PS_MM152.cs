@@ -134,13 +134,8 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				sQry = "SELECT BPLId, BPLName From [OBPL] order by BPLId";
-				oRecordSet.DoQuery(sQry);
-				while (!oRecordSet.EoF)
-				{
-					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
-					oRecordSet.MoveNext();
-				}
+				dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL order by BPLId", "", false, false);
+				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
 
 				oMat.Columns.Item("OutGbn").ValidValues.Add("10", "원재료");
 				oMat.Columns.Item("OutGbn").ValidValues.Add("20", "재공");
@@ -180,7 +175,7 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				oDS_PS_MM152H.SetValue("U_BPLId", 0, "1");
+				//oDS_PS_MM152H.SetValue("U_BPLId", 0, "1");
 				oDS_PS_MM152H.SetValue("U_DocDate", 0, DateTime.Now.ToString("yyyyMMdd"));
 				oDS_PS_MM152H.SetValue("U_OKYNC", 0, "N");
 
@@ -332,6 +327,11 @@ namespace PSH_BOne_AddOn
 						oMat.Columns.Item("MUseQty").Editable = true;
 						oMat.Columns.Item("MUseWt").Editable = true;
 						oMat.Columns.Item("ReStatus").Editable = true;
+						
+						oMat.Columns.Item("QCOKDate").Editable = false;
+						oMat.Columns.Item("MSTCOD").Editable = false;
+						oMat.Columns.Item("DNQty").Editable = false;
+						oMat.Columns.Item("DNCode").Editable = false;
 						oForm.Items.Item("DocDate").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 					}
 					else
@@ -351,6 +351,10 @@ namespace PSH_BOne_AddOn
 						oMat.Columns.Item("MUseQty").Editable = true;
 						oMat.Columns.Item("MUseWt").Editable = true;
 						oMat.Columns.Item("ReStatus").Editable = true;
+						oMat.Columns.Item("QCOKDate").Editable = true;
+						oMat.Columns.Item("MSTCOD").Editable = true;
+						oMat.Columns.Item("DNQty").Editable = true;
+						oMat.Columns.Item("DNCode").Editable = true;
 					}
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
@@ -2420,7 +2424,6 @@ namespace PSH_BOne_AddOn
 							oForm.Items.Item("Comments").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 							oMat.Columns.Item("HeatNo").Visible = false;
 							oMat.Columns.Item("DNQty").Visible = false;
-							oMat.Columns.Item("RNWeight").Visible = false;
 							oMat.Columns.Item("AttPath").Visible = false;
 							oMat.Columns.Item("Action").Visible = false;
 							oMat.Columns.Item("QCOKDate").Visible = false;

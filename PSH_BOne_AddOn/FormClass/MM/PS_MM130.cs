@@ -118,6 +118,9 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
+				
+				//dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL order by BPLId", "", false, false);
+
 				dataHelpClass.Combo_ValidValues_Insert("PS_MM130", "Mat01", "OutGbn", "10", "원재료");
 				dataHelpClass.Combo_ValidValues_Insert("PS_MM130", "Mat01", "OutGbn", "20", "제공");
 				dataHelpClass.Combo_ValidValues_SetValueColumn(oMat.Columns.Item("OutGbn"), "PS_MM130", "Mat01", "OutGbn", false);
@@ -127,8 +130,6 @@ namespace PSH_BOne_AddOn
 				dataHelpClass.Combo_ValidValues_Insert("PS_MM130", "OKYNC", "", "Y", "승인");
 				dataHelpClass.Combo_ValidValues_SetValueItem(oForm.Items.Item("OKYNC").Specific, "PS_MM130", "OKYNC", false);
 				oForm.Items.Item("OKYNC").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-
-				dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL order by BPLId", "", false, false);
 			}
 			catch (Exception ex)
 			{
@@ -141,20 +142,22 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void PS_MM130_Initial_Setting()
 		{
-			//string lcl_User_BPLId;
+			//tring lcl_User_BPLId;
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
 			try
 			{
+				dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL order by BPLId", "", false, false);
+				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
 				//lcl_User_BPLId = dataHelpClass.User_BPLID();
 
-				//if (lcl_User_BPLId == "1")
-				//{
-				//	oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
-				//}
-				//dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL order by BPLId", "", false, false);
+				//            if (lcl_User_BPLId == "1")
+				//            {
+				//                oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
+				//            }
+				//            dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL order by BPLId", "", false, false);
 				oForm.Items.Item("CntcCode").Specific.Value = dataHelpClass.User_MSTCOD();
-			}
+            }
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
@@ -278,7 +281,7 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("Purpose").Specific.Value = "외주가공";
 					oForm.Items.Item("ShipCo").Specific.Value = "업체자가";
 
-					PS_MM130_Initial_Setting();
+					//PS_MM130_Initial_Setting();
 
 					sQry = "Select U_FULLNAME, U_MSTCOD From [OHEM] Where U_MSTCOD = '" + oForm.Items.Item("CntcCode").Specific.Value.ToString().Trim() + "'";
 					oRecordSet.DoQuery(sQry);
@@ -1902,8 +1905,8 @@ namespace PSH_BOne_AddOn
 							oDS_PS_MM130H.SetValue("U_OutGbn", 0, "10");
 							oDS_PS_MM130H.SetValue("U_DocDate", 0, DateTime.Now.ToString("yyyyMMdd"));
 							oDS_PS_MM130H.SetValue("U_OKYNC", 0, "N");
-							oForm.Items.Item("BPLId").Enabled = true;
-							oDS_PS_MM130H.SetValue("U_BPLID", 0, "1");
+							//oForm.Items.Item("BPLId").Enabled = true;
+							//oDS_PS_MM130H.SetValue("U_BPLID", 0, "1");
 							PS_MM130_FormItemEnabled();
 							PS_MM130_AddMatrixRow(0, true);
 							break;

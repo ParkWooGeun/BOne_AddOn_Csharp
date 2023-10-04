@@ -680,11 +680,14 @@ namespace PSH_BOne_AddOn
 						errMessage = "외주 마지막공정(외주공정구간)을 선택하셔야 합니다.";
 						throw new Exception();
 					}
-					else if (Convert.ToDouble(oMat.Columns.Item("OutWt").Cells.Item(i).Specific.Value.ToString().Trim()) > Convert.ToDouble(oMat.Columns.Item("Weight").Cells.Item(i).Specific.Value.ToString().Trim()))
+					else if (oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() == "2") //창원은 중량에 상관없이 나감
 					{
-						oMat.Columns.Item("OutWt").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-						errMessage = "반출수(중)량은 기준 중량을 초과할수 없습니다.";
-						throw new Exception();
+						if (Convert.ToDouble(oMat.Columns.Item("OutWt").Cells.Item(i).Specific.Value.ToString().Trim()) > Convert.ToDouble(oMat.Columns.Item("Weight").Cells.Item(i).Specific.Value.ToString().Trim()))
+						{
+							oMat.Columns.Item("OutWt").Cells.Item(i).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+							errMessage = "반출수(중)량은 기준 중량을 초과할수 없습니다.";
+							throw new Exception();
+						}
 					}
 				}
 				oDS_PS_MM130L.RemoveRecord(oDS_PS_MM130L.Size - 1);

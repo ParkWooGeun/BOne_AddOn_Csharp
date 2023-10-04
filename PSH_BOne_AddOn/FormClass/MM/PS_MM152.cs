@@ -715,6 +715,7 @@ namespace PSH_BOne_AddOn
 						throw new Exception();
 					}
 				}
+
 				for (i = 0; i <= oMat.VisualRowCount - 2; i++)
 				{
 					MOutWt = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_OutWt", i).ToString().Trim()) + Convert.ToDouble(oDS_PS_MM152L.GetValue("U_NWeight", i).ToString().Trim());
@@ -727,15 +728,17 @@ namespace PSH_BOne_AddOn
 						throw new Exception();
 					}
 				}
-
-				for (i = 0; i <= oMat.VisualRowCount - 2; i++)
+				if (oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() == "2") //부산사업장만 
 				{
-					MM132Qty = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_OutQty", i).ToString().Trim()) + Convert.ToDouble(oDS_PS_MM152L.GetValue("U_NQty", i).ToString().Trim());
-					MM152Qty = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_MDUseQty", i).ToString().Trim()) + Convert.ToDouble(oDS_PS_MM152L.GetValue("U_NWeight", i).ToString().Trim());
-					if (MM132Qty > MM152Qty)
+					for (i = 0; i <= oMat.VisualRowCount - 2; i++)
 					{
-						errMessage = "입고수량보다 반출수량이 큽니다. 확인하세요.";
-						throw new Exception();
+						MM132Qty = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_OutQty", i).ToString().Trim()) + Convert.ToDouble(oDS_PS_MM152L.GetValue("U_NQty", i).ToString().Trim());
+						MM152Qty = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_MDUseQty", i).ToString().Trim()) + Convert.ToDouble(oDS_PS_MM152L.GetValue("U_NWeight", i).ToString().Trim());
+						if (MM132Qty > MM152Qty)
+						{
+							errMessage = "입고수량보다 반출수량이 큽니다. 확인하세요.";
+							throw new Exception();
+						}
 					}
 				}
 

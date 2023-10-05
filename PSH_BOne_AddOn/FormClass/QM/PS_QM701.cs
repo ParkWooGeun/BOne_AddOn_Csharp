@@ -579,12 +579,12 @@ namespace PSH_BOne_AddOn
                     errMessage = "요구납기일 입력되지 않았습니다.";
                     throw new Exception();
                 }
-                
-                if (string.IsNullOrEmpty(oForm.Items.Item("KeyDoc").Specific.Value))
-                {
-                    errMessage = "검수입고 문서가 선택되지않았습니다.. 다시확인해주세요.";
-                    throw new Exception();
-                }
+                //박주현과장님요청
+                //if (string.IsNullOrEmpty(oForm.Items.Item("KeyDoc").Specific.Value))
+                //{
+                //    errMessage = "검수입고 문서가 선택되지않았습니다.. 다시확인해주세요.";
+                //    throw new Exception();
+                //}
                 if (float.Parse(oForm.Items.Item("BZZadQty").Specific.Value) > float.Parse(oForm.Items.Item("TotalQty").Specific.Value))
                 {
                     errMessage = "부적합량이 입고량보다 많습니다. 확인해주세요.";
@@ -1323,6 +1323,14 @@ namespace PSH_BOne_AddOn
                             BubbleEvent = false;
                         }
                     }
+                    else if (pVal.ItemUID == "CardCode")
+                    {
+                        if (string.IsNullOrEmpty(oForm.Items.Item("CardCode").Specific.Value))
+                        {
+                            PSH_Globals.SBO_Application.ActivateMenuItem("7425");
+                            BubbleEvent = false;
+                        }
+                    }
                 }
             }
             catch (System.Exception ex)
@@ -1381,6 +1389,10 @@ namespace PSH_BOne_AddOn
                             if (pVal.ItemUID == "InCpCode")
                             {
                                 oForm.Items.Item("InCpName").Specific.Value = dataHelpClass.GetValue("SELECT U_CodeNm FROM [@PS_QM700L] WHERE Code = 'ZCpCode' AND U_Code ='" + oForm.Items.Item("InCpCode").Specific.Value + "'", 0, 1);
+                            }
+                            if (pVal.ItemUID == "CardCode")
+                            {
+                                oForm.Items.Item("CardName").Specific.Value = dataHelpClass.Get_ReData("CardName", "CardCode", "OCRD", "'" + oForm.Items.Item("CardCode").Specific.Value + "'", ""); //검사자
                             }
                             if (pVal.ItemUID == "KeyDoc")
                             {

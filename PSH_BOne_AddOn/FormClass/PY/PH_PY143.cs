@@ -359,14 +359,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                //동일한거있는지 확인
-                sQry = "SELECT COUNT(*) FROM [@PH_PY143A] WHERE Canceled <> 'Y' AND U_CLTCOD ='" + oForm.Items.Item("CLTCOD").Specific.Value.Trim() + "'AND U_YM ='" + oForm.Items.Item("YM").Specific.Value.Trim() + "'";
-                oRecordSet.DoQuery(sQry);
-                if (oRecordSet.Fields.Item(0).Value != 0)
-                {
-                    errMessage = "동일한 문서가 있습니다. 확인하세요.";
-                    throw new System.Exception();
-                }
+               
                 //년도
                 if (string.IsNullOrEmpty(oForm.Items.Item("YM").Specific.Value.Trim()))
                 {
@@ -686,6 +679,7 @@ namespace PSH_BOne_AddOn
             try
             {
                 oForm.Freeze(true);
+                string sQry;
                 if (pVal.BeforeAction == true)
                 {
                     //조회
@@ -697,6 +691,15 @@ namespace PSH_BOne_AddOn
                             {
                                 BubbleEvent = false;
                                 return;
+                            }
+                            
+                            //동일한거있는지 확인
+                            sQry = "SELECT COUNT(*) FROM [@PH_PY143A] WHERE Canceled <> 'Y' AND U_CLTCOD ='" + oForm.Items.Item("CLTCOD").Specific.Value.Trim() + "'AND U_YM ='" + oForm.Items.Item("YM").Specific.Value.Trim() + "'";
+                            oRecordSet.DoQuery(sQry);
+                            if (oRecordSet.Fields.Item(0).Value != 0)
+                            {
+                                errMessage = "동일한 문서가 있습니다. 확인하세요.";
+                                throw new System.Exception();
                             }
                             PH_PY143_MTX01();
                         }

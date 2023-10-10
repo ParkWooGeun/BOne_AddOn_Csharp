@@ -60,6 +60,7 @@ namespace PSH_BOne_AddOn
                 PH_PY143_CreateItems();
                 PH_PY143_SetDocEntry();
                 PH_PY143_FormItemEnabled();
+                PH_PY143_EnableMenus();
                 PH_PY143_ComboBox_Setting();
             }
             catch (System.Exception ex)
@@ -180,6 +181,31 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// EnableMenus 메뉴설정
+        /// </summary>
+        private void PH_PY143_EnableMenus()
+        {
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
+            try
+            {
+                oForm.EnableMenu("1283", false);                // 삭제
+                oForm.EnableMenu("1286", false);                // 닫기
+                oForm.EnableMenu("1287", false);                // 복제
+                oForm.EnableMenu("1285", false);                // 복원
+                oForm.EnableMenu("1284", true);                // 취소
+                oForm.EnableMenu("1293", false);                // 행삭제
+                oForm.EnableMenu("1281", true);
+                oForm.EnableMenu("1282", true);
+                dataHelpClass.SetEnableMenus(oForm, false, false, false, false, false, true, true, true, true, true, false, false, false, false, false, false);
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
         }
 

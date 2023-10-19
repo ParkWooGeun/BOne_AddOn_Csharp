@@ -14,7 +14,7 @@ namespace PSH_BOne_AddOn
 	{
 		private string oFormUniqueID;
 		private SAPbouiCOM.Matrix oMat;
-			
+		string sVersion;
 		private SAPbouiCOM.DBDataSource oDS_PS_MM130H; //등록헤더
 		private SAPbouiCOM.DBDataSource oDS_PS_MM130L; //등록라인
 
@@ -1174,14 +1174,19 @@ namespace PSH_BOne_AddOn
 		/// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
 		private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
+
 			string sQry;
+			
 			string errMessage = string.Empty;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
 			{
+				oForm.Freeze(true);
 				if (pVal.BeforeAction == true)
 				{
+					sVersion = oForm.Items.Item("DocEntry").Specific.Value;
+
 					if (pVal.ItemUID == "1")
 					{
 						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
@@ -1270,12 +1275,10 @@ namespace PSH_BOne_AddOn
 						{
 							if (pVal.ActionSuccess == true)
 							{
+								oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
 								PS_MM130_FormItemEnabled();
-								PS_MM130_AddMatrixRow(oMat.RowCount, true);
-								oForm.Items.Item("Rad01").Specific.Selected = true;
-								oForm.Items.Item("DocDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
-								oForm.Items.Item("BPLId").Specific.Select("0", SAPbouiCOM.BoSearchKey.psk_Index);
-								oForm.Items.Item("OKYNC").Specific.Select("N", SAPbouiCOM.BoSearchKey.psk_ByValue);
+								oForm.Items.Item("DocEntry").Specific.Value = sVersion;
+								oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 							}
 						}
 						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
@@ -1298,6 +1301,10 @@ namespace PSH_BOne_AddOn
 				{
 					PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
 				}
+			}
+			finally
+            {
+				oForm.Freeze(false);
 			}
 		}
 
@@ -1905,13 +1912,17 @@ namespace PSH_BOne_AddOn
 							PS_MM130_FormItemEnabled();
 							break;
 						case "1282": //추가
+
+							PS_MM130_FormClear();
+							PS_MM130_FormItemEnabled();
+							oForm.Items.Item("BPLId").Enabled = true;
+							oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
+							PS_MM130_AddMatrixRow(0, true);
 							oDS_PS_MM130H.SetValue("U_OutGbn", 0, "10");
 							oDS_PS_MM130H.SetValue("U_DocDate", 0, DateTime.Now.ToString("yyyyMMdd"));
 							oDS_PS_MM130H.SetValue("U_OKYNC", 0, "N");
 							//oForm.Items.Item("BPLId").Enabled = true;
 							//oDS_PS_MM130H.SetValue("U_BPLID", 0, "1");
-							PS_MM130_FormItemEnabled();
-							PS_MM130_AddMatrixRow(0, true);
 							break;
 						case "1284": //취소
 							break;

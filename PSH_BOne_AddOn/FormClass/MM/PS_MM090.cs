@@ -16,6 +16,7 @@ namespace PSH_BOne_AddOn
         private SAPbouiCOM.Matrix oMat01;
         private SAPbouiCOM.DBDataSource oDS_PS_MM090H; //등록헤더
         private SAPbouiCOM.DBDataSource oDS_PS_MM090L; //등록라인
+        string sVersion; //마지막 문서번호를 저장
 
         private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
@@ -930,6 +931,8 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 if (pVal.BeforeAction == true)
                 {
+                    sVersion = oForm.Items.Item("DocEntry").Specific.Value;
+
                     if (pVal.ItemUID == "1")
                     {
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
@@ -988,8 +991,10 @@ namespace PSH_BOne_AddOn
                         {
                             if (pVal.ActionSuccess == true)
                             {
+                                oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                                 PS_MM090_FormItemEnabled();
-                                PS_MM090_AddMatrixRow(0, true);
+                                oForm.Items.Item("DocEntry").Specific.Value = sVersion;
+                                oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             }
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)

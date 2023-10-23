@@ -243,12 +243,11 @@ namespace PSH_BOne_AddOn
                     oDS_PH_PY139B.SetValue("U_LineNum", i, Convert.ToString(i + 1));
                     oDS_PH_PY139B.SetValue("U_TeamName", i, oRecordSet.Fields.Item("TeamName").Value);
                     oDS_PH_PY139B.SetValue("U_RspName", i, oRecordSet.Fields.Item("RspName").Value);
-                    oDS_PH_PY139B.SetValue("U_MSTCOD", i, oRecordSet.Fields.Item("Code").Value);
-                    oDS_PH_PY139B.SetValue("U_MSTNAM", i, oRecordSet.Fields.Item("U_FullName").Value);
+                    oDS_PH_PY139B.SetValue("U_MSTCOD", i, oRecordSet.Fields.Item("U_MSTCOD").Value);
+                    oDS_PH_PY139B.SetValue("U_MSTNAM", i, oRecordSet.Fields.Item("U_MSTNAM").Value);
                     oDS_PH_PY139B.SetValue("U_bitthDat", i, oRecordSet.Fields.Item("U_BirthDat").Value);
                     oDS_PH_PY139B.SetValue("U_BNKNAM", i, oRecordSet.Fields.Item("U_BNKNAME").Value);
                     oDS_PH_PY139B.SetValue("U_BNKACC", i, oRecordSet.Fields.Item("U_BNKACC").Value);
-                    oDS_PH_PY139B.SetValue("U_LStock", i, oRecordSet.Fields.Item("U_NStock").Value);
                     oDS_PH_PY139B.SetValue("U_NStock", i, oRecordSet.Fields.Item("U_PayStock").Value);
                     oRecordSet.MoveNext();
                     ProgressBar01.Value += 1;
@@ -476,8 +475,6 @@ namespace PSH_BOne_AddOn
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-            double sum;
-
             try
             {
                 if (pVal.BeforeAction == false && pVal.ItemChanged == true)
@@ -486,11 +483,8 @@ namespace PSH_BOne_AddOn
                     {
                         for (int i = 1; i <= oDS_PH_PY139B.Size; i++)
                         {
-                            sum = 0;
-                            sum = Double.Parse(oForm.Items.Item("PayStock").Specific.Value) + Double.Parse(oMat01.Columns.Item("LStock").Cells.Item(i).Specific.Value);
-                            oDS_PH_PY139B.SetValue("U_NStock", i, String.Format("{0:#,###}", sum));
+                            oDS_PH_PY139B.SetValue("U_NStock", i-1, Convert.ToString(Double.Parse(oForm.Items.Item("PayStock").Specific.Value)));
                         }
-                        oMat01.FlushToDataSource();
                         oMat01.LoadFromDataSource();
                         oMat01.AutoResizeColumns();
                         oForm.Update();

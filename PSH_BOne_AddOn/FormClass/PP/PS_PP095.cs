@@ -21,6 +21,7 @@ namespace PSH_BOne_AddOn
         private SAPbouiCOM.DBDataSource oDS_PS_PP095H; //등록헤더
         private SAPbouiCOM.DBDataSource oDS_PS_PP095L; //등록라인
 
+        string sVersion; //마지막 문서번호를 저장
         private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
         private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
@@ -954,8 +955,10 @@ namespace PSH_BOne_AddOn
 
             try
             {
+                oForm.Freeze(true);
                 if (pVal.BeforeAction == true)
                 {
+                    sVersion = oForm.Items.Item("DocEntry").Specific.Value;
                     if (pVal.ItemUID == "1")
                     {
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
@@ -1091,9 +1094,10 @@ namespace PSH_BOne_AddOn
                         {
                             if (pVal.ActionSuccess == true)
                             {
+                                oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
                                 PS_PP095_FormItemEnabled();
-                                oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
-                                PSH_Globals.SBO_Application.ActivateMenuItem("1291");
+                                oForm.Items.Item("DocEntry").Specific.Value = sVersion;
+                                oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             }
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
@@ -1115,6 +1119,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                oForm.Freeze(false);
             }
         }
 
@@ -1555,6 +1560,7 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             try
             {
                 oForm.Freeze(true);
@@ -1595,6 +1601,15 @@ namespace PSH_BOne_AddOn
                             oForm.Items.Item("DocEntry").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             break;
                         case "1282": //추가
+                            PS_PP095_FormItemEnabled();
+                            oForm.Mode = SAPbouiCOM.BoFormMode.fm_OK_MODE;
+                            //PSH_Globals.SBO_Application.ActivateMenuItem("1291");
+                            oForm.Items.Item("DocDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd");
+                            oForm.Items.Item("BoxCnt").Specific.Value = 0;
+                            oForm.Items.Item("S_Weight").Specific.Value = 0;
+                            oForm.Items.Item("SS_Weight").Specific.Value = 0;
+                            oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
+                            oDS_PS_PP095H.SetValue("U_TCHECK", 0, "1");
                             PS_PP095_AddMatrixRow(0, true);
                             break;
                         case "1288": //레코드이동(다음)

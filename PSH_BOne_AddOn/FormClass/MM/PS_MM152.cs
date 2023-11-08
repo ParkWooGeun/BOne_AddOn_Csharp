@@ -719,7 +719,7 @@ namespace PSH_BOne_AddOn
 				for (i = 0; i <= oMat.VisualRowCount - 2; i++)
 				{
 					MOutWt = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_OutWt", i).ToString().Trim()) + Convert.ToDouble(oDS_PS_MM152L.GetValue("U_NWeight", i).ToString().Trim());
-					MUseWt = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_MUseWt", i).ToString().Trim()) + Convert.ToDouble(oDS_PS_MM152L.GetValue("U_NWeight", i).ToString().Trim());
+					MUseWt = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_MUseWt", i).ToString().Trim());
 					MDUseWt = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_MDUseWt", i).ToString().Trim());
 
 					if (MUseWt > MDUseWt || MOutWt > MDUseWt)
@@ -1906,6 +1906,7 @@ namespace PSH_BOne_AddOn
 			string errMessage = string.Empty;
 			string sQry;
 			string sQry1;
+			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			SAPbobsCOM.Recordset oRecordSet1 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -2195,6 +2196,7 @@ namespace PSH_BOne_AddOn
 							PS_MM152_Initialization();
 							PS_MM152_FormClear();
 							PS_MM152_FormItemEnabled();
+							oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
 							PS_MM152_Add_MatrixRow(0, true);
 						}
 					}

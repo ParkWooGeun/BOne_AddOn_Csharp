@@ -157,7 +157,7 @@ namespace PSH_BOne_AddOn
 
                 // 기부금코드  73
                 oForm.DataSources.UserDataSources.Add("gibucd", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
-                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '73' AND U_UseYN= 'Y'";
+                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '73' AND U_UseYN= 'Y' Order by U_Num1 ";
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("gibucd").Specific, "Y");
 
                 // 기부내용 2018추가

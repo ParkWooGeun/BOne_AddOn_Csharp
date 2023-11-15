@@ -329,6 +329,8 @@ namespace PSH_BOne_AddOn
                         {
 							oDS_PS_MM131L.SetValue("U_ColReg18", j, oRecordSet.Fields.Item("HeatNo").Value.ToString().Trim());
 							oDS_PS_MM131L.SetValue("U_ColReg19", j, oRecordSet.Fields.Item("OrQty").Value.ToString().Trim());
+							oDS_PS_MM131L.SetValue("U_ColReg20", j, oRecordSet.Fields.Item("RDoc").Value.ToString().Trim());
+							oDS_PS_MM131L.SetValue("U_ColReg21", j, oRecordSet.Fields.Item("RCarName").Value.ToString().Trim());
 						}
 
 						sQry = "Select U_CpCode, U_CpName From [@PS_PP030M] Where DocEntry = '" + oRecordSet.Fields.Item("PP030HNo").Value.ToString().Trim() + "' And U_Sequence = '" + oRecordSet.Fields.Item("PP030MNo").Value.ToString().Trim() + "'";
@@ -871,11 +873,15 @@ namespace PSH_BOne_AddOn
 							{
 								oMat.Columns.Item("OrQty").Visible = true;
 								oMat.Columns.Item("HeatNo").Visible = true;
+								oMat.Columns.Item("RDoc").Visible = true;
+								oMat.Columns.Item("RCarName").Visible = true;
 							}
 							else
 							{
 								oMat.Columns.Item("OrQty").Visible = false;
 								oMat.Columns.Item("HeatNo").Visible = false;
+								oMat.Columns.Item("RDoc").Visible = false;
+								oMat.Columns.Item("RCarName").Visible = false;
 							}
 						}
 					}

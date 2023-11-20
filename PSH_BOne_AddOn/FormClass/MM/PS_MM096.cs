@@ -129,6 +129,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("OrdGbn").Specific.ValidValues.Add(oRecordSet01.Fields.Item(0).Value.ToString().Trim(), oRecordSet01.Fields.Item(1).Value.ToString().Trim());
                     oRecordSet01.MoveNext();
                 }
+                oDS_PS_MM096H.SetValue("U_OrdGbn", 0, "108");
 
                 //출고구분
                 oForm.Items.Item("ExitGbn").Specific.ValidValues.Add("1", "정상출고");
@@ -173,7 +174,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_MM096H.SetValue("U_BPLId", 0, oBPLId); 
                 }
 
-                oDS_PS_MM096H.SetValue("U_OrdGbn", 0, "108");
+                //oDS_PS_MM096H.SetValue("U_OrdGbn", 0, "108");
 
                 if (oMat01.RowCount == 0)
                 {
@@ -1759,6 +1760,7 @@ namespace PSH_BOne_AddOn
                             oForm.Items.Item("DocEntry").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                             break;
                         case "1282": //추가
+                            oDS_PS_MM096H.SetValue("U_OrdGbn", 0, oOrdGbn);
                             PS_MM096_Initialization();
                             PS_MM096_FormItemEnabled();
                             PS_MM096_FormClear();

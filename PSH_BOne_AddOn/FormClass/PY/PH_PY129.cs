@@ -1,9 +1,16 @@
 using System;
+using System.IO;
 using SAPbouiCOM;
-using PSH_BOne_AddOn.Data;
 using System.Collections.Generic;
+using PSH_BOne_AddOn.Data;
+using PSH_BOne_AddOn.Code;
 using PSH_BOne_AddOn.DataPack;
 using PSH_BOne_AddOn.Form;
+using PdfSharp.Pdf;
+using PdfSharp.Pdf.IO;
+using PdfSharp.Pdf.Security;
+using MsOutlook = Microsoft.Office.Interop.Outlook;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace PSH_BOne_AddOn
 {
@@ -134,16 +141,14 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("Btn01").Visible = true;
                     
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD",true); //접속자에 따른 권한별 사업장 콤보박스세팅
-
+                    oForm.Items.Item("Code").Enabled = false;
                     oForm.EnableMenu("1281", true); //문서찾기
                     oForm.EnableMenu("1282", false); //문서추가
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
                     oForm.Items.Item("Btn01").Visible = true;
-                    
-                    dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", true); //접속자에 따른 권한별 사업장 콤보박스세팅
-
+                    oForm.Items.Item("Code").Enabled = true;
                     oForm.EnableMenu("1281", false); //문서찾기
                     oForm.EnableMenu("1282", true); //문서추가
                 }
@@ -152,7 +157,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("Btn01").Visible = false;
                     
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", false); //접속자에 따른 권한별 사업장 콤보박스세팅
-
+                    oForm.Items.Item("Code").Enabled = false;
                     oForm.EnableMenu("1281", true); //문서찾기
                     oForm.EnableMenu("1282", true); //문서추가
                 }
@@ -458,6 +463,222 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
+        /// PDF만들기
+        /// </summary>
+        [STAThread]
+        private bool Make_PDF_File(String p_MSTCOD)
+        {
+            bool ReturnValue = false;
+            string WinTitle;
+            string ReportName = String.Empty;
+            string CLTCOD;
+            string Code;
+            string Main_Folder;
+            string Sub_Folder1;
+            string sQry1;
+            string sQry;
+            string ExportString;
+            string psgovID;
+
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim(); //사업장
+                Code = oForm.Items.Item("Code").Specific.Value.Trim();
+
+                WinTitle = "[PH_PY129] D/C형 퇴직연금계산내역서";
+                ReportName = "PH_PY129_06.rpt";
+
+                List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
+
+                //Parameter
+                dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD)); //사업장
+                dataPackParameter.Add(new PSH_DataPackClass("@CODE", Code)); //지급년월
+                dataPackParameter.Add(new PSH_DataPackClass("@MSTCOD", p_MSTCOD)); //지급년월
+
+
+                Main_Folder = @"C:\PSH_DC형 퇴직연금계산내역서";
+                Sub_Folder1 = @"C:\PSH_DC형 퇴직연금계산내역서\" + Code + "";
+                //Sub_Folder2 = @"C:\PSH_D/C형 퇴직연금계산내역서\" + Code + @"\" + CLTCOD + "";
+
+                Dir_Exists(Main_Folder);
+                Dir_Exists(Sub_Folder1);
+                //Dir_Exists(Sub_Folder2);
+
+                sQry1 = " exec [PH_PY129_06] '" + CLTCOD + "','" + Code + "','" + p_MSTCOD + "'";
+                oRecordSet01.DoQuery(sQry1);
+
+                ExportString = Sub_Folder1 + @"\" + p_MSTCOD + ".pdf";
+
+                sQry = "Select RIGHT(U_govID,7) From [@PH_PY001A]";
+                sQry += "WHERE  Code ='" + p_MSTCOD + "'";
+                oRecordSet01.DoQuery(sQry);
+                psgovID = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
+
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, ExportString, 100);
+
+                // Open an existing document. Providing an unrequired password is ignored.
+                PdfDocument document = PdfReader.Open(ExportString, PdfDocumentOpenMode.Modify);
+
+                PdfSecuritySettings securitySettings = document.SecuritySettings;
+
+                securitySettings.UserPassword = "manager";   //개개인암호
+                securitySettings.OwnerPassword = psgovID;    //마스터암호
+
+                // Restrict some rights.
+                securitySettings.PermitAccessibilityExtractContent = false;
+                securitySettings.PermitAnnotations = false;
+                securitySettings.PermitAssembleDocument = false;
+                securitySettings.PermitExtractContent = false;
+                securitySettings.PermitFormsFill = true;
+                securitySettings.PermitFullQualityPrint = false;
+                securitySettings.PermitModifyDocument = true;
+                securitySettings.PermitPrint = false;
+
+                // PDF문서 저장
+                document.Save(ExportString);
+
+                sQry = "Update [@PH_PY129B] Set U_SaveYN = 'Y' Where U_MSTCOD = '" + p_MSTCOD + "' And Code = '" + Code + "'";
+                oRecordSet01.DoQuery(sQry);
+
+                ReturnValue = true;
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+            }
+            finally
+            {
+            }
+            return ReturnValue;
+        }
+
+        /// <summary>
+        /// 디렉토리 체크, 폴더 생성
+        /// </summary>
+        /// <param name="strDirName">경로</param>
+        /// <returns></returns>
+        private int Dir_Exists(string strDirName)
+        {
+            int ReturnValue = 0;
+
+            try
+            {
+                DirectoryInfo di = new DirectoryInfo(strDirName); //DirectoryInfo 생성
+                //DirectoryInfo.Exists로 폴더 존재유무 확인
+                if (di.Exists)
+                {
+                    ReturnValue = 1;
+                }
+                else
+                {
+                    di.Create();
+                    ReturnValue = 0;
+                }
+            }
+            catch (System.Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("Make_PDF_File_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+            }
+            return ReturnValue;
+        }
+
+        /// <summary>
+        /// Send_EMail
+        /// </summary>
+        /// <param name="p_MSTCOD"></param>
+        /// <param name="p_Version"></param>
+        /// <returns></returns>
+        private bool Send_EMail(string p_MSTCOD)
+        {
+            bool ReturnValue = false;
+            string strToAddress;
+            string strSubject;
+            string strBody;
+            string Sub_Folder1;
+            string sQry;
+            string Code;
+            string MSTCOD;
+            string CLTCOD;
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                MSTCOD = p_MSTCOD;
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim(); //사업장
+                Code = oForm.Items.Item("Code").Specific.Value.Trim();
+
+                Sub_Folder1 = @"C:\PSH_DC형 퇴직연금계산내역서\" + Code + "";
+
+                sQry = "Select U_Subject, U_Body From [@PH_PY129A] Where Code = '" + Code + "'";
+                oRecordSet01.DoQuery(sQry);
+                strSubject = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
+                strBody = oRecordSet01.Fields.Item(1).Value.ToString().Trim();
+
+                sQry = "SELECT b.U_eMail FROM [@PH_PY129B] a inner join [@PH_PY001A] B ON A.U_MSTCOD = B.Code WHERE a.U_MSTCOD = '" + MSTCOD + "' AND a.Code = '" + Code + "'";
+                oRecordSet01.DoQuery(sQry);
+                strToAddress = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
+
+                //mail.From = new MailAddress("dakkorea1@gmail.com");
+                MsOutlook.Application outlookApp = new MsOutlook.Application();
+                if (outlookApp == null)
+                {
+                    throw new Exception();
+                }
+                MsOutlook.MailItem mail = (MsOutlook.MailItem)outlookApp.CreateItem(MsOutlook.OlItemType.olMailItem);
+
+                mail.Subject = strSubject;
+                mail.HTMLBody = strBody;
+                mail.To = strToAddress;
+                MsOutlook.Attachment oAttach = mail.Attachments.Add(Sub_Folder1 + @"\" + p_MSTCOD + ".pdf");
+                mail.Send();
+
+                mail = null;
+                outlookApp = null;
+
+                sQry = "Update [@PH_PY129B] Set U_SendYN = 'Y' Where U_MSTCOD = '" + p_MSTCOD + "' And Code = '" + Code + "'";
+                oRecordSet01.DoQuery(sQry);
+
+                //System.Net.Mail.Attachment attachment;
+                //attachment = new System.Net.Mail.Attachment(Sub_Folder3 + @"\" + p_MSTCOD + "_개인별급여명세서_" + STDYER + "" + STDMON + ".pdf");
+
+                //원래코드시작
+                //SmtpClient smtp = new SmtpClient("smtp.naver.com");
+                //SmtpClient smtp = new SmtpClient("pscsn.poongsan.co.kr");
+                //SmtpClient smtp = new SmtpClient("smtp.office365.com");
+                //SmtpClient smtp = new SmtpClient("smtp.gmail.com");
+
+                //smtp.Port = 587; //네이버
+                //smtp.Port = 25; //풍산
+                //smtp.UseDefaultCredentials = true;
+                //smtp.EnableSsl = true;
+                //smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                //smtp.Timeout = 20000;
+
+                //smtp.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;  //Naver 인 경우
+                //smtp.Credentials = new NetworkCredential("2220501", "p2220501!"); //address, PW
+                //smtp.Credentials = new NetworkCredential("wgpark@poongsan.co.kr", "1q2w3e4r)*"); //address, PW
+                //smtp.Credentials = new NetworkCredential("dakkorea1@gmail.com", "dak440310*"); //address, PW
+
+                //smtp.Send(mail);
+                //원래코드 끝
+
+                ReturnValue = true;
+            }
+            catch (System.Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("Send_EMail_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            return ReturnValue;
+        }
+
+        /// <summary>
         /// Form Item Event
         /// </summary>
         /// <param name="FormUID">Form UID</param>
@@ -570,8 +791,11 @@ namespace PSH_BOne_AddOn
             string YM;
             string Code;
             string MSTCOD;
+            string p_MSTCOD;
             string sQry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            SAPbouiCOM.ProgressBar ProgressBar01 = null;
+            string errMessage = string.Empty;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -609,6 +833,76 @@ namespace PSH_BOne_AddOn
                         else
                         {
                             PH_PY129_LoadData();
+                        }
+                    }
+                    if (pVal.ItemUID == "btn_save")
+                    {
+                        if (PH_PY129_DataValidCheck("N") == false)
+                        {
+                        }
+                        else
+                        {
+                           //CLTCOD = oForm.Items.Item("CLTCOD").Specific.Selected.Value;
+                            Code = oForm.Items.Item("Code").Specific.Value.ToString().Trim();
+                            ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("PDF 파일 생성 시작!", 50, false);
+                            for (int i = 0; i <= oMat1.VisualRowCount - 1; i++)
+                            {
+                                if (!string.IsNullOrEmpty(oDS_PH_PY129B.GetValue("U_MSTCOD", i).ToString().Trim()))
+                                {
+                                    if (string.IsNullOrEmpty(oDS_PH_PY129B.GetValue("U_SendYN", i).ToString().Trim()))
+                                    {
+                                        p_MSTCOD = oDS_PH_PY129B.GetValue("U_MSTCOD", i).ToString().Trim();
+                                        if (Make_PDF_File(p_MSTCOD) == false)
+                                        {
+                                            errMessage = "PDF저장이 완료되지 않았습니다.";
+                                            throw new Exception();
+                                        }
+                                    }
+                                }
+                                ProgressBar01.Value += 1;
+                                ProgressBar01.Text = ProgressBar01.Value + "/" + (oMat1.VisualRowCount) + "건 PDF 파일 생성 중...!";
+                            }
+                            ProgressBar01.Stop();
+
+                            oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
+                            PH_PY129_FormItemEnabled();
+                            oForm.Items.Item("Code").Specific.Value = Code;
+                            //oForm.Items.Item("CLTCOD").Specific.Selected.Value = CLTCOD;
+                            oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                        }
+                    }
+                    if (pVal.ItemUID == "btn_send")
+                    {
+                        if (PH_PY129_DataValidCheck("N") == false)
+                        {
+                        }
+                        else
+                        {
+                            CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
+                            Code = oForm.Items.Item("Code").Specific.Value.ToString().Trim();
+                            ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("eMail 메일전송", 50, false);
+                            oMat1.FlushToDataSource();
+                            for (int i = 0; i <= oMat1.VisualRowCount - 1; i++)
+                            {
+                                 if (!string.IsNullOrEmpty(oDS_PH_PY129B.GetValue("U_SaveYN", i).ToString().Trim()))
+                                    {
+                                        p_MSTCOD = oDS_PH_PY129B.GetValue("U_MSTCOD", i).ToString().Trim();
+                                        if (Send_EMail(p_MSTCOD) == false)//사번
+                                        {
+                                            errMessage = "전송 중 오류가 발생했습니다.";
+                                            throw new Exception();
+                                        }
+                                    }
+                                ProgressBar01.Value += 1;
+                                ProgressBar01.Text = ProgressBar01.Value + "/" + (oMat1.VisualRowCount) + "건 eMail전송중...!";
+                            }
+                            ProgressBar01.Stop();
+
+                            oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
+                            PH_PY129_FormItemEnabled();
+                            oForm.Items.Item("YM").Specific.Value = Code.Substring(0, 6);
+                            oForm.Items.Item("CLTCOD").Specific.Select.Value = CLTCOD;
+                            oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                         }
                     }
                     if (pVal.ItemUID == "Btn_prt")
@@ -655,10 +949,21 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_ITEM_PRESSED_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                if (errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_ITEM_PRESSED_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
             }
             finally
             {
+                if (ProgressBar01 != null)
+                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(ProgressBar01);
+                }
             }
         }
 

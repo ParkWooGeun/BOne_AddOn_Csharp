@@ -1209,6 +1209,195 @@ namespace PSH_BOne_AddOn.Form
             }
         }
 
+
+        /// <summary>
+        /// 크리스탈 리포트 호출 (Parameter, Formula 추가)
+        /// </summary>
+        /// <param name="pRptTitle">리포트 제목</param>
+        /// <param name="pRptName">리포트 파일(rpt) 명</param>
+        /// <param name="pRptParameters">리포트로 전달할 Parameter</param>
+        /// <param name="pRptFormulas">리포트로 전달할 Formula</param>
+        /// /// <param name="ExportString">Export</param>
+        public void OpenCrystalReport(string pRptTitle, string pRptName, List<PSH_DataPackClass> pRptParameters, List<PSH_DataPackClass> pRptFormulas, string ExportString,int pZoomRate)
+        {
+            PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1 rPT_Viewer1 = new PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1();
+            ReportDocument reportDocument = new ReportDocument();
+
+
+            int loopCount1 = 0;
+            int loopCount2 = 0;
+
+            try
+            {
+                reportDocument.Load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Report + "\\" + pRptName);
+
+                reportDocument.DataSourceConnections[0].IntegratedSecurity = false;
+                reportDocument.DataSourceConnections[0].SetConnection(PSH_Globals.SP_ODBC_IP, PSH_Globals.SP_ODBC_DBName, PSH_Globals.SP_ODBC_ID, PSH_Globals.SP_ODBC_PW); //데이터베이스 서버 접속
+
+                for (loopCount1 = 0; loopCount1 <= pRptParameters.Count - 1; loopCount1++)
+                {
+                    reportDocument.SetParameterValue(pRptParameters[loopCount1].Code.ToString(), pRptParameters[loopCount1].Value);
+                }
+
+                for (loopCount1 = 0; loopCount1 <= reportDocument.DataDefinition.FormulaFields.Count - 1; loopCount1++)
+                {
+                    for (loopCount2 = 0; loopCount2 <= pRptFormulas.Count - 1; loopCount2++)
+                    {
+                        if (reportDocument.DataDefinition.FormulaFields[loopCount1].FormulaName == "{" + pRptFormulas[loopCount2].Code.ToString() + "}") //크리스탈 리포트의 Formula Field(수식 필드)와 DataPack으로 전달한 변수명이 같으면
+                        {
+                            reportDocument.DataDefinition.FormulaFields[loopCount1].Text = "\"" + pRptFormulas[loopCount2].Value.ToString() + "\""; //Formula 변수에 값 저장
+                        }
+                    }
+                }
+
+                if (ExportString != "")
+                {
+                    ExportOptions CrExportOptions = new ExportOptions();
+                    DiskFileDestinationOptions CrDiskFileDestinationOptions = new DiskFileDestinationOptions();
+                    PdfRtfWordFormatOptions CrFormatTypeOptions = new PdfRtfWordFormatOptions();
+                    CrDiskFileDestinationOptions.DiskFileName = ExportString;
+                    CrExportOptions = reportDocument.ExportOptions;
+                    {
+                        CrExportOptions.ExportDestinationType = ExportDestinationType.DiskFile;
+                        CrExportOptions.ExportFormatType = ExportFormatType.PortableDocFormat;
+                        CrExportOptions.DestinationOptions = CrDiskFileDestinationOptions;
+                        CrExportOptions.FormatOptions = CrFormatTypeOptions;
+                    }
+                    reportDocument.Export();
+
+                    //ProgBar01.Value = 100;
+                    //ProgBar01.Stop();
+                    //ProgBar01 = null;
+                }
+                else
+                {
+
+                    rPT_Viewer1.ReportViewer.ReportSource = reportDocument;
+                    rPT_Viewer1.ReportViewer.Refresh();
+                    rPT_Viewer1.ReportViewer.Zoom(100);
+
+                    rPT_Viewer1.Text = pRptTitle;
+
+                    //ProgBar01.Value = 100;
+                    //ProgBar01.Stop();
+                    //ProgBar01 = null;
+
+                    rPT_Viewer1.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                reportDocument.Close();
+                reportDocument.Dispose();
+
+                rPT_Viewer1.ReportViewer.ReportSource = null;
+                rPT_Viewer1.Dispose();
+                rPT_Viewer1 = null;
+            }
+        }
+
+        /// <summary>
+        /// 크리스탈 리포트(서브리포트) 호출 (Parameter, Formulas, SubReportParameter 추가)
+        /// </summary>
+        /// <param name="pRptParameters">리포트로 전달할 Parameter</param>
+        /// <param name="pRptFormulas">리포트로 전달할 Formula</param>
+        /// <param name="pSubRptParameters">SubReport로 전달할 Parameter</param>
+        /// <param name="pRptTitle">리포트 제목</param>
+        /// <param name="pRptName">리포트 파일(rpt) 명</param>
+        /// /// <param name="ExportString">Export</param>
+        public void OpenCrystalReport(List<PSH_DataPackClass> pRptParameters, List<PSH_DataPackClass> pRptFormulas, List<PSH_DataPackClass> pSubRptParameters, string pRptTitle, string pRptName, string ExportString)
+        {
+            PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1 rPT_Viewer1 = new PSH_BOne_AddOn.EXT_Form.FrmRPT_Viewer1();
+            ReportDocument reportDocument = new ReportDocument();
+
+            int loopCount1;
+            int loopCount2;
+
+            try
+            {
+                reportDocument.Load(PSH_Globals.SP_Path + "\\" + PSH_Globals.Report + "\\" + pRptName);
+
+                reportDocument.DataSourceConnections[0].IntegratedSecurity = false;
+                reportDocument.DataSourceConnections[0].SetConnection(PSH_Globals.SP_ODBC_IP, PSH_Globals.SP_ODBC_DBName, PSH_Globals.SP_ODBC_ID, PSH_Globals.SP_ODBC_PW); //데이터베이스 서버 접속
+
+                //메인 리포트 Parameter
+                for (loopCount1 = 0; loopCount1 <= pRptParameters.Count - 1; loopCount1++)
+                {
+                    reportDocument.SetParameterValue(pRptParameters[loopCount1].Code.ToString(), pRptParameters[loopCount1].Value);
+                }
+
+                //메인 리포트 Formula
+                for (loopCount1 = 0; loopCount1 <= reportDocument.DataDefinition.FormulaFields.Count - 1; loopCount1++)
+                {
+                    for (loopCount2 = 0; loopCount2 <= pRptFormulas.Count - 1; loopCount2++)
+                    {
+                        if (reportDocument.DataDefinition.FormulaFields[loopCount1].FormulaName == "{" + pRptFormulas[loopCount2].Code.ToString() + "}") //크리스탈 리포트의 Formula Field(수식 필드)와 DataPack으로 전달한 변수명이 같으면
+                        {
+                            reportDocument.DataDefinition.FormulaFields[loopCount1].Text = "\"" + pRptFormulas[loopCount2].Value.ToString() + "\""; //Formula 변수에 값 저장
+                        }
+                    }
+                }
+
+                //Sub 리포트 Parameter
+                for (loopCount1 = 0; loopCount1 <= pSubRptParameters.Count - 1; loopCount1++)
+                {
+                    reportDocument.SetParameterValue(pSubRptParameters[loopCount1].Code.ToString(), pSubRptParameters[loopCount1].Value, pSubRptParameters[loopCount1].Type.ToString());
+                }
+
+                if (ExportString != "")
+                {
+                    ExportOptions CrExportOptions = new ExportOptions();
+                    DiskFileDestinationOptions CrDiskFileDestinationOptions = new DiskFileDestinationOptions();
+                    PdfRtfWordFormatOptions CrFormatTypeOptions = new PdfRtfWordFormatOptions();
+                    CrDiskFileDestinationOptions.DiskFileName = ExportString;
+                    CrExportOptions = reportDocument.ExportOptions;
+                    {
+                        CrExportOptions.ExportDestinationType = ExportDestinationType.DiskFile;
+                        CrExportOptions.ExportFormatType = ExportFormatType.PortableDocFormat;
+                        CrExportOptions.DestinationOptions = CrDiskFileDestinationOptions;
+                        CrExportOptions.FormatOptions = CrFormatTypeOptions;
+                    }
+                    reportDocument.Export();
+
+                    //ProgBar01.Value = 100;
+                    //ProgBar01.Stop();
+                    //ProgBar01 = null;
+                }
+                else
+                {
+
+                    rPT_Viewer1.ReportViewer.ReportSource = reportDocument;
+                    rPT_Viewer1.ReportViewer.Refresh();
+                    rPT_Viewer1.ReportViewer.Zoom(100);
+
+                    rPT_Viewer1.Text = pRptTitle;
+
+                    //ProgBar01.Value = 100;
+                    //ProgBar01.Stop();
+                    //ProgBar01 = null;
+
+                    rPT_Viewer1.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                reportDocument.Close();
+                reportDocument.Dispose();
+
+                rPT_Viewer1.ReportViewer.ReportSource = null;
+                rPT_Viewer1.Dispose();
+                rPT_Viewer1 = null;
+            }
+        }
+
         /// <summary>
         /// 크리스탈 리포트 호출 (Parameter, Formula 추가)
         /// </summary>

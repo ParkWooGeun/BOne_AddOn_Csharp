@@ -384,12 +384,15 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-                for(int i=0; i<=oMat01.RowCount -1; i++)
+                if (oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim() == "2") //노근용G2요청(창원은 109테이블에 Update 안되게 함.)(2023.11.27 by P.W.G)
                 {
-                    sQry = " UPDATE [@PH_PY109B] ";
-                    sQry += " SET U_AMT05 = U_AMT05 + '" + oMat01.Columns.Item("Amt").Cells.Item(i + 1).Specific.Value + "'";
-                    sQry += " WHERE U_MSTCOD = '" + oMat01.Columns.Item("MSTCOD").Cells.Item(i + 1).Specific.Value + "' AND RIGHT(Code,7) = '" + FrDate + "'" + "+ '111'";
-                    oRecordSet.DoQuery(sQry);
+                    for (int i = 0; i <= oMat01.RowCount - 1; i++)
+                    {
+                        sQry = " UPDATE [@PH_PY109B] ";
+                        sQry += " SET U_AMT05 = U_AMT05 + '" + oMat01.Columns.Item("Amt").Cells.Item(i + 1).Specific.Value + "'";
+                        sQry += " WHERE U_MSTCOD = '" + oMat01.Columns.Item("MSTCOD").Cells.Item(i + 1).Specific.Value + "' AND RIGHT(Code,7) = '" + FrDate + "'" + "+ '111'";
+                        oRecordSet.DoQuery(sQry);
+                    }
                 }
 
                 sQry = " UPDATE [@PH_PY705A] SET U_ControlYN = 'C'";
@@ -585,7 +588,7 @@ namespace PSH_BOne_AddOn
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
-                    //Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
+                    Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
                 case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
@@ -751,6 +754,37 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_ITEM_PRESSED_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
                 }
+            }
+            finally
+            {
+            }
+        }
+
+        /// <summary>
+        /// Raise_EVENT_KEY_DOWN
+        /// </summary>
+        /// <param name="FormUID"></param>
+        /// <param name="pVal"></param>
+        /// <param name="BubbleEvent"></param>
+        private void Raise_EVENT_KEY_DOWN(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            try
+            {
+                if (pVal.CharPressed == 9)
+                {
+                    if (pVal.ItemUID == "MSTCOD")
+                    {
+                        if (string.IsNullOrEmpty(oForm.Items.Item("MSTCOD").Specific.Value))
+                        {
+                            PSH_Globals.SBO_Application.ActivateMenuItem("7425");
+                            BubbleEvent = false;
+                        }
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_KEY_DOWN_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
             finally
             {

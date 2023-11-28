@@ -142,17 +142,6 @@ namespace PSH_BOne_AddOn
 
 				oMat.Columns.Item("ReStatus").ValidValues.Add("Y", "완료");
 				oMat.Columns.Item("ReStatus").ValidValues.Add("N", "미완료");
-
-				//Action(Matrix)
-				sQry = "  SELECT      U_Minor, ";
-				sQry += "             U_CdName ";
-				sQry += " FROM        [@PS_SY001L] ";
-				sQry += " WHERE       Code = 'A009'";
-				sQry += "             AND ISNULL(U_UseYN, 'Y') = 'Y'";
-				sQry += "             AND U_Minor <> 'D'";
-				sQry += " ORDER BY    U_Seq";
-
-				dataHelpClass.GP_MatrixSetMatComboList(oMat.Columns.Item("Action"), sQry, "", "");
 			}
 			catch (Exception ex)
 			{
@@ -269,8 +258,6 @@ namespace PSH_BOne_AddOn
 					oMat.Columns.Item("HeatNo").Visible = true;
 					oMat.Columns.Item("DNQty").Visible = true;
 					oMat.Columns.Item("DNCode").Visible = true;
-					oMat.Columns.Item("AttPath").Visible = true;
-					oMat.Columns.Item("Action").Visible = true;
 					oMat.Columns.Item("QCOKDate").Visible = true;
 					oMat.Columns.Item("MSTCOD").Visible = true;
 					oMat.Columns.Item("MSTNAM").Visible = true;
@@ -291,8 +278,6 @@ namespace PSH_BOne_AddOn
 					oMat.Columns.Item("HeatNo").Visible = false;
 					oMat.Columns.Item("DNQty").Visible = false;
 					oMat.Columns.Item("DNCode").Visible = false;
-					oMat.Columns.Item("AttPath").Visible = false;
-					oMat.Columns.Item("Action").Visible = false;
 					oMat.Columns.Item("QCOKDate").Visible = false;
 					oMat.Columns.Item("MSTCOD").Visible = false;
 					oMat.Columns.Item("MSTNAM").Visible = false;
@@ -833,137 +818,7 @@ namespace PSH_BOne_AddOn
 			}
 			return ReturnValue;
 		}
-
-		/// <summary>
-		/// PS_MM152_etBaseForm
-		/// </summary>
-		private void PS_MM152_SaveAttach(int pRow)
-		{
-			string sFileFullPath;
-			string sFilePath;
-			string sFileName;
-			string SaveFolders;
-			string sourceFile;
-			string targetFile;
-			string errMessage = string.Empty;
-
-			try
-			{
-				sFileFullPath = PS_MM152_OpenFileSelectDialog();//OpenFileDialog를 쓰레드로 실행
-
-				SaveFolders = "\\\\191.1.1.220\\Attach\\PS_MM152";
-				sFileName = System.IO.Path.GetFileName(sFileFullPath); //파일명
-				sFilePath = System.IO.Path.GetDirectoryName(sFileFullPath); //파일명을 제외한 전체 경로
-
-				sourceFile = System.IO.Path.Combine(sFilePath, sFileName);
-				targetFile = System.IO.Path.Combine(SaveFolders, sFileName);
-				oMat.FlushToDataSource();
-
-				if (System.IO.File.Exists(targetFile) || !string.IsNullOrEmpty(oDS_PS_MM152L.GetValue("U_AttPath", pRow - 1).ToString().Trim())) //서버에 기존파일이 존재하는지 체크
-				{
-					if (PSH_Globals.SBO_Application.MessageBox("파일이 존재합니다. 교체하시겠습니까?", 2, "Yes", "No") == 1)
-					{
-						System.IO.File.Delete(targetFile); //삭제
-					}
-					else
-					{
-						return;
-					}
-				}
-				oDS_PS_MM152L.SetValue("U_AttPath", pRow - 1, SaveFolders + "\\" + sFileName); //첨부파일 경로 등록
-
-				oMat.LoadFromDataSource();
-				oMat.AutoResizeColumns();
-				System.IO.File.Copy(sourceFile, targetFile, true); //파일 복사 (여기서 오류발생)
-				PSH_Globals.SBO_Application.MessageBox("업로드 되었습니다.");
-				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
-				{
-					oForm.Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
-				}
-			}
-			catch (Exception ex)
-			{
-				if (errMessage != string.Empty)
-				{
-					PSH_Globals.SBO_Application.MessageBox(errMessage);
-				}
-				else
-				{
-					PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-				}
-			}
-		}
-
-		/// <summary>
-		/// OpenFileSelectDialog 호출(쓰레드를 이용하여 비동기화)
-		/// OLE 호출을 수행하려면 현재 스레드를 STA(단일 스레드 아파트) 모드로 설정해야 합니다.
-		/// </summary>
-		[STAThread]
-		private string PS_MM152_OpenFileSelectDialog()
-		{
-			string returnFileName = string.Empty;
-
-			var thread = new System.Threading.Thread(() =>
-			{
-				System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
-				openFileDialog.InitialDirectory = "C:\\";
-				openFileDialog.Filter = "All files (*.*)|*.*";
-				openFileDialog.FilterIndex = 1; //FilterIndex는 1부터 시작
-				openFileDialog.RestoreDirectory = true;
-
-				if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-				{
-					returnFileName = openFileDialog.FileName;
-				}
-			});
-
-			thread.SetApartmentState(System.Threading.ApartmentState.STA);
-			thread.Start();
-			thread.Join();
-
-			return returnFileName;
-		}
-
-		/// <summary>
-		/// PS_MM152_etBaseForm
-		/// </summary>
-		private void PS_MM152_OpenAttach(int pRow)
-		{
-			string AttachPath;
-			string errMessage = string.Empty;
-
-			try
-			{
-				oMat.FlushToDataSource();
-
-				AttachPath = oDS_PS_MM152L.GetValue("U_AttPath", pRow - 1).ToString().Trim();
-
-				if (string.IsNullOrEmpty(AttachPath))
-				{
-					PSH_Globals.SBO_Application.MessageBox("첨부파일이 없습니다.");
-				}
-				else
-				{
-					System.Diagnostics.ProcessStartInfo process = new System.Diagnostics.ProcessStartInfo(AttachPath);
-					process.UseShellExecute = true;
-					process.Verb = "open";
-
-					System.Diagnostics.Process.Start(process);
-				}
-			}
-			catch (Exception ex)
-			{
-				if (errMessage != string.Empty)
-				{
-					PSH_Globals.SBO_Application.MessageBox(errMessage);
-				}
-				else
-				{
-					PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-				}
-			}
-		}
-
+		
 		/// <summary>
 		/// PS_MM152_Delete_EmptyRow
 		/// </summary>
@@ -2336,9 +2191,21 @@ namespace PSH_BOne_AddOn
 								{
 									oMat.Columns.Item("OutWt").Cells.Item(pVal.Row).Specific.Value = oMat.Columns.Item("OutQty").Cells.Item(pVal.Row).Specific.Value.ToString().Trim();
 								}
-                                else
+								else if (oRecordSet.Fields.Item(0).Value.ToString().Trim() == "105")
+								{
+									sQry = "SELECT U_UnWeight FROM [@PS_MM130L] WHERE U_OutDoc = '" + oMat.Columns.Item("OutDoc").Cells.Item(pVal.Row).Specific.Value.ToString().Trim() + "' and U_LineNum = '" + oMat.Columns.Item("OutLine").Cells.Item(pVal.Row).Specific.Value.ToString().Trim() + "'";
+									oRecordSet.DoQuery(sQry);
+									oMat.Columns.Item("MUseQty").Cells.Item(pVal.Row).Specific.Value = oMat.Columns.Item("OutQty").Cells.Item(pVal.Row).Specific.Value.ToString().Trim();
+									oMat.Columns.Item("OutWt").Cells.Item(pVal.Row).Specific.Value = Convert.ToDouble(oMat.Columns.Item("OutQty").Cells.Item(pVal.Row).Specific.Value) * Convert.ToDouble(oRecordSet.Fields.Item(0).Value);
+								}
+								else 
                                 {
 									oMat.Columns.Item("MUseQty").Cells.Item(pVal.Row).Specific.Value = oMat.Columns.Item("OutQty").Cells.Item(pVal.Row).Specific.Value.ToString().Trim();
+								}
+
+								if (Convert.ToDouble(oMat.Columns.Item("OutQty").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()) == Convert.ToDouble(oMat.Columns.Item("MDUseQty").Cells.Item(pVal.Row).Specific.Value.ToString().Trim())) //납품수량이 원재료남은수량이랑 같으면 완료체크
+                                {
+									oMat.Columns.Item("ReStatus").Cells.Item(pVal.Row).Specific.Select("Y");
 								}
 							}
 							else if (pVal.ColUID == "OutWt")
@@ -2408,8 +2275,6 @@ namespace PSH_BOne_AddOn
 							oForm.Items.Item("Comments").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 							oMat.Columns.Item("HeatNo").Visible = true;
 							oMat.Columns.Item("DNQty").Visible = true;
-							oMat.Columns.Item("AttPath").Visible = true;
-							oMat.Columns.Item("Action").Visible = true;
 							oMat.Columns.Item("QCOKDate").Visible = true;
 							oMat.Columns.Item("MSTCOD").Visible = true;
 							oMat.Columns.Item("MSTNAM").Visible = true;
@@ -2429,8 +2294,6 @@ namespace PSH_BOne_AddOn
 							oForm.Items.Item("Comments").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
 							oMat.Columns.Item("HeatNo").Visible = false;
 							oMat.Columns.Item("DNQty").Visible = false;
-							oMat.Columns.Item("AttPath").Visible = false;
-							oMat.Columns.Item("Action").Visible = false;
 							oMat.Columns.Item("QCOKDate").Visible = false;
 							oMat.Columns.Item("MSTCOD").Visible = false;
 							oMat.Columns.Item("MSTNAM").Visible = false;
@@ -2453,6 +2316,9 @@ namespace PSH_BOne_AddOn
 							{
 								oMat.Columns.Item("MUseQty").Cells.Item(pVal.Row).Specific.Value = oMat.Columns.Item("MDUseQty").Cells.Item(pVal.Row).Specific.Value.ToString().Trim();
 								oMat.Columns.Item("MUseWt").Cells.Item(pVal.Row).Specific.Value = oMat.Columns.Item("MDUseWt").Cells.Item(pVal.Row).Specific.Value.ToString().Trim();
+								oMat.Columns.Item("OutQty").Cells.Item(pVal.Row).Specific.Value = oMat.Columns.Item("MDUseQty").Cells.Item(pVal.Row).Specific.Value.ToString().Trim();
+								oMat.Columns.Item("OutWt").Cells.Item(pVal.Row).Specific.Value = oMat.Columns.Item("MDUseWt").Cells.Item(pVal.Row).Specific.Value.ToString().Trim();
+
 							}
 							else if (oMat.Columns.Item("ReStatus").Cells.Item(pVal.Row).Specific.Value.ToString().Trim() == "N")
 							{
@@ -2464,25 +2330,6 @@ namespace PSH_BOne_AddOn
 						{
 							oMat.Columns.Item("MUseQty").Cells.Item(pVal.Row).Specific.Value = "0";
 							oMat.Columns.Item("MUseWt").Cells.Item(pVal.Row).Specific.Value = "0";
-						}
-					}
-					else if (pVal.ItemUID == "Mat01" && pVal.ColUID == "Action")
-					{
-						if (oMat.Columns.Item("Action").Cells.Item(pVal.Row).Specific.Value == "S")
-						{
-							if(oForm.Items.Item("OKYNC").Specific.Value.ToString().Trim() == "Y")
-                            {
-								errmsg = "승인된 문서는 PDF파일 저장이 불가능합니다.";
-								throw new Exception();
-							}
-                            else
-                            {
-								PS_MM152_SaveAttach(pVal.Row);
-							}
-						}
-						else if (oMat.Columns.Item("Action").Cells.Item(pVal.Row).Specific.Value == "O")
-						{
-							PS_MM152_OpenAttach(pVal.Row);
 						}
 					}
 				}
@@ -2644,10 +2491,10 @@ namespace PSH_BOne_AddOn
 							oForm.Items.Item("CardCode").Enabled = false;
 							break;
 						case "1282": //추가
-							PS_MM152_Initialization();
 							PS_MM152_FormClear();
+							PS_MM152_Initialization();
 							PS_MM152_FormItemEnabled();
-							PS_MM152_Add_MatrixRow(0, true);
+							oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
 							break;
 						case "1284": //취소
 							break;

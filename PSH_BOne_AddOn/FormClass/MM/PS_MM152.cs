@@ -1177,181 +1177,181 @@ namespace PSH_BOne_AddOn
 									}
 								}
 							}
-							else //부산 작업지시등록
-							{
-								// Insert PS_PP040H
-								sQry = " INSERT INTO [@PS_PP040H]";
-								sQry += " (";
-								sQry += " DocEntry,";
-								sQry += " DocNum,";
-								sQry += " Period,";
-								sQry += " Series,";
-								sQry += " Object,";
-								sQry += " UserSign,";
-								sQry += " CreateDate,";
-								sQry += " CreateTime,";
-								sQry += " DataSource,";
-								sQry += " U_OrdType,";
-								sQry += " U_OrdGbn,";
-								sQry += " U_BPLId,";
-								sQry += " U_DocType,";
-								sQry += " Canceled,";
-								sQry += " U_DocDate";
-								sQry += " ) ";
-								sQry += "VALUES(";
-								sQry += "'" + PP040H_DocEntry + "',";
-								sQry += "'" + PP040H_DocEntry + "',";
-								sQry += "'22',";
-								sQry += "'-1',";
-								sQry += "'PS_PP040',";
-								sQry += "'1',";
-								sQry += "'" + DateTime.Now.ToString("yyyyMMdd") + "',";
-								sQry += "'1000',";
-								sQry += "'I',";
-								sQry += "'80',";
-								sQry += "'" + PS_PP040_Renamed[0].OrdGbn + "',";
-								sQry += "'" + BPLID + "',";
-								sQry += "'10',";
-								sQry += "'N',";
-								sQry += "'" + DocDate + "'";
-								sQry += ")";
-								oRecordSet.DoQuery(sQry);
+							//else //부산 작업지시등록
+							//{
+							//	// Insert PS_PP040H
+							//	sQry = " INSERT INTO [@PS_PP040H]";
+							//	sQry += " (";
+							//	sQry += " DocEntry,";
+							//	sQry += " DocNum,";
+							//	sQry += " Period,";
+							//	sQry += " Series,";
+							//	sQry += " Object,";
+							//	sQry += " UserSign,";
+							//	sQry += " CreateDate,";
+							//	sQry += " CreateTime,";
+							//	sQry += " DataSource,";
+							//	sQry += " U_OrdType,";
+							//	sQry += " U_OrdGbn,";
+							//	sQry += " U_BPLId,";
+							//	sQry += " U_DocType,";
+							//	sQry += " Canceled,";
+							//	sQry += " U_DocDate";
+							//	sQry += " ) ";
+							//	sQry += "VALUES(";
+							//	sQry += "'" + PP040H_DocEntry + "',";
+							//	sQry += "'" + PP040H_DocEntry + "',";
+							//	sQry += "'22',";
+							//	sQry += "'-1',";
+							//	sQry += "'PS_PP040',";
+							//	sQry += "'1',";
+							//	sQry += "'" + DateTime.Now.ToString("yyyyMMdd") + "',";
+							//	sQry += "'1000',";
+							//	sQry += "'I',";
+							//	sQry += "'80',";
+							//	sQry += "'" + PS_PP040_Renamed[0].OrdGbn + "',";
+							//	sQry += "'" + BPLID + "',";
+							//	sQry += "'10',";
+							//	sQry += "'N',";
+							//	sQry += "'" + DocDate + "'";
+							//	sQry += ")";
+							//	oRecordSet.DoQuery(sQry);
 
-								for (j = 0; j <= PS_PP040_Renamed.Length - 1; j++)
-								{
-									NQty = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_NQty", i).ToString().Trim());  //외주불량수량
-									DNQty = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_DNQty", i).ToString().Trim()); //당사불량수량
-									NWeight = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_NWeight", i).ToString().Trim()); //외주불량중량
+							//	for (j = 0; j <= PS_PP040_Renamed.Length - 1; j++)
+							//	{
+							//		NQty = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_NQty", i).ToString().Trim());  //외주불량수량
+							//		DNQty = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_DNQty", i).ToString().Trim()); //당사불량수량
+							//		NWeight = Convert.ToDouble(oDS_PS_MM152L.GetValue("U_NWeight", i).ToString().Trim()); //외주불량중량
 
-									if (PS_PP040_Renamed[j].Chk == "N")
-									{
-										iTemp01 = j + 1;
-										sTemp01 = PS_PP040_Renamed[j].PP030HNo + "-" + PS_PP040_Renamed[j].PP030MNo;
-										if (iTemp01 > 1)
-										{
-											NQty = 0;
-											NWeight = 0;
-										}
-										sQry1 = "SELECT U_SelWt AS U_SelWt FROM [@PS_PP030H] WHERE U_OrdNum ='" + PS_PP040_Renamed[j].ItemCode + "'";
-										oRecordSet1.DoQuery(sQry1);
+							//		if (PS_PP040_Renamed[j].Chk == "N")
+							//		{
+							//			iTemp01 = j + 1;
+							//			sTemp01 = PS_PP040_Renamed[j].PP030HNo + "-" + PS_PP040_Renamed[j].PP030MNo;
+							//			if (iTemp01 > 1)
+							//			{
+							//				NQty = 0;
+							//				NWeight = 0;
+							//			}
+							//			sQry1 = "SELECT U_SelWt AS U_SelWt FROM [@PS_PP030H] WHERE U_OrdNum ='" + PS_PP040_Renamed[j].ItemCode + "'";
+							//			oRecordSet1.DoQuery(sQry1);
 
-										SelWt = Convert.ToDouble(oRecordSet1.Fields.Item(0).Value.ToString().Trim());
+							//			SelWt = Convert.ToDouble(oRecordSet1.Fields.Item(0).Value.ToString().Trim());
 
-										// Insert PS_PP040L
-										sQry = " INSERT INTO [@PS_PP040L]";
-										sQry += " (";
-										sQry += " DocEntry,";
-										sQry += " LineId,";
-										sQry += " VisOrder,";
-										sQry += " Object,";
-										sQry += " U_SelWt,";
-										sQry += " U_LineNum,";
-										sQry += " U_LineId,";
-										sQry += " U_OrdMgNum,";
-										sQry += " U_Sequence,";
-										sQry += " U_CpCode,";
-										sQry += " U_CpName,";
-										sQry += " U_OrdGbn,";
-										sQry += " U_BPLId,";
-										sQry += " U_ItemCode,";
-										sQry += " U_ItemName,";
-										sQry += " U_OrdNum,";
-										sQry += " U_OrdSub1,";
-										sQry += " U_OrdSub2,";
-										sQry += " U_PP030HNo,";
-										sQry += " U_PP030MNo,";
-										sQry += " U_PQty,";
-										sQry += " U_PWeight,";
-										sQry += " U_YQty,";
-										sQry += " U_YWeight,";
-										sQry += " U_NQty,";
-										sQry += " U_NWeight,";
-										sQry += " U_WorkCls,";
-										sQry += " U_ScrapWt,";
-										sQry += " U_WorkTime,";
-										sQry += " U_PSum,";
-										sQry += " U_Comment";
-										sQry += " ) ";
-										sQry += "VALUES(";
-										sQry += "'" + PP040H_DocEntry + "',";
-										sQry += "'" + iTemp01 + "',";
-										sQry += "'" + j + "',";
-										sQry += "'PS_PP040',";
-										sQry += "'" + SelWt + "',";
-										sQry += "'" + iTemp01 + "',";
-										sQry += "'" + iTemp01 + "',";
-										sQry += "'" + sTemp01 + "',";
-										sQry += "'" + PS_PP040_Renamed[j].Sequence + "',";
-										sQry += "'" + PS_PP040_Renamed[j].CpCode + "',";
-										sQry += "'" + PS_PP040_Renamed[j].CpName + "',";
-										sQry += "'" + PS_PP040_Renamed[j].OrdGbn + "',";
-										sQry += "'" + BPLID + "',";
-										sQry += "'" + PS_PP040_Renamed[j].ItemCode + "',";
-										sQry += "'" + PS_PP040_Renamed[j].ItemName + "',";
-										sQry += "'" + JakNum + "',";
-										sQry += "'000',";
-										sQry += "'00',";
-										sQry += "'" + PS_PP040_Renamed[j].PP030HNo + "',";
-										sQry += "'" + PS_PP040_Renamed[j].PP030MNo + "',";
-										sQry += OutQty + NQty + ",";
-										sQry += OutWt + NWeight + ",";
-										sQry += OutQty - DNQty+ ",";
-										sQry += OutWt - NWeight + ",";
-										sQry += NQty + DNQty + ",";
-										sQry += NWeight + ",";
-										sQry += "'A',";
-										sQry += 0 + ",";
-										sQry += 0 + ",";
-										sQry += 0 + ",";
-										sQry += "'A'";
-										sQry += ")";
-										oRecordSet.DoQuery(sQry);
+							//			// Insert PS_PP040L
+							//			sQry = " INSERT INTO [@PS_PP040L]";
+							//			sQry += " (";
+							//			sQry += " DocEntry,";
+							//			sQry += " LineId,";
+							//			sQry += " VisOrder,";
+							//			sQry += " Object,";
+							//			sQry += " U_SelWt,";
+							//			sQry += " U_LineNum,";
+							//			sQry += " U_LineId,";
+							//			sQry += " U_OrdMgNum,";
+							//			sQry += " U_Sequence,";
+							//			sQry += " U_CpCode,";
+							//			sQry += " U_CpName,";
+							//			sQry += " U_OrdGbn,";
+							//			sQry += " U_BPLId,";
+							//			sQry += " U_ItemCode,";
+							//			sQry += " U_ItemName,";
+							//			sQry += " U_OrdNum,";
+							//			sQry += " U_OrdSub1,";
+							//			sQry += " U_OrdSub2,";
+							//			sQry += " U_PP030HNo,";
+							//			sQry += " U_PP030MNo,";
+							//			sQry += " U_PQty,";
+							//			sQry += " U_PWeight,";
+							//			sQry += " U_YQty,";
+							//			sQry += " U_YWeight,";
+							//			sQry += " U_NQty,";
+							//			sQry += " U_NWeight,";
+							//			sQry += " U_WorkCls,";
+							//			sQry += " U_ScrapWt,";
+							//			sQry += " U_WorkTime,";
+							//			sQry += " U_PSum,";
+							//			sQry += " U_Comment";
+							//			sQry += " ) ";
+							//			sQry += "VALUES(";
+							//			sQry += "'" + PP040H_DocEntry + "',";
+							//			sQry += "'" + iTemp01 + "',";
+							//			sQry += "'" + j + "',";
+							//			sQry += "'PS_PP040',";
+							//			sQry += "'" + SelWt + "',";
+							//			sQry += "'" + iTemp01 + "',";
+							//			sQry += "'" + iTemp01 + "',";
+							//			sQry += "'" + sTemp01 + "',";
+							//			sQry += "'" + PS_PP040_Renamed[j].Sequence + "',";
+							//			sQry += "'" + PS_PP040_Renamed[j].CpCode + "',";
+							//			sQry += "'" + PS_PP040_Renamed[j].CpName + "',";
+							//			sQry += "'" + PS_PP040_Renamed[j].OrdGbn + "',";
+							//			sQry += "'" + BPLID + "',";
+							//			sQry += "'" + PS_PP040_Renamed[j].ItemCode + "',";
+							//			sQry += "'" + PS_PP040_Renamed[j].ItemName + "',";
+							//			sQry += "'" + JakNum + "',";
+							//			sQry += "'000',";
+							//			sQry += "'00',";
+							//			sQry += "'" + PS_PP040_Renamed[j].PP030HNo + "',";
+							//			sQry += "'" + PS_PP040_Renamed[j].PP030MNo + "',";
+							//			sQry += OutQty + NQty + ",";
+							//			sQry += OutWt + NWeight + ",";
+							//			sQry += OutQty - DNQty+ ",";
+							//			sQry += OutWt - NWeight + ",";
+							//			sQry += NQty + DNQty + ",";
+							//			sQry += NWeight + ",";
+							//			sQry += "'A',";
+							//			sQry += 0 + ",";
+							//			sQry += 0 + ",";
+							//			sQry += 0 + ",";
+							//			sQry += "'A'";
+							//			sQry += ")";
+							//			oRecordSet.DoQuery(sQry);
 
-										// Insert PS_PP040N
-										sQry = " INSERT INTO [@PS_PP040N]";
-										sQry += " (";
-										sQry += " DocEntry,";
-										sQry += " LineId,";
-										sQry += " VisOrder,";
-										sQry += " Object,";
-										sQry += " U_LineNum,";
-										sQry += " U_LineId,";
-										sQry += " U_OrdMgNum,";
-										sQry += " U_FailQty,";
-										sQry += " U_CpCode,";
-										sQry += " U_CpName";
-										sQry += " ) ";
-										sQry += "VALUES(";
-										sQry += "'" + PP040H_DocEntry + "',";
-										sQry += "'" + iTemp01 + "',";
-										sQry += "'" + j + "',";
-										sQry += "'PS_PP040',";
-										sQry += "'" + iTemp01 + "',";
-										sQry += "'" + iTemp01 + "',";
-										sQry += "'" + sTemp01 + "',";
-										sQry += "'" + NQty + "',";
-										sQry += "'" + PS_PP040_Renamed[j].CpCode + "',";
-										sQry += "'" + PS_PP040_Renamed[j].CpName + "'";
-										sQry += ")";
-										oRecordSet.DoQuery(sQry);
+							//			// Insert PS_PP040N
+							//			sQry = " INSERT INTO [@PS_PP040N]";
+							//			sQry += " (";
+							//			sQry += " DocEntry,";
+							//			sQry += " LineId,";
+							//			sQry += " VisOrder,";
+							//			sQry += " Object,";
+							//			sQry += " U_LineNum,";
+							//			sQry += " U_LineId,";
+							//			sQry += " U_OrdMgNum,";
+							//			sQry += " U_FailQty,";
+							//			sQry += " U_CpCode,";
+							//			sQry += " U_CpName";
+							//			sQry += " ) ";
+							//			sQry += "VALUES(";
+							//			sQry += "'" + PP040H_DocEntry + "',";
+							//			sQry += "'" + iTemp01 + "',";
+							//			sQry += "'" + j + "',";
+							//			sQry += "'PS_PP040',";
+							//			sQry += "'" + iTemp01 + "',";
+							//			sQry += "'" + iTemp01 + "',";
+							//			sQry += "'" + sTemp01 + "',";
+							//			sQry += "'" + NQty + "',";
+							//			sQry += "'" + PS_PP040_Renamed[j].CpCode + "',";
+							//			sQry += "'" + PS_PP040_Renamed[j].CpName + "'";
+							//			sQry += ")";
+							//			oRecordSet.DoQuery(sQry);
 
-										PS_PP040_Renamed[j].Chk = "Y";
+							//			PS_PP040_Renamed[j].Chk = "Y";
 
-										sQry = "Update [ONNM] Set AutoKey = '" + AutoKey + "' Where ObjectCode = 'PS_PP040'";
-										oRecordSet.DoQuery(sQry);
+							//			sQry = "Update [ONNM] Set AutoKey = '" + AutoKey + "' Where ObjectCode = 'PS_PP040'";
+							//			oRecordSet.DoQuery(sQry);
 
 									
-										sQry = " Update [@PS_MM130L] ";
-										sQry += "Set U_InQty = IsNull(U_InQty, 0) + " + OutQty + "+" + NQty + "+" + DNQty + ", U_InWt = IsNull(U_InWt, 0) + " + OutWt + "+" + NWeight;
-										sQry += " From [@PS_MM130L] a Inner Join [@PS_MM130H] b On a.DocEntry = b.DocEntry ";
-										sQry += "Where b.U_OutDoc = '" + oDS_PS_MM152L.GetValue("U_OutDoc", i).ToString().Trim() + "' ";
-										sQry += "And a.U_LineNum = '" + oDS_PS_MM152L.GetValue("U_OutLine", i).ToString().Trim() + "' ";
-										oRecordSet.DoQuery(sQry);
+							//			sQry = " Update [@PS_MM130L] ";
+							//			sQry += "Set U_InQty = IsNull(U_InQty, 0) + " + OutQty + "+" + NQty + "+" + DNQty + ", U_InWt = IsNull(U_InWt, 0) + " + OutWt + "+" + NWeight;
+							//			sQry += " From [@PS_MM130L] a Inner Join [@PS_MM130H] b On a.DocEntry = b.DocEntry ";
+							//			sQry += "Where b.U_OutDoc = '" + oDS_PS_MM152L.GetValue("U_OutDoc", i).ToString().Trim() + "' ";
+							//			sQry += "And a.U_LineNum = '" + oDS_PS_MM152L.GetValue("U_OutLine", i).ToString().Trim() + "' ";
+							//			oRecordSet.DoQuery(sQry);
 
-										oDS_PS_MM152L.SetValue("U_PP040Doc", i, PS_PP040DocEntry[i].PP040DocEntry);
-									}
-								}
-							}
+							//			oDS_PS_MM152L.SetValue("U_PP040Doc", i, PS_PP040DocEntry[i].PP040DocEntry);
+							//		}
+							//	}
+							//}
 						}
 					}
 				}

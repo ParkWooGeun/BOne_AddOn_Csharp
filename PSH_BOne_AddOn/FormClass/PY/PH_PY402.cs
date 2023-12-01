@@ -649,7 +649,7 @@ namespace PSH_BOne_AddOn
         private void PH_PY402_TitleSetting()
         {
             int i;
-            string[] COLNAM = new string[18];
+            string[] COLNAM = new string[19];
 
             try
             {
@@ -671,7 +671,8 @@ namespace PSH_BOne_AddOn
                 COLNAM[14] = "대중교통";
                 COLNAM[15] = "도서공연1-3";
                 COLNAM[16] = "도서공연4-12";
-                COLNAM[17] = "자료구분";
+                COLNAM[17] = "합계금액";
+                COLNAM[18] = "자료구분";
 
                 for (i = 0; i < COLNAM.Length; i++)
                 {

@@ -199,22 +199,22 @@ namespace PSH_BOne_AddOn
                 Gubun = oForm.DataSources.UserDataSources.Item("OptionDS").Value; //출력구분
                 Div1 = oForm.Items.Item("Div1").Specific.Value.Trim();   //재직구분
 
-                if (Convert.ToInt32(YYYY) >= 2022)
+                if (Convert.ToInt32(YYYY) >= 2023)
                 {
-                    //2022년귀속
-                    WinTitle = "[PH_PY920] 원천징수영수증출력 2022년";
+                    //2023년귀속
+                    WinTitle = "[PH_PY920] 원천징수영수증출력 2023년";
 
                     if (Gubun == "1")
                     {
-                        ReportName = "PH_PY920_22_01.rpt";
+                        ReportName = "PH_PY920_23_01.rpt";
                     }
                     else if (Gubun == "2")
                     {
-                        ReportName = "PH_PY920_22_02.rpt";
+                        ReportName = "PH_PY920_23_02.rpt";
                     }
                     else if (Gubun == "3")
                     {
-                        ReportName = "PH_PY920_22_03.rpt";
+                        ReportName = "PH_PY920_23_03.rpt";
                     }
 
                     List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>(); //Parameter
@@ -344,20 +344,20 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    //2021년귀속
-                    WinTitle = "[PH_PY920] 원천징수영수증출력 2021년";
+                    //2022년귀속
+                    WinTitle = "[PH_PY920] 원천징수영수증출력 2022년";
 
                     if (Gubun == "1")
                     {
-                        ReportName = "PH_PY920_21_01.rpt";
+                        ReportName = "PH_PY920_22_01.rpt";
                     }
                     else if (Gubun == "2")
                     {
-                        ReportName = "PH_PY920_21_02.rpt";
+                        ReportName = "PH_PY920_22_02.rpt";
                     }
                     else if (Gubun == "3")
                     {
-                        ReportName = "PH_PY920_21_03.rpt";
+                        ReportName = "PH_PY920_22_03.rpt";
                     }
 
                     List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>(); //Parameter
@@ -447,6 +447,13 @@ namespace PSH_BOne_AddOn
                     dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY920_SUB52"));
                     dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY920_SUB52"));
                     dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY920_SUB52"));
+
+                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY920_SUB53"));
+                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY920_SUB53"));
+                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY920_SUB53"));
+                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY920_SUB53"));
+                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY920_SUB53"));
+                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY920_SUB53"));
 
                     dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY920_SUB61"));
                     dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY920_SUB61"));

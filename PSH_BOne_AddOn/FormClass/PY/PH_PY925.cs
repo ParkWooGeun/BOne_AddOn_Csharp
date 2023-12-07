@@ -589,6 +589,13 @@ namespace PSH_BOne_AddOn
                 dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY925_SUB3"));
                 dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY925_SUB3"));
 
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY925_SUB4"));
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY925_SUB4"));
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY925_SUB4"));
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY925_SUB4"));
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY925_SUB4"));
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY925_SUB4"));
+
                 formHelpClass.OpenCrystalReport(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
 
             }

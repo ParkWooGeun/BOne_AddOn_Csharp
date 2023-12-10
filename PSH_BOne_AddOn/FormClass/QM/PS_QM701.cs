@@ -1307,6 +1307,14 @@ namespace PSH_BOne_AddOn
                             BubbleEvent = false;
                         }
                     }
+                    else if (pVal.ItemUID == "WorkNum")
+                    {
+                        if (string.IsNullOrEmpty(oForm.Items.Item("WorkNum").Specific.Value))
+                        {
+                            PSH_Globals.SBO_Application.ActivateMenuItem("7425");
+                            BubbleEvent = false;
+                        }
+                    }
                     else if (pVal.ItemUID == "InCpCode")
                     {
                         if (string.IsNullOrEmpty(oForm.Items.Item("InCpCode").Specific.Value))
@@ -1394,7 +1402,7 @@ namespace PSH_BOne_AddOn
                             {
                                 oForm.Items.Item("CardName").Specific.Value = dataHelpClass.Get_ReData("CardName", "CardCode", "OCRD", "'" + oForm.Items.Item("CardCode").Specific.Value + "'", ""); //검사자
                             }
-                            if (pVal.ItemUID == "KeyDoc")
+                            if (pVal.ItemUID == "WorkNum")
                             {
                                 sQry = " SELECT ISNULL(DocEntry,'') AS DocEntry FROM [@PS_QM701H] WHERE Canceled<> 'Y' AND U_KeyDoc ='" + oForm.Items.Item("KeyDoc").Specific.Value.ToString().Trim() + "'";
                                 oRecordSet01.DoQuery(sQry);

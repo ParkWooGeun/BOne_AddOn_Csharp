@@ -111,6 +111,11 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Rad03").Specific.ValOn = "30";
                 oForm.Items.Item("Rad03").Specific.ValOff = "0";
                 oForm.Items.Item("Rad03").Specific.GroupWith("Rad01");
+
+                // 노조연장Check
+                oForm.DataSources.UserDataSources.Add("Check", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
+                oForm.Items.Item("Check").Specific.DataBind.SetBound(true, "", "Check");
+                oForm.Items.Item("Check").Specific.Checked = true;
             }
             catch (Exception ex)
             {
@@ -174,6 +179,7 @@ namespace PSH_BOne_AddOn
             string DocDateFr;
             string DocDateTo;
             string CntcCode;
+            string Check;
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -187,6 +193,15 @@ namespace PSH_BOne_AddOn
                 sQry = "SELECT BPLName FROM [OBPL] WHERE BPLId = '" + BPLID + "'";
                 oRecordSet.DoQuery(sQry);
                 BPLName = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+
+                if (oForm.DataSources.UserDataSources.Item("Check").Value == "Y")
+                {
+                    Check = "Y";
+                }
+                else
+                {
+                    Check = "N";
+                }
 
                 if (oForm.Items.Item("Rad01").Specific.Selected == true)
                 {
@@ -217,7 +232,8 @@ namespace PSH_BOne_AddOn
                 {
                     dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", BPLID)); 
                     dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr)); 
-                    dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo)); 
+                    dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo));
+                    dataPackParameter.Add(new PSH_DataPackClass("@Check", Check));
                 }
                 else if (oForm.Items.Item("Rad03").Specific.Selected == true)
                 {
@@ -225,6 +241,7 @@ namespace PSH_BOne_AddOn
                     dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr));
                     dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo));
                     dataPackParameter.Add(new PSH_DataPackClass("@CntcCode", CntcCode));
+                    dataPackParameter.Add(new PSH_DataPackClass("@Check", Check));
                 }
 
                 formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);

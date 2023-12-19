@@ -1164,6 +1164,26 @@ namespace PSH_BOne_AddOn
             string I_KUNNR;
             string I_NAME2;
             string I_RDATE;
+            string I2_WERKS_D;
+            string I2_MATNR;
+            string I2_ZLOTNO;
+            string I2_ZINSPIT;
+            string I2_ZINSRST;
+            string I2_ZINSRST2;
+            string I2_ZINSPNM;
+            string I2_ZINSPNM2;
+            string I2_ZMILST;
+            string I2_ZMILST2;
+            string I2_ZLENGCD;
+            string I2_ZLENGNM;
+            string I2_ZMEINSR;
+            string I2_ZMEINNM;
+            string I2_ZMINR;
+            string I2_ZMAXR;
+            string I2_ZRMDCF;
+            string I2_ZERRTXT;
+            string I2_ZTHAN;
+            string I2_ZMOLOT;
             string errMessage = string.Empty;
             string errCode = string.Empty;
             string Client; //클라이언트(운영용:210, 테스트용:810)
@@ -1225,6 +1245,7 @@ namespace PSH_BOne_AddOn
                 oFunction.Invoke(rfcDest); //Function 실행
 
                 IRfcTable oTable = oFunction.GetTable("ITAB");
+                IRfcTable oTable1 = oFunction.GetTable("IT_10702");
 
                 E_MESSAGE = oFunction.GetValue("E_MESSAGE").ToString();
 
@@ -1296,7 +1317,35 @@ namespace PSH_BOne_AddOn
 
                         PS_MM180_AddMatrixRow(MatrixRow, false);
                         MatrixRow += 1;
+
                     }
+                    //원소재입고_E
+                    //검사성적서_S (자동으로 PS_QM035H에 INSERT)
+                    foreach (IRfcStructure row in oTable1)
+                    {
+                        I2_WERKS_D = row.GetValue("WERKS").ToString();
+                        I2_MATNR = row.GetValue("MATNR").ToString();
+                        I2_ZLOTNO = row.GetValue("ZLOTNO").ToString();
+                        I2_ZINSPIT = row.GetValue("ZINSPIT").ToString();
+                        I2_ZINSRST = row.GetValue("ZINSRST").ToString();
+                        I2_ZINSRST2 = row.GetValue("ZINSRST2").ToString();
+                        I2_ZINSPNM = row.GetValue("ZINSPNM").ToString();
+                        I2_ZINSPNM2 = row.GetValue("ZINSPNM2").ToString();
+                        I2_ZMILST = row.GetValue("ZMILST").ToString();
+                        I2_ZMILST2 = row.GetValue("ZMILST2").ToString();
+                        I2_ZLENGCD = row.GetValue("ZLENGCD").ToString();
+                        I2_ZLENGNM = row.GetValue("ZLENGNM").ToString();
+                        I2_ZMEINSR = row.GetValue("ZMEINSR").ToString();
+                        I2_ZMEINNM = row.GetValue("ZMEINNM").ToString();
+                        I2_ZMINR = row.GetValue("ZMINR").ToString();
+                        I2_ZMAXR = row.GetValue("ZMAXR").ToString();
+                        I2_ZRMDCF = row.GetValue("ZRMDCF").ToString();
+                        I2_ZERRTXT = row.GetValue("ZERRTXT").ToString();
+                        I2_ZTHAN = row.GetValue("ZTHAN").ToString();
+                        I2_ZMOLOT = row.GetValue("ZMOLOT").ToString();
+                    }
+                    //검사성적서_E
+
                 }
                 else
                 {

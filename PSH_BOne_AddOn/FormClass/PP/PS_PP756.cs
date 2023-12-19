@@ -400,29 +400,36 @@ namespace PSH_BOne_AddOn
 
                 //1. SAP R3 함수 호출(매개변수 전달)
                 IRfcFunction oFunction = rfcRep.CreateFunction("ZPP_HOLDINGS_INTF_YIELD");
+                IRfcTable oTable = oFunction.GetTable("IT_60601");
+                oTable.Insert();
+
                 for (int i = 0; i < oMat01.VisualRowCount - 1; i++)
                 {
-                    oFunction.SetValue("I_ZLOTCOIL", oDS_PS_PP756L.GetValue("U_BatchNum", i).ToString().Trim()); //온산LOTNo
-                    oFunction.SetValue("I_ZBOXNO", oDS_PS_PP756L.GetValue("U_BoxNo", i).ToString().Trim()); //BoxNo
-                    oFunction.SetValue("I_ERSDA", oDS_PS_PP756L.GetValue("U_YDocDate", i).ToString().Trim()); //납품일자
-                    oFunction.SetValue("I_PONO", oDS_PS_PP756L.GetValue("U_RItemCod", i).ToString().Trim()); //모재코드
-                    oFunction.SetValue("I_MATNR", oDS_PS_PP756L.GetValue("U_R3PONum", i).ToString().Trim()); //R3PONo
-                    oFunction.SetValue("I_MATNR2", oDS_PS_PP756L.GetValue("U_ItemCode", i).ToString().Trim()); //창원품목코드
-                    oFunction.SetValue("I_MAKTX2", oDS_PS_PP756L.GetValue("U_ItemName", i).ToString().Trim()); //창원품목명
-                    oFunction.SetValue("I_GWEWI", oDS_PS_PP756L.GetValue("U_EA", i).ToString().Trim()); //단위(kg)
-                    oFunction.SetValue("I_ZEXTWE", oDS_PS_PP756L.GetValue("U_BQty", i).ToString().Trim()); //투입량
-                    oFunction.SetValue("I_ZOKYWE", oDS_PS_PP756L.GetValue("U_YQty", i).ToString().Trim()); //생산량
-                    oFunction.SetValue("I_ZBDYWE", oDS_PS_PP756L.GetValue("U_NQty", i).ToString().Trim()); //불량량
-                    oFunction.SetValue("I_ZSCRWE", oDS_PS_PP756L.GetValue("U_Scrap", i).ToString().Trim()); //Scrap
-                    oFunction.SetValue("I_ZEQUIP", oDS_PS_PP756L.GetValue("U_NEQUIP", i).ToString().Trim()); //불량공정코드
-                    oFunction.SetValue("I_ZEDCOD1", oDS_PS_PP756L.GetValue("U_NEDCOD1", i).ToString().Trim()); //불량요인
-                    oFunction.SetValue("I_ZEDCOD2", oDS_PS_PP756L.GetValue("U_NEDCOD2", i).ToString().Trim()); //불량요인2
-                    oFunction.SetValue("I_ZMDATE", oDS_PS_PP756L.GetValue("U_NDocDate", i).ToString().Trim()); //불량일자
+                    oTable.SetValue("ZLOTCOIL", oDS_PS_PP756L.GetValue("U_BatchNum", i).ToString().Trim()); //온산LOTNo
+                    oTable.SetValue("ZBOXNO", oDS_PS_PP756L.GetValue("U_BoxNo", i).ToString().Trim()); //BoxNo
+                    oTable.SetValue("ERSDA", oDS_PS_PP756L.GetValue("U_YDocDate", i).ToString().Trim()); //납품일자
+                    oTable.SetValue("PONO", oDS_PS_PP756L.GetValue("U_RItemCod", i).ToString().Trim()); //모재코드
+                    oTable.SetValue("MATNR", oDS_PS_PP756L.GetValue("U_R3PONum", i).ToString().Trim()); //R3PONo
+                    oTable.SetValue("MATNR2", oDS_PS_PP756L.GetValue("U_ItemCode", i).ToString().Trim()); //창원품목코드
+                    oTable.SetValue("MAKTX2", oDS_PS_PP756L.GetValue("U_ItemName", i).ToString().Trim()); //창원품목명
+                    oTable.SetValue("GEWEI", oDS_PS_PP756L.GetValue("U_EA", i).ToString().Trim()); //단위(kg)
+                    oTable.SetValue("ZEXTWE", oDS_PS_PP756L.GetValue("U_BQty", i).ToString().Trim()); //투입량
+                    oTable.SetValue("ZOKYWE", oDS_PS_PP756L.GetValue("U_YQty", i).ToString().Trim()); //생산량
+                    oTable.SetValue("ZBDYWE", oDS_PS_PP756L.GetValue("U_NQty", i).ToString().Trim()); //불량량
+                    oTable.SetValue("ZSCRWE", oDS_PS_PP756L.GetValue("U_Scrap", i).ToString().Trim()); //Scrap
+                    oTable.SetValue("ZEQUIP", oDS_PS_PP756L.GetValue("U_NEQUIP", i).ToString().Trim()); //불량공정코드
+                    oTable.SetValue("ZEDCOD1", oDS_PS_PP756L.GetValue("U_NEDCOD1", i).ToString().Trim()); //불량요인
+                    oTable.SetValue("ZEDCOD2", oDS_PS_PP756L.GetValue("U_NEDCOD2", i).ToString().Trim()); //불량요인2
+                    oTable.SetValue("ZMDATE", oDS_PS_PP756L.GetValue("U_NDocDate", i).ToString().Trim()); //불량일자
+                    oTable.Append();
+                    
+                    if (oMat01.VisualRowCount == i + 2) //마지막에 실행
+                    {
+                        errCode = "2"; //SAP Function 실행 오류가 발생했을 때 에러코드로 처리하기 위해 이 위치에서 "2"를 대입
+                        oFunction.Invoke(rfcDest); //Function 실행
+                    }
 
-                    errCode = "2"; //SAP Function 실행 오류가 발생했을 때 에러코드로 처리하기 위해 이 위치에서 "2"를 대입
-                    oFunction.Invoke(rfcDest); //Function 실행
-
-                    if (oFunction.GetValue("E_MESSAGE").ToString().Trim() != "" && codeHelpClass.Left(oFunction.GetValue("E_MESSAGE").ToString().Trim(), 1) != "S") //리턴 메시지가 "S(성공)"이 아니면
+                        if (oFunction.GetValue("E_MESSAGE").ToString().Trim() != "" && codeHelpClass.Left(oFunction.GetValue("E_MESSAGE").ToString().Trim(), 1) != "S") //리턴 메시지가 "S(성공)"이 아니면
                     {
                         errCode = "3";
                         errMessage = oFunction.GetValue("E_MESSAGE").ToString();

@@ -1143,44 +1143,44 @@ namespace PSH_BOne_AddOn
                             switch (I2_ZINSPIT)
                             {
                                 case ("SB01"): //인장강도
-                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Ts_S = '" + I2_ZMINR + ", U_S_Ts_E ='" + I2_ZMAXR + "',  U_Ts ='" + I2_ZINSRST + "' WHERE U_LotNo = '" + I2_ZINSPIT + "'";
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Ts_S = '" + I2_ZMINR + "', U_S_Ts_E ='" + I2_ZMAXR + "',  U_Ts ='" + I2_ZINSRST + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
                                     oRecordSet02.DoQuery(sQry1);
                                     break;
                                 case ("SB03"): //연신율
-                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_El = '" + I2_ZMINR + ", U_El ='" + I2_ZINSRST + "' WHERE U_LotNo = '" + I2_ZINSPIT + "'";
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_El = '" + I2_ZMINR + "', U_El ='" + I2_ZINSRST + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
                                     oRecordSet02.DoQuery(sQry1);
                                     break;
                                 case ("SB04"): //경도
-                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Hd = '" + I2_ZMAXR + ", U_Hd ='" + I2_ZINSRST + "' WHERE U_LotNo = '" + I2_ZINSPIT + "'";
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Hd = '" + I2_ZMAXR + "', U_Hd ='" + I2_ZINSRST + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
                                     oRecordSet02.DoQuery(sQry1);
                                     break;
                                 case ("SC01"): //두께
                                     double Amin = Convert.ToDouble(I2_ZMINR);
                                     double AMAX = Convert.ToDouble(I2_ZMAXR);
                                     double AMID = (AMAX + Amin) / 2;
-                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Tk_P = '" + (AMAX - AMID) + ", U_S_Tk_M ='" + (AMID - Amin) + "', U_Rg ='" + AMID + "',";
-                                    sQry1 += " U_Rg1 ='" + I2_ZINSRST + "', U_Rg2 = '" + I2_ZINSRST2 + "' WHERE U_LotNo = '" + I2_ZINSPIT + "'";
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Tk_P = '" + (AMAX - AMID) + "', U_S_Tk_M ='" + (AMID - Amin) + "', U_Rg ='" + AMID + "',";
+                                    sQry1 += " U_Rg1 ='" + I2_ZINSRST + "', U_Rg2 = '" + I2_ZINSRST2 + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
                                     oRecordSet02.DoQuery(sQry1);
                                     break;
                                 case ("SC02"): //폭
                                     double Bmin = Convert.ToDouble(I2_ZMINR);
                                     double BMAX = Convert.ToDouble(I2_ZMAXR);
                                     double BMID = (BMAX + Bmin) / 2;
-                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Rg_P = '" + (BMAX - BMID) + ", U_S_Rg_M ='" + (BMID - Bmin) + "', U_Tk ='" + BMID + "',";
-                                    sQry1 += " U_Tk1 ='" + I2_ZINSRST + "', U_Tk2 = '" + I2_ZINSRST2 + "' WHERE U_LotNo = '" + I2_ZINSPIT + "'";
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Rg_P = '" + (BMAX - BMID) + "', U_S_Rg_M ='" + (BMID - Bmin) + "', U_Tk ='" + BMID + "',";
+                                    sQry1 += " U_Tk1 ='" + I2_ZINSRST + "', U_Tk2 = '" + I2_ZINSRST2 + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
                                     oRecordSet02.DoQuery(sQry1);
                                     break;
                                 case ("SE02"): //Burr
                                     sQry1 = "UPDATE[@PS_QM035H] SET U_S_Br = '" + (Convert.ToInt32(I2_ZMAXR) * 0.01).ToString("P2") + ", U_Br ='" + (Convert.ToInt32(I2_ZINSRST) * 0.01).ToString("P2") + "',";
-                                    sQry1 += " U_Br2 = '" + (Convert.ToInt32(I2_ZINSRST2) * 0.01).ToString("P2") + "' WHERE U_LotNo = '" + I2_ZINSPIT + "'";
+                                    sQry1 += " U_Br2 = '" + (Convert.ToInt32(I2_ZINSRST2) * 0.01).ToString("P2") + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
                                     oRecordSet02.DoQuery(sQry1);
                                     break;
                                 case ("SE03"): //조도
-                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Lm = '" + I2_ZMAXR + ", U_Lm ='" + I2_ZINSRST + "' WHERE U_LotNo = '" + I2_ZINSPIT + "'";
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Lm = '" + I2_ZMAXR + "', U_Lm ='" + I2_ZINSRST + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
                                     oRecordSet02.DoQuery(sQry1);
                                     break;
                                 case ("SZ92"): //입고중량
-                                    sQry1 = "UPDATE[@PS_QM035H] SET U_InWgt = '" + I2_ZINSRST + "' where U_LotNo = '" + I2_ZINSPIT + "'";
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_InWgt = '" + I2_ZINSRST + "' where U_LotNo = '" + I2_ZLOTNO + "'";
                                     oRecordSet02.DoQuery(sQry1);
                                     break;
                             }
@@ -1486,44 +1486,44 @@ namespace PSH_BOne_AddOn
                             switch (I2_ZINSPIT)
                             {
                                 case ("SB01"): //인장강도
-                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Ts_S = '" + I2_ZMINR + ", U_S_Ts_E ='" + I2_ZMAXR + "',  U_Ts ='" + I2_ZINSRST + "' WHERE U_LotNo = '" + I2_ZINSPIT + "'";
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Ts_S = '" + I2_ZMINR + "', U_S_Ts_E ='" + I2_ZMAXR + "',  U_Ts ='" + I2_ZINSRST + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
                                     oRecordSet02.DoQuery(sQry1);
                                     break;
                                 case ("SB03"): //연신율
-                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_El = '" + I2_ZMINR + ", U_El ='" + I2_ZINSRST + "' WHERE U_LotNo = '" + I2_ZINSPIT + "'";
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_El = '" + I2_ZMINR + "', U_El ='" + I2_ZINSRST + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
                                     oRecordSet02.DoQuery(sQry1);
                                     break;
                                 case ("SB04"): //경도
-                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Hd = '" + I2_ZMAXR + ", U_Hd ='" + I2_ZINSRST + "' WHERE U_LotNo = '" + I2_ZINSPIT + "'";
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Hd = '" + I2_ZMAXR + "', U_Hd ='" + I2_ZINSRST + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
                                     oRecordSet02.DoQuery(sQry1);
                                     break;
                                 case ("SC01"): //두께
                                     double Amin = Convert.ToDouble(I2_ZMINR);
                                     double AMAX = Convert.ToDouble(I2_ZMAXR);
                                     double AMID = (AMAX + Amin) / 2;
-                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Tk_P = '" + (AMAX - AMID) +", U_S_Tk_M ='" + (AMID-Amin) + "', U_Rg ='" + AMID + "',";
-                                    sQry1 += " U_Rg1 ='"+ I2_ZINSRST + "', U_Rg2 = '" + I2_ZINSRST2 + "' WHERE U_LotNo = '" + I2_ZINSPIT + "'";
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Tk_P = '" + (AMAX - AMID) +"', U_S_Tk_M ='" + (AMID-Amin) + "', U_Rg ='" + AMID + "',";
+                                    sQry1 += " U_Rg1 ='"+ I2_ZINSRST + "', U_Rg2 = '" + I2_ZINSRST2 + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
                                     oRecordSet02.DoQuery(sQry1);
                                     break;
                                 case ("SC02"): //폭
                                     double Bmin = Convert.ToDouble(I2_ZMINR);
                                     double BMAX = Convert.ToDouble(I2_ZMAXR);
                                     double BMID = (BMAX + Bmin) / 2;
-                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Rg_P = '" + (BMAX - BMID) + ", U_S_Rg_M ='" + (BMID - Bmin) + "', U_Tk ='" + BMID + "',";
-                                    sQry1 += " U_Tk1 ='" + I2_ZINSRST + "', U_Tk2 = '" + I2_ZINSRST2 + "' WHERE U_LotNo = '" + I2_ZINSPIT + "'";
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Rg_P = '" + (BMAX - BMID) + "', U_S_Rg_M ='" + (BMID - Bmin) + "', U_Tk ='" + BMID + "',";
+                                    sQry1 += " U_Tk1 ='" + I2_ZINSRST + "', U_Tk2 = '" + I2_ZINSRST2 + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
                                     oRecordSet02.DoQuery(sQry1);
                                     break;
                                 case ("SE02"): //Burr
                                     sQry1 = "UPDATE[@PS_QM035H] SET U_S_Br = '" + (Convert.ToInt32(I2_ZMAXR) * 0.01).ToString("P2") + ", U_Br ='" + (Convert.ToInt32(I2_ZINSRST) * 0.01).ToString("P2") + "',";
-                                    sQry1 += " U_Br2 = '" + (Convert.ToInt32(I2_ZINSRST2) * 0.01).ToString("P2") + "' WHERE U_LotNo = '" + I2_ZINSPIT + "'";
+                                    sQry1 += " U_Br2 = '" + (Convert.ToInt32(I2_ZINSRST2) * 0.01).ToString("P2") + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
                                     oRecordSet02.DoQuery(sQry1);
                                     break;
                                 case ("SE03"): //조도
-                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Lm = '" + I2_ZMAXR + ", U_Lm ='" + I2_ZINSRST + "' WHERE U_LotNo = '" + I2_ZINSPIT + "'";
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Lm = '" + I2_ZMAXR + "', U_Lm ='" + I2_ZINSRST + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
                                     oRecordSet02.DoQuery(sQry1);
                                     break;
                                 case ("SZ92"): //입고중량
-                                    sQry1 = "UPDATE[@PS_QM035H] SET U_InWgt = '" + I2_ZINSRST + "' where U_LotNo = '" + I2_ZINSPIT + "'";
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_InWgt = '" + I2_ZINSRST + "' where U_LotNo = '" + I2_ZLOTNO + "'";
                                     oRecordSet02.DoQuery(sQry1);
                                     break;
                             }

@@ -250,8 +250,8 @@ namespace PSH_BOne_AddOn
                     oDS_PS_PP756L.SetValue("U_BatcHNum", i, oRecordSet.Fields.Item("U_BatcHNum").Value);
                     oDS_PS_PP756L.SetValue("U_BoxNo", i, oRecordSet.Fields.Item("U_BoxNo").Value);
                     oDS_PS_PP756L.SetValue("U_YDocDate", i, oRecordSet.Fields.Item("YDocDate").Value);
-                    oDS_PS_PP756L.SetValue("U_RItemCod", i, oRecordSet.Fields.Item("U_RItemCod").Value);
                     oDS_PS_PP756L.SetValue("U_R3PONum", i, oRecordSet.Fields.Item("U_R3PONum").Value);
+                    oDS_PS_PP756L.SetValue("U_RItemCod", i, oRecordSet.Fields.Item("U_RItemCod").Value);
                     oDS_PS_PP756L.SetValue("U_ItemCode", i, oRecordSet.Fields.Item("U_ItemCode").Value);
                     oDS_PS_PP756L.SetValue("U_ItemName", i, oRecordSet.Fields.Item("U_ItemName").Value);
                     oDS_PS_PP756L.SetValue("U_EA", i, oRecordSet.Fields.Item("EA").Value);
@@ -408,8 +408,8 @@ namespace PSH_BOne_AddOn
                     oTable.SetValue("ZLOTCOIL", oDS_PS_PP756L.GetValue("U_BatchNum", i).ToString().Trim()); //온산LOTNo
                     oTable.SetValue("ZBOXNO", oDS_PS_PP756L.GetValue("U_BoxNo", i).ToString().Trim()); //BoxNo
                     oTable.SetValue("ERSDA", oDS_PS_PP756L.GetValue("U_YDocDate", i).ToString().Trim()); //납품일자
-                    oTable.SetValue("PONO", oDS_PS_PP756L.GetValue("U_RItemCod", i).ToString().Trim()); //모재코드
-                    oTable.SetValue("MATNR", oDS_PS_PP756L.GetValue("U_R3PONum", i).ToString().Trim()); //R3PONo
+                    oTable.SetValue("PONO", oDS_PS_PP756L.GetValue("U_R3PONum", i).ToString().Trim()); //모재코드
+                    oTable.SetValue("MATNR", oDS_PS_PP756L.GetValue("U_RItemCod", i).ToString().Trim()); //R3PONo
                     oTable.SetValue("MATNR2", oDS_PS_PP756L.GetValue("U_ItemCode", i).ToString().Trim()); //창원품목코드
                     oTable.SetValue("MAKTX2", oDS_PS_PP756L.GetValue("U_ItemName", i).ToString().Trim()); //창원품목명
                     oTable.SetValue("GEWEI", oDS_PS_PP756L.GetValue("U_EA", i).ToString().Trim()); //단위(kg)

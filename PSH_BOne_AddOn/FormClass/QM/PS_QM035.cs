@@ -187,8 +187,8 @@ namespace PSH_BOne_AddOn
 						oDS_PS_QM035H.SetValue("U_ItemName", 0, oRecordSet.Fields.Item(1).Value.ToString().Trim());
 						oDS_PS_QM035H.SetValue("U_InDate", 0, Convert.ToDateTime(oRecordSet.Fields.Item(2).Value.ToString().Trim()).ToString("yyyyMMdd"));
 						oDS_PS_QM035H.SetValue("U_InWgt", 0, oRecordSet.Fields.Item(3).Value.ToString().Trim());
-						oForm.Items.Item("C_Tk").Specific.Value = oRecordSet.Fields.Item(4).Value.ToString().Trim();
-						oForm.Items.Item("C_Rg").Specific.Value = oRecordSet.Fields.Item(5).Value.ToString().Trim();
+						oDS_PS_QM035H.SetValue("U_Tk", 0, oRecordSet.Fields.Item(4).Value.ToString().Trim());
+						oDS_PS_QM035H.SetValue("U_Rg", 0, oRecordSet.Fields.Item(5).Value.ToString().Trim());
 
 						//검사기준 SET
 						sQry = "SELECT TOP 1 U_S_Tk_P, U_S_Tk_M, U_S_Rg_P, U_S_Rg_M, U_S_Br, U_S_Lm, U_S_Hd, U_S_Et, U_S_Ts_S, U_S_Ts_E, U_S_El ";
@@ -238,17 +238,17 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
-				Tk = Convert.ToDouble(oForm.Items.Item("C_Tk").Specific.Value.ToString().Trim());
-                Rg = Convert.ToDouble(oForm.Items.Item("C_Rg").Specific.Value.ToString().Trim());
+				Tk = Convert.ToDouble(oForm.Items.Item("Tk").Specific.Value.ToString().Trim());
+                Rg = Convert.ToDouble(oForm.Items.Item("Rg").Specific.Value.ToString().Trim());
                 //두께
-                if (Convert.ToDouble(oDS_PS_QM035H.GetValue("U_Tk", 0).ToString().Trim()) != 0)
+                if (Convert.ToDouble(oDS_PS_QM035H.GetValue("Tk", 0).ToString().Trim()) != 0)
 				{
 					VALUE_MIN = Tk - Convert.ToDouble(oDS_PS_QM035H.GetValue("U_S_Tk_M", 0).ToString().Trim());
 					VALUE_MAX = Tk + Convert.ToDouble(oDS_PS_QM035H.GetValue("U_S_Tk_P", 0).ToString().Trim());
-					SPEC = Convert.ToDouble(oForm.Items.Item("Tk").Specific.Value.ToString().Trim());
+					SPEC = Convert.ToDouble(oForm.Items.Item("Tk1").Specific.Value.ToString().Trim());
 					if (VALUE_MIN > SPEC || VALUE_MAX < SPEC)
 					{
-                        oForm.Items.Item("Tk").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                        oForm.Items.Item("Tk1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                         errMessage = "두께를 확인하여 주십시오.";
 						throw new Exception();
 					}
@@ -258,7 +258,7 @@ namespace PSH_BOne_AddOn
 				{
 					VALUE_MIN = Rg - Convert.ToDouble(oDS_PS_QM035H.GetValue("U_S_Rg_M", 0).ToString().Trim());
 					VALUE_MAX = Rg + Convert.ToDouble(oDS_PS_QM035H.GetValue("U_S_Rg_P", 0).ToString().Trim());
-					SPEC = Convert.ToDouble(oForm.Items.Item("Rg").Specific.Value.ToString().Trim());
+					SPEC = Convert.ToDouble(oForm.Items.Item("Rg1").Specific.Value.ToString().Trim());
 					if (VALUE_MIN > SPEC || VALUE_MAX < SPEC)
 					{
 						oForm.Items.Item("Rg").Click(SAPbouiCOM.BoCellClickType.ct_Regular);

@@ -59,6 +59,7 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 PS_MM235_CreateItems();
                 PS_MM235_SetDocEntry();
+                PS_MM235_EnableMenus();
                 PS_MM235_FormItemEnabled();
                 PS_MM235_ComboBox_Setting();
             }
@@ -116,8 +117,8 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                dataHelpClass.Combo_ValidValues_Insert("PS_MM235", "OKYNC", "", "N", "재고이동");
-                dataHelpClass.Combo_ValidValues_Insert("PS_MM235", "OKYNC", "", "C", "이동취소");
+                dataHelpClass.Combo_ValidValues_Insert("PS_MM235", "OKYNC", "", "N", "승인대기");
+                dataHelpClass.Combo_ValidValues_Insert("PS_MM235", "OKYNC", "", "C", "승인취소");
                 dataHelpClass.Combo_ValidValues_Insert("PS_MM235", "OKYNC", "", "Y", "승인");
                 dataHelpClass.Combo_ValidValues_SetValueItem(oForm.Items.Item("OKYNC").Specific, "PS_MM235", "OKYNC", false);
                 oForm.Items.Item("OKYNC").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
@@ -127,6 +128,23 @@ namespace PSH_BOne_AddOn
                 PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
             }
         }
+        /// <summary>
+        /// EnableMenus
+        /// </summary>
+        private void PS_MM235_EnableMenus()
+        {
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
+            try
+            {
+                dataHelpClass.SetEnableMenus(oForm, false, false, true, true, false, true, true, true, true, false, false, false, false, false, false, false);
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+            }
+        }
+
 
         /// <summary>
         /// PS_MM235_SetDocEntry
@@ -347,7 +365,9 @@ namespace PSH_BOne_AddOn
             int i;
             int RetVal;
             int LineNumCount;
+            string sQry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             SAPbobsCOM.Documents oDIObject = null;
             SAPbouiCOM.ProgressBar ProgBar01 = null;
             try
@@ -362,6 +382,19 @@ namespace PSH_BOne_AddOn
                     errCode = "2";
                     throw new Exception();
                 }
+                //재무관리 마스터관리 결산마감관리에서 조건도 확인요청
+                sQry = "SELECT Closed From Z_PS_CO001_01 WHERE BPLID = '" + oForm.Items.Item("BPLID").Specific.Value.ToString().Trim() + "' AND StdYear = '" + DateTime.Now.ToString("yyyy") + "'";
+                sQry += " AND StdMonth ='" + DateTime.Now.ToString("MM") + "'";
+                oRecordSet.DoQuery(sQry);
+
+                //현재월의 전기기간 체크 후 잠겨있으면 DI API 미실행
+                if (oRecordSet.Fields.Item("Closed").Value.ToString().Trim() == "02")
+                {
+                    errCode = "2";
+                    throw new Exception();
+                }
+
+
 
                 LineNumCount = 0;
                 oDIObject = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenExit);

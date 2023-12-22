@@ -966,6 +966,14 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
+                else if (string.IsNullOrEmpty(oForm.Items.Item("DocDate").Specific.Value))
+                {
+                    errMessage = "전기일자가 입력되지 않았습니다.";
+                    errCode = "3";
+                    oForm.Items.Item("BoxNo").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    throw new Exception();
+                }
+
                 oMat01.FlushToDataSource();
 
                 //0. 연결
@@ -1123,7 +1131,7 @@ namespace PSH_BOne_AddOn
                                 sQry1 += "'" + Code + "',";
                                 sQry1 += "'N',";
                                 sQry1 += "'PS_QM035',";
-                                sQry1 += "UserSign,";
+                                sQry1 += "'" + PSH_Globals.oCompany.UserSignature + "',";
                                 sQry1 += "'N',";
                                 sQry1 += "'" + DateTime.Now.ToString("yyyyMMdd") + "',";
                                 sQry1 += "'I',";
@@ -1171,8 +1179,8 @@ namespace PSH_BOne_AddOn
                                     oRecordSet02.DoQuery(sQry1);
                                     break;
                                 case ("SE02"): //Burr
-                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Br = '" + (Convert.ToInt32(I2_ZMAXR) * 0.01).ToString("P2") + ", U_Br ='" + (Convert.ToInt32(I2_ZINSRST) * 0.01).ToString("P2") + "',";
-                                    sQry1 += " U_Br2 = '" + (Convert.ToInt32(I2_ZINSRST2) * 0.01).ToString("P2") + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Br = '" + (Convert.ToDouble(I2_ZMAXR) * 0.01) + "', U_Br ='" + (Convert.ToDouble(I2_ZINSRST) * 0.01) + "',";
+                                    sQry1 += " U_Br2 = '" + (Convert.ToDouble(I2_ZINSRST2) * 0.01) + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
                                     oRecordSet02.DoQuery(sQry1);
                                     break;
                                 case ("SE03"): //조도
@@ -1185,9 +1193,9 @@ namespace PSH_BOne_AddOn
                                     break;
                             }
                         }
+                        //검사성적서_E
                     }
                 }
-                //검사성적서_E
                 else
                 {
                     errCode = "3";
@@ -1308,6 +1316,14 @@ namespace PSH_BOne_AddOn
                     errMessage = "출하 계획번호는 10자리 입니다. 확인하여 주십시오.";
                     errCode = "3";
                     oForm.Items.Item("SPNUM").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    throw new Exception();
+                }
+
+                else if (string.IsNullOrEmpty(oForm.Items.Item("DocDate").Specific.Value))
+                {
+                    errMessage = "전기일자가 입력되지 않았습니다.";
+                    errCode = "3";
+                    oForm.Items.Item("BoxNo").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
                     throw new Exception();
                 }
 
@@ -1466,7 +1482,7 @@ namespace PSH_BOne_AddOn
                                 sQry1 += "'" + Code + "',";
                                 sQry1 += "'N',";
                                 sQry1 += "'PS_QM035',";
-                                sQry1 += "UserSign,";
+                                sQry1 += "'" + PSH_Globals.oCompany.UserSignature +"',";
                                 sQry1 += "'N',";
                                 sQry1 += "'" + DateTime.Now.ToString("yyyyMMdd") + "',";
                                 sQry1 += "'I',";
@@ -1514,8 +1530,8 @@ namespace PSH_BOne_AddOn
                                     oRecordSet02.DoQuery(sQry1);
                                     break;
                                 case ("SE02"): //Burr
-                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Br = '" + (Convert.ToInt32(I2_ZMAXR) * 0.01).ToString("P2") + ", U_Br ='" + (Convert.ToInt32(I2_ZINSRST) * 0.01).ToString("P2") + "',";
-                                    sQry1 += " U_Br2 = '" + (Convert.ToInt32(I2_ZINSRST2) * 0.01).ToString("P2") + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Br = '" + (Convert.ToDouble(I2_ZMAXR) * 0.01) + "', U_Br ='" + (Convert.ToDouble(I2_ZINSRST) * 0.01) + "',";
+                                    sQry1 += " U_Br2 = '" + (Convert.ToDouble(I2_ZINSRST2) * 0.01) + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
                                     oRecordSet02.DoQuery(sQry1);
                                     break;
                                 case ("SE03"): //조도

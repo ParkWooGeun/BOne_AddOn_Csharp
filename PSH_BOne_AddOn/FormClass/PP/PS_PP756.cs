@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace PSH_BOne_AddOn
 {
     /// <summary>
-    /// 입고(배치번호관리품목)
+    /// Lot수율본사전송
     /// </summary>
     internal class PS_PP756 : PSH_BaseClass
     {
@@ -222,7 +222,7 @@ namespace PSH_BOne_AddOn
 
                 ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
-                sQry = "EXEC PS_PP756_01 '" + Param01  + "'";
+                sQry = "EXEC PS_PP756_02 '" + Param01  + "'";
                 oRecordSet.DoQuery(sQry);
 
                 oMat01.Clear();
@@ -403,7 +403,7 @@ namespace PSH_BOne_AddOn
                 IRfcTable oTable = oFunction.GetTable("IT_60601");
                 oTable.Insert();
 
-                for (int i = 0; i < oMat01.VisualRowCount - 1; i++)
+                for (int i = 0; i <= oMat01.VisualRowCount - 1; i++)
                 {
                     oTable.SetValue("ZLOTCOIL", oDS_PS_PP756L.GetValue("U_BatchNum", i).ToString().Trim()); //온산LOTNo
                     oTable.SetValue("ZBOXNO", oDS_PS_PP756L.GetValue("U_BoxNo", i).ToString().Trim()); //BoxNo
@@ -423,13 +423,13 @@ namespace PSH_BOne_AddOn
                     oTable.SetValue("ZMDATE", oDS_PS_PP756L.GetValue("U_NDocDate", i).ToString().Trim()); //불량일자
                     oTable.Append();
                     
-                    if (oMat01.VisualRowCount == i + 2) //마지막에 실행
+                    if (oMat01.VisualRowCount == i + 1) //마지막에 실행
                     {
                         errCode = "2"; //SAP Function 실행 오류가 발생했을 때 에러코드로 처리하기 위해 이 위치에서 "2"를 대입
                         oFunction.Invoke(rfcDest); //Function 실행
                     }
 
-                        if (oFunction.GetValue("E_MESSAGE").ToString().Trim() != "" && codeHelpClass.Left(oFunction.GetValue("E_MESSAGE").ToString().Trim(), 1) != "S") //리턴 메시지가 "S(성공)"이 아니면
+                    if (oFunction.GetValue("E_MESSAGE").ToString().Trim() != "" && codeHelpClass.Left(oFunction.GetValue("E_MESSAGE").ToString().Trim(), 1) != "S") //리턴 메시지가 "S(성공)"이 아니면
                     {
                         errCode = "3";
                         errMessage = oFunction.GetValue("E_MESSAGE").ToString();

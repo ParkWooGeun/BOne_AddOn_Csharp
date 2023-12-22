@@ -197,6 +197,11 @@ namespace PSH_BOne_AddOn
 					WinTitle = "[PS_PP655_02] 타입별 집계 대장";
 					ReportName = "PS_PP655_02.RPT";
 				}
+				else if (oForm.Items.Item("Rad04").Specific.Selected == true)
+				{
+					WinTitle = "[PS_PP655_03] Lot수율현황";
+					ReportName = "PS_PP655_03.RPT";
+				}
 
 				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
 				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
@@ -206,7 +211,7 @@ namespace PSH_BOne_AddOn
 				dataPackFormula.Add(new PSH_DataPackClass("@DueDateTo", DueDateTo.Substring(0, 4) + "-" + DueDateTo.Substring(4, 2) + "-" + DueDateTo.Substring(6, 2)));
 
 				// Parameter
-				if (oForm.Items.Item("Rad03").Specific.Selected == true)
+				if (oForm.Items.Item("Rad03").Specific.Selected == true || oForm.Items.Item("Rad04").Specific.Selected == true)
 				{
 					dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLId));
 					dataPackParameter.Add(new PSH_DataPackClass("@DueDateFr", DueDateFr));

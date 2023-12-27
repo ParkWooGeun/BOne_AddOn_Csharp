@@ -88,10 +88,12 @@ namespace PSH_BOne_AddOn
 				oForm.DataSources.UserDataSources.Add("Rad01", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
 				oForm.DataSources.UserDataSources.Add("Rad02", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
 				oForm.DataSources.UserDataSources.Add("Rad03", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
+				oForm.DataSources.UserDataSources.Add("Rad04", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
 
 				oForm.Items.Item("Rad01").Specific.DataBind.SetBound(true, "", "Rad01");
 				oForm.Items.Item("Rad02").Specific.DataBind.SetBound(true, "", "Rad02");
 				oForm.Items.Item("Rad03").Specific.DataBind.SetBound(true, "", "Rad03");
+				oForm.Items.Item("Rad04").Specific.DataBind.SetBound(true, "", "Rad04");
 
 				oForm.Items.Item("Rad01").Specific.ValOn = "10";
 				oForm.Items.Item("Rad01").Specific.ValOff = "0";
@@ -104,6 +106,10 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("Rad03").Specific.ValOn = "30";
 				oForm.Items.Item("Rad03").Specific.ValOff = "0";
 				oForm.Items.Item("Rad03").Specific.GroupWith("Rad01");
+
+				oForm.Items.Item("Rad04").Specific.ValOn = "40";
+				oForm.Items.Item("Rad04").Specific.ValOff = "0";
+				oForm.Items.Item("Rad04").Specific.GroupWith("Rad01");
 			}
 			catch (Exception ex)
 			{

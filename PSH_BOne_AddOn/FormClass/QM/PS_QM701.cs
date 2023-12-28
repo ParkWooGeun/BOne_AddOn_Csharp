@@ -1307,6 +1307,14 @@ namespace PSH_BOne_AddOn
                             BubbleEvent = false;
                         }
                     }
+                    else if (pVal.ItemUID == "WorkNum")
+                    {
+                        if (string.IsNullOrEmpty(oForm.Items.Item("WorkNum").Specific.Value))
+                        {
+                            PSH_Globals.SBO_Application.ActivateMenuItem("7425");
+                            BubbleEvent = false;
+                        }
+                    }
                     else if (pVal.ItemUID == "InCpCode")
                     {
                         if (string.IsNullOrEmpty(oForm.Items.Item("InCpCode").Specific.Value))

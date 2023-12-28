@@ -247,15 +247,15 @@ namespace PSH_BOne_AddOn
 
 					oGrid.Columns.Item(9).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125));  //수주일, 노랑
 					oGrid.Columns.Item(10).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125)); //요청일, 노랑
-					oGrid.Columns.Item(12).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125)); //견적일, 노랑
-					oGrid.Columns.Item(14).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(0, 210, 255));   //차이(요청-견적), 하늘
-					oGrid.Columns.Item(15).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125)); //품의일, 노랑
-					oGrid.Columns.Item(18).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(0, 210, 255));   //차이(견적-품의), 하늘
-					oGrid.Columns.Item(19).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125)); //가입고일, 노랑
-					oGrid.Columns.Item(20).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(0, 210, 255));   //차이(품의-가입고), 하늘
-					oGrid.Columns.Item(21).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125)); //검수입고일, 노랑
-					oGrid.Columns.Item(22).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(0, 210, 255));   //차이(가입고-검수), 하늘
-					oGrid.Columns.Item(23).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 167, 167)); //총소요일, 빨강
+					oGrid.Columns.Item(13).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125)); //견적일, 노랑
+					oGrid.Columns.Item(15).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(0, 210, 255));   //차이(요청-견적), 하늘
+					oGrid.Columns.Item(16).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125)); //품의일, 노랑
+					oGrid.Columns.Item(19).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(0, 210, 255));   //차이(견적-품의), 하늘
+					oGrid.Columns.Item(20).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125)); //가입고일, 노랑
+					oGrid.Columns.Item(21).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(0, 210, 255));   //차이(품의-가입고), 하늘
+					oGrid.Columns.Item(22).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125)); //검수입고일, 노랑
+					oGrid.Columns.Item(23).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(0, 210, 255));   //차이(가입고-검수), 하늘
+					oGrid.Columns.Item(24).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 167, 167)); //총소요일, 빨강
 				}
 				else if (Purchase == "20") //부자재품의
 				{
@@ -268,15 +268,15 @@ namespace PSH_BOne_AddOn
 					oGrid.Columns.Item(17).RightJustified = true;
 
 					oGrid.Columns.Item(4).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125));  //요청일, 노랑
-					oGrid.Columns.Item(6).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125));  //견적일, 노랑
-					oGrid.Columns.Item(8).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(0, 210, 255));	   //차이(요청-견적), 하늘
-					oGrid.Columns.Item(9).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125));  //품의일, 노랑
-					oGrid.Columns.Item(12).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(0, 210, 255));   //차이(견적-품의), 하늘
-					oGrid.Columns.Item(13).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125)); //가입고일, 노랑
-					oGrid.Columns.Item(14).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(0, 210, 255));   //차이(품의-가입고), 하늘
-					oGrid.Columns.Item(15).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125)); //검수입고일, 노랑
-					oGrid.Columns.Item(16).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(0, 210, 255));   //차이(가입고-검수), 하늘
-					oGrid.Columns.Item(17).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 167, 167)); //총소요일, 빨강
+					oGrid.Columns.Item(7).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125));  //견적일, 노랑
+					oGrid.Columns.Item(9).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(0, 210, 255));	   //차이(요청-견적), 하늘
+					oGrid.Columns.Item(10).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125));  //품의일, 노랑
+					oGrid.Columns.Item(13).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(0, 210, 255));   //차이(견적-품의), 하늘
+					oGrid.Columns.Item(14).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125)); //가입고일, 노랑
+					oGrid.Columns.Item(15).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(0, 210, 255));   //차이(품의-가입고), 하늘
+					oGrid.Columns.Item(16).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125)); //검수입고일, 노랑
+					oGrid.Columns.Item(17).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(0, 210, 255));   //차이(가입고-검수), 하늘
+					oGrid.Columns.Item(18).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 167, 167)); //총소요일, 빨강
 				}
 				else if (Purchase == "30") //가공비품의
 				{
@@ -287,12 +287,12 @@ namespace PSH_BOne_AddOn
 					oGrid.Columns.Item(15).RightJustified = true;
 
 					oGrid.Columns.Item(9).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125));  //수주일, 노랑
-					oGrid.Columns.Item(10).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125)); //품의일, 노랑
-					oGrid.Columns.Item(11).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125)); //가입고일, 노랑
-					oGrid.Columns.Item(12).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(0, 210, 255));   //차이(품의-가입고), 하늘
-					oGrid.Columns.Item(13).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125)); //검수입고일, 노랑
-					oGrid.Columns.Item(14).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(0, 210, 255));   //차이(가입고-품의), 하늘
-					oGrid.Columns.Item(15).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 167, 167)); //총소요일, 빨강
+					oGrid.Columns.Item(12).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125)); //품의일, 노랑
+					oGrid.Columns.Item(13).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125)); //가입고일, 노랑
+					oGrid.Columns.Item(14).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(0, 210, 255));   //차이(품의-가입고), 하늘
+					oGrid.Columns.Item(15).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125)); //검수입고일, 노랑
+					oGrid.Columns.Item(16).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(0, 210, 255));   //차이(가입고-품의), 하늘
+					oGrid.Columns.Item(17).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 167, 167)); //총소요일, 빨강
 				}
 				else if (Purchase == "40") //외주제작품의
 				{
@@ -303,12 +303,12 @@ namespace PSH_BOne_AddOn
 					oGrid.Columns.Item(14).RightJustified = true;
 
 					oGrid.Columns.Item(8).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125));  //수주일, 노랑
-					oGrid.Columns.Item(9).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125));  //품의일, 노랑
-					oGrid.Columns.Item(10).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125)); //가입고일, 노랑
-					oGrid.Columns.Item(11).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(0, 210, 255));   //차이(품의-가입고), 하늘
-					oGrid.Columns.Item(12).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125)); //검수입고일, 노랑
-					oGrid.Columns.Item(13).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(0, 210, 255));   //차이(가입고-품의), 하늘
-					oGrid.Columns.Item(14).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 167, 167)); //총소요일, 빨강
+					oGrid.Columns.Item(11).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125));  //품의일, 노랑
+					oGrid.Columns.Item(12).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125)); //가입고일, 노랑
+					oGrid.Columns.Item(13).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(0, 210, 255));   //차이(품의-가입고), 하늘
+					oGrid.Columns.Item(14).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 255, 125)); //검수입고일, 노랑
+					oGrid.Columns.Item(15).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(0, 210, 255));   //차이(가입고-품의), 하늘
+					oGrid.Columns.Item(16).BackColor = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(255, 167, 167)); //총소요일, 빨강
 				}
 
 				if (oGrid.Rows.Count == 0)

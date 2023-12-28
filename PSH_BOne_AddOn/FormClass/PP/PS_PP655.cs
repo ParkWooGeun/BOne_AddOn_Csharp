@@ -88,10 +88,14 @@ namespace PSH_BOne_AddOn
 				oForm.DataSources.UserDataSources.Add("Rad01", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
 				oForm.DataSources.UserDataSources.Add("Rad02", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
 				oForm.DataSources.UserDataSources.Add("Rad03", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
+				oForm.DataSources.UserDataSources.Add("Rad04", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
+				oForm.DataSources.UserDataSources.Add("Rad05", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 100);
 
 				oForm.Items.Item("Rad01").Specific.DataBind.SetBound(true, "", "Rad01");
 				oForm.Items.Item("Rad02").Specific.DataBind.SetBound(true, "", "Rad02");
 				oForm.Items.Item("Rad03").Specific.DataBind.SetBound(true, "", "Rad03");
+				oForm.Items.Item("Rad04").Specific.DataBind.SetBound(true, "", "Rad04");
+				oForm.Items.Item("Rad05").Specific.DataBind.SetBound(true, "", "Rad05");
 
 				oForm.Items.Item("Rad01").Specific.ValOn = "10";
 				oForm.Items.Item("Rad01").Specific.ValOff = "0";
@@ -104,6 +108,14 @@ namespace PSH_BOne_AddOn
 				oForm.Items.Item("Rad03").Specific.ValOn = "30";
 				oForm.Items.Item("Rad03").Specific.ValOff = "0";
 				oForm.Items.Item("Rad03").Specific.GroupWith("Rad01");
+
+				oForm.Items.Item("Rad04").Specific.ValOn = "40";
+				oForm.Items.Item("Rad04").Specific.ValOff = "0";
+				oForm.Items.Item("Rad04").Specific.GroupWith("Rad01");
+
+				oForm.Items.Item("Rad05").Specific.ValOn = "50";
+				oForm.Items.Item("Rad05").Specific.ValOff = "0";
+				oForm.Items.Item("Rad05").Specific.GroupWith("Rad01");
 			}
 			catch (Exception ex)
 			{
@@ -173,6 +185,7 @@ namespace PSH_BOne_AddOn
 			string DueDateFr;
 			string DueDateTo;
 			string Gubun;
+			string Div = string.Empty;
 			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 
 			try
@@ -197,8 +210,21 @@ namespace PSH_BOne_AddOn
 					WinTitle = "[PS_PP655_02] 타입별 집계 대장";
 					ReportName = "PS_PP655_02.RPT";
 				}
+				else if (oForm.Items.Item("Rad04").Specific.Selected == true)
+				{
+					WinTitle = "[PS_PP655_03] 온산LOT기준 수율현황";
+					ReportName = "PS_PP655_03.RPT";
+					Div = "1";
+				}
 
-				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
+				else if (oForm.Items.Item("Rad05").Specific.Selected == true)
+				{
+					WinTitle = "[PS_PP655_03] 창원제품기준 수율현황";
+					ReportName = "PS_PP655_03.RPT";
+                    Div = "2";
+                }
+
+                List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
 				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
 
 				// Formula 수식필드
@@ -206,11 +232,15 @@ namespace PSH_BOne_AddOn
 				dataPackFormula.Add(new PSH_DataPackClass("@DueDateTo", DueDateTo.Substring(0, 4) + "-" + DueDateTo.Substring(4, 2) + "-" + DueDateTo.Substring(6, 2)));
 
 				// Parameter
-				if (oForm.Items.Item("Rad03").Specific.Selected == true)
+				if (oForm.Items.Item("Rad03").Specific.Selected == true || oForm.Items.Item("Rad04").Specific.Selected == true || oForm.Items.Item("Rad05").Specific.Selected == true)
 				{
 					dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLId));
 					dataPackParameter.Add(new PSH_DataPackClass("@DueDateFr", DueDateFr));
 					dataPackParameter.Add(new PSH_DataPackClass("@DueDateTo", DueDateTo));
+					if(!string.IsNullOrEmpty(Div))
+                    {
+						dataPackParameter.Add(new PSH_DataPackClass("@Div", Div));
+					}
 				}
 				else
 				{

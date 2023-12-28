@@ -897,8 +897,10 @@ namespace PSH_BOne_AddOn
         /// </summary>
         private void PS_MM180_LoadBOXNoFromR3()
         {
+            string LotNo = string.Empty;
             string E_MESSAGE;
             string sQry;
+            string sQry1;
             string I_ZLOTNO;
             string I_ZPROWE;
             string I_ZBOXNO;
@@ -918,6 +920,17 @@ namespace PSH_BOne_AddOn
             string I_KUNNR;
             string I_NAME2;
             string I_RDATE;
+            string I2_MATNR;
+            string I2_ZLOTNO;
+            string I2_ZINSPIT;
+            string I2_ZINSRST;
+            string I2_ZINSRST2;
+            string I2_ZINSPNM;
+            string I2_ZLENGNM;
+            string I2_ZMEINNM;
+            string I2_ZMINR;
+            string I2_ZMAXR;
+            string I2_ZRMDCF;
             string errMessage = string.Empty;
             string errCode = string.Empty;
             string Client; //클라이언트(운영용:210, 테스트용:810)
@@ -926,6 +939,7 @@ namespace PSH_BOne_AddOn
             RfcDestination rfcDest = null;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset oRecordSet02 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             SAPbouiCOM.ProgressBar ProgBar01 = null;
 
             try
@@ -952,6 +966,14 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
+                else if (string.IsNullOrEmpty(oForm.Items.Item("DocDate").Specific.Value))
+                {
+                    errMessage = "전기일자가 입력되지 않았습니다.";
+                    errCode = "3";
+                    oForm.Items.Item("BoxNo").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    throw new Exception();
+                }
+
                 oMat01.FlushToDataSource();
 
                 //0. 연결
@@ -971,11 +993,14 @@ namespace PSH_BOne_AddOn
                 oFunction.Invoke(rfcDest); //Function 실행
 
                 IRfcTable oTable = oFunction.GetTable("ITAB");
+                
+                IRfcTable oTable1 = oFunction.GetTable("IT_10702");
 
                 E_MESSAGE = oFunction.GetValue("E_MESSAGE").ToString();
 
                 if (string.IsNullOrEmpty(E_MESSAGE)) //에러메시지가 없으면
                 {
+                    //원소재입고_S
                     foreach (IRfcStructure row in oTable)
                     {
                         MatrixRow = oMat01.VisualRowCount;
@@ -999,6 +1024,8 @@ namespace PSH_BOne_AddOn
                         I_KUNNR = row.GetValue("KUNNR").ToString();
                         I_NAME2 = row.GetValue("NAME2").ToString();
                         I_RDATE = row.GetValue("RDATE").ToString();
+
+
 
                         sQry = "Select b.U_ItemCode from [@PS_PP011H] a inner join [@PS_PP011L] b on a.Code = b.Code and a.Code ='12522' where b.U_PsCode ='" + I_ZMATNR + "'";
                         oRecordSet01.DoQuery(sQry);
@@ -1041,6 +1068,132 @@ namespace PSH_BOne_AddOn
 
                         PS_MM180_AddMatrixRow(MatrixRow, false);
                         MatrixRow += 1;
+                    }
+                    //원소재입고_E
+                    //검사성적서_S (자동으로 PS_QM035H에 INSERT)
+                    string ELotNo = string.Empty;
+                    foreach (IRfcStructure row in oTable1)
+                    {
+                        I2_MATNR = row.GetValue("MATNR").ToString();
+                        I2_ZLOTNO = row.GetValue("ZLOTNO").ToString();
+                        I2_ZINSPIT = row.GetValue("ZINSPIT").ToString();
+                        I2_ZINSRST = row.GetValue("ZINSRST").ToString();
+                        I2_ZINSRST2 = row.GetValue("ZINSRST2").ToString();
+                        I2_ZINSPNM = row.GetValue("ZINSPNM").ToString();
+                        I2_ZLENGNM = row.GetValue("ZLENGNM").ToString();
+                        I2_ZMEINNM = row.GetValue("ZMEINNM").ToString();
+                        I2_ZMINR = row.GetValue("ZMINR").ToString();
+                        I2_ZMAXR = row.GetValue("ZMAXR").ToString();
+                        I2_ZRMDCF = row.GetValue("ZRMDCF").ToString();
+
+                        if (LotNo != I2_ZLOTNO) //같은 LotNo인지 비교
+                        {
+                            LotNo = I2_ZLOTNO;
+
+                            sQry = "SELECT COUNT(*) FROM [@PS_QM035H] WHERE U_LotNo = '" + I2_ZLOTNO + "'";
+                            oRecordSet01.DoQuery(sQry);
+
+                            if (Convert.ToDouble(oRecordSet01.Fields.Item(0).Value.ToString().Trim()) > 0)
+                            {
+                            } //원소재수입검사자료등록이 되어 있으면 넘기고
+                            else //원소재수입검사자료등록이 되어 있지않으면 신규등록
+                            {
+                                sQry = "Select b.U_ItemCode,b.U_ItemName from [@PS_PP011H] a inner join [@PS_PP011L] b on a.Code = b.Code and a.Code ='12522' where b.U_PsCode ='" + I2_MATNR + "'";
+                                oRecordSet01.DoQuery(sQry);
+
+                                if (oRecordSet01.Fields.Count == 0)
+                                {
+                                    errMessage = I2_MATNR + "원소재를 11.거래처제품(연결)코드등록에 입력하세요";
+                                    throw new Exception();
+                                }
+                                string Code = dataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PS_QM035'", "");
+
+                                //insert  최초문서등록
+                                sQry1 = " INSERT INTO [@PS_QM035H]";
+                                sQry1 += " (";
+                                sQry1 += " Code,";
+                                sQry1 += " DocEntry,";
+                                sQry1 += " Canceled,";
+                                sQry1 += " Object,";
+                                sQry1 += " UserSign,";
+                                sQry1 += " Transfered,";
+                                sQry1 += " CreateDate,";
+                                sQry1 += " DataSource,";
+                                sQry1 += " U_LotNo,";
+                                sQry1 += " U_InDate,";
+                                sQry1 += " U_ItemCode,";
+                                sQry1 += " U_ItemName,";
+                                sQry1 += " U_S_Et,";
+                                sQry1 += " U_Et";
+                                sQry1 += " ) ";
+                                sQry1 += "VALUES(";
+                                sQry1 += "'" + Code + "',";
+                                sQry1 += "'" + Code + "',";
+                                sQry1 += "'N',";
+                                sQry1 += "'PS_QM035',";
+                                sQry1 += "'" + PSH_Globals.oCompany.UserSignature + "',";
+                                sQry1 += "'N',";
+                                sQry1 += "'" + DateTime.Now.ToString("yyyyMMdd") + "',";
+                                sQry1 += "'I',";
+                                sQry1 += "'" + I2_ZLOTNO + "',";
+                                sQry1 += "'" + oForm.Items.Item("DocDate").Specific.Value + "',";
+                                sQry1 += "'" + oRecordSet01.Fields.Item("U_ItemCode").Value.ToString().Trim() + "',";
+                                sQry1 += "'" + oRecordSet01.Fields.Item("U_ItemName").Value.ToString().Trim() + "',";
+                                sQry1 += "'양호',";
+                                sQry1 += "'이상없음'";
+                                sQry1 += ")";
+                                oRecordSet02.DoQuery(sQry1);
+                            }
+
+                        }
+                        else
+                        {
+                            switch (I2_ZINSPIT)
+                            {
+                                case ("SB01"): //인장강도
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Ts_S = '" + I2_ZMINR + "', U_S_Ts_E ='" + I2_ZMAXR + "',  U_Ts ='" + I2_ZINSRST + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
+                                    oRecordSet02.DoQuery(sQry1);
+                                    break;
+                                case ("SB03"): //연신율
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_El = '" + I2_ZMINR + "', U_El ='" + I2_ZINSRST + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
+                                    oRecordSet02.DoQuery(sQry1);
+                                    break;
+                                case ("SB04"): //경도
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Hd = '" + I2_ZMAXR + "', U_Hd ='" + I2_ZINSRST + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
+                                    oRecordSet02.DoQuery(sQry1);
+                                    break;
+                                case ("SC01"): //두께
+                                    double Amin = Convert.ToDouble(I2_ZMINR);
+                                    double AMAX = Convert.ToDouble(I2_ZMAXR);
+                                    double AMID = (AMAX + Amin) / 2;
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Tk_P = '" + (AMAX - AMID) + "', U_S_Tk_M ='" + (AMID - Amin) + "', U_Rg ='" + AMID + "',";
+                                    sQry1 += " U_Rg1 ='" + I2_ZINSRST + "', U_Rg2 = '" + I2_ZINSRST2 + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
+                                    oRecordSet02.DoQuery(sQry1);
+                                    break;
+                                case ("SC02"): //폭
+                                    double Bmin = Convert.ToDouble(I2_ZMINR);
+                                    double BMAX = Convert.ToDouble(I2_ZMAXR);
+                                    double BMID = (BMAX + Bmin) / 2;
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Rg_P = '" + (BMAX - BMID) + "', U_S_Rg_M ='" + (BMID - Bmin) + "', U_Tk ='" + BMID + "',";
+                                    sQry1 += " U_Tk1 ='" + I2_ZINSRST + "', U_Tk2 = '" + I2_ZINSRST2 + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
+                                    oRecordSet02.DoQuery(sQry1);
+                                    break;
+                                case ("SE02"): //Burr
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Br = '" + (Convert.ToDouble(I2_ZMAXR) * 0.01) + "', U_Br ='" + (Convert.ToDouble(I2_ZINSRST) * 0.01) + "',";
+                                    sQry1 += " U_Br2 = '" + (Convert.ToDouble(I2_ZINSRST2) * 0.01) + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
+                                    oRecordSet02.DoQuery(sQry1);
+                                    break;
+                                case ("SE03"): //조도
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Lm = '" + I2_ZMAXR + "', U_Lm ='" + I2_ZINSRST + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
+                                    oRecordSet02.DoQuery(sQry1);
+                                    break;
+                                case ("SZ92"): //입고중량
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_InWgt = '" + I2_ZINSRST + "' where U_LotNo = '" + I2_ZLOTNO + "'";
+                                    oRecordSet02.DoQuery(sQry1);
+                                    break;
+                            }
+                        }
+                        //검사성적서_E
                     }
                 }
                 else
@@ -1092,6 +1245,7 @@ namespace PSH_BOne_AddOn
         {
             string E_MESSAGE;
             string sQry;
+            string sQry1;
             string I_ZSPNUM;
             string I_ZLOTNO;
             string I_ZPROWE;
@@ -1112,6 +1266,17 @@ namespace PSH_BOne_AddOn
             string I_KUNNR;
             string I_NAME2;
             string I_RDATE;
+            string I2_MATNR;
+            string I2_ZLOTNO;
+            string I2_ZINSPIT;
+            string I2_ZINSRST;
+            string I2_ZINSRST2;
+            string I2_ZINSPNM;
+            string I2_ZLENGNM;
+            string I2_ZMEINNM;
+            string I2_ZMINR;
+            string I2_ZMAXR;
+            string I2_ZRMDCF;
             string errMessage = string.Empty;
             string errCode = string.Empty;
             string Client; //클라이언트(운영용:210, 테스트용:810)
@@ -1121,7 +1286,7 @@ namespace PSH_BOne_AddOn
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbouiCOM.ProgressBar ProgBar01 = null;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-
+            SAPbobsCOM.Recordset oRecordSet02 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
                 oForm.Freeze(true);
@@ -1154,6 +1319,14 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
+                else if (string.IsNullOrEmpty(oForm.Items.Item("DocDate").Specific.Value))
+                {
+                    errMessage = "전기일자가 입력되지 않았습니다.";
+                    errCode = "3";
+                    oForm.Items.Item("BoxNo").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                    throw new Exception();
+                }
+
                 oMat01.FlushToDataSource();
 
                 //0. 연결
@@ -1173,6 +1346,7 @@ namespace PSH_BOne_AddOn
                 oFunction.Invoke(rfcDest); //Function 실행
 
                 IRfcTable oTable = oFunction.GetTable("ITAB");
+                IRfcTable oTable1 = oFunction.GetTable("IT_10702");
 
                 E_MESSAGE = oFunction.GetValue("E_MESSAGE").ToString();
 
@@ -1244,6 +1418,133 @@ namespace PSH_BOne_AddOn
 
                         PS_MM180_AddMatrixRow(MatrixRow, false);
                         MatrixRow += 1;
+
+                    }
+                    //원소재입고_E
+                    //검사성적서_S (자동으로 PS_QM035H에 INSERT)
+                    string LotNo = string.Empty;
+                    foreach (IRfcStructure row in oTable1)
+                    {
+                        I2_MATNR = row.GetValue("MATNR").ToString();
+                        I2_ZLOTNO = row.GetValue("ZLOTNO").ToString();
+                        I2_ZINSPIT = row.GetValue("ZINSPIT").ToString();
+                        I2_ZINSRST = row.GetValue("ZINSRST").ToString();
+                        I2_ZINSRST2 = row.GetValue("ZINSRST2").ToString();
+                        I2_ZINSPNM = row.GetValue("ZINSPNM").ToString();
+                        I2_ZLENGNM = row.GetValue("ZLENGNM").ToString();
+                        I2_ZMEINNM = row.GetValue("ZMEINNM").ToString();
+                        I2_ZMINR = row.GetValue("ZMINR").ToString();
+                        I2_ZMAXR = row.GetValue("ZMAXR").ToString();
+                        I2_ZRMDCF = row.GetValue("ZRMDCF").ToString();
+
+                        if (LotNo != I2_ZLOTNO) //같은 LotNo인지 비교
+                        {
+                            LotNo = I2_ZLOTNO;
+
+                            sQry = "SELECT COUNT(*) FROM [@PS_QM035H] WHERE U_LotNo = '" + I2_ZLOTNO + "'";
+                            oRecordSet01.DoQuery(sQry);
+
+                            if (Convert.ToDouble(oRecordSet01.Fields.Item(0).Value.ToString().Trim()) > 0)
+                            {
+                            } //원소재수입검사자료등록이 되어 있으면 넘기고
+                            else //원소재수입검사자료등록이 되어 있지않으면 신규등록
+                            {
+                                sQry = "Select b.U_ItemCode,b.U_ItemName from [@PS_PP011H] a inner join [@PS_PP011L] b on a.Code = b.Code and a.Code ='12522' where b.U_PsCode ='" + I2_MATNR + "'";
+                                oRecordSet01.DoQuery(sQry);
+
+                                if (oRecordSet01.Fields.Count == 0)
+                                {
+                                    errMessage = I2_MATNR + "원소재를 11.거래처제품(연결)코드등록에 입력하세요";
+                                    throw new Exception();
+                                }
+                                string Code = dataHelpClass.Get_ReData("AutoKey", "ObjectCode", "ONNM", "'PS_QM035'", "");
+
+                                //insert  최초문서등록
+                                sQry1 = " INSERT INTO [@PS_QM035H]";
+                                sQry1 += " (";
+                                sQry1 += " Code,";
+                                sQry1 += " DocEntry,";
+                                sQry1 += " Canceled,";
+                                sQry1 += " Object,";
+                                sQry1 += " UserSign,";
+                                sQry1 += " Transfered,";
+                                sQry1 += " CreateDate,";
+                                sQry1 += " DataSource,";
+                                sQry1 += " U_LotNo,";
+                                sQry1 += " U_InDate,";
+                                sQry1 += " U_ItemCode,";
+                                sQry1 += " U_ItemName,";
+                                sQry1 += " U_S_Et,";
+                                sQry1 += " U_Et";
+                                sQry1 += " ) ";
+                                sQry1 += "VALUES(";
+                                sQry1 += "'" + Code + "',";
+                                sQry1 += "'" + Code + "',";
+                                sQry1 += "'N',";
+                                sQry1 += "'PS_QM035',";
+                                sQry1 += "'" + PSH_Globals.oCompany.UserSignature +"',";
+                                sQry1 += "'N',";
+                                sQry1 += "'" + DateTime.Now.ToString("yyyyMMdd") + "',";
+                                sQry1 += "'I',";
+                                sQry1 += "'" + I2_ZLOTNO + "',";
+                                sQry1 += "'" + oForm.Items.Item("DocDate").Specific.Value + "',";
+                                sQry1 += "'" + oRecordSet01.Fields.Item("U_ItemCode").Value.ToString().Trim() + "',";
+                                sQry1 += "'" + oRecordSet01.Fields.Item("U_ItemName").Value.ToString().Trim() + "',";
+                                sQry1 += "'양호',";
+                                sQry1 += "'이상없음'";
+                                sQry1 += ")";
+                                oRecordSet02.DoQuery(sQry1);
+                            }
+
+                        }
+                        else
+                        {
+                            switch (I2_ZINSPIT)
+                            {
+                                case ("SB01"): //인장강도
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Ts_S = '" + I2_ZMINR + "', U_S_Ts_E ='" + I2_ZMAXR + "',  U_Ts ='" + I2_ZINSRST + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
+                                    oRecordSet02.DoQuery(sQry1);
+                                    break;
+                                case ("SB03"): //연신율
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_El = '" + I2_ZMINR + "', U_El ='" + I2_ZINSRST + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
+                                    oRecordSet02.DoQuery(sQry1);
+                                    break;
+                                case ("SB04"): //경도
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Hd = '" + I2_ZMAXR + "', U_Hd ='" + I2_ZINSRST + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
+                                    oRecordSet02.DoQuery(sQry1);
+                                    break;
+                                case ("SC01"): //두께
+                                    double Amin = Convert.ToDouble(I2_ZMINR);
+                                    double AMAX = Convert.ToDouble(I2_ZMAXR);
+                                    double AMID = (AMAX + Amin) / 2;
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Tk_P = '" + (AMAX - AMID) +"', U_S_Tk_M ='" + (AMID-Amin) + "', U_Rg ='" + AMID + "',";
+                                    sQry1 += " U_Rg1 ='"+ I2_ZINSRST + "', U_Rg2 = '" + I2_ZINSRST2 + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
+                                    oRecordSet02.DoQuery(sQry1);
+                                    break;
+                                case ("SC02"): //폭
+                                    double Bmin = Convert.ToDouble(I2_ZMINR);
+                                    double BMAX = Convert.ToDouble(I2_ZMAXR);
+                                    double BMID = (BMAX + Bmin) / 2;
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Rg_P = '" + (BMAX - BMID) + "', U_S_Rg_M ='" + (BMID - Bmin) + "', U_Tk ='" + BMID + "',";
+                                    sQry1 += " U_Tk1 ='" + I2_ZINSRST + "', U_Tk2 = '" + I2_ZINSRST2 + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
+                                    oRecordSet02.DoQuery(sQry1);
+                                    break;
+                                case ("SE02"): //Burr
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Br = '" + (Convert.ToDouble(I2_ZMAXR) * 0.01) + "', U_Br ='" + (Convert.ToDouble(I2_ZINSRST) * 0.01) + "',";
+                                    sQry1 += " U_Br2 = '" + (Convert.ToDouble(I2_ZINSRST2) * 0.01) + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
+                                    oRecordSet02.DoQuery(sQry1);
+                                    break;
+                                case ("SE03"): //조도
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_S_Lm = '" + I2_ZMAXR + "', U_Lm ='" + I2_ZINSRST + "' WHERE U_LotNo = '" + I2_ZLOTNO + "'";
+                                    oRecordSet02.DoQuery(sQry1);
+                                    break;
+                                case ("SZ92"): //입고중량
+                                    sQry1 = "UPDATE[@PS_QM035H] SET U_InWgt = '" + I2_ZINSRST + "' where U_LotNo = '" + I2_ZLOTNO + "'";
+                                    oRecordSet02.DoQuery(sQry1);
+                                    break;
+                            }
+                        }
+                        //검사성적서_E
                     }
                 }
                 else

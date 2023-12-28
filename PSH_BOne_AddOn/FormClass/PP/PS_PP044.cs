@@ -829,7 +829,7 @@ namespace PSH_BOne_AddOn
                         }
 
                         if ((oMat01.Columns.Item("OrdMgNum").Cells.Item(i).Specific.Value == oMat03.Columns.Item("OrdMgNum").Cells.Item(j).Specific.Value)
-                         && (oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value == oMat03.Columns.Item("OLineNum").Cells.Item(j).Specific.Value))
+                         && (oMat01.Columns.Item("LineId").Cells.Item(i).Specific.Value == oMat03.Columns.Item("LineId").Cells.Item(j).Specific.Value))
                         {
                             FailQty += Convert.ToDouble(oMat03.Columns.Item("FailQty").Cells.Item(j).Specific.Value == "" ? "0" : oMat03.Columns.Item("FailQty").Cells.Item(j).Specific.Value);
                         }
@@ -2816,7 +2816,7 @@ namespace PSH_BOne_AddOn
                                                     oDS_PS_PP044N.SetValue("U_OrdMgNum", oMat03.VisualRowCount -1, RecordSet01.Fields.Item("OrdMgNum").Value);
                                                     oDS_PS_PP044N.SetValue("U_CpCode", oMat03.VisualRowCount - 1, RecordSet01.Fields.Item("CpCode").Value);
                                                     oDS_PS_PP044N.SetValue("U_CpName", oMat03.VisualRowCount - 1, RecordSet01.Fields.Item("CpName").Value);
-                                                    oDS_PS_PP044N.SetValue("U_OLineNum", oMat03.VisualRowCount - 1, Convert.ToString(pVal.Row));
+                                                    oDS_PS_PP044N.SetValue("U_OLineNum", oMat03.VisualRowCount - 1, RecordSet01.Fields.Item("PP030MNo").Value);
 
                                                     if (oForm.Items.Item("OrdType").Specific.Selected.Value == "50" || oForm.Items.Item("OrdType").Specific.Selected.Value == "60")
                                                     {   
@@ -3466,7 +3466,7 @@ namespace PSH_BOne_AddOn
                             for (i = 1; i <= oMat03.RowCount; i++)
                             {
                                 if (oMat01.Columns.Item("OrdMgNum").Cells.Item(oLastColRow01).Specific.Value == oMat03.Columns.Item("OrdMgNum").Cells.Item(i).Specific.Value
-                                 && oMat01.Columns.Item("LineNum").Cells.Item(oLastColRow01).Specific.Value == oMat03.Columns.Item("OLineNum").Cells.Item(i).Specific.Value)
+                                 && oMat01.Columns.Item("LineNum").Cells.Item(oLastColRow01).Specific.Value == oMat03.Columns.Item("LineNum").Cells.Item(i).Specific.Value)
                                 {
                                     oDS_PS_PP044N.RemoveRecord(i - 1);
                                     oMat03.DeleteRow(i);
@@ -3482,17 +3482,21 @@ namespace PSH_BOne_AddOn
                             for (i = 1; i <= oMat01.VisualRowCount; i++)
                             {
                                 oMat01.Columns.Item("LineNum").Cells.Item(i).Specific.Value = i;
-                            }
-
-                            for (i = 1; i <= oMat03.VisualRowCount; i++)
-                            {
-                                int oLineNum = Convert.ToInt16(oMat03.Columns.Item("OLineNum").Cells.Item(i).Specific.Value.ToString().Trim() == "" ? 0 : oMat03.Columns.Item("OLineNum").Cells.Item(i).Specific.Value.ToString().Trim());
-
-                                if (oLineNum != 1 && oMat03.Columns.Item("OLineNum").Cells.Item(i).Specific.Value.ToString().Trim() != "")
+                                if(i < oMat01.VisualRowCount )
                                 {
-                                    oMat03.Columns.Item("OLineNum").Cells.Item(i).Specific.Value = oLineNum - 1;
+                                    oMat03.Columns.Item("OLineNum").Cells.Item(i).Specific.Value = oMat01.Columns.Item("PP030MNo").Cells.Item(i).Specific.Value;
+                                    oMat03.Columns.Item("LineNum").Cells.Item(i).Specific.Value = i;
                                 }
                             }
+
+                            //for (i = 1; i <= oMat03.VisualRowCount; i++)
+                            //{
+                            //    //int oLineNum = Convert.ToInt16(oMat03.Columns.Item("OLineNum").Cells.Item(i).Specific.Value.ToString().Trim() == "" ? 0 : oMat03.Columns.Item("OLineNum").Cells.Item(i).Specific.Value.ToString().Trim());
+                            //    //if (oLineNum != 1 && oMat03.Columns.Item("OLineNum").Cells.Item(i).Specific.Value.ToString().Trim() != "")
+                            //    //{
+                            //    //    oMat03.Columns.Item("OLineNum").Cells.Item(i).Specific.Value = oLineNum - 1;
+                            //    //}
+                            //}
 
                             oMat01.FlushToDataSource();
                             oDS_PS_PP044L.RemoveRecord(oDS_PS_PP044L.Size - 1);

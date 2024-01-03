@@ -211,14 +211,14 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 Param01 = oForm.Items.Item("DocDate").Specific.Value.Trim();
 
-                sQry = "SELECT COUNT(*) FROM [@PS_PP756H] WHERE U_DocDate = '" + Param01 + "'";
-                oRecordSet.DoQuery(sQry);
-                if (Convert.ToDouble(oRecordSet.Fields.Item(0).Value.ToString().Trim()) > 0)
-                {
-                    errMessage = "중복값이 존재합니다.";
-                    oMat01.Clear();
-                    throw new Exception();
-                }
+                //sQry = "SELECT COUNT(*) FROM [@PS_PP756H] WHERE U_DocDate = '" + Param01 + "'";
+                //oRecordSet.DoQuery(sQry);
+                //if (Convert.ToDouble(oRecordSet.Fields.Item(0).Value.ToString().Trim()) > 0)
+                //{
+                //    errMessage = "중복값이 존재합니다.";
+                //    oMat01.Clear();
+                //    throw new Exception();
+                //}
 
                 ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
@@ -392,7 +392,7 @@ namespace PSH_BOne_AddOn
                 ServerIP = dataHelpClass.GetR3ServerInfo()[1];
 
                 //0. 연결
-                if (dataHelpClass.SAPConnection(ref rfcDest, ref rfcRep, "PSC", ServerIP, Client, "ifuser", "pdauser") == false)
+                if (dataHelpClass.SAPConnection(ref rfcDest, ref rfcRep, "PST", ServerIP, Client, "ifuser", "pdauser") == false)
                 {
                     errCode = "1";
                     throw new Exception();
@@ -435,14 +435,8 @@ namespace PSH_BOne_AddOn
                         errMessage = oFunction.GetValue("E_MESSAGE").ToString();
                         throw new Exception();
                     }
-                    else
-                    {
-                        oDS_PS_PP756L.SetValue("U_TransYN", i, "Y");
-                    }
                 }
-                sQry = "Update [@PS_PP756H] set U_ChkYN ='Y' where DocEntry ='" + oDS_PS_PP756H.GetValue("DocEntry", 0).ToString().Trim() + "'";
-                oRecordSet01.DoQuery(sQry);
-                
+                oMat01.FlushToDataSource();
                 oMat01.LoadFromDataSource();
                 PSH_Globals.SBO_Application.MessageBox("R3 인터페이스 완료!");
                 returnValue = true;
@@ -459,6 +453,14 @@ namespace PSH_BOne_AddOn
                 }
                 else if (errCode == "3")
                 {
+                    if(errMessage == "전송 성공")
+                    {
+                        sQry = "Update [@PS_PP756H] set U_ChkYN ='Y' where DocEntry ='" + oDS_PS_PP756H.GetValue("DocEntry", 0).ToString().Trim() + "'";
+                        oRecordSet01.DoQuery(sQry);
+
+                        sQry = "Update [@PS_PP756L] set U_TransYN ='Y' where DocEntry ='" + oDS_PS_PP756H.GetValue("DocEntry", 0).ToString().Trim() + "'";
+                        oRecordSet01.DoQuery(sQry);
+                    }
                     PSH_Globals.SBO_Application.MessageBox(errMessage);
                 }
                 else

@@ -170,6 +170,7 @@ namespace PSH_BOne_AddOn
 							oDS_PS_QM450L.SetValue("U_Spec", oRow - 1, oRecordSet.Fields.Item("ItemSpec").Value.ToString().Trim());
 							oDS_PS_QM450L.SetValue("U_OrdQty", oRow - 1, oRecordSet.Fields.Item("OrdQty").Value.ToString().Trim());
 							oDS_PS_QM450L.SetValue("U_ChkYQty", oRow - 1, oRecordSet.Fields.Item("ChkYQty").Value.ToString().Trim());
+							oDS_PS_QM450L.SetValue("U_History", oRow - 1, oRecordSet.Fields.Item("History").Value.ToString().Trim());
 						}
 						
 						oMat.LoadFromDataSource();

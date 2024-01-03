@@ -163,9 +163,9 @@ namespace PSH_BOne_AddOn
 
                 if (Convert.ToInt32(YYYY) >= 2022)
                 {
-                    //2022년귀속
-                    WinTitle = "[PH_PY910] 소득공제신고서출력 2022년";
-                    ReportName = "PH_PY910_22_01.rpt";
+                    //2023년귀속
+                    WinTitle = "[PH_PY910] 소득공제신고서출력 2023년";
+                    ReportName = "PH_PY910_23_01.rpt";
 
                     List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>(); //Parameter
                     List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
@@ -282,9 +282,9 @@ namespace PSH_BOne_AddOn
                 }
                 else
                 {
-                    //2021년귀속
-                    WinTitle = "[PH_PY910] 소득공제신고서출력 2021년";
-                    ReportName = "PH_PY910_21_01.rpt";
+                    //2022년귀속
+                    WinTitle = "[PH_PY910] 소득공제신고서출력 2022년";
+                    ReportName = "PH_PY910_22_01.rpt";
 
                     List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>(); //Parameter
                     List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
@@ -368,6 +368,13 @@ namespace PSH_BOne_AddOn
                     dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB52"));
                     dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB52"));
                     dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB52"));
+
+                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB53"));
+                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB53"));
+                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY910_SUB53"));
+                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY910_SUB53"));
+                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY910_SUB53"));
+                    dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY910_SUB53"));
 
                     dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY910_SUB61"));
                     dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY910_SUB61"));

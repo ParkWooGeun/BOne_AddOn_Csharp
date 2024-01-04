@@ -436,7 +436,6 @@ namespace PSH_BOne_AddOn
                         throw new Exception();
                     }
                 }
-                oMat01.FlushToDataSource();
                 oMat01.LoadFromDataSource();
                 PSH_Globals.SBO_Application.MessageBox("R3 인터페이스 완료!");
                 returnValue = true;

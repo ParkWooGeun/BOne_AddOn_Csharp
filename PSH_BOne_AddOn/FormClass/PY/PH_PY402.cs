@@ -104,6 +104,7 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.DataTables.Item("PH_PY402").Columns.Add("대중교통", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
                 oForm.DataSources.DataTables.Item("PH_PY402").Columns.Add("도서공연1-3", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
                 oForm.DataSources.DataTables.Item("PH_PY402").Columns.Add("도서공연4-12", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
+                oForm.DataSources.DataTables.Item("PH_PY402").Columns.Add("주택임차", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
                 oForm.DataSources.DataTables.Item("PH_PY402").Columns.Add("합계금액", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
                 oForm.DataSources.DataTables.Item("PH_PY402").Columns.Add("자료구분", SAPbouiCOM.BoFieldsType.ft_AlphaNumeric);
 
@@ -191,6 +192,10 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.UserDataSources.Add("ntsamt24", SAPbouiCOM.BoDataType.dt_SUM);
                 oForm.Items.Item("ntsamt24").Specific.DataBind.SetBound(true, "", "ntsamt24");
 
+                // 주택임차료(신용카드,현금영수증에만 사용)
+                oForm.DataSources.UserDataSources.Add("bcard_t", SAPbouiCOM.BoDataType.dt_SUM);
+                oForm.Items.Item("bcard_t").Specific.DataBind.SetBound(true, "", "bcard_t");
+
                 // 전통시장1-3월
                 oForm.DataSources.UserDataSources.Add("mart13", SAPbouiCOM.BoDataType.dt_SUM);
                 oForm.Items.Item("mart13").Specific.DataBind.SetBound(true, "", "mart13");
@@ -268,6 +273,7 @@ namespace PSH_BOne_AddOn
 
                 oForm.Items.Item("ntsamt").Enabled = true;
                 oForm.Items.Item("ntsamt24").Enabled = false;
+                oForm.Items.Item("bcard_t").Enabled = false;
                 oForm.Items.Item("mart13").Enabled = false;
                 oForm.Items.Item("mart412").Enabled = false;
                 oForm.Items.Item("trans").Enabled = false;
@@ -275,6 +281,7 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("bookpms412").Enabled = false;
                 
                 oForm.DataSources.UserDataSources.Item("ntsamt24").Value = "0";
+                oForm.DataSources.UserDataSources.Item("bcard_t").Value = "0";
                 oForm.DataSources.UserDataSources.Item("mart13").Value = "0";
                 oForm.DataSources.UserDataSources.Item("mart412").Value = "0";
                 oForm.DataSources.UserDataSources.Item("trans").Value = "0";
@@ -364,6 +371,7 @@ namespace PSH_BOne_AddOn
             double Amt;
             double ntsamt;
             double ntsamt24;
+            double bcard_t;
             double mart13;
             double mart412;
             double trans;
@@ -394,6 +402,7 @@ namespace PSH_BOne_AddOn
                 ntsamt = Convert.ToDouble(oForm.Items.Item("ntsamt").Specific.Value.ToString().Trim());
 
                 ntsamt24 = Convert.ToDouble(oForm.Items.Item("ntsamt24").Specific.Value.ToString().Trim());
+                bcard_t = Convert.ToDouble(oForm.Items.Item("bcard_t").Specific.Value.ToString().Trim());
                 mart13 = Convert.ToDouble(oForm.Items.Item("mart13").Specific.Value.ToString().Trim());
                 mart412 = Convert.ToDouble(oForm.Items.Item("mart412").Specific.Value.ToString().Trim());
                 trans = Convert.ToDouble(oForm.Items.Item("trans").Specific.Value.ToString().Trim());
@@ -426,7 +435,7 @@ namespace PSH_BOne_AddOn
                     hdcode = "";
                 }
 
-                if (string.IsNullOrEmpty(juminno) || (Div != "70" && Amt + ntsamt + ntsamt24 + mart13 + mart412 + trans + bookpms13 + bookpms412 == 0)) //기본공제제외자(70)
+                if (string.IsNullOrEmpty(juminno) || (Div != "70" && Amt + ntsamt + ntsamt24 + bcard_t + mart13 + mart412 + trans + bookpms13 + bookpms412 == 0)) //기본공제제외자(70)
                 {
                     ErrNum = 5;
                     throw new Exception();
@@ -495,6 +504,7 @@ namespace PSH_BOne_AddOn
                     sQry += "amt = " + Amt + ",";
                     sQry += "ntsamt =" + ntsamt + ",";
                     sQry += "ntsamt24 =" + ntsamt24 + ",";
+                    sQry += "bcard_t =" + bcard_t + ",";
                     sQry += "mart24 =" + mart13 + ",";
                     sQry += "mart47 =" + mart412 + ",";
                     sQry += "trans24 =" + trans + ",";
@@ -526,6 +536,7 @@ namespace PSH_BOne_AddOn
                     sQry += "ntsamt,";
                     sQry += "soduk,";
                     sQry += "ntsamt24,";
+                    sQry += "bcard_t,";
                     sQry += "mart24, ";
                     sQry += "mart47, ";
                     sQry += "trans24, ";
@@ -547,6 +558,7 @@ namespace PSH_BOne_AddOn
                     sQry += Amt + ",";
                     sQry += ntsamt + ", 0 ,";
                     sQry += ntsamt24 + ",";
+                    sQry += bcard_t + ",";
                     sQry += mart13 + ",";
                     sQry += mart412 + ",";
                     sQry += trans + ",";
@@ -649,7 +661,7 @@ namespace PSH_BOne_AddOn
         private void PH_PY402_TitleSetting()
         {
             int i;
-            string[] COLNAM = new string[19];
+            string[] COLNAM = new string[20];
 
             try
             {
@@ -671,8 +683,9 @@ namespace PSH_BOne_AddOn
                 COLNAM[14] = "대중교통";
                 COLNAM[15] = "도서공연1-3";
                 COLNAM[16] = "도서공연4-12";
-                COLNAM[17] = "합계금액";
-                COLNAM[18] = "자료구분";
+                COLNAM[17] = "주택임차";
+                COLNAM[18] = "합계금액";
+                COLNAM[19] = "자료구분";
 
                 for (i = 0; i < COLNAM.Length; i++)
                 {
@@ -1135,6 +1148,7 @@ namespace PSH_BOne_AddOn
                                     oForm.Items.Item("amt").Enabled = false;      // 2020년부터 국세청외(기타)는 없애기로 모두 국세청으로 등록
 
                                     oForm.Items.Item("ntsamt24").Enabled = true;
+                                    oForm.Items.Item("bcard_t").Enabled = true;
                                     oForm.Items.Item("mart13").Enabled = true;
                                     oForm.Items.Item("mart412").Enabled = true;
                                     oForm.Items.Item("trans").Enabled = true;
@@ -1142,6 +1156,7 @@ namespace PSH_BOne_AddOn
                                     oForm.Items.Item("bookpms412").Enabled = true;
 
                                     oForm.Items.Item("ntsamt24").Specific.Value = 0;
+                                    oForm.Items.Item("bcard_t").Specific.Value = 0;
                                     oForm.Items.Item("mart13").Specific.Value = 0;
                                     oForm.Items.Item("mart412").Specific.Value = 0;
                                     oForm.Items.Item("trans").Specific.Value = 0;
@@ -1154,6 +1169,7 @@ namespace PSH_BOne_AddOn
                                     oForm.Items.Item("amt").Enabled = true;
 
                                     oForm.Items.Item("ntsamt24").Enabled = false;
+                                    oForm.Items.Item("bcard_t").Enabled = false;
                                     oForm.Items.Item("mart13").Enabled = false;
                                     oForm.Items.Item("mart412").Enabled = false;
                                     oForm.Items.Item("trans").Enabled = false;
@@ -1161,6 +1177,7 @@ namespace PSH_BOne_AddOn
                                     oForm.Items.Item("bookpms412").Enabled = false;
 
                                     oForm.Items.Item("ntsamt24").Specific.Value = 0;
+                                    oForm.Items.Item("bcard_t").Specific.Value = 0;
                                     oForm.Items.Item("mart13").Specific.Value = 0;
                                     oForm.Items.Item("mart412").Specific.Value = 0;
                                     oForm.Items.Item("trans").Specific.Value = 0;
@@ -1456,6 +1473,7 @@ namespace PSH_BOne_AddOn
                                 oForm.DataSources.UserDataSources.Item("amt").Value = "0";
                                 oForm.DataSources.UserDataSources.Item("handoamt").Value = "0";
                                 oForm.DataSources.UserDataSources.Item("ntsamt24").Value = "0";
+                                oForm.DataSources.UserDataSources.Item("bcard_t").Value = "0";
                                 oForm.DataSources.UserDataSources.Item("mart13").Value = "0";
                                 oForm.DataSources.UserDataSources.Item("mart412").Value = "0";
                                 oForm.DataSources.UserDataSources.Item("trans").Value = "0";
@@ -1497,6 +1515,7 @@ namespace PSH_BOne_AddOn
                                 oForm.DataSources.UserDataSources.Item("amt").Value = oRecordSet.Fields.Item("amt").Value.ToString().Trim();
                                 oForm.DataSources.UserDataSources.Item("handoamt").Value = oRecordSet.Fields.Item("handoamt").Value.ToString().Trim();
                                 oForm.DataSources.UserDataSources.Item("ntsamt24").Value = oRecordSet.Fields.Item("ntsamt24").Value.ToString().Trim();
+                                oForm.DataSources.UserDataSources.Item("bcard_t").Value = oRecordSet.Fields.Item("bcard_t").Value.ToString().Trim();
                                 oForm.DataSources.UserDataSources.Item("mart13").Value = oRecordSet.Fields.Item("mart13").Value.ToString().Trim();
                                 oForm.DataSources.UserDataSources.Item("mart412").Value = oRecordSet.Fields.Item("mart412").Value.ToString().Trim();
                                 oForm.DataSources.UserDataSources.Item("trans").Value = oRecordSet.Fields.Item("trans").Value.ToString().Trim();
@@ -1510,6 +1529,7 @@ namespace PSH_BOne_AddOn
                                     oForm.Items.Item("amt").Enabled = false;
 
                                     oForm.Items.Item("ntsamt24").Enabled = true;
+                                    oForm.Items.Item("bcard_t").Enabled = true;
                                     oForm.Items.Item("mart13").Enabled = true;
                                     oForm.Items.Item("mart412").Enabled = true;
                                     oForm.Items.Item("trans").Enabled = true;
@@ -1522,6 +1542,7 @@ namespace PSH_BOne_AddOn
                                     oForm.Items.Item("amt").Enabled = true;
 
                                     oForm.Items.Item("ntsamt24").Enabled = false;
+                                    oForm.Items.Item("bcard_t").Enabled = false;
                                     oForm.Items.Item("mart13").Enabled = false;
                                     oForm.Items.Item("mart412").Enabled = false;
                                     oForm.Items.Item("trans").Enabled = false;

@@ -17,6 +17,8 @@ namespace PSH_BOne_AddOn.Core
 		private int oLastColRow01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
 		private bool oSetBackOrderFunction01;
 
+        string DocDate = string.Empty;
+
 		/// <summary>
 		/// Form 호출
 		/// </summary>
@@ -425,6 +427,10 @@ namespace PSH_BOne_AddOn.Core
                             }
                         }
                     }
+                    if (pVal.ItemUID == "46")
+                    {
+                        DocDate = oForm.Items.Item("12").Specific.Value;
+                    }
                 }
                 else if (pVal.Before_Action == false)
                 {
@@ -629,6 +635,11 @@ namespace PSH_BOne_AddOn.Core
                 {
                     if (pVal.ItemChanged == true)
                     {
+                        if (!string.IsNullOrEmpty(DocDate))
+                        {
+                            oForm.Items.Item("12").Specific.Value = DocDate;
+                            DocDate = string.Empty;
+                        }
                         if (pVal.ItemUID == "38") //매트릭스
                         {
                             itemCode = oMat01.Columns.Item("1").Cells.Item(pVal.Row).Specific.Value;

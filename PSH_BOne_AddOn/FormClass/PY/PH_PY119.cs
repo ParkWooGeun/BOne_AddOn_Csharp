@@ -301,6 +301,7 @@ namespace PSH_BOne_AddOn
                     oDS_PH_PY119B.SetValue("U_ColReg02", i, oRecordSet.Fields.Item("CntcName").Value);
                     oDS_PH_PY119B.SetValue("U_ColReg03", i, oRecordSet.Fields.Item("AcctNo").Value);
                     oDS_PH_PY119B.SetValue("U_ColSum01", i, oRecordSet.Fields.Item("Amount").Value);
+                    oDS_PH_PY119B.SetValue("U_ColReg04", i, oRecordSet.Fields.Item("CLTName").Value);
 
                     Total = Total + oRecordSet.Fields.Item("Amount").Value;
                     oRecordSet.MoveNext();

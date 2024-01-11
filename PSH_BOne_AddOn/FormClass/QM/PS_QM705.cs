@@ -11,6 +11,7 @@ using PdfSharp.Pdf.IO;
 using PdfSharp.Pdf.Security;
 using MsOutlook = Microsoft.Office.Interop.Outlook;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using System.Text.RegularExpressions;
 
 
 namespace PSH_BOne_AddOn
@@ -231,7 +232,7 @@ namespace PSH_BOne_AddOn
             string errMessage = string.Empty;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            
+
             try
             {
                 oForm.Freeze(true);
@@ -257,21 +258,21 @@ namespace PSH_BOne_AddOn
                     oMat01.AddRow();
                     oDS_PS_QM705H.Offset = i;
                     oDS_PS_QM705H.SetValue("U_LineNum", i, Convert.ToString(i + 1));  // 순번
-                    oDS_PS_QM705H.SetValue("U_ColReg01", i, oRecordSet01.Fields.Item("DocDate").Value.ToString().Trim());  
-                    oDS_PS_QM705H.SetValue("U_ColReg02", i, oRecordSet01.Fields.Item("Gubun").Value.ToString().Trim());    
-                    oDS_PS_QM705H.SetValue("U_ColReg03", i, oRecordSet01.Fields.Item("DocEntry").Value.ToString().Trim()); 
-                    oDS_PS_QM705H.SetValue("U_ColReg04", i, oRecordSet01.Fields.Item("CardCode").Value.ToString().Trim()); 
-                    oDS_PS_QM705H.SetValue("U_ColReg05", i, oRecordSet01.Fields.Item("CardName").Value.ToString().Trim()); 
-                    oDS_PS_QM705H.SetValue("U_ColReg06", i, oRecordSet01.Fields.Item("WorkNum").Value.ToString().Trim());  
-                    oDS_PS_QM705H.SetValue("U_ColReg07", i, oRecordSet01.Fields.Item("ItemName").Value.ToString().Trim()); 
-                    oDS_PS_QM705H.SetValue("U_ColReg08", i, oRecordSet01.Fields.Item("WorkDate").Value.ToString().Trim()); 
-                    oDS_PS_QM705H.SetValue("U_ColReg09", i, oRecordSet01.Fields.Item("WorkCode").Value.ToString().Trim()); 
-                    oDS_PS_QM705H.SetValue("U_ColReg10", i, oRecordSet01.Fields.Item("WorkName").Value.ToString().Trim()); 
-                    oDS_PS_QM705H.SetValue("U_ColReg11", i, oRecordSet01.Fields.Item("BZZadQty").Value.ToString().Trim()); 
-                    oDS_PS_QM705H.SetValue("U_ColReg12", i, oRecordSet01.Fields.Item("BadCode").Value.ToString().Trim());  
-                    oDS_PS_QM705H.SetValue("U_ColReg13", i, oRecordSet01.Fields.Item("BadeNote").Value.ToString().Trim()); 
-                    oDS_PS_QM705H.SetValue("U_ColReg14", i, oRecordSet01.Fields.Item("verdict").Value.ToString().Trim());  
-                    oDS_PS_QM705H.SetValue("U_ColReg15", i, oRecordSet01.Fields.Item("Comments").Value.ToString().Trim()); 
+                    oDS_PS_QM705H.SetValue("U_ColReg01", i, oRecordSet01.Fields.Item("DocDate").Value.ToString().Trim());
+                    oDS_PS_QM705H.SetValue("U_ColReg02", i, oRecordSet01.Fields.Item("Gubun").Value.ToString().Trim());
+                    oDS_PS_QM705H.SetValue("U_ColReg03", i, oRecordSet01.Fields.Item("DocEntry").Value.ToString().Trim());
+                    oDS_PS_QM705H.SetValue("U_ColReg04", i, oRecordSet01.Fields.Item("CardCode").Value.ToString().Trim());
+                    oDS_PS_QM705H.SetValue("U_ColReg05", i, oRecordSet01.Fields.Item("CardName").Value.ToString().Trim());
+                    oDS_PS_QM705H.SetValue("U_ColReg06", i, oRecordSet01.Fields.Item("WorkNum").Value.ToString().Trim());
+                    oDS_PS_QM705H.SetValue("U_ColReg07", i, oRecordSet01.Fields.Item("ItemName").Value.ToString().Trim());
+                    oDS_PS_QM705H.SetValue("U_ColReg08", i, oRecordSet01.Fields.Item("WorkDate").Value.ToString().Trim());
+                    oDS_PS_QM705H.SetValue("U_ColReg09", i, oRecordSet01.Fields.Item("WorkCode").Value.ToString().Trim());
+                    oDS_PS_QM705H.SetValue("U_ColReg10", i, oRecordSet01.Fields.Item("WorkName").Value.ToString().Trim());
+                    oDS_PS_QM705H.SetValue("U_ColReg11", i, oRecordSet01.Fields.Item("BZZadQty").Value.ToString().Trim());
+                    oDS_PS_QM705H.SetValue("U_ColReg12", i, oRecordSet01.Fields.Item("BadCode").Value.ToString().Trim());
+                    oDS_PS_QM705H.SetValue("U_ColReg13", i, oRecordSet01.Fields.Item("BadeNote").Value.ToString().Trim());
+                    oDS_PS_QM705H.SetValue("U_ColReg14", i, oRecordSet01.Fields.Item("verdict").Value.ToString().Trim());
+                    oDS_PS_QM705H.SetValue("U_ColReg15", i, oRecordSet01.Fields.Item("Comments").Value.ToString().Trim());
                     oRecordSet01.MoveNext();
                 }
                 oMat01.LoadFromDataSource();
@@ -299,7 +300,7 @@ namespace PSH_BOne_AddOn
         /// PDF만들기
         /// </summary>
         [STAThread]
-        private bool Make_PDF_File(String p_DocEntry,string p_Gobun)
+        private bool Make_PDF_File(String p_DocEntry, string p_Gobun)
         {
             bool ReturnValue = false;
             string WinTitle;
@@ -342,17 +343,17 @@ namespace PSH_BOne_AddOn
                     File.Delete(Incom_Pic_Path + "PIC.bmp");
                     File.Copy(Incom_Pic_Path + "NULL.bmp", Incom_Pic_Path + "PIC.bmp");
                 }
-                
+
                 List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
                 List<PSH_DataPackClass> dataPackSub1ReportParameter = new List<PSH_DataPackClass>(); //서브레포트 그대로날리는변수 
-                
+
                 //Parameter
                 dataPackParameter.Add(new PSH_DataPackClass("@DocEntry", p_DocEntry));
 
                 Main_Folder = @"C:\PSH_부적합전송";
                 Dir_Exists(Main_Folder);
-                ExportString = Main_Folder + @"\" + "풍산홀딩스부적합보고서" +p_Gobun + p_DocEntry + ".pdf";
-                
+                ExportString = Main_Folder + @"\" + "풍산홀딩스부적합보고서" + p_Gobun + p_DocEntry + ".pdf";
+
                 if (p_Gobun == "외주")
                 {
                     WinTitle = "[PS_QM705] 외주 부적합 자재 통보서";
@@ -446,6 +447,8 @@ namespace PSH_BOne_AddOn
             bool ReturnValue = false;
             string Main_Folder;
             string sQry;
+            string errMessage = string.Empty;
+            string signature = string.Empty;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -460,21 +463,57 @@ namespace PSH_BOne_AddOn
                     sQry = " SELECT U_Comments FROM [@PS_QM703H] WHERE DocEntry ='" + p_DocEntry + "'";
                     oRecordSet01.DoQuery(sQry);
                 }
-
                 Main_Folder = @"C:\PSH_부적합전송";
                 MsOutlook.Application outlookApp = new MsOutlook.Application();
                 if (outlookApp == null)
                 {
                     throw new Exception();
                 }
-                MsOutlook.MailItem mail = (MsOutlook.MailItem)outlookApp.CreateItem(MsOutlook.OlItemType.olMailItem);
 
-                mail.Subject = oForm.Items.Item("Subject").Specific.Value.ToString().Trim(); 
-                mail.HTMLBody = oForm.Items.Item("SBody").Specific.Value.ToString().Trim(); 
+
+
+                //string signatureFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"Microsoft\Signatures\test.htm");
+                //if (File.Exists(signatureFilePath))
+                //{
+                //    // 파일에서 서명 읽어오기
+                //    string signatureContent = File.ReadAllText(signatureFilePath, System.Text.Encoding.UTF8);
+                //    // HTML 태그 제거
+                //    string strippedSignature = Regex.Replace(signatureContent, "<.*?>", string.Empty);
+                //    signature = strippedSignature;
+                //}
+                //else
+                //{
+                //    errMessage = "서명 파일이 존재하지 않습니다.";
+                //    throw new Exception();
+                //}
+
+                string signatureFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"Microsoft\Signatures");
+                DirectoryInfo diInfo = new DirectoryInfo(signatureFilePath);
+                if (diInfo.Exists)
+                {
+                    FileInfo[] fiSignature = diInfo.GetFiles("*.txt");
+
+                    if (fiSignature.Length > 0)
+                    {
+                        StreamReader sr = new StreamReader(fiSignature[0].FullName, System.Text.Encoding.UTF8);
+                        signature = sr.ReadToEnd();
+
+                        if (!string.IsNullOrEmpty(signature))
+                        {
+                            string fileName = fiSignature[0].Name.Replace(fiSignature[0].Extension, string.Empty);
+                            signature = signature.Replace(fileName + "_files/", signatureFilePath + "/" + fileName + "_files/");
+                        }
+                    }
+                }
+                MsOutlook.MailItem mail = (MsOutlook.MailItem)outlookApp.CreateItem(MsOutlook.OlItemType.olMailItem);
+                mail.Subject = oForm.Items.Item("Subject").Specific.Value.ToString().Trim();
+                mail.HTMLBody = "<html><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8'></head><body>" + oForm.Items.Item("SBody").Specific.Value.ToString().Trim() + Environment.NewLine + signature + "</ body ></ html >";
                 mail.To = p_Address;
                 MsOutlook.Attachment oAttach1 = mail.Attachments.Add(Main_Folder + @"\" + "풍산홀딩스부적합보고서" + p_Gobun + p_DocEntry + ".pdf");
-                MsOutlook.Attachment oAttach2 = mail.Attachments.Add(oRecordSet01.Fields.Item("U_Comments").Value.ToString().Trim());
-                
+                if (!string.IsNullOrEmpty(oRecordSet01.Fields.Item("U_Comments").Value.ToString().Trim()))
+                {
+                    MsOutlook.Attachment oAttach2 = mail.Attachments.Add(oRecordSet01.Fields.Item("U_Comments").Value.ToString().Trim());
+                }
                 mail.Send();
 
                 mail = null;
@@ -483,7 +522,14 @@ namespace PSH_BOne_AddOn
             }
             catch (System.Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText("Send_EMail_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                if (errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText("Send_EMail_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
             }
             finally
             {
@@ -491,7 +537,6 @@ namespace PSH_BOne_AddOn
             }
             return ReturnValue;
         }
-
 
         /// <summary>
         /// Form Item Event

@@ -537,9 +537,8 @@ namespace PSH_BOne_AddOn
             string C066C;   // 10    '비과세(T42:중소기업 청년근로자 및 핵심인력 성과보상기금 소득세 감면)
             string C066D;   // 10    '비과세(T43:중견기업 청년근로자 및 핵심인력 성과보상기금 소득세 감면)
             string C067;    // 10    '비과세(T50:내국인우수인력국내복귀소득세감면)
-            string C068A;   // 10    '비과세(T11:중소기업취업청년소득세감면50%)
-            string C068B;   // 10    '비과세(T12:중소기업취업청년소득세감면70%)
-            string C068C;   // 10    '비과세(T13:중소기업취업청년소득세감면90%)
+            string C068A;   // 10    '비과세(T11:중소기업취업청년소득세감면70%)
+            string C068B;   // 10    '비과세(T12:중소기업취업청년소득세감면90%)
             string C069;    // 10    '비과세(T20:조세조약상교직자감면)
             string C070;    // 10    '비과세 계
             string C071;    // 10    '감면소득 계
@@ -789,7 +788,6 @@ namespace PSH_BOne_AddOn
                         C067 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C067").Value.ToString().Trim(), 10, '0');
                         C068A = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C068A").Value.ToString().Trim(), 10, '0');
                         C068B = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C068B").Value.ToString().Trim(), 10, '0');
-                        C068C = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C068C").Value.ToString().Trim(), 10, '0');
                         C069 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C069").Value.ToString().Trim(), 10, '0');
                         C070 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("C070").Value.ToString().Trim(), 10, '0');
 
@@ -935,7 +933,7 @@ namespace PSH_BOne_AddOn
                         FileSystem.PrintLine(1, C001 + C002 + C003 + C004 + C005 + C006 + C007 + C008 + C009 + C010 + C011 + C012 + C013 + C014 + C015 + C016 + C017 + C018 + C019 + C020
                                               + C021 + C022 + C023 + C024 + C025 + C026 + C027 + C028 + C029 + C030 + C031 + C032 + C033 + C034 + C035 + C036 + C037 + C038 + C039 + C040
                                               + C041 + C042 + C043 + C044 + C045 + C046 + C047 + C048 + C049 + C050 + C051 + C052 + C053 + C054 + C055 + C056 + C057 + C058 + C059 + C060
-                                              + C061 + C062A + C062B + C062C + C063 + C064A + C064B + C065 + C066A + C066B + C066C + C066D + C067 + C068A + C068B + C068C + C069 + C070
+                                              + C061 + C062A + C062B + C062C + C063 + C064A + C064B + C065 + C066A + C066B + C066C + C066D + C067 + C068A + C068B + C069 + C070
                                               + C071 + C072 + C073 + C074 + C075 + C076 + C077A + C077B + C078A + C078B + C079A + C079B + C080
                                               + C081 + C082A + C082B + C083A + C083B + C084A + C084B + C085A + C085B + C086A + C086B + C087A + C087B + C088A + C088B + C089A + C089B + C090A + C090B + C090C
                                               + C091A + C091B + C092A + C092B + C092C + C092D + C093 + C094 + C095 + C096 + C097 + C098 + C099 + C100

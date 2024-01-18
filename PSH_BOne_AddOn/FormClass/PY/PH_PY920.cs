@@ -305,8 +305,6 @@ namespace PSH_BOne_AddOn
                 if (oRecordSet.RecordCount == 0)
                 {
                     errMessage = "결과값이 존재하지않습니다.";
-                    oMat01.Clear();
-                    oForm.Mode = SAPbouiCOM.BoFormMode.fm_ADD_MODE;
                     throw new Exception();
                 }
 

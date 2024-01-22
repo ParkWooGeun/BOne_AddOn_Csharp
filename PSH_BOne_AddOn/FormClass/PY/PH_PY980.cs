@@ -1134,9 +1134,8 @@ namespace PSH_BOne_AddOn
             string D055C; // 10   '비과세(T42-중소기업 청년근로자 및 핵심인력 성과보상기금 소득세감면)
             string D055D; // 10   '비과세(T43-중견기업 청년근로자 및 핵심인력 성과보상기금 소득세감면)
             string D056;  // 10   '비과세(T50:내국인우수인력국내복귀소득세감면)
-            string D057A; // 10   '비과세(T11:중소기업취업청년소득세감면50%)
-            string D057B; // 10   '비과세(T12:중소기업취업청년소득세감면70%)
-            string D057C; // 10   '비과세(T13:중소기업취업청년소득세감면90%)
+            string D057A; // 10   '비과세(T11:중소기업취업청년소득세감면70%)
+            string D057B; // 10   '비과세(T12:중소기업취업청년소득세감면90%)
             string D058;  // 10   '비과세(T20:조세조약상교직자감면)
             string D059;  // 10   '비과세 계
             string D060;  // 10   '감면소득 계
@@ -1231,7 +1230,6 @@ namespace PSH_BOne_AddOn
                         D056 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D056").Value.ToString().Trim(), 10, '0');
                         D057A = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D057A").Value.ToString().Trim(), 10, '0');
                         D057B = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D057B").Value.ToString().Trim(), 10, '0');
-                        D057C = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D057C").Value.ToString().Trim(), 10, '0');
                         D058 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D058").Value.ToString().Trim(), 10, '0');
                         D059 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D059").Value.ToString().Trim(), 10, '0');
                         D060 = codeHelpClass.GetFixedLengthStringByte(oRecordSet.Fields.Item("D060").Value.ToString().Trim(), 10, '0');
@@ -1244,7 +1242,7 @@ namespace PSH_BOne_AddOn
 
                         FileSystem.PrintLine(1, D001 + D002 + D003 + D004 + D005 + D006 + D007 + D008 + D009 + D010 + D011 + D012 + D013 + D014 + D015 + D016 + D017 + D018 + D019 + D020
                                               + D021 + D022 + D023 + D024 + D025 + D026 + D027 + D028 + D029 + D030 + D031 + D032 + D033 + D034 + D035 + D036 + D037 + D038 + D039 + D040
-                                              + D041 + D042 + D043 + D044 + D045 + D046 + D047 + D048 + D049 + D050 + D051A + D051B + D051C + D052 + D053A + D053B + D054 + D055A + D055B + D055C + D055D + D056 + D057A + D057B + D057C + D058 + D059 + D060
+                                              + D041 + D042 + D043 + D044 + D045 + D046 + D047 + D048 + D049 + D050 + D051A + D051B + D051C + D052 + D053A + D053B + D054 + D055A + D055B + D055C + D055D + D056 + D057A + D057B + D058 + D059 + D060
                                               + D061A + D061B + D061C + D062 + D063);
 
                         oRecordSet.MoveNext();

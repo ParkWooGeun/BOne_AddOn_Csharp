@@ -151,20 +151,25 @@ namespace PSH_BOne_AddOn
                     oForm.EnableMenu("1281", true); //문서찾기
                     oForm.EnableMenu("1282", false); //문서추가
                     dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", false); //접속자에 따른 권한별 사업장 콤보박스세팅
+                    PH_PY138_AddMatrixRow(0, true);
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
                     oForm.Items.Item("CLTCOD").Enabled = true;
                     oForm.EnableMenu("1281", false); //문서찾기
                     oForm.EnableMenu("1282", true); //문서추가
-                    dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", false); //접속자에 따른 권한별 사업장 콤보박스세팅
+                    //dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", false); //접속자에 따른 권한별 사업장 콤보박스세팅
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
                     oForm.Items.Item("CLTCOD").Enabled = false;
                     oForm.EnableMenu("1281", true); //문서찾기
                     oForm.EnableMenu("1282", true); //문서추가
-                    dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", false); //접속자에 따른 권한별 사업장 콤보박스세팅
+                                                    //dataHelpClass.CLTCOD_Select(oForm, "CLTCOD", false); //접속자에 따른 권한별 사업장 콤보박스세팅
+                    if (!string.IsNullOrEmpty((oMat01.Columns.Item("MSTCOD").Cells.Item(oMat01.RowCount).Specific.Value)))
+                    {
+                        PH_PY138_AddMatrixRow(oMat01.VisualRowCount, false);
+                    }
                 }
             }
             catch (Exception ex)
@@ -395,7 +400,7 @@ namespace PSH_BOne_AddOn
                             }
                             oMat01.FlushToDataSource();
                             //Matrix 마지막 행 삭제(DB 저장시)
-                            if (oDS_PH_PY138B.Size > 1)
+                            if (string.IsNullOrEmpty((oMat01.Columns.Item("MSTCOD").Cells.Item(oMat01.RowCount).Specific.Value)))
                             {
                                 oDS_PH_PY138B.RemoveRecord(oDS_PH_PY138B.Size - 1);
                             }
@@ -406,6 +411,10 @@ namespace PSH_BOne_AddOn
                             if (PH_PY138_DataValidCheck() == false)
                             {
                                 BubbleEvent = false;
+                            }
+                            if (string.IsNullOrEmpty((oMat01.Columns.Item("MSTCOD").Cells.Item(oMat01.RowCount).Specific.Value)))
+                            {
+                                oDS_PH_PY138B.RemoveRecord(oDS_PH_PY138B.Size - 1);
                             }
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)

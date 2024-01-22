@@ -689,6 +689,8 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("POStatus").Enabled = true;
                     oForm.Items.Item("DocDate").Enabled = true;
                     oForm.Items.Item("Mat02").Enabled = true;
+                    oForm.Items.Item("Btn01").Visible= true;
+
                     oMat02.Columns.Item("Qty").Editable = true;
                     oMat02.Columns.Item("Weight").Editable = true;
                     oMat02.Columns.Item("RealWt").Editable = true;
@@ -707,6 +709,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("POStatus").Enabled = true;
                     oForm.Items.Item("DocDate").Enabled = true;
                     oForm.Items.Item("Mat02").Enabled = false;
+                    oForm.Items.Item("Btn01").Visible = true;
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
@@ -725,6 +728,7 @@ namespace PSH_BOne_AddOn
                     oMat02.Columns.Item("UnWeight").Editable = true;
                     oMat02.Columns.Item("WhsCode").Editable = true;
                     oMat02.Columns.Item("QEYesNo").Editable = true;
+                    oForm.Items.Item("Btn01").Visible = false;
                     if (oForm.Items.Item("Status").Specific.Value == "C")
                     {
                         oForm.Items.Item("Mat02").Enabled = false;

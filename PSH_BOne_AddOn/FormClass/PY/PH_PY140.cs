@@ -719,8 +719,11 @@ namespace PSH_BOne_AddOn
                     {
                         if(pVal.ItemUID == "YM")
                         {
-                            PH_PY140_MTX01();   
-                        }
+                            if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE) //추가모드일때만 조회되도록
+                            {
+                                PH_PY140_MTX01();
+                            }
+                        }                                         
                     }
                 }
             }

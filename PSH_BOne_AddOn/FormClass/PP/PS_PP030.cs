@@ -29,6 +29,7 @@ namespace PSH_BOne_AddOn
         private SAPbouiCOM.BoFormMode oFormMode01;
         private bool oHasMatrix01;
         private bool Mat02Modify = false;
+        private bool ErrCheckDate = false; //PS_PP030_Validate에서 조건에 의해 행삭제가 일어나면 안되는데도 삭제가 일어나고있는 버그를 수정하기위해 컨트롤 변수로 사용. 
 
         /// <summary>
         /// Form 호출
@@ -4272,10 +4273,16 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.BeforeAction == true)
                     {
+                        if (ErrCheckDate = true)  //ErrCheck데이터 초기화, False일땐 검사전 or 이상없음, True일땐 검사결과 중복생성이나 오류로 빠졌을때 임.
+                        {
+                            ErrCheckDate = false;
+                        }
+
                         if (oLastItemUID01 == "Mat02")
                         {
                             if (PS_PP030_Validate("행삭제02") == false)
                             {
+                                ErrCheckDate = true;
                                 BubbleEvent = false;
                                 return;
                             }
@@ -4284,6 +4291,7 @@ namespace PSH_BOne_AddOn
                         {
                             if (PS_PP030_Validate("행삭제03") == false)
                             {
+                                ErrCheckDate = true;
                                 BubbleEvent = false;
                                 return;
                             }
@@ -4456,6 +4464,11 @@ namespace PSH_BOne_AddOn
                             break;
                         case "1293": //행삭제
                             Raise_EVENT_ROW_DELETE(FormUID, pVal, BubbleEvent);
+                            if (ErrCheckDate = true)
+                            {
+                                BubbleEvent = false;
+                                return;
+                            }
                             break;
                         case "1281": //찾기
                             break;

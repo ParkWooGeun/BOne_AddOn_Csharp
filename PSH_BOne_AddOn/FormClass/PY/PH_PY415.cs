@@ -300,7 +300,7 @@ namespace PSH_BOne_AddOn
 
                 if (MSTCOD == "%") // 전체계산
                 {
-                    if (Convert.ToDouble(Year) >= 2022)  // 2022귀속
+                    if (Convert.ToDouble(Year) >= 2023)  // 2023귀속
                     {
                         sQry = "    SELECT Distinct ";
                         sQry += "          a.sabun AS [MSTCOD], ";
@@ -359,13 +359,13 @@ namespace PSH_BOne_AddOn
                         {
                             sabun = oMat1.Columns.Item("MSTCOD").Cells.Item(i).Specific.Value.ToString().Trim();
 
-                            if (Convert.ToDouble(Year) >= 2022)
+                            if (Convert.ToDouble(Year) >= 2023)
                             {
-                                sQry = "EXEC PH_PY415_2022 '" + CLTCOD + "','" + Year + "','" + sabun + "'";
+                                sQry = "EXEC PH_PY415_2023_01 '" + CLTCOD + "','" + Year + "','" + sabun + "'";
                                 oRecordSet.DoQuery(sQry);
-                                sQry = "EXEC PH_PY415_2022_02 '" + CLTCOD + "','" + Year + "','" + sabun + "'"; //정산 계산
+                                sQry = "EXEC PH_PY415_2023_02 '" + CLTCOD + "','" + Year + "','" + sabun + "'"; //정산 계산
                                 oRecordSet.DoQuery(sQry);
-                                sQry = "EXEC PH_PY415_2022_03 '" + CLTCOD + "','" + Year + "','" + sabun + "'"; //표준공제 계산
+                                sQry = "EXEC PH_PY415_2023_03 '" + CLTCOD + "','" + Year + "','" + sabun + "'"; //표준공제 계산
                                 oRecordSet.DoQuery(sQry);
                             }
 
@@ -376,17 +376,17 @@ namespace PSH_BOne_AddOn
                 }
                 else // 개인별 계산
                 {
-                    if (Convert.ToDouble(Year) >= 2022)
+                    if (Convert.ToDouble(Year) >= 2023)
                     {
                         oDS_PH_PY415B.SetValue("U_ColReg01", 0, oForm.Items.Item("MSTCOD").Specific.Value.ToString().Trim());
                         oDS_PH_PY415B.SetValue("U_ColReg02", 0, oForm.Items.Item("FullName").Specific.Value.ToString().Trim());
                         oMat1.LoadFromDataSource();
 
-                        sQry = "EXEC PH_PY415_2022 '" + CLTCOD + "','" + Year + "','" + MSTCOD + "'";
+                        sQry = "EXEC PH_PY415_2023_01 '" + CLTCOD + "','" + Year + "','" + MSTCOD + "'";
                         oRecordSet.DoQuery(sQry);
-                        sQry = "EXEC PH_PY415_2022_02 '" + CLTCOD + "','" + Year + "','" + MSTCOD + "'"; //정산 계산
+                        sQry = "EXEC PH_PY415_2023_02 '" + CLTCOD + "','" + Year + "','" + MSTCOD + "'"; //정산 계산
                         oRecordSet.DoQuery(sQry);
-                        sQry = "EXEC PH_PY415_2022_03 '" + CLTCOD + "','" + Year + "','" + MSTCOD + "'"; //표준공제 계산
+                        sQry = "EXEC PH_PY415_2023_03 '" + CLTCOD + "','" + Year + "','" + MSTCOD + "'"; //표준공제 계산
                         oRecordSet.DoQuery(sQry);
                     }
                 }

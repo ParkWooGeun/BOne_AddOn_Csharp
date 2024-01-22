@@ -157,7 +157,7 @@ namespace PSH_BOne_AddOn
 
                 // 기부금코드  73
                 oForm.DataSources.UserDataSources.Add("gibucd", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
-                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '73' AND U_UseYN= 'Y'";
+                sQry = "SELECT U_Code, U_CodeNm FROM [@PS_HR200L] WHERE Code = '73' AND U_UseYN= 'Y' Order by U_Num1 ";
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("gibucd").Specific, "Y");
 
                 // 기부내용 2018추가
@@ -803,6 +803,19 @@ namespace PSH_BOne_AddOn
                             {
                                 oForm.Items.Item("kname").Specific.Value = oMat01.Columns.Item("kname").Cells.Item(1).Specific.Value;
                                 oForm.Items.Item("juminno").Specific.Value = oMat01.Columns.Item("juminno").Cells.Item(1).Specific.Value;
+                            }
+                        }
+
+                        if (pVal.ItemUID == "gibucd")
+                        {
+                            if ((oForm.Items.Item("gibucd").Specific.Value.ToString().Trim() == "20" ||  // 정치자금기부금
+                                     oForm.Items.Item("gibucd").Specific.Value.ToString().Trim() == "42" ||  // 우리사주조합기부금
+                                        oForm.Items.Item("gibucd").Specific.Value.ToString().Trim() == "43") && // 고향사랑기부금
+                                           oForm.Items.Item("rel").Specific.Value.ToString().Trim() != "1")   // 관계가 본인이 아닐시
+                            {
+                                PSH_Globals.SBO_Application.MessageBox("정치자금, 우리사주조합, 고향사랑 기부금은 본인(거주자)만 가능 합니다. 확인하세요.");
+                                oForm.DataSources.UserDataSources.Item("gibucd").Value = "";
+                                oForm.Items.Item("gibucd").Specific.Select("", SAPbouiCOM.BoSearchKey.psk_Index);
                             }
                         }
                     }

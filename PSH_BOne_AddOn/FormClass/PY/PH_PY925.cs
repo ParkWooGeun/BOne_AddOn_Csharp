@@ -19,7 +19,7 @@ namespace PSH_BOne_AddOn
         /// </summary>
         public override void LoadForm(string oFormDocEntry)
         {
-            int i = 0;
+            int i;
             MSXML2.DOMDocument oXmlDoc = new MSXML2.DOMDocument();
             try
             {
@@ -69,13 +69,12 @@ namespace PSH_BOne_AddOn
         /// <returns></returns>
         private void PH_PY925_CreateItems()
         {
-            string sQry = string.Empty;
+            string sQry;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
             try
             {
                 oForm.Freeze(true);
-
                 // 사업장
                 oForm.DataSources.UserDataSources.Add("CLTCOD", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 10);
                 oForm.Items.Item("CLTCOD").Specific.DataBind.SetBound(true, "", "CLTCOD");
@@ -132,7 +131,6 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Rad02").Specific.ValOff = "0";
                 oForm.Items.Item("Rad02").Specific.DataBind.SetBound(true, "", "OptionDS");
                 oForm.Items.Item("Rad02").Specific.GroupWith("Rad01");
-
             }
             catch (Exception ex)
             {
@@ -166,6 +164,97 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
+        /// 리포트 조회
+        /// </summary>
+        [STAThread]
+        private void PH_PY925_Print_Report01()
+        {
+            string WinTitle;
+            string ReportName;
+
+            string CLTCOD;
+            string YYYY;
+            string TeamCode;
+            string RspCode;
+            string ClsCode;
+            string MSTCOD;
+            string Div;
+            string Div1;
+
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+
+            CLTCOD = oForm.Items.Item("CLTCOD").Specific.Selected.Value.ToString().Trim();
+            YYYY = oForm.Items.Item("YYYY").Specific.Value.Trim();
+            TeamCode = oForm.Items.Item("TeamCode").Specific.Value.Trim();
+            RspCode = oForm.Items.Item("RspCode").Specific.Value.Trim();
+            ClsCode = oForm.Items.Item("ClsCode").Specific.Value.Trim();
+            MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
+            Div = oForm.DataSources.UserDataSources.Item("OptionDS").Value; //출력구분
+            Div1 = oForm.Items.Item("Div").Specific.Value.Trim();   //재직구분
+
+            try
+            {
+                WinTitle = "[PH_PY925] 기부금명세서출력";
+                ReportName = "PH_PY925_01.rpt";
+
+                List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>(); //Parameter
+                List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
+                List<PSH_DataPackClass> dataPackSubReportParameter = new List<PSH_DataPackClass>(); //SubReport
+
+                //Formula
+                //dataPackFormula.Add(new PSH_DataPackClass("@CLTCOD", dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", CLTCOD, "and Code = 'P144' AND U_UseYN= 'Y'"))); //사업장
+                dataPackFormula.Add(new PSH_DataPackClass("@YYYY", YYYY)); //년
+                dataPackFormula.Add(new PSH_DataPackClass("@Div", Div));
+
+                //Parameter
+                dataPackParameter.Add(new PSH_DataPackClass("@saup", CLTCOD)); //사업장
+                dataPackParameter.Add(new PSH_DataPackClass("@yyyy", YYYY));
+                dataPackParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode));
+                dataPackParameter.Add(new PSH_DataPackClass("@RspCode", RspCode));
+                dataPackParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode));
+                dataPackParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD));
+                dataPackParameter.Add(new PSH_DataPackClass("@Div", Div));
+                dataPackParameter.Add(new PSH_DataPackClass("@Div1", Div1));
+
+                //SubReport Parameter
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY925_SUB1"));
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY925_SUB1"));
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY925_SUB1"));
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY925_SUB1"));
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY925_SUB1"));
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY925_SUB1"));
+
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY925_SUB2"));
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY925_SUB2"));
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY925_SUB2"));
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY925_SUB2"));
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY925_SUB2"));
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY925_SUB2"));
+
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY925_SUB3"));
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY925_SUB3"));
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY925_SUB3"));
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY925_SUB3"));
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY925_SUB3"));
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY925_SUB3"));
+
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY925_SUB4"));
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY925_SUB4"));
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY925_SUB4"));
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY925_SUB4"));
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY925_SUB4"));
+                dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY925_SUB4"));
+
+                formHelpClass.OpenCrystalReport(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY925_Print_Report01_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+        }
+
+        /// <summary>
         /// Raise_FormItemEvent
         /// </summary>
         /// <param name="FormUID">Form UID</param>
@@ -175,102 +264,87 @@ namespace PSH_BOne_AddOn
         {
             switch (pVal.EventType)
             {
-                case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED: //1
+                case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED:  //1
                     Raise_EVENT_ITEM_PRESSED(FormUID, ref pVal, ref BubbleEvent);
                     break;
-
-                case SAPbouiCOM.BoEventTypes.et_KEY_DOWN:
-                    ////2
-                    break;
-
-
-                case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS:
-                    ////3
-
-                    break;
-
-                case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS:
-                    ////4
-                    break;
-
-                case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
+                //case SAPbouiCOM.BoEventTypes.et_KEY_DOWN:      //2
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS:     //3
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS:    //4
+                //    break;
+                case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT:  //5
                     Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
                     break;
-
-                case SAPbouiCOM.BoEventTypes.et_CLICK: //6
-                    break;
-
-                case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK:
-                    ////7
-                    break;
-
-                case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED:
-                    ////8
-                    break;
-
-                case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED:
-                    ////9
-                    break;
-
+                //case SAPbouiCOM.BoEventTypes.et_CLICK:         //6
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK:  //7
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_MATRIX_LINK_PRESSED: //8
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_MATRIX_COLLAPSE_PRESSED: //9
+                //    break;
                 case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
                     Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
                     break;
-
-                case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
-                    break;
-
-                case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD:
-                    ////12
-                    break;
-
-                case SAPbouiCOM.BoEventTypes.et_FORM_LOAD:
-                    ////16
-                    break;
-
-                case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD: //17
+                //case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_DATASOURCE_LOAD: //12
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_FORM_LOAD:       //16
+                //    break;
+                case SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD:     //17
                     Raise_EVENT_FORM_UNLOAD(FormUID, ref pVal, ref BubbleEvent);
                     break;
+                //case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE:   //18
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE: //19
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE:     //20
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE:    //21
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN:  //22
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT: //23
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST:  //27
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED:    //37
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_GRID_SORT:         //38
+                //    break;
+                //case SAPbouiCOM.BoEventTypes.et_Drag:             //39
+                //    break;
+            }
+        }
 
-                case SAPbouiCOM.BoEventTypes.et_FORM_ACTIVATE:
-                    ////18
-                    break;
-
-
-                case SAPbouiCOM.BoEventTypes.et_FORM_DEACTIVATE:
-                    ////19
-                    break;
-
-
-                case SAPbouiCOM.BoEventTypes.et_FORM_CLOSE:
-                    ////20
-                    break;
-
-                case SAPbouiCOM.BoEventTypes.et_FORM_RESIZE: //21
-                    break;
-
-                case SAPbouiCOM.BoEventTypes.et_FORM_KEY_DOWN:
-                    ////22
-                    break;
-
-                case SAPbouiCOM.BoEventTypes.et_FORM_MENU_HILIGHT:
-                    ////23
-                    break;
-
-                case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST: //27
-                    break;
-
-                case SAPbouiCOM.BoEventTypes.et_PICKER_CLICKED:
-                    ////37
-                    break;
-
-                case SAPbouiCOM.BoEventTypes.et_GRID_SORT:
-                    ////38
-                    break;
-
-                case SAPbouiCOM.BoEventTypes.et_Drag:
-                    ////39
-                    break;
-
+        /// <summary>
+        /// ITEM_PRESSED 이벤트
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            try
+            {
+                if (pVal.BeforeAction == true)
+                {
+                    if (pVal.ItemUID == "Btn01")
+                    {
+                        System.Threading.Thread thread = new System.Threading.Thread(PH_PY925_Print_Report01);
+                        thread.SetApartmentState(System.Threading.ApartmentState.STA);
+                        thread.Start();
+                    }
+                }
+                else if (pVal.BeforeAction == false)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_ITEM_PRESSED_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
         }
 
@@ -282,9 +356,9 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_COMBO_SELECT(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string sQry = string.Empty;
-            int i = 0;
-            SAPbobsCOM.Recordset oRecordSet = null;
+            string sQry;
+            int i;
+            SAPbobsCOM.Recordset oRecordSet;
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
             oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -392,8 +466,6 @@ namespace PSH_BOne_AddOn
                                 sQry = sQry + " AND U_Char1 = '" + oForm.Items.Item("RspCode").Specific.Value + "'";
                                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("ClsCode").Specific, "Y");
                                 break;
-
-
                         }
                     }
                 }
@@ -417,8 +489,8 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
-            string sQry = string.Empty;
-            SAPbobsCOM.Recordset oRecordSet = null;
+            string sQry;
+            SAPbobsCOM.Recordset oRecordSet;
             oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
@@ -474,130 +546,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_FORM_UNLOAD_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-        }
-
-        /// <summary>
-        /// ITEM_PRESSED 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            try
-            {
-                if (pVal.BeforeAction == true)
-                {
-                    if (pVal.ItemUID == "Btn01")
-                    {
-                        System.Threading.Thread thread = new System.Threading.Thread(PH_PY925_Print_Report01);
-                        thread.SetApartmentState(System.Threading.ApartmentState.STA);
-                        thread.Start();
-                    }
-                }
-                else if (pVal.BeforeAction == false)
-                {
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_ITEM_PRESSED_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-        }
-
-        /// <summary>
-        /// 리포트 조회
-        /// </summary>
-        [STAThread]
-        private void PH_PY925_Print_Report01()
-        {
-            string WinTitle = string.Empty;
-            string ReportName = string.Empty;
-
-            string CLTCOD = string.Empty;
-            string YYYY = string.Empty;
-            string TeamCode = string.Empty;
-            string RspCode = string.Empty;
-            string ClsCode = string.Empty;
-            string MSTCOD = string.Empty;
-            string Div = string.Empty;
-            string Div1 = string.Empty;
-
-            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-            PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
-
-            CLTCOD = oForm.Items.Item("CLTCOD").Specific.Selected.Value.ToString().Trim();
-            YYYY = oForm.Items.Item("YYYY").Specific.Value.Trim();
-            TeamCode = oForm.Items.Item("TeamCode").Specific.Value.Trim();
-            RspCode = oForm.Items.Item("RspCode").Specific.Value.Trim();
-            ClsCode = oForm.Items.Item("ClsCode").Specific.Value.Trim();
-            MSTCOD = oForm.Items.Item("MSTCOD").Specific.Value.Trim();
-            Div = oForm.DataSources.UserDataSources.Item("OptionDS").Value; //출력구분
-            Div1 = oForm.Items.Item("Div").Specific.Value.Trim();   //재직구분
-
-            
-            try
-            {
-                WinTitle = "[PH_PY925] 기부금명세서출력";
-                ReportName = "PH_PY925_01.rpt";
-
-                List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>(); //Parameter
-                List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
-                List<PSH_DataPackClass> dataPackSubReportParameter = new List<PSH_DataPackClass>(); //SubReport
-
-                //Formula
-                //dataPackFormula.Add(new PSH_DataPackClass("@CLTCOD", dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", CLTCOD, "and Code = 'P144' AND U_UseYN= 'Y'"))); //사업장
-                dataPackFormula.Add(new PSH_DataPackClass("@YYYY", YYYY)); //년
-                dataPackFormula.Add(new PSH_DataPackClass("@Div", Div));
-            
-                //Parameter
-                dataPackParameter.Add(new PSH_DataPackClass("@saup", CLTCOD)); //사업장
-                dataPackParameter.Add(new PSH_DataPackClass("@yyyy", YYYY));
-                dataPackParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode));
-                dataPackParameter.Add(new PSH_DataPackClass("@RspCode", RspCode));
-                dataPackParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode));
-                dataPackParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD));
-                dataPackParameter.Add(new PSH_DataPackClass("@Div", Div));
-                dataPackParameter.Add(new PSH_DataPackClass("@Div1", Div1));
-
-                //SubReport Parameter
-                dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY925_SUB1"));
-                dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY925_SUB1"));
-                dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY925_SUB1"));
-                dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY925_SUB1"));
-                dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY925_SUB1"));
-                dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY925_SUB1"));
-
-                dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY925_SUB2"));
-                dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY925_SUB2"));
-                dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY925_SUB2"));
-                dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY925_SUB2"));
-                dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY925_SUB2"));
-                dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY925_SUB2"));
-
-                dataPackSubReportParameter.Add(new PSH_DataPackClass("@saup", CLTCOD, "PH_PY925_SUB3"));
-                dataPackSubReportParameter.Add(new PSH_DataPackClass("@yyyy", YYYY, "PH_PY925_SUB3"));
-                dataPackSubReportParameter.Add(new PSH_DataPackClass("@TeamCode", TeamCode, "PH_PY925_SUB3"));
-                dataPackSubReportParameter.Add(new PSH_DataPackClass("@RspCode", RspCode, "PH_PY925_SUB3"));
-                dataPackSubReportParameter.Add(new PSH_DataPackClass("@ClsCode", ClsCode, "PH_PY925_SUB3"));
-                dataPackSubReportParameter.Add(new PSH_DataPackClass("@sabun", MSTCOD, "PH_PY925_SUB3"));
-
-                formHelpClass.OpenCrystalReport(dataPackParameter, dataPackFormula, dataPackSubReportParameter, WinTitle, ReportName);
-
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY925_Print_Report01_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
             }
         }
     }

@@ -560,7 +560,6 @@ namespace PSH_BOne_AddOn
                     else if (pVal.ItemUID == "btn_return")
                     {
                         oMat01.FlushToDataSource();
-                        oMat02.FlushToDataSource();
                         for (int i = 0; i <= oMat01.VisualRowCount - 1; i++)
                         {
                             if (oDS_PS_QM702H.GetValue("U_ColReg17", i).ToString().Trim() == "Y")
@@ -592,6 +591,7 @@ namespace PSH_BOne_AddOn
                                 }
                             }
                         }
+                        oMat02.FlushToDataSource();
                         for (int i = 0; i <= oMat02.VisualRowCount - 1; i++)
                         {
                             if (oDS_PS_QM702M.GetValue("U_ColReg17", i).ToString().Trim() == "Y")

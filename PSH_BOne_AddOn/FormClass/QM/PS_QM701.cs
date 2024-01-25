@@ -272,6 +272,13 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("verdict").Enabled = true;
                     oForm.Items.Item("OutUnit").Enabled = true;
                     oForm.Items.Item("cmt").Enabled = true;
+                    oForm.Items.Item("InOut").Enabled = true;
+                    oForm.Items.Item("ItemCode").Enabled = true;
+                    oForm.Items.Item("ItemName").Enabled = true;
+                    oForm.Items.Item("ItemSpec").Enabled = true;
+                    oForm.Items.Item("CardCode").Enabled = true;
+                    oForm.Items.Item("InDate").Enabled = true;
+                    oForm.Items.Item("TotalQty").Enabled = true;
                     oForm.EnableMenu("1281", true);  //찾기
                     oForm.EnableMenu("1282", false); //추가
                 }
@@ -317,6 +324,13 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("verdict").Enabled = true;
                         oForm.Items.Item("OutUnit").Enabled = true;
                         oForm.Items.Item("cmt").Enabled = true;
+                        oForm.Items.Item("InOut").Enabled = true;
+                        oForm.Items.Item("ItemCode").Enabled = true;
+                        oForm.Items.Item("ItemName").Enabled = true;
+                        oForm.Items.Item("ItemSpec").Enabled = true;
+                        oForm.Items.Item("CardCode").Enabled = true;
+                        oForm.Items.Item("InDate").Enabled = true;
+                        oForm.Items.Item("TotalQty").Enabled = true;
                     }
 
                     else if (oForm.Items.Item("ChkYN").Specific.Value.Trim() == "승인" || oForm.Items.Item("Canceled").Specific.Value.Trim() == "Y")
@@ -338,6 +352,14 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("cmt").Enabled = false;
                         oForm.Items.Item("OrdDate").Enabled = false;
                         oForm.Items.Item("OutUnit").Enabled = false;
+
+                        oForm.Items.Item("InOut").Enabled = false;
+                        oForm.Items.Item("ItemCode").Enabled = false;
+                        oForm.Items.Item("ItemName").Enabled = false;
+                        oForm.Items.Item("ItemSpec").Enabled = false;
+                        oForm.Items.Item("CardCode").Enabled = false;
+                        oForm.Items.Item("InDate").Enabled = false;
+                        oForm.Items.Item("TotalQty").Enabled = false;
                     }
                     else
                     {
@@ -357,6 +379,14 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("cmt").Enabled = true;
                         oForm.Items.Item("OrdDate").Enabled = true;
                         oForm.Items.Item("OutUnit").Enabled = true;
+
+                        oForm.Items.Item("InOut").Enabled = true;
+                        oForm.Items.Item("ItemCode").Enabled = true;
+                        oForm.Items.Item("ItemName").Enabled = true;
+                        oForm.Items.Item("ItemSpec").Enabled = true;
+                        oForm.Items.Item("CardCode").Enabled = true;
+                        oForm.Items.Item("InDate").Enabled = true;
+                        oForm.Items.Item("TotalQty").Enabled = true;
                     }
 
                     oForm.EnableMenu("1281", true); //찾기
@@ -1579,26 +1609,60 @@ namespace PSH_BOne_AddOn
                             sQry = "SELECT count(*) FROM[@PS_QM700L] WHERE Code = 'ZCheck' AND U_UseYN<>'N' AND U_Code ='" + dataHelpClass.User_MSTCOD() + "'";
                             oRecordSet.DoQuery(sQry);
                             p_DocEntry = oForm.Items.Item("DocEntry").Specific.Value;
-                            if (PSH_Globals.SBO_Application.MessageBox("결재를 취소하시겠습니까?", 1, "Yes", "No") == 1)
+                            if (oForm.Items.Item("ChkYN").Specific.Value.Trim() == "승인")
                             {
-                                if (oRecordSet.Fields.Item(0).Value.ToString().Trim() == "0")
+                                if (PSH_Globals.SBO_Application.MessageBox("결재를 취소하시겠습니까?", 1, "Yes", "No") == 1)
                                 {
-                                    PSH_Globals.SBO_Application.MessageBox("결재자만 결재를 취소할 수 있습니다.");
+
+                                    if (oRecordSet.Fields.Item(0).Value.ToString().Trim() == "0")
+                                    {
+                                        PSH_Globals.SBO_Application.MessageBox("결재자만 결재를 취소할 수 있습니다.");
+                                        BubbleEvent = false;
+                                        return;
+                                    }
+
+                                    sQry1 = " UPDATE [@PS_QM701H] SET U_ChkYN ='' WHERE DocEntry ='" + p_DocEntry + "'";
+                                    oRecordSet01.DoQuery(sQry1);
+
+                                    oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
+                                    PS_QM701_FormItemEnabled();
+                                    oForm.Items.Item("DocEntry").Specific.Value = p_DocEntry;
+                                    oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                                    BubbleEvent = false;
+                                }
+                                else
+                                {
                                     BubbleEvent = false;
                                     return;
                                 }
-                                sQry1 = " UPDATE [@PS_QM701H] SET U_ChkYN ='' WHERE DocEntry ='" + p_DocEntry + "'";
-                                oRecordSet01.DoQuery(sQry1);
-
-                                oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
-                                PS_QM701_FormItemEnabled();
-                                oForm.Items.Item("DocEntry").Specific.Value = p_DocEntry;
-                                oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                                BubbleEvent = false;
                             }
                             else
                             {
-                                BubbleEvent = false;
+                                if (PSH_Globals.SBO_Application.MessageBox("문서를 취소하시겠습니까?", 1, "Yes", "No") == 1)
+                                {
+                                    if (oForm.Items.Item("Canceled").Specific.Value.Trim() == "Y")
+                                    {
+                                        PSH_Globals.SBO_Application.MessageBox("이미 취소된 문서입니다.");
+                                        BubbleEvent = false;
+                                        return;
+                                    }
+                                    else
+                                    {
+                                        sQry1 = " UPDATE [@PS_QM701H] SET Canceled='Y' WHERE DocEntry ='" + p_DocEntry + "'";
+                                        oRecordSet01.DoQuery(sQry1);
+                                    }
+                                    
+                                    oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
+                                    PS_QM701_FormItemEnabled();
+                                    oForm.Items.Item("DocEntry").Specific.Value = p_DocEntry;
+                                    oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                                    BubbleEvent = false;
+                                }
+                                else
+                                {
+                                    BubbleEvent = false;
+                                    return;
+                                }
                             }
                             break;
                         case "1286": //닫기

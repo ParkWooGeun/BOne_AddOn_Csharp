@@ -1477,26 +1477,50 @@ namespace PSH_BOne_AddOn
                             sQry = "SELECT count(*) FROM[@PS_QM700L] WHERE Code = 'ZCheck' AND U_UseYN<>'N' AND U_Code ='" + dataHelpClass.User_MSTCOD() + "'";
                             oRecordSet.DoQuery(sQry);
                             p_DocEntry = oForm.Items.Item("DocEntry").Specific.Value;
-                            if (PSH_Globals.SBO_Application.MessageBox("결재를 취소하시겠습니까?", 1, "Yes", "No") == 1)
+                            if (oForm.Items.Item("ChkYN").Specific.Value.Trim() == "승인")
                             {
-                                if (oRecordSet.Fields.Item(0).Value.ToString().Trim() == "0")
+                                if (PSH_Globals.SBO_Application.MessageBox("결재를 취소하시겠습니까?", 1, "Yes", "No") == 1)
                                 {
-                                    PSH_Globals.SBO_Application.MessageBox("결재자만 결재를 취소할 수 있습니다.");
-                                    BubbleEvent = false;
-                                    return;
-                                }
-                                sQry1 = " UPDATE [@PS_QM703H] SET U_ChkYN ='' WHERE DocEntry ='" + p_DocEntry + "'";
-                                oRecordSet01.DoQuery(sQry1);
 
-                                oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
-                                PS_QM703_FormItemEnabled();
-                                oForm.Items.Item("DocEntry").Specific.Value = p_DocEntry;
-                                oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
-                                BubbleEvent = false;
+                                    if (oRecordSet.Fields.Item(0).Value.ToString().Trim() == "0")
+                                    {
+                                        PSH_Globals.SBO_Application.MessageBox("결재자만 결재를 취소할 수 있습니다.");
+                                        BubbleEvent = false;
+                                        return;
+                                    }
+
+                                    sQry1 = " UPDATE [@PS_QM701H] SET U_ChkYN ='' WHERE DocEntry ='" + p_DocEntry + "'";
+                                    oRecordSet01.DoQuery(sQry1);
+
+                                    oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
+                                    PS_QM703_FormItemEnabled();
+                                    oForm.Items.Item("DocEntry").Specific.Value = p_DocEntry;
+                                    oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                                    BubbleEvent = false;
+                                }
                             }
                             else
                             {
-                                BubbleEvent = false;
+                                if (PSH_Globals.SBO_Application.MessageBox("문서를 취소하시겠습니까?", 1, "Yes", "No") == 1)
+                                {
+                                    if (oForm.Items.Item("Canceled").Specific.Value.Trim() == "Y")
+                                    {
+                                        PSH_Globals.SBO_Application.MessageBox("이미 취소된 문서입니다.");
+                                        BubbleEvent = false;
+                                        return;
+                                    }
+                                    else
+                                    {
+                                        sQry1 = " UPDATE [@PS_QM701H] SET Canceled='Y' WHERE DocEntry ='" + p_DocEntry + "'";
+                                        oRecordSet01.DoQuery(sQry1);
+                                    }
+
+                                    oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE;
+                                    PS_QM703_FormItemEnabled();
+                                    oForm.Items.Item("DocEntry").Specific.Value = p_DocEntry;
+                                    oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                                    BubbleEvent = false;
+                                }
                             }
                             break;
                         case "1286": //닫기

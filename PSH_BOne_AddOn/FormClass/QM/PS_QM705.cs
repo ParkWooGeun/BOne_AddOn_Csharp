@@ -692,6 +692,7 @@ namespace PSH_BOne_AddOn
                     }
                     else if (pVal.ItemUID == "btn_send")
                     {
+                        oMat02.FlushToDataSource();
                         string SDocEntry = oForm.Items.Item("SDocEntry").Specific.Value.ToString().Trim();
                         string SGoBun = oForm.Items.Item("SGoBun").Specific.Value.ToString().Trim();
                         if (string.IsNullOrEmpty(oForm.Items.Item("SDocEntry").Specific.Value.ToString().Trim()))

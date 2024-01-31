@@ -1146,6 +1146,7 @@ namespace PSH_BOne_AddOn
                                             DI_oInventoryGenExit.Lines.WarehouseCode = oDS_PS_MM070L.GetValue("U_WhsCode", i).ToString().Trim();
                                             DI_oInventoryGenExit.Lines.Quantity = Convert.ToDouble(oDS_PS_MM070L.GetValue("U_RealWt", i).ToString().Trim());
                                             DI_oInventoryGenExit.Lines.CostingCode = oRecordSet01.Fields.Item(0).Value.ToString().Trim(); //배부규칙
+                                            DI_oInventoryGenExit.Lines.UserFields.Fields.Item("U_Weight").Value = oRecordSet01.Fields.Item(1).Value.ToString().Trim();
 
                                             //금액, 단가 지정하여 입력(2014.01.29 송명규 추가)
                                             DI_oInventoryGenExit.Lines.LineTotal = Convert.ToDouble(oDS_PS_MM070L.GetValue("U_LinTotal", i).ToString().Trim()); //금액
@@ -1384,6 +1385,7 @@ namespace PSH_BOne_AddOn
                                     DI_oInventoryGenEntry.Lines.WarehouseCode = oDS_PS_MM070L.GetValue("U_WhsCode", i).ToString().Trim();
                                     DI_oInventoryGenEntry.Lines.Quantity = Convert.ToDouble(oDS_PS_MM070L.GetValue("U_RealWt", i).ToString().Trim());
                                     DI_oInventoryGenEntry.Lines.CostingCode = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
+                                    DI_oInventoryGenEntry.Lines.UserFields.Fields.Item("U_Weight").Value = oRecordSet01.Fields.Item(1).Value.ToString().Trim();
 
                                     j += 1;
                                 }

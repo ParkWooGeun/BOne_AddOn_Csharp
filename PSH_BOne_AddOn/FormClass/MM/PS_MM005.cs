@@ -825,6 +825,69 @@ namespace PSH_BOne_AddOn
             return returnValue;
         }
 
+
+        /// <summary>
+        /// 첫행의 값으로 비율로 계산하여 숫자에 입력함
+        /// </summary>
+        /// <returns></returns>
+        private bool PS_MM005_RateCompute()
+        {
+            bool returnValue = false;
+            int i;
+            double Rate;
+            double Weight;
+            double result = 0;
+            double subresult = 0;
+            string errMsg = string.Empty;
+            string successMessage = string.Empty;
+
+            try
+            {
+                for(i = 1; i <= oMat01.RowCount; i++)
+                {
+                    result += Convert.ToDouble(oMat01.Columns.Item("Survey").Cells.Item(i).Specific.Value);
+                }
+                if (string.IsNullOrEmpty(oMat01.Columns.Item("Weight").Cells.Item(1).Specific.Value))
+                {
+                    errMsg = "첫번재 수량/중량 값은 필수입니다.";
+                    throw new Exception();
+                }
+                Weight = Convert.ToDouble(oMat01.Columns.Item("Weight").Cells.Item(1).Specific.Value);
+
+                for (i = 1; i <= oMat01.RowCount; i++)
+                {
+                    oMat01.Columns.Item("Weight").Cells.Item(i).Specific.Value = Math.Round(Weight / result * Convert.ToDouble(oMat01.Columns.Item("Survey").Cells.Item(i).Specific.Value),0);
+                    subresult += Math.Round(Weight / result * Convert.ToDouble(oMat01.Columns.Item("Survey").Cells.Item(i).Specific.Value), 0);
+                    if(i == oMat01.RowCount-1)
+                    {
+                        oMat01.Columns.Item("Weight").Cells.Item(i).Specific.Value = Convert.ToDouble(oMat01.Columns.Item("Weight").Cells.Item(i).Specific.Value) + (Weight - subresult);
+                    }
+                }
+                successMessage = "비율 조정 완료. 갱신버튼을 클릭하여 수정 완료하십시오.";
+                returnValue = true;
+            }
+            catch (Exception ex)
+            {
+                if(errMsg != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMsg);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Medium, BoStatusBarMessageType.smt_Error);
+                }
+            }
+            finally
+            {
+                if (successMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(successMessage, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Success);
+                }
+            }
+
+            return returnValue;
+        }
+
         /// <summary>
         /// Matrix 데이터 로드
         /// </summary>
@@ -933,6 +996,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_MM005H.SetValue("U_OutUnit", i, oRecordSet01.Fields.Item("U_OutUnit").Value.ToString().Trim());
                     oDS_PS_MM005H.SetValue("U_OrdNum", i, oRecordSet01.Fields.Item("U_OrdNum").Value.ToString().Trim());
                     oDS_PS_MM005H.SetValue("U_UpdtUser", i, oRecordSet01.Fields.Item("U_UpdtUser").Value.ToString().Trim());
+                    oDS_PS_MM005H.SetValue("U_Survey", i, oRecordSet01.Fields.Item("U_Survey").Value.ToString().Trim());
 
                     sQry = "Select Sum(OnHand) From OITW Where ItemCode = '" + oRecordSet01.Fields.Item("U_ItemCode").Value.ToString().Trim() + "'";
                     oRecordSet02.DoQuery(sQry);
@@ -1062,6 +1126,7 @@ namespace PSH_BOne_AddOn
             string BPLId;
             double Qty;
             double Weight;
+            double Survey;
             string Note;
             string QCYN;
             string UseDept;
@@ -1179,6 +1244,7 @@ namespace PSH_BOne_AddOn
                     MachName = oDS_PS_MM005H.GetValue("U_MachName", i).ToString().Trim(); //설비명
                     ImportYN = oDS_PS_MM005H.GetValue("U_ImportYN", i).ToString().Trim(); //수입품여부
                     EmergYN = oDS_PS_MM005H.GetValue("U_EmergYN", i).ToString().Trim(); //긴급여부
+                    Survey = Convert.ToDouble(oDS_PS_MM005H.GetValue("U_Survey", i).ToString().Trim()); //계측값
 
                     if (!string.IsNullOrEmpty(ItemCode))
                     {
@@ -1214,6 +1280,7 @@ namespace PSH_BOne_AddOn
                         sQry += "'" + MachName + "',";
                         sQry += "'" + ImportYN + "',";
                         sQry += "'" + EmergYN + "',";
+                        sQry += "" + Survey + ",";
                         sQry += "'" + PSH_Globals.oCompany.UserSignature + "'";
 
                         //선행프로세스 대비 일자체크_S
@@ -1295,6 +1362,7 @@ namespace PSH_BOne_AddOn
             string ItemName;
             double Qty;
             double Weight;
+            double Survey;
             string Note;
             string QCYN;
             string UseDept;
@@ -1379,6 +1447,7 @@ namespace PSH_BOne_AddOn
                     MachName = oDS_PS_MM005H.GetValue("U_MachName", i).ToString().Trim(); //설비명
                     ImportYN = oDS_PS_MM005H.GetValue("U_ImportYN", i).ToString().Trim(); //수입품여부
                     EmergYN = oDS_PS_MM005H.GetValue("U_EmergYN", i).ToString().Trim(); //긴급여부
+                    Survey = Convert.ToDouble(oDS_PS_MM005H.GetValue("U_Survey", i).ToString().Trim()); //측정값
 
                     if (string.IsNullOrEmpty(oDS_PS_MM005H.GetValue("U_PP030DL", i).ToString().Trim()))
                     {
@@ -1432,6 +1501,7 @@ namespace PSH_BOne_AddOn
                     sQry += "U_MachCode = '" + MachCode + "', ";
                     sQry += "U_MachName = '" + MachName + "', ";
                     sQry += "U_ImportYN = '" + ImportYN + "', ";
+                    sQry += "U_Survey = " + Survey + ", ";
                     sQry += "U_EmergYN = '" + EmergYN + "' ";
 
                     if (oDS_PS_MM005H.GetValue("U_UpdtUser", i).ToString().Trim() != RecordSet03.Fields.Item(0).Value.ToString().Trim())
@@ -1967,6 +2037,14 @@ namespace PSH_BOne_AddOn
                         }
                         PS_MM005_GetPreSearchData();
                         PS_MM005_LoadCaption();
+                    }
+                    else if (pVal.ItemUID == "RateComp")
+                    {
+                        if (PS_MM005_RateCompute() == false)
+                        {
+                            BubbleEvent = false;
+                            return;
+                        }
                     }
                 }
                 else if (pVal.BeforeAction == false)

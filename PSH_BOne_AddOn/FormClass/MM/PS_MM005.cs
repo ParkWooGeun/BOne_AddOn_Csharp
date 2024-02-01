@@ -650,14 +650,24 @@ namespace PSH_BOne_AddOn
                                 oRecordSet01.DoQuery(sQry);
                                 oMat01.Columns.Item("ItemName").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
                                 oMat01.Columns.Item("OutUnit").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item(1).Value.ToString().Trim();
+                                oMat01.Columns.Item("Auto").Cells.Item(oRow).Specific.Select("N");
                             }
                             else
                             {
-                                sQry = "Select ItemName, FrgnName, BuyUnitMsr From OITM Where ItemCode = '" + oMat01.Columns.Item("ItemCode").Cells.Item(oRow).Specific.Value.ToString().Trim() + "'";
+                                sQry = "Select ItemName, FrgnName, BuyUnitMsr, QryGroup25 From OITM Where ItemCode = '" + oMat01.Columns.Item("ItemCode").Cells.Item(oRow).Specific.Value.ToString().Trim() + "'";
                                 oRecordSet01.DoQuery(sQry);
                                 oMat01.Columns.Item("ItemName").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item(0).Value.ToString().Trim();
                                 oMat01.Columns.Item("OutUnit").Cells.Item(oRow).Specific.Value = oRecordSet01.Fields.Item(2).Value.ToString().Trim();
-                            
+
+                                if (oRecordSet01.Fields.Item(3).Value.ToString().Trim() == "Y")
+                                {
+                                    oMat01.Columns.Item("Auto").Cells.Item(oRow).Specific.Select("Y");
+                                }
+                                else
+                                {
+                                    oMat01.Columns.Item("Auto").Cells.Item(oRow).Specific.Select("N");
+                                }
+
                                 sQry = "Select Sum(OnHand) From OITW Where ItemCode = '" + oMat01.Columns.Item("ItemCode").Cells.Item(oRow).Specific.Value.ToString().Trim() + "'";
                                 oRecordSet01.DoQuery(sQry);
                                 oMat01.Columns.Item("IvQty").Cells.Item(oRow).Specific.Value = dataHelpClass.Calculate_Qty(oMat01.Columns.Item("ItemCode").Cells.Item(oRow).Specific.Value.ToString().Trim(), Convert.ToInt32(Convert.ToDouble(oRecordSet01.Fields.Item(0).Value.ToString().Trim())));
@@ -666,7 +676,7 @@ namespace PSH_BOne_AddOn
 
                             oMat01.Columns.Item("DocDate").Cells.Item(oRow).Specific.Value = DateTime.Now.ToString("yyyyMMdd");
                             oMat01.Columns.Item("DueDate").Cells.Item(oRow).Specific.Value = DateTime.Now.ToString("yyyyMMdd");
-                            oMat01.Columns.Item("Auto").Cells.Item(oRow).Specific.Select("N");
+                            
                             oMat01.Columns.Item("QCYN").Cells.Item(oRow).Specific.Select("N");
                             oMat01.Columns.Item("OKYN").Cells.Item(oRow).Specific.Select("N");
                             oMat01.Columns.Item("DivideYN").Cells.Item(oRow).Specific.Select("N");

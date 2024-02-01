@@ -99,8 +99,14 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("BPLId").Specific.ValidValues.Add(oRecordSet.Fields.Item(0).Value.ToString().Trim(), oRecordSet.Fields.Item(1).Value.ToString().Trim());
 					oRecordSet.MoveNext();
 				}
-
 				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
+
+				// 출력구분
+				oForm.DataSources.UserDataSources.Add("Div", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
+				oForm.Items.Item("Div").Specific.ValidValues.Add("1", "전력비사용현황");
+				oForm.Items.Item("Div").Specific.ValidValues.Add("2", "도시사스사용현황");
+				oForm.Items.Item("Div").Specific.ValidValues.Add("3", "질소(기체,액체)사용현황");
+				oForm.Items.Item("Div").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 			}
 			catch (Exception ex)
 			{
@@ -118,12 +124,13 @@ namespace PSH_BOne_AddOn
 		[STAThread]
 		private void PS_PP275_PrintReport()
 		{
-			string WinTitle;
-			string ReportName;
+			string WinTitle = string.Empty;
+			string ReportName = string.Empty;
 			string sQry;
 			string BPLName;
 			string BPLId;
 			string YM;
+			string Div;
 			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -131,13 +138,27 @@ namespace PSH_BOne_AddOn
 			{
 				BPLId = oForm.Items.Item("BPLId").Specific.Value.ToString().Trim();
 				YM = oForm.Items.Item("YM").Specific.Value.ToString().Trim();
+				Div = oForm.Items.Item("Div").Specific.Value.ToString().Trim();
 
 				sQry = "SELECT BPLName FROM [OBPL] WHERE BPLId = '" + BPLId + "'";
 				oRecordSet.DoQuery(sQry);
 				BPLName = oRecordSet.Fields.Item(0).Value.ToString().Trim();
 
-				WinTitle = "[PS_PP275_01] 연간담당별전력사용현황";
-				ReportName = "PS_PP275_01.RPT";
+				if (Div == "1")
+				{
+					WinTitle = "[PS_PP275_01] 연간담당별전력사용현황";
+					ReportName = "PS_PP275_01.RPT";
+				}
+				else if (Div == "2")
+				{
+					WinTitle = "[PS_PP275_02] 연간담당별도시가스사용현황";
+					ReportName = "PS_PP275_02.RPT";
+				}
+				else if (Div == "3")
+				{
+					WinTitle = "[PS_PP275_03] 연간담당별질소(기체,액체)사용현황";
+					ReportName = "PS_PP275_03.RPT";
+				}
 
 				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
 				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();

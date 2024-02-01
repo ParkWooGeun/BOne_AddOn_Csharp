@@ -389,23 +389,38 @@ namespace PSH_BOne_AddOn
 
                 // oForm.Items("SPosDate").Specific.Value = Format(Now, "yyyymmdd")
 
-                //1210 창원관리담당, 2210 부산 관리담당, 3210 포장사업장 지원담당
-                sQry = "  Select  TeamCode = U_TeamCode,";
-                sQry += "         RspCode = Isnull(U_RspCode,'')";
-                sQry += " From    [@PH_PY001A]";
-                sQry += " Where   Code = '" + dataHelpClass.User_MSTCOD() + "'";
+                ////시스템 코드에서 등록해서 변경하도록
+                //sQry = "  Select  TeamCode = U_TeamCode,";
+                //sQry += "         RspCode = Isnull(U_RspCode,'')";
+                //sQry += " From    [@PH_PY001A]";
+                //sQry += " Where   Code = '" + dataHelpClass.User_MSTCOD() + "'";
+                //oRecordSet.DoQuery(sQry);
+
+                ////관리담당이면 현재일자 이전및 당일 16시 이후에 수정삭제 가능. 그외는 제한을 둠
+                //if (codeHelpClass.Right(oRecordSet.Fields.Item(0).Value.ToString().Trim(), 3) == "200" && oRecordSet.Fields.Item(1).Value.ToString().Trim() == "") // 운영지원팀
+                //{
+                //    oRspCodeYN = "Y";
+                //}
+                //else if (codeHelpClass.Right(oRecordSet.Fields.Item(1).Value.ToString().Trim(), 3) == "210") // 관리담당
+                //{
+                //    oRspCodeYN = "Y";
+                //}
+                //else
+                //{
+                //    oRspCodeYN = "N";
+                //}
+
+                //시스템 코드에서 등록해서 변경하도록 2024.01.25 BY P.W.G
+                sQry = "  Select  Count(*)";
+                sQry += "  FROM [@PS_SY005H] A INNER JOIN [@PS_SY005L] B ON A.Code = B.Code ";
+                sQry += "  WHERE B.U_UseYN = 'Y' AND A.Code = 'PY008' AND B.U_AppUser = '" + PSH_Globals.oCompany.UserName + "'";
                 oRecordSet.DoQuery(sQry);
 
-                //관리담당이면 현재일자 이전및 당일 16시 이후에 수정삭제 가능. 그외는 제한을 둠
-                if (codeHelpClass.Right(oRecordSet.Fields.Item(0).Value.ToString().Trim(), 3) == "200" && oRecordSet.Fields.Item(1).Value.ToString().Trim() == "") // 운영지원팀
+                if (oRecordSet.Fields.Item(0).Value > 0) // 코드 등록되어있으면 수정가능
                 {
                     oRspCodeYN = "Y";
                 }
-                else if (codeHelpClass.Right(oRecordSet.Fields.Item(1).Value.ToString().Trim(), 3) == "210") // 관리담당
-                {
-                    oRspCodeYN = "Y";
-                }
-                else
+                else 
                 {
                     oRspCodeYN = "N";
                 }

@@ -219,8 +219,8 @@ namespace PSH_BOne_AddOn
 
 				else if (oForm.Items.Item("Rad05").Specific.Selected == true)
 				{
-					WinTitle = "[PS_PP655_03] 창원제품기준 수율현황";
-					ReportName = "PS_PP655_03.RPT";
+					WinTitle = "[PS_PP655_04] 창원제품기준 수율현황";
+					ReportName = "PS_PP655_04.RPT";
                     Div = "2";
                 }
 

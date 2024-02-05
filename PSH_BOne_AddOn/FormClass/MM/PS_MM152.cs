@@ -2206,6 +2206,8 @@ namespace PSH_BOne_AddOn
 								if (Convert.ToDouble(oMat.Columns.Item("OutQty").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()) == Convert.ToDouble(oMat.Columns.Item("MDUseQty").Cells.Item(pVal.Row).Specific.Value.ToString().Trim())) //납품수량이 원재료남은수량이랑 같으면 완료체크
                                 {
 									oMat.Columns.Item("ReStatus").Cells.Item(pVal.Row).Specific.Select("Y");
+									oMat.Columns.Item("MUseQty").Cells.Item(pVal.Row).Specific.Value = oMat.Columns.Item("OutQty").Cells.Item(pVal.Row).Specific.Value.ToString().Trim();
+									oMat.Columns.Item("MUseWt").Cells.Item(pVal.Row).Specific.Value = oMat.Columns.Item("OutWt").Cells.Item(pVal.Row).Specific.Value.ToString().Trim();
 								}
 							}
 							else if (pVal.ColUID == "OutWt")

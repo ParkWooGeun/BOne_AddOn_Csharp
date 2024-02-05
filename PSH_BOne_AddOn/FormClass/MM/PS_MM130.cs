@@ -4,6 +4,7 @@ using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.DataPack;
 using PSH_BOne_AddOn.Form;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace PSH_BOne_AddOn
 {
@@ -728,6 +729,8 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
+				Thread.Sleep(1000); //DeadLock때문에 Delay 시간을 줌
+				
 				oDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
 				sQry = "SELECT ISNULL(MAX(U_OutDoc), 0) FROM [@PS_MM130H] WHERE SubString(U_OutDoc,1,8) = '" + oDate + "'";
 				oRecordSet.DoQuery(sQry);

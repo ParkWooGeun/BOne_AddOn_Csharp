@@ -4464,7 +4464,7 @@ namespace PSH_BOne_AddOn
                             break;
                         case "1293": //행삭제
                             Raise_EVENT_ROW_DELETE(FormUID, pVal, BubbleEvent);
-                            if (ErrCheckDate = true)
+                            if (ErrCheckDate == true)
                             {
                                 BubbleEvent = false;
                                 return;

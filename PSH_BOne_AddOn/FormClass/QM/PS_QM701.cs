@@ -574,12 +574,6 @@ namespace PSH_BOne_AddOn
                     errMessage = "판정의견을 선택하세요.";
                     throw new Exception();
                 }
-
-                if (oForm.Items.Item("verdict").Specific.Value.ToString().Trim() == "2")
-                {
-                    errMessage = "판정의견을 선택하세요.";
-                    throw new Exception();
-                }
                 if (string.IsNullOrEmpty(oForm.Items.Item("WorkName").Specific.Value))
                 {
                     errMessage = "검사자가 입력되지 않았습니다.";
@@ -1445,8 +1439,10 @@ namespace PSH_BOne_AddOn
 
                                 if ((oRecordSet01.Fields.Item(0).Value)>0)
                                 {
-                                    errMessage = "등록된 문서가 존재합니다. 문서번호는" + oRecordSet01.Fields.Item(0).Value.ToString().Trim() + "입니다.";
+                                    errMessage = "중복된 문서가 존재합니다. 문서번호는" + oRecordSet01.Fields.Item(0).Value.ToString().Trim() + "입니다.";
                                     PSH_Globals.SBO_Application.MessageBox(errMessage);
+                                    BubbleEvent = false;
+                                    return;
                                 }
 
                                 sQry = " EXEC PS_QM701_02 '" + oForm.Items.Item("KeyDoc").Specific.Value.ToString().Trim() + "'";

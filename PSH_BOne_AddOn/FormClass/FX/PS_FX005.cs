@@ -1531,6 +1531,12 @@ namespace PSH_BOne_AddOn
                             }
                         }
                     }
+                    else if (pVal.ItemUID == "LongYear")
+                    {
+                        sQry = "SELECT CAST(CAST(1 AS DECIMAL(10, 3)) / " + oForm.Items.Item("LongYear").Specific.Value.ToString().Trim() + "AS DECIMAL(10, 3))";
+                        oRecordSet.DoQuery(sQry);
+                        oForm.Items.Item("DepRate").Specific.Value = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+                    }
                 }
             }
             catch (Exception ex)

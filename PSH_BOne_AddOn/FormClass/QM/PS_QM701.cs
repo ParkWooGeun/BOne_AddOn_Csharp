@@ -1439,10 +1439,8 @@ namespace PSH_BOne_AddOn
 
                                 if ((oRecordSet01.Fields.Item(0).Value)>0)
                                 {
-                                    errMessage = "중복된 문서가 존재합니다. 문서번호는" + oRecordSet01.Fields.Item(0).Value.ToString().Trim() + "입니다.";
+                                    errMessage = "등록된 문서가 존재합니다. 문서번호는" + oRecordSet01.Fields.Item(0).Value.ToString().Trim() + "입니다.";
                                     PSH_Globals.SBO_Application.MessageBox(errMessage);
-                                    BubbleEvent = false;
-                                    return;
                                 }
 
                                 sQry = " EXEC PS_QM701_02 '" + oForm.Items.Item("KeyDoc").Specific.Value.ToString().Trim() + "'";

@@ -210,7 +210,7 @@ namespace PSH_BOne_AddOn
                         oDS_PS_QM702H.SetValue("U_ColReg12", i, oRecordSet01.Fields.Item("U_BadCode").Value.ToString().Trim());
                         oDS_PS_QM702H.SetValue("U_ColReg13", i, oRecordSet01.Fields.Item("U_BadNote").Value.ToString().Trim());
                         oDS_PS_QM702H.SetValue("U_ColReg14", i, oRecordSet01.Fields.Item("U_verdict").Value.ToString().Trim());
-                        oDS_PS_QM702H.SetValue("U_ColReg15", i, oRecordSet01.Fields.Item("U_Comments").Value.ToString().Trim());
+                        oDS_PS_QM702H.SetValue("U_ColReg15", i, oRecordSet01.Fields.Item("U_cmt").Value.ToString().Trim());
                         oRecordSet01.MoveNext();
                     }
                     oMat01.LoadFromDataSource();
@@ -246,7 +246,7 @@ namespace PSH_BOne_AddOn
                         oDS_PS_QM702M.SetValue("U_ColReg12", i, oRecordSet01.Fields.Item("U_BadCode").Value.ToString().Trim());
                         oDS_PS_QM702M.SetValue("U_ColReg13", i, oRecordSet01.Fields.Item("U_BadNote").Value.ToString().Trim());
                         oDS_PS_QM702M.SetValue("U_ColReg14", i, oRecordSet01.Fields.Item("U_verdict").Value.ToString().Trim());
-                        oDS_PS_QM702M.SetValue("U_ColReg15", i, oRecordSet01.Fields.Item("U_Comments").Value.ToString().Trim());
+                        oDS_PS_QM702M.SetValue("U_ColReg15", i, oRecordSet01.Fields.Item("U_cmt").Value.ToString().Trim());
                         oRecordSet01.MoveNext();
                     }
                     oMat02.LoadFromDataSource();

@@ -2434,6 +2434,9 @@
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PH_PY920_23_02.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PH_PY920_23_03.rpt" />
     <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PH_PY925_01_2022.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_PP275_02.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_PP275_03.rpt" />
+    <EmbeddedResource Include="PSH_BOne_AddOn\PathINI\Report\PS_PP655_04.rpt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EXT_Form\FileListBoxForm.resX">

@@ -288,6 +288,8 @@ namespace PSH_BOne_AddOn
                     oDS_PH_PY417B.SetValue("U_ColSum02", i, oRecordSet.Fields.Item("JAmt").Value);
                     oDS_PH_PY417B.SetValue("U_ColSum03", i, oRecordSet.Fields.Item("NAmt").Value);
                     oDS_PH_PY417B.SetValue("U_ColSum04", i, oRecordSet.Fields.Item("JSAmt").Value);
+                    oDS_PH_PY417B.SetValue("U_ColReg06", i, oRecordSet.Fields.Item("CLTCOD").Value);
+
 
                     STot += oRecordSet.Fields.Item("SAmt").Value;
                     JTot += oRecordSet.Fields.Item("JAmt").Value;

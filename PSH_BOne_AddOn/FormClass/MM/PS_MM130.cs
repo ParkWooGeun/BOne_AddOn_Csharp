@@ -4,6 +4,7 @@ using PSH_BOne_AddOn.Data;
 using PSH_BOne_AddOn.DataPack;
 using PSH_BOne_AddOn.Form;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace PSH_BOne_AddOn
 {
@@ -142,20 +143,12 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void PS_MM130_Initial_Setting()
 		{
-			//tring lcl_User_BPLId;
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
 			try
 			{
 				dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL order by BPLId", "", false, false);
 				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
-				//lcl_User_BPLId = dataHelpClass.User_BPLID();
-
-				//            if (lcl_User_BPLId == "1")
-				//            {
-				//                oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue);
-				//            }
-				//            dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL order by BPLId", "", false, false);
 				oForm.Items.Item("CntcCode").Specific.Value = dataHelpClass.User_MSTCOD();
             }
 			catch (Exception ex)
@@ -290,19 +283,23 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("DocEntry").Enabled = false;
 					oForm.Items.Item("OutDoc").Enabled = false;
 					oForm.Items.Item("Print").Enabled = false;
+					oForm.Items.Item("OKYNC").Enabled = false;
+					oForm.Items.Item("OKYNC").Specific.Select("N", SAPbouiCOM.BoSearchKey.psk_ByValue);
 
-					if (oDS_PS_MM130H.GetValue("U_OKYNC", 0).ToString().Trim() == "C" || oDS_PS_MM130H.GetValue("U_OKYNC", 0).ToString().Trim() == "Y")
-					{
-						oForm.EnableMenu("1284", false); //취소
-						oForm.EnableMenu("1286", false); //닫기
-						oForm.EnableMenu("1293", false); //행삭제
-					}
-					else
-					{
-						oForm.EnableMenu("1284", false); //취소
-						oForm.EnableMenu("1286", false); //닫기
-						oForm.EnableMenu("1293", false); //행삭제
-					}
+					
+
+					//if (oDS_PS_MM130H.GetValue("U_OKYNC", 0).ToString().Trim() == "C" || oDS_PS_MM130H.GetValue("U_OKYNC", 0).ToString().Trim() == "Y")
+					//{
+					//	oForm.EnableMenu("1284", false); //취소
+					//	oForm.EnableMenu("1286", false); //닫기
+					//	oForm.EnableMenu("1293", false); //행삭제
+					//}
+					//else
+					//{
+					//	oForm.EnableMenu("1284", false); //취소
+					//	oForm.EnableMenu("1286", false); //닫기
+					//	oForm.EnableMenu("1293", false); //행삭제
+					//}
 
 					//외주업체
 					if (oRecordSet.Fields.Item(0).Value.ToString().Trim() == "1")
@@ -319,7 +316,6 @@ namespace PSH_BOne_AddOn
 						oForm.Items.Item("DocDate").Enabled = false;
 						oForm.Items.Item("Fare").Enabled = false;
 						oForm.Items.Item("ArrivePl").Enabled = false;
-						oForm.Items.Item("OKYNC").Enabled = true;
 						oMat.Columns.Item("OrdNum").Editable = false;
 						oMat.Columns.Item("OutItmCd").Editable = false;
 						oMat.Columns.Item("OutQty").Editable = false;
@@ -350,8 +346,7 @@ namespace PSH_BOne_AddOn
 						oMat.Columns.Item("InWhCd").Editable = true;
 						oMat.Columns.Item("InWhNm").Editable = true;
 						oForm.Items.Item("Rad01").Enabled = true;
-						oForm.Items.Item("Rad02").Enabled = true;
-						oForm.Items.Item("OKYNC").Enabled = true;
+						oForm.Items.Item("Rad02").Enabled = true; 
 						oMat.Columns.Item("OrdNum").Editable = true;
 						oMat.Columns.Item("TCpCode").Editable = true;
 						oMat.Columns.Item("OutItmCd").Editable = true;
@@ -487,11 +482,11 @@ namespace PSH_BOne_AddOn
 					{
 						if (oDS_PS_MM130H.GetValue("U_OKYNC", 0).ToString().Trim() == "C" || oDS_PS_MM130H.GetValue("U_OKYNC", 0).ToString().Trim() == "Y")
 						{
-							if (oDS_PS_MM130H.GetValue("U_OKYNC", 0).ToString().Trim() == "N")
+							if (oDS_PS_MM130H.GetValue("U_OKYNC", 0).ToString().Trim() == "Y")
 							{
 								oForm.Items.Item("OKYNC").Enabled = true;
 							}
-							else if (oDS_PS_MM130H.GetValue("U_OKYNC", 0).ToString().Trim() == "C" || oDS_PS_MM130H.GetValue("U_OKYNC", 0).ToString().Trim() == "Y")
+							else if (oDS_PS_MM130H.GetValue("U_OKYNC", 0).ToString().Trim() == "C")
 							{
 								oForm.Items.Item("OKYNC").Enabled = false;
 							}
@@ -728,6 +723,8 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
+				Thread.Sleep(1000); //DeadLock때문에 Delay 시간을 줌
+				
 				oDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
 				sQry = "SELECT ISNULL(MAX(U_OutDoc), 0) FROM [@PS_MM130H] WHERE SubString(U_OutDoc,1,8) = '" + oDate + "'";
 				oRecordSet.DoQuery(sQry);
@@ -1176,7 +1173,6 @@ namespace PSH_BOne_AddOn
 		{
 
 			string sQry;
-			
 			string errMessage = string.Empty;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -1203,34 +1199,46 @@ namespace PSH_BOne_AddOn
 								return;
 							}
 							
-							if (oForm.Items.Item("OKYNC").Specific.Value.ToString().Trim() == "N" && string.IsNullOrEmpty(oForm.Items.Item("STDocNum").Specific.Value.ToString().Trim()))
-							{
-								if (oForm.Items.Item("Rad01").Specific.Selected == true)
-								{
-									if (PS_MM130_StockTrans() == false)
-									{
-										BubbleEvent = false;
-										return;
-									}
-								}
-							}
 						}
 						
-						else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE) && oForm.Items.Item("OKYNC").Specific.Value.ToString().Trim() == "C" && !string.IsNullOrEmpty(oForm.Items.Item("STDocNum").Specific.Value.ToString().Trim()))
+						else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE) && oForm.Items.Item("OKYNC").Specific.Value.ToString().Trim() == "C")
 						{
+							sQry = "SELECT COUNT(*) FROM [@PS_MM152H] A inner join [@PS_MM152L] B on A.DocEntry = B.DocEntry";
+							sQry += "  WHERE A.U_OKYNC <> 'C' AND B.U_OutDoc ='" + oForm.Items.Item("OutDoc").Specific.Value.ToString().Trim() + "'";
+							oRecordSet.DoQuery(sQry);
+
+							if (oRecordSet.Fields.Item(0).Value > 0 )
+							{
+								errMessage = "반출된 문서가 있습니다.";
+								BubbleEvent = false;
+								throw new System.Exception();
+							}
+
 							if (PS_MM130_DataValidCheck() == false)
 							{
 								BubbleEvent = false;
 								return;
 							}
-
-                            if (PS_MM130_Cancel_oStockTrans() == false)
-							{
-								PS_MM130_AddMatrixRow(0, false);
-								BubbleEvent = false;
-								return;
+							
+							if((!string.IsNullOrEmpty(oForm.Items.Item("STDocNum").Specific.Value.ToString().Trim()) && oForm.Items.Item("OutGbn").Specific.Value.ToString().Trim() == "10") || oForm.Items.Item("OutGbn").Specific.Value.ToString().Trim() == "20")
+                            {
+								if (PS_MM130_Cancel_oStockTrans() == false)
+								{
+									PS_MM130_AddMatrixRow(0, false);
+									BubbleEvent = false;
+									return;
+								}
 							}
                         }
+
+						else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE) && oForm.Items.Item("OKYNC").Specific.Value.ToString().Trim() == "N" && !string.IsNullOrEmpty(oForm.Items.Item("STDocNum").Specific.Value.ToString().Trim()))
+						{
+
+							errMessage = "승인된 문서는 이동취소(C) 만 가능합니다.";
+							BubbleEvent = false;
+							throw new System.Exception();
+
+						}
 						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE && oForm.Items.Item("OKYNC").Specific.Value.ToString().Trim() == "Y" )
 						{
 							sQry = "select count(*) from [@PS_SY005H] A INNER JOIN [@PS_SY005L] B ON A.Code = B.Code WHERE A.Code ='MM158' AND B.U_UseYN ='Y' AND B.U_AppUser ='" + PSH_Globals.oCompany.UserName + "'";
@@ -1241,6 +1249,18 @@ namespace PSH_BOne_AddOn
 								{
 									BubbleEvent = false;
 									return;
+								}
+								if (string.IsNullOrEmpty(oForm.Items.Item("STDocNum").Specific.Value.ToString().Trim())) //승인일때 재고이전문서 생성
+								{
+									if (oForm.Items.Item("Rad01").Specific.Selected == true)
+									{
+										if (PS_MM130_StockTrans() == false)
+										{
+											BubbleEvent = false;
+
+											return;
+										}
+									}
 								}
 							}
 							else

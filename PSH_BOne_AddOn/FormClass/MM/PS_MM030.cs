@@ -334,6 +334,15 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("DueDate").Enabled = true;
                     oForm.Items.Item("POStatus").Enabled = false;
                     oForm.Items.Item("AdmsDate").Enabled = false;
+                    if (oForm.Items.Item("POFinish").Specific.Selected.Value == "Y")
+                    {
+                        oForm.Items.Item("POFinish").Enabled = false;
+                    }
+                    else
+                    {
+                        oForm.Items.Item("POFinish").Enabled = true;
+                    }
+
                     if (oDS_PS_MM030H.GetValue("Canceled", 0).ToString().Trim() == "Y")
                     {
                         oForm.Items.Item("Mat01").Enabled = false;
@@ -341,7 +350,7 @@ namespace PSH_BOne_AddOn
                     else
                     {
                         oForm.Items.Item("Mat01").Enabled = true;
-                        if (oDS_PS_MM030H.GetValue("U_POStatus", 0).ToString().Trim() == "Y")
+                        if (oDS_PS_MM030H.GetValue("U_POStatus", 0).ToString().Trim() == "Y" || oForm.Items.Item("POFinish").Specific.Selected.Value == "Y")
                         {
                             oMat01.Columns.Item("PQDocNum").Editable = false;
                             oMat01.Columns.Item("PQLinNum").Editable = false;
@@ -2143,34 +2152,37 @@ namespace PSH_BOne_AddOn
                             }
                             else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                             {
-                                //행삭제를 한 경우
-                                if (g_deletedCount > 0)
+                                if(oForm.Items.Item("POFinish").Specific.Selected.Value == "N")
                                 {
-                                    for (i = 0; i < itemInfoList.Count; i++)
+                                    //행삭제를 한 경우
+                                    if (g_deletedCount > 0)
                                     {
-                                        PS_MM030_oPurchaseOrders_LineDelete(Convert.ToInt32(Convert.ToString(itemInfoList[i].LineNum).ToString().Trim()));
-                                    }
-                                    //삭제행자료 초기화_S
-                                    for (i = 0; i < itemInfoList.Count; i++)
-                                    {
-                                        itemInfoList[i].LineNum = 0;
-                                    }
-                                    itemInfoList.Clear();//삭제행자료 초기화_E
-                                    g_deletedCount = 0; //삭제행 카운트 초기화
-                                }
-                                else
-                                {
-                                    PSH_Globals.oCompany.StartTransaction();
-
-                                    if (PS_MM030_oPurchaseOrders_Update() == false)
-                                    {
-                                        PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack);
-                                        BubbleEvent = false;
-                                        return;
+                                        for (i = 0; i < itemInfoList.Count; i++)
+                                        {
+                                            PS_MM030_oPurchaseOrders_LineDelete(Convert.ToInt32(Convert.ToString(itemInfoList[i].LineNum).ToString().Trim()));
+                                        }
+                                        //삭제행자료 초기화_S
+                                        for (i = 0; i < itemInfoList.Count; i++)
+                                        {
+                                            itemInfoList[i].LineNum = 0;
+                                        }
+                                        itemInfoList.Clear();//삭제행자료 초기화_E
+                                        g_deletedCount = 0; //삭제행 카운트 초기화
                                     }
                                     else
                                     {
-                                        PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
+                                        PSH_Globals.oCompany.StartTransaction();
+
+                                        if (PS_MM030_oPurchaseOrders_Update() == false)
+                                        {
+                                            PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack);
+                                            BubbleEvent = false;
+                                            return;
+                                        }
+                                        else
+                                        {
+                                            PSH_Globals.oCompany.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit);
+                                        }
                                     }
                                 }
                             }

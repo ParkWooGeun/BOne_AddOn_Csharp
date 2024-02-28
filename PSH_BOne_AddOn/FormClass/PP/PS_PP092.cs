@@ -249,6 +249,56 @@ namespace PSH_BOne_AddOn
             return returnValue;
         }
 
+
+        /// <summary>
+        /// 리포트 조회
+        /// </summary>
+        [STAThread]
+        private void PS_PP092_Print_Report05()
+        {
+            string WinTitle;
+            string ReportName;
+            string Param01;
+            string Param02;
+            string Param03;
+            string Param04;
+            string Param05;
+            string Param06;
+            string Param07;
+            PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+
+            try
+            {
+                Param01 = oForm.Items.Item("BPLId").Specific.Selected.Value;
+                Param02 = oForm.Items.Item("DocDate").Specific.Value;
+                Param03 = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
+                Param04 = oForm.Items.Item("ItemName").Specific.Value;
+                Param05 = oForm.Items.Item("OrdNum").Specific.Value;
+                Param06 = oForm.Items.Item("BatchNum").Specific.Value;
+                Param07 = oForm.Items.Item("CardCode").Specific.Value;
+
+                WinTitle = "BOX-LABEL출력[PS_PACKING_PD_05] ";
+                ReportName = "PS_PACKING_PD_05.rpt";
+
+                List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>(); //Parameter
+
+                dataPackParameter.Add(new PSH_DataPackClass("@BPLId", Param01));
+                dataPackParameter.Add(new PSH_DataPackClass("@DocDate", Param02));
+                dataPackParameter.Add(new PSH_DataPackClass("@ItemCode", Param03));
+                dataPackParameter.Add(new PSH_DataPackClass("@ItemName", Param04));
+                dataPackParameter.Add(new PSH_DataPackClass("@OrdNum", Param05));
+                dataPackParameter.Add(new PSH_DataPackClass("@BatchNum", Param06));
+                dataPackParameter.Add(new PSH_DataPackClass("@CardCode", Param07));
+
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, "Y");
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+        }
+
+
         /// <summary>
         /// UpdateToPP092
         /// </summary>
@@ -931,6 +981,22 @@ namespace PSH_BOne_AddOn
                                 oDS_PS_PP092L.SetValue("U_PackNo", i, sPackNo);
                                 oMat01.Columns.Item("PackNo").Cells.Item(i + 1).Specific.Value = sPackNo;
                             }
+
+                            for (i = 1; i <= oMat01.VisualRowCount; i++)
+                            {
+                                string BatchNumCheck;
+                                if (string.IsNullOrEmpty(oMat01.Columns.Item("LotNoSub").Cells.Item(i).Specific.Value.ToString().Trim()))
+                                {
+                                    BatchNumCheck = oMat01.Columns.Item("LotNo").Cells.Item(i).Specific.Value;
+                                }
+                                else
+                                {
+                                    BatchNumCheck = oMat01.Columns.Item("LotNoSub").Cells.Item(i).Specific.Value;
+                                }
+                                Query01 = "UPDATE Z_PACKING_LOT SET PackNo ='" + sPackNo + "' where BarCDYN ='N' and BatchNum = '" + BatchNumCheck + "'";
+                                oRecordSet01.DoQuery(Query01);
+                            }
+
                             //BeforeAction 이 false가될때 OBTN에도 PACKNO정보를 행별품목에 업뎃해주어야함
                             sDocNum = oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim();
                             //문서번호 전역변수에 담음
@@ -947,6 +1013,20 @@ namespace PSH_BOne_AddOn
                             {
                                 BubbleEvent = false;
                                 return;
+                            }
+                            for (i = 1; i <= oMat01.VisualRowCount; i++)
+                            {
+                                string BatchNumCheck;
+                                if (string.IsNullOrEmpty(oMat01.Columns.Item("LotNoSub").Cells.Item(i).Specific.Value.ToString().Trim()))
+                                {
+                                    BatchNumCheck = oMat01.Columns.Item("LotNo").Cells.Item(i).Specific.Value;
+                                }
+                                else
+                                {
+                                    BatchNumCheck = oMat01.Columns.Item("LotNoSub").Cells.Item(i).Specific.Value;
+                                }
+                                Query01 = "UPDATE Z_PACKING_LOT SET PackNo ='" + oForm.Items.Item("PackNo").Specific.VALUE + "' where BarCDYN ='N' and BatchNum = '" + BatchNumCheck + "'";
+                                oRecordSet01.DoQuery(Query01);
                             }
                         }
                     }
@@ -970,23 +1050,27 @@ namespace PSH_BOne_AddOn
                     }
                     else if (pVal.ItemUID == "Btn_Label") //라벨
                     {
-                        if (oLastColRow01 != 0)
-                        {
-                            PS_PP092S pS_PP092S = new PS_PP092S();
-                            string PackNo;
-                            string InspNo;
-                            string ProDate;
-                            PackNo = oForm.Items.Item("PackNo").Specific.Value.ToString().Trim();
-                            InspNo = oMat01.Columns.Item("InspNo").Cells.Item(oLastColRow01).Specific.Value.ToString().Trim();
-                            ProDate = oMat01.Columns.Item("ProDate").Cells.Item(oLastColRow01).Specific.Value;
-                            pS_PP092S.LoadForm(PackNo, InspNo, ProDate);
-                            BubbleEvent = false;
-                        }
-                        else
-                        {
-                            errMessage = "출력할 행을 선택 후 LABEL 출력을 누르세요.";
-                            throw new Exception();
-                        }
+
+                        System.Threading.Thread thread = new System.Threading.Thread(PS_PP092_Print_Report05);
+                        thread.SetApartmentState(System.Threading.ApartmentState.STA);
+                        thread.Start();
+                        //if (oLastColRow01 != 0)
+                        //{
+                        //    PS_PP092S pS_PP092S = new PS_PP092S();
+                        //    string PackNo;
+                        //    string InspNo;
+                        //    string ProDate;
+                        //    PackNo = oForm.Items.Item("PackNo").Specific.Value.ToString().Trim();
+                        //    InspNo = oMat01.Columns.Item("InspNo").Cells.Item(oLastColRow01).Specific.Value.ToString().Trim();
+                        //    ProDate = oMat01.Columns.Item("ProDate").Cells.Item(oLastColRow01).Specific.Value;
+                        //    pS_PP092S.LoadForm(PackNo, InspNo, ProDate);
+                        //    BubbleEvent = false;
+                        //}
+                        //else
+                        //{
+                        //    errMessage = "출력할 행을 선택 후 LABEL 출력을 누르세요.";
+                        //    throw new Exception();
+                        //}
                     }
                 }
                 else if (pVal.BeforeAction == false)

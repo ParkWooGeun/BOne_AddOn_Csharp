@@ -4273,7 +4273,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.BeforeAction == true)
                     {
-                        if (ErrCheckDate = true)  //ErrCheck데이터 초기화, False일땐 검사전 or 이상없음, True일땐 검사결과 중복생성이나 오류로 빠졌을때 임.
+                        if (ErrCheckDate == true)  //ErrCheck데이터 초기화, False일땐 검사전 or 이상없음, True일땐 검사결과 중복생성이나 오류로 빠졌을때 임.
                         {
                             ErrCheckDate = false;
                         }

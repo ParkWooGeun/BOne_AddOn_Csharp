@@ -260,10 +260,8 @@ namespace PSH_BOne_AddOn
 		private bool PS_PP272_DelMatrixSpaceLine()
 		{
 			bool returnValue = false;
-
-			int i;
 			string errMessage = string.Empty;
-
+			
 			try
 			{
 				oMat.FlushToDataSource();

@@ -128,10 +128,8 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void PS_MM152_ComboBox_Setting()
 		{
-			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-
 			try
 			{
 				dataHelpClass.Set_ComboList(oForm.Items.Item("BPLId").Specific, "SELECT BPLId, BPLName FROM OBPL order by BPLId", "", false, false);
@@ -870,12 +868,9 @@ namespace PSH_BOne_AddOn
 			string errMessage = string.Empty;
 			string sQry;
 			double OutQty;
-			double DNQty;
 			double OutWt;
 			double NQty;
 			double NWeight; //불량수량, 중량
-			string sQry1;
-			double SelWt;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			SAPbobsCOM.Recordset oRecordSet1 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			try

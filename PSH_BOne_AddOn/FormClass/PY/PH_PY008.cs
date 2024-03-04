@@ -4349,7 +4349,6 @@ namespace PSH_BOne_AddOn
             string CLTCOD;
             string MSTCOD;
             string YY;
-            short errNum = 0;
             string errMessage = string.Empty;
 
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();

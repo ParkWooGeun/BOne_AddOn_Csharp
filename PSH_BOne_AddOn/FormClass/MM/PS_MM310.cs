@@ -272,7 +272,6 @@ namespace PSH_BOne_AddOn
 			string BPLID;
 			string DocNum;
 			string E_Mail;
-			string SendFailStr;
 			string errMessage = string.Empty;
 			SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
 
@@ -290,19 +289,6 @@ namespace PSH_BOne_AddOn
 
 						DocNum = oDS_PS_MM310A.GetValue("U_ColReg02", loopCount).ToString().Trim();
 						E_Mail = oDS_PS_MM310A.GetValue("U_ColReg05", loopCount).ToString().Trim();
-
-                        //		PS_MM310_ReportExport(DocNum, BPLID); //리포트 Export
-                        //		SendFailStr = PS_MM310_SendMail(DocNum, E_Mail); //메일 발송
-
-      //                  if (string.IsNullOrEmpty(SendFailStr)) //메일발송 성공이면
-      //                  {
-						//	PS_MM310_MailInfoUpdate(DocNum); //발송내역UPDATE
-						//}
-						//else
-						//{
-						//	errMessage = SendFailStr;
-						//	throw new Exception();
-						//}
 					}
 				}
 

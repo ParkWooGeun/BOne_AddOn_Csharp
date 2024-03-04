@@ -1387,9 +1387,6 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent"></param>
         public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
         {
-            double SumQty = 0;
-            double SumWeight = 0;
-
             try
             {
                 oForm.Freeze(true);

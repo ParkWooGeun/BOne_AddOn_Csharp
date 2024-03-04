@@ -287,7 +287,6 @@ namespace PSH_BOne_AddOn
 		{
 			bool ReturnValue = false;
 			string errMessage = string.Empty;
-			int i;
 
 			try
 			{

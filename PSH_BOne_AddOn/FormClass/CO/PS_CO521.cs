@@ -259,7 +259,6 @@ namespace PSH_BOne_AddOn
         private bool PS_CO521_CheckDataValid()
         {
             bool returnValue = false;
-            int i = 0;
             string errMessage = string.Empty;
 
             try

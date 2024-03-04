@@ -844,7 +844,6 @@ namespace PSH_BOne_AddOn
         {
             bool returnValue = false;
             int i;
-            double Rate;
             double Weight;
             double result = 0;
             double subresult = 0;

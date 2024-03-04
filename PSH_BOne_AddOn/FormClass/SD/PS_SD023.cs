@@ -140,7 +140,6 @@ namespace PSH_BOne_AddOn
 		private void PS_SD023_SetComboBox()
 		{
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-			string sQry;
 			try
 			{
 				oForm.Freeze(true);

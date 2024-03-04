@@ -961,9 +961,11 @@ namespace PSH_BOne_AddOn
 			bool returnValue = false;
 			int RetVal;
 			int errDiCode = 0;
-			string SDocEntry;
+			string sDocEntry;
+			string sQry;
 			string errCode = string.Empty;
 			string errDiMsg = string.Empty;
+			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			SAPbobsCOM.StockTransfer oStockTrans = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oStockTransfer);
 
 			try
@@ -986,10 +988,12 @@ namespace PSH_BOne_AddOn
 					errCode = "1";
 					throw new Exception();
 				}
-				else
-				{
-					PSH_Globals.oCompany.GetNewObjectCode(out SDocEntry);
-					oDS_PS_MM130H.SetValue("U_STDocNum", 0, SDocEntry);
+                else
+                {
+					sQry = "SELECT MAX(DocEntry) AS SDocEntry FROM OWTR ";
+					oRecordSet.DoQuery(sQry);
+					sDocEntry = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+					oDS_PS_MM130H.SetValue("U_STDocNum", 0, sDocEntry); //취소된 문서로 변경
 				}
 
 				oMat.LoadFromDataSource();
@@ -999,9 +1003,6 @@ namespace PSH_BOne_AddOn
 				}
 				oMat.AutoResizeColumns();
 				returnValue = true;
-
-				PSH_Globals.oCompany.GetNewObjectCode(out SDocEntry);
-				oDS_PS_MM130H.SetValue("U_STDocNum", 0, SDocEntry);
 			}
 			catch (Exception ex)
 			{
@@ -1021,6 +1022,7 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oStockTrans);
 			}
 			return returnValue;
@@ -1220,8 +1222,8 @@ namespace PSH_BOne_AddOn
 								return;
 							}
 							
-							if((!string.IsNullOrEmpty(oForm.Items.Item("STDocNum").Specific.Value.ToString().Trim()) && oForm.Items.Item("OutGbn").Specific.Value.ToString().Trim() == "10") || oForm.Items.Item("OutGbn").Specific.Value.ToString().Trim() == "20")
-                            {
+                            if(!string.IsNullOrEmpty(oForm.Items.Item("STDocNum").Specific.Value.ToString().Trim()) && oDS_PS_MM130H.GetValue("U_OutGbn", 0).ToString().Trim() == "10")
+							{
 								if (PS_MM130_Cancel_oStockTrans() == false)
 								{
 									PS_MM130_AddMatrixRow(0, false);
@@ -1239,6 +1241,14 @@ namespace PSH_BOne_AddOn
 							throw new System.Exception();
 
 						}
+
+						else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE) && oForm.Items.Item("OKYNC").Specific.Value.ToString().Trim() == "N" && oDS_PS_MM130H.GetValue("U_OutGbn", 0).ToString().Trim() == "20")
+						{
+							errMessage = "승인된 문서는 이동취소(C) 만 가능합니다.";
+							BubbleEvent = false;
+							throw new System.Exception();
+						}
+
 						else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE && oForm.Items.Item("OKYNC").Specific.Value.ToString().Trim() == "Y" )
 						{
 							sQry = "select count(*) from [@PS_SY005H] A INNER JOIN [@PS_SY005L] B ON A.Code = B.Code WHERE A.Code ='MM158' AND B.U_UseYN ='Y' AND B.U_AppUser ='" + PSH_Globals.oCompany.UserName + "'";

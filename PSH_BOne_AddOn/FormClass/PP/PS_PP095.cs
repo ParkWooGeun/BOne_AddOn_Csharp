@@ -485,7 +485,6 @@ namespace PSH_BOne_AddOn
         private void PS_PP095_MTX01()
         {
             string errMessage = string.Empty;
-            int i;
             string sQry;
             SAPbouiCOM.ProgressBar ProgressBar01 = PSH_Globals.SBO_Application.StatusBar.CreateProgressBar("", 0, false);
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);

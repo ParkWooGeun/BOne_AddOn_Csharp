@@ -423,7 +423,6 @@ namespace PSH_BOne_AddOn
             string sQry = string.Empty;
             string errMessage = string.Empty;
             int loopCount;
-            int ErrCode = 0;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try

@@ -5,6 +5,8 @@ using PSH_BOne_AddOn.Code;
 using System.Collections.Generic;
 using PSH_BOne_AddOn.DataPack;
 using PSH_BOne_AddOn.Form;
+using QRCoder;
+using System.Drawing.Imaging;
 
 namespace PSH_BOne_AddOn
 {
@@ -845,6 +847,11 @@ namespace PSH_BOne_AddOn
         [STAThread]
         private void PS_PACKING_PD_Print_Report01()
         {
+            int i;
+            string FilePath;
+            string sQry01;
+            string sQry02;
+
             string WinTitle;
             string ReportName;
             string Param01;
@@ -855,7 +862,9 @@ namespace PSH_BOne_AddOn
             string Param06;
             string Param07;
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
-
+            QRCoder.QRCodeGenerator QG = new QRCoder.QRCodeGenerator();
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset oRecordSet02 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
                 Param01 = oForm.Items.Item("BPLId").Specific.Selected.Value;
@@ -865,6 +874,36 @@ namespace PSH_BOne_AddOn
                 Param05 = oForm.Items.Item("OrdNum").Specific.Value;
                 Param06 = oForm.Items.Item("BatchNum").Specific.Value;
                 Param07 = oForm.Items.Item("CardCode").Specific.Value;
+
+                FilePath = "\\\\191.1.1.220\\B1_SHR\\QRCODE_Drum";
+
+                sQry01 =  " SELECT DrumNo ";
+                sQry01 += "   FROM Z_PACKING_LOT ";
+                sQry01 += "  WHERE BatchNum = '" + Param06 + "'";
+                oRecordSet01.DoQuery(sQry01);
+
+                for (i = 0; i <= oRecordSet01.RecordCount - 1; i++)
+                {
+                    if (string.IsNullOrEmpty(oRecordSet01.Fields.Item(0).Value))
+                    {
+                        System.IO.File.Copy(FilePath + "\\" + "null" + ".jpg", FilePath + "\\" + oRecordSet01.Fields.Item(0).Value + ".jpg", true);
+                    }
+                    else
+                    {
+                        var QrCodeData = QG.CreateQrCode(oRecordSet01.Fields.Item(0).Value, QRCoder.QRCodeGenerator.ECCLevel.H);
+                        var code = new QRCode(QrCodeData);
+                        var bitMap = code.GetGraphic(2, "#000000", "#FFFFFF", true);
+                        var actualFormat = new OptionSetter().GetImageFormat("Jpeg");
+                        bitMap.Save(FilePath + "\\" + oRecordSet01.Fields.Item(0).Value + ".jpg", actualFormat);
+                    }
+
+                    sQry02 =  " Update Z_PACKING_LOT ";
+                    sQry02 += "    Set QRImg = (Select Bulkcolumn From OPENROWSET(BULK N'" + FilePath + "\\" + oRecordSet01.Fields.Item(0).Value + ".jpg', SINGLE_BLOB) As QRImg)";
+                    sQry02 += "  Where DrumNo = '" + oRecordSet01.Fields.Item(0).Value + "'";
+                    oRecordSet02.DoQuery(sQry02);
+
+                    oRecordSet01.MoveNext();
+                }
 
                 WinTitle = "BOX-LABEL출력[PS_PACKING_PD_05] ";
                 ReportName = "PS_PACKING_PD_05.rpt";
@@ -884,6 +923,46 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet02);
+            }
+        }
+
+        /// <summary>
+        /// OptionSetter
+        /// </summary>
+        public class OptionSetter
+        {
+            public QRCodeGenerator.ECCLevel GetECCLevel(string value)
+            {
+                QRCodeGenerator.ECCLevel level;
+
+                Enum.TryParse(value, out level);
+
+                return level;
+            }
+
+            public ImageFormat GetImageFormat(string value)
+            {
+                switch (value.ToLower())
+                {
+                    case "jpg":
+                        return ImageFormat.Jpeg;
+                    case "jpeg":
+                        return ImageFormat.Jpeg;
+                    case "gif":
+                        return ImageFormat.Gif;
+                    case "bmp":
+                        return ImageFormat.Bmp;
+                    case "tiff":
+                        return ImageFormat.Tiff;
+                    case "png":
+                    default:
+                        return ImageFormat.Png;
+                }
             }
         }
 

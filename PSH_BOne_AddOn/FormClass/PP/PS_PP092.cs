@@ -1014,7 +1014,7 @@ namespace PSH_BOne_AddOn
                             //해야할일 작업 (Pack번호를 순번해서 이문서에 업데이트해준다.)
                             sPackDate = DateTime.Now.ToString("yyyyMMdd");
 
-                            Query01 = "Select ISNULL(MAX(CONVERT(INT,RIGHT(U_PackNo,3))),0)+1 FROM [@PS_PP092H] WHERE Canceled = 'N' and CreateDate = '" + sPackDate + "'";
+                            Query01 = "Select ISNULL(MAX(CONVERT(INT,RIGHT(U_PackNo,2))),0)+1 FROM [@PS_PP092H] WHERE Canceled = 'N' and CreateDate = '" + sPackDate + "'";
                             oRecordSet01.DoQuery(Query01);
 
                             sIndex = oRecordSet01.Fields.Item(0).Value.ToString();

@@ -14,7 +14,7 @@ namespace PSH_BOne_AddOn
 			
 		private SAPbouiCOM.DBDataSource oDS_PS_QM450H; //등록헤더
 		private SAPbouiCOM.DBDataSource oDS_PS_QM450L; //등록라인
-		
+
 		private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
 		private string oLastColUID01;  //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
 		private int oLastColRow01;     //마지막아이템이 메트릭스일경우에 마지막 선택된 Row값
@@ -145,6 +145,7 @@ namespace PSH_BOne_AddOn
 		{
 			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+			SAPbobsCOM.Recordset oRecordSet1 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 
 			try
@@ -171,6 +172,7 @@ namespace PSH_BOne_AddOn
 							oDS_PS_QM450L.SetValue("U_OrdQty", oRow - 1, oRecordSet.Fields.Item("OrdQty").Value.ToString().Trim());
 							oDS_PS_QM450L.SetValue("U_ChkYQty", oRow - 1, oRecordSet.Fields.Item("ChkYQty").Value.ToString().Trim());
 							oDS_PS_QM450L.SetValue("U_History", oRow - 1, oRecordSet.Fields.Item("History").Value.ToString().Trim());
+							oDS_PS_QM450L.SetValue("U_CmpQty", oRow - 1, oRecordSet.Fields.Item("CmpQty").Value.ToString().Trim());
 						}
 						
 						oMat.LoadFromDataSource();

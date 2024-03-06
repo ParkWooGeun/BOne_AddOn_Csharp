@@ -326,6 +326,7 @@ namespace PSH_BOne_AddOn
                     oDS_PH_PY305B.SetValue("U_ColReg05", i, oRecordSet.Fields.Item("Grade").Value);
                     oDS_PH_PY305B.SetValue("U_ColSum01", i, oRecordSet.Fields.Item("EntFee").Value);
                     oDS_PH_PY305B.SetValue("U_ColSum02", i, oRecordSet.Fields.Item("Tuition").Value);
+                    oDS_PH_PY305B.SetValue("U_ColReg06", i, oRecordSet.Fields.Item("BPLName").Value);
 
                     FeeTot += oRecordSet.Fields.Item("EntFee").Value;
                     TuiTot += oRecordSet.Fields.Item("Tuition").Value;

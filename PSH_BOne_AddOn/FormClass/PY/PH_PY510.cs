@@ -142,6 +142,10 @@ namespace PSH_BOne_AddOn
                 dataHelpClass.SetReDataCombo(oForm, sQry, oForm.Items.Item("JIGTYP").Specific, "Y");
                 oForm.Items.Item("JIGTYP").DisplayDesc = true;
                 oForm.Items.Item("JIGTYP").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+
+                oForm.DataSources.UserDataSources.Add("YYYYMM", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 6);
+                oForm.Items.Item("YYYYMM").Specific.DataBind.SetBound(true, "", "YYYYMM");
+                oForm.Items.Item("YYYYMM").Specific.String = DateTime.Now.ToString("yyyyMM");
             }
             catch(Exception ex)
             {
@@ -290,17 +294,31 @@ namespace PSH_BOne_AddOn
             string TeamCode = string.Empty;
             string RspCode = string.Empty;
             string JIGTYP = string.Empty;
+            string YYYYMM = string.Empty;
 
             CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.ToString().Trim();
             TeamCode = oForm.Items.Item("TeamCode").Specific.Value.ToString().Trim();
             RspCode = oForm.Items.Item("RspCode").Specific.Value.ToString().Trim();
             JIGTYP = oForm.Items.Item("JIGTYP").Specific.Value.ToString().Trim();
+            YYYYMM = oForm.Items.Item("YYYYMM").Specific.Value.ToString().Trim();
             PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
-                sQry = "EXEC PH_PY510_02 '" + CLTCOD + "','" + TeamCode + "','" + RspCode + "','" + JIGTYP + "','" + dataHelpClass.User_MSTCOD() + "'";
-                oDS_PH_PY510.ExecuteQuery(sQry);
+                sQry = "SELECT U_TeamCode FROM[@PH_PY001A] WHERE Code = '" + dataHelpClass.User_MSTCOD() + "'";
+                oRecordSet.DoQuery(sQry);
+
+                if (oRecordSet.Fields.Item(0).Value.ToString().Trim() == "1250") //안전환경팀은 별도로 조회
+                {
+                    sQry = "EXEC PH_PY510_03 '" + CLTCOD + "','" + TeamCode + "','" + RspCode + "','" + JIGTYP + "','" + YYYYMM + "'";
+                    oDS_PH_PY510.ExecuteQuery(sQry);
+                }
+                else
+                {
+                    sQry = "EXEC PH_PY510_02 '" + CLTCOD + "','" + TeamCode + "','" + RspCode + "','" + JIGTYP + "','" + dataHelpClass.User_MSTCOD() + "'";
+                    oDS_PH_PY510.ExecuteQuery(sQry);
+                }
             }
             catch(Exception ex)
             {

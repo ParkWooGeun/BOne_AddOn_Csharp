@@ -388,6 +388,9 @@ namespace PSH_BOne_AddOn.Core
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
+            string sQry;
+            string DocEntry;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
                 oForm.Freeze(true);
@@ -427,6 +430,12 @@ namespace PSH_BOne_AddOn.Core
                             {
                                 S179_EnableFormItem(false);
                             }
+                            sQry = "SELECT MAX(DocEntry) AS DocEntry FROM ORIN";
+                            oRecordSet.DoQuery(sQry);
+                            DocEntry  = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+
+                            sQry = "Exec S179_01 '" + DocEntry + "'"; //납품처리문서 취소 프로시저 
+                            oRecordSet.DoQuery(sQry);
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {

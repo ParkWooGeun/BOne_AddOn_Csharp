@@ -582,6 +582,42 @@ namespace PSH_BOne_AddOn
         }
 
         /// <summary>
+        /// 문서 취소시 실행
+        /// </summary>
+        /// <param name="PackNo"></param>
+        /// <returns></returns>
+        private bool PS_PP092_CancelPackNo(string PackNo)
+        {
+            bool returnValue = false;
+            string errMessage = string.Empty;
+            string Query01;
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+            try
+            {
+                Query01 = "UPDATE Z_PACKING_LOT SET BARCDYN ='N', PACKNO ='', CheckDate ='29991231' WHERE PACKNO ='" + PackNo + "'";
+                oRecordSet01.DoQuery(Query01);
+            }
+            catch (Exception ex)
+            {
+                if (errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+                }
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+            }
+            return returnValue;
+        }
+
+
+        /// <summary>
         /// 필수 사항 check
         /// </summary>
         /// <returns></returns>
@@ -1377,7 +1413,7 @@ namespace PSH_BOne_AddOn
                                     Query01 += " 	 , b.Quantity as GQty";
                                     Query01 += " 	 , c.u_weight as PQty";
                                     Query01 += " 	 , a.InDate as CreateDate";
-                                    Query01 += " 	 , b.InspNo as InspNo";
+                                    Query01 += " 	 , case when isnull(b.bsinspno,'') = '' then b.InspNo else b.bsinspno end as InspNo";
                                     Query01 += " 	 , b.CardSeq as CardSeq";
                                     Query01 += " From OIBT a Inner Join Z_PACKING_PD b On a.ItemCode = b.ItemCode And a.BatchNum = (case when isnull(b.bBatchNum,'') = '' then b.BatchNum else b.bBatchNum end) ";
                                     Query01 += " 			 left join (select u_lotno, sum(u_weight)as u_weight from [@PS_PP092l] where 1=1 group by u_lotno) c On a.BatchNum = c.u_lotno";
@@ -1393,7 +1429,7 @@ namespace PSH_BOne_AddOn
                                     Query01 += " 	 , a.Quantity as GQty";
                                     Query01 += " 	 , c.u_weight as PQty";
                                     Query01 += " 	 , a.InDate as CreateDate";
-                                    Query01 += " 	 , b.InspNo as InspNo";
+                                    Query01 += " 	 , case when isnull(b.bsinspno,'') = '' then b.InspNo else b.bsinspno end as InspNo";
                                     Query01 += " 	 , b.CardSeq as CardSeq";
                                     Query01 += " From OIBT a Inner Join Z_PACKING_PD b On a.ItemCode = b.ItemCode And a.BatchNum = (case when isnull(b.bBatchNum,'') = '' then b.BatchNum else b.bBatchNum end) ";
                                     Query01 += " 			 left join (select u_lotno, sum(u_weight)as u_weight from [@PS_PP092l] where 1=1 group by u_lotno) c On a.BatchNum = c.u_lotno";
@@ -1714,6 +1750,10 @@ namespace PSH_BOne_AddOn
                                 {
                                     BubbleEvent = false;
                                     return;
+                                }
+                                else
+                                {
+                                    PS_PP092_CancelPackNo(oForm.Items.Item("PackNo").Specific.Value);
                                 }
                             }
                             else

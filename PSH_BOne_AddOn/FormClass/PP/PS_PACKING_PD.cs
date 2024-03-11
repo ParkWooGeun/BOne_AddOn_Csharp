@@ -16,7 +16,7 @@ namespace PSH_BOne_AddOn
     internal class PS_PACKING_PD : PSH_BaseClass
     {
         private string oFormUniqueID;
-        private SAPbouiCOM.Grid oGrid01;
+        private SAPbouiCOM.Grid oGrid01; 
 
         private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
@@ -757,12 +757,12 @@ namespace PSH_BOne_AddOn
                         BoxSumResult += Boxkg;
                         if (BoxSumResult < Quantity)
                         {
-                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i+1).PadLeft(2, '0') + "','','" + OriInspNo + "'," + Boxkg +",'N', '29991231'";
+                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i+1).PadLeft(2, '0') + "','','" + OriInspNo + "'," + Boxkg + ",'N', '29991231', null";
                         }
                         else
                         {
                             double result = Quantity - (BoxSumResult - Boxkg);
-                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i+1).PadLeft(2, '0') + "','','" + OriInspNo + "'," + result + ",'N', '29991231'";
+                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i+1).PadLeft(2, '0') + "','','" + OriInspNo + "'," + result + ",'N', '29991231', null";
                         }
                         oRecordSet01.DoQuery(sQry);
                     }
@@ -807,12 +807,12 @@ namespace PSH_BOne_AddOn
                         BoxSumResult += Boxkg;
                         if (BoxSumResult < Quantity)
                         {
-                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i+1).PadLeft(2, '0') + "','','" + OriInspNo + "'," + Boxkg + ",'N', '29991231'";
+                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i + 1).PadLeft(2, '0') + "','','" + OriInspNo + "'," + Boxkg + ",'N', '29991231', null";
                         }
                         else
                         {
                             double result = Quantity - (BoxSumResult - Boxkg);
-                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i+1).PadLeft(2, '0') + "','','" + OriInspNo + "'," + result + ",'N', '29991231'";
+                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i + 1).PadLeft(2, '0') + "','','" + OriInspNo + "'," + result + ",'N', '29991231', null";
                         }
                         oRecordSet01.DoQuery(sQry);
                     }
@@ -871,15 +871,23 @@ namespace PSH_BOne_AddOn
                 Param02 = oForm.Items.Item("DocDate").Specific.Value;
                 Param03 = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
                 Param04 = oForm.Items.Item("ItemName").Specific.Value;
-                Param05 = oForm.Items.Item("OrdNum").Specific.Value;
-                Param06 = oForm.Items.Item("BatchNum").Specific.Value;
-                Param07 = oForm.Items.Item("CardCode").Specific.Value;
+                Param05 = oForm.Items.Item("CardCode").Specific.Value;
+                if(string.IsNullOrEmpty(oForm.Items.Item("BSInspNo").Specific.Value))
+                {
+                    Param06 = oForm.Items.Item("InspNo").Specific.Value;
+                }
+                else
+                {
+                    Param06 = oForm.Items.Item("BSInspNo").Specific.Value;
+                }
+                Param07 = oForm.Items.Item("BatchNum").Specific.Value;
 
                 FilePath = "\\\\191.1.1.220\\B1_SHR\\QRCODE_Drum";
+                //FilePath = "\\\\191.1.1.223\\pdf";
 
                 sQry01 =  " SELECT DrumNo ";
                 sQry01 += "   FROM Z_PACKING_LOT ";
-                sQry01 += "  WHERE BatchNum = '" + Param06 + "'";
+                sQry01 += "  WHERE BatchNum = '" + Param07 + "'";
                 oRecordSet01.DoQuery(sQry01);
 
                 for (i = 0; i <= oRecordSet01.RecordCount - 1; i++)
@@ -914,9 +922,8 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@DocDate", Param02));
                 dataPackParameter.Add(new PSH_DataPackClass("@ItemCode", Param03));
                 dataPackParameter.Add(new PSH_DataPackClass("@ItemName", Param04));
-                dataPackParameter.Add(new PSH_DataPackClass("@OrdNum", Param05));
-                dataPackParameter.Add(new PSH_DataPackClass("@BatchNum", Param06));
-                dataPackParameter.Add(new PSH_DataPackClass("@CardCode", Param07));
+                dataPackParameter.Add(new PSH_DataPackClass("@CardCode", Param05));
+                dataPackParameter.Add(new PSH_DataPackClass("@InspNo", Param06));
 
                 formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, "Y");
             }

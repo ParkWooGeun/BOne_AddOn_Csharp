@@ -609,12 +609,6 @@ namespace PSH_BOne_AddOn
                     errMessage = "요구납기일 입력되지 않았습니다.";
                     throw new Exception();
                 }
-                //박주현과장님요청
-                //if (string.IsNullOrEmpty(oForm.Items.Item("KeyDoc").Specific.Value))
-                //{
-                //    errMessage = "검수입고 문서가 선택되지않았습니다.. 다시확인해주세요.";
-                //    throw new Exception();
-                //}
                 if (float.Parse(oForm.Items.Item("BZZadQty").Specific.Value) > float.Parse(oForm.Items.Item("TotalQty").Specific.Value))
                 {
                     errMessage = "부적합량이 입고량보다 많습니다. 확인해주세요.";

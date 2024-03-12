@@ -470,8 +470,6 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-
-
                 //string signatureFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"Microsoft\Signatures\test.htm");
                 //if (File.Exists(signatureFilePath))
                 //{

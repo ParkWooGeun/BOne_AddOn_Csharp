@@ -516,7 +516,7 @@ namespace PSH_BOne_AddOn
                     }
                     oMat02.AddRow();
                     oDS_PS_QM704L.Offset = i;
-                    oDS_PS_QM704L.SetValue("U_LineNum", i, Convert.ToString(1));  // 순번
+                    oDS_PS_QM704L.SetValue("U_LineNum", i, Convert.ToString(i));  // 순번
                     oDS_PS_QM704L.SetValue("U_ColReg01", i, oRecordSet01.Fields.Item("Gubun").Value.ToString().Trim());  // 구분
                     oDS_PS_QM704L.SetValue("U_ColReg02", i, oRecordSet01.Fields.Item("U_ChkYN").Value.ToString().Trim());    // 결재구분
                     oDS_PS_QM704L.SetValue("U_ColReg03", i, oRecordSet01.Fields.Item("DocEntry").Value.ToString().Trim());    // 문서번호
@@ -989,7 +989,6 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("Item_0").Left = 7;
                 oForm.Items.Item("Item_0").Height = 15;
                 oForm.Items.Item("Item_0").Width = 80;
-
 
                 oForm.Items.Item("oMat01").Top = (oForm.Height / 3) * 2 + 100;
                 oForm.Items.Item("oMat01").Left = 7;

@@ -394,15 +394,13 @@ namespace PSH_BOne_AddOn
                     throw new Exception();
                 }
 
-
-
                 LineNumCount = 0;
                 oDIObject = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenExit);
                 if (!string.IsNullOrEmpty(oForm.Items.Item("DocDate").Specific.Value))
                 {
                     oDIObject.DocDate = Convert.ToDateTime(dataHelpClass.ConvertDateType(oForm.Items.Item("DocDate").Specific.Value, "-"));
                 }
-                oDIObject.UserFields.Fields.Item("Comments").Value = "애드온 입고 문서번호:" + oForm.Items.Item("DocEntry").Specific.Value + "원재료불출(기계)_PS_MM235 (출고)";
+                oDIObject.UserFields.Fields.Item("Comments").Value = "애드온 출고 문서번호:" + oForm.Items.Item("DocEntry").Specific.Value + "원재료불출(기계)_PS_MM235 (출고)";
 
                 for (i = 0; i <= oMat01.VisualRowCount - 1; i++)
                 {
@@ -535,6 +533,7 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.oCompany.GetNewObjectCode(out string afterDIDocNum);
                     oForm.Items.Item("OutDoc").Specific.Value = "";
+                    oForm.Items.Item("InDoc").Specific.Value = afterDIDocNum;
                 }
                 else
                 {

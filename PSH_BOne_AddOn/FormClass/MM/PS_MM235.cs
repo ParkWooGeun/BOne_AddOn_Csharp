@@ -421,6 +421,7 @@ namespace PSH_BOne_AddOn
                 {
                     PSH_Globals.oCompany.GetNewObjectCode(out string afterDIDocNum);
                     oForm.Items.Item("OutDoc").Specific.Value = afterDIDocNum;
+                    oForm.Items.Item("InDoc").Specific.Value = "";
                 }
                 else
                 {

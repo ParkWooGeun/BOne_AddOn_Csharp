@@ -826,54 +826,54 @@ namespace PSH_BOne_AddOn
             }
         }
 
-        /// <summary>
-        /// 리포트 조회
-        /// </summary>
-        [STAThread]
-        private void PS_PP092_Print_Report04()
-        {
-            string WinTitle;
-            string ReportName;
-            string Param01;
-            string Param02;
-            string Param03;
-            string Param04;
-            string Param05;
-            string Param06;
-            string Param07;
-            PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+        ///// <summary>
+        ///// 리포트 조회
+        ///// </summary>
+        //[STAThread]
+        //private void PS_PP092_Print_Report04()
+        //{
+        //    string WinTitle;
+        //    string ReportName;
+        //    string Param01;
+        //    string Param02;
+        //    string Param03;
+        //    string Param04;
+        //    string Param05;
+        //    string Param06;
+        //    string Param07;
+        //    PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 
-            try
-            {
-                Param01 = oForm.Items.Item("BPLId").Specific.Selected.Value;
-                Param02 = oForm.Items.Item("DocDate").Specific.Value;
-                Param03 = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
-                Param04 = oForm.Items.Item("ItemName").Specific.Value;
-                Param05 = oForm.Items.Item("OrdNum").Specific.Value;
-                Param06 = oForm.Items.Item("BatchNum").Specific.Value;
-                Param07 = oForm.Items.Item("CardCode").Specific.Value;
+        //    try
+        //    {
+        //        Param01 = oForm.Items.Item("BPLId").Specific.Selected.Value;
+        //        Param02 = oForm.Items.Item("DocDate").Specific.Value;
+        //        Param03 = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
+        //        Param04 = oForm.Items.Item("ItemName").Specific.Value;
+        //        Param05 = oForm.Items.Item("OrdNum").Specific.Value;
+        //        Param06 = oForm.Items.Item("BatchNum").Specific.Value;
+        //        Param07 = oForm.Items.Item("CardCode").Specific.Value;
 
-                WinTitle = "BOX-LABEL출력[PS_PACKING_PD_05] ";
-                ReportName = "PS_PACKING_PD_05.rpt";
-                //Parameter
-                List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>
-                {
-                    new PSH_DataPackClass("@BPLId", Param01),
-                    new PSH_DataPackClass("@DocDate", Param02),
-                    new PSH_DataPackClass("@ItemCode", Param03),
-                    new PSH_DataPackClass("@ItemName", Param04),
-                    new PSH_DataPackClass("@OrdNum", Param05),
-                    new PSH_DataPackClass("@BatchNum", Param06),
-                    new PSH_DataPackClass("@CardCode", Param07)
-                };
+        //        WinTitle = "BOX-LABEL출력[PS_PACKING_PD_05] ";
+        //        ReportName = "PS_PACKING_PD_05.rpt";
+        //        //Parameter
+        //        List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>
+        //        {
+        //            new PSH_DataPackClass("@BPLId", Param01),
+        //            new PSH_DataPackClass("@DocDate", Param02),
+        //            new PSH_DataPackClass("@ItemCode", Param03),
+        //            new PSH_DataPackClass("@ItemName", Param04),
+        //            new PSH_DataPackClass("@OrdNum", Param05),
+        //            new PSH_DataPackClass("@BatchNum", Param06),
+        //            new PSH_DataPackClass("@CardCode", Param07)
+        //        };
 
-                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, "Y");
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-        }
+        //        formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, "Y");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+        //    }
+        //}
 
         /// <summary>
         /// 리포트 조회
@@ -1130,11 +1130,11 @@ namespace PSH_BOne_AddOn
                         thread.SetApartmentState(System.Threading.ApartmentState.STA);
                         thread.Start();
                     }
-                    else if (pVal.ItemUID == "Btn_Label") //라벨
-                    {
-                        System.Threading.Thread thread = new System.Threading.Thread(PS_PP092_Print_Report04);
-                        thread.SetApartmentState(System.Threading.ApartmentState.STA);
-                        thread.Start();
+                    //else if (pVal.ItemUID == "Btn_Label") //라벨
+                    //{
+                    //    System.Threading.Thread thread = new System.Threading.Thread(PS_PP092_Print_Report04);
+                    //    thread.SetApartmentState(System.Threading.ApartmentState.STA);
+                    //    thread.Start();
                         //if (oLastColRow01 != 0)
                         //{
                         //    PS_PP092S pS_PP092S = new PS_PP092S();
@@ -1152,7 +1152,7 @@ namespace PSH_BOne_AddOn
                         //    errMessage = "출력할 행을 선택 후 LABEL 출력을 누르세요.";
                         //    throw new Exception();
                         //}
-                    }
+                    //}
                     else if (pVal.ItemUID == "Btn_Pack") //라벨_Packing list 출력
                     {
 

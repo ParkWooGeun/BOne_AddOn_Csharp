@@ -882,8 +882,8 @@ namespace PSH_BOne_AddOn
                 }
                 Param07 = oForm.Items.Item("BatchNum").Specific.Value;
 
-                FilePath = "\\\\191.1.1.220\\B1_SHR\\QRCODE_Drum";
-                //FilePath = "\\\\191.1.1.223\\pdf";
+                //FilePath = "\\\\191.1.1.220\\B1_SHR\\QRCODE_Drum";
+                FilePath = "\\\\191.1.1.223\\pdf";
 
                 sQry01 =  " SELECT DrumNo ";
                 sQry01 += "   FROM Z_PACKING_LOT ";

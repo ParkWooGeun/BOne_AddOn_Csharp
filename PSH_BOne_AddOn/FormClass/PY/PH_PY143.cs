@@ -549,7 +549,9 @@ namespace PSH_BOne_AddOn
             bool returnValue = false;
             string sQry;
             string YY;
+            string AMTCode;
             string CLTCOD;
+            string errMessage = string.Empty;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
 
@@ -558,12 +560,20 @@ namespace PSH_BOne_AddOn
                 oMat01.FlushToDataSource();
                 YY = codeHelpClass.Right((Int64.Parse(oForm.Items.Item("YM").Specific.Value.ToString().Trim()) + 1).ToString(),2);
                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
-
-                //AMT07 : 소득세정산컬럼(PH_PY109)
+                //소득세정산코드 : G06
                 if (Gubun == "1")
                 {
                     //2월 급상여변동자료에 등록
-                    sQry = " UPDATE [@PH_PY109B] SET U_AMT07 = ISNULL(U_AMT07,0) + " + AMT;
+                    sQry = "select U_Sequence from [@PH_PY109Z] where U_PDCode ='G06' AND code ='" + CLTCOD + YY + "02111'";
+                    oRecordSet.DoQuery(sQry);
+                    if (oRecordSet.RecordCount == 0)
+                    {
+                        errMessage = "급상여변동자료가 등록되지 않았습니다. 등록을 진행하세요.";
+                        throw new Exception();
+                    }
+                    AMTCode = Convert.ToString(Convert.ToDouble("0") + oRecordSet.Fields.Item(0).Value.ToString().Trim());
+
+                    sQry = " UPDATE [@PH_PY109B] SET U_AMT" + AMTCode + "= ISNULL(U_AMT" + AMTCode + ",0) + " + AMT;
                     sQry += "  from [@PH_PY109B] WHERE U_MSTCOD = '"+ MSTCOD + "' AND " + "Code ='" + CLTCOD + YY + "02111'";
                     oRecordSet.DoQuery(sQry);
 
@@ -573,7 +583,16 @@ namespace PSH_BOne_AddOn
                 else if (Gubun == "2")
                 {
                     //3월 급상여변동자료에 등록
-                    sQry = " UPDATE [@PH_PY109B] SET U_AMT07 = ISNULL(U_AMT07,0) + " + AMT;
+                    sQry = "select U_Sequence from [@PH_PY109Z] where U_PDCode ='G06' AND code ='" + CLTCOD + YY + "03111'";
+                    oRecordSet.DoQuery(sQry);
+                    if (oRecordSet.RecordCount == 0)
+                    {
+                        errMessage = "급상여변동자료가 등록되지 않았습니다. 등록을 진행하세요.";
+                        throw new Exception();
+                    }
+                    AMTCode = Convert.ToString(Convert.ToDouble("0") + oRecordSet.Fields.Item(0).Value.ToString().Trim());
+
+                    sQry = " UPDATE [@PH_PY109B] SET U_AMT" + AMTCode + "= ISNULL(U_AMT" + AMTCode + ",0) + " + AMT;
                     sQry += "  from [@PH_PY109B] WHERE U_MSTCOD = '" + MSTCOD + "' AND " + "Code ='" + CLTCOD + YY + "03111'";
                     oRecordSet.DoQuery(sQry);
 
@@ -583,7 +602,16 @@ namespace PSH_BOne_AddOn
                 else if (Gubun == "3")
                 {
                     //4월 급상여변동자료에 등록
-                    sQry = " UPDATE [@PH_PY109B] SET U_AMT07 = ISNULL(U_AMT07,0) + " + AMT;
+                    sQry = "select U_Sequence from [@PH_PY109Z] where U_PDCode ='G06' AND code ='" + CLTCOD + YY + "04111'";
+                    oRecordSet.DoQuery(sQry);
+                    if (oRecordSet.RecordCount == 0)
+                    {
+                        errMessage = "급상여변동자료가 등록되지 않았습니다. 등록을 진행하세요.";
+                        throw new Exception();
+                    }
+                    AMTCode = Convert.ToString(Convert.ToDouble("0") + oRecordSet.Fields.Item(0).Value.ToString().Trim());
+
+                    sQry = " UPDATE [@PH_PY109B] SET U_AMT" + AMTCode + "= ISNULL(U_AMT" + AMTCode + ",0) + " + AMT;
                     sQry += "  from [@PH_PY109B] WHERE  U_MSTCOD = '" + MSTCOD + "' AND " + "Code = '" + CLTCOD + YY + "04111'";
                     oRecordSet.DoQuery(sQry);
 
@@ -594,7 +622,14 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                if (errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
             }
             finally
             {
@@ -617,6 +652,8 @@ namespace PSH_BOne_AddOn
             string sQry;
             string YY;
             string CLTCOD;
+            string AMTCode;
+            string errMessage = string.Empty;
             SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
 
@@ -627,12 +664,20 @@ namespace PSH_BOne_AddOn
                 oMat01.FlushToDataSource();
                 YY = codeHelpClass.Right((Int64.Parse(oForm.Items.Item("YM").Specific.Value.ToString().Trim()) + 1).ToString(), 2);
                 CLTCOD = oForm.Items.Item("CLTCOD").Specific.Value.Trim();
-
-                //AMT07 : 소득세정산컬럼(PH_PY109)
+                //소득세정산코드 : G06
                 if (Gubun == "1")
                 {
                     //2월 급상여변동자료에 등록
-                    sQry = " UPDATE [@PH_PY109B] SET U_AMT07 = ISNULL(U_AMT07,0) - " + AMT;
+                    sQry = "select U_Sequence from [@PH_PY109Z] where U_PDCode ='G06' AND code ='" + CLTCOD + YY + "02111'";
+                    oRecordSet.DoQuery(sQry);
+                    if (oRecordSet.RecordCount == 0)
+                    {
+                        errMessage = "급상여변동자료가 등록되지 않았습니다. 등록을 진행하세요.";
+                        throw new Exception();
+                    }
+                    AMTCode = Convert.ToString(Convert.ToDouble("0") + oRecordSet.Fields.Item(0).Value.ToString().Trim());
+
+                    sQry = " UPDATE [@PH_PY109B] SET U_AMT" + AMTCode + "= ISNULL(U_AMT" + AMTCode + ",0) - " + AMT;
                     sQry += "  from [@PH_PY109B] WHERE U_MSTCOD = '" + MSTCOD + "' AND " + "Code ='" + CLTCOD + YY + "02111'";
                     oRecordSet.DoQuery(sQry);
 
@@ -642,7 +687,16 @@ namespace PSH_BOne_AddOn
                 else if (Gubun == "2")
                 {
                     //3월 급상여변동자료에 등록
-                    sQry = " UPDATE [@PH_PY109B] SET U_AMT07 = ISNULL(U_AMT07,0) - " + AMT;
+                    sQry = "select U_Sequence from [@PH_PY109Z] where U_PDCode ='G06' AND code ='" + CLTCOD + YY + "03111'";
+                    oRecordSet.DoQuery(sQry);
+                    if (oRecordSet.RecordCount == 0)
+                    {
+                        errMessage = "급상여변동자료가 등록되지 않았습니다. 등록을 진행하세요.";
+                        throw new Exception();
+                    }
+                    AMTCode = Convert.ToString(Convert.ToDouble("0") + oRecordSet.Fields.Item(0).Value.ToString().Trim());
+
+                    sQry = " UPDATE [@PH_PY109B] SET U_AMT" + AMTCode + "= ISNULL(U_AMT" + AMTCode + ",0) - " + AMT;
                     sQry += "  from [@PH_PY109B] WHERE U_MSTCOD = '" + MSTCOD + "' AND " + "Code ='" + CLTCOD + YY + "03111'";
                     oRecordSet.DoQuery(sQry);
 
@@ -652,7 +706,16 @@ namespace PSH_BOne_AddOn
                 else if (Gubun == "3")
                 {
                     //4월 급상여변동자료에 등록
-                    sQry = " UPDATE [@PH_PY109B] SET U_AMT07 = ISNULL(U_AMT07,0) - " + AMT;
+                    sQry = "select U_Sequence from [@PH_PY109Z] where U_PDCode ='G06' AND code ='" + CLTCOD + YY + "04111'";
+                    oRecordSet.DoQuery(sQry);
+                    if (oRecordSet.RecordCount == 0)
+                    {
+                        errMessage = "급상여변동자료가 등록되지 않았습니다. 등록을 진행하세요.";
+                        throw new Exception();
+                    }
+                    AMTCode = Convert.ToString(Convert.ToDouble("0") + oRecordSet.Fields.Item(0).Value.ToString().Trim());
+
+                    sQry = " UPDATE [@PH_PY109B] SET U_AMT" + AMTCode + "= ISNULL(U_AMT" + AMTCode + ",0) - " + AMT;
                     sQry += "  from [@PH_PY109B] WHERE  U_MSTCOD = '" + MSTCOD + "' AND " + "Code = '" + CLTCOD + YY + "04111'";
                     oRecordSet.DoQuery(sQry);
 
@@ -663,7 +726,14 @@ namespace PSH_BOne_AddOn
             }
             catch (Exception ex)
             {
-                PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                if (errMessage != string.Empty)
+                {
+                    PSH_Globals.SBO_Application.MessageBox(errMessage);
+                }
+                else
+                {
+                    PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+                }
             }
             finally
             {
@@ -916,7 +986,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (PSH_Globals.SBO_Application.MessageBox("급상여 변동자료에 적용(등록) 하시겠습니까?.", 2, "Yes", "No") == 1)
                         {
-
+                            
                             if (oForm.Items.Item("Gubun").Specific.Value.ToString().Trim() == "%")
                             {
                                 errMessage = "회차 구분을 선택하세요";

@@ -52,11 +52,13 @@ namespace PSH_BOne_AddOn
 				PS_QM280_CreateItems();
 				PS_QM280_FormItemEnabled();
 				PS_QM280_ComboBox_Setting();
-
-				oForm.EnableMenu("1283", true);  // 제거
+				
+				oForm.EnableMenu("1286", false);  // 닫기
+				oForm.EnableMenu("1285", false);  // 복원
+				oForm.EnableMenu("1283", false);  // 제거
 				oForm.EnableMenu("1293", true);  // 행삭제
-				oForm.EnableMenu("1287", true);  // 복제
-				oForm.EnableMenu("1284", false); // 취소
+				oForm.EnableMenu("1287", false);  // 복제
+				oForm.EnableMenu("1284", true); // 취소
 			}
 			catch (Exception ex)
 			{
@@ -300,7 +302,7 @@ namespace PSH_BOne_AddOn
 				switch (oUID)
 				{
 					case "CardCode":
-						sQry = "select cardname from ocrd where cardtype='C' and cardcode = '" + oDS_PS_QM280H.GetValue("U_CardCode", 0).ToString().Trim() + "'";
+						sQry = "select cardname from ocrd where cardcode = '" + oDS_PS_QM280H.GetValue("U_CardCode", 0).ToString().Trim() + "'";
 						oRecordSet.DoQuery(sQry);
 						oDS_PS_QM280H.SetValue("U_CardName", 0, oRecordSet.Fields.Item(0).Value.ToString().Trim());
 						break;
@@ -604,6 +606,8 @@ namespace PSH_BOne_AddOn
 		/// <param name="BubbleEvent"></param>
 		public override void Raise_FormMenuEvent(string FormUID, ref SAPbouiCOM.MenuEvent pVal, ref bool BubbleEvent)
 		{
+			string sQry;
+			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			try
 			{
 				oForm.Freeze(true);
@@ -613,6 +617,28 @@ namespace PSH_BOne_AddOn
 					switch (pVal.MenuUID)
 					{
 						case "1284": //취소
+							if (PSH_Globals.SBO_Application.MessageBox("문서를 취소하시겠습니까?", 1, "Yes", "No") == 1)
+							{
+								sQry = "SELECT Count(*) From [@PS_QM280H] WHERE DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'";
+								oRecordSet.DoQuery(sQry);
+								if (oForm.Items.Item("Canceled").Specific.Value.ToString().Trim() == "Y")
+                                {
+									PSH_Globals.SBO_Application.MessageBox("이미 취소된 문서입니다.");
+									BubbleEvent = false;
+									return;
+								}
+								else if (oRecordSet.Fields.Item(0).Value.ToString().Trim() == "0")
+								{
+									PSH_Globals.SBO_Application.MessageBox("등록된 문서만 취소할 수 있습니다.");
+									BubbleEvent = false;
+									return;
+								}
+							}
+							else
+							{
+								BubbleEvent = false;
+								return;
+							}
 							break;
 						case "1286": //닫기
 							break;

@@ -332,15 +332,18 @@ namespace PSH_BOne_AddOn
                 ReportName = "PS_QM285_01.rpt";
 
                 List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
+				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();
 
-                //Parameter
-                dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLID));
+				//Formula
+				dataPackFormula.Add(new PSH_DataPackClass("@BPLId", dataHelpClass.Get_ReData("BPLName", "BPLId", "OBPL", BPLID, "")));
+				//Parameter
+				dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLID));
                 dataPackParameter.Add(new PSH_DataPackClass("@DocDateFr", DocDateFr));
                 dataPackParameter.Add(new PSH_DataPackClass("@DocDateTo", DocDateTo));
                 dataPackParameter.Add(new PSH_DataPackClass("@Smplname", Smplname));
 				dataPackParameter.Add(new PSH_DataPackClass("@CardCode", CardCode));
 
-				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter);
+				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
             }
             catch (Exception ex)
             {

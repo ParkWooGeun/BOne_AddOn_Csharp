@@ -5,6 +5,8 @@ using PSH_BOne_AddOn.Code;
 using System.Collections.Generic;
 using PSH_BOne_AddOn.DataPack;
 using PSH_BOne_AddOn.Form;
+using QRCoder;
+using System.Drawing.Imaging;
 
 namespace PSH_BOne_AddOn
 {
@@ -14,7 +16,7 @@ namespace PSH_BOne_AddOn
     internal class PS_PACKING_PD : PSH_BaseClass
     {
         private string oFormUniqueID;
-        private SAPbouiCOM.Grid oGrid01;
+        private SAPbouiCOM.Grid oGrid01; 
 
         private string oLastItemUID01; //클래스에서 선택한 마지막 아이템 Uid값
         private string oLastColUID01; //마지막아이템이 메트릭스일경우에 마지막 선택된 Col의 Uid값
@@ -166,7 +168,9 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.UserDataSources.Add("CardSeq", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 50);
                 oForm.Items.Item("CardSeq").Specific.DataBind.SetBound(true, "", "CardSeq");
 
-                oForm.Items.Item("CardSeq").Specific.Value = "00";
+                //기준번호
+                oForm.DataSources.UserDataSources.Add("BSInspNo", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 50);
+                oForm.Items.Item("BSInspNo").Specific.DataBind.SetBound(true, "", "BSInspNo");
             }
             catch (Exception ex)
             {
@@ -332,6 +336,7 @@ namespace PSH_BOne_AddOn
                     oForm.DataSources.UserDataSources.Item("CardName").Value = oRecordSet01.Fields.Item("CardName").Value;
                     oForm.DataSources.UserDataSources.Item("CardSeq").Value = oRecordSet01.Fields.Item("CardSeq").Value;
                     oForm.DataSources.UserDataSources.Item("SaleType").Value = oRecordSet01.Fields.Item("SaleType").Value;
+                    oForm.DataSources.UserDataSources.Item("BSInspNo").Value = oRecordSet01.Fields.Item("BSInspNo").Value;
                 }
                 oForm.ActiveItem = "CntcCode";
                 oForm.Items.Item("BPLId").Enabled = false;
@@ -339,6 +344,10 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("ItemCode").Enabled = false;
                 oForm.Items.Item("OrdNum").Enabled = false;
                 oForm.Items.Item("InspNo").Enabled = false;
+                oForm.Items.Item("BSInspNo").Enabled = false;
+                oForm.Items.Item("SaleType").Enabled = false;
+                oForm.Items.Item("Quantity").Enabled = false;
+                oForm.Items.Item("BoxDiv").Enabled = false;
 
                 if (oForm.Items.Item("SaleType").Specific.Value.ToString().Trim() == "1")
                 {
@@ -418,6 +427,7 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.UserDataSources.Item("BoxCnt").Value = "0";
                 oForm.DataSources.UserDataSources.Item("BatchNum").Value = "";
                 oForm.DataSources.UserDataSources.Item("bBatchNum").Value = "";
+                oForm.DataSources.UserDataSources.Item("BSInspNo").Value = "";
                 oForm.Items.Item("BoxDiv").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 
                 oForm.Items.Item("BPLId").Enabled = true;
@@ -425,6 +435,10 @@ namespace PSH_BOne_AddOn
                 oForm.Items.Item("ItemCode").Enabled = true;
                 oForm.Items.Item("OrdNum").Enabled = true;
                 oForm.Items.Item("InspNo").Enabled = true;
+                oForm.Items.Item("BSInspNo").Enabled = true;
+                oForm.Items.Item("SaleType").Enabled = true;
+                oForm.Items.Item("Quantity").Enabled = true;
+                oForm.Items.Item("BoxDiv").Enabled = true;
                 oForm.ActiveItem = "DocDate";
                 oForm.Update();
             }
@@ -491,6 +505,7 @@ namespace PSH_BOne_AddOn
             string ItemName;
             string BatchNum;
             string sQry;
+            string InspNo;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
@@ -502,6 +517,7 @@ namespace PSH_BOne_AddOn
                 ItemName = oForm.Items.Item("ItemName").Specific.Value;
                 OrdNum = oForm.Items.Item("OrdNum").Specific.Value.ToString().Trim();
                 BatchNum = oForm.Items.Item("BatchNum").Specific.Value;
+                InspNo = oForm.Items.Item("InspNo").Specific.Value.ToString().Trim();
 
                 sQry = "select * from [@PS_QM008H] a where a.Status ='O' and a.Canceled ='N' and a.U_InspNo ='" + oForm.Items.Item("InspNo").Specific.Value + "'";
                 oRecordSet01.DoQuery(sQry);
@@ -520,6 +536,9 @@ namespace PSH_BOne_AddOn
                     if (PSH_Globals.SBO_Application.MessageBox("선택한 라인을 삭제하시겠습니까?", 2, "예", "아니오") == 1)
                     {
                         sQry = "Delete From [Z_PACKING_PD] Where BPLId = '" + BPLID + "' And DocDate = '" + DocDate + "' And ItemCode = '" + ItemCode + "' And ItemName = '" + ItemName + "' And OrdNum = '" + OrdNum + "' And BatchNum = '" + BatchNum + "'";
+                        oRecordSet01.DoQuery(sQry);
+
+                        sQry = "DELETE FROM Z_PACKING_LOT WHERE InspNo = '" + InspNo + "'";
                         oRecordSet01.DoQuery(sQry);
                     }
                 }
@@ -555,6 +574,8 @@ namespace PSH_BOne_AddOn
         private void PS_PACKING_PD_SAVE()
         {
             string errMessage = string.Empty;
+            int i;
+            int j;
             int PP030HNo;
             int PP030MNo;
             int BoxCnt;
@@ -574,8 +595,11 @@ namespace PSH_BOne_AddOn
             string CardCode;
             string SaleType;
             string PP080YN;
+            string BSInspNo;
+            string OriInspNo;
             string sQry;
             double Boxkg;
+            double BoxSumResult = 0;
             double Quantity;
             SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
@@ -600,7 +624,17 @@ namespace PSH_BOne_AddOn
                 CardName = oForm.Items.Item("CardName").Specific.Value;
                 bBatchNum = oForm.Items.Item("bBatchNum").Specific.Value;
                 CardSeq = oForm.Items.Item("CardSeq").Specific.Value;
+                BSInspNo = oForm.Items.Item("BSInspNo").Specific.Value;
                 SaleType = oForm.Items.Item("SaleType").Specific.Value;
+                
+                if (!string.IsNullOrEmpty(BSInspNo))
+                {
+                    OriInspNo = BSInspNo;
+                }
+                else
+                { 
+                    OriInspNo = InspNo;
+                }
 
                 sQry = "select * from [@PS_QM008H] a where a.Status ='O' and a.Canceled ='N' and a.U_InspNo ='" + oForm.Items.Item("InspNo").Specific.Value + "'";
                 oRecordSet01.DoQuery(sQry);
@@ -676,7 +710,8 @@ namespace PSH_BOne_AddOn
                     sQry += "CardSeq,";
                     sQry += "PP080YN,";
                     sQry += "bBatchNum,";
-                    sQry += "SaleType";
+                    sQry += "SaleType,";
+                    sQry += "BSInspNo";
                     sQry += " ) ";
                     sQry += "VALUES(";
 
@@ -700,10 +735,37 @@ namespace PSH_BOne_AddOn
                     sQry += "'" + CardSeq + "',";
                     sQry += "'" + PP080YN + "',";
                     sQry += "'" + bBatchNum + "',";
-                    sQry += "'" + SaleType + "'";
+                    sQry += "'" + SaleType + "',";
+                    sQry += "'" + BSInspNo + "'";
                     sQry += ") ";
 
                     oRecordSet01.DoQuery(sQry);
+
+                    if (!string.IsNullOrEmpty(BSInspNo.ToString().Trim()))
+                    {
+                        sQry = "SELECT DrumNo FROM Z_PACKING_LOT WHERE OrInspNo  = '" + OriInspNo + "'";
+                        oRecordSet01.DoQuery(sQry);
+
+                        j = oRecordSet01.RecordCount;
+                    }
+                    else
+                    {
+                        j = 0;
+                    }
+                    for(i = j; i < BoxCnt + j; i++)
+                    {
+                        BoxSumResult += Boxkg;
+                        if (BoxSumResult < Quantity)
+                        {
+                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i+1).PadLeft(2, '0') + "','','" + OriInspNo + "'," + Boxkg + ",'N', '29991231', null";
+                        }
+                        else
+                        {
+                            double result = Quantity - (BoxSumResult - Boxkg);
+                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i+1).PadLeft(2, '0') + "','','" + OriInspNo + "'," + result + ",'N', '29991231', null";
+                        }
+                        oRecordSet01.DoQuery(sQry);
+                    }
                 }
                 else
                 {
@@ -724,6 +786,36 @@ namespace PSH_BOne_AddOn
                     sQry += "SaleType = '" + SaleType + "'";
                     sQry += " Where BPLId = '" + BPLID + "' and DocDate = '" + DocDate + "' And ItemCode = '" + ItemCode + "' And ItemName = '" + ItemName + "' And OrdNum = '" + OrdNum + "' And BatchNum = '" + BatchNum + "'";
                     oRecordSet01.DoQuery(sQry);
+
+                    sQry = "DELETE FROM Z_PACKING_LOT WHERE InspNo = '" + InspNo + "'";
+                    oRecordSet01.DoQuery(sQry);
+                    
+                    if (!string.IsNullOrEmpty(BSInspNo.ToString().Trim()))
+                    {
+                        sQry = "SELECT DrumNo FROM Z_PACKING_LOT WHERE OrInspNo = '" + OriInspNo + "'";
+                        oRecordSet01.DoQuery(sQry);
+
+                        j = oRecordSet01.RecordCount;
+                    }
+                    else
+                    {
+                        j = 0;
+                    }
+
+                    for (i = j; i < BoxCnt + j; i++)
+                    {
+                        BoxSumResult += Boxkg;
+                        if (BoxSumResult < Quantity)
+                        {
+                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i + 1).PadLeft(2, '0') + "','','" + OriInspNo + "'," + Boxkg + ",'N', '29991231', null";
+                        }
+                        else
+                        {
+                            double result = Quantity - (BoxSumResult - Boxkg);
+                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i + 1).PadLeft(2, '0') + "','','" + OriInspNo + "'," + result + ",'N', '29991231', null";
+                        }
+                        oRecordSet01.DoQuery(sQry);
+                    }
                 }
                 PS_PACKING_PD_FormItemEnabled();
                 PS_PACKING_PD_MTX01();
@@ -755,6 +847,11 @@ namespace PSH_BOne_AddOn
         [STAThread]
         private void PS_PACKING_PD_Print_Report01()
         {
+            int i;
+            string FilePath;
+            string sQry01;
+            string sQry02;
+
             string WinTitle;
             string ReportName;
             string Param01;
@@ -765,16 +862,56 @@ namespace PSH_BOne_AddOn
             string Param06;
             string Param07;
             PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
-
+            QRCoder.QRCodeGenerator QG = new QRCoder.QRCodeGenerator();
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+            SAPbobsCOM.Recordset oRecordSet02 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
                 Param01 = oForm.Items.Item("BPLId").Specific.Selected.Value;
                 Param02 = oForm.Items.Item("DocDate").Specific.Value;
                 Param03 = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
                 Param04 = oForm.Items.Item("ItemName").Specific.Value;
-                Param05 = oForm.Items.Item("OrdNum").Specific.Value;
-                Param06 = oForm.Items.Item("BatchNum").Specific.Value;
-                Param07 = oForm.Items.Item("CardCode").Specific.Value;
+                Param05 = oForm.Items.Item("CardCode").Specific.Value;
+                if(string.IsNullOrEmpty(oForm.Items.Item("BSInspNo").Specific.Value))
+                {
+                    Param06 = oForm.Items.Item("InspNo").Specific.Value;
+                }
+                else
+                {
+                    Param06 = oForm.Items.Item("BSInspNo").Specific.Value;
+                }
+                Param07 = oForm.Items.Item("BatchNum").Specific.Value;
+
+                //FilePath = "\\\\191.1.1.220\\B1_SHR\\QRCODE_Drum";
+                FilePath = "\\\\191.1.1.223\\pdf";
+
+                sQry01 =  " SELECT DrumNo ";
+                sQry01 += "   FROM Z_PACKING_LOT ";
+                sQry01 += "  WHERE BatchNum = '" + Param07 + "'";
+                oRecordSet01.DoQuery(sQry01);
+
+                for (i = 0; i <= oRecordSet01.RecordCount - 1; i++)
+                {
+                    if (string.IsNullOrEmpty(oRecordSet01.Fields.Item(0).Value))
+                    {
+                        System.IO.File.Copy(FilePath + "\\" + "null" + ".jpg", FilePath + "\\" + oRecordSet01.Fields.Item(0).Value + ".jpg", true);
+                    }
+                    else
+                    {
+                        var QrCodeData = QG.CreateQrCode(oRecordSet01.Fields.Item(0).Value, QRCoder.QRCodeGenerator.ECCLevel.H);
+                        var code = new QRCode(QrCodeData);
+                        var bitMap = code.GetGraphic(2, "#000000", "#FFFFFF", true);
+                        var actualFormat = new OptionSetter().GetImageFormat("Jpeg");
+                        bitMap.Save(FilePath + "\\" + oRecordSet01.Fields.Item(0).Value + ".jpg", actualFormat);
+                    }
+
+                    sQry02 =  " Update Z_PACKING_LOT ";
+                    sQry02 += "    Set QRImg = (Select Bulkcolumn From OPENROWSET(BULK N'" + FilePath + "\\" + oRecordSet01.Fields.Item(0).Value + ".jpg', SINGLE_BLOB) As QRImg)";
+                    sQry02 += "  Where DrumNo = '" + oRecordSet01.Fields.Item(0).Value + "'";
+                    oRecordSet02.DoQuery(sQry02);
+
+                    oRecordSet01.MoveNext();
+                }
 
                 WinTitle = "BOX-LABEL출력[PS_PACKING_PD_05] ";
                 ReportName = "PS_PACKING_PD_05.rpt";
@@ -785,15 +922,54 @@ namespace PSH_BOne_AddOn
                 dataPackParameter.Add(new PSH_DataPackClass("@DocDate", Param02));
                 dataPackParameter.Add(new PSH_DataPackClass("@ItemCode", Param03));
                 dataPackParameter.Add(new PSH_DataPackClass("@ItemName", Param04));
-                dataPackParameter.Add(new PSH_DataPackClass("@OrdNum", Param05));
-                dataPackParameter.Add(new PSH_DataPackClass("@BatchNum", Param06));
-                dataPackParameter.Add(new PSH_DataPackClass("@CardCode", Param07));
+                dataPackParameter.Add(new PSH_DataPackClass("@CardCode", Param05));
+                dataPackParameter.Add(new PSH_DataPackClass("@InspNo", Param06));
 
                 formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, "Y");
             }
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet02);
+            }
+        }
+
+        /// <summary>
+        /// OptionSetter
+        /// </summary>
+        public class OptionSetter
+        {
+            public QRCodeGenerator.ECCLevel GetECCLevel(string value)
+            {
+                QRCodeGenerator.ECCLevel level;
+
+                Enum.TryParse(value, out level);
+
+                return level;
+            }
+
+            public ImageFormat GetImageFormat(string value)
+            {
+                switch (value.ToLower())
+                {
+                    case "jpg":
+                        return ImageFormat.Jpeg;
+                    case "jpeg":
+                        return ImageFormat.Jpeg;
+                    case "gif":
+                        return ImageFormat.Gif;
+                    case "bmp":
+                        return ImageFormat.Bmp;
+                    case "tiff":
+                        return ImageFormat.Tiff;
+                    case "png":
+                    default:
+                        return ImageFormat.Png;
+                }
             }
         }
 

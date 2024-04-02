@@ -185,6 +185,16 @@ namespace PSH_BOne_AddOn
                                 errMessage = "출하처리된 품목입니다. 삭제할수 없습니다.";
                                 throw new Exception();
                             }
+                            Query01 = " SELECT Count(*) ";
+                            Query01 += "  FROM [@PS_SD040H] a inner join [@PS_SD040L] b on a.DocEntry = b.DocEntry and a.Canceled ='N'";
+                            Query01 += " WHERE b.U_PackNo =" + oForm.Items.Item("PackNo").Specific.Value + "'";
+                            oRecordSet01.DoQuery(Query01);
+
+                            if (oRecordSet01.Fields.Item(0).Value != '0')
+                            {
+                                errMessage = "납품처리된 패킹번호입니다. 취소할수 없습니다.";
+                                throw new Exception();
+                            }
                         }
                     }
                 }
@@ -195,6 +205,17 @@ namespace PSH_BOne_AddOn
                         errMessage = "이미취소된문서입니다.";
                         throw new Exception();
                     }
+                    Query01 = " SELECT Count(*) ";
+                    Query01 += "  FROM [@PS_SD040H] a inner join [@PS_SD040L] b on a.DocEntry = b.DocEntry and a.Canceled ='N'";
+                    Query01 += " WHERE b.U_PackNo ='" + oForm.Items.Item("PackNo").Specific.Value + "'";
+                    oRecordSet01.DoQuery(Query01);
+
+                    if (oRecordSet01.Fields.Item(0).Value != '0')
+                    {
+                        errMessage = "납품처리된 패킹번호입니다. 취소할수 없습니다.";
+                        throw new Exception();
+                    }
+
                     Query01 = "SELECT U_LotNo,U_ItemCode,U_PackNo FROM [@PS_PP092L] WHERE  DocEntry = '" + oForm.Items.Item("DocEntry").Specific.Value + "'";
                     oRecordSet01.DoQuery(Query01);
 
@@ -227,6 +248,7 @@ namespace PSH_BOne_AddOn
                                 oRecordSet03.MoveNext();
                             }
                         }
+
                         oRecordSet01.MoveNext();
                     }
                 }
@@ -1107,7 +1129,7 @@ namespace PSH_BOne_AddOn
                                 {
                                     BatchNumCheck = oMat01.Columns.Item("LotNoSub").Cells.Item(i).Specific.Value;
                                 }
-                                Query01 = "UPDATE Z_PACKING_LOT SET PackNo ='" + oForm.Items.Item("PackNo").Specific.VALUE + "' where BarCDYN ='N' and BatchNum = '" + BatchNumCheck + "'";
+                                Query01 = "UPDATE Z_PACKING_LOT SET PackNo ='" + oForm.Items.Item("PackNo").Specific.Value + "' where BarCDYN ='N' and BatchNum = '" + BatchNumCheck + "'";
                                 oRecordSet01.DoQuery(Query01);
                             }
                         }

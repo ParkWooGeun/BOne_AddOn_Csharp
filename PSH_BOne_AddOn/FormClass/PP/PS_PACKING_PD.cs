@@ -567,7 +567,6 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(false);
             }
         }
-
         /// <summary>
         /// PS_PACKING_PD_SAVE
         /// </summary>
@@ -626,16 +625,51 @@ namespace PSH_BOne_AddOn
                 CardSeq = oForm.Items.Item("CardSeq").Specific.Value;
                 BSInspNo = oForm.Items.Item("BSInspNo").Specific.Value;
                 SaleType = oForm.Items.Item("SaleType").Specific.Value;
-                
+
                 if (!string.IsNullOrEmpty(BSInspNo))
                 {
                     OriInspNo = BSInspNo;
                 }
                 else
-                { 
+                {
                     OriInspNo = InspNo;
                 }
 
+                sQry = "select DrumNo from Z_PACKING_LOT where InspNo = '" + oForm.Items.Item("InspNo").Specific.Value + "'";
+                oRecordSet01.DoQuery(sQry);
+
+                if (oRecordSet01.RecordCount <= 0)
+                {
+                    sQry = "DELETE FROM Z_PACKING_LOT WHERE InspNo = '" + InspNo + "'";
+                    oRecordSet01.DoQuery(sQry);
+
+                    if (!string.IsNullOrEmpty(BSInspNo.ToString().Trim()))
+                    {
+                        sQry = "SELECT DrumNo FROM Z_PACKING_LOT WHERE OrInspNo = '" + OriInspNo + "'";
+                        oRecordSet01.DoQuery(sQry);
+
+                        j = oRecordSet01.RecordCount;
+                    }
+                    else
+                    {
+                        j = 0;
+                    }
+
+                    for (i = j; i < BoxCnt + j; i++)
+                    {
+                        BoxSumResult += Boxkg;
+                        if (BoxSumResult < Quantity)
+                        {
+                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i + 1).PadLeft(2, '0') + "','','" + OriInspNo + "'," + Boxkg + ",'N', '29991231', null";
+                        }
+                        else
+                        {
+                            double result = Quantity - (BoxSumResult - Boxkg);
+                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i + 1).PadLeft(2, '0') + "','','" + OriInspNo + "'," + result + ",'N', '29991231', null";
+                        }
+                        oRecordSet01.DoQuery(sQry);
+                    }
+                }
                 sQry = "select * from [@PS_QM008H] a where a.Status ='O' and a.Canceled ='N' and a.U_InspNo ='" + oForm.Items.Item("InspNo").Specific.Value + "'";
                 oRecordSet01.DoQuery(sQry);
 
@@ -752,17 +786,17 @@ namespace PSH_BOne_AddOn
                     {
                         j = 0;
                     }
-                    for(i = j; i < BoxCnt + j; i++)
+                    for (i = j; i < BoxCnt + j; i++)
                     {
                         BoxSumResult += Boxkg;
                         if (BoxSumResult < Quantity)
                         {
-                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i+1).PadLeft(2, '0') + "','','" + OriInspNo + "'," + Boxkg + ",'N', '29991231', null";
+                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i + 1).PadLeft(2, '0') + "','','" + OriInspNo + "'," + Boxkg + ",'N', '29991231', null";
                         }
                         else
                         {
                             double result = Quantity - (BoxSumResult - Boxkg);
-                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i+1).PadLeft(2, '0') + "','','" + OriInspNo + "'," + result + ",'N', '29991231', null";
+                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i + 1).PadLeft(2, '0') + "','','" + OriInspNo + "'," + result + ",'N', '29991231', null";
                         }
                         oRecordSet01.DoQuery(sQry);
                     }
@@ -789,7 +823,7 @@ namespace PSH_BOne_AddOn
 
                     sQry = "DELETE FROM Z_PACKING_LOT WHERE InspNo = '" + InspNo + "'";
                     oRecordSet01.DoQuery(sQry);
-                    
+
                     if (!string.IsNullOrEmpty(BSInspNo.ToString().Trim()))
                     {
                         sQry = "SELECT DrumNo FROM Z_PACKING_LOT WHERE OrInspNo = '" + OriInspNo + "'";
@@ -882,8 +916,7 @@ namespace PSH_BOne_AddOn
                 }
                 Param07 = oForm.Items.Item("BatchNum").Specific.Value;
 
-                //FilePath = "\\\\191.1.1.220\\B1_SHR\\QRCODE_Drum";
-                FilePath = "\\\\191.1.1.223\\pdf";
+                FilePath = "\\\\" + PSH_Globals.SP_ODBC_IP + "\\B1_SHR\\QRCODE_Drum";
 
                 sQry01 =  " SELECT DrumNo ";
                 sQry01 += "   FROM Z_PACKING_LOT ";

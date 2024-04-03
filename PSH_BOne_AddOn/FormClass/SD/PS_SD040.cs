@@ -3708,7 +3708,7 @@ namespace PSH_BOne_AddOn
                                 
                                 for (i = 1; i <= oMat01.VisualRowCount - 1; i++) //AR송장처리된 문서존재유무검사
                                 {
-                                    if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [INV1] WHERE BaseType = '15' AND BaseEntry = '" + oMat01.Columns.Item("ODLNNum").Cells.Item(i).Specific.Value + "' AND BaseLine = '" + oMat01.Columns.Item("DLN1Num").Cells.Item(i).Specific.Value + "'", 0, 1)) > 0)
+                                    if (Convert.ToInt32(dataHelpClass.GetValue("SELECT COUNT(*) FROM [INV1] WHERE LineStatus  ='O' and BaseType = '15' AND BaseEntry = '" + oMat01.Columns.Item("ODLNNum").Cells.Item(i).Specific.Value + "' AND BaseLine = '" + oMat01.Columns.Item("DLN1Num").Cells.Item(i).Specific.Value + "'", 0, 1)) > 0)
                                     {
                                         PSH_Globals.SBO_Application.StatusBar.SetText("AR송장처리된 문서가 존재합니다.", BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Warning);
                                         BubbleEvent = false;

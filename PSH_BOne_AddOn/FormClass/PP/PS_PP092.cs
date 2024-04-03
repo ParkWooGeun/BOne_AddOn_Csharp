@@ -185,12 +185,12 @@ namespace PSH_BOne_AddOn
                                 errMessage = "출하처리된 품목입니다. 삭제할수 없습니다.";
                                 throw new Exception();
                             }
-                            Query01 = " SELECT Count(*) ";
+                            Query01 = " SELECT Count(*) as cnt ";
                             Query01 += "  FROM [@PS_SD040H] a inner join [@PS_SD040L] b on a.DocEntry = b.DocEntry and a.Canceled ='N'";
-                            Query01 += " WHERE b.U_PackNo =" + oForm.Items.Item("PackNo").Specific.Value + "'";
+                            Query01 += " WHERE b.U_PackNo ='" + oForm.Items.Item("PackNo").Specific.Value + "'";
                             oRecordSet01.DoQuery(Query01);
 
-                            if (oRecordSet01.Fields.Item(0).Value != '0')
+                            if (oRecordSet01.Fields.Item(0).Value != "0")
                             {
                                 errMessage = "납품처리된 패킹번호입니다. 취소할수 없습니다.";
                                 throw new Exception();

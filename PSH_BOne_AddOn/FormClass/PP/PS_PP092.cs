@@ -190,7 +190,7 @@ namespace PSH_BOne_AddOn
                             Query01 += " WHERE b.U_PackNo ='" + oForm.Items.Item("PackNo").Specific.Value + "'";
                             oRecordSet01.DoQuery(Query01);
 
-                            if (oRecordSet01.Fields.Item(0).Value != "0")
+                            if (oRecordSet01.Fields.Item(0).Value > 0)
                             {
                                 errMessage = "납품처리된 패킹번호입니다. 취소할수 없습니다.";
                                 throw new Exception();
@@ -210,7 +210,7 @@ namespace PSH_BOne_AddOn
                     Query01 += " WHERE b.U_PackNo ='" + oForm.Items.Item("PackNo").Specific.Value + "'";
                     oRecordSet01.DoQuery(Query01);
 
-                    if (oRecordSet01.Fields.Item(0).Value != '0')
+                    if (oRecordSet01.Fields.Item(0).Value > 0)
                     {
                         errMessage = "납품처리된 패킹번호입니다. 취소할수 없습니다.";
                         throw new Exception();
@@ -1157,23 +1157,23 @@ namespace PSH_BOne_AddOn
                     //    System.Threading.Thread thread = new System.Threading.Thread(PS_PP092_Print_Report04);
                     //    thread.SetApartmentState(System.Threading.ApartmentState.STA);
                     //    thread.Start();
-                        //if (oLastColRow01 != 0)
-                        //{
-                        //    PS_PP092S pS_PP092S = new PS_PP092S();
-                        //    string PackNo;
-                        //    string InspNo;
-                        //    string ProDate;
-                        //    PackNo = oForm.Items.Item("PackNo").Specific.Value.ToString().Trim();
-                        //    InspNo = oMat01.Columns.Item("InspNo").Cells.Item(oLastColRow01).Specific.Value.ToString().Trim();
-                        //    ProDate = oMat01.Columns.Item("ProDate").Cells.Item(oLastColRow01).Specific.Value;
-                        //    pS_PP092S.LoadForm(PackNo, InspNo, ProDate);
-                        //    BubbleEvent = false;
-                        //}
-                        //else
-                        //{
-                        //    errMessage = "출력할 행을 선택 후 LABEL 출력을 누르세요.";
-                        //    throw new Exception();
-                        //}
+                    //if (oLastColRow01 != 0)
+                    //{
+                    //    PS_PP092S pS_PP092S = new PS_PP092S();
+                    //    string PackNo;
+                    //    string InspNo;
+                    //    string ProDate;
+                    //    PackNo = oForm.Items.Item("PackNo").Specific.Value.ToString().Trim();
+                    //    InspNo = oMat01.Columns.Item("InspNo").Cells.Item(oLastColRow01).Specific.Value.ToString().Trim();
+                    //    ProDate = oMat01.Columns.Item("ProDate").Cells.Item(oLastColRow01).Specific.Value;
+                    //    pS_PP092S.LoadForm(PackNo, InspNo, ProDate);
+                    //    BubbleEvent = false;
+                    //}
+                    //else
+                    //{
+                    //    errMessage = "출력할 행을 선택 후 LABEL 출력을 누르세요.";
+                    //    throw new Exception();
+                    //}
                     //}
                     else if (pVal.ItemUID == "Btn_Pack") //라벨_Packing list 출력
                     {

@@ -450,12 +450,9 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("Mat01").Enabled = false;
                         oForm.Items.Item("CntcCode").Enabled = false;
                         oForm.Items.Item("DocEntry").Enabled = false;
-                        oForm.Items.Item("InDate").Enabled = false;
                         oForm.Items.Item("BPLId").Enabled = false;
                         oForm.Items.Item("SD030Num").Enabled = false;
                         oForm.Items.Item("CardCode").Enabled = false;
-                        oForm.Items.Item("Destinaton").Enabled = false;
-                        oForm.Items.Item("ShipType").Enabled = false;
                         oForm.Items.Item("Comments").Enabled = false;
                         oForm.Items.Item("1").Enabled = false;
                     }
@@ -643,13 +640,16 @@ namespace PSH_BOne_AddOn
         /// 필수 사항 check
         /// </summary>
         /// <returns></returns>
-        private bool PS_PP092_DataValidCheck()
+        private bool PS_PP092_DataValidCheck(string ModeType)
         {
             bool returnValue = false;
             int i = 0;
+            string sQry;
+            string BatchNo;
             string errMessage = string.Empty;
             string ClickCode = string.Empty;
             string type = string.Empty;
+            SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
             try
             {
@@ -685,7 +685,7 @@ namespace PSH_BOne_AddOn
                         throw new Exception();
                     }
                 }
-                for (i = 1; i <= (oMat01.VisualRowCount - 1); i++)
+                for (i = 1; i <= oMat01.VisualRowCount - 1; i++)
                 {
                     if (string.IsNullOrEmpty(oMat01.Columns.Item("OutGbn").Cells.Item(i).Specific.Value))
                     {
@@ -696,6 +696,33 @@ namespace PSH_BOne_AddOn
                     }
                     else
                     {
+                        if (ModeType == "A")
+                        {
+                            if (string.IsNullOrEmpty(oMat01.Columns.Item("LotNoSub").Cells.Item(i).Specific.Value))
+                            {
+                                BatchNo = oMat01.Columns.Item("LotNo").Cells.Item(i).Specific.Value;
+                            }
+                            else
+                            {
+                                BatchNo = oMat01.Columns.Item("LotNoSub").Cells.Item(i).Specific.Value;
+                            }
+
+                            sQry = "SELECT isnull(Sum(Quantity),0) as Weight";
+                            sQry += "  FROM Z_PACKING_LOT";
+                            sQry += " WHERE 1=1";
+                            sQry += "   AND BarCDYN		=	'N'";
+                            sQry += "   AND BatchNum	=	'" + BatchNo + "'";
+                            oRecordSet01.DoQuery(sQry);
+
+                            if (Convert.ToDouble(oMat01.Columns.Item("Weight").Cells.Item(i).Specific.Value) > oRecordSet01.Fields.Item(0).Value)
+                            {
+                                errMessage = BatchNo + "  해당 배치의 중량이 미달됩니다. 확인하세요.";
+                                ClickCode = "Qty";
+                                type = "M";
+                                throw new Exception();
+                            }
+                        }
+
                         if (oMat01.Columns.Item("OutGbn").Cells.Item(i).Specific.Value == "10")
                         {
                             if (string.IsNullOrEmpty(oMat01.Columns.Item("SD030Num").Cells.Item(i).Specific.Value))
@@ -1064,7 +1091,7 @@ namespace PSH_BOne_AddOn
                     {
                         if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                         {
-                            if (PS_PP092_DataValidCheck() == false)
+                            if (PS_PP092_DataValidCheck("A") == false)
                             {
                                 BubbleEvent = false;
                                 return;
@@ -1113,7 +1140,7 @@ namespace PSH_BOne_AddOn
                         }
                         else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
                         {
-                            if (PS_PP092_DataValidCheck() == false)
+                            if (PS_PP092_DataValidCheck("U") == false)
                             {
                                 BubbleEvent = false;
                                 return;

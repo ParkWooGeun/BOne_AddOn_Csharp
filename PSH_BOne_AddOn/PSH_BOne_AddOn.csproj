@@ -776,12 +776,14 @@
     <Compile Include="FormClass\QM\PS_QM501.cs" />
     <Compile Include="FormClass\QM\PS_QM502.cs" />
     <Compile Include="FormClass\QM\PS_QM503.cs" />
-    <Compile Include="FormClass\QM\PS_QM600.cs" />
     <Compile Include="FormClass\QM\PS_QM102.cs" />
     <Compile Include="FormClass\QM\PS_QM110.cs" />
     <Compile Include="FormClass\QM\PS_QM241.cs" />
+    <Compile Include="FormClass\QM\PS_QM600.cs" />
     <Compile Include="FormClass\QM\PS_QM610.cs" />
     <Compile Include="FormClass\QM\PS_QM620.cs" />
+    <Compile Include="FormClass\QM\PS_QM650.cs" />
+    <Compile Include="FormClass\QM\PS_QM660.cs" />
     <Compile Include="FormClass\QM\PS_QM700.cs" />
     <Compile Include="FormClass\QM\PS_QM701.cs" />
     <Compile Include="FormClass\QM\PS_QM702.cs" />

@@ -113,13 +113,13 @@ namespace PSH_BOne_AddOn
 				//기관성적서
 				oForm.Items.Item("Action_O").Specific.ValidValues.Add("", "");
 				oForm.Items.Item("Action_O").Specific.ValidValues.Add("S", "저장");
-				oForm.Items.Item("Action_O").Specific.ValidValues.Add("N", "열기");
+				oForm.Items.Item("Action_O").Specific.ValidValues.Add("O", "열기");
 				oForm.Items.Item("Action_O").Specific.ValidValues.Add("D", "삭제");
 				oForm.Items.Item("Action_O").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 				//메이커성적서
 				oForm.Items.Item("Action_M").Specific.ValidValues.Add("", "");
 				oForm.Items.Item("Action_M").Specific.ValidValues.Add("S", "저장");
-				oForm.Items.Item("Action_M").Specific.ValidValues.Add("N", "열기");
+				oForm.Items.Item("Action_M").Specific.ValidValues.Add("O", "열기");
 				oForm.Items.Item("Action_M").Specific.ValidValues.Add("D", "삭제");
 				oForm.Items.Item("Action_M").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 			}
@@ -184,7 +184,7 @@ namespace PSH_BOne_AddOn
 			{
 				oForm.Items.Item("BPLId").Specific.Select(dataHelpClass.User_BPLID(), SAPbouiCOM.BoSearchKey.psk_ByValue); //사업장
 				oForm.Items.Item("InspDate").Specific.Value = DateTime.Now.ToString("yyyyMMdd"); //일자
-				oForm.Items.Item("InDocNo").Click(); //포커서
+				oForm.Items.Item("InspDate").Click(); //포커서
 			}
 			catch (Exception ex)
 			{
@@ -197,6 +197,8 @@ namespace PSH_BOne_AddOn
 		/// </summary>
 		private void PS_QM660_FormItemEnabled()
 		{
+			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
 			try
 			{
 				oForm.Freeze(true);
@@ -206,6 +208,9 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("Mat01").Enabled = true;
 					oForm.Items.Item("DocEntry").Enabled = false;
 					oForm.Items.Item("InDocNo").Enabled = true;
+					oForm.Items.Item("InspPrsn").Specific.Value = dataHelpClass.User_MSTCOD();
+					oDS_PS_QM660H.SetValue("U_PrsnName", 0, dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("InspPrsn").Specific.Value.ToString().Trim() + "'", ""));
+					oForm.Items.Item("DSCR").Visible = false;
 					oForm.EnableMenu("1281", true);  //찾기
 					oForm.EnableMenu("1282", false); //추가
 
@@ -218,14 +223,20 @@ namespace PSH_BOne_AddOn
 					oForm.Items.Item("DocEntry").Enabled = true;
 					oForm.Items.Item("InDocNo").Enabled = true;
 					oForm.Items.Item("InspDate").Specific.Value = "";
+					oForm.Items.Item("DSCR").Visible = false;
 					oForm.EnableMenu("1281", false); //찾기
 					oForm.EnableMenu("1282", true);  //추가
+					oForm.Items.Item("Action_O").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+					oForm.Items.Item("Action_M").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
 				{
 					oForm.Items.Item("Mat01").Enabled = true;
 					oForm.Items.Item("DocEntry").Enabled = false;
 					oForm.Items.Item("InDocNo").Enabled = false;
+					oForm.Items.Item("DSCR").Visible = false;
+					oForm.Items.Item("Action_O").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+					oForm.Items.Item("Action_M").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 				}
 			}
 			catch (Exception ex)
@@ -434,94 +445,50 @@ namespace PSH_BOne_AddOn
 			int i;
 			string sQry;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-			SAPbobsCOM.Recordset oRecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-			SAPbobsCOM.Recordset oRecordSet02 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
 			{
 				sQry = "Select b.U_InspItem, c.U_CdName, b.U_InspItNm, d.U_CdName, U_InspSpec, b.U_InspMin, b.U_InspMax ";
-				sQry += " From [@PS_QM600H] a INNER JOIN [@PS_QM600L] b ON a.DocEntry = b.DocEntry AND a.Canceled = 'N' ";
-				sQry += " LEFT  JOIN [@PS_SY001L] c ON c.Code = 'Q600' AND c.U_Minor = b.U_InspItem ";
-				sQry += " LEFT  JOIN [@PS_SY001L] d ON d.Code = 'Q600' AND d.U_Minor = b.U_InspItNm ";
-				sQry += "Where a.U_ItemCode = '" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "' ";
-				sQry += "  AND a.U_CardCode = '" + oForm.Items.Item("CardCode").Specific.Value.ToString().Trim() + "' ";
-				sQry += "  And a.U_ItmSeq  = '" + oForm.Items.Item("ItmSeq").Specific.Value.ToString().Trim() + "' ";
+				sQry += " From [@PS_QM650H] a INNER JOIN [@PS_QM650L] b ON a.DocEntry = b.DocEntry AND a.Canceled = 'N' ";
+				sQry += " LEFT  JOIN [@PS_SY001L] c ON c.Code = 'Q700' AND c.U_Minor = b.U_InspItem ";
+				sQry += " LEFT  JOIN [@PS_SY001L] d ON d.Code = 'Q700' AND d.U_Minor = b.U_InspItNm ";
+				sQry += "Where a.U_BPLId = '" + oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() + "' ";
+				sQry += "  AND a.U_ItemCode = '" + oForm.Items.Item("MatrCode").Specific.Value.ToString().Trim() + "' ";
+				sQry += "  AND a.U_ItmSeq  = '" + oForm.Items.Item("ItmSeq").Specific.Value.ToString().Trim() + "' ";
 				sQry += "  AND b.U_UseYN = 'Y' Order By b.U_Seqno ";
 				oRecordSet.DoQuery(sQry);
-
-				//원소재성분이 입력[PS_QM030]된 Data Select
-				sQry = "select Top 1 U_ChemC_Cu, U_ChemC_Fe, U_ChemC_P from [OBTN] ";
-				sQry += "where InDate >  dateadd(YEAR, -9, getdate())";
-				sQry += "  and DistNumber like '" + oDS_PS_QM660H.GetValue("U_LotNo", 0).ToString().Trim() + "' + '%'";
-				oRecordSet01.DoQuery(sQry);
 
 				oDS_PS_QM660L.Clear();
 				oMat.Clear();
 				oMat.FlushToDataSource();
+				oForm.Items.Item("DSCR").Visible = false;
 
-				i = 0;
-				while (!oRecordSet.EoF)
+				if (oRecordSet.RecordCount != 0)
 				{
-					oDS_PS_QM660L.InsertRecord(i);
-					oDS_PS_QM660L.SetValue("U_LineNum", i, Convert.ToString(i + 1));
-					oDS_PS_QM660L.SetValue("U_InspItem", i, oRecordSet.Fields.Item(0).Value.ToString().Trim());
-					oDS_PS_QM660L.SetValue("U_ItemDscr", i, oRecordSet.Fields.Item(1).Value.ToString().Trim());
-					oDS_PS_QM660L.SetValue("U_InspItNm", i, oRecordSet.Fields.Item(2).Value.ToString().Trim());
-					oDS_PS_QM660L.SetValue("U_ItNmDscr", i, oRecordSet.Fields.Item(3).Value.ToString().Trim());
-					oDS_PS_QM660L.SetValue("U_InspSpec", i, oRecordSet.Fields.Item(4).Value.ToString().Trim());
-					oDS_PS_QM660L.SetValue("U_InspMin", i, oRecordSet.Fields.Item(5).Value.ToString().Trim());
-					oDS_PS_QM660L.SetValue("U_InspMax", i, oRecordSet.Fields.Item(6).Value.ToString().Trim());
-
-					//원소재성분이 입력[PS_QM030]된 Data Select
-					if (oRecordSet.Fields.Item(3).Value.ToString().Trim() == "Cu" && oRecordSet.Fields.Item(4).Value.ToString().Trim() != "R")
+					i = 0;
+					while (!oRecordSet.EoF)
 					{
-						oDS_PS_QM660L.SetValue("U_ValMax", i, oRecordSet01.Fields.Item(0).Value.ToString().Trim());
-					}
-					if (oRecordSet.Fields.Item(3).Value.ToString().Trim() == "Fe")
-					{
-						oDS_PS_QM660L.SetValue("U_ValMax", i, oRecordSet01.Fields.Item(1).Value.ToString().Trim());
-					}
-					if (oRecordSet.Fields.Item(3).Value.ToString().Trim() == "P")
-					{
-						oDS_PS_QM660L.SetValue("U_ValMax", i, oRecordSet01.Fields.Item(2).Value.ToString().Trim());
-					}
+						oDS_PS_QM660L.InsertRecord(i);
+						oDS_PS_QM660L.SetValue("U_LineNum", i, Convert.ToString(i + 1));
+						oDS_PS_QM660L.SetValue("U_InspItem", i, oRecordSet.Fields.Item(0).Value.ToString().Trim());
+						oDS_PS_QM660L.SetValue("U_ItemDscr", i, oRecordSet.Fields.Item(1).Value.ToString().Trim());
+						oDS_PS_QM660L.SetValue("U_InspItNm", i, oRecordSet.Fields.Item(2).Value.ToString().Trim());
+						oDS_PS_QM660L.SetValue("U_ItNmDscr", i, oRecordSet.Fields.Item(3).Value.ToString().Trim());
+						oDS_PS_QM660L.SetValue("U_InspSpec", i, oRecordSet.Fields.Item(4).Value.ToString().Trim());
+						oDS_PS_QM660L.SetValue("U_InspMin", i, oRecordSet.Fields.Item(5).Value.ToString().Trim());
+						oDS_PS_QM660L.SetValue("U_InspMax", i, oRecordSet.Fields.Item(6).Value.ToString().Trim());
 
-					//기존저장된 Data select
-					if (oRecordSet.Fields.Item(3).Value.ToString().Trim() == "D" ||
-						oRecordSet.Fields.Item(3).Value.ToString().Trim() == "F˚" ||
-						oRecordSet.Fields.Item(3).Value.ToString().Trim() == "Edge burr" ||
-						oRecordSet.Fields.Item(3).Value.ToString().Trim() == "Cross bow" ||
-						oRecordSet.Fields.Item(3).Value.ToString().Trim() == "R" ||
-						oRecordSet.Fields.Item(3).Value.ToString().Trim() == "T.S (kgf/㎟)" ||
-						oRecordSet.Fields.Item(3).Value.ToString().Trim() == "T.S (N/㎟)" ||
-						oRecordSet.Fields.Item(3).Value.ToString().Trim() == "E.L (%)" ||
-						oRecordSet.Fields.Item(3).Value.ToString().Trim() == "V.H (Hv)" ||
-						oRecordSet.Fields.Item(3).Value.ToString().Trim() == "S.R (㎛) Rmax" ||
-						oRecordSet.Fields.Item(3).Value.ToString().Trim() == "S.R (㎛) Rz")
-					{
-						sQry = "select TOP 1 b.U_ValMin, b.U_ValMax ";
-						sQry += "From [@PS_QM660H] a INNER JOIN[@PS_QM660L] b ON a.DocEntry = b.DocEntry ";
-						sQry += "where a.U_ItemCode = '" + oDS_PS_QM660H.GetValue("U_ItemCode", 0).ToString().Trim() + "' ";
-						sQry += "and a.U_LotNo = '" + oDS_PS_QM660H.GetValue("U_LotNo", 0).ToString().Trim() + "' ";
-						sQry += "and b.U_ItNmDscr = '" + oRecordSet.Fields.Item(3).Value.ToString().Trim() + "' ";
-						oRecordSet02.DoQuery(sQry);
-
-						oDS_PS_QM660L.SetValue("U_ValMin", i, oRecordSet02.Fields.Item(0).Value.ToString().Trim());
-						oDS_PS_QM660L.SetValue("U_ValMax", i, oRecordSet02.Fields.Item(1).Value.ToString().Trim());
+						i += 1;
+						oRecordSet.MoveNext();
 					}
-
-					//기본값 SET
-					if (oRecordSet.Fields.Item(3).Value.ToString().Trim() == "E.C (%)")
-					{
-						oDS_PS_QM660L.SetValue("U_ValMin", i, "85");
-						oDS_PS_QM660L.SetValue("U_ValMax", i, "85");
-					}
-
-					i += 1;
-					oRecordSet.MoveNext();
+				}
+				else
+                {
+					oForm.Items.Item("DSCR").Visible = true;
 				}
 
 				oMat.LoadFromDataSource();
+				oMat.AutoResizeColumns();
 			}
 			catch (Exception ex)
 			{
@@ -530,9 +497,205 @@ namespace PSH_BOne_AddOn
 			finally
 			{
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet01);
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet02);
 			}
+		}
+
+		/// <summary>
+		/// PS_QM660_SaveAttach
+		/// </summary>
+		/// <param name="Gubun"></param>
+		private void PS_QM660_SaveAttach(string Gubun)
+		{
+			string sFileFullPath;
+			string sFilePath;
+			string sFileName;
+			string SaveFolders;
+			string sourceFile;
+			string targetFile;
+			string errMessage = string.Empty;
+
+			try
+			{
+				sFileFullPath = PS_QM660_OpenFileSelectDialog();//OpenFileDialog를 쓰레드로 실행
+
+				SaveFolders = "\\\\191.1.1.220\\Attach\\PS_QM660";
+				sFileName = System.IO.Path.GetFileName(sFileFullPath); //파일명
+				sFilePath = System.IO.Path.GetDirectoryName(sFileFullPath); //파일명을 제외한 전체 경로
+
+				sourceFile = System.IO.Path.Combine(sFilePath, sFileName);
+				targetFile = System.IO.Path.Combine(SaveFolders, sFileName);
+
+				if (System.IO.File.Exists(targetFile)) //서버에 기존파일이 존재하는지 체크
+				{
+					if (PSH_Globals.SBO_Application.MessageBox("동일한 문서번호의 파일이 존재합니다. 교체하시겠습니까?", 2, "Yes", "No") == 1)
+					{
+						System.IO.File.Delete(targetFile); //삭제
+					}
+					else
+					{
+						return;
+					}
+				}
+
+				if (Gubun == "1")
+				{
+					oForm.Items.Item("InspOrgn").Specific.Value = SaveFolders + "\\" + sFileName; //첨부파일 경로 등록
+				}
+				else
+                {
+					oForm.Items.Item("InspMake").Specific.Value = SaveFolders + "\\" + sFileName; //첨부파일 경로 등록
+				}
+
+				System.IO.File.Copy(sourceFile, targetFile, true); //파일 복사 
+
+				PSH_Globals.SBO_Application.MessageBox("업로드 되었습니다.");
+				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
+				{
+					oForm.Mode = SAPbouiCOM.BoFormMode.fm_UPDATE_MODE;
+				}
+			}
+			catch (Exception ex)
+			{
+				if (errMessage != string.Empty)
+				{
+					PSH_Globals.SBO_Application.MessageBox(errMessage);
+				}
+				else
+				{
+					PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+				}
+			}
+		}
+
+		/// <summary>
+		/// PS_QM660_OpenAttach
+		/// </summary>
+		/// <param name="Gubun"></param>
+		private void PS_QM660_OpenAttach(string Gubun)
+		{
+			string AttachPath;
+			string errMessage = string.Empty;
+
+			try
+			{
+				if (Gubun == "1")
+				{
+					AttachPath = oForm.Items.Item("InspOrgn").Specific.Value.ToString().Trim();
+				}
+				else
+				{
+					AttachPath = oForm.Items.Item("InspMake").Specific.Value.ToString().Trim();
+				}
+
+				if (string.IsNullOrEmpty(AttachPath))
+				{
+					PSH_Globals.SBO_Application.MessageBox("첨부파일이 없습니다.");
+				}
+				else
+				{
+					System.Diagnostics.ProcessStartInfo process = new System.Diagnostics.ProcessStartInfo(AttachPath);
+					process.UseShellExecute = true;
+					process.Verb = "open";
+
+					System.Diagnostics.Process.Start(process);
+				}
+			}
+			catch (Exception ex)
+			{
+				if (errMessage != string.Empty)
+				{
+					PSH_Globals.SBO_Application.MessageBox(errMessage);
+				}
+				else
+				{
+					PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+				}
+			}
+		}
+
+		/// <summary>
+		/// PS_QM660_DeleteAttach
+		/// </summary>
+		/// <param name="Gubun"></param>
+		private void PS_QM660_DeleteAttach(string Gubun)
+		{
+			string DeleteFilePath;
+			string errMessage = string.Empty;
+			try
+			{
+				if (Gubun == "1")
+				{
+					DeleteFilePath = oForm.Items.Item("InspOrgn").Specific.Value.ToString().Trim();
+				}
+				else
+				{
+					DeleteFilePath = oForm.Items.Item("InspMake").Specific.Value.ToString().Trim();
+				}
+
+				if (string.IsNullOrEmpty(DeleteFilePath))
+				{
+					errMessage = "첨부파일이 없습니다.";
+				}
+				else
+				{
+					if (PSH_Globals.SBO_Application.MessageBox("첨부파일을 삭제하시겠습니까?", Convert.ToInt32("1"), "예", "아니오") == Convert.ToDouble("1"))
+					{
+						System.IO.File.Delete(DeleteFilePath);
+						//FSO.DeleteFile(DeleteFilePath); //파일 삭제
+						if (Gubun == "1")
+						{
+							oForm.Items.Item("InspOrgn").Specific.Value = ""; //첨부파일 경로 삭제
+						}
+						else
+						{
+							oForm.Items.Item("InspMake").Specific.Value = ""; //첨부파일 경로 삭제
+						}
+						
+						PSH_Globals.SBO_Application.MessageBox("파일이 삭제되었습니다.");
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				if (errMessage != string.Empty)
+				{
+					PSH_Globals.SBO_Application.MessageBox(errMessage);
+				}
+				else
+				{
+					PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+				}
+			}
+		}
+
+		/// <summary>
+		/// OpenFileSelectDialog 호출(쓰레드를 이용하여 비동기화)
+		/// OLE 호출을 수행하려면 현재 스레드를 STA(단일 스레드 아파트) 모드로 설정해야 합니다.
+		/// </summary>
+		[STAThread]
+		private string PS_QM660_OpenFileSelectDialog()
+		{
+			string returnFileName = string.Empty;
+
+			var thread = new System.Threading.Thread(() =>
+			{
+				System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
+				openFileDialog.InitialDirectory = "C:\\";
+				openFileDialog.Filter = "All files (*.*)|*.*";
+				openFileDialog.FilterIndex = 1; //FilterIndex는 1부터 시작
+				openFileDialog.RestoreDirectory = true;
+
+				if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+				{
+					returnFileName = openFileDialog.FileName;
+				}
+			});
+
+			thread.SetApartmentState(System.Threading.ApartmentState.STA);
+			thread.Start();
+			thread.Join();
+
+			return returnFileName;
 		}
 
 		/// <summary>
@@ -554,13 +717,13 @@ namespace PSH_BOne_AddOn
 				case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
 					Raise_EVENT_GOT_FOCUS(FormUID, ref pVal, ref BubbleEvent);
 					break;
-				//case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
-				//    Raise_EVENT_LOST_FOCUS(FormUID, ref pVal, ref BubbleEvent);
-				//    break;
-				//case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
-				//    Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
-				//    break;
-				case SAPbouiCOM.BoEventTypes.et_CLICK: //6
+                //case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
+                //    Raise_EVENT_LOST_FOCUS(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
+                case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
+                    Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
+                    break;
+                case SAPbouiCOM.BoEventTypes.et_CLICK: //6
 					Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
 					break;
 				//case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK: //7
@@ -718,25 +881,9 @@ namespace PSH_BOne_AddOn
 								BubbleEvent = false;
 							}
 						}
-						else if (pVal.ItemUID == "ItemCode")
-						{
-							if (string.IsNullOrEmpty(oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim()))
-							{
-								PSH_Globals.SBO_Application.ActivateMenuItem("7425");
-								BubbleEvent = false;
-							}
-						}
-						else if (pVal.ItemUID == "CardCode")
-						{
-							if (string.IsNullOrEmpty(oForm.Items.Item("CardCode").Specific.Value.ToString().Trim()))
-							{
-								PSH_Globals.SBO_Application.ActivateMenuItem("7425");
-								BubbleEvent = false;
-							}
-						}
 						else if (pVal.ItemUID == "InDocNo")
 						{
-							if (string.IsNullOrEmpty(oForm.Items.Item("OrdNum").Specific.Value.ToString().Trim()))
+							if (string.IsNullOrEmpty(oForm.Items.Item("InDocNo").Specific.Value.ToString().Trim()))
 							{
 								PSH_Globals.SBO_Application.ActivateMenuItem("7425");
 								BubbleEvent = false;
@@ -783,6 +930,65 @@ namespace PSH_BOne_AddOn
 			catch (Exception ex)
 			{
 				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+			}
+		}
+
+		/// <summary>
+		/// COMBO_SELECT 이벤트
+		/// </summary>
+		/// <param name="FormUID">Form UID</param>
+		/// <param name="pVal">ItemEvent 객체</param>
+		/// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+		private void Raise_EVENT_COMBO_SELECT(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+		{
+			try
+			{
+				oForm.Freeze(true);
+				if (pVal.BeforeAction == true)
+				{
+				}
+				else if (pVal.BeforeAction == false)
+				{
+					if (pVal.ItemUID == "Action_O")
+					{
+						if (oForm.Items.Item("Action_O").Specific.Value.ToString().Trim() == "S")
+						{
+							PS_QM660_SaveAttach("1");
+						}
+						else if (oForm.Items.Item("Action_O").Specific.Value.ToString().Trim() == "O")
+						{
+							PS_QM660_OpenAttach("1");
+						}
+						else if (oForm.Items.Item("Action_O").Specific.Value.ToString().Trim() == "D")
+						{
+							PS_QM660_DeleteAttach("1");
+						}
+					}
+
+					if (pVal.ItemUID == "Action_M")
+					{
+						if (oForm.Items.Item("Action_M").Specific.Value.ToString().Trim() == "S")
+						{
+							PS_QM660_SaveAttach("2");
+						}
+						else if (oForm.Items.Item("Action_M").Specific.Value.ToString().Trim() == "O")
+						{
+							PS_QM660_OpenAttach("2");
+						}
+						else if (oForm.Items.Item("Action_M").Specific.Value.ToString().Trim() == "D")
+						{
+							PS_QM660_DeleteAttach("2");
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+			}
+			finally
+			{
+				oForm.Freeze(false);
 			}
 		}
 
@@ -834,18 +1040,22 @@ namespace PSH_BOne_AddOn
 		/// <param name="BubbleEvent"></param>
 		private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
 		{
+			string InDocNo;
+			string[] DocNo;
+			string DocNum;
+			string LineId;
+			string BathNo;
 			string SPEC;
 			decimal SPEC_MIN;
 			decimal SPEC_MAX;
 			decimal VAL_MIN;
 			decimal VAL_MAX;
-			string CardCode;
-			string ItemCode;
 			string errMessage = string.Empty;
 			string sQry;
+			string sQry1;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+			SAPbobsCOM.Recordset oRecordSet1 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
-			PSH_CodeHelpClass codeHelpClass = new PSH_CodeHelpClass();
 
 			try
 			{
@@ -908,7 +1118,11 @@ namespace PSH_BOne_AddOn
 						{
 							if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 							{
-								sQry = "select * from [@PS_QM660H] where canceled ='N' and U_InDocNo = '" + oDS_PS_QM660H.GetValue("U_InDocNo", 0).ToString().Trim() + "'";
+								sQry = " SELECT * ";
+								sQry += "  FROM [@PS_QM660H] ";
+								sQry += " WHERE canceled ='N' ";
+								sQry += "	AND U_BPLId   = '" + oDS_PS_QM660H.GetValue("U_BPLId", 0).ToString().Trim() + "'";
+								sQry += "	AND U_InDocNo = '" + oDS_PS_QM660H.GetValue("U_InDocNo", 0).ToString().Trim() + "'";
 								oRecordSet.DoQuery(sQry);
 								if (oRecordSet.RecordCount != 0)
 								{
@@ -918,91 +1132,70 @@ namespace PSH_BOne_AddOn
 								}
 							}
 
-							sQry = "select a.U_ItemCode, a.U_ItemName, b.U_BatchNum, c.FrgnName, c.U_Spec1 ";
-							sQry += " from [@PS_PP030H] a INNER JOIN  [@PS_PP030L] b on a.docentry = b.docentry ";
-							sQry += "                     LEFT  JOIN  [OITM] c on c.ItemCode = a.U_ItemCode ";
-							sQry += " where U_OrdNum = '" + oDS_PS_QM660H.GetValue("U_OrdNum", 0).ToString().Trim() + "'";
+							InDocNo = oDS_PS_QM660H.GetValue("U_InDocNo", 0).ToString().Trim();
+							DocNo = InDocNo.Split('-'); //두개로 분리
+							DocNum = DocNo[0];
+							LineId = DocNo[1];
+
+							sQry  = " SELECT a.U_CardCode "; //0 
+							sQry += "     , a.U_CardName ";  //1
+							sQry += "     , b.U_ItemCode ";  //2 원재료코드
+							sQry += "  	  , b.U_ItemName ";  //3 원재료명 
+							sQry += "	  , ''           ";  //4 제품코드
+							sQry += "	  , ''           ";  //5 제품명     나중에 추가
+							sQry += "  FROM [@PS_MM050H] a INNER JOIN [@PS_MM050L] b ON a.DocEntry = b.DocEntry AND a.Canceled ='N' ";
+							sQry += " WHERE	U_BPLId   = '" + oDS_PS_QM660H.GetValue("U_BPLId", 0).ToString().Trim() + "'";
+							sQry += "   AND b.DocEntry = '" + DocNum + "'";
+							sQry += "   AND b.LineId   = '" + LineId + "'";
 							oRecordSet.DoQuery(sQry);
 
-							oDS_PS_QM660H.SetValue("U_ItemCode", 0, oRecordSet.Fields.Item(0).Value.ToString().Trim());
-							oDS_PS_QM660H.SetValue("U_ItemName", 0, oRecordSet.Fields.Item(1).Value.ToString().Trim());
-							oDS_PS_QM660H.SetValue("U_LotNo", 0, codeHelpClass.Left(oRecordSet.Fields.Item(2).Value.ToString().Trim(), 8));
-							oDS_PS_QM660H.SetValue("U_FrgnName", 0, oRecordSet.Fields.Item(3).Value.ToString().Trim());
-							oDS_PS_QM660H.SetValue("U_Size", 0, oRecordSet.Fields.Item(4).Value.ToString().Trim());
+							oDS_PS_QM660H.SetValue("U_CardCode", 0, oRecordSet.Fields.Item(0).Value.ToString().Trim());
+							oDS_PS_QM660H.SetValue("U_CardName", 0, oRecordSet.Fields.Item(1).Value.ToString().Trim());
+							oDS_PS_QM660H.SetValue("U_MatrCode", 0, oRecordSet.Fields.Item(2).Value.ToString().Trim());
+							oDS_PS_QM660H.SetValue("U_MatrName", 0, oRecordSet.Fields.Item(3).Value.ToString().Trim());
+							oDS_PS_QM660H.SetValue("U_ItemCode", 0, oRecordSet.Fields.Item(4).Value.ToString().Trim());
+							oDS_PS_QM660H.SetValue("U_ItemName", 0, oRecordSet.Fields.Item(5).Value.ToString().Trim());
 
-							CardCode = oForm.Items.Item("CardCode").Specific.Value.ToString().Trim();
-							ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
+							//배치번호SET
+							sQry1 =  " SELECT isnull(Count(*),0) ";
+							sQry1 += " FROM [@PS_QM660H] a ";
+							sQry1 += " WHERE U_BPLId   = '" + oDS_PS_QM660H.GetValue("U_BPLId", 0).ToString().Trim() + "'";
+							sQry1 += "   AND a.U_InspDate = '" + oDS_PS_QM660H.GetValue("U_InspDate", 0).ToString().Trim() + "'";
+							sQry1 += "   AND a.U_MatrCode = '" + oDS_PS_QM660H.GetValue("U_MatrCode", 0).ToString().Trim() + "'";
+							oRecordSet1.DoQuery(sQry1);
 
-							sQry = "Select Count(*), Max(U_ItmSeq), MAX(U_TS_Gbn)  From [@PS_QM600H] Where U_CardCode = '" + CardCode + "' And U_ItemCode = '" + ItemCode + "'";
+							BathNo = oDS_PS_QM660H.GetValue("U_InspDate", 0).ToString().Trim().Substring(2, 6)   //검수일자 뒤6
+									 + oDS_PS_QM660H.GetValue("U_MatrCode", 0).ToString().Trim().Substring(4, 5) //원재료코드 뒤 5
+									   + (oRecordSet1.Fields.Item(0).Value + 1); // 그날같은원재료순번
+							oDS_PS_QM660H.SetValue("U_BathNo", 0, BathNo);
+
+							//양식순번SET
+							sQry  = " SELECT Count(*)";
+							sQry += "   FROM [@PS_QM650H] ";
+							sQry += "  WHERE U_BPLId    = '" + oDS_PS_QM660H.GetValue("U_BPLId", 0).ToString().Trim() + "'";
+							sQry += "    AND U_ItemCode = '" + oRecordSet.Fields.Item(2).Value.ToString().Trim() + "'";
 							oRecordSet.DoQuery(sQry);
 
 							if (Convert.ToDouble(oRecordSet.Fields.Item(0).Value.ToString().Trim()) == 1)
 							{
-								oDS_PS_QM660H.SetValue("U_TS_Gbn", 0, oRecordSet.Fields.Item(2).Value.ToString().Trim());
-								oDS_PS_QM660H.SetValue("U_ItmSeq", 0, oRecordSet.Fields.Item(1).Value.ToString().Trim());
+								oDS_PS_QM660H.SetValue("U_ItmSeq", 0, oRecordSet.Fields.Item(0).Value.ToString().Trim());
 								oForm.Items.Item("ItmSeq").Enabled = false;
+								oForm.Items.Item("DSCR").Visible = false;
 								PS_QM660_LoadData();
+							}
+							else
+                            {
+								oForm.Items.Item("ItmSeq").Enabled = true;
+								oForm.Items.Item("DSCR").Visible = true;
 							}
 						}
 						else if (pVal.ItemUID == "InspPrsn") //사번
 						{
 							oDS_PS_QM660H.SetValue("U_PrsnName", 0, dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item(pVal.ItemUID).Specific.Value.ToString().Trim() + "'", ""));
 						}
-						else if (pVal.ItemUID == "ItemCode") //품목코드
-						{
-							sQry = "Select ItemName, FrgnName, U_Size From OITM Where ItemCode = '" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'";
-							oRecordSet.DoQuery(sQry);
-
-							oDS_PS_QM660H.SetValue("U_ItemName", 0, oRecordSet.Fields.Item(0).Value.ToString().Trim());
-
-							CardCode = oForm.Items.Item("CardCode").Specific.Value.ToString().Trim();
-							ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
-
-							sQry = "Select Count(*), Max(U_ItmSeq) From [@PS_QM007H] Where U_CardCode = '" + CardCode + "' And U_ItemCode = '" + ItemCode + "'";
-							oRecordSet.DoQuery(sQry);
-
-							if (Convert.ToDouble(oRecordSet.Fields.Item(0).Value.ToString().Trim()) == 1)
-							{
-								oDS_PS_QM660H.SetValue("U_ItmSeq", 0, oRecordSet.Fields.Item(1).Value.ToString().Trim());
-								oForm.Items.Item("ItmSeq").Enabled = false;
-								PS_QM660_LoadData();
-							}
-							else
-							{
-								oForm.Items.Item("ItmSeq").Enabled = true;
-								oDS_PS_QM660H.SetValue("U_ItmSeq", 0, "");
-							}
-						}
-						else if (pVal.ItemUID == "CardCode") //입고처처코드
-						{
-							sQry = "select cardname from ocrd where cardtype='C' and cardcode = '" + oDS_PS_QM660H.GetValue("U_CardCode", 0).ToString().Trim() + "'";
-							oRecordSet.DoQuery(sQry);
-							oDS_PS_QM660H.SetValue("U_CardName", 0, oRecordSet.Fields.Item(0).Value.ToString().Trim());
-
-							CardCode = oForm.Items.Item("CardCode").Specific.Value.ToString().Trim();
-							ItemCode = oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim();
-
-							sQry = "Select Count(*), Max(U_ItmSeq), MAX(U_TS_Gbn)  From [@PS_QM600H] Where U_CardCode = '" + CardCode + "' And U_ItemCode = '" + ItemCode + "'";
-							oRecordSet.DoQuery(sQry);
-
-							if (Convert.ToDouble(oRecordSet.Fields.Item(0).Value.ToString().Trim()) == 1)
-							{
-								oDS_PS_QM660H.SetValue("U_TS_Gbn", 0, oRecordSet.Fields.Item(2).Value.ToString().Trim());
-								oDS_PS_QM660H.SetValue("U_ItmSeq", 0, oRecordSet.Fields.Item(1).Value.ToString().Trim());
-								oForm.Items.Item("ItmSeq").Enabled = false;
-								PS_QM660_LoadData();
-							}
-							else
-							{
-								oDS_PS_QM660H.SetValue("U_TS_Gbn", 0, oRecordSet.Fields.Item(2).Value.ToString().Trim());
-								oForm.Items.Item("ItmSeq").Enabled = true;
-								oDS_PS_QM660H.SetValue("U_ItmSeq", 0, "");
-							}
-						}
 						else if (pVal.ItemUID == "ItmSeq") //거래처 순번
 						{
-							if (!string.IsNullOrEmpty(oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim()) &&
-								!string.IsNullOrEmpty(oForm.Items.Item("CardCode").Specific.Value.ToString().Trim()) &&
+							if (!string.IsNullOrEmpty(oForm.Items.Item("MatrCode").Specific.Value.ToString().Trim()) &&
 								!string.IsNullOrEmpty(oForm.Items.Item("ItmSeq").Specific.Value.ToString().Trim()))
 							{
 								PS_QM660_LoadData();
@@ -1028,6 +1221,7 @@ namespace PSH_BOne_AddOn
 			finally
 			{
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet1);
 				oForm.Freeze(false);
 			}
 		}

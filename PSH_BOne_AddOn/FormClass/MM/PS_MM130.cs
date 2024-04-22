@@ -1176,11 +1176,17 @@ namespace PSH_BOne_AddOn
 
 			string sQry;
 			string errMessage = string.Empty;
+			string OKYN = string.Empty;
 			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
 			try
 			{
 				oForm.Freeze(true);
+				/*업데이트 시 문서가 기존에 승인되어있는지 확인하기 위해 결재구분을 변수로 먼저 저장함. BY P.W.G 2024.03.29 수정*/
+				sQry = "SELECT U_OKYNC FROM [@PS_MM130H] WHERE DocEntry ='" + oForm.Items.Item("DocEntry").Specific.Value.ToString().Trim() + "'";
+				oRecordSet.DoQuery(sQry);
+				OKYN = oRecordSet.Fields.Item(0).Value.ToString().Trim();
+				
 				if (pVal.BeforeAction == true)
 				{
 					sVersion = oForm.Items.Item("DocEntry").Specific.Value;
@@ -1232,18 +1238,8 @@ namespace PSH_BOne_AddOn
 								}
 							}
                         }
-
-						else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE) && oForm.Items.Item("OKYNC").Specific.Value.ToString().Trim() == "N" && !string.IsNullOrEmpty(oForm.Items.Item("STDocNum").Specific.Value.ToString().Trim()))
-						{
-
-							errMessage = "승인된 문서는 이동취소(C) 만 가능합니다.";
-							BubbleEvent = false;
-							throw new System.Exception();
-
-						}
-
-						else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE) && oForm.Items.Item("OKYNC").Specific.Value.ToString().Trim() == "N" && oDS_PS_MM130H.GetValue("U_OutGbn", 0).ToString().Trim() == "20")
-						{
+						else if ((oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE) && OKYN == "Y" )  //2024.03.29 기존 승인된 문서인지 체크하여 승인된 문서면 재고이동으로 변경 안되도록 수정
+                        {
 							errMessage = "승인된 문서는 이동취소(C) 만 가능합니다.";
 							BubbleEvent = false;
 							throw new System.Exception();

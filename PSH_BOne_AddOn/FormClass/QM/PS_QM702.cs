@@ -67,6 +67,7 @@ namespace PSH_BOne_AddOn
                 PS_QM702_CreateItems();
                 PS_QM702_AddMatrixRowM(0, true);
                 PS_QM702_AddMatrixRow(0,true);
+                oForm.Items.Item("btn_search").Click(SAPbouiCOM.BoCellClickType.ct_Collapsed);
             }
             catch (Exception ex)
             {
@@ -556,6 +557,7 @@ namespace PSH_BOne_AddOn
                         }
                         PS_QM702_LoadData("I");
                         PS_QM702_LoadData("O");
+                        PSH_Globals.SBO_Application.MessageBox("승인처리가 완료됐습니다.");
                     }
                     else if (pVal.ItemUID == "btn_return")
                     {
@@ -625,6 +627,7 @@ namespace PSH_BOne_AddOn
                         }
                         PS_QM702_LoadData("I");
                         PS_QM702_LoadData("O");
+                        PSH_Globals.SBO_Application.MessageBox("반려처리가 완료됐습니다.");
                     }
                     else if (pVal.BeforeAction == false)
                     {

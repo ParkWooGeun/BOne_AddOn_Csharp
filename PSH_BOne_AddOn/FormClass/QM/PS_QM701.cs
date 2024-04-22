@@ -279,6 +279,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("CardCode").Enabled = true;
                     oForm.Items.Item("InDate").Enabled = true;
                     oForm.Items.Item("TotalQty").Enabled = true;
+                    oForm.Items.Item("cmt2").Enabled = true;
                     oForm.EnableMenu("1281", true);  //찾기
                     oForm.EnableMenu("1282", false); //추가
                 }
@@ -299,6 +300,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("verdict").Enabled = false;
                     oForm.Items.Item("OutUnit").Enabled = false;
                     oForm.Items.Item("cmt").Enabled = false;
+                    oForm.Items.Item("cmt2").Enabled = false;
                     oForm.EnableMenu("1281", false); //찾기
                     oForm.EnableMenu("1282", true);  //추가
                 }
@@ -324,6 +326,7 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("verdict").Enabled = true;
                         oForm.Items.Item("OutUnit").Enabled = true;
                         oForm.Items.Item("cmt").Enabled = true;
+                        oForm.Items.Item("cmt2").Enabled = true;
                         oForm.Items.Item("InOut").Enabled = true;
                         oForm.Items.Item("ItemCode").Enabled = true;
                         oForm.Items.Item("ItemName").Enabled = true;
@@ -350,6 +353,7 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("BadNote").Enabled = false;
                         oForm.Items.Item("verdict").Enabled = false;
                         oForm.Items.Item("cmt").Enabled = false;
+                        oForm.Items.Item("cmt2").Enabled = false;
                         oForm.Items.Item("OrdDate").Enabled = false;
                         oForm.Items.Item("OutUnit").Enabled = false;
 
@@ -377,6 +381,7 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("BadNote").Enabled = true;
                         oForm.Items.Item("verdict").Enabled = true;
                         oForm.Items.Item("cmt").Enabled = true;
+                        oForm.Items.Item("cmt2").Enabled = true;
                         oForm.Items.Item("OrdDate").Enabled = true;
                         oForm.Items.Item("OutUnit").Enabled = true;
 
@@ -435,7 +440,8 @@ namespace PSH_BOne_AddOn
                 oDS_PS_QM701H.SetValue("U_BadNote", 0, "%");                               
                 oDS_PS_QM701H.SetValue("U_verdict", 0, "%");                
                 oDS_PS_QM701H.SetValue("U_Comments", 0, "");                              
-                oDS_PS_QM701H.SetValue("U_cmt", 0, "");               
+                oDS_PS_QM701H.SetValue("U_cmt", 0, "");
+                oDS_PS_QM701H.SetValue("U_cmt2", 0, "");
                 oDS_PS_QM701H.SetValue("U_ChkYN", 0, "");             
 
                 //라인 초기화

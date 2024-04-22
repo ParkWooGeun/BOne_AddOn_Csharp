@@ -554,9 +554,9 @@ namespace PSH_BOne_AddOn
                     Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
                     break;
 
-                case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
-                    Raise_EVENT_GOT_FOCUS(FormUID, ref pVal, ref BubbleEvent);
-                    break;
+                //case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
+                //    Raise_EVENT_GOT_FOCUS(FormUID, ref pVal, ref BubbleEvent);
+                //    break;
 
                 //case SAPbouiCOM.BoEventTypes.et_LOST_FOCUS: //4
                 //    Raise_EVENT_LOST_FOCUS(FormUID, ref pVal, ref BubbleEvent);
@@ -825,6 +825,15 @@ namespace PSH_BOne_AddOn
                                 PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                                 BubbleEvent = false;
                             }
+                            //if (string.IsNullOrEmpty(oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).ToString().Trim()))
+                            if (oMat02.Columns.Item("Name").Cells.Item(pVal.Row).Specific.Value.ToString().Trim() == "")
+                            {
+                                oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                            }
+                            else
+                            {
+                                oMat02.Columns.Item(pVal.ColUID).Cells.Item(pVal.Row + 1).Click(SAPbouiCOM.BoCellClickType.ct_Regular);
+                            }
                         }
                     }
                 }
@@ -837,37 +846,37 @@ namespace PSH_BOne_AddOn
             {
             }
         }
-        /// <summary>
-        /// GOT_FOCUS 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_GOT_FOCUS(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            try
-            {
-                if (pVal.ItemUID == "Mat01")
-                {
-                    if (pVal.Row > 0)
-                    {
-                        oLastItemUID01 = pVal.ItemUID;
-                        oLastColUID01 = pVal.ColUID;
-                        oLastColRow01 = pVal.Row;
-                    }
-                }
-                else
-                {
-                    oLastItemUID01 = pVal.ItemUID;
-                    oLastColUID01 = "";
-                    oLastColRow01 = 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-            }
-        }
+        ///// <summary>
+        ///// GOT_FOCUS 이벤트
+        ///// </summary>
+        ///// <param name="FormUID">Form UID</param>
+        ///// <param name="pVal">ItemEvent 객체</param>
+        ///// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        //private void Raise_EVENT_GOT_FOCUS(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        //{
+        //    try
+        //    {
+        //        if (pVal.ItemUID == "Mat01")
+        //        {
+        //            if (pVal.Row > 0)
+        //            {
+        //                oLastItemUID01 = pVal.ItemUID;
+        //                oLastColUID01 = pVal.ColUID;
+        //                oLastColRow01 = pVal.Row;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            oLastItemUID01 = pVal.ItemUID;
+        //            oLastColUID01 = "";
+        //            oLastColRow01 = 0;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+        //    }
+        //}
 
         /// <summary>
         /// COMBO_SELECT 이벤트
@@ -944,7 +953,8 @@ namespace PSH_BOne_AddOn
                             {
                                 sQry = "select Name from[@PS_QM700H] where Code = '" + oMat02.Columns.Item("Code").Cells.Item(pVal.Row).Specific.Value + "'";
                                 RecordSet01.DoQuery(sQry);
-                                oMat02.Columns.Item("Name").Cells.Item(pVal.Row).Specific.Value = RecordSet01.Fields.Item(0).Value;                                      
+                                oMat02.Columns.Item("Name").Cells.Item(pVal.Row).Specific.Value = RecordSet01.Fields.Item(0).Value;
+                              
                             }
                         }
                     }

@@ -516,7 +516,7 @@ namespace PSH_BOne_AddOn
                     }
                     oMat02.AddRow();
                     oDS_PS_QM704L.Offset = i;
-                    oDS_PS_QM704L.SetValue("U_LineNum", i, Convert.ToString(i));  // 순번
+                    oDS_PS_QM704L.SetValue("U_LineNum", i, Convert.ToString(i + 1));  // 순번
                     oDS_PS_QM704L.SetValue("U_ColReg01", i, oRecordSet01.Fields.Item("Gubun").Value.ToString().Trim());  // 구분
                     oDS_PS_QM704L.SetValue("U_ColReg02", i, oRecordSet01.Fields.Item("U_ChkYN").Value.ToString().Trim());    // 결재구분
                     oDS_PS_QM704L.SetValue("U_ColReg03", i, oRecordSet01.Fields.Item("DocEntry").Value.ToString().Trim());    // 문서번호

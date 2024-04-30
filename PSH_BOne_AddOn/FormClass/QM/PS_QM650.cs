@@ -634,6 +634,10 @@ namespace PSH_BOne_AddOn
         /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
         private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
+            int ItmSeq;
+            string sQry;
+            SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
             try
             {
                 oForm.Freeze(true);
@@ -648,6 +652,26 @@ namespace PSH_BOne_AddOn
                         if (pVal.ItemUID == "ItemCode")
                         {
                             PS_QM650_FlushToItemValue(pVal.ItemUID, 0, "");
+                            if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+                            {
+                                sQry  = " SELECT isnull(max(U_ItmSeq), 0) ";
+                                sQry += "   FROM [@PS_QM650H] ";
+                                sQry += "  WHERE U_BPLId = '" + oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() + "'";
+                                sQry += "    AND U_ItemCode = '" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'";
+                                oRecordSet.DoQuery(sQry);
+
+                                ItmSeq = Convert.ToInt16(oRecordSet.Fields.Item(0).Value);
+
+                                if (ItmSeq < 1)
+                                {
+                                    oDS_PS_QM650H.SetValue("U_ItmSeq", 0, "1");
+                                }
+                                else
+                                {
+                                    ItmSeq += 1;
+                                    oDS_PS_QM650H.SetValue("U_ItmSeq", 0, Convert.ToString(ItmSeq));
+                                }
+                            }
                         }
                         else if (pVal.ItemUID == "Mat01")
                         {
@@ -674,6 +698,7 @@ namespace PSH_BOne_AddOn
             }
             finally
             {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
                 oForm.Freeze(false);
             }
         }

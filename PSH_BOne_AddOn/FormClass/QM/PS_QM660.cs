@@ -205,12 +205,17 @@ namespace PSH_BOne_AddOn
 				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
 					PS_QM660_FormClear();
-					oForm.Items.Item("Mat01").Enabled = true;
+					oForm.Items.Item("BPLId").Enabled = true;
+					oForm.Items.Item("InspDate").Enabled = true;
 					oForm.Items.Item("DocEntry").Enabled = false;
 					oForm.Items.Item("InDocNo").Enabled = true;
+					oForm.Items.Item("InspPrsn").Enabled = true;
 					oForm.Items.Item("InspPrsn").Specific.Value = dataHelpClass.User_MSTCOD();
 					oDS_PS_QM660H.SetValue("U_PrsnName", 0, dataHelpClass.Get_ReData("U_FullName", "Code", "[@PH_PY001A]", "'" + oForm.Items.Item("InspPrsn").Specific.Value.ToString().Trim() + "'", ""));
+					oForm.Items.Item("HeatNo").Enabled = true;
+					oForm.Items.Item("ItmSeq").Enabled = true;
 					oForm.Items.Item("DSCR").Visible = false;
+					oForm.Items.Item("Mat01").Enabled = true;
 					oForm.EnableMenu("1281", true);  //찾기
 					oForm.EnableMenu("1282", false); //추가
 
@@ -219,11 +224,16 @@ namespace PSH_BOne_AddOn
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
 				{
-					oForm.Items.Item("Mat01").Enabled = false;
+					oForm.Items.Item("BPLId").Enabled = true;
+					oForm.Items.Item("InspDate").Enabled = true;
+					oForm.Items.Item("InspDate").Specific.Value = "";
 					oForm.Items.Item("DocEntry").Enabled = true;
 					oForm.Items.Item("InDocNo").Enabled = true;
-					oForm.Items.Item("InspDate").Specific.Value = "";
+					oForm.Items.Item("InspPrsn").Enabled = true;
+					oForm.Items.Item("HeatNo").Enabled = true;
+					oForm.Items.Item("ItmSeq").Enabled = true;
 					oForm.Items.Item("DSCR").Visible = false;
+					oForm.Items.Item("Mat01").Enabled = false;
 					oForm.EnableMenu("1281", false); //찾기
 					oForm.EnableMenu("1282", true);  //추가
 					oForm.Items.Item("Action_O").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
@@ -231,10 +241,15 @@ namespace PSH_BOne_AddOn
 				}
 				else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
 				{
-					oForm.Items.Item("Mat01").Enabled = true;
+					oForm.Items.Item("BPLId").Enabled = false;
 					oForm.Items.Item("DocEntry").Enabled = false;
 					oForm.Items.Item("InDocNo").Enabled = false;
+					oForm.Items.Item("InspDate").Enabled = false;
+					oForm.Items.Item("InspPrsn").Enabled = false;
+					oForm.Items.Item("HeatNo").Enabled = false;
+					oForm.Items.Item("ItmSeq").Enabled = false;
 					oForm.Items.Item("DSCR").Visible = false;
+					oForm.Items.Item("Mat01").Enabled = true;
 					oForm.Items.Item("Action_O").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 					oForm.Items.Item("Action_M").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 				}
@@ -344,6 +359,8 @@ namespace PSH_BOne_AddOn
 
 			try
 			{
+				oMat.FlushToDataSource();
+
 				if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
 				{
 					PS_QM660_FormClear();
@@ -367,7 +384,7 @@ namespace PSH_BOne_AddOn
 					throw new Exception();
 				}
 				//라인정보 미입력 시
-				if (oMat.VisualRowCount == 1)
+				if (oMat.VisualRowCount <= 1)
 				{
 					errMessage = "라인이 존재하지 않습니다.";
 					throw new Exception();
@@ -409,7 +426,6 @@ namespace PSH_BOne_AddOn
 					}
 				}
 
-				oMat.FlushToDataSource();
 				oDS_PS_QM660L.RemoveRecord(oDS_PS_QM660L.Size - 1);
 				oMat.LoadFromDataSource();
 

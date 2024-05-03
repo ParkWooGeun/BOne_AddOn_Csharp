@@ -292,6 +292,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("BPLId").Enabled = true;
                     oForm.Items.Item("OrdGbn").Enabled = true;
                     oForm.Items.Item("DocDate").Enabled = true;
+                    oForm.Items.Item("Div").Enabled = true;
                     oMat01.Columns.Item("IssueYN").Editable = true;
                     oMat01.Columns.Item("IssueQty").Editable = true;
                     oMat01.Columns.Item("IssueWt").Editable = true;
@@ -302,6 +303,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("BPLId").Enabled = true;
                     oForm.Items.Item("OrdGbn").Enabled = true;
                     oForm.Items.Item("DocDate").Enabled = true;
+                    oForm.Items.Item("Div").Enabled = true;
                     oMat01.Columns.Item("IssueYN").Editable = false;
                     oMat01.Columns.Item("IssueQty").Editable = false;
                     oMat01.Columns.Item("IssueWt").Editable = false;
@@ -312,6 +314,7 @@ namespace PSH_BOne_AddOn
                     oForm.Items.Item("BPLId").Enabled = false;
                     oForm.Items.Item("OrdGbn").Enabled = false;
                     oForm.Items.Item("DocDate").Enabled = false;
+                    oForm.Items.Item("Div").Enabled = false;
                     oMat01.Columns.Item("IssueYN").Editable = false;
                     oMat01.Columns.Item("IssueQty").Editable = false;
                     oMat01.Columns.Item("IssueWt").Editable = false;
@@ -1449,9 +1452,16 @@ namespace PSH_BOne_AddOn
                         case "1282": //추가
                             break;
                         case "1288": //레코드이동(다음)
+                            PS_MM095_FormItemEnabled();
+                            break;
                         case "1289": //레코드이동(이전)
+                            PS_MM095_FormItemEnabled();
+                            break;
                         case "1290": //레코드이동(최초)
+                            PS_MM095_FormItemEnabled();
+                            break;
                         case "1291": //레코드이동(최종)
+                            PS_MM095_FormItemEnabled();
                             break;
                     }
                 }
@@ -1493,9 +1503,17 @@ namespace PSH_BOne_AddOn
                             oForm.Freeze(false);
                             break;
                         case "1288": //레코드이동(다음)
+                            PS_MM095_FormItemEnabled();
+                            break;
                         case "1289": //레코드이동(이전)
+                            PS_MM095_FormItemEnabled();
+                            break;
                         case "1290": //레코드이동(최초)
+                            PS_MM095_FormItemEnabled();
+                            break;
                         case "1291": //레코드이동(최종)
+                            PS_MM095_FormItemEnabled();
+                            break;
                         case "1287": //복제
                             break;
                     }

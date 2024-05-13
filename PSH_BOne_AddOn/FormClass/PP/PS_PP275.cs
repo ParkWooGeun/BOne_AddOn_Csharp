@@ -104,7 +104,7 @@ namespace PSH_BOne_AddOn
 				// 출력구분
 				oForm.DataSources.UserDataSources.Add("Div", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
 				oForm.Items.Item("Div").Specific.ValidValues.Add("1", "전력비사용현황");
-				oForm.Items.Item("Div").Specific.ValidValues.Add("2", "도시사스사용현황");
+				oForm.Items.Item("Div").Specific.ValidValues.Add("2", "도시가스사용현황");
 				oForm.Items.Item("Div").Specific.ValidValues.Add("3", "질소(기체,액체)사용현황");
 				oForm.Items.Item("Div").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
 			}

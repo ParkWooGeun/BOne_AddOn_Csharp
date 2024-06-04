@@ -456,11 +456,6 @@ namespace PSH_BOne_AddOn
                         oDS_PS_TEMPTABLE.SetValue("U_qField04", sCnt, oRecordSet.Fields.Item("U_DocRate").Value.ToString().Trim()); //환율
                         oDS_PS_TEMPTABLE.SetValue("U_qField03", sCnt, oRecordSet.Fields.Item("U_FCPrice").Value.ToString().Trim()); //외화단가
                         oDS_PS_TEMPTABLE.SetValue("U_aField03", sCnt, oRecordSet.Fields.Item("U_FCAmount").Value.ToString().Trim()); //외화금액
-                        if(oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() == "2")
-                        {
-                            oDS_PS_TEMPTABLE.SetValue("U_sField20", sCnt, oRecordSet.Fields.Item("U_UseDept").Value.ToString().Trim()); //외화단가
-                            oDS_PS_TEMPTABLE.SetValue("U_sField21", sCnt, oRecordSet.Fields.Item("RMSTNAM").Value.ToString().Trim()); //외화금액
-                        }
                         sCnt += 1;
                         oRecordSet.MoveNext();
                     }
@@ -1371,23 +1366,6 @@ namespace PSH_BOne_AddOn
                             oMat02.Clear();
                             oDS_PS_MM050L.Clear();
                             oDS_PS_TEMPTABLE.Clear();
-
-                            if (oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() == "2")
-                            {
-                                oMat01.Columns.Item("RMSTNAM").Visible = true;
-                                oMat01.Columns.Item("UseDept").Visible = true;
-                                oMat02.Columns.Item("OrdNum").Visible = true;
-                                oMat02.Columns.Item("RMSTNAM").Visible = true;
-                                oMat02.Columns.Item("UseDept").Visible = true;
-                            }
-                            else
-                            {
-                                oMat01.Columns.Item("RMSTNAM").Visible = false;
-                                oMat01.Columns.Item("UseDept").Visible = false;
-                                oMat02.Columns.Item("OrdNum").Visible = false;
-                                oMat02.Columns.Item("RMSTNAM").Visible = false;
-                                oMat02.Columns.Item("UseDept").Visible = false;
-                            }
                         }
                     }
                 }
@@ -1713,7 +1691,6 @@ namespace PSH_BOne_AddOn
                         {
                             PS_MM050_AddMatrixRow02(oMat02.VisualRowCount, false);
                         }
-                        
                         oMat02.Columns.Item("PODocNum").Cells.Item(oMat02.VisualRowCount).Specific.Value = oDS_PS_TEMPTABLE.GetValue("U_sField01", pVal.Row - 1).ToString().Trim();
                         oMat02.Columns.Item("POLinNum").Cells.Item(oMat02.VisualRowCount).Specific.Value = oDS_PS_TEMPTABLE.GetValue("U_iField02", pVal.Row - 1).ToString().Trim();
                         oMat02.Columns.Item("ItemCode").Cells.Item(oMat02.VisualRowCount).Specific.Value = oDS_PS_TEMPTABLE.GetValue("U_sField03", pVal.Row - 1).ToString().Trim();
@@ -1722,8 +1699,6 @@ namespace PSH_BOne_AddOn
                         oMat02.Columns.Item("OutUnit").Cells.Item(oMat02.VisualRowCount).Specific.Value = oDS_PS_TEMPTABLE.GetValue("U_sField24", pVal.Row - 1).ToString().Trim();
                         oMat02.Columns.Item("ItemGpCd").Cells.Item(oMat02.VisualRowCount).Specific.Select(oDS_PS_TEMPTABLE.GetValue("U_sField18", pVal.Row - 1).ToString().Trim());
                         oMat02.Columns.Item("POType").Cells.Item(oMat02.VisualRowCount).Specific.Select(oDS_PS_TEMPTABLE.GetValue("U_sField05", pVal.Row - 1).ToString().Trim());
-                        
-                         
                         qField01 = Convert.ToInt32(Convert.ToDouble(oDS_PS_TEMPTABLE.GetValue("U_qField01", pVal.Row - 1).ToString().Trim()));
                         iField04 = Convert.ToInt32(Convert.ToDouble(oDS_PS_TEMPTABLE.GetValue("U_iField04", pVal.Row - 1).ToString().Trim()));
 
@@ -1745,13 +1720,6 @@ namespace PSH_BOne_AddOn
                         oMat02.FlushToDataSource();
                         oDS_PS_MM050L.SetValue("U_Price", oMat02.VisualRowCount - 1, oDS_PS_TEMPTABLE.GetValue("U_aField01", pVal.Row - 1).ToString().Trim());
                         oMat02.LoadFromDataSource();
-
-                        if (oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() == "2")
-                        {
-                            oMat02.Columns.Item("OrdNum").Cells.Item(oMat02.VisualRowCount).Specific.Value = oDS_PS_TEMPTABLE.GetValue("U_sField07", pVal.Row - 1).ToString().Trim();
-                            oMat02.Columns.Item("UseDept").Cells.Item(oMat02.VisualRowCount).Specific.Value = oDS_PS_TEMPTABLE.GetValue("U_sField20", pVal.Row - 1).ToString().Trim();
-                            oMat02.Columns.Item("RMSTNAM").Cells.Item(oMat02.VisualRowCount).Specific.Value = (oDS_PS_TEMPTABLE.GetValue("U_sField21", pVal.Row - 1).ToString().Trim());
-                        }
 
                         oMat02.Columns.Item("UnWeight").Cells.Item(oMat02.VisualRowCount).Specific.Value = oDS_PS_TEMPTABLE.GetValue("U_qField02", pVal.Row - 1).ToString().Trim();
                         oMat02.Columns.Item("DocCur").Cells.Item(oMat02.VisualRowCount).Specific.Value = oDS_PS_TEMPTABLE.GetValue("U_sField17", pVal.Row - 1).ToString().Trim(); //통화

@@ -2165,16 +2165,7 @@ namespace PSH_BOne_AddOn
                                     BubbleEvent = false;
                                 }
                             }
-
-                            else if (pVal.ColUID == "RMSTNAM")
-                            {
-                                if (string.IsNullOrEmpty(oMat01.Columns.Item("RMSTNAM").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()))
-                                {
-                                    PSH_Globals.SBO_Application.ActivateMenuItem("7425");
-                                    BubbleEvent = false;
-                                }
-                            }
-
+                           
                             else if (pVal.ColUID == "ProcCode")
                             {
                                 if (string.IsNullOrEmpty(oMat01.Columns.Item("ProcCode").Cells.Item(pVal.Row).Specific.Value.ToString().Trim()))
@@ -2249,19 +2240,13 @@ namespace PSH_BOne_AddOn
                             oMat01.Columns.Item("OutUnit").Editable = true;
                             oMat01.Columns.Item("Qty").Editable = false;
                         }
-
-                        else if (oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() == "2")
-                        {
-                            oMat01.Columns.Item("RMSTNAM").Visible = true;//청구자명 부산요청 by P.W.G 202.06.04
-                        }
-                        else 
+                        else
                         {
                             oMat01.Columns.Item("PP030DL").Editable = false;
                             oMat01.Columns.Item("ItemCode").Editable = true;
                             oMat01.Columns.Item("ItemName").Editable = false;
                             oMat01.Columns.Item("OutSize").Editable = false;
                             oMat01.Columns.Item("OutUnit").Editable = false;
-                            oMat01.Columns.Item("RMSTNAM").Visible = false; //청구자명 부산요청 by P.W.G 202.06.04
                         }
                     }
                     else if (pVal.ItemUID == "Mat01")

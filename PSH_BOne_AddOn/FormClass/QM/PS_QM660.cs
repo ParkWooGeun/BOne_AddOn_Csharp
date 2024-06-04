@@ -469,7 +469,7 @@ namespace PSH_BOne_AddOn
 				sQry += " LEFT  JOIN [@PS_SY001L] c ON c.Code = 'Q700' AND c.U_Minor = b.U_InspItem ";
 				sQry += " LEFT  JOIN [@PS_SY001L] d ON d.Code = 'Q700' AND d.U_Minor = b.U_InspItNm ";
 				sQry += "Where a.U_BPLId = '" + oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() + "' ";
-				sQry += "  AND a.U_ItemCode = '" + oForm.Items.Item("MatrCode").Specific.Value.ToString().Trim() + "' ";
+				sQry += "  AND a.U_RItmCode = '" + oForm.Items.Item("RItmCode").Specific.Value.ToString().Trim() + "' ";
 				sQry += "  AND a.U_ItmSeq  = '" + oForm.Items.Item("ItmSeq").Specific.Value.ToString().Trim() + "' ";
 				sQry += "  AND b.U_UseYN = 'Y' Order By b.U_Seqno ";
 				oRecordSet.DoQuery(sQry);
@@ -1167,8 +1167,8 @@ namespace PSH_BOne_AddOn
 
 							oDS_PS_QM660H.SetValue("U_CardCode", 0, oRecordSet.Fields.Item(0).Value.ToString().Trim());
 							oDS_PS_QM660H.SetValue("U_CardName", 0, oRecordSet.Fields.Item(1).Value.ToString().Trim());
-							oDS_PS_QM660H.SetValue("U_MatrCode", 0, oRecordSet.Fields.Item(2).Value.ToString().Trim());
-							oDS_PS_QM660H.SetValue("U_MatrName", 0, oRecordSet.Fields.Item(3).Value.ToString().Trim());
+							oDS_PS_QM660H.SetValue("U_RItmCode", 0, oRecordSet.Fields.Item(2).Value.ToString().Trim());
+							oDS_PS_QM660H.SetValue("U_RItmName", 0, oRecordSet.Fields.Item(3).Value.ToString().Trim());
 							oDS_PS_QM660H.SetValue("U_ItemCode", 0, oRecordSet.Fields.Item(4).Value.ToString().Trim());
 							oDS_PS_QM660H.SetValue("U_ItemName", 0, oRecordSet.Fields.Item(5).Value.ToString().Trim());
 
@@ -1177,11 +1177,11 @@ namespace PSH_BOne_AddOn
 							sQry1 += " FROM [@PS_QM660H] a ";
 							sQry1 += " WHERE U_BPLId   = '" + oDS_PS_QM660H.GetValue("U_BPLId", 0).ToString().Trim() + "'";
 							sQry1 += "   AND a.U_InspDate = '" + oDS_PS_QM660H.GetValue("U_InspDate", 0).ToString().Trim() + "'";
-							sQry1 += "   AND a.U_MatrCode = '" + oDS_PS_QM660H.GetValue("U_MatrCode", 0).ToString().Trim() + "'";
+							sQry1 += "   AND a.U_RItmCode = '" + oDS_PS_QM660H.GetValue("U_RItmCode", 0).ToString().Trim() + "'";
 							oRecordSet1.DoQuery(sQry1);
 
 							BathNo = oDS_PS_QM660H.GetValue("U_InspDate", 0).ToString().Trim().Substring(2, 6)   //검수일자 뒤6
-									 + oDS_PS_QM660H.GetValue("U_MatrCode", 0).ToString().Trim().Substring(4, 5) //원재료코드 뒤 5
+									 + oDS_PS_QM660H.GetValue("U_RItmCode", 0).ToString().Trim().Substring(4, 5) //원재료코드 뒤 5
 									   + (oRecordSet1.Fields.Item(0).Value + 1); // 그날같은원재료순번
 							oDS_PS_QM660H.SetValue("U_BathNo", 0, BathNo);
 
@@ -1189,7 +1189,7 @@ namespace PSH_BOne_AddOn
 							sQry  = " SELECT Count(*)";
 							sQry += "   FROM [@PS_QM650H] ";
 							sQry += "  WHERE U_BPLId    = '" + oDS_PS_QM660H.GetValue("U_BPLId", 0).ToString().Trim() + "'";
-							sQry += "    AND U_ItemCode = '" + oRecordSet.Fields.Item(2).Value.ToString().Trim() + "'";
+							sQry += "    AND U_RItmCode = '" + oRecordSet.Fields.Item(2).Value.ToString().Trim() + "'";
 							oRecordSet.DoQuery(sQry);
 
 							if (Convert.ToDouble(oRecordSet.Fields.Item(0).Value.ToString().Trim()) == 1)
@@ -1211,7 +1211,7 @@ namespace PSH_BOne_AddOn
 						}
 						else if (pVal.ItemUID == "ItmSeq") //거래처 순번
 						{
-							if (!string.IsNullOrEmpty(oForm.Items.Item("MatrCode").Specific.Value.ToString().Trim()) &&
+							if (!string.IsNullOrEmpty(oForm.Items.Item("RItmCode").Specific.Value.ToString().Trim()) &&
 								!string.IsNullOrEmpty(oForm.Items.Item("ItmSeq").Specific.Value.ToString().Trim()))
 							{
 								PS_QM660_LoadData();

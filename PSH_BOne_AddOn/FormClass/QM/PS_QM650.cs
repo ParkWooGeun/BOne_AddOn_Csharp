@@ -179,14 +179,23 @@ namespace PSH_BOne_AddOn
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_FIND_MODE)
                 {
                     oForm.Items.Item("DocEntry").Enabled = true;
+                    oForm.Items.Item("BPLId").Enabled = true;
+                    oForm.Items.Item("RItmCode").Enabled = true;
+                    oForm.Items.Item("ItmSeq").Enabled = true;
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
                     oForm.Items.Item("DocEntry").Enabled = false;
+                    oForm.Items.Item("BPLId").Enabled = true;
+                    oForm.Items.Item("RItmCode").Enabled = true;
+                    oForm.Items.Item("ItmSeq").Enabled = true;
                 }
                 else if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
                 {
                     oForm.Items.Item("DocEntry").Enabled = false;
+                    oForm.Items.Item("BPLId").Enabled = false;
+                    oForm.Items.Item("RItmCode").Enabled = false;
+                    oForm.Items.Item("ItmSeq").Enabled = false;
                 }
 
                 oMat01.AutoResizeColumns();
@@ -204,7 +213,7 @@ namespace PSH_BOne_AddOn
         private bool PS_QM650_DelHeaderSpaceLine()
         {
             bool returnValue = false;
-            string ItemCode;
+            string RItmCode;
             string ItmSeq;
             string sQry;
             string errMessage = string.Empty;
@@ -212,7 +221,7 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                if (string.IsNullOrEmpty(oDS_PS_QM650H.GetValue("U_ItemCode", 0)))
+                if (string.IsNullOrEmpty(oDS_PS_QM650H.GetValue("U_RItmCode", 0)))
                 {
                     errMessage = "원재료코드는 필수입력 사항입니다. 확인하세요.";
                     throw new Exception();
@@ -225,9 +234,9 @@ namespace PSH_BOne_AddOn
 
                 if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                 {
-                    ItemCode = oDS_PS_QM650H.GetValue("U_ItemCode", 0).ToString().Trim();
+                    RItmCode = oDS_PS_QM650H.GetValue("U_RItmCode", 0).ToString().Trim();
                     ItmSeq   = oDS_PS_QM650H.GetValue("U_ItmSeq", 0).ToString().Trim();
-                    sQry = "Select Count(*) From [@PS_QM650H] Where U_ItemCode = '" + ItemCode + "' and U_ItmSeq = '" + ItmSeq + "'";
+                    sQry = "Select Count(*) From [@PS_QM650H] Where U_RItmCode = '" + RItmCode + "' and U_ItmSeq = '" + ItmSeq + "'";
                     oRecordSet01.DoQuery(sQry);
 
                     if (Convert.ToInt16(oRecordSet01.Fields.Item(0).Value) >= 1)
@@ -312,10 +321,10 @@ namespace PSH_BOne_AddOn
                 oForm.Freeze(true);
                 switch (oUID)
                 {
-                    case "ItemCode":
-                        sQry = "Select ItemName From OITM Where ItemCode = '" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'";
+                    case "RItmCode":
+                        sQry = "Select ItemName From OITM Where ItemCode = '" + oForm.Items.Item("RItmCode").Specific.Value.ToString().Trim() + "'";
                         oRecordSet01.DoQuery(sQry);
-                        oDS_PS_QM650H.SetValue("U_ItemName", 0, oRecordSet01.Fields.Item(0).Value.ToString().Trim());
+                        oDS_PS_QM650H.SetValue("U_RItmName", 0, oRecordSet01.Fields.Item(0).Value.ToString().Trim());
                         break;
                 }
             }
@@ -492,9 +501,9 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.CharPressed == 9)
                     {
-                        if (pVal.ItemUID == "ItemCode")
+                        if (pVal.ItemUID == "RItmCode")
                         {
-                            if (string.IsNullOrEmpty(oForm.Items.Item("ItemCode").Specific.Value))
+                            if (string.IsNullOrEmpty(oForm.Items.Item("RItmCode").Specific.Value))
                             {
                                 PSH_Globals.SBO_Application.ActivateMenuItem("7425");
                                 BubbleEvent = false;
@@ -649,7 +658,7 @@ namespace PSH_BOne_AddOn
                 {
                     if (pVal.ItemChanged == true)
                     {
-                        if (pVal.ItemUID == "ItemCode")
+                        if (pVal.ItemUID == "RItmCode")
                         {
                             PS_QM650_FlushToItemValue(pVal.ItemUID, 0, "");
                             if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
@@ -657,7 +666,7 @@ namespace PSH_BOne_AddOn
                                 sQry  = " SELECT isnull(max(U_ItmSeq), 0) ";
                                 sQry += "   FROM [@PS_QM650H] ";
                                 sQry += "  WHERE U_BPLId = '" + oForm.Items.Item("BPLId").Specific.Value.ToString().Trim() + "'";
-                                sQry += "    AND U_ItemCode = '" + oForm.Items.Item("ItemCode").Specific.Value.ToString().Trim() + "'";
+                                sQry += "    AND U_RItmCode = '" + oForm.Items.Item("RItmCode").Specific.Value.ToString().Trim() + "'";
                                 oRecordSet.DoQuery(sQry);
 
                                 ItmSeq = Convert.ToInt16(oRecordSet.Fields.Item(0).Value);
@@ -808,12 +817,12 @@ namespace PSH_BOne_AddOn
                             PS_QM650_SetDocEntry();
                             PS_QM650_AddMatrixRow(0, true);
                             oDS_PS_QM650H.SetValue("U_BPLId", 0, dataHelpClass.User_BPLID());
-                            oForm.Items.Item("ItemCode").Click(SAPbouiCOM.BoCellClickType.ct_Collapsed);
+                            oForm.Items.Item("RItmCode").Click(SAPbouiCOM.BoCellClickType.ct_Collapsed);
                             break;
                         case "1287": //복제
                             oForm.Freeze(true);
                             PS_QM650_SetDocEntry();
-                            oForm.Items.Item("ItemCode").Enabled = true;
+                            oForm.Items.Item("RItmCode").Enabled = true;
                             for (int i = 0; i <= oMat01.VisualRowCount - 1; i++)
                             {
                                 oMat01.FlushToDataSource();

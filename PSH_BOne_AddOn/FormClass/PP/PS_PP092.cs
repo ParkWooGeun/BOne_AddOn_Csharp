@@ -454,7 +454,6 @@ namespace PSH_BOne_AddOn
                         oForm.Items.Item("SD030Num").Enabled = false;
                         oForm.Items.Item("CardCode").Enabled = false;
                         oForm.Items.Item("Comments").Enabled = false;
-                        oForm.Items.Item("1").Enabled = false;
                     }
                 }
             }
@@ -614,7 +613,9 @@ namespace PSH_BOne_AddOn
 
             try
             {
-                Query01 = "UPDATE Z_PACKING_LOT SET BARCDYN ='N', PACKNO ='', CheckDate ='29991231' WHERE PACKNO ='" + PackNo + "'";
+                Query01 = "UPDATE Z_PACKING_LOT SET BARCDYN ='N', PACKNO ='', CheckDate ='29991231' ";
+                Query01 += "WHERE PACKNO ='" + PackNo + "'";
+                Query01 += "  AND DrumNo in (select DrumNo from Z_PACKING_LOT where BarCDYN ='Y' and PackNo = '" + PackNo + "')";
                 oRecordSet01.DoQuery(Query01);
             }
             catch (Exception ex)

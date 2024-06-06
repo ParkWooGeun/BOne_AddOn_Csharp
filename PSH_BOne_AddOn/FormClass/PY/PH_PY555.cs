@@ -106,6 +106,12 @@ namespace PSH_BOne_AddOn
                 oForm.DataSources.UserDataSources.Add("Chk", SAPbouiCOM.BoDataType.dt_SHORT_TEXT, 1);
                 oForm.Items.Item("Chk").Specific.DataBind.SetBound(true, "", "Chk");
                 oForm.Items.Item("Chk").Specific.Checked = true;
+
+                // 당직용(창원)
+                oForm.Items.Item("Div").Specific.ValidValues.Add("1", "일일근무자현황");
+                oForm.Items.Item("Div").Specific.ValidValues.Add("2", "야간근무자 체크리스트(창원)");
+                oForm.Items.Item("Div").Specific.Select("1", SAPbouiCOM.BoSearchKey.psk_ByValue);
+                oForm.Items.Item("Div").DisplayDesc = true;
             }
             catch (Exception ex)
             {
@@ -196,8 +202,47 @@ namespace PSH_BOne_AddOn
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY555_Print_Report01_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
-            finally
+        }
+
+        /// <summary>
+        /// 리포트 조회1
+        /// </summary>
+        [STAThread]
+        private void PH_PY555_Print_Report02()
+        {
+            string WinTitle;
+            string ReportName;
+
+            string CLTCOD;
+            string DocDate;
+
+            PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+            PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
+
+            try
             {
+                WinTitle = "[PH_PY555] 야간근무자 체크리스트";
+                ReportName = "PH_PY555_05.rpt";
+
+                CLTCOD = oForm.Items.Item("CLTCOD").Specific.Selected.Value.ToString().Trim();
+                DocDate = oForm.Items.Item("DocDate").Specific.Value.ToString().Trim();
+
+                List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();//Parameter List
+                List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>(); //Formula List
+
+                //Formula
+                dataPackFormula.Add(new PSH_DataPackClass("@CLTCOD", dataHelpClass.Get_ReData("U_CodeNm", "U_Code", "[@PS_HR200L]", CLTCOD, "and Code = 'P144' AND U_UseYN= 'Y'"))); //사업장
+                dataPackFormula.Add(new PSH_DataPackClass("@DocDate", DocDate.Substring(0, 4) + "-" + DocDate.Substring(4, 2) + "-" + DocDate.Substring(6, 2))); //일자
+
+                //Parameter
+                dataPackParameter.Add(new PSH_DataPackClass("@CLTCOD", CLTCOD)); //사업장
+                dataPackParameter.Add(new PSH_DataPackClass("@DocDate", DocDate)); //일자
+
+                formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("PH_PY555_Print_Report02_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
         }
 
@@ -285,6 +330,44 @@ namespace PSH_BOne_AddOn
 
                 case SAPbouiCOM.BoEventTypes.et_Drag: //39
                     break;
+            }
+        }
+
+        /// <summary>
+        /// ITEM_PRESSED 이벤트
+        /// </summary>
+        /// <param name="FormUID">Form UID</param>
+        /// <param name="pVal">ItemEvent 객체</param>
+        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
+        private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+        {
+            try
+            {
+                if (pVal.BeforeAction == true)
+                {
+                    if (pVal.ItemUID == "Btn01")
+                    {
+                        if (oForm.Items.Item("Div").Specific.Value.Trim() == "1")
+                        {
+                            System.Threading.Thread thread = new System.Threading.Thread(PH_PY555_Print_Report01);
+                            thread.SetApartmentState(System.Threading.ApartmentState.STA);
+                            thread.Start();
+                        }
+                        else
+                        {
+                            System.Threading.Thread thread = new System.Threading.Thread(PH_PY555_Print_Report02);
+                            thread.SetApartmentState(System.Threading.ApartmentState.STA);
+                            thread.Start();
+                        }
+                    }
+                }
+                else if (pVal.BeforeAction == false)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_ITEM_PRESSED_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
             }
         }
 
@@ -385,41 +468,6 @@ namespace PSH_BOne_AddOn
             catch (Exception ex)
             {
                 PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_FORM_UNLOAD_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
-            }
-        }
-
-        /// <summary>
-        /// ITEM_PRESSED 이벤트
-        /// </summary>
-        /// <param name="FormUID">Form UID</param>
-        /// <param name="pVal">ItemEvent 객체</param>
-        /// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        private void Raise_EVENT_ITEM_PRESSED(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        {
-            try
-            {
-                if (pVal.BeforeAction == true)
-                {
-                    if (pVal.ItemUID == "Btn01")
-                    {
-                        System.Threading.Thread thread = new System.Threading.Thread(PH_PY555_Print_Report01);
-                        thread.SetApartmentState(System.Threading.ApartmentState.STA);
-                        thread.Start();
-                    }
-                }
-                else if (pVal.BeforeAction == false)
-                {
-                }
-            }
-            catch (Exception ex)
-            {
-                PSH_Globals.SBO_Application.StatusBar.SetText("Raise_EVENT_ITEM_PRESSED_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
-            }
-            finally
-            {
             }
         }
     }

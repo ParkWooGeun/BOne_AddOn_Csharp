@@ -223,6 +223,7 @@ namespace PSH_BOne_AddOn
                     oDS_PS_PP110L.SetValue("U_ColQty05", i, oRecordSet01.Fields.Item("SaleQty").Value);
                     oDS_PS_PP110L.SetValue("U_ColQty06", i, oRecordSet01.Fields.Item("resultQty").Value);
                     oDS_PS_PP110L.SetValue("U_ColQty07", i, oRecordSet01.Fields.Item("expQty").Value);
+                    oDS_PS_PP110L.SetValue("U_ColQty08", i, oRecordSet01.Fields.Item("StcAmt").Value);
                     oDS_PS_PP110L.SetValue("U_ColQty01", i, oRecordSet01.Fields.Item("InVal").Value);
                     oDS_PS_PP110L.SetValue("U_ColQty02", i, oRecordSet01.Fields.Item("ReqVal").Value);
                     oDS_PS_PP110L.SetValue("U_ColQty03", i, oRecordSet01.Fields.Item("OutVal").Value);

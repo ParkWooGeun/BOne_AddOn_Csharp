@@ -846,37 +846,6 @@ namespace PSH_BOne_AddOn
             {
             }
         }
-        ///// <summary>
-        ///// GOT_FOCUS 이벤트
-        ///// </summary>
-        ///// <param name="FormUID">Form UID</param>
-        ///// <param name="pVal">ItemEvent 객체</param>
-        ///// <param name="BubbleEvent">BubbleEvnet(true, false)</param>
-        //private void Raise_EVENT_GOT_FOCUS(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
-        //{
-        //    try
-        //    {
-        //        if (pVal.ItemUID == "Mat01")
-        //        {
-        //            if (pVal.Row > 0)
-        //            {
-        //                oLastItemUID01 = pVal.ItemUID;
-        //                oLastColUID01 = pVal.ColUID;
-        //                oLastColRow01 = pVal.Row;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            oLastItemUID01 = pVal.ItemUID;
-        //            oLastColUID01 = "";
-        //            oLastColRow01 = 0;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
-        //    }
-        //}
 
         /// <summary>
         /// COMBO_SELECT 이벤트
@@ -1008,13 +977,19 @@ namespace PSH_BOne_AddOn
         private void Raise_EVENT_DOUBLE_CLICK(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
         {
             string sQry;
+            string Name = string.Empty;
+            SAPbobsCOM.Recordset RecordSet01 = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
             try
             {
                 if (pVal.BeforeAction == true)
                 {
                     if (pVal.ItemUID == "oMat01")
                     {
-                        sQry = "안녕하십니까 풍산홀딩스 품질보증팀 이지윤 사원입니다.<br>\n";
+                        sQry = "SELECT Right(U_NAME,3) FROM OUSR WHERE USER_Code = '" + PSH_Globals.oCompany.UserName + "'";
+                        RecordSet01.DoQuery(sQry);
+                        Name = RecordSet01.Fields.Item(0).Value;
+
+                        sQry = "안녕하십니까 풍산홀딩스 품질보증팀 " + Name + "사원입니다.<br>\n";
                         sQry += "   귀사의 일익 번창하심을 기원합니다.<br>\n";
                         sQry += "   첨부와 같이 부적합자재통보서를 발송합니다.<br>\n";
                         sQry += "   통보서에 명시한 기한내에 현품 처리 및 불량 발생원인 대책 회신 바랍니다.<br>\n";

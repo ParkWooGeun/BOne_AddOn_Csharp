@@ -176,10 +176,9 @@ namespace PSH_BOne_AddOn
                     oForm.EnableMenu("1282", true); //문서추가
                     oForm.Items.Item("CLTCOD").Enabled = false;
                     oForm.Items.Item("FrDate").Enabled = false;
-                    oForm.Items.Item("MSTCOD").Enabled = false;
+                    oForm.Items.Item("MSTCOD").Enabled = true;
                     oForm.Items.Item("MSTNAME").Enabled = false;
                     oForm.Items.Item("Btn_Serch").Enabled = false;
-
                 }
             }
             catch (Exception ex)
@@ -719,6 +718,11 @@ namespace PSH_BOne_AddOn
                     }
                     if (pVal.ItemUID == "Btn_Prt")
                     {
+                        if(oForm.Items.Item("Div").Specific.Value.ToString().Trim() == "1" && oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+                        {
+                            errMessage = "문서를 추가하고 출력하세요.";
+                            throw new Exception();
+                        }
                         if (PH_PY705_DataValidCheck() == true)
                         {
                             System.Threading.Thread thread = new System.Threading.Thread(PH_PY705_Print_Report01);

@@ -80,7 +80,6 @@ namespace PSH_BOne_AddOn
 				oForm.DataSources.UserDataSources.Add("EndDate", SAPbouiCOM.BoDataType.dt_DATE, 10);
 				oForm.Items.Item("EndDate").Specific.DataBind.SetBound(true, "", "EndDate");
 				oForm.DataSources.UserDataSources.Item("EndDate").Value = DateTime.Now.ToString("yyyyMMdd");
-
 			}
 			catch (Exception ex)
 			{
@@ -112,6 +111,10 @@ namespace PSH_BOne_AddOn
 					oRecordSet.MoveNext();
 				}
 				oForm.Items.Item("BPLId").Specific.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+
+				oForm.Items.Item("Gubun").Specific.ValidValues.Add("1", "신용카드 미지급금");
+				oForm.Items.Item("Gubun").Specific.ValidValues.Add("2", "외상매출금");
+				oForm.Items.Item("Gubun").Specific.Select("0", SAPbouiCOM.BoSearchKey.psk_Index);
 			}
 			catch (Exception ex)
 			{
@@ -135,7 +138,12 @@ namespace PSH_BOne_AddOn
 			string StrDate = string.Empty;
 			string EndDate = string.Empty;
 			string BPLId = string.Empty;
-
+			string CardCode = string.Empty;
+			string Gubun = string.Empty;
+			
+			string errMessage = string.Empty;
+			string sQry;
+			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
 			PSH_FormHelpClass formHelpClass = new PSH_FormHelpClass();
 
@@ -145,6 +153,8 @@ namespace PSH_BOne_AddOn
 				StrDate = oForm.Items.Item("StrDate").Specific.Value.ToString().Trim();
 				EndDate = oForm.Items.Item("EndDate").Specific.Value.ToString().Trim();
 				BPLId = oForm.Items.Item("BPLId").Specific.Selected.Value.ToString().Trim();
+				Gubun = oForm.Items.Item("Gubun").Specific.Selected.Value.ToString().Trim();
+				CardCode = oForm.Items.Item("CardCode").Specific.Value.ToString().Trim();
 
 				if (string.IsNullOrEmpty(StrDate))
 				{
@@ -158,8 +168,24 @@ namespace PSH_BOne_AddOn
 				{
 					BPLId = "%";
 				}
-
-				WinTitle = "[PS_FI170] 신용카드 사용내역";
+				if(Gubun == "1")
+                {
+					sQry = "SELECT COUNT(*) FROM [@PS_SY005H] A INNER JOIN [@PS_SY005L] B ON A.Code = B.Code where A.Code ='FI170' AND B.U_UseYN ='Y' AND B.U_AppUser = '" + PSH_Globals.oCompany.UserName + "'";
+					oRecordSet.DoQuery(sQry);
+					if (oRecordSet.Fields.Item(0).Value.ToString().Trim() == "1")
+					{
+						WinTitle = "[PS_FI170] 신용카드 사용내역";
+					}
+					else
+                    {
+						errMessage = "신용카드 미지급금 조회권한이 없습니다.";
+						throw new System.Exception();
+					}
+				}
+				else
+                {
+					WinTitle = "[PS_FI170] 외상매출금내역";
+				}
 				ReportName = "PS_FI170_01.RPT";
 
 				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
@@ -188,13 +214,23 @@ namespace PSH_BOne_AddOn
 				dataPackParameter.Add(new PSH_DataPackClass("@StrDate", DateTime.ParseExact(StrDate, "yyyyMMdd", null)));
 				dataPackParameter.Add(new PSH_DataPackClass("@EndDate", DateTime.ParseExact(EndDate, "yyyyMMdd", null)));
 				dataPackParameter.Add(new PSH_DataPackClass("@BPLId", BPLId));
+				dataPackParameter.Add(new PSH_DataPackClass("@CardCode", CardCode));
+				dataPackParameter.Add(new PSH_DataPackClass("@Gubun", Gubun));
 
 				formHelpClass.OpenCrystalReport(WinTitle, ReportName, dataPackParameter, dataPackFormula);
 
 			}
 			catch (Exception ex)
 			{
-				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+				if (errMessage != string.Empty)
+				{
+					PSH_Globals.SBO_Application.MessageBox(errMessage);
+				}
+				else
+				{
+					PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+				}
+				
 			}
 			finally
 			{
@@ -215,7 +251,7 @@ namespace PSH_BOne_AddOn
 					Raise_EVENT_ITEM_PRESSED(FormUID, ref pVal, ref BubbleEvent);
 					break;
 				case SAPbouiCOM.BoEventTypes.et_KEY_DOWN: //2
-					//Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
+					Raise_EVENT_KEY_DOWN(FormUID, ref pVal, ref BubbleEvent);
 					break;
 				case SAPbouiCOM.BoEventTypes.et_GOT_FOCUS: //3
 					//Raise_EVENT_GOT_FOCUS(FormUID, ref pVal, ref BubbleEvent);
@@ -224,7 +260,7 @@ namespace PSH_BOne_AddOn
 					//Raise_EVENT_LOST_FOCUS(FormUID, ref pVal, ref BubbleEvent);
 					break;
 				case SAPbouiCOM.BoEventTypes.et_COMBO_SELECT: //5
-					//Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
+					Raise_EVENT_COMBO_SELECT(FormUID, ref pVal, ref BubbleEvent);
 					break;
 				case SAPbouiCOM.BoEventTypes.et_CLICK: //6
 					//Raise_EVENT_CLICK(FormUID, ref pVal, ref BubbleEvent);
@@ -239,7 +275,7 @@ namespace PSH_BOne_AddOn
 					//Raise_EVENT_MATRIX_COLLAPSE_PRESSED(FormUID, ref pVal, ref BubbleEvent);
 					break;
 				case SAPbouiCOM.BoEventTypes.et_VALIDATE: //10
-					//Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
+					Raise_EVENT_VALIDATE(FormUID, ref pVal, ref BubbleEvent);
 					break;
 				case SAPbouiCOM.BoEventTypes.et_MATRIX_LOAD: //11
 					//Raise_EVENT_MATRIX_LOAD(FormUID, ref pVal, ref BubbleEvent);
@@ -312,6 +348,128 @@ namespace PSH_BOne_AddOn
 			}
 			finally
 			{
+			}
+		}
+
+		/// <summary>
+		/// Raise_EVENT_COMBO_SELECT
+		/// </summary>
+		/// <param name="FormUID"></param>
+		/// <param name="pVal"></param>
+		/// <param name="BubbleEvent"></param>
+		private void Raise_EVENT_COMBO_SELECT(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+		{
+			string errmsg = string.Empty;
+			try
+			{
+				oForm.Freeze(true);
+				if (pVal.BeforeAction == true)
+				{
+
+				}
+				else if (pVal.BeforeAction == false)
+				{
+					if (pVal.ItemUID == "Gubun")
+					{
+						if (oForm.Items.Item("Gubun").Specific.Value.ToString().Trim() == "2")
+						{
+							oForm.Items.Item("Item_0").Visible = true;
+							oForm.Items.Item("CardCode").Visible = true;
+							oForm.Items.Item("CardName").Visible = true;
+						}
+						else
+						{
+							oForm.Items.Item("Item_0").Visible = false;
+							oForm.Items.Item("CardCode").Visible = false;
+							oForm.Items.Item("CardName").Visible = false;
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				if (errmsg != string.Empty)
+				{
+					PSH_Globals.SBO_Application.MessageBox(errmsg);
+				}
+				else
+				{
+					PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+				}
+			}
+			finally
+			{
+				oForm.Freeze(false);
+			}
+		}
+
+
+		/// <summary>
+		/// Raise_EVENT_KEY_DOWN
+		/// </summary>
+		/// <param name="FormUID"></param>
+		/// <param name="pVal"></param>
+		/// <param name="BubbleEvent"></param>
+		private void Raise_EVENT_KEY_DOWN(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+		{
+			PSH_DataHelpClass dataHelpClass = new PSH_DataHelpClass();
+
+			try
+			{
+				if (pVal.BeforeAction == true)
+				{
+					dataHelpClass.ActiveUserDefineValue(ref oForm, ref pVal, ref BubbleEvent, "CardCode", "");
+				}
+				else if (pVal.BeforeAction == false)
+				{
+				}
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+		}
+
+		/// <summary>
+		/// Raise_EVENT_VALIDATE
+		/// </summary>
+		/// <param name="FormUID"></param>
+		/// <param name="pVal"></param>
+		/// <param name="BubbleEvent"></param>
+		private void Raise_EVENT_VALIDATE(string FormUID, ref SAPbouiCOM.ItemEvent pVal, ref bool BubbleEvent)
+		{
+			string sQry;
+
+			SAPbobsCOM.Recordset oRecordSet = PSH_Globals.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+			try
+			{
+				oForm.Freeze(true);
+
+				if (pVal.BeforeAction == true)
+				{
+				}
+				else if (pVal.BeforeAction == false)
+				{
+					if (pVal.ItemChanged == true)
+					{
+						if (pVal.ItemUID == "CardCode")
+						{
+							sQry = "SELECT CardName FROM OCRD WHERE CardCode = '" + oForm.Items.Item("CardCode").Specific.Value.ToString().Trim() + "'";
+							oRecordSet.DoQuery(sQry);
+							oForm.Items.Item("CardName").Specific.String = oRecordSet.Fields.Item("CardName").Value.ToString().Trim();
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				PSH_Globals.SBO_Application.StatusBar.SetText(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+			}
+			finally
+			{
+				oForm.Freeze(false);
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(oRecordSet);
 			}
 		}
 

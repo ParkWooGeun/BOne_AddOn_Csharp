@@ -660,12 +660,12 @@ namespace PSH_BOne_AddOn
                         BoxSumResult += Boxkg;
                         if (BoxSumResult < Quantity)
                         {
-                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i + 1).PadLeft(2, '0') + "','','" + OriInspNo + "'," + Boxkg + ",'N', '29991231', null";
+                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i + 1).PadLeft(3, '0') + "','','" + OriInspNo + "'," + Boxkg + ",'N', '29991231', null";
                         }
                         else
                         {
                             double result = Quantity - (BoxSumResult - Boxkg);
-                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i + 1).PadLeft(2, '0') + "','','" + OriInspNo + "'," + result + ",'N', '29991231', null";
+                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i + 1).PadLeft(3, '0') + "','','" + OriInspNo + "'," + result + ",'N', '29991231', null";
                         }
                         oRecordSet01.DoQuery(sQry);
                     }
@@ -794,12 +794,12 @@ namespace PSH_BOne_AddOn
                         BoxSumResult += Boxkg;
                         if (BoxSumResult < Quantity)
                         {
-                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i + 1).PadLeft(2, '0') + "','','" + OriInspNo + "'," + Boxkg + ",'N', '29991231', null";
+                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i + 1).PadLeft(3, '0') + "','','" + OriInspNo + "'," + Boxkg + ",'N', '29991231', null";
                         }
                         else
                         {
                             double result = Quantity - (BoxSumResult - Boxkg);
-                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i + 1).PadLeft(2, '0') + "','','" + OriInspNo + "'," + result + ",'N', '29991231', null";
+                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i + 1).PadLeft(3, '0') + "','','" + OriInspNo + "'," + result + ",'N', '29991231', null";
                         }
                         oRecordSet01.DoQuery(sQry);
                     }
@@ -844,12 +844,12 @@ namespace PSH_BOne_AddOn
                         BoxSumResult += Boxkg;
                         if (BoxSumResult < Quantity)
                         {
-                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i + 1).PadLeft(2, '0') + "','','" + OriInspNo + "'," + Boxkg + ",'N', '29991231', null";
+                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i + 1).PadLeft(3, '0') + "','','" + OriInspNo + "'," + Boxkg + ",'N', '29991231', null";
                         }
                         else
                         {
                             double result = Quantity - (BoxSumResult - Boxkg);
-                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i + 1).PadLeft(2, '0') + "','','" + OriInspNo + "'," + result + ",'N', '29991231', null";
+                            sQry = "Insert into Z_PACKING_LOT Select Convert(varchar(8),GETDATE(),112), '" + InspNo + "','" + BatchNum + "','" + OriInspNo + Convert.ToString(i + 1).PadLeft(3, '0') + "','','" + OriInspNo + "'," + result + ",'N', '29991231', null";
                         }
                         oRecordSet01.DoQuery(sQry);
                     }

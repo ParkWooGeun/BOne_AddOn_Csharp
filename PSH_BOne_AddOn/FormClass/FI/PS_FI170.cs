@@ -175,6 +175,8 @@ namespace PSH_BOne_AddOn
 					if (oRecordSet.Fields.Item(0).Value.ToString().Trim() == "1")
 					{
 						WinTitle = "[PS_FI170] 신용카드 사용내역";
+
+						ReportName = "PS_FI170_01.RPT";
 					}
 					else
                     {
@@ -185,8 +187,12 @@ namespace PSH_BOne_AddOn
 				else
                 {
 					WinTitle = "[PS_FI170] 외상매출금내역";
+
+					ReportName = "PS_FI170_02.RPT";
 				}
-				ReportName = "PS_FI170_01.RPT";
+
+
+				
 
 				List<PSH_DataPackClass> dataPackParameter = new List<PSH_DataPackClass>();
 				List<PSH_DataPackClass> dataPackFormula = new List<PSH_DataPackClass>();

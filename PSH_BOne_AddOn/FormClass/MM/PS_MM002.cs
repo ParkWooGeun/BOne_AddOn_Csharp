@@ -191,6 +191,46 @@ namespace PSH_BOne_AddOn
 		}
 
 		/// <summary>
+		/// MatrixSpaceLineDel
+		/// </summary>
+		/// <returns></returns>
+		private bool PS_MM002_MatrixSpaceLineDel()
+		{
+			bool returnValue = false;
+			string errMessage = string.Empty;
+
+			try
+			{
+				oMat.FlushToDataSource();
+				if (oMat.VisualRowCount <= 1)
+				{
+					errMessage = "라인 데이터가 없습니다. 확인하세요.";
+				}
+				if (oMat.VisualRowCount > 0)
+				{
+					if (string.IsNullOrEmpty(oDS_PS_MM002L.GetValue("Code", oMat.VisualRowCount - 1)))
+					{
+						oDS_PS_MM002L.RemoveRecord(oMat.VisualRowCount - 1);
+					}
+				}
+				oMat.LoadFromDataSource();
+				returnValue = true;
+			}
+			catch (Exception ex)
+			{
+				if (errMessage != string.Empty)
+				{
+					PSH_Globals.SBO_Application.MessageBox(errMessage);
+				}
+				else
+				{
+					PSH_Globals.SBO_Application.MessageBox(System.Reflection.MethodBase.GetCurrentMethod().Name + "_Error : " + ex.Message);
+				}
+			}
+			return returnValue;
+		}
+
+		/// <summary>
 		/// FormItemEnabled
 		/// </summary>
 		private void PS_MM002_FormItemEnabled()
@@ -492,9 +532,13 @@ namespace PSH_BOne_AddOn
 				{
 					if (pVal.ItemUID == "1")
 					{
-						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+						if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
 						{
-							PS_MM002_FormClear();
+							if (PS_MM002_MatrixSpaceLineDel() == false)
+							{
+								BubbleEvent = false;
+								return;
+							}
 						}
 					}
 					else if (pVal.ItemUID == "bt_sync")
